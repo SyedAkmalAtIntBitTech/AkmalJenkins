@@ -528,7 +528,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
                     $scope.tomorrow_date = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
                     $scope.entitySet = data.entitydata;
-                    console.log(JSON.stringify(data.entitydata));
+//                    console.log(JSON.stringify(data.entitydata));
                     $scope.nodata = data.noactionsmessage;
                     $("#default").css("display", "block");
 
@@ -590,7 +590,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
-                console.log(schedule_desc);
+//                console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.recuring_template_status = template_status;
                 $scope.schedule_type = entity_type;
@@ -729,7 +729,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log(schedule_desc);
+//                console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
                 $scope.is_today_active = is_today_active;
@@ -772,8 +772,8 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log("twitter description" + schedule_desc);
-                console.log("twitter time" + schedule_time);
+//                console.log("twitter description" + schedule_desc);
+//                console.log("twitter time" + schedule_time);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
                 $scope.is_today_active = is_today_active;
@@ -794,7 +794,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log(schedule_desc);
+//                console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
@@ -865,7 +865,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log(schedule_desc);
+//                console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
@@ -896,7 +896,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log(schedule_desc);
+//                console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
@@ -918,7 +918,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log(schedule_desc);
+//                console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {

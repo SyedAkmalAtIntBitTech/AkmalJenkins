@@ -274,7 +274,7 @@ and open the template in the editor.
                                             <div class="col-md-7 pull-right pull-up">
 
                                                 <div class="item"><p>Selected look preview</p>
-                                                    <img id="image1" class="img-responsive" src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{UserLooks.image_name}}" width="700" height="400"><br>
+                                                    <img id="image1" class="img-responsive" ng-src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{UserLooks.image_name}}" width="700" height="400"><br>
 
                                                 </div>
                                             </div>
@@ -284,12 +284,12 @@ and open the template in the editor.
                                     <p>Choose a look</p>
                                     <div class="col-md-12 step_wrapper">
                                         <div  class="col-md-2 step_box" ng-repeat="first in First" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
-                                            <img id="{{first.id}}" class="img-responsive lookchooser1 ptr " src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{first.file_name}}"  onclick="showLook({{first.id}})" width=250 height=150 />
+                                            <img id="{{first.id}}" class="img-responsive lookchooser1 ptr " ng-src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{first.file_name}}"  onclick="showLook({{first.id}})" width=250 height=150 />
                                         </div>
 
                                         <div class="col-md-12"></div>
                                         <div class="col-md-2 step_box" ng-repeat="second in Second" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
-                                            <img id="{{second.id}}" class="img-responsive lookchooser1 ptr" src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{second.file_name}}" onclick="showLook({{second.id}})" width=250 height=150 />
+                                            <img id="{{second.id}}" class="img-responsive lookchooser1 ptr" ng-src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{second.file_name}}" onclick="showLook({{second.id}})" width=250 height=150 />
                                         </div>
 
                                     </div>
@@ -313,7 +313,7 @@ and open the template in the editor.
                                             <div class="col-md-7 pull-right pull-up">
 
                                                 <div class="item"><p>Selected brand preview</p>
-                                                    <img id="image1" class="img-responsive" src="/BrndBot/DownloadImage?image_type=BRAND_PERSONALITY&image_name={{UserBrand.image_name}}" width="700" height="400"><br>
+                                                    <img id="image1" class="img-responsive" ng-src="/BrndBot/DownloadImage?image_type=BRAND_PERSONALITY&image_name={{UserBrand.image_name}}" width="700" height="400"><br>
 
                                                 </div>
                                             </div>
@@ -350,7 +350,8 @@ and open the template in the editor.
                                     <%!
                                         String file_name = null;
                                     %>
-                                    <%                                        try {
+                                    <%
+                                        try {
                                             sqlmethods.session = request.getSession(true);
                                             user_id = (Integer) sqlmethods.session.getAttribute("UID");
                                             file_name = (String) sqlmethods.session.getAttribute("ImageFileName");
