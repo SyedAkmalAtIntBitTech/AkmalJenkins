@@ -769,7 +769,7 @@
                                     for(i=0; i<result.user_emailAddresses.length; i++){
                                         if (result.user_emailAddresses[i].emailAddress!= ""){
                                             emails = result.user_emailAddresses[i].emailAddress+ "," + emails;
-=======                                 }
+                                     }
                                     }
                                     for(i=0; i<result.mindbody_emailAddresses.length; i++){
                                         if (result.mindbody_emailAddresses[i] != ""){
