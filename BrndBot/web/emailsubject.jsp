@@ -345,13 +345,13 @@
                     }
                     else{
                     document.title="BrndBot - Email List Selection"; 
-                    $("#chooseEmailList").show();
-                    $("#emailsubjectdiv").hide();
-                    $("#emailaddresses").hide();
-                    $("#drop-zone").hide();
-                    $("#clickHere").hide();
-                    $("#upload").hide();
-                    $("#emaillist").show();
+                    //$("#chooseEmailList").show();
+                    //$("#emailsubjectdiv").hide();
+                    //$("#emailaddresses").hide();
+                    //$("#drop-zone").hide();
+                    //$("#clickHere").hide();
+                    //$("#upload").hide();
+                    //$("#emaillist").show();
                 }
                     var email_addresses = "";
                     var email_list = "";
@@ -768,7 +768,7 @@
                 </div>
 
 
-                <div  id="emaillist" ng-controller="EmailListController" ng-init="showEmailList()">
+<!--                <div  id="emaillist" ng-controller="EmailListController" ng-init="showEmailList()">
                     <p class="header1 MH2"> Who do you want to send this email to?</p>
                     <br><br>   
                    
@@ -810,9 +810,9 @@
                         </div>   
                     </div>      
                       
-<!--                    <input type="text" class="hideinputEmailId" id="emailId" name="emailsubject" placeholder="Add CSV or Email Manually"> <br><br><br><br><br>-->
+                    <input type="text" class="hideinputEmailId" id="emailId" name="emailsubject" placeholder="Add CSV or Email Manually"> <br><br><br><br><br>
 
-                   </div>                   
+                   </div>                   -->
             </div>      
 <!--        </div>-->
        
