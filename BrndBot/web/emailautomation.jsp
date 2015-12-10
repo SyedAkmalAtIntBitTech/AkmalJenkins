@@ -136,30 +136,31 @@
     function emailautomation($scope, $http){
 
         $scope.getEntityDetails = function (){
-            
+            $scope.showEmailList();
+//            if (entity_id != "0"){
             var entity_details = {"entity_id": entity_id};
+                $http({
+                    method: 'POST',
+                    url: getHost() + 'getRecuringEntity.do',
+                    headers: {'Content-Type':'application/json'},
+                    data: JSON.stringify(entity_details)
+                }).success(function(data, status){
+                    $scope.entity_details = data;
+                    if (data.recuring_email_template_id != null){
+                        template_id = data.recuring_email_template_id;
+                    }else {
+                        entity_no_email_template = "true";
+                    }
+                    html_data = data.recuring_email_body;
+                    $('#edit').froalaEditor('html.set',''+html_data+'');
 
-            $http({
-                method: 'POST',
-                url: getHost() + 'getRecuringEntity.do',
-                headers: {'Content-Type':'application/json'},
-                data: JSON.stringify(entity_details)
-            }).success(function(data, status){
-                $scope.entity_details = data;
-                if (data.recuring_email_template_id != null){
-                    template_id = data.recuring_email_template_id;
-                }else {
-                    entity_no_email_template = "true";
-                }
-                html_data = data.recuring_email_body;
-                $('#edit').froalaEditor('html.set',''+html_data+'');
+                    showEmailListName(data.recuring_email_email_list_name);
+                    days = data.recuring_email_days;
+                }).error(function(){
+                    alert("problem fetching the data");
+                });
                 
-                $scope.showEmailList();
-                showEmailListName(data.recuring_email_email_list_name);
-                days = data.recuring_email_days;
-            }).error(function(){
-                alert("problem fetching the data");
-            });
+//            }
         };
         /*
         * Bring all the email list from the database
@@ -179,7 +180,7 @@
         };
 
         /*
-         * Bring all the recuring email templates form the database
+         * Bring all the recuring email templates from the database
          */
          $scope.getEmailTemplates = function(){
                
@@ -464,8 +465,6 @@
                 var reply_to_address = $("#reply_to_address").val();
                 var recuring_email_title = $("#recuring_email_title").val();
                 var recuring_email_description = $("#recuring_email_description").val();
-
-                
                 
                 var till_date = $("#datepicker").val();
                 var schedule_time=$("#timepicker1").val().replace(/ /g,'');
@@ -501,11 +500,11 @@
                     return false;
                 }
                
-//                if (emaillist === "0") {
-//                    alert("please select the email list");
-//                    $("#emaillist").focus();
-//                    return false;
-//                }
+                if (emaillist === "0") {
+                    alert("please select the email list");
+                    $("#emaillist").focus();
+                    return false;
+                }
 
                 if (subject === "") {
                     alert("Enter the subject");

@@ -521,16 +521,10 @@
                                     <div class="half headcolor fontpns tenpix">
                                         TO EMAIL LIST
                                     </div>
-                                    <div class="half headcolor fontpns tenpix">
-                                        ADDITIONAL EMAIL LIST
-                                    </div>
                                 </div>
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
                                         {{entitiesdetails.email_list_name}}
-                                    </div>
-                                    <div class="half containe fontpnr tenpix">
-                                        ?? <!-- {{entitiesdetails.to_email_addresses}} -->
                                     </div>
                                 </div>
                                  <div class="inlineFlex toptweenty">
@@ -815,16 +809,10 @@
                                     <div class="half headcolor fontpns tenpix">
                                         TO EMAIL LIST
                                     </div>
-                                    <div class="half headcolor fontpns tenpix">
-                                        ADDITIONAL EMAIL LIST
-                                    </div>
                                 </div>
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
                                         {{entitiesdetails.email_list_name}}
-                                    </div>
-                                    <div class="half containe fontpnr tenpix">
-                                        ?? <!--{{entitiesdetails.to_email_addresses}}-->
                                     </div>
                                 </div>
                                  <div class="inlineFlex toptweenty">
@@ -1582,13 +1570,13 @@
                                     POST TEXT
                                 </div>
                                 <div class="height75 scrolly topten">
-                                    <p class="containe twlvpix fontpnr">{{entitiesdetails.metadata.post_text}}</p>
+                                    <p class="containe twlvpix fontpnr">{{entitiesdetails.metadata.text}}</p>
                                 </div>
                                 <div class="toptweenty headcolor tenpix fontpns">
                                     LINK NAME
                                 </div>
                                 <div class="topten containe fontpnr twlvpix">
-                                    {{entitiesdetails.metadata.title}}
+                                    {{entitiesdetails.metadata.shorturl}}
                                 </div>
                             </div>
                         </div>
@@ -1913,16 +1901,10 @@
                                             <div class="half headcolor fontpns tenpix">
                                                 TO EMAIL LIST
                                             </div>
-                                            <div class="half headcolor fontpns tenpix">
-                                                ADDITIONAL EMAIL LIST
-                                            </div>
                                         </div>
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
                                                 {{entitiesdetails.email_list_name}}
-                                            </div>
-                                            <div class="half containe fontpnr tenpix">
-                                                ??
                                             </div>
                                         </div>
                                         <div class="inlineFlex toptweenty">

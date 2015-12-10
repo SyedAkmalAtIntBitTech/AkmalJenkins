@@ -2148,7 +2148,9 @@ function MoveBlock(selectedBlockId){
         a.FroalaEditor.ICON_TEMPLATES[b] = c
     }, a.FroalaEditor.DefineIcon = function (b, c) {
         a.FroalaEditor.ICONS[b] = c
-    }, a.FroalaEditor.MODULES.icon = function (b) {
+    }, a.FroalaEditor.DefineIcon("RemoveBlock", {NAME: "trash"}), a.FroalaEditor.RegisterCommand("RemoveBlock", {title: "Remove", focus: !1, callback: function () {  
+        $("#" + Blockid).remove()
+        }}), a.FroalaEditor.MODULES.icon = function (b) {
         function c(b) {
             var c = null, d = a.FroalaEditor.ICONS[b];
             if ("undefined" != typeof d) {
@@ -2371,7 +2373,7 @@ function MoveBlock(selectedBlockId){
             k(), b.events.on("destroy", n, !0)
         }
         return{_init: o, forSelection: f, addSticky: m, refresh: l, at: g, getBoundingRect: c}
-    }, a.extend(a.FroalaEditor.DEFAULTS, {toolbarInline: !1, toolbarVisibleWithoutSelection: !1, toolbarSticky: !0, toolbarButtons: ["bold", "italic", "underline","uparraw","|", "fontFamily", "fontSize",  "color",  "paragraphFormat", "align", "formatOL", "formatUL","|", "insertLink", "undo", "redo","|","uparrow","insert", "html"], toolbarButtonsXS: ["bold", "italic", "fontFamily", "fontSize", "undo", "redo","uparrow","insert"], toolbarButtonsSM: ["fullscreen", "bold","uparrow", "italic", "underline", "fontFamily", "fontSize", "insertLink", "insertImage", "undo", "redo","|","uparrow","insert"], toolbarButtonsMD: ["fullscreen","uparraw", "bold", "italic", "underline", "fontFamily", "fontSize", "color", "paragraphStyle", "paragraphFormat", "align", "formatOL", "formatUL", "outdent", "indent", "insertHR", "insertLink", "insertImage", "undo", "redo", "-", "|","insert",], toolbarStickyOffset: 0}), a.FroalaEditor.MODULES.toolbar = function (b) {
+    }, a.extend(a.FroalaEditor.DEFAULTS, {toolbarInline: !1, toolbarVisibleWithoutSelection: !1, toolbarSticky: !0, toolbarButtons: ["bold", "italic", "underline","uparraw","|", "fontFamily", "fontSize",  "color",  "paragraphFormat", "align", "formatOL", "formatUL","|", "insertLink", "undo", "redo","|","uparrow","insert","RemoveBlock", "html"], toolbarButtonsXS: ["bold", "italic", "fontFamily", "fontSize", "undo", "redo","uparrow","insert","RemoveBlock"], toolbarButtonsSM: ["fullscreen", "bold","uparrow", "italic", "underline", "fontFamily", "fontSize", "insertLink", "insertImage", "undo", "redo","|","uparrow","insert"], toolbarButtonsMD: ["fullscreen","uparraw", "bold", "italic", "underline", "fontFamily", "fontSize", "color", "paragraphStyle", "paragraphFormat", "align", "formatOL", "formatUL", "outdent", "indent", "insertHR", "insertLink", "insertImage", "undo", "redo", "-", "|","insert",], toolbarStickyOffset: 0}), a.FroalaEditor.MODULES.toolbar = function (b) {
         function c() {
             var a = b.button.buildList(b.opts.toolbarButtons);
             b.$tb.append(a), b.button.bindCommands(b.$tb)

@@ -440,9 +440,17 @@ label:before {
                     var link=res[0];
                     if(!link.contains('http://'))
                     {
-                        link="http://"+res[0];
+                        if(res[0]!==0)
+                        {
+                            
+                        }
+                        else
+                        {
+                            link="http://"+res[0];
+                            $("#url").val(link);
+                        }
                     }
-                    $("#url").val(link);
+                    
                     $("#Linkurl").val(link);
                     var twittertext = $("#twittertext").val();
                     if (twittertext.endsWith("bit.ly/1XOkJo"))
@@ -979,7 +987,7 @@ label:before {
                                     success: function (responseText) {
                                         $('#mask').hide();
                                         $('.window').hide();
-                                        alert("Your post has been published successfully");
+                                        alert("Your post has been Scheduled Successfully");
 
                                         document.location.href = "dashboard.jsp";
                                     }

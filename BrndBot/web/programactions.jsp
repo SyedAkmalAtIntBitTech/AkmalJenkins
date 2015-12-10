@@ -272,7 +272,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3">
                             <div class="listelem txtwidth fontpnr">{{programaction.programTemplateName}}</div>
-                            <div class="otasublst fontpnr">Scheduled for {{programaction.postTime| date:'hh:mm: a'}}</div>
+                            <div class="otasublst fontpnr">Scheduled for {{programaction.postTime| date:'hh:mm a'}}</div>
                         </div>
                         <div class="col-lg-1 col-md-1 col-sm-1">
                             <div class="oatlstdt fontpnr">{{programaction.postDate| date:'MMM dd'}}</div>
@@ -450,7 +450,7 @@
                                                 <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'"  ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc, programs.programdetails.programName,days)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
                                             </div>
                                             <div class="approve">
-                                            <input type="button" value="Approve to Post" 
+                                            <input type="button" value="Approve to Send" 
                                                    ng-show="email_action_status == true && email_template_status=='Template Saved'" 
                                                    ng-click="Approval(schedule_id, 'approved', master_email)"
                                                    class="button approvetopostbuttonwidthheightcolor 
@@ -515,14 +515,8 @@
                                             <div class="half headcolor fontpns tenpix">
                                                 TO EMAIL LIST
                                             </div>
-                                            <div class="half headcolor fontpns tenpix">
-                                                ADDITIONAL EMAIL LIST
-                                            </div>
                                         </div>
                                         <div class="inlineFlex toptnine">
-                                            <div class="half containe fontpnr tenpix">
-                                                {{entitiesdetails.to_email_addresses}}
-                                            </div>
                                             <div class="half containe fontpnr tenpix">
                                                 {{entitiesdetails.email_list_name}}
                                             </div>
@@ -624,7 +618,7 @@
                                                         Time
                                                     </div>
                                                     <div class="topsix">
-                                                        <input id="timepickeremail" type="text" name="timepickeremail" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh:mm:a'}}"/> 
+                                                        <input id="timepickeremail" type="text" name="timepickeremail" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh:mm a'}}"/> 
                                                         <script src="js/timepicki.js" type="text/javascript"></script>
                                                         <script>
                                                                                     $('#timepickeremail').timepicki({
@@ -683,14 +677,8 @@
                                                 <div class="half headcolor fontpns tenpix">
                                                     TO EMAIL LIST
                                                 </div>
-                                                <div class="half headcolor fontpns tenpix">
-                                                    ADDITIONAL EMAIL LIST
-                                                </div>
                                             </div>
                                             <div class="inlineFlex toptnine">
-                                                <div class="half containe fontpnr tenpix">
-                                                    {{entitiesdetails.to_email_addresses}}
-                                                </div>
                                                 <div class="half containe fontpnr tenpix">
                                                     {{entitiesdetails.email_list_name}}
                                                 </div>
@@ -790,7 +778,7 @@
                                     </div>
                                     <div class="containe fontpnr tenpix">
                                         {{entities_selected_date| date:'MMM dd yyyy'}}
-                                        {{post_time| date:'hh:mm:a'}}
+                                        {{post_time| date:'hh:mm a'}}
                                     </div>
                                     <div class="inlineFlex topsixeight">
                                         <div class="rightthirty left5">
@@ -798,7 +786,7 @@
                                         </div>
                                         <div class="approve">
                                             
-                                            <input type="button" value="Approve to Post" 
+                                            <input type="button" value="Approve to Send" 
                                                    ng-show="facebook_action_status == true && facebook_template_status=='Template Saved'" 
                                                    ng-click="Approval(schedule_id, 'approved', master_facebook)"
                                                    class="button approvetopostbuttonwidthheightcolor 
@@ -960,7 +948,7 @@
                                                     Time
                                                 </div>
                                                 <div class="topsix">
-                                                    <input id="timepickerfb" type="text" name="timepickerfb" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh:mm:a'}}"/> 
+                                                    <input id="timepickerfb" type="text" name="timepickerfb" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh:mm a'}}"/> 
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
                                                         $('#timepickerfb').timepicki({
@@ -1108,7 +1096,7 @@
                                     </div>
                                     <div class="containe fontpnr tenpix">
                                         {{entities_selected_date| date:'MMM dd yyyy'}}
-                                        {{post_time| date:'hh:mm:a'}}
+                                        {{post_time| date:'hh:mm a'}}
                                     </div>
                                     <div class="inlineFlex topsixeight">
                                         <div class="rightthirty left5">
@@ -1125,7 +1113,7 @@
                                             <input type="button" 
                                                    ng-show="twitter_action_status == true && twitter_template_status=='Template Saved'" 
                                                    ng-click="Approval(schedule_id, 'approved', master_twitter)"
-                                                   value="Approve to Post" 
+                                                   value="Approve to Send" 
                                                    class="button approvetopostbuttonwidthheightcolor 
                                                           buttonmargin 
                                                           button--moema  
@@ -1259,7 +1247,7 @@
                                                     Time
                                                 </div>
                                                 <div class="topsix">
-                                                    <input id="timepickertw" type="text" name="timepickertw" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh:mm:a'}}"/> <!-- id="timepickertwitter" name="timepicker1" -->
+                                                    <input id="timepickertw" type="text" name="timepickertw" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh:mm a'}}"/> <!-- id="timepickertwitter" name="timepicker1" -->
 
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
@@ -1386,14 +1374,14 @@
                                             SCHEDULED TO POST ON
                                         </div>
                                         <div class="containe fontpnr tenpix">
-                                            {{entities_selected_time| date:'MMM dd yyyy'+' on '+ 'hh:mm:a'}}
+                                            {{entities_selected_time| date:'MMM dd yyyy'+' on '+ 'hh:mm a'}}
                                         </div>
                                         <div class="inlineFlex top120">
                                             <div class="rightthirty left5">
                                                 <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="addEditRecuringAction('edit',<%=program_id%>, schedule_id)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
                                             </div>
                                             <div class="approve">
-                                                <input type="button" value="Approve to Post" ng-show="recuring_action_status == true && recuring_template_status=='Template Saved'" ng-click="recuringApproval(schedule_id, 'approved')" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
+                                                <input type="button" value="Approve to Send" ng-show="recuring_action_status == true && recuring_template_status=='Template Saved'" ng-click="recuringApproval(schedule_id, 'approved')" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
                                                 <button ng-click="SaveData();" ng-show="recuring_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
                                                 <button id="button1" ng-show="recuring_template_status == 'Approved'" ng-click="recuringApproval(schedule_id, 'template_saved')" style="background-color: #e25b5b !important;color: white !important;display:none;margin-left:16px !important;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
                                             </div>
@@ -1442,16 +1430,10 @@
                                             <div class="half headcolor fontpns tenpix">
                                                 TO EMAIL LIST
                                             </div>
-                                            <div class="half headcolor fontpns tenpix">
-                                                ADDITIONAL EMAIL LIST
-                                            </div>
                                         </div>
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
                                                 {{entitiesdetails.email_list_name}}
-                                            </div>
-                                            <div class="half containe fontpnr tenpix">
-                                                ??
                                             </div>
                                         </div>
                                         <div class="inlineFlex toptweenty">

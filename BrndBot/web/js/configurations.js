@@ -15,6 +15,9 @@ function getHost(){
      return global_host_address;
 }
 
+function debugAlert(message){
+    alert(message);
+}
 function kUserPreference_HasLoggedInFacebook (){
     return "facebook";
 }

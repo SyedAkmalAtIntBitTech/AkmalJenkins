@@ -22,7 +22,7 @@ var image;
 
 !function (a) {
     "use strict";
-    a.extend(a.FroalaEditor.POPUP_TEMPLATES, {"image.insert": "[_BUTTONS_][_UPLOAD_LAYER_][_BY_URL_LAYER_][_PROGRESS_BAR_]", "image.edit": "[_BUTTONS_]", "image.alt": "[_BUTTONS_][_ALT_LAYER_]", "image.size": "[_BUTTONS_][_SIZE_LAYER_]"}), a.extend(a.FroalaEditor.DEFAULTS, {imageInsertButtons: ["imageBack", "|", "imageUpload", "imageByURL"], imageEditButtons: ["imageReplace", "imageRemove", "|", "imageLink", "linkOpen", "linkEdit", "linkRemove", "imageStyle"], imageAltButtons: ["imageBack", "|"], imageSizeButtons: ["imageBack", "|"], imageUploadURL: global_host_address+"/UploadImages", imageUploadParam: "file", imageUploadParams: {}, imageUploadToS3: !1, imageUploadMethod: "POST", imageMaxSize: 10485760, imageAllowedTypes: ["jpeg", "jpg", "png", "gif", "svg+xml"], imageResize: !0, imageResizeWithPercent: !1, imageMove: !0, imageDefaultWidth: 300, imageDefaultAlign: "center", imageDefaultDisplay: "block", imageStyles: {"fr-rounded": "Rounded", "fr-bordered": "Bordered"}, imageMultipleStyles: !0, imageTextNear: !0, imagePaste: !0, imageIframeStyle: "body img {max-width:100%;}body img{z-index:3;position:relative;overflow:auto;cursor:pointer}body img.fr-dib{margin:auto;display:block;float:none;vertical-align:top}body img.fr-dib.fr-fil{margin:5px auto 5px 0}body img.fr-dib.fr-fir{margin:5px 0 5px auto}body img.fr-dii{margin:auto;display:inline-block;float:none}body img.fr-dii.fr-fil{margin:5px 5px 5px 0;float:left}body img.fr-dii.fr-fir{margin:5px 0 5px 5px;float:right}"}), a.FroalaEditor.PLUGINS.image = function (b) {
+    a.extend(a.FroalaEditor.POPUP_TEMPLATES, {"image.insert": "[_BUTTONS_][_UPLOAD_LAYER_][_BY_URL_LAYER_][_PROGRESS_BAR_]", "image.edit": "[_BUTTONS_]", "image.alt": "[_BUTTONS_][_ALT_LAYER_]", "image.size": "[_BUTTONS_][_SIZE_LAYER_]"}), a.extend(a.FroalaEditor.DEFAULTS, {imageInsertButtons: ["imageBack", "|", "imageUpload"], imageEditButtons: ["imageReplace", "imageRemove", "|", "imageLink", "linkOpen", "linkEdit", "linkRemove", "imageStyle"], imageAltButtons: ["imageBack", "|"], imageSizeButtons: ["imageBack", "|"], imageUploadURL: global_host_address+"/UploadImages", imageUploadParam: "file", imageUploadParams: {}, imageUploadToS3: !1, imageUploadMethod: "POST", imageMaxSize: 10485760, imageAllowedTypes: ["jpeg", "jpg", "png", "gif", "svg+xml"], imageResize: !0, imageResizeWithPercent: !1, imageMove: !0, imageDefaultWidth: 300, imageDefaultAlign: "center", imageDefaultDisplay: "block", imageStyles: {"fr-rounded": "Rounded", "fr-bordered": "Bordered"}, imageMultipleStyles: !0, imageTextNear: !0, imagePaste: !0, imageIframeStyle: "body img {max-width:100%;}body img{z-index:3;position:relative;overflow:auto;cursor:pointer}body img.fr-dib{margin:auto;display:block;float:none;vertical-align:top}body img.fr-dib.fr-fil{margin:5px auto 5px 0}body img.fr-dib.fr-fir{margin:5px 0 5px auto}body img.fr-dii{margin:auto;display:inline-block;float:none}body img.fr-dii.fr-fil{margin:5px 5px 5px 0;float:left}body img.fr-dii.fr-fir{margin:5px 0 5px 5px;float:right}"}), a.FroalaEditor.PLUGINS.image = function (b) {
         function c() {
             var a = b.popups.get("image.insert"), c = a.find(".fr-image-by-url-layer input");
             c.val(""), ka && c.val(ka.attr("src")), c.trigger("change")
@@ -551,11 +551,14 @@ var image;
             this.image.showLayer("image-upload")
         }, refresh: function (a) {
             this.image.refreshUploadButton(a)
-        }}), a.FroalaEditor.DefineIcon("imageByURL", {NAME: "link"}), a.FroalaEditor.RegisterCommand("imageByURL", {title: "By URL", undo: !1, focus: !1, callback: function () {
-            this.image.showLayer("image-by-url")
-        }, refresh: function (a) {
-            this.image.refreshByURLButton(a)
-        }}), a.FroalaEditor.RegisterCommand("imageInsertByURL", {title: "Insert Image", undo: !0, refreshAfterCallback: !1, callback: function () {
+        }}), 
+//            a.FroalaEditor.DefineIcon("imageByURL", {NAME: "link"}), a.FroalaEditor.RegisterCommand("imageByURL", {title: "By URL", undo: !1, focus: !1, callback: function () {
+//            this.image.showLayer("image-by-url")
+//        }
+//        , refresh: function (a) {
+//            this.image.refreshByURLButton(a)
+//        }}),
+            a.FroalaEditor.RegisterCommand("imageInsertByURL", {title: "Insert Image", undo: !0, refreshAfterCallback: !1, callback: function () {
             this.image.insertByURL()
         }, refresh: function (a) {
             var b = this.image.get();

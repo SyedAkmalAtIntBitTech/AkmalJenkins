@@ -488,7 +488,8 @@ public class RecuringEmailController {
             logger.log(Level.SEVERE,"Exception while saving the email action in the table:", throwable);
         }
         return "true";
-    }    
+    }
+    
     public String getFromAddress(Integer user_id){
         SqlMethods sql_methods = new SqlMethods();
 
@@ -510,21 +511,23 @@ public class RecuringEmailController {
         
         String entity_id = (String)requestBodyMap.get("entity_id");
         
+        if (Integer.parseInt(entity_id) != 0){
         TblScheduledEntityList schedule_entity_list = schedule_entity_list_service.getById(Integer.parseInt(entity_id));
 
-        JSONObject json_entity_list = new JSONObject();
-        
-        json_entity_list.put("recuring_email_days", schedule_entity_list.getDays());
-        json_entity_list.put("recuring_email_entity_id", schedule_entity_list.getEntityId());
-        json_entity_list.put("recuring_email_entity_type", schedule_entity_list.getEntityType());
-        json_entity_list.put("recuring_email_is_recuring", schedule_entity_list.getIsRecuring());
-        json_entity_list.put("recuring_email_template_id", schedule_entity_list.getRecuringEmailId());
-        json_entity_list.put("recuring_email_description", schedule_entity_list.getScheduleDesc());
-        json_entity_list.put("recuring_email_time", schedule_entity_list.getScheduleTime().getTime());
-        json_entity_list.put("recuring_email_title", schedule_entity_list.getScheduleTitle());
-        json_entity_list.put("recuring_email_status", schedule_entity_list.getStatus());
-        json_entity_list.put("recuring_email_user_marketing_program_id", schedule_entity_list.getTblUserMarketingProgram().getId());
-        json_entity_list.put("recuring_email_till_date", schedule_entity_list.getTillDate().getTime());
+            JSONObject json_entity_list = new JSONObject();
+
+            json_entity_list.put("recuring_email_days", schedule_entity_list.getDays());
+            json_entity_list.put("recuring_email_entity_id", schedule_entity_list.getEntityId());
+            json_entity_list.put("recuring_email_entity_type", schedule_entity_list.getEntityType());
+            json_entity_list.put("recuring_email_is_recuring", schedule_entity_list.getIsRecuring());
+            json_entity_list.put("recuring_email_template_id", schedule_entity_list.getRecuringEmailId());
+            json_entity_list.put("recuring_email_description", schedule_entity_list.getScheduleDesc());
+            json_entity_list.put("recuring_email_time", schedule_entity_list.getScheduleTime().getTime());
+            json_entity_list.put("recuring_email_title", schedule_entity_list.getScheduleTitle());
+            json_entity_list.put("recuring_email_status", schedule_entity_list.getStatus());
+            json_entity_list.put("recuring_email_user_marketing_program_id", schedule_entity_list.getTblUserMarketingProgram().getId());
+            json_entity_list.put("recuring_email_till_date", schedule_entity_list.getTillDate().getTime());
+            
         if (schedule_entity_list.getEntityId().intValue() != 0){
             TblScheduledEmailList schedule_email_list = schedule_email_list_service.getById(schedule_entity_list.getEntityId().intValue());
 
@@ -538,6 +541,8 @@ public class RecuringEmailController {
             
         }
         return json_entity_list.toString();
+        }
+        
         
         }catch (Throwable throwable){
             logger.log(Level.SEVERE,"Exception while getting the recuring email action from the table:", throwable);

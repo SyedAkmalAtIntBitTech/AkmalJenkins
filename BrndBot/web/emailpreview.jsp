@@ -29,6 +29,291 @@
         <link href="css/emailpreview.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.css" />
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+        
+        <style>
+/*            .slt {
+                                position:relative;
+				display:inline-block;
+				text-align:left;
+				line-height:30px;
+				clear:both;
+                                font-weight:600;
+				color: #000000;
+                                background-color: #f6f6f6;
+				border:1px solid #f6f6f6;
+                                border-radius:10px;
+				width:300px;
+			}
+                        option.optn{
+                            background-color:#d4d4d4;
+                            position: absolute;
+                            top:50px;
+                        }*/
+
+        #drop-zone {
+            /*Sort of important*/
+            width: 607px;
+            /*Sort of important*/
+            height: 200px;
+            position:absolute;
+            margin-left: 34%;
+            border: 2px dashed rgba(0,0,0,.3);
+            border-radius: 20px;
+            font-family: Arial;
+            text-align: center;
+            position: relative;
+            line-height: 180px;
+            font-size: 20px;
+            color: rgba(0,0,0,.3);
+            }
+            #emailaddresses {
+            margin-left: 25%;
+            }
+            #drop-zone input {
+                /*Important*/
+                position: absolute;
+                /*Important*/
+                cursor: pointer;
+                left: 0px;
+                top: 0px;
+                /*Important This is only comment out for demonstration purpeses.
+                opacity:0; */
+            }
+
+            /*Important*/
+            #drop-zone.mouse-over {
+                border: 2px dashed rgba(0,0,0,.5);
+                color: rgba(0,0,0,.5);
+                
+            }
+
+
+            /*If you dont want the button*/
+            #clickHere {
+                position: absolute;
+                cursor: pointer;
+                
+                top: 0%;
+                margin-left: 12px;
+                margin-top: 20px;
+                line-height: 26px;
+                color: white;
+                font-size: 15px;
+                width: 270px;
+                height: 150px;
+                border-radius: 4px;
+                color:#000;
+                background-color: #f2f2f4;
+            }
+
+            #clickHere:hover {
+             
+
+            }            
+        .header1{
+/*            font-family: "proxima-nova",sans-serif;
+            font-style: normal;
+            font-weight: 600;*/
+            color: #3f4042;
+            text-align: left;
+            line-height: 25.8px;
+            letter-spacing: 0em;
+            opacity: 1;
+            position: relative;
+            padding-top: 6%;
+            left: 24%;
+           
+        }
+        .header2{
+            font-family: "proxima-nova",sans-serif;
+            font-style: normal;
+            font-weight: 300;
+            font-size:13.5px;
+            color: #3f4042;
+            text-align: left;
+            line-height: 15.8px;
+            letter-spacing: 0em;
+            opacity: 1;
+            position: relative;
+        }
+            .hideinputborder{
+                background-color:transparent;
+                border: 0px solid;
+                height:50px;
+                width:450px;
+                font-size:18.5px;
+                position: relative;
+                padding-top:10%;
+            }
+/*            
+ #emailsubject:focus ~ input, #emailsubject:valid ~ input 
+ {     
+  left:-35px;
+  font-size:13px;
+  color:#999;
+}*/
+
+            .hideinputborder:focus{
+                outline: none;
+            }
+            .hideinputEmailId{
+                background-color:transparent;
+                border: 0px solid;
+                height:50px;
+                width:250px;
+                margin-left: 150px;
+                font-size: 18px;
+            }
+            .hideinputEmailId{
+                outline: none;
+            }
+            #chooseEmailListopt{
+               
+                color:black;
+                border: 1px solid #DADADA;
+                height:2em;
+                width:350px;
+                font-size: 18px;
+                border-radius: 5px;
+            }
+            
+            fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}   
+            
+            #chooseEmailList{
+               border: none ;
+                width: 304px;
+                height: 27px;
+               -webkit-appearance: none;
+                -moz-appearance: none;
+                 box-shadow: none !important ;
+                appearance: none;
+                padding: 7px 1px 5px 5px;
+                border: 2px solid #d0d0d0;
+                border-left: none;
+                border-right: none;
+                border-top: none;
+                border-bottom: none;
+                border-radius: 2px;
+                color:#2b2f35;
+                background: url("images/dropdown.png") no-repeat 275px center;
+                background-color: #F2F2F4; 
+                font-size:18px;
+                color: #3f4042;
+                height:40px;
+                margin-left: 24%;
+            }
+            
+            #chooseEmailId:focus{
+                outline: none;
+            }
+            #textArea{
+                width: 400px;
+                height : 300px;
+                background-color: #e4e4e4;
+            }
+            .btn-primary{
+                border-radius:10px;
+                position: fixed;
+                top: 70%;
+                width: 200px;
+                background-color: #00A37A;
+                border-color: #00A37A;
+            }
+            .btn-upload{
+                position: relative;
+                width: 100px;
+                background-color:#D1D2D9;
+                color:#fff;
+                font-size:15px;
+                border-radius:3px;
+                border-style: none;
+            }
+            .btn-csv{
+                font-size:20px;
+                border-radius:5px;
+                position:relative;
+                top: 20px;
+                width: 200px;
+                background-color:#D1D2D9;
+                color:#fff;
+                border-style: none;
+                margin-left: 24%;
+            }
+            .btn-prim{
+                position: fixed;
+                top: 60%;
+                left:17%;
+            }
+            .fileUpload {
+                position: relative;
+                overflow: hidden;
+                margin: 10px;
+            }
+            .fileUpload input.upload {
+                position: absolute;
+                top: 0;
+                right: 0;
+                margin: 0;
+                padding: 0;
+                font-size: 20px;
+                cursor: pointer;
+                opacity: 0;
+                filter: alpha(opacity=0);
+            }
+
+        
+
+/*            .header1{
+                font-size: 28px;
+            }*/
+            .hideinputborder{
+                background-color:transparent;
+                border: 0px solid;
+                height:50px;
+                width:450px;
+                font-size: 35px;
+            }
+            .hideinputborder:focus{
+                outline: none;
+            }
+            .hideinputEmailId{
+                background-color:transparent;
+                border: 0px solid;
+                height:50px;
+                width:250px;
+                margin-left: 150px;
+                font-size: 18px;
+            }
+            .hideinputEmailId{
+                outline: none;
+            }
+            #chooseEmailId{
+                background-color:transparent;
+                border: 0px solid;
+                height:50px;
+                width:250px;
+                font-size: 18px;
+            }
+            #chooseEmailId:focus{
+                outline: none;
+            }
+
+        </style>
         <style type="text/css">
             a.fancybox div {
                 border: none;
@@ -41,6 +326,9 @@
         </style>
         <title>BrndBot - Preview Email</title>
         <style>
+            #emailSettings{
+                display:none;
+            }
             .timepicker_wrap {
                 margin-top:22px;
             }
@@ -195,6 +483,10 @@
             }
             .preview{
             }
+            #entertext,#dragtext,#emailaddresses,#drop-zone,#upload,#clickHere{
+                display:none;
+            }
+            
         </style>
         <script type="text/javascript">
             var started;
@@ -244,6 +536,73 @@
         
         function emailSettings($scope, $http){
             
+                $("#emailIdContinueButton").click(function () {
+                    var selectedEmail = $("#chooseEmailList").val();
+                    if(selectedEmail !== "1")
+                    {
+                        var email_subject = "";
+                        var email_addresses = $("#emailaddresses").val();
+                        
+                        if(email_addresses!=="")
+                        {
+                            $("#toaddress").val(email_addresses);
+                            $("#emaillistdiv").hide();
+                            $("#emailSettings").show();
+                            $("#emaillistdiv").hide();
+                            $("#emailSettings").show();
+                            var email_list = $("#chooseEmailList").val();
+                            $.ajax({
+                                url: getHost() + "EmailTextDataServlet",
+                                data: {
+                                    email_subject: email_subject,
+                                    email_addresses: email_addresses,
+                                    email_list : email_list
+                                },
+                                success: function(result){
+                                }
+                            });
+                        }
+                        else
+                        {
+                            alert("please select at least one email list or add email manually");
+                            selectCsvFile();
+                            $("#emailaddresses").focus();
+                            return false;
+                        }
+                    }
+                else{
+                        
+                        var email_subject = "";
+                        var email_addresses = $("#emailaddresses").val();
+                        if(email_addresses!=="")
+                        {
+                            $("#toaddress").val(email_addresses);
+                            $("#emaillistdiv").hide();
+                            $("#toaddress").val(email_addresses);
+                            $("#emailSettings").show();
+                            var email_list = $("#chooseEmailList").val();
+                            $.ajax({
+                                url: getHost() + "EmailTextDataServlet",
+                                data: {
+                                    email_subject: email_subject,
+                                    email_addresses: email_addresses,
+                                    email_list : email_list
+                                },
+                                success: function(result){
+                                }
+                            });
+                        }
+                        else
+                        {
+                            alert("please select at least one email list or add email manually");
+                            selectCsvFile();
+                            $("#emailaddresses").focus();
+                            return false;
+                        }
+                }
+            });
+                
+            
                 $scope.getEmailSettings = function(){
                 
                 var email_settings = {"type": "get"};
@@ -280,7 +639,6 @@
                     console.log(schedule_id);
                     if (schedule_id == "0"){
                         var schedule_title = $("#schedule_title").val();
-                        
                         var schedule_date = $("#schedule_date").val();
                         var schedule_time = $("#schedule_time").val().replace(/ /g,'');
 //                        var schedule = $("#schedule_time").val();
@@ -310,7 +668,8 @@
                             data: email_scheduling
                         }).success(function (data) {                            
                             if (data != "") {
-                                alert("details saved successfully");
+                                alert("Your Email has been Scheduled Successfully");
+                                
                                 document.location.href = "dashboard.jsp";
                             }
                         }).error(function (data) {
@@ -340,7 +699,7 @@
                                 document.location.href = "dashboard.jsp";
                             }
                         }).error(function (data) {
-                            alert("No data available, problem fetching the data");
+                            alert("No data available, problem fetching the data...2");
                         });
                         
                     }
@@ -381,6 +740,49 @@
           //do something special
         }, 1000);
        $(document).ready(function () {
+           
+           $("#chooseEmailList").change(function () {
+                    var x = document.getElementById("chooseEmailList").selectedIndex;
+                    var List_name = document.getElementsByTagName("option")[x].value;
+
+                    if (List_name == 1){
+//                        $("#emailaddresses").hide();
+//                        $("#drop-zone").hide();
+//                        $("#clickHere").hide();
+//                        $("#upload").hide();
+//                        $("#dragtext").hide();
+//                        $("#entertext").hide();
+//                         $("#emailIdContinueButton").css("top","50px");
+                       
+                    }else {
+
+                        $("#email_list_name").val(List_name);
+                        $.ajax({
+                                url: getHost() + "GetEmailLists",
+                                data: {
+                                    update: "emailsForEmailList",
+                                    list_name: List_name
+                                },
+                                success: function(result){
+                                    var i = 0;
+                                    var emails = "";
+                                    for(i=0; i<result.user_emailAddresses.length; i++){
+                                        if (result.user_emailAddresses[i].emailid != ""){
+                                            emails = result.user_emailAddresses[i].emailid + "," + emails;
+                                        }
+                                    }
+                                    for(i=0; i<result.mindbody_emailAddresses.length; i++){
+                                        if (result.mindbody_emailAddresses[i] != ""){
+                                            emails = result.mindbody_emailAddresses[i] + "," + emails;
+                                        }
+                                    }                                    
+                                    $("#emailaddresses").val(emails);
+                                    $("#toaddress").val(emails);
+                                }
+                        });
+                    }
+                });
+           
 //            $(".hamburger,.cross").hide();
             $("#programs").change(function(){
                     
@@ -415,6 +817,9 @@
            formattedHTMLData=$("#dynamictable").contents().find("html").html();
            show("iphone");
         });
+        
+        
+        
         function displaySchedule() {
                 if (validate()) {
                     angular.element(document.getElementById('emailSettings')).scope().getActions(program_id);
@@ -552,14 +957,203 @@
                 }
                  
         }
+        
+        function EmailListController($scope, $http) {
+
+                $scope.addEmailList = function () {
+                    var email_list_name = $("#listname").val();
+                    var email_list = $("#textArea").val();
+                
+                    var Emails = {"emailListName": email_list_name, "emailAddresses": email_list , "update": "addUpdateEmailList"};
+                        $http({
+                            method: 'POST',
+                            url: getHost() + 'SetEmailLists',
+                            headers: {'Content-Type': 'application/json'},
+                            data: Emails
+                        }).success(function (data)
+                        {
+                            if (data === "true") {
+                                alert("Data saved successfully");
+                               window.open(getHost() + 'emailsubject.jsp', "_self");
+                            } else if (data === error) {
+                                alert(data);
+                            }
+                        });
+                };
+
+                $scope.showEmailList = function () {
+                                $(".emaillist").show();
+                                $("#email_list_name").hide();
+
+                        var emailids = {"update": "allEmailListNames"};
+                        $http({
+                            method: 'GET',
+                            url: getHost() + 'GetEmailLists?update=allEmailListNames'
+                    }).success(function(data, status, headers, config) {
+                            $scope.emailLists = data.user;
+                            $scope.emailLists_mindbody = data.mindbody;
+                            if (data === "true") {
+//                                window.open(getHost() + 'emaillists.jsp', "_self");
+                            } else if (data === error) {
+                                alert(data);
+                            }
+                        });
+                };
+                
+                $scope.clearfields = function() {
+                    $("#email_list_name").val("");
+                    $("#emailaddresses").val("");
+                    $("#fileUpload").val("");
+                    $("#chooseEmailList").val("");
+                };
+            }
+       
+        function selectCsvFile(){
+                $("#chooseEmailList").show();
+//                 $('#chooseEmailList').val("1").trigger('change');
+                 
+                var x = document.getElementById("chooseEmailList").selectedIndex;
+                var list_name = document.getElementsByTagName("option")[x].value;
+                if (list_name == 1){                   
+                    $("#emailIdContinueButton").show();
+                    $("#entertext").show();
+                    $("#dragtext").show();
+                    $("#emailaddresses").show();
+                    $("#emailaddresses").val('');
+                    $("#drop-zone").show();
+                    $("#clickHere").show();
+                    $("#upload").show();
+                    $("#emailIdContinueButton").css("top","0px");
+                    $(function () {
+
+                    var dropZoneId = "drop-zone";
+                    var buttonId = "clickHere";
+                    var mouseOverClass = "mouse-over";
+
+                    var dropZone = $("#" + dropZoneId);
+                    var ooleft = dropZone.offset().left;
+                    var ooright = dropZone.outerWidth() + ooleft;
+                    var ootop = dropZone.offset().top;
+                    var oobottom = dropZone.outerHeight() + ootop;
+                    var inputFile = dropZone.find("input");
+
+                    document.getElementById(dropZoneId).addEventListener("dragover", function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        dropZone.addClass(mouseOverClass);
+                        var x = e.pageX;
+                        var y = e.pageY;
+
+                        if (!(x < ooleft || x > ooright || y < ootop || y > oobottom)) {
+                            inputFile.offset({ top: y - 15, left: x - 100 });
+                        } else {
+                            inputFile.offset({ top: -400, left: -400 });
+                        }
+
+                    }, true);
+
+                    if (buttonId != "") {
+                        var clickZone = $("#" + buttonId);
+
+                        var oleft = clickZone.offset().left;
+                        var oright = clickZone.outerWidth() + oleft;
+                        var otop = clickZone.offset().top;
+                        var obottom = clickZone.outerHeight() + otop;
+
+                        $("#" + buttonId).mousemove(function (e) {
+                            var x = e.pageX;
+                            var y = e.pageY;
+                            if (!(x < oleft || x > oright || y < otop || y > obottom)) {
+                                inputFile.offset({ top: y - 15, left: x - 160 });
+                            } else {
+                                inputFile.offset({ top: -400, left: -400 });
+                            }
+                        });
+                    }
+
+                    document.getElementById(dropZoneId).addEventListener("drop", function (e) {
+                        $("#" + dropZoneId).removeClass(mouseOverClass);
+                        alert("file have been added, click on the upload button to load the csv file");
+    //                    upload();
+                    }, true);
+                    });
+
+                }else {
+                   $("#emailIdContinueButton").show();
+                    $("#entertext").show();
+                    $("#dragtext").show();
+                    $("#emailaddresses").show();
+//                    $("#emailaddresses").val('');
+                    $("#drop-zone").show();
+                    $("#clickHere").show();
+                    $("#upload").show();
+                    $("#emailIdContinueButton").css("top","0px");
+                    $(function () {
+
+                    var dropZoneId = "drop-zone";
+                    var buttonId = "clickHere";
+                    var mouseOverClass = "mouse-over";
+
+                    var dropZone = $("#" + dropZoneId);
+                    var ooleft = dropZone.offset().left;
+                    var ooright = dropZone.outerWidth() + ooleft;
+                    var ootop = dropZone.offset().top;
+                    var oobottom = dropZone.outerHeight() + ootop;
+                    var inputFile = dropZone.find("input");
+
+                    document.getElementById(dropZoneId).addEventListener("dragover", function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        dropZone.addClass(mouseOverClass);
+                        var x = e.pageX;
+                        var y = e.pageY;
+
+                        if (!(x < ooleft || x > ooright || y < ootop || y > oobottom)) {
+                            inputFile.offset({ top: y - 15, left: x - 100 });
+                        } else {
+                            inputFile.offset({ top: -400, left: -400 });
+                        }
+
+                    }, true);
+
+                    if (buttonId != "") {
+                        var clickZone = $("#" + buttonId);
+
+                        var oleft = clickZone.offset().left;
+                        var oright = clickZone.outerWidth() + oleft;
+                        var otop = clickZone.offset().top;
+                        var obottom = clickZone.outerHeight() + otop;
+
+                        $("#" + buttonId).mousemove(function (e) {
+                            var x = e.pageX;
+                            var y = e.pageY;
+                            if (!(x < oleft || x > oright || y < otop || y > obottom)) {
+                                inputFile.offset({ top: y - 15, left: x - 160 });
+                            } else {
+                                inputFile.offset({ top: -400, left: -400 });
+                            }
+                        });
+                    }
+
+                    document.getElementById(dropZoneId).addEventListener("drop", function (e) {
+                        $("#" + dropZoneId).removeClass(mouseOverClass);
+                        alert("The CSV file has been added, click on the upload button to load the CSV file in the form.");
+    //                    upload();
+                    }, true);
+                    });
+
+                }
+
+            }
         </script>
         <jsp:include page="basejsp.jsp" />
     </head>
 
     <body>
         <div id="fade" class="black_overlay"></div>
+        <div  class="col-md-1" id="warn"><jsp:include page="leftmenu.html"/></div>
         <div class="row" ng-controller="emailSettings" id="emailSettings">
-            <div  class="col-md-1" id="warn"><jsp:include page="leftmenu.html"/></div>
+            
             <div class="col-md-5 " ng-init="getEmailSettings()">
                 <p id="textgrt" class="MH1 col-md-offset-3">SEND EMAIL PREVIEW</p>
                 <p id="text2">go back</p>
@@ -585,7 +1179,7 @@
                     </div>
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="toaddress" class="form-control simplebox" name="email_addresses" type="text" value='<%= emailAddresses%>'>
+                            <input id="toaddress" class="form-control simplebox" name="email_addresses" type="text"value="">
                             <label>TO ADDRESS</label><br>
                         </div>
                     </div>
@@ -678,6 +1272,61 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row" id="emaillistdiv">
+            <div  id="emaillist2" ng-controller="EmailListController" ng-init="showEmailList()">
+                    <p class="header1 MH2"> Who do you want to send this email to?</p>
+                    <br><br>   
+                   
+                    <select id="chooseEmailList" name="chooseEmailList">
+                        <option value="1">Manual</option>
+                        <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
+                        <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists}}">{{Lists}}</option>
+                    </select>
+                    
+                    
+                    <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class=" btn-csv BT1" value="Add CSV or Email Manually">
+                    <p style="position:relative;top:45px;margin-left: 24%;" id="dragtext" hidden="true">Drag and drop a csv file here and click to upload:</p>
+                    <p style="position:relative;top:16px;left:26em;margin-left: 25%;" id="entertext" hidden="true">Enter Email Addresses manually here:</p>
+                    <div style="display:inline-flex;margin-top:14px;">
+                        <div id="drop-zone">
+                        Drop files here...
+                        <div id="clickHere" >
+                            <p id="fileselect" style="font-size:20px;top:60px;position:relative;">Click to Select file</p> 
+                     
+                      <input type="file" name="file"  id="file" style="overflow:hidden;position: absolute;top: 0;right: 0;margin: 0;width:250px;border-radius:15px;border:none;padding: 0;font-size: 20px;cursor: pointer;opacity: 0;filter: alpha(opacity=0);" onchange="fileselected()"/><br><br>
+                        </div>
+                    </div>
+                        <div>
+                            
+                            <div>
+                                <textarea style="width:300px; height:200px;position:relative;top:0px;" id="emailaddresses"></textarea>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <input type="button" id="upload" value="Upload" onclick="upload()" class="btn-upload" style="margin-left: 24%;position:relative;left:2px;top:5px;"/>
+                    <input style="position:relative;top:25px;margin-left:7%;" id="emailIdContinueButton" type="button" class=" button button--moema button--text-thick button--text-upper button--size-s btn-prim" value="CONTINUE">
+                   
+               
+
+                    <div id="popup">
+                        <div id="content">
+                            Enter List Name: <input type="text" id="listname"><br><br>
+                            Csv File: <input type="file" id="selectedCsvFile">
+                            <input type="button" onclick="uploadCsvFileData()" value="upload">
+                            <br><br>
+                            <center>
+                                <textarea id="textArea" style="width:300px; height:100px; resize: none;" ></textarea><br><br>
+                                <input type="button" class="btn btn-default" ng-click="addEmailList()" value="Save">
+                                <input type="button" id="popupCancel" class="btn btn-default" value="Cancel">
+                            </center>
+                        </div>   
+                    </div>      
+                      
+<!--                    <input type="text" class="hideinputEmailId" id="emailId" name="emailsubject" placeholder="Add CSV or Email Manually"> <br><br><br><br><br>-->
+
+                   </div>  
         </div>
 <!--<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>--> 
     </body>
