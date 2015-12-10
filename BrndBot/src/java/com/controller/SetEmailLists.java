@@ -30,7 +30,7 @@ import org.json.simple.parser.ParseException;
  */
 public class SetEmailLists extends BrndBotBaseHttpServlet {
 
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd z");
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     
     /**
@@ -171,6 +171,8 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
                 json_user_preferences_email.put(IConstants.kEmailAddressesKey, new JSONArray());
                 json_user_preferences_email.put(IConstants.kEmailListDefaultFromName, defaultName);
                 json_user_preferences_email.put(IConstants.kEmailListListDescription, listDescription);
+                json_user_preferences_email.put(IConstants.kEmailListAddedDate,dateFormat.format(new Date()));
+                
 
                 emailListArrayJSON.add(json_user_preferences_email);
                 return AddEmailListUserPreference(user_id, emailListArrayJSON);
