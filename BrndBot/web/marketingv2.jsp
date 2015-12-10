@@ -10,6 +10,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+    <link rel="stylesheet" href="css/version2/hint.css"/>
     <link rel="stylesheet" href="css/pikaday.css">
     <link rel="stylesheet" href="css/datepickerpikaday.css">
         <script src="js/moment.js" type="text/javascript"></script>
@@ -33,30 +34,7 @@
     <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign"  class="container content-main">
     <jsp:include page="AddAction.jsp"/>
     <jsp:include page="facebookpreview.jsp"/> 
-        <div class="navigation">
-        <div class="main-nav-logo">
-            <a class=" bb-logo-nav" href="dashboard.jsp">
-                <img type="image/svg+xml" src="images/Icons/Logo_Reverse.svg" class="bb-logo" style="cursor:pointer;"/>
-            </a>
-        </div>
-        <ul class="nav-tabs">
-            <li class="nav-elements-icon-container">
-                <a href="marketing.jsp">
-                    <img type="image/svg+xml" src="images/Icons/yourPlan.svg" class="nav-elements-icon" style="cursor:pointer;"/>
-                </a>
-            </li>
-            <li class="nav-elements-icon-container">
-                <a class="" href="#">
-                    <img type="image/svg+xml" src="images/Icons/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;"/>
-                </a>
-            </li>
-            <li class="nav-elements-icon-container">
-                <a  href="#">
-                      <img type="image/svg+xml" src="images/Icons/yourHubs.svg" class="nav-elements-icon" style="cursor:pointer;"/>
-                </a>
-            </li>
-        </ul>    
-    </div>
+    <%@include file="navbarv2.jsp" %>
     
     <!--Top Nav-->   
     <div class="top-nav">
@@ -120,8 +98,8 @@
                                <div class="selection-icon" id="{{entitydetails.entity_id}}" onclick="selcheckbox(this.id)"><input type="checkbox" id="entityid{{entitydetails.entity_id}}" value="{{entitydetails.entity_id}}" name="entityname" hidden></input></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft " ng-show="entitydetails.template_status=='No Template'"> 
-                                    <object type="image/svg+xml" data="images/Icons/templateSaved.svg" class="status-button"> </object>
+                                <div class="icon-container fleft hint--top"  data-hint="Template Saved" ng-show="entitydetails.template_status=='No Template'"> 
+                                    <img src="images/Icons/templateSaved.svg" class="status-button" />
                                 </div>
                                 <div  class="slat-title-container col-1of2 fleft">                                    
                                     <div class="slat-title email-list-slat-title col-1of1 sh1" ng-hide="entitydetails.is_recuring">{{entitydetails.schedule_title}}</div>

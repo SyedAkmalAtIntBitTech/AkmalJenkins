@@ -30,32 +30,7 @@
 <body ng-app>
     <div class="content-main" ng-controller="EmailListController">
         <!--SideNav-->
-        <div class="navigation">
-            <div class="main-nav-logo">
-                <a class=" bb-logo-nav" href="Dashboard.html">
-                    <object type="image/svg+xml" data="/Icons/Logo_Reverse.svg" class="bb-logo" style="cursor:pointer;"> </object>
-                </a>
-            </div>
-            <ul class="nav-tabs">
-                <li class="nav-elements-icon-container">
-                    <a class="" href="/Newest_Files/YourPlan.html">
-                        <object type="image/svg+xml" data="/Icons/yourPlan.svg" class="nav-elements-icon" style="cursor:pointer;"> </object>
-                    </a>
-                </li>
-                <li class="nav-elements-icon-container">
-                     <a class="" href="/Newest_Files/YourPlan.html">
-                        <object type="image/svg+xml" data="/Icons/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;"> </object>
-                    </a>
-                </li>
-                <li class="nav-elements-icon-container">
-                     <a class="" href="/Newest_Files/EmailHub_Lists_clean.html">
-                        <object type="image/svg+xml" data="/Icons/yourHubs.svg" class="nav-elements-icon" style="cursor:pointer;"> </object>
-                    </a>
-                </li>
-                <li class="nav-elements-icon">d</li>
-                <li class="nav-elements-icon">e</li>
-            </ul>    
-        </div>
+        <%@include file="navbarv2.jsp" %>
         <!--Top Nav-->   
         <div class="top-nav">
             <div class="page-title-bar col-1of1"> 

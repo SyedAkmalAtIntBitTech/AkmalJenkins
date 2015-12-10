@@ -9,17 +9,19 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-     <title>BrndBot - Dashboard</title>
-        <meta charset="UTF-8">
-         <%@ include file="fonttypekit.jsp"%>
-         <%@ include file="checksession.jsp" %>
-         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <title>BrndBot - Dashboard</title>
+    <meta charset="UTF-8"/>
+    <%@ include file="fonttypekit.jsp"%>
+    <%@ include file="checksession.jsp" %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
+    <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="images/favicon.png"></link>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/configurations.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/dashboard.js"></script>
@@ -27,33 +29,10 @@
 </head>    
 
 <body class="" >
-    <!--SideNav-->    <div class="col-md-11 col-md-offset-1 " ng-app="myapp">
-                    <div class="col-md-10 col-md-offset-1" ng-controller="controllerCategories">
-    <div class="navigation">
-        <div class="main-nav-logo">
-            <a class=" bb-logo-nav" href="dashboard.jsp">
-                <img type="image/svg+xml" src="images/Icons/Logo_Reverse.svg" class="bb-logo" style="cursor:pointer;"/>
-            </a>
-        </div>
-        <ul class="nav-tabs">
-            <li class="nav-elements-icon-container">
-                <a href="marketingv2.jsp">
-                    <img type="image/svg+xml" src="images/Icons/yourPlan.svg" class="nav-elements-icon" style="cursor:pointer;"/>
-                </a>
-            </li>
-            <li class="nav-elements-icon-container">
-                 <a class="" href="/Newest_Files/MarketingProgram_CurrentList.html">
-                    <img type="image/svg+xml" src="images/Icons/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;"/>
-                </a>
-            </li>
-            <li class="nav-elements-icon-container">
-                 <a  href="/Newest_Files/EmailHub_Lists_clean.html">
-                    <img type="image/svg+xml" src="images/Icons/yourHubs.svg" class="nav-elements-icon" style="cursor:pointer;"/>
-                </a>
-            </li>
-        </ul>    
-    </div>
-        
+    <!--SideNav-->  
+    <div class="col-md-11 col-md-offset-1 " ng-app="myapp">
+    <div class="col-md-10 col-md-offset-1" ng-controller="controllerCategories">
+    <%@include file="navbarv2.jsp" %>                    
     <!--Top Nav-->   
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
@@ -68,23 +47,15 @@
                 <div class="h1 mindbodyactivationstatus">{{mindbodyactivationmessage}}<br><a href="{{mindbodyactivationlink}}" target="_blank">Click here</a></div>
                 <div class="button-row col-1of1" ng-repeat="category in categories">
                     <div class="button-column fleft col-1of10 pushright">
-                        <a href="/Newest_Files/Dashboard.html" class="fleft" style="height:100%; width:100%;">
-                            <img type="image/svg+xml" src="/BrndBot/DownloadImage?image_type=ORG_CATEGORIES&image_name={{category.image_name}}&org_id={{category.organizationId}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" class="big-selection-button" style="cursor:pointer;"/>
-                        </a>
+                         <img type="image/svg+xml" src="/BrndBot/DownloadImage?image_type=ORG_CATEGORIES&image_name={{category.image_name}}&org_id={{category.organizationId}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" class="big-selection-button" style="cursor:pointer;height:100%; width:100%;"/> 
+                         <p id="text4" class="il2">{{category.categoryName}}</p>
                     </div>
-                    <div class="button-column fleft col-1of10 pushright">
-                        <img type="image/svg+xml" src="images/Icons/yourHubs.svg" class="big-selection-button" style="cursor:pointer;"/>                    </div>
-                    <div class="button-column fleft col-1of10 pushright">
-                        <object type="image/svg+xml" data="/Icons/yourHubs.svg" class="big-selection-button" style="cursor:pointer;"> </object>
-                    </div>
-                    <div class="button-column fleft col-1of10 pushright">
-                        <object type="image/svg+xml" data="/Icons/yourHubs.svg" class="big-selection-button" style="cursor:pointer;"> </object>
-                    </div>
-                    <div class="button-column fleft col-1of10 pushright">
-                        <object type="image/svg+xml" data="/Icons/yourHubs.svg" class="big-selection-button" style="cursor:pointer;"> </object>
-                    </div>
-                 
                 </div>
+                 <div class=" subcatlist input-field-container col-1of1"> 
+                     <ul id="subpromotelist" class="input-header">
+                         <li ng-repeat="Sub in SubCategories" id="{{Sub.category_id}}"><p  id="{{Sub.category_id}}" onclick="setSubCategoryID('{{Sub.category_id}}', '{{Sub.id}}', '{{Sub.sub_category_name}}', '{{Sub.external_source}}')">{{Sub.sub_category_name}}</p></li>
+                     </ul>
+                 </div>
             </div>
         </div>
         </div>

@@ -1417,7 +1417,7 @@ input-field-container{
 .icon-container{
     float: left;
     display: inline-table;
-    width: 5%;
+    width: 10%;
 }
 
 selfclear:before{
