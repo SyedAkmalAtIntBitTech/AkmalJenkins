@@ -1158,7 +1158,7 @@ label:before {
                             success: function (responseText) {
 //                            $("#tokenHere").html(responseText);
 //                                alert(image_name);
-                                alert("Your post has been published successfully");
+                                alert("Your post has been Scheduled Successfully");
                                 document.location.href = "dashboard.jsp";
                             }
                         });
@@ -1248,7 +1248,7 @@ label:before {
                             success: function (responseText) {
 //                            $("#tokenHere").html(responseText);
 //                                alert(image_name);
-                                alert("Your post has been published successfully");
+                                alert("Your post has been Scheduled Successfully");
                                 document.location.href = "dashboard.jsp";
                             }
                         });
