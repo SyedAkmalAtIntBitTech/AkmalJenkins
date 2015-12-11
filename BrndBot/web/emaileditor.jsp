@@ -367,7 +367,6 @@
                                             i++;
                                     });
                                 });
-                                $("#" + id).attr('src', '/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=' + allLayoutFilename[2]);
                                 $("#" + id).attr('onclick', "showSomething('" + id + "','" + allLayoutFilename[0] + "','" + allLayoutFilename[1] + "','" + mind_body_query + "')");
                             }).error();
                                 $("#addblkbtn").prop("disabled",true);
@@ -733,9 +732,8 @@
                             $("#styletab").css("background-color", "transparent").css("color", "#19587c");
                     });        </script>
         <link rel="stylesheet" href="css/plugins/image_manager.css">
-        <!--<script type="text/javascript" src="js/froala_editor.js" ></script>-->
-        <!--<script type="text/javascript" src="js/froala_editor.min_Email.js" ></script>-->
         <script src="js/froala_editor.min_editor.js" type="text/javascript"></script>
+<!--        <script src="js/plugins/code_view.min.js" type="text/javascript"></script>-->
         <script type="text/javascript" src="js/plugins/align.min.js"></script>
         <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
         <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
@@ -752,7 +750,7 @@
         <script type="text/javascript" src="js/plugins/save.min.js"></script>
         <script type="text/javascript" src="js/plugins/quote.min.js"></script>
         <script type="text/javascript" src="js/plugins/link.min.js"></script>
-        
+
         <script>
             $.FroalaEditor.DEFAULTS.htmlAllowedAttrs = $.merge($.FroalaEditor.DEFAULTS.htmlAllowedAttrs, ['onclick']);
         </script>

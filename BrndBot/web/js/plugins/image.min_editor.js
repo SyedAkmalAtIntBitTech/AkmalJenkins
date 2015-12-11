@@ -3,20 +3,9 @@
  * License http://editor.froala.com/license
  * Copyright 2014-2015 Froala Labs
  */
-//$(document).ready(function() {
-//     alert("this.id");
-//$('img').click(function(){
-//   alert("sdfafdsafadsfdas");
-//});
-//});
 var image;
-            function uploadImageToEditor(imageid){
-//                alert("dasf"+":"+imageid);
-//            $("img").click(function(){
-//        alert(this.id);
+ function uploadImageToEditor(imageid){
         image=imageid;
-//    });
-
             }
 
 
