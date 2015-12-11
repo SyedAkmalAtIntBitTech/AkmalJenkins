@@ -13,12 +13,14 @@ public interface IConstants {
     
     //This is for user preferences.
     final static String kEmailListMindbodyKey = "mindbody";
-    final static String kEmailListAddedDate = "listAddedDate";
     final static String kEmailListUserKey = "user";
     final static String kUserPreferencesTableKey = "user_preferences";
     final static String kUserPreferencesMindbodyKey = "mindbody_email_list";
     final static String kEmailAddressUserPreferenceKey = "emailLists";
     final static String kEmailListNameKey = "emailListName";
+    final static String kEmailLastNameKey = "emailLastName";
+    final static String kEmailFirstNameKey = "emailFirstName";
+    final static String kEmailUIDKey = "emailUID";
     final static String kEmailListDefaultFromName = "defaultFromName";
     final static String kEmailListListDescription = "listDescription";
     final static String kEmailAddressesKey = "emailAddresses";

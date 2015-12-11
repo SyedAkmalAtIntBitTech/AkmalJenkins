@@ -22,17 +22,20 @@
             }
             
             var count=0;
+        
         function selcheckbox(id){ 
 //            alert(id+"--selected");
             content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
 //            alert(content);
             var htm=$("#"+id).html();
+//            alert(htm);
             if(htm.contains('class="check-icon"')){
                count-=1;
                 $("#"+id).html(content);
             }
             else
-            {   count+=1;
+            {   
+                count+=1;
                 $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#"+id).toggleClass('selection-icon');
@@ -50,7 +53,7 @@
             
             $(document).ready(function () {
                 $(".delete-button").hide();
-
+                
                 $("#chooseEmailList").change(function () {
                     var x = document.getElementById("chooseEmailList").selectedIndex;
                     var List_name = document.getElementsByTagName("option")[x].value;
@@ -168,6 +171,73 @@
                     }
                     
                 };
+                $scope.updateEmailID = function(){
+                    var email_list_name = $("#email_list_name").val();
+                    var email_address = $("#emailId").val();
+                    var email_first_name = $("#firstName").val();
+                    var email_last_name = $("#lastName").val();
+                    var type = $("#type").val();
+                    
+                    if (validateEmailListPopup()){
+                        var emaildetails;
+                    if (type == "add"){
+                        emaildetails = {"update":"checkAvailability", "emailListName":email_list_name, 
+                                            "emailAddress":email_address, "emailFirstName":email_first_name, 
+                                            "emailLastName":email_last_name}
+
+                        $http({
+                            method: 'POST',
+                            url: getHost() + 'SetEmailLists',
+                            headers: {'Content-Type': 'application/json'},
+                            data: emaildetails
+                        }).success(function (data)
+                        {
+                            if (data === "false") {
+
+
+                                emaildetails = {"update":"addEmailID", "emailListName":email_list_name, 
+                                            "emailAddress":email_address, "emailFirstName":email_first_name, 
+                                            "emailLastName":email_last_name}
+                                $http({
+                                    method: 'POST',
+                                    url: getHost() + 'SetEmailLists',
+                                    headers: {'Content-Type': 'application/json'},
+                                    data: emaildetails
+                                }).success(function (data)
+                                {
+                                    if (data === "true") {
+                                        alert("Data saved successfully.");
+                                        window.open(getHost() + 'emaillists.jsp', "_self");
+                                    }
+                                });
+                            }else if (data === "true"){
+                                alert("Emailid already exist, please try with some other emailid.");
+                            }
+                        });
+                    
+                        }else if (type == "update"){
+                            var id = $("#uuid").val();
+                            emaildetails = {"update":"updateEmailID", "emailUID":id, "emailListName":email_list_name, 
+                                                "emailAddress":email_address, "emailFirstName":email_first_name, 
+                                                "emailLastName":email_last_name}
+                            $http({
+                                method: 'POST',
+                                url: getHost() + 'SetEmailLists',
+                                headers: {'Content-Type': 'application/json'},
+                                data: emaildetails
+                            }).success(function (data)
+                            {
+                                if (data === "true") {
+                                    alert("Data saved successfully.");
+                                    window.open(getHost() + 'emaillists.jsp', "_self");
+
+                                } else if (data === error) {
+                                    alert(data);
+                                }
+                            });
+                        }
+                    }            
+                };
                 $scope.updateEmailList = function () {
                     var email_list_name = $("#email_list_name").val();
                     var email_list = $("#textArea").val();
@@ -238,8 +308,68 @@
                     $("#chooseEmailList").val("");
                 };
                 
-                $scope.updateList = function (list_name, type) {
-//                    alert(list_name);
+                $scope.updateList = function () {
+                    $scope.count = 0;
+                    var list_name=$("#get_list_name").val();
+                    var type=$("#get_type").val();
+                    $("#email_list_name").val(list_name);
+                    $http({
+                        method: 'GET',
+                        url: getHost() + 'GetEmailLists?update=emailsForEmailList&list_name='+list_name
+                    }).success(function (data, status, headers, config) {
+                        $scope.user_emailAddresses = data.user_emailAddresses;
+                        $scope.mindbody_emailAddresses = data.mindbody_emailAddresses;
+                        $scope.selected_email_listname = list_name;
+                        $scope.type = type;
+                        if (type == 'user'){
+                            $("#tab1").hide();
+                            $("#tab2").hide();
+                            $("#tab3").show();
+                            $("#addcontacts").show();
+                            $("#deleteSelected").show();
+                            $("#selectAll").show();
+                            for (var i = 0; i <= data.user_emailAddresses.length; i++){
+                                
+                                var emailadd = data.user_emailAddresses[i];
+                                if (emailadd.emailid == ""){
+                                    $("#NoContacts").css("display","block");
+                                    setTimeout(function() 
+                                    {
+                                      //do something special
+                                      $('input[type="checkbox"]').css("display","none");
+
+                                    }, 100);
+                                }
+
+                            }
+                        }else if (type == 'mindbody'){
+                            
+                            $("#tab3").show();
+                            $("#tab1").hide();
+//                            $("#addcontacts").attr("disabled", true);
+                            $("#addcontacts").hide();
+                            $("#deleteSelected").hide();
+                            $("#emailaddrs").hide();
+                            $(".head").css("padding-bottom","15%");
+//                            
+//                            $("#selectAll").attr("disabled", true);
+//                            document.getElementById('email1').hide();
+                            $("#email1").hide();
+                            setTimeout(function() 
+                            {
+                              //do something special
+                              $('input[type="checkbox"]').css("display","none");
+                              
+                            }, 100);
+                        }
+                        if (data === error) {
+                            alert(data);
+                        }
+                    });
+                    
+                };
+                
+                $scope.updateList1 = function (list_name,type) {
                     $("#email_list_name").val(list_name);
                     $http({
                         method: 'GET',

@@ -47,12 +47,12 @@
                         <ul class="emlOneRowDatalst L2 " ng-repeat="email in emailLists"> 
                             <li style=" left:-50px;" onclick="setSelectedlistName('{{email.emailListName}}')"><p class="emlOneRowDatalst L2" style="width:300px;">{{email.emailListName}}</p><p class="BC1" style="width:200px;">{{email.listDescription}}</p></li>
                             <li style="width:300px;text-align:center;left:100px;">{{email.noofcontants}}<br><p class="BC1">contacts</p></li>
-                            <li style="width:300px;text-align:center;left:430px;"><button type="button" ng-click="updateList(email.emailListName, 'user')">EDIT LIST</button> </li>
+                            <li style="width:300px;text-align:center;left:430px;"><button type="button" ng-click="updateList1(email.emailListName, 'user')">EDIT LIST</button> </li>
                         </ul>
                         <ul class="emlOneRowDatalst L2 " ng-repeat="email in emailListsMindbody">
                             <li style=" left:-50px;" onclick="setSelectedlistName('{{email.emailListName}}')"><p class="emlOneRowDatalst L2" style="width:300px;">{{email.emailListName}}</p><p class="BC1" style="width:200px;">{{email.listDescription}}</p></li>
                             <li style="width:300px;text-align:center;left:100px;">{{email.noofcontants}}<br><p class="BC1">contacts</p></li>
-                            <li style="width:300px;text-align:center;left:430px;"><button type="button" ng-click="updateList(email.emailListName, 'mindbody')">DETAILS</button> </li>
+                            <li style="width:300px;text-align:center;left:430px;"><button type="button" ng-click="updateList1(email.emailListName, 'mindbody')">DETAILS</button> </li>
                         </ul>
                     </div><br><br>
                 </div>
@@ -107,11 +107,11 @@
                 <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;left:5px;top:-70px;">
                     <div id="scrl" class="col-md-6" >
                         <ul id="uluseremails" class="emlOneRowDatalst L2 LE2" ng-repeat="email in user_emailAddresses">
-                            <li id="liemailid1" style="width:300px;left:-30px;top:-80px;"><input style="top:17px;position:relative;left:-160px;" id="{{email.id}}" class="email" type="checkbox" value="{{email.emailid}}" onclick="fun('{{email.emailid}}'),selectEmailId('{{email.id}}')">{{email.emailid}}</li>
-                            <p ng-show="email.emailid == '' && type == 'user'" id='NoContacts' style="margin-top:-80px;">No contacts available</p>
+                            <li id="liemailid1" style="width:300px;left:-30px;top:-80px;"><input style="top:17px;position:relative;left:-160px;" id="{{email.emailAddress}}" class="email" type="checkbox" value="{{email.emailid}}" onclick="fun('{{email.emailid}}'),selectEmailId('{{email.id}}')">{{email.emailAddress}}</li>
+                            <p ng-show="email.emailAddress == '' && type == 'user'" id='NoContacts' style="margin-top:-80px;">No contacts available</p>
                         </ul>
                         <ul class="emlOneRowDatalst L2 LE2" ng-repeat="email in mindbody_emailAddresses">
-                            <li style="width:300px;left:-30px;top:-80px;">{{email}}</li>
+                            <li style="width:300px;left:-30px;top:-80px;">{{email.emailAddress}}</li>
                         </ul>
                         <p ng-show="mindbody_emailAddresses.length == 0 && type == 'mindbody'" style="margin-top:-80px;">No contacts available</p>
                     </div>

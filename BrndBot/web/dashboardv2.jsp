@@ -47,7 +47,7 @@
                 <div class="h1 mindbodyactivationstatus">{{mindbodyactivationmessage}}<br><a href="{{mindbodyactivationlink}}" target="_blank">Click here</a></div>
                 <div class="button-row col-1of1" ng-repeat="category in categories">
                     <div class="button-column fleft col-1of10 pushright hint--bottom" data-hint="{{category.categoryName}}">
-                         <img type="image/svg+xml" src="/BrndBot/DownloadImage?image_type=ORG_CATEGORIES&image_name={{category.image_name}}&org_id={{category.organizationId}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" class="big-selection-button" style="cursor:pointer;height:100px; width:100px;"/> 
+                         <img type="image/svg+xml" src="/BrndBot/DownloadImage?image_type=ORG_CATEGORIES&image_name={{category.image_name}}&org_id={{category.organizationId}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" class="big-selection-button" style="cursor:pointer;height:100%;width:100%;"/> 
                          <!--<p id="text4" class="il2">{{category.categoryName}}</p>-->
                     </div>
                 </div>

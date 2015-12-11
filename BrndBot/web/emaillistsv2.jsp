@@ -91,20 +91,22 @@
                             </div>
                             <div class="col-1of4 fleft">
                                 <div class="slat-cta-container">
-                                    <a href="">
-                                        <div class="small-button slat-button" ng-click="updateList(email.emailListName, 'user')">Manage List</div>
+                                    <a href="emaillistsdetails.jsp?list_name={{email.emailListName}}&type=user">
+                                        <div class="small-button slat-button" >Manage List</div>
                                     </a>
                                 </div>
                             </div>
                         </li>
                         <li class="slat-container fleft selfclear" ng-repeat="email in emailListsMindbody">
-                             <div class="selection-container col-5p hint--left" data-hint="EmailConnect">
+                             <div class="selection-container col-5p hint--left emailconnectalign" data-hint="EmailConnect">
                                  <img src="images/Icons/emailConnect.svg" class="emailConnect-icon" style="cursor:pointer;"> </img>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div class="slat-title-container col-1of2 fleft">
-                                    <div class="slat-title email-list-slat-title col-1of1 " ng-click="updateList(email.emailListName, 'mindbody')">{{email.emailListName}}</div>
-                                    <div class="action-list-slat-description col-1of1 sh3"> </div>
+                                    <a href="emaillistsdetails.jsp?list_name={{email.emailListName}}&type=mindbody">
+                                        <div class="slat-title email-list-slat-title col-1of1 ">{{email.emailListName}}</div>
+                                        <div class="action-list-slat-description col-1of1 sh3"> </div>
+                                    </a>
                                 </div>
                                 <div class=" col-3of10 fleft slat-attribute-container">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.noofcontants}}</div>

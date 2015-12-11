@@ -137,7 +137,7 @@
                         </a>
                     </div>
                     <div class="button-column fleft col-1of10 pushright hint--left" ng-show="email_templates != 0" data-hint="Email" >
-                        <a  onclick="selected_media('emailsubject')" class="fleft" style="height:100px; width:100px;">
+                        <a  onclick="selected_media('emailsubject')" class="fleft" style="height:100%; width:100%;">
                             <img src="images/NavIcon_Email-white.svg" id="email" class="big-selection-button" style="cursor:pointer;"/>
                         </a>
                     </div>
