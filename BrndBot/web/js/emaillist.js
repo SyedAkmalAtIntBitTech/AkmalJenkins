@@ -22,7 +22,7 @@
             }
             
             var count=0;
-        
+            
         function selcheckbox(id){ 
 //            alert(id+"--selected");
             content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
@@ -52,8 +52,32 @@
             
             
             $(document).ready(function () {
+                $("#importList").click(function(){
+                    $("#showList").hide();
+                    $("#tab4").show();
+                    $("#importList").removeClass("h3");
+                    $("#emailList").removeClass("h3-active-subnav");
+                    $("#emailListli").removeClass("top-subnav-link-active");
+                    $("#importListli").removeClass("top-subnav-links");
+                    $("#importList").addClass("h3-active-subnav");
+                    $("#emailList").addClass("h3");
+                    $("#emailListli").addClass("top-subnav-links");
+                    $("#importListli").addClass("top-subnav-link-active");
+                    
+                });
+                $("#emailList").click(function(){
+                    $("#tab4").hide();
+                    $("#showList").show();
+                    $("#importList").removeClass("h3-active-subnav");
+                    $("#emailList").removeClass("h3");
+                    $("#importList").addClass("h3");
+                    $("#emailList").addClass("h3-active-subnav");
+                    $("#emailListli").removeClass("top-subnav-links");
+                    $("#importListli").removeClass("top-subnav-link-active");
+                    $("#emailListli").addClass("top-subnav-link-active");
+                    $("#importListli").addClass("top-subnav-links");
+                });
                 $(".delete-button").hide();
-                
                 $("#chooseEmailList").change(function () {
                     var x = document.getElementById("chooseEmailList").selectedIndex;
                     var List_name = document.getElementsByTagName("option")[x].value;
