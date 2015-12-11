@@ -13,34 +13,33 @@
     var entity_id = 0;
     var type = "";
     var program_id = "";
-    var entity_id = '<%= entity_id %>';
-    var type = '<%= type %>';
-    var program_id = '<%= program_id %>';
     
     function emailautomation($scope, $http){
         $scope.getEntityDetails = function (){
-            var entity_details = {"entity_id": entity_id};
-            $http({
-                method: 'POST',
-                url: getHost() + 'getRecuringEntity.do',
-                headers: {'Content-Type':'application/json'},
-                data: JSON.stringify(entity_details)
-            }).success(function(data, status){
-                $scope.entity_details = data;
-                if (data.recuring_email_template_id != null){
-                    template_id = data.recuring_email_template_id;
-                }else {
-                    entity_no_email_template = "true";
-                }
-                html_data = data.recuring_email_body;
-                $('#edit').froalaEditor('html.set',''+html_data+'');
-                
-                $scope.showEmailList();
-                showEmailListName(data.recuring_email_email_list_name);
-                days = data.recuring_email_days;
-            }).error(function(){
-                alert("problem fetching the data");
-            });
+            if (entity_id != "0"){
+                var entity_details = {"entity_id": entity_id};
+                $http({
+                    method: 'POST',
+                    url: getHost() + 'getRecuringEntity.do',
+                    headers: {'Content-Type':'application/json'},
+                    data: JSON.stringify(entity_details)
+                }).success(function(data, status){
+                    $scope.entity_details = data;
+                    if (data.recuring_email_template_id != null){
+                        template_id = data.recuring_email_template_id;
+                    }else {
+                        entity_no_email_template = "true";
+                    }
+                    html_data = data.recuring_email_body;
+                    $('#edit').froalaEditor('html.set',''+html_data+'');
+
+                    $scope.showEmailList();
+                    showEmailListName(data.recuring_email_email_list_name);
+                    days = data.recuring_email_days;
+                }).error(function(){
+                    alert("problem fetching the data");
+                });
+            }
         };
         /*
         * Bring all the email list from the database
@@ -212,50 +211,7 @@
         };
     }
 
-   $(document).ready(function (){
-       $(".row").css("display","block");
-       $("#emlautomeditorcontainer").hide();
-       $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
-       $("#emaillist").change(function () {
-           var List_name = $("#emaillist").val();
-           $.ajax({
-               url: getHost() + "GetEmailLists",
-               method: 'POST',                    
-               data: {
-                   update: "emailsForEmailList",
-                   list_name: List_name
-               },
-               success: function(result){
-                   var i = 0;
-                   emails = result.user_emailAddresses;
-               }
-           });
-       });
-
-   if (type == 'edit'){
-       var entity_details = {"entity_id": entity_id};                    
-       $("#emailautomationcontent").show();
-       $("#emlautomeditorcontainer").hide();
-            }else if (type == 'template'){
-                    setTimeout(
-                        function() 
-                        {
-                        if (validate()){
-                            $("#emailautomationcontent").hide();
-                            $("#emlautomeditorcontainer").show();
-                            entity_no_email_template = "false";
-                        }else {
-                            
-                            entity_no_email_template = "true";
-                            $("#emailautomationcontent").show();
-                            $("#emlautomeditorcontainer").hide();
-                        }
-                    }, 1000);
-            }else if (type == 'add'){
-                $("#emailautomationcontent").show();
-                $("#emlautomeditorcontainer").hide();
-            }
-            });
+   
             function validate(){
                 var emlval = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
                 var days = $("#days").val();

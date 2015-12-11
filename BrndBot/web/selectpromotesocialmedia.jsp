@@ -153,7 +153,7 @@
         
         %>
         
-<!--           <script>
+        <!--           <script>
             $(document).ready(function () {
                
 //                     $(".cross").hide();
@@ -173,8 +173,13 @@
                         });
         </script>-->
         
-        
         <script>
+            $( window ).load(function() {
+                $("#isFacebook").val("false");
+                $("#isTwitter").val("false");
+                $('#facebook').prop('checked', false); 
+                $('#twitter').prop('checked', false); 
+            });
             
             $(document).ready(function () {
                 $("#loadingGif").hide();

@@ -18,6 +18,7 @@
     String accesstoken = "";
     String ManagedPage = "";
     String[] twitteracesstoken = {"", ""};
+    int number;
 
 %>
 <%
@@ -27,15 +28,17 @@
         user_id = (Integer) sql_methods.session.getAttribute("UID");
         logoImageName = (String) sql_methods.session.getAttribute("ImageFileName");
         companyName = (String) sql_methods.session.getAttribute("company");
-
+        
         isFacebook = request.getParameter("isFacebook");
         isTwitter = request.getParameter("isTwitter");
 
         if (isFacebook.equalsIgnoreCase("true")) {
+            
             accesstoken = request.getParameter("fbaccessTokenSend");
             ManagedPage = request.getParameter("pagenameSend");
         }
         if (isTwitter.equalsIgnoreCase("true")) {
+           
             twitteracesstoken = request.getParameter("twaccessTokenSend").split(",");
         }
     } catch (Exception e) {
@@ -440,10 +443,18 @@ label:before {
                     var link=res[0];
                     if(!link.contains('http://'))
                     {
-                        link="http://"+res[0];
+                        if(res[0]!==0)
+                        {
+                            
+                        }
+                        else
+                        {
+                            link="http://"+res[0];
+                            $("#url").val(link);
+                            $("#Linkurl").val(link);
+                        }
                     }
-                    $("#url").val(link);
-                    $("#Linkurl").val(link);
+                    
                     var twittertext = $("#twittertext").val();
                     if (twittertext.endsWith("bit.ly/1XOkJo"))
                     {
@@ -617,6 +628,7 @@ label:before {
     </head>
 
     <body ng-app>
+<intput type="hidden" id="number" value="<%=number%>"/>
         <div id="fade" class="black_overlay"></div>
         <div class="container-fluid" ng-controller="socialmediapreview" id="socialmediapreview">
             <jsp:include page="leftmenu.html"/>
@@ -761,7 +773,7 @@ label:before {
                     <p class="SH2" style="position:relative;top:10px;width:700px;">PLEASE CREATE A NEW TITLE AND TIME TO ADD AN ACTION TO YOUR PLAN</p>                       
                     <br>
                     <input type="text" class="simplebox SH2" id="schedule_title" name="schedule_title" placeholder="TITLE" style="font-variant: normal;"><br>
-                    <textarea class="SH1 simplebox" name="schedule_desc" id="schedule_desc" placeholder="Description" style="font-variant: normal;resize:none;"></textarea><br>
+                    <textarea class="SH1 simplebox" name="schedule_desc" id="schedule_desc" placeholder="Description" style="font-variant: normal;resize:none;" value=""></textarea><br>
                    
                     
                     <input type="text" readonly id="schedule_social_date" name="schedule_social_date" class="SH1 simplebox ptr" style="width:190px;font-variant: normal;" placeholder="DATE">
@@ -794,8 +806,26 @@ label:before {
                 <div id="mask"></div>
             </div>
         </div>
-
+ 
         <script>
+            var facebook=<%=isFacebook%>;
+            var twitter=<%=isTwitter%>;
+            var number=0;
+            if(twitter===true && facebook===true)
+            {
+                number=2;
+                $("#facebookcancel").show();
+                $("#twittercancel").show();                
+            }
+            if(twitter===true ||facebook===true)
+            {
+                if(number!==2)
+                {
+                    number=1;
+                    $("#facebookcancel").hide();
+                    $("#twittercancel").hide();
+                }
+            }
 //            $(".cross").hide();
 //            $(".menu").hide();
             $("#Linkurl").hide();
@@ -867,7 +897,6 @@ label:before {
                     $("#facebookimage").show();
                     $("#fabookpreviewdiv").show();
                     $(".forfb").show();
-                    $("#facebookcancel").show();
                 }
 
                 if (isTwitter === "false") {
@@ -876,7 +905,6 @@ label:before {
                     $("#twittercancel").hide();
                 }
                 else if(isTwitter === "true"){
-                    $("#twittercancel").show();
                     $("#twitterimage").show();
                     $("#twitterpreviewdiv").show();
                     $("#fbtextcontainer").show();
@@ -918,6 +946,8 @@ label:before {
                 });
 
                 $("#twittercancel").click(function () {
+                    number--;
+                    $("#facebookcancel").hide();
                     $("#twittercancel").hide();
                     $("#twitterimage").hide();
                     $("#twitterpreviewdiv").hide();
@@ -927,7 +957,9 @@ label:before {
                 });
 
                 $("#facebookcancel").click(function () {
+                    number--;
                     $("#facebookcancel").hide();
+                    $("#twittercancel").hide();
                     $(".twitterlinklist").show();
                     $("#facebookimage").hide();
                     $("#fabookpreviewdiv").hide();
@@ -979,7 +1011,7 @@ label:before {
                                     success: function (responseText) {
                                         $('#mask').hide();
                                         $('.window').hide();
-                                        alert("Your post has been published successfully");
+                                        alert("Your post has been Scheduled Successfully");
 
                                         document.location.href = "dashboard.jsp";
                                     }
@@ -996,6 +1028,49 @@ label:before {
                 });
 
                 $("#schedulethepost").click(function () {
+                    var schedule_date = $("#schedule_social_date").val();
+                    var schedule_time = $("#schedule_social_time").val().replace(/ /g,'');  
+                    var schedule_title = $("#schedule_title").val();
+                    var schedule_desc = $("#schedule_desc").val();
+//                        var schedule = $("#schedule_time").val();
+                    var facebookac=$("#facebookactions").val();
+                    var twitterac=$("#twitteractions").val();
+                    if(schedule_date==="" && schedule_time==="" && schedule_title==="" && schedule_desc==="")
+                    {
+                        if(number===2)
+                        {
+                            if(facebookac==="0")
+                            {
+                                alert("Please Choose The Facebook Action");
+                                $("#facebookactions").focus();
+                                return false;
+                            }
+                            if(twitterac==="0")
+                            {
+                                alert("Please Choose The Twitter Action");
+                                $("#twitteractions").focus();
+                                return false;
+                            }
+                        }
+                        if(number===1)
+                        {
+                            if(facebookac==="0" || twitterac==="0")
+                            {
+                                if(facebookac==="0")
+                                {
+                                    alert("Please Choose The Facebook Action");
+                                    $("#facebookactions").focus();
+                                    return false;
+                                }
+                                if(twitterac==="0")
+                                {
+                                    alert("Please Choose The Twitter Action");
+                                    $("#twitteractions").focus();
+                                    return false;
+                                }
+                            }
+                        }
+                    }
 
                     var isFacebook = $("#isFacebook").val();
                     var isTwitter = $("#isTwitter").val();
@@ -1015,14 +1090,44 @@ label:before {
                         schedule_id_twitter = $("#twitteractions").val();
                         ManagedPage = $("#pagenameSend").val();
                     }
+                    
+                    
+//                        var dateepoch = Date.parse(schedule);
+                        if(schedule_title==="")
+                        {
+                            alert("Please Enter Title");
+                            $("#schedule_title").focus();
+                            return false;
+                        }
+                        if(schedule_desc==="")
+                        {
+                            alert("Please Enter Description");
+                            $("#schedule_desc").focus();
+                            return false;
+                        }
+                        if(schedule_date==="")
+                        {
+                            alert("Please Choose Date");
+                            $("#schedule_social_date").focus();
+                            return false;
+                        }
+                        if(schedule_time==="")
+                        {
+                            alert("Please Choose Time");
+                            $("#schedule_social_time").focus();
+                            return false;
+                        }
+                                           
 
                     console.log(schedule_id_facebook);
                     if ((schedule_id_facebook == "0") && (schedule_id_twitter == "0")) {
                         var schedule_date = $("#schedule_social_date").val();
                         var schedule_time = $("#schedule_social_time").val().replace(/ /g,'');  
                         var schedule_title = $("#schedule_title").val();
+                        var schedule_desc = $("#schedule_desc").val();
 //                        var schedule = $("#schedule_time").val();
 //                        var dateepoch = Date.parse(schedule);
+                        
                         
                         var l=schedule_date.toLocaleString() +" "+schedule_time.toLocaleString();
                         var schedule_time = Date.parse(l);
@@ -1054,7 +1159,7 @@ label:before {
 //
 //                        var newEpoch = schedule_time;
 //                        console.log("New Epoch: " + newEpoch);
-                        var schedule_desc = $("#schedule_desc").val();
+                        
 
                         var social_schedule = "";
                         if (isFacebook == "true" && isTwitter == "false") {
@@ -1150,7 +1255,7 @@ label:before {
                             success: function (responseText) {
 //                            $("#tokenHere").html(responseText);
 //                                alert(image_name);
-                                alert("Your post has been published successfully");
+                                alert("Your post has been Scheduled Successfully");
                                 document.location.href = "dashboard.jsp";
                             }
                         });
@@ -1240,7 +1345,7 @@ label:before {
                             success: function (responseText) {
 //                            $("#tokenHere").html(responseText);
 //                                alert(image_name);
-                                alert("Your post has been published successfully");
+                                alert("Your post has been Scheduled Successfully");
                                 document.location.href = "dashboard.jsp";
                             }
                         });
@@ -1292,7 +1397,7 @@ label:before {
             }
 
         </script> 
-
+    
     </body> 
 
 </html>

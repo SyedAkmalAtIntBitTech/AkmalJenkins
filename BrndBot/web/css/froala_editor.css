@@ -33,8 +33,8 @@
 }
 .fr-box.fr-basic .fr-element {
   padding: 10px;
-  max-height: 585px;
-  min-height: 550px;
+  max-height: 542px;
+  min-height: 100%;
 }
 iframe.fr-iframe {
 }
