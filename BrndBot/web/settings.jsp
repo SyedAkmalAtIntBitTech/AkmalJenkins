@@ -155,7 +155,7 @@ and open the template in the editor.
 
                                         <div  class="form-group">
                                             <div class="col-md-5 col-md-offset-5">
-                                                <button type="submit"  class="button button--moema button--text-thick button--text-upper button--size-s">Enter</button><br>
+                                                <button type="submit"  class="button button--moema button--text-thick button--text-upper button--size-s">Save</button><br>
                                             </div>
                                         </div>
 
