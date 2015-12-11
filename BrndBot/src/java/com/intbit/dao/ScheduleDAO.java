@@ -395,12 +395,12 @@ public class ScheduleDAO {
                 + " FROM tbl_scheduled_entity_list slist, "
                 + " tbl_user_marketing_program programtable"
                 + " WHERE slist.user_id = ? "
-                + " AND (date(schedule_time) <= ? "
+                + " AND ((date(schedule_time) <= ? "
                 + " AND date(schedule_time) >= ?) "
                 + " OR ((slist.is_recuring = 'false' AND date(programtable.date_event) - slist.days <= ? "
                 + " AND date(programtable.date_event) - slist.days >= ?) "
                 + " OR (slist.is_recuring = 'true' AND date(programtable.date_event) <= ? "
-                + " AND date(programtable.date_event) >= ?)) "
+                + " AND date(programtable.date_event) >= ?))) "
                 + " AND slist.user_marketing_program_id = programtable.id"
                 + " ORDER BY slist.id, schedule_time ";
         try (Connection connection = connectionManager.getConnection();
