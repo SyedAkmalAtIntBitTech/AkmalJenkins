@@ -72,7 +72,7 @@ String type=request.getParameter("type");
                             <div class="col-1of1 slat-unit fleft ">
                                 <a href="">
                                     <div class="selection-container col-5p fleft"> 
-                                        <div class="selection-icon" id="<%=list_name%>{{email.id}}" onclick="selcheckbox(this.id);"><input type="checkbox" id="entityid{{email.emailAddress}}" value="{{email.emailAddress}}" name="entityname" hidden></input></div>
+                                        <div class="selection-icon" id="{{email.id}}" onclick="selcheckbox(this.id);"><input type="checkbox" id="entityid{{email.emailAddress}}" value="{{email.emailAddress}}" name="entityname" hidden></input></div>
                                     </div>
                                 </a>
                                 <div class="slat-title-container col-4of10 fleft">
@@ -81,11 +81,11 @@ String type=request.getParameter("type");
                                     <div class="action-list-slat-description col-1of1 sh3-contact">Added on {{email.addedDate}}</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container" ng-show="email.firstName != ''">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.firstName}}</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.emailFirstName}}</div>
                                     <div class="list-column-description col-1of1 sh3-contact fleft">First Name</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container" ng-show="email.lastName != ''">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.lastName}}</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.emailLastName}}</div>
                                     <div class="list-column-description col-1of1 sh3-contact fleft">Last Name</div>
                                 </div>
                             </div>
