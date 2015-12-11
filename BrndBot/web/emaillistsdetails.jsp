@@ -53,14 +53,14 @@ String type=request.getParameter("type");
         <div class="page-subnav-bar-regular"> 
             <div class="top-subnav-tabs-container-with-button">
                 <ul class="top-subnav-nav-elements">
-                    <li class="top-subnav-link-active"> <a class="h3-active-subnav">Email List</a></li>
-                    <li class="top-subnav-links"> <a class="h3">Import Contacts to List</a></li>
+                    <li class="top-subnav-link-active"id="emailListli"> <a class="h3-active-subnav" id="emailList">Email List</a></li>
+                    <li class="top-subnav-links" id="importListli"> <a class="h3" id="importList">Import Contacts to List</a></li>
                 </ul>
             </div>
         </div>
     </div>
         <!--Main Content GENERIC--> 
-        <div class="page-background">
+        <div class="page-background" id="showList">
         <div class="page-content-container email-list-contact-page">
             
             <!--Inner Content Conatiner GENERIC-->
@@ -95,6 +95,22 @@ String type=request.getParameter("type");
             </div>            
         </div>
         </div>
+    
+         <div id="tab4" class="col-md-10 col-md-offset-2" class="hide">
+                <div id="emailsubjectdiv" ng-controller="EmailListController">
+                    <p class="header1">Email List:</p>
+                    <input type="text" class="hideinputborder" id="email_list_name" name="email_list_name" placeholder="Enter Here"/> <br>
+                    <div class="col-md-7 col-md-offset-0">
+                        <label>Upload CSV</label><br><br>
+                        <input type="file" class="fileUpload" id="fileUpload" name="fileUpload"><br>
+                        <input class="button button--moema button--text-thick button--text-upper button--size-s" type="button" id="upload" value="Upload" onclick="upload()" /><br>
+                    </div><br>
+                    <div id="dvCSV"></div>
+                    <textarea width="400" height="500" id="textArea"></textarea><br><br>
+                    <input  id="emailSubjectContinueButton" type="button" class="button button--moema button--text-thick button--text-upper button--size-s" value="Update" ng-click="updateEmailList()">
+                </div>
+            </div>
+        Import Contacts to List
     </div>
 
     </div>

@@ -16,7 +16,6 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="stylesheet" type="text/css" href="css/slat.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
-    
     <script src="js/angular.min.js" type="text/javascript"></script>    
     <script src="js/bootstrap.min.js"></script>
     <script src="js/form.js"></script>
@@ -52,9 +51,9 @@
                 </div>
                 <div class="top-subnav-tabs-container">
                    <ul class="top-subnav-nav-elements">
-                        <li class="top-subnav-links"> <a href="/Newest_Files/EmailHub_EmailDrafts_clean.html" class="h3">Email Drafts</a></li>
+                        <li class="top-subnav-links"> <a href="" class="h3">Email Drafts</a></li>
                         <li class="top-subnav-links"> <a class="h3">Email History and Analytics</a></li>
-                        <li class="top-subnav-links"> <a class="h3">Scheduled Emails</a></li>
+<!--                        <li class="top-subnav-links"> <a class="h3">Scheduled Emails</a></li>-->
                         <li class="top-subnav-link-active"> <a href="" class="h3-active-subnav">Email Lists</a></li>
                         <li class="top-subnav-links"> <a class="h3">Email Settings</a></li>
                     </ul>
