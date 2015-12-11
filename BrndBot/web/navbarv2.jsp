@@ -20,10 +20,10 @@
     </head>
     <body>
        <div class="navigation">
-           <div class="main-nav-logo hint--right" data-hint="Dashboard" >
-            <a class=" bb-logo-nav" href="dashboardv2.jsp" >
-               <img  type="image/svg+xml" src="images/Icons/Logo_Reverse.svg" class="bb-logo " style="cursor:pointer;" />
-            </a>
+        <div class="main-nav-logo hint--right" data-hint="Dashboard" >
+         <a class=" bb-logo-nav" href="dashboardv2.jsp" >
+            <img  type="image/svg+xml" src="images/Icons/Logo_Reverse.svg" class="bb-logo " style="cursor:pointer;" />
+         </a>
         </div>
         <ul class="nav-tabs">
             <li class="nav-elements-icon-container hint--right"  data-hint="Your Plan">

@@ -21,7 +21,35 @@
                 }
             }
             
+            var count=0;
+        function selcheckbox(id){ 
+//            alert(id+"--selected");
+            content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
+//            alert(content);
+            var htm=$("#"+id).html();
+            if(htm.contains('class="check-icon"')){
+               count-=1;
+                $("#"+id).html(content);
+            }
+            else
+            {   count+=1;
+                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+            }
+            $("#"+id).toggleClass('selection-icon');
+            $("#"+id).toggleClass('selection-icon-selected');
+            if(count > 0)
+            {
+                $(".delete-button").show();
+            }
+            if(count==0)
+            {
+                $(".delete-button").hide();
+            }
+        }
+            
+            
             $(document).ready(function () {
+                $(".delete-button").hide();
 
                 $("#chooseEmailList").change(function () {
                     var x = document.getElementById("chooseEmailList").selectedIndex;

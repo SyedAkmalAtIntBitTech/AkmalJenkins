@@ -1524,6 +1524,7 @@ ul{
     padding: 7px 16px 7px 16px;
     border-radius: 3px;
     float: left;
+    margin-left: 10px;
 }
 
 .details-button {

@@ -38,6 +38,9 @@
                 <div class="page-title-regular page-title-font">Your Email Hub</div>
                 <div class="page-cta-container">
                 <a href="">
+                 <div class="delete-button md-button button-text-1"> Delete Email List</div>
+                </a>
+                <a href="">
                     <div class="add-action-button md-button button-text-1"> Add Email List</div>
                 </a>
                 </div>
@@ -74,7 +77,7 @@
                         <ul class="main-container fleft">
                         <li class="slat-container fleft selfclear" ng-repeat="email in emailLists">
                              <div class="selection-container col-5p"> 
-                                <div class="selection-icon"></div>
+                                 <div class="selection-icon" id="{{email.emailListName}}" onclick="selcheckbox(this.id)"><input type="checkbox" id="entityid{{email.emailListName}}" value="{{email.emailListName}}" name="entityname" hidden></input></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div class="slat-title-container col-1of2 fleft">
@@ -95,7 +98,7 @@
                             </div>
                         </li>
                         <li class="slat-container fleft selfclear" ng-repeat="email in emailListsMindbody">
-                             <div class="selection-container col-5p">
+                             <div class="selection-container col-5p hint--left" data-hint="EmailConnect">
                                  <img src="images/Icons/emailConnect.svg" class="emailConnect-icon" style="cursor:pointer;"> </img>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
