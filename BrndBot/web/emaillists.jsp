@@ -106,7 +106,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-5 col-md-offset-5">
-                                    <br><button type="submit" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="createEmailList()">Enter</button><br>
+                                    <br><button type="submit" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="createEmailList()">Save</button><br>
                                 </div>
                             </div>
                         </form> 
