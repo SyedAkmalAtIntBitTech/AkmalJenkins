@@ -64,7 +64,7 @@
                         </ul>
                     </div>
                     <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;top:-60px;">
-                    <div id="scrl" class="col-md-6"  ng-init="showEmailListWithContacts()">
+                    <div id="scrl" class="col-md-6"  ng-init="showEmailListWithContacts()" style="margin-left:40px;">
                         <ul class="emlOneRowDatalst L2 " ng-repeat="email in emailLists">                            
                             <li style=" left:-50px;" onclick="setSelectedlistName('{{email.emailListName}}')"><p class="emlOneRowDatalst L2" style="width:300px;">{{email.emailListName}}</p><p class="BC1" style="width:200px;">{{email.listDescription}}</p></li>
                             <li style="width:300px;text-align:center;left:100px;">{{email.noofcontants}}<br><p class="BC1">contacts</p></li>
