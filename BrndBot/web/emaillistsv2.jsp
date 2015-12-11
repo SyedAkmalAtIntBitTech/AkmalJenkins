@@ -10,12 +10,12 @@
     <%@ include file="fonttypekit.jsp"%>
     <%@ include file="checksession.jsp" %>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="telephone=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css">
-    <link rel="stylesheet" type="text/css" href="css/normalize.css">
-    <link rel="stylesheet" type="text/css" href="css/slat.css">
-    <link rel="shortcut icon" href="favicon.png">
+    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/slat.css"></link>
+    <link rel="shortcut icon" href="images/favicon.png"></link>
     
     <script src="js/angular.min.js" type="text/javascript"></script>    
     <script src="js/bootstrap.min.js"></script>
@@ -25,7 +25,7 @@
     <script src="js/emaillist.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        
+     <title>BrndBot - Email List</title>    
 </head>    
 <body ng-app>
     <div class="content-main" ng-controller="EmailListController">
