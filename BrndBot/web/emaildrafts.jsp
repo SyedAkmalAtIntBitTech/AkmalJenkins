@@ -102,18 +102,12 @@
     <div class="content-main">
     <div class="navigation">
         <div class="main-nav-logo">
-            <a class=" bb-logo-nav" href="Dashboard.html">
-                <object type="image/svg+xml" data="images/Icons/logoreverse.svg" class="bb-logo" style="cursor:pointer;"> </object>
+            <a class=" bb-logo-nav" href="dashboard.jsp">
+                <img type="image/svg+xml" src="images/Icons/logoreverse.svg" class="bb-logo" style="cursor:pointer;"/>
             </a>
         </div>
         
-        <ul class="nav-tabs">
-            <li class="nav-elements-icon">a</li>
-            <li class="nav-elements-icon">b</li>
-            <li class="nav-elements-icon">c</li>
-            <li class="nav-elements-icon">d</li>
-            <li class="nav-elements-icon">e</li>
-        </ul>    
+           
     </div>
         
     <!--Top Nav-->   
@@ -137,11 +131,11 @@
             </div>
             <div class="top-subnav-tabs-container">
                 <ul class="top-subnav-nav-elements">
-                    <li class="top-subnav-link-active"> <a href="/Newest_Files/EmailHub_EmailDrafts_clean.html" class="h3-active-subnav">Email Drafts</a></li>
-                    <li class="top-subnav-links"> <a class="h3">Email History and Analytics</a></li>
-                    <li class="top-subnav-links"> <a class="h3">Scheduled Emails</a></li>
-                    <li class="top-subnav-links"> <a href="/Newest_Files/EmailHub_Lists_clean.html" class="h3">Email Lists</a></li>
-                    <li class="top-subnav-links"> <a class="h3">Email Settings</a></li>
+                    <li class="top-subnav-link-active"> <a href="#" class="h3-active-subnav">Email Drafts</a></li>
+                    <li class="top-subnav-links"> <a href="emailhistory.jsp"  class="h3">Email History and Analytics</a></li>
+                    <li class="top-subnav-links"> <a  href="#" class="h3">Scheduled Emails</a></li>
+                    <li class="top-subnav-links"> <a href="#"  href="" class="h3">Email Lists</a></li>
+                    <li class="top-subnav-links"> <a href="#" class="h3">Email Settings</a></li>
                 </ul>
             </div>
         </div>

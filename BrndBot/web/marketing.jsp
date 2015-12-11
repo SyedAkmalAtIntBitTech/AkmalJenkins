@@ -525,7 +525,7 @@
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
                                         <div ng-show="entitiesdetails.email_list_name == 1">
-                                            {{entitiesdetails.to_email_addresses}}
+                                            No Email List
                                         </div>
                                         <div ng-show="entitiesdetails.email_list_name != 1">
                                             {{entitiesdetails.email_list_name}}
@@ -818,7 +818,7 @@
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
                                        <div ng-show="entitiesdetails.email_list_name == 1">
-                                            {{entitiesdetails.to_email_addresses}}
+                                            No Email List
                                         </div>
                                         <div ng-show="entitiesdetails.email_list_name != 1">
                                             {{entitiesdetails.email_list_name}}
@@ -1913,7 +1913,7 @@
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
                                                 <div ng-show="entitiesdetails.email_list_name == 1">
-                                                    {{entitiesdetails.to_email_addresses}}
+                                                    No Email List
                                                 </div>
                                                 <div ng-show="entitiesdetails.email_list_name != 1">
                                                     {{entitiesdetails.email_list_name}}

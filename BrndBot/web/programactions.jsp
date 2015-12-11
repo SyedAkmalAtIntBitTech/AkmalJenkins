@@ -518,7 +518,12 @@
                                         </div>
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
-                                                {{entitiesdetails.email_list_name}}
+                                                <div ng-show="entitiesdetails.email_list_name == 1">
+                                                    No Email List
+                                                </div>
+                                                <div ng-show="entitiesdetails.email_list_name != 1">
+                                                    {{entitiesdetails.email_list_name}}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="inlineFlex toptweenty">
@@ -680,7 +685,12 @@
                                             </div>
                                             <div class="inlineFlex toptnine">
                                                 <div class="half containe fontpnr tenpix">
-                                                    {{entitiesdetails.email_list_name}}
+                                                    <div ng-show="entitiesdetails.email_list_name == 1">
+                                                        No Email List
+                                                    </div>
+                                                    <div ng-show="entitiesdetails.email_list_name != 1">
+                                                        {{entitiesdetails.email_list_name}}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="inlineFlex toptweenty">
@@ -1433,7 +1443,12 @@
                                         </div>
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
-                                                {{entitiesdetails.email_list_name}}
+                                                <div ng-show="entitiesdetails.email_list_name == 1">
+                                                    No Email List
+                                                </div>
+                                                <div ng-show="entitiesdetails.email_list_name != 1">
+                                                    {{entitiesdetails.email_list_name}}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="inlineFlex toptweenty">
