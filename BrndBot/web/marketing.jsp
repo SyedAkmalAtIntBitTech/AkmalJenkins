@@ -931,7 +931,7 @@
                                             <div>
                                             <div class="EmployeeInfo">
                                                 
-                                                <button ng-show="facebook_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_facebook)" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Send</button> 
+                                                <button ng-show="facebook_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_facebook)" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
                                             </div>
                                             </div>
                                         <div class=" right EmployeeInfo fulwid">
@@ -1517,7 +1517,7 @@
                                         <div>
                                             <div class="EmployeeInfo">
                                                 
-                                                <button ng-show="twitter_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_twitter)" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Send</button> 
+                                                <button ng-show="twitter_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_twitter)" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
                                             </div>
                                         </div>
                                         <div class=" right EmployeeInfo fulwid" >

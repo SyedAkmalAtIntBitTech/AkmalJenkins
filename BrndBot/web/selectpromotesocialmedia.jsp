@@ -334,14 +334,14 @@
                 <li><div style="left:-330px;" class="col-md-5 col-md-offset-0">
 
                         <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
-                            <input type="hidden" id="imageName" name="imageName" value='<%=ImageName%>' >
+                            <input type="hidden" id="imageName" name="imageName" >
                             <input type="hidden" id="twaccessTokenSend" name="twaccessTokenSend" >
                             <input type="hidden" id="pagenameSend" name="pagenameSend" >
                             <input type="hidden" id="fbaccessTokenSend" name="fbaccessTokenSend">
                             <input type="hidden" id="fbdefaultAccessToken" name="fbdefaultAccessToken">
                             <input type="hidden" id="isFacebook" name="isFacebook" value="false">
                             <input type="hidden" id="isTwitter" name="isTwitter" value="false">
-                            <input type="submit"  id="submitbutton" class="button button--moema button--text-thick button--text-upper button--size-s" value="Continue" disabled>
+                            <input type="submit" id="submitbutton" class="button button--moema button--text-thick button--text-upper button--size-s" value="Continue" disabled>
                         </form> 
                     </div>
                 </li>
