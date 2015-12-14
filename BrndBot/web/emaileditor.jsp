@@ -176,9 +176,10 @@
             var styleHtml = "";
             var BlockHtml = "";
             var rendomIframeFilename = "";
-            var draft_id = <%= draft_id %>;
+            var draftid = 0;
             console.log(draft_id);
             $(document).ready(function () {
+                    draft_id = <%= draft_id %>;
                     $("#addblkbtn").prop('disabled', true);
                     $(".selectrow").css("display", "none");
                     rendomIframeFilename = event.timeStamp;
@@ -226,10 +227,10 @@
                     showText(allLayoutFilename[0]);
                         angular.element(document.getElementById('MyController')).scope().getEmailDrafts();
 
-                    //                                    $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
-                    //                                    $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
-                                        }
-                                });
+//                                    $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
+//                                    $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
+                            }
+                    });
                     });
                     angular.module("myapp", [])
 
