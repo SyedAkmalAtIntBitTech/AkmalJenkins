@@ -36,7 +36,7 @@
         <script src="js/emaillist.js" type="text/javascript"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
    
-        <link rel="stylesheet" href="css/main1.css">
+<!--        <link rel="stylesheet" href="css/main1.css">-->
         <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css">
         <link rel="stylesheet" href="css/newnormalize.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
