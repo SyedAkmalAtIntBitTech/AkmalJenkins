@@ -378,7 +378,7 @@ and open the template in the editor.
 
                 <div class="col-md-10 col-md-offset-1">
                     <div class="col-md-10 ">
-                        <p id="text3" class="MH1"> Setting page</p>
+                        <p id="t3" class="MH1"> Setting page</p>
 
 
                         <div style="width:500px; margin:0px; padding:120px 0 40px;">
