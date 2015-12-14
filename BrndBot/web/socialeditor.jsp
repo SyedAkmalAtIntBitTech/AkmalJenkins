@@ -893,7 +893,7 @@ if (mindbodydataId != ""){
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
-                                            <p id="text3" class="SS2">TEXT</p> 
+                                            <p id="t3" class="SS2">TEXT</p> 
                                             <ul id="textmodification">
                                                 <li  style="position:relative;left:-9px;"><p id="editorheadere" class="editorheadere SS1">font color</p>
                                                     <div class="blankcolor-box1 ptr" id="picker" ></div>
@@ -954,7 +954,7 @@ if (mindbodydataId != ""){
                                         <input type="hidden" id='clickid'>
 
                                         <div id="shapecontainer">
-                                            <p  id="text3" class="SS2">SHAPES</p>
+                                            <p  id="t3" class="SS2">SHAPES</p>
                                             <ul id="shapemodificatoin">
 
                                                         <li>
@@ -983,7 +983,7 @@ if (mindbodydataId != ""){
                                         </div>
 
                                         <div id="imagecontainer">
-                                            <p  id="text3" class="SS2">IMAGE</p>
+                                            <p  id="t3" class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
                                                 <li>
                                                     <select class="imagename LE1 editordropdown" id="editorhead">
@@ -1028,7 +1028,7 @@ if (mindbodydataId != ""){
                                             
                                             <div>
 
-                                                 <p id="text3" class="SS2">SELECT A STYLE</p>
+                                                 <p id="t3" class="SS2">SELECT A STYLE</p>
                                                 <div style="height:500px;">
                                                     <ul>
                                                         <!--{{datalists}}-->
@@ -1070,8 +1070,8 @@ if (mindbodydataId != ""){
             <div id="sidebar-wrapper1">
                 <div id="tabs">
                     <ul class="sidebar-nav">
-                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"  ><p id="text1" >EDIT</p></a></li>
-                        <li id="stl" class="hov" ng-click="showStyles()"><a href="#tabs-2" id="style"><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40"><p id="text1">STYLE</p></a></li>                  
+                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"  ><p id="t1" >EDIT</p></a></li>
+                        <li id="stl" class="hov" ng-click="showStyles()"><a href="#tabs-2" id="style"><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40"><p id="t1">STYLE</p></a></li>                  
                     </ul>
                 </div>
             </div>

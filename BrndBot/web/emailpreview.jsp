@@ -1190,7 +1190,7 @@
             
             <div class="col-md-5 " ng-init="getEmailSettings()">
                 <p id="textgrt" class="MH1 col-md-offset-3">SEND EMAIL PREVIEW</p>
-                <p id="text2">go back</p>
+                <p id="t2">go back</p>
                 <form class="form-horizontal" id="emailform">
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">

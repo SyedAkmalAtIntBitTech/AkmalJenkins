@@ -216,7 +216,7 @@ and open the template in the editor.
     
                     <div class="col-md-9">
                         <div class="col-md-4 col-md-offset-2 " id="uploadModule">
-                            <p style="width:300px;" id="text3" class="MH2"> Your Gallery </p>
+                            <p style="width:300px;" id="t3" class="MH2"> Your Gallery </p>
                            
                     <div class="col-md-4 col-md-offset-0" style="position:relative;left:-33px;height:390px; width:650px; overflow-y: scroll; overflow-x: hidden;">
                        <div ng-module="imagegallery" >
