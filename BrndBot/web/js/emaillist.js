@@ -199,7 +199,7 @@
                     if(email_first_name==="")
                     {
                         error++;
-                        alert("Please Enter Name");
+                        alert("Please Enter First Name");
                         $("#firstName").focus();
                         return false;
                     }
