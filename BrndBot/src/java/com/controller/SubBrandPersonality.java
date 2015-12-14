@@ -19,8 +19,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SubBrandPersonality extends BrndBotBaseHttpServlet {
 
-    RequestDispatcher request_dispatcher;
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,6 +34,8 @@ public class SubBrandPersonality extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        RequestDispatcher request_dispatcher;
+
         getSqlMethodsInstance().session = request.getSession();
         try {
             Integer brandID = null;
@@ -55,7 +55,7 @@ public class SubBrandPersonality extends BrndBotBaseHttpServlet {
             
 
         } catch (Exception e) {
-                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
 
             out.println(getSqlMethodsInstance().error);
         }
