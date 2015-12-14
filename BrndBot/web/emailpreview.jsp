@@ -894,6 +894,7 @@
             var schedule_time = $("#schedule_time").val("");
             var reg=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             var toemailvalid=reg.test(to_email_addresses);
+            var split=to_email_addresses.split(',');
             var fromaddrvalid=reg.test(from_email_address);
             var replytoaddrvalid=reg.test(reply_to_email_address);
             if (from_name == ""){
@@ -921,12 +922,26 @@
                 $("#toaddress").focus();
                 return false;
             }
-            if(toemailvalid ==false){
-                alert("To Address field is not Valid, please Enter Valid Email Address");
-                 $("#toaddress").focus();
-                return false;
+            if(to_email_addresses !== ""){
+                
+                var split = to_email_addresses.split(",");
+                              
+                for (var i = 0; i < split.length; i++) {
+                    //alert(split[i]+"  split length"+split.length);
+                    var email=split[i].trim();
+                    if(reg.test(email) !== "")
+                    {
+                        if(email !== "")
+                        {
+                            if(reg.test(split[i]) === false){
+                                alert(" To Address field is not Valid, please Enter Valid Email Address \n"+split[i]+"\t is Invalid Email id");
+                                $("#toaddress").focus();
+                                return false;
+                            } 
+                        }
+                    }
+                 }
             }
-                      
             if (reply_to_email_address == ""){
                 alert("Reply to email address not entered, please enter the reply to email address");
                 $("#email").focus();
