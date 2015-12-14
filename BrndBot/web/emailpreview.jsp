@@ -892,9 +892,10 @@
             var email_list = $("email_list").val();
             var schedule_title = $("#schedule_title").val("");
             var schedule_time = $("#schedule_time").val("");
-            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;  
-            var emlval=re.test(to_email_addresses);
-            
+            var reg=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var toemailvalid=reg.test(to_email_addresses);
+            var fromaddrvalid=reg.test(from_email_address);
+            var replytoaddrvalid=reg.test(reply_to_email_address);
             if (from_name == ""){
                 alert("From name not entered, please enter the from name");
                 $("#name").focus();
@@ -905,18 +906,34 @@
                 $("#subject").focus();
                 return false;
             }
-            if (to_email_addresses == ""){
-                alert("Email addresses not entered, please enter the email address");
-                $("#toaddress").focus();
-                return false;
-            }
             if (from_email_address == ""){
                 alert("From email address not entered, please enter the from email address");
                 $("#formaddress").focus();
                 return false;
             }
+            if(fromaddrvalid == false){
+                alert("From Address Not Valid, please Enter valid Email id");
+                $("#formaddress").focus();
+                return false;
+            }
+            if (to_email_addresses == ""){
+                alert("To address fieled not entered, please enter the email address");
+                $("#toaddress").focus();
+                return false;
+            }
+            if(toemailvalid ==false){
+                alert("To Address field is not Valid, please Enter Valid Email Address");
+                 $("#toaddress").focus();
+                return false;
+            }
+                      
             if (reply_to_email_address == ""){
                 alert("Reply to email address not entered, please enter the reply to email address");
+                $("#email").focus();
+                return false;
+            }
+            if(replytoaddrvalid ==false){
+                alert("Reply to email address is not Valid, please enter valid reply to email address");
                 $("#email").focus();
                 return false;
             }
@@ -1190,20 +1207,20 @@
 
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="formaddress" class="form-control simplebox" name="from_email_address" type="text" required value="{{email_settings.from_address}}">
+                            <input id="formaddress" class="form-control simplebox" name="from_email_address" type="email" required value="{{email_settings.from_address}}">
                             <label>FROM ADDRESS</label><br>
                         </div>
                     </div>
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="toaddress" class="form-control simplebox" name="email_addresses" type="text"value="">
+                            <input id="toaddress" class="form-control simplebox" name="email_addresses" type="email" value="">
                             <label>TO ADDRESS</label><br>
                         </div>
                     </div>
 
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="email" class="form-control simplebox" name="reply_to_email_address" type="text" required value="{{email_settings.reply_email_address}}">
+                            <input id="email" class="form-control simplebox" name="reply_to_email_address" type="email" required value="{{email_settings.reply_email_address}}">
                             <label>REPLY TO EMAIL</label><br><br>
                         </div>
                     </div>
