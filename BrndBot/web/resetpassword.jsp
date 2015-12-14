@@ -9,7 +9,6 @@
 <html ng-app>
     <head>
          <%@ include file="fonttypekit.jsp"%>
-         <%@ include file="checksession.jsp" %>
 
         <script src="js/configurations.js"></script>
         <script src="js/form.js"></script> 
@@ -45,13 +44,11 @@
                         <label>EMAIL</label><br>
                     </div>
                 </div>
-                        
-
-                        <div  class="form-group">
-                               <div class="col-md-5 col-md-offset-5">
-                                   <button type="submit" class="button button--moema button--text-thick button--text-upper button--size-s">Enter</button><br><br>
-                               </div>
-                        </div>
+                <div  class="form-group">
+                       <div class="col-md-5 col-md-offset-5">
+                           <button type="submit" class="button button--moema button--text-thick button--text-upper button--size-s">Enter</button><br><br>
+                       </div>
+                </div>
                 </form>
         </div>
             
