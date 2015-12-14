@@ -39,7 +39,7 @@ public class SetStudioid extends BrndBotBaseHttpServlet {
         StringBuffer string_buffer = new StringBuffer();
         RequestDispatcher request_dispatcher;
         PrintWriter out = response.getWriter();
-        getSqlMethodsInstance().session = request.getSession();
+        getSqlMethodsInstance().session = request.getSession(true);
 
         try {
              BufferedReader reader = request.getReader();
@@ -55,7 +55,6 @@ public class SetStudioid extends BrndBotBaseHttpServlet {
 
             String studioID = (String) joStudio.get("studioid");
             getSqlMethodsInstance().session.setAttribute("studioID", studioID);
-            request_dispatcher = request.getRequestDispatcher("/SetLookid?type=insert");
             out.write("true");
         }catch(Exception e){
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));

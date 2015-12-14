@@ -85,34 +85,34 @@
         <script>
 
 
-            angular.module("myapp", [])
-            .controller("controllerGetColourPalettes", function($scope, $http) {
+        angular.module("myapp", [])
+        .controller("controllerGetColourPalettes", function($scope, $http) {
 
-                $scope.showData = function( ){
+            $scope.showData = function( ){
 
-                 $scope.curPage = 0;
-                 $scope.pageSize = 10;
+             $scope.curPage = 0;
+             $scope.pageSize = 10;
 
-                    $http({
-                            method : 'GET',
-                            url : 'GetColorPalettes'
-                    }).success(function(data, status, headers, config) {
+                $http({
+                        method : 'GET',
+                        url : 'GetColorPalettes'
+                }).success(function(data, status, headers, config) {
 
-                        $scope.datalists = data;
+                    $scope.datalists = data;
 
-                        $scope.numberOfPages = function() {
-                                            return Math.ceil($scope.datalists.length / $scope.pageSize);
-                         };
-                        if (data === error){
-                            alert(data);
-                        }
-                    }).error(function(data, status, headers, config) {
-                            alert("No data available, problem fetching the data");
-                            // called asynchronously if an error occurs
-                            // or server returns response with an error status.
-                    });
-
+                    $scope.numberOfPages = function() {
+                                        return Math.ceil($scope.datalists.length / $scope.pageSize);
+                     };
+                    if (data === error){
+                        alert(data);
                     }
+                }).error(function(data, status, headers, config) {
+                        alert("No data available, problem fetching the data");
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                });
+
+                }
             });
                     
             function controllerGetColoursFromLogo($scope, $http) {
@@ -137,51 +137,51 @@
             function controllerCreateUserPreferences($scope, $http){
             $scope.createUserPreferences = function()
             {
-                        var s1 =$("#elementToPutStyleInto1").css("background-color");                    
-                        var s2 =$("#elementToPutStyleInto2").css("background-color");
-                        var s3 = $("#elementToPutStyleInto3").css("background-color");                    
-                        var s4 = $("#elementToPutStyleInto4").css("background-color");                     
-                        var s5 = $("#elementToPutStyleInto5").css("background-color");                       
-                        var s6 = $("#elementToPutStyleInto6").css("background-color");
-                        document.getElementById("finalcolor1").value = s1;
-                        document.getElementById("finalcolor2").value = s2;
-                        document.getElementById("finalcolor3").value = s3;
-                        document.getElementById("finalcolor4").value = s4;
-                        document.getElementById("finalcolor5").value = s5;
-                        document.getElementById("finalcolor6").value = s6;
-                
-                
-                    var color1 = $("#finalcolor1").val();
-                    var color2 = $("#finalcolor2").val();
-                    var color3 = $("#finalcolor3").val();
-                    var color4 = $("#finalcolor4").val();
-                    var color5 = $("#finalcolor5").val();
-                    var color6 = $("#finalcolor6").val();
-                    
-                    if (color1 == "rgba(0, 0, 0, 0)" || color2 == "rgba(0, 0, 0, 0)" || color3 == "rgba(0, 0, 0, 0)" || color4 == "rgba(0, 0, 0, 0)" || color5 == "" || color6 == "rgba(0, 0, 0, 0)"){
-                            alert("Please fill all six colors");
-                        }
-                   else{
-                       
-                        var colorObject ="{&quot;"+getColor1()+"&quot;:&quot;"+color1+"&quot;, &quot;"+getColor2()+"&quot;:&quot;"+color2+"&quot;, &quot;"+getColor3()+"&quot;:&quot;"+color3+"&quot;, &quot;"+getColor4()+"&quot;:&quot;"+color4+"&quot;, &quot;"+getColor5()+"&quot;:&quot;"+color5+"&quot;, &quot;"+getColor6()+"&quot;:&quot;"+color6+"&quot;, &quot;type&quot;:&quot;save&quot;}";
-                            $http({
-                                method: 'POST',
-                                        url: getHost() + 'SetUserPreferences',
-                                        headers: {'Content-Type': 'application/json'},
-                                        data:  colorObject
-                                }).success(function (data){
-                                    $scope.status = data;
-                                    if(data === error){
-                                        alert(data);
-                                    }else{
-                                        window.open(getHost() + 'dashboard.jsp', "_self");
-                                    }
-                                })
-                    .error(function(data, status) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                            alert("request not succesful");
-                    });
+                var s1 =$("#elementToPutStyleInto1").css("background-color");                    
+                var s2 =$("#elementToPutStyleInto2").css("background-color");
+                var s3 = $("#elementToPutStyleInto3").css("background-color");                    
+                var s4 = $("#elementToPutStyleInto4").css("background-color");                     
+                var s5 = $("#elementToPutStyleInto5").css("background-color");                       
+                var s6 = $("#elementToPutStyleInto6").css("background-color");
+                document.getElementById("finalcolor1").value = s1;
+                document.getElementById("finalcolor2").value = s2;
+                document.getElementById("finalcolor3").value = s3;
+                document.getElementById("finalcolor4").value = s4;
+                document.getElementById("finalcolor5").value = s5;
+                document.getElementById("finalcolor6").value = s6;
+
+
+                var color1 = $("#finalcolor1").val();
+                var color2 = $("#finalcolor2").val();
+                var color3 = $("#finalcolor3").val();
+                var color4 = $("#finalcolor4").val();
+                var color5 = $("#finalcolor5").val();
+                var color6 = $("#finalcolor6").val();
+
+                if (color1 == "rgba(0, 0, 0, 0)" || color2 == "rgba(0, 0, 0, 0)" || color3 == "rgba(0, 0, 0, 0)" || color4 == "rgba(0, 0, 0, 0)" || color5 == "" || color6 == "rgba(0, 0, 0, 0)"){
+                        alert("Please fill all six colors");
+                    }
+               else{
+
+                    var colorObject ="{&quot;"+getColor1()+"&quot;:&quot;"+color1+"&quot;, &quot;"+getColor2()+"&quot;:&quot;"+color2+"&quot;, &quot;"+getColor3()+"&quot;:&quot;"+color3+"&quot;, &quot;"+getColor4()+"&quot;:&quot;"+color4+"&quot;, &quot;"+getColor5()+"&quot;:&quot;"+color5+"&quot;, &quot;"+getColor6()+"&quot;:&quot;"+color6+"&quot;, &quot;type&quot;:&quot;save&quot;}";
+                        $http({
+                            method: 'POST',
+                                    url: getHost() + 'SetUserPreferences',
+                                    headers: {'Content-Type': 'application/json'},
+                                    data:  colorObject
+                            }).success(function (data){
+                                $scope.status = data;
+                                if(data === error){
+                                    alert(data);
+                                }else{
+                                    window.open(getHost() + 'dashboard.jsp', "_self");
+                                }
+                            })
+                .error(function(data, status) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                        alert("request not succesful");
+                });
             }
             }
 
@@ -199,23 +199,23 @@
         </script>
 
     <script>
-                var ElementID;
-                /*------ get selected element ID -----*/
-                        function getElementID(IDNo){
-                        ElementID = IDNo;
-                        $('.step_wrapper').on('click', '.step_box', function () {
-                $(this).parent().find('.step_box').css('width', '').css('height', '').css('border-color', '').css('border-radius', '');
-                                $(this).css('width', '80px').css('height', '40px').css('border-color', '#FF0000').css('border-radius', '10px');
-                        });
-                                $("#sortable").sortable();
-                                $("#sortable").disableSelection();
-                        }
-                /*------ pass color into the selected element got by id-----*/
-                function getIDNo(IDNo){
-                var s = $("#" + IDNo).attr("style");
-                        var s1 = s.split(":");
-                        $("#" + ElementID).css("background-color", s1[1]);
+        var ElementID;
+        /*------ get selected element ID -----*/
+                function getElementID(IDNo){
+                ElementID = IDNo;
+                $('.step_wrapper').on('click', '.step_box', function () {
+        $(this).parent().find('.step_box').css('width', '').css('height', '').css('border-color', '').css('border-radius', '');
+                        $(this).css('width', '80px').css('height', '40px').css('border-color', '#FF0000').css('border-radius', '10px');
+                });
+                        $("#sortable").sortable();
+                        $("#sortable").disableSelection();
                 }
+        /*------ pass color into the selected element got by id-----*/
+        function getIDNo(IDNo){
+        var s = $("#" + IDNo).attr("style");
+                var s1 = s.split(":");
+                $("#" + ElementID).css("background-color", s1[1]);
+        }
 
     </script>
     <script>
@@ -282,7 +282,7 @@
                         <%! Integer i=1; %>
                         <div ng-controller="controllerGetColourPalettes" class="tab-pane active" id="picktheme" ng-init="showData()">
                             <div style="height:270px;  overflow-y: scroll">
-                                <div ng-repeat= "theme in datalists" id="rep"  >
+                                <div ng-repeat= "theme in datalists" id="rep">
 
                                     <script type="text/javascript">
                                     </script>

@@ -5,6 +5,7 @@
  */
 package com.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -12,13 +13,14 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
  * @author intbit
  */
 public class SetLookid extends BrndBotBaseHttpServlet {
-
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,19 +40,29 @@ public class SetLookid extends BrndBotBaseHttpServlet {
         StringBuffer string_buffered;
         string_buffered = new StringBuffer();
         PrintWriter out = response.getWriter();
-        getSqlMethodsInstance().session = request.getSession();
+        getSqlMethodsInstance().session = request.getSession(true);
 
         try {
             Integer LookID = null;
-            String type = request.getParameter("type");
+            BufferedReader reader = request.getReader();
+             String line = null;
+              while ((line = reader.readLine()) != null)
+              {
+                string_buffered.append(line);
+              }
+
+            JSONParser parser = new JSONParser();
+            JSONObject json_look = null;
+            json_look = (JSONObject) parser.parse(string_buffered.toString());
+            
+            String type = (String)json_look.get("type");
             
             if (type.equalsIgnoreCase("insert")){
                 
                 LookID = getSqlMethodsInstance().getLookIDFromLooks();
                 getSqlMethodsInstance().session.setAttribute("LookID", LookID);
+                out.write(LookID.toString());
                 
-                request_dispatcher = request.getRequestDispatcher("/SubbrandPersonality?lookID="+LookID+"&type=insert");
-                request_dispatcher.forward(request, response);
             }else if(type.equalsIgnoreCase("update")){
                 Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
                 getSqlMethodsInstance().updateLooks(user_id, LookID);
