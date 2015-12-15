@@ -251,7 +251,7 @@
                                 {
                                     if (data === "true") {
                                         alert("Data saved successfully.");
-                                        window.open(getHost() + 'emaillistsdetails.jsp?list_name='+email_list_name+'&type='+type, "_self");
+                                        window.open(getHost() + 'emaillists.jsp', "_self");
                                     }
                                 });
                             }else if (data === "true"){
@@ -273,7 +273,7 @@
                             {
                                 if (data === "true") {
                                     alert("Data saved successfully.");
-                                    window.open(getHost() + 'emaillistsdetails.jsp?list_name='+email_list_name+'&type='+type, "_self");
+                                    window.open(getHost() + 'emaillists.jsp', "_self");
 
                                 } else if (data === error) {
                                     alert(data);
@@ -353,9 +353,7 @@
                     $("#chooseEmailList").val("");
                 };
                 
-                $scope.updateList = function () {
-                    var list_name=$("#get_list_name").val();
-                    var type=$("#get_type").val();
+                $scope.updateList = function (list_name,type) {
                     $("#tab4").hide();
                     $("#email_list_name").val(list_name);
                     $http({
@@ -504,7 +502,7 @@
                     }
                 };
                 $scope.showAddContacts = function (){
-                    $("#showList").hide();
+                    $("#tab3").hide();
                     $("#tab4").show();
                 };
                 

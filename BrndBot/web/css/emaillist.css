@@ -142,4 +142,6 @@ By Satyajit Roy form http://www.intbittech.com
                 opacity: 0;
                 filter: alpha(opacity=0);
             }
-        
+.page-cta-container{
+   display:none;
+}

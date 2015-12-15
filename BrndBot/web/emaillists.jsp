@@ -33,7 +33,7 @@
         <script src="js/form.js" type="text/javascript"></script>
         <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
         <script src="js/popup.js" type="text/javascript"></script>
-        <script src="js/emaillist.js" type="text/javascript"></script>
+        <script src="js/emaillist_old.js" type="text/javascript"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
    
 <!--        <link rel="stylesheet" href="css/main1.css">-->
@@ -78,8 +78,8 @@
                     </div><br><br>
                 </div>
                     
-                    <div id="tab2" class="col-md-8 col-md-offset-2 " class="hide" style="padding-top:5%;">
-                  <div class="col-md-6 col-md-offset-0"><p id="hyshead" class="MH2">Create a new list</p></div>
+                <div id="tab2" class="col-md-8 col-md-offset-2 " class="hide" style="padding-top:5%;">
+                <div class="col-md-6 col-md-offset-0"><p id="hyshead" class="MH2">Create a new list</p></div>
                 <div class="col-md-6 col-md-offset-0">  <p class="SS2" style="width:400px;left:-245px;position:relative;top:80px;"> Create a new email list. After you hit save, you will then be
                 able to add new contacts.</p></div>
                 <div class="col-md-6 col-md-offset-0 bgcols">
@@ -143,7 +143,7 @@
             </div>
 
               
-                    <div id="tab4" class="col-md-10 col-md-offset-2" class="hide">
+            <div id="tab4" class="col-md-10 col-md-offset-2" class="hide">
                 <div id="emailsubjectdiv" ng-controller="EmailListController">
                     <p class="header1">Email List:</p>
                     <input type="text" class="hideinputborder" id="email_list_name" name="email_list_name" placeholder="Enter Here"/> <br>

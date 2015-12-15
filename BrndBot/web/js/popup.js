@@ -25,7 +25,7 @@ function fun(type,email,id,fname,lname)
 {
     $("#fade").show();
     $("#addContact").show();
-    
+    $("#uuid").val(id);
     if(type==="update")
     {
         $("#emailId").val(email);
