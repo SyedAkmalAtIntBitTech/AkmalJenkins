@@ -21,8 +21,6 @@ import org.json.simple.parser.JSONParser;
  * @author intbit
  */
 public class SubBrandPersonality extends BrndBotBaseHttpServlet {
-
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -74,7 +72,7 @@ public class SubBrandPersonality extends BrndBotBaseHttpServlet {
             
 
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while reading the Subbrand personality", getSqlMethodsInstance().error));
 
             out.println(getSqlMethodsInstance().error);
         }

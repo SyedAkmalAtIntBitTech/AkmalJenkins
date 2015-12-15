@@ -63,19 +63,19 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
   <script type="text/javascript" src="js/froala_editor.min_editor.js" ></script>
-        <script type="text/javascript" src="js/plugins/align.min.js"></script>
-        <script type="text/javascript" src="js/plugins/colors.min_Editor.js" ></script>
-        <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
-        <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
-        <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
-        <script type="text/javascript" src="js/plugins/file.min.js"></script>
-        <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
-        <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
-        <script type="text/javascript" src="js/plugins/url.min.js"></script>
-        <script type="text/javascript" src="js/plugins/entities.min.js"></script>
-        <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
-        <script type="text/javascript" src="js/plugins/save.min.js"></script>
-        <script type="text/javascript" src="js/plugins/quote.min.js"></script>
+    <script type="text/javascript" src="js/plugins/align.min.js"></script>
+    <script type="text/javascript" src="js/plugins/colors.min_Editor.js" ></script>
+    <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
+    <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
+    <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/file.min.js"></script>
+    <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/url.min.js"></script>
+    <script type="text/javascript" src="js/plugins/entities.min.js"></script>
+    <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
+    <script type="text/javascript" src="js/plugins/save.min.js"></script>
+    <script type="text/javascript" src="js/plugins/quote.min.js"></script>
 <jsp:include page="basejsp.jsp"/>
       
 </head>
@@ -251,14 +251,13 @@
                        <div class="col-sm-12 col-md-12 col-lg-12 bgcolor"> 
                    <style>
                        #edit{
-                   position: relative;
-                   top:0px;
-                   font-family:"proxima-nova";
-                   font-weight:500;
-                   left: 0em; 
-                   color: #2D4444;
-
-                   }
+                            position: relative;
+                            top:0px;
+                            font-family:"proxima-nova";
+                            font-weight:500;
+                            left: 0em; 
+                            color: #2D4444;
+                        }
                    </style>
 
                    <div id="editor">
