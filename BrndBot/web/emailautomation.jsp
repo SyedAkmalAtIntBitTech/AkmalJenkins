@@ -75,6 +75,16 @@
         </style>
     
   <style>
+      .textstyle
+      {
+        margin-top: 7px;
+        width: 280px;
+        height: 30px;
+        display: inline-block;
+        color: #3f3f42;
+        font-size: 16px;
+        padding: 5px 8px 5px 8px;
+      }
 
       div#editor {
           width: 100%;
@@ -831,10 +841,10 @@
                    <div class="selblklinediv"><hr class="selblkline"></div>
                 </div>
                    <div class="col-md-6 col-lg-6 col-sm-6">
-                        <div class="addblkdiv">To add client name please use these options</div>
-                        <div>Ex: Hi &LT; clientFirstName &GT; </div>
-                        <div>Hi &LT; clientLastName &GT; </div>
-                        <div>Hi &LT; clientFullName &GT; </div>
+                        <div class="textstyle">To add client name please use these options</div>
+                        <div class="textstyle">Ex: Hi &LT; clientFirstName &GT; </div>
+                        <div class="textstyle">Hi &LT; clientLastName &GT; </div>
+                        <div class="textstyle">Hi &LT; clientFullName &GT; </div>
                     </div>
                </div>
                
