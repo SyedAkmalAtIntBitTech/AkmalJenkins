@@ -71,7 +71,7 @@ label                {
   color:#999;
 }
 #email:focus ~ label, #email:valid ~ label        {
-  left:-100px;
+  left:-90px;
   font-size:13px;
   color:#999;
 }
