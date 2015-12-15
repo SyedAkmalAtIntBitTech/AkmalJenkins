@@ -1,8 +1,19 @@
-/**
- *
- * Author: Satyajit Roy www.intbittech.com
- * 
+/*
+ * Description : emaillist.js
+ * Date        : 8 Dec 2015    12:49:25 PM
+ * Author      : Satyajit Roy At IntBit Technologied
  */
+ $(".cross").hide();
+ $(".menu").hide();
+ $("#emaillist").hide();
+ 
+ $("#fileUpload").change(function () {
+    loadImageFile();
+    // resets input file
+    $('.fileUpload').wrap('<form>').closest('form').get(0).reset();
+    $('.fileUpload').unwrap();
+});
+
             var update = "";
             var selectedlistname = "";
             var selectedemailids = "";
@@ -19,65 +30,15 @@
                     emailid = $("#"+id).val();
                     selectedemailids = selectedemailids.replace(emailid+",","");
                 }
+                
             }
-            
-            var count=0;
-            
-        function selcheckbox(id){ 
-//            alert(id+"--selected");
-            content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
-//            alert(content);
-            var htm=$("#"+id).html();
-//            alert(htm);
-            if(htm.contains('class="check-icon"')){
-               count-=1;
-                $("#"+id).html(content);
-            }
-            else
-            {   
-                count+=1;
-                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
-            }
-            $("#"+id).toggleClass('selection-icon');
-            $("#"+id).toggleClass('selection-icon-selected');
-            if(count > 0)
-            {
-                $(".delete-button").show();
-            }
-            if(count==0)
-            {
-                $(".delete-button").hide();
-            }
-        }
             
             
             $(document).ready(function () {
-                $("#importList").click(function(){
-                    $("#showList").hide();
-                    $("#tab4").show();
-                    $("#importList").removeClass("h3");
-                    $("#emailList").removeClass("h3-active-subnav");
-                    $("#emailListli").removeClass("top-subnav-link-active");
-                    $("#importListli").removeClass("top-subnav-links");
-                    $("#importList").addClass("h3-active-subnav");
-                    $("#emailList").addClass("h3");
-                    $("#emailListli").addClass("top-subnav-links");
-                    $("#importListli").addClass("top-subnav-link-active");
-                    
+                $("#close").click(function(){
+                   $("#fade").hide();
+                   $("#addContact").hide(); 
                 });
-                $("#emailList").click(function(){
-                    $("#tab4").hide();
-                    $("#showList").show();
-                    $("#importList").removeClass("h3-active-subnav");
-                    $("#emailList").removeClass("h3");
-                    $("#importList").addClass("h3");
-                    $("#emailList").addClass("h3-active-subnav");
-                    $("#emailListli").removeClass("top-subnav-links");
-                    $("#importListli").removeClass("top-subnav-link-active");
-                    $("#emailListli").addClass("top-subnav-link-active");
-                    $("#importListli").addClass("top-subnav-links");
-                });
-                $(".delete-button").hide();
                 $("#chooseEmailList").change(function () {
                     var x = document.getElementById("chooseEmailList").selectedIndex;
                     var List_name = document.getElementsByTagName("option")[x].value;
@@ -98,6 +59,18 @@
                     });
 
                 });
+                
+                $("#selectAll").click(function (){    
+                    var selectAll = document.getElementById("selectAll").checked;
+                    if (selectAll == true){
+                        
+                         $(".email").prop("checked", true);
+                    }else if(selectAll == false) {
+                         $(".email").prop("checked", false);
+                    }
+
+                });
+                
             });
             
             function setSelectedlistName(listname){
@@ -171,6 +144,8 @@
             }
 
             function EmailListController($scope, $http) {
+
+
                 $scope.createEmailList = function () {
                     var emailListName = $("#list_name").val();
                     var defaultFromName = $("#default_from_name").val();
@@ -195,6 +170,52 @@
                     }
                     
                 };
+                
+                function validateEmailListPopup() {
+                    var email_address = $("#emailId").val();
+                    var email_first_name = $("#firstName").val();
+                    var email_last_name = $("#lastName").val();
+                    var error=0;
+
+                    if(email_address==="")
+                    {
+                        error++;
+                        alert("Please Enter Email Address");
+                        $("#emailId").focus();
+                        return false;
+                    }
+                     if(email_address!=="")
+                    {
+                        var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                        if(re.test(email_address)){}
+                        else
+                        {
+                            error++;
+                            alert("Please Enter Valid Email Address");
+                            $("#emailId").focus();
+                            return false;
+                        }
+                    }
+                    if(email_first_name==="")
+                    {
+                        error++;
+                        alert("Please Enter First Name");
+                        $("#firstName").focus();
+                        return false;
+                    }
+                    if(email_last_name==="")
+                    {
+                        error++;
+                        alert("Please Enter Last Name");
+                        $("#lastName").focus();
+                        return false;
+                    }
+                    if(error===0)
+                    {
+                        return true;   
+                    }
+                }
+                
                 $scope.updateEmailID = function(){
                     var email_list_name = $("#email_list_name").val();
                     var email_address = $("#emailId").val();
@@ -262,6 +283,7 @@
                         }
                     }            
                 };
+                
                 $scope.updateEmailList = function () {
                     var email_list_name = $("#email_list_name").val();
                     var email_list = $("#textArea").val();
@@ -332,10 +354,8 @@
                     $("#chooseEmailList").val("");
                 };
                 
-                $scope.updateList = function () {
-                    $scope.count = 0;
-                    var list_name=$("#get_list_name").val();
-                    var type=$("#get_type").val();
+                $scope.updateList = function (list_name, type) {
+//                    alert(list_name);
                     $("#email_list_name").val(list_name);
                     $http({
                         method: 'GET',
@@ -355,65 +375,7 @@
                             for (var i = 0; i <= data.user_emailAddresses.length; i++){
                                 
                                 var emailadd = data.user_emailAddresses[i];
-                                if (emailadd.emailid == ""){
-                                    $("#NoContacts").css("display","block");
-                                    setTimeout(function() 
-                                    {
-                                      //do something special
-                                      $('input[type="checkbox"]').css("display","none");
-
-                                    }, 100);
-                                }
-
-                            }
-                        }else if (type == 'mindbody'){
-                            
-                            $("#tab3").show();
-                            $("#tab1").hide();
-//                            $("#addcontacts").attr("disabled", true);
-                            $("#addcontacts").hide();
-                            $("#deleteSelected").hide();
-                            $("#emailaddrs").hide();
-                            $(".head").css("padding-bottom","15%");
-//                            
-//                            $("#selectAll").attr("disabled", true);
-//                            document.getElementById('email1').hide();
-                            $("#email1").hide();
-                            setTimeout(function() 
-                            {
-                              //do something special
-                              $('input[type="checkbox"]').css("display","none");
-                              
-                            }, 100);
-                        }
-                        if (data === error) {
-                            alert(data);
-                        }
-                    });
-                    
-                };
-                
-                $scope.updateList1 = function (list_name,type) {
-                    $("#email_list_name").val(list_name);
-                    $http({
-                        method: 'GET',
-                        url: getHost() + 'GetEmailLists?update=emailsForEmailList&list_name='+list_name
-                    }).success(function (data, status, headers, config) {
-                        $scope.user_emailAddresses = data.user_emailAddresses;
-                        $scope.mindbody_emailAddresses = data.mindbody_emailAddresses;
-                        $scope.selected_email_listname = list_name;
-                        $scope.type = type;
-                        if (type == 'user'){
-                            $("#tab1").hide();
-                            $("#tab2").hide();
-                            $("#tab3").show();
-                            $("#addcontacts").show();
-                            $("#deleteSelected").show();
-                            $("#selectAll").show();
-                            for (var i = 0; i <= data.user_emailAddresses.length; i++){
-                                
-                                var emailadd = data.user_emailAddresses[i];
-                                if (emailadd.emailid == ""){
+                                if (emailadd.emailAddress == ""){
                                     $("#NoContacts").css("display","block");
                                     setTimeout(function() 
                                     {
@@ -465,8 +427,8 @@
                             var i = 0;
                             var emails = "";
                             for(i=0; i<data.user_emailAddresses.length; i++){
-                                        if (data.user_emailAddresses[i].emailid != ""){
-                                            emails = data.user_emailAddresses[i].emailid + "," + emails;
+                                        if (data.user_emailAddresses[i].emailAddress != ""){
+                                            emails = data.user_emailAddresses[i].emailAddress + "," + emails;
                                         }
                                     }
                             for(i=0; i<data.mindbody_emailAddresses.length; i++){
@@ -483,15 +445,16 @@
                     
                 };
                 
-                $scope.selectCheckBox = function (){
-                    var selectAll = document.getElementById("selectAll").checked;
-                    if (selectAll){
-                         $(".email").attr("checked", true);
-                    }else {
-                         $(".email").attr("checked", false);
-                    }
-
-                };
+//                $scope.selectCheckBox = function (){
+//                    var selectAll = document.getElementById("selectAll").checked;
+//                    if (selectAll == true){
+//                        alert(selectAll);
+//                         $(".email").attr("checked", true);
+//                    }else if(selectAll == false) {
+//                         $(".email").attr("checked", false);
+//                    }
+//
+//                };
                 
                 $scope.deleteSelected = function (){
                     var selectAll = document.getElementById("selectAll").checked;
@@ -551,17 +514,3 @@
                     $("#tab4").hide();
                 };
             }
-
-            $(".cross").hide();
-            $(".menu").hide();
-            $("#emaillist").hide();
-
-           
-
-            $("#fileUpload").change(function () {
-
-                loadImageFile();
-                // resets input file
-                $('.fileUpload').wrap('<form>').closest('form').get(0).reset();
-                $('.fileUpload').unwrap();
-            });
