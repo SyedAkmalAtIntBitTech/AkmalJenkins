@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONObject;
 import static social.controller.ScheduleTwitterPost.logger;
 import util.DateTimeUtil;
 
@@ -53,7 +54,26 @@ public class ScheduleAnRecuringEmail implements Runnable {
                     SendAnEmail anEmail = new SendAnEmail();
                     //and get days from TblScheduledEntityList
                     Integer days = currentScheduledRecuringEmail.getDays();
-                    String to_email_addresses = anEmail.getAllEmailAddressesForEmailList(user_id, days, emaillist_name);
+                    JSONObject json_object = anEmail.getAllEmailAddressesForEmailList(user_id, days, emaillist_name);
+
+                    String to_email_addresses = json_object.get("emailAddresses").toString();
+                    String firstName = json_object.get("firstName").toString();
+                    String lastName = json_object.get("lastName").toString();
+                    
+                    boolean check_availability_firstName = html_text.contains("clientFirstName");
+                    boolean check_availability_lastName = html_text.contains("clientLastName");
+                    boolean check_availability_fullName = html_text.contains("clientFullName");
+
+                    if (check_availability_firstName){
+                        html_text.replace("clientFirstName", firstName);
+                    }
+                    if (check_availability_lastName){
+                        html_text.replace("clientLastName", lastName);
+                    }
+                    if (check_availability_fullName){
+                        html_text.replace("clientFullName", firstName + " " + lastName);
+                    }
+                    
                     String message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name);
 //                    String message = "success";//TODO
                     if (message.equalsIgnoreCase("success")) {

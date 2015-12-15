@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="css/plugins/char_counter.css">
   <link rel="stylesheet" href="css/plugins/video.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <link rel="stylesheet" href="css/pikaday.css">
   <link rel="stylesheet" href="css/datepickerpikaday.css">
   <script src="js/pikaday.js"></script>
@@ -70,9 +71,20 @@
                 background-color: #ffffff;
                 font-family: 'Segoe UI Light', sans-serif;
                 font-size: 15pt;
-            }</style>
+            }
+        </style>
     
   <style>
+      .textstyle
+      {
+        margin-top: 7px;
+        width: 280px;
+        height: 30px;
+        display: inline-block;
+        color: #3f3f42;
+        font-size: 16px;
+        padding: 5px 8px 5px 8px;
+      }
 
       div#editor {
           width: 100%;
@@ -119,6 +131,21 @@
     var entity_id = 0;
     var type = "";
     var program_id = "";
+    
+    $(document).ready(function () {
+    $("#templatetab").click(function (){
+           $("#textdiv").hide();
+           $("#templatediv").show();
+           $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
+           $("#texttab").css("background-color","transparent").css("color","#19587c");
+       });
+       $("#texttab").click(function (){
+           $("#templatediv").hide();
+           $("#textdiv").show();
+           $("#texttab").css("background-color","#ffffff").css("color","#19587c");
+           $("#templatetab").css("background-color","transparent").css("color","#19587c");
+       });  
+    });
     
 //    setTimeout(
 //        function() 
@@ -730,22 +757,20 @@
                <div class="col-sm-7 col-md-7 col-lg-7">
                    <div class="row">
                        <div class="col-sm-12 col-md-12 col-lg-12 bgcolor"> 
-                   <style>
-                       #edit{
-                   position: relative;
-                   top:0px;
-                   font-family:"proxima-nova";
-                   font-weight:500;
-                   left: 0em; 
-                   color: #2D4444;
+                            <style>
+                                #edit{
+                                    position: relative;
+                                    top:0px;
+                                    font-family:"proxima-nova";
+                                    font-weight:500;
+                                    left: 0em; 
+                                    color: #2D4444;
+                                }
+                            </style>
 
-                   }
-                   </style>
-
-                   <div id="editor">
-                       <div id='edit' style="margin-top:0px;">
-                       </div>
-                   </div>
+                        <div id="editor">
+                            <div id='edit' style="margin-top:0px;"></div>
+                        </div>
                        </div>
                    </div>
                    <div class="row">
@@ -777,7 +802,8 @@
                    </div> 
        </div>
        <div class="col-sm-3 col-md-3 col-lg-3">
-           <div class="blockselection">     
+           
+           <div class="blockselection" id="templatediv">     
                <div class="row">
                    <div class="col-md-12 col-lg-12 col-sm-12">
                        <div class="selblock fontpnr">Select a Template</div>
@@ -805,6 +831,40 @@
                    </div>
                </div>
            </div>
+       
+           <div class="blockselection" id="textdiv">     
+               <div class="row">
+                   <div class="col-md-12 col-lg-12 col-sm-12">
+                       <div class="selblock fontpnr">Select a Text</div>
+                   </div>
+                <div class="row">
+                   <div class="selblklinediv"><hr class="selblkline"></div>
+                </div>
+                   <div class="col-md-6 col-lg-6 col-sm-6">
+                        <div class="textstyle">To add client name please use these options</div>
+                        <div class="textstyle">Ex: Hi &LT; clientFirstName &GT; </div>
+                        <div class="textstyle">Hi &LT; clientLastName &GT; </div>
+                        <div class="textstyle">Hi &LT; clientFullName &GT; </div>
+                    </div>
+               </div>
+               
+               <div class="row">
+                   <div class="col-md-12 col-lg-12 col-sm-12">
+<!--                       <ul id="blklist" class="blocklist fontpnr">
+                           <li ng-repeat="email_template in recuring_email_templates"> 
+                               <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
+                           </li>
+                       </ul>-->
+<!--                            <ul id="stylelist" class="blocklist fontpnr">
+                           <li ng-repeat="styles in datalistsstyles">
+                               <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" /></div>
+                           </li>
+
+                       </ul>-->
+                   </div>
+               </div>
+           </div>
+           
        </div>
        <div class="col-sm-1 col-md-1 col-lg-1">
            <div class="blockstyletab">      
@@ -816,6 +876,10 @@
                    <li id="templatetab">
                        <image src='images/sidebar/Icons_blockButton.svg' class="blockimg"/>
                        <p>TEMPLATE</p>
+                   </li>
+                   <li id="texttab">
+                       <image src='images/sidebar/Icons_editButton_blue_new.svg' class="blockimg"/>
+                       <p>TEXT</p>
                    </li>
                </ul>
            </div>
@@ -918,7 +982,7 @@
                     
                
         </script> 
-         <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
