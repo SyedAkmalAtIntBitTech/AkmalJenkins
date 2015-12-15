@@ -21,13 +21,38 @@ function overlay(){
             }
 
 
-function fun(value)
+function fun(type,email,id,fname,lname)
 {
     $("#fade").show();
     $("#addContact").show();
-    $("#emailId").val(value);
-    overlay();
-    alert("... ok ...");
+    
+    if(type==="update")
+    {
+        $("#emailId").val(email);
+    }
+    else
+    {
+        $("#emailId").val("");
+    }
+    if(fname !=="")
+    {
+        $("#firstName").val(fname);
+    }
+    else
+    {
+        $("#firstName").val("");
+    }
+    if(lname !=="")
+    {
+        $("#lastName").val(lname);
+    }
+    else
+    {
+        $("#lastName").val("");
+    }
+    
+    $("#type").val(type);
+    overlay();  
 }
 $(document).ready(function ()
 {

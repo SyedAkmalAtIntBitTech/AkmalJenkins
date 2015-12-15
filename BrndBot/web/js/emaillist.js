@@ -222,10 +222,9 @@
                     var email_first_name = $("#firstName").val();
                     var email_last_name = $("#lastName").val();
                     var type = $("#type").val();
-                    
                     if (validateEmailListPopup()){
                         var emaildetails;
-                    if (type == "add"){
+                    if (type === "add"){
                         emaildetails = {"update":"checkAvailability", "emailListName":email_list_name, 
                                             "emailAddress":email_address, "emailFirstName":email_first_name, 
                                             "emailLastName":email_last_name}
@@ -260,7 +259,7 @@
                             }
                         });
                     
-                        }else if (type == "update"){
+                        }else if (type === "update"){
                             var id = $("#uuid").val();
                             emaildetails = {"update":"updateEmailID", "emailUID":id, "emailListName":email_list_name, 
                                                 "emailAddress":email_address, "emailFirstName":email_first_name, 
