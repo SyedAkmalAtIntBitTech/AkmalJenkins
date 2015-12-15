@@ -827,13 +827,17 @@
                    <div class="col-md-12 col-lg-12 col-sm-12">
                        <div class="selblock fontpnr">Select a Text</div>
                    </div>
-<!--                        <div class="col-md-6 col-lg-6 col-sm-6">
-                       <div class="addblkdiv"><input class="addblkbtn fontpns " type="button" value="Add Block"></div>
-                   </div>-->
-               </div>
-               <div class="row">
+                <div class="row">
                    <div class="selblklinediv"><hr class="selblkline"></div>
+                </div>
+                   <div class="col-md-6 col-lg-6 col-sm-6">
+                        <div class="addblkdiv">To add client name please use these options</div>
+                        <div>Ex: Hi &LT; clientFirstName &GT; </div>
+                        <div>Hi &LT; clientLastName &GT; </div>
+                        <div>Hi &LT; clientFullName &GT; </div>
+                    </div>
                </div>
+               
                <div class="row">
                    <div class="col-md-12 col-lg-12 col-sm-12">
 <!--                       <ul id="blklist" class="blocklist fontpnr">
