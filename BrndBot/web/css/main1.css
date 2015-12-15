@@ -262,7 +262,7 @@ label                {
   color:#999 !important;
 }
 #inputreenter:focus ~ label, #inputreenter:valid ~ label{
-    left:-72px;
+    left:-128px;
     font-size:13px;
     color:#999;
     
