@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="css/plugins/char_counter.css">
   <link rel="stylesheet" href="css/plugins/video.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <link rel="stylesheet" href="css/pikaday.css">
   <link rel="stylesheet" href="css/datepickerpikaday.css">
   <script src="js/pikaday.js"></script>
@@ -119,6 +120,21 @@
     var entity_id = 0;
     var type = "";
     var program_id = "";
+    
+    $(document).ready(function () {
+    $("#templatetab").click(function (){
+           $("#textdiv").hide();
+           $("#templatediv").show();
+           $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
+           $("#texttab").css("background-color","transparent").css("color","#19587c");
+       });
+       $("#texttab").click(function (){
+           $("#templatediv").hide();
+           $("#textdiv").show();
+           $("#texttab").css("background-color","#ffffff").css("color","#19587c");
+           $("#templatetab").css("background-color","transparent").css("color","#19587c");
+       });  
+    });
     
 //    setTimeout(
 //        function() 
@@ -777,7 +793,8 @@
                    </div> 
        </div>
        <div class="col-sm-3 col-md-3 col-lg-3">
-           <div class="blockselection">     
+           
+           <div class="blockselection" id="templatediv">     
                <div class="row">
                    <div class="col-md-12 col-lg-12 col-sm-12">
                        <div class="selblock fontpnr">Select a Template</div>
@@ -805,6 +822,36 @@
                    </div>
                </div>
            </div>
+       
+           <div class="blockselection" id="textdiv">     
+               <div class="row">
+                   <div class="col-md-12 col-lg-12 col-sm-12">
+                       <div class="selblock fontpnr">Select a Text</div>
+                   </div>
+<!--                        <div class="col-md-6 col-lg-6 col-sm-6">
+                       <div class="addblkdiv"><input class="addblkbtn fontpns " type="button" value="Add Block"></div>
+                   </div>-->
+               </div>
+               <div class="row">
+                   <div class="selblklinediv"><hr class="selblkline"></div>
+               </div>
+               <div class="row">
+                   <div class="col-md-12 col-lg-12 col-sm-12">
+<!--                       <ul id="blklist" class="blocklist fontpnr">
+                           <li ng-repeat="email_template in recuring_email_templates"> 
+                               <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
+                           </li>
+                       </ul>-->
+<!--                            <ul id="stylelist" class="blocklist fontpnr">
+                           <li ng-repeat="styles in datalistsstyles">
+                               <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" /></div>
+                           </li>
+
+                       </ul>-->
+                   </div>
+               </div>
+           </div>
+           
        </div>
        <div class="col-sm-1 col-md-1 col-lg-1">
            <div class="blockstyletab">      
@@ -816,6 +863,10 @@
                    <li id="templatetab">
                        <image src='images/sidebar/Icons_blockButton.svg' class="blockimg"/>
                        <p>TEMPLATE</p>
+                   </li>
+                   <li id="texttab">
+                       <image src='images/sidebar/Icons_editButton_blue_new.svg' class="blockimg"/>
+                       <p>TEXT</p>
                    </li>
                </ul>
            </div>
