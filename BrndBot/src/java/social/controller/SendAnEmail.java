@@ -96,16 +96,22 @@ public class SendAnEmail {
         return returnMessage;
     }
 
-    public String getAllEmailAddressesForEmailList(Integer userId, Integer days, String emailListName) throws Throwable {
+    public JSONObject getAllEmailAddressesForEmailList(Integer userId, Integer days, String emailListName) throws Throwable {
         
         JSONObject userPreferences = (JSONObject)sqlMethods.getJSONUserPreferences(userId);
         JSONArray userPreferencesJson = (JSONArray)userPreferences.get(IConstants.kEmailAddressUserPreferenceKey);
         org.json.simple.JSONArray jSONArray = null;
+        JSONObject jsonObject = new JSONObject();
+        String firstName = "";
+        String lastName = "";
+        
          for (Object emaiListObject : userPreferencesJson) {
                 JSONObject emailListJSONObject = (JSONObject) emaiListObject;
                 String emailListNameInUserPreferences = (String) emailListJSONObject.get("emailListName");
                 if (emailListNameInUserPreferences.equals(emailListName)) {
                  jSONArray = (JSONArray)emailListJSONObject.get("emailAddresses");
+                 firstName = (String)emailListJSONObject.get("firstName");
+                 lastName = (String)emailListJSONObject.get("lastName");
                  break;
              }
         }
@@ -132,8 +138,11 @@ public class SendAnEmail {
 
             }
         }
+        jsonObject.put("emailAddress", to_email_addresses);
+        jsonObject.put("firstName", firstName);
+        jsonObject.put("lastName", lastName);
 
-        return to_email_addresses;
+        return jsonObject;
     }
 
 }

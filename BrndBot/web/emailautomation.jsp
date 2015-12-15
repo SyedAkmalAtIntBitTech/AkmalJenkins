@@ -70,7 +70,8 @@
                 background-color: #ffffff;
                 font-family: 'Segoe UI Light', sans-serif;
                 font-size: 15pt;
-            }</style>
+            }
+        </style>
     
   <style>
 
@@ -730,22 +731,20 @@
                <div class="col-sm-7 col-md-7 col-lg-7">
                    <div class="row">
                        <div class="col-sm-12 col-md-12 col-lg-12 bgcolor"> 
-                   <style>
-                       #edit{
-                   position: relative;
-                   top:0px;
-                   font-family:"proxima-nova";
-                   font-weight:500;
-                   left: 0em; 
-                   color: #2D4444;
+                            <style>
+                                #edit{
+                                    position: relative;
+                                    top:0px;
+                                    font-family:"proxima-nova";
+                                    font-weight:500;
+                                    left: 0em; 
+                                    color: #2D4444;
+                                }
+                            </style>
 
-                   }
-                   </style>
-
-                   <div id="editor">
-                       <div id='edit' style="margin-top:0px;">
-                       </div>
-                   </div>
+                        <div id="editor">
+                            <div id='edit' style="margin-top:0px;"></div>
+                        </div>
                        </div>
                    </div>
                    <div class="row">
@@ -918,7 +917,7 @@
                     
                
         </script> 
-         <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->

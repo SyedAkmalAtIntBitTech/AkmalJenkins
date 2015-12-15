@@ -1057,7 +1057,7 @@ if (mindbodydataId != ""){
                                                 <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
                                                           <img id="{{images.id}}" class="img-responsive lookchooser5 ptr" ng-src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
                                                 </li>
-                                            </ul>
+                                           </ul>
 <!--                                               <input id="closeimagespopup" type="Button" value="close"/>  -->
                                     </li>
                                 </ul>
