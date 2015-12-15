@@ -50,7 +50,7 @@
             var ok = confirm("Do you really want to Edit?");
             if (ok == true){
                 $("#link_name").show();
-                $("#link_url").val("htttp://");
+                //$("#link_url").val("http://");
                 $("#link_url").show();
                 $("#editprogdet").hide();
                 $("#dateofevntedt").show();
@@ -68,11 +68,11 @@
             function checkUrl()
             {
                 var url=$("#link_url").val();
-                if(url.contains("htttp://"))
+                if(url.contains("http://"))
                 {}
                 else
                 {
-                    $("#link_url").val("htttp://");
+                    $("#link_url").val("http://");
                 }
             }
             function overlay(){

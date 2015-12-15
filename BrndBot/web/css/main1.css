@@ -189,8 +189,6 @@ label                {
     left:-130px;
   font-size:13px;
   color:#999;
-  
- 
 }
 #default_from_name:focus ~ label, .inputsubline:valid ~ label     {
     left:-170px;

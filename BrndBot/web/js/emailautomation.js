@@ -284,4 +284,6 @@
        $("#templatetab").click(function (){
        $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
        });
+       
+       
     });

@@ -532,7 +532,7 @@
         iframeUrl="/BrndBot/DownloadHtmlServlet?file_name="+iframeName+".html";
     %>
     <script>
-        
+//        $(document).ready(function (){$("#toaddress").click(function (){var addr=$("#toaddress").val();if(addr!==""){$("#toaddrlbl").css("left","-70px");}else{$("#toaddrlbl").css("left","0px");alert("data");}});});
         function emailSettings($scope, $http){
             
                 $("#emailIdContinueButton").click(function () {
@@ -934,7 +934,7 @@
                         if(email !== "")
                         {
                             if(reg.test(split[i]) === false){
-                                alert(" To Address field is not Valid, please Enter Valid Email Address \n"+split[i]+"\t is Invalid Email id");
+                                alert(" To Address field is not Valid, please Enter Valid Email Address \n\n'"+split[i]+"'\t is Invalid Email id");
                                 $("#toaddress").focus();
                                 return false;
                             } 
@@ -1228,7 +1228,7 @@
                     </div>
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="toaddress" class="form-control simplebox" name="email_addresses" type="email" value="">
+                            <input id="toaddress" class="form-control simplebox" name="email_addresses" type="text" value="">
                             <label>TO ADDRESS</label><br>
                         </div>
                     </div>
