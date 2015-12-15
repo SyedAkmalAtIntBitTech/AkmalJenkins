@@ -139,7 +139,8 @@
         %> 
         <%  
         try {
-                sql_methods.session = request.getSession();
+                sql_methods.session = request.getSession(true);
+                draft_id = "0";
                 user_id = (Integer) sql_methods.session.getAttribute("UID");
                 logoImageName = (String) sql_methods.session.getAttribute("ImageFileName");
                 if (!request.getParameter("id").equals("null")) {
@@ -176,9 +177,11 @@
             var styleHtml = "";
             var BlockHtml = "";
             var rendomIframeFilename = "";
-            var draft_id = <%= draft_id %>;
+            var draft_id = 0;
             console.log(draft_id);
             $(document).ready(function () {
+                    draft_id = <%= draft_id %>;
+                    console.log(draft_id);
                     $("#addblkbtn").prop('disabled', true);
                     $(".selectrow").css("display", "none");
                     rendomIframeFilename = event.timeStamp;
@@ -226,10 +229,10 @@
                     showText(allLayoutFilename[0]);
                         angular.element(document.getElementById('MyController')).scope().getEmailDrafts();
 
-                    //                                    $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
-                    //                                    $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
-                                        }
-                                });
+//                                    $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
+//                                    $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
+                            }
+                    });
                     });
                     angular.module("myapp", [])
 
