@@ -22,6 +22,9 @@
     <title>Email Drafts</title>
     
     <script>
+       
+        
+        
         var selected_draft="";
         var count=0;
         function selcheckbox(id){ 
@@ -56,14 +59,18 @@
         
         
         
+        
         function emailDraftsController($http, $scope){
             
             
         $scope.deletedrafts = function (type) {
-
+            
         var message;
         var requestBody;
         var responseMessage;
+        if(selected_draft !==""){
+           
+        
         if (type == "deleteMultiple") {
             message = "Are you sure you want to delete these Draft(s)?";
 //            alert("draft del ="+selected_draft);
@@ -89,21 +96,6 @@
             {
                 $scope.status = data;
                 if (data !== "") {
-//                    if(section == getfacebook())
-//                    {
-//                        $("#fbpreviewdecond").hide();
-//                        $("#fbremovedtemplate").show();                        
-//                    }
-//                    if(section == gettwitter())
-//                    {
-//                        $("#twpreviewdecond").hide();
-//                        $("#twremovedtemplate").show();                     
-//                    }
-//                    if(section == getemail())
-//                    {
-//                        $("#mailpreviewdecond").hide();
-//                        $("#mailremovedtemplate").show();                     
-//                    }
                     alert(responseMessage);
                     window.open(getHost() + 'emaildrafts.jsp', "_self");
                 }
@@ -114,9 +106,32 @@
                 alert("some Error occured, try after some time.");
             });
         }
+       }   
+        else
+        {
+            alert("No Drafts Selected");
+        }
     };
             
-            
+              $scope.unseldrafts = function (id) {
+                
+                var myarray = selected_draft.split(',');
+                for(var i = 0; i < myarray.length; i++)
+                {
+                     content='<input type="checkbox" id="'+'draftId'+myarray[i]+'" checked="false" hidden="">';
+//                   alert(id);
+                     var htm=$("#"+myarray[i]).html();
+                     if(htm.contains('class="check-icon"')){
+                         count-=1;
+                         $("#"+myarray[i]).html(content);
+                     }
+                     myarray[i] = myarray[i].replace(id + ",", "");
+                     $("#"+myarray[i]).removeClass('selection-icon-selected');
+                     $("#"+myarray[i]).addClass('selection-icon');
+                     $("#drftEmailDelete").hide();
+                       selected_draft="";
+                }
+               }
             
             $scope.getAllDrafts = function(){
               
@@ -184,8 +199,8 @@
             <!--<div class="exit-button-detail"></div>-->
             <div class="page-title-regular page-title-font">Your Email Hub</div>
             <div class="page-cta-container" id="drftEmailDelete">
-                <a href="/Newest_Files/EmailLists_Detail.html" class="gray-button button pushright fleft decorationNone">
-                    <div class=" md-button gray-button"> Unselect Email Drafts</div>    
+                <a href="" class="gray-button button pushright fleft decorationNone">
+                    <div class=" md-button gray-button" ng-click="unseldrafts()"> Unselect Email Drafts</div>    
                 </a>
                 <a href="" class="delete-button button fleft decorationNone">
                     <div id="delsel" class=" md-button decorationNone" ng-click="deletedrafts('deleteMultiple')">Delete Email Drafts</div>    
@@ -212,12 +227,12 @@
         <div class="page-background" ng-controller="emailDraftsController">
         <div class="page-content-container email-draft-page">
             <!--Inner Content Container GENERIC-->
-            <div class="page-inner-content-container">
+            <div class="page-inner-content-container" >
                 <div class="fleft content" ng-init="getAllDrafts()">
-                    <div class="page-content-title h2">Your Email Drafts </div>
+                    <div class="page-content-title h2">Your Email Drafts</div>
                     <!--List Starts Here-->
-                    <ul class="main-container fleft" >
-                        <li class="slat-container fleft selfclear" ng-repeat="drafts in emaildrafts">
+                    <ul class="main-container fleft">
+                        <li class="slat-container fleft selfclear"  ng-repeat="drafts in emaildrafts">
                             <div class="selection-container col-5p" id="deleteids"> 
                                 <div class="selection-icon" id="{{drafts.id}}" onclick="selcheckbox(this.id)"><input type="checkbox" id="{{drafts.id}}" value="{{drafts.id}}" name="draftname" style="display:none;"></input></div>    
                             </div>
