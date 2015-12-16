@@ -38,7 +38,7 @@ a.svg:after {
     border-left: 2px #d5dadf solid;
     height: 100vh;
     overflow-y: hidden;
-    width: 60%;
+    width: 100%;       //////////////////////// change 60% to 1005by Satyajit Roy on 16/12/2015
     max-width: 100%;
 }
 
@@ -686,12 +686,14 @@ padding-top: 0px;
 
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^INNERCONTENT-- SAVED POST ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 .below-nav-container-saved-post-detail{
-     width:100%;
+    width:100%;
     background-color: #F9F9F9;
     box-sizing: border-box; 
     float: left;
     padding-top:100px;
     padding-bottom:105px;
+    height: 750px;
+    overflow: auto;
 }
 
 
@@ -1048,7 +1050,7 @@ Facebook-preview-name{
 }
 
 .inner-content-container-button{
-    float: right;
+    float: left;
     
     
 }

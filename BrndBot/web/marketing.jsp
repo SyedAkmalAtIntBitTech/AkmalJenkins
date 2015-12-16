@@ -23,8 +23,6 @@
     <jsp:include page="basejsp.jsp" />
     <%@ include file="checksession.jsp" %>
     <script src="js/marketing.js" type="text/javascript"></script>
-    <link href="css/version2/normalize_1.css" rel="stylesheet" type="text/css"/>
-    <link href="css/version2/slat.css" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="images/favicon.png"/>
     <title>BrndBot - Your Plan</title>
 </head>    
@@ -32,7 +30,6 @@
 <body ng-app class="claro">
     <!--SideNav-->
     <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign"  class="container content-main">
-    <jsp:include page="AddAction.jsp"/>
     <jsp:include page="facebookpreview.jsp"/> 
     <jsp:include page="twitterpreview.jsp"/> 
     <%@include file="navbarv2.jsp" %>
