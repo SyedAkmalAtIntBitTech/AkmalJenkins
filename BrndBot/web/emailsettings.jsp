@@ -143,9 +143,9 @@
         <script>
 $(document).ready(function () {
                 $("#from_address").focus(function (){$("#frmadr").css("left","-145px").css("font-size","13px").css("color","#999");});
-                $("#from_address").focusout(function (){var emllist=$("#from_address").val();if(emllist===""){$("#frmadr").css("left","0px");}if(emllist!==""){$("#frmadr").css("left","-145px");}});
+                $("#from_address").focusout(function (){var emllist=$("#from_address").val();if(emllist===""){$("#frmadr").css("left","20px").css("font-size","12px").css("color","#2c4355");}if(emllist!==""){$("#frmadr").css("left","-145px");}});
                  $("#reply_email_address").focus(function (){$("#rpltoadr").css("left","-175px").css("font-size","13px").css("color","#999");});
-                $("#reply_email_address").focusout(function (){var emllist=$("#reply_email_address").val();if(emllist===""){$("#rpltoadr").css("left","0px");}if(emllist!==""){$("#rpltoadr").css("left","-175px");}});
+                $("#reply_email_address").focusout(function (){var emllist=$("#reply_email_address").val();if(emllist===""){$("#rpltoadr").css("left","20px").css("font-size","12px").css("color","#2c4355");}if(emllist!==""){$("#rpltoadr").css("left","-175px");}});
             });
             function validateEmail(sEmail) {
                 var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
