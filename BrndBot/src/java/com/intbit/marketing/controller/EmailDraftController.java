@@ -216,4 +216,24 @@ public class EmailDraftController {
         }
         return json_object.toString();
     }
+    
+    //Added by Syed Ilyas - 16 dec 2015 - delete email draft
+    @RequestMapping(value = "/deleteEmailDrafts", method = RequestMethod.POST)
+    public @ResponseBody
+    String deleteEmailDrafts(HttpServletRequest request,
+            HttpServletResponse response) throws IOException, Throwable {
+        try {
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            String draftIds = (String) requestBodyMap.get("draft_ids");
+           String draftIdsArray[] = draftIds.split(",");
+           for (int i = 0; i < draftIdsArray.length; i++) {
+               emaildraftservice.delete(Integer.parseInt(draftIdsArray[i]));
+           }
+            return "true";
+        } catch (Exception e) {
+            Logger.getLogger(EmailDraftController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return "false";
+    }
 }
