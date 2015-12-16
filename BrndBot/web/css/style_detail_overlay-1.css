@@ -691,10 +691,8 @@ padding-top: 0px;
     float: left;
     padding-top:0px;
     padding-bottom:0px;
-    height: 750px;
     height: 100% !important;
-    max-height: 100%;
-    position: relative;
+    max-height: 470px;
     //overflow: auto;
     
     
