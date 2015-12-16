@@ -10,7 +10,7 @@
  
     var count=0;
         function selemlcheckbox(id){ 
-            alert(id+"--selected");
+//            alert(id+"--selected");
             content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
 //            alert(content);
             var htm=$("#"+id).html();

@@ -78,7 +78,7 @@ String type=request.getParameter("type");
                             <div class="col-1of1 slat-unit fleft ">
                                 <a href="">
                                     <div class="selection-container col-5p fleft"> 
-                                        <div class="selection-icon" id="{{email.id}}" onclick="selcheckbox(this.id);"><input type="checkbox" id="entityid{{email.emailAddress}}" value="{{email.emailAddress}}" name="entityname" hidden></input></div>
+                                        <div class="selection-icon" id="{{email.emailAddress}}" onclick="selemlcheckbox(this.id);"><input type="checkbox" id="entityid{{email.emailAddress}}" value="{{email.emailAddress}}" name="entityname" hidden></input></div>
                                     </div>
                                 </a>
                                 <div class="slat-title-container col-4of10 fleft">
