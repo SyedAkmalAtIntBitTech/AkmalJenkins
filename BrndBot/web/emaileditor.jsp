@@ -139,7 +139,8 @@
         %> 
         <%  
         try {
-                sql_methods.session = request.getSession();
+                sql_methods.session = request.getSession(true);
+                draft_id = "0";
                 user_id = (Integer) sql_methods.session.getAttribute("UID");
                 logoImageName = (String) sql_methods.session.getAttribute("ImageFileName");
                 if (!request.getParameter("id").equals("null")) {
@@ -176,8 +177,11 @@
             var styleHtml = "";
             var BlockHtml = "";
             var rendomIframeFilename = "";
-            var draft_id = <%= draft_id %>;
+            var draft_id = 0;
+            console.log(draft_id);
             $(document).ready(function () {
+                    draft_id = <%= draft_id %>;
+                    console.log(draft_id);
                     $("#addblkbtn").prop('disabled', true);
                     $(".selectrow").css("display", "none");
                     rendomIframeFilename = event.timeStamp;
@@ -222,14 +226,14 @@
                                     });
                             });
                                 
-                                    showText(allLayoutFilename[0]);
-                angular.element(document.getElementById('MyController')).scope().getEmailDrafts();
-                                    
-        //                                    $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
-        //                                    $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
+                    showText(allLayoutFilename[0]);
+                        angular.element(document.getElementById('MyController')).scope().getEmailDrafts();
+
+//                                    $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
+//                                    $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
                             }
                     });
-            });
+                    });
                     angular.module("myapp", [])
 
                     .controller("MyController", function($scope, $http) {
@@ -367,7 +371,6 @@
                                             i++;
                                     });
                                 });
-                                $("#" + id).attr('src', '/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=' + allLayoutFilename[2]);
                                 $("#" + id).attr('onclick', "showSomething('" + id + "','" + allLayoutFilename[0] + "','" + allLayoutFilename[1] + "','" + mind_body_query + "')");
                             }).error();
                                 $("#addblkbtn").prop("disabled",true);
@@ -733,9 +736,8 @@
                             $("#styletab").css("background-color", "transparent").css("color", "#19587c");
                     });        </script>
         <link rel="stylesheet" href="css/plugins/image_manager.css">
-        <!--<script type="text/javascript" src="js/froala_editor.js" ></script>-->
-        <!--<script type="text/javascript" src="js/froala_editor.min_Email.js" ></script>-->
         <script src="js/froala_editor.min_editor.js" type="text/javascript"></script>
+<!--        <script src="js/plugins/code_view.min.js" type="text/javascript"></script>-->
         <script type="text/javascript" src="js/plugins/align.min.js"></script>
         <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
         <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
@@ -752,7 +754,7 @@
         <script type="text/javascript" src="js/plugins/save.min.js"></script>
         <script type="text/javascript" src="js/plugins/quote.min.js"></script>
         <script type="text/javascript" src="js/plugins/link.min.js"></script>
-        
+
         <script>
             $.FroalaEditor.DEFAULTS.htmlAllowedAttrs = $.merge($.FroalaEditor.DEFAULTS.htmlAllowedAttrs, ['onclick']);
         </script>

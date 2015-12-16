@@ -526,14 +526,13 @@
         sqlmethods.session = request.getSession(true);
 
         emailSubject = (String) sqlmethods.session.getAttribute("email_subject");
-        emailList = (String) sqlmethods.session.getAttribute("email_list");
-        emailAddresses = (String) sqlmethods.session.getAttribute("email_addresses");
+        //emailAddresses = (String) sqlmethods.session.getAttribute("email_addresses");
         htmlData = (String) sqlmethods.session.getAttribute("htmldata");
         iframeName = (String) sqlmethods.session.getAttribute("iframeName");
         iframeUrl="/BrndBot/DownloadHtmlServlet?file_name="+iframeName+".html";
     %>
     <script>
-        
+//        $(document).ready(function (){$("#toaddress").click(function (){var addr=$("#toaddress").val();if(addr!==""){$("#toaddrlbl").css("left","-70px");}else{$("#toaddrlbl").css("left","0px");alert("data");}});});
         function emailSettings($scope, $http){
             
                 $("#emailIdContinueButton").click(function () {
@@ -633,11 +632,29 @@
                     var reply_to_email_address = $("#email").val();
                     var program_id = $("#programs").val();
                     var email_body = formattedHTMLData;
-                    var email_list = $("#email_list").val();
+                    var email_list = $("#chooseEmailList").val();
                     var schedule_desc = "none";
                     var iframe_name = $("#iframe_name").val();
                     console.log(schedule_id);
                     if (schedule_id == "0"){
+                        if($("#schedule_title").val()=="")
+                        {
+                            alert("Please Enter Title");
+                            $("#schedule_title").focus();
+                            return false;
+                        }
+                        if($("#schedule_date").val()=="")
+                        {
+                            alert("Please Choose Date");
+                            $("#schedule_date").focus();
+                            return false;
+                        }
+                        if($("#schedule_time").val()=="")
+                        {
+                            alert("Please Chooose Time");
+                            $("#schedule_time").focus();
+                            return false;
+                        }
                         var schedule_title = $("#schedule_title").val();
                         var schedule_date = $("#schedule_date").val();
                         var schedule_time = $("#schedule_time").val().replace(/ /g,'');
@@ -668,7 +685,8 @@
                             data: email_scheduling
                         }).success(function (data) {                            
                             if (data != "") {
-                                alert("details saved successfully");
+                                alert("Your Email has been Scheduled Successfully");
+                                
                                 document.location.href = "dashboard.jsp";
                             }
                         }).error(function (data) {
@@ -694,7 +712,7 @@
                             data: email_scheduling
                         }).success(function (data) {
                             if (data != "") {
-                                alert("details saved successfully");
+                                alert("Your Email has been Scheduled Successfully");
                                 document.location.href = "dashboard.jsp";
                             }
                         }).error(function (data) {
@@ -741,9 +759,9 @@
        $(document).ready(function () {
            
            $("#chooseEmailList").change(function () {
-                    var x = document.getElementById("chooseEmailList").selectedIndex;
-                    var List_name = document.getElementsByTagName("option")[x].value;
-
+//                    var x = document.getElementById("chooseEmailList").selectedIndex;
+//                    var List_name = document.getElementsByTagName("option")[x].value;
+                    var List_name = $("#chooseEmailList").val();
                     if (List_name == 1){
 //                        $("#emailaddresses").hide();
 //                        $("#drop-zone").hide();
@@ -754,7 +772,7 @@
 //                         $("#emailIdContinueButton").css("top","50px");
                        
                     }else {
-
+                        var emails = "";
                         $("#email_list_name").val(List_name);
                         $.ajax({
                                 url: getHost() + "GetEmailLists",
@@ -764,11 +782,11 @@
                                 },
                                 success: function(result){
                                     var i = 0;
-                                    var emails = "";
+                                    
                                     for(i=0; i<result.user_emailAddresses.length; i++){
-                                        if (result.user_emailAddresses[i].emailid != ""){
-                                            emails = result.user_emailAddresses[i].emailid + "," + emails;
-                                        }
+                                        if (result.user_emailAddresses[i].emailAddress!= ""){
+                                            emails = result.user_emailAddresses[i].emailAddress+ "," + emails;
+                                     }
                                     }
                                     for(i=0; i<result.mindbody_emailAddresses.length; i++){
                                         if (result.mindbody_emailAddresses[i] != ""){
@@ -874,9 +892,11 @@
             var email_list = $("email_list").val();
             var schedule_title = $("#schedule_title").val("");
             var schedule_time = $("#schedule_time").val("");
-            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;  
-            var emlval=re.test(to_email_addresses);
-            
+            var reg=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var toemailvalid=reg.test(to_email_addresses);
+            var split=to_email_addresses.split(',');
+            var fromaddrvalid=reg.test(from_email_address);
+            var replytoaddrvalid=reg.test(reply_to_email_address);
             if (from_name == ""){
                 alert("From name not entered, please enter the from name");
                 $("#name").focus();
@@ -887,18 +907,48 @@
                 $("#subject").focus();
                 return false;
             }
-            if (to_email_addresses == ""){
-                alert("Email addresses not entered, please enter the email address");
-                $("#toaddress").focus();
-                return false;
-            }
             if (from_email_address == ""){
                 alert("From email address not entered, please enter the from email address");
                 $("#formaddress").focus();
                 return false;
             }
+            if(fromaddrvalid == false){
+                alert("From Address Not Valid, please Enter valid Email id");
+                $("#formaddress").focus();
+                return false;
+            }
+            if (to_email_addresses == ""){
+                alert("To address fieled not entered, please enter the email address");
+                $("#toaddress").focus();
+                return false;
+            }
+            if(to_email_addresses !== ""){
+                
+                var split = to_email_addresses.split(",");
+                              
+                for (var i = 0; i < split.length; i++) {
+                    //alert(split[i]+"  split length"+split.length);
+                    var email=split[i].trim();
+                    if(reg.test(email) !== "")
+                    {
+                        if(email !== "")
+                        {
+                            if(reg.test(split[i]) === false){
+                                alert(" To Address field is not Valid, please Enter Valid Email Address \n\n'"+split[i]+"'\t is Invalid Email id");
+                                $("#toaddress").focus();
+                                return false;
+                            } 
+                        }
+                    }
+                 }
+            }
             if (reply_to_email_address == ""){
                 alert("Reply to email address not entered, please enter the reply to email address");
+                $("#email").focus();
+                return false;
+            }
+            if(replytoaddrvalid ==false){
+                alert("Reply to email address is not Valid, please enter valid reply to email address");
                 $("#email").focus();
                 return false;
             }
@@ -1155,7 +1205,7 @@
             
             <div class="col-md-5 " ng-init="getEmailSettings()">
                 <p id="textgrt" class="MH1 col-md-offset-3">SEND EMAIL PREVIEW</p>
-                <p id="text2">go back</p>
+                <p id="t2">go back</p>
                 <form class="form-horizontal" id="emailform">
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
@@ -1172,20 +1222,20 @@
 
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="formaddress" class="form-control simplebox" name="from_email_address" type="text" required value="{{email_settings.from_address}}">
+                            <input id="formaddress" class="form-control simplebox" name="from_email_address" type="email" required value="{{email_settings.from_address}}">
                             <label>FROM ADDRESS</label><br>
                         </div>
                     </div>
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="toaddress" class="form-control simplebox" name="email_addresses" type="text"value="">
+                            <input id="toaddress" class="form-control simplebox" name="email_addresses" type="text" value="">
                             <label>TO ADDRESS</label><br>
                         </div>
                     </div>
 
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="email" class="form-control simplebox" name="reply_to_email_address" type="text" required value="{{email_settings.reply_email_address}}">
+                            <input id="email" class="form-control simplebox" name="reply_to_email_address" type="email" required value="{{email_settings.reply_email_address}}">
                             <label>REPLY TO EMAIL</label><br><br>
                         </div>
                     </div>
@@ -1198,7 +1248,7 @@
                         </div>
                     </div>
                             
-                            <input type="hidden" id="email_list" value='<%=emailList%>' name="email_list">
+                            <input type="hidden" id="email_list" value='' name="email_list">
                             <input type="hidden" id="iframe_name" value='<%=iframeName%>'>
                                 
                 </form>
@@ -1244,7 +1294,7 @@
                         <br>
                         <input type="text" class="simpleinpbox SH2" id="schedule_title" name="schedule_title" placeholder="TITLE" style="font-variant: normal;"><br>
                         
-                        <input type="text" readonly id="schedule_date" name="schedule_date" class="simpleinpbox SH2 ptr" style="width:190px;font-variant: normal;" placeholder="DATE">
+                        <input type="text" readonly id="schedule_date" name="schedule_date" class="simpleinpbox SH2 ptr" style="width:190px;font-variant: normal;" value="" placeholder="DATE">
                                         <script>
                                     var picker = new Pikaday(
                                     {
@@ -1255,7 +1305,7 @@
                                         yearRange: [2000,2050]
                                     });
                                         </script><br>
-                                        <input id="schedule_time" type="text" name="schedule_time" class="simpleinpbox SH2 ptr " style="width:150px;" placeholder="TIME"/><br>
+                                        <input id="schedule_time" type="text" value="" name="schedule_time" class="simpleinpbox SH2 ptr " style="width:150px;" placeholder="TIME"/><br>
                                      <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#schedule_time').timepicki();

@@ -23,22 +23,85 @@
   <link rel="stylesheet" href="css/plugins/char_counter.css">
   <link rel="stylesheet" href="css/plugins/video.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <link rel="stylesheet" href="css/pikaday.css">
   <link rel="stylesheet" href="css/datepickerpikaday.css">
   <script src="js/pikaday.js"></script>
-  <title>Email Automation</title>
-  <meta charset="UTF-8">
-  <%@ include file="fonttypekit.jsp"%>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
-  <link href="css/emailautomationeditor.css" rel="stylesheet" type="text/css"/>
-  <link href="css/emailautomation.css" rel="stylesheet" type="text/css"/>
-  <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
-  <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-  <script src="js/configurations.js"></script>
+
+   <title>Email Automation</title>
+        <meta charset="UTF-8">
+        <%@ include file="fonttypekit.jsp"%>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
+        <link href="css/emailautomationeditor.css" rel="stylesheet" type="text/css"/>
+        <link href="css/emailautomation.css" rel="stylesheet" type="text/css"/>
+        <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+        <script src="js/configurations.js"></script>
+        <style>
+            #mask {
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: 9000;
+                background-color: #ffffff;
+                display: none;
+            }
+
+            #boxes .window {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 0px;
+                height: 0px;
+                display: none;
+                z-index: 9999;
+                padding: 20px;
+                border-radius: 15px;
+                text-align: center;
+            }
+            #boxes #dialog {
+                width: 250px;
+                height: 300px;
+                padding: 10px;
+                background-color: #ffffff;
+                font-family: 'Segoe UI Light', sans-serif;
+                font-size: 15pt;
+            }
+        </style>
+    
+  <style>
+      .textstyle
+      {
+        margin-top: 7px;
+        width: 280px;
+        height: 30px;
+        display: inline-block;
+        color: #3f3f42;
+        font-size: 16px;
+        padding: 5px 8px 5px 8px;
+      }
+
+      div#editor {
+          width: 100%;
+          margin: auto;
+          text-align: left;
+          margin-top:5px;
+      }
+    .fr-wrapper{
+        max-height:85% !important;              
+      /*max-height:570px !important;*/              
+      }
+      
+      .fr-iframe{
+          min-height:90%;
+         /*min-height: 570px;*/
+      }    
+  </style>
 <%! 
     String entity_id = "";
     String program_id = "";
@@ -55,27 +118,471 @@
         type = request.getParameter("type");
     }
 %>
+<script src="js/angular.min.js"></script>
+<script>
+    
+    var emails = "";
+    var schedule_time = "";
+    var schedule_date = "";
+    var email_list_name = "";
+    var template_id = 0;
+    var days = 0;
+    var entity_no_email_template = "";
+    var entity_id = 0;
+    var type = "";
+    var program_id = "";
+    
+    $(document).ready(function () {
+    $("#templatetab").click(function (){
+           $("#textdiv").hide();
+           $("#templatediv").show();
+           $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
+           $("#texttab").css("background-color","transparent").css("color","#19587c");
+       });
+       $("#texttab").click(function (){
+           $("#templatediv").hide();
+           $("#textdiv").show();
+           $("#texttab").css("background-color","#ffffff").css("color","#19587c");
+           $("#templatetab").css("background-color","transparent").css("color","#19587c");
+       });  
+    });
+    
+//    setTimeout(
+//        function() 
+//        {
+          //do something special
+         // alert("delay");
+          //$("#select option").filter(".a0").attr('selected','selected');
+    var entity_id = '<%= entity_id %>';
+    var type = '<%= type %>';
+    var program_id = '<%= program_id %>';
 
-  
-  <script src="js/angular.min.js"></script>
-  <script src="js/emailautomation.js"></script>
+//        }, 1000);
+        
+    
+    function emailautomation($scope, $http){
+
+        $scope.getEntityDetails = function (){
+            $scope.showEmailList();
+//            if (entity_id != "0"){
+            var entity_details = {"entity_id": entity_id};
+                $http({
+                    method: 'POST',
+                    url: getHost() + 'getRecuringEntity.do',
+                    headers: {'Content-Type':'application/json'},
+                    data: JSON.stringify(entity_details)
+                }).success(function(data, status){
+                    $scope.entity_details = data;
+                    if (data.recuring_email_template_id != null){
+                        template_id = data.recuring_email_template_id;
+                    }else {
+                        entity_no_email_template = "true";
+                    }
+                    html_data = data.recuring_email_body;
+                    $('#edit').froalaEditor('html.set',''+html_data+'');
+
+                    showEmailListName(data.recuring_email_email_list_name);
+                    days = data.recuring_email_days;
+                }).error(function(){
+                    alert("problem fetching the data");
+                });
+                
+//            }
+        };
+        /*
+        * Bring all the email list from the database
+        */
+        $scope.showEmailList = function () {
+
+            var emailids = {"update": "allEmailListNames"};
+            $http({
+                method: 'GET',
+                url: getHost() + 'GetEmailLists?update=allEmailListNames'
+            }).success(function(data, status, headers, config) {
+                $scope.emailLists_user = data.user;
+                $scope.emailLists_mindbody = data.mindbody;
+            }).error(function(){
+                alert("problem fetching the data");
+            });
+        };
+
+        /*
+         * Bring all the recuring email templates from the database
+         */
+         $scope.getEmailTemplates = function(){
+               
+                $("#emailautomationcontent").hide();
+                $("#emlautomeditorcontainer").show();
+                $http({
+                    method: 'GET',
+                    url: getHost() + 'getAllRecuringEmailTemplates.do'
+                }).success(function(data, status){
+                    $scope.recuring_email_templates = data;
+                }).error(function(){
+                    alert("problem fetching the data");
+                });
+
+        };
+
+        $scope.addUpdateRecuringAction = function(){
+            if (validate()){
+                var days = $("#days").val();
+                var emaillist = $("#emaillist").val();
+                var subject = $("#subject").val();
+                var from_name = $("#from_name").val();
+                var reply_to_address = $("#reply_to_address").val();
+                var recuring_email_title = $("#recuring_email_title").val();
+                var recuring_email_description = $("#recuring_email_description").val();
+
+                var till_date = $("#datepicker").val();
+                var schedule_time=$("#timepicker1").val().replace(/ /g,'');
+//                        var schedule_time=$("#timepicker1").val();
+                var till_date_epoch = Date.parse(till_date);
+//                        var schedule_time_epoch = Date.parse(schedule_time);
+//                        alert(schedule_time_epoch);
+                var $iframe = $('.fr-iframe');
+                var html_data = $('#edit').froalaEditor('html.get');
+                
+//                var html_data = $iframe.contents().find("html").html();
+//                html_data = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\">" + html_data + "</html>";
+
+                if ( type == 'add'){
+                    var recuring_action = {
+                        "days":days, "emaillist":emaillist, 
+                        "to_email_addresses": emails,
+                        "subject":subject, "from_name":from_name,
+                        "reply_to_address":reply_to_address,
+                        "recuring_email_title":recuring_email_title,
+                        "recuring_email_description":recuring_email_description,
+                        "till_date_epoch":till_date_epoch,
+                        "schedule_time_epoch": schedule_time,
+                        "program_id" :program_id 
+                    };
+
+                    $http({
+                        method: 'POST',
+                        url: 'addRecuringAction.do',
+                        headers: {'Content-Type':'application/json'},
+                        data: JSON.stringify(recuring_action)
+                    }).success(function (data, status, headers, config) {
+                        if (data === "true") {
+                            alert("details saved succesfully");
+                            window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
+                        }else {
+                            alert("problem saving the record");
+                        }
+                    }).error(function (data, status, headers, config) {
+                        alert("No data available, problem fetching the data");
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                    });
+
+                }else if((type == 'template') && (entity_no_email_template == "true")){
+
+                    var recuring_action = {
+                        "entity_id" : entity_id, 
+                        "days":days, "emaillist":emaillist, 
+                        "to_email_addresses": emails,
+                        "subject":subject, "from_name":from_name,
+                        "reply_to_address":reply_to_address,
+                        "recuring_email_title":recuring_email_title,
+                        "recuring_email_description":recuring_email_description,
+                        "till_date_epoch":till_date_epoch,
+                        "schedule_time_epoch": schedule_time,
+                        "program_id" :program_id 
+                    };
+
+                    $http({
+                        method: 'POST',
+                        url: 'addupdateRecuringAction.do',
+                        headers: {'Content-Type':'application/json'},
+                        data: JSON.stringify(recuring_action)
+                    }).success(function (data, status, headers, config) {
+                        if((data == "true") && (entity_no_email_template == "true")) {
+                            alert("details saved succesfully");
+                            $("#emailautomationcontent").hide();
+                            entity_no_email_template = "false";
+                            $("#emlautomeditorcontainer").show();
+                        }else {
+                            alert("problem saving the record");
+                        }
+                    }).error(function (data, status, headers, config) {
+                        alert("No data available, problem fetching the data");
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                    });
+
+                }else if ((type == 'edit') && (entity_no_email_template == "true")){
+                    var recuring_action = {
+                        "entity_id" : entity_id, 
+                        "days":days, "emaillist":emaillist, 
+                        "to_email_addresses": emails,
+                        "subject":subject, "from_name":from_name,
+                        "reply_to_address":reply_to_address,
+                        "recuring_email_title":recuring_email_title,
+                        "recuring_email_description":recuring_email_description,
+                        "till_date_epoch":till_date_epoch,
+                        "schedule_time_epoch": schedule_time,
+                        "program_id" :program_id 
+                    };
+
+                    $http({
+                        method: 'POST',
+                        url: 'addupdateRecuringAction.do',
+                        headers: {'Content-Type':'application/json'},
+                        data: JSON.stringify(recuring_action)
+                    }).success(function (data, status, headers, config) {
+                        if ((data === "true")) {
+                            alert("details saved succesfully");
+                            window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
+                        }else {
+                            alert("problem saving the record");
+                        }
+                    }).error(function (data, status, headers, config) {
+                        alert("No data available, problem fetching the data");
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                    });
+                    
+                }else if((type == 'edit')||(type == 'template')){
+                    var recuring_action = {
+                        "entity_id" : entity_id, 
+                        "template_id" : template_id, "html_data": html_data,
+                        "days":days, "emaillist":emaillist, 
+                        "to_email_addresses": emails,
+                        "subject":subject, "from_name":from_name,
+                        "reply_to_address":reply_to_address,
+                        "recuring_email_title":recuring_email_title,
+                        "recuring_email_description":recuring_email_description,
+                        "till_date_epoch":till_date_epoch,
+                        "schedule_time_epoch": schedule_time,
+                        "program_id" :program_id 
+                    };
+                    $http({
+                        method: 'POST',
+                        url: 'updateRecuringAction.do',
+                        headers: {'Content-Type':'application/json'},
+                        data: JSON.stringify(recuring_action)
+                    }).success(function (data, status, headers, config) {
+                        if ((data === "true")) {
+                            alert("details saved succesfully");
+                            window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
+                        }else {
+                            alert("problem saving the record");
+                        }
+                        
+                    }).error(function (data, status, headers, config) {
+                        alert("No data available, problem fetching the data");
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                    });
+
+                }
+
+
+            }
+        };
+
+        $scope.showHTMLData = function(html_data, id){
+                var $iframe = $('.fr-iframe');
+//                         $(".fr-iframe").empty();
+                $('#edit').froalaEditor('html.set',''+html_data+'');
+//                $iframe.contents().find("body").empty();
+//                $iframe.contents().find("body").append(html_data);
+                template_id = id;
+        };
+
+    }
+
+</script> 
+
+<script>
+
+   $(document).ready(function (){
+       $(".row").css("display","block");
+       $("#emlautomeditorcontainer").hide();
+       $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
+
+       $("#emaillist").change(function () {
+
+           var List_name = $("#emaillist").val();
+           $.ajax({
+               url: getHost() + "GetEmailLists",
+               method: 'POST',                    
+               data: {
+                   update: "emailsForEmailList",
+                   list_name: List_name
+               },
+               success: function(result){
+                   var i = 0;
+                   emails = result.user_emailAddresses;
+               }
+           });
+
+       });
+
+   if (type == 'edit'){
+       var entity_details = {"entity_id": entity_id};                    
+       $("#emailautomationcontent").show();
+       $("#emlautomeditorcontainer").hide();
+
+       //                
+//                $.ajax({
+//                    url: getHost() + "getRecuringEntity.do",
+//                    method: 'POST',
+//                    dataType: 'json',
+//                    contentType: 'application/json',
+//                    mimeType: 'application/json',
+//                    data: JSON.stringify(entity_details),
+//                    success: function(result){
+//                        
+//                        $("#days").val(result.recuring_email_days);
+////                        $("#emaillist :selected").text(result.recuring_email_email_list_name);
+//                        
+//        //                        $("#emaillist").val();
+//                        $("#subject").val(result.recuring_email_subject);
+//                        $("#from_name").val(result.recuring_email_from_name);
+//                        $("#reply_to_address").val(result.recuring_email_reply_to_email_address);
+//                        $("#recuring_email_title").val(result.recuring_email_title);
+//                        $("#recuring_email_description").val(result.recuring_email_description);
+////                        $("#datepicker").val(result.recuring_email_time);
+//
+//                        $("#emaillist").change();                        
+//                        angular.element(document.getElementById('emailautomation')).scope().setDateNTime(result.recuring_email_time, result.recuring_email_till_date, result.recuring_email_email_list_name);
+//                    }
+//                });
+
+                
+            }else if (type == 'template'){
+                
+                    setTimeout(
+                        function() 
+                        {
+                          //do something special
+                         // alert("delay");
+                          //$("#select option").filter(".a0").attr('selected','selected');
+                        
+                        if (validate()){
+                            $("#emailautomationcontent").hide();
+                            $("#emlautomeditorcontainer").show();
+                            entity_no_email_template = "false";
+                        }else {
+                            
+                            entity_no_email_template = "true";
+                            $("#emailautomationcontent").show();
+                            $("#emlautomeditorcontainer").hide();
+                        }
+                    }, 1000);
+                
+                
+            }else if (type == 'add'){
+                $("#emailautomationcontent").show();
+                $("#emlautomeditorcontainer").hide();
+            }
+            });
+            function validate(){
+
+                var emlval = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
+                
+                var days = $("#days").val();
+                var emaillisttext = $("#emaillist :selected").text();
+                var emaillist = $("#emaillist").val();
+                var subject = $("#subject").val();
+                var from_name = $("#from_name").val();
+                var reply_to_address = $("#reply_to_address").val();
+                var recuring_email_title = $("#recuring_email_title").val();
+                var recuring_email_description = $("#recuring_email_description").val();
+                
+                var till_date = $("#datepicker").val();
+                var schedule_time=$("#timepicker1").val().replace(/ /g,'');
+                if (recuring_email_title === ""){
+                    alert("Enter the title");
+                    $("#recuring_email_title").focus();
+                    return false;
+                }
+                
+                if (recuring_email_description === ""){
+                    alert("Enter the description");
+                    $("#recuring_email_description").focus();
+                    return false;
+                }
+                if (days === "0") {
+                    alert("please select the day");
+                    $("#days").focus();
+                    return false;
+                }
+                if (emaillisttext === "") {
+                    alert("please select the email list text");
+                    emaillisttext.focus();
+                    return false;
+                }
+                 if (schedule_time === ""){
+                    alert("select the time");
+                    $("#timepicker1").focus();
+                    return false;
+                }
+                 if (till_date === ""){
+                    alert("till date not selected,please select the date");
+                    $("#datepicker").focus();
+                    return false;
+                }
+               
+                if (emaillist === "0") {
+                    alert("please select the email list");
+                    $("#emaillist").focus();
+                    return false;
+                }
+
+                if (subject === "") {
+                    alert("Enter the subject");
+                    $("#subject").focus();
+                    return false;
+                }
+                if (from_name === ""){
+                    alert("Enter the from name");
+                    $("#from_name").focus();
+                    return false;
+                }        
+                
+                if((reply_to_address === "")||(!emlval.test(reply_to_address))){
+                    alert("Enter Valid reply-to-address ");
+                    $("#reply_to_address").focus();
+                    return false;
+                }
+                return true;
+            }
+
+</script>
+           
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
   <script type="text/javascript" src="js/froala_editor.min_editor.js" ></script>
-    <script type="text/javascript" src="js/plugins/align.min.js"></script>
-    <script type="text/javascript" src="js/plugins/colors.min_Editor.js" ></script>
-    <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
-    <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
-    <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
-    <script type="text/javascript" src="js/plugins/file.min.js"></script>
-    <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
-    <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
-    <script type="text/javascript" src="js/plugins/url.min.js"></script>
-    <script type="text/javascript" src="js/plugins/entities.min.js"></script>
-    <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
-    <script type="text/javascript" src="js/plugins/save.min.js"></script>
-    <script type="text/javascript" src="js/plugins/quote.min.js"></script>
+
+        <script type="text/javascript" src="js/plugins/align.min.js"></script>
+        <script type="text/javascript" src="js/plugins/colors.min_Editor.js" ></script>
+        <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
+        <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
+        <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
+        <script type="text/javascript" src="js/plugins/file.min.js"></script>
+        <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
+        <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
+        <script type="text/javascript" src="js/plugins/url.min.js"></script>
+        <script type="text/javascript" src="js/plugins/entities.min.js"></script>
+        <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
+        <script type="text/javascript" src="js/plugins/save.min.js"></script>
+        <script type="text/javascript" src="js/plugins/quote.min.js"></script>
+
+  <script>
+    $(function(){
+      $('#edit').froalaEditor({
+        key: FroalaLicenseKey
+      });
+       $("#templatetab").click(function (){
+       $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
+       });
+    });
+  </script>
 <jsp:include page="basejsp.jsp"/>
       
 </head>
@@ -249,21 +756,21 @@
                <div class="col-sm-7 col-md-7 col-lg-7">
                    <div class="row">
                        <div class="col-sm-12 col-md-12 col-lg-12 bgcolor"> 
-                   <style>
-                       #edit{
-                            position: relative;
-                            top:0px;
-                            font-family:"proxima-nova";
-                            font-weight:500;
-                            left: 0em; 
-                            color: #2D4444;
-                        }
-                   </style>
 
-                   <div id="editor">
-                       <div id='edit' style="margin-top:0px;">
-                       </div>
-                   </div>
+                            <style>
+                                #edit{
+                                    position: relative;
+                                    top:0px;
+                                    font-family:"proxima-nova";
+                                    font-weight:500;
+                                    left: 0em; 
+                                    color: #2D4444;
+                                }
+                            </style>
+
+                        <div id="editor">
+                            <div id='edit' style="margin-top:0px;"></div>
+                        </div>
                        </div>
                    </div>
                    <div class="row">
@@ -295,7 +802,8 @@
                    </div> 
        </div>
        <div class="col-sm-3 col-md-3 col-lg-3">
-           <div class="blockselection">     
+           
+           <div class="blockselection" id="templatediv">     
                <div class="row">
                    <div class="col-md-12 col-lg-12 col-sm-12">
                        <div class="selblock fontpnr">Select a Template</div>
@@ -323,6 +831,40 @@
                    </div>
                </div>
            </div>
+       
+           <div class="blockselection" id="textdiv">     
+               <div class="row">
+                   <div class="col-md-12 col-lg-12 col-sm-12">
+                       <div class="selblock fontpnr">Select a Text</div>
+                   </div>
+                <div class="row">
+                   <div class="selblklinediv"><hr class="selblkline"></div>
+                </div>
+                   <div class="col-md-6 col-lg-6 col-sm-6">
+                        <div class="textstyle">To add client name please use these options</div>
+                        <div class="textstyle">Ex: Hi &LT; clientFirstName &GT; </div>
+                        <div class="textstyle">Hi &LT; clientLastName &GT; </div>
+                        <div class="textstyle">Hi &LT; clientFullName &GT; </div>
+                    </div>
+               </div>
+               
+               <div class="row">
+                   <div class="col-md-12 col-lg-12 col-sm-12">
+<!--                       <ul id="blklist" class="blocklist fontpnr">
+                           <li ng-repeat="email_template in recuring_email_templates"> 
+                               <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
+                           </li>
+                       </ul>-->
+<!--                            <ul id="stylelist" class="blocklist fontpnr">
+                           <li ng-repeat="styles in datalistsstyles">
+                               <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" /></div>
+                           </li>
+
+                       </ul>-->
+                   </div>
+               </div>
+           </div>
+           
        </div>
        <div class="col-sm-1 col-md-1 col-lg-1">
            <div class="blockstyletab">      
@@ -334,6 +876,10 @@
                    <li id="templatetab">
                        <image src='images/sidebar/Icons_blockButton.svg' class="blockimg"/>
                        <p>TEMPLATE</p>
+                   </li>
+                   <li id="texttab">
+                       <image src='images/sidebar/Icons_editButton_blue_new.svg' class="blockimg"/>
+                       <p>TEXT</p>
                    </li>
                </ul>
            </div>
@@ -436,7 +982,7 @@
                     
                
         </script> 
-         <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->

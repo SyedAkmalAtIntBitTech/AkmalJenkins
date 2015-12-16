@@ -216,7 +216,7 @@ and open the template in the editor.
     
                     <div class="col-md-9">
                         <div class="col-md-4 col-md-offset-2 " id="uploadModule">
-                            <p style="width:300px;" id="text3" class="MH2"> Your Gallery </p>
+                            <p style="width:300px;" id="t3" class="MH2"> Your Gallery </p>
                            
                     <div class="col-md-4 col-md-offset-0" style="position:relative;left:-33px;height:390px; width:650px; overflow-y: scroll; overflow-x: hidden;">
                        <div ng-module="imagegallery" >
@@ -225,7 +225,7 @@ and open the template in the editor.
                                     <ul class="paginationclass" style="width:700px;">
                                         <li  ng-repeat="images in datalists | pagination: curPage * pageSize | limitTo: pageSize" >
                                             <div>
-                                                        <img id="{{images.id}}" class="lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}" onclick="showText('{{images.id}}','{{images.image_name}}')" width="110" height="100" />
+                                                        <img id="{{images.id}}" class="lookchooser5 ptr" ng-src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}" onclick="showText('{{images.id}}','{{images.image_name}}')" width="110" height="100" />
                     <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                             <button name="delete"  id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>
                                                     </div> 

@@ -258,7 +258,7 @@ and open the template in the editor.
 
                 <div class="col-md-6 col-md-offset-1 datahead">
                     
-                    <p id="text3" class="MH2">{{datalists.title}}</p>
+                    <p id="t3" class="MH2">{{datalists.title}}</p>
                     <input style="position:relative;bottom:9.0em;left:55em;" type="button" id="continuebutton" class="button button--moema button--text-thick button--text-upper button--size-s" onclick="selected_category()" value="CONTINUE" disabled="true">
                 </div>  
                

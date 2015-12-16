@@ -50,6 +50,7 @@
             var ok = confirm("Do you really want to Edit?");
             if (ok == true){
                 $("#link_name").show();
+                //$("#link_url").val("http://");
                 $("#link_url").show();
                 $("#editprogdet").hide();
                 $("#dateofevntedt").show();
@@ -64,6 +65,16 @@
             }
             });
             });
+            function checkUrl()
+            {
+                var url=$("#link_url").val();
+                if(url.contains("http://"))
+                {}
+                else
+                {
+                    $("#link_url").val("http://");
+                }
+            }
             function overlay(){
                 document.getElementById('light').style.display = 'block';
                 document.getElementById('fade').style.display = 'block';
@@ -142,7 +153,7 @@
                         <div id="associated_link" class="col-lg-3 col-md-3 col-sm-4" style="display:none;margin-left: -90px;">
                             <div class="asclink fontpnr">Associated Link</div>
                             <div id="assoctdnameprv" class="evntdt fontpns">{{programs.programdetails.linktodestination}}</div>
-                            <div id="assoctdnameedt" class="evntdt fontpns" style="display: none;"><input id="link_url" name="link_url" class="progactinputdate fontpns ptr"/></div>
+                            <div id="assoctdnameedt" class="evntdt fontpns" style="display: none;"><input id="link_url" name="link_url" class="progactinputdate fontpns ptr" onkeyup="checkUrl();"/></div>
                         </div>                        
                     </div>
                     <div class="row">
@@ -502,7 +513,7 @@
                                         <div class="topten"><!-- <div class="content"></div> -->
                                             <!--                                <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />-->
                                             <div class="content">
-                                                <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                                <img id="mailimgprev" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                             </div>
                                         </div>
                                         <div class="top27 headcolor tenpix fontpns">
@@ -518,7 +529,12 @@
                                         </div>
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
-                                                {{entitiesdetails.email_list_name}}
+                                                <div ng-show="entitiesdetails.email_list_name == 1">
+                                                    No Email List
+                                                </div>
+                                                <div ng-show="entitiesdetails.email_list_name != 1">
+                                                    {{entitiesdetails.email_list_name}}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="inlineFlex toptweenty">
@@ -664,7 +680,7 @@
                                             <div class="topten"><!-- <div class="content"></div> -->
                                                 <!--                                    <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />-->
                                                 <div class="content">
-                                                    <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                                    <img id="mailimgprev" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                                 </div>
                                             </div>
                                             <div class="top27 headcolor tenpix fontpns">
@@ -680,7 +696,12 @@
                                             </div>
                                             <div class="inlineFlex toptnine">
                                                 <div class="half containe fontpnr tenpix">
-                                                    {{entitiesdetails.email_list_name}}
+                                                    <div ng-show="entitiesdetails.email_list_name == 1">
+                                                        No Email List
+                                                    </div>
+                                                    <div ng-show="entitiesdetails.email_list_name != 1">
+                                                        {{entitiesdetails.email_list_name}}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="inlineFlex toptweenty">
@@ -786,7 +807,7 @@
                                         </div>
                                         <div class="approve">
                                             
-                                            <input type="button" value="Approve to Send" 
+                                            <input type="button" value="Approve to Post" 
                                                    ng-show="facebook_action_status == true && facebook_template_status=='Template Saved'" 
                                                    ng-click="Approval(schedule_id, 'approved', master_facebook)"
                                                    class="button approvetopostbuttonwidthheightcolor 
@@ -828,7 +849,7 @@
                                                                                 <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />   {{entitiesdetails.image_name}}  
                                                                             </div>-->
                                     <div id="imgcontainer">
-                                        <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                        <img id="prevfbimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                     </div>
                                     <div class="toptweenty headcolor tenpix fontpns">
                                         POST TEXT
@@ -996,7 +1017,7 @@
                                                                                     <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />   {{entitiesdetails.image_name}}  
                                                                                 </div>-->
                                         <div id="imgcontainer">
-                                            <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                            <img id="prevfbimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                         </div>
                                         <div class="toptweenty headcolor tenpix fontpns">
                                             POST TEXT
@@ -1052,7 +1073,7 @@
                                         <p class="containe twlvpix fontpnr">{{schedule_desc}}</p>
                                     </div>
                                     <div id="imgcontainer" style="display: none">
-                                        <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                        <img id="prevtwtimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                     </div>
                                     <div class="inlineFlex toptweenty">
                                         <div class="half headcolor fontpns tenpix">
@@ -1113,7 +1134,7 @@
                                             <input type="button" 
                                                    ng-show="twitter_action_status == true && twitter_template_status=='Template Saved'" 
                                                    ng-click="Approval(schedule_id, 'approved', master_twitter)"
-                                                   value="Approve to Send" 
+                                                   value="Approve to Post" 
                                                    class="button approvetopostbuttonwidthheightcolor 
                                                           buttonmargin 
                                                           button--moema  
@@ -1151,7 +1172,7 @@
                                         <!--    <img id="prevtwtimg" class="twtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                           20150907175706740.png-->
                                         <div id="imgcontainer">
-                                            <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                            <img id="prevtwtimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                         </div>
                                     </div>
                                     <div class="toptweenty headcolor tenpix fontpns">
@@ -1293,7 +1314,7 @@
                                             <!--    <img id="prevtwtimg" class="twtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                               20150907175706740.png-->
                                             <div id="imgcontainer">
-                                                <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                                <img id="prevtwtimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                             </div>
                                         </div>
                                         <div class="toptweenty headcolor tenpix fontpns">
@@ -1316,7 +1337,7 @@
                     </div>
 
                     <div id="imgcontainer" style="display:none;">
-                        <img id="edttwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
+                        <img id="edttwtimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
                              style="display:none;"/>
                     </div> 
                 </div>
@@ -1417,7 +1438,7 @@
                                         <div class="topten"><!-- <div class="content"></div> -->
                                             <!--                                <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />-->
                                             <div class="content">
-                                                <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                                <img id="mailimgprev" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                             </div>
                                         </div>
                                         <div class="top27 headcolor tenpix fontpns">
@@ -1433,7 +1454,12 @@
                                         </div>
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
-                                                {{entitiesdetails.email_list_name}}
+                                                <div ng-show="entitiesdetails.email_list_name == 1">
+                                                    No Email List
+                                                </div>
+                                                <div ng-show="entitiesdetails.email_list_name != 1">
+                                                    {{entitiesdetails.email_list_name}}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="inlineFlex toptweenty">

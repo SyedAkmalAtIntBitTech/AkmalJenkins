@@ -36,13 +36,13 @@
         <script src="js/emaillist.js" type="text/javascript"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
    
-        <link rel="stylesheet" href="css/main1.css">
+<!--        <link rel="stylesheet" href="css/main1.css">-->
         <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css">
         <link rel="stylesheet" href="css/newnormalize.css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
-        <link href="css/emaillist.css" rel="stylesheet" type="text/css"/>
+        <!--<link href="css/emaillist.css" rel="stylesheet" type="text/css"/>-->
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <title>BrndBot - Email List</title> 
         
@@ -64,7 +64,7 @@
                         </ul>
                     </div>
                     <hr id="line" style="width:950px;height:1px;background-color:#000;position:relative;top:-60px;">
-                    <div id="scrl" class="col-md-6"  ng-init="showEmailListWithContacts()">
+                    <div id="scrl" class="col-md-6"  ng-init="showEmailListWithContacts()" style="margin-left:40px;">
                         <ul class="emlOneRowDatalst L2 " ng-repeat="email in emailLists">                            
                             <li style=" left:-50px;" onclick="setSelectedlistName('{{email.emailListName}}')"><p class="emlOneRowDatalst L2" style="width:300px;">{{email.emailListName}}</p><p class="BC1" style="width:200px;">{{email.listDescription}}</p></li>
                             <li style="width:300px;text-align:center;left:100px;">{{email.noofcontants}}<br><p class="BC1">contacts</p></li>
@@ -88,25 +88,25 @@
                             <div class="group">
                                 <div class="col-md-3 col-md-offset-5 ">                            
                                     <input id="list_name" class="brdr form-control simplebox" type="text" name="list_name" />
-                                    <label>LIST NAME</label><br>
+                                    <label id="lstnm">LIST NAME</label><br>
                                 </div>
                             </div>
                             <div class="group">
                                 <div class="col-md-3 col-md-offset-5">                            
                                     <input id="default_from_name" class="brdr form-control simplebox" type="text" name="default_from_name"/>
-                                    <label>DEFAULT FROM NAME </label><br>
+                                    <label id="deffrmnm">DEFAULT FROM NAME </label><br>
                                 </div>
                             </div>
                             <div class="group">
                                 <div class="col-md-3 col-md-offset-5">                            
                                     <input id="list_description" class="brdr form-control simplebox" type="text" name="list_description"/>
-                                    <label>LIST DESCRIPTION</label><br>
+                                    <label id="lstdesc">LIST DESCRIPTION</label><br>
                                     <p class="BC1" style="width:300px;">Keep this short and sweet! Like “People Interested in Events”</p>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-5 col-md-offset-5">
-                                    <br><button type="submit" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="createEmailList()">Enter</button><br>
+                                    <br><button type="submit" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="createEmailList()">Save</button><br>
                                 </div>
                             </div>
                         </form> 
@@ -131,7 +131,7 @@
                     <div id="scrl" class="col-md-6" >
                         <ul id="uluseremails" class="emlOneRowDatalst L2 LE2" ng-repeat="email in user_emailAddresses">
 
-                            <li id="liemailid1" style="width:300px;left:-30px;top:-80px;"><input style="top:17px;position:relative;left:-160px;" id="{{email.id}}" class="email" type="checkbox" value="{{email.emailAddress}}" onclick="selectEmailId('{{email.id}}');"/><span onclick="fun('update','{{email.emailAddress}}','{{email.id}}','{{email.firstName}}','{{email.lastName}}');">{{email.emailAddress}} <{{email.firstName}} {{email.lastName}}></span></li>
+                            <li id="liemailid1" style="width:300px;left:-30px;top:-80px;"><input style="top:17px;position:relative;left:-18px;width:16px;" id="{{email.id}}" class="email" type="checkbox" value="{{email.emailAddress}}" onclick="selectEmailId('{{email.id}}');"/><span onclick="fun('update','{{email.emailAddress}}','{{email.id}}','{{email.firstName}}','{{email.lastName}}');">{{email.emailAddress}} <{{email.firstName}} {{email.lastName}}></span></li>
                             <p ng-show="email.emailAddress == '' && type == 'user'" id='NoContacts' style="margin-top:-80px;">No contacts available</p>
                         </ul>
                         <ul class="emlOneRowDatalst L2 LE2" ng-repeat="email in mindbody_emailAddresses">

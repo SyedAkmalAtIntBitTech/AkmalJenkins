@@ -36,9 +36,6 @@ and open the template in the editor.
   
 }
 
-
-
-
 /*////// signup page animation    //////*/
 #std >div {
     position: relative;
@@ -192,8 +189,6 @@ label                {
     left:-130px;
   font-size:13px;
   color:#999;
-  
- 
 }
 #default_from_name:focus ~ label, .inputsubline:valid ~ label     {
     left:-170px;
@@ -240,7 +235,7 @@ label                {
   font-size:13px;
   color:#999;
 }
-
+/*#inputpassword{-webkit-text-security:disc;}*/
 #inputpassword:focus ~ label, #inputpassword:valid ~ label{
   left:-70px;
   font-size:13px;
@@ -250,29 +245,29 @@ label                {
 .settingPassword:focus ~ label{
   left:-132px !important;
 }
-#inputpassword:valid ~ label{
+/*#inputpassword:valid ~ label{
   left:-72px !important;
   font-size:13px !important;
   color:#999 !important;
-}
-#inputpassword:valid ~ label
+}*/
+/*#inputpassword:valid ~ label
 {
   left:-70px !important;
   font-size:13px !important;
   color:#999 !important;
-}
+}*/
 #inputreenter:focus ~ label, #inputreenter:valid ~ label{
-    left:-72px;
+    left:-128px;
     font-size:13px;
     color:#999;
     
 }
-#reply_email_address:valid ~ label,#reply_email_address:focus ~ label {
+/*#reply_email_address:valid ~ label,#reply_email_address:focus ~ label {
             left: -170px;
             }
             #from_address:valid ~ label,#from_address:focus ~ label {
             left: -170px;
-            }
+            }*/
 
 
 #inputcompanyname:focus ~ label, #inputcompanyname:valid ~ label        {

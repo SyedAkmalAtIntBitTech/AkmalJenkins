@@ -10,10 +10,13 @@ import com.controller.SocialPostScheduler;
 import com.divtohtml.StringUtil;
 import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledEntityList;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONObject;
 import static social.controller.ScheduleTwitterPost.logger;
 import util.DateTimeUtil;
 
@@ -31,33 +34,53 @@ public class ScheduleAnRecuringEmail implements Runnable {
     public void run() {
 
         try {
-            TblScheduledEntityList scheduledAnRecuringEmail = getLatestApprovedSendEmail();
-
+            List<TblScheduledEntityList> scheduledAnRecuringEmail = getLatestApprovedSendEmail();
+            for (TblScheduledEntityList currentScheduledRecuringEmail : scheduledAnRecuringEmail) {
             if (scheduledAnRecuringEmail != null) {
 
-                boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledAnRecuringEmail.getScheduleTime());
-//                boolean shouldPostNow = true;
+//                boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledRecuringEmail.getScheduleTime());
+                boolean shouldPostNow = true;
 
                 if (shouldPostNow) {
-                    TblScheduledEmailList sendAnEmail = getSendEmail(scheduledAnRecuringEmail);
+                    TblScheduledEmailList sendAnEmail = getSendEmail(currentScheduledRecuringEmail);
                     String html_text = sendAnEmail.getBody();
                     String email_subject = sendAnEmail.getSubject();
 
                     String emaillist_name = sendAnEmail.getEmailListName();
-                    Integer user_id = scheduledAnRecuringEmail.getUserId();
+                    Integer user_id = currentScheduledRecuringEmail.getUserId();
                     String reply_to_address = sendAnEmail.getReplyToEmailAddress();
                     String from_email_address = sendAnEmail.getFromAddress();
                     String from_name = sendAnEmail.getFromName();
                     SendAnEmail anEmail = new SendAnEmail();
                     //and get days from TblScheduledEntityList
-                    Integer days = scheduledAnRecuringEmail.getDays();
-                    String to_email_addresses = anEmail.getAllEmailAddressesForEmailList(user_id, days, emaillist_name);
+                    Integer days = currentScheduledRecuringEmail.getDays();
+                    JSONObject json_object = anEmail.getAllEmailAddressesForEmailList(user_id, days, emaillist_name);
+
+                    String to_email_addresses = json_object.get("emailAddresses").toString();
+                    String firstName = json_object.get("firstName").toString();
+                    String lastName = json_object.get("lastName").toString();
+                    
+                    boolean check_availability_firstName = html_text.contains("clientFirstName");
+                    boolean check_availability_lastName = html_text.contains("clientLastName");
+                    boolean check_availability_fullName = html_text.contains("clientFullName");
+
+                    if (check_availability_firstName){
+                        html_text.replace("clientFirstName", firstName);
+                    }
+                    if (check_availability_lastName){
+                        html_text.replace("clientLastName", lastName);
+                    }
+                    if (check_availability_fullName){
+                        html_text.replace("clientFullName", firstName + " " + lastName);
+                    }
+                    
                     String message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name);
 //                    String message = "success";//TODO
                     if (message.equalsIgnoreCase("success")) {
-                        updateStatusScheduledEmail(scheduledAnRecuringEmail);
+                        updateStatusScheduledEmail(currentScheduledRecuringEmail);
                     }
                 }
+            }
             }
         } catch (Throwable ex) {
             Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, null, ex);
@@ -76,11 +99,14 @@ public class ScheduleAnRecuringEmail implements Runnable {
         return scheduledEmailList;
     }
 
-    private TblScheduledEntityList getLatestApprovedSendEmail() throws Throwable {
-        String entityId = SchedulerUtilityMethods.getLatestEmailApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.TRUE);
-        TblScheduledEntityList scheduledEntityList = null;
-        if (!StringUtil.isEmpty(entityId)) {
-            scheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(entityId), IConstants.kEmailKey);
+    private List<TblScheduledEntityList> getLatestApprovedSendEmail() throws Throwable {
+        ArrayList<String> entityId = SchedulerUtilityMethods.getLatestEmailApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.TRUE);
+        List<TblScheduledEntityList> scheduledEntityList = new ArrayList<TblScheduledEntityList>();
+        if (entityId.size()>0) {
+            for (String currentEntityId : entityId) {
+            TblScheduledEntityList tblScheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(currentEntityId), IConstants.kEmailKey);
+            scheduledEntityList.add(tblScheduledEntityList);
+            }
         }
         return scheduledEntityList;
     }

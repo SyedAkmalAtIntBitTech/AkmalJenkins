@@ -78,13 +78,13 @@ and open the template in the editor.
 
                     <div class="col-md-10 col-md-offset-1" ng-controller="controllerCategories">
 
-                        <p id="text3" class="company MH2" style="padding-bottom:30px;line-height:1.3em;">  Hi <%= company%>!<br>What would you like to do today?</p>
-                        <p id="text3-1" class="MH2 mindbodyactivationstatus">{{mindbodyactivationmessage}}<br><a href="{{mindbodyactivationlink}}" target="_blank">Click here</a></p>
+                        <p id="t3" class="company MH2" style="padding-bottom:30px;line-height:1.3em;">  Hi <%= company%>!<br>What would you like to do today?</p>
+                        <p id="t3-1" class="MH2 mindbodyactivationstatus">{{mindbodyactivationmessage}}<br><a href="{{mindbodyactivationlink}}" target="_blank">Click here</a></p>
                        <ul id="promotelist">
                             
                             <li id="one" ng-repeat="category in categories">
-                                <a href=""><img id="promoteimage" src="/BrndBot/DownloadImage?image_type=ORG_CATEGORIES&image_name={{category.image_name}}&org_id={{category.organizationId}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" width="90" height="91"/></a>
-                                <p id="text4" class="il2">{{category.categoryName}}</p>
+                                <a href=""><img id="promoteimage" ng-src="/BrndBot/DownloadImage?image_type=ORG_CATEGORIES&image_name={{category.image_name}}&org_id={{category.organizationId}}" class="{{category.id}}" alt="" ng-click="getSubCategories(category.id)" width="90" height="91"/></a>
+                                <p id="t4" class="il2">{{category.categoryName}}</p>
                             </li>
                         </ul>
                         <div>
