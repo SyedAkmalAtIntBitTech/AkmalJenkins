@@ -842,9 +842,9 @@
                 </div>
                    <div class="col-md-6 col-lg-6 col-sm-6">
                         <div class="textstyle">To add client name please use these options</div>
-                        <div class="textstyle">Ex: Hi &LT; clientFirstName &GT; </div>
-                        <div class="textstyle">Hi &LT; clientLastName &GT; </div>
-                        <div class="textstyle">Hi &LT; clientFullName &GT; </div>
+                        <div class="textstyle">Ex: Hi &LT;clientFirstName&GT; </div>
+                        <div class="textstyle">Hi &LT;clientLastName&GT; </div>
+                        <div class="textstyle">Hi &LT;clientFullName&GT; </div>
                     </div>
                </div>
                
