@@ -118,9 +118,7 @@
                             ConnectionManager.getInstance().closeConnection(conn);
                         }
                         %>
-                    </select><br>
-
-                    
+                    </select><br>              
                     </div>
                 </div>
                 <div class="group">

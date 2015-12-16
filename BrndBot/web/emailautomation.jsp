@@ -558,6 +558,7 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
   <script type="text/javascript" src="js/froala_editor.min_editor.js" ></script>
+
         <script type="text/javascript" src="js/plugins/align.min.js"></script>
         <script type="text/javascript" src="js/plugins/colors.min_Editor.js" ></script>
         <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
@@ -582,8 +583,6 @@
        });
     });
   </script>
-  
-  
 <jsp:include page="basejsp.jsp"/>
       
 </head>
@@ -757,6 +756,7 @@
                <div class="col-sm-7 col-md-7 col-lg-7">
                    <div class="row">
                        <div class="col-sm-12 col-md-12 col-lg-12 bgcolor"> 
+
                             <style>
                                 #edit{
                                     position: relative;

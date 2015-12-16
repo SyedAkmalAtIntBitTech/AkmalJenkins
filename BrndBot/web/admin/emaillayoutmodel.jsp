@@ -290,7 +290,7 @@
                 xmlHttp.send(null);
              
            }
-              function fontChange() {
+            function fontChange() {
 
                 if (xmlHttp.readyState === 4 || xmlHttp.readyState === "complete") {
 

@@ -205,11 +205,10 @@ angular.module("myapp", [])
                     } else {
                         alert(data);
                     }
-                })
-                        .error(function (data, status) {
-                            // called asynchronously if an error occurs
-                            // or server returns response with an error status.
-                            alert("request not succesful");
-                        });
+                }).error(function (data, status) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    alert("request not succesful");
+                });
             };
         });

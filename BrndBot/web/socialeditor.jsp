@@ -360,14 +360,14 @@ var jsondata;
 var selectedDivId;
 var mindbodydataId = $("#mindbodydata").val();
 
-angular.module("myapp", [])
+        angular.module("myapp", [])
 
-.controller("MyController", function($scope, $http) {
-$http({
-        method : 'GET',
-        url : 'GetUserPreferences'
-}).success(function(data, status, headers, config) {
-//                        alert(JSON.stringify(data.user_font_names));
+        .controller("MyController", function($scope, $http) {
+        $http({
+                method : 'GET',
+                url : 'GetUserPreferences'
+        }).success(function(data, status, headers, config) {
+        //                        alert(JSON.stringify(data.user_font_names));
         $scope.user_preferences_colors = data.user_colors;
 
         $scope.user_preferences_font_sizes = data.user_font_sizes;
@@ -396,17 +396,16 @@ $http({
                          "src: url("+font_path+");"
             $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
 
-
         }
 
-if (data === error){
-    alert(data);
-    }
-}).error(function(data, status, headers, config) {
-alert("No data available, problem fetching the data");
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-});
+        if (data === error){
+            alert(data);
+            }
+        }).error(function(data, status, headers, config) {
+        alert("No data available, problem fetching the data");
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+        });
         $scope.showStyles = function(){
         var media_type=$("#media_type").val();
         $scope.curPage = 0;
@@ -428,7 +427,7 @@ alert("No data available, problem fetching the data");
                     alert(data);
                     }
         }).error(function(data, status, headers, config) {
-        alert("No data available, problem fetching the data");
+            alert("No data available, problem fetching the data");
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
         });
@@ -459,26 +458,26 @@ alert("No data available, problem fetching the data");
                 // or server returns response with an error status.
         });
         };
-});
-angular.module('myapp').filter('pagination', function()
-{
-return function(input, start)
-{
-start = + start;
-return input.slice(start);
-};
-});
+        });
+        angular.module('myapp').filter('pagination', function()
+        {
+        return function(input, start)
+        {
+        start = + start;
+        return input.slice(start);
+        };
+        });
 
-function showText(id, layout){
- //hiding filter Container 
- $("#filtercontainer").hide();
-     var layout_mapper_url = "";
+        function showText(id, layout){
+         //hiding filter Container 
+         $("#filtercontainer").hide();
+             var layout_mapper_url = "";
 
-if (mindbodydataId != ""){
-   layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social&model_mapper_id='+id;
-}else{
-   layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social&model_mapper_id='+id;
-}                         
+        if (mindbodydataId != ""){
+           layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social&model_mapper_id='+id;
+        }else{
+           layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social&model_mapper_id='+id;
+        }                         
 
         $.ajax({
                 type: 'GET',
