@@ -29,7 +29,7 @@ a.svg:after {
 
 .detail-overlay-content{
     //width: 100%;
-    overflow-x: hidden;
+    //overflow-x: hidden;
     background-color: #FFFFFF ;
     margin:0;
     box-sizing: border-box;
@@ -127,7 +127,7 @@ a.svg:after {
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^TOP NAV^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 
 .top-nav-container-detail{
-    position:fixed;
+    position:relative;
     top:0;
     width:inherit; 
     margin: 0px;
@@ -144,13 +144,13 @@ a.svg:after {
 }
 
 .top-navbar-inner-bb-detail{
-  padding-left: 30px;
+    padding-left: 30px;
     padding-right: 30px;
     float: left;
     line-height: 100%;
-     box-sizing: border-box;
+    box-sizing: border-box;
     font-weight: 400;
-    width: 855px;
+    width: 835px;
 }
 
 .top-navbar-title-container{
@@ -160,11 +160,12 @@ a.svg:after {
     height: 60px;
     float: left;
     width: px;
+    margin-left: 30px;
 }
 
 .top-navbar-title{
-     display: table-cell; 
-  vertical-align: middle; 
+    display: table-cell; 
+    vertical-align: middle; 
     color: black;
 }
 
@@ -307,12 +308,13 @@ a.svg:after {
 
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^INNERCONTENT-- SAVED POST ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 .below-nav-container-saved-post-detail{
-     width:100%;
+    width:100%;
     background-color: #F9F9F9;
     box-sizing: border-box; 
     float: left;
-    padding-top:100px;
+    padding-top:0px;
     padding-bottom:105px;
+    overflow: auto;
 }
 
 
@@ -504,7 +506,7 @@ Facebook-preview-name{
 }
 
 .below-nav-container-saved-draft-detail{
-     width:100%;
+    width:100%;
     background-color: #FFFFFF;
     box-sizing: border-box; 
     float: left;

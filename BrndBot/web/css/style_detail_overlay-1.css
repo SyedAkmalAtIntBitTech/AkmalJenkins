@@ -37,7 +37,7 @@ a.svg:after {
     box-sizing: border-box;
     border-left: 2px #d5dadf solid;
     height: 100vh;
-    overflow-y: hidden;
+    //overflow-y: hidden;
     width: 100%;       //////////////////////// change 60% to 1005by Satyajit Roy on 16/12/2015
     max-width: 100%;
 }
@@ -219,7 +219,7 @@ a.svg:after {
 
 .subnav-dropdown{
     height: 40px;
-     padding-left: 40px;
+    padding-left: 40px;
     padding-right: 20px;
     background-color: #0F76A6 ;
     box-sizing: border-box;
@@ -349,7 +349,7 @@ a.svg:after {
 .page-cta-container{
     float: right;
     width: auto;
-      padding-left: 20px;
+    padding-left: 20px;
     padding-right: 60px;
     padding-top: 15px;
 
@@ -438,34 +438,30 @@ a.svg:after {
     padding-top: 150px;
      width: 80%;
     box-sizing: border-box;
-    margin: auto;
-    
+    margin: auto;  
 }
-
 
 .email-draft-page{
     padding-top: 150px;
-    
 }
 
-
 .top-nav-container-detail{
-    position:fixed;
+    //position:fixed;
     top:0;
     width:100%;
     max-width:100%; 
     margin: 0px;
     box-sizing: border-box;
-    overflow-x: visible;
+    //overflow-x: visible;
 }
 
 .top-navbar-detail{
-     background-color: #FFFFFF;
+/*    background-color: #FFFFFF;
     height:60px;
     border-bottom: 1px solid #d5dadf;
     width: 100%;
     max-width: 100%;
-    box-sizing: border-box;
+    box-sizing: border-box;*/
 }
 
 .page-content-title-bar{
@@ -488,10 +484,10 @@ padding-top: 0px;
 }
 
 .page-inner-content-container{
-    width: 100%;
+/*    width: 100%;
     margin: auto;
     min-width: 800px;
-    max-width: 1170px;
+    max-width: 1170px;*/
 
 }
 
@@ -692,10 +688,10 @@ padding-top: 0px;
     background-color: #F9F9F9;
     box-sizing: border-box; 
     float: left;
-    padding-top:100px;
+    padding-top:0px;
     padding-bottom:105px;
     height: 750px;
-    overflow: auto;
+    //overflow: auto;
 }
 
 
@@ -1058,7 +1054,7 @@ Facebook-preview-name{
 }
 
 .inner-content-detail{ 
-    margin-top:20px;
+    //margin-top:20px;
     width:100%;
     float:left;
    
@@ -1903,7 +1899,7 @@ input-field-container{
     padding: 6px 10px 3px 10px;
     margin-top: 10px;
     box-sizing: border-box;
-    color: #cccccc;
+    color: #000000;
 }
 
 .pop-up-exit-container{

@@ -274,7 +274,7 @@ function validateaction() {
     var actiondate = $("#datepicker").val();
     var actiontime = $("#timepicker1").val();
     var marketing_program = $("#marketing_program").val();
-    
+    //alert("title.. "+title+"  actiontype.. "+actiontype+"  description.. "+description+"  actiondate.. "+actiondate+"  actiontime.. "+actiontime+"  marketing_program..  "+marketing_program)
     if (marketing_program === '0') {
         //alert("Marketing Program not selected, please select any one Program");
         //$("#marketing_program").focus();
@@ -292,9 +292,9 @@ function validateaction() {
     }
 
     if (description === "") {
-        alert("description not entered, please enter the description");
-        $("#description").focus();
-        return false;
+        //alert("description not entered, please enter the description");
+        //$("#description").focus();
+        //return false;
     }
     if (actiondate === "") {
         alert("date not selected, please select the date");
@@ -1039,12 +1039,13 @@ function controllerMarketingCampaign($scope, $http) {
 
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active) {
         
-        if (entity_type == getemail()) {
+        if (entity_type === getemail()) {
             $slider=2;
             sliderDialog = "#emailsection";
             $('#slider-button').click();
             prevSliderDialog = "#emailsection";
             $('#emailsection').show();
+            
 //            $("#preview_email").show();
 //            $("#edit_email").hide();
 //            $("#edit_email_action").hide();
@@ -1098,7 +1099,7 @@ function controllerMarketingCampaign($scope, $http) {
 //                alert("request not successful");
 //            });
         } 
-        if (entity_type == getfacebook()) {
+        if (entity_type === getfacebook()) {
             $slider=2;
             sliderDialog = "#facebooksection";
             $('#facebooksection').show();
@@ -1164,7 +1165,7 @@ function controllerMarketingCampaign($scope, $http) {
 //
         } 
         
-         if (entity_type == gettwitter()) {
+         if (entity_type === gettwitter()) {
             $slider=2;
             $('#twittersection').show();
             sliderDialog = "#twittersection";
@@ -1247,7 +1248,7 @@ function controllerMarketingCampaign($scope, $http) {
         var title = $("#addactiontitle").val();
         var actiontype = $("#actiontype").val();
         var marketingProgramType=$("#marketing_program").val();
-        var description = $("#description").val();
+        var description = "";
         var actiondate = $("#datepicker").val();
         var actionDateTime=$("#timepicker1").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();

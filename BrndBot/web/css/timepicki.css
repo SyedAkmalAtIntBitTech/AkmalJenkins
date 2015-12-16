@@ -33,7 +33,6 @@ Author: senthil
 	margin: auto;
 	background: url(../images/arrow.png) no-repeat;
 	border-radius: 5px;
-        width: 74%;
 }
 
 .previous:hover,
@@ -64,7 +63,7 @@ Author: senthil
 	float: left;
 	position: absolute;
 	left: 0px;
-        
+        width: 137%;
 }
 
 .arrow_top {

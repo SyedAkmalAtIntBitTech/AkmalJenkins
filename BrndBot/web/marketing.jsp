@@ -27,7 +27,7 @@
     <title>BrndBot - Your Plan</title>
 </head>    
 
-<body ng-app class="claro">
+<body ng-app class="">
     <!--SideNav-->
     <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign"  class="container content-main">
     <jsp:include page="AddAction.jsp"/> 
