@@ -521,6 +521,7 @@
         String emailAddresses = "";
         String iframeName = "";
         String iframeUrl="";
+        String draft_id = "0";
     %>
     <%
         sqlmethods.session = request.getSession(true);
@@ -530,8 +531,18 @@
         htmlData = (String) sqlmethods.session.getAttribute("htmldata");
         iframeName = (String) sqlmethods.session.getAttribute("iframeName");
         iframeUrl="/BrndBot/DownloadHtmlServlet?file_name="+iframeName+".html";
+        draft_id = "0";
+        if (!request.getParameter("draftid").equals("null")){
+                    draft_id = (String)request.getParameter("draftid");
+                    out.println();
+        }
     %>
     <script>
+        var draft_id = 0;
+         $(document).ready(function () {
+                    draft_id = <%= draft_id %>;
+                    console.log(draft_id);
+                });
 //        $(document).ready(function (){$("#toaddress").click(function (){var addr=$("#toaddress").val();if(addr!==""){$("#toaddrlbl").css("left","-70px");}else{$("#toaddrlbl").css("left","0px");alert("data");}});});
         function emailSettings($scope, $http){
             
@@ -685,9 +696,16 @@
                             data: email_scheduling
                         }).success(function (data) {                            
                             if (data != "") {
-                                alert("Your Email has been Scheduled Successfully");
+                               $http({
+                               method: 'POST',
+                               url: getHost() + "deleteEmailDraft.do?draftid="+draft_id
+                               }).success(function (data) {
+                                   alert("Your Email has been Scheduled Successfully");
+                                   document.location.href = "dashboard.jsp";
                                 
-                                document.location.href = "dashboard.jsp";
+                                }).error(function (data) {
+                                    alert("No data available, problem fetching the data");
+                                });
                             }
                         }).error(function (data) {
                             alert("No data available, problem fetching the data");
@@ -712,8 +730,16 @@
                             data: email_scheduling
                         }).success(function (data) {
                             if (data != "") {
+                               $http({
+                               method: 'POST',
+                               url: getHost() + "deleteEmailDraft.do?draftid="+draft_id
+                               }).success(function (data) {
                                 alert("Your Email has been Scheduled Successfully");
                                 document.location.href = "dashboard.jsp";
+                                
+                                }).error(function (data) {
+                                    alert("No data available, problem fetching the data");
+                                });
                             }
                         }).error(function (data) {
                             alert("No data available, problem fetching the data...2");
@@ -980,8 +1006,21 @@
                     },
                     success: function (responseText) {
                        
-                        $('#loadingGif').remove();
-                        document.location.href = "emailsent.jsp";
+                        
+                        $.ajax({
+                            url: getHost() + "deleteEmailDraft.do?draftid="+draft_id,
+                            type: "post",
+                            success: function (responseText) {
+                                if(responseText=="true")
+                                {
+                                    $('#loadingGif').remove();
+                                    document.location.href = "emailsent.jsp";
+                                }
+                            },
+                            error: function () {
+                                alert("error");
+                            }        
+                        });
                     },
                     error: function () {
                         alert("error");
