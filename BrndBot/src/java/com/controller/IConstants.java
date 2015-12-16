@@ -21,9 +21,9 @@ public interface IConstants {
     final static String kEmailLastNameKey = "emailLastName";
     final static String kEmailFirstNameKey = "emailFirstName";
     final static String kEmailClientName = "emailClientName";
-    final static String kEmailClientFirstName = "<clientFirstName>";
-    final static String kEmailClientLastName = "<clientLastName>";
-    final static String kEmailClientFullName = "<clientFullName>";
+    final static String kEmailClientFirstName = "&lt;clientFirstName&gt;";
+    final static String kEmailClientLastName = "&lt;clientLastName&gt;";
+    final static String kEmailClientFullName = "&lt;clientFullName&gt;";
     final static String kEmailUIDKey = "emailUID";
     final static String kEmailListDefaultFromName = "defaultFromName";
     final static String kEmailListListDescription = "listDescription";

@@ -40,8 +40,8 @@ public class ScheduleAnRecuringEmail implements Runnable {
             List<TblScheduledEntityList> scheduledAnRecuringEmail = getLatestApprovedSendEmail();
             for (TblScheduledEntityList currentScheduledRecuringEmail : scheduledAnRecuringEmail) {
                 if (scheduledAnRecuringEmail != null) {
-//                boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledRecuringEmail.getScheduleTime());
-                    boolean shouldPostNow = true;
+                boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledRecuringEmail.getScheduleTime());
+//                    boolean shouldPostNow = true;
 
                     if (shouldPostNow) {
                         TblScheduledEmailList sendAnEmail = getSendEmail(currentScheduledRecuringEmail);
