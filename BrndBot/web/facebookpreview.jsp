@@ -14,7 +14,6 @@
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay.css">
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="shortcut icon" href="favicon.png">
-    <link rel="stylesheet" href="css/popup.css"/>
     <script src="js/popup.js"></script>
 </head>    
 

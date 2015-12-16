@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="css/version2/hint.css"/>
     <link rel="stylesheet" href="css/pikaday.css">
     <link rel="stylesheet" href="css/datepickerpikaday.css">
-        <script src="js/moment.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/popup.css"/>
+    <script src="js/moment.js" type="text/javascript"></script>
     <script src="js/pikaday.js"></script>
     <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -27,7 +28,7 @@
     <title>BrndBot - Your Plan</title>
 </head>    
 
-<body ng-app class="">
+<body ng-app class="claro1">
     <!--SideNav-->
     <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign"  class="container content-main">
     <jsp:include page="AddAction.jsp"/> 
@@ -94,7 +95,7 @@
                     <ul class="main-container fleft" >
                         <li class="slat-container fleft selfclear" ng-repeat="entitydetails in entity.dataArray">
                             <div class="selection-container col-5p"> 
-                               <div class="selection-icon" id="{{entitydetails.entity_id}}" onclick="selcheckbox(this.id)"><input type="checkbox" id="entityid{{entitydetails.entity_id}}" value="{{entitydetails.entity_id}}" name="entityname" hidden></input></div>
+                               <div class="selection-icon" id="{{entitydetails.schedule_id}}" onclick="selcheckbox(this.id)"><input type="checkbox" id="entityid{{entitydetails.entity_id}}" value="{{entitydetails.entity_id}}" name="entityname" hidden></input></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div class="icon-container fleft hint--top"  data-hint="Template Saved" ng-show="entitydetails.template_status=='No Template'"> 
