@@ -154,10 +154,14 @@ function loginController($scope, $http) {
         {
             $scope.status = data;
             if (data === "true") {
+//                $("#inputpassword").prop({type:"password"});
                 window.open(getHost() + 'dashboard.jsp', "_self");
             } else if (data === "false") {
                 alert("incorrect username or password");
                 window.open(getHost() + 'login.jsp', "_self");
+//                $("#inputpassword").prop({type:"text"});
+//                $("#inputpassword").val('');
+//                alert($("#inputpassword").val());
             } else if (data === error) {
                 alert(data);
             }

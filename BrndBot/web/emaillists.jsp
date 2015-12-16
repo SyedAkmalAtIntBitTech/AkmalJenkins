@@ -42,7 +42,7 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
-        <link href="css/emaillist.css" rel="stylesheet" type="text/css"/>
+        <!--<link href="css/emaillist.css" rel="stylesheet" type="text/css"/>-->
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <title>BrndBot - Email List</title> 
         
@@ -88,19 +88,19 @@
                             <div class="group">
                                 <div class="col-md-3 col-md-offset-5 ">                            
                                     <input id="list_name" class="brdr form-control simplebox" type="text" name="list_name" />
-                                    <label>LIST NAME</label><br>
+                                    <label id="lstnm">LIST NAME</label><br>
                                 </div>
                             </div>
                             <div class="group">
                                 <div class="col-md-3 col-md-offset-5">                            
                                     <input id="default_from_name" class="brdr form-control simplebox" type="text" name="default_from_name"/>
-                                    <label>DEFAULT FROM NAME </label><br>
+                                    <label id="deffrmnm">DEFAULT FROM NAME </label><br>
                                 </div>
                             </div>
                             <div class="group">
                                 <div class="col-md-3 col-md-offset-5">                            
                                     <input id="list_description" class="brdr form-control simplebox" type="text" name="list_description"/>
-                                    <label>LIST DESCRIPTION</label><br>
+                                    <label id="lstdesc">LIST DESCRIPTION</label><br>
                                     <p class="BC1" style="width:300px;">Keep this short and sweet! Like “People Interested in Events”</p>
                                 </div>
                             </div>
