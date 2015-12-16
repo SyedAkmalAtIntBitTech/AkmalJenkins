@@ -858,7 +858,7 @@
                                 bodyString : $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
                                 },
                                 success: function (responseText) {
-                                if (responseText == "true"){
+                                if (responseText != "0"){
                                     alert("Draft saved successfully.");
                                     document.location.href = "dashboard.jsp";
                                 } else {
@@ -901,6 +901,8 @@
                 success: function (responseText) {
                 $("#previewcontent").empty();
                         $("#previewcontent").append(responseText);
+                        
+                        
                         $.ajax({
                         url: getHost() + "SaveKeyValueSessionServlet",
                                 method: "post",
@@ -912,8 +914,44 @@
                                         sessionIframevalue:"" + rendomIframeFilename
                                 },
                                 success: function (responseText) {
+                                    // added by Syed Ilyas 16 dec 2015 - saves draft
+                                    if (draft_id == "0"){
+                                        $.ajax({
+                                                url: getHost() + "saveEmailDrafts.do",
+                                                method: "post",
+                                                data:{
+                                                bodyString : $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                                                },
+                                                success: function (responseText) {
+                                                if (responseText != "0"){
+                                                    document.location.href = "emailpreview.jsp?draftid="+responseText;
+                                                } else {
+                                                    alert("There was a problem while saving the draft. Please try again later.");
+                                                }
+                                                }
 
-                                document.location.href = "emailpreview.jsp";
+                                        });
+                                    }else {
+                                        $.ajax({
+                                                url: getHost() + "updateEmailDraft.do",
+                                                method: "post",
+                                                data:{
+                                                    draftid: draft_id,
+                                                    bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                                                },
+                                                success: function (responseText) {
+                                                if (responseText == "true"){
+                                                    document.location.href = "emailpreview.jsp?draftid="+draft_id;
+                                                } else {
+                                                    alert("There was a problem while saving the draft. Please try again later.");
+                                                }
+                                                }
+
+                                        });
+
+                                    }
+                                    
+                                
                                 }
 
                         });

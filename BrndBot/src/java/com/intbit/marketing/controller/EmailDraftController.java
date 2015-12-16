@@ -79,13 +79,13 @@ public class EmailDraftController {
             JSONObject json_object = (JSONObject) json_parser.parse(str_model);
             email_draft.setUserId(user_id);
             email_draft.setDraftJson(json_object.toString());
-            emaildraftservice.save(email_draft);
-            return "true";
+            Integer draftID = emaildraftservice.save(email_draft);
+            return draftID.toString();
         } catch (Exception ex) {
             Logger.getLogger(EmailDraftController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return "false";
+        return "0";
     }
 
     @RequestMapping(value = "/updateEmailDraft", method = RequestMethod.POST)
@@ -230,6 +230,20 @@ public class EmailDraftController {
            for (int i = 0; i < draftIdsArray.length; i++) {
                emaildraftservice.delete(Integer.parseInt(draftIdsArray[i]));
            }
+            return "true";
+        } catch (Exception e) {
+            Logger.getLogger(EmailDraftController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return "false";
+    }
+    
+    @RequestMapping(value = "/deleteEmailDraft", method = RequestMethod.POST)
+    public @ResponseBody
+    String deleteEmailDraft(@RequestParam("draftid") Integer draftid) throws IOException, Throwable {
+        try {
+            
+           
+            emaildraftservice.delete(draftid);
             return "true";
         } catch (Exception e) {
             Logger.getLogger(EmailDraftController.class.getName()).log(Level.SEVERE, null, e);
