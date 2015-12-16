@@ -30,8 +30,10 @@
 <body ng-app class="claro">
     <!--SideNav-->
     <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign"  class="container content-main">
+    <jsp:include page="AddAction.jsp"/> 
     <jsp:include page="facebookpreview.jsp"/> 
     <jsp:include page="twitterpreview.jsp"/> 
+    <jsp:include page="emailpreviewpopup.jsp"/> 
     <%@include file="navbarv2.jsp" %>
     
     <!--Top Nav-->   

@@ -1,4 +1,10 @@
-       
+<%-- 
+    Document   : twitterpreview
+    Created on : 8 Dec, 2015, 7:32:55 PM
+    Author     : Satyajit Roy
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -7,75 +13,102 @@
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay.css">
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
-    <link rel="stylesheet" href="css/popup.css"/>
     <link rel="shortcut icon" href="favicon.png">
+    <link rel="stylesheet" href="css/popup.css"/>
+    <script src="js/popup.js"></script>
 </head>    
 
 <body>
 <div class="content">
     <div id="fade" class="black_overlay"></div>
     <div id="twittersection">
-        <!--MainContent-->
         <div class="detail-overlay-content">
         <!--Top Nav Bar-->
-        <div class="top-nav-container-detail">
-            <div class=" top-navbar-detail">
-                <div class="exit-button-detail">a</div>
+        
+        <div class="top-nav-container-detail" id="fbtopnav">
+            <div class=" top-navbar-detail" id="fbtopnavdetails">
+                <a class=" exit-button-detail link svg close" href="">
+                    <img type="image/svg+xml" src="images/Icons/Close.svg" class="exit-button" style="cursor:pointer;"> </img>
+                </a>
                 <div  class="top-navbar-inner-bb-detail">
-                    <div class="top-navbar-title-container"><span class="h4" style="color:black"> Facebook Post Detail</span></div>
-                </div> 
-                <div class="delete-button-detail md-button">Edit</div>
+                    <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Twitter Post Action Detail</span></div>
+                    <div class="top-nav-cta-container">
+                        <div class="approve-button-detail md-button" id="fbapprove">Approve</div>
+                        <div class="delete-button-detail md-button">Delete Action</div>
+                    </div>    
+                </div>
             </div>
-        <div class="top-subnav-detail">
-                    <div class="top-subnav-tabs-detail">
-                         <ul class="top-subnav-nav-elements-detail">
-                            <li class="top-subnav-links-detail top-subnav-link-active-detail"> <a class="h3-active-subnav">Action Details</a></li>
-                            <li class="top-subnav-links-detail"> <a class="h3">Saved Post</a></li>
-                            <li class="top-subnav-links-detail top-subnav-links-detail-last"> <a class="h3">Notes</a></li>
-                        </ul>
-                    </div>
-        </div>
+            <div class="top-subnav-detail" id="fbtopsubnav">
+                <div class="top-subnav-tabs-detail">
+                     <ul class="top-subnav-nav-elements-detail">
+                        <li class="top-subnav-links-detail top-subnav-link-active-detail "> <a class="h3-subnav-subnav-active" id="twitteraction">Action Details</a></li>
+                        <li class="top-subnav-links-detail "> <a class="h3-subnav" id="twitterpost">Saved Post</a></li>
+                        <li class="top-subnav-links-detail  top-subnav-links-detail-last"> <a class="h3-subnav" id="twitternote">Notes</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
         
-        <!--Below Nav-->
-        <div class="below-nav-container-detail">
+        <div id="twitteractionsection">
+            
+            <!--Below Nav-->
+            
+            <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="inner-content-container-header-detail">
-                    <div class="h4">Action Details</div>
-                    <div class="instruction-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation</div>
-                    </div>
+                <div class="saved-post-header-detail">
+                    <div class="h4">Write Notes about this Action</div>
+                    <div class="instruction-text">Text Goes here!</div>
                 </div>
-                <div class="inner-content-detail">
-                    <div class="input-field-container">
-                        <div class="input-header">Name of Action</div>
-                        <div class="input-field-textfield"><span class="input-placeholder">Name of Action</span></div>
-                    </div>
-                    <div class="inner-content-column-container-detail">
-                        <div class="inner-content-column-detail">
-                            <div class="inner-content-column-inner-detail">
-                                <div>
-                                    <div class="input-header">Scheduled For</div>
-                                    <div class="input-field-textfield"><span class="input-placeholder">Day and Time</span></div>
-                                </div>
-                            </div>
+                    <div class="inner-content-detail">
+                        <div class="fields-note-detail">
+
+                            <!--SAVED POST GOES HERE-->
+
+                            <div class="input-header-actionDetail" style="">
+                    Name of Workshop
                         </div>
-                        <div class="inner-content-column-detail">
-                            <div class="inner-content-column-inner-detail">
-                                <div>
-                                    <div class="input-header">Marketing Program</div>
-                                    <div class="input-field-textfield"><span class="input-placeholder">Marketing Program 1</span></div>
-                                </div>
-                            </div>
+                        <div class="input-field-textfield">
+                            Enter Name of Workshop 
+                        </div>
+                        <div class="input-header-actionDetail" style="">
+                            Date
+                        </div>
+                        <div class="input-field-textfield">
+                            Enter Date of Workshop 
+                        </div>
+                        <div class="input-header-actionDetail" style="">
+                            Time of Workshop
+                        </div>
+                        <div class="input-field-textfield">
+                            Enter Time of Workshop 
+                        </div>
+                        <div class="input-header-actionDetail" style="">
+                            Name of Workshop Instructor
+                        </div>
+                        <div class="input-field-textfield">
+                            Enter Name of Workshop Instructor
+                        </div>
                         </div>
                     </div>
+                 
+                            
+                         
+                        </div>
+                    </div>
+  
+            <!--CTA Bar-->
+            
+            <div class="bottom-cta-bar" id="fbpopupfooter">
+                <div class="bottom-cta-button-container">
+
+                         <div class="edit-button-detail md-button button-text-1 fleft ">Save Notes</div>
                 </div>
-        </div>
-        <!--CTA Bar-->
-        <div class="bottom-cta-bar">
-            <div class="edit-button-detail button-text-1">Edit</div>
+            </div>
             
         </div>
-            </div>
+        
+        </div>
     </div>
-</div>    
+</div>
 </body>
+

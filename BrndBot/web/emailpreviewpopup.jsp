@@ -21,24 +21,24 @@
 <body>
 <div class="content">
     <div id="fade" class="black_overlay"></div>
-    <div id="facebooksection">
+    <div id="emailsection">
         <div class="detail-overlay-content">
         <!--Top Nav Bar-->
         
-        <div class="top-nav-container-detail" id="fbtopnav">
-            <div class=" top-navbar-detail" id="fbtopnavdetails">
+        <div class="top-nav-container-detail" id="emailtopnav">
+            <div class=" top-navbar-detail" id="emailtopnavdetails">
                 <a class=" exit-button-detail link svg close" href="">
                     <img type="image/svg+xml" src="images/Icons/Close.svg" class="exit-button" style="cursor:pointer;"> </img>
                 </a>
                 <div  class="top-navbar-inner-bb-detail">
-                    <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Facebook Post Action Detail</span></div>
+                    <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Email Action Detail</span></div>
                     <div class="top-nav-cta-container">
                         <div class="approve-button-detail md-button" id="fbapprove">Approve</div>
                         <div class="delete-button-detail md-button">Delete Action</div>
                     </div>    
                 </div>
             </div>
-            <div class="top-subnav-detail" id="fbtopsubnav">
+            <div class="top-subnav-detail" id="emailtopsubnav">
                 <div class="top-subnav-tabs-detail">
                      <ul class="top-subnav-nav-elements-detail">
                         <li class="top-subnav-links-detail top-subnav-link-active-detail "> <a class="h3-subnav-subnav-active" id="facebookaction">Action Details</a></li>
@@ -49,7 +49,7 @@
             </div>
         </div>
         
-        <div id="facebookactionsection">
+        <div id="emailactionsection">
             
             <!--Below Nav-->
             
@@ -98,7 +98,7 @@
   
             <!--CTA Bar-->
             
-            <div class="bottom-cta-bar" id="fbpopupfooter">
+            <div class="bottom-cta-bar" id="femailpopupfooter">
                 <div class="bottom-cta-button-container">
 
                          <div class="edit-button-detail md-button button-text-1 fleft ">Save Notes</div>

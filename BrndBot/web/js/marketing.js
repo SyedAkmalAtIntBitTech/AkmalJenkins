@@ -1039,11 +1039,12 @@ function controllerMarketingCampaign($scope, $http) {
 
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active) {
         
-//        if (entity_type == getemail()) {
-//            $slider=2;
-//            sliderDialog = "#preview";
-//            $('#slider-button').click();
-//            prevSliderDialog = "#preview";
+        if (entity_type == getemail()) {
+            $slider=2;
+            sliderDialog = "#emailsection";
+            $('#slider-button').click();
+            prevSliderDialog = "#emailsection";
+            $('#emailsection').show();
 //            $("#preview_email").show();
 //            $("#edit_email").hide();
 //            $("#edit_email_action").hide();
@@ -1096,12 +1097,17 @@ function controllerMarketingCampaign($scope, $http) {
 //            }).error(function (data) {
 //                alert("request not successful");
 //            });
-//        } 
+        } 
         if (entity_type == getfacebook()) {
             $slider=2;
             sliderDialog = "#facebooksection";
             $('#facebooksection').show();
             $('#slider-button').click();
+            $("#fbapprove").focus();
+            //$('#fbtopnav').css("float","left");
+            //$('#fbtopnavdetails').show();
+            //$('#fbtopsubnav').show();
+            //$('#fbpopupfooter').show();
             prevSliderDialog = "#facebooksection";
             
 //            $("#preview_facebook").show();
