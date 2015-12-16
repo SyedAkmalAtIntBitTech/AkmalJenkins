@@ -27,17 +27,17 @@
         </div>
         <ul class="nav-tabs">
             <li class="nav-elements-icon-container hint--right"  data-hint="Your Plan">
-                <a href="marketingv2.jsp"> 
+                <a href="marketing.jsp"> 
                     <img type="image/svg+xml" src="images/Icons/yourPlan.svg" class="nav-elements-icon" style="cursor:pointer;"/>
                 </a>
             </li>
             <li class="nav-elements-icon-container hint--right"  data-hint="Marketing program">
-                 <a class="" href="#">
+                 <a class="" href="marketingprograms.jsp">
                     <img type="image/svg+xml" src="images/Icons/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;"/>
                 </a>
             </li>
             <li class="nav-elements-icon-container hint--right" data-hint="Email Hub">
-                <a  href="emaillistsv2.jsp" >
+                <a  href="emaillists.jsp" >
                     <img type="image/svg+xml" src="images/Icons/yourHubs.svg" class="nav-elements-icon " style="cursor:pointer;"/>
                 </a>
             </li>

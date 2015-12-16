@@ -78,7 +78,7 @@
 
             <div  id="marktng"><jsp:include page="marketingsubmenu.html" /></div>
 
-            <script src="js/marketing.js" type="text/javascript"></script>
+            <script src="js/marketing_old.js" type="text/javascript"></script>
             <!--<div id="overlay">-->
             <div class="col-md-8 col-md-offset-3 " >
                 <div class="col-md-10 col-md-offset-0">

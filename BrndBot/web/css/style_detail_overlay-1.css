@@ -11,11 +11,11 @@ a:active{
 }
 
 a:visited{
-    text-decoration: none;
+text-decoration: none;
 }
 
 a:focus{
-    text-decoration: none;
+text-decoration: none;
 }
 
 a.svg {
@@ -38,7 +38,7 @@ a.svg:after {
     border-left: 2px #d5dadf solid;
     height: 100vh;
     overflow-y: hidden;
-    width: 100%;
+    width: 60%;
     max-width: 100%;
 }
 
@@ -67,7 +67,7 @@ a.svg:after {
     width: 70px;
     height:100%;
     top:0;
-    z-index: 2;
+    z-index: 1;
 }
 
 
@@ -84,7 +84,6 @@ a.svg:after {
     margin: 0;
     padding: 0;
     width: 100%;
-    margin-left:7px;
     
 }
 
@@ -137,7 +136,6 @@ a.svg:after {
     overflow-x: hidden;
     padding-left: 71px;
     background-color: white;
-    z-index: 1;
 }
 
 .page-title-bar{
@@ -206,7 +204,6 @@ a.svg:after {
         display: table-cell;
     vertical-align: middle;
     font-weight: 500;
-    cursor:pointer;
 }
 
 .hub-dropdown-text{
@@ -451,7 +448,7 @@ a.svg:after {
 
 
 .top-nav-container-detail{
-    position:relative;
+    position:fixed;
     top:0;
     width:100%;
     max-width:100%; 
@@ -512,12 +509,11 @@ padding-top: 0px;
 }
 
 .top-navbar-inner-bb-detail{
-    padding:0px 0px 0px 0px;
+  padding:0px 0px 0px 0px;
     line-height: 100%;
-    box-sizing: border-box;
+     box-sizing: border-box;
     font-weight: 400;
     float: left;
-    width: 64%;
 }
 
 .top-navbar-title-container{
@@ -527,7 +523,6 @@ padding-top: 0px;
     height: 60px;
     float: left;
     width: auto;
-    margin-left: 21px;
 }
 
 .top-navbar-title{
@@ -564,7 +559,6 @@ padding-top: 0px;
     text-align: center;
     background-color:#d5dadf;
     color:#767777  ;
-    margin-top:16px;
 }
 
 .delete-button-detail:hover{
@@ -692,12 +686,12 @@ padding-top: 0px;
 
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^INNERCONTENT-- SAVED POST ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 .below-nav-container-saved-post-detail{
-    width:100%;
+     width:100%;
     background-color: #F9F9F9;
     box-sizing: border-box; 
     float: left;
-    overflow: auto;
-    //padding-bottom:105px;
+    padding-top:100px;
+    padding-bottom:105px;
 }
 
 
@@ -1050,7 +1044,7 @@ Facebook-preview-name{
 }
 
 .inner-content-container-title{
-    float: left;
+    float: left;    
 }
 
 .inner-content-container-button{
@@ -1060,7 +1054,7 @@ Facebook-preview-name{
 }
 
 .inner-content-detail{ 
-    margin-top:0px;
+    margin-top:20px;
     width:100%;
     float:left;
    
@@ -1354,7 +1348,7 @@ input-field-container{
 }
 
 .col-4of10{
-    width:41%;
+    width:40%;
     box-sizing: border-box;
 }
 
@@ -1395,8 +1389,7 @@ input-field-container{
 
 .fleft{
     float:left;
-    /*overflow: hidden;*/
-    overflow: visible;
+    overflow: hidden;
     box-sizing: border-box;
 }
 
@@ -1523,8 +1516,8 @@ ul{
 .md-button {
     padding: 7px 16px 7px 16px;
     border-radius: 3px;
-    float: left;
-    margin-left: 10px;
+    
+    
 }
 
 .details-button {
@@ -1679,7 +1672,6 @@ margin-top: 30px;
     border-radius: 3px;
     margin-top: 15px;
     margin-right: 20px;
-    cursor: pointer;
 }
 
 .selection-icon-selected{
@@ -1705,7 +1697,7 @@ margin-top: 30px;
     height: 30px;
     border-radius: 3px;
     margin-top: 10px;
-    margin-left:-7px;
+ 
 }
 
 .check-icon{

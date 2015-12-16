@@ -40,7 +40,7 @@ String type=request.getParameter("type");
     <div class="top-nav" >
         <div class="page-title-bar col-1of1"> 
            <div class="exit-button-detail">
-               <a class=" exit-button-icon" href="emaillistsv2.jsp">
+               <a class=" exit-button-icon" href="emaillists.jsp">
                     <img src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/>
                 </a>
             
