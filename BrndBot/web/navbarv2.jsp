@@ -21,7 +21,7 @@
     <body>
        <div class="navigation">
         <div class="main-nav-logo hint--right" data-hint="Dashboard" >
-         <a class=" bb-logo-nav" href="dashboardv2.jsp" >
+         <a class=" bb-logo-nav" href="dashboard.jsp" >
             <img  type="image/svg+xml" src="images/Icons/Logo_Reverse.svg" class="bb-logo " style="cursor:pointer;" />
          </a>
         </div>
@@ -32,7 +32,7 @@
                 </a>
             </li>
             <li class="nav-elements-icon-container hint--right"  data-hint="Marketing program">
-                 <a class="" href="#">
+                 <a class="" href="marketingcategory.jsp">
                     <img type="image/svg+xml" src="images/Icons/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;"/>
                 </a>
             </li>

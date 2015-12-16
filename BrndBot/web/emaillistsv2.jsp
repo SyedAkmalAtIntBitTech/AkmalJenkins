@@ -76,7 +76,7 @@
                         <ul class="main-container fleft">
                         <li class="slat-container fleft selfclear" ng-repeat="email in emailLists">
                              <div class="selection-container col-5p"> 
-                                 <div class="selection-icon" id="qnique-{{email.id}}" onclick="selcheckbox(this.id)"><input type="checkbox" id="{{email.id}}" value="{{email.emailListName}}" name="entityname" hidden></input></div>
+                                 <div class="selection-icon" id="qnique-{{email.id}}" onclick="selemlcheckbox(this.id)"><input type="checkbox" id="{{email.id}}" value="{{email.emailListName}}" name="entityname" hidden></input></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div class="slat-title-container col-1of2 fleft">
