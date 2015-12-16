@@ -830,7 +830,7 @@
                 <div class="row">
                    <div class="selblklinediv"><hr class="selblkline"></div>
                 </div>
-                   <div class="col-md-6 col-lg-6 col-sm-6">
+                    <div class="col-md-6 col-lg-6 col-sm-6">
                         <div class="addblkdiv">To add client name please use these options</div>
                         <div>Ex: Hi &LT; clientFirstName &GT; </div>
                         <div>Hi &LT; clientLastName &GT; </div>
