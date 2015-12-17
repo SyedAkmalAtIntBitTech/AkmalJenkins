@@ -48,19 +48,25 @@ String type=request.getParameter("type");
             </div>
             <div class="page-title-with-back page-title-font"><%=list_name%></div>
             <div class="page-cta-container">
-                <a href="javascript:void(0)" class="fleft">
-                     <div id="addcontacts"  class="add-button md-button" onclick="fun('add','','','','');"> Add Contact</div>    
+                <a href="" class="gray-button button pushright fleft">
+                    <div class=" md-button"> Unselect Contacts</div>    
+                </a>
+                <a href="" class="delete-button button fleft">
+                    <div class=" md-button"> Delete Contact</div>    
                 </a>
                 <a href="javascript:void(0)" class="fleft">
+                     <div id="addcontact"  class="add-button md-button" onclick="fun('add','','','','');"> Add Contact</div>    
+                </a>
+<!--                <a href="javascript:void(0)" class="fleft">
                      <div id="addcontacts"  class="add-button md-button" ng-click="showAddContacts()"> Add Contacts</div>    
-                </a>
+                </a>-->
             </div>
         </div>
         <div class="page-subnav-bar-regular"> 
             <div class="top-subnav-tabs-container-with-button">
                 <ul class="top-subnav-nav-elements">
-                    <li class="top-subnav-link-active"id="emailListli"> <a class="h3-active-subnav" id="emailList">Email List</a></li>
-<!--                    <li class="top-subnav-links" id="importListli"> <a class="h3" id="importList">Import Contacts to List</a></li>-->
+                    <li class="top-subnav-link-active" id="emailListli"> <a class="h3-active-subnav" id="emailList" ng-click="updateList()">Email List</a></li>
+                    <li class="top-subnav-links" id="importListli" > <a class="h3" id="importList" ng-click="showAddContacts()">Import Contacts to List</a></li>
                 </ul>
             </div>
         </div>
@@ -78,7 +84,7 @@ String type=request.getParameter("type");
                             <div class="col-1of1 slat-unit fleft ">
                                 <a href="">
                                     <div class="selection-container col-5p fleft"> 
-                                        <div class="selection-icon" id="{{email.emailAddress}}" onclick="selemlcheckbox(this.id);"><input type="checkbox" id="entityid{{email.emailAddress}}" value="{{email.emailAddress}}" name="entityname" hidden></input></div>
+                                        <div class="selection-icon" id="{{email.id}}" onclick="selemlcheckbox(this.id);"><input type="checkbox" id="emailid{{email.emailAddress}}" value="{{email.emailAddress}}" name="emaillistname" hidden></input></div>
                                     </div>
                                 </a>
                                 <div class="slat-title-container col-4of10 fleft">
@@ -86,11 +92,11 @@ String type=request.getParameter("type");
                                     <div class="slat-title  col-1of1 sh1-contact" ng-show="email.emailAddress == '' && type == 'user'" id='NoContacts'>No contacts available</div>
                                     <div class="action-list-slat-description col-1of1 sh3-contact">Added on {{email.addedDate}}</div>
                                 </div>
-                                <div class=" col-2of10 fleft slat-attribute-container" ng-show="email.firstName != ''">
+                                <div class=" col-2of10 fleft slat-attribute-container" ng-show="email.firstName !== ''">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.firstName}}</div>
                                     <div class="list-column-description col-1of1 sh3-contact fleft">First Name</div>
                                 </div>
-                                <div class=" col-2of10 fleft slat-attribute-container" ng-show="email.lastName != ''">
+                                <div class=" col-2of10 fleft slat-attribute-container" ng-show="email.lastName !== ''">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.lastName}}</div>
                                     <div class="list-column-description col-1of1 sh3-contact fleft">Last Name</div>
                                 </div>

@@ -243,7 +243,7 @@ and open the template in the editor.
 
             function selected_category(){
 
-            var configuration = global_host_address + "channelselectionv2.jsp" + "?id=" + selected_id;
+            var configuration = global_host_address + "channelselection.jsp" + "?id=" + selected_id;
                     window.open(configuration, "_self");
             }
 

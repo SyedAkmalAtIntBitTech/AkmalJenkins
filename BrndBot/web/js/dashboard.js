@@ -122,7 +122,7 @@ function setSubCategoryID(category_id, id, sub_category_name, external_source) {
                 var category_data_id = category_id;
                 var sub_category_data_name = sub_category_name;
 
-                var configuration = global_host_address + "channelselectionv2.jsp?category_id=" + category_data_id + "&sub_category_name=" + sub_category_data_name + "&sub_category_id=" + sub_category_data_id;
+                var configuration = global_host_address + "channelselection.jsp?category_id=" + category_data_id + "&sub_category_name=" + sub_category_data_name + "&sub_category_id=" + sub_category_data_id;
                 window.open(configuration, "_self");
             }else {
 

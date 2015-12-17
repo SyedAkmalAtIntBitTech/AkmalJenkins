@@ -11,7 +11,7 @@
     var count=0;
         function selemlcheckbox(id){ 
 //            alert(id+"--selected");
-            content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
+            content='<input type="checkbox" id="'+'emailid'+id+'" hidden="">';
 //            alert(content);
             var htm=$("#"+id).html();
             if(htm.contains('class="check-icon"')){
@@ -27,10 +27,16 @@
             if(count > 0)
             {
                 $(".delete-button").show();
+                 $(".gray-button").show();
+                 $("#addcontact").hide();
+                 $("#addcontacts").hide();
             }
             if(count==0)
             {
                 $(".delete-button").hide();
+                 $(".gray-button").hide();
+                 $("#addcontact").show();
+                 $("#addcontacts").show();
             }
         }
  
@@ -62,7 +68,7 @@
             
             $(document).ready(function () {
                  $(".delete-button").hide();
-                 
+                 $(".gray-button").hide();
              
 
                 $("#close").click(function(){
@@ -363,9 +369,9 @@
                         method: 'GET',
                         url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts',
                     }).success(function (data, status, headers, config) {
-                        
+                       
                         $scope.emailLists = data.allEmailListWithNoOfContacts.user;
-                        
+//                        alert(JSON.stringify($scope.emailLists));
                         $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
                         
                         if (data === "true") {
@@ -384,6 +390,15 @@
                 };
                 
                 $scope.updateList = function () {
+                    $("#showList").show();
+                    $("#importListli").removeClass("top-subnav-link-active");
+                    $("#importList").removeClass("h3-active-subnav");
+                    $("#emailListli").addClass("top-subnav-link-active");
+                    $("#emailList").addClass("h3-active-subnav");
+                    
+//                    $("#emailListli").addClass("top-subnav-links");
+//                    $("#emailList").addClass("h3");
+                    
                     var list_name=$("#get_list_name").val();
                     var type=$("#get_type").val();
                     $("#tab4").hide();
@@ -536,6 +551,12 @@
                 $scope.showAddContacts = function (){
                     $("#showList").hide();
                     $("#tab4").show();
+                    $("#importListli").addClass("top-subnav-link-active");
+                    $("#importList").addClass("h3-active-subnav");
+                    $("#emailListli").removeClass("top-subnav-link-active");
+                    $("#emailList").removeClass("h3-active-subnav");
+                    $("#emailListli").addClass("top-subnav-links");
+                    $("#emailList").addClass("h3");
                 };
                 
                 $scope.showCreateContacts = function(){
