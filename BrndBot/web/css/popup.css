@@ -339,7 +339,12 @@ img.exit-button {
 {
     display:none;
 }
-
-
+.savebutton {
+    margin-left: 86%;
+    margin-top: 2%;
+}
+::-webkit-scrollbar {
+    display: none !important;
+}
 
 /*--------------------------------------------------------------------------------------------*/

@@ -1195,11 +1195,11 @@ input-field-container{
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^BOTTOM CTA BAR^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 
 .bottom-cta-bar{
-    position:fixed;
+    position:relative;
     bottom:0;
     width:100%;
     background-color:#F9FAFC; 
-    height:50px;
+    height:0px;
     border-top:1px solid #D9D9D9;
     padding-left:30px;
     padding-right:0px;
@@ -1208,10 +1208,14 @@ input-field-container{
 }
 
 .bottom-cta-button-container{
-    float: right;
-    height: 100%;
+    float: left;
+    height: 64px;
     box-sizing: border-box;
+    background-color: #F9FAFC;
     padding-right: 60px;
+    width: 104%;
+    margin-top: 2%;
+    margin-left: 0%;
 }
 
 .bottom-cta-button-container-lg{
@@ -1520,9 +1524,7 @@ ul{
 
 .md-button {
     padding: 7px 16px 7px 16px;
-    border-radius: 3px;
-    margin-left: 10px;
-    
+    border-radius: 3px;  
 }
 
 .details-button {
