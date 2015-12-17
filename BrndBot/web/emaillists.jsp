@@ -27,6 +27,7 @@
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/emaillist.css" rel="stylesheet" type="text/css"/>
+        <link href="css/popup.css" rel="stylesheet" type="text/css"/>
         <title>BrndBot - Email List</title>
 
         <script src="js/bootstrap.min.js"></script>
