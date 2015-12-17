@@ -95,17 +95,15 @@
                         </div>
                     </div>
   
-            <!--CTA Bar-->
-            
-            <div class="bottom-cta-bar" id="fbpopupfooter">
-                <div class="bottom-cta-button-container">
-
-                         <div class="edit-button-detail md-button button-text-1 fleft ">Save Notes</div>
-                </div>
-            </div>
-            
         </div>
         
+         <!--CTA Bar-->
+            
+        <div class="">
+            <div class="bottom-cta-button-container">
+                <div class="edit-button-detail md-button button-text-1 fleft savebutton">Save Action</div>
+            </div>
+        </div>
         </div>
     </div>
 </div>

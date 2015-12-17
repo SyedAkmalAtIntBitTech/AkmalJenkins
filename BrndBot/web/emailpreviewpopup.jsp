@@ -23,7 +23,6 @@
     <div id="emailsection">
         <div class="detail-overlay-content">
         <!--Top Nav Bar-->
-        
         <div class="top-nav-container-detail" id="emailtopnav">
             <div class=" top-navbar-detail" id="emailtopnavdetails">
                 <a class=" exit-button-detail link svg close" href="">
@@ -94,18 +93,16 @@
                          
                         </div>
                     </div>
-  
-            <!--CTA Bar-->
-            
-            <div class="bottom-cta-bar" id="femailpopupfooter">
-                <div class="bottom-cta-button-container">
-
-                         <div class="edit-button-detail md-button button-text-1 fleft ">Save Notes</div>
-                </div>
-            </div>
-            
         </div>
         
+            <!--CTA Bar-->
+            
+            <div class="">
+                <div class="bottom-cta-button-container">
+
+                         <div class="edit-button-detail md-button button-text-1 fleft savebutton">Save Notes</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

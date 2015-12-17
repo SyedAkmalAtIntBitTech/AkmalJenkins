@@ -663,11 +663,11 @@ input-field-container{
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^BOTTOM CTA BAR^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 
 .bottom-cta-bar{
-    position:fixed;
+    position:relative;
     bottom:0;
     width:inherit;
     background-color:#F6F7F7; 
-    height:50px;
+    height:0px;
     border-top:1px solid #D9D9D9;
     padding-top: 7px;
     padding-left:30px;
