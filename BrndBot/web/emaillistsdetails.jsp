@@ -49,7 +49,7 @@ String type=request.getParameter("type");
             <div class="page-title-with-back page-title-font"><%=list_name%></div>
             <div class="page-cta-container">
                 <a href="" class="gray-button button pushright fleft">
-                    <div class=" md-button"> Unselect Contacts</div>    
+                    <div class=" md-button" onclick="unsel()"> Unselect Contacts</div>    
                 </a>
                 <a href="" class="delete-button button fleft">
                     <div class=" md-button"> Delete Contact</div>    

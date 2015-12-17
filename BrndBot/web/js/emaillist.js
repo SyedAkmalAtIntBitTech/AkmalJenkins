@@ -39,7 +39,24 @@
                  $("#addcontacts").show();
             }
         }
- 
+        function unsel(){
+                    count=0;
+                   var htm=$(".selection-icon-selected").html();   
+//                   alert(htm);
+                   if(htm.contains('class="check-icon"')){
+                         $(".selection-icon-selected").html('');
+//                         alert("count"+count);
+                   }
+                    $(".selection-icon-selected").addClass('selection-icon'); 
+                    $('.selection-icon').removeClass('selection-icon-selected');
+                    if(count==0)
+            {
+                $(".delete-button").hide();
+                 $(".gray-button").hide();
+                 $("#addcontact").show();
+                 $("#addcontacts").show();
+            }
+        }
  $("#fileUpload").change(function () {
     loadImageFile();
     // resets input file
@@ -549,6 +566,9 @@
                     }
                 };
                 $scope.showAddContacts = function (){
+                    count=0;
+                    $(".delete-button").hide();
+                 $(".gray-button").hide();
                     $("#showList").hide();
                     $("#tab4").show();
                     $("#importListli").addClass("top-subnav-link-active");
