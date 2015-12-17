@@ -100,7 +100,10 @@
       .fr-iframe{
           min-height:90%;
          /*min-height: 570px;*/
-      }    
+      }
+      #textdiv{
+          display: none;
+      }
   </style>
 <%! 
     String entity_id = "";
