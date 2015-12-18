@@ -1209,7 +1209,7 @@ input-field-container{
 
 .bottom-cta-button-container{
     float: left;
-    height: 64px;
+    height: 0px;
     box-sizing: border-box;
     background-color: #F9FAFC;
     padding-right: 60px;

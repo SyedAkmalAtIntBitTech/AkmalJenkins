@@ -341,11 +341,12 @@ img.exit-button {
 }
 .savebutton {
     margin-left: 86%;
-    margin-top: 2%;
+    margin-top: 1%;
+    width:130px;
 }
 .removebutton {
     margin-left: 81%;
-    margin-top: 2%;
+    margin-top: 1%;
     width: 179px;
 }
 #facebookaction,#facebookpost,#facebooknote
