@@ -1421,7 +1421,6 @@ function programactions($scope, $http, $window){
     };
     
     $scope.deleteAutomationSchedule = function (schedules_to_delete, type, section, isRecuring){
-       
         var message;
         var requestBody;
         var responseMessage;
@@ -1482,7 +1481,6 @@ function programactions($scope, $http, $window){
     };
     
     $scope.deleteSchedule = function (schedules_to_delete, type, section, isRecuring){
-        alert(selected_schedules_to_delete);
         var message;
         var requestBody;
         var responseMessage;

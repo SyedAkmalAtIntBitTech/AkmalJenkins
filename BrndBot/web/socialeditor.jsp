@@ -522,15 +522,15 @@ var mindbodydataId = $("#mindbodydata").val();
 
                                 });
                                 });
-                                        var fontcolor;
-                                        var fontsize;
-                                        var fontstyle;
-                                        var filter;
-                                        var left = $(this).attr("x-co-ordinates");
-                                        var top = $(this).attr("y-co-ordinates");
-                                        var opacity = $(this).attr("opacity");
-                                        var width = $(this).attr("width");
-                                        var height = $(this).attr("height");
+                                var fontcolor;
+                                var fontsize;
+                                var fontstyle;
+                                var filter;
+                                var left = $(this).attr("x-co-ordinates");
+                                var top = $(this).attr("y-co-ordinates");
+                                var opacity = $(this).attr("opacity");
+                                var width = $(this).attr("width");
+                                var height = $(this).attr("height");
                                if (tag === "text")
                                {
 

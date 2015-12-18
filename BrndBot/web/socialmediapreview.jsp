@@ -1042,7 +1042,7 @@ label:before {
                                     success: function (responseText) {
                                         $('#mask').hide();
                                         $('.window').hide();
-                                        alert("Your post has been Scheduled Successfully");
+                                        alert("Your post has been published successfully");
 
                                         document.location.href = "dashboard.jsp";
                                     }

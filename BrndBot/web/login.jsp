@@ -30,7 +30,7 @@
             }
         </style>
         <script>
-         $("document").ready(function() {setTimeout(function(){ $("#inputpassword").focus();},10);});  
+         $("document").ready(function() {setTimeout(function(){ $("#inputemail").focus();},10);});  
         </script>
         <jsp:include page="basejsp.jsp" />
     </head>
