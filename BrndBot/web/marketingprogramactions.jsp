@@ -40,7 +40,7 @@
     <!--Top Nav-->   
     <div class="top-nav" ng-init="getProgramActions()">
         <div class="page-title-bar col-1of1"> 
-            <a class="exit-button-icon" href="/Newest_Files/MarketingProgram_CurrentList.html">
+            <a class="exit-button-icon" href="marketingprogramlists.jsp">
                 <div class="exit-button-detail"> 
                     <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/>
                 </div>
@@ -48,7 +48,7 @@
             <div class="page-title-with-back page-title-font">{{programs.programdetails.programName}}</div>
             <div class="page-cta-container">
                 <a href="" class="gray-button fleft">
-                    <div class=" md-button">  End Marketing Program</div>    
+                    <div class="md-button"  ng-click="endMarketingProgram()">  End Marketing Program</div>    
                 </a>
             </div>
         </div>
@@ -76,40 +76,46 @@
                         <div class="page-content-title h2 fleft">Recurring Email Automations</div>
                         <div class="action-cta-container">
                             <a href="" class="edit-button-detail fleft">
-                                <div class=" md-button">  Add Recurring Email Automation</div>    
+                                <div class=" md-button" ng-click="addEditRecuringAction('add',<%=program_id%>, '0')">Add Recurring Email Automation</div>    
                             </a>
                         </div>
                     </div>
                     <!--List Starts Here-->
                     <ul class="main-container fleft">
-                  <li class="slat-container fleft selfclear">
+                  <li class="slat-container fleft selfclear" ng-repeat="emailautomation in programs.emailautomation">
                             <div class="selection-container col-5p"> 
-                                <div class="selection-icon"></div>
+                                <div class="selection-icon"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}"  onclick="setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}')" value="{{emailautomation.scheduledEntityListId}}" hidden/></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft "> 
-                                    <object type="image/svg+xml" data="/Icons/templateSaved.svg" class="status-button"> </object>
+                                <div class="icon-container fleft hint--left" data-hint="Template Saved"> 
+                                    <img type="image/svg+xml" src="images/Icons/templateSaved.svg" class="status-button"/>
                                 </div>
                                 <div class="slat-title-container col-1of2 fleft">
-                                    <div class="slat-title email-list-slat-title col-1of1 sh1">Upcoming Workshop Post</div>
+                                    <div class="slat-title email-list-slat-title col-1of1 sh1">{{emailautomation.programTemplateName}}</div>
                                     <div class="action-list-slat-description col-1of1 sh3">Howdy Again</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Nov. 16</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{emailautomation.dateTime| date:'  d/M/yy'}}</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Email</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{emailautomation.emailRecuringTemplateName}}&nbsp;&nbsp;{{emailautomation.status}}</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Action Type</div>
                                 </div>
                             </div>
                             <div class="col-1of4 fleft">
                                 <div class="slat-cta-container">
-                                    <div class="small-button slat-button detail-button-font">Details</div>
+                                    <div class="small-button slat-button detail-button-font" ng-click="getRecuringMailDetails(emailautomation.scheduledEntityListId,
+                                                                emailautomation.status,
+                                                                emailautomation.dateTime,
+                                                                emailautomation.actionType,
+                                                                emailautomation.programTemplateName,
+                                                                emailautomation.description,
+                                                                emailautomation.postDateStatus)">Details</div>
                                 </div>
                             </div>
                         </li>
-                          <li class="slat-container fleft selfclear">
+<!--                          <li class="slat-container fleft selfclear">
                             <div class="selection-container col-5p"> 
                                 <div class="selection-icon"></div>
                             </div>
@@ -163,7 +169,7 @@
                                     <div class="small-button slat-button detail-button-font">Details</div>
                                 </div>
                             </div>
-                        </li>
+                        </li>-->
 
 
                     </ul>
@@ -173,30 +179,31 @@
                         <div class="page-content-title h2 fleft">One Time Actions</div>
                         <div class="action-cta-container">
                             <a href="" class="edit-button-detail fleft">
-                                <div class=" md-button">  Add One Time Action</div>    
+                                <div class=" md-button" ng-click="ShowAddAction()">  Add One Time Action</div>    
                             </a>
                         </div>
                     </div>
                     <!--List Starts Here-->
                     <ul class="main-container fleft">
-                  <li class="slat-container fleft selfclear">
+                  <li class="slat-container fleft selfclear"  ng-repeat="programaction in programs.programactions">
                             <div class="selection-container col-5p"> 
-                                <div class="selection-icon"></div>
+                                <div class="selection-icon"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="{{programaction.scheduledEntityListId}}" hidden /></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div class="icon-container fleft "> 
-                                    <object type="image/svg+xml" data="/Icons/templateSaved.svg" class="status-button"> </object>
+                                    <img type="image/svg+xml" src="images/Icons/templateSaved.svg" class="status-button"/>
                                 </div>
                                 <div class="slat-title-container col-1of2 fleft">
-                                    <div class="slat-title email-list-slat-title col-1of1 sh1">Upcoming Workshop Post</div>
+                                    <div class="slat-title email-list-slat-title col-1of1 sh1">{{programaction.programTemplateName}}</div>
                                     <div class="action-list-slat-description col-1of1 sh3">Howdy Again</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Nov. 16</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{programaction.postDate| date:'MMM dd'}}</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Email</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" ng-show="programaction.actionType==master_facebook || programaction.actionType==master_twitter">{{programaction.actionType}}</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" ng-show="programaction.actionType==master_note || programaction.actionType==master_email">{{programaction.actionType}}</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Action Type</div>
                                 </div>
                             </div>

@@ -90,7 +90,7 @@
             };
             
             $scope.sendProgramId = function(program_id){
-                window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
+                window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id, "_self");
             };
             
         }
@@ -189,7 +189,7 @@
                                 </div>
                                 <div class="col-2of10 fleft">
                                     <div class="slat-cta-container">
-                                        <a href="/Newest_Files/MarketingProgram_Overview.html">
+                                        <a href="">
                                             <div class="small-button slat-button detail-button-font"  ng-click="sendProgramId(program.id)">View Program</div>
                                         </a>
                                     </div>
