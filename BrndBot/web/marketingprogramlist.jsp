@@ -69,7 +69,7 @@
             };
             
             $scope.sendProgramId = function(program_id){
-                window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id, "_self");
+                window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
             };
             
         }
