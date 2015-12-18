@@ -343,6 +343,28 @@ img.exit-button {
     margin-left: 86%;
     margin-top: 2%;
 }
+.removebutton {
+    margin-left: 81%;
+    margin-top: 2%;
+    width: 179px;
+}
+#facebookaction,#facebookpost,#facebooknote
+{
+    cursor: pointer;
+}
+#facebookpostsection,#facebooknotesection,#fbpostremove,#fbnotesave
+{
+    display:none;
+}
+#twitterpostsection,#twitternotesection,#twpostremove,#twnotesave
+{
+    display:none;
+}
+#emailpostsection,#emailnotesection,#emailpostremove,#emailnotesave
+{
+    display:none;
+}
+
 ::-webkit-scrollbar {
     display: none !important;
 }
