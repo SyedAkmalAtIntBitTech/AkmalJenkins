@@ -197,7 +197,7 @@
                                         button--text-upper 
                                         button--size-s 
 
-                                        fontpnr"  ng-click="deleteSchedule('0', 'deleteMultiple')">
+                                        fontpnr"  ng-click="deleteAutomationSchedule('0', 'deleteMultiple')">
                                     Delete Email Automation</button>
                             </div>
                         </div>

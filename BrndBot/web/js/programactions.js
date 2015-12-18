@@ -1209,6 +1209,7 @@ function programactions($scope, $http, $window){
             $scope.post_time=post_time;
         }
     };
+    
     $scope.AddAction = function () {
         var title = $("#addactiontitle").val();
         var actiontype = $("#actiontype").val();
@@ -1222,8 +1223,6 @@ function programactions($scope, $http, $window){
         
         var schedule_time = Date.parse(l);
         console.log("Epoch: " + schedule_time);
-        
-        
         
         var myEpoch = schedule_time;
 
@@ -1255,6 +1254,7 @@ function programactions($scope, $http, $window){
 
         }
     };
+    
     $scope.updateActionEmail = function () {
 
         if (validateemailaction()) {
@@ -1304,6 +1304,7 @@ function programactions($scope, $http, $window){
 
         }
     };
+    
     $scope.updateActionFacebook = function () {
 
         if (validatefacebookaction()) {
@@ -1418,7 +1419,70 @@ function programactions($scope, $http, $window){
             }
         });
     };
+    
+    $scope.deleteAutomationSchedule = function (schedules_to_delete, type, section, isRecuring){
+       
+        var message;
+        var requestBody;
+        var responseMessage;
+        if (type == "deleteMultiple") {
+            message = "Are you sure you want to delete these Action(s)?";
+            requestBody = {"type": "deleteSelected",
+                           "schedule_ids": selected_schedules_to_delete, "entity_type": "null"};
+            responseMessage = "Selected actions were deleted successfully";
+        } else if (type == "delete") {
+            message = "Are you sure you want to delete this Action?";
+            requestBody = {"type": "delete",
+                            "schedule_ids": schedules_to_delete, "entity_type": section, 
+                            "isRecuring": isRecuring};
+            responseMessage = "Selected actions were deleted successfully";
+        } else if (type == "remove") {
+            message = "Are you sure you want to remove the template?";
+            requestBody = {"type": "removetemplate",
+                            "schedule_ids": schedules_to_delete, "entity_type": section, 
+                            "isRecuring": isRecuring};
+            responseMessage = "Selected actions were deleted successfully";
+        }
+
+        if (confirm(message)) {
+            $http({
+                method: 'POST',
+                url: getHost() + 'ChangeScheduleServlet',
+                headers: {'Content-Type': 'application/json'},
+                data: requestBody
+            }).success(function (data)
+            {
+                $scope.status = data;
+                if (data !== "") {
+                    if(section == getfacebook())
+                    {
+                        $("#fbpreviewdecond").hide();
+                        $("#fbremovedtemplate").show();                        
+                    }
+                    if(section == gettwitter())
+                    {
+                        $("#twpreviewdecond").hide();
+                        $("#twremovedtemplate").show();                     
+                    }
+                    if(section == getemail())
+                    {
+                        $("#mailpreviewdecond").hide();
+                        $("#mailremovedtemplate").show();                     
+                    }
+                    alert(responseMessage);
+                    window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+                }
+            }).error(function (data, status) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+
+                alert("request not succesful");
+            });
+        }
+    };
+    
     $scope.deleteSchedule = function (schedules_to_delete, type, section, isRecuring){
+        alert(selected_schedules_to_delete);
         var message;
         var requestBody;
         var responseMessage;
@@ -1478,6 +1542,7 @@ function programactions($scope, $http, $window){
             });
         }
     };
+    
     $scope.updateNote = function () {
         var message;
         
@@ -1527,6 +1592,7 @@ function programactions($scope, $http, $window){
             
         }
     };
+    
     $scope.updateEmailSchedule = function () {
         var schedule_id = $("#email_schedule_id").val();
         var entity_id = $("#email_entity_id").val();

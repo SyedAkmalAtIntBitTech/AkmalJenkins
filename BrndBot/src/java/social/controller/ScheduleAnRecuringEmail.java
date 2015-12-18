@@ -50,8 +50,18 @@ public class ScheduleAnRecuringEmail implements Runnable {
 
                         String emaillist_name = sendAnEmail.getEmailListName();
                         Integer user_id = currentScheduledRecuringEmail.getUserId();
-                        String reply_to_address = sendAnEmail.getReplyToEmailAddress();
-                        String from_email_address = sendAnEmail.getFromAddress();
+                        String reply_to_address = "";
+                        if (sendAnEmail.getReplyToEmailAddress() != null){
+                            reply_to_address = sendAnEmail.getReplyToEmailAddress();
+                        }else {
+                            reply_to_address = "";
+                        }
+                        String from_email_address = "";
+                        if (sendAnEmail.getReplyToEmailAddress() != null){
+                            from_email_address = sendAnEmail.getFromAddress();
+                        }else {
+                            from_email_address = "";
+                        }
                         String from_name = sendAnEmail.getFromName();
                         SendAnEmail anEmail = new SendAnEmail();
                         String message = "";

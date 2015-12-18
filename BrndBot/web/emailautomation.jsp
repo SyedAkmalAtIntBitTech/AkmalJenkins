@@ -164,6 +164,8 @@
 
         $scope.getEntityDetails = function (){
             $scope.showEmailList();
+/* uncomment the function to check the userPreferences */            
+//            $scope.checkUserPreferences();
 //            if (entity_id != "0"){
             var entity_details = {"entity_id": entity_id};
                 $http({
@@ -192,6 +194,21 @@
         /*
         * Bring all the email list from the database
         */
+       $scope.checkUserPreferences = function(){
+           
+            $http({
+                method: 'GET',
+                url: getHost() + 'getUserPreferences.do'
+            }).success(function(data, status, headers, config) {
+                if (data != ""){
+                    alert("Please enter from address and reply to email address in email settings");
+                }
+            }).error(function(){
+                alert("problem fetching the data");
+            });
+           
+       };
+       
         $scope.showEmailList = function () {
 
             var emailids = {"update": "allEmailListNames"};
@@ -916,73 +933,73 @@
 <script>
      var rendomIframeFilename="";
        $(document).ready(function () {
-                        rendomIframeFilename=event.timeStamp;
-                    })
+            rendomIframeFilename=event.timeStamp;
+        });
     
-                    function show(id) {
-                            var getId = id;
-                            var dynamicStyle, dynamicWidth, dynamicHeight;
-                            var imageUrl = "images/Phone.svg";
-                            var id = '#dialog';
-                            //Get the screen height and width
-                            var maskHeight = $(document).height();
-                            var maskWidth = $(window).width();
-                            //Set heigth and width to mask to fill up the whole screen
-                            $('#mask').css({'width':maskWidth, 'height':maskHeight});
-                            //transition effect
-                            $('#mask').fadeIn(500);
-                            $('#mask').fadeTo("slow", 0.95);
-                            //Get the window height and width
-                            var winH = $(window).height();
-                            var winW = $(window).width();
-                            //Set the popup window to center
-                            $(id).css('top', winH / 2 - $(id).height() / 2);
-                            $(id).css('left', winW / 2 - $(id).width() / 2);
-                            //transition effect
-                            $(id).fadeIn(2000);
-                            //if close button is clicked
-                            $('.window .close').click(function (e) {
-                    //Cancel the link behavior
-                            e.preventDefault();
-                                    $('#mask').hide();
-                                    $('.window').hide();
-                            });
-                            //if mask is clicked
-                            $('#mask').click(function () {
-                                $(this).hide();
-                                $('.window').hide();
-                            });
-                           
-                                               $.ajax({ 
-                                        url: getHost() + "PreviewServlet",
-                                        method: "post",
-                                        data: {
-                                            htmlString: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
-                                            iframeName: rendomIframeFilename
-                                          },
-                                        success: function (responseText) {
-//                                        alert(responseText);
-                                         if(getId === "iphone"){
-                                         $('.window').css("top","110px");
-                                         dynamicWidth="275";
-                                         dynamicHeight="439";
-                                         
-                                        $(".window").empty();
-                                        $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
-                                        $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
-//                                        $("#imageDivPopup").append("<div style='width:"+(dynamicWidth-20)+"px;height:"+(dynamicHeight-60)+"px;margin-left:10px;position:relative;top:28px;overflow:scroll;'>"+responseText+"</div>");
-                                         $("#imageDivPopup").append("<iframe style='width:320px;height:509px;position:relative;top:-47px;left:-22px;-webkit-transform: scale(0.696);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name="+rendomIframeFilename+".html'></iframe>");
+        function show(id) {
+                var getId = id;
+                var dynamicStyle, dynamicWidth, dynamicHeight;
+                var imageUrl = "images/Phone.svg";
+                var id = '#dialog';
+                //Get the screen height and width
+                var maskHeight = $(document).height();
+                var maskWidth = $(window).width();
+                //Set heigth and width to mask to fill up the whole screen
+                $('#mask').css({'width':maskWidth, 'height':maskHeight});
+                //transition effect
+                $('#mask').fadeIn(500);
+                $('#mask').fadeTo("slow", 0.95);
+                //Get the window height and width
+                var winH = $(window).height();
+                var winW = $(window).width();
+                //Set the popup window to center
+                $(id).css('top', winH / 2 - $(id).height() / 2);
+                $(id).css('left', winW / 2 - $(id).width() / 2);
+                //transition effect
+                $(id).fadeIn(2000);
+                //if close button is clicked
+                $('.window .close').click(function (e) {
+        //Cancel the link behavior
+                e.preventDefault();
+                        $('#mask').hide();
+                        $('.window').hide();
+                });
+                //if mask is clicked
+                $('#mask').click(function () {
+                    $(this).hide();
+                    $('.window').hide();
+                });
 
-                                         $('.window').show();
-                                        }
-                                   }
+                $.ajax({
+                    url: getHost() + "PreviewServlet",
+                    method: "post",
+                    data: {
+                        htmlString: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
+                        iframeName: rendomIframeFilename
+                      },
+                    success: function (responseText) {
+//                                        alert(responseText);
+                     if(getId === "iphone"){
+                        $('.window').css("top","110px");
+                        dynamicWidth="275";
+                        dynamicHeight="439";
+
+                        $(".window").empty();
+                        $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
+                        $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
+//                                        $("#imageDivPopup").append("<div style='width:"+(dynamicWidth-20)+"px;height:"+(dynamicHeight-60)+"px;margin-left:10px;position:relative;top:28px;overflow:scroll;'>"+responseText+"</div>");
+                        $("#imageDivPopup").append("<iframe style='width:320px;height:509px;position:relative;top:-47px;left:-22px;-webkit-transform: scale(0.696);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name="+rendomIframeFilename+".html'></iframe>");
+
+                        $('.window').show();
+                    }
+               }
             }); 
             
     }       
                     
                
-        </script> 
-        <div class="modal fade" id="myModal" role="dialog">
+</script> 
+<div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -1000,7 +1017,7 @@
       </div>
       
     </div>
-  </div>
+</div>
         
 </body>
     

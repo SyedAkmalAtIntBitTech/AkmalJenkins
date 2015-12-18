@@ -28,8 +28,7 @@ import org.postgresql.util.PGobject;
  * @author intbit
  */
 public class GetUserPreferences extends BrndBotBaseHttpServlet {
-Connection connection = null;
-JSONArray json_font_names = new JSONArray();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -54,6 +53,8 @@ JSONArray json_font_names = new JSONArray();
         JSONObject user_preferences = new JSONObject();
         JSONObject json_colors = new JSONObject();
         JSONParser parser = new JSONParser();
+        JSONArray json_font_names = new JSONArray();
+
         Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
         
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
@@ -81,35 +82,35 @@ JSONArray json_font_names = new JSONArray();
                     JSONObject json_font;
                     if (rs3.next()){
                         Integer font_id1 = rs3.getInt("font_id1");
-                        getFontsList(connection, font_id1);
+                        json_font_names = getFontsList(connection, font_id1, json_font_names);
                         Integer font_id2 = rs3.getInt("font_id2");
-                        getFontsList(connection, font_id2);
+                        json_font_names = getFontsList(connection, font_id2, json_font_names);
                         Integer font_id3 = rs3.getInt("font_id3");
-                        getFontsList(connection, font_id3);
+                        json_font_names = getFontsList(connection, font_id3, json_font_names);
                         Integer font_id4 = rs3.getInt("font_id4");
-                        getFontsList(connection, font_id4);
+                        json_font_names = getFontsList(connection, font_id4, json_font_names);
                         Integer font_id5 = rs3.getInt("font_id5");
-                        getFontsList(connection, font_id5);
+                        json_font_names = getFontsList(connection, font_id5, json_font_names);
                         Integer font_id6 = rs3.getInt("font_id6");
-                        getFontsList(connection, font_id6);
+                        json_font_names = getFontsList(connection, font_id6, json_font_names);
                         Integer font_id7 = rs3.getInt("font_id7");
-                        getFontsList(connection, font_id7);
+                        json_font_names = getFontsList(connection, font_id7, json_font_names);
                         Integer font_id8 = rs3.getInt("font_id8");
-                        getFontsList(connection, font_id8);
+                        json_font_names = getFontsList(connection, font_id8, json_font_names);
                         Integer font_id9 = rs3.getInt("font_id9");
-                        getFontsList(connection, font_id9);
+                        json_font_names = getFontsList(connection, font_id9, json_font_names);
                         Integer font_id10 = rs3.getInt("font_id10");
-                        getFontsList(connection, font_id10);
+                        json_font_names = getFontsList(connection, font_id10, json_font_names);
                         Integer font_id11 = rs3.getInt("font_id11");
-                        getFontsList(connection, font_id11);
+                        json_font_names = getFontsList(connection, font_id11, json_font_names);
                         Integer font_id12 = rs3.getInt("font_id12");
-                        getFontsList(connection, font_id12);
+                        json_font_names = getFontsList(connection, font_id12, json_font_names);
                         Integer font_id13 = rs3.getInt("font_id13");
-                        getFontsList(connection, font_id13);
+                        json_font_names = getFontsList(connection, font_id13, json_font_names);
                         Integer font_id14 = rs3.getInt("font_id14");
-                        getFontsList(connection, font_id14);
+                        json_font_names = getFontsList(connection, font_id14, json_font_names);
                         Integer font_id15 = rs3.getInt("font_id15");
-                        getFontsList(connection, font_id15);
+                        json_font_names = getFontsList(connection, font_id15, json_font_names);
 
                     }
                 
@@ -129,8 +130,8 @@ JSONArray json_font_names = new JSONArray();
         }
     }
     
-    public void getFontsList(Connection connection, 
-            Integer id)throws SQLException{
+    public JSONArray getFontsList(Connection connection, 
+            Integer id, JSONArray json_font_names)throws SQLException{
             ResultSet rs = null;
             Statement stmt = null;
         try {
@@ -153,6 +154,7 @@ JSONArray json_font_names = new JSONArray();
             rs.close();
             stmt.close();
         }
+        return json_font_names;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
