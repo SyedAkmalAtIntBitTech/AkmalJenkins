@@ -692,7 +692,7 @@ padding-top: 0px;
     padding-top:0px;
     padding-bottom:0px;
     height: 100% !important;
-    max-height: 470px;
+    max-height: 485px;
     //overflow: auto;
     
     
@@ -775,7 +775,7 @@ padding-top: 0px;
     width:470px;
     height:40px;
     float: left;
-      margin-bottom: 11px;
+     margin-bottom: 11px;
   
 }
 
@@ -1216,6 +1216,7 @@ input-field-container{
     width: 100%;
     margin-top: 0%;
     margin-left: 0%;
+    border-top: 1px solid #bbb;
 }
 
 .bottom-cta-button-container-lg{
@@ -1342,7 +1343,7 @@ input-field-container{
 }
 
 .col-2of10{
-    width:20%;
+    width:21%;
     box-sizing: border-box;
 }
 

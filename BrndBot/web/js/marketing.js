@@ -1042,6 +1042,29 @@ function controllerMarketingCampaign($scope, $http) {
         if (entity_type === getemail()) {
             $slider=2;
             sliderDialog = "#emailsection";
+            
+            $("#emailsection").show();
+            $("#emailactionsection").show();
+            $("#emailactionsave").show();
+            $("#emailpostsection").hide();
+            $("#emailnotesection").hide();
+            $("#emailpostremove").hide();
+            $("#emailnotesave").hide();
+            
+            $("#emailaction").removeClass("top-subnav-link-active-detail");
+            $("#emailaction a").removeAttr("class");
+            $("#emailnote").removeClass("top-subnav-link-active-detail");
+            $("#emailnote a").removeAttr("class");
+            $("#emailpost").removeClass("top-subnav-link-active-detail");
+            $("#emailpost a").removeAttr("class");
+
+            $("#emailaction").addClass("top-subnav-link-active-detail");
+            $("#emailaction a").addClass("h3-subnav-subnav-active");
+            $("#emailpost").addClass("top-subnav-links-detail");
+            $("#emailpost a").addClass("h3-subnav");
+            $("#emailnote").addClass("top-subnav-links-detail");
+            $("#emailnote a").addClass("h3-subnav");
+            
             $('#slider-button').click();
             prevSliderDialog = "#emailsection";
             $('#emailsection').show();
@@ -1102,9 +1125,32 @@ function controllerMarketingCampaign($scope, $http) {
         if (entity_type === getfacebook()) {
             $slider=2;
             sliderDialog = "#facebooksection";
-            $('#facebooksection').show();
+            
+            $("#facebooksection").show();
+            $("#facebookactionsection").show();
+            $("#fbactionsave").show();
+            $("#facebookpostsection").hide();
+            $("#facebooknotesection").hide();
+            $("#fbpostremove").hide();
+            $("#fbnotesave").hide();
+            
+            $("#facebookaction").removeClass("top-subnav-link-active-detail");
+            $("#facebookaction a").removeAttr("class");
+            $("#facebooknote").removeClass("top-subnav-link-active-detail");
+            $("#facebooknote a").removeAttr("class");
+            $("#facebookpost").removeClass("top-subnav-link-active-detail");
+            $("#facebookpost a").removeAttr("class");
+
+            $("#facebookaction").addClass("top-subnav-link-active-detail");
+            $("#facebookaction a").addClass("h3-subnav-subnav-active");
+            $("#facebookpost").addClass("top-subnav-links-detail");
+            $("#facebookpost a").addClass("h3-subnav");
+            $("#facebooknote").addClass("top-subnav-links-detail");
+            $("#facebooknote a").addClass("h3-subnav");
+            
             $('#slider-button').click();
             $("#fbapprove").focus();
+            
             //$('#fbtopnav').css("float","left");
             //$('#fbtopnavdetails').show();
             //$('#fbtopsubnav').show();
@@ -1167,8 +1213,30 @@ function controllerMarketingCampaign($scope, $http) {
         
          if (entity_type === gettwitter()) {
             $slider=2;
-            $('#twittersection').show();
             sliderDialog = "#twittersection";
+            
+            $("#twittersection").show();
+            $("#twitteractionsection").show();
+            $("#twactionsave").show();
+            $("#twitterpostsection").hide();
+            $("#twitternotesection").hide();
+            $("#twpostremove").hide();
+            $("#twnotesave").hide();
+            
+            $("#twitteraction").removeClass("top-subnav-link-active-detail");
+            $("#twitteraction a").removeAttr("class");
+            $("#twitternote").removeClass("top-subnav-link-active-detail");
+            $("#twitternote a").removeAttr("class");
+            $("#twitterpost").removeClass("top-subnav-link-active-detail");
+            $("#twitterpost a").removeAttr("class");
+
+            $("#twitteraction").addClass("top-subnav-link-active-detail");
+            $("#twitteraction a").addClass("h3-subnav-subnav-active");
+            $("#twitternote").addClass("top-subnav-links-detail");
+            $("#twitternote a").addClass("h3-subnav");
+            $("#twitterpost").addClass("top-subnav-links-detail");
+            $("#twittepost a").addClass("h3-subnav"); 
+            
             $('#slider-button').click();
             prevSliderDialog = "#twittersection";
             

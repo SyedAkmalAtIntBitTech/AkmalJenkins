@@ -21,9 +21,10 @@
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
     <script src="js/timepicki.js" type="text/javascript"></script>
+    <script src="js/popup.js" type="text/javascript"></script>
     <jsp:include page="basejsp.jsp" />
     <%@ include file="checksession.jsp" %>
-    <script src="js/marketing.js" type="text/javascript"></script>
+    
     <link rel="shortcut icon" href="images/favicon.png"/>
     <title>BrndBot - Your Plan</title>
 </head>    
@@ -36,6 +37,7 @@
     <jsp:include page="twitterpreview.jsp"/> 
     <jsp:include page="emailpreviewpopup.jsp"/> 
     <%@include file="navbarv2.jsp" %>
+    <script src="js/marketing.js" type="text/javascript"></script>
     
     <!--Top Nav-->   
     <div class="top-nav">

@@ -39,20 +39,19 @@
             <div class="top-subnav-detail" id="emailtopsubnav">
                 <div class="top-subnav-tabs-detail">
                      <ul class="top-subnav-nav-elements-detail">
-                        <li class="top-subnav-links-detail top-subnav-link-active-detail "> <a class="h3-subnav-subnav-active" id="facebookaction">Action Details</a></li>
-                        <li class="top-subnav-links-detail "> <a class="h3-subnav" id="facebookpost">Saved Post</a></li>
-                        <li class="top-subnav-links-detail  top-subnav-links-detail-last"> <a class="h3-subnav" id="facebooknote">Notes</a></li>
+                        <li class="top-subnav-links-detail top-subnav-link-active-detail" id="emailaction"> <a class="h3-subnav-subnav-active">Action Details</a></li>
+                        <li class="top-subnav-links-detail" id="emailpost"> <a class="h3-subnav">Saved Post</a></li>
+                        <li class="top-subnav-links-detail  top-subnav-links-detail-last" id="emailnote"> <a class="h3-subnav">Notes</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         
-        <div id="emailactionsection">
-            
-            <!--Below Nav-->
-            
+        <!--Below Nav-->
+        
+        <div id="emailactionsection">    
             <div class="below-nav-container-saved-post-detail">
-            <div class="inner-content-container-detail">
+                <div class="inner-content-container-detail">
                 <div class="saved-post-header-detail">
                     <div class="h4">Write Notes about this Action</div>
                     <div class="instruction-text">Text Goes here!</div>
@@ -92,17 +91,88 @@
                             
                          
                         </div>
-                    </div>
+            </div>
         </div>
         
-            <!--CTA Bar-->
-            
-            <div class="">
-                <div class="bottom-cta-button-container">
+        <div id="emailpostsection">
+            <div class="below-nav-container-saved-post-detail">
+            <div class="inner-content-container-detail">
+                <div class="saved-post-header-detail">
+                    <div class="h4">Saved Email Post</div>
+                    <div class="instruction-text">Saved post.</div>
+                </div>
+                    <div class="inner-content-detail">
+                        <div class="saved-post-preview-detail">
 
-                         <div class="edit-button-detail md-button button-text-1 fleft savebutton">Save Notes</div>
+                            <!--SAVED Email GOES HERE-->
+
+          <div class="Facebook-preview">
+                                <div class="Facebook-preview-header">
+                                    <div class="Facebook-preview-profpic"></div>
+                                    <div class="Facebook-preview-name-container">
+                                        <div class="Facebook-preview-name">BrndBot Demo</div>
+                                    </div>
+                                </div>
+                                <div class="Facebook-preview-usercontent">Demo content goes right here</div>
+                                <div class="Facebook-link-container">
+                                    <div class="Facebook-preview-image"></div>
+                                    <div class="Facebook-preview-link-container">
+                                        <div class="Facebook-preview-link-title">Demo Link Copy Goes Here and Wraps Around</div>
+                                        <div class="Facebook-preview-link-description">This workshop is going to be so awesoem for the new season and get you in really good shape!</div>
+                                        <div class="Facebook-preview-link-url">Demo Description goes here but cuts off</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                         
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+        
+        <div id="emailnotesection">
+            <div class="below-nav-container-saved-post-detail">
+            <div class="inner-content-container-detail">
+                <div class="saved-post-header-detail">
+                    <div class="h4">Write Notes about this Action</div>
+                    <div class="instruction-text">Text Goes here!</div>
+                </div>
+                <div class="inner-content-detail">
+                    <div class="saved-note-detail">
+
+                        <!--SAVED POST GOES HERE-->
+
+                        <div class="notes-container">
+                              
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+        <!--CTA Bar-->
+          
+        <div class="" id="emailactionsave">
+            <div class="bottom-cta-button-container">
+                <div class="edit-button-detail md-button button-text-1 fleft savebutton">Save Action</div>
+            </div>
+        </div>
+         
+        <div class="" id="emailpostremove">
+            <div class="bottom-cta-button-container">
+                <div class="edit-button-detail md-button button-text-1 fleft removebutton">Remove Saved Post</div>
+            </div>
+        </div>
+        
+        <div class="" id="emailnotesave">
+            <div class="bottom-cta-button-container">
+                <div class="edit-button-detail md-button button-text-1 fleft savebutton">Save Notes</div>
+            </div>
+        </div>
+       
         </div>
     </div>
 </div>

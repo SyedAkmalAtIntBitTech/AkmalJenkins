@@ -99,8 +99,8 @@
                                     <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{emailautomation.emailRecuringTemplateName}}&nbsp;&nbsp;{{emailautomation.status}}</div>
-                                    <div class="list-column-description col-1of1 sh3 fleft">Action Type</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" >{{emailautomation.status}}</div>
+                                    <div class="list-column-description col-1of1 sh3 fleft">Status</div>
                                 </div>
                             </div>
                             <div class="col-1of4 fleft">
