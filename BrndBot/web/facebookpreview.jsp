@@ -62,12 +62,11 @@
 
                             <!--SAVED POST GOES HERE-->
 
-                            <div class="input-header-actionDetail" style="">
+                         <div class="input-header-actionDetail" style="">
                     Name of Workshop
                         </div>
-                        <div class="input-field-textfield">
-                            Enter Name of Workshop 
-                        </div>
+                        <input type="text" value="{{schedule_title}}" class="input-field-textfield input-placeholder full"/>
+
                         <div class="input-header-actionDetail" style="">
                             Date
                         </div>
