@@ -565,7 +565,32 @@ function programactions($scope, $http, $window){
     };
     
     $scope.getProgramActions = function(){
-
+         $scope.showfieldstab = function (){
+                    $("#removeactionbutton").hide();
+                    $("#actionstab").hide();
+                    $("#fieldstab").show();
+                    $("#savefieldsbutton").show();
+                    $("#actionsli").removeClass("top-subnav-link-active");
+                    $("#actions").removeClass("h3-active-subnav");
+                    $("#fieldsli").addClass("top-subnav-link-active");
+                    $("#fields").addClass("h3-active-subnav");
+                    $("#actionsli").addClass("top-subnav-links");
+                    $("#actions").addClass("h3");
+                };
+                $scope.showactionstab = function (){
+                    $("#removeactionbutton").show();
+                    $("#actionstab").show();
+                    $("#fieldstab").hide();
+                    $("#savefieldsbutton").hide();
+                    $("#fieldsli").removeClass("top-subnav-link-active");
+                    $("#fields").removeClass("h3-active-subnav");
+                    $("#actionsli").addClass("top-subnav-link-active");
+                    $("#actions").addClass("h3-active-subnav");
+                    $("#fieldsli").addClass("top-subnav-links");
+                    $("#fields").addClass("h3");
+                };
+        
+        
          $http({
             method: 'GET',
             url: 'alluserMarketingProgramForDisplay.do?program_id='+program
@@ -647,6 +672,9 @@ function programactions($scope, $http, $window){
         }).error(function (data) {
             alert("request not successful");
         });
+        
+        
+        
     };
     var millisToUTCDate = function (millis) {
         return toUTCDate(new Date(millis));

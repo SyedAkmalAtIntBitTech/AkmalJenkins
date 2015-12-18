@@ -55,10 +55,10 @@
         <div class="page-subnav-bar-regular"> 
             <div class="top-subnav-tabs-container-with-button">
                 <ul class="top-subnav-nav-elements">
-                    <li class="top-subnav-links"> <a href="/Newest_Files/MarketingProgram_Overview.html"  class="h3">Overview</a></li>
-                    <li class="top-subnav-links"> <a href="/Newest_Files/MarketingProgram_Fields.html" class="h3">Fields</a></li>
-                    <li class="top-subnav-link-active"> <a href="/Newest_Files/MarketingProgram_Actions.html" class="h3-active-subnav">Actions</a></li>
-                    <!--    <li class="top-subnav-links"> <a class="h3" href="/Newest_Files/MarketingProgram_Notes.html">Notes</a></li>
+                    <li class="top-subnav-links" id="ovrviewli"> <a href="" id="ovrview" class="h3">Overview</a></li>
+                    <li class="top-subnav-links" id="fieldsli"> <a href="" id="fields" class="h3" ng-click="showfieldstab()">Fields</a></li>
+                    <li class="top-subnav-link-active" id="actionsli"> <a href="" id="actions" class="h3-active-subnav" ng-click="showactionstab()">Actions</a></li>
+<!--                        <li class="top-subnav-links"> <a class="h3" href="/Newest_Files/MarketingProgram_Notes.html">Notes</a></li>
                     <li class="top-subnav-links"> <a class="h3">Website Integration</a></li>
                     <li class="top-subnav-links"> <a class="h3">Assets</a></li>-->
                 </ul>
@@ -70,7 +70,7 @@
         <div class="page-content-container marketingProgram-action-page">
             
             <!--Inner Content Conatiner GENERIC-->
-            <div class="page-inner-content-container" >
+            <div class="page-inner-content-container" id="actionstab">
                 <div class="fleft content">
                      <div class="page-content-title-bar fleft col-1of1">
                         <div class="page-content-title h2 fleft">Recurring Email Automations</div>
@@ -216,19 +216,84 @@
 
                     </ul>
                 </div>
-            </div>            
+               </div>      
+            <div class="page-inner-content-container" id="fieldstab" hidden>
+                <div class="fleft content">
+                    <div class="page-inner-content-container ">
+                        <div class="fleft content">
+                            <div class="main-container fleft">
+                                <!--Content Starts Here-->
+                                <div class="input-header" style="">
+                                    Name of Workshop
+                                </div>
+                                <div class="input-field-textfield">
+                                    Enter Name of Workshop 
+                                </div>
+                                <div class="input-header" style="">
+                                    Date
+                                </div>
+                                <div class="input-field-textfield">
+                                    Enter Date of Workshop 
+                                </div>
+                                <div class="input-header" style="">
+                                    Time of Workshop
+                                </div>
+                                <div class="input-field-textfield">
+                                    Enter Time of Workshop 
+                                </div>
+                                <div class="input-header" style="">
+                                    Name of Workshop Instructor
+                                </div>
+                                <div class="input-field-textfield">
+                                    Enter Name of Workshop Instructor
+                                </div>
+                                <div class="input-header">
+                                    Details
+                                </div>
+                                <div class="input-header-subtext">
+                                    Keep this to 1-2 sentences
+                                </div>
+                                <div class="input-field-textfield">
+                                    Enter Details of Workshop 
+                                </div>
+                                <div class="input-header">
+                                    Description of Workshop
+                                </div>
+                                <div class="input-header-subtext">
+                                    Put all details in this area.
+                                </div>
+                                <div class="input-field-textfield">
+                                    Enter Description of Workshop 
+                                </div>
+                            </div>
+                        </div>
+                    </div>       
+                  </div>           
+             </div>        
         </div>
         </div>
     </div>
-  
-        <!--CTA Bar
+        <div class="bottom-cta-bar" id="savefieldsbutton" hidden>
+            <div class="bottom-cta-button-container">
+             
+               <div class="add-action-button md-button button-text-1">Save</div>
+
+            </div>
+        </div>                     
+        <div class="bottom-cta-bar" id="removeactionbutton" >
+            <div class="bottom-cta-button-container">
+               <div class="remove-button-detail md-button button-text-1">Delete Selected Actions</div>
+
+            </div>
+        </div>                    
+<!--        CTA Bar
         <div class="bottom-cta-bar">
             <div class="bottom-cta-button-container">
              REMOVE BUTTON HERE
                <div class="remove-button-detail md-button button-text-1">Delete Selected Actions</div>
 
-            </div>-->
-<!--        </div>
+            </div>
+        </div>
         </div>
 </div>-->
     </body>
