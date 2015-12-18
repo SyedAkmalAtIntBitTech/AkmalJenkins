@@ -105,13 +105,15 @@
                             </div>
                             <div class="col-1of4 fleft">
                                 <div class="slat-cta-container">
-                                    <div class="small-button slat-button detail-button-font" ng-click="getRecuringMailDetails(emailautomation.scheduledEntityListId,
+                                    <div class="small-button slat-button detail-button-font"> 
+                                         <!-- ng-click="getRecuringMailDetails(emailautomation.scheduledEntityListId,
                                                                 emailautomation.status,
                                                                 emailautomation.dateTime,
                                                                 emailautomation.actionType,
                                                                 emailautomation.programTemplateName,
                                                                 emailautomation.description,
-                                                                emailautomation.postDateStatus)">Details</div>
+                                                                emailautomation.postDateStatus)"-->
+                                                                           Details</div> 
                                 </div>
                             </div>
                         </li>
@@ -226,45 +228,42 @@
                                 <div class="input-header" style="">
                                     Name of Workshop
                                 </div>
-                                <div class="input-field-textfield">
-                                    Enter Name of Workshop 
-                                </div>
+                                <input type="text" class="input-field-textfield" placeholder="Enter Name of Workshop"/>
+                                     
                                 <div class="input-header" style="">
                                     Date
                                 </div>
-                                <div class="input-field-textfield">
-                                    Enter Date of Workshop 
-                                </div>
+                                <input type="text" class="input-field-textfield" placeholder="Enter Date of Workshop "/>
+                                
                                 <div class="input-header" style="">
                                     Time of Workshop
                                 </div>
-                                <div class="input-field-textfield">
-                                    Enter Time of Workshop 
-                                </div>
+                                <input type="text" class="input-field-textfield" placeholder=" Enter Time of Workshop "/>
+                               
+                                
                                 <div class="input-header" style="">
                                     Name of Workshop Instructor
                                 </div>
-                                <div class="input-field-textfield">
-                                    Enter Name of Workshop Instructor
-                                </div>
+                                <input type="text" class="input-field-textfield" placeholder="Enter Name of Workshop Instructor"/>
+                                   
+                                
                                 <div class="input-header">
                                     Details
                                 </div>
                                 <div class="input-header-subtext">
                                     Keep this to 1-2 sentences
                                 </div>
-                                <div class="input-field-textfield">
-                                    Enter Details of Workshop 
-                                </div>
+                                <input type="text" class="input-field-textfield" placeholder="Enter Details of Workshop "/>
+                                    
                                 <div class="input-header">
                                     Description of Workshop
                                 </div>
                                 <div class="input-header-subtext">
                                     Put all details in this area.
                                 </div>
-                                <div class="input-field-textfield">
-                                    Enter Description of Workshop 
-                                </div>
+                                <input type="text" class="input-field-textfield" placeholder="Enter Description of Workshop "/>
+                                    
+                                
                             </div>
                         </div>
                     </div>       
