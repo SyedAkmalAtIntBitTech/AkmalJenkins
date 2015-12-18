@@ -172,9 +172,7 @@
                                 </div>
                             </div>
                         </li>-->
-
-
-                    </ul>
+                </ul>
                 </div>
                 <div class="fleft content">
                     <div class="page-content-title-bar fleft col-1of1">
@@ -229,7 +227,8 @@
                                     Name of Workshop
                                 </div>
                                 <input type="text" class="input-field-textfield" placeholder="Enter Name of Workshop"/>
-                                     
+
+                                
                                 <div class="input-header" style="">
                                     Date
                                 </div>
@@ -273,14 +272,14 @@
         </div>
     </div>
         <div class="bottom-cta-bar" id="savefieldsbutton" hidden>
-            <div class="bottom-cta-button-container">
+            <div class="bottom-cta-button-container bottomheight">
              
                <div class="add-action-button md-button button-text-1">Save</div>
 
             </div>
         </div>                     
         <div class="bottom-cta-bar" id="removeactionbutton" >
-            <div class="bottom-cta-button-container">
+            <div class="bottom-cta-button-container bottomheight">
                <div class="remove-button-detail md-button button-text-1">Delete Selected Actions</div>
 
             </div>

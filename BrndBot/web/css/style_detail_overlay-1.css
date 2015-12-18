@@ -1207,7 +1207,6 @@ input-field-container{
     box-sizing: border-box;
 
 }
-
 .bottom-cta-button-container{
     float: left;
     height: 0px;
@@ -1909,6 +1908,7 @@ input-field-container{
     margin-top: 10px;
     box-sizing: border-box;
     color: #000000;
+        width: 100%;
 }
 
 .pop-up-exit-container{
@@ -1942,9 +1942,14 @@ width:100%;
                 margin-left: 40%;
                 margin-top: 10%;
             }
+
 .socialdropdowntext{
 width: 10%;
     background-color: steelblue;
     color: white;
+}
+////////////////////////////////////////akmal///marketing footer save and remove buttons////
+.bottomheight{
+    height: 64px !important;
 }
 
