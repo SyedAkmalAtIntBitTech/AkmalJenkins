@@ -18,6 +18,8 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/configurations.js"></script>
     <script src="js/angular.min.js"></script>
+    <script src="js/popup.js" type="text/javascript"></script>        
+    <link rel="stylesheet" href="css/popup.css"/>
     <jsp:include page="basejsp.jsp"/>
      <%!
             String program_id = "";
@@ -28,13 +30,16 @@
         <script>
             var program = "";
             program = <%= program_id %>;
-        </script>
+        </script>        
         <script src="js/programactions.js"></script>
 </head>    
 
 <body class="" ng-app>
     <!--SideNav-->
     <div class="content-main" ng-controller="programactions">
+    <jsp:include page="facebookpreview.jsp"/> 
+    <jsp:include page="twitterpreview.jsp"/> 
+    <jsp:include page="emailpreviewpopup.jsp"/> 
     <%@include file="navbarv2.jsp" %>
         
     <!--Top Nav-->   
@@ -95,7 +100,7 @@
                                     <div class="action-list-slat-description col-1of1 sh3">Howdy Again</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{emailautomation.dateTime| date:'  d/M/yy'}}</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{emailautomation.dateTime| date:'MMM dd'}}</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
@@ -198,7 +203,7 @@
                                     <div class="action-list-slat-description col-1of1 sh3">Howdy Again</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{programaction.postDate| date:'MMM dd'}}</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{programaction.postDate| date:'MMM dd yyyy'}}</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
@@ -209,7 +214,15 @@
                             </div>
                             <div class="col-1of4 fleft">
                                 <div class="slat-cta-container">
-                                    <div class="small-button slat-button detail-button-font">Details</div>
+                                    <div class="small-button slat-button detail-button-font" ng-click="getScheduleDetails(programaction.scheduledEntityListId,
+                                                                        programaction.status,
+                                                                        programaction.postDate,
+                                                                        programaction.actionType,
+                                                                        programaction.programTemplateName,
+                                                                        programaction.description,
+                                                                        programaction.postTime,
+                                                                        programaction.postDateStatus,
+                                                                        programaction.days)">Details</div>
                                 </div>
                             </div>
                         </li>

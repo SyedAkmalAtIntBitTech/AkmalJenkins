@@ -70,6 +70,40 @@
                         <input class="inputbox SP1" type="hidden" name="fb_scheduletype" id="fb_scheduletype" value='{{schedule_type}}'/>
                         <input class="inputbox SP1" type="hidden" name="fb_scheduleid" id="fb_scheduleid" value='{{schedule_id}}'/>
                         <div class="inlineFlex">
+                            <div class="half"> 
+                                <div class="input-header-actionDetail" style="">
+                                    Status
+                                </div>
+                                <input type="text" id="fbnotemplate" value="No Template" class="input-field-textfield width75  " readonly/>
+                                <input type="text" id="fbtemplatesaved" value="Template Saved" class="input-field-textfield width75 " readonly/>
+                            </div>
+                            <div class="half">
+                                <div class="input-header-actionDetail" style="">
+                                    Marketing Program
+                                </div>
+                                <input type="text" id="Generalid" value="{{marketing_program_name}}" class="input-field-textfield width75" readonly/>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="h3 input-header-actionDetail" style="">
+                            POSTING DETAILS
+                        </div>
+                        <div class="inlineFlex">
+                            <div class="half">
+                                <div class="input-header-actionDetail" style="">
+                                    POSTING TO
+                                </div>
+                                <input type="text" value="{{schedule_type}}" class="input-field-textfield width75" readonly/>
+                            </div>
+                            <div class="half">
+                                <div class="input-header-actionDetail" style="">
+                                  MANAGED PAGE
+                                </div>
+                                <input type="text" value="Cannot Edit" class="input-field-textfield width75" readonly/>
+                            </div>
+                        </div>
+                        <div class="inlineFlex">
                             <div class="half">
                                 <div class="input-header-actionDetail half" style="">
                                     DATE
@@ -108,12 +142,8 @@
                             </script>
                         </div>
                         </div>
-                        <div class="input-header-actionDetail" style="">
-                            Name of Workshop Instructor
-                        </div>
-                        <div class="input-field-textfield">
-                            Enter Name of Workshop Instructor
-                        </div>
+                             
+                        
                         </div>
                     </div>
                          
@@ -172,7 +202,7 @@
                         <!--SAVED POST GOES HERE-->
 
                         <div class="notes-container">
-                              
+                            <textarea class="notes-container-textarea">{{schedule_desc}}</textarea>
                         </div>
                     </div>
                 </div>

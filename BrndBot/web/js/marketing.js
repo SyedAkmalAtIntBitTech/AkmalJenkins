@@ -923,7 +923,10 @@ function controllerMarketingCampaign($scope, $http) {
                 alert("request not successful");
             });
 
-        } else if (entity_type == getfacebook()) {
+        } 
+        
+        
+        else if (entity_type == getfacebook()) {
             sliderDialog = "#facebooksection";
             //$('#slider-button').click();
             prevSliderDialog = "#facebooksection";
@@ -1173,8 +1176,8 @@ function controllerMarketingCampaign($scope, $http) {
 //                    $('#fbpreviewdecond').hide();
 //                    $('#imgcontainer').hide();
 //                    $('#prevfbimg').hide();
-//                    $('#fbnotemplate').show();
-//                    $('#fbtemplatesaved').hide();
+                    $('#fbnotemplate').show();
+                    $('#fbtemplatesaved').hide();
 //                    $('#fb_preview_postdet').css("margin-top", 10);
 //                    $("#fb_button_post").val(create_button_title);
                 } else {
@@ -1182,8 +1185,8 @@ function controllerMarketingCampaign($scope, $http) {
 //                    $('#fbpreviewremove').show();
 //                    $('#fbremovedtemplate').hide();
 //                    $('#fbpreviewdecond').show();
-//                    $('#fbnotemplate').hide();
-//                    $('#fbtemplatesaved').show();
+                    $('#fbnotemplate').hide();
+                    $('#fbtemplatesaved').show();
 //                    $('#imgcontainer').show();
 //                    $('#fb_preview_postdet').css("margin-top", 20);
 //                    $("#fb_button_post").val("Edit");
