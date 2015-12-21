@@ -45,10 +45,14 @@
                 </div>
             </div>
             <div class="page-subnav-bar-with-dropdown"> 
-                <div class="subnav-dropdown pushright">
-                     <span class="hub-dropdown-text">Email</span>
-                      <img src="images/Icons/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"> </img>
-                </div>
+<!--                <div class="subnav-dropdown pushright select-style" >
+                <select class="hub-dropdown-text emlsocdrpdwn">
+                  <option class="hub-dropdown-text" value="Email">Email</option>
+                  <option class="hub-dropdown-text" value="Social">Social</option>
+                </select>
+                     <span >Email</span>
+                <img src="images/Icons/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"> </img>
+                </div>-->
                 <div class="top-subnav-tabs-container">
                    <ul class="top-subnav-nav-elements">
                         <li class="top-subnav-links"> <a href="" class="h3">Email Drafts</a></li>
@@ -60,9 +64,7 @@
                 </div>
                 
             </div>
-            <div class="socialdropdowntext" hidden>
-                Social
-            </div>
+            
         </div>
         <!--Main Content GENERIC--> 
         <div class="page-background">

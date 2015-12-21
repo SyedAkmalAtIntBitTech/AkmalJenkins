@@ -57,6 +57,8 @@
                  $("#addcontacts").show();
             }
         }
+        
+       
  $("#fileUpload").change(function () {
     loadImageFile();
     // resets input file

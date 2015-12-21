@@ -40,7 +40,7 @@ $edit=0;
                         if ($('#slider-button').css("margin-right") == "788px")
                         {
                             
-                            $(prevSliderDialog).animate({"margin-right": '-=850px'});
+                            $(prevSliderDialog).animate({"margin-right": '-=900px'});
                             $('#slider-button').animate({"margin-right": '-=788px'});
                         }
                     }
@@ -49,13 +49,13 @@ $edit=0;
                     {
                         $slider=0;
                         $a=0;
-                        $(sliderDialog).animate({"margin-right": '-=850px'});
+                        $(sliderDialog).animate({"margin-right": '-=900px'});
                         $('#slider-button').animate({"margin-right": '-=788px'});
                         closeoverlay();
                     }
                     else
                     {
-                        $(sliderDialog).animate({"margin-right": '+=850px'});
+                        $(sliderDialog).animate({"margin-right": '+=900px'});
                         $('#slider-button').animate({"margin-right": '+=788px'});
                         overlay();
                     }  
@@ -97,7 +97,7 @@ $edit=0;
                 if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
                     if ($('#slider-button').css("margin-right") == "788px")
                     {
-                        $(prevSliderDialog).animate({"margin-right": '-=850px'});
+                        $(prevSliderDialog).animate({"margin-right": '-=900px'});
                         $('#slider-button').animate({"margin-right": '-=788px'});
                     }
                 }
@@ -106,13 +106,13 @@ $edit=0;
                 {
                     $slider=0;
                     $a=0;
-                    $(sliderDialog).animate({"margin-right": '-=850px'});
+                    $(sliderDialog).animate({"margin-right": '-=900px'});
                     $('#slider-button').animate({"margin-right": '-=788px'});
                     closeoverlay();
                 }
                 else
                 {
-                    $(sliderDialog).animate({"margin-right": '+=850px'});
+                    $(sliderDialog).animate({"margin-right": '+=900px'});
                     $('#slider-button').animate({"margin-right": '+=788px'});
                     overlay();
                 }  
@@ -1000,9 +1000,9 @@ function programactions($scope, $http, $window){
     $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, action_status) {
          
             $slider=2;
-            sliderDialog = "#recuring_preview";
+            sliderDialog = "#emailsection";
             $('#slider-button').click();
-            prevSliderDialog = "#recuring_preview";
+            prevSliderDialog = "#emailsection";
             $("#recuring_preview_email").show();
             $("#recuring_edit_email_action").hide();
             $http({
