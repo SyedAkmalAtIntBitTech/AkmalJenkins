@@ -167,7 +167,7 @@
                                 <div class="Facebook-preview-header">
                                     <div class="Facebook-preview-profpic"></div>
                                     <div class="Facebook-preview-name-container">
-                                        <div class="Facebook-preview-name">BrndBot Demo</div>
+                                        <div class="Facebook-preview-name">{{schedule_title}}</div>
                                     </div>
                                 </div>
                                 <div class="Facebook-preview-usercontent">Demo content goes right here</div>
@@ -176,7 +176,7 @@
                                     <div class="Facebook-preview-link-container">
                                         <div class="Facebook-preview-link-title">Demo Link Copy Goes Here and Wraps Around</div>
                                         <div class="Facebook-preview-link-description">This workshop is going to be so awesoem for the new season and get you in really good shape!</div>
-                                        <div class="Facebook-preview-link-url">Demo Description goes here but cuts off</div>
+                                        <div class="Facebook-preview-link-url">{{schedule_desc}}</div>
                                     </div>
                                 </div>
                             </div>
