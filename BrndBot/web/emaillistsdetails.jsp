@@ -90,7 +90,7 @@ String type=request.getParameter("type");
                                 <div class="slat-title-container col-4of10 fleft">
                                     <div class="slat-title  col-1of1 sh1-contact" onclick="fun('update','{{email.emailAddress}}','{{email.id}}','{{email.firstName}}','{{email.lastName}}');">{{email.emailAddress}}</div>
                                     <div class="slat-title  col-1of1 sh1-contact" ng-show="email.emailAddress == '' && type == 'user'" id='NoContacts'>No contacts available</div>
-                                    <div class="action-list-slat-description col-1of1 sh3-contact">Added on {{email.addedDate}}</div>
+                                    <div class="action-list-slat-description col-1of1 sh3-contact">Added on {{email.addedDate| date:'  M/dd/yyyy'}}</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container" ng-show="email.firstName !== ''">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.firstName}}</div>

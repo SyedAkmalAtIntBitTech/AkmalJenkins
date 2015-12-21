@@ -566,16 +566,17 @@ function programactions($scope, $http, $window){
     
     $scope.getProgramActions = function(){
          $scope.showfieldstab = function (){
-                    $("#removeactionbutton").hide();
-                    $("#actionstab").hide();
-                    $("#fieldstab").show();
-                    $("#savefieldsbutton").show();
-                    $("#actionsli").removeClass("top-subnav-link-active");
-                    $("#actions").removeClass("h3-active-subnav");
-                    $("#fieldsli").addClass("top-subnav-link-active");
-                    $("#fields").addClass("h3-active-subnav");
-                    $("#actionsli").addClass("top-subnav-links");
-                    $("#actions").addClass("h3");
+             //kept inactive for a while
+//                    $("#removeactionbutton").hide();
+//                    $("#actionstab").hide();
+//                    $("#fieldstab").show();
+//                    $("#savefieldsbutton").show();
+//                    $("#actionsli").removeClass("top-subnav-link-active");
+//                    $("#actions").removeClass("h3-active-subnav");
+//                    $("#fieldsli").addClass("top-subnav-link-active");
+//                    $("#fields").addClass("h3-active-subnav");
+//                    $("#actionsli").addClass("top-subnav-links");
+//                    $("#actions").addClass("h3");
                 };
                 $scope.showactionstab = function (){
                     $("#removeactionbutton").show();

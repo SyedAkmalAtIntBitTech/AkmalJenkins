@@ -562,11 +562,13 @@ var count=0;
             $("#"+id).toggleClass('selection-icon');
             $("#"+id).toggleClass('selection-icon-selected');
             if(count > 0)
-            {
+            {   
+                $(".add-action-button").hide();
                 $(".delete-button").show();
             }
             if(count==0)
             {
+                $(".add-action-button").show();
                 $(".delete-button").hide();
             }
         }
