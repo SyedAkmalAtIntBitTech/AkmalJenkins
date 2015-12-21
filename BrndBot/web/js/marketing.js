@@ -20,7 +20,7 @@ var create_button_title = "Edit";
 
 $(document).ready(function ()
 {
-       
+    $(".arrow_top").hide();  
     $(".delete-button").hide();
     
     $(".calendar-dropdown").click(function (){$("#jumptodatepicker").trigger( "click" );});
@@ -1148,9 +1148,6 @@ function controllerMarketingCampaign($scope, $http) {
             $("#facebooknote").addClass("top-subnav-links-detail");
             $("#facebooknote a").addClass("h3-subnav");
             
-            $('#slider-button').click();
-            $("#fbapprove").focus();
-            
             //$('#fbtopnav').css("float","left");
             //$('#fbtopnavdetails').show();
             //$('#fbtopsubnav').show();
@@ -1204,11 +1201,13 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.user_marketing_program_id = programId;
                 $scope.days = days;
                 $scope.is_today_active = is_today_active;
+                
 
             }).error(function (data) {
                 alert("request not successful");
             });
-
+            $('#slider-button').click();
+            $("#fbapprove").focus();
         } 
         
          if (entity_type === gettwitter()) {

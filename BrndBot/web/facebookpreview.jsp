@@ -54,30 +54,59 @@
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
                 <div class="saved-post-header-detail">
-                    <div class="h4">Write Notes about this Action</div>
-                    <div class="instruction-text">Text Goes here!</div>
+                    <div class="h4" ng-show="schedule_desc === ''">Write Notes about this Action</div>
+                    <div class="h4" ng-show="schedule_desc !== ''">Notes</div>
+                    <div class="instruction-text" ng-show="schedule_desc !==''">{{schedule_desc}}</div>
                 </div>
                     <div class="inner-content-detail">
                         <div class="fields-note-detail">
 
                             <!--SAVED POST GOES HERE-->
 
-                         <div class="input-header-actionDetail" style="">
-                    Name of Workshop
+                        <div class="input-header-actionDetail" style="">
+                            TITLE
                         </div>
-                        <input type="text" value="{{schedule_title}}" class="input-field-textfield input-placeholder full"/>
+                        <input type="text" id="fb_action_title" value="{{schedule_title}}" class="input-field-textfield full"/>
+                        <input class="inputbox SP1" type="hidden" name="fb_scheduletype" id="fb_scheduletype" value='{{schedule_type}}'/>
+                        <input class="inputbox SP1" type="hidden" name="fb_scheduleid" id="fb_scheduleid" value='{{schedule_id}}'/>
+                        <div class="inlineFlex">
+                            <div class="half">
+                                <div class="input-header-actionDetail half" style="">
+                                    DATE
+                                </div>
 
-                        <div class="input-header-actionDetail" style="">
-                            Date
+                                <input type="text" readonly  name="datepickerfb" id="datepickerfb"  class="datepickertextbox" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        
+                                <script>
+                                    var picker = new Pikaday(
+                                    {
+                                        field: document.getElementById('datepickerfb'),
+                                        firstDay: 1,
+                                        minDate: new Date(1970, 0, 1),
+                                        maxDate: new Date(2050, 12, 31),
+                                        yearRange: [1970,2050]
+                                    });
+
+                                </script>
+
+                            </div>
+
+                            <div class="half1">
+                            <div class="input-header-actionDetail" style="">
+                                TIME
+                            </div>
+                            <input id="timepickerfb" type="text" name="timepickerfb" class="timepickertextbox" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
+                            <script>
+                                $('#timepickerfb').timepicki({
+                                    show_meridian:true,
+                                    min_hour_value:0,
+                                    max_hour_value:12,
+                                    step_size_minutes:01,
+                                    overflow_minutes:true,
+                                    increase_direction:'up',
+                                    disable_keyboard_mobile: true
+                                });
+                            </script>
                         </div>
-                        <div class="input-field-textfield">
-                            Enter Date of Workshop 
-                        </div>
-                        <div class="input-header-actionDetail" style="">
-                            Time of Workshop
-                        </div>
-                        <div class="input-field-textfield">
-                            Enter Time of Workshop 
                         </div>
                         <div class="input-header-actionDetail" style="">
                             Name of Workshop Instructor
@@ -155,7 +184,7 @@
             
         <div class="" id="fbactionsave">
             <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft savebutton">Save Action</div>
+                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionFacebook()">Save Action</div>
             </div>
         </div>
          

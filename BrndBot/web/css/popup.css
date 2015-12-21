@@ -157,6 +157,9 @@
 .half{
     width:50%;
 }
+.half1{
+    width:25%;
+}
 .scrolly{
     overflow-y:auto;
 }
@@ -196,6 +199,7 @@
 }
 .time_pick {
     left: 1px;
+    width:200%;
 }
 .claro1{
     overflow: none !important;
@@ -371,3 +375,29 @@ img.exit-button {
 }
 
 /*--------------------------------------------------------------------------------------------*/
+
+.datepickertextbox
+{
+    height: 30px;
+    background-color: #F9F9F9;
+    border: 1px solid #d5dadf;
+    padding: 6px 10px 3px 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    color: #000000;
+    width: 69%;
+}
+.timepickertextbox
+{
+    height: 30px;
+    background-color: #F9F9F9;
+    border: 1px solid #d5dadf;
+    padding: 6px 10px 3px 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    color: #000000;
+    width: 69%;
+}
+input#timepicker1 {
+    width: 53%;
+}
