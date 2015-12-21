@@ -58,8 +58,8 @@
         <link rel="stylesheet" href="css/pikaday.css">
         <link rel="stylesheet" href="css/datepickerpikaday.css">
         <script src="js/pikaday.js"></script>
-         <link href="css/style.css" rel="stylesheet" type="text/css"/>
-       <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">

@@ -73,7 +73,7 @@
                     var configuration = global_host_address + "socialeditor.jsp" + "?id=" +<%= minbodyid %>+"&mediatype=image";
                     window.open(configuration, "_self");
                 }else if (selectedmedia == 'social'){
-                    var configuration = global_host_address + "socialeditor.jsp" + "?id=" +<%= minbodyid %>+"&mediatype=social";
+                    var configuration = global_host_address + "selectpromotesocialmedia.jsp" + "?id=" +<%= minbodyid %>+"&mediatype=social";
                     window.open(configuration, "_self");
                 }else if (selectedmedia == 'emailsubject'){
                     var configuration = global_host_address + "emailsubject.jsp" + "?id=" +<%= minbodyid %>;
@@ -119,10 +119,40 @@
         </script>
         <jsp:include page="basejsp.jsp" />
     </head>
+    <%!
+            StringBuffer string_buffer = new StringBuffer();
+            String mindbody_data_id = "";
+            String logoImageName=null;
+            String media_type = "";
+        %> 
+        <%
+            try {
+                sql_methods.session = request.getSession();
+                user_id = (Integer)sql_methods.session.getAttribute("UID");
+                logoImageName =(String)sql_methods.session.getAttribute("ImageFileName");
+                if (!request.getParameter("id").equals("null")){
+                    mindbody_data_id = (String) request.getParameter("id");
+                } 
+                
+                if (!request.getParameter("mediatype").equals("null")){
+                     media_type = (String)request.getParameter("mediatype");
+                } 
+                
+//                String msg = request.getParameter("msg");
+//              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
+
+            } catch (Exception e) {
+                System.out.println(e.getCause());
+                System.out.println(e.getMessage());
+            }
+
+        %>
     <body ng-app>
 
         <div ng-controller="selectPromoteMediaController"> 
             <div class="row" ng-init="checkTemplateAvailability()">
+                <input type="hidden" id="media_type" name="media_type" value = '<%=media_type%>' />
+                <input type="hidden" id="mindbodydata" name="mindbodydata" value='<%= mindbody_data_id %>'>
                 <jsp:include page="mainmenu.html"/><!--/end left column-->
 
                 <div class="col-md-10 col-md-offset-2">

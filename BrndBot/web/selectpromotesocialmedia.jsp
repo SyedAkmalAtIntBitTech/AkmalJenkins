@@ -138,19 +138,31 @@
 
         </style>
         <%! 
+            SqlMethods sql_methods = new SqlMethods();
             Object code = "";
-            String ImageName="";
+            String mindbody_data_id = "";
+            String media_type = "";
         %>
         <% 
-            try{
-                code = (Object)request.getAttribute("objkey");
-                ImageName=request.getParameter("image");
-            }catch (Exception e){
+            
+            try {
+                sql_methods.session = request.getSession();
+                user_id = (Integer)sql_methods.session.getAttribute("UID");
+                if (!request.getParameter("id").equals("null")){
+                    mindbody_data_id = (String) request.getParameter("id");
+                } 
+                
+                if (!request.getParameter("mediatype").equals("null")){
+                     media_type = (String)request.getParameter("mediatype");
+                } 
+                
+//                String msg = request.getParameter("msg");
+//              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
+
+            } catch (Exception e) {
                 System.out.println(e.getCause());
                 System.out.println(e.getMessage());
-                
             }
-        
         %>
         
         <!--           <script>
@@ -182,6 +194,11 @@
             });
             
             $(document).ready(function () {
+                $("#submitbutton").click(function(){
+                    //alert($("#isFacebook").val());
+                    //alert($("#isTwitter").val());
+                    
+                });
                 $("#loadingGif").hide();
                 // $('#myModal').trigger('reveal:open');
                 
@@ -333,8 +350,9 @@
                 <li><img id="twt" class="socialimage twt ptr" src="images/twtButton.svg" onclick="changeImaget();"/> <input type="checkbox" id="twitter" name="social" value="Twitter" hidden="true"><p class="il2">Twitter</p></li>
                 <li><div style="left:-330px;" class="col-md-5 col-md-offset-0">
 
-                        <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
-                            <input type="hidden" id="imageName" name="imageName" >
+                        <form action="<%=request.getContextPath()%>/socialimageselection.jsp" method="POST">
+                            <input type="hidden" id="media_type" name="media_type" value = '<%=media_type%>' />
+                            <input type="hidden" id="mindbodydata" name="mindbodydata" value='<%= mindbody_data_id %>'>
                             <input type="hidden" id="twaccessTokenSend" name="twaccessTokenSend" >
                             <input type="hidden" id="pagenameSend" name="pagenameSend" >
                             <input type="hidden" id="fbaccessTokenSend" name="fbaccessTokenSend">
@@ -379,11 +397,14 @@
        if(x == false){
        document.getElementById("facebook").checked=true;
        document.getElementById("fb").src="images/fbButton_darkblue_new.svg"; 
+       document.getElementById("isFacebook").value("true");
+       
    }
    else
    {
        document.getElementById("fb").src="images/fbButton.svg"; 
-       document.getElementById("facebook").checked=false;    
+       document.getElementById("facebook").checked=false;   
+       document.getElementById("isFacebook").value("false");
    }
        
    }
@@ -392,11 +413,13 @@
        if(x == false){
        document.getElementById("twitter").checked=true;
        document.getElementById("twt").src="images/twtButton_lightblue_new.svg";
+       document.getElementById("isTwitter").value("true");
    }
    else
    {
        document.getElementById("twt").src="images/twtButton.svg";
-       document.getElementById("twitter").checked=false;    
+       document.getElementById("twitter").checked=false;
+       document.getElementById("isTwitter").value("false");
    }
 }
 

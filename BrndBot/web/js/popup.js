@@ -22,6 +22,7 @@
 
 function fun(type, emailAddress, UUID, firstName, lastName)
 {
+    
     $("#fade").show();
     $("#addContact").show();
     $("#emailId").val(emailAddress);
@@ -29,15 +30,30 @@ function fun(type, emailAddress, UUID, firstName, lastName)
     $("#firstName").val(firstName);
     $("#lastName").val(lastName);
     $("#type").val(type);
+    $("#selectedtype").val(type);
     overlay();
 }
+$("#gotoimageeditor").click(function(){
+    $("#gotoimageeditor").css("background-color", "yellow");
+    $("#uploadimage").css("background-color", "#E3E3E3");
+});
+$("#uploadimage").click(function(){
+    $("#uploadimage").css("background-color", "yellow");
+    $("#gotoimageeditor").css("background-color", "#E3E3E3");
+    
+});
+
 $(document).ready(function ()
 {
   //////////////////////////////////////////// emaillist popup ////////////////////////////////////////
   $(".email").click(function(){
       alert();
   });
-  
+  $("#close").click(function(){
+      $("#addContact").hide();
+      $("#fade").hide();
+      
+  });
   
   /////////////////////////////////////////////////////////////////////////////////////////////////////
     

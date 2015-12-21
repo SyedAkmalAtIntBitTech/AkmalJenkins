@@ -42,10 +42,6 @@ a.svg:after {
     max-width: 100%;
 }
 
-
-
-
-
 .detail-content {
    width:100%;
     box-sizing: border-box;
@@ -1936,6 +1932,49 @@ width:100%;
     background-color: #E3E3E3;
     border-radius:5px;
 }
-
-
-
+//////////////////////////////////////////// added by satyajit roy (intbit technology) on 21st dec 2015////////
+.Blank_Facebook-preview {
+    width: 494px;
+    height: 375px;
+    border: 1px dotted rgb(223, 224, 228);
+    border-radius: 3px;
+    background-color: #FFFFFF;
+}
+.Blank_Facebook{
+    width: 494px;
+    height: 375px;
+    margin-left: 9%;
+    border: 1px solid rgb(223, 224, 228);
+    border-radius: 3px;
+    background-color: #FFFFFF;
+}
+.Blank_Twitter-preview {
+    width: 494px;
+    height: 375px;
+    border: 1px dotted rgb(223, 224, 228);
+    border-radius: 3px;
+    background-color: #FFFFFF;
+    margin-left: 10%;
+}
+.Blank_Twitter{
+    width: 494px;
+    height: 375px;
+    margin-left: 9%;
+    border: 1px solid rgb(223, 224, 228);
+    border-radius: 3px;
+    background-color: #FFFFFF;
+}
+.textalgn
+{
+    margin-left: 30%;
+    margin-top: 34%;
+}
+.changeImage{
+    cursor: pointer;
+}
+#uploadimage{
+    cursor: pointer;
+}
+#gotoimageeditor{
+    cursor: pointer;
+}
