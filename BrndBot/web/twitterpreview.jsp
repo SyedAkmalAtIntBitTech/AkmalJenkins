@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="shortcut icon" href="favicon.png">
     <script src="js/popup.js"></script>
+    <!--<style>.time_pick{width:100%;}</style>-->
 </head>    
 
 <body>
@@ -54,43 +55,100 @@
                 <div class="below-nav-container-saved-post-detail">
                 <div class="inner-content-container-detail">
                     <div class="saved-post-header-detail">
-                        <div class="h4">Write Notes about this Action</div>
-                        <div class="instruction-text">Text Goes here!</div>
+                        <div class="h4" ng-show="schedule_desc === ''">Write Notes about this Action</div>                      
+                        <div class="h4" ng-show="schedule_desc !== ''">Notes</div>
+                        <div class="instruction-text" ng-show="schedule_desc !==''">{{schedule_desc}}</div>
                     </div>
                         <div class="inner-content-detail">
                             <div class="fields-note-detail">
 
                                 <!--SAVED POST GOES HERE-->
 
+                            <div class="input-header-actionDetail" style="">
+                                TITLE
+                            </div>
+                            <input type="text" id="edit_twitter_title"  name="edit_twitter_title" value="{{schedule_title}}" class="input-field-textfield full"/>
+                            <input class="inputbox SP1" type="hidden" name="twitter_scheduleid" id="twitter_scheduleid" value='{{schedule_id}}'/>
+                            <input class="inputbox SP1" type="hidden" name="twitter_action_type" id="twitter_action_type" value='{{schedule_type}}'/>
+                            
+                            <div class="inlineFlex">
+                                <div class="half"> 
+                                    <div class="input-header-actionDetail" style="">
+                                        Status
+                                    </div>
+                                    <input type="text" id="twnotemplate" value="No Template" class="input-field-textfield width75  " readonly/>
+                                    <input type="text" id="twtemplatesaved" value="Template Saved" class="input-field-textfield width75 " readonly/>
+                                </div>
+                                <div class="half">
+                                    <div class="input-header-actionDetail" style="">
+                                        Marketing Program
+                                    </div>
+                                    <input type="text" id="Generalid" value="{{marketing_program_name}}" class="input-field-textfield width75" readonly/>
+
+                                </div>
+                            </div>
+                            <div class="input-header-actionDetail h3" style="">
+                                POSTING DETAILS
+                            </div>
+                            <div class="inlineFlex">
+                                <div class="half">
+                                    <div class="input-header-actionDetail" style="">
+                                        POSTING TO
+                                    </div>
+                                    <input type="text" value="{{schedule_type}}" class="input-field-textfield width75" readonly/>
+                                </div>
+                            </div>
+                            <div class="input-header-actionDetail h3" style="">
+                                 SCHEDULED TO POST ON
+                            </div>
+                            <div class="inlineFlex">
+                            <div class="half">
+                                <div class="input-header-actionDetail " >
+                                    DAY
+                                </div>
+                                <div ng-show="user_marketing_program_id > 0">
+                                <input type="text" readonly   name="datepickertwitter" id="datepickertwitter1"  class="input-field-textfield width75" value="Sun Jan 01 1970"/> 
+                                <input type="text" readonly class="input-field-textfield width75" id="twdays" name="twdays" value="{{days}}"/>                                                   
+                               </div>
+                                <div ng-show="user_marketing_program_id == 0">
+                                        <input type="hidden" class="textbox" id="twdays" name="twdays" value="0"/>
+                                        <input type="text"  name="datepickertwitter" id="datepickertwitter"  class="input-field-textfield width75" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}" readonly/>                                        
+                                        <script>
+                                            var picker = new Pikaday(
+                                            {
+                                                field: document.getElementById('datepickertwitter'),
+                                                firstDay: 1,
+                                                minDate: new Date(2000, 0, 1),
+                                                maxDate: new Date(2050, 12, 31),
+                                                yearRange: [2000,2050]
+                                            });
+
+                                        </script>
+                                </div>
+                            </div>
+                            <div class="half">
                                 <div class="input-header-actionDetail" style="">
-                        Name of Workshop
-                            </div>
-                            <div class="input-field-textfield">
-                                Enter Name of Workshop 
-                            </div>
-                            <div class="input-header-actionDetail" style="">
-                                Date
-                            </div>
-                            <div class="input-field-textfield">
-                                Enter Date of Workshop 
-                            </div>
-                            <div class="input-header-actionDetail" style="">
-                                Time of Workshop
-                            </div>
-                            <div class="input-field-textfield">
-                                Enter Time of Workshop 
-                            </div>
-                            <div class="input-header-actionDetail" style="">
-                                Name of Workshop Instructor
-                            </div>
-                            <div class="input-field-textfield">
-                                Enter Name of Workshop Instructor
-                            </div>
+                                    TIME
+                                </div>
+                                <input id="timepickertwitter" type="text" name="timepickertwitter" class="timepickertextbox " value="{{entities_selected_time| date:'h : mm : a'}}"/> 
+                                <script>
+                                    $('#timepickertwitter').timepicki({
+                                        show_meridian:true,
+                                        min_hour_value:0,
+                                        max_hour_value:12,
+                                        step_size_minutes:01,
+                                        overflow_minutes:true,
+                                        increase_direction:'up',
+                                        disable_keyboard_mobile: true
+                                    });
+                                </script>
                             </div>
                         </div>
-                            </div>
-                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
 
             <div id="twitterpostsection">
                 <div class="below-nav-container-saved-post-detail">
@@ -143,7 +201,7 @@
                             <!--SAVED POST GOES HERE-->
 
                             <div class="notes-container">
-
+                                <textarea class="notes-container-textarea">{{schedule_desc}}</textarea>
                             </div>
                         </div>
                     </div>
