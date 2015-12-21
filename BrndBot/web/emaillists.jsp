@@ -45,10 +45,14 @@
                 </div>
             </div>
             <div class="page-subnav-bar-with-dropdown"> 
-                 <div class="subnav-dropdown pushright">
-                     <span class="hub-dropdown-text">Email</span>
-                      <img src="images/Icons/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"> </img>
-                </div>
+<!--                <div class="subnav-dropdown pushright select-style" >
+                <select class="hub-dropdown-text emlsocdrpdwn">
+                  <option class="hub-dropdown-text" value="Email">Email</option>
+                  <option class="hub-dropdown-text" value="Social">Social</option>
+                </select>
+                     <span >Email</span>
+                <img src="images/Icons/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"> </img>
+                </div>-->
                 <div class="top-subnav-tabs-container">
                    <ul class="top-subnav-nav-elements">
                         <li class="top-subnav-links"> <a href="" class="h3">Email Drafts</a></li>
@@ -58,7 +62,9 @@
                         <li class="top-subnav-links"> <a class="h3">Email Settings</a></li>
                     </ul>
                 </div>
+                
             </div>
+            
         </div>
         <!--Main Content GENERIC--> 
         <div class="page-background">
@@ -76,11 +82,11 @@
                         <ul class="main-container fleft">
                         <li class="slat-container fleft selfclear" ng-repeat="email in emailLists">
                              <div class="selection-container col-5p"> 
-                                 <div class="selection-icon" id="qnique-{{email.emaileListName}}" onclick="selemlcheckbox(this.id)"><input type="checkbox" id="{{email.id}}" value="{{email.emailListName}}" name="entityname" hidden></input></div>
+                                 <div class="selection-icon" id="qnique-{{email.emailListName}}" onclick="selemlcheckbox(this.id)"><input type="checkbox" id="{{email.id}}" value="{{email.emailListName}}" name="entityname" hidden></input></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div class="slat-title-container col-1of2 fleft">
-                                    <div class="slat-title email-list-slat-title col-1of1 ">{{email.emaileListName}}</div>
+                                    <div class="slat-title email-list-slat-title col-1of1 ">{{email.emailListName}}</div>
                                     <div class="action-list-slat-description col-1of1 sh3">Created on {{email.listAddedDate}}</div>
                                 </div>
                                 <div class=" col-3of10 fleft slat-attribute-container">

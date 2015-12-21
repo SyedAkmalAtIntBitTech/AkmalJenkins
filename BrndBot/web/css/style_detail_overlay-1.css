@@ -209,7 +209,7 @@ a.svg:after {
 }
 
 .hub-dropdown-text{
-    font-size: 14px;
+    font-size: 16px;
     color: #FFFFFF ;
     line-height: 100%;
         display: table-cell;
@@ -1076,6 +1076,7 @@ input-field-container{
     padding: 6px 10px 3px 10px;
     margin-top: 10px;
     box-sizing: border-box;
+    width:100%;
 }
 
 .inner-content-column-container-detail{
@@ -1941,8 +1942,58 @@ width:100%;
                 margin-left: 40%;
                 margin-top: 10%;
             }
+
+.socialdropdowntext{
+width: 10%;
+    background-color: steelblue;
+    color: white;
+}
 ////////////////////////////////////////akmal///marketing footer save and remove buttons////
 .bottomheight{
     height: 64px !important;
 }
+.select-style {
+    padding: 0;
+    margin: 0;
+    border: 0px solid #ccc;
+    width: 120px;
+    border-radius: 0px;
+    overflow: hidden;
+    background-color: #0F76A6;
 
+    background:#0F76A6 url("http://cdn.flaticon.com/svg/32/32195.svg") no-repeat 90% 50%;
+}
+.emlsocdrpdwn {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+/*    background-color: #0F76A6;
+    font-size: 16px;
+    color: #FFFFFF;
+    line-height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    font-weight: 500;
+    height: 100%;
+    border: none;
+    width: 100%;
+    background: transparent url("images/dropdown.png") no-repeat right center;
+   -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;*/
+}
+.emlsocdrpdwn option{
+    background-color: #0F76A6;
+    font-size: 16px;
+     color: #FFFFFF;
+     border: none;
+}
+.emlsocdrpdwn:focus {
+    outline: none;
+}
