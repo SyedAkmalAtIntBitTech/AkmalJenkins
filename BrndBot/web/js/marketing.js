@@ -248,8 +248,20 @@ function validateaction() {
     }
     if (actiondate === "") {
         alert("date not selected, please select the date");
-        $("#datepicker").focus();
         return false;
+    }else {
+        alert("date not selected, please select the date");
+        var current_date = new Date();
+        var current_date = Date.parse(current_date);
+
+        console.log(current_date);
+        var selected_date = Date.parse(actiondate);
+        console.log(selected_date);
+        if (selected_date < current_date){
+            alert("improper date selected, please select the proper date");
+            $("#datepicker").focus();
+            return false;
+        }
     }
     if (actiontime === "") {
         alert("time not selected, please selecet the time");
@@ -1167,28 +1179,28 @@ function controllerMarketingCampaign($scope, $http) {
 
         console.log("New Epoch: " + myEpoch);
         if (validateaction()) {
-            var action = {"title": title, "actiontype": actiontype, "marketingType":marketingProgramType, "type": "save",
-                "description": description, "action_date": myEpoch, "days":days
-            };
-            $http({
-                method: 'POST',
-                url: getHost() + 'AddAction',
-                headers: {'Content-Type': 'application/json'},
-                data: JSON.stringify(action)
-            }).success(function (data)
-            {
-                $scope.status = data;
-                if (data != "") {
-                    alert("action saved successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
-
-                }
-            }).error(function (data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-
-                alert("request not succesful");
-            });
+//            var action = {"title": title, "actiontype": actiontype, "marketingType":marketingProgramType, "type": "save",
+//                "description": description, "action_date": myEpoch, "days":days
+//            };
+//            $http({
+//                method: 'POST',
+//                url: getHost() + 'AddAction',
+//                headers: {'Content-Type': 'application/json'},
+//                data: JSON.stringify(action)
+//            }).success(function (data)
+//            {
+//                $scope.status = data;
+//                if (data != "") {
+//                    alert("action saved successfully");
+//                    window.open(getHost() + 'marketing.jsp', "_self");
+//
+//                }
+//            }).error(function (data, status) {
+//                // called asynchronously if an error occurs
+//                // or server returns response with an error status.
+//
+//                alert("request not succesful");
+//            });
 
         }
     };
@@ -1302,7 +1314,6 @@ function controllerMarketingCampaign($scope, $http) {
         var schedule_id = $("#twitter_scheduleid").val();
         var title = $("#edit_twitter_title").val();
         
-
         var actiondate = $("#datepickertwitter").val();
         var days=$("#twdays").val();
         if(days!="0")
@@ -1315,7 +1326,6 @@ function controllerMarketingCampaign($scope, $http) {
         console.log("Epoch: " + schedule_time);
         var myEpoch = schedule_time;
         console.log("New Epoch: " + myEpoch);
-
 
         var description = $("#twitter_description").val();
         console.log(actiontype + "," + schedule_id + "," + title + "," + description);

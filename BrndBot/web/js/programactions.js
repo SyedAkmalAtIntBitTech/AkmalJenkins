@@ -339,6 +339,7 @@ function validatetwitteraction() {
 }
 
 var selected_schedules_to_delete = "";
+var selected_schedules_to_delete_recuring = "";
 
 function setSelectedRecuringIds(selectedid) {
     var checked = document.getElementById(selectedid).checked;
@@ -347,22 +348,21 @@ function setSelectedRecuringIds(selectedid) {
           $("#addemlactbtn").hide();
         $("#delemlactbtn").show();
         var selected_schedule_id = $("#" + selectedid).val();
-        selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
-        console.log(selected_schedules_to_delete);
+        selected_schedules_to_delete_recuring = selected_schedule_id + "," + selected_schedules_to_delete_recuring;
+        console.log(selected_schedules_to_delete_recuring);
     }
     else if(!checked && a==0)
     {
         var selected_schedule_id = $("#" + selectedid).val();
-        selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
-        console.log(selected_schedules_to_delete);
+        selected_schedules_to_delete_recuring = selected_schedules_to_delete_recuring.replace(selected_schedule_id + ",", "");
+        console.log(selected_schedules_to_delete_recuring);
 //        if (selected_schedules_to_delete === "") {
             $("#delemlactbtn").hide();
             $("#addemlactbtn").show();
 //        }
     }
-
-
 }
+
 function setSelectedIds(selectedid) {
         var d = $("input:checked.delchckbx").length;
         var checked = document.getElementById(selectedid).checked;
@@ -1427,7 +1427,7 @@ function programactions($scope, $http, $window){
         if (type == "deleteMultiple") {
             message = "Are you sure you want to delete these Action(s)?";
             requestBody = {"type": "deleteSelected",
-                           "schedule_ids": selected_schedules_to_delete, "entity_type": "null"};
+                           "schedule_ids": selected_schedules_to_delete_recuring, "entity_type": "null"};
             responseMessage = "Selected actions were deleted successfully";
         } else if (type == "delete") {
             message = "Are you sure you want to delete this Action?";
@@ -1607,7 +1607,6 @@ function programactions($scope, $http, $window){
         console.log("Epoch: " + schedule_time);
         var myEpoch = schedule_time;
         console.log("New Epoch: " + myEpoch);
-        
         
         var chooseEmailList = $("#chooseEmailList").val();
 
