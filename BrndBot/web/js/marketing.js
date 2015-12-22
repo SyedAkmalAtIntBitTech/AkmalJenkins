@@ -1084,7 +1084,6 @@ function controllerMarketingCampaign($scope, $http) {
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
-                alert(JSON.stringify(data));
                 if (data.body == undefined) {
                     $("#mailtemplatesaved1").hide();
                     $("#mailnotemplate1").show();
