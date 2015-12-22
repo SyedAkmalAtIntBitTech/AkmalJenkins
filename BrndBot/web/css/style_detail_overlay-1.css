@@ -413,7 +413,7 @@ a.svg:after {
     margin: 0px;
     box-sizing: border-box;
     overflow-x: auto;
-    height: 100vh;
+    height: 117vh;
       overflow-y: auto;
     padding-left: 70px;
 }
@@ -752,14 +752,15 @@ padding-top: 0px;
 
 .Facebook-preview{
     width:494px;
-    height: 482px;
+    /*float: left;*/
+    background-color: #FFFFFF;
+    height: 570px;
+    min-height: auto;
+    width: 450px;
     margin: auto;
-    padding:12px 12px 0px 12px;
-    float: none;
     border: 1px solid rgb(223, 224, 228);
     border-radius: 3px;
-    background-color: #FFFFFF;
-    
+    padding: 12px 12px 0px 12px;
 }
 
 .Facebook-preview-header{
@@ -815,7 +816,7 @@ Facebook-preview-name{
 
 .Facebook-preview-image{
     width:100%;
-    height: 244px;
+    min-height: 244px;
     background-color: aqua;
     float: left;
    
@@ -956,12 +957,10 @@ Facebook-preview-name{
 
 .Twitter-preview-image{
     width:506px;
-    height: 379px;
+    min-height: 278px;
     margin-top: 10px;
     border-radius: 5px;
-    background-color: aqua;
-   
-    
+    background-color: aqua;   
 }
 
 .Facebook-preview-link-container{
@@ -1742,31 +1741,27 @@ margin-top: 30px;
     margin-right: auto;
     margin-top: 60px;
     box-sizing: border-box;
-
-
 }
 
-.pop-up-container-imageSelection{
+.pop-up-container-imageSelection {
     width: 500px;
-   padding-bottom: 45px;
+    padding-bottom: 45px;
     background-color: #ffffff;
-     border-top-left-radius:3px;
-     border-top-right-radius:3px;
+    border-radius: 3px;
     border: 1px solid #F9FAFC;
     margin-left: auto;
+    height: 308px;
     margin-right: auto;
-    margin-top: 60px;
+    margin-top: 100px;
     box-sizing: border-box;
-
-
 }
 
 .pop-up-container-createEmail{
     width: 500px;
-   padding-bottom: 45px;
+    padding-bottom: 45px;
     background-color: #ffffff;
-     border-top-left-radius:3px;
-     border-top-right-radius:3px;
+    border-top-left-radius:3px;
+    border-top-right-radius:3px;
     border: 1px solid #F9FAFC;
     margin-left: auto;
     margin-right: auto;
@@ -1977,4 +1972,7 @@ width:100%;
 }
 #gotoimageeditor{
     cursor: pointer;
+}
+.imgsize{
+    width:100%;
 }

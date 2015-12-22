@@ -31,20 +31,33 @@ function fun(type, emailAddress, UUID, firstName, lastName)
     $("#lastName").val(lastName);
     $("#type").val(type);
     $("#selectedtype").val(type);
+    $("#selectedid").val(emailAddress);
     overlay();
 }
-$("#gotoimageeditor").click(function(){
-    $("#gotoimageeditor").css("background-color", "yellow");
-    $("#uploadimage").css("background-color", "#E3E3E3");
-});
-$("#uploadimage").click(function(){
-    $("#uploadimage").css("background-color", "yellow");
-    $("#gotoimageeditor").css("background-color", "#E3E3E3");
-    
-});
+
 
 $(document).ready(function ()
 {
+    $("#gotoimageeditor").click(function(){
+        
+        var selectedtype=$("#selectedtype").val();
+        var id=$("#selectedid").val();
+        var social=$("#social").val();
+        window.open('socialeditor.jsp?id='+id+'&mediatype='+social+'&selectedtype='+selectedtype, "_self");
+        
+//        $("#gotoimageeditor").css("background-color", "#5CC1A4");
+//        $("#uploadimage").css("background-color", "#E3E3E3");
+    });
+    $("#uploadimage").click(function(){
+        var selectedtype=$("#selectedtype").val();
+        var id=$("#selectedid").val();
+        var social=$("#social").val();
+        window.open('http://www.google.com?id='+id+'&mediatype='+social+'&selectedtype='+selectedtype, "_self");
+//        $("#uploadimage").css("background-color", "#5CC1A4");
+//        $("#gotoimageeditor").css("background-color", "#E3E3E3");
+//
+    });
+    
   //////////////////////////////////////////// emaillist popup ////////////////////////////////////////
   $(".email").click(function(){
       alert();

@@ -18,6 +18,8 @@
     <body>
         <div id="fade" class="black_overlay"></div>
         <input type="hidden" name="selectedtype" id="selectedtype" value=""></input>
+        <input type="hidden" name="selectedid" id="selectedid" value=""></input>
+        <input type="hidden" name="social" id="social" value="social"></input>
         <div id="addContact">
             <div class="pop-up-background">
                 <div class="pop-up-exit-container">
@@ -30,21 +32,16 @@
             <div class="pop-up-inner-imageSelection">
                 <div class="col-8of10  center">
                     <div class="col-4of10 pushright fleft">
-                        <div class="image-selection-button" id="uploadimage">Upload an Image or from gallery</div>
+                        <div class="image-selection-button" id="uploadimage"><p class="algn">Upload an Image or from gallery</p></div>
                     </div>
                     <div class="col-4of10 fright">
-                        <div class="image-selection-button" id="gotoimageeditor">Image Editor</div>
+                        <div class="image-selection-button" id="gotoimageeditor"><p class="algn">Image Editor</p></div>
                     </div>
                 </div>
             </div>
             
         </div>
-            </div>
-            <div class="pop-up-cta-container pop-up-cta-container-imageSelection">
-        <a id="continue">
-            <div class="pop-up-cta-button-full"> Continue</div>
-        </a>
-    </div> 
+        </div>
         </div>
     </body>
 </html>

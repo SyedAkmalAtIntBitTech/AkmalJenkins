@@ -297,6 +297,7 @@ ul::-webkit-scrollbar-thumb {
             String mindbody_data_id = "";
             String logoImageName=null;
             String media_type = "";
+            String socialtype="";
         %> 
         <%
             try {
@@ -310,6 +311,9 @@ ul::-webkit-scrollbar-thumb {
                 if (!request.getParameter("mediatype").equals("null")){
                      media_type = (String)request.getParameter("mediatype");
                 } 
+                if (!request.getParameter("selectedtype").equals("null")){
+                    socialtype = (String) request.getParameter("selectedtype");
+                }
                 
 //                String msg = request.getParameter("msg");
 //              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
@@ -1204,7 +1208,7 @@ var mindbodydataId = $("#mindbodydata").val();
                        $('#loadingGif').remove();
                        var image=responseText;
 //                                          alert(image);
-                       document.location.href = "selectpromotesocialmedia.jsp?image="+image;
+                       document.location.href = "socialimageselection.jsp?image="+image;
                                         $('#mask').hide();
                                     $('.window').hide();
                }

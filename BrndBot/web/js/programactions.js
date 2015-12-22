@@ -423,7 +423,7 @@ function setTodaysDate() {
 }
 
 function programactions($scope, $http, $window){
-             $scope.master_facebook = getfacebook();
+            $scope.master_facebook = getfacebook();
             $scope.master_twitter = gettwitter();
             $scope.master_email = getemail();
             $scope.master_note = getnote();               

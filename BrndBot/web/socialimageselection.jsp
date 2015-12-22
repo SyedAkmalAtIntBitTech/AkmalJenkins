@@ -171,8 +171,9 @@
                         <div class="Facebook-preview-usercontent">Demo content goes right here</div>
                         <div class="Facebook-link-container">
                             <div class="Facebook-preview-image">
-                                <div class="changeImage" onclick="fun('facebook');"> Upload Image </div>
-                            </div>
+ <!--                                <div class="changeImage" onclick="fun('facebook','<%=mindbodydata%>');"> Upload Image </div>-->
+                               <img class="imgsize" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=9.png"/>
+                            </div> 
                             <div class="Facebook-preview-link-container">
                                 <div class="Facebook-preview-link-title">Input in Admin-- This Weekend Workshop</div>
                                 <div class="Facebook-preview-link-description">This workshop is going to be so awesoem for the new season and get you in really good shape!</div>
@@ -211,7 +212,7 @@
                                 <div class="Twitter-preview-usercontent fleft col-1of1">Demo content goes right here andklj lkjflkjsdf l;kjasdlfkja slkfjljfal;skd jflkasdjflkasjdflkasjdlkfjlkslksdjaflkjsdlkfj asdfasdfasdf asdfasd fasdfasdf s</div>
                             </div>
                             <div class="Twitter-preview-image fleft">
-                                <div class="changeImage" onclick="fun('twitter');"> Upload Image </div>
+                                <div class="changeImage" onclick="fun('twitter','<%=mindbodydata%>')"> Upload Image </div>
                             </div>
                         </div>   
                     </div>
