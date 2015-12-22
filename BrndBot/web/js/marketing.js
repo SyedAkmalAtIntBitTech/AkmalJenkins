@@ -1078,11 +1078,13 @@ function controllerMarketingCampaign($scope, $http) {
 //            $("#preview_email").show();
 //            $("#edit_email").hide();
 //            $("#edit_email_action").hide();
+             $("#emailpost").click();
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
+                alert(JSON.stringify(data));
                 if (data.body == undefined) {
                     $("#mailtemplatesaved1").hide();
                     $("#mailnotemplate1").show();
@@ -1169,7 +1171,7 @@ function controllerMarketingCampaign($scope, $http) {
 //            $("#preview_facebook").show();
 //            $("#edit_facebook").hide();
 //            $("#edit_facebook_action").hide();
-
+            $("#facebookpost").click(); 
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
@@ -1253,7 +1255,7 @@ function controllerMarketingCampaign($scope, $http) {
 //            $("#preview_twitter").show();
 //            $("#edit_twitter").hide();
 //            $("#edit_twitter_action").hide();
-
+             $("#twitterpost").click();
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
@@ -1299,6 +1301,7 @@ function controllerMarketingCampaign($scope, $http) {
                 alert("request not successful");
             });
             $('#slider-button').click();
+           
         } 
         
 //        else if (entity_type == getnote()) {

@@ -165,7 +165,7 @@
 
           <div class="Facebook-preview">
                                 <div class="Facebook-preview-header">
-                                    <div class="Facebook-preview-profpic"><img id="fb_preview_profpic" src="https://www.hydrogenaud.io/forums/uploads/profile/photo-119400.jpg"/></div>
+                                    <div class="Facebook-preview-profpic"><img id="fb_preview_profpic" src="http://www.woomee.net/img/profile-blank.png"/></div>
                                     <div class="Facebook-preview-name-container">
                                         <div class="Facebook-preview-name">{{schedule_title}}</div>
                                     </div>

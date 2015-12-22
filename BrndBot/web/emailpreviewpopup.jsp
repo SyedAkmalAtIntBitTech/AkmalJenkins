@@ -165,18 +165,18 @@
 
           <div class="Facebook-preview">
                                 <div class="Facebook-preview-header">
-                                    <div class="Facebook-preview-profpic"></div>
+                                    <div class="Facebook-preview-profpic"><img id="fb_preview_profpic" src="http://www.woomee.net/img/profile-blank.png"/></div>
                                     <div class="Facebook-preview-name-container">
-                                        <div class="Facebook-preview-name">{{schedule_title}}</div>
+                                        <div class="Facebook-preview-name">{{entitiesdetails.subject}}</div>
                                     </div>
                                 </div>
                                 <div class="Facebook-preview-usercontent">Demo content goes right here</div>
                                 <div class="Facebook-link-container">
-                                    <div class="Facebook-preview-image"></div>
+                                    <div class="Facebook-preview-image"> <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/></div>
                                     <div class="Facebook-preview-link-container">
-                                        <div class="Facebook-preview-link-title">Demo Link Copy Goes Here and Wraps Around</div>
-                                        <div class="Facebook-preview-link-description">This workshop is going to be so awesoem for the new season and get you in really good shape!</div>
-                                        <div class="Facebook-preview-link-url">{{schedule_desc}}</div>
+                                        <div class="Facebook-preview-link-title">To Email List : {{entitiesdetails.email_list_name}}</div>
+                                        <div class="Facebook-preview-link-description">FROM NAME : {{entitiesdetails.from_name}}</div>
+                                        <div class="Facebook-preview-link-url">FROM ADDRESS : {{entitiesdetails.from_address}}</div>
                                     </div>
                                 </div>
                             </div>
