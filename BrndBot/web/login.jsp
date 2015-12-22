@@ -29,9 +29,12 @@
                 top:-2.15em;
             }
         </style>
+        <script>
+         $("document").ready(function() {setTimeout(function(){ $("#inputemail").focus();},10);});  
+        </script>
         <jsp:include page="basejsp.jsp" />
     </head>
-    <body class="container">
+    <body class="container" >
         <div id="signupdiv">
 
             <img id="logo" src="images/logo.svg" class="img-responsive" width="100" height="150"> <br>
@@ -44,7 +47,7 @@
 
                 <div class="group">
                     <div class="col-md-3 col-md-offset-5">                            
-                        <input id="inputemail" class="form-control simplebox " type="email" required ng-model="user.emailid">
+                        <input id="inputemail" class="form-control simplebox " type="email" required ng-model="user.emailid" >
                         <label>EMAIL</label><br>
                     </div>
                 </div>

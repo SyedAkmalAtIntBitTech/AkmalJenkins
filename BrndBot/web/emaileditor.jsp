@@ -139,7 +139,8 @@
         %> 
         <%  
         try {
-                sql_methods.session = request.getSession();
+                sql_methods.session = request.getSession(true);
+                draft_id = "0";
                 user_id = (Integer) sql_methods.session.getAttribute("UID");
                 logoImageName = (String) sql_methods.session.getAttribute("ImageFileName");
                 if (!request.getParameter("id").equals("null")) {
@@ -176,8 +177,11 @@
             var styleHtml = "";
             var BlockHtml = "";
             var rendomIframeFilename = "";
-            var draft_id = <%= draft_id %>;
+            var draft_id = 0;
+            console.log(draft_id);
             $(document).ready(function () {
+                    draft_id = <%= draft_id %>;
+                    console.log(draft_id);
                     $("#addblkbtn").prop('disabled', true);
                     $(".selectrow").css("display", "none");
                     rendomIframeFilename = event.timeStamp;
@@ -222,14 +226,14 @@
                                     });
                             });
                                 
-                                    showText(allLayoutFilename[0]);
-                angular.element(document.getElementById('MyController')).scope().getEmailDrafts();
-                                    
-        //                                    $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
-        //                                    $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
+                    showText(allLayoutFilename[0]);
+                        angular.element(document.getElementById('MyController')).scope().getEmailDrafts();
+
+//                                    $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
+//                                    $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
                             }
                     });
-            });
+                    });
                     angular.module("myapp", [])
 
                     .controller("MyController", function($scope, $http) {
@@ -854,7 +858,7 @@
                                 bodyString : $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
                                 },
                                 success: function (responseText) {
-                                if (responseText == "true"){
+                                if (responseText != "0"){
                                     alert("Draft saved successfully.");
                                     document.location.href = "dashboard.jsp";
                                 } else {
@@ -897,6 +901,8 @@
                 success: function (responseText) {
                 $("#previewcontent").empty();
                         $("#previewcontent").append(responseText);
+                        
+                        
                         $.ajax({
                         url: getHost() + "SaveKeyValueSessionServlet",
                                 method: "post",
@@ -908,8 +914,44 @@
                                         sessionIframevalue:"" + rendomIframeFilename
                                 },
                                 success: function (responseText) {
+                                    // added by Syed Ilyas 16 dec 2015 - saves draft
+                                    if (draft_id == "0"){
+                                        $.ajax({
+                                                url: getHost() + "saveEmailDrafts.do",
+                                                method: "post",
+                                                data:{
+                                                bodyString : $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                                                },
+                                                success: function (responseText) {
+                                                if (responseText != "0"){
+                                                    document.location.href = "emailpreview.jsp?draftid="+responseText;
+                                                } else {
+                                                    alert("There was a problem while saving the draft. Please try again later.");
+                                                }
+                                                }
 
-                                document.location.href = "emailpreview.jsp";
+                                        });
+                                    }else {
+                                        $.ajax({
+                                                url: getHost() + "updateEmailDraft.do",
+                                                method: "post",
+                                                data:{
+                                                    draftid: draft_id,
+                                                    bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                                                },
+                                                success: function (responseText) {
+                                                if (responseText == "true"){
+                                                    document.location.href = "emailpreview.jsp?draftid="+draft_id;
+                                                } else {
+                                                    alert("There was a problem while saving the draft. Please try again later.");
+                                                }
+                                                }
+
+                                        });
+
+                                    }
+                                    
+                                
                                 }
 
                         });

@@ -16,6 +16,7 @@ import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.servlet.ServletContext;
+import model.EmailInfo;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -36,7 +37,11 @@ public class Utility {
         }
         return name;
     }
-
+    
+    public static String getFullName(EmailInfo emailinfo){
+        return emailinfo.getFirstName() + " " + emailinfo.getLastName();
+    }
+    
     public static String logMessage(Exception e, String message, String dbMessage) {
         String newMessage = message.concat(e.toString());
         if (dbMessage != null) {

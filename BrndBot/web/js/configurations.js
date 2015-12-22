@@ -18,6 +18,7 @@ function getHost(){
 function debugAlert(message){
     alert(message);
 }
+
 function kUserPreference_HasLoggedInFacebook (){
     return "facebook";
 }

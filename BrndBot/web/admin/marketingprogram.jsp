@@ -48,20 +48,19 @@
                 var category = $("#category").val();
                 var program_order = $("#program_order").val();
                 var html_data = $("#html_data").val();
-
                 if (program_name == ""){
                     alert("program name not entered, kindly enter the program");
                     $("#program_name").focus();
                     return false;
                 }
                 
-                if (user == ""){
+                if (user == "0" || user == null){
                     alert("user not selected, kindly select an user");
                     $("#users").focus();
                     return false;
                 }
                 
-                if (category == ""){
+                if (category == "0"){
                     alert("category not entered,kindly enter the category");
                     $("#category").focus();
                     return false;

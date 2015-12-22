@@ -50,6 +50,7 @@
             var ok = confirm("Do you really want to Edit?");
             if (ok == true){
                 $("#link_name").show();
+                //$("#link_url").val("http://");
                 $("#link_url").show();
                 $("#editprogdet").hide();
                 $("#dateofevntedt").show();
@@ -64,6 +65,16 @@
             }
             });
             });
+            function checkUrl()
+            {
+                var url=$("#link_url").val();
+                if(url.contains("http://"))
+                {}
+                else
+                {
+                    $("#link_url").val("http://");
+                }
+            }
             function overlay(){
                 document.getElementById('light').style.display = 'block';
                 document.getElementById('fade').style.display = 'block';
@@ -142,7 +153,7 @@
                         <div id="associated_link" class="col-lg-3 col-md-3 col-sm-4" style="display:none;margin-left: -90px;">
                             <div class="asclink fontpnr">Associated Link</div>
                             <div id="assoctdnameprv" class="evntdt fontpns">{{programs.programdetails.linktodestination}}</div>
-                            <div id="assoctdnameedt" class="evntdt fontpns" style="display: none;"><input id="link_url" name="link_url" class="progactinputdate fontpns ptr"/></div>
+                            <div id="assoctdnameedt" class="evntdt fontpns" style="display: none;"><input id="link_url" name="link_url" class="progactinputdate fontpns ptr" onkeyup="checkUrl();"/></div>
                         </div>                        
                     </div>
                     <div class="row">
@@ -186,7 +197,7 @@
                                         button--text-upper 
                                         button--size-s 
 
-                                        fontpnr"  ng-click="deleteSchedule('0', 'deleteMultiple')">
+                                        fontpnr"  ng-click="deleteAutomationSchedule('0', 'deleteMultiple')">
                                     Delete Email Automation</button>
                             </div>
                         </div>
@@ -518,7 +529,12 @@
                                         </div>
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
-                                                {{entitiesdetails.email_list_name}}
+                                                <div ng-show="entitiesdetails.email_list_name == 1">
+                                                    No Email List
+                                                </div>
+                                                <div ng-show="entitiesdetails.email_list_name != 1">
+                                                    {{entitiesdetails.email_list_name}}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="inlineFlex toptweenty">
@@ -680,7 +696,12 @@
                                             </div>
                                             <div class="inlineFlex toptnine">
                                                 <div class="half containe fontpnr tenpix">
-                                                    {{entitiesdetails.email_list_name}}
+                                                    <div ng-show="entitiesdetails.email_list_name == 1">
+                                                        No Email List
+                                                    </div>
+                                                    <div ng-show="entitiesdetails.email_list_name != 1">
+                                                        {{entitiesdetails.email_list_name}}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="inlineFlex toptweenty">
@@ -786,7 +807,7 @@
                                         </div>
                                         <div class="approve">
                                             
-                                            <input type="button" value="Approve to Send" 
+                                            <input type="button" value="Approve to Post" 
                                                    ng-show="facebook_action_status == true && facebook_template_status=='Template Saved'" 
                                                    ng-click="Approval(schedule_id, 'approved', master_facebook)"
                                                    class="button approvetopostbuttonwidthheightcolor 
@@ -1113,7 +1134,7 @@
                                             <input type="button" 
                                                    ng-show="twitter_action_status == true && twitter_template_status=='Template Saved'" 
                                                    ng-click="Approval(schedule_id, 'approved', master_twitter)"
-                                                   value="Approve to Send" 
+                                                   value="Approve to Post" 
                                                    class="button approvetopostbuttonwidthheightcolor 
                                                           buttonmargin 
                                                           button--moema  
@@ -1433,7 +1454,12 @@
                                         </div>
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
-                                                {{entitiesdetails.email_list_name}}
+                                                <div ng-show="entitiesdetails.email_list_name == 1">
+                                                    No Email List
+                                                </div>
+                                                <div ng-show="entitiesdetails.email_list_name != 1">
+                                                    {{entitiesdetails.email_list_name}}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="inlineFlex toptweenty">

@@ -521,6 +521,7 @@
         String emailAddresses = "";
         String iframeName = "";
         String iframeUrl="";
+        String draft_id = "0";
     %>
     <%
         sqlmethods.session = request.getSession(true);
@@ -530,9 +531,19 @@
         htmlData = (String) sqlmethods.session.getAttribute("htmldata");
         iframeName = (String) sqlmethods.session.getAttribute("iframeName");
         iframeUrl="/BrndBot/DownloadHtmlServlet?file_name="+iframeName+".html";
+        draft_id = "0";
+        if (!request.getParameter("draftid").equals("null")){
+                    draft_id = (String)request.getParameter("draftid");
+                    out.println();
+        }
     %>
     <script>
-        
+        var draft_id = 0;
+         $(document).ready(function () {
+                    draft_id = <%= draft_id %>;
+                    console.log(draft_id);
+                });
+//        $(document).ready(function (){$("#toaddress").click(function (){var addr=$("#toaddress").val();if(addr!==""){$("#toaddrlbl").css("left","-70px");}else{$("#toaddrlbl").css("left","0px");alert("data");}});});
         function emailSettings($scope, $http){
             
                 $("#emailIdContinueButton").click(function () {
@@ -685,9 +696,16 @@
                             data: email_scheduling
                         }).success(function (data) {                            
                             if (data != "") {
-                                alert("Your Email has been Scheduled Successfully");
+                               $http({
+                               method: 'POST',
+                               url: getHost() + "deleteEmailDraft.do?draftid="+draft_id
+                               }).success(function (data) {
+                                   alert("Your Email has been Scheduled Successfully");
+                                   document.location.href = "dashboard.jsp";
                                 
-                                document.location.href = "dashboard.jsp";
+                                }).error(function (data) {
+                                    alert("No data available, problem fetching the data");
+                                });
                             }
                         }).error(function (data) {
                             alert("No data available, problem fetching the data");
@@ -712,8 +730,16 @@
                             data: email_scheduling
                         }).success(function (data) {
                             if (data != "") {
+                               $http({
+                               method: 'POST',
+                               url: getHost() + "deleteEmailDraft.do?draftid="+draft_id
+                               }).success(function (data) {
                                 alert("Your Email has been Scheduled Successfully");
                                 document.location.href = "dashboard.jsp";
+                                
+                                }).error(function (data) {
+                                    alert("No data available, problem fetching the data");
+                                });
                             }
                         }).error(function (data) {
                             alert("No data available, problem fetching the data...2");
@@ -892,9 +918,11 @@
             var email_list = $("email_list").val();
             var schedule_title = $("#schedule_title").val("");
             var schedule_time = $("#schedule_time").val("");
-            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;  
-            var emlval=re.test(to_email_addresses);
-            
+            var reg=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var toemailvalid=reg.test(to_email_addresses);
+            var split=to_email_addresses.split(',');
+            var fromaddrvalid=reg.test(from_email_address);
+            var replytoaddrvalid=reg.test(reply_to_email_address);
             if (from_name == ""){
                 alert("From name not entered, please enter the from name");
                 $("#name").focus();
@@ -905,18 +933,48 @@
                 $("#subject").focus();
                 return false;
             }
-            if (to_email_addresses == ""){
-                alert("Email addresses not entered, please enter the email address");
-                $("#toaddress").focus();
-                return false;
-            }
             if (from_email_address == ""){
                 alert("From email address not entered, please enter the from email address");
                 $("#formaddress").focus();
                 return false;
             }
+            if(fromaddrvalid == false){
+                alert("From Address Not Valid, please Enter valid Email id");
+                $("#formaddress").focus();
+                return false;
+            }
+            if (to_email_addresses == ""){
+                alert("To address fieled not entered, please enter the email address");
+                $("#toaddress").focus();
+                return false;
+            }
+            if(to_email_addresses !== ""){
+                
+                var split = to_email_addresses.split(",");
+                              
+                for (var i = 0; i < split.length; i++) {
+                    //alert(split[i]+"  split length"+split.length);
+                    var email=split[i].trim();
+                    if(reg.test(email) !== "")
+                    {
+                        if(email !== "")
+                        {
+                            if(reg.test(split[i]) === false){
+                                alert(" To Address field is not Valid, please Enter Valid Email Address \n\n'"+split[i]+"'\t is Invalid Email id");
+                                $("#toaddress").focus();
+                                return false;
+                            } 
+                        }
+                    }
+                 }
+            }
             if (reply_to_email_address == ""){
                 alert("Reply to email address not entered, please enter the reply to email address");
+                $("#email").focus();
+                return false;
+            }
+            if(replytoaddrvalid ==false){
+                alert("Reply to email address is not Valid, please enter valid reply to email address");
                 $("#email").focus();
                 return false;
             }
@@ -948,8 +1006,21 @@
                     },
                     success: function (responseText) {
                        
-                        $('#loadingGif').remove();
-                        document.location.href = "emailsent.jsp";
+                        
+                        $.ajax({
+                            url: getHost() + "deleteEmailDraft.do?draftid="+draft_id,
+                            type: "post",
+                            success: function (responseText) {
+                                if(responseText=="true")
+                                {
+                                    $('#loadingGif').remove();
+                                    document.location.href = "emailsent.jsp";
+                                }
+                            },
+                            error: function () {
+                                alert("error");
+                            }        
+                        });
                     },
                     error: function () {
                         alert("error");
@@ -1173,7 +1244,7 @@
             
             <div class="col-md-5 " ng-init="getEmailSettings()">
                 <p id="textgrt" class="MH1 col-md-offset-3">SEND EMAIL PREVIEW</p>
-                <p id="text2">go back</p>
+                <p id="t2">go back</p>
                 <form class="form-horizontal" id="emailform">
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
@@ -1190,20 +1261,20 @@
 
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="formaddress" class="form-control simplebox" name="from_email_address" type="text" required value="{{email_settings.from_address}}">
+                            <input id="formaddress" class="form-control simplebox" name="from_email_address" type="email" required value="{{email_settings.from_address}}">
                             <label>FROM ADDRESS</label><br>
                         </div>
                     </div>
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="toaddress" class="form-control simplebox" name="email_addresses" type="text"value="">
+                            <input id="toaddress" class="form-control simplebox" name="email_addresses" type="text" value="">
                             <label>TO ADDRESS</label><br>
                         </div>
                     </div>
 
                     <div class="group">
                         <div class="col-md-5 col-md-offset-5">
-                            <input id="email" class="form-control simplebox" name="reply_to_email_address" type="text" required value="{{email_settings.reply_email_address}}">
+                            <input id="email" class="form-control simplebox" name="reply_to_email_address" type="email" required value="{{email_settings.reply_email_address}}">
                             <label>REPLY TO EMAIL</label><br><br>
                         </div>
                     </div>

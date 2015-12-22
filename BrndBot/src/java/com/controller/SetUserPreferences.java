@@ -57,8 +57,8 @@ public class SetUserPreferences extends BrndBotBaseHttpServlet {
             json_user_preferences = (JSONObject) parser.parse(str_new);
             
             Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
-            String brand_id = (String)getSqlMethodsInstance().session.getAttribute("brandID");
-            String look_id = (String)getSqlMethodsInstance().session.getAttribute("LookID");
+            Integer brand_id = (Integer)getSqlMethodsInstance().session.getAttribute("brandID");
+            Integer look_id = (Integer)getSqlMethodsInstance().session.getAttribute("LookID");
             String studio_id = (String)getSqlMethodsInstance().session.getAttribute("studioID");
             String type = (String)json_user_preferences.get("type");
 
@@ -78,12 +78,12 @@ public class SetUserPreferences extends BrndBotBaseHttpServlet {
 
                 getSqlMethodsInstance().session.setAttribute("Checked", "true");
 
-                Integer font_theme_id = getSqlMethodsInstance().getFontthemeid(brand_id);
-                getSqlMethodsInstance().addUserPreferences(user_id, Integer.parseInt(brand_id), font_theme_id,  studio_id, Integer.parseInt(look_id), json_user_preferences);
+                Integer font_theme_id = getSqlMethodsInstance().getFontthemeid(brand_id.toString());
+                getSqlMethodsInstance().addUserPreferences(user_id, Integer.parseInt(brand_id.toString()), font_theme_id,  studio_id, Integer.parseInt(look_id.toString()), json_user_preferences);
                 
             }
         }catch(Exception e){
-                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while setting the user preferences name:", getSqlMethodsInstance().error));
 
             out.write(getSqlMethodsInstance().error);
         }finally {

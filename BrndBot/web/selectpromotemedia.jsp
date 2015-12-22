@@ -126,7 +126,7 @@
                 <jsp:include page="mainmenu.html"/><!--/end left column-->
 
                 <div class="col-md-10 col-md-offset-2">
-                    <p id="text3"  class="MH2" style="padding-bottom: 2%;">How would you like to promote it?</p> 
+                    <p id="t3"  class="MH2" style="padding-bottom: 2%;">How would you like to promote it?</p> 
 
                     <ul id="promotebuttonlist">
                         <li id="soc"  ng-show="social_templates != 0"><a onclick="selected_media('social')"><img src="images/NavIcon_Social-white.svg" id="social" class="glyphicon glyphicon-comment"/></a><p id="soceml">Social</p></li>

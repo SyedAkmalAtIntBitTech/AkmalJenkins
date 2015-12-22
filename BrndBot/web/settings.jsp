@@ -128,7 +128,7 @@ and open the template in the editor.
 
                 <div class="col-md-10 col-md-offset-2">
                     <div class="col-md-10 ">
-                        <p class="MH2" id="text3"> Setting page</p>
+                        <p class="MH2" id="t3"> Setting page</p>
 
 
                         <div style="width:500px; margin:0px; padding:120px 0 40px;">
@@ -155,7 +155,7 @@ and open the template in the editor.
 
                                         <div  class="form-group">
                                             <div class="col-md-5 col-md-offset-5">
-                                                <button type="submit"  class="button button--moema button--text-thick button--text-upper button--size-s">Enter</button><br>
+                                                <button type="submit"  class="button button--moema button--text-thick button--text-upper button--size-s">Save</button><br>
                                             </div>
                                         </div>
 

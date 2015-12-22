@@ -79,13 +79,13 @@ public class EmailDraftController {
             JSONObject json_object = (JSONObject) json_parser.parse(str_model);
             email_draft.setUserId(user_id);
             email_draft.setDraftJson(json_object.toString());
-            emaildraftservice.save(email_draft);
-            return "true";
+            Integer draftID = emaildraftservice.save(email_draft);
+            return draftID.toString();
         } catch (Exception ex) {
             Logger.getLogger(EmailDraftController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return "false";
+        return "0";
     }
 
     @RequestMapping(value = "/updateEmailDraft", method = RequestMethod.POST)
@@ -215,5 +215,39 @@ public class EmailDraftController {
             Logger.getLogger(EmailDraftController.class.getName()).log(Level.SEVERE, null, e);
         }
         return json_object.toString();
+    }
+    
+    //Added by Syed Ilyas - 16 dec 2015 - delete email draft
+    @RequestMapping(value = "/deleteEmailDrafts", method = RequestMethod.POST)
+    public @ResponseBody
+    String deleteEmailDrafts(HttpServletRequest request,
+            HttpServletResponse response) throws IOException, Throwable {
+        try {
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            String draftIds = (String) requestBodyMap.get("draft_ids");
+           String draftIdsArray[] = draftIds.split(",");
+           for (int i = 0; i < draftIdsArray.length; i++) {
+               emaildraftservice.delete(Integer.parseInt(draftIdsArray[i]));
+           }
+            return "true";
+        } catch (Exception e) {
+            Logger.getLogger(EmailDraftController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return "false";
+    }
+    
+    @RequestMapping(value = "/deleteEmailDraft", method = RequestMethod.POST)
+    public @ResponseBody
+    String deleteEmailDraft(@RequestParam("draftid") Integer draftid) throws IOException, Throwable {
+        try {
+            
+           
+            emaildraftservice.delete(draftid);
+            return "true";
+        } catch (Exception e) {
+            Logger.getLogger(EmailDraftController.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return "false";
     }
 }

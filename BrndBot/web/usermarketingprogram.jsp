@@ -227,7 +227,8 @@
                                            "marketing_category_id":marketing_category_id,
                                            "marketing_program_id":marketing_program_id
                                           };
-                     $http({
+                    alert(getHost());
+                    $http({
                         method: 'POST',
                         url: getHost() + 'setMarketingProgram.do',
                         headers: {'Content-Type':'application/json'},
@@ -237,10 +238,9 @@
                             alert("details saved successfully");
                             var redirect="programactions.jsp?program_id="+data;
                             window.open(getHost() + redirect, "_self");
-                        }else 
-                        {
+                        }else {
                             alert("problem saving the record");
-                        }    
+                        }
                         if (data === error) {
                             alert(data);
                         }

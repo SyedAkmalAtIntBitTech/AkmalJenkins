@@ -141,7 +141,12 @@
             }
         </style>
         <script>
-
+$(document).ready(function () {
+                $("#from_address").focus(function (){$("#frmadr").css("left","-145px").css("font-size","13px").css("color","#999");});
+                $("#from_address").focusout(function (){var emllist=$("#from_address").val();if(emllist===""){$("#frmadr").css("left","20px").css("font-size","12px").css("color","#2c4355");}if(emllist!==""){$("#frmadr").css("left","-145px");}});
+                 $("#reply_email_address").focus(function (){$("#rpltoadr").css("left","-175px").css("font-size","13px").css("color","#999");});
+                $("#reply_email_address").focusout(function (){var emllist=$("#reply_email_address").val();if(emllist===""){$("#rpltoadr").css("left","20px").css("font-size","12px").css("color","#2c4355");}if(emllist!==""){$("#rpltoadr").css("left","-175px");}});
+            });
             function validateEmail(sEmail) {
                 var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
                 if (filter.test(sEmail)) {
@@ -255,13 +260,13 @@
                          <div class="group">
                                 <div class="">                            
                                     <input id="from_address" class="form-control simplebox" type="text" name="from_address" />
-                                    <label>FROM ADDRESS</label>
+                                    <label id="frmadr">FROM ADDRESS</label>
                                 </div>
                             </div>
                             <div class="group">
                                 <div class="">   
                                     <input id="reply_email_address" class="form-control simplebox" type="text" name="reply_email_address"/>
-                                    <label>REPLY-TO EMAIL ADDRESS</label>
+                                    <label id="rpltoadr">REPLY-TO EMAIL ADDRESS</label>
                                 </div>
                             </div>
 

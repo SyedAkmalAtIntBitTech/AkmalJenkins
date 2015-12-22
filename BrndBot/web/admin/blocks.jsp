@@ -67,7 +67,7 @@
                         <option value="promote new class">promote new class</option>
                         <option value="promote todays class">promote todays class</option>
                         
-                        <option value="promote event">promote event</option>
+                        <option value="staff spotlight">staff spotlight</option>
                         <option value="promote new staff">promote new staff</option>
                     </select><br>
                     Select brand personality: <select name="brand" id="brand" style="width:180px;">
@@ -118,9 +118,7 @@
                             ConnectionManager.getInstance().closeConnection(conn);
                         }
                         %>
-                    </select><br>
-
-                    
+                    </select><br>              
                     </div>
                 </div>
                 <div class="group">

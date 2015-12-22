@@ -103,7 +103,6 @@ public class ChangeScheduleServlet extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");
                 response.getWriter().flush();
-                ApplicationContextListener.refreshEmailScheduler();
 
             } else if (type.equalsIgnoreCase("deleteSelected")) {
                 String schedule_ids = (String) requestBodyMap.get("schedule_ids");
@@ -111,10 +110,6 @@ public class ChangeScheduleServlet extends HttpServlet {
                 String is_recuring = (String) requestBodyMap.get("isRecuring");
 
                 ScheduleDAO.deleteSchedules(userId, schedule_ids);
-                ApplicationContextListener.refreshEmailScheduler();
-                ApplicationContextListener.refreshFacebookScheduler();
-                ApplicationContextListener.refreshTwitterScheduler();
-                ApplicationContextListener.refreshEmailRecuringScheduler();
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");
                 response.getWriter().flush();
@@ -123,10 +118,6 @@ public class ChangeScheduleServlet extends HttpServlet {
                 String entity_type = (String) requestBodyMap.get("entity_type");
                 String is_recuring = (String) requestBodyMap.get("isRecuring");
                 ScheduleDAO.deleteSchedule(userId, schedule_ids.intValue());
-                ApplicationContextListener.refreshEmailScheduler();
-                ApplicationContextListener.refreshFacebookScheduler();
-                ApplicationContextListener.refreshTwitterScheduler();
-                ApplicationContextListener.refreshEmailRecuringScheduler();
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");
                 response.getWriter().flush();
@@ -135,11 +126,6 @@ public class ChangeScheduleServlet extends HttpServlet {
                 String entity_type = (String) requestBodyMap.get("entity_type");
                 String is_recuring = (String) requestBodyMap.get("isRecuring");
                 ScheduleDAO.removeSavedTemplate(userId, schedule_ids.intValue());
-                ApplicationContextListener.refreshEmailScheduler();
-                ApplicationContextListener.refreshFacebookScheduler();
-                ApplicationContextListener.refreshTwitterScheduler();
-                ApplicationContextListener.refreshEmailRecuringScheduler();
-
                 
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");

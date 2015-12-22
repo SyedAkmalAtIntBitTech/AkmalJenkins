@@ -360,14 +360,14 @@ var jsondata;
 var selectedDivId;
 var mindbodydataId = $("#mindbodydata").val();
 
-angular.module("myapp", [])
+        angular.module("myapp", [])
 
-.controller("MyController", function($scope, $http) {
-$http({
-        method : 'GET',
-        url : 'GetUserPreferences'
-}).success(function(data, status, headers, config) {
-//                        alert(JSON.stringify(data.user_font_names));
+        .controller("MyController", function($scope, $http) {
+        $http({
+                method : 'GET',
+                url : 'GetUserPreferences'
+        }).success(function(data, status, headers, config) {
+        //                        alert(JSON.stringify(data.user_font_names));
         $scope.user_preferences_colors = data.user_colors;
 
         $scope.user_preferences_font_sizes = data.user_font_sizes;
@@ -396,17 +396,16 @@ $http({
                          "src: url("+font_path+");"
             $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
 
-
         }
 
-if (data === error){
-    alert(data);
-    }
-}).error(function(data, status, headers, config) {
-alert("No data available, problem fetching the data");
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-});
+        if (data === error){
+            alert(data);
+            }
+        }).error(function(data, status, headers, config) {
+        alert("No data available, problem fetching the data");
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+        });
         $scope.showStyles = function(){
         var media_type=$("#media_type").val();
         $scope.curPage = 0;
@@ -428,7 +427,7 @@ alert("No data available, problem fetching the data");
                     alert(data);
                     }
         }).error(function(data, status, headers, config) {
-        alert("No data available, problem fetching the data");
+            alert("No data available, problem fetching the data");
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
         });
@@ -459,26 +458,26 @@ alert("No data available, problem fetching the data");
                 // or server returns response with an error status.
         });
         };
-});
-angular.module('myapp').filter('pagination', function()
-{
-return function(input, start)
-{
-start = + start;
-return input.slice(start);
-};
-});
+        });
+        angular.module('myapp').filter('pagination', function()
+        {
+        return function(input, start)
+        {
+        start = + start;
+        return input.slice(start);
+        };
+        });
 
-function showText(id, layout){
- //hiding filter Container 
- $("#filtercontainer").hide();
-     var layout_mapper_url = "";
+        function showText(id, layout){
+         //hiding filter Container 
+         $("#filtercontainer").hide();
+             var layout_mapper_url = "";
 
-if (mindbodydataId != ""){
-   layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social&model_mapper_id='+id;
-}else{
-   layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social&model_mapper_id='+id;
-}                         
+        if (mindbodydataId != ""){
+           layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social&model_mapper_id='+id;
+        }else{
+           layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social&model_mapper_id='+id;
+        }                         
 
         $.ajax({
                 type: 'GET',
@@ -523,15 +522,15 @@ if (mindbodydataId != ""){
 
                                 });
                                 });
-                                        var fontcolor;
-                                        var fontsize;
-                                        var fontstyle;
-                                        var filter;
-                                        var left = $(this).attr("x-co-ordinates");
-                                        var top = $(this).attr("y-co-ordinates");
-                                        var opacity = $(this).attr("opacity");
-                                        var width = $(this).attr("width");
-                                        var height = $(this).attr("height");
+                                var fontcolor;
+                                var fontsize;
+                                var fontstyle;
+                                var filter;
+                                var left = $(this).attr("x-co-ordinates");
+                                var top = $(this).attr("y-co-ordinates");
+                                var opacity = $(this).attr("opacity");
+                                var width = $(this).attr("width");
+                                var height = $(this).attr("height");
                                if (tag === "text")
                                {
 
@@ -893,7 +892,7 @@ if (mindbodydataId != ""){
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
-                                            <p id="text3" class="SS2">TEXT</p> 
+                                            <p id="t3" class="SS2">TEXT</p> 
                                             <ul id="textmodification">
                                                 <li  style="position:relative;left:-9px;"><p id="editorheadere" class="editorheadere SS1">font color</p>
                                                     <div class="blankcolor-box1 ptr" id="picker" ></div>
@@ -954,7 +953,7 @@ if (mindbodydataId != ""){
                                         <input type="hidden" id='clickid'>
 
                                         <div id="shapecontainer">
-                                            <p  id="text3" class="SS2">SHAPES</p>
+                                            <p  id="t3" class="SS2">SHAPES</p>
                                             <ul id="shapemodificatoin">
 
                                                         <li>
@@ -983,7 +982,7 @@ if (mindbodydataId != ""){
                                         </div>
 
                                         <div id="imagecontainer">
-                                            <p  id="text3" class="SS2">IMAGE</p>
+                                            <p  id="t3" class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
                                                 <li>
                                                     <select class="imagename LE1 editordropdown" id="editorhead">
@@ -1028,7 +1027,7 @@ if (mindbodydataId != ""){
                                             
                                             <div>
 
-                                                 <p id="text3" class="SS2">SELECT A STYLE</p>
+                                                 <p id="t3" class="SS2">SELECT A STYLE</p>
                                                 <div style="height:500px;">
                                                     <ul>
                                                         <!--{{datalists}}-->
@@ -1057,7 +1056,7 @@ if (mindbodydataId != ""){
                                                 <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
                                                           <img id="{{images.id}}" class="img-responsive lookchooser5 ptr" ng-src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
                                                 </li>
-                                            </ul>
+                                           </ul>
 <!--                                               <input id="closeimagespopup" type="Button" value="close"/>  -->
                                     </li>
                                 </ul>
@@ -1070,8 +1069,8 @@ if (mindbodydataId != ""){
             <div id="sidebar-wrapper1">
                 <div id="tabs">
                     <ul class="sidebar-nav">
-                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"  ><p id="text1" >EDIT</p></a></li>
-                        <li id="stl" class="hov" ng-click="showStyles()"><a href="#tabs-2" id="style"><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40"><p id="text1">STYLE</p></a></li>                  
+                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"  ><p id="t1" >EDIT</p></a></li>
+                        <li id="stl" class="hov" ng-click="showStyles()"><a href="#tabs-2" id="style"><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40"><p id="t1">STYLE</p></a></li>                  
                     </ul>
                 </div>
             </div>

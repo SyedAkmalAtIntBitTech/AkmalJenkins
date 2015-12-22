@@ -525,7 +525,7 @@
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
                                         <div ng-show="entitiesdetails.email_list_name == 1">
-                                            {{entitiesdetails.to_email_addresses}}
+                                            No Email List
                                         </div>
                                         <div ng-show="entitiesdetails.email_list_name != 1">
                                             {{entitiesdetails.email_list_name}}
@@ -818,7 +818,7 @@
                                 <div class="inlineFlex toptnine">
                                     <div class="half containe fontpnr tenpix">
                                        <div ng-show="entitiesdetails.email_list_name == 1">
-                                            {{entitiesdetails.to_email_addresses}}
+                                            No Email List
                                         </div>
                                         <div ng-show="entitiesdetails.email_list_name != 1">
                                             {{entitiesdetails.email_list_name}}
@@ -931,7 +931,7 @@
                                             <div>
                                             <div class="EmployeeInfo">
                                                 
-                                                <button ng-show="facebook_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_facebook)" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Send</button> 
+                                                <button ng-show="facebook_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_facebook)" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
                                             </div>
                                             </div>
                                         <div class=" right EmployeeInfo fulwid">
@@ -1276,23 +1276,17 @@
                                     </div>
                                 </div>
                                 <div class="toptnine">
-                                    <div class="containe fontpnr tenpix inlineFlex" id="noteincomplete">
-                                        <div class="rightfive toptwo">
-                                            <div class="redDot"></div>
-                                        </div>
-                                        <div class="containe tenpix fontpnr ">No Template</div>
-                                    </div>
-                                    <div class="containe fontpnr tenpix inlineFlex" id="notecomplete">
-                                        <div class="rightfive toptwo">
-                                            <div class="greenDot"></div>
-                                         </div>
-                                            <div class="containe tenpix fontpnr ">Template Saved</div>
-                                    </div>
                                     <div class="containe fontpnr tenpix inlineFlex">
-                                        <div class="rightfive toptwo">
+                                        <div class="rightfive toptwo" ng-show="note_template_status == 'No Template'">
                                             <div class="redDot"></div>
                                         </div>
-                                        <div class="containe tenpix fontpnr ">INCOMPLETE</div>
+                                        <div class="rightfive toptwo" ng-show="note_template_status == 'Incomplete'">
+                                            <div class="redDot"></div>
+                                        </div>
+                                        <div class="rightfive toptwo" ng-show="note_template_status == 'Complete'">
+                                            <div class="greenDot"></div>
+                                        </div>
+                                        <div class="containe tenpix fontpnr ">{{note_template_status}}</div>
                                     </div>
                                 </div>
                                 <div class="toptweenty headtitle pfont actfnt fontpns">
@@ -1351,28 +1345,13 @@
                             <div class="top12 fontpns twlvpix headcolor">DESCRIPTION</div>
                             <div class="topten"><textarea class="addactiondesc fontpnr" id="note_desc" name="note_desc">{{schedule_desc}}</textarea></div>
                             <div class="toptweenty fontpns twlvpix headcolor">STATUS</div>
-                            
-                            <div class="containe fontpnr tenpix inlineFlex" id="noteincomplete">
-                                <div class="rightfive toptwo">
-                                    <div class="redDot"></div>
-                                </div>
-                                <div class="containe tenpix fontpnr ">No Template</div>
+                            <div class="fontpnr">
+                                <select id="status" name="status">
+                                    <option value="{{note_template_status}}">{{note_template_status}}</option>
+                                    <option ng-hide="note_template_status == 'Incomplete'" value="incomplete">Incomplete</option>
+                                    <option ng-hide="note_template_status == 'Complete'" value="complete">Complete</option>
+                                </select>
                             </div>
-                            <div class="containe fontpnr tenpix inlineFlex" id="notecomplete">
-                                <div class="rightfive toptwo">
-                                    <div class="greenDot"></div>
-                                </div>
-                                <div class="containe tenpix fontpnr ">Template Saved</div>
-                            </div>
-                            <input type="hidden" name="status" id="status" value="incomplete"/>
-                            <div class="containe fontpnr tenpix inlineFlex">
-                                <div class="rightfive toptwo">
-                                    <div class="redDot"></div>
-                                </div>
-                                <div class="containe tenpix fontpnr ">INCOMPLETE</div>
-                            </div>
-                            
-                            
                             <div class="toptweenty fontpns twlvpix headcolor">MARKETING PROGRAM</div>
                             <div class="tenpix fontpnr topnine containe">{{marketing_program_name}}</div>
                             <div class="twlvpix fontpns headcolor toptweenty">SCHEDULED TO POST ON</div>
@@ -1517,7 +1496,7 @@
                                         <div>
                                             <div class="EmployeeInfo">
                                                 
-                                                <button ng-show="twitter_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_twitter)" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Send</button> 
+                                                <button ng-show="twitter_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_twitter)" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approve to Post</button> 
                                             </div>
                                         </div>
                                         <div class=" right EmployeeInfo fulwid" >
@@ -1913,7 +1892,7 @@
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
                                                 <div ng-show="entitiesdetails.email_list_name == 1">
-                                                    {{entitiesdetails.to_email_addresses}}
+                                                    No Email List
                                                 </div>
                                                 <div ng-show="entitiesdetails.email_list_name != 1">
                                                     {{entitiesdetails.email_list_name}}

@@ -22,8 +22,10 @@ import javax.naming.NamingException;
 public class Colors {
     private static final Logger logger = Logger.getLogger(Colors.class.getName());
 
+    
     SqlMethods sqlmethods;
 
+    
     public Colors() throws NamingException {
         this.sqlmethods = new SqlMethods();
     }

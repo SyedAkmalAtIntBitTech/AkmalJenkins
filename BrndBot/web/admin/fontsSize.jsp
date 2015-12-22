@@ -92,7 +92,7 @@
                         <td><button class="btn btn-info" id="delete" name="delete" value="delete" ng-click="deleteFontSize(<%=result_set.getInt("id")%>)">delete</button></td>
                     </tr>
                     <%
-                                 number = number + 1;
+                        number = number + 1;
                             }
                         } catch (Exception e) {
                             System.out.println(e.getCause());
