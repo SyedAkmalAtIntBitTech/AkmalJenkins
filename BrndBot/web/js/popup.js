@@ -267,9 +267,21 @@ $(document).ready(function ()
     
     
     $(".close").click(function(){
-        closeoverlay();
-        $('#slider-button').click();
-        $('.bottom-cta-bar').hide();
+        var change=$("#change").val();
+        if( change === 0)
+        {
+            closeoverlay();
+            $('#slider-button').click();
+            $('.bottom-cta-bar').hide();
+        }
+        if( change!==0)
+        {
+            $("#change").val("0");
+            closeoverlay();
+            $('#slider-button').click();
+            $('.bottom-cta-bar').hide();
+        }
+         
         //$("#fade").hide();
         //$("#facebooksection").hide();
     });

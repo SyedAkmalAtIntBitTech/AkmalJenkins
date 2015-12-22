@@ -13,7 +13,7 @@
 
 
 
-
+var latest_date="";
 var sliderDialog = "";
 var prevSliderDialog = "";
 var create_button_title = "Edit";
@@ -330,9 +330,9 @@ function validateemailaction() {
         return false;
     }
     if (description === "") {
-        alert("description not entered, please enter the description");
-        $("#email_description").focus();
-        return false;
+//        alert("description not entered, please enter the description");
+//        $("#email_description").focus();
+//        return false;
     }
     if (actiondate === "" || days =="") {
         if(days=="")
@@ -595,6 +595,7 @@ function controllerMarketingCampaign($scope, $http) {
             tomorrowDate = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
             new_date = moment(addDays(new Date(), 15)).format('YYYY-MM-DD');
         }
+        latest_date=curr_date;
         var invalid= "Invalid date";
         if(curr_date !== invalid){
                 $http({
@@ -1374,7 +1375,6 @@ function controllerMarketingCampaign($scope, $http) {
 //        console.log("action type" + actiontype);
         var schedule_id = $("#email_scheduleid").val();
         var title = $("#email_edit_title").val();
-
         var actiondate = $("#emaildatetime").val();
         var days=$("#emaildays").val();
         if(days!="0")
@@ -1387,8 +1387,7 @@ function controllerMarketingCampaign($scope, $http) {
 //        console.log("Epoch: " + schedule_time);
         var myEpoch = schedule_time;
 //        console.log("New Epoch: " + myEpoch);
-
-        var description = $("#email_description").val();
+        var description = "";
 //        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
 
 //        console.log("New Epoch: " + myEpoch);
@@ -1409,7 +1408,8 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.status = data;
                 if (data != "") {
                     alert("action saved successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
+                    $("#change").val("1");
+                   // window.open(getHost() + 'marketing.jsp', "_self");
 
                 }
             }).error(function (data, status) {

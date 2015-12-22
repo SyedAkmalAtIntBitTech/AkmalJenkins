@@ -144,10 +144,7 @@
                             
                         </div>
                     </div>
-                 
-                            
-                         
-                        </div>
+                </div>
             </div>
         </div>
         
@@ -214,7 +211,7 @@
           
         <div class="" id="emailactionsave">
             <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft savebutton">Save Action</div>
+                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionEmail()">Save Action</div>
             </div>
         </div>
          

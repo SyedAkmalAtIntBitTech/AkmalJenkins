@@ -305,6 +305,26 @@ public class ScheduleDAO {
         return scheduleId;
     }
 
+      public static int updateDescriptionScheduledEntity(Integer scheduleId,
+            String scheduleDesc,
+            Connection connection) throws SQLException {
+        String query_string = "Update tbl_scheduled_entity_list"
+                + " SET schedule_desc = ?"
+                + " Where id = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(query_string)) {
+
+            ps.setString(1, scheduleDesc);
+            ps.setInt(2, scheduleId);
+            ps.execute();
+
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e,
+                    "Exception while updating the schedule:", null), e);
+        }
+        return scheduleId;
+    }
+    
     public static int updateScheduledEntity(Integer scheduleId,
             String scheduleTitle,
             String scheduleDesc,
@@ -315,7 +335,7 @@ public class ScheduleDAO {
             Connection connection) throws SQLException {
         String query_string = "Update tbl_scheduled_entity_list"
                 + " SET schedule_title = ?, schedule_time = ?,"
-                + " entity_type = ?, schedule_desc = ?, days= ?"
+                + " entity_type = ?, days= ?"
                 + " Where id = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query_string)) {
@@ -323,9 +343,8 @@ public class ScheduleDAO {
             ps.setString(1, scheduleTitle);
             ps.setTimestamp(2, scheduleTime);
             ps.setString(3, entityType);
-            ps.setString(4, scheduleDesc);
-            ps.setInt(5, days);
-            ps.setInt(6, scheduleId);
+            ps.setInt(4, days);
+            ps.setInt(5, scheduleId);
             ps.execute();
 
         } catch (Exception e) {

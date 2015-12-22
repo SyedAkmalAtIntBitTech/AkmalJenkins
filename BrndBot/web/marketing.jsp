@@ -38,7 +38,7 @@
     <jsp:include page="emailpreviewpopup.jsp"/> 
     <%@include file="navbarv2.jsp" %>
     <script src="js/marketing.js" type="text/javascript"></script>
-    
+    <input type="hidden" name="change" id="change" value="0"/>
     <!--Top Nav-->   
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
