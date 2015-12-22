@@ -165,18 +165,18 @@
 
           <div class="Facebook-preview">
                                 <div class="Facebook-preview-header">
-                                    <div class="Facebook-preview-profpic"></div>
+                                    <div class="Facebook-preview-profpic"><img id="fb_preview_profpic" src="https://www.hydrogenaud.io/forums/uploads/profile/photo-119400.jpg"/></div>
                                     <div class="Facebook-preview-name-container">
-                                        <div class="Facebook-preview-name">BrndBot Demo</div>
+                                        <div class="Facebook-preview-name">{{schedule_title}}</div>
                                     </div>
                                 </div>
-                                <div class="Facebook-preview-usercontent">Demo content goes right here</div>
+                                <div class="Facebook-preview-usercontent">{{entitiesdetails.metadata.post_text}}</div>
                                 <div class="Facebook-link-container">
-                                    <div class="Facebook-preview-image"></div>
+                                    <div class="Facebook-preview-image"><img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/></div>
                                     <div class="Facebook-preview-link-container">
-                                        <div class="Facebook-preview-link-title">Demo Link Copy Goes Here and Wraps Around</div>
-                                        <div class="Facebook-preview-link-description">This workshop is going to be so awesoem for the new season and get you in really good shape!</div>
-                                        <div class="Facebook-preview-link-url">Demo Description goes here but cuts off</div>
+                                        <div class="Facebook-preview-link-title">{{entitiesdetails.metadata.title}}</div>
+                                        <div class="Facebook-preview-link-description">{{entitiesdetails.metadata.description}}</div>
+                                        <div class="Facebook-preview-link-url">{{entitiesdetails.metadata.url}}</div>
                                     </div>
                                 </div>
                             </div>

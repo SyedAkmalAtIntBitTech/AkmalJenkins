@@ -175,8 +175,8 @@
     height: 100%;
     background-color: #3D5368 !important;
     z-index:99999 !important;
-    -moz-opacity: 0.8;
-    opacity:.7 !important;
+    -moz-opacity: 0.9;
+    opacity:.9 !important;
     filter: alpha(opacity=80);
 }
 .input-field-textfield1 {

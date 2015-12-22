@@ -786,6 +786,10 @@ padding-top: 0px;
     float: left;
     background-color: beige;
 }
+.Facebook-preview-profpic > img {
+    width: 100%;
+    height: 100%;
+}
 
 .Facebook-preview-name-container{
     width:422;
@@ -827,10 +831,11 @@ Facebook-preview-name{
     height: 244px;
     background-color: aqua;
     float: left;
-   
-    
 }
-
+.Facebook-preview-image > img {
+    width: 100%;
+    height: 100%;
+}
 .Facebook-preview-link-container{
     width: 100%;
     padding: 10px 12px 10px 12px;
