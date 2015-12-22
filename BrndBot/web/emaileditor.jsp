@@ -255,7 +255,7 @@
                                         }
 
                                     }).error(function(data, status) {
-                                        alert("No data available, problem fetching the data");
+                                        alert("No data available! Problem fetching the data.");
                                             // called asynchronously if an error occurs
                                             // or server returns response with an error status.
                                     });                                    
@@ -312,7 +312,7 @@
                                     }
 
                             }).error(function(data, status, headers, config) {
-                            alert("No data available, problem fetching the data");
+                            alert("No data available! Problem fetching the data.");
                                     // called asynchronously if an error occurs
                                     // or server returns response with an error status.
                             });
@@ -347,7 +347,7 @@
                                         alert(data);
                                     }
                             }).error(function(data, status, headers, config) {
-                                alert("No data available, problem fetching the data");
+                                alert("No data available! Problem fetching the data.");
                                     // called asynchronously if an error occurs
                                     // or server returns response with an error status.
                             });
@@ -424,7 +424,7 @@
                                 $("#addblkbtn").prop('disabled', true).css("background-color", "#e3e3e3").css("color", "#9c9da1");
                                 $("#tabs-4").css("width", "830px").css("position", "fixed").css("margin-left", "-600px").css("top", "0px").show("slide", { direction: "right" }, 1000);
                             }).error(function(data, status, headers, config) {
-                            alert("No data available, problem fetching the data");
+                            alert("No data available! Problem fetching the data.");
                                     // called asynchronously if an error occurs
                                     // or server returns response with an error status.
                             });

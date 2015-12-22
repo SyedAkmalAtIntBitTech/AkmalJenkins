@@ -176,7 +176,7 @@ $(document).ready(function() {
                          alert(data);
                     }
                     }).error(function(data, status, headers, config) {
-                             alert("No data available, problem fetching the data");
+                             alert("No data available! Problem fetching the data.");
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                     });
@@ -219,7 +219,7 @@ $(document).ready(function() {
                                             }
 
                             }).error(function(data, status, headers, config) {
-                            alert("No data available, problem fetching the data");
+                            alert("No data available! Problem fetching the data.");
                                     // called asynchronously if an error occurs
                                     // or server returns response with an error status.
                             });
@@ -246,7 +246,7 @@ $(document).ready(function() {
                                     alert(data);
                                     }
                             }).error(function(data, status, headers, config) {
-                            alert("No data available, problem fetching the data");
+                            alert("No data available! Problem fetching the data.");
                                     // called asynchronously if an error occurs
                                     // or server returns response with an error status.
                             });
@@ -317,7 +317,7 @@ $(document).ready(function() {
                             $("#tabs-4").css("width", "830px").css("position","fixed").css("margin-left","-460px").css("top","45px").show("slide", { direction: "right" }, 1000);
                             
                     }).error(function(data, status, headers, config) {
-                    alert("No data available, problem fetching the data");
+                    alert("No data available! Problem fetching the data.");
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                     });
@@ -360,7 +360,7 @@ $(document).ready(function() {
                     alert(data);
                     }
                     }).error(function(data, status, headers, config) {
-                    alert("No data available, problem fetching the data");
+                    alert("No data available! Problem fetching the data.");
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                     });

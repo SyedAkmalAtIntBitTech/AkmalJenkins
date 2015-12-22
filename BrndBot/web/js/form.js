@@ -76,7 +76,7 @@ function UserController($scope, $http)
                     .error(function (data, status) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                     });
         }
 
@@ -135,7 +135,7 @@ function ForgotPassController($scope, $http) {
                     .error(function (data, status) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                     });
         }
     };
@@ -157,7 +157,7 @@ function loginController($scope, $http) {
 //                $("#inputpassword").prop({type:"password"});
                 window.open(getHost() + 'dashboard.jsp', "_self");
             } else if (data === "false") {
-                alert("incorrect username or password");
+                alert("Incorrect username or password!");
                 window.open(getHost() + 'login.jsp', "_self");
 //                $("#inputpassword").prop({type:"text"});
 //                $("#inputpassword").val('');
@@ -169,7 +169,7 @@ function loginController($scope, $http) {
                 .error(function (data, status) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
-                    alert("request not succesful");
+                    alert("Request not successful!");
                 });
 
     };
@@ -185,7 +185,7 @@ angular.module("myapp", [])
             }).success(function (data, status, headers, config) {
                 $scope.organizations.org_name = data;
             }).error(function (data, status, headers, config) {
-                alert("No data available, problem fetching the data");
+                alert("No data available! Problem fetching the data.");
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
@@ -208,7 +208,7 @@ angular.module("myapp", [])
                 }).error(function (data, status) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
-                    alert("request not succesful");
+                    alert("Request not successful!");
                 });
             };
         });

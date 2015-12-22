@@ -617,10 +617,10 @@ function controllerMarketingCampaign($scope, $http) {
             alert("template status changed successfully");
             window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
           }else {
-              alert("problem saving the record");
+              alert("Problem saving the record!");
           }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });      
@@ -643,10 +643,10 @@ function controllerMarketingCampaign($scope, $http) {
             alert("template status changed successfully");
             window.open(getHost() + 'marketing.jsp', "_self");
           }else {
-              alert("problem saving the record");
+              alert("Problem saving the record!");
           }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });      
@@ -1187,7 +1187,7 @@ function controllerMarketingCampaign($scope, $http) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                alert("request not succesful");
+                alert("Request not successful!");
             });
 
         }
@@ -1240,7 +1240,7 @@ function controllerMarketingCampaign($scope, $http) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                alert("request not succesful");
+                alert("Request not successful!");
             });
 
         }
@@ -1290,7 +1290,7 @@ function controllerMarketingCampaign($scope, $http) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                alert("request not succesful");
+                alert("Request not successful!");
             });
 
         }
@@ -1345,7 +1345,7 @@ function controllerMarketingCampaign($scope, $http) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                alert("request not succesful");
+                alert("Request not successful!");
             });
 
         }
@@ -1427,7 +1427,7 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                alert("request not succesful");
+                alert("Request not successful!");
             });
         }
     };
@@ -1476,7 +1476,7 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                alert("request not succesful");
+                alert("Request not successful!");
             });
             
         }
@@ -1534,7 +1534,7 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
             // called asynchronously if an error occurs
             // or server returns response with an error status.
 
-            alert("request not succesful");
+            alert("Request not successful!");
         });
 
     };
@@ -1593,7 +1593,7 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
 
-                    alert("request not succesful");
+                    alert("Request not successful!");
                 });
 
             }
@@ -1645,7 +1645,7 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
 
-                    alert("request not succesful");
+                    alert("Request not successful!");
                 });
 
             }

@@ -229,7 +229,7 @@ $(document).ready(function () {
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
 
-                            alert("request not succesful");
+                            alert("Request not successful!");
                         });
 
                     }

@@ -189,7 +189,7 @@
                     showEmailListName(data.recuring_email_email_list_name);
                     days = data.recuring_email_days;
                 }).error(function(){
-                    alert("problem fetching the data");
+                    alert("Problem fetching the data!");
                 });
                 
 //            }
@@ -207,7 +207,7 @@
                     alert("Please enter from address and reply to email address in email settings");
                 }
             }).error(function(){
-                alert("problem fetching the data");
+                alert("Problem fetching the data!");
             });
            
        };
@@ -222,7 +222,7 @@
                 $scope.emailLists_user = data.user;
                 $scope.emailLists_mindbody = data.mindbody;
             }).error(function(){
-                alert("problem fetching the data");
+                alert("Problem fetching the data!");
             });
         };
 
@@ -239,7 +239,7 @@
                 }).success(function(data, status){
                     $scope.recuring_email_templates = data;
                 }).error(function(){
-                    alert("problem fetching the data");
+                    alert("Problem fetching the data!");
                 });
 
         };
@@ -286,13 +286,13 @@
                         data: JSON.stringify(recuring_action)
                     }).success(function (data, status, headers, config) {
                         if (data === "true") {
-                            alert("details saved succesfully");
+                            alert("Details saved succesfully.");
                             window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
                         }else {
-                            alert("problem saving the record");
+                            alert("Problem saving the record!");
                         }
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });
@@ -319,15 +319,15 @@
                         data: JSON.stringify(recuring_action)
                     }).success(function (data, status, headers, config) {
                         if((data == "true") && (entity_no_email_template == "true")) {
-                            alert("details saved succesfully");
+                            alert("Details saved succesfully.");
                             $("#emailautomationcontent").hide();
                             entity_no_email_template = "false";
                             $("#emlautomeditorcontainer").show();
                         }else {
-                            alert("problem saving the record");
+                            alert("Problem saving the record!");
                         }
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });
@@ -353,13 +353,13 @@
                         data: JSON.stringify(recuring_action)
                     }).success(function (data, status, headers, config) {
                         if ((data === "true")) {
-                            alert("details saved succesfully");
+                            alert("Details saved succesfully.");
                             window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
                         }else {
-                            alert("problem saving the record");
+                            alert("Problem saving the record!");
                         }
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });
@@ -385,14 +385,14 @@
                         data: JSON.stringify(recuring_action)
                     }).success(function (data, status, headers, config) {
                         if ((data === "true")) {
-                            alert("details saved succesfully");
+                            alert("Details saved succesfully.");
                             window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
                         }else {
-                            alert("problem saving the record");
+                            alert("Problem saving the record!");
                         }
                         
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });

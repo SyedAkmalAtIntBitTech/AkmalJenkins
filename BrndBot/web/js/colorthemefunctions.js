@@ -12,7 +12,7 @@ function colorthemeController($scope, $http) {
         var x = document.getElementById("brand").selectedIndex;
         brand_id = document.getElementsByTagName("option")[x].value;
         if (brand_id == 0) {
-            alert("No brand selected, please select any one brand");
+            alert("No brand selected! Please select any one brand.");
             document.getElementById("brand").focus();
             return false;
         }
@@ -63,7 +63,7 @@ function colorthemeController($scope, $http) {
                     .error(function (data, status) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                     });
         }
     };
@@ -78,7 +78,7 @@ function colorthemeController($scope, $http) {
         {
             $scope.status = data;
             if (data === "true") {
-                alert("color theme deleted successfully");
+                alert("Color theme deleted successfully.");
                 window.open(getHost() + 'admin/colortheme.jsp', "_self");
             } else if (data === error) {
                 alert(data);

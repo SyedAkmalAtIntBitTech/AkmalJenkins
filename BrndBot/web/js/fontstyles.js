@@ -44,7 +44,7 @@ function fontsStyleController($scope, $http) {
                     .error(function (data, status) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                     });
         }
     };
@@ -84,7 +84,7 @@ function fontsStyleController($scope, $http) {
                     .error(function (data, status) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                     });
         }
     };

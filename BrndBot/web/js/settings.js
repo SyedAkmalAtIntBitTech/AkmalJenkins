@@ -59,7 +59,7 @@ function controllerUserChanges($scope, $http) {
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });
@@ -73,7 +73,7 @@ function controllerUserChanges($scope, $http) {
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });
@@ -101,7 +101,7 @@ function controllerUserChanges($scope, $http) {
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });
@@ -119,7 +119,7 @@ function controllerUserChanges($scope, $http) {
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });
@@ -132,7 +132,7 @@ function controllerUserChanges($scope, $http) {
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });
@@ -159,7 +159,7 @@ function controllerUserChanges($scope, $http) {
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });
@@ -197,7 +197,7 @@ function controllerUserChanges($scope, $http) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                alert("request not succesful");
+                alert("Request not successful!");
             });
         }
     };
@@ -214,7 +214,7 @@ function controllerUserChanges($scope, $http) {
                         if (data === error){
                         }
                 }).error(function(data, status, headers, config) {
-                alert("No data available, problem fetching the data");
+                alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                 });
@@ -229,7 +229,7 @@ function controllerUserChanges($scope, $http) {
                 if (data === error){
                 }
             }).error(function(data, status, headers, config) {
-                    alert("No data available, problem fetching the data");
+                    alert("No data available! Problem fetching the data.");
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
             });
@@ -246,7 +246,7 @@ function controllerUserChanges($scope, $http) {
                     if (data === error ){
                     }
             }).error(function(data, status, headers, config) {
-                    alert("No data available, problem fetching the data");
+                    alert("No data available! Problem fetching the data.");
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
             });
@@ -262,7 +262,7 @@ function controllerUserChanges($scope, $http) {
                     if (data === error ){
                     }
             }).error(function(data, status, headers, config) {
-                    alert("No data available, problem fetching the data");
+                    alert("No data available! Problem fetching the data.");
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
             });
@@ -315,7 +315,7 @@ function controllerUserChanges($scope, $http) {
                 }).error(function(data, status) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                 });
         }
         };

@@ -443,10 +443,10 @@ function programactions($scope, $http, $window){
                   window.open(getHost() + 'marketingprogramlist.jsp', "_self");
                 
             }else {
-                alert("problem saving the record");
+                alert("Problem saving the record!");
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });      
@@ -472,10 +472,10 @@ function programactions($scope, $http, $window){
             alert("template status changed successfully");
             window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
           }else {
-              alert("problem saving the record");
+              alert("Problem saving the record!");
           }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });      
@@ -495,10 +495,10 @@ function programactions($scope, $http, $window){
             alert("template status changed successfully");
             window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
           }else {
-              alert("problem saving the record");
+              alert("Problem saving the record!");
           }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });      
@@ -551,10 +551,10 @@ function programactions($scope, $http, $window){
             if (data == "true"){
               window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
             }else {
-                alert("problem saving the record");
+                alert("Problem saving the record!");
             }
           }).error(function (data, status, headers, config) {
-              alert("No data available, problem fetching the data");
+              alert("No data available! Problem fetching the data.");
               // called asynchronously if an error occurs
               // or server returns response with an error status.
           });      
@@ -586,7 +586,7 @@ function programactions($scope, $http, $window){
             }
             $(".row").css("display","block");
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
             $(".row").css("display","block");
@@ -1249,7 +1249,7 @@ function programactions($scope, $http, $window){
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                alert("request not succesful");
+                alert("Request not successful!");
             });
 
         }
@@ -1299,7 +1299,7 @@ function programactions($scope, $http, $window){
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                alert("request not succesful");
+                alert("Request not successful!");
             });
 
         }
@@ -1350,7 +1350,7 @@ function programactions($scope, $http, $window){
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                alert("request not succesful");
+                alert("Request not successful!");
             });
 
         }
@@ -1400,7 +1400,7 @@ function programactions($scope, $http, $window){
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                alert("request not succesful");
+                alert("Request not successful!");
             });
 
         }
@@ -1475,7 +1475,7 @@ function programactions($scope, $http, $window){
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                alert("request not succesful");
+                alert("Request not successful!");
             });
         }
     };
@@ -1536,7 +1536,7 @@ function programactions($scope, $http, $window){
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                alert("request not succesful");
+                alert("Request not successful!");
             });
         }
     };
@@ -1585,7 +1585,7 @@ function programactions($scope, $http, $window){
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                alert("request not succesful");
+                alert("Request not successful!");
             });
             
         }
@@ -1642,7 +1642,7 @@ function programactions($scope, $http, $window){
             // called asynchronously if an error occurs
             // or server returns response with an error status.
 
-            alert("request not succesful");
+            alert("Request not successful!");
         });
 
     };
@@ -1700,7 +1700,7 @@ function programactions($scope, $http, $window){
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
 
-                    alert("request not succesful");
+                    alert("Request not successful!");
                 });
 
             }
@@ -1752,7 +1752,7 @@ function programactions($scope, $http, $window){
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
 
-                    alert("request not succesful");
+                    alert("Request not successful!");
                 });
 
             }

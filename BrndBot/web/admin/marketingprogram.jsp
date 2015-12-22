@@ -89,7 +89,7 @@
                     }).success(function (data, status, headers, config) {
                         $scope.Users = data;
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });
@@ -105,7 +105,7 @@
                     }).success(function (data, status){
                         $scope.marketingcategories = data.marketingData;
                     }).error(function (){
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                     });
                 };
                 
@@ -130,7 +130,7 @@
                         }).success(function (data, status){
                             window.open(getHost() + 'admin/marketingprogram.jsp', "_self");
                         }).error(function(){
-                            alert("No data available, problem fetching the data");
+                            alert("No data available! Problem fetching the data.");
                         });
                     };
                     
@@ -143,7 +143,7 @@
                     }).success(function (data, status, headers, config) {
                         $scope.programs = data;
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });  
@@ -161,13 +161,13 @@
                     }).success(function (data, status){
                         $scope.data = data;
                         if (data == "true"){
-                            alert("record deleted successfully");
+                            alert("Record deleted successfully.");
                             window.open(getHost() + 'admin/marketingprogram.jsp', "_self");
                         }else {
-                            alert("problem deleting record");
+                            alert("Problem deleting record!");
                         }
                     }).error(function (){
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                     });                
                 };
                 

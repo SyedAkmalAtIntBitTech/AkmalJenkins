@@ -40,7 +40,7 @@
                     sub_category_name = document.getElementById("sub_category_name").value;
                     
                     if (sub_category_name == "") {
-                        alert("category not entered, please enter the category");
+                        alert("Category not entered!  Please enter the category.");
                         $("#sub_category_name").focus();
                         return false;
                     }
@@ -77,10 +77,10 @@
                         {
                             $scope.status = data;
                             if (data === "true") {
-                                alert("category added successfully");
+                                alert("Category added successfully.");
                                 window.open(getHost() + 'admin/subcategories.jsp', "_self");
                             } else if (data === "false") {
-                                alert("categories already exist");
+                                alert("Categories already exist!");
                             } else if (data === error) {
                                 alert(data);
                             }
@@ -88,7 +88,7 @@
                             .error(function (data, status) {
                                 // called asynchronously if an error occurs
                                 // or server returns response with an error status.
-                                alert("request not succesful");
+                                alert("Request not successful!");
                             });
                     }
                 };
@@ -104,7 +104,7 @@
                     {
                         $scope.status = data;
                         if (data === "true") {
-                            alert("category deleted successfully");
+                            alert("Category deleted successfully.");
                             window.open(getHost() + 'admin/subcategories.jsp', "_self");
                         } else if (data === error) {
                             alert(data);

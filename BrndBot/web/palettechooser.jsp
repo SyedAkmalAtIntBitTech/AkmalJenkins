@@ -107,7 +107,7 @@
                         alert(data);
                     }
                 }).error(function(data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                 });
@@ -127,7 +127,7 @@
                         alert(data);
                     }
             }).error(function(data, status, headers, config) {
-                    alert("No data available, problem fetching the data");
+                    alert("No data available! Problem fetching the data.");
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
             });
@@ -180,7 +180,7 @@
                 .error(function(data, status) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                 });
             }
             }

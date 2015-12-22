@@ -84,7 +84,7 @@
                     }).success(function (data, status, headers, config) {
                         $scope.organizations = data;
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });
@@ -101,7 +101,7 @@
 //                        alert(JSON.stringify(data));
                         $scope.marketingcategories = data.marketingData;
                     }).error(function (){
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                     });
                 };
                 
@@ -115,11 +115,11 @@
                         data: JSON.stringify(category_details)
                 }).success(function (data, status){
                         if (data == "true"){
-                            alert("record deleted successfully");
+                            alert("Record deleted successfully.");
                         }
                         $scope.getMarketingCategories();
                 }).error(function (){
-                    alert("No data available, problem fetching the data");
+                    alert("No data available! Problem fetching the data.");
                 });
                 };
             }
@@ -276,7 +276,7 @@
                 case 'SVG':                                  
                 break;
                 default:
-                alert('This type of image is not allowed');
+                alert('This type of image is not allowed.');
                 this.value = '';
         }
 

@@ -239,13 +239,13 @@
                             var redirect="programactions.jsp?program_id="+data;
                             window.open(getHost() + redirect, "_self");
                         }else {
-                            alert("problem saving the record");
+                            alert("Problem saving the record!");
                         }
                         if (data === error) {
                             alert(data);
                         }
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });

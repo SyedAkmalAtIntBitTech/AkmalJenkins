@@ -628,7 +628,7 @@
                             alert(data);
                         }
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });
@@ -704,11 +704,11 @@
                                    document.location.href = "dashboard.jsp";
                                 
                                 }).error(function (data) {
-                                    alert("No data available, problem fetching the data");
+                                    alert("No data available! Problem fetching the data.");
                                 });
                             }
                         }).error(function (data) {
-                            alert("No data available, problem fetching the data");
+                            alert("No data available! Problem fetching the data.");
                         });
                     }else {
                         var email_scheduling = {
@@ -738,7 +738,7 @@
                                 document.location.href = "dashboard.jsp";
                                 
                                 }).error(function (data) {
-                                    alert("No data available, problem fetching the data");
+                                    alert("No data available! Problem fetching the data.");
                                 });
                             }
                         }).error(function (data) {

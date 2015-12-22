@@ -146,7 +146,7 @@
                     }
                     
                 }).error(function(data, status) {
-                    alert("No data available, problem fetching the data");
+                    alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                 });
@@ -171,7 +171,7 @@
                     }
                     
                 }).error(function(data, status) {
-                    alert("No data available, problem fetching the data");
+                    alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                 });

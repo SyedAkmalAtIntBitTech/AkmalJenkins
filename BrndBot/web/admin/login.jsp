@@ -32,7 +32,7 @@
             if (data === "true") {
                 window.open(getHost() + 'admin/index.jsp', "_self");
             } else if (data === "false") {
-                alert("incorrect username or password");
+                alert("Incorrect username or password!");
                 window.open(getHost() + 'admin/login.jsp', "_self");
             } else if (data === error) {
                 alert(data);
@@ -41,7 +41,7 @@
             .error(function (data, status) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                alert("request not succesful");
+                alert("Request not successful!");
             });
 
     };

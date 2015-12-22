@@ -65,7 +65,7 @@ function marketingEmailTemplateController($scope, $http) {
                     alert("problem saving record");
                 }
             }).error(function () {
-                alert("No data available, problem fetching the data");
+                alert("No data available! Problem fetching the data.");
             });
         }
         ;
@@ -95,7 +95,7 @@ function marketingEmailTemplateController($scope, $http) {
                     alert("problem saving record");
                 }
             }).error(function () {
-                alert("No data available, problem fetching the data");
+                alert("No data available! Problem fetching the data.");
             });
         }
         ;
@@ -109,7 +109,7 @@ function marketingEmailTemplateController($scope, $http) {
         }).success(function (data, status, headers, config) {
             $scope.email_templates = data;
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });
@@ -129,7 +129,7 @@ function marketingEmailTemplateController($scope, $http) {
             }
             $scope.email_template = data;
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });
@@ -146,13 +146,13 @@ function marketingEmailTemplateController($scope, $http) {
         }).success(function (data, status) {
             $scope.data = data;
             if (data == "true") {
-                alert("record deleted successfully");
+                alert("Record deleted successfully.");
                 window.open(getHost() + 'admin/marketingemailtemplate.jsp', "_self");
             } else {
-                alert("problem deleting record");
+                alert("Problem deleting record!");
             }
         }).error(function () {
-            alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
         });
     };
 
