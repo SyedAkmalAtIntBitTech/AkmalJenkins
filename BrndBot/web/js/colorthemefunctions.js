@@ -31,11 +31,11 @@ function colorthemeController($scope, $http) {
         }
 //        alert(sel);
         if (sel == 0) {
-            alert("No color selected, please select six color");
+            alert("No color selected! Please select six color.");
             document.getElementById("color").focus();
             return false;
         } else if (sel != 6) {
-            alert("please select six colors");
+            alert("Please select six colors!");
             document.getElementById("color").focus();
             return false;
         }

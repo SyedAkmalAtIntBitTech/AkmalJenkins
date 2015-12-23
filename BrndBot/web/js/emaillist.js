@@ -110,10 +110,10 @@
                         reader.readAsText(fileUpload.files[0]);
 
                     } else {
-                        alert("This browser does not support HTML5.");
+                        alert("This browser does not support HTML5!");
                     }
                 } else {
-                    alert("Please upload a valid CSV file.");
+                    alert("Please upload a valid CSV file!");
                 }
 
             }
@@ -129,7 +129,7 @@
                     var listDescription = $("#list_description").val();
                 
                 if (emailListName === "") {
-                    alert("email list name not entered, please enter the from email list");
+                    alert("Email list name not entered!  Please enter the from email list.");
                     $("#list_name").focus();
                     return false;
                 }
@@ -142,7 +142,7 @@
                 
 
                 if (listDescription === "") {
-                    alert("list description not entered, please enter the list description");
+                    alert("List description not entered! Please enter the list description.");
                     $("#reply_email_address").focus();
                     return false;
                 }
@@ -167,7 +167,7 @@
                         }).success(function (data)
                         {
                             if (data === "true") {
-                                alert("Data saved successfully");
+                                alert("Data saved successfully.");
                                 window.open(getHost() + 'emaillists.jsp', "_self");
                             } else if (data === error) {
                                 alert(data);
@@ -187,7 +187,7 @@
                     if(email_address==="")
                     {
                         error++;
-                        alert("Please Enter Email Address");
+                        alert("Please Enter Email Address!");
                         $("#emailId").focus();
                         return false;
                     }
@@ -198,7 +198,7 @@
                         else
                         {
                             error++;
-                            alert("Please Enter Valid Email Address");
+                            alert("Please Enter Valid Email Address!");
                             $("#emailId").focus();
                             return false;
                         }
@@ -206,14 +206,14 @@
                     if(email_first_name==="")
                     {
                         error++;
-                        alert("Please Enter First Name");
+                        alert("Please Enter First Name!");
                         $("#firstName").focus();
                         return false;
                     }
                     if(email_last_name==="")
                     {
                         error++;
-                        alert("Please Enter Last Name");
+                        alert("Please Enter Last Name!");
                         $("#lastName").focus();
                         return false;
                     }
@@ -263,7 +263,7 @@
                                     }
                                 });
                             }else if (data === "true"){
-                                alert("Emailid already exist, please try with some other emailid.");
+                                alert("Email id already exist! Please try with some other emailid.");
                             }
                         });
                     
@@ -304,7 +304,7 @@
                     }).success(function (data)
                     {
                         if (data === "true") {
-                            alert("Data saved successfully");
+                            alert("Data saved successfully.");
                             window.open(getHost() + 'emaillists.jsp', "_self");
                             
                         } else if (data === error) {
@@ -477,7 +477,7 @@
                         }).success(function (data)
                         {
                             if (data === "true") {
-                                alert("Data deleted successfully");
+                                alert("Data deleted successfully.");
 //                                $scope.updateList(email_list_name);
                                 
                                 window.open(getHost() + 'emaillists.jsp', "_self");
@@ -497,7 +497,7 @@
                         }).success(function (data)
                         {
                             if (data === "true") {
-                                alert("Data deleted successfully");
+                                alert("Data deleted successfully.");
                                 $scope.updateList(email_list_name);
                                 selectedemailids = "";
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
@@ -506,7 +506,7 @@
                             }
                         });
                     }else {
-                        alert("no email has been selected");
+                        alert("No email has been selected!");
                     }
                 };
                 $scope.showAddContacts = function (){

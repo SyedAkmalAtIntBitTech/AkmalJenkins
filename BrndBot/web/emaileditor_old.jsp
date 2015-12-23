@@ -1057,7 +1057,7 @@ $(document).ready(function() {
                             },
                             error: function (e)
                             {
-                            alert("error in xml file read");
+                            alert("Error in xml file read!");
                             }
                     });
             }

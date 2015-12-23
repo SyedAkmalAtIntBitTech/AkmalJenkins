@@ -668,7 +668,7 @@ $(document).ready(function () {
         });
 
         }else if (selectedtype == "non"){
-            alert("no category selected, please select any one category type");
+            alert("No category selected! Please select any one category type.");
         }
     });
     $("#addImageButton").click(function () {
@@ -835,7 +835,7 @@ $(document).ready(function () {
             reloadTabs(1);
         });
         }else if (selectedtype == "non"){
-            alert("no category selected, please select any one category type");
+            alert("No category selected! Please select any one category type.");
         }
 
     });
@@ -891,7 +891,7 @@ $(document).ready(function () {
 
             );
         }else if (selectedtype == "non"){
-            alert("no category selected, please select any one category type");
+            alert("No category selected! Please select any one category type.");
         }
         
         function reload_dropShadow()
@@ -1310,7 +1310,7 @@ function addDefault() {
                 num1++;
             },
             error: function () {
-                alert("The XML File could not be processed correctly.");
+                alert("The XML File could not be processed correctly!");
             }
         });
     }

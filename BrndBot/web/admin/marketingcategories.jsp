@@ -48,25 +48,25 @@
                 var filesToUpload = $("#filesToUpload").val();
                 
                 if (category_name == ""){
-                    alert("category name not entered, kindly enter the category");
+                    alert("Category name not entered! Kindly enter the category.");
                     $("#category_name").focus();
                     return false;
                 }
                 
                 if (organization == ""){
-                    alert("organization not selected, kindly select an organization");
+                    alert("Organization not selected! Kindly select an organization.");
                     $("#organization").focus();
                     return false;
                 }
                 
                 if (category_order == ""){
-                    alert("order not entered,kindly enter the order");
+                    alert("Order not entered! Kindly enter the order.");
                     $("#category_order").focus();
                     return false;
                 }
                 
                 if (filesToUpload == ""){
-                    alert("no file attached,kindly attach the file");
+                    alert("No file attached! Kindly attach the file.");
                     $("#category_order").focus();
                     return false;
                 }

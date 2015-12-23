@@ -9,7 +9,7 @@ function validate() {
     var files = $("#filesToUpload").val();
 
     if (font_name === "") {
-        alert("please enter the font name");
+        alert("Please enter the font name!");
         $("#fontname").focus();
         return false;
     }
@@ -34,7 +34,7 @@ function fontController($scope, $http) {
         {
             $scope.status = data;
             if (data === "true") {
-                alert("font deleted successfully");
+                alert("Font deleted successfully.");
                 window.open(getHost() + 'admin/fontsfamily.jsp', "_self");
             } else if (data === error) {
                 alert(data);

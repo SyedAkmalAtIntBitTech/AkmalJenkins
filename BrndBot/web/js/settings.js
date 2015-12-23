@@ -30,17 +30,17 @@ function validate() {
     var password = $("#inputpassword").val();
     var confirmpassword = $("#inputreenter").val();
     if (password === "") {
-        alert("password not entered, please enter the password");
+        alert("Password not entered! Please enter the password.");
         $("#inputpassword").focus();
         return false;
     }
     if (confirmpassword === "") {
-        alert("confirm password not entered, please enter the confirm password");
+        alert("Confirm password not entered! Please enter the confirm password.");
         $("#inputreenter").focus();
         return false;
     } else
     if (password !== confirmpassword) {
-        alert("confirm password does't match to password");
+        alert("Confirm password does't match to password!");
         $("#inputreenter").focus();
         return false;
     }
@@ -95,7 +95,7 @@ function controllerUserChanges($scope, $http) {
         }).success(function (data, status, headers, config) {
             $scope.status= data;
             if (data === "true"){
-                alert("Details updated successfully");
+                alert("Details updated successfully.");
                 $scope.getLooks();
             }else
             if (data === error) {
@@ -143,7 +143,7 @@ function controllerUserChanges($scope, $http) {
         
     var brandID = $("#hiddenform").val();
     if (brandID == "") {
-        alert("Please select a personality");
+        alert("Please select a personality!");
     }
     else {
         $http({
@@ -153,7 +153,7 @@ function controllerUserChanges($scope, $http) {
         }).success(function (data, status, headers, config) {
             $scope.status = data;
             if (data === "true"){
-                alert("Details updated successfully");
+                alert("Details updated successfully.");
                 $scope.getBrands();
             }else
             if (data === error) {
@@ -186,9 +186,9 @@ function controllerUserChanges($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "false") {
-                    alert("user session has expired, kindly resubmit a request");
+                    alert("User session has expired! Kindly resubmit a request.");
                 } else if (data === "true") {
-                    alert("password has been changed successfully");
+                    alert("password has been changed successfully.");
                     $("#inputpassword").val("");
                     $("#inputreenter").val("");
                 } else if (data === error) {
@@ -292,7 +292,7 @@ function controllerUserChanges($scope, $http) {
             var color5 = $("#finalcolor5").val();
             var color6 = $("#finalcolor6").val();
             if (color1 == "" || color2 == "" || color3 == "" || color4 == "" || color5 == "" || color6 == ""){
-                    alert("Please fill all six colors, click MOST USED to select colors");
+                    alert("Please fill all six colors! Click MOST USED to select colors.");
                 }
            else{
 
@@ -308,7 +308,7 @@ function controllerUserChanges($scope, $http) {
                     
                     if(data === error){
                     }else{
-                        alert("details saved successfully");
+                        alert("Details saved successfully.");
                         $scope.showColors();
 //                        window.open(getHost() + 'settings.jsp', "_self");
                     }

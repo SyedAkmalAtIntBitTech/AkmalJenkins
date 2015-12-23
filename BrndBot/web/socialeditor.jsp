@@ -782,7 +782,7 @@ var mindbodydataId = $("#mindbodydata").val();
                                 },
                                 error: function (e)
                                 {
-                                alert("error in xml file read");
+                                alert("Error in xml file read!");
                                 }
                         });
                 }

@@ -49,7 +49,7 @@
                  function sendbrandID(){
                     var brandID = $("#hiddenform").val() ;
                     if(brandID == ""){
-                        alert("Please select a personality");
+                        alert("Please select a personality!");
                     }
                     else{
                     var path = global_host_address + 'SubbrandPersonality?brndID=' + brandID +'&type=insert';

@@ -10,13 +10,13 @@ function validate() {
     var html_data = $("#html_data").val();
 
     if (template_name == "") {
-        alert("template name not entered, kindly enter the template");
+        alert("Template name not entered! Kindly enter the template.");
         $("#template_name").focus();
         return false;
     }
 
     if (html_data == "") {
-        alert("html data not selected, kindly select an html data");
+        alert("Html data not selected! Kindly select an html data.");
         $("#html_data").focus();
         return false;
     }
@@ -28,13 +28,13 @@ function validateUpdate() {
     var html_data = $("#update_html_data").val();
 
     if (template_name == "") {
-        alert("template name not entered, kindly enter the template");
+        alert("Template name not entered! Kindly enter the template.");
         $("#template_update_name").focus();
         return false;
     }
 
     if (html_data == "") {
-        alert("html data not selected, kindly select an html data");
+        alert("Html data not selected! Kindly select an html data.");
         $("#update_html_data").focus();
         return false;
     }
@@ -59,10 +59,10 @@ function marketingEmailTemplateController($scope, $http) {
             }).success(function (data, status) {
 
                 if (data == "true") {
-                    alert("record successfully saved");
+                    alert("Record successfully saved.");
                     window.open(getHost() + 'admin/marketingemailtemplate.jsp', "_self");
                 } else {
-                    alert("problem saving record");
+                    alert("Problem saving record!");
                 }
             }).error(function () {
                 alert("No data available! Problem fetching the data.");
@@ -89,10 +89,10 @@ function marketingEmailTemplateController($scope, $http) {
             }).success(function (data, status) {
 
                 if (data == "true") {
-                    alert("record successfully updated");
+                    alert("Record successfully updated.");
                     window.open(getHost() + 'admin/marketingemailtemplate.jsp', "_self");
                 } else {
-                    alert("problem saving record");
+                    alert("Problem saving record!");
                 }
             }).error(function () {
                 alert("No data available! Problem fetching the data.");

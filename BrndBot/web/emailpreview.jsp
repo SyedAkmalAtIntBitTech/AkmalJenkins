@@ -574,7 +574,7 @@
                         }
                         else
                         {
-                            alert("please select at least one email list or add email manually");
+                            alert("Please select at least one email list or add email manually.");
                             selectCsvFile();
                             $("#emailaddresses").focus();
                             return false;
@@ -604,7 +604,7 @@
                         }
                         else
                         {
-                            alert("please select at least one email list or add email manually");
+                            alert("Please select at least one email list or add email manually.");
                             selectCsvFile();
                             $("#emailaddresses").focus();
                             return false;
@@ -650,19 +650,19 @@
                     if (schedule_id == "0"){
                         if($("#schedule_title").val()=="")
                         {
-                            alert("Please Enter Title");
+                            alert("Please Enter Title.");
                             $("#schedule_title").focus();
                             return false;
                         }
                         if($("#schedule_date").val()=="")
                         {
-                            alert("Please Choose Date");
+                            alert("Please Choose Date.");
                             $("#schedule_date").focus();
                             return false;
                         }
                         if($("#schedule_time").val()=="")
                         {
-                            alert("Please Chooose Time");
+                            alert("Please Chooose Time.");
                             $("#schedule_time").focus();
                             return false;
                         }
@@ -734,7 +734,7 @@
                                method: 'POST',
                                url: getHost() + "deleteEmailDraft.do?draftid="+draft_id
                                }).success(function (data) {
-                                alert("Your Email has been Scheduled Successfully");
+                                alert("Your Email has been Scheduled Successfully.");
                                 document.location.href = "dashboard.jsp";
                                 
                                 }).error(function (data) {
@@ -742,7 +742,7 @@
                                 });
                             }
                         }).error(function (data) {
-                            alert("No data available, problem fetching the data...2");
+                            alert("No data available! Problem fetching the data.");
                         });
                         
                     }
@@ -757,7 +757,7 @@
 //                        alert(JSON.stringify(data));
                         $scope.marketing_programs = data;
                     }).error(function (data){
-                        alert("request not successful");
+                        alert("Request not successful!");
                     });
                 };
                 
@@ -768,7 +768,7 @@
                     }).success(function (data) {
                         $scope.email_actions = data;
                     }).error(function (data) {
-                        alert("request not successful");
+                        alert("Request not successful!");
                     });
                 };
             }
@@ -924,27 +924,27 @@
             var fromaddrvalid=reg.test(from_email_address);
             var replytoaddrvalid=reg.test(reply_to_email_address);
             if (from_name == ""){
-                alert("From name not entered, please enter the from name");
+                alert("From name not entered! Please enter the from name.");
                 $("#name").focus();
                 return false;
             }
             if (email_subject == ""){
-                alert("Email subject name not entered, please enter the email subject");
+                alert("Email subject name not entered! Please enter the email subject.");
                 $("#subject").focus();
                 return false;
             }
             if (from_email_address == ""){
-                alert("From email address not entered, please enter the from email address");
+                alert("From email address not entered! Please enter the from email address.");
                 $("#formaddress").focus();
                 return false;
             }
             if(fromaddrvalid == false){
-                alert("From Address Not Valid, please Enter valid Email id");
+                alert("From Address Not Valid! Please Enter valid Email id.");
                 $("#formaddress").focus();
                 return false;
             }
             if (to_email_addresses == ""){
-                alert("To address fieled not entered, please enter the email address");
+                alert("To address fieled not entered! Please enter the email address.");
                 $("#toaddress").focus();
                 return false;
             }
@@ -960,7 +960,7 @@
                         if(email !== "")
                         {
                             if(reg.test(split[i]) === false){
-                                alert(" To Address field is not Valid, please Enter Valid Email Address \n\n'"+split[i]+"'\t is Invalid Email id");
+                                alert(" To Address field is not Valid! Please Enter Valid Email Address \n\n'"+split[i]+"'\t is Invalid Email id.");
                                 $("#toaddress").focus();
                                 return false;
                             } 
@@ -969,17 +969,17 @@
                  }
             }
             if (reply_to_email_address == ""){
-                alert("Reply to email address not entered, please enter the reply to email address");
+                alert("Reply to email address not entered! Please enter the reply to email address.");
                 $("#email").focus();
                 return false;
             }
             if(replytoaddrvalid ==false){
-                alert("Reply to email address is not Valid, please enter valid reply to email address");
+                alert("Reply to email address is not Valid! Please enter valid reply to email address.");
                 $("#email").focus();
                 return false;
             }
             if (email_list == ""){
-                alert("Email list not entered, please enter the email list");
+                alert("Email list not entered! Please enter the email list.");
                 $("#email_list").focus();
                 return false;
             }
@@ -1018,12 +1018,12 @@
                                 }
                             },
                             error: function () {
-                                alert("error");
+                                alert("Error!");
                             }        
                         });
                     },
                     error: function () {
-                        alert("error");
+                        alert("Error!");
                     }
                 });
             }
@@ -1061,7 +1061,7 @@
                         }).success(function (data)
                         {
                             if (data === "true") {
-                                alert("Data saved successfully");
+                                alert("Data saved successfully.");
                                window.open(getHost() + 'emailsubject.jsp', "_self");
                             } else if (data === error) {
                                 alert(data);
@@ -1161,7 +1161,7 @@
 
                     document.getElementById(dropZoneId).addEventListener("drop", function (e) {
                         $("#" + dropZoneId).removeClass(mouseOverClass);
-                        alert("file have been added, click on the upload button to load the csv file");
+                        alert("File have been added, Click on the upload button to load the csv file.");
     //                    upload();
                     }, true);
                     });

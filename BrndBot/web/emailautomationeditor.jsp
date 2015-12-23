@@ -187,7 +187,7 @@ $(document).ready(function() {
                                     block_id = arr[0].replace("block", "");
                             };
                             $scope.showStyles = function(){
-                                alert("style click");
+                                alert("Style click.");
                                     var queryurl;
                                     $scope.curPage = 0;
                                     $scope.pageSize = 2;
@@ -720,7 +720,7 @@ $(document).ready(function() {
                             },
                             error: function (e)
                             {
-                            alert("error in xml file read");
+                            alert("Error in xml file read!");
                             }
                     });
             }

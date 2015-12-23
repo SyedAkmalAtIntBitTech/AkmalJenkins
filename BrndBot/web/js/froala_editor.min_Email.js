@@ -2809,7 +2809,7 @@ function MoveBlock(selectedBlockId){
   callback: function () {
     // The current context is the editor instance.
     console.log (this.html.get());
-                    alert("asfddjasfahs");
+//                    alert("asfddjasfahs");
   },
 
   // Called when the button state might have changed.

@@ -5,7 +5,7 @@ function fontsSizeController($scope, $http) {
     function validate() {
         font_size = $("#fontsize").val();
         if (font_size === "") {
-            alert("Enter the font size");
+            alert("Enter the font size.");
             $("#fontsize").focus();
             return false;
         }
@@ -27,10 +27,10 @@ function fontsSizeController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "false") {
-                    alert("Font size already exist");
+                    alert("Font size already exist!");
                     $("#fontsize").focus();
                 } else if (data === "true") {
-                    alert("font saved successfully");
+                    alert("Font saved successfully.");
                     window.open(getHost() + 'admin/fontsSize.jsp', "_self");
                 } else if (data === error) {
                     alert(data);
@@ -51,7 +51,7 @@ function fontsSizeController($scope, $http) {
 
         function validate() {
             if (fontsize === "") {
-                alert("Enter the font size");
+                alert("Enter the font size.");
                 $(org_id).focus();
                 return false;
             }
@@ -70,7 +70,7 @@ function fontsSizeController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "true") {
-                    alert("font size updated successfully");
+                    alert("Font size updated successfully.");
                     window.open(getHost() + 'admin/fontsSize.jsp', "_self");
                 } else if (data === error) {
                     alert(data);
@@ -95,7 +95,7 @@ function fontsSizeController($scope, $http) {
         {
             $scope.status = data;
             if (data === "true") {
-                alert("Font size deleted successfully");
+                alert("Font size deleted successfully.");
                 window.open(getHost() + 'admin/fontsSize.jsp', "_self");
             } else if (data === error) {
                 alert(data);

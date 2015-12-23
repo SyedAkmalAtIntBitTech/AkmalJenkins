@@ -204,7 +204,7 @@
                 url: getHost() + 'getUserPreferences.do'
             }).success(function(data, status, headers, config) {
                 if (data != ""){
-                    alert("Please enter from address and reply to email address in email settings");
+                    alert("Please enter from address and reply to email address in email settings.");
                 }
             }).error(function(){
                 alert("Problem fetching the data!");
@@ -516,56 +516,56 @@
                 var till_date = $("#datepicker").val();
                 var schedule_time=$("#timepicker1").val().replace(/ /g,'');
                 if (recuring_email_title === ""){
-                    alert("Enter the title");
+                    alert("Enter the title.");
                     $("#recuring_email_title").focus();
                     return false;
                 }
                 
                 if (recuring_email_description === ""){
-                    alert("Enter the description");
+                    alert("Enter the description.");
                     $("#recuring_email_description").focus();
                     return false;
                 }
                 if (days === "0") {
-                    alert("please select the day");
+                    alert("Please select the day.");
                     $("#days").focus();
                     return false;
                 }
                 if (emaillisttext === "") {
-                    alert("please select the email list text");
+                    alert("Please select the email list text.");
                     emaillisttext.focus();
                     return false;
                 }
                  if (schedule_time === ""){
-                    alert("select the time");
+                    alert("Select the time.");
                     $("#timepicker1").focus();
                     return false;
                 }
                  if (till_date === ""){
-                    alert("till date not selected,please select the date");
+                    alert("Till date not selected! Please select the date.");
                     $("#datepicker").focus();
                     return false;
                 }
                
                 if (emaillist === "0") {
-                    alert("please select the email list");
+                    alert("Please select the email list.");
                     $("#emaillist").focus();
                     return false;
                 }
 
                 if (subject === "") {
-                    alert("Enter the subject");
+                    alert("Enter the subject.");
                     $("#subject").focus();
                     return false;
                 }
                 if (from_name === ""){
-                    alert("Enter the from name");
+                    alert("Enter the from name.");
                     $("#from_name").focus();
                     return false;
                 }        
                 
                 if((reply_to_address === "")||(!emlval.test(reply_to_address))){
-                    alert("Enter Valid reply-to-address ");
+                    alert("Please Enter Valid reply-to-address.");
                     $("#reply_to_address").focus();
                     return false;
                 }

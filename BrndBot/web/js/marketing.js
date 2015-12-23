@@ -231,18 +231,18 @@ function validateaction() {
         //return false;
     }
     if (actiontype === '0') {
-        alert("actiontype not selected, please select any one action");
+        alert("Actiontype not selected! Please select any one action.");
         $("#actiontype").focus();
         return false;
     }
     if (title === "") {
-        alert("title not entered, please enter the title");
+        alert("Title not entered! Please enter the title.");
         $("#addactiontitle").focus();
         return false;
     }
 
     if (description === "") {
-        alert("description not entered, please enter the description");
+        alert("Description not entered! Please enter the description.");
         $("#description").focus();
         return false;
     }
@@ -269,41 +269,41 @@ function validateemailaction() {
     var actionDateTime=$("#timepickeremail").val().replace(/ /g,'');
 
     if (title === "") {
-        alert("title not entered, please enter the title");
+        alert("Title not entered! Please enter the title.");
         $("#email_edit_title").focus();
         return false;
     }
 
     if (actiontype === "") {
-        alert("actiontype not entered, please enter the actiontype");
+        alert("Actiontype not entered! Please enter the actiontype.");
         $("#email_schedule_type").focus();
         return false;
     }
     if (description === "") {
-        alert("description not entered, please enter the description");
+        alert("Description not entered! Please enter the description.");
         $("#email_description").focus();
         return false;
     }
     if (actiondate === "" || days =="") {
         if(days=="")
         {
-            alert("days not entered, please enter the days");
+            alert("Days not entered! Please enter the days.");
             $("#twdays").focus();
         }
         if(!isNaN(days))
         {
-            alert("days must be numeric");
+            alert("Days must be numeric!");
             $("#twdays").focus();
         }
         if(actiondate=="")
         {
-            alert("actiondate not selected, please choose the actiondate");
+            alert("Actiondate not selected! Please choose the actiondate.");
             $("#datepicker3").focus();
         }
         return false;
     }
     if (actionDateTime === "") {
-        alert("actiondate not entered, please enter the actiondate");
+        alert("Actiondate not entered! Please enter the actiondate.");
         $("#timepickeremail").focus();
         return false;
     }
@@ -321,41 +321,41 @@ function validatefacebookaction() {
     var actionDateTime=$("#timepickerfb").val().replace(/ /g,'');
 
     if (title === "") {
-        alert("title not entered, please enter the title");
+        alert("Title not entered! Please enter the title.");
         $("#fb_action_title").focus();
         return false;
     }
 
     if (actiontype === "") {
-        alert("actiontype not entered, please enter the actiontype");
+        alert("Actiontype not entered! Please enter the actiontype.");
         $("#fb_scheduletype").focus();
         return false;
     }
     if (description === "") {
-        alert("description not entered, please enter the description");
+        alert("Description not entered! Please enter the description.");
         $("#fb_description").focus();
         return false;
     }
     if (actiondate === "" || days =="") {
         if(days=="")
         {
-            alert("days not entered, please enter the days");
+            alert("Days not entered! Please enter the days.");
             $("#twdays").focus();
         }
         if(!isNaN(days))
         {
-            alert("days must be numeric");
+            alert("Days must be numeric!");
             $("#twdays").focus();
         }
         if(actiondate=="")
         {
-            alert("actiondate not selected, please choose the actiondate");
+            alert("Actiondate not selected! Please choose the actiondate.");
             $("#datepicker3").focus();
         }
         return false;
     }
     if (actionDateTime === "") {
-        alert("actiontime not entered, please enter the actiondate");
+        alert("Actiontime not entered! Please enter the actiondate.");
         $("#timepicker2").focus();
         return false;
     }
@@ -373,41 +373,41 @@ function validatetwitteraction() {
         var actionDateTime=$("#timepickertwitter").val().replace(/ /g,'');
 
     if (title === "") {
-        alert("title not entered, please enter the title");
+        alert("Title not entered! Please enter the title.");
         $("#edit_twitter_title").focus();
         return false;
     }
 
     if (actiontype === "") {
-        alert("actiontype not entered, please enter the actiontype");
+        alert("Actiontype not entered! Please enter the actiontype.");
         $("#twitter_action_type").focus();
         return false;
     }
     if (description === "") {
-        alert("description not entered, please enter the description");
+        alert("Description not entered! Please enter the description.");
         $("#twitter_description").focus();
         return false;
     }
     if (actiondate === "" || days =="") {
         if(days=="")
         {
-            alert("days not entered, please enter the days");
+            alert("Days not entered! Please enter the days.");
             $("#twdays").focus();
         }
         if(!isNaN(days))
         {
-            alert("days must be numeric");
+            alert("Days must be numeric!");
             $("#twdays").focus();
         }
         if(actiondate=="")
         {
-            alert("actiondate not selected, please choose the actiondate");
+            alert("Actiondate not selected! Please choose the actiondate.");
             $("#datepicker3").focus();
         }
         return false;
     }
     if (actionDateTime === "") {
-        alert("actiondate not entered, please enter the actiondate");
+        alert("Actiondate not entered! Please enter the actiondate.");
         $("#timepickertwitter").focus();
         return false;
     }
@@ -535,7 +535,7 @@ function controllerMarketingCampaign($scope, $http) {
         //            $("#selected").css("display","none");            
                     //console.log($scope.entitySet);
                 }).error(function (data) {
-                    alert("request not successful");
+                    alert("Request not successful!");
                 });
         }
     };
@@ -599,7 +599,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.marketingProgramName=marketingProgramName;
                 $scope.days=days;
             }).error(function (data) {
-                alert("request not successful ");
+                alert("Request not successful! ");
             });
     };
     
@@ -694,7 +694,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.is_today_active = is_today_active;
                 $scope.showEmailList();
             }).error(function (data) {
-                alert("request not successful");
+                alert("Request not successful!");
             });
 
         } else if (entity_type == getfacebook()) {
@@ -734,7 +734,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.schedule_type = entity_type;
                 $scope.is_today_active = is_today_active;
             }).error(function (data) {
-                alert("request not successful");
+                alert("Request not successful!");
             });
 
         } else if (entity_type == gettwitter()) {
@@ -779,7 +779,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.is_today_active = is_today_active;
 
             }).error(function (data) {
-                alert("request not successful");
+                alert("Request not successful!");
             });
 
         } else if (entity_type == getnote()) {
@@ -798,7 +798,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
-                alert("request not successful");
+                alert("Request not successful!");
             });
 
         }
@@ -839,7 +839,7 @@ function controllerMarketingCampaign($scope, $http) {
 
                 $scope.showEmailList();
             }).error(function (data) {
-                alert("request not successful");
+                alert("Request not successful!");
             });
 
         } else if (entity_type == getfacebook()) {
@@ -869,7 +869,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
-                alert("request not successful");
+                alert("Request not successful!");
             });
 
         } else if (entity_type == gettwitter()) {
@@ -900,7 +900,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
-                alert("request not successful");
+                alert("Request not successful!");
             });
 
         } else if (entity_type == getnote()) {
@@ -922,7 +922,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
-                alert("request not successful");
+                alert("Request not successful!");
             });
 
         }
@@ -951,7 +951,7 @@ function controllerMarketingCampaign($scope, $http) {
 //                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
                 
             }).error(function (data) {
-                alert("request not successful");
+                alert("Request not successful!");
             });
     }
 
@@ -1013,7 +1013,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.days = days;
                 $scope.is_today_active = is_today_active;
             }).error(function (data) {
-                alert("request not successful");
+                alert("Request not successful!");
             });
         } else if (entity_type == getfacebook()) {
             $slider=2;
@@ -1069,7 +1069,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.is_today_active = is_today_active;
 
             }).error(function (data) {
-                alert("request not successful");
+                alert("Request not successful!");
             });
 
         } else if (entity_type == gettwitter()) {
@@ -1124,7 +1124,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.days = days;
                 $scope.is_today_active = is_today_active;
             }).error(function (data) {
-                alert("request not successful");
+                alert("Request not successful!");
             });
         } else if (entity_type == getnote()) {
             $slider=1;
@@ -1468,7 +1468,7 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
             {
                 $scope.status = data;
                 if (data != "") {
-                    alert("details saved successfully");
+                    alert("Details saved successfully.");
                     window.open(getHost() + 'marketing.jsp', "_self");
 
                 }
@@ -1526,7 +1526,7 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
         {
             $scope.status = data;
             if (data != "") {
-                alert("details saved successfully");
+                alert("Details saved successfully.");
                 window.open(getHost() + 'marketing.jsp', "_self");
 
             }
@@ -1585,7 +1585,7 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
                 {
                     $scope.status = data;
                     if (data != "") {
-                        alert("details saved successfully");
+                        alert("Details saved successfully.");
                         window.open(getHost() + 'marketing.jsp', "_self");
 
                     }
@@ -1637,7 +1637,7 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
                 {
                     $scope.status = data;
                     if (data != "") {
-                        alert("details saved successfully");
+                        alert("Details saved successfully.");
                         window.open(getHost() + 'marketing.jsp', "_self");
 
                     }
@@ -1662,37 +1662,37 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
         var actionDateTime=$("#facebook_schedule_time").val().replace(/ /g,'');
 
         if (facebook_schedule_title == "") {
-            alert("schedule title not entered, please enter the value");
+            alert("Schedule title not entered! Please enter the value.");
             $("#facebook_schedule_title").focus();
             return false;
         }
         if (facebook_schedule_Description == "") {
-            alert("schedule description not entered, please enter the value");
+            alert("Schedule description not entered! Please enter the value.");
             $("#facebook_schedule_Description").focus();
             return false;
         }
         if (facebook_schedule_posttext == "") {
-            alert("schedule post text not entered, please enter the value");
+            alert("Schedule post text not entered! Please enter the value.");
             $("#facebook_schedule_posttext").focus();
             return false;
         }
         if (facebook_schedule_url == "") {
-            alert("schedule url not entered, please enter the value");
+            alert("Schedule url not entered! Please enter the value.");
             $("#facebook_schedule_url").focus();
             return false;
         }
         if (facebook_schedule_description == "") {
-            alert("schedule description not entered, please enter the value");
+            alert("Schedule description not entered! Please enter the value.");
             $("#facebook_schedule_description").focus();
             return false;
         }
         if (actiondate == "") {
-            alert("schedule date not entered, please enter the date");
+            alert("Schedule date not entered! Please enter the date.");
             $("#facebook_schedule_date").focus();
             return false;
         }
         if (actionDateTime == "") {
-            alert("schedule time not entered, please enter the time");
+            alert("Schedule time not entered! Please enter the time.");
             $("#facebook_schedule_time").focus();
             return false;
         }
@@ -1710,27 +1710,27 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
         var actionDateTime=$("#timepicker_twittertime").val().replace(/ /g,'');
 
         if (schedule_title == "") {
-            alert("schedule title not entered, please enter the value");
+            alert("Schedule title not entered! Please enter the value.");
             $("#twitter_schedule_title").focus();
             return false;
         }
         if (schedule_Description == "") {
-            alert("schedule description not entered, please enter the value");
+            alert("Schedule description not entered! Please enter the value.");
             $("#twitter_schedule_Description").focus();
             return false;
         }
         if (schedule_posttext == "") {
-            alert("schedule post text not entered, please enter the value");
+            alert("Schedule post text not entered! Please enter the value.");
             $("#twitter_schedule_post_text").focus();
             return false;
         }
         if (actiondate == "") {
-            alert("schedule date not entered, please enter the value");
+            alert("Schedule date not entered! Please enter the value.");
             $("#schedule_date").focus();
             return false;
         }
         if (actionDateTime == "") {
-            alert("schedule time not entered, please enter the value");
+            alert("Schedule time not entered! Please enter the value.");
             $("#schedule_time").focus();
             return false;
         }
@@ -1782,7 +1782,7 @@ function sendEmail() {
                            success: function (responseText) {
                                alert(responseText);
                                if (responseText == "true"){
-                                 alert("Your email has been sent successfully");
+                                 alert("Your email has been sent successfully.");
                                }
                             }
                         });
@@ -1866,7 +1866,7 @@ function postSocial() {
                            mimeType: 'application/json',
                            data:JSON.stringify(schedule_data),
                            success: function (responseText) {
-                               alert("Your post has been published successfully");
+                               alert("Your post has been published successfully.");
                                document.location.href = "marketing.jsp";
                             },
                             error: function () {

@@ -55,7 +55,7 @@
                     category_id = cat.options[y].value;
 
                     if (category_id == 0) {
-                        alert("No category selected, please select the category");
+                        alert("No category selected! Please select the category.");
                         document.getElementById("category").focus();
                         return false;
                     }

@@ -73,12 +73,12 @@
                 var program_url = $("#program_url").val();
                 var program_urlname = $("#program_url_name").val();
                 if (program_name.length === 0){
-                    alert("Enter the program name");
+                    alert("Enter the program name!");
                     $("#program_name").focus();
                     return false;
                 }
                 if (program_date_time.length === 0){
-                    alert("Enter the Program Date");
+                    alert("Enter the Program Date!");
                     $("#programdatetime").focus();
                     return false;
                 }
@@ -90,17 +90,17 @@
 //                }
 //                
                 if((program_url === "http://")&&(program_urlname.length !== 0)){
-                    alert("Please Enter Valid Link_Url");
+                    alert("Please Enter Valid Link_Url!");
                     $("#program_url").focus();
                     return false;
                 }
                 if((program_url.length !== 0)&&(program_urlname.length === 0)){
-                    alert("link Name not entered Please enter Link Name");
+                    alert("Link Name not entered! Please enter Link Name.");
                     $("#program_url_name").focus();
                     return false;
                 }
                 if((program_url.length === 0)&&(program_urlname.length !== 0)){
-                    alert("Please Enter link Url");
+                    alert("Please Enter link URL!");
                     $("#program_url").focus();
                     return false;
                 }
@@ -197,14 +197,14 @@
                     var schedule_time = Date.parse(program_date_time);
                     
                      if (program_name === "") {
-                        alert("Please enter the Program Name");
+                        alert("Please enter the Program Name!");
                         $("#program_name").focus();
                         return false;
                     }
                     //alert("program date time ...."+program_date_time);
                     //alert("date... "+d);
                     if (program_date_time === "") {
-                        alert("Please select the date");
+                        alert("Please select the date!");
                         $("#programdatetime").focus();
                         return false;
                     }
@@ -235,7 +235,7 @@
                         data: JSON.stringify(program_details)
                     }).success(function (data, status, headers, config) {
                         if (data !== null){
-                            alert("details saved successfully");
+                            alert("Details saved successfully.");
                             var redirect="programactions.jsp?program_id="+data;
                             window.open(getHost() + redirect, "_self");
                         }else {

@@ -159,7 +159,7 @@
                 var color6 = $("#finalcolor6").val();
 
                 if (color1 == "rgba(0, 0, 0, 0)" || color2 == "rgba(0, 0, 0, 0)" || color3 == "rgba(0, 0, 0, 0)" || color4 == "rgba(0, 0, 0, 0)" || color5 == "" || color6 == "rgba(0, 0, 0, 0)"){
-                        alert("Please fill all six colors");
+                        alert("Please fill all six colors!");
                     }
                else{
 

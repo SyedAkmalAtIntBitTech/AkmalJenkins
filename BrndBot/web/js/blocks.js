@@ -26,13 +26,13 @@ function blocksController($scope, $http) {
 //        mindbodyquery = document.getElementsByTagName("option")[y].value;
         
         if (name === "") {
-            alert("Enter the block name");
+            alert("Enter the block name.");
             $("#name").focus();
             return false;
         }
         
         if (brand_id == 0) {
-            alert("No brand selected, please select the brand");
+            alert("No brand selected! Please select the brand.");
             document.getElementById("brand").focus();
             return false;
         }
@@ -55,10 +55,10 @@ function blocksController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "false") {
-                    alert("block already exist");
+                    alert("Block already exist!");
                     $("#blockname").focus();
                 } else if (data === "true") {
-                    alert("block saved successfully");
+                    alert("Block saved successfully.");
                     window.open(getHost() + 'admin/blocks.jsp', "_self");
                 } else if (data === error) {
                     alert(data);
@@ -131,7 +131,7 @@ function blocksController($scope, $http) {
         {
             $scope.status = data;
             if (data === "true") {
-                alert("block deleted successfully");
+                alert("Block deleted successfully.");
                 window.open(getHost() + 'admin/blocks.jsp', "_self");
             } else if (data === error) {
                 alert(data);

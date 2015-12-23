@@ -103,13 +103,13 @@
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                alert("some Error occured, try after some time.");
+                alert("Some Error occured! Try after some time.");
             });
         }
        }   
         else
         {
-            alert("No Drafts Selected");
+            alert("No Drafts Selected!");
         }
     };
             
@@ -165,7 +165,7 @@
                     data: JSON.stringify(draftdetails)
                 }).success(function(data, status) {
                     if (data == "false"){
-                        alert("There was a problem while saving the draft. Please try again later.")
+                        alert("There was a problem while saving the draft! Please try again later.")
                     }else {
                         window.open(getHost() + 'emaileditor.jsp?id='+null+'&draftid='+draft_id, "_self");                    
                     }

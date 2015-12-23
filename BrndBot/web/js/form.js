@@ -34,18 +34,18 @@ function UserController($scope, $http)
             return false;
         }
         if (password === "") {
-            alert("Enter the password");
+            alert("Enter the password!");
             $("#inputpassword").focus();
             return false;
         }
         if (confirmPass === "") {
-            alert("Enter the password");
+            alert("Enter the password!");
             $("#inputpassword").focus();
             return false;
         }
 
         if (password !== confirmPass) {
-            alert("Enter the same password");
+            alert("Enter the same password!");
             $("#inputreenter").focus();
             return false;
         }
@@ -65,7 +65,7 @@ function UserController($scope, $http)
             {
                 $scope.status = data;
                 if (data === "false") {
-                    alert("User already exist");
+                    alert("User already exist!");
                     window.open(getHost() + 'signup.jsp', "_self");
                 } else if (data === "true") {
                     window.open(getHost() + 'organization.jsp', "_self");
@@ -125,9 +125,9 @@ function ForgotPassController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "true") {
-                    alert("password reset link has been sent to your email id");
+                    alert("Password reset link has been sent to your email id.");
                 } else if (data === "false") {
-                    alert("incorrect email id");
+                    alert("Incorrect email id!");
                 } else if (data === error) {
                     alert(data);
                 }

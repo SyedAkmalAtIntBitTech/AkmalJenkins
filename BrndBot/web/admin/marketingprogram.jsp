@@ -49,30 +49,30 @@
                 var program_order = $("#program_order").val();
                 var html_data = $("#html_data").val();
                 if (program_name == ""){
-                    alert("program name not entered, kindly enter the program");
+                    alert("Program name not entered! Kindly enter the program.");
                     $("#program_name").focus();
                     return false;
                 }
                 
                 if (user == "0" || user == null){
-                    alert("user not selected, kindly select an user");
+                    alert("User not selected! Kindly select an user.");
                     $("#users").focus();
                     return false;
                 }
                 
                 if (category == "0"){
-                    alert("category not entered,kindly enter the category");
+                    alert("Category not entered! Kindly enter the category.");
                     $("#category").focus();
                     return false;
                 }
                 
                 if (program_order == ""){
-                    alert("program_order not entered,kindly enter the program order");
+                    alert("Program_order not entered! Kindly enter the program order.");
                     $("#program_order").focus();
                     return false;
                 }
                 if (html_data == ""){
-                    alert("html data not entered,kindly enter the html data");
+                    alert("Html data not entered! Kindly enter the html data.");
                     $("#html_data").focus();
                     return false;
                 }

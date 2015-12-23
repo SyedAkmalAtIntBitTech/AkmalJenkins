@@ -66,7 +66,7 @@ function controllerMarketingCategories($scope, $http, $window){
         }
         else
         {
-            alert("Please select a marketing program type");
+            alert("Please select a marketing program type!");
         }
     
         
