@@ -175,27 +175,42 @@
                                 <div class="Facebook-preview-name">BrndBot Demo</div>
                             </div>
                         </div>
-                        <div class="Facebook-preview-usercontent">
-                            <intput type="text" id="" placeholder="Demo content goes right here"></intput></div>
+                        <div class="">
+<!--                            < %if (imageid.equalsIgnoreCase("")){%>
+                                <div class="Facebook-preview-usercontent">Demo content goes right here</div>
+                            < %}else{%>-->
+                                <input type="text" id="" class="full" placeholder="Demo content goes right here"></input>
+<!--                            < %}%>-->
+                        </div>
                         <div class="Facebook-link-container">
                             <div class="Facebook-preview-image">
-                                <%if (imageid.equalsIgnoreCase("") && selectedType.contains("facebook")){%>
+                                <%if (imageid.equalsIgnoreCase("")){%>
                                     <div class="changeImage" onclick="fun('facebook','<%=mindbodydata%>');"> Upload Image </div>
                                 <%}else if(selectedType.contains("facebook")){%>
                                     <img class="imgsize" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
-                                <%} else{%>
-                                    <div class="changeImage" onclick="fun('facebook','<%=mindbodydata%>');"> Upload Image </div>
                                 <%}%>
                             </div> 
+<!--                            < %if (imageid.equalsIgnoreCase("")){%>
                             <div class="Facebook-preview-link-container">
                                 <div class="Facebook-preview-link-title">Input in Admin-- This Weekend Workshop</div>
                                 <div class="Facebook-preview-link-description">This workshop is going to be so awesoem for the new season and get you in really good shape!</div>
                                 <div class="Facebook-preview-link-url">This should equal the marketing program link</div>
                             </div>
+                            < %}else{%>
+-->
+                            <div class="Facebook-preview-link-container">
+                                <div class="Facebook-preview-link-title">
+                                <input type="text" id="" class="full99" placeholder="Input in Admin-- This Weekend Workshop"></input></div>
+                                <div class="Facebook-preview-link-description">
+                                <input type="text" id="" class="full99" placeholder="This workshop is going to be so awesoem for the new season and get you in really good shape!"></input></div>
+                                <div class="Facebook-preview-link-url">
+                                <input type="text" id="" class="full99" placeholder="This should equal the marketing program link"></input></div>
+                            </div>
+<!--                            < %}%> -->
                         </div>
                     </div>
-                    <% } else{
-                    %>
+<!--                    < % } else{
+                    %> -->
                     <div class="Blank_Facebook-preview">
                         <div class="Blank_Facebook">
                             <p class="textalgn">
@@ -222,15 +237,18 @@
                             <div class="col-1of1 Twitter-preview-name-container fleft">
                                 <div class="Twitter-preview-name fleft"><span>BrndBot Demo</span></div>
                                 <div class="Twitter-handle fleft">@BrndBot</div>
-                                <div class="Twitter-preview-usercontent fleft col-1of1">Demo content goes right here andklj lkjflkjsdf l;kjasdlfkja slkfjljfal;skd jflkasdjflkasjdflkasjdlkfjlkslksdjaflkjsdlkfj asdfasdfasdf asdfasd fasdfasdf s</div>
+ <!--                               < %if (imageid.equalsIgnoreCase("")){%>
+                                    <div class="Twitter-preview-usercontent fleft col-1of1">Demo content goes right here andklj lkjflkjsdf l;kjasdlfkja slkfjljfal;skd jflkasdjflkasjdflkasjdlkfjlkslksdjaflkjsdlkfj asdfasdfasdf asdfasd fasdfasdf s</div>
+<!--                                < %}else{%>-->
+                                    <input type="text" id="" class="full" placeholder="Demo content goes right here for twitter"></input>
+<!--                                < %}%>-->
+                                
                             </div>
                             <div class="Twitter-preview-image fleft">
-                                 <%if (imageid.equalsIgnoreCase("") && selectedType.contains("twitter")){%>
+                                <%if (imageid.equalsIgnoreCase("")){%>
                                     <div class="changeImage" onclick="fun('twitter','<%=mindbodydata%>');"> Upload Image </div>
                                 <%}else if(selectedType.contains("twitter")){%>
                                     <img class="imgsize" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
-                                <%} else{%>
-                                    <div class="changeImage" onclick="fun('twitter','<%=mindbodydata%>');"> Upload Image </div>
                                 <%}%>
                                 
                                 
