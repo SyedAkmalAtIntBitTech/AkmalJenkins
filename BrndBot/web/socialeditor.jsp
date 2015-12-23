@@ -302,6 +302,7 @@ ul::-webkit-scrollbar-thumb {
             String isTwitter="";
             String selectedType="";
             String mediaType="";
+            String data="";
         %> 
         <%
             try {
@@ -322,6 +323,7 @@ ul::-webkit-scrollbar-thumb {
                 isFacebook = (String) request.getParameter("isFacebook");
                 selectedType = (String) request.getParameter("selectedtype");
                 mediaType = (String) request.getParameter("mediatype");
+                data = (String) request.getParameter("data");
                 
 //                String msg = request.getParameter("msg");
 //              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
@@ -333,6 +335,7 @@ ul::-webkit-scrollbar-thumb {
 
         %>
         <input type="hidden" id="media_type" name="media_type" value = '<%=media_type%>' />
+        <input type="hidden" id="data" name="data" value = '<%=data%>' />
         <script>
             
             $(document).ready(function () {
@@ -1210,6 +1213,7 @@ var mindbodydataId = $("#mindbodydata").val();
         var isFacebook=$("#isFacebook").val();
         var selectedType=$("#selectedType").val();
         var mediaType=$("#mediaType").val();
+        var data=$("#data").val();
         
 //                            alert($(".preview").children());
             $.ajax({
@@ -1225,7 +1229,7 @@ var mindbodydataId = $("#mindbodydata").val();
                        $('#loadingGif').remove();
                        var image=responseText;
 //                                          alert(image);
-                       document.location.href = "socialimageselection.jsp?image="+image+"&isTwitter="+isTwitter+"&isFacebook="+isFacebook+"&mediaType="+mediaType+"&selectedType="+selectedType;
+                       document.location.href = "socialimageselection.jsp?image="+image+"&isTwitter="+isTwitter+"&isFacebook="+isFacebook+"&mediaType="+mediaType+"&selectedType="+selectedType+"&data="+data;
                                         $('#mask').hide();
                                     $('.window').hide();
                }

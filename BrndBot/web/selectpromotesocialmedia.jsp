@@ -362,6 +362,7 @@
                             <input type="hidden" id="image" name="image" value="">
                             <input type="hidden" id="selectedType" name="selectedType" value="">
                             <input type="hidden" id="mediaType" name="mediaType" value="">
+                            <input type="hidden" id="data" name="data" value=",,,,,,">
                             <input type="submit" id="submitbutton" class="button button--moema button--text-thick button--text-upper button--size-s" value="Continue" disabled>
                         </form> 
                     </div>

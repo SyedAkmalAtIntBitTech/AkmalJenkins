@@ -40,6 +40,7 @@
     String fbdefaultAccessToken="";
     String imageid="";
     String selectedType="";
+    String data="";
     
     String[] twitteracesstoken = {"", ""};
     int number;
@@ -63,7 +64,7 @@
         fbdefaultAccessToken = request.getParameter("fbdefaultAccessToken");
         imageid = request.getParameter("image");
         selectedType = request.getParameter("selectedType");
-        
+        data = request.getParameter("data");
         
         if (isFacebook.equalsIgnoreCase("true")) {
             
@@ -94,6 +95,8 @@
     <!--SideNav-->
     <input type="hidden" id="isFacebook" value="<%=isFacebook%>"/>
     <input type="hidden" id="isTwitter" value="<%=isTwitter%>"/>
+    <input type="hidden" id="imagen" value="<%=imageid%>"/>
+    <input type="hidden" id="data" value="<%=data%>"/>
     <div class="content-main">
     <div class="navigation">
         <div class="main-nav-logo">
@@ -179,15 +182,16 @@
 <!--                            < %if (imageid.equalsIgnoreCase("")){%>
                                 <div class="Facebook-preview-usercontent">Demo content goes right here</div>
                             < %}else{%>-->
-                                <input type="text" id="" class="full" placeholder="Demo content goes right here"></input>
+                                <input type="text" id="posttext" class="full noborder" placeholder="Demo content goes right here"></input>
 <!--                            < %}%>-->
                         </div>
                         <div class="Facebook-link-container">
                             <div class="Facebook-preview-image">
                                 <%if (imageid.equalsIgnoreCase("")){%>
-                                    <div class="changeImage" onclick="fun('facebook','<%=mindbodydata%>');"> Upload Image </div>
-                                <%}else if(selectedType.contains("facebook")){%>
-                                    <img class="imgsize" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
+                                    <div class="changeImage" onclick="fun('facebook','<%=mindbodydata%>');">Upload Image</div>
+<!--                                    <input type="hidden" id="facebookpreviewimage" value=""></input>-->
+                               <%} else{%>
+                                    <img class="imgsize" id="facebookpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
                                 <%}%>
                             </div> 
 <!--                            < %if (imageid.equalsIgnoreCase("")){%>
@@ -200,11 +204,11 @@
 -->
                             <div class="Facebook-preview-link-container">
                                 <div class="Facebook-preview-link-title">
-                                <input type="text" id="" class="full99" placeholder="Input in Admin-- This Weekend Workshop"></input></div>
+                                <input type="text" id="link_title" class="full99 noborder" placeholder="Input in Admin-- This Weekend Workshop"></input></div>
                                 <div class="Facebook-preview-link-description">
-                                <input type="text" id="" class="full99" placeholder="This workshop is going to be so awesoem for the new season and get you in really good shape!"></input></div>
+                                <input type="text" id="link_description" class="full99 noborder" placeholder="This workshop is going to be so awesoem for the new season and get you in really good shape!"></input></div>
                                 <div class="Facebook-preview-link-url">
-                                <input type="text" id="" class="full99" placeholder="This should equal the marketing program link"></input></div>
+                                <input type="text" id="Linkurl" class="full99 noborder" placeholder="This should equal the marketing program link"></input></div>
                             </div>
 <!--                            < %}%> -->
                         </div>
@@ -240,19 +244,17 @@
  <!--                               < %if (imageid.equalsIgnoreCase("")){%>
                                     <div class="Twitter-preview-usercontent fleft col-1of1">Demo content goes right here andklj lkjflkjsdf l;kjasdlfkja slkfjljfal;skd jflkasdjflkasjdflkasjdlkfjlkslksdjaflkjsdlkfj asdfasdfasdf asdfasd fasdfasdf s</div>
 <!--                                < %}else{%>-->
-                                    <input type="text" id="" class="full" placeholder="Demo content goes right here for twitter"></input>
+                                    <input type="text" id="twittertext" class="full noborder" placeholder="Demo content goes right here for twitter"></input>
 <!--                                < %}%>-->
                                 
                             </div>
                             <div class="Twitter-preview-image fleft">
                                 <%if (imageid.equalsIgnoreCase("")){%>
                                     <div class="changeImage" onclick="fun('twitter','<%=mindbodydata%>');"> Upload Image </div>
-                                <%}else if(selectedType.contains("twitter")){%>
-                                    <img class="imgsize" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
+<!--                                    <input type="hidden" id="twitterpreviewimage" value=""></input>-->
+                                <%} else{%>
+                                    <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
                                 <%}%>
-                                
-                                
-                                
                             </div>
                         </div>   
                     </div>

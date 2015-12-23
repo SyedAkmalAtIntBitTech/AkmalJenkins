@@ -38,14 +38,66 @@ function fun(type, emailAddress, UUID, firstName, lastName)
 
 $(document).ready(function ()
 {
+    var data1=$("#data").val();
+    var data = data1.split(',');
+    var imageurl="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=";
+    //var imagen=$("#imagen").val();
+    //imageurl
+    $("#posttext").val(data[0]);
+    $("#link_title").val(data[1]);
+    $("#link_description").val(data[2]);
+    $("#Linkurl").val(data[3]);
+    $("#facebookpreviewimage").val(data[4]);
+    $("#facebookpreviewimage").attr('src', data[4]);
+    if(data[4]==="")
+    {
+        $("#facebookimage").hide();
+        $("#fbChangeImage").show();
+    }
+    else
+    {
+        $("#facebookimage").show();
+        $("#fbChangeImage").hide();
+    }
+    
+    $("#twittertext").val(data[5]);
+    $("#twitterpreviewimage").val(data[6]);
+    $("#twitterimage").val("1");
+    if(data[6]==="")
+    {
+        $("#twitterimage").hide();
+        $("#twChangeImage").show();
+    }
+    else
+    {
+        $("#twitterimage").show();
+        $("#twChangeImage").hide();
+    }
+    $("#twitterpreviewimage").attr('src', data[6]);
+    
     $("#gotoimageeditor").click(function(){
+        var data=[];
+        var fbposttext=$("#posttext").val();
+        var fblink_title=$("#link_title").val();
+        var fblink_description=$("#link_description").val();
+        var fbLinkurl=$("#Linkurl").val();
+        var facebookpreviewimage=$("#facebookpreviewimage").val();
+        var twittertext=$("#twittertext").val();
+        var twitterpreviewimage=$("#twitterpreviewimage").val();
+        data.push(fbposttext);
+        data.push(fblink_title);
+        data.push(fblink_description);
+        data.push(fbLinkurl);
+        data.push(facebookpreviewimage);
+        data.push(twittertext);
+        data.push(twitterpreviewimage);        
         
         var selectedtype=$("#selectedtype").val();
         var id=$("#selectedid").val();
         var social=$("#social").val();
         var isFacebook=$("#isFacebook").val();
         var isTwitter=$("#isTwitter").val();
-        window.open('socialeditor.jsp?id='+id+'&isFacebook='+isFacebook+'&isTwitter='+isTwitter+'&mediatype='+social+'&selectedtype='+selectedtype, "_self");
+        window.open('socialeditor.jsp?id='+id+'&isFacebook='+isFacebook+'&isTwitter='+isTwitter+'&mediatype='+social+'&selectedtype='+selectedtype+'&data='+data, "_self");
         
 //        $("#gotoimageeditor").css("background-color", "#5CC1A4");
 //        $("#uploadimage").css("background-color", "#E3E3E3");
