@@ -109,10 +109,11 @@
                                     DATE
                                 </div>
 
-                                <input type="text" readonly  name="datepickerfb" id="datepickerfb"  class="datepickertextbox" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        
+                                <input type="text" readonly  name="datepickerfb" id="datepickerfb"  class="datepickertextbox" value="{{entities_selected_time| date:'MMM dd yyyy'}}">                                        
                                 <script>
                                     var picker = new Pikaday(
                                     {
+                                        format: 'MMM DD YYYY',
                                         field: document.getElementById('datepickerfb'),
                                         firstDay: 1,
                                         minDate: new Date(1970, 0, 1),

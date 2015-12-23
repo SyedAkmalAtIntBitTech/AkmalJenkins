@@ -109,10 +109,11 @@
                                </div>
                                 <div ng-show="user_marketing_program_id == 0">
                                         <input type="hidden" class="textbox" id="emaildays" name="emaildays" value="0"/>
-                                        <input type="text"  readonly  name="emaildatetime" id="emaildatetime"  class="input-field-textfield width75" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}" />                                        
+                                        <input type="text"  readonly  name="emaildatetime" id="emaildatetime"  class="input-field-textfield width75" value="{{entities_selected_time| date:'MMM dd yyyy'}}" />                                        
                                         <script>
                                             var picker = new Pikaday(
                                             {
+                                                format: 'MMM DD YYYY',
                                                 field: document.getElementById('emaildatetime'),
                                                 firstDay: 1,
                                                 minDate: new Date(2000, 0, 1),
@@ -162,18 +163,22 @@
 
           <div class="Facebook-preview">
                                 <div class="Facebook-preview-header">
-                                    <div class="Facebook-preview-profpic"><img id="fb_preview_profpic" src="http://www.woomee.net/img/profile-blank.png"/></div>
+                                    <div class="Facebook-preview-profpic"><img id="fb_preview_profpic" src="https://cdn3.iconfinder.com/data/icons/rcons-mail-action/512/user_mail-512.png"/></div>
                                     <div class="Facebook-preview-name-container">
                                         <div class="Facebook-preview-name">{{entitiesdetails.subject}}</div>
                                     </div>
                                 </div>
-                                <div class="Facebook-preview-usercontent">Demo content goes right here</div>
+                                <div class="Facebook-preview-usercontent"></div>
                                 <div class="Facebook-link-container">
-                                    <div class="Facebook-preview-image"> <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/></div>
+                                    <div class="Facebook-preview-image">
+<!--                                        <div class="content">
+                                         <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                        </div>-->
+                                    </div>
                                     <div class="Facebook-preview-link-container">
                                         <div class="Facebook-preview-link-title">To Email List : {{entitiesdetails.email_list_name}}</div>
-                                        <div class="Facebook-preview-link-description">FROM NAME : {{entitiesdetails.from_name}}</div>
-                                        <div class="Facebook-preview-link-url">FROM ADDRESS : {{entitiesdetails.from_address}}</div>
+                                        <div class="Facebook-preview-link-description">From Name : {{entitiesdetails.from_name}}</div>
+                                        <div class="Facebook-preview-link-url">From Address : {{entitiesdetails.from_address}}</div>
                                     </div>
                                 </div>
                             </div>

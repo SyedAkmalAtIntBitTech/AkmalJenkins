@@ -112,10 +112,11 @@
                                </div>
                                 <div ng-show="user_marketing_program_id == 0">
                                         <input type="hidden" class="textbox" id="twdays" name="twdays" value="0"/>
-                                        <input type="text"  name="datepickertwitter" id="datepickertwitter"  class="input-field-textfield width75" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}" readonly/>                                        
+                                        <input type="text"  name="datepickertwitter" id="datepickertwitter"  class="input-field-textfield width75" value="{{entities_selected_time| date:'MMM dd yyyy'}}" readonly/>                                        
                                         <script>
                                             var picker = new Pikaday(
                                             {
+                                                format: 'MMM DD YYYY',
                                                 field: document.getElementById('datepickertwitter'),
                                                 firstDay: 1,
                                                 minDate: new Date(2000, 0, 1),

@@ -45,14 +45,15 @@
                 </div>
             </div>
             <div class="page-subnav-bar-with-dropdown"> 
-<!--                <div class="subnav-dropdown pushright select-style" >
+                <div class="subnav-dropdown pushright select-style" >
+                    <img src="images/Icons/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"> </img>
                 <select class="hub-dropdown-text emlsocdrpdwn">
                   <option class="hub-dropdown-text" value="Email">Email</option>
                   <option class="hub-dropdown-text" value="Social">Social</option>
                 </select>
-                     <span >Email</span>
-                <img src="images/Icons/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"> </img>
-                </div>-->
+                     <!--<span >Email</span>-->
+                
+                </div>
                 <div class="top-subnav-tabs-container">
                    <ul class="top-subnav-nav-elements">
                         <li class="top-subnav-links"> <a href="" class="h3">Email Drafts</a></li>

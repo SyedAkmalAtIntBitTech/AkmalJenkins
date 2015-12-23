@@ -1116,9 +1116,11 @@ function controllerMarketingCampaign($scope, $http) {
 //                    $("#emailred").show();
                 }
                 var date = new Date(schedule_time);
-//                $(".content").empty();
-//                $(".content").append(data.body);
-//                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
+//                $(".emailcontent").empty();
+//                $(".emailcontent").append(data.body);
+//                $(".emailcontent").html(data.body);
+//                $(".emailcontent").css("width","100%").css("left","0px").css("top","-14px").css("position","relative");
+//                $(".emailcontent").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "0px");
                 
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;

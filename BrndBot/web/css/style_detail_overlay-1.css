@@ -193,9 +193,11 @@ a.svg:after {
 .dropdown-icon{
     width:16px;
     height: 16px;
-    margin-left: 15px;
-    margin-top: 12px
-    
+/*    margin-left: 15px;
+    margin-top: 12px*/
+   top: 71px;
+    position: fixed;
+    left: 165px;
 }
 
 .calendar-dropdown-text{
@@ -1967,18 +1969,18 @@ width: 10%;
     height: 64px !important;
 }
 .select-style {
-    padding: 0;
+    padding-top: 0px;
     margin: 0;
     border: 0px solid #ccc;
     width: 120px;
     border-radius: 0px;
     overflow: hidden;
     background-color: #0F76A6;
-
-    background:#0F76A6 url("http://cdn.flaticon.com/svg/32/32195.svg") no-repeat 90% 50%;
+    
+    /*background:#0F76A6 url("http://cdn.flaticon.com/svg/32/32195.svg") no-repeat 90% 50%;*/
 }
 .emlsocdrpdwn {
-    padding: 5px 8px;
+    padding: 10px 0px;
     width: 130%;
     border: none;
     box-shadow: none;
