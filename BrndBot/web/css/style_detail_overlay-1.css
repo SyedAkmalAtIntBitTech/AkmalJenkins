@@ -770,7 +770,16 @@ padding-top: 0px;
     background-color: #FFFFFF;
     
 }
-
+.twitter-post-preview{
+     width:494px;
+    height:340px !important;
+    margin: auto;
+    padding:12px 12px 0px 12px;
+    float: none;
+    border: 1px solid rgb(223, 224, 228);
+    border-radius: 3px;
+    background-color: #FFFFFF;
+}
 .Facebook-preview-header{
     width:470px;
     height:40px;

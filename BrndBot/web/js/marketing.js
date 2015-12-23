@@ -1284,7 +1284,6 @@ function controllerMarketingCampaign($scope, $http) {
 //                    $('#isFacebook').val("false");
 //                    $('#isTwitter').val("true");
                 }
-
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
