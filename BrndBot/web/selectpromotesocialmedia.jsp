@@ -359,6 +359,9 @@
                             <input type="hidden" id="fbdefaultAccessToken" name="fbdefaultAccessToken">
                             <input type="hidden" id="isFacebook" name="isFacebook" value="false">
                             <input type="hidden" id="isTwitter" name="isTwitter" value="false">
+                            <input type="hidden" id="image" name="image" value="">
+                            <input type="hidden" id="selectedType" name="selectedType" value="">
+                            <input type="hidden" id="mediaType" name="mediaType" value="">
                             <input type="submit" id="submitbutton" class="button button--moema button--text-thick button--text-upper button--size-s" value="Continue" disabled>
                         </form> 
                     </div>

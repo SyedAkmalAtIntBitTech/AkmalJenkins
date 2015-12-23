@@ -298,6 +298,10 @@ ul::-webkit-scrollbar-thumb {
             String logoImageName=null;
             String media_type = "";
             String socialtype="";
+            String isFacebook="";
+            String isTwitter="";
+            String selectedType="";
+            String mediaType="";
         %> 
         <%
             try {
@@ -314,6 +318,10 @@ ul::-webkit-scrollbar-thumb {
                 if (!request.getParameter("selectedtype").equals("null")){
                     socialtype = (String) request.getParameter("selectedtype");
                 }
+                isTwitter = (String) request.getParameter("isTwitter");
+                isFacebook = (String) request.getParameter("isFacebook");
+                selectedType = (String) request.getParameter("selectedtype");
+                mediaType = (String) request.getParameter("mediatype");
                 
 //                String msg = request.getParameter("msg");
 //              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
@@ -800,8 +808,12 @@ var mindbodydataId = $("#mindbodydata").val();
         <jsp:include page="basejsp.jsp" />
     </head>
     <body ng-app="myapp">
-        <input type="hidden" id='userlogo' value=<%= logoImageName%>>
-        <input type="hidden" id='userid' value=<%= user_id%>>
+        <input type="hidden" id='userlogo' value='<%= logoImageName%>'/>
+        <input type="hidden" id='userid' value='<%= user_id%>'/>
+        <input type="hidden" id='isTwitter' value='<%=isTwitter%>'/>
+        <input type="hidden" id='isFacebook' value='<%=isFacebook%>'/>
+        <input type="hidden" id='selectedType' value='<%=selectedType%>'/>
+        <input type="hidden" id='mediaType' value='<%=mediaType%>'/>
         <script src="js/socialeditor.js" type="text/javascript"></script>
         <div ng-controller="MyController" class="container" id="container"> 
             <div class="row">
@@ -1194,6 +1206,11 @@ var mindbodydataId = $("#mindbodydata").val();
 //                            $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
         var PreviewWidth=$(".preview").css("width");
         var PreviewhHeight=$(".preview").css("height");
+        var isTwitter=$("#isTwitter").val();
+        var isFacebook=$("#isFacebook").val();
+        var selectedType=$("#selectedType").val();
+        var mediaType=$("#mediaType").val();
+        
 //                            alert($(".preview").children());
             $.ajax({
                type: "POST",
@@ -1208,7 +1225,7 @@ var mindbodydataId = $("#mindbodydata").val();
                        $('#loadingGif').remove();
                        var image=responseText;
 //                                          alert(image);
-                       document.location.href = "socialimageselection.jsp?image="+image;
+                       document.location.href = "socialimageselection.jsp?image="+image+"&isTwitter="+isTwitter+"&isFacebook="+isFacebook+"&mediaType="+mediaType+"&selectedType="+selectedType;
                                         $('#mask').hide();
                                     $('.window').hide();
                }

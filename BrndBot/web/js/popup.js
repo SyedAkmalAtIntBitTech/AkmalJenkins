@@ -43,7 +43,9 @@ $(document).ready(function ()
         var selectedtype=$("#selectedtype").val();
         var id=$("#selectedid").val();
         var social=$("#social").val();
-        window.open('socialeditor.jsp?id='+id+'&mediatype='+social+'&selectedtype='+selectedtype, "_self");
+        var isFacebook=$("#isFacebook").val();
+        var isTwitter=$("#isTwitter").val();
+        window.open('socialeditor.jsp?id='+id+'&isFacebook='+isFacebook+'&isTwitter='+isTwitter+'&mediatype='+social+'&selectedtype='+selectedtype, "_self");
         
 //        $("#gotoimageeditor").css("background-color", "#5CC1A4");
 //        $("#uploadimage").css("background-color", "#E3E3E3");
