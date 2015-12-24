@@ -169,14 +169,25 @@ function validateEmail(sEmail) {
 
 function validateaction() {
     var title = $("#addactiontitle").val();
-    var days=$("#day").val();
+    var days=$("#days").val();
     var actiontype = $("#actiontype").val();
     var description = $("#description").val();
     var actiondate = $("#datepicker").val();
     var actiontime = $("#timepicker1").val();
     var marketing_program = $("#marketing_program").val();
-    
-     if (title === "") {
+    var programActionDate = $("#programdate").val();
+    var one_day=1000*60*60*24;
+
+    var programDate = new Date(programActionDate);
+    var date1 = programDate.getTime();
+
+    var curr_date = moment(programDate).format('YYYY-MM-DD');
+    var current_date = new Date();
+    var date2 = current_date.getTime();
+    var difference_ms = date1 - date2;
+
+    var diff = Math.round(difference_ms/one_day);
+    if (title === "") {
         alert("title not entered, please enter the title");
         $("#addactiontitle").focus();
         return false;
@@ -199,17 +210,20 @@ function validateaction() {
         return false;
     }
     if (days === "") {
-        alert("Days not entered, please enter days");
+        alert("Days not entered, please enter the days");
         $("#days").focus();
         return false;
+    }else {
+        if (parseInt(days) > parseInt(diff)){
+            alert("Entered days exceed the difference date, please enter the proper days");
+            $("#days").focus();
+            return false;
+        }
     }
     if (actiondate === "") {
-        //alert("date not selected, please select the date");
-        //$("#datepicker").focus();
-        //return false;
     }
     if (actiontime === "") {
-        alert("time not selected, please selecet the time");
+        alert("time not selected, please select the time");
         $("#timepicker1").focus();
         return false;
     }
@@ -305,8 +319,8 @@ function validatetwitteraction() {
     var title = $("#edit_twitter_title").val();
 
     var description = $("#twitter_description").val();
-        var actiondate = $("#datepickertwitter").val();
-        var actionDateTime=$("#timepickertw").val().replace(/ /g,'');
+    var actiondate = $("#datepickertwitter").val();
+    var actionDateTime=$("#timepickertw").val().replace(/ /g,'');
 
     if (title === "") {
         alert("title not entered, please enter the title");
@@ -372,9 +386,7 @@ function setSelectedIds(selectedid) {
         var selected_schedule_id = $("#" + selectedid).val();
         selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
         console.log(selected_schedules_to_delete);
-    }
-    else
-    if(!checked && d==0){
+    }else if(!checked && d==0){
         var selected_schedule_id = $("#" + selectedid).val();
         selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
         console.log(selected_schedules_to_delete);
@@ -423,7 +435,7 @@ function setTodaysDate() {
 }
 
 function programactions($scope, $http, $window){
-             $scope.master_facebook = getfacebook();
+            $scope.master_facebook = getfacebook();
             $scope.master_twitter = gettwitter();
             $scope.master_email = getemail();
             $scope.master_note = getnote();               
@@ -1217,6 +1229,7 @@ function programactions($scope, $http, $window){
         var description = $("#description").val();
         var actiondate = "1970/01/01";
         var days=$("#days").val();  
+        
         var actionDateTime=$("#timepicker1").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var myDate = new Date(l); // Your timezone!
@@ -1225,7 +1238,7 @@ function programactions($scope, $http, $window){
         console.log("Epoch: " + schedule_time);
         
         var myEpoch = schedule_time;
-
+        
         console.log("New Epoch: " + myEpoch);
 
         if (validateaction()) {

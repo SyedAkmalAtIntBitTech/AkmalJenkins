@@ -903,7 +903,7 @@
                 $(".iphoneshow").css("background-image", imageUrl)
                         .css("display", 'block').css("height", "370px").css("width", "415px").css("margin-left", "150px").css("margin-top", "-80px")
                         .css("border-color", "transparent").css("background-color","#FFF");
-                 $('#dynamictable').css("width","358px").css("height","573px").css("top","-241px").css("left","-108px").css("-webkit-transform","scale(0.4999)");
+                 $('#dynamictable').css("width","640px").css("height","1024px").css("top","-465px").css("left","-249px").css("-webkit-transform","scale(0.278)");
             }
             
         }

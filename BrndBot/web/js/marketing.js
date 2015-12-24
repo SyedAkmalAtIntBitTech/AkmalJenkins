@@ -250,19 +250,30 @@ function validateaction() {
         alert("date not selected, please select the date");
         return false;
     }else {
-        alert("date not selected, please select the date");
-        var current_date = new Date();
-        var current_date = Date.parse(current_date);
 
+        var current_date = new Date();
+
+        var format_curr_date = moment(current_date.date).format('YYYY-MM-DD');
+
+        console.log(format_curr_date);
+        var current_date = Date.parse(format_curr_date.toString());
         console.log(current_date);
-        var selected_date = Date.parse(actiondate);
+        console.log(actiondate);
+        var selected_date = new Date(actiondate);
         console.log(selected_date);
-        if (selected_date < current_date){
+        var format_selected_date = moment(selected_date).format('YYYY-MM-DD');
+        console.log(format_selected_date);
+        var epoch_selected_date = Date.parse(format_selected_date.toString());
+
+        console.log(epoch_selected_date);
+        if (parseInt(epoch_selected_date) < parseInt(current_date)){
             alert("improper date selected, please select the proper date");
             $("#datepicker").focus();
             return false;
         }
+        
     }
+
     if (actiontime === "") {
         alert("time not selected, please selecet the time");
         $("#timepicker1").focus();
@@ -381,8 +392,8 @@ function validatetwitteraction() {
     var title = $("#edit_twitter_title").val();
     var days=$("#twdays").val();
     var description = $("#twitter_description").val();
-        var actiondate = $("#datepickertwitter").val();
-        var actionDateTime=$("#timepickertwitter").val().replace(/ /g,'');
+    var actiondate = $("#datepickertwitter").val();
+    var actionDateTime=$("#timepickertwitter").val().replace(/ /g,'');
 
     if (title === "") {
         alert("title not entered, please enter the title");
@@ -1174,33 +1185,32 @@ function controllerMarketingCampaign($scope, $http) {
         var schedule_time = Date.parse(l);
         console.log("Epoch: " + schedule_time);
         
-
         var myEpoch = schedule_time;
 
         console.log("New Epoch: " + myEpoch);
         if (validateaction()) {
-//            var action = {"title": title, "actiontype": actiontype, "marketingType":marketingProgramType, "type": "save",
-//                "description": description, "action_date": myEpoch, "days":days
-//            };
-//            $http({
-//                method: 'POST',
-//                url: getHost() + 'AddAction',
-//                headers: {'Content-Type': 'application/json'},
-//                data: JSON.stringify(action)
-//            }).success(function (data)
-//            {
-//                $scope.status = data;
-//                if (data != "") {
-//                    alert("action saved successfully");
-//                    window.open(getHost() + 'marketing.jsp', "_self");
-//
-//                }
-//            }).error(function (data, status) {
-//                // called asynchronously if an error occurs
-//                // or server returns response with an error status.
-//
-//                alert("request not succesful");
-//            });
+            var action = {"title": title, "actiontype": actiontype, "marketingType":marketingProgramType, "type": "save",
+                "description": description, "action_date": myEpoch, "days":days
+            };
+            $http({
+                method: 'POST',
+                url: getHost() + 'AddAction',
+                headers: {'Content-Type': 'application/json'},
+                data: JSON.stringify(action)
+            }).success(function (data)
+            {
+                $scope.status = data;
+                if (data != "") {
+                    alert("action saved successfully");
+                    window.open(getHost() + 'marketing.jsp', "_self");
+
+                }
+            }).error(function (data, status) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+
+                alert("request not succesful");
+            });
 
         }
     };

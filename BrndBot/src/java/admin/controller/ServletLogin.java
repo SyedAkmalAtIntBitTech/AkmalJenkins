@@ -69,11 +69,11 @@ public class ServletLogin extends BrndBotBaseHttpServlet {
             logger.log(Level.INFO, "text");
             if (User_id.equals("intbit") && password.equals("password")){
                  getSqlMethodsInstance().admin_session.setAttribute("AdminChecked", "true");
-                 getSqlMethodsInstance().admin_session.setMaxInactiveInterval(2 * 60 * 60);
-                out.write("true");
+                 getSqlMethodsInstance().admin_session.setMaxInactiveInterval(1 * 15 * 60);
+                 out.write("true");
             }else {
                  getSqlMethodsInstance().admin_session.setAttribute("AdminChecked", "false");
-                out.write("false");
+                 out.write("false");
             }
 
             response.setContentType("text/html");

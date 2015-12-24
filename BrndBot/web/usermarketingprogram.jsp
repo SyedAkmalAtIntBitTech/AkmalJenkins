@@ -209,8 +209,6 @@
                         return false;
                     }
                     
-                    
-                   
                     console.log("Epoch: " + schedule_time);
 
                     var myEpoch = schedule_time;
@@ -227,7 +225,6 @@
                                            "marketing_category_id":marketing_category_id,
                                            "marketing_program_id":marketing_program_id
                                           };
-                    alert(getHost());
                     $http({
                         method: 'POST',
                         url: getHost() + 'setMarketingProgram.do',

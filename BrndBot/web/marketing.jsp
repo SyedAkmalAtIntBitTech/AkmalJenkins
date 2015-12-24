@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html >
+<html>
     <head>
         <link rel="stylesheet" href="css/pikaday.css">
         <link rel="stylesheet" href="css/datepickerpikaday.css">
@@ -1105,8 +1105,8 @@
                                                     <div class="topsix">
                                                         <input type="text" class="textbox"  id="fbdays" name="fbdays" value="{{days}}"/>
                                                     </div>
-                                                </div>
-                                                <div ng-show="user_marketing_program_id == 0">
+                                            </div>
+                                            <div ng-show="user_marketing_program_id == 0">
                                                     <div class="top8">
                                                         <input type="text" readonly  name="datepickerfb" id="datepickerfb"  class="inputdate MH1 ptr" value="{{entities_selected_time| date:'EEE MMM dd yyyy'}}">                                        
                                                         <script>
@@ -1121,7 +1121,7 @@
 
                                                         </script>
                                                     </div>
-                                                </div>
+                                            </div>
                                         </div>
                                         <div class="half">
                                             <div class=" containe fontpnr tenpix topten">

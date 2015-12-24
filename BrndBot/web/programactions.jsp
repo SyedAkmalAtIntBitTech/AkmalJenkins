@@ -22,6 +22,7 @@
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="css/pikaday.css">
         <link rel="stylesheet" href="css/datepickerpikaday.css">
+        <script src="http://momentjs.com/downloads/moment.min.js"></script>
         <script src="js/pikaday.js"></script>
         <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js" type="text/javascript"></script>
@@ -135,14 +136,15 @@
                             <div id="dateofevntprv" class="evntdt fontpns">{{programs.programdetails.dateOfEvent| date:'MMM dd yyyy'}}</div>
                             <div id="dateofevntedt" class="evntdt fontpns"><input type="text" readonly name="datepicker" id="progactdatepicker"  class="progactinputdate fontpns ptr" />                                        
                                 <script>
-                                            var picker = new Pikaday(
-                                            {
-                                            field: document.getElementById('progactdatepicker'),
-                                                    firstDay: 1,
-                                                    minDate: new Date(2000, 0, 1),
-                                                    maxDate: new Date(2050, 12, 31),
-                                                    yearRange: [2000, 2050]
-                                            });                                </script>
+                                    var picker = new Pikaday(
+                                    {
+                                    field: document.getElementById('progactdatepicker'),
+                                            firstDay: 1,
+                                            minDate: new Date(2000, 0, 1),
+                                            maxDate: new Date(2050, 12, 31),
+                                            yearRange: [2000, 2050]
+                                    });
+                                </script>
                             </div>
                         </div>
                         <div id="associated_name" class="col-lg-3 col-md-3 col-sm-4" > 
@@ -346,7 +348,9 @@
                                 </select>
                             </div>
                             <div class="top18 fontpns tenpix headcolor">DESCRIPTION</div>
-                            <div class="topten"><textarea class="addactiondesc fontpnr" name="description" id="description" placeholder="Description here"></textarea></div>
+                            <div class="topten">
+                                <textarea class="addactiondesc fontpnr" name="description" id="description" placeholder="Description here"></textarea>
+                            </div>
                             <!--                    <div class="toptweenty fontpns tenpix headcolor">STATUS</div>
                                                 <div class="inlineFlex">
                                                     <div class="rightfive top11">
@@ -361,6 +365,7 @@
                                         Days
                                     </div>
                                     <div class="topsix">
+                                        <input type="hidden" name="programdate" id="programdate" value="{{programs.programdetails.dateOfEvent| date:'yyyy-MM-dd HH:mm:ss Z'}}" placeholder="Enter days" class="inputday fontpns ptr" />
                                         <input type="text" name="days" id="days" value=" " placeholder="Enter days"  class="inputday fontpns ptr" />   
                                     </div>
                                 </div>
