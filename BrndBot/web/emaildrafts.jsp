@@ -106,77 +106,76 @@
                 alert("Some Error occured! Try after some time.");
             });
         }
-       }   
-        else
-        {
+       }else{
             alert("No Drafts Selected!");
-        }
+       }
     };
             
-              $scope.unseldrafts = function (id) {
-                
-                var myarray = selected_draft.split(',');
-                for(var i = 0; i < myarray.length; i++)
-                {
-                     content='<input type="checkbox" id="'+'draftId'+myarray[i]+'" checked="false" hidden="">';
-//                   alert(id);
-                     var htm=$("#"+myarray[i]).html();
-                     if(htm.contains('class="check-icon"')){
-                         count-=1;
-                         $("#"+myarray[i]).html(content);
-                     }
-                     myarray[i] = myarray[i].replace(id + ",", "");
-                     $("#"+myarray[i]).removeClass('selection-icon-selected');
-                     $("#"+myarray[i]).addClass('selection-icon');
-                     $("#drftEmailDelete").hide();
-                       selected_draft="";
-                }
-               }
-            
-            $scope.getAllDrafts = function(){
-              
-                $http({
-                    method : 'GET',
-                    url : getHost() + 'displayAllEmailDrafts.do'
-                }).success(function(data, status) {
-                    if (data == ""){
-                        $scope.emaildraftsstatus = "No email drafts present";
-                    }else {
-                        $scope.emaildrafts = data.emaildrafts;
-                    }
-                    
-                }).error(function(data, status) {
-                    alert("No data available! Problem fetching the data.");
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-                });
-            };
+        $scope.unseldrafts = function (id) {
 
-            $scope.editDrafts = function(draft_id, category_id,email_subject, sub_category_id, sub_category_name){
-                
-                var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id, 
-                            "sub_category_id": sub_category_id, 
-                            "sub_category_name": sub_category_name};
-                
-                $http({
-                    method : 'POST',
-                    url : getHost() + 'saveEmailDraftSessionValues.do',
-                    headers: {'Content-Type':'application/json'},
-                    data: JSON.stringify(draftdetails)
-                }).success(function(data, status) {
-                    if (data == "false"){
-                        alert("There was a problem while saving the draft! Please try again later.")
-                    }else {
-                        window.open(getHost() + 'emaileditor.jsp?id='+null+'&draftid='+draft_id, "_self");                    
-                    }
-                    
-                }).error(function(data, status) {
-                    alert("No data available! Problem fetching the data.");
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-                });
-            };
+          var myarray = selected_draft.split(',');
+          for(var i = 0; i < myarray.length; i++)
+          {
+               content='<input type="checkbox" id="'+'draftId'+myarray[i]+'" checked="false" hidden="">';
+//                   alert(id);
+               var htm=$("#"+myarray[i]).html();
+               if(htm.contains('class="check-icon"')){
+                   count-=1;
+                   $("#"+myarray[i]).html(content);
+               }
+               myarray[i] = myarray[i].replace(id + ",", "");
+               $("#"+myarray[i]).removeClass('selection-icon-selected');
+               $("#"+myarray[i]).addClass('selection-icon');
+               $("#drftEmailDelete").hide();
+                 selected_draft="";
+          }
+         };
+            
+        $scope.getAllDrafts = function(){
+
+            $http({
+                method : 'GET',
+                url : getHost() + 'displayAllEmailDrafts.do'
+            }).success(function(data, status) {
+                if (data.nodrafts == "yes"){
+                    $scope.emaildraftnumber = '0';
+                    $scope.emaildraftsstatus = "No email drafts present";
+                }else {
+                    $scope.emaildrafts = data.emaildrafts;
+                }
+
+            }).error(function(data, status) {
+                alert("No data available! Problem fetching the data.");
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+            });
         };
+
+        $scope.editDrafts = function(draft_id, category_id,email_subject, sub_category_id, sub_category_name){
+
+            var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id, 
+                        "sub_category_id": sub_category_id, 
+                        "sub_category_name": sub_category_name};
+
+            $http({
+                method : 'POST',
+                url : getHost() + 'saveEmailDraftSessionValues.do',
+                headers: {'Content-Type':'application/json'},
+                data: JSON.stringify(draftdetails)
+            }).success(function(data, status) {
+                if (data == "false"){
+                    alert("There was a problem while saving the draft! Please try again later.")
+                }else {
+                    window.open(getHost() + 'emaileditor.jsp?id='+null+'&draftid='+draft_id, "_self");                    
+                }
+
+            }).error(function(data, status) {
+                alert("No data available! Problem fetching the data.");
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+            });
+        };
+    };
     </script>
 </head>    
 
@@ -208,7 +207,7 @@
             </div>
         </div>
         <div class="page-subnav-bar-with-dropdown"> 
-              <div class="subnav-dropdown pushright">
+            <div class="subnav-dropdown pushright">
                  <span class="hub-dropdown-text">Email</span>
                   <object type="image/svg+xml" data="images/Icons/dropdownicon.svg" class="dropdown-icon" style="cursor:pointer;"> </object>
             </div>
@@ -232,9 +231,16 @@
                     <div class="page-content-title h2">Your Email Drafts</div>
                     <!--List Starts Here-->
                     <ul class="main-container fleft">
+                            <div class="col-7of10 slat-unit fleft">
+                                <div>
+                                    <div ng-show="emaildraftnumber == '0'">{{emaildraftsstatus}}</div>
+                                </div>
+                            </div>
                         <li class="slat-container fleft selfclear"  ng-repeat="drafts in emaildrafts">
                             <div class="selection-container col-5p" id="deleteids"> 
-                                <div class="selection-icon" id="{{drafts.id}}" onclick="selcheckbox(this.id)"><input type="checkbox" id="{{drafts.id}}" value="{{drafts.id}}" name="draftname" style="display:none;"></input></div>    
+                                <div class="selection-icon" id="{{drafts.id}}" onclick="selcheckbox(this.id)">
+                                    <input type="checkbox" id="{{drafts.id}}" value="{{drafts.id}}" name="draftname" style="display:none;"></input>
+                                </div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div class="slat-title-container col-1of1 fleft">

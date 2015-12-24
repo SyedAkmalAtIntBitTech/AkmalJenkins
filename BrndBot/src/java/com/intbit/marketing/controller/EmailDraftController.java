@@ -162,6 +162,7 @@ public class EmailDraftController {
                 json_array_email_draft.add(json_email_draft);
             }
             json_object_email_draft.put("emaildrafts", json_array_email_draft);
+            json_object_email_draft.put("nodrafts", "yes");
             System.out.println(json_object_email_draft);
             return json_object_email_draft.toString();
         } catch (Exception e) {
@@ -241,8 +242,6 @@ public class EmailDraftController {
     public @ResponseBody
     String deleteEmailDraft(@RequestParam("draftid") Integer draftid) throws IOException, Throwable {
         try {
-            
-           
             emaildraftservice.delete(draftid);
             return "true";
         } catch (Exception e) {
