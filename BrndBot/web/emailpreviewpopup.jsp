@@ -9,11 +9,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="telephone=no"></meta>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay.css">
-    <link rel="stylesheet" type="text/css" href="css/normalize.css">
-    <link rel="shortcut icon" href="favicon.png">
+    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
+    <link rel="shortcut icon" href="favicon.png"></link>
     <script src="js/popup.js"></script>
 </head>    
 
@@ -152,41 +152,47 @@
         <div id="emailpostsection">
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="saved-post-header-detail">
-                    <div class="h4">Saved Email Post</div>
-                    <div class="instruction-text">Saved post.</div>
-                </div>
-                    <div class="inner-content-detail">
-                        <div class="saved-post-preview-detail">
+                <div class="saved-post-preview-detail" id="noemailsdiv">
 
-                            <!--SAVED Email GOES HERE-->
+                                <!--SAVED Email GOES HERE-->
 
-          <div class="Facebook-preview">
-                                <div class="Facebook-preview-header">
-                                    <div class="Facebook-preview-profpic"><img id="fb_preview_profpic" src="https://cdn3.iconfinder.com/data/icons/rcons-mail-action/512/user_mail-512.png"/></div>
-                                    <div class="Facebook-preview-name-container">
-                                        <div class="Facebook-preview-name">{{entitiesdetails.subject}}</div>
+                                <div class="overlay-emptystate-icon">
+                                    <img type="image/svg+xml" src="images/Icons/Overlay_EmptyStates_Email-Empty-State.svg" class="overlay-emptystate-icon"/>
+                                </div>
+                                <div class="empty-state-container">
+                                    <div class="h2 textCenter textColor-Gray">
+                                        No emails saved to this action.
+                                    </div>
+                                    <div class="md-button empty-state-cta">
+                                        Go to Dashboard
                                     </div>
                                 </div>
-                                <div class="Facebook-preview-usercontent"></div>
-                                <div class="Facebook-link-container">
-                                    <div class="Facebook-preview-image">
-<!--                                        <div class="content">
-                                         <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
-                                        </div>-->
+
+
+
+
+                            </div>
+                            <div class="below-nav-container-saved-post-detail" id="savedemailsdiv">
+                                <div class="inner-content-container-detail fleft">
+                                    <div class="saved-post-header-detail">
+
+                                        <div class="h4">Saved Email</div>
+
+                                        <div class="instruction-text">Subject Line: {{entitiesdetails.subject}}</div>
+                                        <div class="instruction-text">To: {{entitiesdetails.email_list_name}}</div>
+                                        <div class="instruction-text">From Name: {{entitiesdetails.from_name}}</div>
+                                        <div class="instruction-text">Reply to Address: {{entitiesdetails.reply_to_email_address}}</div>
+
                                     </div>
-                                    <div class="Facebook-preview-link-container">
-                                        <div class="Facebook-preview-link-title">To Email List : {{entitiesdetails.email_list_name}}</div>
-                                        <div class="Facebook-preview-link-description">From Name : {{entitiesdetails.from_name}}</div>
-                                        <div class="Facebook-preview-link-url">From Address : {{entitiesdetails.from_address}}</div>
+                                    <div class="inner-content-detail">
+                                        <div class="saved-email-preview-detail emailcontent">
+                                            <iframe id="emailcontentiframe" class="emailcontentiframetag"></iframe>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            
-                            
-                         
-                        </div>
-                    </div>
+<!--                        </div>
+                    </div>-->
                 </div>
             </div>
         </div>

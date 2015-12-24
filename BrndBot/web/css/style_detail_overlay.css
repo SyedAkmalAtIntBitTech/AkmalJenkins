@@ -26,7 +26,23 @@ a.svg:after {
   bottom: 0;
   left:0;
 }
-
+.overlay-emptystate-icon{
+    width: 250px;
+    height: 250px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top:20px;
+}
+.empty-state-container{
+    width:60%;
+    margin: auto;
+}
+.textCenter{
+    text-align: center;
+}
+.textColor-Gray{
+    color: #8F9699  ;
+}
 .detail-overlay-content{
     //width: 100%;
     //overflow-x: hidden;
@@ -724,7 +740,19 @@ input-field-container{
     
     
 }
-
+.empty-state-cta {
+    border-radius: 3px;
+    background-color: #64B6EE;
+    color: white;
+    text-align: center;
+    width: 180px;
+    margin-right: auto;
+    margin-left:auto;
+    margin-top: 30px;
+    
+    
+    
+}
 
 
 

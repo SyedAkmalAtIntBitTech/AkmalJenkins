@@ -1088,12 +1088,16 @@ function controllerMarketingCampaign($scope, $http) {
                 if (data.body == undefined) {
                     $("#mailtemplatesaved1").hide();
                     $("#mailnotemplate1").show();
-//                    $("#mailpreviewremove").hide();
+                    
+                    $("#noemailsdiv").show();
+                    $("#savedemailsdiv").hide();
 //                    $('#mailremovedtemplate').show();
 //                    $('#mailpreviewdecond').hide();
 //                    $('.approve').hide();
 //                    $("#email_button_send").val(create_button_title);
                 } else {
+                    $("#noemailsdiv").hide();
+                    $("#savedemailsdiv").show();
                      $("#mailtemplatesaved1").show();
                     $("#mailnotemplate1").hide();
 //                    $('.approve').show();
@@ -1116,11 +1120,7 @@ function controllerMarketingCampaign($scope, $http) {
 //                    $("#emailred").show();
                 }
                 var date = new Date(schedule_time);
-//                $(".emailcontent").empty();
-//                $(".emailcontent").append(data.body);
-//                $(".emailcontent").html(data.body);
-//                $(".emailcontent").css("width","100%").css("left","0px").css("top","-14px").css("position","relative");
-//                $(".emailcontent").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "0px");
+                $('#emailcontentiframe').contents().find('html').html(data.body); 
                 
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
