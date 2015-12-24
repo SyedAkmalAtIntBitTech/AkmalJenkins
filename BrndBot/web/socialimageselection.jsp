@@ -16,12 +16,18 @@
     <link rel="stylesheet" type="text/css" href="css/slat.css">
     <link rel="stylesheet" type="text/css" href="css/popup.css">
     <link rel="shortcut icon" href="favicon.png">
+    <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/popup.js" type="text/javascript"></script>
+    <script src="js/socialeditor.js" type="text/javascript"></script>
+    <script src="js/socialimageselection.js" type="text/javascript"></script>
+ 
+<script>
+        
+    </script>  
 </head>    
 <%@page import="com.controller.SqlMethods"%>
 <%@ include file="checksession.jsp" %>
-<%@ include file="selectimagetype.jsp" %>
 
 <%!
     SqlMethods sql_methods = new SqlMethods();
@@ -91,12 +97,16 @@
     }
 
 %>
-<body class="">
+<body ng-app>
+   <div ng-controller="controllerMarketingCampaign">
+    <%@ include file="selectimagetype.jsp"%>
     <!--SideNav-->
     <input type="hidden" id="isFacebook" value="<%=isFacebook%>"/>
     <input type="hidden" id="isTwitter" value="<%=isTwitter%>"/>
     <input type="hidden" id="imagen" value="<%=imageid%>"/>
     <input type="hidden" id="data" value="<%=data%>"/>
+    <input type="hidden" id="selectedimagename" value=""/>
+    <input type="hidden" id="selectedimageid" value=""/>
     <div class="content-main">
     <div class="navigation">
         <div class="main-nav-logo">
@@ -287,5 +297,7 @@
         </div>
          </div>
 </div>
+</div>
+  
     </body>
 </html>

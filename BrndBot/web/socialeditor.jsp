@@ -28,7 +28,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+        <link href="css/simple").cbutton.css" rel="stylesheet" type="text/css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
@@ -49,7 +49,7 @@ and open the template in the editor.
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagecropper.css" rel="stylesheet" type="text/css"/>
-        
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery.reveal.js" type="text/javascript"></script>
         <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagefilter.css" rel="stylesheet" type="text/css"/>
@@ -1206,7 +1206,7 @@ var mindbodydataId = $("#mindbodydata").val();
 
     $("#continue").click(function (){
         fadepopup();
-//                            $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
+//        $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
         var PreviewWidth=$(".preview").css("width");
         var PreviewhHeight=$(".preview").css("height");
         var isTwitter=$("#isTwitter").val();
@@ -1215,7 +1215,7 @@ var mindbodydataId = $("#mindbodydata").val();
         var mediaType=$("#mediaType").val();
         var data=$("#data").val();
         
-//                            alert($(".preview").children());
+//            alert($(".preview").children());
             $.ajax({
                type: "POST",
                url: "ConvertHtmlToImageServlet",                                   
@@ -1228,7 +1228,7 @@ var mindbodydataId = $("#mindbodydata").val();
                success: function (responseText) {
                        $('#loadingGif').remove();
                        var image=responseText;
-//                                          alert(image);
+//                       alert(image);
                        document.location.href = "socialimageselection.jsp?image="+image+"&isTwitter="+isTwitter+"&isFacebook="+isFacebook+"&mediaType="+mediaType+"&selectedType="+selectedType+"&data="+data;
                                         $('#mask').hide();
                                     $('.window').hide();

@@ -25,6 +25,7 @@ function fun(type, emailAddress, UUID, firstName, lastName)
     
     $("#fade").show();
     $("#addContact").show();
+    $("#imageGalleryDiv").hide();
     $("#emailId").val(emailAddress);
     $("#uuid").val(UUID);
     $("#firstName").val(firstName);
@@ -34,7 +35,19 @@ function fun(type, emailAddress, UUID, firstName, lastName)
     $("#selectedid").val(emailAddress);
     overlay();
 }
-
+function getImageId(idname)
+{
+    var res = idname.split("-");
+    var id=res[0];
+    var imagename=res[1];
+    $("#addimage").show();
+    $(".imageGallery-card").css("background-color", "#ffffff");
+    $(".imageGallery-card >div >div").css("color", "#5F6775");
+    $("#div"+id).css("background-color", "#5cc1a4");
+    $("#div"+id+" > div > div").css("color", "#ffffff");
+    $("#selectedimagename").val(imagename);
+    $("#selectedimageid").val(id);
+}
 
 $(document).ready(function ()
 {
@@ -75,6 +88,35 @@ $(document).ready(function ()
     }
     $("#twitterpreviewimage").attr('src', data[6]);
     
+    $("#addimage").click(function(){
+        var data=[];
+        var fbposttext=$("#posttext").val();
+        var fblink_title=$("#link_title").val();
+        var fblink_description=$("#link_description").val();
+        var fbLinkurl=$("#Linkurl").val();
+        var facebookpreviewimage=$("#facebookpreviewimage").val();
+        var twittertext=$("#twittertext").val();
+        var twitterpreviewimage=$("#twitterpreviewimage").val();
+        data.push(fbposttext);
+        data.push(fblink_title);
+        data.push(fblink_description);
+        data.push(fbLinkurl);
+        data.push(facebookpreviewimage);
+        data.push(twittertext);
+        data.push(twitterpreviewimage);        
+        
+        var selectedtype=$("#selectedtype").val();
+        var id=$("#selectedimagename").val();
+        var social=$("#social").val();
+        var isFacebook=$("#isFacebook").val();
+        var isTwitter=$("#isTwitter").val();
+        //document.location.href = "socialimageselection.jsp?image="+image+"&isTwitter="+isTwitter+"&isFacebook="+isFacebook+"&mediaType="+mediaType+"&selectedType="+selectedType+"&data="+data;
+        window.open('socialimageselection.jsp?image='+id+'&isFacebook='+isFacebook+'&isTwitter='+isTwitter+'&mediatype='+social+'&selectedtype='+selectedtype+'&data='+data, "_self");
+        
+//        $("#gotoimageeditor").css("background-color", "#5CC1A4");
+//        $("#uploadimage").css("background-color", "#E3E3E3");
+    });    
+    
     $("#gotoimageeditor").click(function(){
         var data=[];
         var fbposttext=$("#posttext").val();
@@ -102,24 +144,29 @@ $(document).ready(function ()
 //        $("#gotoimageeditor").css("background-color", "#5CC1A4");
 //        $("#uploadimage").css("background-color", "#E3E3E3");
     });
-    $("#uploadimage").click(function(){
-        var selectedtype=$("#selectedtype").val();
-        var id=$("#selectedid").val();
-        var social=$("#social").val();
-        window.open('http://www.google.com?id='+id+'&mediatype='+social+'&selectedtype='+selectedtype, "_self");
+//    $("#uploadimage").click(function(){
+//        alert("hi..");
+//        $("#imageGalleryDiv").show();  
+//        var selectedtype=$("#selectedtype").val();
+//        var id=$("#selectedid").val();
+//        var social=$("#social").val();
+//        window.open('http://www.google.com?id='+id+'&mediatype='+social+'&selectedtype='+selectedtype, "_self");
 //        $("#uploadimage").css("background-color", "#5CC1A4");
 //        $("#gotoimageeditor").css("background-color", "#E3E3E3");
 //
-    });
+//      });
     
   //////////////////////////////////////////// emaillist popup ////////////////////////////////////////
   $(".email").click(function(){
       alert();
   });
   $("#close").click(function(){
-      $("#addContact").hide();
+      $("#addContact").hide();     
       $("#fade").hide();
-      
+  });
+  $("#closeimagegallerydiv").click(function(){
+      $("#imageGalleryDiv").hide();      
+      $("#fade").hide();
   });
   
   /////////////////////////////////////////////////////////////////////////////////////////////////////

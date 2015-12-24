@@ -1511,8 +1511,6 @@ ul{
 .md-button {
     padding: 7px 16px 7px 16px;
     border-radius: 3px;
-    
-    
 }
 
 .details-button {
@@ -1975,4 +1973,27 @@ width:100%;
 }
 .imgsize{
     width:100%;
+}
+.galImage-name {
+    font-size: 14px;
+    color: #5F6775;
+    font-weight: 600;
+}
+.galImage-description {
+    font-size: 14px;
+    color: #5F6775;
+    font-weight: 400;
+    margin-top: 10px;
+}
+.imageGallery-container {
+    box-sizing: border-box;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 250px;
+    margin-top: 30px;
+}
+.add-button22 {
+    background-color: #0F76A6;
+    color: #ffffff;
+    cursor: pointer;
 }
