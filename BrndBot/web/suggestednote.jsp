@@ -151,7 +151,7 @@
                 var reply_email_address = $("#reply_email_address").val();
                 
                 if (from_address === "") {
-                    alert("from address not entered, please enter the from address");
+                    alert("From address not entered! Please enter the from address.");
                     $("#from_address").focus();
                     return false;
                 }
@@ -163,25 +163,25 @@
                 }
                 
                 if (!(validateEmail(from_address))) {
-                    alert('Invalid Email Address');
+                    alert('Invalid Email Address!');
                     $("#from_address").focus();
                     return false;
                 }
 
                 if (reply_email_address === "") {
-                    alert("reply email not entered, please enter the reply email address");
+                    alert("Reply email not entered! Please enter the reply email address.");
                     $("#reply_email_address").focus();
                     return false;
                 }
                 
                 if ($.trim(reply_email_address).length == 0) {
-                    alert('Please enter valid email address');
+                    alert('Please enter valid email address!');
                     $("#reply_email_address").focus();
                     return false;
                 }
                 
                 if (!(validateEmail(reply_email_address))) {
-                    alert('Invalid Email Address');
+                    alert('Invalid Email Address!');
                     $("#reply_email_address").focus();
                     return false;
                 }
@@ -206,9 +206,9 @@
                         {
                             $scope.status = data;
                             if (data === "false") {
-                                alert("user session has expired, kindly resubmit a request");
+                                alert("User session has expired! Kindly resubmit a request.");
                             } else if (data === "true") {
-                                alert("settings saved successfully");
+                                alert("Settings saved successfully.");
                                 $("#from_address").val("");
                                 $("#reply_email_address").val("");
                             } else if (data === error) {
@@ -218,7 +218,7 @@
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
 
-                            alert("request not succesful");
+                            alert("Request not successful!");
                         });
 
                     }

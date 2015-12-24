@@ -57,30 +57,30 @@ and open the template in the editor.
                                         if (data == "true") {
                                             window.open(getHost() + "uploadlogo.jsp", "_self");
                                         } else {
-                                            alert("Problem saving the data, please try after some time");
+                                            alert("Problem saving the data! Please try after some time.");
                                         }
                                     }).error(function (data, status) {
                                         // called asynchronously if an error occurs
                                         // or server returns response with an error status.
 
-                                        alert("Request not successful, please try after some time");
+                                        alert("Request not successful! Please try after some time.");
                                     });
                                 } 
                             }).error(function (data, status) {
                                 // called asynchronously if an error occurs
                                 // or server returns response with an error status.
 
-                                alert("Request not successful, please try after some time");
+                                alert("Request not successful! Please try after some time.");
                             });
         
                         } else {
-                            alert("Problem saving the data, please try after some time");
+                            alert("Problem saving the data! Please try after some time.");
                         }
                     }).error(function (data, status) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
 
-                        alert("Request not succesful, please try after some time");
+                        alert("Request not succesful! Please try after some time.");
                     });
                 };
 
@@ -110,11 +110,11 @@ and open the template in the editor.
                                     // called asynchronously if an error occurs
                                     // or server returns response with an error status.
 
-                            alert("request not succesful");
+                            alert("Request not successful!");
                         });
                         
                     }else {
-                        alert("site id not entered, please enter the site id");
+                        alert("Site id not entered! Please enter the site id.");
                         $("#inputstudio").focus();
                     }
 

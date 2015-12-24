@@ -37,7 +37,7 @@
                     showEmailListName(data.recuring_email_email_list_name);
                     days = data.recuring_email_days;
                 }).error(function(){
-                    alert("problem fetching the data");
+                    alert("Problem fetching the data!");
                 });
             }
         };
@@ -53,7 +53,7 @@
                 $scope.emailLists_user = data.user;
                 $scope.emailLists_mindbody = data.mindbody;
             }).error(function(){
-                alert("problem fetching the data");
+                alert("Problem fetching the data!");
             });
         };
         /*
@@ -68,7 +68,7 @@
                 }).success(function(data, status){
                     $scope.recuring_email_templates = data;
                 }).error(function(){
-                    alert("problem fetching the data");
+                    alert("Problem fetching the data!");
                 });
         };
         $scope.addUpdateRecuringAction = function(){
@@ -104,13 +104,13 @@
                         data: JSON.stringify(recuring_action)
                     }).success(function (data, status, headers, config) {
                         if (data === "true") {
-                            alert("details saved succesfully");
+                            alert("Details saved succesfully.");
                             window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
                         }else {
-                            alert("problem saving the record");
+                            alert("Problem saving the record!");
                         }
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                     });
 
                 }else if((type == 'template') && (entity_no_email_template == "true")){
@@ -133,15 +133,15 @@
                         data: JSON.stringify(recuring_action)
                     }).success(function (data, status, headers, config) {
                         if((data == "true") && (entity_no_email_template == "true")) {
-                            alert("details saved succesfully");
+                            alert("Details saved succesfully.");
                             $("#emailautomationcontent").hide();
                             entity_no_email_template = "false";
                             $("#emlautomeditorcontainer").show();
                         }else {
-                            alert("problem saving the record");
+                            alert("Problem saving the record!");
                         }
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                     });
                 }else if ((type == 'edit') && (entity_no_email_template == "true")){
                     var recuring_action = {
@@ -163,13 +163,13 @@
                         data: JSON.stringify(recuring_action)
                     }).success(function (data, status, headers, config) {
                         if ((data === "true")) {
-                            alert("details saved succesfully");
+                            alert("Details saved succesfully.");
                             window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
                         }else {
-                            alert("problem saving the record");
+                            alert("Problem saving the record!");
                         }
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                     });
                 }else if((type == 'edit')||(type == 'template')){
                     var recuring_action = {
@@ -192,14 +192,14 @@
                         data: JSON.stringify(recuring_action)
                     }).success(function (data, status, headers, config) {
                         if ((data === "true")) {
-                            alert("details saved succesfully");
+                            alert("Details saved succesfully.");
                             window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
                         }else {
-                            alert("problem saving the record");
+                            alert("Problem saving the record!");
                         }
                         
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                     });
                 }
             }
@@ -225,53 +225,53 @@
                 var till_date = $("#datepicker").val();
                 var schedule_time=$("#timepicker1").val().replace(/ /g,'');
                 if (recuring_email_title === ""){
-                    alert("Enter the title");
+                    alert("Enter the title.");
                     $("#recuring_email_title").focus();
                     return false;
                 }
                 if (recuring_email_description === ""){
-                    alert("Enter the description");
+                    alert("Enter the description.");
                     $("#recuring_email_description").focus();
                     return false;
                 }
                 if (days === "0") {
-                    alert("please select the day");
+                    alert("Please select the day!");
                     $("#days").focus();
                     return false;
                 }
                 if (emaillisttext === "") {
-                    alert("please select the email list text");
+                    alert("Please select the email list text!");
                     emaillisttext.focus();
                     return false;
                 }
                  if (schedule_time === ""){
-                    alert("select the time");
+                    alert("Select the time!");
                     $("#timepicker1").focus();
                     return false;
                 }
                  if (till_date === ""){
-                    alert("till date not selected,please select the date");
+                    alert("Till date not selected! Please select the date.");
                     $("#datepicker").focus();
                     return false;
                 }
                
                 if (emaillist === "0") {
-                    alert("please select the email list");
+                    alert("Please select the email list!");
                     $("#emaillist").focus();
                     return false;
                 }
                 if (subject === "") {
-                    alert("Enter the subject");
+                    alert("Enter the subject!");
                     $("#subject").focus();
                     return false;
                 }
                 if (from_name === ""){
-                    alert("Enter the from name");
+                    alert("Enter the from name!");
                     $("#from_name").focus();
                     return false;
                 }        
                 if((reply_to_address === "")||(!emlval.test(reply_to_address))){
-                    alert("Enter Valid reply-to-address ");
+                    alert("Enter Valid reply-to-address !");
                     $("#reply_to_address").focus();
                     return false;
                 }

@@ -38,7 +38,7 @@ angular.module("myapp", [])
                     alert(data);
                 }
             }).error(function (data, status, headers, config) {
-                alert("No data available, problem fetching the data");
+                alert("No data available! Problem fetching the data.");
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
@@ -47,7 +47,7 @@ angular.module("myapp", [])
             $scope.categories = data;
         }
     }).error(function (data, status, headers, config) {
-        alert("No data available, problem fetching the data");
+        alert("No data available! Problem fetching the data.");
         // called asynchronously if an error occurs
         // or server returns response with an error status.
     });
@@ -73,7 +73,7 @@ angular.module("myapp", [])
             // called asynchronously if an error occurs
             // or server returns response with an error status.
 
-            alert("request not succesful");
+            alert("Request not successful!");
         });
 
         if (CatID === 1) { 

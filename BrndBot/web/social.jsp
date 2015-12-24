@@ -287,7 +287,7 @@ and open the template in the editor.
                                 alert(data);
                             }
                         }).error(function (data, status, headers, config) {
-                            alert("No data available, problem fetching the data");
+                            alert("No data available! Problem fetching the data.");
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                         });
@@ -302,7 +302,7 @@ and open the template in the editor.
                         }).success(function (data, status, headers, config) {
                             $scope.getfacebookdetails();
                         }).error(function (data, status, headers, config) {
-                            alert("No data available, problem fetching the data");
+                            alert("No data available! Problem fetching the data.");
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                         });
@@ -324,7 +324,7 @@ and open the template in the editor.
                                 $("#twitterclear").hide();
                             }
                         }).error(function (data, status, headers, config) {
-                            alert("No data available, problem fetching the data");
+                            alert("No data available! Problem fetching the data.");
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                         });
@@ -339,7 +339,7 @@ and open the template in the editor.
                         }).success(function (data, status, headers, config) {
                             $scope.getTwitterDetails();
                         }).error(function (data, status, headers, config) {
-                            alert("No data available, problem fetching the data");
+                            alert("No data available! Problem fetching the data.");
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                         });

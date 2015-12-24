@@ -217,7 +217,7 @@ and open the template in the editor.
                             }
                              $('#loadingGif').remove();
                             }).error(function(data, status, headers, config) {
-                            alert("No data available, problem fetching the data");
+                            alert("No data available! Problem fetching the data.");
                                     // called asynchronously if an error occurs
                                     // or server returns response with an error status.
                             });

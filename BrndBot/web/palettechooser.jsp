@@ -107,7 +107,7 @@
                         alert(data);
                     }
                 }).error(function(data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                 });
@@ -127,7 +127,7 @@
                         alert(data);
                     }
             }).error(function(data, status, headers, config) {
-                    alert("No data available, problem fetching the data");
+                    alert("No data available! Problem fetching the data.");
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
             });
@@ -159,7 +159,7 @@
                 var color6 = $("#finalcolor6").val();
 
                 if (color1 == "rgba(0, 0, 0, 0)" || color2 == "rgba(0, 0, 0, 0)" || color3 == "rgba(0, 0, 0, 0)" || color4 == "rgba(0, 0, 0, 0)" || color5 == "" || color6 == "rgba(0, 0, 0, 0)"){
-                        alert("Please fill all six colors");
+                        alert("Please fill all six colors!");
                     }
                else{
 
@@ -180,7 +180,7 @@
                 .error(function(data, status) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                 });
             }
             }

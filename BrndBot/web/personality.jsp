@@ -49,7 +49,7 @@
                  function sendbrandID(){
                     var brandID = $("#hiddenform").val() ;
                     if(brandID == ""){
-                        alert("Please select a personality");
+                        alert("Please select a personality!");
                     }
                     else{
                     var path = global_host_address + 'SubbrandPersonality?brndID=' + brandID +'&type=insert';
@@ -73,7 +73,7 @@
                                         alert(data);
                                     }
                             }).error(function(data, status, headers, config) {
-                                    alert("No data available, problem fetching the data");
+                                    alert("No data available! Problem fetching the data.");
                                     // called asynchronously if an error occurs
                                     // or server returns response with an error status.
                             });

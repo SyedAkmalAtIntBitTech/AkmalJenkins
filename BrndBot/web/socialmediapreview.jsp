@@ -533,7 +533,7 @@ label:before {
                         $scope.urls = data;
                         console.log($scope.urls);
                     }).error(function (data) {
-                        alert("request not successful...1");
+                        alert("request not successful!");
                     });
                 
                 $scope.getSocialFacebookActions = function (program_id) {
@@ -545,7 +545,7 @@ label:before {
                         $scope.facebook_actions = data;
                         console.log($scope.facebook_actions);
                     }).error(function (data) {
-                        alert("request not successful");
+                        alert("Request not successful!");
                     });
                 };
 
@@ -557,7 +557,7 @@ label:before {
                     }).success(function (data) {
                         $scope.twitter_actions = data;
                     }).error(function (data) {
-                        alert("request not successful");
+                        alert("Request not successful!");
                     });
                 };
                 
@@ -569,7 +569,7 @@ label:before {
 //                        alert(JSON.stringify(data));
                         $scope.marketing_programs = data;
                     }).error(function (data){
-                        alert("request not successful");
+                        alert("Request not successful!");
                     });
                 };
                 
@@ -581,7 +581,7 @@ label:before {
                     }).success(function (data) {
                         $scope.social_actions = data;
                     }).error(function (data) {
-                        alert("request not successful");
+                        alert("Request not successful!");
                     });
                 };
 
@@ -1042,7 +1042,7 @@ label:before {
                                     success: function (responseText) {
                                         $('#mask').hide();
                                         $('.window').hide();
-                                        alert("Your post has been published successfully");
+                                        alert("Your post has been published successfully!");
 
                                         document.location.href = "dashboard.jsp";
                                     }
@@ -1050,7 +1050,7 @@ label:before {
                             }
 
                             else {
-                                alert("select atleast one");
+                                alert("Select atleast one!");
                             }
 
                         }
@@ -1075,13 +1075,13 @@ label:before {
                             {
                                 if(facebookac==="0")
                                 {
-                                    alert("Please Choose The Facebook Action");
+                                    alert("Please Choose The Facebook Action!");
                                     $("#facebookactions").focus();
                                     return false;
                                 }
                                 if(twitterac==="0")
                                 {
-                                    alert("Please Choose The Twitter Action");
+                                    alert("Please Choose The Twitter Action!");
                                     $("#twitteractions").focus();
                                     return false;
                                 }
@@ -1092,13 +1092,13 @@ label:before {
                                 {
                                     if(fb===1 && facebookac==="0")
                                     {
-                                        alert("Please Choose The Facebook Action");
+                                        alert("Please Choose The Facebook Action!");
                                         $("#facebookactions").focus();
                                         return false;
                                     }
                                     else if(tw===1 && twitterac==="0")
                                     {
-                                        alert("Please Choose The Twitter Action");
+                                        alert("Please Choose The Twitter Action!");
                                         $("#twitteractions").focus();
                                         return false;
                                     }
@@ -1109,25 +1109,25 @@ label:before {
                         {
                         if(schedule_title==="")
                         {
-                            alert("Please Enter Title");
+                            alert("Please Enter Title!");
                             $("#schedule_title").focus();
                             return false;
                         }
                         if(schedule_desc==="")
                         {
-                            alert("Please Enter Description");
+                            alert("Please Enter Description!");
                             $("#schedule_desc").focus();
                             return false;
                         }
                         if(schedule_date==="")
                         {
-                            alert("Please Choose Date");
+                            alert("Please Choose Date!");
                             $("#schedule_social_date").focus();
                             return false;
                         }
                         if(schedule_time==="")
                         {
-                            alert("Please Choose Time");
+                            alert("Please Choose Time!");
                             $("#schedule_social_time").focus();
                             return false;
                         }
@@ -1139,13 +1139,13 @@ label:before {
                         {
                             if(facebookac==="0")
                             {
-                                alert("Please Choose The Facebook Action");
+                                alert("Please Choose The Facebook Action!");
                                 $("#facebookactions").focus();
                                 return false;
                             }
                             if(twitterac==="0")
                             {
-                                alert("Please Choose The Twitter Action");
+                                alert("Please Choose The Twitter Action!");
                                 $("#twitteractions").focus();
                                 return false;
                             }
@@ -1156,13 +1156,13 @@ label:before {
                             {
                                 if(fb===1 && facebookac==="0")
                                 {
-                                    alert("Please Choose The Facebook Action");
+                                    alert("Please Choose The Facebook Action!");
                                     $("#facebookactions").focus();
                                     return false;
                                 }
                                 else if(tw===1 && twitterac==="0")
                                 {
-                                    alert("Please Choose The Twitter Action");
+                                    alert("Please Choose The Twitter Action!");
                                     $("#twitteractions").focus();
                                     return false;
                                 }
@@ -1326,7 +1326,7 @@ label:before {
                             success: function (responseText) {
 //                            $("#tokenHere").html(responseText);
 //                                alert(image_name);
-                                alert("Your post has been Scheduled Successfully");
+                                alert("Your post has been Scheduled Successfully.");
                                 document.location.href = "dashboard.jsp";
                             }
                         });
@@ -1416,7 +1416,7 @@ label:before {
                             success: function (responseText) {
 //                            $("#tokenHere").html(responseText);
 //                                alert(image_name);
-                                alert("Your post has been Scheduled Successfully");
+                                alert("Your post has been Scheduled Successfully.");
                                 document.location.href = "dashboard.jsp";
                             }
                         });

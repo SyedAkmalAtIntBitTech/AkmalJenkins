@@ -80,7 +80,7 @@
                 }
                 if (xmlHttp===null){
 
-                alert("Browser does not support XMLHTTP Request");
+                alert("Browser does not support XMLHTTP Request!");
 
                 return;
                 } 
@@ -111,7 +111,7 @@
                 }
                 if (xmlHttp===null){
 
-                alert("Browser does not support XMLHTTP Request");
+                alert("Browser does not support XMLHTTP Request!");
 
                 return;
                 } 

@@ -105,7 +105,7 @@ $(document).ready(function () {
 
 
                         } else {
-                            alert("Please enter the pin code");
+                            alert("Please enter the pin code!");
                             $("#pinTextBox").focus();
                         }
 

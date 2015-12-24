@@ -339,7 +339,7 @@
                     var email_subject = $("#emailsubject").val();
                     if(email_subject=="")
                     {
-                        alert("Please enter email subject");
+                        alert("Please enter email subject.");
                         $("#emailsubject").focus();
                         return false;
                     }
@@ -417,7 +417,7 @@
                         }
                         else
                         {
-                            alert("please select at least one email list or add email manually");
+                            alert("Please select at least one email list or add email manually.");
                             selectCsvFile();
                             $("#emailaddresses").focus();
                             return false;
@@ -448,7 +448,7 @@
                         }
                         else
                         {
-                            alert("please select at least one email list or add email manually");
+                            alert("Please select at least one email list or add email manually.");
                             selectCsvFile();
                             $("#emailaddresses").focus();
                             return false;
@@ -526,7 +526,7 @@
 
                     document.getElementById(dropZoneId).addEventListener("drop", function (e) {
                         $("#" + dropZoneId).removeClass(mouseOverClass);
-                        alert("file have been added, click on the upload button to load the csv file");
+                        alert("File have been added, Click on the upload button to load the csv file.");
     //                    upload();
                     }, true);
                     });
@@ -699,7 +699,7 @@
                         }).success(function (data)
                         {
                             if (data === "true") {
-                                alert("Data saved successfully");
+                                alert("Data saved successfully.");
                                window.open(getHost() + 'emailsubject.jsp', "_self");
                             } else if (data === error) {
                                 alert(data);

@@ -28,17 +28,17 @@
                     var password = $("#inputpassword").val();
                     var confirmpassword = $("#inputreenter").val();
                     if(password === ""){
-                        alert("password not entered: ABC");
+                        alert("Password not entered! Please enter password.");
                         $("#inputpassword").focus();
                         return false;
                     }
                     if(confirmpassword === ""){
-                        alert("confirm password not entered, please enter the confirm password");
+                        alert("Confirm password not entered! Please enter the confirm password.");
                         $("#inputreenter").focus();
                          return false;
                     }else
                         if (password !== confirmpassword){
-                            alert("confirm password does't match to password");
+                            alert("Confirm password doesn't match with password!");
                             $("#inputreenter").focus();
                             return false;
                         }
@@ -67,9 +67,9 @@
                               {
                                 $scope.status=data;
                                 if (data === "false"){
-                                    alert("user session has expired, kindly resubmit a request");
+                                    alert("User session has expired! Kindly resubmit a request.");
                                 }else if (data === "true"){
-                                    alert("password has been changed successfully");
+                                    alert("Password has been changed successfully.");
                                     window.open(getHost() +'login.jsp',"_self");
                                 }else if(data === error){
                                     alert(data);
@@ -79,7 +79,7 @@
                                 // called asynchronously if an error occurs
                                 // or server returns response with an error status.
 
-                                alert("request not succesful");
+                                alert("Request not successful!");
                               });
                             }
                         };

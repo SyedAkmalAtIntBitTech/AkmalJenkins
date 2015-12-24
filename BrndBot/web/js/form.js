@@ -34,18 +34,18 @@ function UserController($scope, $http)
             return false;
         }
         if (password === "") {
-            alert("Enter the password");
+            alert("Enter the password!");
             $("#inputpassword").focus();
             return false;
         }
         if (confirmPass === "") {
-            alert("Enter the password");
+            alert("Enter the password!");
             $("#inputpassword").focus();
             return false;
         }
 
         if (password !== confirmPass) {
-            alert("Enter the same password");
+            alert("Enter the same password!");
             $("#inputreenter").focus();
             return false;
         }
@@ -65,7 +65,7 @@ function UserController($scope, $http)
             {
                 $scope.status = data;
                 if (data === "false") {
-                    alert("User already exist");
+                    alert("User already exist!");
                     window.open(getHost() + 'signup.jsp', "_self");
                 } else if (data === "true") {
                     window.open(getHost() + 'organization.jsp', "_self");
@@ -76,7 +76,7 @@ function UserController($scope, $http)
                     .error(function (data, status) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                     });
         }
 
@@ -125,9 +125,9 @@ function ForgotPassController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "true") {
-                    alert("password reset link has been sent to your email id");
+                    alert("Password reset link has been sent to your email id.");
                 } else if (data === "false") {
-                    alert("incorrect email id");
+                    alert("Incorrect email id!");
                 } else if (data === error) {
                     alert(data);
                 }
@@ -135,7 +135,7 @@ function ForgotPassController($scope, $http) {
                     .error(function (data, status) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                     });
         }
     };
@@ -157,7 +157,7 @@ function loginController($scope, $http) {
 //                $("#inputpassword").prop({type:"password"});
                 window.open(getHost() + 'dashboard.jsp', "_self");
             } else if (data === "false") {
-                alert("incorrect username or password");
+                alert("Incorrect username or password!");
                 window.open(getHost() + 'login.jsp', "_self");
 //                $("#inputpassword").prop({type:"text"});
 //                $("#inputpassword").val('');
@@ -169,7 +169,7 @@ function loginController($scope, $http) {
                 .error(function (data, status) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
-                    alert("request not succesful");
+                    alert("Request not successful!");
                 });
 
     };
@@ -185,7 +185,7 @@ angular.module("myapp", [])
             }).success(function (data, status, headers, config) {
                 $scope.organizations.org_name = data;
             }).error(function (data, status, headers, config) {
-                alert("No data available, problem fetching the data");
+                alert("No data available! Problem fetching the data.");
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
@@ -208,7 +208,7 @@ angular.module("myapp", [])
                 }).error(function (data, status) {
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
-                    alert("request not succesful");
+                    alert("Request not successful!");
                 });
             };
         });

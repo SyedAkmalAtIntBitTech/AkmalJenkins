@@ -122,7 +122,7 @@ $(document).ready(function () {
                                 $(".close-reveal-modal").click();
 
                             } else {
-                                alert("Please enter the pin code");
+                                alert("Please enter the pin code!");
                                 $("#pinTextBox").focus();
                             }
                         });

@@ -11,7 +11,7 @@ function fontsController($scope, $http) {
     function validate() {
         font_name = $("#fontname").val();
         if (font_name === "") {
-            alert("Enter the font name");
+            alert("Enter the font name.");
             $("#fontname").focus();
             return false;
         }
@@ -33,10 +33,10 @@ function fontsController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "false") {
-                    alert("Font already exist");
+                    alert("Font already exist!");
                     $("#fontname").focus();
                 } else if (data === "true") {
-                    alert("font saved successfully");
+                    alert("font saved successfully.");
                     window.open(getHost() + 'admin/fontsfamily.jsp', "_self");
                 } else if (data === error) {
                     alert(data);
@@ -45,7 +45,7 @@ function fontsController($scope, $http) {
                     .error(function (data, status) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                     });
         }
     };
@@ -57,7 +57,7 @@ function fontsController($scope, $http) {
 
         function validate() {
             if (fontname === "") {
-                alert("Enter the font");
+                alert("Enter the font.");
                 $(org_id).focus();
                 return false;
             }
@@ -76,7 +76,7 @@ function fontsController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "true") {
-                    alert("font updated successfully");
+                    alert("Font updated successfully.");
                     window.open(getHost() + 'admin/fontsfamily.jsp', "_self");
                 } else if (data === error) {
                     alert(data);
@@ -85,7 +85,7 @@ function fontsController($scope, $http) {
                     .error(function (data, status) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                     });
         }
     };
@@ -101,7 +101,7 @@ function fontsController($scope, $http) {
         {
             $scope.status = data;
             if (data === "true") {
-                alert("Fonts deleted successfully");
+                alert("Fonts deleted successfully.");
                 window.open(getHost() + 'admin/fontsfamily.jsp', "_self");
             } else if (data === error) {
                 alert(data);

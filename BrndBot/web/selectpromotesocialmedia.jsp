@@ -292,7 +292,7 @@
                         $(".close-reveal-modal").click();
                         $("#submitbutton").prop("disabled",false);
                     }else {
-                        alert("No default page selected");
+                        alert("No default page selected!");
                     } 
             });
             
