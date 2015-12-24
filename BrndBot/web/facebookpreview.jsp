@@ -155,16 +155,34 @@
         <div id="facebookpostsection">
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="saved-post-header-detail">
+                <div class="saved-post-header-detail" id="savedposthead">
                     <div class="h4">Saved Facebook Post</div>
                     <div class="instruction-text">Saved post.</div>
                 </div>
                     <div class="inner-content-detail">
-                        <div class="saved-post-preview-detail">
+                        <div class="saved-post-preview-detail" id="nopostsaveddiv">
 
                             <!--SAVED Email GOES HERE-->
 
-          <div class="Facebook-preview">
+                            <div class="overlay-emptystate-icon">
+                                <img type="image/svg+xml" src="images/Icons/Overlay_EmptyStates_Social-Empty-State.svg" class="overlay-emptystate-icon"/>
+                            </div>
+                            <div class="empty-state-container">
+                                <div class="h2new textCenter textColor-Graynew">
+                                    No post saved to this action.
+                                </div>
+                                 <a class="link" href="dashboard.jsp"><div class="md-button empty-state-cta">
+                                   
+                                        Go to Dashboard 
+                                    
+                                </div></a>
+                            </div>
+                        </div>
+                        <div class="saved-post-preview-detail" id="savedpostdiv">
+
+                            <!--SAVED Email GOES HERE-->
+
+                            <div class="Facebook-preview">
                                 <div class="Facebook-preview-header">
                                     <div class="Facebook-preview-profpic"><img id="fb_preview_profpic" src="http://www.woomee.net/img/profile-blank.png"/></div>
                                     <div class="Facebook-preview-name-container">

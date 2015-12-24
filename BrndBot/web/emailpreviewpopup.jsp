@@ -40,7 +40,7 @@
                 <div class="top-subnav-tabs-detail">
                      <ul class="top-subnav-nav-elements-detail">
                         <li class="top-subnav-links-detail top-subnav-link-active-detail" id="emailaction"> <a class="h3-subnav-subnav-active">Action Details</a></li>
-                        <li class="top-subnav-links-detail" id="emailpost"> <a class="h3-subnav">Saved Post</a></li>
+                        <li class="top-subnav-links-detail" id="emailpost"> <a class="h3-subnav">Saved Email</a></li>
                         <li class="top-subnav-links-detail  top-subnav-links-detail-last" id="emailnote"> <a class="h3-subnav">Notes</a></li>
                     </ul>
                 </div>
@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                             <div class="input-header-actionDetail h3" style="">
-                                 SCHEDULED TO POST ON
+                                 SCHEDULED TO SEND ON
                             </div>
                             <div class="inlineFlex">
                             <div class="half">
@@ -160,37 +160,33 @@
                                     <img type="image/svg+xml" src="images/Icons/Overlay_EmptyStates_Email-Empty-State.svg" class="overlay-emptystate-icon"/>
                                 </div>
                                 <div class="empty-state-container">
-                                    <div class="h2 textCenter textColor-Gray">
+                                    <div class="h2new textCenter textColor-Graynew">
                                         No emails saved to this action.
                                     </div>
-                                    <div class="md-button empty-state-cta">
+                                    <a class="link" href="dashboard.jsp"><div class="md-button empty-state-cta">
                                         Go to Dashboard
-                                    </div>
+                                        </div></a>
                                 </div>
+                </div>
+                <div class="below-nav-container-saved-post-detail" id="savedemailsdiv">
+                    <div class="inner-content-container-detail fleft">
+                        <div class="saved-post-header-detail">
 
+                            <div class="h4">Saved Email</div>
 
+                            <div class="instruction-text">Subject Line: {{entitiesdetails.subject}}</div>
+                            <div class="instruction-text">To: {{entitiesdetails.email_list_name}}</div>
+                            <div class="instruction-text">From Name: {{entitiesdetails.from_name}}</div>
+                            <div class="instruction-text">Reply to Address: {{entitiesdetails.reply_to_email_address}}</div>
 
-
+                        </div>
+                        <div class="inner-content-detail">
+                            <div class="saved-email-preview-detail emailcontent">
+                                <iframe id="emailcontentiframe" class="emailcontentiframetag"></iframe>
                             </div>
-                            <div class="below-nav-container-saved-post-detail" id="savedemailsdiv">
-                                <div class="inner-content-container-detail fleft">
-                                    <div class="saved-post-header-detail">
-
-                                        <div class="h4">Saved Email</div>
-
-                                        <div class="instruction-text">Subject Line: {{entitiesdetails.subject}}</div>
-                                        <div class="instruction-text">To: {{entitiesdetails.email_list_name}}</div>
-                                        <div class="instruction-text">From Name: {{entitiesdetails.from_name}}</div>
-                                        <div class="instruction-text">Reply to Address: {{entitiesdetails.reply_to_email_address}}</div>
-
-                                    </div>
-                                    <div class="inner-content-detail">
-                                        <div class="saved-email-preview-detail emailcontent">
-                                            <iframe id="emailcontentiframe" class="emailcontentiframetag"></iframe>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
+                    </div>
+                </div>
 <!--                        </div>
                     </div>-->
                 </div>
@@ -226,18 +222,26 @@
             </div>
         </div>
          
-        <div class="" id="emailpostremove">
+<!--        <div class="" id="emailpostremove">
             <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft removebutton">Remove Saved Post</div>
+                <div class="edit-button-detail md-button button-text-1 fleft remove-button-detail" style="width:23%;">Remove Saved Email</div>
             </div>
-        </div>
+        </div>-->
         
         <div class="" id="emailnotesave">
             <div class="bottom-cta-button-container">
                 <div class="edit-button-detail md-button button-text-1 fleft savebutton">Save Notes</div>
             </div>
         </div>
-       
+        <div class="bottom-cta-bar" id="emailpostremove">
+             <div class="bottom-cta-button-left-container">
+ 
+                     <div class="remove-button-detail md-button button-text-1 fleft ">Remove Saved Email</div>
+            <div class="bottom-cta-button-containernew">
+ 
+                <div class="edit-button-detail md-button button-text-1 fleft" style="left:550px;position:relative;">Edit Email</div>
+            </div>
+        </div>
         </div>
     </div>
 </div>

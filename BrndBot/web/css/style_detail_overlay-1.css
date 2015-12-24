@@ -1241,7 +1241,17 @@ input-field-container{
     margin-left: 0%;
     border-top: 1px solid #bbb;
 }
-
+.editemailbtn{
+    float: left;
+    height: 0px;
+    box-sizing: border-box;
+    background-color: #F9FAFC;
+    padding-right: 0px;
+    width: 100%;
+    margin-top: -5%;
+    margin-left: 70%;
+    /* border-top: 1px solid #bbb; */
+}
 .bottom-cta-button-container-lg{
     float: right;
     height: 100%;

@@ -1088,7 +1088,7 @@ function controllerMarketingCampaign($scope, $http) {
                 if (data.body == undefined) {
                     $("#mailtemplatesaved1").hide();
                     $("#mailnotemplate1").show();
-                    
+                    $('#emailpostremove').hide();
                     $("#noemailsdiv").show();
                     $("#savedemailsdiv").hide();
 //                    $('#mailremovedtemplate').show();
@@ -1100,6 +1100,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $("#savedemailsdiv").show();
                      $("#mailtemplatesaved1").show();
                     $("#mailnotemplate1").hide();
+                    $('#emailpostremove').show();
 //                    $('.approve').show();
 //                    $("#mailpreviewremove").show();
 //                    $('#mailremovedtemplate').hide();
@@ -1179,8 +1180,11 @@ function controllerMarketingCampaign($scope, $http) {
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
-                
                 if (data.image_name === undefined) {
+                    $('#nopostsaveddiv').show();
+                    $('#savedpostdiv').hide();
+                    $('#savedposthead').hide();
+                    $('#fbpostremove').hide();
 //                    $('.approve').hide();
 //                    $('#fbpreviewremove').hide();
 //                    $('#fbremovedtemplate').show();
@@ -1192,6 +1196,10 @@ function controllerMarketingCampaign($scope, $http) {
 //                    $('#fb_preview_postdet').css("margin-top", 10);
 //                    $("#fb_button_post").val(create_button_title);
                 } else {
+                    $('#savedposthead').show();
+                    $('#nopostsaveddiv').hide();
+                    $('#savedpostdiv').show();
+                    $('#fbpostremove').show();
 //                    $('.approve').show();
 //                    $('#fbpreviewremove').show();
 //                    $('#fbremovedtemplate').hide();
@@ -1264,6 +1272,11 @@ function controllerMarketingCampaign($scope, $http) {
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.image_name == undefined) {
+                    
+                    $('#twtnopostsaveddiv').show();
+                    $('#twtsavedpostdiv').hide();
+                    $('#twtsavedposthead').hide();
+                    $('#twpostremove').hide();
 //                    $('.approve').hide();
 //                    $('#twpreviewremove').hide();
 //                    $('#twremovedtemplate').show();
@@ -1273,7 +1286,13 @@ function controllerMarketingCampaign($scope, $http) {
                     $('#twtemplatesaved').hide();
 //                    $('#twitter_preview_postdet').css("margin-top", 10);
 //                    $("#twitter_button_post").val(create_button_title);            
-                       } else {
+                }
+                else 
+                {     
+                    $('#twtsavedposthead').show();
+                    $('#twtnopostsaveddiv').hide();
+                    $('#twtsavedpostdiv').show();
+                    $('#twpostremove').show();
 //                    $('.approve').show();
 //                    $('#twpreviewremove').show();
 //                    $('#twremovedtemplate').hide();

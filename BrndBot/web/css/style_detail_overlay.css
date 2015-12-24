@@ -40,7 +40,7 @@ a.svg:after {
 .textCenter{
     text-align: center;
 }
-.textColor-Gray{
+.textColor-Graynew{
     color: #8F9699  ;
 }
 .detail-overlay-content{
@@ -620,9 +620,8 @@ input-field-container{
 }
 
 
-.h2 {
-    font-size: 20px;
-    
+.h2new {
+    font-size: 20px ;   
 }
 
 
@@ -695,7 +694,7 @@ input-field-container{
 
 }
 
-.bottom-cta-button-container{
+.bottom-cta-button-containernew{
     float: right;
     height: 100%;
     box-sizing: border-box;
