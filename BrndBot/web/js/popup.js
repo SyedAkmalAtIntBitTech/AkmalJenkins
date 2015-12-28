@@ -51,6 +51,18 @@ function getImageId(idname)
 
 $(document).ready(function ()
 {
+    document.getElementById("uploadBtn").onchange = function () {
+        document.getElementById("uploadFile").val = this.value;
+    };
+    $("#galleryupload").click(function(){
+        $("#fileuploaddiv").show();
+        $("#fade1").show();
+    });
+    $("#closefileuploadpopup").click(function(){
+        $("#fileuploaddiv").hide();
+        $("#fade1").hide();
+    });
+    
     var data1=$("#data").val();
     var data = data1.split(',');
     var imageurl="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=";
