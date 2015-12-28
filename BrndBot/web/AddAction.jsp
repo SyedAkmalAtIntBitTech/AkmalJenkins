@@ -61,7 +61,7 @@
                                    max_hour_value:12,
                                    step_size_minutes:01,
                                    overflow_minutes:true,
-                                   increase_direction:'down',
+                                   increase_direction:'up',
                                    disable_keyboard_mobile: true
                                });
                             </script>

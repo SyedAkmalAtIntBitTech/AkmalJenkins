@@ -391,9 +391,9 @@ function validatefacebookaction() {
         return false;
     }
     if (description === "") {
-        alert("description not entered, please enter the description");
-        $("#fb_description").focus();
-        return false;
+//        alert("description not entered, please enter the description");
+//        $("#fb_description").focus();
+//        return false;
     }
     if (actiondate === "" || days =="") {
         if(days=="")
@@ -1501,12 +1501,12 @@ function controllerMarketingCampaign($scope, $http) {
     };
     
     $scope.updateActionFacebook = function () {
-
+        
         var actiontype = $("#fb_scheduletype").val();
 //        console.log("action type" + actiontype);
+
         var schedule_id = $("#fb_scheduleid").val();
         var title = $("#fb_action_title").val();
-        
         var actiondate = $("#datepickerfb").val();
         var days=$("#fbdays").val();
         if(days!="0")
@@ -1519,7 +1519,7 @@ function controllerMarketingCampaign($scope, $http) {
 //        console.log("Epoch: " + schedule_time);
         var myEpoch = schedule_time;
 //        console.log("New Epoch: " + myEpoch);
-        var description = $("#fb_description").val();
+        var description = "";
 //        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
 //        console.log("New Epoch: " + myEpoch);
         if (validatefacebookaction()) {
@@ -1538,13 +1538,14 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.status = data;
                 if (data != "") {
                     alert("action saved successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
+                    $("#change").val("1");
+                    $scope.getCampaigns();
+//                    window.open(getHost() + 'marketing.jsp', "_self");
 
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-
                 alert("request not succesful");
             });
 

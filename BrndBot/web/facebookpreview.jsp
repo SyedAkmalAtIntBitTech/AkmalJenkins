@@ -33,7 +33,7 @@
                     <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Facebook Post Action Detail</span></div>
                     <div class="top-nav-cta-container">
                         <div class="approve-button-detail md-button" id="fbapprove">Approve</div>
-                        <div class="delete-button-detail md-button">Delete Action</div>
+                        <div class="delete-button-detail md-button" ng-click="deleteSchedule(schedule_id,'delete', master_facebook)">Delete Action</div>
                     </div>    
                 </div>
             </div>
@@ -104,9 +104,9 @@
                             </div>
                         </div>
                         <div class="inlineFlex">
-                            <div class="half">
+                            <div class="half" ng-show="user_marketing_program_id == 0">
                                 <div class="input-header-actionDetail half" style="">
-                                    DATE
+                                    Date
                                 </div>
 
                                 <input type="text" readonly  name="datepickerfb" id="datepickerfb"  class="datepickertextbox" value="{{entities_selected_time| date:'MMM dd yyyy'}}">                                        
@@ -123,6 +123,12 @@
 
                                 </script>
 
+                            </div>
+                            <div class="half" ng-show="user_marketing_program_id > 0">
+                                <div class="input-header-actionDetail half" style="">
+                                    Day
+                                </div>
+                                <input type="text" class="textbox"  id="fbdays" name="fbdays" value="{{days}}"/>
                             </div>
 
                             <div class="half1">
@@ -239,7 +245,7 @@
          
         <div class="" id="fbpostremove">
             <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft removebutton">Remove Saved Post</div>
+                <div class="edit-button-detail md-button button-text-1 fleft removebutton" ng-click="deleteSchedule(schedule_id,'remove',master_facebook)">Remove Saved Post</div>
             </div>
         </div>
         
