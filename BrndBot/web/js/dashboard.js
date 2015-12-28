@@ -70,7 +70,7 @@ angular.module("myapp", [])
                 {
                     $("#promoteheading").hide();
                     $("#subcatdiv").hide();
-                    $("#ifnodata").empty().append('Oops! No Sub Categories in this Category.');
+                    $("#ifnodata").empty().append("Oops! This Category doesn't contain Sub Categories.");
                 }
 //                    if (data === error){
 //                        alert(data);

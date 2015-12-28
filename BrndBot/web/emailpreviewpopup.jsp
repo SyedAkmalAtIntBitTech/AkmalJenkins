@@ -31,8 +31,8 @@
                 <div  class="top-navbar-inner-bb-detail">
                     <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Email Action Detail</span></div>
                     <div class="top-nav-cta-container">
-                        <div class="approve-button-detail md-button" id="fbapprove">Approve</div>
-                        <div class="delete-button-detail md-button">Delete Action</div>
+                        <div class="approve-button-detail md-button" id="emailapprove" ng-click="Approval(schedule_id, 'approved', master_email)">Approve</div>
+                        <div class="delete-button-detail md-button" ng-click="deleteSchedule(schedule_id,'delete', master_email)">Delete Action</div>
                     </div>    
                 </div>
             </div>
@@ -55,7 +55,7 @@
                 <div class="saved-post-header-detail">
                    <div class="h4" ng-show="schedule_desc === ''">Write Notes about this Action</div>                      
                    <div class="h4" ng-show="schedule_desc !== ''">Notes</div>
-                   <div class="instruction-text" ng-show="schedule_desc !== ''">{{schedule_desc}}</div>
+                   <div class="instruction-text" ng-show="schedule_desc !== ''"><p id="emaildescription">{{schedule_desc}}</p></div>
                 </div>
                     <div class="inner-content-detail">
                         <div class="fields-note-detail">
@@ -152,7 +152,7 @@
         <div id="emailpostsection">
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="saved-post-preview-detail" id="noemailsdiv">
+                <div class="saved-post-preview-detail" id="noemailsdiv" ng-show="entitiesdetails.body === undefined">
 
                                 <!--SAVED Email GOES HERE-->
 
@@ -206,7 +206,7 @@
                         <!--SAVED POST GOES HERE-->
 
                         <div class="notes-container">
-                              <textarea class="notes-container-textarea">{{schedule_desc}}</textarea>
+                              <textarea class="notes-container-textarea" id="emailnotes">{{schedule_desc}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -230,13 +230,13 @@
         
         <div class="" id="emailnotesave">
             <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft savebutton">Save Notes</div>
+                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionEmailNote()">Save Notes</div>
             </div>
         </div>
-        <div class="bottom-cta-bar" id="emailpostremove">
+        <div class="bottom-cta-bar" id="emailpostremove" ng-show="entitiesdetails.body !== undefined">
              <div class="bottom-cta-button-left-container">
  
-                     <div class="remove-button-detail md-button button-text-1 fleft ">Remove Saved Email</div>
+                     <div class="remove-button-detail md-button button-text-1 fleft" ng-click="deleteSchedule(schedule_id,'remove',master_email)">Remove Saved Email</div>
             <div class="bottom-cta-button-containernew">
  
                 <div class="edit-button-detail md-button button-text-1 fleft" style="left:550px;position:relative;">Edit Email</div>

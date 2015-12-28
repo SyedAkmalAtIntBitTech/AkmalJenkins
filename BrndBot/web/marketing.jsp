@@ -46,7 +46,7 @@
             <div class="page-title-regular page-title-font">Your Plan</div>
             <div class="page-cta-container">
                 <a href="" class="delete-button button fleft">
-                    <div class=" md-button">Delete Action</div>    
+                    <div class=" md-button" ng-click="deleteSchedule('0','deleteMultiple')">Delete Action</div>    
                 </a>
                 <a href="javascript:void(0)">
                     <div id="liPriority" onclick="overlay();" ng-click="ShowAddAction()" class="add-action-button md-button button-text-1"> Add Action</div>    
@@ -100,7 +100,7 @@
                                <div class="selection-icon" id="{{entitydetails.schedule_id}}" onclick="selcheckbox(this.id)"><input type="checkbox" id="entityid{{entitydetails.entity_id}}" value="{{entitydetails.entity_id}}" name="entityname" hidden></input></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft hint--top"  data-hint="Template Saved" ng-show="entitydetails.template_status=='No Template'"> 
+                                <div class="icon-container fleft hint--top"  data-hint="Template Saved" ng-show="entitydetails.template_status!='No Template'"> 
                                     <img src="images/Icons/templateSaved.svg" class="status-button" />
                                 </div>
                                 <div  class="slat-title-container col-1of2 fleft">                                    

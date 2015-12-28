@@ -309,6 +309,16 @@ function validateaction() {
 
     return true;
 }
+function validateemailDescription()
+{
+    var description = $("#emailnotes").val();
+     if (description === "") {
+        alert("description not entered, please enter the description");
+        $("#emailnotes").focus();
+        return false;
+    }
+    return true;
+}
 function validateemailaction() {
     var actiontype = $("#email_schedule_type").val();
     var schedule_id = $("#email_scheduleid").val();
@@ -357,7 +367,6 @@ function validateemailaction() {
         $("#timepickeremail").focus();
         return false;
     }
-
     return true;
 }
 
@@ -477,6 +486,7 @@ function setSelectedIds(selectedid) {
         $("#delsel").show();
         var selected_schedule_id = $("#" + selectedid).val();
         selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
+        
 //        console.log(selected_schedules_to_delete);
     }
     else {
@@ -551,12 +561,17 @@ var count=0;
             content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
 //            alert(content);
             var htm=$("#"+id).html();
+            var selected_schedule_id=id;
             if(htm.contains('class="check-icon"')){
-               count-=1;
+                selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
+                count-=1;
                 $("#"+id).html(content);
             }
             else
-            {   count+=1;
+            {
+                selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
+//                alert(selected_schedules_to_delete);
+                count+=1;
                 $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#"+id).toggleClass('selection-icon');
@@ -1086,6 +1101,7 @@ function controllerMarketingCampaign($scope, $http) {
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.body == undefined) {
+                    $("#emailapprove").hide();
                     $("#mailtemplatesaved1").hide();
                     $("#mailnotemplate1").show();
                     $('#emailpostremove').hide();
@@ -1096,6 +1112,7 @@ function controllerMarketingCampaign($scope, $http) {
 //                    $('.approve').hide();
 //                    $("#email_button_send").val(create_button_title);
                 } else {
+                    $("#emailapprove").show();
                     $("#noemailsdiv").hide();
                     $("#savedemailsdiv").show();
                      $("#mailtemplatesaved1").show();
@@ -1429,6 +1446,7 @@ function controllerMarketingCampaign($scope, $http) {
                 if (data != "") {
                     alert("action saved successfully");
                     $("#change").val("1");
+                    $scope.getCampaigns();
                    // window.open(getHost() + 'marketing.jsp', "_self");
 
                 }
@@ -1441,6 +1459,47 @@ function controllerMarketingCampaign($scope, $http) {
 
         }
     };
+    $scope.updateActionEmailNote = function () {
+        
+        var actiontype = $("#email_schedule_type").val();
+//        console.log("action type" + actiontype);
+        var schedule_id = $("#email_scheduleid").val();
+        var description = $("#emailnotes").val();
+        
+//        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
+
+//        console.log("New Epoch: " + myEpoch);
+
+        if (validateemailDescription()) {
+            var action = {
+                "schedule_id": schedule_id, "type": "updatenotes","actiontype": actiontype,
+                "description": description
+            };
+        
+            $http({
+                method: 'POST',
+                url: getHost() + 'AddAction',
+                headers: {'Content-Type': 'application/json'},
+                data: JSON.stringify(action)
+            }).success(function (data)
+            {
+                $scope.status = data;
+                if (data != "") {
+                    alert("action saved successfully");
+                    $("#change").val("1");
+                    $scope.getCampaigns();
+                   // window.open(getHost() + 'marketing.jsp', "_self");
+                }
+            }).error(function (data, status) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+
+                alert("request not succesful");
+            });
+
+        }
+    };
+    
     $scope.updateActionFacebook = function () {
 
         var actiontype = $("#fb_scheduletype").val();
@@ -1630,6 +1689,12 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
 
     $scope.updateNote = function () {
         var message;
+//        $('#emailnotes').on("change",function(){
+//            var emlnote=$('#emailnotes').val();
+//            alert(emlnote);
+//        }); 
+//        var emlnote=$('#emailnotes').val();
+//        alert(emlnote);
         
         var schedule_id = $("#note_schedule_id").val();
         var entity_id = $("#note_entity_id").val();
@@ -1644,7 +1709,7 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
 //        console.log("Epoch: " + schedule_time);
         var myEpoch = schedule_time;
 //        console.log("New Epoch: " + myEpoch);
-
+    
  
         var schedule_details = {
             "type": getnote(),

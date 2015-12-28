@@ -221,6 +221,7 @@ $(document).ready(function ()
         $("#emailnote a").addClass("h3-subnav");
     });
     $("#emailnote").click(function(){
+            
         $("#emailnotesection").show();
         $("#emailnotesave").show();
         $("#emailactionsection").hide();
@@ -243,6 +244,14 @@ $(document).ready(function ()
         $("#emailpost a").addClass("h3-subnav");
     });
     $("#emailaction").click(function(){
+        var change=$("#change").val();
+        if(change === "1")
+        {
+            var note=$("#emailnotes").val();
+            //$("#emaildescription").val(note);
+            $("#emaildescription").html(note);
+            $("#change").val("0");
+        }
         $("#emailactionsection").show();
         $("#emailactionsave").show();
         $("#emailnotesection").hide();
@@ -285,6 +294,7 @@ $(document).ready(function ()
         //$("#fade").hide();
         //$("#facebooksection").hide();
     });
+         
     
   //////////////////////////////////////////// emaillist popup ////////////////////////////////////////
   $("#close").click(function(){

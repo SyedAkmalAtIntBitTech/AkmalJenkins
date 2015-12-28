@@ -95,7 +95,7 @@
                     <div class="main-container col-1of1  pushUp fleft" id="subcatdiv">
                     <ul class="subcategory-list-container fleft" >
                    <li class="subcategory-list-element col-1of1 fleft" ng-repeat="Sub in SubCategories" id="{{Sub.category_id}}" onclick="setSubCategoryID('{{Sub.category_id}}', '{{Sub.id}}', '{{Sub.sub_category_name}}', '{{Sub.external_source}}')">
-                       <div class="subcat-list col-7of10 fleft" ng-show="(Sub.sub_category_name === undefined)">
+                       <div class="subcat-list col-7of10 fleft">
                            {{Sub.sub_category_name}}
                        </div>
                        <div class="col-3of10 fleft">
