@@ -42,9 +42,19 @@
                     <img type="image/svg+xml" src="images/Icons/yourHubs.svg" class="nav-elements-icon " style="cursor:pointer;"/>
                 </a>
             </li>
-            <li class="nav-elements-icon-container hint--right" data-hint="Dashboard_old">
-                <a  href="dashboard_old.jsp" >
-                    <img type="image/svg+xml" src="images/Icons/yourPlan.svg" class="nav-elements-icon " style="cursor:pointer;"/>
+            <li class="nav-elements-icon-container hint--right" data-hint="Media">
+                <a  href="" >
+                    <img type="image/svg+xml" src="images/Icons/media.svg" class="nav-elements-icon " style="cursor:pointer;"/>
+                </a>
+            </li>
+            <li class="nav-elements-icon-container hint--right" data-hint="User">
+                <a  href="" >
+                    <img type="image/svg+xml" src="images/Icons/user.svg" class="nav-elements-icon " style="cursor:pointer;"/>
+                </a>
+            </li>
+             <li class="nav-elements-icon-container hint--right" data-hint="Logout">
+                 <a  href="signout.jsp" >
+                    <img type="image/svg+xml" src="images/Icons/logout.svg" class="nav-elements-icon " style="cursor:pointer;"/>
                 </a>
             </li>
             

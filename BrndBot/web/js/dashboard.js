@@ -63,11 +63,18 @@ angular.module("myapp", [])
                     data: CategoryID
                 }).success(function (data)
                 {   
+                    if(JSON.stringify(data)!== "[]"){
                     $scope.SubCategories = data;
-                    
-                    if (data === error) {
-                        alert(data);
-                    }
+                }
+                else
+                {
+                    $("#promoteheading").hide();
+                    $("#subcatdiv").hide();
+                    $("#ifnodata").empty().append('Oops! No Sub Categories in this Category.');
+                }
+//                    if (data === error){
+//                        alert(data);
+//                    }
 
                 }).error(function (data, status) {
                     // called asynchronously if an error occurs
