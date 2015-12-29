@@ -374,7 +374,9 @@ public class SqlMethods {
         return checked;
     }
 
-    public void addUserPreferences(Integer user_id, Integer brand_id, Integer font_theme_id, String location, Integer look_id, JSONObject json_object) throws SQLException {
+    public void addUserPreferences(Integer user_id, Integer brand_id, Integer font_theme_id, 
+                                   String location, Integer look_id, Integer organization, 
+                                   JSONObject json_object) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
@@ -402,6 +404,24 @@ public class SqlMethods {
         } finally {
             close(result_set, prepared_statement);
         }
+        
+        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+            query_string = "Insert Into tbl_user_brands(user_id, brand_id, organization) Values(?,?,?)";
+            prepared_statement = connection.prepareStatement(query_string);
+
+            prepared_statement.setInt(1, user_id);
+            prepared_statement.setInt(2, brand_id);
+            prepared_statement.setInt(3, organization);
+
+            prepared_statement.executeUpdate();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
+        } finally {
+            close(result_set, prepared_statement);
+        }
+        
+        
     }
 
     public Boolean updateJSONUserPreference(Integer user_id, JSONObject userPreferenceJSON) throws SQLException {

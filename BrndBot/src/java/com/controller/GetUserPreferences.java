@@ -59,21 +59,18 @@ public class GetUserPreferences extends BrndBotBaseHttpServlet {
         
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             
-            String query_string = "Select * from tbl_user_preferences where user_id="+user_id+"";
+            String query_string = "Select * from tbl_user_brands where user_id="+user_id+"";
                 prepared_statement = connection.prepareStatement(query_string);
 
                 result_set = prepared_statement.executeQuery();
 
-                if (result_set.next()) {
-                    object = result_set.getObject("user_preferences");
+                while (result_set.next()) {
                     brand_id = result_set.getInt("brand_id");
-                    font_theme_id = result_set.getInt("font_theme_id");
-                }
                 
 //            pgobject = (PGobject)object;
 //            pgobject.setType("json");
-            String obj = object.toString();
-            json_colors = (JSONObject) parser.parse(obj);
+//            String obj = object.toString();
+//            json_colors = (JSONObject) parser.parse(obj);
 
         /*---------------------------------- script to get the font names from the database ----------------------------*/
 //                    brand_id = rs2.getInt(1);
@@ -113,8 +110,8 @@ public class GetUserPreferences extends BrndBotBaseHttpServlet {
                         json_font_names = getFontsList(connection, font_id15, json_font_names);
 
                     }
-                
-            user_preferences.put("user_colors", json_colors);
+            }
+
             user_preferences.put("user_font_names", json_font_names);
             
             

@@ -117,7 +117,7 @@
                 return true;
             }
 
-            $scope.createFontTheme = function(){
+                $scope.createFontTheme = function(){
                 
                     if(validate()){
                             var colort = {"brand_id": brand_id.toString(), "font_name_array":font_name_array, "type": "add" };
@@ -208,7 +208,7 @@
                         
                         while (result_set.next()) {
                     %>
-                                                <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("brand_name") %></option>
+                            <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("brand_name") %></option>
                     <%
                         }
                         }catch (Exception e){
@@ -233,7 +233,7 @@
                         
                         while (result_set.next()) {
                     %>
-                                                <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("font_name") %> </option>
+                            <option value="<%= result_set.getInt("id") %>"><%= result_set.getString("font_name") %> </option>
                     <%
                         }
                         }catch (Exception e){

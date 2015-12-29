@@ -338,7 +338,8 @@
     </head>
     <body>
         <%@include file="menus.jsp" %>
-        <%!    PreparedStatement ps;
+        <%! 
+            PreparedStatement ps;
             ResultSet rs;
             String Query = "";
             Integer id = 0;
