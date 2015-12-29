@@ -54,9 +54,9 @@
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
                 <div class="saved-post-header-detail">
-                    <div class="h4" ng-show="schedule_desc === ''">Write Notes about this Action</div>
-                    <div class="h4" ng-show="schedule_desc !== ''">Notes</div>
-                    <div class="instruction-text" ng-show="schedule_desc !==''">{{schedule_desc}}</div>
+                    <div id="emptynoteheader" class="h4" >Write Notes about this Action</div>
+                    <div id="notesavedheader" class="h4" >Notes</div>
+                    <div class="instruction-text" ><p id="fbdescription">{{schedule_desc}}</p></div>
                 </div>
                     <div class="inner-content-detail">
                         <div class="fields-note-detail">
@@ -227,7 +227,7 @@
                         <!--SAVED POST GOES HERE-->
 
                         <div class="notes-container">
-                            <textarea class="notes-container-textarea">{{schedule_desc}}</textarea>
+                            <textarea class="notes-container-textarea" id="fbnote">{{schedule_desc}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -251,7 +251,7 @@
         
         <div class="" id="fbnotesave">
             <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft savebutton">Save Notes</div>
+                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionFacebookNote()">Save Notes</div>
             </div>
         </div>
          

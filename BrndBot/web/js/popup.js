@@ -83,6 +83,43 @@ $(document).ready(function ()
         
     });
     $("#facebookaction").click(function(){
+         var note=$("#fbnote").val();
+            if(note === ''){
+                
+                $("#fbdescription").text(note);
+                $("#notesavedheader").css("display","none");
+                $("#emptynoteheader").css("display","block");
+            }
+            if(note !== '')
+            {
+                $("#fbdescription").text(note);
+                $("#emptynoteheader").css("display","none");
+                $("#notesavedheader").css("display","block");
+                
+            }
+         var change=$("#change").val();
+         $("#fbdescription").show();
+//         var desc=$("#fbnote").val();
+//         if(desc !== ''){alert(desc);$("#notesavedheader").css("display","block");$("#emptynoteheader").css("display","none");$("#fbdescription").show();}
+//         if(desc === ''){alert(desc);$("#emptynoteheader").css("display","block");$("#notesavedheader").css("display","none");}
+        if(change === "1")
+        {
+            var note=$("#fbnote").val();
+            if(note === ''){
+                
+                $("#fbdescription").text(note);
+                $("#notesavedheader").css("display","none");
+                $("#emptynoteheader").css("display","block");
+            }
+            if(note !== '')
+            {
+                $("#fbdescription").text(note);
+                $("#emptynoteheader").css("display","none");
+                $("#notesavedheader").css("display","block");
+                
+            }
+            $("#change").val("0");
+        }
         $("#facebookactionsection").show();
         $("#fbactionsave").show();
         $("#facebookpostsection").hide();
@@ -248,7 +285,6 @@ $(document).ready(function ()
         if(change === "1")
         {
             var note=$("#emailnotes").val();
-            //$("#emaildescription").val(note);
             $("#emaildescription").html(note);
             $("#change").val("0");
         }
@@ -276,6 +312,7 @@ $(document).ready(function ()
     
     
     $(".close").click(function(){
+//        setTimeout(function (){window.open(getHost() + 'marketing.jsp', "_self");},500);
         var change=$("#change").val();
         if( change === 0)
         {
@@ -285,12 +322,13 @@ $(document).ready(function ()
         }
         if( change!==0)
         {
+//            document.location.reload();
             $("#change").val("0");
             closeoverlay();
             $('#slider-button').click();
             $('.bottom-cta-bar').hide();
         }
-         
+//        window.open(getHost() + 'marketing.jsp', "_self");
         //$("#fade").hide();
         //$("#facebooksection").hide();
     });

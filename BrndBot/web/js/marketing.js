@@ -802,6 +802,7 @@ function controllerMarketingCampaign($scope, $http) {
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.image_name == undefined) {
+                    $("#fbpostremove").hide();
                     $('#fbeditremove').hide();
                     $('#fbremovedtemplate2').show();
                     $('#fbpreviewdecond2').hide();
@@ -812,6 +813,7 @@ function controllerMarketingCampaign($scope, $http) {
                     //$("#edit_facebook_action").hide();
                     $('#edtfbimg').hide();
                 } else {
+                    $("#fbpostremove").show();
                     $('#fbeditremove').show();
                     $('#fbremovedtemplate2').hide();
                     $('#fbpreviewdecond2').show();
@@ -953,10 +955,12 @@ function controllerMarketingCampaign($scope, $http) {
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.image_name == undefined) {
+                    $("#fbpostremove").hide();
                     $("#preview_facebook").hide();
                     $("#edit_facebook").hide();
                     $("#edit_facebook_action").show();
                 } else {
+                    $("#fbpostremove").show();
                     $("#preview_facebook").hide();
                     $("#edit_facebook").show();
                     $("#edit_facebook_action").hide();
@@ -1198,6 +1202,7 @@ function controllerMarketingCampaign($scope, $http) {
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.image_name === undefined) {
+                    
                     $('#nopostsaveddiv').show();
                     $('#savedpostdiv').hide();
                     $('#savedposthead').hide();
@@ -1249,6 +1254,7 @@ function controllerMarketingCampaign($scope, $http) {
             });
             $('#slider-button').click();
             $("#fbapprove").focus();
+            
         } 
         
          if (entity_type === gettwitter()) {
@@ -1485,9 +1491,9 @@ function controllerMarketingCampaign($scope, $http) {
             {
                 $scope.status = data;
                 if (data != "") {
-                    alert("action saved successfully");
+                    alert("Notes saved successfully");
                     $("#change").val("1");
-                    $scope.getCampaigns();
+//                    $scope.getCampaigns();
                    // window.open(getHost() + 'marketing.jsp', "_self");
                 }
             }).error(function (data, status) {
@@ -1551,6 +1557,46 @@ function controllerMarketingCampaign($scope, $http) {
 
         }
     };
+    
+    $scope.updateActionFacebookNote = function () {
+        
+         var actiontype = $("#fb_scheduletype").val();
+        var schedule_id = $("#fb_scheduleid").val();
+        var description = $("#fbnote").val();
+        
+//        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
+
+//        console.log("New Epoch: " + myEpoch);
+
+            var action = {
+                "schedule_id": schedule_id, "type": "updatenotes","actiontype": actiontype,
+                "description": description
+            };
+        
+            $http({
+                method: 'POST',
+                url: getHost() + 'AddAction',
+                headers: {'Content-Type': 'application/json'},
+                data: JSON.stringify(action)
+            }).success(function (data)
+            {
+                $scope.status = data;
+                if (data != "") {
+                    alert("Notes saved successfully");
+                    $("#change").val("1");
+                    $scope.getCampaigns();
+                   // window.open(getHost() + 'marketing.jsp', "_self");
+                }
+            }).error(function (data, status) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+
+                alert("request not succesful");
+            });
+
+    };
+    
+    
     $scope.updateActionTwitter = function () {
 
         var actiontype = $("#twitter_action_type").val();
