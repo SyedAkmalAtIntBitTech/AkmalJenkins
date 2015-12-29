@@ -117,7 +117,6 @@
                     var organization_id = $("#organization").val();
                     var users_id = $("#users").val();
                     var brand_id = $("#brand").val();
-                    alert(users_id);
                     if(validate()){
                             var colort = {"organization_id":organization_id,
                                           "users_id":users_id,  

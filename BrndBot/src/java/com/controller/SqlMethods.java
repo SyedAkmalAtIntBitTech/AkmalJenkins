@@ -931,7 +931,8 @@ public class SqlMethods {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-
+        org.json.simple.JSONArray json_array_brand_id = new org.json.simple.JSONArray();
+        
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
 
             query_string = "Select brand_id from tbl_user_preferences where user_id=" + user_id;
@@ -949,6 +950,33 @@ public class SqlMethods {
             close(result_set, prepared_statement);
         }
         return brand_id;
+    }
+
+    public org.json.simple.JSONArray getUserBrandIDs(Integer user_id) {
+        Integer brand_id = 0;
+        String query_string = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+        org.json.simple.JSONArray json_array_brand_id = new org.json.simple.JSONArray();
+        
+        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+
+            query_string = "Select brand_id from tbl_user_brands where user_id=" + user_id;
+
+            prepared_statement = connection.prepareStatement(query_string);
+            result_set = prepared_statement.executeQuery();
+
+            while (result_set.next()) {
+                brand_id = Integer.parseInt(result_set.getString(1));
+                json_array_brand_id.add(brand_id);
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
+        } finally {
+            close(result_set, prepared_statement);
+        }
+        return json_array_brand_id;
     }
     
     public Integer getLookIDFromLooks(){

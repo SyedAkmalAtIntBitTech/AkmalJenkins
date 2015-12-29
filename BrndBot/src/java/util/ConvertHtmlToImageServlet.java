@@ -78,9 +78,13 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
             String mediaType = request.getParameter("mediatype");
             getSqlMethodsInstance().session = request.getSession();
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
-            Integer brandID = getSqlMethodsInstance().getBrandID(user_id);
+            JSONArray brandIDs = (JSONArray)getSqlMethodsInstance().getUserBrandIDs(user_id);
+            JSONArray json_font_list = new JSONArray();
             Layout layout = new Layout();
-            JSONArray json_font_list = layout.getFontList(brandID);
+            for (int i = 0; i< brandIDs.size() ; i++){
+                Integer ID = (Integer)brandIDs.get(i);
+                json_font_list = layout.getFontList(ID);
+            }
             PhantomImageConverter phantomImageConverter = new PhantomImageConverter(getServletContext());
             
             File imagePngFile = phantomImageConverter.getImage(htmlString, json_font_list, width, height, "0", "0");
