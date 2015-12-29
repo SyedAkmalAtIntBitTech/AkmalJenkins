@@ -11,9 +11,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay.css">
-    <link rel="stylesheet" type="text/css" href="css/normalize.css">
-    <link rel="shortcut icon" href="favicon.png">
+    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
+    <link rel="shortcut icon" href="images/favicon.png"></link>
     <script src="js/popup.js"></script>
     <!--<style>.time_pick{width:100%;}</style>-->
 </head>    
@@ -34,7 +34,7 @@
                         <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Twitter Post Action Detail</span></div>
                         <div class="top-nav-cta-container">
                             <div class="approve-button-detail md-button" id="fbapprove">Approve</div>
-                            <div class="delete-button-detail md-button">Delete Action</div>
+                            <div class="delete-button-detail md-button" ng-click="deleteSchedule(schedule_id,'delete', master_twitter)">Delete Action</div>
                         </div>    
                     </div>
                 </div>
@@ -55,9 +55,9 @@
                 <div class="below-nav-container-saved-post-detail">
                 <div class="inner-content-container-detail">
                     <div class="saved-post-header-detail">
-                        <div class="h4" ng-show="schedule_desc === ''">Write Notes about this Action</div>                      
-                        <div class="h4" ng-show="schedule_desc !== ''">Notes</div>
-                        <div class="instruction-text" ng-show="schedule_desc !==''">{{schedule_desc}}</div>
+                        <div id="twtemptyheader" class="h4" >Write Notes about this Action</div>                      
+                        <div id="twtnoteheader" class="h4" >Notes</div>
+                        <div id="twtnotetext" class="instruction-text">{{schedule_desc}}</div>
                     </div>
                         <div class="inner-content-detail">
                             <div class="fields-note-detail">
@@ -103,14 +103,17 @@
                             </div>
                             <div class="inlineFlex">
                             <div class="half">
-                                <div class="input-header-actionDetail " >
+                                <div ng-show="user_marketing_program_id > 0">
+                                     <div class="input-header-actionDetail " >
                                     DAY
                                 </div>
-                                <div ng-show="user_marketing_program_id > 0">
                                 <input type="text" readonly   name="datepickertwitter" id="datepickertwitter1"  class="input-field-textfield width75" value="Sun Jan 01 1970"/> 
                                 <input type="text" readonly class="input-field-textfield width75" id="twdays" name="twdays" value="{{days}}"/>                                                   
                                </div>
                                 <div ng-show="user_marketing_program_id == 0">
+                                    <div class="input-header-actionDetail " >
+                                    DATE
+                                    </div>
                                         <input type="hidden" class="textbox" id="twdays" name="twdays" value="0"/>
                                         <input type="text"  name="datepickertwitter" id="datepickertwitter"  class="input-field-textfield width75" value="{{entities_selected_time| date:'MMM dd yyyy'}}" readonly/>                                        
                                         <script>
@@ -215,7 +218,7 @@
                             <!--SAVED POST GOES HERE-->
 
                             <div class="notes-container">
-                                <textarea class="notes-container-textarea">{{schedule_desc}}</textarea>
+                                <textarea class="notes-container-textarea" id="twtnote">{{schedule_desc}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -227,19 +230,19 @@
 
             <div class="" id="twactionsave">
                 <div class="bottom-cta-button-container">
-                    <div class="edit-button-detail md-button button-text-1 fleft savebutton">Save Action</div>
+                    <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionTwitter()">Save Action</div>
                 </div>
             </div>
 
             <div class="" id="twpostremove">
                 <div class="bottom-cta-button-container">
-                    <div class="edit-button-detail md-button button-text-1 fleft removebutton">Remove Saved Post</div>
+                    <div class="edit-button-detail md-button button-text-1 fleft removebutton" ng-click="deleteSchedule(schedule_id,'remove',master_twitter)">Remove Saved Post</div>
                 </div>
             </div>
 
             <div class="" id="twnotesave">
             <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft savebutton">Save Notes</div>
+                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionTwitterNote()">Save Notes</div>
             </div>
         </div>
         

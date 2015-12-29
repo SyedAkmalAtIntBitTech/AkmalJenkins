@@ -866,7 +866,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $('#twtemplatesaved1').show();
                     //$("#edit_twitter_action").hide();
                 }
-
+                
                 $scope.schedule_id = schedule_id;
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
@@ -876,7 +876,6 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
                 $scope.is_today_active = is_today_active;
-
             }).error(function (data) {
                 alert("request not successful");
             });
@@ -1619,7 +1618,7 @@ function controllerMarketingCampaign($scope, $http) {
 //        console.log("New Epoch: " + myEpoch);
 
 
-        var description = $("#twitter_description").val();
+        var description = "";
 //        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
         
 //        console.log("New Epoch: " + myEpoch);
@@ -1641,7 +1640,44 @@ function controllerMarketingCampaign($scope, $http) {
                 if (data != "") {
                     alert("action saved successfully");
                     window.open(getHost() + 'marketing.jsp', "_self");
+                    
+                }
+            }).error(function (data, status) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
 
+                alert("request not succesful");
+            });
+
+        }
+    };
+    $scope.updateActionTwitterNote = function () {
+
+        var actiontype = $("#twitter_action_type").val();
+        var schedule_id = $("#twitter_scheduleid").val();
+        var description = $("#twtnote").val();
+//        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
+        
+//        console.log("New Epoch: " + myEpoch);
+
+        if (validatetwitteraction()) {
+            var action = {
+                "schedule_id": schedule_id, "type": "updatenotes",
+                "actiontype": actiontype,"description": description
+            };
+            $http({
+                method: 'POST',
+                url: getHost() + 'AddAction',
+                headers: {'Content-Type': 'application/json'},
+                data: JSON.stringify(action)
+            }).success(function (data)
+            {
+                $scope.status = data;
+                if (data != "") {
+                    alert("Twiiter Notes saved successfully");
+//                    window.open(getHost() + 'marketing.jsp', "_self");
+                    $("#change").val("1");
+                    $scope.getCampaigns();
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs

@@ -212,6 +212,27 @@ $(document).ready(function ()
         $("#twitterpost a").addClass("h3-subnav");
     });
     $("#twitteraction").click(function(){
+        
+//        if(change === "1")
+//        {
+            var note=$("#twtnote").val();
+            if(note === ''){
+                
+                $("#twtnotetext").text(note);
+                $("#twtnoteheader").css("display","none");
+                $("#twtemptyheader").css("display","block");
+            }
+            if(note !== '')
+            {
+                $("#twtnotetext").text(note);
+                $("#twtemptyheader").css("display","none");
+                $("#twtnoteheader").css("display","block");
+                
+            }
+//            $("#change").val("0");
+//        }
+        
+        
         $("#twitteractionsection").show();
         $("#twactionsave").show();
         $("#twitternotesection").hide();
