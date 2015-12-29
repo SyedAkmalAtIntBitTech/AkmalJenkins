@@ -10,10 +10,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="style_detail_overlay-1.css">
-    <link rel="stylesheet" type="text/css" href="normalize.css">
     <link rel="shortcut icon" href="favicon.png">
-    <script src="js/socialimage.js" type="text/javascript"></script>
+<!--    <script src="js/socialimage.js" type="text/javascript"></script>-->
+    <script src="js/socialeditor.js" type="text/javascript"></script>
+    <script src="js/ajaxfileupload.js" type="text/javascript"></script>
     <script>
         $("#Servicecontinue").hide();
         var rootApp = angular.module('rootApp', ['uploadModule','imagegallery']);
@@ -217,53 +217,37 @@
             </div>
             
             <div id="imageGalleryDiv">
-                  <div class="top-nav1">
-                    <div class="page-title-bar col-1of1"> 
-                        <div class="page-title-regular page-title-font">Image Gallery</div>
-                        <div class="page-cta-container">
-                             <a href="" class="space-right fleft">
-                                <div class=" add-button22 md-button" id="addimage"> Add Image</div>    
+                <div class="pop-up-background">
+                    <div class="pop-up-container-galleryselect"> 
+                        <div class="pop-up-header">
+                             <div class="exit-button-detail" id="closeimagegallerydiv">
+                                <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                             </a>
-                            <a href="" class=" fleft">
-                                <div class=" add-button md-button" id="galleryupload"> Upload an Image</div>                                
-                            </a>
-                            
-<!--                            <div class="fileUpload btn " ng-controller="myCtrl">
-                                <span class="SP2" style="margin-left: 130px;">Click to upload a image</span>
-                                <input type="file" name="filesToUpload[]" id="filesToUpload" class="upload" file-model="myFile">
-                            </div>-->
                         </div>
-                    </div>
-                </div>
-                <div class="gallery-page-background">
-                    <div class="pop-up-exit-container">
-                        <div class="pop-up-exit-icon" id="closeimagegallerydiv"> 
-                            <img type="image/svg+xml" src="images/Icons/Close.svg" class="exit-button-icon" style="cursor:pointer;"/>
+                            <div class="pop-up-title-gallery fleft col-9of10"> 
+                                <div class="pop-up-title-h1-gallery fleft"> Select an image to use:</div>
+                                <a href="" class="space-right fleft">
+                                    <div class=" add-button22 md-button" id="addimage"> Add Image</div>    
+                                </a>
+                                <a href="" class="gray-button fright ">
+                                    <div class=" md-button" id="galleryupload">Upload an Image</div>    
+                                </a>
+                            </div>
                         </div>
-                    </div> 
-                    <div class="gallery-page-content-container fleft">      
-                    <!--Inner Content Conatiner GENERIC-->
-                        <div class="page-inner-content-container fleft">
-                            <div class="fleft content">
-                            <!--List Starts Here-->
-                            
-                                <div class="imageGallery-container  fleft" ng-repeat="images in datalistimages" >
+                        <div class="pop-up-inner-gallery " ng-init="getLinks()">
+                            <div class="imageGallery-inner-popup">
+                                <div class="imageGallery-popup fleft" ng-repeat="images in datalistimages" style="cursor:pointer;">
                                     <div class="imageGallery-card" id="div{{images.id}}">
-                                        <div class="galCard-image col-1of1">
-                                            <img id="{{images.id}}-{{images.image_name}}" value="{{images.image_name}}" class="banner galleryImge" ng-src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="getImageId(this.id)" alt="image"/>                                                            
-<!--                                            <img class="" id="{{images.id}}" onclick="getImageId(this.id)" alt="image" src="http://wp.nootheme.com/yogi/wp-content/uploads/2015/04/blog_10.jpg"/>-->
-                                        </div>
-                                        <div class="galCard-content col-1of1"> 
-                                            <div class="galImage-name">Image Name</div>
-                                            <div class="galImage-description">Added on Nov 26 2015</div>
-                                            <div class="galCard-divider"></div>
-                                              <img type="image/svg+xml" data="/Icons/settings.svg" class="galCard-settingsicon fleft galleryImge" style="cursor:pointer;"/>
-                                             <img type="image/svg+xml" data="/Icons/trash.svg" class="galCard-trashicon fleft galleryImge" style="cursor:pointer;"/>
-
+                                        <div id="{{images.id}}-{{images.image_name}}" onclick="getImageId(this.id)">
+                                            <img value="{{images.image_name}}" class="galCard-image col-1of1" ng-src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"/>                                                            
+                                            <!--<img class="galCard-image col-1of1" alt="image" src="http://wp.nootheme.com/yogi/wp-content/uploads/2015/04/blog_10.jpg"  vspace="0" hspace="0" border="0" style="display:block;" />-->
+                                            <div class="galCard-content-popup col-1of1"> 
+                                                <div class="galImage-name">Image Name</div>
+                                                <div class="galImage-description">Added on Nov 26 2015</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            
                             </div>
                         </div>
                     </div>
@@ -315,50 +299,66 @@
         </li>-->
                
             <div id="fileuploaddiv">
-                <div class="pop-up-exit-icon" id="closefileuploadpopup"> 
-                    <img type="image/svg+xml" src="images/Icons/Close.svg" class="exit-button-icon" style="cursor:pointer;">
-                </div>
                 <div class="pop-up-background">
-                    <div class="pop-up-container pop-up-container-newaction"> 
-                        <div class="pop-up-title pop-up-title-h1">Upload an Image</div>
-                         <div class="pop-up-exit-container">
-                            <a href="/Newest_Files/YourPlan.html" class="pop-up-exit-icon">
-                                <object type="image/svg+xml" data="/Icons/Close.svg" class="exit-button-icon" style="cursor:pointer;"> </object>
+                    <div class="pop-up-container-galleryselect"> 
+                        <div class="pop-up-header">
+                             <div class="exit-button-detail" id="closefileupload">
+                               <a class=" exit-button-icon" href="">
+                                <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                             </a>
-                        </div> 
-                        <div class="pop-up-inner">
-                            <div class="input-field-container ">
-                                <div class="input-header "> Click to browse your photos:</div>
-                                <input class="input-field-textfield input-placeholder" id="uploadFile" placeholder="Choose a file"></input>
-                                <input type="file" id="uploadBtn" class="file-input"></input>
+                        </div>
+                            <div class="pop-up-title-gallery fleft col-9of10"> 
+                                <div class="pop-up-title-h1-gallery fleft"> Upload an Image:</div>
                             </div>
                         </div>
-                        
-<!--                    <input id="uploadFile" placeholder="Choose File" disabled="disabled" />
-                        <div class="fileUpload btn btn-primary">
-                            <span>Upload</span>
-                            <input id="uploadBtn" type="file" class="upload" />
-                        </div>-->
-                        
+                        <div class="pop-up-inner-gallery ">
+                            <div class="imageGallery-inner-popup">
+                                <div class="imageUpload-container">
+                                   <div class="browse-button">
+                                        <div><input id="myFile" type="file" name="myFile" class="md-button gray-button" value="Browse your Images"></div>
+                                    </div>
+                                    <div class="browse-button top18">
+                                        <div class="md-button gray-button" id="upload" ng-click="uploadFile()">Upload</div>
+                                    </div>
+                                    <input type="button" id="image1" ng-click="showImages()" value="image1" style="display: none;">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="pop-up-cta-container pop-up-cta-container-newaction">
-                    <a href="/Newest_Files/MarketingProgram_Actions.html">
-                        <div class="pop-up-cta-button-full"> Add To Image Gallery</div>
-                    </a>
-                </div> 
             </div> 
             
-            <div id="fade1" class="black_overlay1"></div>
-            
-<!--            <a href="#" data-reveal-id="fileupload_popup" class="fileclick" style="display:none;">Click Me For A Modal</a>
-            <div id="fileupload_popup" class="reveal-modal" style="left:90%;">
-                <a class="close-reveal-modal">abc&#215;</a>
-                <center>
-                    <input id="myFile" type="file" name="myFile">
-                    <input type="button" id="upload" style="margin-left: 35%;" class="button button--moema button--text-thick button--text-upper button--size-s" value="upload">
-                    <input type="button" id="image1" ng-click="showImages()" value="image1" style="display: none;"><br />
-                </center>
-            </div>-->
+            <div id="linkpopup">
+             <div class="pop-up-background">
+                <div class="pop-up-container pop-up-container-newaction"> 
+                    <div class="pop-up-title pop-up-title-h1">Add a Link</div>
+                     <div class="pop-up-exit-container" id="closeLinkPopup">
+                            <img type="image/svg+xml" src="images/Icons/Close.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
+                        </a>
+                    </div> 
+                    <div class="pop-up-inner">
+                        <div class="popup-section-header">Choose a Link to Add</div>
+                         <div class="line-divider-notop"></div>
+                        <div class="input-field-container ">
+                            <div class="input-header "> Choose from your Existing Links:</div>
+                            <div class="input-field-textfield input-placeholder">
+                                <select id="urlnamefb" name="marketing_program_type" class="selects">
+                                    <option value="0" class="caret">LINK URL<lable></lable></option>
+                                    <option ng-repeat="url in urls" value="{{url.url}}--{{url.link_name}}">{{url.prigram_name}} - {{url.link_name}} - {{url.url}}</option>
+                                </select>
+                            </div>
+                            <div class="popup-section-header pushUp" style="font-variant:small-caps;">-or-</div>
+                            <div class="input-header pushUp"> Enter a new url:</div>
+                            <div class="input-field-textfield input-placeholder">www.brndbot.com/usethislink</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="pop-up-cta-container-1 pop-up-cta-container-newaction">
+                    <div class="pop-up-cta-button-full" id="submitLink"> Add Link</div>
+                </a>
+            </div> 
+            </div>
     </body>
 </html>

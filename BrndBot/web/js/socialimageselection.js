@@ -1,4 +1,24 @@
+
+$(document).ready(function () {
+//    $("#upload").click(function(){
+//        alert("1");
+//       $("#uploadBtn").upload("UploadImages",function(success){
+//           alert("2");
+////           $("#image1").click();
+////           $(".close-reveal-modal").click();
+//       });
+//   });
+});
+
 function controllerMarketingCampaign($scope, $http) {
+//    alert();
+//     $scope.uploadFile = function () {
+//         alert();
+//                        var file = $scope.myFile;
+//                        console.log('file is ' + JSON.stringify(file));
+//                        var uploadUrl = global_host_address + 'UploadImages';
+//                        fileUpload.uploadFileToUrl(file, uploadUrl);
+//                    };
     
 //    $scope.entities_selected_time = "";
 //    $scope.master_facebook = getfacebook();
@@ -17,7 +37,24 @@ function controllerMarketingCampaign($scope, $http) {
 //        $("#selectedimageid").val(id);
 //    };
 //    
-    
+    $scope.getLinks = function(){
+        $http({
+            method: 'GET',
+            url: getHost() + 'getAllUserMarketingProgramsByUserId.do'
+            }).success(function (data) {
+                alert();
+                $scope.urls = data;
+                console.log($scope.urls);
+            }).error(function (data) {
+            alert("request not successful...1");
+        });
+    };
+    $scope.uploadFile = function(){
+        $("#myFile").upload("UploadImages",function(success){
+           $("#fileuploaddiv").hide();
+           $scope.showImages();
+       });
+    };
     $scope.showImages = function(){
                 $("#addContact").hide();     
                 $("#imageGalleryDiv").show();  

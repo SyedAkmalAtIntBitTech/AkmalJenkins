@@ -492,6 +492,8 @@ function setTodaysDate() {
  }
 
 function controllerMarketingCampaign($scope, $http) {
+    
+    
     $scope.entities_selected_time = "";
     $scope.master_facebook = getfacebook();
     $scope.master_twitter = gettwitter();

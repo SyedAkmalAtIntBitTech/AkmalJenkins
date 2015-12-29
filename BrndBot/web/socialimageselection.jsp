@@ -19,6 +19,7 @@
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/popup.js" type="text/javascript"></script>
+    <script src="js/configurations.js" type="text/javascript"></script>
     <script src="js/socialimageselection.js" type="text/javascript"></script>
  
 <script>
@@ -168,7 +169,7 @@
             <div class="page-title-with-back page-title-font">Social Selection</div>
             <div class="page-cta-container">
                 <a href="" class="gray-button fleft">
-                    <div class=" md-button">  Change from Link Post Type</div>    
+                    <div class=" md-button" id="changeLink">  Change from Link Post Type</div>    
                 </a>
             </div>
         </div>

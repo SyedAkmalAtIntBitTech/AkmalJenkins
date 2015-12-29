@@ -113,9 +113,6 @@ and open the template in the editor.
             angular.element(document).ready(function() {
                    angular.bootstrap(uploadModule, ['uploadModule']);
             });
-
-        </script>
-        <script>
             
             var imagegallery = angular.module('imagegallery', []);
 

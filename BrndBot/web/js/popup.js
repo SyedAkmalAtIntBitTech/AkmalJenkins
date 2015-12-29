@@ -41,28 +41,33 @@ function getImageId(idname)
     var id=res[0];
     var imagename=res[1];
     $("#addimage").show();
-    $(".imageGallery-card").css("background-color", "#ffffff");
     $(".imageGallery-card >div >div").css("color", "#5F6775");
-    $("#div"+id).css("background-color", "#5cc1a4");
-    $("#div"+id+" > div > div").css("color", "#ffffff");
+    $(".imageGallery-card").removeClass("blueborder");
+    $(".imageGallery-card").addClass("bottom-margin");
+     $("#div"+id).removeClass("bottom-margin");
+    $("#div"+id).addClass("blueborder");
     $("#selectedimagename").val(imagename);
     $("#selectedimageid").val(id);
 }
 
 $(document).ready(function ()
 {
-    document.getElementById("uploadBtn").onchange = function () {
-        document.getElementById("uploadFile").val = this.value;
-    };
     $("#galleryupload").click(function(){
         $("#fileuploaddiv").show();
-        $("#fade1").show();
+        $("#imageGalleryDiv").hide();
     });
-    $("#closefileuploadpopup").click(function(){
+    $("#closefileupload").click(function(){
         $("#fileuploaddiv").hide();
-        $("#fade1").hide();
+        $("#imageGalleryDiv").show();
     });
-    
+    $("#changeLink").click(function(){
+        $("#linkpopup").show();
+        $("#fade").show();
+    });
+    $("#closeLinkPopup").click(function(){
+        $("#linkpopup").hide();
+        $("#fade").hide();
+    });
     var data1=$("#data").val();
     var data = data1.split(',');
     var imageurl="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=";
@@ -178,7 +183,7 @@ $(document).ready(function ()
   });
   $("#closeimagegallerydiv").click(function(){
       $("#imageGalleryDiv").hide();      
-      $("#fade").hide();
+      $("#addContact").show();
   });
   
   /////////////////////////////////////////////////////////////////////////////////////////////////////

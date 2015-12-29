@@ -30,12 +30,9 @@ $(document).ready(function () {
         $(".fileclick").click();
     });
     
-    $("#upload").click(function(){
-       $("#myFile").upload("UploadImages",function(success){
-           $("#image1").click();
-            $(".close-reveal-modal").click();
-       });
-   });
+//    $("#upload").click(function(){
+//       
+//   });
 
     $("#left").hide();
     $("#right").hide();

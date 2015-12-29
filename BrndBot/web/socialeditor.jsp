@@ -1300,9 +1300,6 @@ var mindbodydataId = $("#mindbodydata").val();
               // document.location.href = "selectpromotesocialmedia.jsp";
    });
 
-</script> 
-       
-<script>    
     var selectedImageId;
     function getImageid(Id){
         selectedImageId=Id.id;
@@ -1589,10 +1586,6 @@ function showfilter(){
                                     // load image into crop
                                     one.loadImg(oFREvent.target.result);
                             };
-
-        </script>  
-
-        <script>
 
                             //  get input type=file IMG through base64 and send it to the cropper
                             // --------------------------------------------------------------------------
