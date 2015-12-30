@@ -100,7 +100,7 @@
                         var print=JSON.stringify($scope.social_temlates_print);
                         var download=JSON.stringify($scope.social_temlates_download);
                         if((email==="0")&&(social==="0")&&(print==="0")&&(download==="0")){
-                            $("#channelhead").empty().append('Oops! No Channels to Select. Please wait, redirecting to Dashboard...');
+                            $("#channelhead").empty().append('Oops! No Channels to Select. Please wait, its redirecting to Dashboard...');
                             $(".h1").hide();
                             setTimeout(function (){
                             window.location="dashboard.jsp";},4000);

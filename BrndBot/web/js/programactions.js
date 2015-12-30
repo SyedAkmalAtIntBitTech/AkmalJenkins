@@ -1896,7 +1896,12 @@ function programactions($scope, $http, $window){
         }
         return true;
 
-    };          
+    };  
+    $scope.ShowAddAction = function()
+    { 
+        $("#fade").show();
+        $("#addAction").show();
+    };
             };     
         function overlay(){
                     document.getElementById('light').style.display = 'block';
