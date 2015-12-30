@@ -58,9 +58,11 @@ public class SetUserPreferences extends BrndBotBaseHttpServlet {
             
             Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
             Integer brand_id = (Integer)getSqlMethodsInstance().session.getAttribute("brandID");
+            String brand_name = (String)getSqlMethodsInstance().session.getAttribute("brandName");
             Integer look_id = (Integer)getSqlMethodsInstance().session.getAttribute("LookID");
             String studio_id = (String)getSqlMethodsInstance().session.getAttribute("studioID");
             String org_id = (String)getSqlMethodsInstance().session.getAttribute("org_id");
+            String email_id = (String)getSqlMethodsInstance().session.getAttribute("EmailID");
                     
             String type = (String)json_user_preferences.get("type");
 
@@ -81,10 +83,12 @@ public class SetUserPreferences extends BrndBotBaseHttpServlet {
                 getSqlMethodsInstance().session.setAttribute("Checked", "true");
 
                 Integer font_theme_id = getSqlMethodsInstance().getFontthemeid(brand_id.toString());
-                getSqlMethodsInstance().addUserPreferences(user_id, Integer.parseInt(brand_id.toString()), 
+                getSqlMethodsInstance().addUserPreferences(user_id, brand_id, 
                                                            font_theme_id,  studio_id, 
                                                            Integer.parseInt(look_id.toString()), 
-                                                           Integer.parseInt(org_id), json_user_preferences);
+                                                           Integer.parseInt(org_id), 
+                                                           json_user_preferences, email_id, 
+                                                           brand_name);
                 
             }
         }catch(Exception e){

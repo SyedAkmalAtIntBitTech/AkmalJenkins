@@ -54,7 +54,7 @@ public class AddUpdateOrganization extends BrndBotBaseHttpServlet {
             joUser = (JSONObject) parser.parse(string_buffer.toString());
 
             String Company = (String) joUser.get("company");
-            String organization_id = (String) joUser.get("org");
+            String organization_id = (String) joUser.get("organization");
 
             logger.log(Level.INFO, Company);
 
@@ -62,6 +62,7 @@ public class AddUpdateOrganization extends BrndBotBaseHttpServlet {
             Integer idno = getSqlMethodsInstance().getUserID(emailid);
 
             String org_name = getSqlMethodsInstance().getOrganizationName(Integer.parseInt(organization_id));
+            
             getSqlMethodsInstance().session.setAttribute("org_id", organization_id);
             getSqlMethodsInstance().session.setAttribute("org_name", org_name);
             getSqlMethodsInstance().session.setAttribute("company", Company);
@@ -72,7 +73,7 @@ public class AddUpdateOrganization extends BrndBotBaseHttpServlet {
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
             out.write(getSqlMethodsInstance().error);
         } catch (IOException | SQLException | NumberFormatException | ClassNotFoundException e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE,  util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
             out.write(getSqlMethodsInstance().error);
         }finally {
             out.close();

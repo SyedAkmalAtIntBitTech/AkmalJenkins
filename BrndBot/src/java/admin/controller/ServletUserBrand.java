@@ -67,14 +67,17 @@ public class ServletUserBrand extends BrndBotBaseHttpServlet{
                 String user_id = (String) json_organization.get("users_id");
                 String brand_id = (String) json_organization.get("brand_id");
                 String organization_id = (String) json_organization.get("organization_id");
+                String users_email_id = (String) json_organization.get("users_email_id");
+                String brand_name = (String) json_organization.get("brand_name");
 
-                boolean check = userbrands.checkAvailability(Integer.parseInt(organization_id));
+                boolean check = userbrands.checkAvailability(Integer.parseInt(user_id), Integer.parseInt(brand_id));
                 if (check) {
                     out.write("false");
                 } else {
                     userbrands.addUserBrands(Integer.parseInt(user_id), 
                                              Integer.parseInt(brand_id),
-                                             Integer.parseInt(organization_id));
+                                             Integer.parseInt(organization_id), 
+                                             users_email_id, brand_name);
                     out.write("true");
                 }
             } else if (type.equals("edit")) {
@@ -82,13 +85,17 @@ public class ServletUserBrand extends BrndBotBaseHttpServlet{
                 String user_id = (String) json_organization.get("users_id");
                 String brand_id = (String) json_organization.get("brand_id");
                 String organization_id = (String) json_organization.get("organization_id");
-                boolean check = userbrands.checkAvailability(Integer.parseInt(organization_id));
-                if (check) {
-                    out.write("false");
-                } else {
-                    userbrands.changeUserBrands(Integer.parseInt(id), user_id, brand_id, organization_id);
-                    out.write("true");
-                }
+                String users_email_id = (String) json_organization.get("users_email_id");
+                String brand_name = (String) json_organization.get("brand_name");
+//                boolean check = userbrands.checkAvailability(Integer.parseInt(user_id), Integer.parseInt(brand_id));
+//                if (check) {
+//                    out.write("false");
+//                } else {
+                userbrands.changeUserBrands(Integer.parseInt(id), 
+                                            user_id, brand_id, organization_id,
+                                            users_email_id, brand_name);
+                out.write("true");
+//                }
             } else if (type.equals("delete")) {
                 Long user_brand_id = (Long) json_organization.get("user_brand");
                 userbrands.deleteUserBrand(user_brand_id.intValue());

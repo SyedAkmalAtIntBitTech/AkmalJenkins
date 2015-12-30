@@ -117,9 +117,13 @@
                     var organization_id = $("#organization").val();
                     var users_id = $("#users").val();
                     var brand_id = $("#brand").val();
+                    var users_email_id = $("#users option:selected").text();
+                    var brand_name = $("#brand option:selected").text();
                     if(validate()){
-                            var colort = {"organization_id":organization_id,
-                                          "users_id":users_id,  
+                            var colort = {"users_email_id":users_email_id,
+                                          "brand_name":brand_name,
+                                          "organization_id":organization_id,
+                                          "users_id":users_id,
                                           "brand_id": brand_id,
                                           "type": "add" };
                         
@@ -132,9 +136,10 @@
                               {
                                 $scope.status=data;
                                 if(data === "true"){
+                                    alert("brand saved successfully");
                                     window.open(getHost() +'admin/userbranddetails.jsp',"_self");
-                                }else if (data === error){
-                                    alert(data);
+                                }else if (data === "false"){
+                                    alert("brand already exist, please select some other brand");
                                 }
                               }).error(function(data, status) {
                                 // called asynchronously if an error occurs
@@ -161,8 +166,8 @@
                                  } 
                              });
                     };   
-                $scope.edit = function(id, user_id, brand_id, organization_id){
-                    var configuration = global_host_address + "admin/edituserbranddetails.jsp" + "?user_brand_id="+id+"&user_id="+user_id+"&brand_id="+brand_id+"&organization_id="+organization_id;
+                $scope.edit = function(id, user_id, brand_id, organization_id, user_email_id){
+                    var configuration = global_host_address + "admin/edituserbranddetails.jsp" + "?user_brand_id="+id+"&user_id="+user_id+"&brand_id="+brand_id+"&organization_id="+organization_id+"&user_email_id="+user_email_id;
                     window.open(configuration, "_self");
                 };
             }
@@ -293,6 +298,8 @@
                         <td>User ID</td>
                         <td>Brand ID</td>
                         <td>Organization</td>
+                        <td>Brand Name</td>
+                        <td>User Email ID</td>
                         <td></td>
                         <td></td>
 
@@ -314,8 +321,10 @@
                         <td><%= result_set.getInt("user_id") %></td>
                         <td><%= result_set.getInt("brand_id") %></td>
                         <td><%= result_set.getInt("organization") %></td>
+                        <td><%= result_set.getString("user_email_id") %></td>
+                        <td><%= result_set.getString("brand_name") %></td>
                         
-                        <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="edit(<%=result_set.getInt("id")%>,'<%=result_set.getString("user_id")%>','<%=result_set.getString("brand_id")%>', '<%=result_set.getString("organization")%>')">edit</button></td>
+                        <td><button class="btn btn-info" id="edit" name="edit" value="edit" ng-click="edit(<%=result_set.getInt("id")%>,'<%=result_set.getInt("user_id")%>','<%=result_set.getInt("brand_id")%>','<%=result_set.getInt("organization")%>', '<%= result_set.getString("user_email_id") %>')">edit</button></td>
                         <td><button class="btn btn-info" id="brand" name="brand" value="delete" ng-click="delete(<%=result_set.getInt("id")%>)">delete</button></td>
                     </tr>
                     <%

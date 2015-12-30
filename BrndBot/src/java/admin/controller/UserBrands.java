@@ -27,13 +27,13 @@ public class UserBrands {
         this.sqlmethods = new SqlMethods();
     }
 
-    public boolean checkAvailability(Integer organization_id) throws SQLException {
+    public boolean checkAvailability(Integer user_id, Integer brand_id) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         boolean check = false;
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "select * from tbl_user_brands where organization_name='" + organization_id + "'";
+            query_string = "select * from tbl_user_brands where user_id='" + user_id + "' and brand_id='"+brand_id+"'";
 
             prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
@@ -49,17 +49,19 @@ public class UserBrands {
         return check;
     }
 
-    public void addUserBrands(Integer user_id, Integer brand_id, Integer organization_id) throws SQLException {
+    public void addUserBrands(Integer user_id, Integer brand_id, Integer organization_id, String user_email_id, String brand_name) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Insert into tbl_user_brands (user_id, brand_id, organization) values(?, ?, ?)";
+            query_string = "Insert into tbl_user_brands (user_id, brand_id, organization, user_email_id, brand_name) values(?, ?, ?, ?, ?)";
 
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.setInt(1, user_id);
             prepared_statement.setInt(2, brand_id);
             prepared_statement.setInt(3, organization_id);
+            prepared_statement.setString(4, user_email_id);
+            prepared_statement.setString(5, brand_name);
             
             prepared_statement.executeUpdate();
         } catch (Exception e) {
@@ -70,17 +72,19 @@ public class UserBrands {
 
     }
 
-    public void changeUserBrands(Integer user_brand_id, 
-                                 String user_id, String brand_id, 
-                                 String organization) throws SQLException {
+    public void changeUserBrands(Integer user_brand_id, String user_id, 
+                                 String brand_id, String organization, 
+                                 String user_email_id, 
+                                 String brand_name) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "UPDATE tbl_user_brands"
                     + " SET user_id ='"+ user_id +"', brand_id='"+ brand_id +"',"
-                    +       "organization='" + organization + "'"
-                    + "WHERE id='" + user_brand_id + "'";
+                    +       "organization='" + organization + "',"
+                    + " user_email_id='"+user_email_id+"', brand_name='"+brand_name+"'"
+                    + " WHERE id='" + user_brand_id + "'";
 
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();

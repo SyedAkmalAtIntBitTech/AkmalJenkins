@@ -8,6 +8,8 @@ package com.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -42,7 +44,7 @@ public class SubBrandPersonality extends BrndBotBaseHttpServlet {
         StringBuffer string_buffered;
         string_buffered = new StringBuffer();
         try {
-            Integer brandID = null;
+            List brand = new ArrayList();
             
             BufferedReader reader = request.getReader();
              String line = null;
@@ -59,14 +61,18 @@ public class SubBrandPersonality extends BrndBotBaseHttpServlet {
             String lookID = (String)json_look.get("lookID");
             
             if (type.equalsIgnoreCase("insert")){
-                brandID = getSqlMethodsInstance().getBrandIDFromBrands(Integer.parseInt(lookID));
-                getSqlMethodsInstance().session.setAttribute("brandID", brandID);
+                brand = getSqlMethodsInstance().getBrandIDFromBrands(Integer.parseInt(lookID));
+                
+                getSqlMethodsInstance().session.setAttribute("brandID", brand.get(0));
+                getSqlMethodsInstance().session.setAttribute("brandName", brand.get(1));
+                
                 out.write("true");
 //                request_dispatcher = request.getRequestDispatcher("/uploadlogo.jsp");
 //                request_dispatcher.forward(request, response);
             }else if(type.equalsIgnoreCase("update")){
                 Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
-                getSqlMethodsInstance().updateBrandPersonality(user_id, brandID);
+                Integer brand_id = (Integer) brand.get(0);
+                getSqlMethodsInstance().updateBrandPersonality(user_id, brand_id);
                 out.write("true");
             }
             

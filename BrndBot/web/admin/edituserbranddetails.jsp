@@ -125,13 +125,14 @@
                     var organization_id = $("#organization").val();
                     var users_id = $("#users").val();
                     var brand_id = $("#brand").val();
+                    var users_email_id = $("#users option:selected").text();
+                    var brand_name = $("#brand option:selected").text();
                     
                     if(validate()){
-                        var userbrand = {"id": id,
-                                      "organization_id":organization_id,
-                                      "users_id":users_id,
-                                      "brand_id": brand_id,
-                                      "type": "edit" };
+                        var userbrand = {"id": id, "users_email_id":users_email_id,
+                                        "brand_name":brand_name, "organization_id":organization_id,
+                                        "users_id":users_id,"brand_id": brand_id,
+                                        "type": "edit" };
 
                         $http({
                           method: 'POST',
@@ -262,7 +263,7 @@
                 </select><br><br>
                         
                 Users : <select id='users' name="users">
-                            <option value="0">Select</option>
+                            <option value="<%= user_id %>">Select</option>
                        </select>
                     <br><br>
                 Brand : <select name="brand" id="brand" onchange="showbrand(this.value)">
