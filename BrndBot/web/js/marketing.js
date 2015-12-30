@@ -628,6 +628,9 @@ function controllerMarketingCampaign($scope, $http) {
                     $scope.entitySet = data.entitydata;
 //                    console.log(JSON.stringify(data.entitydata));
                     $scope.nodata = data.noactionsmessage;
+//                    for(var i=0;i<10;i++){
+//                    console.log(JSON.stringify(data.entitydata[i].dataArray[i].status));
+//                    }
                     $("#default").css("display", "block");
         //            $("#selected").css("display","none");            
                     //console.log($scope.entitySet);
@@ -1265,7 +1268,7 @@ function controllerMarketingCampaign($scope, $http) {
             $("#twactionsave").show();
             $("#twitterpostsection").hide();
             $("#twitternotesection").hide();
-            $("#twpostremove").hide();
+            $("#twtpostremove").hide();
             $("#twnotesave").hide();
             
             $("#twitteraction").removeClass("top-subnav-link-active-detail");
@@ -1298,7 +1301,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $('#twtnopostsaveddiv').show();
                     $('#twtsavedpostdiv').hide();
                     $('#twtsavedposthead').hide();
-                    $('#twpostremove').hide();
+                    $('#twtpostremove').hide();
 //                    $('.approve').hide();
 //                    $('#twpreviewremove').hide();
 //                    $('#twremovedtemplate').show();
@@ -1314,7 +1317,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $('#twtsavedposthead').show();
                     $('#twtnopostsaveddiv').hide();
                     $('#twtsavedpostdiv').show();
-                    $('#twpostremove').show();
+                    $('#twtpostremove').show();
 //                    $('.approve').show();
 //                    $('#twpreviewremove').show();
 //                    $('#twremovedtemplate').hide();
@@ -1490,7 +1493,7 @@ function controllerMarketingCampaign($scope, $http) {
             {
                 $scope.status = data;
                 if (data != "") {
-                    alert("Notes saved successfully");
+                    alert("Email Notes saved successfully");
                     $("#change").val("1");
 //                    $scope.getCampaigns();
                    // window.open(getHost() + 'marketing.jsp', "_self");
@@ -1581,7 +1584,7 @@ function controllerMarketingCampaign($scope, $http) {
             {
                 $scope.status = data;
                 if (data != "") {
-                    alert("Notes saved successfully");
+                    alert("Facebook Notes saved successfully");
                     $("#change").val("1");
                     $scope.getCampaigns();
                    // window.open(getHost() + 'marketing.jsp', "_self");
@@ -1629,6 +1632,7 @@ function controllerMarketingCampaign($scope, $http) {
                 "title": title, "actiontype": actiontype,
                 "description": description, "action_date": myEpoch, "days":days
             };
+            alert(JSON.stringify(action));
             $http({
                 method: 'POST',
                 url: getHost() + 'AddAction',
@@ -1639,8 +1643,9 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.status = data;
                 if (data != "") {
                     alert("action saved successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
-                    
+//                    window.open(getHost() + 'marketing.jsp', "_self");
+                    $("#change").val("1");
+                    $scope.getCampaigns();
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
@@ -1674,7 +1679,7 @@ function controllerMarketingCampaign($scope, $http) {
             {
                 $scope.status = data;
                 if (data != "") {
-                    alert("Twiiter Notes saved successfully");
+                    alert("Twitter Notes saved successfully");
 //                    window.open(getHost() + 'marketing.jsp', "_self");
                     $("#change").val("1");
                     $scope.getCampaigns();

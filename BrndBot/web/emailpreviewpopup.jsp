@@ -100,14 +100,17 @@
                             </div>
                             <div class="inlineFlex">
                             <div class="half">
-                                <div class="input-header-actionDetail " >
+                               <div ng-show="user_marketing_program_id > 0">
+                                  <div class="input-header-actionDetail " >
                                     DAY
-                                </div>
-                                <div ng-show="user_marketing_program_id > 0">
+                                  </div>
                                 <!--<input type="text" readonly   name="datepickertwitter" id="datepickertwitter1"  class="input-field-textfield width75" value="Sun Jan 01 1970"/>--> 
                                 <input type="text" readonly class="input-field-textfield width75" id="emaildays" name="emaildays" value="{{days}}"/>                                                   
                                </div>
                                 <div ng-show="user_marketing_program_id == 0">
+                                    <div class="input-header-actionDetail " >
+                                        DATE
+                                    </div>
                                         <input type="hidden" class="textbox" id="emaildays" name="emaildays" value="0"/>
                                         <input type="text"  readonly  name="emaildatetime" id="emaildatetime"  class="input-field-textfield width75" value="{{entities_selected_time| date:'MMM dd yyyy'}}" />                                        
                                         <script>

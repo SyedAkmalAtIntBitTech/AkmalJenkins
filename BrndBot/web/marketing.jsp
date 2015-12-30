@@ -155,7 +155,7 @@
                         <p style="margin-top:-7px;"><img src="images/Icons/yourPlan.svg" height="25" width="25" /></p>
                     </div>
                 </a>
-            </div>
+        </div>
     </div>
   
     </body>

@@ -61,7 +61,9 @@ $(document).ready(function ()
     /*.......................................... facebook popup navbar ................*/
     $("#facebookpost").click(function(){
         $("#facebookpostsection").show();
-        $("#fbpostremove").show();
+        if($('#savedpostdiv').is(":visible")){
+            $("#fbpostremove").show();
+        }
         $("#facebookactionsection").hide();
         $("#facebooknotesection").hide();
         $("#fbactionsave").hide();
@@ -168,8 +170,11 @@ $(document).ready(function ()
    
     /*..................................... twitter popup navbar .................... */ 
     $("#twitterpost").click(function(){
+
         $("#twitterpostsection").show();
-        $("#twpostremove").show();
+        if( $('#twtsavedpostdiv').css('display') === 'block' ){
+        $("#twtpostremove").show();
+        }
         $("#twitteractionsection").hide();
         $("#twitternotesection").hide();
         $("#twactionsave").hide();
@@ -195,7 +200,7 @@ $(document).ready(function ()
         $("#twitteractionsection").hide();
         $("#twitterpostsection").hide();
         $("#twactionsave").hide();
-        $("#twpostremove").hide();
+        $("#twtpostremove").hide();
         
         $("#twitteraction").removeClass("top-subnav-link-active-detail");
         $("#twitteraction a").removeAttr("class");
@@ -238,7 +243,7 @@ $(document).ready(function ()
         $("#twitternotesection").hide();
         $("#twitterpostsection").hide();
         $("#twnotesave").hide();
-        $("#twpostremove").hide();
+        $("#twtpostremove").hide();
         
         $("#twitteraction").removeClass("top-subnav-link-active-detail");
         $("#twitteraction a").removeAttr("class");
@@ -333,16 +338,21 @@ $(document).ready(function ()
     
     
     $(".close").click(function(){
-//        setTimeout(function (){window.open(getHost() + 'marketing.jsp', "_self");},500);
+        
         var change=$("#change").val();
-        if( change === 0)
+        if( change === "0")
         {
+//            alert("nochange");
             closeoverlay();
             $('#slider-button').click();
             $('.bottom-cta-bar').hide();
         }
-        if( change!==0)
+        if( change !== "0")
         {
+//            alert("change");
+            setTimeout(function (){
+            window.open(getHost() + 'marketing.jsp', "_self");
+               },430);
 //            document.location.reload();
             $("#change").val("0");
             closeoverlay();
