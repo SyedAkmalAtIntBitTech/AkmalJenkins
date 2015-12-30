@@ -133,7 +133,7 @@ function setSubCategoryID(category_id, id, sub_category_name, external_source) {
                 window.open(configuration, "_self");
             }else {
 
-                var configuration = global_host_address + "selectpromotingcategory.jsp?category_id=" + category_id + "&sub_category_name=" + sub_category_name + "&sub_category_id=" + id;
+                var configuration = global_host_address + "mindbody.jsp?category_id=" + category_id + "&sub_category_name=" + sub_category_name + "&sub_category_id=" + id;
                 window.open(configuration, "_self");
             }    
 }

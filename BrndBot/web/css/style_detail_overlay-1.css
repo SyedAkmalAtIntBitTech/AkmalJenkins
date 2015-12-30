@@ -410,7 +410,7 @@ border-top: 1px solid #E8E9EA ;
     margin: 0px;
     box-sizing: border-box;
     overflow-x: auto;
-    padding-bottom: 80px;
+    padding-bottom: 10px;
     height: 100vh;
     padding-left: 70px;
 }
@@ -1198,9 +1198,24 @@ input-field-container{
     
     
 }
-
-
-
+.externalData-selection-content{
+    padding-top: 120px;
+     width: 80%;
+    box-sizing: border-box;
+    margin: auto;
+    
+}
+.padding-right-15{
+    padding-right: 25px;
+}
+.margin-top-12{
+    margin-top: 12px;
+}
+.subcat-list {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 110%;
+}
 .h3 {
     font-size: 14px;
     color: #3F3F42 ;
@@ -1523,7 +1538,11 @@ selfclear:after{
     border-radius: 5px;
     min-width: 700px;
 }
-
+.containerheight
+{
+    max-height: 390px;
+    overflow-y: auto;
+}
 
 
 .slat-cta-container{
