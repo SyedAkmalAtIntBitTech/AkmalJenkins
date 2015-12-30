@@ -6,8 +6,8 @@
  $(".cross").hide();
  $(".menu").hide();
  $("#emaillist").hide();
- 
- 
+ $("#addAction").hide();
+     
     var count=0;
         function selemlcheckbox(id){ 
 //            alert(id+"--selected");
@@ -172,6 +172,7 @@
 
             }
             function validate() {
+                    var regex=/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
                     var emailListName = $("#list_name").val();
                     var defaultFromName = $("#default_from_name").val();
                     var listDescription = $("#list_description").val();
@@ -181,21 +182,29 @@
                     $("#list_name").focus();
                     return false;
                 }
-                
+                 if (listDescription === "") {
+                    alert("list description not entered, please enter the list description");
+                    $("#list_description").focus();
+                    return false;
+                }
                 if ($.trim(defaultFromName).length == 0) {
                     alert('Please enter default from name');
                     $("#default_from_name").focus();
                     return false;
                 }
-                
-
-                if (listDescription === "") {
-                    alert("list description not entered, please enter the list description");
-                    $("#reply_email_address").focus();
+                if(regex.test(defaultFromName)===false){
+                    alert("Invalid Email Address!");
+                    $("#default_from_name").focus();
                     return false;
                 }
-                
                 return true;
+            }
+            function reSetemaillistpopup()
+            {
+               $("#list_name").val("");
+               $("#list_description").val("");
+               $("#default_from_name").val("");
+               return true;
             }
 
             function EmailListController($scope, $http) {
@@ -392,7 +401,6 @@
                         $scope.emailLists = data.allEmailListWithNoOfContacts.user;
 //                        alert(JSON.stringify($scope.emailLists));
                         $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
-                        
                         if (data === "true") {
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
                         } else if (data === error) {
@@ -587,4 +595,12 @@
                     $("#tab3").hide();
                     $("#tab4").hide();
                 };
+                
+                $scope.addemaillist = function()
+                {
+                    reSetemaillistpopup();
+                    $("#addAction").show();
+                    $("#fade").show();
+                };
+                
             }

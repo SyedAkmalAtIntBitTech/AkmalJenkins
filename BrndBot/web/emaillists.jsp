@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="stylesheet" type="text/css" href="css/slat.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
+    <link rel="stylesheet" href="css/popup.css"/>
     <script src="js/angular.min.js" type="text/javascript"></script>    
     <script src="js/bootstrap.min.js"></script>
     <script src="js/form.js"></script>
@@ -24,13 +25,16 @@
     <script src="js/emaillist.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-     <title>BrndBot - Email List</title>    
+    <script src="js/popup.js" type="text/javascript"></script> 
+    <title>BrndBot - Email List</title>    
 </head>    
-<body ng-app>
+<body ng-app class="claro1">
     <div class="content-main" ng-controller="EmailListController">
         <!--SideNav-->
         <%@include file="navbarv2.jsp" %>
+        <jsp:include page="createemaillist.jsp"/> 
         <!--Top Nav-->   
+        
         <div class="top-nav">
             <div class="page-title-bar col-1of1"> 
                 <!--<div class="exit-button-detail"></div>-->
@@ -40,7 +44,7 @@
                  <div class="delete-button md-button button fleft"> Delete Email List</div>
                 </a>
                 <a href="">
-                    <div class="add-action-button md-button button-text-1"> Add Email List</div>
+                    <div class="add-action-button md-button button-text-1" ng-click="addemaillist()"> Add Email List</div>
                 </a>
                 </div>
             </div>
@@ -130,7 +134,7 @@
             </div>            
         </div>
         </div>
-        
+      
     </div>
   
         <!--CTA Bar-->
