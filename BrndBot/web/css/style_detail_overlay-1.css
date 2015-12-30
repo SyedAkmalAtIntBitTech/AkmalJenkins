@@ -1188,10 +1188,10 @@ input-field-container{
 }
 
 .page-title-font{
-       font-size: 20px;
-    color: #3F3F42 ;
+     font-size: 20px;
+     color: #3F3F42 ;
 }
-
+#channelhead{width:100%;}
 .h2 {
     font-size: 24px;
     color: #3F3F42 ;

@@ -20,8 +20,10 @@
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="shortcut icon" href="css/favicon.png"></link>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
+
       <%!
             SqlMethods sql_methods = new SqlMethods();
             String category_id, sub_category_name, sub_category_id;
@@ -93,8 +95,18 @@
                         $scope.social_templates = data.social_template_availability;
                         $scope.social_temlates_print=data.social_template_print;
                         $scope.social_temlates_download=data.social_template_download;
+                        var email=JSON.stringify($scope.email_templates);
+                        var social=JSON.stringify($scope.social_templates);
+                        var print=JSON.stringify($scope.social_temlates_print);
+                        var download=JSON.stringify($scope.social_temlates_download);
+                        if((email==="0")&&(social==="0")&&(print==="0")&&(download==="0")){
+                            $("#channelhead").empty().append('Oops! No Channels to Select. Please wait, redirecting to Dashboard...');
+                            $(".h1").hide();
+                            setTimeout(function (){
+                            window.location="dashboard.jsp";},4000);
+                        }
                         
-                        if($scope.email_templates !== 0){$("#eml").show();}
+                        if($scope.email_templates !== 0){$("#eml").show();$("")}
                         if($scope.social_templates !== 0){$("#soc").show();}
                         if($scope.social_temlates_print !== 0){$("#prnt").show();}
                         if($scope.social_temlates_download !== 0){$("#dwnld").show();}
@@ -122,14 +134,14 @@
     <!--Top Nav-->   
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
-            <div class="page-title-regular page-title-font">Channel Selection</div>
+            <div id="channelhead" class="page-title-regular page-title-font">Channel Selection</div>
             <div class="page-cta-container"></div>
         </div>
     </div>
         <!--Main Content GENERIC--> 
         <div class="dashboard-background" ng-controller="selectPromoteMediaController">
             <div class="dashboard-content" ng-init="checkTemplateAvailability()">
-                <div class="h1"> What would you like to do today?</div>
+                <div id="header" class="h1"> What would you like to do today?</div>
                 <div class="button-row col-1of1">
                     <div class="button-column fleft col-1of10 pushright hint--bottom" ng-show="social_templates != 0"  data-hint="Social" >
                         <a  onclick="selected_media('social')" class="fleft" style="height:100%; width:100%;">
