@@ -52,6 +52,69 @@ function getImageId(idname)
 
 $(document).ready(function ()
 {
+    $("#dropdownurl").change(function(){
+        var choosenlink=$("#dropdownurl").val();
+        var link=choosenlink.split("--");
+        $("#url").val(link[0]);
+       if(choosenlink === "0")
+       {
+           $("#url").val("http://");
+       }
+    });
+    $("#url").keyup(function(){
+        var link=$("#url").val();
+        if(link.contains("http://") === false)
+        {
+            if(link.contains("http:/") === true)
+                $("#url").val("http://");
+            if(link.contains("http:") === true)
+                $("#url").val("http://");
+            if(link.contains("http") === true)
+                $("#url").val("http://");
+            if(link.contains("htt") === true)
+                $("#url").val("http://");
+            if(link.contains("ht") === true)
+                $("#url").val("http://");
+            if(link.contains("h") === true)
+                $("#url").val("http://");
+            else
+            {
+                $("#url").val("http://"+link);
+            }
+        }        
+    });
+    $("#postorschedule").click(function(){
+        $("#postpopup").show();
+        $("#fade").show();
+    });
+    $("#schedule").click(function(){
+        $("#postpopup").hide();        
+        $("#schedulepopup").show();
+        $("#fade").show();
+    });
+    $("#closeschedulepopup").click(function(){
+        $("#postpopup").show();        
+        $("#schedulepopup").hide();
+        $("#fade").show();
+    });
+    $("#closepostpopup").click(function(){
+        $("#postpopup").hide();
+        $("#fade").hide();
+    });
+    
+    $("#submitLink").click(function(){
+       var textval=$("#url").val();
+       var urlregex = new RegExp("^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)");
+       if(urlregex.test(textval) === false)
+       {
+           alert("Please Enter Valid Link");
+           return false; 
+       }
+       $("#link").val(textval);
+       $("#Linkurl").val(textval);
+       $("#linkpopup").hide();
+       $("#fade").hide();
+    });
     $("#galleryupload").click(function(){
         $("#fileuploaddiv").show();
         $("#imageGalleryDiv").hide();
@@ -90,7 +153,7 @@ $(document).ready(function ()
         $("#fbChangeImage").hide();
     }
     
-    $("#twittertext").val(data[5]);
+    $("#link").val(data[5]);
     $("#twitterpreviewimage").val(data[6]);
     $("#twitterimage").val("1");
     if(data[6]==="")
@@ -112,7 +175,7 @@ $(document).ready(function ()
         var fblink_description=$("#link_description").val();
         var fbLinkurl=$("#Linkurl").val();
         var facebookpreviewimage=$("#facebookpreviewimage").val();
-        var twittertext=$("#twittertext").val();
+        var twittertext=$("#link").val();
         var twitterpreviewimage=$("#twitterpreviewimage").val();
         data.push(fbposttext);
         data.push(fblink_title);
@@ -141,7 +204,7 @@ $(document).ready(function ()
         var fblink_description=$("#link_description").val();
         var fbLinkurl=$("#Linkurl").val();
         var facebookpreviewimage=$("#facebookpreviewimage").val();
-        var twittertext=$("#twittertext").val();
+        var twittertext=$("#link").val();
         var twitterpreviewimage=$("#twitterpreviewimage").val();
         data.push(fbposttext);
         data.push(fblink_title);

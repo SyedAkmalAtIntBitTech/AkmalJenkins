@@ -75,19 +75,29 @@
         if (isFacebook.equalsIgnoreCase("true")) {
             
             accesstoken = request.getParameter("fbaccessTokenSend");
+            if(accesstoken==null)
+            {
+                accesstoken=(String)session.getAttribute("FacebookAccessTokenSend");
+            }
             ManagedPage = request.getParameter("pagenameSend");
         }
         if (isTwitter.equalsIgnoreCase("true")) {
            
             twitteracesstoken = request.getParameter("twaccessTokenSend").split(",");
+            if(twitteracesstoken== null)
+            {
+                twitteracesstoken=(String[])session.getAttribute("TwitterAccessTokenSend");
+            }
         }
+        session.setAttribute("FacebookAccessTokenSend", fbaccessTokenSend);
+        session.setAttribute("TwitterAccessTokenSend", twitteracesstoken);
         sql_methods.session.setAttribute("IsFacebook", isFacebook);
         sql_methods.session.setAttribute("IsTwitter", isTwitter);
         sql_methods.session.setAttribute("MediaType", media_type);
         sql_methods.session.setAttribute("MindbodyData", mindbodydata);
         sql_methods.session.setAttribute("TwitterAccessTokenSend", twaccessTokenSend);
         sql_methods.session.setAttribute("PagenameSend", pagenameSend);
-        sql_methods.session.setAttribute("FacebookAccessTokenSend", fbaccessTokenSend);
+        //sql_methods.session.setAttribute("FacebookAccessTokenSend", fbaccessTokenSend);
         sql_methods.session.setAttribute("FacebookDefaultAccessToken", fbdefaultAccessToken);
     } catch (Exception e) {
         System.out.println(e.getCause());
@@ -107,6 +117,11 @@
     <input type="hidden" id="data" value="<%=data%>"/>
     <input type="hidden" id="selectedimagename" value=""/>
     <input type="hidden" id="selectedimageid" value=""/>
+    <input type="hidden" id="imageToPost" name="imageToPost" value="<%=imageid%>"/> 
+    <input type="hidden" id="accesstoken" name="accesstoken" value="<%=accesstoken%>"/>
+    <input type="hidden" id="twittweraccestoken" name="twittweraccestoken" value="<%=twitteracesstoken[0]%>"/>
+    <input type="hidden" id="twitterTokenSecret" name="twitterTokenSecret" value="<%=twitteracesstoken[1]%>"/>
+    <input type="hidden" id="sortLengthurl" name="sortLengthurl"/>
     <div class="content-main">
     <div class="navigation">
         <div class="main-nav-logo">
@@ -174,7 +189,6 @@
             </div>
         </div>
     </div>
-        <!--Main Content GENERIC--> 
         <div class="social-page-background">
             <div class="sequence-page-content-container">
                 <div class="col-1of2 social-preview fleft">
@@ -189,42 +203,30 @@
                             </div>
                         </div>
                         <div class="">
-<!--                            < %if (imageid.equalsIgnoreCase("")){%>
-                                <div class="Facebook-preview-usercontent">Demo content goes right here</div>
-                            < %}else{%>-->
-                                <input type="text" id="posttext" class="full noborder" placeholder="Demo content goes right here"></input>
-<!--                            < %}%>-->
+                            <input type="text" id="posttext" class="full noborder" placeholder="Demo content goes right here"></input>
                         </div>
                         <div class="Facebook-link-container">
                             <div class="Facebook-preview-image">
                                 <%if (imageid.equalsIgnoreCase("")){%>
                                     <div class="changeImage" onclick="fun('facebook','<%=mindbodydata%>');">Upload Image</div>
-<!--                                    <input type="hidden" id="facebookpreviewimage" value=""></input>-->
                                <%} else{%>
                                     <img class="imgsize" id="facebookpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
                                 <%}%>
                             </div> 
-<!--                            < %if (imageid.equalsIgnoreCase("")){%>
-                            <div class="Facebook-preview-link-container">
-                                <div class="Facebook-preview-link-title">Input in Admin-- This Weekend Workshop</div>
-                                <div class="Facebook-preview-link-description">This workshop is going to be so awesoem for the new season and get you in really good shape!</div>
-                                <div class="Facebook-preview-link-url">This should equal the marketing program link</div>
-                            </div>
-                            < %}else{%>
--->
                             <div class="Facebook-preview-link-container">
                                 <div class="Facebook-preview-link-title">
                                 <input type="text" id="link_title" class="full99 noborder" placeholder="Input in Admin-- This Weekend Workshop"></input></div>
                                 <div class="Facebook-preview-link-description">
                                 <input type="text" id="link_description" class="full99 noborder" placeholder="This workshop is going to be so awesoem for the new season and get you in really good shape!"></input></div>
                                 <div class="Facebook-preview-link-url">
-                                <input type="text" id="Linkurl" class="full99 noborder" placeholder="This should equal the marketing program link"></input></div>
+                                <input type="text" readonly id="Linkurl" class="full99 noborder" placeholder="This should equal the marketing program link"></input></div>
                             </div>
-<!--                            < %}%> -->
                         </div>
                     </div>
-<!--                    < % } else{
-                    %> -->
+                    <% }
+                         else
+                      {
+                    %>  
                     <div class="Blank_Facebook-preview">
                         <div class="Blank_Facebook">
                             <p class="textalgn">
@@ -251,21 +253,16 @@
                             <div class="col-1of1 Twitter-preview-name-container fleft">
                                 <div class="Twitter-preview-name fleft"><span>BrndBot Demo</span></div>
                                 <div class="Twitter-handle fleft">@BrndBot</div>
- <!--                               < %if (imageid.equalsIgnoreCase("")){%>
-                                    <div class="Twitter-preview-usercontent fleft col-1of1">Demo content goes right here andklj lkjflkjsdf l;kjasdlfkja slkfjljfal;skd jflkasdjflkasjdflkasjdlkfjlkslksdjaflkjsdlkfj asdfasdfasdf asdfasd fasdfasdf s</div>
-<!--                                < %}else{%>-->
-                                    <input type="text" id="twittertext" class="full noborder" placeholder="Demo content goes right here for twitter"></input>
-<!--                                < %}%>-->
-                                
+                                <textarea id="twittertext" class="noborder" placeholder="Demo content goes right here for twitter"></textarea>
                             </div>
                             <div class="Twitter-preview-image fleft">
                                 <%if (imageid.equalsIgnoreCase("")){%>
                                     <div class="changeImage" onclick="fun('twitter','<%=mindbodydata%>');"> Upload Image </div>
-<!--                                    <input type="hidden" id="twitterpreviewimage" value=""></input>-->
                                 <%} else{%>
                                     <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
                                 <%}%>
                             </div>
+                            <input type="text" readonly id="link" class="noborder top8" placeholder="This should equal the marketing program link"></input></div>
                         </div>   
                     </div>
                     <% }
@@ -281,7 +278,6 @@
                     <%
                         }
                     %>
-                    
                 </div>
             </div>
         </div>
@@ -289,7 +285,7 @@
         <!--CTA Bar-->
         <div class="bottom-cta-bar">
             <div class="bottom-cta-button-container-lg">
-               <div class="bottom-continue-button button-text-1">Post to Social Media</div>
+               <div class="bottom-continue-button button-text-1" id="postorschedule">Post to Social Media</div>
             </div>
         </div>
          </div>
