@@ -600,6 +600,7 @@ function programactions($scope, $http, $window){
             
             $scope.programs = data;
             program_status = data.programdetails.program_status;
+//            alert(JSON.stringify(data.programactions));
             if(program_status === "Closed"){
                 $(".endmrkprogbtn").hide();
                 $(".addemlautombtn").hide();

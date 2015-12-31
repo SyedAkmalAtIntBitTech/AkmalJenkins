@@ -201,7 +201,7 @@
                                 </div>
                                 <div class="slat-title-container col-1of2 fleft">
                                     <div class="slat-title email-list-slat-title col-1of1 sh1">{{programaction.programTemplateName}}</div>
-                                    <div class="action-list-slat-description col-1of1 sh3">Howdy Again</div>
+                                    <div class="action-list-slat-description col-1of1 sh3">{{programaction.description}}</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{programaction.postDate| date:'MMM dd yyyy'}}</div>
@@ -292,7 +292,7 @@
 
             </div>
         </div>                     
-        <div class="bottom-cta-bar" id="removeactionbutton" >
+        <div class="bottom-cta-bar bordertop" id="removeactionbutton" >
             <div class="bottom-cta-button-container bottomheight">
                <div class="remove-button-detail md-button button-text-1">Delete Selected Actions</div>
 
