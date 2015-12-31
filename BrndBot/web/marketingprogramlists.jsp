@@ -15,14 +15,17 @@
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
-    <title>Marketing Programs lists</title>
+     <title>Marketing Programs lists</title>
     <script src="js/configurations.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/angular.min.js"></script>
     <jsp:include page="basejsp.jsp"/>
     <style>
         #pastprogs{display: none;}
     </style>
      <script>
+         var selected_schedules_to_delete = "";
+         
          function pastprograms(){
              document.getElementById("currprogs").style.display = "none";
              document.getElementById("pastprogs").style.display = "block";
@@ -94,6 +97,40 @@
             };
             
         }
+        var count=0;
+        function selcheckbox(id){
+//            alert(id+"--selected");
+            content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
+//            alert(content);
+//            var a=$("#"+id).text();alert(a);
+            var htm=$("#"+id).html();
+            
+            var selected_schedule_id=id;
+            if(htm.contains('class="check-icon"')){
+                selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
+                count-=1;
+                $("#"+id).html(content);
+            }
+            else
+            {
+                selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
+//                alert(selected_schedules_to_delete);
+                count+=1;
+                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+            }
+            $("#"+id).toggleClass('selection-icon');
+            $("#"+id).toggleClass('selection-icon-selected');
+            if(count > 0)
+            {   
+                $(".add-action-button").hide();
+                $(".delete-button").show();
+            }
+            if(count==0)
+            {
+                $(".add-action-button").show();
+                $(".delete-button").hide();
+            }
+        }
         </script> 
 </head>    
 
@@ -143,7 +180,7 @@
                         <li class="slat-container fleft selfclear" ng-repeat="program in current_programs">
                             <div class="col-1of1 slat-unit fleft ">
                                 <div class="selection-container col-5p fleft"> 
-                                    <div class="selection-icon"></div>
+                                    <div class="selection-icon" id="{{program.id}}" onclick="selcheckbox(this.id);setSelectedIds(this.id);"><input type="checkbox" id="entityid{{program.id}}" value="{{program.id}}" name="entityname" hidden></input></div>
                                 </div>
                                 <div class="slat-title-container col-3of10 fleft">
                                     <div class="slat-title  col-1of1 sh1-contact">{{program.program_name}}</div>
@@ -173,7 +210,7 @@
                         <li class="slat-container fleft selfclear" ng-repeat="program in past_programs">
                             <div class="col-1of1 slat-unit fleft " >
                                 <div class="selection-container col-5p fleft"> 
-                                    <div class="selection-icon"></div>
+                                  <div class="selection-icon" id="{{program.id}}" onclick="selcheckbox(this.id);setSelectedIds(this.id);"><input type="checkbox" id="entityid{{program.id}}" value="{{program.id}}" name="entityname" hidden></input></div>
                                 </div>
                                 <div class="slat-title-container col-3of10 fleft">
                                     <div class="slat-title  col-1of1 sh1-contact">{{program.program_name}}</div>

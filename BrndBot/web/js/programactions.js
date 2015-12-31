@@ -12,6 +12,7 @@ var program_status;
 
 $(document).ready(function ()
 {
+    $("#removeactionbutton").hide();
     $("#liPriority").click(function () {
         //$slider=1;
         //sliderDialog = "#dvPriorityDialog";
@@ -147,7 +148,40 @@ $edit=0;
         
     });
 });
-
+var selected_schedules_to_delete="";
+var count=0;
+        function selcheckbox(id){
+//            alert(id+"--selected");
+            content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
+            var htm=$("#"+id).html();
+            
+            var selected_schedule_id=id;
+            if(htm.contains('class="check-icon"')){
+                selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
+                count-=1;
+                $("#"+id).html(content);
+            }
+            else
+            {
+                selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
+//                alert(selected_schedules_to_delete);
+                count+=1;
+                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+            }
+            $("#"+id).toggleClass('selection-icon');
+            $("#"+id).toggleClass('selection-icon-selected');
+            if(count > 0)
+            {   
+//                $(".add-action-button").hide();
+                $("#removeactionbutton").show();
+            }
+            if(count==0)
+            {
+//                $(".add-action-button").show();
+//                $(".delete-button").hide();
+                $("#removeactionbutton").hide();
+            }
+        }
 function showEditNote() {
     $("#noteprev").hide();
     $("#noteedit").show();
@@ -1588,7 +1622,8 @@ function programactions($scope, $http, $window){
                         $("#mailremovedtemplate").show();                     
                     }
                     alert(responseMessage);
-                    window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+//                    window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
