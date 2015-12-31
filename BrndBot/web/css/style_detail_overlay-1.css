@@ -1141,7 +1141,10 @@ input-field-container{
     box-sizing: border-box;
     width:100%;
 }
-
+.mrktextarea{
+    resize: none;
+        height: 80px !important;
+}
 .inner-content-column-container-detail{
     margin-top: 20px;
     width:100%;
@@ -1850,7 +1853,10 @@ margin-top: 30px;
 
 
 }
-
+.pop-up-container-newmarketingaction{
+     margin-top: 15px !important;
+     padding-bottom: 15px !important;
+}
 .pop-up-container-imageSelection{
     width: 500px;
    padding-bottom: 45px;

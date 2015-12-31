@@ -13,16 +13,17 @@
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
+    <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="css/popup.css"></link>
      <script src="js/popup.js" type="text/javascript"></script>
 </head>    
-
+    <style>.arrow_top{display:none;}</style>
 <body >
     <div id="fade" class="black_overlay" ></div>
         <div id="addAction">
     <!--Top Nav-->   
     <div class="pop-up-background">
-        <div class="pop-up-container pop-up-container-newaction"> 
+        <div class="pop-up-container pop-up-container-newaction pop-up-container-newmarketingaction"> 
             <div class="pop-up-title pop-up-title-h1"> Create New Action</div>
              <div class="pop-up-exit-container" id="addactionClose">
                 <a href="" class="pop-up-exit-icon">
@@ -31,31 +32,59 @@
             </div> 
             <div class="pop-up-inner">
                 <div class="input-field-container ">
+                    <div class="input-header"> Marketing Program </div>
+                    <select disabled id="marketing_program" name="option" class="input-field-textfield input-placeholder">
+                        <option value="0" class="a0">General</option>
+                        <option ng-repeat="row in marketprogram" class="a{{row.user_program_id}}" value="{{row.user_program_id}}">{{row.name}}</option>
+                    </select>
+                </div>
+                <div class="input-field-container ">
                     <div class="input-header"> Action Name </div>
-                    <div class="input-field-textfield input-placeholder">Enter Email Address</div>
+                    <input id="addactiontitle" type="text" class="input-field-textfield input-placeholder" placeholder="Enter Action Name"></input>
                 </div>
                 <div class="line-divider"></div>
                 <div class="cols-2">
                      <div class="input-field-container col-4of10 fleft pushright">
-                        <div class="input-header"> Action Date </div>
-                        <div class="input-field-textfield input-placeholder">Enter Action Date</div>
+                        <div class="input-header"> Action Days </div>
+                        <input type="number" name="days" id="days"  class="input-field-textfield input-placeholder" placeholder="Enter days"></input>
                     </div>
                      <div class="input-field-container col-4of10 fleft">
                         <div class="input-header"> Action Time </div>
-                        <div class="input-field-textfield input-placeholder">Enter Action Time</div>
+                         <input id="timepicker1" type="text" name="timepicker1"  class="input-field-textfield input-placeholder" placeholder="Enter Action Time"></input>
+                         <script src="js/timepicki.js" type="text/javascript"></script>
+                        <script>
+                                $('#timepicker1').timepicki({
+                                                    show_meridian:true,
+                                                    min_hour_value:0,
+                                                    max_hour_value:12,
+                                                    step_size_minutes:01,
+                                                    overflow_minutes:true,
+                                                    increase_direction:'up',
+                                                    disable_keyboard_mobile: true
+                                                });
+                        </script>
                     </div>
                 </div>
                  <div class="input-field-container col-1of1">
                     <div class="input-header"> Action Type </div>
-                    <div class="input-field-textfield input-placeholder">Enter Last Name</div>
-                </div>               
+                    <select id="actiontype" class="input-field-textfield input-placeholder" name="actiontype">
+                                    <option  class="input-field-textfield input-placeholder" value="0">Select</option>
+                                    <option class="input-field-textfield input-placeholder" value="Facebook">Facebook Post</option>
+                                    <option class="input-field-textfield input-placeholder" value="Twitter">Twitter Post</option>
+                                    <option class="input-field-textfield input-placeholder" value="Email">Email</option>
+                                </select>
+                </div>
+                <div class="input-field-container col-1of1">
+                    <div class="input-header"> Description </div>
+                    <textarea class="input-field-textfield input-placeholder mrktextarea" name="description" id="description" placeholder="Description here"></textarea>
+                </div>
             </div>
             
         </div>
     </div>
     <div class="pop-up-cta-container pop-up-cta-container-newaction">
         <a href="javascript:void(0)">
-            <div class="pop-up-cta-button-full"> Save Action</div>
+            <div class="pop-up-cta-button-full" ng-click="AddAction()"> Save Action</div>
         </a>
     </div> 
         </div>

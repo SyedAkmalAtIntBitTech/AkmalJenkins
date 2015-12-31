@@ -1347,8 +1347,11 @@ function programactions($scope, $http, $window){
         console.log("New Epoch: " + myEpoch);
 
         if (validateaction()) {
-            var action = {"title": title, "actiontype": actiontype, "marketingType":marketingProgramType, "type": "save",
-                "description": description, "action_date": myEpoch, "days":days
+            var action = {"title": title, "actiontype": actiontype,
+                "marketingType":marketingProgramType,
+                "type": "save",
+                "description": description,
+                "action_date": myEpoch, "days":days
             };
             $http({
                 method: 'POST',
@@ -1360,14 +1363,14 @@ function programactions($scope, $http, $window){
                 $scope.status = data;
                 if (data != "") {
                     alert("action saved successfully");
-                    window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
 
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                alert("request not succesful");
+                alert("request not succesful ");
             });
 
         }
