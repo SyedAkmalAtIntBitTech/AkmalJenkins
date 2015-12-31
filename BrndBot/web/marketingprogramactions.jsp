@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <title>Marketing Program Actions</title>
     <script src="js/jquery.min.js"></script>
     <script src="js/configurations.js"></script>
@@ -193,7 +194,10 @@
                     <ul class="main-container fleft">
                     <li class="slat-container fleft selfclear"  ng-repeat="programaction in programs.programactions">
                             <div class="selection-container col-5p"> 
-                                <div class="selection-icon"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="{{programaction.scheduledEntityListId}}" hidden /></div>
+                                <div class="selection-icon" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}');selcheckbox(this.id);"><input type="checkbox" id="entityid{{programaction.scheduledEntityListId}}"  value="{{programaction.scheduledEntityListId}}" name="entityname" hidden></input></div>
+                                <!--<div class="selection-icon">-->    
+                                    <!--<input type="checkbox" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="{{programaction.scheduledEntityListId}}" hidden />-->
+                                <!--</div>-->
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div class="icon-container fleft "> 
@@ -294,7 +298,7 @@
         </div>                     
         <div class="bottom-cta-bar bordertop" id="removeactionbutton" >
             <div class="bottom-cta-button-container bottomheight">
-               <div class="remove-button-detail md-button button-text-1">Delete Selected Actions</div>
+               <div class="remove-button-detail md-button button-text-1" ng-click="deleteSchedule('0', 'deleteMultiple')">Delete Selected Actions</div>
 
             </div>
         </div>                    
