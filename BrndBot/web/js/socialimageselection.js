@@ -545,8 +545,8 @@
             }
 
 $(document).ready(function () {
-    alert();
     $("#schedulethepost").click(function () {
+    alert();
                     var schedule_date = $("#schedule_social_date").val();
                     var schedule_time = $("#schedule_social_time").val().replace(/ /g,'');  
                     var schedule_title = $("#schedule_title").val();
