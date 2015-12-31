@@ -34,9 +34,9 @@
         <script src="js/programactions.js"></script>
 </head>    
 
-<body class="" ng-app>
+<body class="" ng-app ng-controller="programactions">
     <!--SideNav-->
-    <div class="content-main" ng-controller="programactions">
+    <div class="content-main" ng-init="getProgramActions()">
     <jsp:include page="facebookpreview.jsp"/> 
     <jsp:include page="twitterpreview.jsp"/> 
     <jsp:include page="emailpreviewpopup.jsp"/> 
@@ -44,7 +44,7 @@
     <%@include file="navbarv2.jsp" %>
         
     <!--Top Nav-->   
-    <div class="top-nav" ng-init="getProgramActions()">
+    <div class="top-nav" >
         <div class="page-title-bar col-1of1"> 
             <a class="exit-button-icon" href="marketingprogramlists.jsp">
                 <div class="exit-button-detail"> 
@@ -54,7 +54,7 @@
             <div class="page-title-with-back page-title-font">{{programs.programdetails.programName}}</div>
             <div class="page-cta-container">
                 <a href="" class="gray-button fleft">
-                    <div class="md-button"  ng-click="endMarketingProgram()">  End Marketing Program</div>    
+                    <div class="md-button"  ng-click="endMarketingProgram()"> End Marketing Program</div>    
                 </a>
             </div>
         </div>
@@ -191,7 +191,7 @@
                     </div>
                     <!--List Starts Here-->
                     <ul class="main-container fleft">
-                  <li class="slat-container fleft selfclear"  ng-repeat="programaction in programs.programactions">
+                    <li class="slat-container fleft selfclear"  ng-repeat="programaction in programs.programactions">
                             <div class="selection-container col-5p"> 
                                 <div class="selection-icon"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="{{programaction.scheduledEntityListId}}" hidden /></div>
                             </div>

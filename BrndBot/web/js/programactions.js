@@ -597,10 +597,9 @@ function programactions($scope, $http, $window){
             method: 'GET',
             url: 'alluserMarketingProgramForDisplay.do?program_id='+program
         }).success(function (data, status, headers, config) {
-
+            
             $scope.programs = data;
             program_status = data.programdetails.program_status;
-            
             if(program_status === "Closed"){
                 $(".endmrkprogbtn").hide();
                 $(".addemlautombtn").hide();

@@ -16,6 +16,16 @@
     <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="css/popup.css"></link>
      <script src="js/popup.js" type="text/javascript"></script>
+      <%!
+            String program_id = "";
+        %>
+        <%
+            program_id = request.getParameter("program_id");
+        %>
+        <script>
+            var program = "";
+            program = <%= program_id %>;
+        </script>    
 </head>    
     <style>.arrow_top{display:none;}</style>
 <body >
@@ -34,8 +44,8 @@
                 <div class="input-field-container ">
                     <div class="input-header"> Marketing Program </div>
                     <select disabled id="marketing_program" name="option" class="input-field-textfield input-placeholder">
-                        <option value="0" class="a0">General</option>
-                        <option ng-repeat="row in marketprogram" class="a{{row.user_program_id}}" value="{{row.user_program_id}}">{{row.name}}</option>
+                        <!--<option value="0" class="a0">General</option>-->
+                        <option class="a<%=program_id%>" value="<%=program_id%>">{{programs.programdetails.programName}}</option>
                     </select>
                 </div>
                 <div class="input-field-container ">
