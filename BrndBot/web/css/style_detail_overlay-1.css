@@ -2122,3 +2122,10 @@ width:100%;
     overflow-y: scroll;
     width: 90%;
 }
+.algnmnt {
+    padding-left: 43%;
+    padding-top: 10px;
+}
+#socialscheduleid,.algnmnt{
+    cursor: pointer;
+}

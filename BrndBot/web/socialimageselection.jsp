@@ -108,9 +108,10 @@
 
 %>
 <body ng-app>
-   <div ng-controller="controllerMarketingCampaign">
+   <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign">
     <%@ include file="selectimagetype.jsp"%>
     <!--SideNav-->
+    <intput type="hidden" id="number" value=""/>
     <input type="hidden" id="isFacebook" value="<%=isFacebook%>"/>
     <input type="hidden" id="isTwitter" value="<%=isTwitter%>"/>
     <input type="hidden" id="imagen" value="<%=imageid%>"/>
@@ -129,7 +130,7 @@
                 <img type="image/svg+xml" src="images/Icons/Logo_Reverse.svg" class="bb-logo" style="cursor:pointer;"/>
                 </a>
         </div>
-        <ul class="nav-tabs" style="margin-top:30px;">
+        <ul class="nav-tabs">
             <li class="nav-elements-icon">
                 <a  href="dashboard.jsp">
                 <img type="image/svg+xml" src="images/Nav_Icons/NavIcon_Home_white.svg" class="bb-logo" style="cursor:pointer;width:35px;"/>

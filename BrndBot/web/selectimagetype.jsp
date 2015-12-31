@@ -381,7 +381,7 @@
                     </div>
                 </div>
             </div>
-            
+            <!-- ng-controller="socialmediapreview" id="socialmediapreview" -->
             <div id="schedulepopup">
                 <div class="pop-up-exit-container">
                     <div class="pop-up-exit-icon" id="closeschedulepopup">
@@ -426,11 +426,11 @@
                         <div class="line-divider-notop "></div>
                         <div class="input-header">Name this Action</div>
                         <div class="">
-                            <input type="text" class="input-field-textfield input-placeholder full" id="schedule_title" name="schedule_title" placeholder="TITLE" disabled=""></input>
+                            <input type="text" class="input-field-textfield input-placeholder full" id="schedule_title" name="schedule_title" placeholder="TITLE" ></input>
                         </div>
                         <div class="input-header">Description</div>
                         <div class="">
-                            <textarea class="input-field-textfield input-placeholder fulltextarea" name="schedule_desc" id="schedule_desc" placeholder="Description" value="" disabled=""></textarea>
+                            <textarea class="input-field-textfield input-placeholder fulltextarea" name="schedule_desc" id="schedule_desc" placeholder="Description" value=""></textarea>
                         </div>
                         <div class="cols-2">
                              <div class="input-field-container col-4of10 fleft pushright">
@@ -450,7 +450,7 @@
                              <div class="input-field-container col-4of10 fleft">
                                 <div class="input-header"> Action Time </div>
                                 <div class="">
-                                    <input id="schedule_social_time" type="text" name="schedule_social_time" class="input-field-textfield input-placeholder" placeholder="Enter Action Time"/><br>
+                                    <input id="schedule_social_time" type="text" name="schedule_social_time" class="input-field-textfield input-placeholder" placeholder="Enter Action Time" readonly/><br>
                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#schedule_social_time').timepicki();
@@ -459,9 +459,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="pop-up-cta-container pop-up-cta-container-newaction1">
+                    <div class="pop-up-cta-container pop-up-cta-container-newaction1" id ="schedulethepost">
                         <input type="hidden" name="socialscheduleid" id="socialscheduleid" value="socialmedia"/>
-                        <input type="button" id ="schedulethepost" value="SCHEDULE" class="pop-up-cta-button-full1"/>   
+                        <div class="algnmnt">SCHEDULE</div>
                     </div>
                     </div>
                 </div>
