@@ -30,9 +30,11 @@
                  $(".gray-button").show();
                  $("#addcontact").hide();
                  $("#addcontacts").hide();
+                 $(".add-action-button").hide();
             }
             if(count==0)
             {
+                 $(".add-action-button").show();
                 $(".delete-button").hide();
                  $(".gray-button").hide();
                  $("#addcontact").show();

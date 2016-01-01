@@ -475,7 +475,7 @@ function programactions($scope, $http, $window){
         }).success(function (data, status, headers, config) {
             if (data == "true"){
                 
-                  window.open(getHost() + 'marketingprogramlist.jsp', "_self");
+                  window.open(getHost() + 'marketingprogramlists.jsp', "_self");
                 
             }else {
                 alert("problem saving the record");
@@ -1119,9 +1119,9 @@ function programactions($scope, $http, $window){
             $("#emailpost a").addClass("h3-subnav");
             $("#emailnote").addClass("top-subnav-links-detail");
             $("#emailnote a").addClass("h3-subnav");
-            alert("1");
+//            alert("1");
             $('#slider-button').click();
-            alert("2");
+//            alert("2");
             prevSliderDialog = "#emailsection";
             $('#emailsection').show();
             
@@ -1131,7 +1131,7 @@ function programactions($scope, $http, $window){
 //            $http({
 //                method: 'GET',
 //                url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
-//            }).success(function (data) {
+//            }).success(function (data) {alert(JSON.stringify(data));
 //                $scope.entitiesdetails = data;
 //                if (data.body == undefined) {
 //                    $("#mailpreviewremove").hide();
