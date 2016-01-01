@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay_new.css">
     <link rel="stylesheet" type="text/css" href="css/normalize_new.css">
     <link rel="shortcut icon" href="favicon.png">
+    <link href="css/style_detail_overlay-1.css" rel="stylesheet" type="text/css"/>
     <title>BrndBot - Library</title>
     <meta charset="UTF-8">
     <%@ include file="fonttypekit.jsp"%>
@@ -20,23 +21,29 @@
     <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
     <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
     <link href="css/popup.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"></link>
+    <script src="js/popup.js"></script>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="js/imagegallery.js"></script>
 </head>    
+    <style>#imagepopup{display: none;
+    position: fixed;
+    z-index: 999999;
+        width:100%;}</style>
 
-<body ng-app="rootApp">
+<body ng-app="rootApp"  class="claro1">
     <!--SideNav-->
     <div class="content-main">
-    <jsp:include page="navbarv2.jsp"/>   
+    <jsp:include page="navbarv2.jsp"/>  
+    <jsp:include page="imageuploadpopup.jsp"/>
     <!--Top Nav-->   
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
             <div class="page-title-regular page-title-font">Image Gallery</div>
             <div class="page-cta-container">
                  <a href="" class=" fleft">
-                    <div class=" add-button md-button"> Upload an Image</div>    
+                     <div id="liPriority" class=" add-button md-button" onclick="Showimguploadpopup()" > Upload an Image</div>    
                 </a>
             </div>
         </div>
@@ -58,8 +65,8 @@
                                 <div class="galImage-description">Added on Nov 26 2015</div>
                                 <div class="galCard-divider"></div>
                                  <img type="image/svg+xml" src="images/Icons/settings.svg" class="galCard-settingsicon fleft"> </img>
-                                 <img type="image/svg+xml" src="images/Icons/trash.svg" class="galCard-trashicon fleft"> </img>
-                                 <button name="delete"  id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>
+                                 <img type="image/svg+xml" name="delete"  id="delete" src="images/Icons/trash.svg" class="galCard-trashicon fleft" ng-click="deleteImage(images.id, images.user_id, images.image_name)"> </img>
+                                 <!--<button name="delete"  id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>-->
                             </div>
                         </div>
                     </div>
@@ -67,12 +74,24 @@
             </div>
         </div>
     </div>
+        
+<!--        <div id="light" class="white_content closepopup">
+                <a href = "javascript:void(0)" style="text-decoration:none;">
+                    <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
+                        <p style="margin-top:-7px;"><img src="images/Icons/yourPlan.svg" height="25" width="25" /></p>
+                    </div>
+                </a>
+        </div>-->
             </div>            
-        </div>
+    
+    
+    
+    
+<!--        </div>
         </div>
     </div>
 
-    </div>
+    </div>-->
 </div>
 </body>
 </html>

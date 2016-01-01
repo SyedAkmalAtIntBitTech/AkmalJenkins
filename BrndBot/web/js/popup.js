@@ -375,6 +375,10 @@ $(document).ready(function ()
        $("#fade").hide();
        $("#addContact").hide();
   });
+  $("#closeimguploadpopup").click(function(){
+       $("#fade").hide();
+       $("#imagepopup").hide();
+  });
   
   
   /////////////////////////////////////////////////////////////////////////////////////////////////////
