@@ -13,6 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
+    <link rel="stylesheet" href="css/popup.css"/>
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <title>Marketing Program Actions</title>
@@ -20,7 +21,6 @@
     <script src="js/configurations.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/popup.js" type="text/javascript"></script>        
-    <link rel="stylesheet" href="css/popup.css"/>
     <jsp:include page="basejsp.jsp"/>
      <%!
             String program_id = "";
@@ -301,7 +301,14 @@
                <div class="remove-button-detail md-button button-text-1" ng-click="deleteSchedule('0', 'deleteMultiple')">Delete Selected Actions</div>
 
             </div>
-        </div>                    
+        </div>       
+        <div id="light" class="white_content closepopup">
+                <a href = "javascript:void(0)" style="text-decoration:none;">
+                    <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
+                        <p style="margin-top:-7px;"><img src="images/Icons/yourPlan.svg" height="25" width="25" /></p>
+                    </div>
+                </a>
+        </div>
 <!--        CTA Bar
         <div class="bottom-cta-bar">
             <div class="bottom-cta-button-container">

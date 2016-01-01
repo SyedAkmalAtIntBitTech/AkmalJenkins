@@ -284,7 +284,9 @@ $(document).ready(function ()
         $("#emailnote a").addClass("h3-subnav");
     });
     $("#emailnote").click(function(){
-            
+        var id=$("#emailaction_id").val();
+        var note=$("#emailnotes"+id).val();
+        $("#emaildescription"+id).html(note);
         $("#emailnotesection").show();
         $("#emailnotesave").show();
         $("#emailactionsection").hide();
@@ -308,10 +310,13 @@ $(document).ready(function ()
     });
     $("#emailaction").click(function(){
         var change=$("#change").val();
+        var id=$("#emailaction_id").val();
+        
+        //alert(id);
         if(change === "1")
         {
-            var note=$("#emailnotes").val();
-            $("#emaildescription").html(note);
+            var note=$("#emailnotes"+id).val();
+            $("#emaildescription"+id).html(note);
             $("#change").val("0");
         }
         $("#emailactionsection").show();

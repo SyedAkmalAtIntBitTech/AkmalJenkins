@@ -40,20 +40,7 @@ $(document).ready(function ()
                                 }
                                 
                             });
-                           
-//   $jumptodatepicker.on('date_selected.datepicker', function (event, user_selected_date) {
-////                $selected.show().html('Selected date is: ' + user_selected_date.date.toString());
-//
-////                alert(user_selected_date.date.toString());
-//                setCurrentDate(user_selected_date);
-//                
-////            });                         
-//    var curdate=picker.gotoToday();
-//    $("#jumptodatepicker").click(function ()
-//    {   
-//        $(".pika-single").css("margin-top","100px").css("margin-left","70px");
-//    });
-    
+               
     var d = new Date();
     var c_day = d.getDate();
     var c_month = d.getMonth() + 1;
@@ -73,26 +60,6 @@ $(document).ready(function ()
         $('#slider-button').click();
         prevSliderDialog = "#dvFastingDialog";
     });
-//    $('#datetimepicker3').datetimepicker({
-//        pickDate: false
-//    });
-//    $("#entitydetails").click(function () {
-//        
-//        sliderDialog = "#previewfb";
-//        $('#slider-button').click();
-//        prevSliderDialog = "#previewfb";
-//    });
-//    
-//    function cancelform()
-//    {
-//        
-////    $("#"+cancelbtn).click(function(){
-//        if(confirm("Do you want to cancel the process?")){
-//            $('#slider-button').click();
-//            
-//        }
-////    })
-//    }
 $a=0;
 $edit=0;
     $('#slider-button').click(function () {
@@ -1467,12 +1434,16 @@ function controllerMarketingCampaign($scope, $http) {
 
         }
     };
-    $scope.updateActionEmailNote = function () {
-        
-        var actiontype = $("#email_schedule_type").val();
+    $scope.updateActionEmailNote = function (schedule_id) {
+        var id=$("#emailaction_id").val();
+        var a= $("#emailnotes"+id).val();
+        alert(a);
+        $("#emailnotes"+id).val(a);
+        var actiontype = getfacebook();
+        //alert(actiontype);
 //        console.log("action type" + actiontype);
         var schedule_id = $("#email_scheduleid").val();
-        var description = $("#emailnotes").val();
+        var description = $("#emailnotes"+schedule_id).val();
         
 //        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
 
@@ -1560,12 +1531,10 @@ function controllerMarketingCampaign($scope, $http) {
         }
     };
     
-    $scope.updateActionFacebookNote = function () {
+    $scope.updateActionFacebookNote = function (schedule_id) {
         
-         var actiontype = $("#fb_scheduletype").val();
-        var schedule_id = $("#fb_scheduleid").val();
-        var description = $("#fbnote").val();
-        
+        var actiontype = getfacebook();
+        var description = $("#fbnote"+schedule_id).val();
 //        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
 
 //        console.log("New Epoch: " + myEpoch);

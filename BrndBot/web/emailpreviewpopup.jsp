@@ -39,7 +39,11 @@
             <div class="top-subnav-detail" id="emailtopsubnav">
                 <div class="top-subnav-tabs-detail">
                      <ul class="top-subnav-nav-elements-detail">
-                        <li class="top-subnav-links-detail top-subnav-link-active-detail" id="emailaction"> <a class="h3-subnav-subnav-active">Action Details</a></li>
+                        <li class="top-subnav-links-detail top-subnav-link-active-detail" id="emailaction" val="{{schedule_id}}"> 
+                            <input type="hidden" id="emailaction_id" value="{{schedule_id}}"></input>
+<!--                            <input type="hidden" id="emaidesc_value" value="{{schedule_desc}}"></input>-->
+                            <a class="h3-subnav-subnav-active">Action Details</a>
+                        </li>
                         <li class="top-subnav-links-detail" id="emailpost"> <a class="h3-subnav">Saved Email</a></li>
                         <li class="top-subnav-links-detail  top-subnav-links-detail-last" id="emailnote"> <a class="h3-subnav">Notes</a></li>
                     </ul>
@@ -55,7 +59,7 @@
                 <div class="saved-post-header-detail">
                    <div class="h4" ng-show="schedule_desc === ''">Write Notes about this Action</div>                      
                    <div class="h4" ng-show="schedule_desc !== ''">Notes</div>
-                   <div class="instruction-text" ng-show="schedule_desc !== ''"><p id="emaildescription">{{schedule_desc}}</p></div>
+                   <div class="instruction-text" ng-show="schedule_desc !== ''"><p id="emaildescription{{schedule_id}}">{{schedule_desc}}</p></div>
                 </div>
                     <div class="inner-content-detail">
                         <div class="fields-note-detail">
@@ -209,7 +213,7 @@
                         <!--SAVED POST GOES HERE-->
 
                         <div class="notes-container">
-                              <textarea class="notes-container-textarea" id="emailnotes">{{schedule_desc}}</textarea>
+                              <textarea class="notes-container-textarea" id="emailnotes{{schedule_id}}">{{schedule_desc}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -233,7 +237,7 @@
         
         <div class="" id="emailnotesave">
             <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionEmailNote()">Save Notes</div>
+                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionEmailNote(schedule_id)">Save Notes</div>
             </div>
         </div>
         <div class="bottom-cta-bar" id="emailpostremove" ng-show="entitiesdetails.body !== undefined">

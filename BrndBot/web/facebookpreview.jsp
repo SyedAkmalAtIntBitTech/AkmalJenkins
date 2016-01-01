@@ -205,9 +205,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            
-                         
                         </div>
                     </div>
                 </div>
@@ -227,7 +224,7 @@
                         <!--SAVED POST GOES HERE-->
 
                         <div class="notes-container">
-                            <textarea class="notes-container-textarea" id="fbnote">{{schedule_desc}}</textarea>
+                            <textarea class="notes-container-textarea" id="fbnote{{schedule_id}}">{{schedule_desc}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -251,7 +248,7 @@
         
         <div class="" id="fbnotesave">
             <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionFacebookNote()">Save Notes</div>
+                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionFacebookNote(schedule_id)">Save Notes</div>
             </div>
         </div>
          

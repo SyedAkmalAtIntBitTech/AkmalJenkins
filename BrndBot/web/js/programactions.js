@@ -28,7 +28,6 @@ $(document).ready(function ()
 $a=0;
 $edit=0;
     $('#slider-button').click(function () {
-        alert();
         $a+=1;
          //To hide the dialog if user click on another node
         if($a>=2 && $edit==1)
@@ -1093,8 +1092,9 @@ function programactions($scope, $http, $window){
                                           schedule_date, entity_type, 
                                           schedule_title, schedule_desc, 
                                           post_time, action_status, days) {
-       
+           
         if (entity_type === getemail()) {
+            
             $slider=2;
             sliderDialog = "#emailsection";
             
@@ -1120,63 +1120,65 @@ function programactions($scope, $http, $window){
             $("#emailnote").addClass("top-subnav-links-detail");
             $("#emailnote a").addClass("h3-subnav");
 //            alert("1");
-            $('#slider-button').click();
+            
 //            alert("2");
             prevSliderDialog = "#emailsection";
-            $('#emailsection').show();
-            
+//            $('#emailsection').show();
+             $("#emailpost").click();
 //            $("#preview_email").show();
 //            $("#edit_email").hide();
 //            $("#edit_email_action").hide();
-//            $http({
-//                method: 'GET',
-//                url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
-//            }).success(function (data) {alert(JSON.stringify(data));
-//                $scope.entitiesdetails = data;
-//                if (data.body == undefined) {
-//                    $("#mailpreviewremove").hide();
-//                    $('#mailremovedtemplate').show();
-//                    $('#mailpreviewdecond').hide();
-//                    $('.approve').hide();
-//                    $("#email_button_send").val(create_button_title);
-//                } else {
-//                    $('.approve').show();
-//                    $("#mailpreviewremove").show();
-//                    $('#mailremovedtemplate').hide();
-//                    $('#mailpreviewdecond').show();
-//                    $('.content').show();
-//                    $('#mailimgprev').show();
-//                    $("#email_button_send").val("Send");
-//                }
-//                if(template_status=="complete")
-//                {
-//                    $("#emailgreen").show();
-//                    $("#emailred").hide();
-//                }
-//                else
-//                {
-//                    $("#emailgreen").hide();
-//                    $("#emailred").show();
-//                }
-//                var date = new Date(schedule_time);
-//                $(".content").empty();
-//                $(".content").append(data.body);
-////                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
-//                
-//                $scope.entities_selected_time = schedule_time;
-//                $scope.schedule_title = schedule_title;
-//                $scope.schedule_id = schedule_id;
-//                console.log(schedule_desc);
-//                $scope.schedule_desc = schedule_desc;
-//                $scope.email_template_status = template_status;
-//                $scope.schedule_type = entity_type;
-//                $scope.marketing_program_name = marketingName;
-//                $scope.user_marketing_program_id = programId;
-//                $scope.days = days;
-//                $scope.is_today_active = is_today_active;
-//            }).error(function (data) {
-//                alert("request not successful");
-//            });
+            
+            $http({
+                method: 'GET',
+                url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
+            }).success(function (data) {
+                $scope.entitiesdetails = data;
+                if (data.body == undefined) {
+                    $("#mailpreviewremove").hide();
+                    $('#mailremovedtemplate').show();
+                    $('#mailpreviewdecond').hide();
+                    $('.approve').hide();
+                    $("#email_button_send").val(create_button_title);
+                } else {
+                    $('.approve').show();
+                    $("#mailpreviewremove").show();
+                    $('#mailremovedtemplate').hide();
+                    $('#mailpreviewdecond').show();
+                    $('.content').show();
+                    $('#mailimgprev').show();
+                    $("#email_button_send").val("Send");
+                }
+                if(template_status=="complete")
+                {
+                    $("#emailgreen").show();
+                    $("#emailred").hide();
+                }
+                else
+                {
+                    $("#emailgreen").hide();
+                    $("#emailred").show();
+                }
+                var date = new Date(schedule_time);
+                $(".content").empty();
+                $(".content").append(data.body);
+//                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
+                
+                $scope.entities_selected_time = schedule_time;
+                $scope.schedule_title = schedule_title;
+                $scope.schedule_id = schedule_id;
+                console.log(schedule_desc);
+                $scope.schedule_desc = schedule_desc;
+                $scope.email_template_status = template_status;
+                $scope.schedule_type = entity_type;
+                $scope.marketing_program_name = marketingName;
+                $scope.user_marketing_program_id = programId;
+                $scope.days = days;
+                $scope.is_today_active = is_today_active;
+            }).error(function (data) {
+                alert("request not successful");
+            });
+            $("#slider-button").click();
         } 
        
        
