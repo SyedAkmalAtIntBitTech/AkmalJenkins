@@ -43,7 +43,7 @@
                 </a>
             </li>
             <li class="nav-elements-icon-container hint--right" data-hint="Media">
-                <a  href="" >
+                <a  href="imagegallery.jsp" >
                     <img type="image/svg+xml" src="images/Icons/media.svg" class="nav-elements-icon " style="cursor:pointer;"/>
                 </a>
             </li>
