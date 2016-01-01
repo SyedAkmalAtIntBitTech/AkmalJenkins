@@ -627,9 +627,15 @@ padding-top: 0px;
 .gray-button{
     text-align: center;
     background-color:#d5dadf;
-    color:#767777  ;
+    color:#767777;
+    cursor: pointer;
 }
+.uploadimgbtn{
+    left: 42%;
+    float: left !important;
+    top: 75px;
 
+}
 .approve-button-detail:hover{
     background-color:#5cc1a4;
     color:#FFFFFF  ;

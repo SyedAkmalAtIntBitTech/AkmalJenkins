@@ -1,4 +1,15 @@
 
+function Showimguploadpopup()
+{
+    document.getElementById('fade').style.display = 'block';
+    document.getElementById('imagepopup').style.display = 'block';
+    document.getElementById('addAction').style.display = 'block';
+    overlay();
+}
+//$("#triggerfile").click(function (){
+//    $('input[type=file]').click();
+//    return false;
+//});
              $("#Servicecontinue").hide();
         var rootApp = angular.module('rootApp', ['uploadModule','imagegallery']);
     
@@ -38,7 +49,7 @@
                 }]);
 
             uploadModule.controller('myCtrl', ['$scope', 'fileUpload', function ($scope, fileUpload) {
-
+                    
                     $scope.uploadFile = function () {
                         var file = $scope.myFile;
                         console.log('file is ' + JSON.stringify(file));
@@ -57,7 +68,7 @@
             var imagegallery = angular.module('imagegallery', []);
 
                 imagegallery.controller('samplecontoller', function ($scope,$http) {
-
+                    
                 $scope.showData = function(){
 //                     alert("showData");
                  $scope.curPage = 0;
@@ -84,7 +95,10 @@
                     };
                     
                     $scope.deleteImage = function (image_id, user_id, image_name) {
-                        var image = {"image_id": image_id, "user_id": user_id, "image_name": image_name};
+                        
+                 var del = confirm("Do you really want to delete this image?");
+                    if (del === true) {
+                    var image = {"image_id": image_id, "user_id": user_id, "image_name": image_name};
                         
                         $http({
                             method: 'POST',
@@ -100,8 +114,14 @@
                             } else if (data === error) {
                                 alert(data);
                             }
-                        })
+                        });
+                }
+                else {
+
+                }
+                        
                     };
+                    
 
                 });
                 
