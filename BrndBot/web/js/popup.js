@@ -140,8 +140,12 @@ $(document).ready(function ()
     $("#link_title").val(data[1]);
     $("#link_description").val(data[2]);
     $("#Linkurl").val(data[3]);
-    $("#facebookpreviewimage").val(data[4]);
-    $("#facebookpreviewimage").attr('src', data[4]);
+    if(data[4]!== "")
+    {
+       $("#facebookpreviewimage").val(data[4]);
+       $("#facebookpreviewimage").attr('src', data[4]);
+       $(".Facebook-preview-image").css("background-color","#ffffff");
+    }
     if(data[4]==="")
     {
         $("#facebookimage").hide();
@@ -154,7 +158,6 @@ $(document).ready(function ()
     }
     
     $("#link").val(data[5]);
-    $("#twitterpreviewimage").val(data[6]);
     $("#twitterimage").val("1");
     if(data[6]==="")
     {
@@ -166,7 +169,12 @@ $(document).ready(function ()
         $("#twitterimage").show();
         $("#twChangeImage").hide();
     }
-    $("#twitterpreviewimage").attr('src', data[6]);
+    if(data[6]!== "")
+    {        
+       $("#twitterpreviewimage").val(data[6]);
+       $("#twitterpreviewimage").attr('src', data[6]);
+       $("#.Twitter-preview-image").css("background-color","#ffffff");
+    }
     
     $("#addimage").click(function(){
         var data=[];

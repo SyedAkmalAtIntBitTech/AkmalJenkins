@@ -819,10 +819,13 @@ Facebook-preview-name{
     min-height: 244px;
     background-color: aqua;
     float: left;
-   
-    
 }
-
+.Facebook-preview-image1{
+    width:100%;
+    min-height: 244px;
+    background-color: #ffffff;
+    float: left;
+}
 .Facebook-preview-link-container{
     width: 100%;
     padding: 10px 12px 10px 12px;
@@ -961,6 +964,13 @@ Facebook-preview-name{
     margin-top: 10px;
     border-radius: 5px;
     background-color: aqua;   
+}
+.Twitter-preview-image1{
+    width:506px;
+    min-height: 278px;
+    margin-top: 10px;
+    border-radius: 5px;
+    background-color: #ffffff;   
 }
 
 .Facebook-preview-link-container{
@@ -1940,6 +1950,12 @@ width:100%;
 }
 #gotoimageeditor{
     cursor: pointer;
+}
+.imgsize83{
+    width:83%;
+}
+.imgsize99{
+    width:99%;
 }
 .imgsize{
     width:100%;

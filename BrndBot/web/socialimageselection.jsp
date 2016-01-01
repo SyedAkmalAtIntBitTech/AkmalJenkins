@@ -207,13 +207,15 @@
                             <input type="text" id="posttext" class="full noborder" placeholder="Demo content goes right here"></input>
                         </div>
                         <div class="Facebook-link-container">
-                            <div class="Facebook-preview-image">
                                 <%if (imageid.equalsIgnoreCase("")){%>
+                                <div class="Facebook-preview-image">
                                     <div class="changeImage" onclick="fun('facebook','<%=mindbodydata%>');">Upload Image</div>
-                               <%} else{%>
-                                    <img class="imgsize" id="facebookpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
+                                </div>
+                                <%} else{%>
+                                <div class="Facebook-preview-image1">
+                                    <img class="imgsize99" id="facebookpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
+                                </div> 
                                 <%}%>
-                            </div> 
                             <div class="Facebook-preview-link-container">
                                 <div class="Facebook-preview-link-title">
                                 <input type="text" id="link_title" class="full99 noborder" placeholder="Input in Admin-- This Weekend Workshop"></input></div>
@@ -256,13 +258,15 @@
                                 <div class="Twitter-handle fleft">@BrndBot</div>
                                 <textarea id="twittertext" class="noborder" placeholder="Demo content goes right here for twitter"></textarea>
                             </div>
-                            <div class="Twitter-preview-image fleft">
                                 <%if (imageid.equalsIgnoreCase("")){%>
+                                <div class="Twitter-preview-image fleft">
                                     <div class="changeImage" onclick="fun('twitter','<%=mindbodydata%>');"> Upload Image </div>
+                                </div>
                                 <%} else{%>
+                                <div class="Twitter-preview-image1 fleft">
                                     <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
+                                </div>
                                 <%}%>
-                            </div>
                             <input type="text" readonly id="link" class="noborder top8" placeholder="This should equal the marketing program link"></input></div>
                         </div>   
                     </div>
