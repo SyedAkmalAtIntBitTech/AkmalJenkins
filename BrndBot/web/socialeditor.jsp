@@ -1228,7 +1228,7 @@ var mindbodydataId = $("#mindbodydata").val();
                        $('#loadingGif').remove();
                        var image=responseText;
 //                       alert(image);
-                       document.location.href = "socialimageselection.jsp?image="+image+"&isTwitter="+isTwitter+"&isFacebook="+isFacebook+"&mediaType="+mediaType+"&selectedType="+selectedType+"&data="+data;
+                       document.location.href = "socialimageselection.jsp?image="+image+"&isTwitter="+isTwitter+"&isFacebook="+isFacebook+"&mediaType="+mediaType+"&selectedType="+selectedType+"&data="+data+'&gallery=layout';
                                         $('#mask').hide();
                                     $('.window').hide();
                }

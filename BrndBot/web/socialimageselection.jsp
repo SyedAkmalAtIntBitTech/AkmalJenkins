@@ -47,7 +47,7 @@
     String imageid="";
     String selectedType="";
     String data="";
-    
+    String gallery="";
     String[] twitteracesstoken = {"", ""};
     int number;
 %>
@@ -59,7 +59,7 @@
         user_id = (Integer) sql_methods.session.getAttribute("UID");
         logoImageName = (String) sql_methods.session.getAttribute("ImageFileName");
         companyName = (String) sql_methods.session.getAttribute("company");
-        
+        gallery = request.getParameter("gallery");
         isFacebook = request.getParameter("isFacebook");
         isTwitter = request.getParameter("isTwitter");
         media_type = request.getParameter("media_type");
@@ -118,6 +118,7 @@
     <input type="hidden" id="data" value="<%=data%>"/>
     <input type="hidden" id="selectedimagename" value=""/>
     <input type="hidden" id="selectedimageid" value=""/>
+    <input type="hidden" id="gallery" name="gallery" value="<%=gallery%>"/> 
     <input type="hidden" id="imageToPost" name="imageToPost" value="<%=imageid%>"/> 
     <input type="hidden" id="accesstoken" name="accesstoken" value="<%=accesstoken%>"/>
     <input type="hidden" id="twittweraccestoken" name="twittweraccestoken" value="<%=twitteracesstoken[0]%>"/>
@@ -213,7 +214,11 @@
                                 </div>
                                 <%} else{%>
                                 <div class="Facebook-preview-image1">
-                                    <img class="imgsize99" id="facebookpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
+                                     <% if(gallery.equalsIgnoreCase("gallery")) {%>
+                                    <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>&user_id=<%=user_id%>"/>
+                                    <%} else{%>
+                                    <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
+                                    <%}%>
                                 </div> 
                                 <%}%>
                             <div class="Facebook-preview-link-container">
@@ -264,7 +269,11 @@
                                 </div>
                                 <%} else{%>
                                 <div class="Twitter-preview-image1 fleft">
-                                    <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
+                                    <% if(gallery.equalsIgnoreCase("gallery")) {%>
+                                    <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>&user_id=<%=user_id%>"/>
+                                    <%} else{%>
+                                    <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
+                                    <%}%>
                                 </div>
                                 <%}%>
                             <input type="text" readonly id="link" class="noborder top8" placeholder="This should equal the marketing program link"></input></div>

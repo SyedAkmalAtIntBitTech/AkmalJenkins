@@ -40,6 +40,8 @@ function getImageId(idname)
     var res = idname.split("-");
     var id=res[0];
     var imagename=res[1];
+    var userid=res[2];
+    imagename=imagename+"&user_id="+userid;
     $("#addimage").show();
     $(".imageGallery-card >div >div").css("color", "#5F6775");
     $(".imageGallery-card").removeClass("blueborder");
@@ -199,7 +201,7 @@ $(document).ready(function ()
         var isFacebook=$("#isFacebook").val();
         var isTwitter=$("#isTwitter").val();
         //document.location.href = "socialimageselection.jsp?image="+image+"&isTwitter="+isTwitter+"&isFacebook="+isFacebook+"&mediaType="+mediaType+"&selectedType="+selectedType+"&data="+data;
-        window.open('socialimageselection.jsp?image='+id+'&isFacebook='+isFacebook+'&isTwitter='+isTwitter+'&mediatype='+social+'&selectedtype='+selectedtype+'&data='+data, "_self");
+        window.open('socialimageselection.jsp?image='+id+'&isFacebook='+isFacebook+'&isTwitter='+isTwitter+'&mediatype='+social+'&selectedtype='+selectedtype+'&data='+data+'&gallery=gallery', "_self");
         
 //        $("#gotoimageeditor").css("background-color", "#5CC1A4");
 //        $("#uploadimage").css("background-color", "#E3E3E3");
