@@ -315,6 +315,7 @@ left:-4px;
 }
 #promotebuttonlist {
         width: 600px;
+        margin-left: 4%;
 }
 #promotebuttonlist li{
         display: inline-block;
@@ -323,7 +324,7 @@ left:-4px;
 }
 #promotebuttonlist  li input{
         position: relative;
-        left:5px;
+        left:-247%;
 }
 
 #sidebar-wrapper {
@@ -757,3 +758,7 @@ left:-6px;
                 font-size: small;
               text-align: center;
             }
+#leftalign
+{
+    margin-left: 15%;
+}
