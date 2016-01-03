@@ -20,17 +20,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-         <%@ include file="fonttypekit.jsp"%>
-         <%@ include file="checksession.jsp" %>
+        <%@ include file="fonttypekit.jsp"%>
+        <%@ include file="checksession.jsp" %>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
-
+        <link href="css/popup.css" rel="stylesheet" type="text/css"/>
         <link href="css/glyphiconiconstyle.css" rel="stylesheet" type="text/css"/>
         <!--<script src="js/foundation.min.js" type="text/javascript"></script>-->
         <script src="js/jquery.reveal.js" type="text/javascript"></script>
@@ -338,9 +338,9 @@
     <a href="#" data-reveal-id="myModal" class="clickthis" style="display: none;">Click Me For A Modal</a>
     <a href="#" data-reveal-id="myModal1" class="clicktwitter" style="display: none;">Click Me For A Modal</a>
     <div class="row">
-       <jsp:include page="leftmenu.html"/><!--/end left column-->
+       <jsp:include page="navbarv2.jsp"/><!--/end left column-->
        
-        <div class="col-md-10 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-2" id="leftalign">
             <p id="textgrt" class="MH2">Great! Which social media platform(s)<br>
                 would you like to post it on?</p>
             <p class="smltxt BC1">Click which social media platforms you want to post it on</p>

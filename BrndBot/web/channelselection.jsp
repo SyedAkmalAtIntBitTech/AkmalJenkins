@@ -23,6 +23,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
+    <script src="js/channelselection.js" type="text/javascript"></script>
 
       <%!
             SqlMethods sql_methods = new SqlMethods();
@@ -54,79 +55,13 @@
                 e.printStackTrace();
             }
         %>
-        <script>
-            $(document).ready(function (){
-                $("#soc,#eml,#prnt,#dwnld").hide();
-            });
-            var print = "print";
-            var download = "image";
-            function selected_media(selectedmedia) {
-                
-                if (selectedmedia == print){
-                    var configuration = global_host_address + "socialeditor.jsp" + "?id=" +<%= minbodyid %>+"&mediatype=print";
-                    window.open(configuration, "_self");
-                }else if (selectedmedia == download){
-                    var configuration = global_host_address + "socialeditor.jsp" + "?id=" +<%= minbodyid %>+"&mediatype=image";
-                    window.open(configuration, "_self");
-                }else if (selectedmedia == 'social'){
-                    var configuration = global_host_address + "socialeditor.jsp" + "?id=" +<%= minbodyid %>+"&mediatype=social";
-                    window.open(configuration, "_self");
-                }else if (selectedmedia == 'emailsubject'){
-                    var configuration = global_host_address + "emailsubject.jsp" + "?id=" +<%= minbodyid %>;
-                    window.open(configuration, "_self");
-                }    
-            }
-            
-            function selectPromoteMediaController($scope, $http){
-                
-                $scope.checkTemplateAvailability = function(){
-                    var category_id = <%=category_id%>;
-                    var sub_category_id = <%=sub_category_id%>;
-                    
-                    var category = {"category_id": category_id, "sub_category_id": sub_category_id};
-                    
-                    $http({
-                        method: 'POST',
-                        url: 'GetTemplates',
-                        headers: {'Content-Type': 'application/json'},
-                        data: category
-                    }).success(function (data, status, headers, config) {
-                        $scope.email_templates = data.email_template_availability;
-                        $scope.social_templates = data.social_template_availability;
-                        $scope.social_temlates_print=data.social_template_print;
-                        $scope.social_temlates_download=data.social_template_download;
-                        var email=JSON.stringify($scope.email_templates);
-                        var social=JSON.stringify($scope.social_templates);
-                        var print=JSON.stringify($scope.social_temlates_print);
-                        var download=JSON.stringify($scope.social_temlates_download);
-                        if((email==="0")&&(social==="0")&&(print==="0")&&(download==="0")){
-                            $("#channelhead").empty().append('Oops! No Channels to Select. Please wait, its redirecting to Dashboard...');
-                            $(".h1").hide();
-                            setTimeout(function (){
-                            window.location="dashboard.jsp";},4000);
-                        }
-                        
-                        if($scope.email_templates !== 0){$("#eml").show();$("")}
-                        if($scope.social_templates !== 0){$("#soc").show();}
-                        if($scope.social_temlates_print !== 0){$("#prnt").show();}
-                        if($scope.social_temlates_download !== 0){$("#dwnld").show();}
-                                     
-                        if (data === error) {
-                            alert(data);
-                        }
-                    }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-                    });
-                };    
-            };
-
-        </script>
         <jsp:include page="basejsp.jsp" />
 </head>    
 
 <body ng-app>
+    <input type="hidden" name="minbodyid" id="minbodyid" value="<%=minbodyid%>"
+    <input type="hidden" name="category_id" id="category_id" value="<%=category_id%>"
+    <input type="hidden" name="sub_category_id" id="sub_category_id" value="<%=sub_category_id%>"
     <!--SideNav-->
     <div class="content-main">
     <%@include file="navbarv2.jsp" %>

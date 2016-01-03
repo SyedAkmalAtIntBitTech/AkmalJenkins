@@ -649,6 +649,10 @@ input#timepicker1 {
     color: #FFF;
     padding-top: 14px;
 }
+#leftalign
+{
+    margin-left: 15%;
+}
 /*--------------------------------------------------------------------------------------------*/
 #addActionemllist{
     display: block;
