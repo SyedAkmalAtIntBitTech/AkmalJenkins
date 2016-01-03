@@ -26,9 +26,9 @@ and open the template in the editor.
         <%@ include file="checksession.jsp" %>
         
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+        <link href="css/simple").cbutton.css" rel="stylesheet" type="text/css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
@@ -49,7 +49,7 @@ and open the template in the editor.
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagecropper.css" rel="stylesheet" type="text/css"/>
-        
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery.reveal.js" type="text/javascript"></script>
         <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagefilter.css" rel="stylesheet" type="text/css"/>
@@ -297,6 +297,12 @@ ul::-webkit-scrollbar-thumb {
             String mindbody_data_id = "";
             String logoImageName=null;
             String media_type = "";
+            String socialtype="";
+            String isFacebook="";
+            String isTwitter="";
+            String selectedType="";
+            String mediaType="";
+            String data="";
         %> 
         <%
             try {
@@ -310,6 +316,14 @@ ul::-webkit-scrollbar-thumb {
                 if (!request.getParameter("mediatype").equals("null")){
                      media_type = (String)request.getParameter("mediatype");
                 } 
+                if (!request.getParameter("selectedtype").equals("null")){
+                    socialtype = (String) request.getParameter("selectedtype");
+                }
+                isTwitter = (String) request.getParameter("isTwitter");
+                isFacebook = (String) request.getParameter("isFacebook");
+                selectedType = (String) request.getParameter("selectedtype");
+                mediaType = (String) request.getParameter("mediatype");
+                data = (String) request.getParameter("data");
                 
 //                String msg = request.getParameter("msg");
 //              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
@@ -321,6 +335,7 @@ ul::-webkit-scrollbar-thumb {
 
         %>
         <input type="hidden" id="media_type" name="media_type" value = '<%=media_type%>' />
+        <input type="hidden" id="data" name="data" value = '<%=data%>' />
         <script>
             
             $(document).ready(function () {
@@ -796,8 +811,12 @@ var mindbodydataId = $("#mindbodydata").val();
         <jsp:include page="basejsp.jsp" />
     </head>
     <body ng-app="myapp">
-        <input type="hidden" id='userlogo' value=<%= logoImageName%>>
-        <input type="hidden" id='userid' value=<%= user_id%>>
+        <input type="hidden" id='userlogo' value='<%= logoImageName%>'/>
+        <input type="hidden" id='userid' value='<%= user_id%>'/>
+        <input type="hidden" id='isTwitter' value='<%=isTwitter%>'/>
+        <input type="hidden" id='isFacebook' value='<%=isFacebook%>'/>
+        <input type="hidden" id='selectedType' value='<%=selectedType%>'/>
+        <input type="hidden" id='mediaType' value='<%=mediaType%>'/>
         <script src="js/socialeditor.js" type="text/javascript"></script>
         <div ng-controller="MyController" class="container" id="container"> 
             <div class="row">
@@ -1049,18 +1068,17 @@ var mindbodydataId = $("#mindbodydata").val();
 
                                     </li>
                                     <li id="tabs-3">
-                                          <ul id="imageGallery" style="height: 500px;width: 300px;position: relative;right: 80px;left:0px;">
+                                        <ul id="imageGallery" style="height: 500px;width: 300px;position: relative;right: 80px;left:0px;">
                                             <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
-                                             <a class="boxclose" id="boxclose"></a>
-                                               <p class="BT2 ptr" id="galleryupload">upload image</p>
-                                                <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
-                                                          <img id="{{images.id}}" class="img-responsive lookchooser5 ptr" ng-src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
-                                                </li>
-                                           </ul>
+                                            <a class="boxclose" id="boxclose"></a>
+                                            <p class="BT2 ptr" id="galleryupload">upload image</p>
+                                            <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
+                                                <img id="{{images.id}}" class="img-responsive lookchooser5 ptr" ng-src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
+                                            </li>
+                                        </ul>
 <!--                                               <input id="closeimagespopup" type="Button" value="close"/>  -->
                                     </li>
                                 </ul>
-
                             </div>
                         </div> 
                     </div>
@@ -1187,10 +1205,16 @@ var mindbodydataId = $("#mindbodydata").val();
 
     $("#continue").click(function (){
         fadepopup();
-//                            $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
+//        $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
         var PreviewWidth=$(".preview").css("width");
         var PreviewhHeight=$(".preview").css("height");
-//                            alert($(".preview").children());
+        var isTwitter=$("#isTwitter").val();
+        var isFacebook=$("#isFacebook").val();
+        var selectedType=$("#selectedType").val();
+        var mediaType=$("#mediaType").val();
+        var data=$("#data").val();
+        
+//            alert($(".preview").children());
             $.ajax({
                type: "POST",
                url: "ConvertHtmlToImageServlet",                                   
@@ -1203,8 +1227,8 @@ var mindbodydataId = $("#mindbodydata").val();
                success: function (responseText) {
                        $('#loadingGif').remove();
                        var image=responseText;
-//                                          alert(image);
-                       document.location.href = "selectpromotesocialmedia.jsp?image="+image;
+//                       alert(image);
+                       document.location.href = "socialimageselection.jsp?image="+image+"&isTwitter="+isTwitter+"&isFacebook="+isFacebook+"&mediaType="+mediaType+"&selectedType="+selectedType+"&data="+data+'&gallery=layout';
                                         $('#mask').hide();
                                     $('.window').hide();
                }
@@ -1276,9 +1300,6 @@ var mindbodydataId = $("#mindbodydata").val();
               // document.location.href = "selectpromotesocialmedia.jsp";
    });
 
-</script> 
-       
-<script>    
     var selectedImageId;
     function getImageid(Id){
         selectedImageId=Id.id;
@@ -1565,10 +1586,6 @@ function showfilter(){
                                     // load image into crop
                                     one.loadImg(oFREvent.target.result);
                             };
-
-        </script>  
-
-        <script>
 
                             //  get input type=file IMG through base64 and send it to the cropper
                             // --------------------------------------------------------------------------

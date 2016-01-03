@@ -84,7 +84,7 @@ public class ScheduleSocialPostActionsServlet extends HttpServlet {
                 return;
             }
             
-        for (Map<String, Object> requestBodyMap : requestBodyList) {
+        for(Map<String, Object> requestBodyMap : requestBodyList) {
             String tokenDataString = requestBodyMap.get("token_data").toString();
             String type = requestBodyMap.get("type").toString();
             errorMessages.addAll(validateTokenData(tokenDataString, type));

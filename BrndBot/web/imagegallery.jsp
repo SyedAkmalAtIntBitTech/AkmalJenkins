@@ -18,7 +18,7 @@ and open the template in the editor.
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
-         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
         <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -31,7 +31,7 @@ and open the template in the editor.
                 padding: 7px;
             }
         </style>
-     <style>
+        <style>
          .ImagesForDelete{
              opacity: 0.7;
          }
@@ -57,6 +57,7 @@ and open the template in the editor.
             }
 
         </style>
+        
         <script>
              $("#Servicecontinue").hide();
         var rootApp = angular.module('rootApp', ['uploadModule','imagegallery']);
@@ -112,9 +113,6 @@ and open the template in the editor.
             angular.element(document).ready(function() {
                    angular.bootstrap(uploadModule, ['uploadModule']);
             });
-
-        </script>
-        <script>
             
             var imagegallery = angular.module('imagegallery', []);
 
@@ -177,6 +175,7 @@ and open the template in the editor.
                 });
             
         </script>
+        
         <style>
             .paginationclass li{
                 display: table-cell;
@@ -273,6 +272,7 @@ and open the template in the editor.
             </div>  
         
           </div>    
+                   
         <script>
         var fl = document.getElementById('filesToUpload');
 

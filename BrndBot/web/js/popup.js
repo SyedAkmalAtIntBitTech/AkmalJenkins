@@ -22,22 +22,242 @@
 
 function fun(type, emailAddress, UUID, firstName, lastName)
 {
+    
     $("#fade").show();
     $("#addContact").show();
+    $("#imageGalleryDiv").hide();
     $("#emailId").val(emailAddress);
     $("#uuid").val(UUID);
     $("#firstName").val(firstName);
     $("#lastName").val(lastName);
     $("#type").val(type);
+    $("#selectedtype").val(type);
+    $("#selectedid").val(emailAddress);
     overlay();
 }
+function getImageId(idname)
+{
+    var res = idname.split("-");
+    var id=res[0];
+    var imagename=res[1];
+    var userid=res[2];
+    imagename=imagename+"&user_id="+userid;
+    $("#addimage").show();
+    $(".imageGallery-card >div >div").css("color", "#5F6775");
+    $(".imageGallery-card").removeClass("blueborder");
+    $(".imageGallery-card").addClass("bottom-margin");
+     $("#div"+id).removeClass("bottom-margin");
+    $("#div"+id).addClass("blueborder");
+    $("#selectedimagename").val(imagename);
+    $("#selectedimageid").val(id);
+}
+
 $(document).ready(function ()
 {
+    $("#dropdownurl").change(function(){
+        var choosenlink=$("#dropdownurl").val();
+        var link=choosenlink.split("--");
+        $("#url").val(link[0]);
+       if(choosenlink === "0")
+       {
+           $("#url").val("http://");
+       }
+    });
+    $("#url").keyup(function(){
+        var link=$("#url").val();
+        if(link.contains("http://") === false)
+        {
+            if(link.contains("http:/") === true)
+                $("#url").val("http://");
+            if(link.contains("http:") === true)
+                $("#url").val("http://");
+            if(link.contains("http") === true)
+                $("#url").val("http://");
+            if(link.contains("htt") === true)
+                $("#url").val("http://");
+            if(link.contains("ht") === true)
+                $("#url").val("http://");
+            if(link.contains("h") === true)
+                $("#url").val("http://");
+            else
+            {
+                $("#url").val("http://"+link);
+            }
+        }        
+    });
+    $("#postorschedule").click(function(){
+        $("#postpopup").show();
+        $("#fade").show();
+    });
+    $("#schedule").click(function(){
+        $("#postpopup").hide();        
+        $("#schedulepopup").show();
+        $("#fade").show();
+    });
+    $("#closeschedulepopup").click(function(){
+        $("#postpopup").show();        
+        $("#schedulepopup").hide();
+        $("#fade").show();
+    });
+    $("#closepostpopup").click(function(){
+        $("#postpopup").hide();
+        $("#fade").hide();
+    });
+    
+    $("#submitLink").click(function(){
+       var textval=$("#url").val();
+       var urlregex = new RegExp("^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)");
+       if(urlregex.test(textval) === false)
+       {
+           alert("Please Enter Valid Link");
+           return false; 
+       }
+       $("#link").val(textval);
+       $("#Linkurl").val(textval);
+       $("#linkpopup").hide();
+       $("#fade").hide();
+    });
+    $("#galleryupload").click(function(){
+        $("#fileuploaddiv").show();
+        $("#imageGalleryDiv").hide();
+    });
+    $("#closefileupload").click(function(){
+        $("#fileuploaddiv").hide();
+        $("#imageGalleryDiv").show();
+    });
+    $("#changeLink").click(function(){
+        $("#linkpopup").show();
+        $("#fade").show();
+    });
+    $("#closeLinkPopup").click(function(){
+        $("#linkpopup").hide();
+        $("#fade").hide();
+    });
+    var data1=$("#data").val();
+    var data = data1.split(',');
+    var imageurl="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=";
+    //var imagen=$("#imagen").val();
+    //imageurl
+    $("#posttext").val(data[0]);
+    $("#link_title").val(data[1]);
+    $("#link_description").val(data[2]);
+    $("#Linkurl").val(data[3]);
+    if(data[4]!== "")
+    {
+       $("#facebookpreviewimage").val(data[4]);
+       $("#facebookpreviewimage").attr('src', data[4]);
+       $(".Facebook-preview-image").css("background-color","#ffffff");
+    }
+    if(data[4]==="")
+    {
+        $("#facebookimage").hide();
+        $("#fbChangeImage").show();
+    }
+    else
+    {
+        $("#facebookimage").show();
+        $("#fbChangeImage").hide();
+    }
+    
+    $("#link").val(data[5]);
+    $("#twitterimage").val("1");
+    if(data[6]==="")
+    {
+        $("#twitterimage").hide();
+        $("#twChangeImage").show();
+    }
+    else
+    {
+        $("#twitterimage").show();
+        $("#twChangeImage").hide();
+    }
+    if(data[6]!== "")
+    {        
+       $("#twitterpreviewimage").val(data[6]);
+       $("#twitterpreviewimage").attr('src', data[6]);
+       $("#.Twitter-preview-image").css("background-color","#ffffff");
+    }
+    
+    $("#addimage").click(function(){
+        var data=[];
+        var fbposttext=$("#posttext").val();
+        var fblink_title=$("#link_title").val();
+        var fblink_description=$("#link_description").val();
+        var fbLinkurl=$("#Linkurl").val();
+        var facebookpreviewimage=$("#facebookpreviewimage").val();
+        var twittertext=$("#link").val();
+        var twitterpreviewimage=$("#twitterpreviewimage").val();
+        data.push(fbposttext);
+        data.push(fblink_title);
+        data.push(fblink_description);
+        data.push(fbLinkurl);
+        data.push(facebookpreviewimage);
+        data.push(twittertext);
+        data.push(twitterpreviewimage);        
+        
+        var selectedtype=$("#selectedtype").val();
+        var id=$("#selectedimagename").val();
+        var social=$("#social").val();
+        var isFacebook=$("#isFacebook").val();
+        var isTwitter=$("#isTwitter").val();
+        //document.location.href = "socialimageselection.jsp?image="+image+"&isTwitter="+isTwitter+"&isFacebook="+isFacebook+"&mediaType="+mediaType+"&selectedType="+selectedType+"&data="+data;
+        window.open('socialimageselection.jsp?image='+id+'&isFacebook='+isFacebook+'&isTwitter='+isTwitter+'&mediatype='+social+'&selectedtype='+selectedtype+'&data='+data+'&gallery=gallery', "_self");
+        
+//        $("#gotoimageeditor").css("background-color", "#5CC1A4");
+//        $("#uploadimage").css("background-color", "#E3E3E3");
+    });    
+    
+    $("#gotoimageeditor").click(function(){
+        var data=[];
+        var fbposttext=$("#posttext").val();
+        var fblink_title=$("#link_title").val();
+        var fblink_description=$("#link_description").val();
+        var fbLinkurl=$("#Linkurl").val();
+        var facebookpreviewimage=$("#facebookpreviewimage").val();
+        var twittertext=$("#link").val();
+        var twitterpreviewimage=$("#twitterpreviewimage").val();
+        data.push(fbposttext);
+        data.push(fblink_title);
+        data.push(fblink_description);
+        data.push(fbLinkurl);
+        data.push(facebookpreviewimage);
+        data.push(twittertext);
+        data.push(twitterpreviewimage);        
+        
+        var selectedtype=$("#selectedtype").val();
+        var id=$("#selectedid").val();
+        var social=$("#social").val();
+        var isFacebook=$("#isFacebook").val();
+        var isTwitter=$("#isTwitter").val();
+        window.open('socialeditor.jsp?id='+id+'&isFacebook='+isFacebook+'&isTwitter='+isTwitter+'&mediatype='+social+'&selectedtype='+selectedtype+'&data='+data, "_self");
+        
+//        $("#gotoimageeditor").css("background-color", "#5CC1A4");
+//        $("#uploadimage").css("background-color", "#E3E3E3");
+    });
+//    $("#uploadimage").click(function(){
+//        alert("hi..");
+//        $("#imageGalleryDiv").show();  
+//        var selectedtype=$("#selectedtype").val();
+//        var id=$("#selectedid").val();
+//        var social=$("#social").val();
+//        window.open('http://www.google.com?id='+id+'&mediatype='+social+'&selectedtype='+selectedtype, "_self");
+//        $("#uploadimage").css("background-color", "#5CC1A4");
+//        $("#gotoimageeditor").css("background-color", "#E3E3E3");
+//
+//      });
+    
   //////////////////////////////////////////// emaillist popup ////////////////////////////////////////
   $(".email").click(function(){
       alert();
   });
-  
+  $("#close").click(function(){
+      $("#addContact").hide();     
+      $("#fade").hide();
+  });
+  $("#closeimagegallerydiv").click(function(){
+      $("#imageGalleryDiv").hide();      
+      $("#addContact").show();
+  });
   
   /////////////////////////////////////////////////////////////////////////////////////////////////////
     
