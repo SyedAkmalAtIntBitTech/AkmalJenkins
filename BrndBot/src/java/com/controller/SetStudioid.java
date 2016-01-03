@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,9 +37,9 @@ public class SetStudioid extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         StringBuffer string_buffer = new StringBuffer();
-
+        RequestDispatcher request_dispatcher;
         PrintWriter out = response.getWriter();
-        getSqlMethodsInstance().session = request.getSession();
+        getSqlMethodsInstance().session = request.getSession(true);
 
         try {
              BufferedReader reader = request.getReader();
@@ -56,7 +57,7 @@ public class SetStudioid extends BrndBotBaseHttpServlet {
             getSqlMethodsInstance().session.setAttribute("studioID", studioID);
             out.write("true");
         }catch(Exception e){
-                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
 
             out.write(getSqlMethodsInstance().error);
         }finally {

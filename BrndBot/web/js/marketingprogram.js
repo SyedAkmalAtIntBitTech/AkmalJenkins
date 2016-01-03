@@ -17,7 +17,7 @@ function controllerMarketingCategories($scope, $http, $window){
                 alert(data);
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });                
@@ -42,7 +42,7 @@ function controllerMarketingCategories($scope, $http, $window){
                 alert(data);
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });  
@@ -66,7 +66,7 @@ function controllerMarketingCategories($scope, $http, $window){
         }
         else
         {
-            alert("Please select a marketing program type");
+            alert("Please select a marketing program type!");
         }
     
         

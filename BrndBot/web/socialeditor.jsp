@@ -26,9 +26,9 @@ and open the template in the editor.
         <%@ include file="checksession.jsp" %>
         
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+        <link href="css/simple").cbutton.css" rel="stylesheet" type="text/css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
@@ -49,7 +49,7 @@ and open the template in the editor.
         <link href="css/crop.css" rel="stylesheet" type="text/css"/>
         <link href="css/example.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagecropper.css" rel="stylesheet" type="text/css"/>
-        
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <script src="js/jquery.reveal.js" type="text/javascript"></script>
         <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
         <link href="css/imagefilter.css" rel="stylesheet" type="text/css"/>
@@ -297,6 +297,12 @@ ul::-webkit-scrollbar-thumb {
             String mindbody_data_id = "";
             String logoImageName=null;
             String media_type = "";
+            String socialtype="";
+            String isFacebook="";
+            String isTwitter="";
+            String selectedType="";
+            String mediaType="";
+            String data="";
         %> 
         <%
             try {
@@ -310,6 +316,14 @@ ul::-webkit-scrollbar-thumb {
                 if (!request.getParameter("mediatype").equals("null")){
                      media_type = (String)request.getParameter("mediatype");
                 } 
+                if (!request.getParameter("selectedtype").equals("null")){
+                    socialtype = (String) request.getParameter("selectedtype");
+                }
+                isTwitter = (String) request.getParameter("isTwitter");
+                isFacebook = (String) request.getParameter("isFacebook");
+                selectedType = (String) request.getParameter("selectedtype");
+                mediaType = (String) request.getParameter("mediatype");
+                data = (String) request.getParameter("data");
                 
 //                String msg = request.getParameter("msg");
 //              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
@@ -321,6 +335,7 @@ ul::-webkit-scrollbar-thumb {
 
         %>
         <input type="hidden" id="media_type" name="media_type" value = '<%=media_type%>' />
+        <input type="hidden" id="data" name="data" value = '<%=data%>' />
         <script>
             
             $(document).ready(function () {
@@ -360,14 +375,14 @@ var jsondata;
 var selectedDivId;
 var mindbodydataId = $("#mindbodydata").val();
 
-angular.module("myapp", [])
+        angular.module("myapp", [])
 
-.controller("MyController", function($scope, $http) {
-$http({
-        method : 'GET',
-        url : 'GetUserPreferences'
-}).success(function(data, status, headers, config) {
-//                        alert(JSON.stringify(data.user_font_names));
+        .controller("MyController", function($scope, $http) {
+        $http({
+                method : 'GET',
+                url : 'GetUserPreferences'
+        }).success(function(data, status, headers, config) {
+        //                        alert(JSON.stringify(data.user_font_names));
         $scope.user_preferences_colors = data.user_colors;
 
         $scope.user_preferences_font_sizes = data.user_font_sizes;
@@ -396,17 +411,16 @@ $http({
                          "src: url("+font_path+");"
             $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
 
-
         }
 
-if (data === error){
-    alert(data);
-    }
-}).error(function(data, status, headers, config) {
-alert("No data available, problem fetching the data");
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-});
+        if (data === error){
+            alert(data);
+            }
+        }).error(function(data, status, headers, config) {
+        alert("No data available! Problem fetching the data.");
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+        });
         $scope.showStyles = function(){
         var media_type=$("#media_type").val();
         $scope.curPage = 0;
@@ -428,7 +442,7 @@ alert("No data available, problem fetching the data");
                     alert(data);
                     }
         }).error(function(data, status, headers, config) {
-        alert("No data available, problem fetching the data");
+            alert("No data available! Problem fetching the data.");
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
         });
@@ -454,31 +468,31 @@ alert("No data available, problem fetching the data");
                     alert(data);
                 }
         }).error(function(data, status, headers, config) {
-        alert("No data available, problem fetching the data");
+        alert("No data available! Problem fetching the data.");
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
         });
         };
-});
-angular.module('myapp').filter('pagination', function()
-{
-return function(input, start)
-{
-start = + start;
-return input.slice(start);
-};
-});
+        });
+        angular.module('myapp').filter('pagination', function()
+        {
+        return function(input, start)
+        {
+        start = + start;
+        return input.slice(start);
+        };
+        });
 
-function showText(id, layout){
- //hiding filter Container 
- $("#filtercontainer").hide();
-     var layout_mapper_url = "";
+        function showText(id, layout){
+         //hiding filter Container 
+         $("#filtercontainer").hide();
+             var layout_mapper_url = "";
 
-if (mindbodydataId != ""){
-   layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social&model_mapper_id='+id;
-}else{
-   layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social&model_mapper_id='+id;
-}                         
+        if (mindbodydataId != ""){
+           layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId +'&editor_type=social&model_mapper_id='+id;
+        }else{
+           layout_mapper_url = 'GenericAnnouncementServlet?editor_type=social&model_mapper_id='+id;
+        }                         
 
         $.ajax({
                 type: 'GET',
@@ -523,15 +537,15 @@ if (mindbodydataId != ""){
 
                                 });
                                 });
-                                        var fontcolor;
-                                        var fontsize;
-                                        var fontstyle;
-                                        var filter;
-                                        var left = $(this).attr("x-co-ordinates");
-                                        var top = $(this).attr("y-co-ordinates");
-                                        var opacity = $(this).attr("opacity");
-                                        var width = $(this).attr("width");
-                                        var height = $(this).attr("height");
+                                var fontcolor;
+                                var fontsize;
+                                var fontstyle;
+                                var filter;
+                                var left = $(this).attr("x-co-ordinates");
+                                var top = $(this).attr("y-co-ordinates");
+                                var opacity = $(this).attr("opacity");
+                                var width = $(this).attr("width");
+                                var height = $(this).attr("height");
                                if (tag === "text")
                                {
 
@@ -783,7 +797,7 @@ if (mindbodydataId != ""){
                                 },
                                 error: function (e)
                                 {
-                                alert("error in xml file read");
+                                alert("Error in xml file read!");
                                 }
                         });
                 }
@@ -797,8 +811,12 @@ if (mindbodydataId != ""){
         <jsp:include page="basejsp.jsp" />
     </head>
     <body ng-app="myapp">
-        <input type="hidden" id='userlogo' value=<%= logoImageName%>>
-        <input type="hidden" id='userid' value=<%= user_id%>>
+        <input type="hidden" id='userlogo' value='<%= logoImageName%>'/>
+        <input type="hidden" id='userid' value='<%= user_id%>'/>
+        <input type="hidden" id='isTwitter' value='<%=isTwitter%>'/>
+        <input type="hidden" id='isFacebook' value='<%=isFacebook%>'/>
+        <input type="hidden" id='selectedType' value='<%=selectedType%>'/>
+        <input type="hidden" id='mediaType' value='<%=mediaType%>'/>
         <script src="js/socialeditor.js" type="text/javascript"></script>
         <div ng-controller="MyController" class="container" id="container"> 
             <div class="row">
@@ -893,7 +911,7 @@ if (mindbodydataId != ""){
                                 <ul>
                                     <li id="tabs-1">
                                         <div id="textcontainer">
-                                            <p id="text3" class="SS2">TEXT</p> 
+                                            <p id="t3" class="SS2">TEXT</p> 
                                             <ul id="textmodification">
                                                 <li  style="position:relative;left:-9px;"><p id="editorheadere" class="editorheadere SS1">font color</p>
                                                     <div class="blankcolor-box1 ptr" id="picker" ></div>
@@ -954,7 +972,7 @@ if (mindbodydataId != ""){
                                         <input type="hidden" id='clickid'>
 
                                         <div id="shapecontainer">
-                                            <p  id="text3" class="SS2">SHAPES</p>
+                                            <p  id="t3" class="SS2">SHAPES</p>
                                             <ul id="shapemodificatoin">
 
                                                         <li>
@@ -983,7 +1001,7 @@ if (mindbodydataId != ""){
                                         </div>
 
                                         <div id="imagecontainer">
-                                            <p  id="text3" class="SS2">IMAGE</p>
+                                            <p  id="t3" class="SS2">IMAGE</p>
                                             <ul id="imagemodification">
                                                 <li>
                                                     <select class="imagename LE1 editordropdown" id="editorhead">
@@ -1028,13 +1046,13 @@ if (mindbodydataId != ""){
                                             
                                             <div>
 
-                                                 <p id="text3" class="SS2">SELECT A STYLE</p>
+                                                 <p id="t3" class="SS2">SELECT A STYLE</p>
                                                 <div style="height:500px;">
                                                     <ul>
                                                         <!--{{datalists}}-->
                                                         <li class="paginationclass" ng-repeat="styles in datalists">
                                                             <div>
-                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275"  />
+                                                                <img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" ng-src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275"  />
                                                                 <!--                                        <img id="{{images.id}}" class="img-responsive lookchooser1" src="images/Gallery/10/10_apple-311246_640.jpeg" onclick="showText({{images.id}})" width=250 height=150 />-->
                                                             </div> 
                                                             <div><p id=''></p></div>
@@ -1050,18 +1068,17 @@ if (mindbodydataId != ""){
 
                                     </li>
                                     <li id="tabs-3">
-                                          <ul id="imageGallery" style="height: 500px;width: 300px;position: relative;right: 80px;left:0px;">
+                                        <ul id="imageGallery" style="height: 500px;width: 300px;position: relative;right: 80px;left:0px;">
                                             <p class="SH1">PLEASE SELECT AN IMAGE FROM THE GALLERY</p>
-                                             <a class="boxclose" id="boxclose"></a>
-                                               <p class="BT2 ptr" id="galleryupload">upload image</p>
-                                                <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
-                                                          <img id="{{images.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
-                                                </li>
-                                            </ul>
+                                            <a class="boxclose" id="boxclose"></a>
+                                            <p class="BT2 ptr" id="galleryupload">upload image</p>
+                                            <li class="paginationclass" ng-repeat="images in datalistimages| pagination: curPage * pageSize | limitTo: pageSize">                                                          
+                                                <img id="{{images.id}}" class="img-responsive lookchooser5 ptr" ng-src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"  onclick="showImageName('{{images.user_id}}','{{images.image_name}}')" width="200px"/>                                                            
+                                            </li>
+                                        </ul>
 <!--                                               <input id="closeimagespopup" type="Button" value="close"/>  -->
                                     </li>
                                 </ul>
-
                             </div>
                         </div> 
                     </div>
@@ -1070,8 +1087,8 @@ if (mindbodydataId != ""){
             <div id="sidebar-wrapper1">
                 <div id="tabs">
                     <ul class="sidebar-nav">
-                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"  ><p id="text1" >EDIT</p></a></li>
-                        <li id="stl" class="hov" ng-click="showStyles()"><a href="#tabs-2" id="style"><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40"><p id="text1">STYLE</p></a></li>                  
+                        <li id="edt" class="hov"  onclick="hle();"><a href="#tabs-1" id="text"><img id="edtimg" class="optbtn" src="images/sidebar/Icons_editButton.svg" alt="" width="43" height="40"  ><p id="t1" >EDIT</p></a></li>
+                        <li id="stl" class="hov" ng-click="showStyles()"><a href="#tabs-2" id="style"><img id="stlimg" class="optbtn" src="images/sidebar/Icons_styleButton.svg" alt="" width="40" height="40"><p id="t1">STYLE</p></a></li>                  
                     </ul>
                 </div>
             </div>
@@ -1188,10 +1205,16 @@ if (mindbodydataId != ""){
 
     $("#continue").click(function (){
         fadepopup();
-//                            $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
+//        $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","500px");
         var PreviewWidth=$(".preview").css("width");
         var PreviewhHeight=$(".preview").css("height");
-//                            alert($(".preview").children());
+        var isTwitter=$("#isTwitter").val();
+        var isFacebook=$("#isFacebook").val();
+        var selectedType=$("#selectedType").val();
+        var mediaType=$("#mediaType").val();
+        var data=$("#data").val();
+        
+//            alert($(".preview").children());
             $.ajax({
                type: "POST",
                url: "ConvertHtmlToImageServlet",                                   
@@ -1204,8 +1227,8 @@ if (mindbodydataId != ""){
                success: function (responseText) {
                        $('#loadingGif').remove();
                        var image=responseText;
-//                                          alert(image);
-                       document.location.href = "selectpromotesocialmedia.jsp?image="+image;
+//                       alert(image);
+                       document.location.href = "socialimageselection.jsp?image="+image+"&isTwitter="+isTwitter+"&isFacebook="+isFacebook+"&mediaType="+mediaType+"&selectedType="+selectedType+"&data="+data+'&gallery=layout';
                                         $('#mask').hide();
                                     $('.window').hide();
                }
@@ -1277,9 +1300,6 @@ if (mindbodydataId != ""){
               // document.location.href = "selectpromotesocialmedia.jsp";
    });
 
-</script> 
-       
-<script>    
     var selectedImageId;
     function getImageid(Id){
         selectedImageId=Id.id;
@@ -1566,10 +1586,6 @@ function showfilter(){
                                     // load image into crop
                                     one.loadImg(oFREvent.target.result);
                             };
-
-        </script>  
-
-        <script>
 
                             //  get input type=file IMG through base64 and send it to the cropper
                             // --------------------------------------------------------------------------

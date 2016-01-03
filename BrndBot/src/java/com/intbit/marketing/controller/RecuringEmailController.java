@@ -275,7 +275,8 @@ public class RecuringEmailController {
         
         schedule_email_list.setTblUserLoginDetails(user_login);
         schedule_email_list.setEmailListName(emaillist);
-        schedule_email_list.setFromAddress(getFromAddress(user_id));
+        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(user_id);
+        schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
         schedule_email_list.setFromName(from_name);
         schedule_email_list.setReplyToEmailAddress(reply_to_address);
         schedule_email_list.setSubject(subject);
@@ -357,7 +358,8 @@ public class RecuringEmailController {
         
         schedule_email_list.setTblUserLoginDetails(user_login);
         schedule_email_list.setEmailListName(emaillist);
-        schedule_email_list.setFromAddress(getFromAddress(user_id));
+        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(user_id);
+        schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
         schedule_email_list.setFromName(from_name);
         schedule_email_list.setReplyToEmailAddress(reply_to_address);
         schedule_email_list.setSubject(subject);
@@ -472,7 +474,8 @@ public class RecuringEmailController {
         schedule_email_list.setTblUserLoginDetails(user_login);
         schedule_email_list.setEmailListName(emaillist);
         schedule_email_list.setBody(html_data);
-        schedule_email_list.setFromAddress(getFromAddress(user_id));
+        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(user_id);
+        schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
         schedule_email_list.setFromName(from_name);
         schedule_email_list.setReplyToEmailAddress(reply_to_address);
         schedule_email_list.setSubject(subject);
@@ -488,8 +491,10 @@ public class RecuringEmailController {
             logger.log(Level.SEVERE,"Exception while saving the email action in the table:", throwable);
         }
         return "true";
-    }    
-    public String getFromAddress(Integer user_id){
+    }
+    
+    public org.json.simple.JSONObject getFromAddress(Integer user_id){
+        
         SqlMethods sql_methods = new SqlMethods();
 
         org.json.simple.JSONObject json_user_preferences = sql_methods.getJSONUserPreferences(user_id);
@@ -497,7 +502,24 @@ public class RecuringEmailController {
         org.json.simple.JSONObject json_object_email_settings = (org.json.simple.JSONObject)json_user_preferences.get(IConstants.kEmailSettings);
 
         String from_address = (String)json_object_email_settings.get(IConstants.kEmailFromAddress);
-        return from_address;
+
+        return json_object_email_settings;
+        
+    }
+    
+    @RequestMapping (value = "/getUserPreferences", method = RequestMethod.GET)
+    public @ResponseBody String getUserPreferences(HttpServletRequest request,
+            HttpServletResponse response)throws IOException{
+
+        SqlMethods sql_methods = new SqlMethods();
+        
+        sql_methods.session = request.getSession(true);
+        Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+        
+        org.json.simple.JSONObject from_address = (org.json.simple.JSONObject)getFromAddress(user_id);
+
+        return from_address.toString();
+        
     }
     
     @RequestMapping (value = "/getRecuringEntity", method = RequestMethod.POST)
@@ -510,21 +532,23 @@ public class RecuringEmailController {
         
         String entity_id = (String)requestBodyMap.get("entity_id");
         
+        if (Integer.parseInt(entity_id) != 0){
         TblScheduledEntityList schedule_entity_list = schedule_entity_list_service.getById(Integer.parseInt(entity_id));
 
-        JSONObject json_entity_list = new JSONObject();
-        
-        json_entity_list.put("recuring_email_days", schedule_entity_list.getDays());
-        json_entity_list.put("recuring_email_entity_id", schedule_entity_list.getEntityId());
-        json_entity_list.put("recuring_email_entity_type", schedule_entity_list.getEntityType());
-        json_entity_list.put("recuring_email_is_recuring", schedule_entity_list.getIsRecuring());
-        json_entity_list.put("recuring_email_template_id", schedule_entity_list.getRecuringEmailId());
-        json_entity_list.put("recuring_email_description", schedule_entity_list.getScheduleDesc());
-        json_entity_list.put("recuring_email_time", schedule_entity_list.getScheduleTime().getTime());
-        json_entity_list.put("recuring_email_title", schedule_entity_list.getScheduleTitle());
-        json_entity_list.put("recuring_email_status", schedule_entity_list.getStatus());
-        json_entity_list.put("recuring_email_user_marketing_program_id", schedule_entity_list.getTblUserMarketingProgram().getId());
-        json_entity_list.put("recuring_email_till_date", schedule_entity_list.getTillDate().getTime());
+            JSONObject json_entity_list = new JSONObject();
+
+            json_entity_list.put("recuring_email_days", schedule_entity_list.getDays());
+            json_entity_list.put("recuring_email_entity_id", schedule_entity_list.getEntityId());
+            json_entity_list.put("recuring_email_entity_type", schedule_entity_list.getEntityType());
+            json_entity_list.put("recuring_email_is_recuring", schedule_entity_list.getIsRecuring());
+            json_entity_list.put("recuring_email_template_id", schedule_entity_list.getRecuringEmailId());
+            json_entity_list.put("recuring_email_description", schedule_entity_list.getScheduleDesc());
+            json_entity_list.put("recuring_email_time", schedule_entity_list.getScheduleTime().getTime());
+            json_entity_list.put("recuring_email_title", schedule_entity_list.getScheduleTitle());
+            json_entity_list.put("recuring_email_status", schedule_entity_list.getStatus());
+            json_entity_list.put("recuring_email_user_marketing_program_id", schedule_entity_list.getTblUserMarketingProgram().getId());
+            json_entity_list.put("recuring_email_till_date", schedule_entity_list.getTillDate().getTime());
+            
         if (schedule_entity_list.getEntityId().intValue() != 0){
             TblScheduledEmailList schedule_email_list = schedule_email_list_service.getById(schedule_entity_list.getEntityId().intValue());
 
@@ -538,6 +562,8 @@ public class RecuringEmailController {
             
         }
         return json_entity_list.toString();
+        }
+        
         
         }catch (Throwable throwable){
             logger.log(Level.SEVERE,"Exception while getting the recuring email action from the table:", throwable);

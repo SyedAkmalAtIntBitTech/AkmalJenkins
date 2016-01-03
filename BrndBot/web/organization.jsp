@@ -250,6 +250,5 @@
                             */
                 </style>     
            
-    </script>
-    </body>
+     </body>
 </html>

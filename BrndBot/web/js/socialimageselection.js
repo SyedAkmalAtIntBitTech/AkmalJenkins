@@ -863,8 +863,6 @@ function controllerMarketingCampaign($scope, $http) {
         });
         };
 };
-
-
 $("#Servicecontinue").hide();
         var rootApp = angular.module('rootApp', ['uploadModule','imagegallery']);
     

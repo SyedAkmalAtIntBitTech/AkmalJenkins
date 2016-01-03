@@ -12,12 +12,12 @@ function colorsController($scope, $http) {
         color_hex = $("#color_hex").val();
         color_name = $("#color_name").val();
         if (color_hex === "") {
-            alert("Enter the color hex value");
+            alert("Enter the color hex value.");
             $("#color_hex").focus();
             return false;
         }
         if (color_name === "") {
-            alert("Enter the color name value");
+            alert("Enter the color name value.");
             $("#color_name").focus();
             return false;
         }
@@ -39,10 +39,10 @@ function colorsController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "false") {
-                    alert("color already exist");
+                    alert("Color already exist!");
                     $("#color_hex").focus();
                 } else if (data === "true") {
-                    alert("color saved successfully");
+                    alert("Color saved successfully.");
                     window.open(getHost() + 'admin/colors.jsp', "_self");
                 } else if (data === error) {
                     alert(data);
@@ -51,7 +51,7 @@ function colorsController($scope, $http) {
                     .error(function (data, status) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                     });
         }
     };
@@ -66,12 +66,12 @@ function colorsController($scope, $http) {
 
         function validate() {
             if (color_hex_value === "") {
-                alert("Enter the hex value");
+                alert("Enter the hex value.");
                 $(color_hex).focus();
                 return false;
             }
             if (color_name_value === "") {
-                alert("Enter the color name");
+                alert("Enter the color name.");
                 $(color_name).focus();
                 return false;
             }
@@ -90,7 +90,7 @@ function colorsController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "true") {
-                    alert("color updated successfully");
+                    alert("Color updated successfully.");
                     window.open(getHost() + 'admin/colors.jsp', "_self");
                 } else if (data === error) {
                     alert(data);
@@ -99,7 +99,7 @@ function colorsController($scope, $http) {
                     .error(function (data, status) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                     });
         }
     };
@@ -115,7 +115,7 @@ function colorsController($scope, $http) {
         {
             $scope.status = data;
             if (data === "true") {
-                alert("color deleted successfully");
+                alert("Color deleted successfully.");
                 window.open(getHost() + 'admin/colors.jsp', "_self");
             } else if (data === error) {
                 alert(data);

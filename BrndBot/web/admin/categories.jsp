@@ -184,7 +184,7 @@
                             case 'SVG':                                  
                             break;
                             default:
-                            alert('This type of image is not allowed');
+                            alert('This type of image is not allowed.');
                             this.value = '';
                     }
                     };

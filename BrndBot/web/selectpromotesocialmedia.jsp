@@ -138,22 +138,34 @@
 
         </style>
         <%! 
+            SqlMethods sql_methods = new SqlMethods();
             Object code = "";
-            String ImageName="";
+            String mindbody_data_id = "";
+            String media_type = "";
         %>
         <% 
-            try{
-                code = (Object)request.getAttribute("objkey");
-                ImageName=request.getParameter("image");
-            }catch (Exception e){
+            
+            try {
+                sql_methods.session = request.getSession();
+                user_id = (Integer)sql_methods.session.getAttribute("UID");
+                if (!request.getParameter("id").equals("null")){
+                    mindbody_data_id = (String) request.getParameter("id");
+                } 
+                
+                if (!request.getParameter("mediatype").equals("null")){
+                     media_type = (String)request.getParameter("mediatype");
+                } 
+                
+//                String msg = request.getParameter("msg");
+//              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
+
+            } catch (Exception e) {
                 System.out.println(e.getCause());
                 System.out.println(e.getMessage());
-                
             }
-        
         %>
         
-<!--           <script>
+        <!--           <script>
             $(document).ready(function () {
                
 //                     $(".cross").hide();
@@ -173,10 +185,20 @@
                         });
         </script>-->
         
-        
         <script>
+            $( window ).load(function() {
+                $("#isFacebook").val("false");
+                $("#isTwitter").val("false");
+                $('#facebook').prop('checked', false); 
+                $('#twitter').prop('checked', false); 
+            });
             
             $(document).ready(function () {
+                $("#submitbutton").click(function(){
+                    //alert($("#isFacebook").val());
+                    //alert($("#isTwitter").val());
+                    
+                });
                 $("#loadingGif").hide();
                 // $('#myModal').trigger('reveal:open');
                 
@@ -287,7 +309,7 @@
                         $(".close-reveal-modal").click();
                         $("#submitbutton").prop("disabled",false);
                     }else {
-                        alert("No default page selected");
+                        alert("No default page selected!");
                     } 
             });
             
@@ -328,15 +350,20 @@
                 <li><img id="twt" class="socialimage twt ptr" src="images/twtButton.svg" onclick="changeImaget();"/> <input type="checkbox" id="twitter" name="social" value="Twitter" hidden="true"><p class="il2">Twitter</p></li>
                 <li><div style="left:-330px;" class="col-md-5 col-md-offset-0">
 
-                        <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
-                            <input type="hidden" id="imageName" name="imageName" value='<%=ImageName%>' >
+                        <form action="<%=request.getContextPath()%>/socialimageselection.jsp" method="POST">
+                            <input type="hidden" id="media_type" name="media_type" value = '<%=media_type%>' />
+                            <input type="hidden" id="mindbodydata" name="mindbodydata" value='<%= mindbody_data_id %>'>
                             <input type="hidden" id="twaccessTokenSend" name="twaccessTokenSend" >
                             <input type="hidden" id="pagenameSend" name="pagenameSend" >
                             <input type="hidden" id="fbaccessTokenSend" name="fbaccessTokenSend">
                             <input type="hidden" id="fbdefaultAccessToken" name="fbdefaultAccessToken">
                             <input type="hidden" id="isFacebook" name="isFacebook" value="false">
                             <input type="hidden" id="isTwitter" name="isTwitter" value="false">
-                            <input type="submit"  id="submitbutton" class="button button--moema button--text-thick button--text-upper button--size-s" value="Continue" disabled>
+                            <input type="hidden" id="image" name="image" value="">
+                            <input type="hidden" id="selectedType" name="selectedType" value="">
+                            <input type="hidden" id="mediaType" name="mediaType" value="">
+                            <input type="hidden" id="data" name="data" value=",,,,,,">
+                            <input type="submit" id="submitbutton" class="button button--moema button--text-thick button--text-upper button--size-s" value="Continue" disabled>
                         </form> 
                     </div>
                 </li>
@@ -374,11 +401,14 @@
        if(x == false){
        document.getElementById("facebook").checked=true;
        document.getElementById("fb").src="images/fbButton_darkblue_new.svg"; 
+       document.getElementById("isFacebook").value("true");
+       
    }
    else
    {
        document.getElementById("fb").src="images/fbButton.svg"; 
-       document.getElementById("facebook").checked=false;    
+       document.getElementById("facebook").checked=false;   
+       document.getElementById("isFacebook").value("false");
    }
        
    }
@@ -387,11 +417,13 @@
        if(x == false){
        document.getElementById("twitter").checked=true;
        document.getElementById("twt").src="images/twtButton_lightblue_new.svg";
+       document.getElementById("isTwitter").value("true");
    }
    else
    {
        document.getElementById("twt").src="images/twtButton.svg";
-       document.getElementById("twitter").checked=false;    
+       document.getElementById("twitter").checked=false;
+       document.getElementById("isTwitter").value("false");
    }
 }
 

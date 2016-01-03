@@ -44,7 +44,7 @@
                     brand_id = document.getElementsByTagName("option")[x].value;
                 
                 if (brand_id == 0){
-                    alert("No brand selected, please select any one brand");
+                    alert("No brand selected! Please select any one brand.");
                     document.getElementById("brand").focus();
                     return false;
                 }
@@ -60,11 +60,11 @@
                     }
                 }
                 if (sel == 0) {
-                    alert("No color selected, please select six color");
+                    alert("No color selected! Please select six color.");
                     document.getElementById("color").focus();
                     return false;
                 } else if (sel != 6) {
-                    alert("please select six colors");
+                    alert("Please select six colors.");
                     document.getElementById("color").focus();
                     return false;
                 }
@@ -93,7 +93,7 @@
                                 .error(function(data, status) {
                                 // called asynchronously if an error occurs
                                 // or server returns response with an error status.
-                                alert("request not succesful");
+                                alert("Request not successful!");
                               });
                           }
                     };

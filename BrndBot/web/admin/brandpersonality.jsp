@@ -208,7 +208,7 @@
                 case 'SVG':                      
                     break;
                 default:
-                    alert('This type of image is not allowed');
+                    alert('This type of image is not allowed.');
                     this.value = '';
             }
         };
@@ -239,7 +239,7 @@
                     reader.readAsDataURL(file);
                 }
             } else {
-                alert('The File APIs are not fully supported in this browser.');
+                alert("The File API's are not fully Supported in this Browser.");
             }
         }
 

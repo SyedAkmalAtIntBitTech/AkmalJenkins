@@ -200,38 +200,41 @@ public class UserMarketingProgramController {
             String link = userMarketingProgramId.toString();
 
             TblMarketingAction marketingAction = marketingActionService.getMarketingActionByMCategoryIdAndMProgramId(marketingCategoryId.intValue(), marketingProgramId.intValue());
-            String jsonString = marketingAction.getJsonTemplate();
-            JSONObject json = (JSONObject) new JSONParser().parse(jsonString);
-            org.json.simple.JSONArray jSONArray = (org.json.simple.JSONArray) json.get(IConstants.kMarketingActionsKey);
-            for (Integer i = 0; i < jSONArray.size(); i++) {
-                JSONObject jsonObject = (JSONObject) jSONArray.get(i);
-                String tillDateString = jsonObject.get("tilldate").toString();
+            if (marketingAction != null){
+                String jsonString = marketingAction.getJsonTemplate();
+                JSONObject json = (JSONObject) new JSONParser().parse(jsonString);
+                org.json.simple.JSONArray jSONArray = (org.json.simple.JSONArray) json.get(IConstants.kMarketingActionsKey);
+                for (Integer i = 0; i < jSONArray.size(); i++) {
+                    JSONObject jsonObject = (JSONObject) jSONArray.get(i);
+                    String tillDateString = jsonObject.get("tilldate").toString();
 
-                if (!(tillDateString.equals(""))) {
-                    formatter = new SimpleDateFormat("yyyy-MM-DD");
-                    tillDate = formatter.parse(tillDateString);
+                    if (!(tillDateString.equals(""))) {
+                        formatter = new SimpleDateFormat("yyyy-MM-DD");
+                        tillDate = formatter.parse(tillDateString);
+                    }
+
+                    String timeString = jsonObject.get("time").toString();
+                    SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm");
+                    Date time = formatterTime.parse(timeString);
+
+                    TblScheduledEntityList scheduledEntityList = new TblScheduledEntityList();
+                    scheduledEntityList.setEntityType(jsonObject.get("type").toString());
+                    scheduledEntityList.setIsRecuring(Boolean.parseBoolean(jsonObject.get("is_recuring").toString()));
+                    scheduledEntityList.setScheduleDesc(jsonObject.get("description").toString());
+                    scheduledEntityList.setEntityId(0);
+                    scheduledEntityList.setScheduleTime(time);
+                    scheduledEntityList.setTillDate(tillDate);
+                    scheduledEntityList.setDays(Integer.parseInt(jsonObject.get("days").toString()));
+                    scheduledEntityList.setStatus(TemplateStatus.no_template.toString());
+                    scheduledEntityList.setScheduleTitle(jsonObject.get("title").toString());
+                    scheduledEntityList.setUserId(user_id);
+                    TblUserMarketingProgram userMarketingProgram = new TblUserMarketingProgram();
+                    userMarketingProgram.setId(userMarketingProgramId);
+                    scheduledEntityList.setTblUserMarketingProgram(userMarketingProgram);
+                    scheduledEntityListService.save(scheduledEntityList);
                 }
-                String timeString = jsonObject.get("time").toString();
-                SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm");
-                Date time = formatterTime.parse(timeString);
-
-                TblScheduledEntityList scheduledEntityList = new TblScheduledEntityList();
-                scheduledEntityList.setEntityType(jsonObject.get("type").toString());
-                scheduledEntityList.setIsRecuring(Boolean.parseBoolean(jsonObject.get("is_recuring").toString()));
-                scheduledEntityList.setScheduleDesc(jsonObject.get("description").toString());
-                scheduledEntityList.setEntityId(0);
-                scheduledEntityList.setScheduleTime(time);
-                scheduledEntityList.setTillDate(tillDate);
-                scheduledEntityList.setDays(Integer.parseInt(jsonObject.get("days").toString()));
-                scheduledEntityList.setStatus(TemplateStatus.no_template.toString());
-                scheduledEntityList.setScheduleTitle(jsonObject.get("title").toString());
-                scheduledEntityList.setUserId(user_id);
-                TblUserMarketingProgram userMarketingProgram = new TblUserMarketingProgram();
-                userMarketingProgram.setId(userMarketingProgramId);
-                scheduledEntityList.setTblUserMarketingProgram(userMarketingProgram);
-                scheduledEntityListService.save(scheduledEntityList);
             }
-            return link;
+                return link;
         } catch (Exception ex) {
             logger.log(Level.SEVERE, "Exception while saving the user marketing program", ex);
         }

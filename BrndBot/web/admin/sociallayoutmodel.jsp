@@ -107,7 +107,7 @@
                 }
                 if (xmlHttp === null) {
 
-                    alert("Browser does not support XMLHTTP Request");
+                    alert("Browser does not support XMLHTTP Request!");
 
                     return;
                 }
@@ -138,7 +138,7 @@
                 }
                 if (xmlHttp === null) {
 
-                    alert("Browser does not support XMLHTTP Request");
+                    alert("Browser does not support XMLHTTP Request!");
 
                     return;
                 }
@@ -176,7 +176,7 @@
                 }
                 if (xmlHttp === null) {
 
-                    alert("Browser does not support XMLHTTP Request");
+                    alert("Browser does not support XMLHTTP Request!");
 
                     return;
                 }
@@ -248,7 +248,7 @@
       var model_name = $("#namexml").val();
 
       if (model_name === ""){
-          alert("model name not entered");
+          alert("Model name not entered!");
           $("#namexml").focus();
           return false;
       }else {
@@ -260,7 +260,7 @@
             },
             success: function (responseText) {
         if (responseText === "yes"){
-            alert("name already exist, please give some other name");
+            alert("Name already exist! Please give some other name.");
             $("#namexml").focus();
             return false;
         }else if (responseText === "no") {
@@ -319,7 +319,7 @@
                           
                       },
                       success: function (responseText) {
-                        alert("Model saved successfully");
+                        alert("Model saved successfully.");
                         window.open(getHost() + 'admin/sociallayoutmodel.jsp', "_self");
                       }                    
                    });    

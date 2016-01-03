@@ -32,6 +32,7 @@
         <title>BrndBot - Email Settings</title>
 
         <style type='text/css'>
+            
             div.selectBox
             {
                 position:relative;
@@ -140,7 +141,12 @@
             }
         </style>
         <script>
-
+$(document).ready(function () {
+                $("#from_address").focus(function (){$("#frmadr").css("left","-145px").css("font-size","13px").css("color","#999");});
+                $("#from_address").focusout(function (){var emllist=$("#from_address").val();if(emllist===""){$("#frmadr").css("left","20px").css("font-size","12px").css("color","#2c4355");}if(emllist!==""){$("#frmadr").css("left","-145px");}});
+                 $("#reply_email_address").focus(function (){$("#rpltoadr").css("left","-175px").css("font-size","13px").css("color","#999");});
+                $("#reply_email_address").focusout(function (){var emllist=$("#reply_email_address").val();if(emllist===""){$("#rpltoadr").css("left","20px").css("font-size","12px").css("color","#2c4355");}if(emllist!==""){$("#rpltoadr").css("left","-175px");}});
+            });
             function validateEmail(sEmail) {
                 var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
                 if (filter.test(sEmail)) {
@@ -156,31 +162,31 @@
                 var reply_email_address = $("#reply_email_address").val();
                 
                 if (from_address === "") {
-                    alert("from address not entered, please enter the from address");
+                    alert("From address not entered! Please enter the from address.");
                     $("#from_address").focus();
                     return false;
                 }
                 
                 if ($.trim(from_address).length == 0) {
-                    alert('Please enter valid email address');
+                    alert('Please enter valid email address.');
                     $("#from_address").focus();
                     return false;
                 }
                 
                 if (!(validateEmail(from_address))) {
-                    alert('Invalid Email Address');
+                    alert('Invalid Email Address.');
                     $("#from_address").focus();
                     return false;
                 }
 
                 if (reply_email_address === "") {
-                    alert("reply email not entered, please enter the reply email address");
+                    alert("Reply email not entered! Please enter the reply email address.");
                     $("#reply_email_address").focus();
                     return false;
                 }
                 
                 if ($.trim(reply_email_address).length == 0) {
-                    alert('Please enter valid email address');
+                    alert('Please enter valid email address.');
                     $("#reply_email_address").focus();
                     return false;
                 }
@@ -211,9 +217,9 @@
                         {
                             $scope.status = data;
                             if (data === "false") {
-                                alert("user session has expired, kindly resubmit a request");
+                                alert("User session has expired! Kindly resubmit a request.");
                             } else if (data === "true") {
-                                alert("settings saved successfully");
+                                alert("Settings saved successfully.");
                                 $("#from_address").val("");
                                 $("#reply_email_address").val("");
                             } else if (data === error) {
@@ -223,7 +229,7 @@
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
 
-                            alert("request not succesful");
+                            alert("Request not successful!");
                         });
 
                     }
@@ -254,13 +260,13 @@
                          <div class="group">
                                 <div class="">                            
                                     <input id="from_address" class="form-control simplebox" type="text" name="from_address" />
-                                    <label>FROM ADDRESS</label>
+                                    <label id="frmadr">FROM ADDRESS</label>
                                 </div>
                             </div>
                             <div class="group">
                                 <div class="">   
                                     <input id="reply_email_address" class="form-control simplebox" type="text" name="reply_email_address"/>
-                                    <label>REPLY-TO EMAIL ADDRESS</label>
+                                    <label id="rpltoadr">REPLY-TO EMAIL ADDRESS</label>
                                 </div>
                             </div>
 
@@ -272,8 +278,6 @@
                          </div>
                         </form> 
                     </div>
-
-
                 </div>
             </div>
         </div>     

@@ -248,7 +248,7 @@
             }
             .btn-prim{
                 position: fixed;
-                top: 60%;
+                top: 44%;
                 left:17%;
             }
             .fileUpload {
@@ -305,8 +305,6 @@
                 outline: none;
             }
 
-          
-           
         </style>
         <%! String mindbody_id=""; %>
         <% mindbody_id = request.getParameter("id"); %>
@@ -333,67 +331,30 @@
 //                    });
 //                });
 
+
                 $("#emailSubjectContinueButton").click(function () {
-                    document.title="BrndBot - Email List Selection"; 
-                    $("#chooseEmailList").show();
-                    $("#emailsubjectdiv").hide();
-                    $("#emailaddresses").hide();
-                    $("#drop-zone").hide();
-                    $("#clickHere").hide();
-                    $("#upload").hide();
-                    $("#emaillist").show();
-              
-
-                });
-          
-                $("#chooseEmailList").change(function () {
-                    var x = document.getElementById("chooseEmailList").selectedIndex;
-                    var List_name = document.getElementsByTagName("option")[x].value;
-
-                    if (List_name == 1){
-                        $("#emailaddresses").hide();
-                        $("#drop-zone").hide();
-                        $("#clickHere").hide();
-                        $("#upload").hide();
-                        $("#dragtext").hide();
-                        $("#entertext").hide();
-                         $("#emailIdContinueButton").css("top","50px");
-                       
-                    }else {
-
-                        $("#email_list_name").val(List_name);
-                        $.ajax({
-                                url: getHost() + "GetEmailLists",
-                                data: {
-                                    update: "emailsForEmailList",
-                                    list_name: List_name
-                                },
-                                success: function(result){
-                                    var i = 0;
-                                    var emails = "";
-                                    for(i=0; i<result.user_emailAddresses.length; i++){
-                                        if (result.user_emailAddresses[i].emailid != ""){
-                                            emails = result.user_emailAddresses[i].emailid + "," + emails;
-                                        }
-                                    }
-                                    for(i=0; i<result.mindbody_emailAddresses.length; i++){
-                                        if (result.mindbody_emailAddresses[i] != ""){
-                                            emails = result.mindbody_emailAddresses[i] + "," + emails;
-                                        }
-                                    }                                    
-                                    $("#emailaddresses").val(emails);
-                                }
-                        });
-                    }
-                });
-
-                $("#emailIdContinueButton").click(function () {
-                    var selectedEmail=$("#emailaddresses").val();
-                    if(selectedEmail!=="")
-                    {
+                    
+ ///////////////////////////// Added by Satyajit Roy on 30th nov 2015 ///////////////////////////
+ 
                     var email_subject = $("#emailsubject").val();
-                    var email_addresses = $("#emailaddresses").val();
-                    var email_list = $("#chooseEmailList").val();
+                    if(email_subject=="")
+                    {
+                        alert("Please enter email subject.");
+                        $("#emailsubject").focus();
+                        return false;
+                    }
+                    else{
+                    document.title="BrndBot - Email List Selection"; 
+                    //$("#chooseEmailList").show();
+                    //$("#emailsubjectdiv").hide();
+                    //$("#emailaddresses").hide();
+                    //$("#drop-zone").hide();
+                    //$("#clickHere").hide();
+                    //$("#upload").hide();
+                    //$("#emaillist").show();
+                }
+                    var email_addresses = "";
+                    var email_list = "";
                         $.ajax({
                         url: getHost() + "EmailTextDataServlet",
 //                        dataType: 'json',
@@ -407,22 +368,92 @@
                         document.location.href = "emaileditor.jsp?id="+<%= mindbody_id %>;
                         }
                 });
+                
+ ////////////////////////////////////////// END ////////////////////////////////////////////////
+                    
+ /////////////////////////////////// Commented on 30th nov 2015 by Satyajit Roy /////////////////
+ //
+//                    document.title="BrndBot - Email List Selection"; 
+//                    $("#chooseEmailList").show();
+//                    $("#emailsubjectdiv").hide();
+//                    $("#emailaddresses").hide();
+//                    $("#drop-zone").hide();
+//                    $("#clickHere").hide();
+//                    $("#upload").hide();
+//                    $("#emaillist").show();
+              
+ /////////////////////////////////// END of Comment //////////////////////////////////////////////
+ 
+                });
+          
+                $("#emailIdContinueButton").click(function () {
+                    var selectedEmail=$("#chooseEmailList").val();
+                    alert("..");
+                    if(selectedEmail !== "1")
+                    {
+                        alert(selectedEmail);
+                        var email_subject = "";
+                        var email_addresses = $("#emailaddresses").val();
+                        
+                        if(trim(email_addresses)!=="")
+                        {
+                            alert(email_addresses);
+                            $("#toaddress").val(email_addresses);
+                            $("#emaillistdiv").hide();
+                            $("#emailSettings").show();
+                            $("#emaillistdiv").hide();
+                            $("#emailSettings").show();
+                            var email_list = $("#chooseEmailList").val();
+                            $.ajax({
+                                url: getHost() + "EmailTextDataServlet",
+                                data: {
+                                    email_subject: email_subject,
+                                    email_addresses: email_addresses,
+                                    email_list : email_list
+                                },
+                                success: function(result){
+                                }
+                            });
+                        }
+                        else
+                        {
+                            alert("Please select at least one email list or add email manually.");
+                            selectCsvFile();
+                            $("#emailaddresses").focus();
+                            return false;
+                        }
                 }
                 else{
-                alert("please select at least one email list or add email manually");
-                selectCsvFile();
-                
-                
+                        
+                        var email_subject = "";
+                        var email_addresses = $("#emailaddresses").val();
+                        if(trim(email_addresses)!=="")
+                        {
+                            alert(email_addresses);
+                            $("#toaddress").val(email_addresses);
+                            $("#emaillistdiv").hide();
+                            $("#toaddress").val(email_addresses);
+                            $("#emailSettings").show();
+                            var email_list = $("#chooseEmailList").val();
+                            $.ajax({
+                                url: getHost() + "EmailTextDataServlet",
+                                data: {
+                                    email_subject: email_subject,
+                                    email_addresses: email_addresses,
+                                    email_list : email_list
+                                },
+                                success: function(result){
+                                }
+                            });
+                        }
+                        else
+                        {
+                            alert("Please select at least one email list or add email manually.");
+                            selectCsvFile();
+                            $("#emailaddresses").focus();
+                            return false;
+                        }
                 }
-
-        //
-//
-//                 $("#popupCancel").click(function () {      
-//                    $("#popup").hide();
-//                });
-                
-            
-
             });
               });
             
@@ -437,15 +468,15 @@
                 var x = document.getElementById("chooseEmailList").selectedIndex;
                 var list_name = document.getElementsByTagName("option")[x].value;
                 if (list_name == 1){                   
-                    $("#emailIdContinueButton").show();
-                    $("#entertext").show();
-                    $("#dragtext").show();
-                    $("#emailaddresses").show();
-                    $("#emailaddresses").val('');
-                    $("#drop-zone").show();
-                    $("#clickHere").show();
-                    $("#upload").show();
-                    $("#emailIdContinueButton").css("top","-70px");
+//                    $("#emailIdContinueButton").show();
+//                    $("#entertext").show();
+//                    $("#dragtext").show();
+//                    $("#emailaddresses").show();
+//                    $("#emailaddresses").val('');
+//                    $("#drop-zone").show();
+//                    $("#clickHere").show();
+//                    $("#upload").show();
+//                    $("#emailIdContinueButton").css("top","-70px");
                     $(function () {
 
                     var dropZoneId = "drop-zone";
@@ -495,7 +526,7 @@
 
                     document.getElementById(dropZoneId).addEventListener("drop", function (e) {
                         $("#" + dropZoneId).removeClass(mouseOverClass);
-                        alert("file have been added, click on the upload button to load the csv file");
+                        alert("File have been added, Click on the upload button to load the csv file.");
     //                    upload();
                     }, true);
                     });
@@ -668,7 +699,7 @@
                         }).success(function (data)
                         {
                             if (data === "true") {
-                                alert("Data saved successfully");
+                                alert("Data saved successfully.");
                                window.open(getHost() + 'emailsubject.jsp', "_self");
                             } else if (data === error) {
                                 alert(data);
@@ -737,7 +768,7 @@
                 </div>
 
 
-                <div  id="emaillist" ng-controller="EmailListController" ng-init="showEmailList()">
+<!--                <div  id="emaillist" ng-controller="EmailListController" ng-init="showEmailList()">
                     <p class="header1 MH2"> Who do you want to send this email to?</p>
                     <br><br>   
                    
@@ -779,9 +810,9 @@
                         </div>   
                     </div>      
                       
-<!--                    <input type="text" class="hideinputEmailId" id="emailId" name="emailsubject" placeholder="Add CSV or Email Manually"> <br><br><br><br><br>-->
+                    <input type="text" class="hideinputEmailId" id="emailId" name="emailsubject" placeholder="Add CSV or Email Manually"> <br><br><br><br><br>
 
-                   </div>                   
+                   </div>                   -->
             </div>      
 <!--        </div>-->
        

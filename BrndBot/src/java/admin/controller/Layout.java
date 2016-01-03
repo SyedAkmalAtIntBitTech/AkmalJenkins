@@ -5,6 +5,7 @@
  */
 package admin.controller;
 
+import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.controller.SqlMethods;
 import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
@@ -43,6 +44,7 @@ public class Layout {
     private static final Logger logger = Logger.getLogger(Layout.class.getName());
     public SqlMethods sqlmethods;
     String Style_image_name = "";
+    JSONArray json_font_names = new JSONArray();
     public JSONArray json_font_list = new JSONArray();
     public Layout() {
         this.sqlmethods = new SqlMethods();
@@ -213,94 +215,46 @@ public class Layout {
 //        
 //    }
     public JSONArray getFontList(Integer brandId){
-        JSONArray json_font_names = new JSONArray();
         JSONArray json_font_sizes = new JSONArray();
                     
     try (Connection connection = ConnectionManager.getInstance().getConnection()){    
         Statement stmt3 = connection.createStatement();
         ResultSet rs3 = stmt3.executeQuery("Select * From tbl_brand_font_family where brand_id="+brandId+"");
-//                    JSONArray json_font_names = new JSONArray();
+//  JSONArray json_font_names = new JSONArray();
         JSONObject json_font;
         if (rs3.next()){
-                Integer font_id1 = rs3.getInt("font_id1");
-                json_font = new JSONObject();
-                Statement stmt4 = connection.createStatement();
-                ResultSet rs4 = stmt4.executeQuery("Select * From tbl_font_family where id="+font_id1+"");
-                    if (rs4.next()){
-                        String font_name1 = rs4.getString("font_name");
-                        String font_family_name1 = rs4.getString("font_family_name");
-                        font_family_name1 = font_family_name1 + "," + rs4.getString("file_name");
+                        Integer font_id1 = rs3.getInt("font_id1");
+                        getFontsList(connection, font_id1);
+                        Integer font_id2 = rs3.getInt("font_id2");
+                        getFontsList(connection, font_id2);
+                        Integer font_id3 = rs3.getInt("font_id3");
+                        getFontsList(connection, font_id3);
+                        Integer font_id4 = rs3.getInt("font_id4");
+                        getFontsList(connection, font_id4);
+                        Integer font_id5 = rs3.getInt("font_id5");
+                        getFontsList(connection, font_id5);
+                        Integer font_id6 = rs3.getInt("font_id6");
+                        getFontsList(connection, font_id6);
+                        Integer font_id7 = rs3.getInt("font_id7");
+                        getFontsList(connection, font_id7);
+                        Integer font_id8 = rs3.getInt("font_id8");
+                        getFontsList(connection, font_id8);
+                        Integer font_id9 = rs3.getInt("font_id9");
+                        getFontsList(connection, font_id9);
+                        Integer font_id10 = rs3.getInt("font_id10");
+                        getFontsList(connection, font_id10);
+                        Integer font_id11 = rs3.getInt("font_id11");
+                        getFontsList(connection, font_id11);
+                        Integer font_id12 = rs3.getInt("font_id12");
+                        getFontsList(connection, font_id12);
+                        Integer font_id13 = rs3.getInt("font_id13");
+                        getFontsList(connection, font_id13);
+                        Integer font_id14 = rs3.getInt("font_id14");
+                        getFontsList(connection, font_id14);
+                        Integer font_id15 = rs3.getInt("font_id15");
+                        getFontsList(connection, font_id15);
 
-                        json_font.put("font_name", font_name1);
-                        json_font.put("font_family_name", font_family_name1);
                     }
-                    json_font_names.add(json_font);
-                rs4.close();
-                stmt4.close();
-                Integer font_id2 = rs3.getInt("font_id2");
-                json_font = new JSONObject();
-                Statement stmt5 = connection.createStatement();
-                ResultSet rs5 = stmt5.executeQuery("Select * From tbl_font_family where id="+font_id2+"");
-                    if (rs5.next()){
-                        String font_name2 = rs5.getString("font_name");
-                        String font_family_name2 = rs5.getString("font_family_name");
-                        font_family_name2 = font_family_name2 + "," + rs5.getString("file_name");
-
-                        json_font.put("font_name", font_name2);
-                        json_font.put("font_family_name", font_family_name2);
-                    }
-                    json_font_names.add(json_font);
-                rs4.close();
-                stmt4.close();
-                Integer font_id3 = rs3.getInt("font_id3");
-                json_font = new JSONObject();
-                Statement stmt6 = connection.createStatement();
-                ResultSet rs6 = stmt6.executeQuery("Select * From tbl_font_family where id="+font_id3+"");
-                    if (rs6.next()){
-                        String font_name3 = rs6.getString("font_name");
-                        String font_family_name3 = rs6.getString("font_family_name");
-                        font_family_name3 = font_family_name3 + "," + rs6.getString("file_name");
-
-                        json_font.put("font_name", font_name3);
-                        json_font.put("font_family_name", font_family_name3);
-                    }
-                json_font_names.add(json_font);
-
-                rs4.close();
-                stmt4.close();
-                Integer font_id4 = rs3.getInt("font_id4");
-                json_font = new JSONObject();
-
-                Statement stmt7 = connection.createStatement();
-                ResultSet rs7 = stmt7.executeQuery("Select * From tbl_font_family where id="+font_id4+"");
-                    if (rs7.next()){
-                        String font_name4 = rs7.getString("font_name");
-                        String font_family_name4 = rs7.getString("font_family_name");
-                        font_family_name4 = font_family_name4 + "," + rs7.getString("file_name");
-
-                        json_font.put("font_name", font_name4);
-                        json_font.put("font_family_name", font_family_name4);
-                    }
-                json_font_names.add(json_font);
-                rs4.close();
-                stmt4.close();
-                Integer font_id5 = rs3.getInt("font_id5");
-                json_font = new JSONObject();
-
-                Statement stmt8 = connection.createStatement();
-                ResultSet rs8 = stmt8.executeQuery("Select * From tbl_font_family where id="+font_id5+"");
-                    if (rs8.next()){
-                        String font_name5 = rs8.getString("font_name");
-                        String font_family_name5 = rs8.getString("font_family_name");
-                        font_family_name5 = font_family_name5 + "," + rs8.getString("file_name");
-
-                        json_font.put("font_name", font_name5);
-                        json_font.put("font_family_name", font_family_name5);
-                    }
-                json_font_names.add(json_font);
-                rs4.close();
-                stmt4.close();
-        }
         this.json_font_list = json_font_names;
     }catch (Exception e){
         logger.log(Level.SEVERE, "", e);
@@ -308,6 +262,31 @@ public class Layout {
     return json_font_names;
     }
     
+    public void getFontsList(Connection connection, 
+            Integer id)throws SQLException{
+            ResultSet rs = null;
+            Statement stmt = null;
+        try {
+            JSONObject json_font = new JSONObject();
+            
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery("Select * From tbl_font_family where id="+id+"");
+                if (rs.next()){
+                    String font_name5 = rs.getString("font_name");
+                    String font_family_name5 = rs.getString("font_family_name");
+                    font_family_name5 = font_family_name5 + "," + rs.getString("file_name");
+
+                    json_font.put("font_name", font_name5);
+                    json_font.put("font_family_name", font_family_name5);
+                }
+            json_font_names.add(json_font);
+        }catch (Exception e){
+            logger.log(Level.SEVERE, "", e);
+        }finally {
+            rs.close();
+            stmt.close();
+        }
+    }    
     public String createImage(ServletRequest servletRequest,String layoutfilename, ServletContext servletContext, String modelname) throws SAXException {
 //        throw new UnsupportedOperationException("Not supported yet.");
         

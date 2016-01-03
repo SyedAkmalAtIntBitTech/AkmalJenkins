@@ -16,7 +16,7 @@ and open the template in the editor.
         height: 650px;
     }
     .fr-wrapper{
-        min-height: 559px !important;
+        min-height: 526px !important;
         height: auto !important;
 
     }
@@ -30,6 +30,13 @@ and open the template in the editor.
 }
 .padlft{
     margin-left:-15px !important;
+}
+.emailedtrsavetodraft {
+    font-size: 12px;
+    padding: 0px 38px 0px 13px;
+    width: 148px;
+    height: 25px;
+    margin-top: 7px !important;
 }
 .bgcolor{
 /*    width: 746px;

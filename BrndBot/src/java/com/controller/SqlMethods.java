@@ -497,6 +497,7 @@ public class SqlMethods {
         }
     }
 
+    
     public void updateUsersOrg(int idno, int Org_id, String Company_name) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
@@ -929,7 +930,55 @@ public class SqlMethods {
         }
         return brand_id;
     }
-
+    
+    public Integer getLookIDFromLooks(){
+        String query_string = "";
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Integer look_id = 0;
+        
+        try(Connection connection = ConnectionManager.getInstance().getConnection()){
+            
+            query_string = "Select id from tbl_look";
+            
+            preparedStatement = connection.prepareStatement(query_string);
+            resultSet = preparedStatement.executeQuery();
+            
+            if (resultSet.next()){
+                look_id = Integer.parseInt(resultSet.getString(1));
+            }
+        }catch (Exception e){
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while getting the look id", null));
+        }finally{
+            close(resultSet, preparedStatement);
+        }
+        return look_id;
+    }
+    
+    public Integer getBrandIDFromBrands(Integer lookid){
+        String query_string = "";
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Integer brand_id = 0;
+        
+        try(Connection connection = ConnectionManager.getInstance().getConnection()){
+            
+            query_string = "Select id from tbl_brand_personality where look_id="+ lookid;
+            
+            preparedStatement = connection.prepareStatement(query_string);
+            resultSet = preparedStatement.executeQuery();
+            
+            if (resultSet.next()){
+                brand_id = Integer.parseInt(resultSet.getString(1));
+            }
+        }catch (Exception e){
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while getting the brand id", null));
+        }finally{
+            close(resultSet, preparedStatement);
+        }
+        return brand_id;
+    }
+    
     public Integer getLookID(Integer user_id) {
         Integer look_id = 0;
         String query_string = "";

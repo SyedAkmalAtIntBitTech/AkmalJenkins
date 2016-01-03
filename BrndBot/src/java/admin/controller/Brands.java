@@ -23,7 +23,7 @@ public class Brands {
     private static final Logger logger = Logger.getLogger(Blocks.class.getName());
     
     SqlMethods sqlmethods;
-
+    
     public Brands() throws NamingException {
         sqlmethods = new SqlMethods();
     }

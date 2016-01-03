@@ -47,6 +47,10 @@ public class PreviewServlet extends BrndBotBaseHttpServlet {
             
             htmlHeader = ServletUtil.getEmailHeader();
             htmlString = htmlHeader + htmlString + "</body></html>";
+            File htmlFolder = new File(AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH);
+            if (!htmlFolder.exists()) {
+                htmlFolder.mkdirs();
+            }
             File emailTemplateFile = new File(AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator +iframeName+".html");
             if(!emailTemplateFile.exists()) {
                     emailTemplateFile.createNewFile();

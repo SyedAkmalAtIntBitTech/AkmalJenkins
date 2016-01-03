@@ -668,7 +668,7 @@ $(document).ready(function () {
         });
 
         }else if (selectedtype == "non"){
-            alert("no category selected, please select any one category type");
+            alert("No category selected! Please select any one category type.");
         }
     });
     $("#addImageButton").click(function () {
@@ -835,7 +835,7 @@ $(document).ready(function () {
             reloadTabs(1);
         });
         }else if (selectedtype == "non"){
-            alert("no category selected, please select any one category type");
+            alert("No category selected! Please select any one category type.");
         }
 
     });
@@ -891,7 +891,7 @@ $(document).ready(function () {
 
             );
         }else if (selectedtype == "non"){
-            alert("no category selected, please select any one category type");
+            alert("No category selected! Please select any one category type.");
         }
         
         function reload_dropShadow()
@@ -1310,7 +1310,7 @@ function addDefault() {
                 num1++;
             },
             error: function () {
-                alert("The XML File could not be processed correctly.");
+                alert("The XML File could not be processed correctly!");
             }
         });
     }
@@ -1366,7 +1366,7 @@ function getRotationDegrees(obj) {
 //      var model_name = $("#namexml").val();
 //
 //      if (model_name == ""){
-//          alert("model name not entered");
+//          alert("Model name not entered!");
 //          $("#namexml").focus();
 //          return false;
 //      }else {
@@ -1380,7 +1380,7 @@ function getRotationDegrees(obj) {
 //            success: function (responseText) {
 //                alert(responseText);
 //                if (responseText == "yes"){
-//                    alert("name already exist, please give some other name");
+//                    alert("Name already exist! Please give some other name.");
 //                    $("#namexml").focus();
 //                    return false;
 //                }else if (responseText == "no") {

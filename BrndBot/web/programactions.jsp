@@ -22,6 +22,7 @@
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="css/pikaday.css">
         <link rel="stylesheet" href="css/datepickerpikaday.css">
+        <script src="http://momentjs.com/downloads/moment.min.js"></script>
         <script src="js/pikaday.js"></script>
         <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js" type="text/javascript"></script>
@@ -50,6 +51,7 @@
             var ok = confirm("Do you really want to Edit?");
             if (ok == true){
                 $("#link_name").show();
+                //$("#link_url").val("http://");
                 $("#link_url").show();
                 $("#editprogdet").hide();
                 $("#dateofevntedt").show();
@@ -64,6 +66,16 @@
             }
             });
             });
+            function checkUrl()
+            {
+                var url=$("#link_url").val();
+                if(url.contains("http://"))
+                {}
+                else
+                {
+                    $("#link_url").val("http://");
+                }
+            }
             function overlay(){
                 document.getElementById('light').style.display = 'block';
                 document.getElementById('fade').style.display = 'block';
@@ -124,14 +136,15 @@
                             <div id="dateofevntprv" class="evntdt fontpns">{{programs.programdetails.dateOfEvent| date:'MMM dd yyyy'}}</div>
                             <div id="dateofevntedt" class="evntdt fontpns"><input type="text" readonly name="datepicker" id="progactdatepicker"  class="progactinputdate fontpns ptr" />                                        
                                 <script>
-                                            var picker = new Pikaday(
-                                            {
-                                            field: document.getElementById('progactdatepicker'),
-                                                    firstDay: 1,
-                                                    minDate: new Date(2000, 0, 1),
-                                                    maxDate: new Date(2050, 12, 31),
-                                                    yearRange: [2000, 2050]
-                                            });                                </script>
+                                    var picker = new Pikaday(
+                                    {
+                                    field: document.getElementById('progactdatepicker'),
+                                            firstDay: 1,
+                                            minDate: new Date(2000, 0, 1),
+                                            maxDate: new Date(2050, 12, 31),
+                                            yearRange: [2000, 2050]
+                                    });
+                                </script>
                             </div>
                         </div>
                         <div id="associated_name" class="col-lg-3 col-md-3 col-sm-4" > 
@@ -142,7 +155,7 @@
                         <div id="associated_link" class="col-lg-3 col-md-3 col-sm-4" style="display:none;margin-left: -90px;">
                             <div class="asclink fontpnr">Associated Link</div>
                             <div id="assoctdnameprv" class="evntdt fontpns">{{programs.programdetails.linktodestination}}</div>
-                            <div id="assoctdnameedt" class="evntdt fontpns" style="display: none;"><input id="link_url" name="link_url" class="progactinputdate fontpns ptr"/></div>
+                            <div id="assoctdnameedt" class="evntdt fontpns" style="display: none;"><input id="link_url" name="link_url" class="progactinputdate fontpns ptr" onkeyup="checkUrl();"/></div>
                         </div>                        
                     </div>
                     <div class="row">
@@ -186,7 +199,7 @@
                                         button--text-upper 
                                         button--size-s 
 
-                                        fontpnr"  ng-click="deleteSchedule('0', 'deleteMultiple')">
+                                        fontpnr"  ng-click="deleteAutomationSchedule('0', 'deleteMultiple')">
                                     Delete Email Automation</button>
                             </div>
                         </div>
@@ -335,7 +348,9 @@
                                 </select>
                             </div>
                             <div class="top18 fontpns tenpix headcolor">DESCRIPTION</div>
-                            <div class="topten"><textarea class="addactiondesc fontpnr" name="description" id="description" placeholder="Description here"></textarea></div>
+                            <div class="topten">
+                                <textarea class="addactiondesc fontpnr" name="description" id="description" placeholder="Description here"></textarea>
+                            </div>
                             <!--                    <div class="toptweenty fontpns tenpix headcolor">STATUS</div>
                                                 <div class="inlineFlex">
                                                     <div class="rightfive top11">
@@ -350,6 +365,7 @@
                                         Days
                                     </div>
                                     <div class="topsix">
+                                        <input type="hidden" name="programdate" id="programdate" value="{{programs.programdetails.dateOfEvent| date:'yyyy-MM-dd HH:mm:ss Z'}}" placeholder="Enter days" class="inputday fontpns ptr" />
                                         <input type="text" name="days" id="days" value=" " placeholder="Enter days"  class="inputday fontpns ptr" />   
                                     </div>
                                 </div>
@@ -450,7 +466,7 @@
                                                 <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'"  ng-click="editScheduleDetails(schedule_id, entities_selected_time, schedule_type, schedule_title, schedule_desc, programs.programdetails.programName,days)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
                                             </div>
                                             <div class="approve">
-                                            <input type="button" value="Approve to Post" 
+                                            <input type="button" value="Approve to Send" 
                                                    ng-show="email_action_status == true && email_template_status=='Template Saved'" 
                                                    ng-click="Approval(schedule_id, 'approved', master_email)"
                                                    class="button approvetopostbuttonwidthheightcolor 
@@ -502,7 +518,7 @@
                                         <div class="topten"><!-- <div class="content"></div> -->
                                             <!--                                <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />-->
                                             <div class="content">
-                                                <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                                <img id="mailimgprev" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                             </div>
                                         </div>
                                         <div class="top27 headcolor tenpix fontpns">
@@ -518,7 +534,12 @@
                                         </div>
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
-                                                {{entitiesdetails.email_list_name}}
+                                                <div ng-show="entitiesdetails.email_list_name == 1">
+                                                    No Email List
+                                                </div>
+                                                <div ng-show="entitiesdetails.email_list_name != 1">
+                                                    {{entitiesdetails.email_list_name}}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="inlineFlex toptweenty">
@@ -618,10 +639,10 @@
                                                         Time
                                                     </div>
                                                     <div class="topsix">
-                                                        <input id="timepickeremail" type="text" name="timepickeremail" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh:mm a'}}"/> 
+                                                        <input id="timepickeremail" type="text" name="timepickeremail" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh : mm : a'}}"/> 
                                                         <script src="js/timepicki.js" type="text/javascript"></script>
                                                         <script>
-                                                                                    $('#timepickeremail').timepicki({
+                                                                $('#timepickeremail').timepicki({
                                                                     show_meridian:true,
                                                                     min_hour_value:0,
                                                                     max_hour_value:12,
@@ -629,7 +650,8 @@
                                                                     overflow_minutes:true,
                                                                     increase_direction:'up',
                                                                     disable_keyboard_mobile: true
-                                                                });                                                        </script>
+                                                                });                                                        
+                                                        </script>
                                                     </div>
                                                 </div>
                                             </div>
@@ -664,7 +686,7 @@
                                             <div class="topten"><!-- <div class="content"></div> -->
                                                 <!--                                    <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />-->
                                                 <div class="content">
-                                                    <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                                    <img id="mailimgprev" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                                 </div>
                                             </div>
                                             <div class="top27 headcolor tenpix fontpns">
@@ -680,7 +702,12 @@
                                             </div>
                                             <div class="inlineFlex toptnine">
                                                 <div class="half containe fontpnr tenpix">
-                                                    {{entitiesdetails.email_list_name}}
+                                                    <div ng-show="entitiesdetails.email_list_name == 1">
+                                                        No Email List
+                                                    </div>
+                                                    <div ng-show="entitiesdetails.email_list_name != 1">
+                                                        {{entitiesdetails.email_list_name}}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="inlineFlex toptweenty">
@@ -828,7 +855,7 @@
                                                                                 <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />   {{entitiesdetails.image_name}}  
                                                                             </div>-->
                                     <div id="imgcontainer">
-                                        <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                        <img id="prevfbimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                     </div>
                                     <div class="toptweenty headcolor tenpix fontpns">
                                         POST TEXT
@@ -948,7 +975,7 @@
                                                     Time
                                                 </div>
                                                 <div class="topsix">
-                                                    <input id="timepickerfb" type="text" name="timepickerfb" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh:mm a'}}"/> 
+                                                    <input id="timepickerfb" type="text" name="timepickerfb" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh : mm : a'}}"/> 
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
                                                         $('#timepickerfb').timepicki({
@@ -996,7 +1023,7 @@
                                                                                     <img id="fbimgprev" class="fbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />   {{entitiesdetails.image_name}}  
                                                                                 </div>-->
                                         <div id="imgcontainer">
-                                            <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                            <img id="prevfbimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                         </div>
                                         <div class="toptweenty headcolor tenpix fontpns">
                                             POST TEXT
@@ -1052,7 +1079,7 @@
                                         <p class="containe twlvpix fontpnr">{{schedule_desc}}</p>
                                     </div>
                                     <div id="imgcontainer" style="display: none">
-                                        <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                        <img id="prevtwtimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                     </div>
                                     <div class="inlineFlex toptweenty">
                                         <div class="half headcolor fontpns tenpix">
@@ -1151,7 +1178,7 @@
                                         <!--    <img id="prevtwtimg" class="twtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                           20150907175706740.png-->
                                         <div id="imgcontainer">
-                                            <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                            <img id="prevtwtimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                         </div>
                                     </div>
                                     <div class="toptweenty headcolor tenpix fontpns">
@@ -1247,7 +1274,7 @@
                                                     Time
                                                 </div>
                                                 <div class="topsix">
-                                                    <input id="timepickertw" type="text" name="timepickertw" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh:mm a'}}"/> <!-- id="timepickertwitter" name="timepicker1" -->
+                                                    <input id="timepickertw" type="text" name="timepickertw" class="inputtime ptr" style="width:150px;" value="{{post_time| date:'hh : mm : a'}}"/> <!-- id="timepickertwitter" name="timepicker1" -->
 
                                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                                     <script>
@@ -1293,7 +1320,7 @@
                                             <!--    <img id="prevtwtimg" class="twtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                               20150907175706740.png-->
                                             <div id="imgcontainer">
-                                                <img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                                <img id="prevtwtimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                             </div>
                                         </div>
                                         <div class="toptweenty headcolor tenpix fontpns">
@@ -1316,7 +1343,7 @@
                     </div>
 
                     <div id="imgcontainer" style="display:none;">
-                        <img id="edttwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
+                        <img id="edttwtimg" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}' 
                              style="display:none;"/>
                     </div> 
                 </div>
@@ -1374,14 +1401,14 @@
                                             SCHEDULED TO POST ON
                                         </div>
                                         <div class="containe fontpnr tenpix">
-                                            {{entities_selected_time| date:'MMM dd yyyy'+' on '+ 'hh:mm a'}}
+                                            {{entities_selected_time| date:'MMM dd yyyy'+' on '+ 'hh : mm a'}}
                                         </div>
                                         <div class="inlineFlex top120">
                                             <div class="rightthirty left5">
                                                 <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="addEditRecuringAction('edit',<%=program_id%>, schedule_id)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
                                             </div>
                                             <div class="approve">
-                                                <input type="button" value="Approve to Post" ng-show="recuring_action_status == true && recuring_template_status=='Template Saved'" ng-click="recuringApproval(schedule_id, 'approved')" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
+                                                <input type="button" value="Approve to Send" ng-show="recuring_action_status == true && recuring_template_status=='Template Saved'" ng-click="recuringApproval(schedule_id, 'approved')" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
                                                 <button ng-click="SaveData();" ng-show="recuring_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
                                                 <button id="button1" ng-show="recuring_template_status == 'Approved'" ng-click="recuringApproval(schedule_id, 'template_saved')" style="background-color: #e25b5b !important;color: white !important;display:none;margin-left:16px !important;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
                                             </div>
@@ -1417,7 +1444,7 @@
                                         <div class="topten"><!-- <div class="content"></div> -->
                                             <!--                                <img id="mailimgprev" class="mailimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name=20150829115244349.png' />-->
                                             <div class="content">
-                                                <img id="mailimgprev" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                                <img id="mailimgprev" ng-src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                             </div>
                                         </div>
                                         <div class="top27 headcolor tenpix fontpns">
@@ -1433,7 +1460,12 @@
                                         </div>
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
-                                                {{entitiesdetails.email_list_name}}
+                                                <div ng-show="entitiesdetails.email_list_name == 1">
+                                                    No Email List
+                                                </div>
+                                                <div ng-show="entitiesdetails.email_list_name != 1">
+                                                    {{entitiesdetails.email_list_name}}
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="inlineFlex toptweenty">

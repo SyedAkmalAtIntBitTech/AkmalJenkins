@@ -9,7 +9,7 @@ function validate() {
     var files = $("#filesToUpload").val();
 
     if (look_name === "") {
-        alert("please enter the look name");
+        alert("Please enter the look name!");
         $("#lookname").focus();
         return false;
     }
@@ -34,7 +34,7 @@ function lookController($scope, $http) {
         {
             $scope.status = data;
             if (data === "true") {
-                alert("look deleted successfully");
+                alert("Look deleted successfully.");
                 window.open(getHost() + 'admin/looks.jsp', "_self");
             } else if (data === error) {
                 alert(data);

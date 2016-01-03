@@ -1,6 +1,10 @@
 /*!
 By Satyajit Roy form http://www.intbittech.com
+Date   : 8 Dec 2015  12:53:25 PM
+Author : Satyajit Roy At intBIt Technologies
 */
+
+
             #tab2,#tab3,#tab4
             {
                 display:none;
@@ -13,8 +17,8 @@ By Satyajit Roy form http://www.intbittech.com
                 display:none;
             }
            .brdr{ 
-                text-align:left;
-                border:none;
+               text-align:left;
+               border:none;
                 border-bottom:1px solid #7ab5d3;
            }
             .emlhisdata li{
@@ -44,35 +48,33 @@ By Satyajit Roy form http://www.intbittech.com
                 letter-spacing: 0em;
             }
             .delsel li{
-                font-family: "proxima-nova",sans-serif;
-                color: #2d4355;
-                position: relative;
-                top:-60px;
-                display: table-cell;
-                padding: 3px;
-                width: 250px; 
+               font-family: "proxima-nova",sans-serif;
+                    color: #2d4355;
+                    position: relative;
+                    top:-60px;
+                    display: table-cell;
+                    padding: 3px;
+                    width: 250px; 
             }
-            
-            
             .emlOneRowDatalst li{
-                font-family: "proxima-nova",sans-serif;
-                color: #2d4355;
-                position: relative;
-                top:-70px;
-                height: 10%;
-                display: table-cell;
-                padding: 3px;
-                width: 250px;
+                    font-family: "proxima-nova",sans-serif;
+                    color: #2d4355;
+                    position: relative;
+                    top:-70px;
+                    height: 10%;
+                    display: table-cell;
+                    padding: 3px;
+                    width: 250px;
             }
             .emlOneRowDatalst button{
                 font-family: "proxima-nova",sans-serif;
-                color: #2d4355;
-                width:100px;    
-                background-color: transparent;
-                border:1px #000 solid;
-                border-radius: 5px;   
-                position:relative;
-                display: table-cell;
+                    color: #2d4355;
+                    width:100px;    
+                     background-color: transparent;
+                     border:1px #000 solid;
+                     border-radius: 5px;   
+                     position:relative;
+                    display: table-cell;
             }
             #datadiv{
                 margin-top:120px;

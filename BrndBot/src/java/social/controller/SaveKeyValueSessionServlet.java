@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author sandeep-kumar
  */
 public class SaveKeyValueSessionServlet extends BrndBotBaseHttpServlet {
+    SqlMethods sqlmethods = new SqlMethods();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,19 +36,52 @@ public class SaveKeyValueSessionServlet extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        try{
-           getSqlMethodsInstance().session = request.getSession(true);
-           String sessionValue = request.getParameter("sessionValue");
-           String sessionKey = request.getParameter("sessionKey");
-           String sessionIframeKey = request.getParameter("sessionIframeKey");
-           String sessionIframevalue = request.getParameter("sessionIframevalue");
-           getSqlMethodsInstance().session.setAttribute(sessionKey, sessionValue);
-           getSqlMethodsInstance().session.setAttribute(sessionIframeKey, sessionIframevalue);
-           
-        }catch (Exception e){
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
-
+        String process = request.getParameter("process");
+        String send="";
+        if(process.equals("save"))
+        {
+            try
+            {
+                getSqlMethodsInstance().session = request.getSession(true);
+                String sessionValue = request.getParameter("sessionValue");
+                String sessionKey = request.getParameter("sessionKey");
+                String sessionIframeKey = request.getParameter("sessionIframeKey");
+                String sessionIframevalue = request.getParameter("sessionIframevalue");
+                getSqlMethodsInstance().session.setAttribute(sessionKey, sessionValue);
+                getSqlMethodsInstance().session.setAttribute(sessionIframeKey, sessionIframevalue);          
+            }
+            catch (Exception e)
+            {
+                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            }
         }
+        else if(process.equals("draft"))
+        {
+            try
+            {
+                getSqlMethodsInstance().session = request.getSession(true);
+                String sessionValue = request.getParameter("sessionValue");
+                String sessionKey = request.getParameter("sessionKey");
+                String sessionIframeKey = request.getParameter("sessionIframeKey");
+                String sessionIframevalue = request.getParameter("sessionIframevalue");
+                
+                getSqlMethodsInstance().session.setAttribute(sessionKey, sessionValue);
+                getSqlMethodsInstance().session.setAttribute(sessionIframeKey, sessionIframevalue); 
+                String emailSubject=(String)sqlmethods.session.getAttribute("email_subject");
+                String subCategoryName=(String)sqlmethods.session.getAttribute("sub_category_name");
+                String subCategoryId=(String)sqlmethods.session.getAttribute("sub_category_id");
+                String categoryId=(String)sqlmethods.session.getAttribute("category_id");
+                String emailAddresses=(String)sqlmethods.session.getAttribute("email_addresses");
+                String emailList=(String)sqlmethods.session.getAttribute("email_list");
+                
+                send+="sessionValue - "+sessionValue;
+            }
+            catch (Exception e)
+            {
+                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            }
+        }
+       out.print(send);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

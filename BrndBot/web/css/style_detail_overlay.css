@@ -44,19 +44,20 @@ a.svg:after {
     color: #8F9699  ;
 }
 .detail-overlay-content{
-    //width: 100%;
-    //overflow-x: hidden;
+    max-width: 100%;
+    overflow-x: hidden;
     background-color: #FFFFFF ;
     margin:0;
     box-sizing: border-box;
     border-left: 1px #F4F4F4 solid;
     height: 100vh;
     width: 900px;
-    float: left;
+    /*float: left;*/
+    float: right;
 }
 
 .fields-note-detail{
-     width:100%;
+    width:100%;
     background-color: #FFFFFF;
     box-sizing: border-box; 
     padding-top: 30px;
@@ -116,16 +117,7 @@ a.svg:after {
 }
 
 .nav-elements-icon{ 
-/*    border-top: 1px solid #203c4f ;
-    display: block;
-    height: 54px;
-    line-height: 53px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    float:left;*/
-        border-top: 1px solid #203c4f;
+    border-top: 1px solid #203c4f;
     display: block;
     line-height: 53px;
     list-style: none;
@@ -538,8 +530,6 @@ Facebook-preview-name{
     padding-bottom:105px;
 }
 
-
-
 .inner-content-container-detail{
      background-color: inherit;
 }
@@ -591,19 +581,12 @@ input-field-container{
     width:50%;
     float: left;
     box-sizing: border-box;
-    
 }
-
-
-
-
 
 .inner-content-column-inner-detail{
     padding-right: 30px;
     box-sizing: border-box;
 }
-
-
 
 .notes-container{
     width:100%;
@@ -630,6 +613,10 @@ input-field-container{
 
 .h2new {
     font-size: 20px ;   
+}
+.h2 {
+    font-size: 20px;
+    
 }
 
 

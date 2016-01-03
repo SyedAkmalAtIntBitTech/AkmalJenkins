@@ -23,8 +23,10 @@ public class Categories {
 
     private static final Logger logger = Logger.getLogger(Blocks.class.getName());
 
+    
     SqlMethods sqlmethods;
 
+    
     public Categories() throws NamingException {
         this.sqlmethods = new SqlMethods();
     }

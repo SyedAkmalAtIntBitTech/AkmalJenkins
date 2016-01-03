@@ -42,7 +42,7 @@
                 sub_category_id = document.getElementById("sub_category_id").value;
 
                 if(sub_category_name == ""){
-                    alert("category not entered, please enter the category");
+                    alert("Category not entered! Please enter the category.");
                     $("#sub_category_name").focus();
                     return false;
                 }
@@ -52,7 +52,7 @@
 //                external_source = document.getElementsByTagName("option")[x].value;
 //                
                 if (external_source == 0){
-                    alert("No external source selected, please select the external source");
+                    alert("No external source selected! Please select the external source.");
                     document.getElementById("external_source").focus();
                     return false;
                 }
@@ -62,7 +62,7 @@
                 category_id =  cat.options[y].value;
 
                 if (category_id == 0){
-                    alert("No category selected, please select the category");
+                    alert("No category selected! Please select the category.");
                     document.getElementById("category").focus();
                     return false;
                 }
@@ -84,7 +84,7 @@
                               {
                                 $scope.status=data;
                                 if(data === "true"){
-                                    alert("category updated successfully");
+                                    alert("Category updated successfully.");
                                     window.open(getHost() +'admin/subcategories.jsp',"_self");
                                 }else if (data === error){
                                     alert(data);
@@ -93,7 +93,7 @@
                                 .error(function(data, status) {
                                 // called asynchronously if an error occurs
                                 // or server returns response with an error status.
-                                alert("request not succesful");
+                                alert("Request not successful!");
                               });
                           }
                     };

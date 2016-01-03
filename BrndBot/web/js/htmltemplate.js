@@ -21,13 +21,13 @@ function htmlController($scope, $http) {
         html_content = $("#html_content").val();
         
         if (model_name === 0) {
-            alert("select the model name");
+            alert("Select the model name!");
             $("#modelname").focus();
             return false;
         }
         
         if (html_content === "") {
-            alert("html content is empty, please select the html content");
+            alert("Html content is empty! Please select the html content.");
             $("#html_content").focus();
             return false;
         }
@@ -50,10 +50,10 @@ function htmlController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "false") {
-                    alert("HTML already exist");
+                    alert("HTML already exist!");
                     $("#organizationname").focus();
                 } else if (data === "true") {
-                    alert("HTML saved successfully");
+                    alert("HTML saved successfully.");
                     window.open(getHost() + 'admin/addhtmltemplate.jsp', "_self");
                 } else if (data === error) {
                     alert(data);
@@ -61,7 +61,7 @@ function htmlController($scope, $http) {
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                alert("request not succesful");
+                alert("Request not successful!");
             });
         }
     };
@@ -73,7 +73,7 @@ function htmlController($scope, $http) {
 
         function validate() {
             if (organizationname === "") {
-                alert("Enter the organization");
+                alert("Enter the organization.");
                 $(org_id).focus();
                 return false;
             }
@@ -92,19 +92,19 @@ function htmlController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "true") {
-                    alert("Organization updated successfully");
+                    alert("Organization updated successfully.");
                     window.open(getHost() + 'admin/organizations.jsp', "_self");
                 } else if (data === error) {
                     alert(data);
                 } else if (data === "false") {
-                    alert("Organization already exist");
+                    alert("Organization already exist!");
                     $("#organizationname").focus();
                 }    
             })
                     .error(function (data, status) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                     });
         }
     };
@@ -120,7 +120,7 @@ function htmlController($scope, $http) {
         {
             $scope.status = data;
             if (data === "true") {
-                alert("Organization deleted successfully");
+                alert("Organization deleted successfully.");
                 window.open(getHost() + 'admin/organizations.jsp', "_self");
             } else if (data === error) {
                 alert(data);

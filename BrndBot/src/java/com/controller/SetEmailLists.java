@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -209,7 +208,7 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
     
     private boolean addEmailListPreference(Integer user_id, String emailListName, String defaultName, String listDescription)throws SQLException{
         org.json.simple.JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
-        UUID uniqueKey = UUID.randomUUID();
+        
         if (emailListArrayJSON.size() != 0){
                 JSONObject json_user_preferences_email = new JSONObject();
 
@@ -217,7 +216,6 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
                 json_user_preferences_email.put(IConstants.kEmailAddressesKey, new JSONArray());
                 json_user_preferences_email.put(IConstants.kEmailListDefaultFromName, defaultName);
                 json_user_preferences_email.put(IConstants.kEmailListListDescription, listDescription);
-                json_user_preferences_email.put(IConstants.kEmailListID, uniqueKey.toString());
 
                 emailListArrayJSON.add(json_user_preferences_email);
                 return AddEmailListUserPreference(user_id, emailListArrayJSON);
@@ -229,7 +227,6 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
                 
                 json_user_preferences_email.put(IConstants.kEmailListDefaultFromName, defaultName);
                 json_user_preferences_email.put(IConstants.kEmailListListDescription, listDescription);
-                json_user_preferences_email.put(IConstants.kEmailListID, uniqueKey.toString());
 
                 org.json.simple.JSONArray emailListArray = new org.json.simple.JSONArray();
                 emailListArray.add(json_user_preferences_email);
@@ -276,6 +273,8 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
                             Logger.getLogger(SetEmailLists.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
+                        
+                    
                     emailListJSONObject.put(IConstants.kEmailAddressesKey, emailAddressesJSONArray);
                     emailListArrayJSON.set(i, emailListJSONObject);
                     break;

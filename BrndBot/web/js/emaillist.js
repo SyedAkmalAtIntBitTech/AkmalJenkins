@@ -60,7 +60,7 @@
             }
         }
         
-       
+
  $("#fileUpload").change(function () {
     loadImageFile();
     // resets input file
@@ -87,10 +87,18 @@
                 
             }
             
+
+            
             $(document).ready(function () {
+                
                  $(".delete-button").hide();
                  $(".gray-button").hide();
-             
+                $("#list_name").focus(function (){$("#lstnm").css("left","-125px").css("font-size","13px").css("color","#999");});
+                $("#list_name").focusout(function (){var emllist=$("#list_name").val();if(emllist===""){$("#lstnm").css("left","20px").css("font-size","12px").css("color","#2c4355");}if(emllist!==""){$("#lstnm").css("left","-123px");}});
+                $("#default_from_name").focus(function (){$("#deffrmnm").css("left","-157px").css("font-size","13px").css("color","#999");});
+                $("#default_from_name").focusout(function (){var emllist=$("#default_from_name").val();if(emllist===""){$("#deffrmnm").css("left","20px").css("font-size","12px").css("color","#2c4355");}if(emllist!==""){$("#deffrmnm").css("left","-157px");}});
+                $("#list_description").focus(function (){$("#lstdesc").css("left","-145px").css("font-size","13px").css("color","#999");});
+                $("#list_description").focusout(function (){var emllist=$("#list_description").val();if(emllist===""){$("#lstdesc").css("left","20px").css("font-size","12px").css("color","#2c4355");}if(emllist!==""){$("#lstdesc").css("left","-145px");}});
 
                 $("#close").click(function(){
                    $("#fade").hide();
@@ -160,10 +168,11 @@
                         reader.readAsText(fileUpload.files[0]);
 
                     } else {
-                        alert("This browser does not support HTML5.");
+
+                        alert("This browser does not support HTML5!");
                     }
                 } else {
-                    alert("Please upload a valid CSV file.");
+                    alert("Please upload a valid CSV file!");
                 }
 
             }
@@ -175,17 +184,18 @@
             }
             function validate() {
                     var regex=/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
+
                     var emailListName = $("#list_name").val();
                     var defaultFromName = $("#default_from_name").val();
                     var listDescription = $("#list_description").val();
                 
                 if (emailListName === "") {
-                    alert("email list name not entered, please enter the from email list");
+                    alert("Email list name not entered!  Please enter the from email list.");
                     $("#list_name").focus();
                     return false;
                 }
                  if (listDescription === "") {
-                    alert("list description not entered, please enter the list description");
+                    alert("List description not entered! Please enter the list description.");
                     $("#list_description").focus();
                     return false;
                 }
@@ -226,7 +236,7 @@
                         }).success(function (data)
                         {
                             if (data === "true") {
-                                alert("Data saved successfully");
+                                alert("Data saved successfully.");
                                 window.open(getHost() + 'emaillists.jsp', "_self");
                             } else if (data === error) {
                                 alert(data);
@@ -246,7 +256,7 @@
                     if(email_address==="")
                     {
                         error++;
-                        alert("Please Enter Email Address");
+                        alert("Please Enter Email Address!");
                         $("#emailId").focus();
                         return false;
                     }
@@ -257,7 +267,7 @@
                         else
                         {
                             error++;
-                            alert("Please Enter Valid Email Address");
+                            alert("Please Enter Valid Email Address!");
                             $("#emailId").focus();
                             return false;
                         }
@@ -265,14 +275,14 @@
                     if(email_first_name==="")
                     {
                         error++;
-                        alert("Please Enter First Name");
+                        alert("Please Enter First Name!");
                         $("#firstName").focus();
                         return false;
                     }
                     if(email_last_name==="")
                     {
                         error++;
-                        alert("Please Enter Last Name");
+                        alert("Please Enter Last Name!");
                         $("#lastName").focus();
                         return false;
                     }
@@ -317,6 +327,7 @@
                                 {
                                     if (data === "true") {
                                         alert("Data saved successfully.");
+
                                         window.open(getHost() + 'emaillistsdetails.jsp?list_name='+email_list_name+'&type='+type, "_self");
                                     }
                                 });
@@ -326,6 +337,15 @@
                         });
                     
                         }else if (type === "update"){
+//                                        window.open(getHost() + 'emaillists.jsp', "_self");
+//                                    }
+//                                });
+//                            }else if (data === "true"){
+//                                alert("Email id already exist! Please try with some other emailid.");
+//                            }
+//                        });
+//                    
+//                        }else if (type == "update"){
                             var id = $("#uuid").val();
                             emaildetails = {"update":"updateEmailID", "emailUID":id, "emailListName":email_list_name, 
                                                 "emailAddress":email_address, "emailFirstName":email_first_name, 
@@ -340,6 +360,9 @@
                                 if (data === "true") {
                                     alert("Data saved successfully.");
                                     window.open(getHost() + 'emaillistsdetails.jsp?list_name='+email_list_name+'&type='+type, "_self");
+
+//                                    window.open(getHost() + 'emaillists.jsp', "_self");
+
 
                                 } else if (data === error) {
                                     alert(data);
@@ -362,7 +385,7 @@
                     }).success(function (data)
                     {
                         if (data === "true") {
-                            alert("Data saved successfully");
+                            alert("Data saved successfully.");
                             window.open(getHost() + 'emaillists.jsp', "_self");
                             
                         } else if (data === error) {
@@ -398,11 +421,11 @@
                     $http({
                         method: 'GET',
                         url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts',
-                    }).success(function (data, status, headers, config) {
-                       
+                    }).success(function (data, status, headers, config) {              
                         $scope.emailLists = data.allEmailListWithNoOfContacts.user;
-//                        alert(JSON.stringify($scope.emailLists));
+                        
                         $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
+
                         if (data === "true") {
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
                         } else if (data === error) {
@@ -418,7 +441,7 @@
                     $("#chooseEmailList").val("");
                 };
                 
-                $scope.updateList = function () {
+                $scope.updateList = function (list_name, type) {
                     $("#showList").show();
                     $("#importListli").removeClass("top-subnav-link-active");
                     $("#importList").removeClass("h3-active-subnav");
@@ -545,7 +568,7 @@
                         }).success(function (data)
                         {
                             if (data === "true") {
-                                alert("Data deleted successfully");
+                                alert("Data deleted successfully.");
 //                                $scope.updateList(email_list_name);
                                 
                                 window.open(getHost() + 'emaillists.jsp', "_self");
@@ -565,7 +588,7 @@
                         }).success(function (data)
                         {
                             if (data === "true") {
-                                alert("Data deleted successfully");
+                                alert("Data deleted successfully.");
                                 $scope.updateList(email_list_name);
                                 selectedemailids = "";
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
@@ -574,7 +597,7 @@
                             }
                         });
                     }else {
-                        alert("no email has been selected");
+                        alert("No email has been selected!");
                     }
                 };
                 $scope.showAddContacts = function (){
@@ -589,6 +612,8 @@
                     $("#emailList").removeClass("h3-active-subnav");
                     $("#emailListli").addClass("top-subnav-links");
                     $("#emailList").addClass("h3");
+                    $("#tab3").hide();
+                    $("#tab4").show();
                 };
                 
                 $scope.showCreateContacts = function(){

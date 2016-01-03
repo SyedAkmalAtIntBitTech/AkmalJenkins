@@ -17,9 +17,7 @@
         <li><a href="brandpersonality.jsp">Brand Personality</a></li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Fonts <span class="caret"></span></a>
           <ul class="dropdown-menu">
-              <li><a href="fontsSize.jsp">Fonts Size</a></li>
               <li><a href="fontsfamily.jsp">Fonts Family</a></li>
-              <li><a href="fontsstyle.jsp">Fonts Style</a></li>
               <li><a href="fonttheme.jsp">Font theme</a></li>
           </ul>
         </li>

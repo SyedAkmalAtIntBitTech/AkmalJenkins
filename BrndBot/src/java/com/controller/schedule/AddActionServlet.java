@@ -63,7 +63,6 @@ public class AddActionServlet extends HttpServlet {
 //            return;
 //        }
         
-        
         try(Connection conn = ConnectionManager.getInstance().getConnection()){
             conn.setAutoCommit(false);
             String type = (String)requestBodyMap.get("type");

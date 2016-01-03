@@ -42,21 +42,14 @@ a.svg:after {
     max-width: 100%;
 }
 
-
-
-
-
 .detail-content {
    width:100%;
     box-sizing: border-box;
 }
 
-
 .link{
     cursor: pointer;
 }
-
-
 
 .navigation{
     display: block;
@@ -69,7 +62,6 @@ a.svg:after {
     top: 0;
     z-index: 2;
 }
-
 
 .main-nav-logo{
     height: 70px;
@@ -127,7 +119,7 @@ a.svg:after {
 
 
 .top-nav{
-      position:fixed;
+    position:fixed;
     top:0;
     width:100%;
     max-width:100%; 
@@ -145,7 +137,6 @@ a.svg:after {
     box-sizing: border-box;
     display: block;
     border-bottom: 1px solid #EEEFF5 ;
-    
     
 }
 
@@ -214,7 +205,7 @@ a.svg:after {
     font-size: 16px;
     color: #FFFFFF ;
     line-height: 100%;
-        display: table-cell;
+    display: table-cell;
     vertical-align: middle;
     font-weight: 500;
 }
@@ -499,6 +490,11 @@ border-top: 1px solid #E8E9EA ;
 
 .top-navbar-detail{
 /*    background-color: #FFFFFF;
+    overflow-x: visible;
+}
+
+.top-navbar-detail{
+    background-color: #FFFFFF;
     height:60px;
     border-bottom: 1px solid #d5dadf;
     width: 100%;
@@ -743,8 +739,6 @@ padding-top: 0px;
     max-height: 485px;
     //overflow: auto;
     
-    
-    
 }
 
 
@@ -835,6 +829,7 @@ padding-top: 0px;
     border-radius: 3px;
     background-color: #FFFFFF;
 }
+
 .Facebook-preview-header{
     width:470px;
     height:40px;
@@ -854,7 +849,6 @@ padding-top: 0px;
     width: 100%;
     height: 100%;
 }
-
 .Facebook-preview-name-container{
     width:422;
     height: 100%;
@@ -893,13 +887,17 @@ Facebook-preview-name{
 .Facebook-preview-image{
     width:100%;
     height: 244px;
-    background-color: aqua;
+    background-color: #ffffff;
     float: left;
 }
 .Facebook-preview-image > img {
     width: 100%;
     height: 100%;
+    min-height: 244px;
+    background-color: aqua;
+    float: left;
 }
+
 .Facebook-preview-link-container{
     width: 100%;
     padding: 10px 12px 10px 12px;
@@ -1037,9 +1035,7 @@ Facebook-preview-name{
     height: 379px;
     margin-top: 10px;
     border-radius: 5px;
-    background-color: aqua;
-   
-    
+    background-color: #ffffff;
 }
 
 .Facebook-preview-link-container{
@@ -1123,8 +1119,6 @@ Facebook-preview-name{
 
 .inner-content-container-button{
     float: left;
-    
-    
 }
 
 .inner-content-detail{ 
@@ -1200,7 +1194,9 @@ input-field-container{
      font-size: 20px;
      color: #3F3F42 ;
 }
-#channelhead{width:100%;}
+#channelhead{
+    width:100%;
+}
 .h2 {
     font-size: 24px;
     color: #3F3F42 ;
@@ -1268,7 +1264,7 @@ input-field-container{
     margin-top: 15px;
     font-weight: 600;
     margin-top: 25px;
-    
+    margin-bottom: 16px;
 }
 
 .input-header-subtext{
@@ -1320,6 +1316,7 @@ input-field-container{
     margin-left: 70%;
     /* border-top: 1px solid #bbb; */
 }
+
 .bottom-cta-button-container-lg{
     float: right;
     height: 100%;
@@ -1373,6 +1370,7 @@ input-field-container{
 
 .add-action-button{
     float: right;
+    //float: left;
     text-align: center;
     background-color:#5CC2A5 ;
     color:white  ;
@@ -1445,6 +1443,7 @@ input-field-container{
 
 .col-2of10{
     width:21%;
+    //width:20%;
     box-sizing: border-box;
 }
 
@@ -1501,6 +1500,7 @@ input-field-container{
 .fleft{
     float:left;
     overflow: visible;
+    //overflow: hidden;
     box-sizing: border-box;
 }
 
@@ -1518,12 +1518,10 @@ input-field-container{
     overflow: hidden;
     box-sizing: border-box;
 }
-
 .pushright{
     margin-right: 30px
 
 }
-
 .icon-container{
     float: left;
     display: inline-table;
@@ -1556,7 +1554,6 @@ selfclear:after{
     max-height: 390px;
     overflow-y: auto;
 }
-
 
 .slat-cta-container{
     padding-right: 0px;
@@ -1860,8 +1857,6 @@ margin-top: 30px;
     margin-right: auto;
     margin-top: 60px;
     box-sizing: border-box;
-
-
 }
 .pop-up-container-newmarketingaction{
      margin-top: 15px !important;
@@ -1869,25 +1864,23 @@ margin-top: 30px;
 }
 .pop-up-container-imageSelection{
     width: 500px;
-   padding-bottom: 45px;
+    padding-bottom: 45px;
     background-color: #ffffff;
-     border-top-left-radius:3px;
-     border-top-right-radius:3px;
+    border-radius: 3px;
     border: 1px solid #F9FAFC;
     margin-left: auto;
+    height: 308px;
     margin-right: auto;
-    margin-top: 60px;
+    margin-top: 100px;
     box-sizing: border-box;
-
-
 }
 
 .pop-up-container-createEmail{
     width: 500px;
-   padding-bottom: 45px;
+    padding-bottom: 45px;
     background-color: #ffffff;
-     border-top-left-radius:3px;
-     border-top-right-radius:3px;
+    border-top-left-radius:3px;
+    border-top-right-radius:3px;
     border: 1px solid #F9FAFC;
     margin-left: auto;
     margin-right: auto;
@@ -1933,13 +1926,11 @@ padding-left: 30px;
 }
 
 .pop-up-inner-imageSelection{
-padding-left: 30px;
+    padding-left: 30px;
     padding-right: 30px;
     margin-top: 45px;
     height: 100px;
 }
-
-
 
 .pop-up-cta-container{
     border-bottom-left-radius:3px;
@@ -2041,7 +2032,7 @@ width:100%;
 }
 
 .image-selection-button{
-width:100%;
+    width:100%;
     height: 100px;
     background-color: #E3E3E3;
     border-radius:5px;
@@ -2092,4 +2083,251 @@ width: 10%;
 }
 .emlsocdrpdwn:focus {
     outline: none;
+    width: 100%;
+    height: 100px;
+    border: solid 1px #D5DADF;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding-top: 18px;
+    padding-left: 38px;
+}
+//////////////////////////////////////////// added by satyajit roy (intbit technology) on 21st dec 2015////////
+.Blank_Facebook-preview {
+    width: 494px;
+    height: 375px;
+    border: 1px dotted rgb(223, 224, 228);
+    border-radius: 3px;
+    background-color: #FFFFFF;
+}
+.Blank_Facebook{
+    width: 494px;
+    height: 375px;
+    margin-left: 9%;
+    border: 1px solid rgb(223, 224, 228);
+    border-radius: 3px;
+    background-color: #FFFFFF;
+}
+.Blank_Twitter-preview {
+    width: 494px;
+    height: 375px;
+    border: 1px dotted rgb(223, 224, 228);
+    border-radius: 3px;
+    background-color: #FFFFFF;
+    margin-left: 10%;
+}
+.Blank_Twitter{
+    width: 494px;
+    height: 375px;
+    margin-left: 9%;
+    border: 1px solid rgb(223, 224, 228);
+    border-radius: 3px;
+    background-color: #FFFFFF;
+}
+.textalgn
+{
+    margin-left: 30%;
+    margin-top: 34%;
+}
+.changeImage{
+    cursor: pointer;
+}
+#uploadimage{
+    cursor: pointer;
+}
+#gotoimageeditor{
+    cursor: pointer;
+}
+.imgsize83{
+    width:83%;
+}
+.imgsize99{
+    width:99%;
+}
+.imgsize{
+    width:100%;
+}
+.galImage-name {
+    font-size: 14px;
+    color: #5F6775;
+    font-weight: 600;
+}
+.galImage-description {
+    font-size: 14px;
+    color: #5F6775;
+    font-weight: 400;
+    margin-top: 10px;
+}
+.imageGallery-container {
+    box-sizing: border-box;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 250px;
+    margin-top: 30px;
+}
+.add-button22 {
+    background-color: #0F76A6;
+    color: #ffffff;
+    cursor: pointer;
+}
+.pop-up-container-galleryselect {
+    width: 88%;
+    padding-bottom: 45px;
+    background-color: #ffffff;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border: 1px solid #F9FAFC;
+    margin-left: 5%;
+    box-sizing: border-box;
+    overflow: auto;
+}
+.pop-up-header {
+    background-color: #FFFFFF;
+    overflow: auto;
+    border-bottom: 1px #CCC solid;
+    padding: 0px 30px 0px 0px;
+}
+.pop-up-title-gallery {
+    text-align: left;
+    padding: 13px 0px 0px 20px;
+}
+.pop-up-title-h1-gallery {
+    color: #2A3D47;
+    font-size: 18px;
+    margin-top: 6px;
+}
+.pop-up-inner-gallery {
+    padding-left: 30px;
+    padding-right: 30px;
+    overflow-y: auto;
+    max-height: 480px;
+    min-height: 480px;
+}
+.imageGallery-inner-popup {
+    margin: auto;
+    width: 98%;
+    overflow: auto;
+}
+.imageUpload-container {
+    width: 60%;
+    margin: auto;
+    padding-top: 60px;
+}
+.imageGallery-popup {
+    box-sizing: border-box;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 200px;
+    margin-top: 30px;
+}
+.imageGallery-card {
+    border: solid 1px #D5DADF;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 100%;
+}
+.galCard-content-popup {
+    height: 100px;
+    padding: 10px 15px 10px 10px;
+}
+.galCard-image {
+    height: 100px;
+}
+.line-divider-notop {
+    border-bottom: 1px solid #D5DADF;
+    margin-top: 7px;
+    margin-bottom: 15px;
+}
+.button-description {
+    font-size: 14px;
+    font-weight: 600;
+    font-family: sans-serif;
+    margin-top: 10px;
+    text-align: center;
+    color: #5F6775;
+}
+.post-button-icon {
+    margin: auto;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    margin-left: 27px;
+    margin-top: 2px;
+}
+.image-selection-button {
+    width: 100%;
+    height: 100px;
+    border: solid 1px #D5DADF;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding-top: 18px;
+    padding-left: 38px;
+}
+.pushright {
+    margin-right: 30px;
+}
+.schedule-button-icon {
+    margin-left: 20px;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+}
+#postorschedule,#posttofb,#schedule,#schedulepost{
+    cursor: pointer;    
+}
+.pop-up-container1 {
+    padding-bottom: 30px;
+    background-color: #ffffff;
+    border-radius: 3px;
+    border: 1px solid #F9FAFC;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+    box-sizing: border-box;
+    height: 280px;
+}
+.image-selection-button:hover
+{
+    border: solid 1px #0F76A6;
+}
+.popup-section-header {
+    font-size: 14px;
+    font-weight: 600;
+    font-family: sans-serif;
+    margin-top: 10px;
+    text-align: left;
+    color: #737D84;
+}
+.input-field-textfield {
+    height: 30px;
+    background-color: #F9F9F9;
+    border: 1px solid #d5dadf;
+    padding: 6px 10px 3px 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    color: #cccccc;
+}
+.input-field-textfield2
+{
+    height: 30px;
+    background-color: #F9F9F9;
+    border: 1px solid #d5dadf;
+    padding: 6px 10px 3px 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    color: #2D4355;
+}
+.pop-up-inner1 {
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-top: 30px;
+    height: 402px !important;
+    overflow-y: scroll;
+    width: 90%;
+}
+.algnmnt {
+    padding-left: 43%;
+    padding-top: 10px;
+}
+#socialscheduleid,.algnmnt{
+    cursor: pointer;
 }

@@ -35,15 +35,11 @@ background-color: lightgray;
     width: 12.5%;
 }
 
-
-
 .fleft{
     float:left;
     overflow: hidden;
     box-sizing: border-box;
 }
-
-
 
 selfclear:before{
     display: table;
