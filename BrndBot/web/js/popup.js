@@ -56,8 +56,160 @@ function fun(type,email,id,fname,lname)
     $("#type").val(type);
     overlay();  
 }
+function getImageId(idname)
+    {
+        var res = idname.split("-");
+        var id=res[0];
+        var imagename=res[1];
+        var userid=res[2];
+        imagename=imagename+"&user_id="+userid;
+        $("#addimage").show();
+        $(".imageGallery-card >div >div").css("color", "#5F6775");
+        $(".imageGallery-card").removeClass("blueborder");
+        $(".imageGallery-card").addClass("bottom-margin");
+         $("#div"+id).removeClass("bottom-margin");
+        $("#div"+id).addClass("blueborder");
+        $("#selectedimagename").val(imagename);
+        $("#selectedimageid").val(id);
+    }
 $(document).ready(function ()
 {
+    /*------------------------------------------------ social image popup----------------*/
+    $("#schedule").click(function(){
+        $("#postpopup").hide();        
+        $("#schedulepopup").show();
+        $("#fade").show();
+    });
+    $("#closeschedulepopup").click(function(){
+        $("#postpopup").show();        
+        $("#schedulepopup").hide();
+        $("#fade").show();
+    });
+    $("#postorschedule").click(function(){
+        $("#postpopup").show();
+        $("#fade").show();
+    });
+    $("#closepostpopup").click(function(){
+        $("#postpopup").hide();
+        $("#fade").hide();
+    });
+    $("#changeLink").click(function(){
+        $("#linkpopup").show();
+        $("#fade").show();
+    });
+    $("#closeLinkPopup").click(function(){
+        $("#linkpopup").hide();
+        $("#fade").hide();
+    });
+     $("#submitLink").click(function(){
+       var textval=$("#url").val();
+       var urlregex = new RegExp("^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)");
+       if(urlregex.test(textval) === false)
+       {
+           alert("Please Enter Valid Link");
+           return false; 
+       }
+       $("#link").val(textval);
+       $("#Linkurl").val(textval);
+       $("#linkpopup").hide();
+       $("#fade").hide();
+    });
+     $("#dropdownurl").change(function(){
+        var choosenlink=$("#dropdownurl").val();
+        var link=choosenlink.split("--");
+        $("#url").val(link[0]);
+       if(choosenlink === "0")
+       {
+           $("#url").val("http://");
+       }
+    });
+    $("#url").keyup(function(){
+        var link=$("#url").val();
+        if(link.contains("http://") === false)
+        {
+            if(link.contains("http:/") === true)
+                $("#url").val("http://");
+            if(link.contains("http:") === true)
+                $("#url").val("http://");
+            if(link.contains("http") === true)
+                $("#url").val("http://");
+            if(link.contains("htt") === true)
+                $("#url").val("http://");
+            if(link.contains("ht") === true)
+                $("#url").val("http://");
+            if(link.contains("h") === true)
+                $("#url").val("http://");
+            else
+            {
+                $("#url").val("http://"+link);
+            }
+        }        
+    });
+    $("#closeimagegallerydiv").click(function(){
+      $("#imageGalleryDiv").hide();      
+      $("#addContact").show();
+  });
+  
+  $("#galleryupload").click(function(){
+      $("#fileuploaddiv").show();
+      $("#imageGalleryDiv").hide();
+  });
+  $("#closefileupload").click(function(){
+      $("#fileuploaddiv").hide();
+      $("#imageGalleryDiv").show();
+  });
+   $("#gotoimageeditor").click(function(){
+        var data=[];
+        var fbposttext=$("#posttext").val();
+        var fblink_title=$("#link_title").val();
+        var fblink_description=$("#link_description").val();
+        var fbLinkurl=$("#Linkurl").val();
+        var facebookpreviewimage=$("#facebookpreviewimage").val();
+        var twittertext=$("#link").val();
+        var twitterpreviewimage=$("#twitterpreviewimage").val();
+        data.push(fbposttext);
+        data.push(fblink_title);
+        data.push(fblink_description);
+        data.push(fbLinkurl);
+        data.push(facebookpreviewimage);
+        data.push(twittertext);
+        data.push(twitterpreviewimage);        
+        
+        var selectedtype=$("#selectedtype").val();
+        var id=$("#selectedid").val();
+        var social=$("#social").val();
+        var isFacebook=$("#isFacebook").val();
+        var isTwitter=$("#isTwitter").val();
+        window.open('socialeditor.jsp?id='+id+'&isFacebook='+isFacebook+'&isTwitter='+isTwitter+'&mediatype='+social+'&selectedtype='+selectedtype+'&data='+data, "_self");
+    });
+        $("#addimage").click(function(){
+        var data=[];
+        var fbposttext=$("#posttext").val();
+        var fblink_title=$("#link_title").val();
+        var fblink_description=$("#link_description").val();
+        var fbLinkurl=$("#Linkurl").val();
+        var facebookpreviewimage=$("#facebookpreviewimage").val();
+        var twittertext=$("#link").val();
+        var twitterpreviewimage=$("#twitterpreviewimage").val();
+        data.push(fbposttext);
+        data.push(fblink_title);
+        data.push(fblink_description);
+        data.push(fbLinkurl);
+        data.push(facebookpreviewimage);
+        data.push(twittertext);
+        data.push(twitterpreviewimage);        
+        
+        var selectedtype=$("#selectedtype").val();
+        var id=$("#selectedimagename").val();
+        var social=$("#social").val();
+        var isFacebook=$("#isFacebook").val();
+        var isTwitter=$("#isTwitter").val();
+        //document.location.href = "socialimageselection.jsp?image="+image+"&isTwitter="+isTwitter+"&isFacebook="+isFacebook+"&mediaType="+mediaType+"&selectedType="+selectedType+"&data="+data;
+        window.open('socialimageselection.jsp?image='+id+'&isFacebook='+isFacebook+'&isTwitter='+isTwitter+'&mediatype='+social+'&selectedtype='+selectedtype+'&data='+data+'&gallery=gallery', "_self");
+        
+//        $("#gotoimageeditor").css("background-color", "#5CC1A4");
+//        $("#uploadimage").css("background-color", "#E3E3E3");
+    }); 
     /*.......................................... facebook popup navbar ................*/
     $("#facebookpost").click(function(){
         $("#facebookpostsection").show();

@@ -127,55 +127,7 @@
     <input type="hidden" id="twitterTokenSecret" name="twitterTokenSecret" value="<%=twitteracesstoken[1]%>"/>
     <input type="hidden" id="sortLengthurl" name="sortLengthurl"/>
     <div class="content-main">
-    <div class="navigation">
-        <div class="main-nav-logo">
-            <a class=" bb-logo-nav" href="dashboard.jsp">
-                <img type="image/svg+xml" src="images/Icons/Logo_Reverse.svg" class="bb-logo" style="cursor:pointer;"/>
-                </a>
-        </div>
-        <ul class="nav-tabs">
-            <li class="nav-elements-icon">
-                <a  href="dashboard.jsp">
-                <img type="image/svg+xml" src="images/Nav_Icons/NavIcon_Home_white.svg" class="bb-logo" style="cursor:pointer;width:35px;"/>
-                </a>
-            </li>
-            <li class="nav-elements-icon">
-                <a  href="marketing.jsp">
-                    <img type="image/svg+xml" src="images/Nav_Icons/PlanIconNav.svg" class="bb-logo" style="cursor:pointer;width:35px;"/>
-                </a>
-            </li>
-            <li class="nav-elements-icon">
-                <a  href="marketingcategory.jsp">
-                    <img type="image/svg+xml" src="images/Nav_Icons/Hamburger.svg" class="bb-logo" style="cursor:pointer;width:35px;"/>
-                </a>
-            </li>
-            <li class="nav-elements-icon">
-                <a  href="emailhistory.jsp">
-                    <img type="image/svg+xml" src="images/Nav_Icons/NavIcon_Email_white.svg" class="bb-logo" style="cursor:pointer;width:35px;"/>
-                </a>
-            </li>
-            <li class="nav-elements-icon">
-                <a  href="social.jsp">
-                    <img type="image/svg+xml" src="images/Nav_Icons/NavIcon_Social_white.svg" class="bb-logo" style="cursor:pointer;width:35px;"/>
-                </a>
-            </li>
-            <li class="nav-elements-icon">
-                <a  href="imagegallery.jsp">
-                    <img type="image/svg+xml" src="images/Nav_Icons/NavIcon_ImageGallery_white.svg" class="bb-logo" style="cursor:pointer;width:35px;"/>
-                </a>
-            </li>
-            <li class="nav-elements-icon">
-                <a  href="settings.jsp">
-                    <img type="image/svg+xml" src="images/Nav_Icons/NavIcon_Settings_white.svg" class="bb-logo" style="cursor:pointer;width:35px;"/>
-                </a>
-            </li>
-            <li class="nav-elements-icon">
-                <a  href="signout.jsp" style="color:white;font-size:10px;">
-                    LOGOUT
-                </a>
-            </li>
-        </ul>    
-    </div>
+    <%@ include file="navbarv2.jsp"%>
         
     <!--Top Nav-->   
     <div class="top-nav">

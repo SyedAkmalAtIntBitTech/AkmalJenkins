@@ -226,10 +226,9 @@
                 <div class="pop-up-background">
                     <div class="pop-up-container-galleryselect"> 
                         <div class="pop-up-header">
-                             <div class="exit-button-detail" id="closeimagegallerydiv">
+                            <div class="exit-button-detail" id="closeimagegallerydiv">
                                 <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
-                            </a>
-                        </div>
+                            </div>
                             <div class="pop-up-title-gallery fleft col-9of10"> 
                                 <div class="pop-up-title-h1-gallery fleft"> Select an image to use:</div>
                                 <a href="" class="space-right fleft">
