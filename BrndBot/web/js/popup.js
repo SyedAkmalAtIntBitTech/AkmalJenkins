@@ -385,7 +385,7 @@ $(document).ready(function ()
     
     $("#addactionClose").click(function(){
     $("#fade").hide();
-    $("#addAction").hide();
+    $("#addActionemllist").hide();
     document.getElementById('light').style.display = 'none';
     $("#calendar").css("pointer-events","auto");
     document.getElementById('fade').style.display = 'none';

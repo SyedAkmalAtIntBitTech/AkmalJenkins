@@ -16,10 +16,10 @@
     <link rel="stylesheet" type="text/css" href="css/popup.css"></link>
      <script src="js/popup.js" type="text/javascript"></script>
 </head>    
-
+    <style>#addActionemllist{display:none;}</style>
 <body >
     <div id="fade" class="black_overlay" ></div>
-        <div id="addAction">
+        <div id="addActionemllist">
     <!--Top Nav-->   
     <div class="pop-up-background">
         <div class="pop-up-container pop-up-container-createEmail"> 

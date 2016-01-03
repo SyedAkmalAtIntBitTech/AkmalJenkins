@@ -62,7 +62,6 @@
         
         function emailDraftsController($http, $scope){
             
-            
         $scope.deletedrafts = function (type) {
             
         var message;
@@ -142,6 +141,7 @@
                     $scope.emaildraftsstatus = "No email drafts present";
                 }else {
                     $scope.emaildrafts = data.emaildrafts;
+                   
                 }
 
             }).error(function(data, status) {

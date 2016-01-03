@@ -650,3 +650,9 @@ input#timepicker1 {
     padding-top: 14px;
 }
 /*--------------------------------------------------------------------------------------------*/
+#addActionemllist{
+    display: block;
+    position: fixed;
+    z-index: 99999;
+    margin-left: 30%;
+}

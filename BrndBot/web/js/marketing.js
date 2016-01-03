@@ -62,13 +62,13 @@ $(document).ready(function ()
     });
 $a=0;
 $edit=0;
-    $('#slider-button').click(function () {
+    $('#slider-button').click(function () {overlay();
         $a+=1;
          //To hide the dialog if user click on another node
         if($a>=2 && $edit==1)
         {   
-            if (confirm("Do you want to close it .. !"))
-            { 
+//            if (confirm("Do you want to close it .. !"))
+//            { 
                 $edit=0;  
                 if($slider==2)
                 {
@@ -121,10 +121,10 @@ $edit=0;
                     }  
                 }
             }
-            else
-            {
-            }
-        }
+//            else
+//            {
+//            }
+//        }
         else
         {
             if($slider==2)
