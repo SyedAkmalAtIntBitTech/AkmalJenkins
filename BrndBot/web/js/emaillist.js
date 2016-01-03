@@ -90,16 +90,40 @@
 
             
             $(document).ready(function () {
-                
-                 $(".delete-button").hide();
-                 $(".gray-button").hide();
+                $("#emaildraftsdiv").hide();
+                $(".delete-button").hide();
+                $(".gray-button").hide();
                 $("#list_name").focus(function (){$("#lstnm").css("left","-125px").css("font-size","13px").css("color","#999");});
                 $("#list_name").focusout(function (){var emllist=$("#list_name").val();if(emllist===""){$("#lstnm").css("left","20px").css("font-size","12px").css("color","#2c4355");}if(emllist!==""){$("#lstnm").css("left","-123px");}});
                 $("#default_from_name").focus(function (){$("#deffrmnm").css("left","-157px").css("font-size","13px").css("color","#999");});
                 $("#default_from_name").focusout(function (){var emllist=$("#default_from_name").val();if(emllist===""){$("#deffrmnm").css("left","20px").css("font-size","12px").css("color","#2c4355");}if(emllist!==""){$("#deffrmnm").css("left","-157px");}});
                 $("#list_description").focus(function (){$("#lstdesc").css("left","-145px").css("font-size","13px").css("color","#999");});
                 $("#list_description").focusout(function (){var emllist=$("#list_description").val();if(emllist===""){$("#lstdesc").css("left","20px").css("font-size","12px").css("color","#2c4355");}if(emllist!==""){$("#lstdesc").css("left","-145px");}});
-
+                
+                $("#emldrftab").click(function (){
+                    $("#emaillistsdiv").hide();
+                    $("#emaildraftsdiv").show();
+                    $("#addemlstbtn").hide();
+                    $("#emldrftab").addClass("top-subnav-link-active");
+                    $("#emldrftab a").addClass("h3-active-subnav");
+                    $("#emllistab").removeClass("top-subnav-link-active");
+                    $("#emllistab a").removeClass("h3-active-subnav");
+                    $("#emllistab").addClass("top-subnav-links");
+                    $("#emllistab a").addClass("h3"); 
+                });
+                
+                $("#emllistab").click(function (){
+                    $("#emaillistsdiv").show();
+                    $("#emaildraftsdiv").hide();
+                    $("#addemlstbtn").show();
+                    $("#emllistab").addClass("top-subnav-link-active");
+                    $("#emllistab a").addClass("h3-active-subnav");
+                    $("#emldrftab").removeClass("top-subnav-link-active");
+                    $("#emldrftab a").removeClass("h3-active-subnav");
+                    $("#emldrftab").addClass("top-subnav-links");
+                    $("#emldrftab a").addClass("h3"); 
+                });
+                
                 $("#close").click(function(){
                    $("#fade").hide();
                    $("#addContact").hide(); 
@@ -512,7 +536,6 @@
                 };
                 
                 $scope.getEmailList = function () {
-
                     var list_name = $("#email_list_name").val();
                     $http({
                         method: 'GET',
@@ -626,8 +649,164 @@
                 $scope.addemaillist = function()
                 {
                     reSetemaillistpopup();
-                    $("#addAction").show();
+                    $("#addActionemllist").show();
                     $("#fade").show();
                 };
                 
             }
+
+
+/////////Email drafts js///////
+       
+        
+        
+        var selected_draft="";
+        var count=0;
+        function selcheckbox(id){ 
+              
+//            alert(id+"--selected");
+            content='<input type="checkbox" id="'+'draftId'+id+'" checked="true" hidden="">';
+//            alert(content);
+            var htm=$("#"+id).html();
+            if(htm.contains('class="check-icon"')){
+                count-=1;
+                $("#"+id).html(content);
+                selected_draft = selected_draft.replace(id + ",", "");
+            }
+            else
+            { 
+                count+=1;
+                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+                selected_draft = id+ "," + selected_draft;
+              
+            }
+            $("#"+id).toggleClass('selection-icon');
+            $("#"+id).toggleClass('selection-icon-selected');
+            if(count > 0)
+            {
+                $("#drftEmailDelete").show();
+            }
+            if(count==0)
+            {
+                $("#drftEmailDelete").hide();
+            }
+        }
+        
+        
+        
+        
+        function emailDraftsController($http, $scope){
+            
+        $scope.deletedrafts = function (type) {
+            
+        var message;
+        var requestBody;
+        var responseMessage;
+        if(selected_draft !==""){
+           
+        
+        if (type == "deleteMultiple") {
+            message = "Are you sure you want to delete these Draft(s)?";
+//            alert("draft del ="+selected_draft);
+            requestBody = {"type": "deleteSelected",
+                "draft_ids": selected_draft, "entity_type": "null"};
+            responseMessage = "Selected Drafts were deleted successfully";
+//            alert("..."+requestBody.draft_ids);
+        } else if (type == "delete") {
+            message = "Are you sure you want to delete this Draft?";
+            requestBody = {"type": "delete",
+                            "draft_ids": selected_draft};
+            responseMessage = "Selected Drafts were deleted successfully";
+        }
+
+        
+        if (confirm(message)) {
+            $http({
+                method: 'POST',
+                url:'deleteEmailDrafts.do',
+                headers: {'Content-Type': 'application/json'},
+                data: requestBody
+            }).success(function (data)
+            {
+                $scope.status = data;
+                if (data !== "") {
+                    alert(responseMessage);
+                    window.open(getHost() + 'emaildrafts.jsp', "_self");
+                }
+            }).error(function (data, status) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+
+                alert("Some Error occured! Try after some time.");
+            });
+        }
+       }else{
+            alert("No Drafts Selected!");
+       }
+    };
+            
+        $scope.unseldrafts = function (id) {
+
+          var myarray = selected_draft.split(',');
+          for(var i = 0; i < myarray.length; i++)
+          {
+               content='<input type="checkbox" id="'+'draftId'+myarray[i]+'" checked="false" hidden="">';
+//                   alert(id);
+               var htm=$("#"+myarray[i]).html();
+               if(htm.contains('class="check-icon"')){
+                   count-=1;
+                   $("#"+myarray[i]).html(content);
+               }
+               myarray[i] = myarray[i].replace(id + ",", "");
+               $("#"+myarray[i]).removeClass('selection-icon-selected');
+               $("#"+myarray[i]).addClass('selection-icon');
+               $("#drftEmailDelete").hide();
+                 selected_draft="";
+          }
+         };
+            
+        $scope.getAllDrafts = function(){
+            
+            $http({
+                method : 'GET',
+                url : getHost() + 'displayAllEmailDrafts.do'
+            }).success(function(data, status) {
+                if (data.nodrafts == "yes"){
+                    $scope.emaildraftnumber = '0';
+                    $scope.emaildraftsstatus = "No email drafts present";
+                }else {
+                    $scope.emaildrafts = data.emaildrafts;
+                }
+//                     alert(JSON.stringify(data));
+            }).error(function(data, status) {
+                alert("No data available! Problem fetching the data.");
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+            });
+        };
+
+        $scope.editDrafts = function(draft_id, category_id,email_subject, sub_category_id, sub_category_name){
+
+            var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id, 
+                        "sub_category_id": sub_category_id, 
+                        "sub_category_name": sub_category_name};
+
+            $http({
+                method : 'POST',
+                url : getHost() + 'saveEmailDraftSessionValues.do',
+                headers: {'Content-Type':'application/json'},
+                data: JSON.stringify(draftdetails)
+            }).success(function(data, status) {
+                if (data == "false"){
+                    alert("There was a problem while saving the draft! Please try again later.")
+                }else {
+                    window.open(getHost() + 'emaileditor.jsp?id='+null+'&draftid='+draft_id, "_self");                    
+                }
+
+            }).error(function(data, status) {
+                alert("No data available! Problem fetching the data.");
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+            });
+        };
+    };

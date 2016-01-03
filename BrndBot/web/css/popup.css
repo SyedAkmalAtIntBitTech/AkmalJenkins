@@ -653,7 +653,16 @@ input#timepicker1 {
 {
     margin-left: 15%;
 }
+
 /*-------------------------------------------- After marge by Satyajit Roy ------------------------------------------------*/
 select#dropdownurl,#url {
     color: #3b3b4b;
 }
+/*--------------------------------------------------------------------------------------------*/
+#addActionemllist{
+    display: block;
+    position: fixed;
+    z-index: 99999;
+    margin-left: 30%;
+}
+
