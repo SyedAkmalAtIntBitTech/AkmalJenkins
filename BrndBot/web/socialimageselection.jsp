@@ -47,6 +47,7 @@
     String imageid="";
     String selectedType="";
     String data="";
+
     String gallery="";
     String[] twitteracesstoken = {"", ""};
     int number;
@@ -59,6 +60,7 @@
         user_id = (Integer) sql_methods.session.getAttribute("UID");
         logoImageName = (String) sql_methods.session.getAttribute("ImageFileName");
         companyName = (String) sql_methods.session.getAttribute("company");
+
         gallery = request.getParameter("gallery");
         isFacebook = request.getParameter("isFacebook");
         isTwitter = request.getParameter("isTwitter");
@@ -118,7 +120,7 @@
     <input type="hidden" id="data" value="<%=data%>"/>
     <input type="hidden" id="selectedimagename" value=""/>
     <input type="hidden" id="selectedimageid" value=""/>
-    <input type="hidden" id="gallery" name="gallery" value="<%=gallery%>"/> 
+    <input type="hidden" id="gallery" name="gallery" value="<%=gallery%>"/>
     <input type="hidden" id="imageToPost" name="imageToPost" value="<%=imageid%>"/> 
     <input type="hidden" id="accesstoken" name="accesstoken" value="<%=accesstoken%>"/>
     <input type="hidden" id="twittweraccestoken" name="twittweraccestoken" value="<%=twitteracesstoken[0]%>"/>
@@ -208,6 +210,7 @@
                             <input type="text" id="posttext" class="full noborder" placeholder="Demo content goes right here"></input>
                         </div>
                         <div class="Facebook-link-container">
+
                                 <%if (imageid.equalsIgnoreCase("")){%>
                                 <div class="Facebook-preview-image">
                                     <div class="changeImage" onclick="fun('facebook','<%=mindbodydata%>');">Upload Image</div>
@@ -263,6 +266,7 @@
                                 <div class="Twitter-handle fleft">@BrndBot</div>
                                 <textarea id="twittertext" class="noborder" placeholder="Demo content goes right here for twitter"></textarea>
                             </div>
+
                                 <%if (imageid.equalsIgnoreCase("")){%>
                                 <div class="Twitter-preview-image fleft">
                                     <div class="changeImage" onclick="fun('twitter','<%=mindbodydata%>');"> Upload Image </div>

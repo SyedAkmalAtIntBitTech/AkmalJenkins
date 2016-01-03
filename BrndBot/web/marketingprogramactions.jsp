@@ -1,0 +1,323 @@
+<%-- 
+    Document   : marketingprogramactions
+    Created on : Dec 17, 2015, 7:46:00 PM
+    Author     : Syed Akmal at IntBit Technologies.
+--%>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="format-detection" content="telephone=no"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
+    <link rel="stylesheet" href="css/popup.css"/>
+    <link rel="shortcut icon" href="images/favicon.png"></link>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <title>Marketing Program Actions</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/configurations.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/popup.js" type="text/javascript"></script>        
+    <jsp:include page="basejsp.jsp"/>
+     <%!
+            String program_id = "";
+        %>
+        <%
+            program_id = request.getParameter("program_id");
+        %>
+        <script>
+            var program = "";
+            program = <%= program_id %>;
+        </script>        
+        <script src="js/programactions.js"></script>
+</head>    
+
+<body class="" ng-app ng-controller="programactions">
+    <!--SideNav-->
+    <div class="content-main" ng-init="getProgramActions()">
+    <jsp:include page="facebookpreview.jsp"/> 
+    <jsp:include page="twitterpreview.jsp"/> 
+    <jsp:include page="emailpreviewpopup.jsp"/> 
+    <jsp:include page="marketingprogramaddaction.jsp"/>
+    <%@include file="navbarv2.jsp" %>
+        
+    <!--Top Nav-->   
+    <div class="top-nav" >
+        <div class="page-title-bar col-1of1"> 
+            <a class="exit-button-icon" href="marketingprogramlists.jsp">
+                <div class="exit-button-detail"> 
+                    <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/>
+                </div>
+            </a>
+            <div class="page-title-with-back page-title-font">{{programs.programdetails.programName}}</div>
+            <div class="page-cta-container">
+                <a href="" class="gray-button fleft">
+                    <div class="md-button"  ng-click="endMarketingProgram()"> End Marketing Program</div>    
+                </a>
+            </div>
+        </div>
+        <div class="page-subnav-bar-regular"> 
+            <div class="top-subnav-tabs-container-with-button">
+                <ul class="top-subnav-nav-elements">
+                    <li class="top-subnav-links" id="ovrviewli"> <a href="" id="ovrview" class="h3">Overview</a></li>
+                    <li class="top-subnav-links" id="fieldsli"> <a href="" id="fields" class="h3" ng-click="showfieldstab()">Fields</a></li>
+                    <li class="top-subnav-link-active" id="actionsli"> <a href="" id="actions" class="h3-active-subnav" ng-click="showactionstab()">Actions</a></li>
+<!--                        <li class="top-subnav-links"> <a class="h3" href="/Newest_Files/MarketingProgram_Notes.html">Notes</a></li>
+                    <li class="top-subnav-links"> <a class="h3">Website Integration</a></li>
+                    <li class="top-subnav-links"> <a class="h3">Assets</a></li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+        <!--Main Content GENERIC--> 
+        <div class="page-background">
+        <div class="page-content-container marketingProgram-action-page">
+            
+            <!--Inner Content Conatiner GENERIC-->
+            <div class="page-inner-content-container" id="actionstab">
+                <div class="fleft content">
+                     <div class="page-content-title-bar fleft col-1of1">
+                        <div class="page-content-title h2 fleft">Recurring Email Automations</div>
+                        <div class="action-cta-container">
+                            <a href="" class="edit-button-detail fleft">
+                                <div class=" md-button" ng-click="addEditRecuringAction('add',<%=program_id%>, '0')">Add Recurring Email Automation</div>    
+                            </a>
+                        </div>
+                    </div>
+                    <!--List Starts Here-->
+                    <ul class="main-container fleft">
+                  <li class="slat-container fleft selfclear" ng-repeat="emailautomation in programs.emailautomation">
+                            <div class="selection-container col-5p"> 
+                                <div class="selection-icon"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}"  onclick="setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}')" value="{{emailautomation.scheduledEntityListId}}" hidden/></div>
+                            </div>
+                            <div class="col-7of10 slat-unit fleft ">
+                                <div class="icon-container fleft hint--left" data-hint="Template Saved"> 
+                                    <img type="image/svg+xml" src="images/Icons/templateSaved.svg" class="status-button"/>
+                                </div>
+                                <div class="slat-title-container col-1of2 fleft">
+                                    <div class="slat-title email-list-slat-title col-1of1 sh1">{{emailautomation.programTemplateName}}</div>
+                                    <div class="action-list-slat-description col-1of1 sh3">Howdy Again</div>
+                                </div>
+                                <div class=" col-2of10 fleft slat-attribute-container">
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{emailautomation.dateTime| date:'MMM dd'}}</div>
+                                    <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
+                                </div>
+                                <div class=" col-2of10 fleft slat-attribute-container">
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" >{{emailautomation.status}}</div>
+                                    <div class="list-column-description col-1of1 sh3 fleft">Status</div>
+                                </div>
+                            </div>
+                            <div class="col-1of4 fleft">
+                                <div class="slat-cta-container">
+                                    <div class="small-button slat-button detail-button-font"> 
+                                         <!-- ng-click="getRecuringMailDetails(emailautomation.scheduledEntityListId,
+                                                                emailautomation.status,
+                                                                emailautomation.dateTime,
+                                                                emailautomation.actionType,
+                                                                emailautomation.programTemplateName,
+                                                                emailautomation.description,
+                                                                emailautomation.postDateStatus)"-->
+                                                                           Details</div> 
+                                </div>
+                            </div>
+                        </li>
+<!--                          <li class="slat-container fleft selfclear">
+                            <div class="selection-container col-5p"> 
+                                <div class="selection-icon"></div>
+                            </div>
+                            <div class="col-7of10 slat-unit fleft ">
+                                <div class="icon-container fleft "> 
+                                    <object type="image/svg+xml" data="/Icons/templateSaved.svg" class="status-button"> </object>
+                                </div>
+                                <div class="slat-title-container col-1of2 fleft">
+                                    <div class="slat-title email-list-slat-title col-1of1 sh1">Upcoming Workshop Post</div>
+                                    <div class="action-list-slat-description col-1of1 sh3">Howdy Again</div>
+                                </div>
+                                <div class=" col-2of10 fleft slat-attribute-container">
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Nov. 16</div>
+                                    <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
+                                </div>
+                                <div class=" col-2of10 fleft slat-attribute-container">
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Email</div>
+                                    <div class="list-column-description col-1of1 sh3 fleft">Action Type</div>
+                                </div>
+                            </div>
+                            <div class="col-1of4 fleft">
+                                <div class="slat-cta-container">
+                                    <div class="small-button slat-button detail-button-font">Details</div>
+                                </div>
+                            </div>
+                        </li>
+
+                          <li class="slat-container fleft selfclear">
+                            <div class="selection-container col-5p"> 
+                                <div class="selection-icon"></div>
+                            </div>
+                            <div class="col-7of10 slat-unit fleft ">
+                                <div class="icon-container fleft "> 
+                                    <object type="image/svg+xml" data="/Icons/templateSaved.svg" class="status-button"> </object>
+                                </div>
+                                <div class="slat-title-container col-1of2 fleft">
+                                    <div class="slat-title email-list-slat-title col-1of1 sh1">Upcoming Workshop Post</div>
+                                    <div class="action-list-slat-description col-1of1 sh3">Howdy Again</div>
+                                </div>
+                                <div class=" col-2of10 fleft slat-attribute-container">
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Nov. 16</div>
+                                    <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
+                                </div>
+                                <div class=" col-2of10 fleft slat-attribute-container">
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Email</div>
+                                    <div class="list-column-description col-1of1 sh3 fleft">Action Type</div>
+                                </div>
+                            </div>
+                            <div class="col-1of4 fleft">
+                                <div class="slat-cta-container">
+                                    <div class="small-button slat-button detail-button-font">Details</div>
+                                </div>
+                            </div>
+                        </li>-->
+                </ul>
+                </div>
+                <div class="fleft content">
+                    <div class="page-content-title-bar fleft col-1of1">
+                        <div class="page-content-title h2 fleft">One Time Actions</div>
+                        <div class="action-cta-container">
+                            <a href="" class="edit-button-detail fleft">
+                                <div class=" md-button" ng-click="ShowAddAction()">  Add One Time Action</div>    
+                            </a>
+                        </div>
+                    </div>
+                    <!--List Starts Here-->
+                    <ul class="main-container fleft">
+                    <li class="slat-container fleft selfclear"  ng-repeat="programaction in programs.programactions">
+                            <div class="selection-container col-5p"> 
+                                <div class="selection-icon" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}');selcheckbox(this.id);"><input type="checkbox" id="entityid{{programaction.scheduledEntityListId}}"  value="{{programaction.scheduledEntityListId}}" name="entityname" hidden></input></div>
+                                <!--<div class="selection-icon">-->    
+                                    <!--<input type="checkbox" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="{{programaction.scheduledEntityListId}}" hidden />-->
+                                <!--</div>-->
+                            </div>
+                            <div class="col-7of10 slat-unit fleft ">
+                                <div class="icon-container fleft "> 
+                                    <img type="image/svg+xml" src="images/Icons/templateSaved.svg" class="status-button"/>
+                                </div>
+                                <div class="slat-title-container col-1of2 fleft">
+                                    <div class="slat-title email-list-slat-title col-1of1 sh1">{{programaction.programTemplateName}}</div>
+                                    <div class="action-list-slat-description col-1of1 sh3">{{programaction.description}}</div>
+                                </div>
+                                <div class=" col-2of10 fleft slat-attribute-container">
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{programaction.postDate| date:'MMM dd yyyy'}}</div>
+                                    <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
+                                </div>
+                                <div class=" col-2of10 fleft slat-attribute-container">
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" ng-show="programaction.actionType==master_facebook || programaction.actionType==master_twitter">{{programaction.actionType}}</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" ng-show="programaction.actionType==master_note || programaction.actionType==master_email">{{programaction.actionType}}</div>
+                                    <div class="list-column-description col-1of1 sh3 fleft">Action Type</div>
+                                </div>
+                            </div>
+                            <div class="col-1of4 fleft">
+                                <div class="slat-cta-container">
+                                    <div class="small-button slat-button detail-button-font" ng-click="getScheduleDetails(programaction.scheduledEntityListId,
+                                                                        programaction.status,
+                                                                        programaction.postDate,
+                                                                        programaction.actionType,
+                                                                        programaction.programTemplateName,
+                                                                        programaction.description,
+                                                                        programaction.postTime,
+                                                                        programaction.postDateStatus,
+                                                                        programaction.days)">Details</div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+               </div>      
+            <div class="page-inner-content-container" id="fieldstab" hidden>
+                <div class="fleft content">
+                    <div class="page-inner-content-container ">
+                        <div class="fleft content">
+                            <div class="main-container fleft">
+                                <!--Content Starts Here-->
+                                <div class="input-header" style="">
+                                    Name of Workshop
+                                </div>
+                                <input type="text" class="input-field-textfield" placeholder="Enter Name of Workshop"/>
+
+                                
+                                <div class="input-header" style="">
+                                    Date
+                                </div>
+                                <input type="text" class="input-field-textfield" placeholder="Enter Date of Workshop "/>
+                                
+                                <div class="input-header" style="">
+                                    Time of Workshop
+                                </div>
+                                <input type="text" class="input-field-textfield" placeholder=" Enter Time of Workshop "/>
+                               
+                                
+                                <div class="input-header" style="">
+                                    Name of Workshop Instructor
+                                </div>
+                                <input type="text" class="input-field-textfield" placeholder="Enter Name of Workshop Instructor"/>
+                                   
+                                
+                                <div class="input-header">
+                                    Details
+                                </div>
+                                <div class="input-header-subtext">
+                                    Keep this to 1-2 sentences
+                                </div>
+                                <input type="text" class="input-field-textfield" placeholder="Enter Details of Workshop "/>
+                                    
+                                <div class="input-header">
+                                    Description of Workshop
+                                </div>
+                                <div class="input-header-subtext">
+                                    Put all details in this area.
+                                </div>
+                                <input type="text" class="input-field-textfield" placeholder="Enter Description of Workshop "/>
+                                    
+                                
+                            </div>
+                        </div>
+                    </div>       
+                  </div>           
+             </div>        
+        </div>
+        </div>
+    </div>
+        <div class="bottom-cta-bar" id="savefieldsbutton" hidden>
+            <div class="bottom-cta-button-container bottomheight">
+             
+               <div class="add-action-button md-button button-text-1">Save</div>
+
+            </div>
+        </div>                     
+        <div class="bottom-cta-bar bordertop" id="removeactionbutton" >
+            <div class="bottom-cta-button-container bottomheight">
+               <div class="remove-button-detail md-button button-text-1" ng-click="deleteSchedule('0', 'deleteMultiple')">Delete Selected Actions</div>
+
+            </div>
+        </div>       
+        <div id="light" class="white_content closepopup">
+                <a href = "javascript:void(0)" style="text-decoration:none;">
+                    <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
+                        <p style="margin-top:-7px;"><img src="images/Icons/yourPlan.svg" height="25" width="25" /></p>
+                    </div>
+                </a>
+        </div>
+<!--        CTA Bar
+        <div class="bottom-cta-bar">
+            <div class="bottom-cta-button-container">
+             REMOVE BUTTON HERE
+               <div class="remove-button-detail md-button button-text-1">Delete Selected Actions</div>
+
+            </div>
+        </div>
+        </div>
+</div>-->
+    </body>
+</html>

@@ -2,10 +2,47 @@
     Created on : 1 Aug, 2015, 11:39:04 AM
     Author     : Satyajit Roy At IntBit Technologies
 */
-#addContact
-{
-    display:none;
+
+.firstcol{
+    margin: 51px 40.3px 48px 57px;
 }
+.secondcol{
+    margin: 51px 40.3px 48px 42.7px;
+}
+.borderright{
+    border-right: 2px solid #979797;
+}
+.headtitle{
+}
+.headdelete{
+    margin-left:40px;
+    margin-top:5px;
+}
+.inlineFlex
+{
+    display:inline-flex;
+    width:100%;
+}
+.left{
+    margin-left:57px;
+    width: 100%;
+}
+.left1
+{
+    margin-left:47px;
+    width: 100%;
+}
+.rightthirty{
+    margin-right:30px;
+}
+.rightfive{
+    margin-right:5px;
+}
+.right223
+{
+    margin-right:223.7px;
+}
+
 .firstcol{
     margin: 51px 40.3px 48px 57px;
 }
@@ -160,6 +197,10 @@
 .half{
     width:50%;
 }
+.half1{
+    width:25%;
+}
+
 .scrolly{
     overflow-y:auto;
 }
@@ -168,17 +209,32 @@
 }
 .black_overlay{
     display: none;
-    position: absolute;
+    position:  fixed;
     top: 0%;
     left: 0%;
     width: 100%;
-    height: 120%;
+    height: 100%;
     background-color: #3D5368 !important;
     z-index:99999 !important;
-    -moz-opacity: 0.8;
+    -moz-opacity: 0.9;
     opacity:.9 !important;
     filter: alpha(opacity=80);
-} 
+}
+.input-field-textfield1 {
+    height: 30px;
+    background-color: #F9F9F9;
+    border: 1px solid #d5dadf;
+    padding: 6px 10px 3px 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    color: #000000;
+    width:100%;
+}         
+
+.width75{
+    width:75% !important;
+}
+    
 .black_overlay1{
     display: none;
     position: absolute;
@@ -214,6 +270,10 @@
 }
 .time_pick {
     left: 1px;
+    width:200%;
+}
+.claro1{
+    overflow: none !important;
 }
  #actiontype{
     background-color: #f6f7f7 !important;
@@ -244,8 +304,55 @@
 {
     display: none;
     position: fixed;
-    z-index: 10000;
-    margin-left: 30%;
+    z-index: 999999;
+    margin-left: 27%;
+}
+img.exit-button {
+    width: 25px;
+    margin-left: -6px;
+}
+#facebooksection{
+    display: none;
+    position: fixed;
+    z-index: 999999;
+    height: 100%;
+    /*overflow-y: auto;*/
+    max-height: 100%;
+    width: 900px;
+    right: 0px;
+    margin-right: -900px;
+}
+#twittersection{
+    display: none;
+    position: fixed;
+    z-index: 999999;
+    height: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+    width: 900px;
+    right: 0px;
+    margin-right: -900px;
+}
+#emailsection{
+    //display: none;
+    position: fixed;
+    z-index: 999999;
+    height: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+    width: 900px;
+    right: 0px;
+    margin-right: -900px;
+}
+#slider-button
+{
+    position:fixed;
+    width:38px;
+    height:50px;
+    right:0px;
+    background:transparent;
+    top: 0px;
+
 }
 .input-field-container.col-1of1{
     z-index: 0;
@@ -297,6 +404,70 @@
     }
 }
 /*-------------------------------------------- emaillist popup -------------------------------*/
+
+
+#fade
+{
+    display:none;
+}
+.savebutton {
+    margin-left: 86%;
+    margin-top: 1%;
+    width:130px;
+}
+.removebutton {
+    margin-left: 81%;
+    margin-top: 1%;
+    width: 179px;
+}
+#facebookaction,#facebookpost,#facebooknote
+{
+    cursor: pointer;
+}
+#facebookpostsection,#facebooknotesection,#fbpostremove,#fbnotesave
+{
+    display:none;
+}
+#twitterpostsection,#twitternotesection,#twpostremove,#twnotesave
+{
+    display:none;
+}
+#emailpostsection,#emailnotesection,#emailpostremove,#emailnotesave
+{
+    display:none;
+}
+
+::-webkit-scrollbar {
+    display: none !important;
+}
+
+/*--------------------------------------------------------------------------------------------*/
+
+.datepickertextbox
+{
+    height: 30px;
+    background-color: #F9F9F9;
+    border: 1px solid #d5dadf;
+    padding: 6px 10px 3px 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    color: #000000;
+    width: 75%;
+}
+.timepickertextbox
+{
+    height: 30px;
+    background-color: #F9F9F9;
+    border: 1px solid #d5dadf;
+    padding: 6px 10px 3px 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    color: #000000;
+    width: 75%;
+}
+input#timepicker1 {
+    width: 53%;
+}
 
 #addContact {
     position: fixed;

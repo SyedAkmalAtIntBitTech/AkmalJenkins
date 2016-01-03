@@ -19,6 +19,7 @@
     <script src="js/socialeditor.js" type="text/javascript"></script>
     <script src="js/ajaxfileupload.js" type="text/javascript"></script>
     <script>
+
         $("#Servicecontinue").hide();
         var rootApp = angular.module('rootApp', ['uploadModule','imagegallery']);
     
@@ -187,6 +188,7 @@
         }
 
         document.getElementById('filesToUpload').addEventListener('change', fileSelect, false);
+
     </script>  
 </head>    
     <body>
@@ -242,6 +244,7 @@
                             <div class="imageGallery-inner-popup">
                                 <div class="imageGallery-popup fleft" ng-repeat="images in datalistimages" style="cursor:pointer;">
                                     <div class="imageGallery-card" id="div{{images.id}}">
+
                                         <div id="{{images.id}}-{{images.image_name}}-{{images.user_id}}" onclick="getImageId(this.id)">
                                             <img value="{{images.image_name}}" class="galCard-image col-1of1" ng-src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}"/>                                                            
                                             <!--<img class="galCard-image col-1of1" alt="image" src="http://wp.nootheme.com/yogi/wp-content/uploads/2015/04/blog_10.jpg"  vspace="0" hspace="0" border="0" style="display:block;" />-->

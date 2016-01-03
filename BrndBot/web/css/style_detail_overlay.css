@@ -26,7 +26,23 @@ a.svg:after {
   bottom: 0;
   left:0;
 }
-
+.overlay-emptystate-icon{
+    width: 250px;
+    height: 250px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top:20px;
+}
+.empty-state-container{
+    width:60%;
+    margin: auto;
+}
+.textCenter{
+    text-align: center;
+}
+.textColor-Graynew{
+    color: #8F9699  ;
+}
 .detail-overlay-content{
     max-width: 100%;
     overflow-x: hidden;
@@ -36,11 +52,12 @@ a.svg:after {
     border-left: 1px #F4F4F4 solid;
     height: 100vh;
     width: 900px;
+    /*float: left;*/
     float: right;
 }
 
 .fields-note-detail{
-     width:100%;
+    width:100%;
     background-color: #FFFFFF;
     box-sizing: border-box; 
     padding-top: 30px;
@@ -51,7 +68,7 @@ a.svg:after {
 }
 
 .content{ 
-    disply: block;
+    display: block;
     margin:0px;
 }
 
@@ -100,16 +117,15 @@ a.svg:after {
 }
 
 .nav-elements-icon{ 
-    border-top: 1px solid #203c4f ;
+    border-top: 1px solid #203c4f;
     display: block;
-    height: 54px;
     line-height: 53px;
     list-style: none;
     margin: 0;
-    padding: 0;
-    width: 100%;
-    float:left;
-    
+    padding: 10px;
+    width: 35px;
+    height: 35px;
+    margin-left: 8px;
 }
 
 .bb-logo-nav{
@@ -127,30 +143,30 @@ a.svg:after {
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^TOP NAV^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 
 .top-nav-container-detail{
-    position:fixed;
+    position:relative;
     top:0;
     width:inherit; 
     margin: 0px;
 }
 
 .top-navbar-detail{
-     background-color: #FFFFFF;
+    background-color: #FFFFFF;
     height:60px;
     border-bottom: 1px solid #E9EAEE;
     display: block;
     box-sizing: border-box;
     width: 100%;
-    float: inherit;
+    //float: inherit;
 }
 
 .top-navbar-inner-bb-detail{
-  padding-left: 30px;
+    padding-left: 30px;
     padding-right: 30px;
     float: left;
     line-height: 100%;
-     box-sizing: border-box;
+    box-sizing: border-box;
     font-weight: 400;
-    width: 855px;
+    width: 835px;
 }
 
 .top-navbar-title-container{
@@ -160,11 +176,12 @@ a.svg:after {
     height: 60px;
     float: left;
     width: px;
+    margin-left: 30px;
 }
 
 .top-navbar-title{
-     display: table-cell; 
-  vertical-align: middle; 
+    display: table-cell; 
+    vertical-align: middle; 
     color: black;
 }
 
@@ -307,12 +324,13 @@ a.svg:after {
 
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^INNERCONTENT-- SAVED POST ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 .below-nav-container-saved-post-detail{
-     width:100%;
+    width:100%;
     background-color: #F9F9F9;
     box-sizing: border-box; 
     float: left;
-    padding-top:100px;
+    padding-top:0px;
     padding-bottom:105px;
+    overflow: auto;
 }
 
 
@@ -504,15 +522,13 @@ Facebook-preview-name{
 }
 
 .below-nav-container-saved-draft-detail{
-     width:100%;
+    width:100%;
     background-color: #FFFFFF;
     box-sizing: border-box; 
     float: left;
     padding-top:60px;
     padding-bottom:105px;
 }
-
-
 
 .inner-content-container-detail{
      background-color: inherit;
@@ -565,19 +581,12 @@ input-field-container{
     width:50%;
     float: left;
     box-sizing: border-box;
-    
 }
-
-
-
-
 
 .inner-content-column-inner-detail{
     padding-right: 30px;
     box-sizing: border-box;
 }
-
-
 
 .notes-container{
     width:100%;
@@ -591,6 +600,9 @@ input-field-container{
     box-sizing: border-box;
     
 }
+.notes-container-textarea{
+     width:100%;height:320px;resize:none;border:0px;outline:none;
+}
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^FONTS^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 .h1 {
     font-size: 24px;
@@ -599,6 +611,9 @@ input-field-container{
 }
 
 
+.h2new {
+    font-size: 20px ;   
+}
 .h2 {
     font-size: 20px;
     
@@ -665,7 +680,7 @@ input-field-container{
     bottom:0;
     width:inherit;
     background-color:#F6F7F7; 
-    height:50px;
+    height:55px;
     border-top:1px solid #D9D9D9;
     padding-top: 7px;
     padding-left:30px;
@@ -674,7 +689,7 @@ input-field-container{
 
 }
 
-.bottom-cta-button-container{
+.bottom-cta-button-containernew{
     float: right;
     height: 100%;
     box-sizing: border-box;
@@ -719,7 +734,19 @@ input-field-container{
     
     
 }
-
+.empty-state-cta {
+    border-radius: 3px;
+    background-color: #64B6EE;
+    color: white;
+    text-align: center;
+    width: 180px;
+    margin-right: auto;
+    margin-left:auto;
+    margin-top: 30px;
+    
+    
+    
+}
 
 
 

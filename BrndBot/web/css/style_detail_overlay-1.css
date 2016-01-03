@@ -37,8 +37,8 @@ a.svg:after {
     box-sizing: border-box;
     border-left: 2px #d5dadf solid;
     height: 100vh;
-    overflow-y: hidden;
-    width: 60%;
+    //overflow-y: hidden;
+    width: 100%;       //////////////////////// change 60% to 1005by Satyajit Roy on 16/12/2015
     max-width: 100%;
 }
 
@@ -47,25 +47,21 @@ a.svg:after {
     box-sizing: border-box;
 }
 
-
 .link{
     cursor: pointer;
 }
-
-
 
 .navigation{
     display: block;
     position: fixed;
     left: 0;
-    border-right: 1px #203c4f  solid;
-    background-color: #2D4355 ;
+    border-right: 1px #203c4f solid;
+    background-color: #2D4355;
     width: 70px;
-    height:100%;
-    top:0;
-    z-index: 1;
+    height: 100%;
+    top: 0;
+    z-index: 2;
 }
-
 
 .main-nav-logo{
     height: 70px;
@@ -77,7 +73,7 @@ a.svg:after {
     height: 54px;
     line-height: 53px;
     list-style: none;
-    margin: 0;
+    margin-left: 10px;
     padding: 0;
     width: 100%;
     
@@ -123,7 +119,7 @@ a.svg:after {
 
 
 .top-nav{
-      position:fixed;
+    position:fixed;
     top:0;
     width:100%;
     max-width:100%; 
@@ -132,6 +128,7 @@ a.svg:after {
     overflow-x: hidden;
     padding-left: 71px;
     background-color: white;
+    z-index:1;
 }
 
 .page-title-bar{
@@ -140,7 +137,6 @@ a.svg:after {
     box-sizing: border-box;
     display: block;
     border-bottom: 1px solid #EEEFF5 ;
-    
     
 }
 
@@ -188,9 +184,11 @@ a.svg:after {
 .dropdown-icon{
     width:16px;
     height: 16px;
-    margin-left: 15px;
-    margin-top: 12px
-    
+/*    margin-left: 15px;
+    margin-top: 12px*/
+   top: 71px;
+    position: fixed;
+    left: 165px;
 }
 
 .calendar-dropdown-text{
@@ -200,20 +198,21 @@ a.svg:after {
         display: table-cell;
     vertical-align: middle;
     font-weight: 500;
+    cursor:pointer;
 }
 
 .hub-dropdown-text{
-    font-size: 14px;
+    font-size: 16px;
     color: #FFFFFF ;
     line-height: 100%;
-        display: table-cell;
+    display: table-cell;
     vertical-align: middle;
     font-weight: 500;
 }
 
 .subnav-dropdown{
     height: 40px;
-     padding-left: 40px;
+    padding-left: 40px;
     padding-right: 20px;
     background-color: #0F76A6 ;
     box-sizing: border-box;
@@ -235,7 +234,7 @@ a.svg:after {
     cursor:pointer;
     float: left;
     display: table;
-
+    overflow:visible;
 }
 
 .subnav-date-dropdown-text{
@@ -318,7 +317,7 @@ a.svg:after {
     width: 40%;
     margin: 0px;
     float: left;
-    height:100%;
+    height: 100%;
     box-sizing: border-box;
 }
 
@@ -327,7 +326,7 @@ a.svg:after {
     padding-right: 20px;
     line-height: 100%;
     padding-top: 22px;
-    width: 40%;
+    width: 50%;
     margin: 0px;
     float: left;
     height:100%;
@@ -343,7 +342,7 @@ a.svg:after {
 .page-cta-container{
     float: right;
     width: auto;
-      padding-left: 20px;
+    padding-left: 20px;
     padding-right: 60px;
     padding-top: 15px;
 
@@ -354,7 +353,47 @@ a.svg:after {
     width: auto;
 
 }
+.subcategory-content{
+    padding-top: 120px;
+     width: 60%;
+    box-sizing: border-box;
+    margin: auto;
+    
+}
+.page-content-title-bar{
+padding-top: 0px;
+}
+.subcategory-list-container{
+    width:100%;
+    border-bottom: 1px solid #E8E9EA;
+}
+.subcategory-list-element{
+border-top: 1px solid #E8E9EA ;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+      color: #2F363F ;
+    
+}
 
+.subcategory-list-element:hover{
+    border-top: 1px solid #E8E9EA ;
+    background-color: #5CC2A5;
+    cursor: pointer;
+    color: white;
+    
+}
+.subcat-list {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 110%;
+}
+.next-button-icon{
+    float: right;
+    width:40px;
+    height: 40px;
+}
 .page-background{
     background-color: #EFF2F6;
     width:100%;
@@ -362,7 +401,7 @@ a.svg:after {
     margin: 0px;
     box-sizing: border-box;
     overflow-x: auto;
-    padding-bottom: 80px;
+    padding-bottom: 10px;
     height: 100vh;
     padding-left: 70px;
 }
@@ -413,7 +452,7 @@ a.svg:after {
     margin: 0px;
     box-sizing: border-box;
     overflow-x: auto;
-    height: 117vh;
+    height: 100vh;
       overflow-y: auto;
     padding-left: 70px;
 }
@@ -432,34 +471,35 @@ a.svg:after {
     padding-top: 150px;
      width: 80%;
     box-sizing: border-box;
-    margin: auto;
-    
+    margin: auto;  
 }
-
 
 .email-draft-page{
     padding-top: 150px;
-    
 }
 
-
 .top-nav-container-detail{
-    position:fixed;
+    //position:fixed;
     top:0;
     width:100%;
     max-width:100%; 
     margin: 0px;
     box-sizing: border-box;
+    //overflow-x: visible;
+}
+
+.top-navbar-detail{
+/*    background-color: #FFFFFF;
     overflow-x: visible;
 }
 
 .top-navbar-detail{
-     background-color: #FFFFFF;
+    background-color: #FFFFFF;
     height:60px;
     border-bottom: 1px solid #d5dadf;
     width: 100%;
     max-width: 100%;
-    box-sizing: border-box;
+    box-sizing: border-box;*/
 }
 
 .page-content-title-bar{
@@ -482,10 +522,10 @@ padding-top: 0px;
 }
 
 .page-inner-content-container{
-    width: 100%;
+/*    width: 100%;
     margin: auto;
     min-width: 800px;
-    max-width: 1170px;
+    max-width: 1170px;*/
 
 }
 
@@ -567,6 +607,7 @@ padding-top: 0px;
     background-color:#f44d40 ;
     color:#FFFFFF  ; 
     cursor: pointer;
+    margin-right:10px;
 }
 
 
@@ -582,9 +623,15 @@ padding-top: 0px;
 .gray-button{
     text-align: center;
     background-color:#d5dadf;
-    color:#767777  ;
+    color:#767777;
+    cursor: pointer;
 }
+.uploadimgbtn{
+    left: 42%;
+    float: left !important;
+    top: 75px;
 
+}
 .approve-button-detail:hover{
     background-color:#5cc1a4;
     color:#FFFFFF  ;
@@ -682,12 +729,16 @@ padding-top: 0px;
 
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^INNERCONTENT-- SAVED POST ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 .below-nav-container-saved-post-detail{
-     width:100%;
+    width:100%;
     background-color: #F9F9F9;
     box-sizing: border-box; 
     float: left;
-    padding-top:100px;
-    padding-bottom:105px;
+    padding-top:0px;
+    padding-bottom:0px;
+    height: 100% !important;
+    max-height: 485px;
+    //overflow: auto;
+    
 }
 
 
@@ -745,29 +796,45 @@ padding-top: 0px;
     background-color: #F9F9F9;
     box-sizing: border-box; 
     float: left;
-    padding-top: 30px;
-    padding-bottom:105px;
+    padding-top: 0px;
+    padding-bottom:50px;
 
 }
-
+.emailcontentiframetag{
+    width: 100%;
+    height: 150vh;
+    position: relative;
+    bottom: -100px;
+    border: 0px;
+    top: 0px;
+}
 .Facebook-preview{
     width:494px;
-    /*float: left;*/
-    background-color: #FFFFFF;
-    height: 570px;
-    min-height: auto;
-    width: 450px;
+    height: 482px;
     margin: auto;
+    padding:12px 12px 0px 12px;
+    float: none;
     border: 1px solid rgb(223, 224, 228);
     border-radius: 3px;
-    padding: 12px 12px 0px 12px;
+    background-color: #FFFFFF;
+    
+}
+.twitter-post-preview{
+     width:494px;
+    height:340px !important;
+    margin: auto;
+    padding:12px 12px 0px 12px;
+    float: none;
+    border: 1px solid rgb(223, 224, 228);
+    border-radius: 3px;
+    background-color: #FFFFFF;
 }
 
 .Facebook-preview-header{
     width:470px;
     height:40px;
     float: left;
-      margin-bottom: 11px;
+     margin-bottom: 11px;
   
 }
 
@@ -778,7 +845,10 @@ padding-top: 0px;
     float: left;
     background-color: beige;
 }
-
+.Facebook-preview-profpic > img {
+    width: 100%;
+    height: 100%;
+}
 .Facebook-preview-name-container{
     width:422;
     height: 100%;
@@ -816,16 +886,18 @@ Facebook-preview-name{
 
 .Facebook-preview-image{
     width:100%;
+    height: 244px;
+    background-color: #ffffff;
+    float: left;
+}
+.Facebook-preview-image > img {
+    width: 100%;
+    height: 100%;
     min-height: 244px;
     background-color: aqua;
     float: left;
 }
-.Facebook-preview-image1{
-    width:100%;
-    min-height: 244px;
-    background-color: #ffffff;
-    float: left;
-}
+
 .Facebook-preview-link-container{
     width: 100%;
     padding: 10px 12px 10px 12px;
@@ -875,7 +947,7 @@ Facebook-preview-name{
 
 .Twitter-preview{
     width:564px;
-    height: 420px;
+    height: 348px;
     margin: auto;
     padding:9px 12px 20px 12px;
     float: none;
@@ -960,17 +1032,10 @@ Facebook-preview-name{
 
 .Twitter-preview-image{
     width:506px;
-    min-height: 278px;
+    height: 379px;
     margin-top: 10px;
     border-radius: 5px;
-    background-color: aqua;   
-}
-.Twitter-preview-image1{
-    width:506px;
-    min-height: 278px;
-    margin-top: 10px;
-    border-radius: 5px;
-    background-color: #ffffff;   
+    background-color: #ffffff;
 }
 
 .Facebook-preview-link-container{
@@ -1049,17 +1114,15 @@ Facebook-preview-name{
 }
 
 .inner-content-container-title{
-    float: left;
+    float: left;    
 }
 
 .inner-content-container-button{
-    float: right;
-    
-    
+    float: left;
 }
 
 .inner-content-detail{ 
-    margin-top:20px;
+    //margin-top:20px;
     width:100%;
     float:left;
    
@@ -1069,6 +1132,19 @@ input-field-container{
     margin-top: 20px;
 }
 
+.input-field-textfield{
+    height: 30px;
+    background-color: #F9F9F9;
+    border: 1px solid #d5dadf;
+    padding: 6px 10px 3px 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    width:100%;
+}
+.mrktextarea{
+    resize: none;
+        height: 80px !important;
+}
 .inner-content-column-container-detail{
     margin-top: 20px;
     width:100%;
@@ -1115,19 +1191,36 @@ input-field-container{
 }
 
 .page-title-font{
-       font-size: 20px;
-    color: #3F3F42 ;
+     font-size: 20px;
+     color: #3F3F42 ;
 }
-
+#channelhead{
+    width:100%;
+}
 .h2 {
     font-size: 24px;
     color: #3F3F42 ;
     
     
 }
-
-
-
+.externalData-selection-content{
+    padding-top: 120px;
+     width: 80%;
+    box-sizing: border-box;
+    margin: auto;
+    
+}
+.padding-right-15{
+    padding-right: 25px;
+}
+.margin-top-12{
+    margin-top: 12px;
+}
+.subcat-list {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 110%;
+}
 .h3 {
     font-size: 14px;
     color: #3F3F42 ;
@@ -1190,19 +1283,38 @@ input-field-container{
     bottom:0;
     width:100%;
     background-color:#F9FAFC; 
-    height:50px;
+    height:55px;
     border-top:1px solid #D9D9D9;
     padding-left:30px;
     padding-right:0px;
     box-sizing: border-box;
 
 }
-
+.bordertop{
+    border-top: 0px solid #D9D9D9 !important;
+    padding-top: 0px !important;
+}
 .bottom-cta-button-container{
-    float: right;
-    height: 100%;
+    float: left;
+    height: 0px;
     box-sizing: border-box;
-    padding-right: 60px;
+    background-color: #F9FAFC;
+    padding-right: 70px;
+    width: 100%;
+    margin-top: 0%;
+    margin-left: 0%;
+    border-top: 1px solid #bbb;
+}
+.editemailbtn{
+    float: left;
+    height: 0px;
+    box-sizing: border-box;
+    background-color: #F9FAFC;
+    padding-right: 0px;
+    width: 100%;
+    margin-top: -5%;
+    margin-left: 70%;
+    /* border-top: 1px solid #bbb; */
 }
 
 .bottom-cta-button-container-lg{
@@ -1244,7 +1356,7 @@ input-field-container{
 }
 
 .remove-button-detail{
-    float: left;
+    float: right;
     text-align: center;
     background-color:#d5dadf;
     color:#767777  ;
@@ -1257,7 +1369,8 @@ input-field-container{
 }
 
 .add-action-button{
-    float: left;
+    float: right;
+    //float: left;
     text-align: center;
     background-color:#5CC2A5 ;
     color:white  ;
@@ -1329,7 +1442,8 @@ input-field-container{
 }
 
 .col-2of10{
-    width:20%;
+    width:21%;
+    //width:20%;
     box-sizing: border-box;
 }
 
@@ -1385,7 +1499,8 @@ input-field-container{
 
 .fleft{
     float:left;
-    overflow: hidden;
+    overflow: visible;
+    //overflow: hidden;
     box-sizing: border-box;
 }
 
@@ -1402,6 +1517,10 @@ input-field-container{
     float:right;
     overflow: hidden;
     box-sizing: border-box;
+}
+.pushright{
+    margin-right: 30px
+
 }
 .icon-container{
     float: left;
@@ -1430,8 +1549,11 @@ selfclear:after{
     border-radius: 5px;
     min-width: 700px;
 }
-
-
+.containerheight
+{
+    max-height: 390px;
+    overflow-y: auto;
+}
 
 .slat-cta-container{
     padding-right: 0px;
@@ -1505,7 +1627,7 @@ ul{
 
 .md-button {
     padding: 7px 16px 7px 16px;
-    border-radius: 3px;
+    border-radius: 3px;  
 }
 
 .details-button {
@@ -1660,6 +1782,7 @@ margin-top: 30px;
     border-radius: 3px;
     margin-top: 15px;
     margin-right: 20px;
+    cursor:pointer;
 }
 
 .selection-icon-selected{
@@ -1735,8 +1858,11 @@ margin-top: 30px;
     margin-top: 60px;
     box-sizing: border-box;
 }
-
-.pop-up-container-imageSelection {
+.pop-up-container-newmarketingaction{
+     margin-top: 15px !important;
+     padding-bottom: 15px !important;
+}
+.pop-up-container-imageSelection{
     width: 500px;
     padding-bottom: 45px;
     background-color: #ffffff;
@@ -1806,8 +1932,6 @@ padding-left: 30px;
     height: 100px;
 }
 
-
-
 .pop-up-cta-container{
     border-bottom-left-radius:3px;
      border-bottom-right-radius:3px;
@@ -1875,6 +1999,17 @@ input-field-container{
     margin-top: 20px;
 }
 
+.input-field-textfield{
+    height: 30px;
+    background-color: #F9F9F9;
+    border: 1px solid #d5dadf;
+    padding: 6px 10px 3px 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    color: #000000;
+    width: 100%;
+}
+
 .pop-up-exit-container{
 position: fixed;
     top: 30px;
@@ -1897,6 +2032,57 @@ width:100%;
 }
 
 .image-selection-button{
+    width:100%;
+    height: 100px;
+    background-color: #E3E3E3;
+    border-radius:5px;
+}
+ #emailsubjectdiv{
+                margin-left: 40%;
+                margin-top: 10%;
+            }
+
+.socialdropdowntext{
+width: 10%;
+    background-color: steelblue;
+    color: white;
+}
+////////////////////////////////////////akmal///marketing footer save and remove buttons////
+.bottomheight{
+    height: 64px !important;
+}
+.select-style {
+    padding-top: 0px;
+    margin: 0;
+    border: 0px solid #ccc;
+    width: 120px;
+    border-radius: 0px;
+    overflow: hidden;
+    background-color: #0F76A6;
+    
+    /*background:#0F76A6 url("http://cdn.flaticon.com/svg/32/32195.svg") no-repeat 90% 50%;*/
+}
+.emlsocdrpdwn {
+    padding: 10px 0px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor:pointer;
+}
+.emlsocdrpdwn option{
+    background-color: #0F76A6;
+    font-size: 16px;
+     color: #FFFFFF;
+     border: none;
+     cursor:pointer;
+}
+.emlsocdrpdwn:focus {
+    outline: none;
     width: 100%;
     height: 100px;
     border: solid 1px #D5DADF;

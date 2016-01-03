@@ -14,8 +14,8 @@
     <script src="js/dojo.js" data-dojo-config="parseOnLoad: true, usePlainJson: true, isDebug: false"></script> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
      
-                <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/resources/dojo.css">
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css">
+<!--                <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dojo/resources/dojo.css">
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css">-->
                 <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dojo/dojo.xd.js"data-dojo-config="isDebug: true,parseOnLoad: true">
 		</script>
 

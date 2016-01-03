@@ -79,7 +79,7 @@ Author : Satyajit Roy At intBIt Technologies
             #datadiv{
                 margin-top:120px;
             }
-
+           
             .header1{
                 font-size: 28px;
             }
@@ -144,4 +144,6 @@ Author : Satyajit Roy At intBIt Technologies
                 opacity: 0;
                 filter: alpha(opacity=0);
             }
-        
+.page-cta-container{
+   display:none;
+}
