@@ -832,6 +832,7 @@ function controllerMarketingCampaign($scope, $http) {
         });
     };
     $scope.uploadFile = function(){
+        
         $("#myFile").upload("UploadImages",function(success){
            $("#fileuploaddiv").hide();
            $scope.showImages();

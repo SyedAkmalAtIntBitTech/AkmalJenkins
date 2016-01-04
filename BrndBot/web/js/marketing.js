@@ -62,7 +62,7 @@ $(document).ready(function ()
     });
 $a=0;
 $edit=0;
-    $('#slider-button').click(function () {overlay();
+    $('#slider-button').click(function () {
         $a+=1;
          //To hide the dialog if user click on another node
         if($a>=2 && $edit==1)
@@ -1084,7 +1084,6 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active) {
         
         if (entity_type === getemail()) {
-            
             $slider=2;
             sliderDialog = "#emailsection";
             
