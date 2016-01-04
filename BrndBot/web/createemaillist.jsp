@@ -24,9 +24,9 @@
     <div class="pop-up-background">
         <div class="pop-up-container pop-up-container-createEmail"> 
             <div class="pop-up-title pop-up-title-h1"> Create New Email List</div>
-            <div class="pop-up-exit-container"  id="addactionClose">
+            <div class="pop-up-exit-container"  id="addactionlistClose">
              <a href="" class="pop-up-exit-icon">
-                <img onclick = "closeOverlay();" type="image/svg+xml" src="images/Icons/Close.svg" class="exit-button-icon" style="cursor:pointer;"/>
+                <img type="image/svg+xml" src="images/Icons/Close.svg" class="exit-button-icon" style="cursor:pointer;"/>
              </a>
             </div> 
             <div class="pop-up-inner">

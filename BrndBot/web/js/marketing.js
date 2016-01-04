@@ -1031,7 +1031,8 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.ShowAddAction = function()
     { 
         //reSet();
-        $(".time_pick").width('200%');
+        //$(".time_pick").width('200%');
+        $("#fade").show();
         $("#addAction").show();
         
 //        $slider=1;
@@ -1059,9 +1060,9 @@ function controllerMarketingCampaign($scope, $http) {
         if(reSet()){ }
         $slider=1;
         $edit=1; 
-        sliderDialog = "#dvPriorityDialog";
-        $('#slider-button').click();
-        prevSliderDialog = "#dvPriorityDialog";
+        //sliderDialog = "#dvPriorityDialog";
+        //$('#slider-button').click();
+        //prevSliderDialog = "#dvPriorityDialog";
         $http({
                 method: 'GET',
                 url: getHost() + 'getMarketingProgramName.do'

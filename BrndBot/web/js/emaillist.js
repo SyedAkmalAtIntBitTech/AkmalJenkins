@@ -11,7 +11,7 @@
     var count=0;
         function selemlcheckbox(id){ 
 //            alert(id+"--selected");
-            content='<input type="checkbox" id="'+'emailid'+id+'" hidden="">';
+            content='<input type="checkbox" name="deleteid" value="'+id+'" hidden="" id="deleteid" checked>';
 //            alert(content);
             var htm=$("#"+id).html();
             if(htm.contains('class="check-icon"')){
@@ -532,7 +532,6 @@
                             alert(data);
                         }
                     });
-                    
                 };
                 
                 $scope.getEmailList = function () {
@@ -577,14 +576,16 @@
 //
 //                };
                 
-                 $scope.deleteEmailList = function (){
-                    var selectAll = document.getElementById("selectAll").checked;
-                    var email_list_name = "";
-                    
-                    if (selectAll){
-                        var EmailLists = {"update":"deleteAllEmailLists", "emailListNames": selected_email_lists};
+                $scope.deleteEmailList = function (){
+                    var selected_email_lists="";
+                    $("input[type=checkbox]:checked").each ( function() {
+                        selected_email_lists +=$(this).val()+",";
+                    });
+                    //alert(selected_email_lists)
+                    if (selected_email_lists){
+                        var EmailLists = {"update":"deleteAllEmailLists", "emailListName": selected_email_lists};
                     }else {
-                        var EmailLists = {"update":"deleteEmailLists", "emailListNames": selected_email_lists};
+                        var EmailLists = {"update":"deleteEmailLists", "emailListName": selected_email_lists};
                     }
                     $http({
                         method: 'POST',
@@ -606,7 +607,7 @@
                 
                 
                 $scope.deleteSelected = function (){
-                    var selectAll = document.getElementById("selectAll").checked;
+                    //var selectAll = document.getElementById("selectAll").checked;
                     var email_list_name = "";
                     if (selectAll){
                         email_list_name = $("#email_list_name").val();

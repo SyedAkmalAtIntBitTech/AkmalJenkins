@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -163,7 +164,11 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
             } catch (Exception ex){
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while update the email list:", getSqlMethodsInstance().error));
             }    
-        } finally {
+        }
+        catch (Exception e) {
+            System.out.println();
+        }
+        finally {
             getSqlMethodsInstance().closeConnection();
         }
 
@@ -214,6 +219,7 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
     
     private boolean addEmailListPreference(Integer user_id, String emailListName, String defaultName, String listDescription)throws SQLException{
         org.json.simple.JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
+        UUID uniqueKey = UUID.randomUUID();
         
         if (emailListArrayJSON.size() != 0){
                 JSONObject json_user_preferences_email = new JSONObject();
@@ -221,7 +227,9 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
                 json_user_preferences_email.put(IConstants.kEmailListNameKey, emailListName);
                 json_user_preferences_email.put(IConstants.kEmailAddressesKey, new JSONArray());
                 json_user_preferences_email.put(IConstants.kEmailListDefaultFromName, defaultName);
-                json_user_preferences_email.put(IConstants.kEmailListListDescription, listDescription);
+                json_user_preferences_email.put(IConstants.kEmailListDescription, listDescription);
+                json_user_preferences_email.put(IConstants.kEmailListID, uniqueKey.toString());
+                json_user_preferences_email.put(IConstants.kEmailListAddedDate, dateFormat.format(new Date()));
 
                 emailListArrayJSON.add(json_user_preferences_email);
                 return AddEmailListUserPreference(user_id, emailListArrayJSON);
@@ -232,7 +240,10 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
                 json_user_preferences_email.put(IConstants.kEmailAddressesKey, new JSONArray());
                 
                 json_user_preferences_email.put(IConstants.kEmailListDefaultFromName, defaultName);
-                json_user_preferences_email.put(IConstants.kEmailListListDescription, listDescription);
+                json_user_preferences_email.put(IConstants.kEmailListDescription, listDescription);
+                json_user_preferences_email.put(IConstants.kEmailListID, uniqueKey.toString());
+                json_user_preferences_email.put(IConstants.kEmailListAddedDate, dateFormat.format(new Date()));
+                json_user_preferences_email.put(IConstants.kEmailListDescription, listDescription);
 
                 org.json.simple.JSONArray emailListArray = new org.json.simple.JSONArray();
                 emailListArray.add(json_user_preferences_email);

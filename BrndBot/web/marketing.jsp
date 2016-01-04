@@ -30,6 +30,7 @@
 </head>    
 
 <body ng-app class="claro1">
+     <div id="fade"></div>
     <!--SideNav-->
     <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign"  class="container content-main">
     <jsp:include page="AddAction.jsp"/> 
@@ -49,7 +50,7 @@
                     <div class=" md-button" ng-click="deleteSchedule('0','deleteMultiple')">Delete Action</div>    
                 </a>
                 <a href="javascript:void(0)">
-                    <div id="liPriority" onclick="overlay();" ng-click="ShowAddAction()" class="add-action-button md-button button-text-1"> Add Action</div>    
+                    <div id="liPriority" ng-click="ShowAddAction()" class="add-action-button md-button button-text-1"> Add Action</div>    
                 </a>
             </div>
         </div>
