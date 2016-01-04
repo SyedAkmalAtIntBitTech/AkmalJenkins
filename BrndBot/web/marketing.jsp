@@ -11,8 +11,8 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <link rel="stylesheet" href="css/version2/hint.css"/>
-    <link rel="stylesheet" href="css/pikaday.css">
-    <link rel="stylesheet" href="css/datepickerpikaday.css">
+    <link rel="stylesheet" href="css/pikaday.css"/>
+    <link rel="stylesheet" href="css/datepickerpikaday.css"/>
     <link rel="stylesheet" href="css/popup.css"/>
     <script src="js/moment.js" type="text/javascript"></script>
     <script src="js/pikaday.js"></script>
@@ -55,7 +55,7 @@
         </div>
         <div class="page-subnav-bar-with-dropdown"> 
              <div class="subnav-date-dropdown hint--right" data-hint="Calendar">
-                 <img type="image/svg+xml" src="images/Icons/calendar.svg" class="calendar-dropdown  " style="cursor:pointer;"   />
+                 <img type="image/svg+xml" src="images/Icons/calendar.svg" class="calendar-dropdown  " style="cursor:pointer;"/>
              </div>
              <div class="subnav-date-dropdown-text ">
                  <label class="calendar-dropdown-text " for="jumptodatepicker">Jump to Date</label>
@@ -76,8 +76,7 @@
                  </script>
             </div>
              
-                <div class="top-subnav-tabs-container-with-drop">
-                    
+                <div class="top-subnav-tabs-container-with-drop">      
                 </div>
         </div>
         </div>

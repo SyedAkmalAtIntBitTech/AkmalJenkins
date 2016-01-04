@@ -115,7 +115,7 @@ public class ScheduleDAO {
                         ScheduledEntityType.Email.toString(),
                         "0",
                         templateStatus,
-                        userId,
+                        userId, 
                         connection);
 
                 connection.commit();
@@ -271,7 +271,10 @@ public class ScheduleDAO {
             int userId,
             Connection connection) throws SQLException {
         String sql = "INSERT INTO tbl_scheduled_entity_list"
-                + " (entity_id, schedule_title,schedule_time,entity_type,status,user_id, schedule_desc,is_recuring,user_marketing_program_id,days,till_date,recuring_email_id ) VALUES"
+                + " (entity_id, schedule_title,schedule_time,entity_type,"
+                + "status,user_id, schedule_desc,is_recuring,"
+                + "user_marketing_program_id,days,till_date,recuring_email_id"
+                + ") VALUES"
                 + " (?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id";
 
         int scheduleId = -1;

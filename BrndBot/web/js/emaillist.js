@@ -35,7 +35,7 @@
             if(count==0)
             {
                  $(".add-action-button").show();
-                $(".delete-button").hide();
+                 $(".delete-button").hide();
                  $(".gray-button").hide();
                  $("#addcontact").show();
                  $("#addcontacts").show();
@@ -576,6 +576,34 @@
 //                    }
 //
 //                };
+                
+                 $scope.deleteEmailList = function (){
+                    var selectAll = document.getElementById("selectAll").checked;
+                    var email_list_name = "";
+                    
+                    if (selectAll){
+                        var EmailLists = {"update":"deleteAllEmailLists", "emailListNames": selected_email_lists};
+                    }else {
+                        var EmailLists = {"update":"deleteEmailLists", "emailListNames": selected_email_lists};
+                    }
+                    $http({
+                        method: 'POST',
+                        url: getHost() + 'SetEmailLists',
+                        headers: {'Content-Type': 'application/json'},
+                        data: EmailLists
+                    }).success(function (data)
+                    {
+                        if (data === "true") {
+                            alert("Data deleted successfully");
+//                                $scope.updateList(email_list_name);
+
+                            window.open(getHost() + 'emaillists.jsp', "_self");
+                        } else if (data === error) {
+                            alert(data);
+                        }
+                    });                        
+                };
+                
                 
                 $scope.deleteSelected = function (){
                     var selectAll = document.getElementById("selectAll").checked;

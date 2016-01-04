@@ -150,7 +150,13 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
                     dataresponse = "false";
                 }
             }
-            
+            else if (queryParameter.equalsIgnoreCase("deleteAllEmailLists")){
+                String emailListName = (String)json_update.get(IConstants.kEmailListNameKey);
+                Boolean result = deleteAllEmailList(user_id, emailListName);
+                if (result){
+                    dataresponse = "true";
+                }
+            }
         } catch (SQLException | JSONException | ParseException e) {
             try {
                 responseObject.put("Error", "Request unsuccessfull");
@@ -398,6 +404,31 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
         return updateEmailListUserPreference(user_id, emailListArrayJSON);
     }
 
+    private Boolean deleteAllEmailList(Integer user_id, String emailListName) throws JSONException, SQLException {
+        org.json.simple.JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
+        for (int i = 0; i < emailListArrayJSON.size(); i++) {
+            JSONObject emailListJSONObject = (JSONObject)emailListArrayJSON.get(i);
+            String currentListName = (String)emailListJSONObject.get(IConstants.kEmailListNameKey);
+
+            String emailAddressesSplit[] = emailListName.split(",");
+            
+            Set<String> receivedEmailListNames = new HashSet<String>(Arrays.asList(emailAddressesSplit));
+            
+            for (String emailList : receivedEmailListNames) {
+                
+                String emailLists = emailList;
+                if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
+                    if (emailListName.equals(currentListName)) {
+                        emailListArrayJSON.remove(i);
+                    }
+                }
+
+            }
+            
+        }
+        return updateEmailListUserPreference(user_id, emailListArrayJSON);
+    }
+    
     private Boolean deleteEmailList(Integer user_id, String emailListName) throws JSONException, SQLException {
         org.json.simple.JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
         for (int i = 0; i < emailListArrayJSON.size(); i++) {

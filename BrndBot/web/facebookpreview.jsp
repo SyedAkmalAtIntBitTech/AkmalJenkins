@@ -4,19 +4,38 @@
     Author     : Satyajit Roy
 --%>
 
+<%@page import="com.controller.SqlMethods"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="telephone=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay.css">
-    <link rel="stylesheet" type="text/css" href="css/normalize.css">
-    <link rel="shortcut icon" href="favicon.png">
+    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay.css"/>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
+    <link rel="shortcut icon" href="favicon.png"/>
     <script src="js/popup.js"></script>
+    <title>Facebook Preview</title>
 </head>    
+<%!
+    SqlMethods sql_methods = new SqlMethods();
+    int number;
+    Integer user_id = 0;
+%>
+<%
+    try {
+        sql_methods.session = request.getSession();
+        user_id = (Integer) sql_methods.session.getAttribute("UID");
+        out.println(user_id);
+    } catch (Exception e) {
+        System.out.println(e.getCause());
+        System.out.println(e.getMessage());
+    } finally {
+        sql_methods.closeConnection();
+    }
 
+%>
 <body>
 <div class="content">
     <div id="fade" class="black_overlay"></div>
@@ -29,7 +48,7 @@
                 <a class=" exit-button-detail link svg close" href="">
                     <img type="image/svg+xml" src="images/Icons/Close.svg" class="exit-button" style="cursor:pointer;"> </img>
                 </a>
-                <div  class="top-navbar-inner-bb-detail">
+                <div class="top-navbar-inner-bb-detail">
                     <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Facebook Post Action Detail</span></div>
                     <div class="top-nav-cta-container">
                         <div class="approve-button-detail md-button" id="fbapprove">Approve</div>
@@ -74,7 +93,7 @@
                                 <div class="input-header-actionDetail" style="">
                                     Status
                                 </div>
-                                <input type="text" id="fbnotemplate" value="No Template" class="input-field-textfield width75  " readonly/>
+                                <input type="text" id="fbnotemplate" value="No Template" class="input-field-textfield width75" readonly/>
                                 <input type="text" id="fbtemplatesaved" value="Template Saved" class="input-field-textfield width75 " readonly/>
                             </div>
                             <div class="half">
@@ -197,7 +216,16 @@
                                 </div>
                                 <div class="Facebook-preview-usercontent">{{entitiesdetails.metadata.post_text}}</div>
                                 <div class="Facebook-link-container">
-                                    <div class="Facebook-preview-image"><img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/></div>
+                                    <div class="Facebook-preview-image">
+                                        <div ng-show="entitiesdetails.image_type == 'gallery'">
+                                            <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=GALLERY&image_name={{entitiesdetails.image_name}}&user_id=<%= user_id %>'/>
+                                        </div>
+                                        <div ng-show="entitiesdetails.image_type == 'layout'">
+                                            <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                        </div>
+                                        
+                                       <!--<img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=GALLERY&image_name={{entitiesdetails.image_name}}'/>-->
+                                    </div>
                                     <div class="Facebook-preview-link-container">
                                         <div class="Facebook-preview-link-title">{{entitiesdetails.metadata.title}}</div>
                                         <div class="Facebook-preview-link-description">{{entitiesdetails.metadata.description}}</div>

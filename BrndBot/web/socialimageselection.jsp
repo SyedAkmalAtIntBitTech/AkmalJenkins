@@ -22,9 +22,6 @@
     <script src="js/configurations.js" type="text/javascript"></script>
     <script src="js/socialimageselection.js" type="text/javascript"></script>
  
-<script>
-        
-    </script>  
 </head>    
 <%@page import="com.controller.SqlMethods"%>
 <%@ include file="checksession.jsp" %>
@@ -169,7 +166,9 @@
                                 </div>
                                 <%} else{%>
                                 <div class="Facebook-preview-image1">
-                                     <% if(gallery.equalsIgnoreCase("gallery")) {%>
+                                     <% 
+                                        if(gallery.equalsIgnoreCase("gallery")) {
+                                     %>
                                     <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>&user_id=<%=user_id%>"/>
                                     <%} else{%>
                                     <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
@@ -186,7 +185,8 @@
                             </div>
                         </div>
                     </div>
-                    <% }
+                    <%
+                        }
                          else
                       {
                     %>  

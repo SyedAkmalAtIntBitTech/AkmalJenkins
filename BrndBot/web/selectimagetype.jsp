@@ -314,7 +314,7 @@
                                     <div class="browse-button top18">
                                         <div class="md-button gray-button" id="upload" ng-click="uploadFile()">Upload</div>
                                     </div>
-                                    <input type="button" id="image1" ng-click="showImages()" value="image1" style="display: none;">
+                                    <input type="button" id="image1" ng-click="showImages()" value="image1" style="display: none;"/>
                                 </div>
                             </div>
                         </div>
@@ -462,8 +462,8 @@
                         </div>
                     </div>
                     <div class="pop-up-cta-container pop-up-cta-container-newaction1" id ="schedulethepost">
-                        <input type="hidden" name="socialscheduleid" id="socialscheduleid" value="socialmedia"/>
-                        <div class="algnmnt">SCHEDULE</div>
+                        <input type="hidden" value="socialmedia"/>
+                        <div class="algnmnt" name="socialscheduleid" id="socialscheduleid">SCHEDULE</div>
                     </div>
                     </div>
                 </div>
