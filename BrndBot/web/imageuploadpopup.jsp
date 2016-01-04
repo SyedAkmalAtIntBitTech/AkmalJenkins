@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay.css">
@@ -40,12 +40,12 @@
                         <div class="imageUpload-browse drop-instruction"> or Browse your local files:</div> -->
                         <div class="browse-button">
                             <div id="triggerfile" class="md-button gray-button">Browse your Images</div>
-                            <input type="file" id="browsefile" style="opacity:0;margin-top:-30px;width:100%;height:30px;cursor:pointer;"/>
+                            <input type="file" id="myfile" style="opacity:0;margin-top:-30px;width:100%;height:30px;cursor:pointer;"/>
                         </div>
                     </div>
                      
                 </div>
-                    <div class="add-action-button md-button button-text-1 uploadimgbtn" > Upload Image</div>
+                    <div class="add-action-button md-button button-text-1 uploadimgbtn" id="upload" ng-click="uploadFile()" > Upload Image</div>
 
             </div>
             </div>

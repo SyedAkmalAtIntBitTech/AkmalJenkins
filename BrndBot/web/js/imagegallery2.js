@@ -70,7 +70,7 @@ function Showimguploadpopup()
                 imagegallery.controller('samplecontoller', function ($scope,$http) {
                     
                 $scope.showData = function(){
-//                     alert("showData");
+                     alert("showData");
                  $scope.curPage = 0;
                  $scope.pageSize = 1000;
 
@@ -122,7 +122,7 @@ function Showimguploadpopup()
                         
                     };
                 $scope.uploadFile = function(){
-        
+                    alert("ok");
                     $("#myFile").upload("UploadImages",function(success){
                        $("#fileuploaddiv").hide();
                        $scope.showImages();
