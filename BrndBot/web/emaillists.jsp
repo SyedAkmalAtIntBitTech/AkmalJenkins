@@ -190,13 +190,13 @@
        <jsp:include page="createemaillist.jsp"/> 
         <!--Top Nav-->   
         
-        <div class="top-nav" ng-controller="EmailListController">
+        <div class="top-nav">
             <div class="page-title-bar col-1of1"> 
                 <!--<div class="exit-button-detail"></div>-->
                 <div class="page-title-regular page-title-font">Your Email Hub</div>
                 <div class="page-cta-container">
                 <a href="">
-                 <div class="delete-button md-button button fleft"  id="deleteEmailList" ng-click="" > Delete Email List</div>
+                 <div class="delete-button md-button button fleft"  id="deleteEmailList" ng-click="deleteEmailList()" > Delete Email List</div>
                 </a>
                 <a href="">
                     <div id="addemlstbtn" class="add-action-button md-button button-text-1" ng-click="addemaillist()"> Add Email List</div>
