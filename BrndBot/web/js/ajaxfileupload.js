@@ -1,6 +1,7 @@
 // Ajax File upload with jQuery and XHR2
 // Sean Clark http://square-bracket.com
 // xhr2 file upload
+
 $.fn.upload = function(remote, data, successFn, progressFn) {
 	// if we dont have post data, move it along
 	if (typeof data != "object") {
