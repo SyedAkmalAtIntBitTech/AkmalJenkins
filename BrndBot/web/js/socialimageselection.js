@@ -40,10 +40,12 @@
                     $(".link_title").val($("#title").val());
                 });
                 $("#posttofb").click(function () {
-                   
+
                     var isFacebook = $("#isFacebook").val();
                     var isTwitter = $("#isTwitter").val();
                     var image_name = $("#imageToPost").val();
+                    var image_type = $("#gallery").val();
+                    
                     if(isFacebook === true)
                     {
                         if(image_name==="")
@@ -86,16 +88,18 @@
                         }
                     }
                     
-                    
                     var link = $("#link").val();
-                    var f = link.startsWith("http");
-                    if (!f)
-                    {
-                        link = "http://" + $("#url").val();
+                    if (link != undefined){
+                        var f = link.startsWith("http");
+
+                        if (!f)
+                        {
+                            link = "http://" + $("#link").val();
+                        }
+                        var url = link;
+                        var username = "sandeep264328"; // bit.ly username
+                        var key = "R_63e2f83120b743bc9d9534b841d41be6";
                     }
-                    var url = link;
-                    var username = "sandeep264328"; // bit.ly username
-                    var key = "R_63e2f83120b743bc9d9534b841d41be6";
                     $.ajax({
                         url: "http://api.bit.ly/v3/shorten",
                         data: {longUrl: url, apiKey: key, login: username},
@@ -120,6 +124,7 @@
                                         isFacebook: isFacebook,
                                         isTwitter: isTwitter,
                                         imagePost: image_name,
+                                        imageType: image_type,
                                         shorturl: $("#sortLengthurl").val()
                                     },
                                     success: function (responseText) {
@@ -130,8 +135,7 @@
                                         document.location.href = "dashboard.jsp";
                                     }
                                 });
-                            }
-                            else {
+                            }else {
                                 alert("select atleast one");
                             }
                         }

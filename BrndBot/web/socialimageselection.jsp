@@ -9,19 +9,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="telephone=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css">
-    <link rel="stylesheet" type="text/css" href="css/normalize.css">
-    <link rel="stylesheet" type="text/css" href="css/slat.css">
-    <link rel="stylesheet" type="text/css" href="css/popup.css">
-    <link rel="shortcut icon" href="favicon.png">
+    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"/>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="css/slat.css"/>
+    <link rel="stylesheet" type="text/css" href="css/popup.css"/>
+    <link rel="shortcut icon" href="favicon.png"/>
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/popup.js" type="text/javascript"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
     <script src="js/socialimageselection.js" type="text/javascript"></script>
- 
+    <title>socialimageselection</title>
 </head>    
 <%@page import="com.controller.SqlMethods"%>
 <%@ include file="checksession.jsp" %>
@@ -160,7 +160,9 @@
                         </div>
                         <div class="Facebook-link-container">
 
-                                <%if (imageid.equalsIgnoreCase("")){%>
+                                <%
+                                    if (imageid.equalsIgnoreCase("")){
+                                %>
                                 <div class="Facebook-preview-image">
                                     <div class="changeImage" onclick="fun('facebook','<%=mindbodydata%>');">Upload Image</div>
                                 </div>
@@ -219,11 +221,15 @@
                                 <textarea id="twittertext" class="noborder" placeholder="Demo content goes right here for twitter"></textarea>
                             </div>
 
-                                <%if (imageid.equalsIgnoreCase("")){%>
+                                <%if 
+                                    (imageid.equalsIgnoreCase("")){
+                                %>
                                 <div class="Twitter-preview-image fleft">
                                     <div class="changeImage" onclick="fun('twitter','<%=mindbodydata%>');"> Upload Image </div>
                                 </div>
-                                <%} else{%>
+                                <%
+                                    } else{
+                                %>
                                 <div class="Twitter-preview-image1 fleft">
                                     <% if(gallery.equalsIgnoreCase("gallery")) {%>
                                     <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>&user_id=<%=user_id%>"/>
@@ -235,8 +241,10 @@
                             <input type="text" readonly id="link" class="noborder top8" placeholder="This should equal the marketing program link"></input></div>
                         </div>   
                     </div>
-                    <% }
-                         else{
+                    <%
+                       }
+                         else
+                       {
                     %>      
                     <div class="Blank_Twitter-preview">
                         <div class="Twitter_Facebook">

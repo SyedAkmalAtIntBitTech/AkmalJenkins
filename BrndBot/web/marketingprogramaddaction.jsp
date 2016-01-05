@@ -16,7 +16,7 @@
     <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="css/popup.css"></link>
     <script src="js/popup.js" type="text/javascript"></script>
-      <%!
+        <%!
             String program_id = "";
         %>
         <%
@@ -28,7 +28,7 @@
         </script>
 </head>    
     <style>arrow_top{display:none;}</style>
-<body >
+<body>
     <div id="fade" class="black_overlay" ></div>
         <div id="addAction">
     <!--Top Nav-->   

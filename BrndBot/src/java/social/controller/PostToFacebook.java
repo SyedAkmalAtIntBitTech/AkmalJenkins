@@ -8,6 +8,7 @@ package social.controller;
 import com.controller.ApplicationContextListener;
 import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.controller.SqlMethods;
+import com.intbit.AppConstants;
 import com.intbit.PhantomImageConverter;
 import facebook4j.Facebook;
 import facebook4j.FacebookException;
@@ -32,7 +33,11 @@ import util.Utility;
 class PostToFacebook {
     public static String path = "";
 
-    public static String postStatus(String accessToken, String title, String file_image_path, String posttext, String imagePostURL, String getImageFile, String url, String description, Integer user_id, String htmlString) throws MalformedURLException {
+    public static String postStatus(String accessToken, String title, 
+            String file_image_path, String posttext, 
+            String imagePostURL, String getImageFile, 
+            String url, String description, 
+            Integer user_id, String htmlString) throws MalformedURLException {
 
         String returnMessage = "success";
         ServletContext context = null;
