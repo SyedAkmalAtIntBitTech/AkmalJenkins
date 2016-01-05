@@ -144,7 +144,7 @@
         <div class="page-title-bar col-1of1"> 
             <div class="page-title-regular page-title-font">Your Marketing Programs</div>
             <div class="page-cta-container">
-                 <a href="" class=" fleft">
+                <a href="createmarketingprogram.jsp" class=" fleft">
                     <div class=" add-button md-button"> Create New Marketing Program</div>    
                 </a>
             </div>

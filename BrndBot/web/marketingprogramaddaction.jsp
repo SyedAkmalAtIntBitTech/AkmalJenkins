@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="css/popup.css"></link>
-     <script src="js/popup.js" type="text/javascript"></script>
+    <script src="js/popup.js" type="text/javascript"></script>
       <%!
             String program_id = "";
         %>
@@ -25,15 +25,15 @@
         <script>
             var program = "";
             program = <%= program_id %>;
-        </script>    
+        </script>
 </head>    
-    <style>.arrow_top{display:none;}</style>
+    <style>arrow_top{display:none;}</style>
 <body >
     <div id="fade" class="black_overlay" ></div>
         <div id="addAction">
     <!--Top Nav-->   
     <div class="pop-up-background">
-        <div class="pop-up-container pop-up-container-newaction pop-up-container-newmarketingaction"> 
+        <div class="pop-up-container pop-up-container-newaction pop-up-container-newmarketingaction pop-up-container-newaction-overflow"> 
             <div class="pop-up-title pop-up-title-h1"> Create New Action</div>
              <div class="pop-up-exit-container" id="addactionClose">
                 <a href="" class="pop-up-exit-icon">
