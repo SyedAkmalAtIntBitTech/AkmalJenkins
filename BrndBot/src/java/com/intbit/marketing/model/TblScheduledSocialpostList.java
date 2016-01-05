@@ -27,7 +27,6 @@ import org.hibernate.annotations.TypeDefs;
 @TypeDefs( {@TypeDef( name= "StringJsonObject", typeClass = StringJsonUserType.class)})
 public class TblScheduledSocialpostList  implements java.io.Serializable {
 
-
      private int id;
      private Integer userId;
      private String imageName;
@@ -35,7 +34,8 @@ public class TblScheduledSocialpostList  implements java.io.Serializable {
      private String metadata;
      private String type;
      private TblScheduledEntityList tblScheduledEntityList;
-
+     private String imageType;
+     
     public TblScheduledSocialpostList() {
     }
 
@@ -123,6 +123,15 @@ public class TblScheduledSocialpostList  implements java.io.Serializable {
     @JoinColumn(name="entity_list_id")
     public TblScheduledEntityList getTblScheduledEntityList() {
         return this.tblScheduledEntityList;
+    }
+
+    @Column(name="image_type", length=30)    
+    public String getImageType() {
+        return imageType;
+    }
+
+    public void setImageType(String imageType) {
+        this.imageType = imageType;
     }
     
     public void setTblScheduledEntityList(TblScheduledEntityList tblScheduledEntityList) {

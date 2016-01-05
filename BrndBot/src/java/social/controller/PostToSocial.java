@@ -68,7 +68,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 String url1 = request.getParameter("url");
                 String returnMessage = PostToFacebook.postStatus(accessToken, title, 
                         file_image_path, posttext, imagePostURL, getImageFile, url1, 
-                        description, user_id, htmlString);
+                        description, imageType, user_id, htmlString);
             }
             if (isTwitter.equalsIgnoreCase("true")) {
 
