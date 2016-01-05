@@ -19,25 +19,29 @@
                 $("#"+id).html(content);
             }
             else
-            {   count+=1;
+            {   
+                
+                count+=1;
                 $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#"+id).toggleClass('selection-icon');
             $("#"+id).toggleClass('selection-icon-selected');
             if(count > 0)
             {
-                $(".delete-button").show();
+                $("#removeselactions").show();
+//                $(".delete-button").show();
                  $(".gray-button").show();
-                 $("#addcontact").hide();
+//                 $("#addcontact").hide();
                  $("#addcontacts").hide();
-                 $(".add-action-button").hide();
+//                 $(".add-action-button").hide();
             }
             if(count==0)
             {
-                 $(".add-action-button").show();
-                 $(".delete-button").hide();
+                $("#removeselactions").hide();
+//                 $(".add-action-button").show();
+//                 $(".delete-button").hide();
                  $(".gray-button").hide();
-                 $("#addcontact").show();
+//                 $("#addcontact").show();
                  $("#addcontacts").show();
             }
         }
@@ -90,6 +94,7 @@
 
             
             $(document).ready(function () {
+                $("#removeselactions").hide();
                 $("#emaildraftsdiv").hide();
                 $(".delete-button").hide();
                 $(".gray-button").hide();

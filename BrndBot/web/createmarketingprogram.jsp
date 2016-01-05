@@ -36,7 +36,7 @@
                 <div class="h1">Please choose a marketing program type.</div>
                 <div class="button-row col-1of1" >
                     <div class="button-column fleft col-1of10 pushright hint--bottom" ng-repeat="category in categories" data-hint="{{category.name}}">
-                        <a href="marketingprograms.jsp?categoryid={{category.category_id}}" class="fleft" >
+                        <a href="marketingprogramsnew.jsp?categoryid={{category.category_id}}" class="fleft" >
                             <img type="image/svg+xml" src="{{category.image}}" class="{{category.order}} big-selection-button" style="cursor:pointer;height:100px; width:100%;" ng-click="showMarketingPrograms(category.category_id)"></img>
                         </a>
                     </div>                 
