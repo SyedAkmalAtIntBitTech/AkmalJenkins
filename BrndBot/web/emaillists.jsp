@@ -26,6 +26,7 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="js/popup.js" type="text/javascript"></script> 
+    <link rel="stylesheet" href="css/popup.css"/>
     <title>BrndBot - Email List</title>  
 <!--      <script>
        
@@ -195,9 +196,9 @@
                 <!--<div class="exit-button-detail"></div>-->
                 <div class="page-title-regular page-title-font">Your Email Hub</div>
                 <div class="page-cta-container">
-                <a href="">
-                 <div class="delete-button md-button button fleft"  id="deleteEmailList" ng-click="deleteEmailList()" > Delete Email List</div>
-                </a>
+<!--                <a href="">
+                 <div class="delete-button md-button button fleft"  id="deleteEmailList"  > Delete Email List</div>
+                </a>-->
                 <a href="">
                     <div id="addemlstbtn" class="add-action-button md-button button-text-1" ng-click="addemaillist()"> Add Email List</div>
                 </a>
@@ -329,11 +330,10 @@
     </div>
   
         <!--CTA Bar-->
-<!--        <div class="bottom-cta-bar">
-            <div class="bottom-cta-button-container">
-                REMOVE BUTTON HERE
-               <div class="remove-action-detail md-button button-text-1">Remove Selected Action(s)</div>
+        <div class="bottom-cta-bar padleft" id="removeselactions">
+            <div class="bottom-cta-button-container padright">
+               <div class="remove-action-detail md-button button-text-1" ng-click="deleteEmailList()">Remove Selected Action(s)</div>
             </div>
-        </div>-->
+        </div>
     </body>
 </html>
