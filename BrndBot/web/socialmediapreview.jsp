@@ -6,7 +6,7 @@
 
 <%@page import="com.controller.SqlMethods"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ include file="checksession.jsp" %>
+<%@include file="checksession.jsp" %>
 
 <%!
     SqlMethods sql_methods = new SqlMethods();
@@ -650,7 +650,7 @@ label:before {
     </head>
 
     <body ng-app>
-<intput type="hidden" id="number" value="<%=number%>"/>
+        <intput type="hidden" id="number" value="<%=number%>"/>
         <div id="fade" class="black_overlay"></div>
         <div class="container-fluid" ng-controller="socialmediapreview" id="socialmediapreview">
             <jsp:include page="leftmenu.html"/>
@@ -750,8 +750,8 @@ label:before {
             </div>
             <input type="hidden" id="imageToPost" name="imageToPost" value='<%=imageName%>'/>  
             <input type="hidden" id="accesstoken" name="accesstoken" value='<%=accesstoken%>'/>
-            <input type="hidden" id="twittweraccestoken" name="twittweraccestoken" value='<%=twitteracesstoken[0]%>'>
-            <input type="hidden" id="twitterTokenSecret" name="twitterTokenSecret" value='<%=twitteracesstoken[1]%>'>
+            <input type="hidden" id="twittweraccestoken" name="twittweraccestoken" value='<%=twitteracesstoken[0]%>'/>
+            <input type="hidden" id="twitterTokenSecret" name="twitterTokenSecret" value='<%=twitteracesstoken[1]%>'/>
             <input type="hidden" id="isFacebook" name="isFacebook" value='<%= isFacebook%>'/>
             <input type="hidden" id="isTwitter" name="isTwitter" value='<%= isTwitter%>'/>
             <input type="hidden" id="pagenameSend" name="pagenameSend" value='<%= ManagedPage%>'/>

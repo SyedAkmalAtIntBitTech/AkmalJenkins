@@ -62,10 +62,17 @@ public class ScheduleFacebookPost implements Runnable {
                         Integer userId = currentScheduledFacebookPost.getUserId();
                         PostToFacebook postToFacebook = new PostToFacebook();
                         String accessToken = postToFacebook.getFacebookAccessToken(userId);
-                        String file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + facebookPost.getImageName();
+                        String file_image_path = "";
+                        if (facebookPost.getImageType().equals("layout")){
+                            file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + facebookPost.getImageName();
+                        }else if(facebookPost.getImageType().equals("gallery")){
+                            file_image_path = AppConstants.USER_IMAGE_HOME + File.separator + userId + File.separator + facebookPost.getImageName();
+                        }
+                        
+                        facebookPost.getImageType();
                         Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "Message while scheduling the post", file_image_path);
 
-                        String message = PostToFacebook.postStatus(accessToken, linkTitle, file_image_path, postText, url, facebookPost.getImageName(), url, description, userId, null);
+                        String message = PostToFacebook.postStatus(accessToken, linkTitle, file_image_path, postText, url, facebookPost.getImageName(), url, description, facebookPost.getImageType(), userId, null);
                         if (message.equalsIgnoreCase("success")) {
                             updateStatusScheduledFacebook(currentScheduledFacebookPost);
                         }

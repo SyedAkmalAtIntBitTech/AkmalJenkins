@@ -11,6 +11,8 @@ import com.intbit.util.ServletUtil;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,8 +47,14 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             String getImageFile = request.getParameter("imageToPost");
             String getFile = request.getParameter("imagePost");
             String url = request.getParameter("url");
-
-            String file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
+            String imageType = request.getParameter("imageType");
+            String file_image_path = "";
+            
+            if (imageType.equals("layout")){
+                file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
+            }else if (imageType.equals("gallery")) {
+                file_image_path = AppConstants.USER_IMAGE_HOME + File.separator + user_id + File.separator + getImageFile;
+            }
 
 //            String file_image_path = getServletContext().getRealPath("") + "/temp/"+getImageFile;
             String imagePostURL = ServletUtil.getServerName(request.getServletContext());
@@ -58,8 +66,9 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 String title = request.getParameter("title");
                 String description = request.getParameter("description");
                 String url1 = request.getParameter("url");
-                String returnMessage = PostToFacebook.postStatus(accessToken, title, file_image_path, posttext, imagePostURL, getImageFile, url1, description, user_id, htmlString);
-
+                String returnMessage = PostToFacebook.postStatus(accessToken, title, 
+                        file_image_path, posttext, imagePostURL, getImageFile, url1, 
+                        description, imageType, user_id, htmlString);
             }
             if (isTwitter.equalsIgnoreCase("true")) {
 
@@ -68,13 +77,20 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 String text = request.getParameter("text");
                 String shortURL = request.getParameter("shorturl");
                 PrintWriter out1 = response.getWriter();
-                String returnMessage = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, text, shortURL, file_image_path, user_id, htmlString, getImageFile);
+                String returnMessage = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, 
+                        text, shortURL, file_image_path, user_id, htmlString, getImageFile);
                 out1.println(returnMessage);
-
+            }
+            
+            if (imageType.equals("layout")){
+                file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
+                File deleteFile = new File(file_image_path);
+                deleteFile.delete();
             }
 
         } catch (Exception e) {
-            
+            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getCause());
+            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getMessage());
         }
     }
 

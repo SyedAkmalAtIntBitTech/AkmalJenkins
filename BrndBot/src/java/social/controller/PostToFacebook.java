@@ -8,6 +8,7 @@ package social.controller;
 import com.controller.ApplicationContextListener;
 import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.controller.SqlMethods;
+import com.intbit.AppConstants;
 import com.intbit.PhantomImageConverter;
 import facebook4j.Facebook;
 import facebook4j.FacebookException;
@@ -32,7 +33,11 @@ import util.Utility;
 class PostToFacebook {
     public static String path = "";
 
-    public static String postStatus(String accessToken, String title, String file_image_path, String posttext, String imagePostURL, String getImageFile, String url, String description, Integer user_id, String htmlString) throws MalformedURLException {
+    public static String postStatus(String accessToken, String title, 
+            String file_image_path, String posttext, 
+            String imagePostURL, String getImageFile, 
+            String url, String description, String imageType,
+            Integer user_id, String htmlString) throws MalformedURLException {
 
         String returnMessage = "success";
         ServletContext context = null;
@@ -46,7 +51,7 @@ class PostToFacebook {
             String context_real_path = servletContext.getRealPath("");
             String imageContextPath = Utility.getServerName(context_real_path);
             Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "message while facebook post", imageContextPath);
-
+            
             if (title.equals("")) {
 
                 Media media = new Media(new File(file_image_path));
@@ -55,12 +60,22 @@ class PostToFacebook {
                 facebook.postPhoto(update);
             } else {
                 logger.info("title:"+title);
-                PostUpdate post = new PostUpdate(posttext)
-                        .picture(new URL(imageContextPath + "DownloadImage?image_type=LAYOUT_IMAGES&image_name=" + getImageFile))
-                        .name(title)
-                        .link(new URL(url))
-                        .description(description);
-                facebook.postFeed(post);
+                if (imageType.equals("layout")){
+                    PostUpdate post = new PostUpdate(posttext)
+                            .picture(new URL(imageContextPath + "DownloadImage?image_type=LAYOUT_IMAGES&image_name=" + getImageFile))
+                            .name(title)
+                            .link(new URL(url))
+                            .description(description);
+                    facebook.postFeed(post);
+                    
+                }else if (imageType.equals("gallery")){
+                    PostUpdate post = new PostUpdate(posttext)
+                            .picture(new URL(imageContextPath + "DownloadImage?image_type=GALLERY&image_name=" + getImageFile +"&user_id="+user_id))
+                            .name(title)
+                            .link(new URL(url))
+                            .description(description);
+                    facebook.postFeed(post);
+                }
             }
             Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "message while facebook post", imageContextPath);
             try {
