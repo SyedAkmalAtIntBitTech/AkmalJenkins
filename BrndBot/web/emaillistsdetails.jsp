@@ -7,8 +7,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-     <%@ include file="fonttypekit.jsp"%>
-    <%@ include file="checksession.jsp" %>
+    <%@ include file="fonttypekit.jsp"%>
+    <%@ include file="checksession.jsp"%>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
@@ -40,7 +40,7 @@ String type=request.getParameter("type");
     <div class="top-nav" >
         <div class="page-title-bar col-1of1"> 
            <div class="exit-button-detail">
-               <a class=" exit-button-icon" href="emaillists.jsp">
+                <a class=" exit-button-icon" href="emaillists.jsp">
                     <img src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/>
                 </a>
             
@@ -84,7 +84,9 @@ String type=request.getParameter("type");
                             <div class="col-1of1 slat-unit fleft ">
                                 <a href="">
                                     <div class="selection-container col-5p fleft"> 
-                                        <div class="selection-icon" id="{{email.id}}" onclick="selemlcheckbox(this.id);"><input type="checkbox" id="emailid{{email.emailAddress}}" value="{{email.emailAddress}}" name="emaillistname" hidden></input></div>
+                                        <div class="selection-icon" id="{{email.id}}" onclick="selemlcheckbox(this.id);">
+                                            <input type="checkbox" id="emailid{{email.emailAddress}}" value="{{email.emailAddress}}" name="emaillistname" hidden></input>
+                                        </div>
                                     </div>
                                 </a>
                                 <div class="slat-title-container col-4of10 fleft">
@@ -121,7 +123,7 @@ String type=request.getParameter("type");
                     <textarea width="400" height="500" id="textArea"></textarea><br><br>
                     <input  id="emailSubjectContinueButton" type="button" class="button button--moema button--text-thick button--text-upper button--size-s" value="Update" ng-click="updateEmailList()">
                 </div>
-            </div>
+        </div>
     </div>
 
     </div>

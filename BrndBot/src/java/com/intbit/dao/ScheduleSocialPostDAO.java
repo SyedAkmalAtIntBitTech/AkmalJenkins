@@ -50,10 +50,11 @@ public class ScheduleSocialPostDAO {
             String scheduleDesc,
             Timestamp scheduleTime,
             String templateStatus,
+            String imageType,
             Connection conn) throws SQLException {
         String sql = "INSERT INTO tbl_scheduled_socialpost_list "
-                + " (user_id, image_name, token_data, metadata, type) VALUES"
-                + " (?, ?, ?, ?, ?) RETURNING id";
+                + " (user_id, image_name, token_data, metadata, type, image_type) VALUES"
+                + " (?, ?, ?, ?, ?, ?) RETURNING id";
         Map<String, Integer> methodResponse = new HashMap<>();
         int scheduleSocialPostId = -1;
         try {
@@ -72,6 +73,7 @@ public class ScheduleSocialPostDAO {
                 ps.setObject(4, metadata);
 
                 ps.setString(5, type);
+                ps.setString(6, imageType);
                 ps.execute();
                 try (ResultSet rs = ps.getResultSet()) {
                     if (rs.next()) {
@@ -107,11 +109,11 @@ public class ScheduleSocialPostDAO {
             Map<String, Object> tokenDataMap,
             Map<String, Object> metadataMap,
             String type,
-            String templateStatus,
+            String templateStatus, String imageType,
             Connection conn) throws SQLException {
         String sql = "INSERT INTO tbl_scheduled_socialpost_list "
-                + " (user_id, image_name, token_data, metadata, type) VALUES"
-                + " (?, ?, ?, ?, ?) RETURNING id";
+                + " (user_id, image_name, token_data, metadata, type, image_type) VALUES"
+                + " (?, ?, ?, ?, ?, ?) RETURNING id";
         Map<String, Integer> methodResponse = new HashMap<>();
         int scheduleSocialPostId = -1;
         try {
@@ -130,6 +132,7 @@ public class ScheduleSocialPostDAO {
                 ps.setObject(4, metadata);
 
                 ps.setString(5, type);
+                ps.setString(6, imageType);
                 ps.execute();
                 try (ResultSet rs = ps.getResultSet()) {
                     if (rs.next()) {
@@ -175,6 +178,7 @@ public class ScheduleSocialPostDAO {
                     String tokenData = rs.getString("token_data");
                     String metadata = rs.getString("metadata");
                     String type = rs.getString("type");
+                    String image_type = rs.getString("image_type");
                     Map<String, Object> tokenDataMap = 
                             AppConstants.GSON.fromJson(tokenData, Map.class);
                     Map<String, Object> metadataMap = 
@@ -185,6 +189,8 @@ public class ScheduleSocialPostDAO {
                     socialPostDetails.put("token_data", tokenDataMap);
                     socialPostDetails.put("metadata", metadataMap);
                     socialPostDetails.put("type", type);
+                    socialPostDetails.put("image_type", image_type);
+                    
                 }
             }
         }

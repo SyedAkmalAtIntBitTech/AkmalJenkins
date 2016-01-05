@@ -123,6 +123,7 @@ public class ScheduleSocialPostServlet extends HttpServlet {
                     String scheduleDesc = requestBodyMap.containsKey("schedule_desc")
                             ? String.valueOf(requestBodyMap.get("schedule_desc")) : null;
                     String marketingType = "0";
+                    String imageType = requestBodyMap.get("image_type").toString();
                     Map<String, Integer> daoResponse = ScheduleSocialPostDAO.addToScheduleSocialPost(
                             userId,
                             requestBodyMap.get("image_name").toString(),
@@ -134,6 +135,7 @@ public class ScheduleSocialPostServlet extends HttpServlet {
                             scheduleDesc,
                             scheduleTimeStamp,
                             TemplateStatus.template_saved.toString(),
+                            imageType,
                             conn);
                     daoResponseList.add(daoResponse);
                 }

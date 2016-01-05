@@ -138,7 +138,7 @@
                     });
                 });
 
-                $("#schedulethepost").click(function () {
+                $("#socialscheduleid").click(function () {
                     var isFacebook = $("#isFacebook").val();
                     var isTwitter = $("#isTwitter").val();
                     var schedule_date = $("#schedule_social_date").val();
@@ -149,8 +149,8 @@
 //                        var schedule = $("#schedule_time").val();
                     var facebookac=$("#facebookactions").val();
                     var twitterac=$("#twitteractions").val();
-                    if(programs=== "0")
-                    {
+                    var imagetype = $("#gallery").val();
+                    if(programs=== "0"){
                         if(schedule_date==="" && schedule_time==="" && schedule_title==="" && schedule_desc==="")
                         {
                             if(number===2)
@@ -186,9 +186,7 @@
                                     }
                                 }
                             }
-                        }
-                        else
-                        {
+                        }else{
                         if(schedule_title==="")
                         {
                             alert("Please Enter Title");
@@ -214,9 +212,7 @@
                             return false;
                         }
                     }
-                    }
-                    else
-                    {
+                    }else{
                         if(number===2)
                         {
                             if(facebookac==="0")
@@ -270,7 +266,7 @@
                     }
                     
 //                        var dateepoch = Date.parse(schedule);
-                        
+                    alert(schedule_id_facebook);
                     console.log(schedule_id_facebook);
                     if ((schedule_id_facebook == "0") && (schedule_id_twitter == "0")) {
                         var schedule_date = $("#schedule_social_date").val();
@@ -279,8 +275,6 @@
                         var schedule_desc = $("#schedule_desc").val();
 //                        var schedule = $("#schedule_time").val();
 //                        var dateepoch = Date.parse(schedule);
-                        
-                        
                         var l=schedule_date.toLocaleString() +" "+schedule_time.toLocaleString();
                         var schedule_time = Date.parse(l);
                         console.log("Epoch: " + schedule_time);
@@ -311,8 +305,6 @@
 //
 //                        var newEpoch = schedule_time;
 //                        console.log("New Epoch: " + newEpoch);
-                        
-
                         var social_schedule = "";
                         if (isFacebook == "true" && isTwitter == "false") {
                             
@@ -324,6 +316,7 @@
                                     schedule_title: schedule_title,
                                     program_id: program_id,
                                     schedule_desc: schedule_desc,
+                                    image_type:imagetype,
                                     token_data: {
                                         "access_token": '"' + $("#accesstoken").val() + '"'
                                     },
@@ -345,6 +338,7 @@
                                     schedule_title: schedule_title,
                                     program_id: program_id,
                                     schedule_desc: schedule_desc,
+                                    image_type:imagetype,
                                     token_data: {
                                         "access_token": '"' + $("#twittweraccestoken").val() + '"',
                                         "token_secret": '"' + $("#twitterTokenSecret").val() + '"'
@@ -369,42 +363,44 @@
 //                            alert(ManagedPage);
 //                            alert($("#link_title").val());
                             
-                            social_schedule =
-                                    [
-                                        {
-                                            type: getfacebook(),
-                                            image_name: image_name,
-                                            schedule_time: myEpoch,
-                                            schedule_title: schedule_title,
-                                            program_id: program_id,
-                                            schedule_desc: schedule_desc,
-                                            token_data: {
-                                                "access_token": '"' + $("#accesstoken").val() + '"'
-                                            },
-                                            metadata: {
-                                                post_text: '"' + $("#posttext").val() + '"',
-                                                url: '"' + $("#url").val() + '"',
-                                                ManagedPage: '"' + ManagedPage + '"',
-                                                title:'"' + $("#link_title").val() + '"'
-                                            }
-                                        },
-                                        {
-                                            type: gettwitter(),
-                                            image_name: image_name,
-                                            schedule_time: myEpoch,
-                                            schedule_title: schedule_title,
-                                            program_id: program_id,
-                                            schedule_desc: schedule_desc,
-                                            token_data: {
-                                                "access_token": '"' + $("#twittweraccestoken").val() + '"',
-                                                "token_secret": '"' + $("#twitterTokenSecret").val() + '"'
-                                            },
-                                            metadata: {
-                                                text: '"' + $("#twittertext").val() + '"',
-                                                shorturl:'"' + $("#url").val()+'"'
-                                            }
-                                        }
-                                    ];
+                    social_schedule =
+                            [
+                                {
+                                    type: getfacebook(),
+                                    image_name: image_name,
+                                    schedule_time: myEpoch,
+                                    schedule_title: schedule_title,
+                                    program_id: program_id,
+                                    schedule_desc: schedule_desc,
+                                    image_type:imagetype,
+                                    token_data: {
+                                        "access_token": '"' + $("#accesstoken").val() + '"'
+                                    },
+                                    metadata: {
+                                        post_text: '"' + $("#posttext").val() + '"',
+                                        url: '"' + $("#url").val() + '"',
+                                        ManagedPage: '"' + ManagedPage + '"',
+                                        title:'"' + $("#link_title").val() + '"'
+                                    }
+                                },
+                                {
+                                    type: gettwitter(),
+                                    image_name: image_name,
+                                    schedule_time: myEpoch,
+                                    schedule_title: schedule_title,
+                                    program_id: program_id,
+                                    schedule_desc: schedule_desc,
+                                    image_type:imagetype,
+                                    token_data: {
+                                        "access_token": '"' + $("#twittweraccestoken").val() + '"',
+                                        "token_secret": '"' + $("#twitterTokenSecret").val() + '"'
+                                    },
+                                    metadata: {
+                                        text: '"' + $("#twittertext").val() + '"',
+                                        shorturl:'"' + $("#url").val()+'"'
+                                    }
+                                }
+                            ];
                         }
                         console.log(JSON.stringify(social_schedule));
                         $.ajax({
@@ -422,7 +418,7 @@
                                 document.location.href = "dashboard.jsp";
                             }
                         });
-                    } else {
+                    }else {
                         if (isFacebook == "true" && isTwitter == "false") {
                             social_schedule = [
                                 {
@@ -430,6 +426,7 @@
                                     image_name: image_name,
                                     program_id: program_id,
                                     schedule_id: schedule_id_facebook,
+                                    image_type:imagetype,
                                     token_data: {
                                         "access_token": '"' + $("#accesstoken").val() + '"'
                                     },
@@ -449,6 +446,7 @@
                                     image_name: image_name,
                                     program_id: program_id,
                                     schedule_id: schedule_id_twitter,
+                                    image_type:imagetype,
                                     token_data: {
                                         "access_token": '"' + $("#twittweraccestoken").val() + '"',
                                         "token_secret": '"' + $("#twitterTokenSecret").val() + '"'
@@ -462,40 +460,41 @@
 
                         } else if (isFacebook == "true" && isTwitter == "true") {
 
-                            social_schedule =
-                                    [
-                                        {
-                                            type: getfacebook(),
-                                            image_name: image_name,
-                                            program_id: program_id,
-                                            schedule_id: schedule_id_facebook,
-                                            token_data: {
-                                                "access_token": '"' + $("#accesstoken").val() + '"'
-                                            },
-                                            metadata: {
-                                                post_text: '"' + $("#posttext").val() + '"',
-                                                url: '"' + $("#url").val() + '"',
-                                                ManagedPage: '"' + ManagedPage + '"',
-                                                title:'"' + $("#link_title").val() + '"'
-                                            }
-                                        },
-                                        {
-                                            type: gettwitter(),
-                                            image_name: image_name,
-                                            program_id: program_id,
-                                            schedule_id: schedule_id_twitter,
-                                            token_data: {
-                                                "access_token": '"' + $("#twittweraccestoken").val() + '"',
-                                                "token_secret": '"' + $("#twitterTokenSecret").val() + '"'
-                                            },
-                                            metadata: {
-                                                text: '"' + $("#twittertext").val() + '"',
-                                                shorturl:'"' + $("#url").val()+'"'
-                                            }
-                                        }
-                                    ];
+                    social_schedule =
+                            [
+                                {
+                                    type: getfacebook(),
+                                    image_name: image_name,
+                                    program_id: program_id,
+                                    schedule_id: schedule_id_facebook,
+                                    image_type:imagetype,
+                                    token_data: {
+                                        "access_token": '"' + $("#accesstoken").val() + '"'
+                                    },
+                                    metadata: {
+                                        post_text: '"' + $("#posttext").val() + '"',
+                                        url: '"' + $("#url").val() + '"',
+                                        ManagedPage: '"' + ManagedPage + '"',
+                                        title:'"' + $("#link_title").val() + '"'
+                                    }
+                                },
+                                {
+                                    type: gettwitter(),
+                                    image_name: image_name,
+                                    program_id: program_id,
+                                    schedule_id: schedule_id_twitter,
+                                    image_type:imagetype,
+                                    token_data: {
+                                        "access_token": '"' + $("#twittweraccestoken").val() + '"',
+                                        "token_secret": '"' + $("#twitterTokenSecret").val() + '"'
+                                    },
+                                    metadata: {
+                                        text: '"' + $("#twittertext").val() + '"',
+                                        shorturl:'"' + $("#url").val()+'"'
+                                    }
+                                }
+                            ];
                         }
-                        alert();
                         console.log(JSON.stringify(social_schedule));
                         $.ajax({
                             url: getHost() + 'ScheduleSocialPostActions',
