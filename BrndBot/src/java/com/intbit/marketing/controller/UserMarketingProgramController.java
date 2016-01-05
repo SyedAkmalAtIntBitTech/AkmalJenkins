@@ -585,7 +585,6 @@ public class UserMarketingProgramController {
             }
             scheduledEntityListService.update(scheduled_entity_list);
             logger.log(Level.INFO, "Refresh Email scheduler in Usermarketing");
-            ApplicationContextListener.refreshEmailRecuringScheduler();
             return "true";
         } catch (Throwable throwable) {
             logger.log(Level.SEVERE, null, throwable);
@@ -616,15 +615,6 @@ public class UserMarketingProgramController {
             scheduledEntityListService.update(scheduled_entity_list);
 
             logger.log(Level.INFO, "Refresh Email, FB and Twitter scheduler in Usermarketing");
-
-            ApplicationContextListener.refreshFacebookScheduler();
-            ApplicationContextListener.refreshTwitterScheduler();
-            ApplicationContextListener.refreshEmailScheduler();
-
-            if (entity_type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString())) {
-            } else if (entity_type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString())) {
-            } else if (entity_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
-            }
 
             return "true";
         } catch (Throwable throwable) {
