@@ -24,7 +24,7 @@ function controllerMarketingCategories($scope, $http, $window){
     };
 
     $scope.showMarketingPrograms = function(){        
-        var marketing_path = getHost() + 'marketingprograms.jsp?categoryid='+category_id;
+        var marketing_path = getHost() + 'marketingprogramsnew.jsp?categoryid='+category_id;
         window.location.replace(marketing_path);
     };
     
@@ -34,6 +34,14 @@ function controllerMarketingCategories($scope, $http, $window){
             method: 'GET',
             url: 'displaymarketingProgram.do?marketingCategoryId='+$("#categoryidHidden").val()
         }).success(function (data, status, headers, config) {
+            if(JSON.stringify(data.marketingProgramsData) === "[]"){
+                $("#selmarprog").empty().append('Oops! No Marketing programs. Please select any other category.');
+                $("#cont").hide();
+                $(".subcategory-content").hide();
+                setTimeout(function (){
+                    var marketing_createpath = getHost() + 'createmarketingprogram.jsp';
+                    window.location.replace(marketing_createpath);},3700);
+            }
             $scope.programs = data.marketingProgramsData;
             setTimeout(function () {
                 $("#"+data.marketingProgramsData[0].id).click();
@@ -50,13 +58,13 @@ function controllerMarketingCategories($scope, $http, $window){
     
     $scope.showhtmldata = function(id,html_data){
                 $(".prognamelst").css("background-color", "#fff").css("color","#3f3f42");
-                $("#"+id).css("background-color", "#5cc1a3").css("color","#f6f7f7");
-            
-            $(".htmldatacontainer").css("overflow", "scroll");
-            $("#html_data").empty();
-        $("#html_data").append(html_data);
+                $(".subcat"+id).css("background-color","#5cc1a3").css("color","#f6f7f7");
+//            console.log(html_data);
+        $("#html_data").empty();
+        $("#html_data").contents().find('body').append(html_data);    
+//        $("#html_data").empty().append(html_data);
         $("#programidHidden").val(id);
-       $(".newclientpromo").css("transform","scale(0.57)");
+//       $(".newclientpromo").css("transform","scale(0.57)");
     };
     $scope.submitclick = function(){
         if($("#programidHidden").val()!="0")
