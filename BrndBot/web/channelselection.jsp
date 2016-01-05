@@ -5,8 +5,8 @@
 --%>
 <%@page import="com.controller.SqlMethods"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%! String minbodyid;%>
-<% minbodyid = request.getParameter("id");%>
+<%! String mindbodyid;%>
+<% mindbodyid = request.getParameter("id");%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -59,9 +59,9 @@
 </head>    
 
 <body ng-app>
-    <input type="hidden" name="minbodyid" id="minbodyid" value="<%=minbodyid%>"
-    <input type="hidden" name="category_id" id="category_id" value="<%=category_id%>"
-    <input type="hidden" name="sub_category_id" id="sub_category_id" value="<%=sub_category_id%>"
+    <input type="hidden" name="mindbodyid" id="mindbodyid" value="<%=mindbodyid%>"/>
+    <input type="hidden" name="category_id" id="category_id" value="<%=category_id%>"/>
+    <input type="hidden" name="sub_category_id" id="sub_category_id" value="<%=sub_category_id%>"/>
     <!--SideNav-->
     <div class="content-main">
     <%@include file="navbarv2.jsp" %>
@@ -88,12 +88,12 @@
                             <img src="images/NavIcon_Email-white.svg" id="email" class="big-selection-button" style="cursor:pointer;"/>
                         </a>
                     </div>
-                    <div class="button-column fleft col-1of10 pushright hint--bottom" ng-show="social_temlates_print != 0" data-hint="Print">
+                    <div class="button-column fleft col-1of10 pushright hint--bottom" ng-show="social_templates_print != 0" data-hint="Print">
                         <a  onclick="selected_media('print')" class="fleft" style="height:100%; width:100%;">
                             <img src="images/NavIcon_Social-white.svg" id="print" class="big-selection-button" style="cursor:pointer;"/>
                         </a>
                     </div>
-                    <div class="button-column fleft col-1of10 pushright hint--bottom" ng-show="social_temlates_download != 0" data-hint="Download">
+                    <div class="button-column fleft col-1of10 pushright hint--bottom" ng-show="social_templates_download != 0" data-hint="Download">
                         <a  onclick="selected_media('image')" class="fleft" style="height:100%; width:100%;">
                             <img src="images/NavIcon_Social-white.svg" id="download" class="big-selection-button" style="cursor:pointer;"/>
                         </a>

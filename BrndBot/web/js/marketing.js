@@ -1182,7 +1182,6 @@ function controllerMarketingCampaign($scope, $http) {
         if (entity_type === getfacebook()) {
             $slider=2;
             sliderDialog = "#facebooksection";
-            
             $("#facebooksection").show();
             $("#facebookactionsection").show();
             $("#fbactionsave").show();
@@ -1713,7 +1712,7 @@ function controllerMarketingCampaign($scope, $http) {
     };
 
 
-$scope.addEditRecuringAction = function(type,program_id,entity_id){
+    $scope.addEditRecuringAction = function(type,program_id,entity_id){
             window.open(getHost() + 'emailautomation.jsp?type='+type+'&program_id='+program_id+'&entity_id='+entity_id, "_self");
       };
 

@@ -27,7 +27,6 @@
     try {
         sql_methods.session = request.getSession();
         user_id = (Integer) sql_methods.session.getAttribute("UID");
-        out.println(user_id);
     } catch (Exception e) {
         System.out.println(e.getCause());
         System.out.println(e.getMessage());
@@ -51,7 +50,8 @@
                 <div class="top-navbar-inner-bb-detail">
                     <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Facebook Post Action Detail</span></div>
                     <div class="top-nav-cta-container">
-                        <div class="approve-button-detail md-button" id="fbapprove">Approve</div>
+                        <div class="approve-button-detail md-button" id="fbapprove" ng-show="facebook_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_facebook)">Approve to Send</div>
+                        <div class="approve-button-detail md-button" id="fbapprove" ng-show="facebook_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_facebook)">Disapprove</div>
                         <div class="delete-button-detail md-button" ng-click="deleteSchedule(schedule_id,'delete', master_facebook)">Delete Action</div>
                     </div>    
                 </div>

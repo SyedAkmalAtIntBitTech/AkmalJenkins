@@ -59,7 +59,7 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
              sqlmethods.session.setAttribute("email_subject", emailSubject);
              sqlmethods.session.setAttribute("email_addresses", email_addresses);
              sqlmethods.session.setAttribute("email_list", emaillistname);
-             
+             response.getWriter().write("true");
         }catch (Exception e){
             Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, e.getCause());
             Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, e.getMessage());

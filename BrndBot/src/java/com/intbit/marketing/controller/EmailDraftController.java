@@ -143,26 +143,29 @@ public class EmailDraftController {
             List<TblEmailDraft> emaildraftlist = emaildraftservice.getAllEmailDrafts(user_id);
 
             JSONArray json_array_email_draft = new JSONArray();
+            
+            if (emaildraftlist.size() != 0){
+                for (TblEmailDraft emaildraft : emaildraftlist) {
+                    JSONObject json_email_draft = new JSONObject();
 
-            for (TblEmailDraft emaildraft : emaildraftlist) {
-                JSONObject json_email_draft = new JSONObject();
+                    json_email_draft.put("id", emaildraft.getId());
+                    json_email_draft.put("draftdate", emaildraft.getDraftDate().getTime());
+                    json_email_draft.put("editdate", emaildraft.getDraftDate().getTime());
+                    String json_string_data = (String) emaildraft.getDraftJson();
+                    JSONParser json_parser = new JSONParser();
+                    JSONObject json_draft_data = (JSONObject) json_parser.parse(json_string_data);
+                    json_email_draft.put("emailsubject", json_draft_data.get("emailsubject"));
+                    json_email_draft.put("categoryid", json_draft_data.get("categoryid"));
+                    json_email_draft.put("subcategoryid", json_draft_data.get("subcategoryid"));
+                    json_email_draft.put("subcategoryname", json_draft_data.get("subcategoryname"));
+                    json_email_draft.put("jsonemaildraftdata", json_draft_data.get("htmlbodystring"));
 
-                json_email_draft.put("id", emaildraft.getId());
-                json_email_draft.put("draftdate", emaildraft.getDraftDate().getTime());
-                json_email_draft.put("editdate", emaildraft.getDraftDate().getTime());
-                String json_string_data = (String) emaildraft.getDraftJson();
-                JSONParser json_parser = new JSONParser();
-                JSONObject json_draft_data = (JSONObject) json_parser.parse(json_string_data);
-                json_email_draft.put("emailsubject", json_draft_data.get("emailsubject"));
-                json_email_draft.put("categoryid", json_draft_data.get("categoryid"));
-                json_email_draft.put("subcategoryid", json_draft_data.get("subcategoryid"));
-                json_email_draft.put("subcategoryname", json_draft_data.get("subcategoryname"));
-                json_email_draft.put("jsonemaildraftdata", json_draft_data.get("htmlbodystring"));
-
-                json_array_email_draft.add(json_email_draft);
+                    json_array_email_draft.add(json_email_draft);
+                }
+                json_object_email_draft.put("emaildrafts", json_array_email_draft);
+            }else {
+                json_object_email_draft.put("nodrafts", "yes");
             }
-            json_object_email_draft.put("emaildrafts", json_array_email_draft);
-            json_object_email_draft.put("nodrafts", "yes");
             System.out.println(json_object_email_draft);
             return json_object_email_draft.toString();
         } catch (Exception e) {

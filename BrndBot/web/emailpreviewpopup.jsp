@@ -31,7 +31,8 @@
                 <div  class="top-navbar-inner-bb-detail">
                     <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Email Action Detail</span></div>
                     <div class="top-nav-cta-container">
-                        <div class="approve-button-detail md-button" id="emailapprove" ng-click="Approval(schedule_id, 'approved', master_email)">Approve</div>
+                        <div class="approve-button-detail md-button" id="emailapprove" ng-show="email_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_email)">Approve to Send</div>
+                        <div class="approve-button-detail md-button" id="emailapprove" ng-show="email_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_email)">Disapprove</div>
                         <div class="delete-button-detail md-button" ng-click="deleteSchedule(schedule_id,'delete', master_email)">Delete Action</div>
                     </div>    
                 </div>
@@ -170,7 +171,8 @@
                                     <div class="h2new textCenter textColor-Graynew">
                                         No emails saved to this action.
                                     </div>
-                                    <a class="link" href="dashboard.jsp"><div class="md-button empty-state-cta">
+                                    <a class="link" href="dashboard.jsp">
+                                        <div class="md-button empty-state-cta">
                                         Go to Dashboard
                                         </div></a>
                                 </div>

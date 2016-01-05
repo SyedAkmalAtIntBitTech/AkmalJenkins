@@ -299,7 +299,7 @@
                                     <div ng-show="emaildraftnumber == '0'">{{emaildraftsstatus}}</div>
                                 </div>
                             </div>
-                        <li class="slat-container fleft selfclear"  ng-repeat="drafts in emaildrafts">
+                        <li class="slat-container fleft selfclear" ng-repeat="drafts in emaildrafts">
                             <div class="selection-container col-5p" id="deleteids"> 
                                 <div class="selection-icon" id="{{drafts.id}}" onclick="selcheckbox(this.id)">
                                     <input type="checkbox" id="{{drafts.id}}" value="{{drafts.id}}" name="draftname" style="display:none;"></input>

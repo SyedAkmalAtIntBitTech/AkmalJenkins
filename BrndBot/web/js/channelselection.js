@@ -9,18 +9,18 @@ $(document).ready(function (){
             function selected_media(selectedmedia) {
                 
                 if (selectedmedia == print){
-                    var configuration = global_host_address + "socialeditor.jsp" + "?id=minbodyid" + "&mediatype=print";
+                    var configuration = global_host_address + "socialeditor.jsp" + "?id=mindbodyid" + "&mediatype=print";
                     window.open(configuration, "_self");
                 }else if (selectedmedia == download){
-                    var configuration = global_host_address + "socialeditor.jsp" + "?id=minbodyid" + "&mediatype=image";
+                    var configuration = global_host_address + "socialeditor.jsp" + "?id=mindbodyid" + "&mediatype=image";
                     window.open(configuration, "_self");
                 }else if (selectedmedia == 'social'){
-                    var configuration = global_host_address + "selectpromotesocialmedia.jsp" + "?id=minbodyid" + "&mediatype=social";
+                    var configuration = global_host_address + "selectpromotesocialmedia.jsp" + "?id=mindbodyid" + "&mediatype=social";
                     window.open(configuration, "_self");
                 }else if (selectedmedia == 'emailsubject'){
-                    var configuration = global_host_address + "emailsubject.jsp" + "?id=minbodyid" + "&mediatype=email";
+                    var configuration = global_host_address + "emailsubject.jsp" + "?id=mindbodyid" + "&mediatype=email";
                     window.open(configuration, "_self");
-                }    
+                }
             }
             
             function selectPromoteMediaController($scope, $http){
@@ -37,12 +37,12 @@ $(document).ready(function (){
                     }).success(function (data, status, headers, config) {
                         $scope.email_templates = data.email_template_availability;
                         $scope.social_templates = data.social_template_availability;
-                        $scope.social_temlates_print=data.social_template_print;
-                        $scope.social_temlates_download=data.social_template_download;
+                        $scope.social_templates_print=data.social_template_print;
+                        $scope.social_templates_download=data.social_template_download;
                         var email=JSON.stringify($scope.email_templates);
                         var social=JSON.stringify($scope.social_templates);
-                        var print=JSON.stringify($scope.social_temlates_print);
-                        var download=JSON.stringify($scope.social_temlates_download);
+                        var print=JSON.stringify($scope.social_templates_print);
+                        var download=JSON.stringify($scope.social_templates_download);
                         if((email==="0")&&(social==="0")&&(print==="0")&&(download==="0")){
                             $("#channelhead").empty().append('Oops! No Channels to Select. Please wait, its redirecting to Dashboard...');
                             $(".h1").hide();
@@ -52,8 +52,8 @@ $(document).ready(function (){
                         
                         if($scope.email_templates !== 0){$("#eml").show();$("")}
                         if($scope.social_templates !== 0){$("#soc").show();}
-                        if($scope.social_temlates_print !== 0){$("#prnt").show();}
-                        if($scope.social_temlates_download !== 0){$("#dwnld").show();}
+                        if($scope.social_templates_print !== 0){$("#prnt").show();}
+                        if($scope.social_templates_download !== 0){$("#dwnld").show();}
                                      
                         if (data === error) {
                             alert(data);
