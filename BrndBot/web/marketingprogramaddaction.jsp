@@ -33,7 +33,7 @@
         <div id="addAction">
     <!--Top Nav-->   
     <div class="pop-up-background">
-        <div class="pop-up-container pop-up-container-newaction pop-up-container-newmarketingaction"> 
+        <div class="pop-up-container pop-up-container-newaction pop-up-container-newmarketingaction pop-up-container-newaction-overflow"> 
             <div class="pop-up-title pop-up-title-h1"> Create New Action</div>
              <div class="pop-up-exit-container" id="addactionClose">
                 <a href="" class="pop-up-exit-icon">
