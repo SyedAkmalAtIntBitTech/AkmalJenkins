@@ -178,6 +178,7 @@ public class SchedulerUtilityMethods {
                     result.setType(resultSet.getString("type"));
                     result.setTblScheduledEntityList(new TblScheduledEntityList(resultSet.getInt("entity_list_id")));
                     result.setUserId(resultSet.getInt("user_id"));
+                    result.setImageType(resultSet.getString("image_type"));
                 }
             }
         } catch (Exception e) {

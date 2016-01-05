@@ -52,7 +52,14 @@ public class ScheduleTwitterPost implements Runnable {
                     Integer userId = currentScheduledTwitterPost.getUserId();
                     String twitterAccessToken = postToTwitter.getTwitterAccessToken(userId);
                     String twitterTokenSecret = postToTwitter.getTwitterAccessTokenSecret(userId);
-                    String file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + twitterPost.getImageName();
+                    
+                    String file_image_path = "";
+                    if (twitterPost.getImageType().equals("layout")){
+                        file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + twitterPost.getImageName();
+                    }else if(twitterPost.getImageType().equals("gallery")){
+                        file_image_path = AppConstants.USER_IMAGE_HOME + File.separator + userId + File.separator + twitterPost.getImageName();
+                    }
+                    
                     Logger.getLogger(ScheduleTwitterPost.class.getName()).log(Level.SEVERE, text +" Tweet @"+new Date());
                     String message = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, text, url, file_image_path, userId, null, null);
                     if (message.equalsIgnoreCase("success")) {
