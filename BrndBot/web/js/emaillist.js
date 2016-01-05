@@ -801,7 +801,7 @@
          };
             
         $scope.getAllDrafts = function(){
-            
+            $("#emaildraftsection").hide();
             $http({
                 method : 'GET',
                 url : getHost() + 'displayAllEmailDrafts.do'
@@ -823,9 +823,9 @@
 
         $scope.editDrafts = function(draft_id, category_id,email_subject, sub_category_id, sub_category_name){
             
-             sliderDialog = "#emaildraftsection";
-            //$('#slider-button').click();
-            prevSliderDialog = "#emaildraftsection";
+//             sliderDialog = "#emaildraftsection";
+//            $('#slider-button').click();
+//            prevSliderDialog = "#emaildraftsection";
             var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id, 
                         "sub_category_id": sub_category_id, 
                         "sub_category_name": sub_category_name};
