@@ -115,6 +115,7 @@
                     $("#emllistab a").removeClass("h3-active-subnav");
                     $("#emllistab").addClass("top-subnav-links");
                     $("#emllistab a").addClass("h3"); 
+                    $("#removeselactions").hide();
                 });
                 
                 $("#emllistab").click(function (){
@@ -821,7 +822,10 @@
         };
 
         $scope.editDrafts = function(draft_id, category_id,email_subject, sub_category_id, sub_category_name){
-
+            
+             sliderDialog = "#emaildraftsection";
+            //$('#slider-button').click();
+            prevSliderDialog = "#emaildraftsection";
             var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id, 
                         "sub_category_id": sub_category_id, 
                         "sub_category_name": sub_category_name};

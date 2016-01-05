@@ -185,10 +185,12 @@
     </script>-->
 </head>    
 <body ng-app class="claro1" >
-    <div class="content-main" ng-controller="EmailListController"  >
+    <div id="fade"></div>
+    <div class="content-main" ng-controller="EmailListController" >
         <!--SideNav-->
         <%@include file="navbarv2.jsp" %>
-       <jsp:include page="createemaillist.jsp"/> 
+         <script src="js/marketing.js" type="text/javascript"></script>
+       <jsp:include page="createemaillist.jsp"/>
         <!--Top Nav-->   
         
         <div class="top-nav">
@@ -291,6 +293,8 @@
         </div>
             <div class="page-content-container email-list-contact-page email-draft-page" id="emaildraftsdiv" >
                 <div ng-controller="emailDraftsController">
+                    <jsp:include page="savedraftemailpopup.jsp"/> 
+                   
                 <div class="fleft content" ng-init="getAllDrafts()">
                     <div class="page-content-title h2">Your Email Drafts</div>
                     <!--List Starts Here-->
@@ -332,7 +336,7 @@
         <!--CTA Bar-->
         <div class="bottom-cta-bar padleft" id="removeselactions">
             <div class="bottom-cta-button-container padright">
-               <div class="remove-action-detail md-button button-text-1" ng-click="deleteEmailList()">Remove Selected Action(s)</div>
+               <div class="remove-action-detail md-button button-text-1" id="deleteEmailList" ng-click="deleteEmailList()">Remove Selected Action(s)</div>
             </div>
         </div>
     </body>

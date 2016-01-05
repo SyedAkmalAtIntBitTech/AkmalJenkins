@@ -688,7 +688,10 @@ input-field-container{
     box-sizing: border-box;
 
 }
-
+#removeselactions{
+    padding-top: 0px !important;
+    width:100% !important;
+}
 .bottom-cta-button-containernew{
     float: right;
     height: 100%;
