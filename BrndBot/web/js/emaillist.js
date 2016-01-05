@@ -800,6 +800,7 @@
                 method : 'GET',
                 url : getHost() + 'displayAllEmailDrafts.do'
             }).success(function(data, status) {
+                console.log(JSON.stringify(data));
                 if (data.nodrafts == "yes"){
                     $scope.emaildraftnumber = '0';
                     $scope.emaildraftsstatus = "No email drafts present";

@@ -26,7 +26,6 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="js/imagegallery2.js"></script>
-    <script src="js/ajaxfileupload.js" type="text/javascript"></script>
     <script src="js/socialimageselection.js" type="text/javascript"></script>
 </head>    
     <style>#imagepopup{display: none;
@@ -34,7 +33,7 @@
     z-index: 999999;
         width:100%;}</style>
 
-<body ng-app="rootApp"  class="claro1">
+<body ng-app="rootApp"  class="claro1" ng-controller="controllerMarketingCampaign">
     <!--SideNav-->
     <div class="content-main">
     <jsp:include page="navbarv2.jsp"/>  

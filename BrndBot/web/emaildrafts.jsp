@@ -57,9 +57,6 @@
             }
         }
         
-        
-        
-        
         function emailDraftsController($http, $scope){
             
         $scope.deletedrafts = function (type) {
@@ -83,7 +80,6 @@
                             "draft_ids": selected_draft};
             responseMessage = "Selected Drafts were deleted successfully";
         }
-
         
         if (confirm(message)) {
             $http({
@@ -141,7 +137,6 @@
                     $scope.emaildraftsstatus = "No email drafts present";
                 }else {
                     $scope.emaildrafts = data.emaildrafts;
-                   
                 }
 
             }).error(function(data, status) {
@@ -188,12 +183,10 @@
                 <img type="image/svg+xml" src="images/Icons/logoreverse.svg" class="bb-logo" style="cursor:pointer;"/>
             </a>
         </div>
-        
-           
     </div>
         
     <!--Top Nav-->   
-    <div class="top-nav"  ng-controller="emailDraftsController">
+    <div class="top-nav" ng-controller="emailDraftsController">
         <div class="page-title-bar col-1of1"> 
             <!--<div class="exit-button-detail"></div>-->
             <div class="page-title-regular page-title-font">Your Email Hub</div>

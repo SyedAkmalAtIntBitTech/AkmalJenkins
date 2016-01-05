@@ -569,7 +569,6 @@ input#timepicker1 {
     padding: 0;
     font-size: 20px;
     cursor: pointer;
-    opacity: 0;
     filter: alpha(opacity=0);
 }
 .file-input{
@@ -664,11 +663,16 @@ input#timepicker1 {
 select#dropdownurl,#url {
     color: #3b3b4b;
 }
-/*--------------------------------------------------------------------------------------------*/
 #addActionemllist{
     display: block;
     position: fixed;
     z-index: 99999;
     margin-left: 30%;
 }
-
+/*--------------------------------------------- satyajit start 5/01/2016-----------------------------------------------*/
+.fileupld{
+    opacity: 0;
+    margin-top: -26px;
+    width: 100%;
+}
+/*--------------------------------------------- satyajit end 5/01/2016-----------------------------------------------*/

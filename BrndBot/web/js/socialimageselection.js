@@ -830,9 +830,9 @@ function controllerMarketingCampaign($scope, $http) {
             alert("request not successful...1");
         });
     };
-    $scope.uploadFile = function(){
-        
+    $scope.uploadFile = function(){alert("..");
         $("#myFile").upload("UploadImages",function(success){
+        
            $("#fileuploaddiv").hide();
            $scope.showImages();
        });

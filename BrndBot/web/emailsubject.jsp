@@ -20,10 +20,10 @@
 <!--        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>-->
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <link href="css/popup.css" rel="stylesheet" type="text/css"/>
-           <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
-                <link rel="stylesheet" href="css/main1.css">
+        <link rel="stylesheet" href="css/main1.css">
         <script src="js/jquery.csv-0.71.js" type="text/javascript"></script>
         <title>BrndBot - Email Subject</title>
         <style>
@@ -352,7 +352,7 @@
                     //$("#clickHere").hide();
                     //$("#upload").hide();
                     //$("#emaillist").show();
-                }
+                    }
                     var email_addresses = "";
                     var email_list = "";
                         $.ajax({
@@ -365,9 +365,12 @@
                         },
                         success: function(result){
 //                            alert("Email sent successfully");
-                        document.location.href = "emaileditor.jsp?id="+<%= mindbody_id %>;
+                           
+                            if (result == "true"){
+                                document.location.href = "emaileditor.jsp?id=<%= mindbody_id %>";
+                            }
                         }
-                });
+                    });
                 
  ////////////////////////////////////////// END ////////////////////////////////////////////////
                     
@@ -757,13 +760,12 @@
                     <p class="header1 MH2"> Enter the Subject Line of the Email:</p>
                    <div class="sublingrp">
                    <div class="col-md-5 col-md-offset-0">                            
-                       <input id="emailsubject" class="inputsubline" name="emailsubject"  type="text" required>
-                        <label>SUBJECT LINE</label><br>
+                       <input id="emailsubject" class="inputsubline" name="emailsubject" type="text" required/>
+                       <label>SUBJECT LINE</label><br>
                     </div>
                     </div>
-         
               
-                    <input  id="emailSubjectContinueButton" type="button" class="button button--moema button--text-thick button--text-upper button--size-s btn-prim" value="CONTINUE">
+                    <input id="emailSubjectContinueButton" type="button" class="button button--moema button--text-thick button--text-upper button--size-s btn-prim" value="CONTINUE"/>
 
                 </div>
 

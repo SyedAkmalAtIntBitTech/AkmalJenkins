@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/popup.css">
     <link rel="shortcut icon" href="favicon.png">
+    <script src="js/ajaxfileupload.js" type="text/javascript"></script>
     <script src="js/popup.js" type="text/javascript"></script>
     </head>
     <body>
@@ -31,16 +32,17 @@
                     <div class="pop-up-title-h1-gallery fleft"> Upload an Image:</div>
                 </div>
             </div>
-            <div class="pop-up-inner-gallery ">
+            <div class="pop-up-inner-gallery" ng-controller="myCtrl">
                 <div class="imageGallery-inner-popup">
                     <div class="imageUpload-container">
 <!--                        <div class="imageUpload-drag">
                             <div class="imageUpload-drophere drop-instruction" > Drop Image Here</div>
                         </div>
                         <div class="imageUpload-browse drop-instruction"> or Browse your local files:</div> -->
+
                         <div class="browse-button">
                             <div id="triggerfile" class="md-button gray-button">Browse your Images</div>
-                            <input type="file" id="myfile" style="opacity:0;margin-top:-30px;width:100%;height:30px;cursor:pointer;"/>
+                            <input type="file" name="filesToUpload[]" id="filesToUpload" class="upload fileupld" file-model="myFile"/>
                         </div>
                     </div>
                      
