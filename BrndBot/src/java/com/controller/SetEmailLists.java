@@ -166,7 +166,7 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
             }    
         }
         catch (Exception e) {
-            System.out.println();
+            System.out.println(e);
         }
         finally {
             getSqlMethodsInstance().closeConnection();
@@ -415,11 +415,13 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
         return updateEmailListUserPreference(user_id, emailListArrayJSON);
     }
 
-    private Boolean deleteAllEmailList(Integer user_id, String emailListName) throws JSONException, SQLException {
+    
+    
+     private Boolean deleteAllEmailList(Integer user_id, String emailListName) throws JSONException, SQLException {
         org.json.simple.JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
         for (int i = 0; i < emailListArrayJSON.size(); i++) {
             JSONObject emailListJSONObject = (JSONObject)emailListArrayJSON.get(i);
-            String currentListName = (String)emailListJSONObject.get(IConstants.kEmailListNameKey);
+            String id = (String)emailListJSONObject.get(IConstants.kEmailListID);
 
             String emailAddressesSplit[] = emailListName.split(",");
             
@@ -428,14 +430,13 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
             for (String emailList : receivedEmailListNames) {
                 
                 String emailLists = emailList;
-                if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
-                    if (emailListName.equals(currentListName)) {
+                if (!emailListName.isEmpty() && !id.isEmpty()) {
+                    if(emailLists.equals(id))
+                    {
                         emailListArrayJSON.remove(i);
                     }
                 }
-
             }
-            
         }
         return updateEmailListUserPreference(user_id, emailListArrayJSON);
     }
