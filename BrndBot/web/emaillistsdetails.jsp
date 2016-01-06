@@ -39,20 +39,18 @@ String type=request.getParameter("type");
     <!--Top Nav-->   
     <div class="top-nav" >
         <div class="page-title-bar col-1of1"> 
-           <div class="exit-button-detail">
-                <a class=" exit-button-icon" href="emaillists.jsp">
-                    <img src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/>
-                </a>
-            
-            
-            </div>
+           <a class=" exit-button-icon" href="emaillists.jsp">
+               <div class="exit-button-detail">
+                <img src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/>
+               </div>
+           </a>
             <div class="page-title-with-back page-title-font"><%=list_name%></div>
             <div class="page-cta-container">
                 <a href="" class="gray-button button pushright fleft">
                     <div class=" md-button" onclick="unsel()"> Unselect Contacts</div>    
                 </a>
-                <a href="" class="delete-button button fleft">
-                    <div class=" md-button"> Delete Contact</div>    
+                <a href="" id="delcontact" class="delete-button button fleft">
+                    <div class=" md-button" ng-click="deleteEmailList()"> Delete Contact</div>    
                 </a>
                 <a href="javascript:void(0)" class="fleft">
                      <div id="addcontact"  class="add-button md-button" onclick="fun('add','','','','');"> Add Contact</div>    

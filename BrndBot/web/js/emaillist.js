@@ -29,19 +29,21 @@
             if(count > 0)
             {
                  $("#removeselactions").show();
+                $("#delcontact").show();
 //                $(".delete-button").show();
                  $(".gray-button").show();
-//                 $("#addcontact").hide();
+                 $("#addcontact").hide();
                  $("#addcontacts").hide();
 //                 $(".add-action-button").hide();
             }
             if(count==0)
             {
                 $("#removeselactions").hide();
+                $("#delcontact").hide();
 //                 $(".add-action-button").show();
 //                 $(".delete-button").hide();
                  $(".gray-button").hide();
-//                 $("#addcontact").show();
+                 $("#addcontact").show();
                  $("#addcontacts").show();
             }
         }
@@ -590,7 +592,8 @@
                     //alert(selected_email_lists)
                     if (selected_email_lists){
                         var EmailLists = {"update":"deleteAllEmailLists", "emailListName": selected_email_lists};
-                    }else {
+                    }
+                    else {
                         var EmailLists = {"update":"deleteEmailLists", "emailListName": selected_email_lists};
                     }
                     $http({
@@ -600,6 +603,7 @@
                         data: EmailLists
                     }).success(function (data)
                     {
+//                        alert(JSON.stringify(data));
                         if (data === "true") {
                             alert("Data deleted successfully");
 //                                $scope.updateList(email_list_name);
