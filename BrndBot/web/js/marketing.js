@@ -1059,9 +1059,8 @@ function controllerMarketingCampaign($scope, $http) {
     { 
         //reSet();
         //$(".time_pick").width('200%');
-        alert();
-        $("#fade").hide();
-        $("#addAction").hide();
+        $("#fade").show();
+        $("#addAction").show();
         
 //        $slider=1;
 //        $edit=1; 
