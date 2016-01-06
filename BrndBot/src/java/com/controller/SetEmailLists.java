@@ -158,6 +158,13 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
                     dataresponse = "true";
                 }
             }
+            else if (queryParameter.equalsIgnoreCase("deleteEmailLists")){
+                String emailListName = (String)json_update.get(IConstants.kEmailListNameKey);
+                Boolean result = deleteEmailList(user_id, emailListName);
+                if (result){
+                    dataresponse = "true";
+                }
+            }
         } catch (SQLException | JSONException | ParseException e) {
             try {
                 responseObject.put("Error", "Request unsuccessfull");
@@ -430,7 +437,7 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
             for (String emailList : receivedEmailListNames) {
                 
                 String emailLists = emailList;
-                if (!emailListName.isEmpty() && !id.isEmpty()) {
+                if (!emailListName.isEmpty() && id!=null) {
                     if(emailLists.equals(id))
                     {
                         emailListArrayJSON.remove(i);
@@ -445,9 +452,10 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
         org.json.simple.JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
         for (int i = 0; i < emailListArrayJSON.size(); i++) {
             JSONObject emailListJSONObject = (JSONObject)emailListArrayJSON.get(i);
-            String currentListName = (String)emailListJSONObject.get(IConstants.kEmailListNameKey);
-            if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
-                if (emailListName.equals(currentListName)) {
+            String emailAddressesSplit[] = emailListName.split(",");
+            String id = (String)emailListJSONObject.get(IConstants.kEmailListID);
+            if (!emailAddressesSplit[0].isEmpty() && id!=null) {
+                if (emailAddressesSplit[0].equals(id)) {
                     emailListArrayJSON.remove(i);
                     break;
                 }
