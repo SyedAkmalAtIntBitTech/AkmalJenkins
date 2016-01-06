@@ -1245,7 +1245,6 @@ function controllerMarketingCampaign($scope, $http) {
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.image_name === undefined) {
-                    
                     $('#nopostsaveddiv').show();
                     $('#savedpostdiv').hide();
                     $('#savedposthead').hide();
