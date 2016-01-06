@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
     <link rel="shortcut icon" href="favicon.png"/>
     <script src="js/popup.js"></script>
-    <title>Facebook Preview</title>
+    <title>facebook preview</title>
 </head>    
 <%!
     SqlMethods sql_methods = new SqlMethods();
