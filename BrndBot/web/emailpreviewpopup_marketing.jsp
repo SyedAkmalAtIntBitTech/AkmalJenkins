@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="shortcut icon" href="favicon.png"></link>
     <script src="js/popup.js"></script>
+    <script src="js/timepicki.js" type="text/javascript"></script>
 </head>    
 
 <body>
@@ -70,7 +71,7 @@
                         <div class="input-header-actionDetail" style="">
                                 TITLE
                         </div>
-                            <input id="email_edit_title" name="email_edit_title" class="input-field-textfield" value="{{schedule_title}}---"/>
+                            <input id="email_edit_title" name="email_edit_title" class="input-field-textfield" value="{{schedule_title}}"/>
                             <input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{schedule_id}}' />
                             <input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{schedule_type}}'/>
                                         
@@ -79,8 +80,7 @@
                                     <div class="input-header-actionDetail" style="">
                                         Status
                                     </div>
-                                    <input type="text" id="mailnotemplate1" value="No Template" class="input-field-textfield width75  " readonly/>
-                                    <input type="text" id="mailtemplatesaved1" value="Template Saved" class="input-field-textfield width75 " readonly/>
+                                    <input type="text" id="mailtemplatesaved1" value="{{email_template_status}}" class="input-field-textfield width75" readonly/>
                                 </div>
                                 <div class="half">
                                     <div class="input-header-actionDetail" style="">
@@ -136,7 +136,7 @@
                                 <div class="input-header-actionDetail" style="">
                                     TIME
                                 </div>
-                                <input id="timepickeremail" type="text" name="timepickeremail" class="timepickertextbox " value="{{entities_selected_time| date:'h : mm : a'}}"/> 
+                                <input id="timepickeremail" type="text" name="timepickeremail" class="timepickertextbox width38" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
                                 <script>
                                     $('#timepickeremail').timepicki({
                                         show_meridian:true,

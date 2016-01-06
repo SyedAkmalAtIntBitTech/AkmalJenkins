@@ -228,7 +228,9 @@
                                                                         programaction.description,
                                                                         programaction.postTime,
                                                                         programaction.postDateStatus,
-                                                                        programaction.days)">Details</div>
+                                                                        programaction.days,
+                                                                        programs.programdetails.programName,
+                                                                        <%=program_id%>)">Details</div>
                                 </div>
                             </div>
                         </li>

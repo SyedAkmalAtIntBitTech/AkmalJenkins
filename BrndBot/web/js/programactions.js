@@ -1154,7 +1154,9 @@ function programactions($scope, $http, $window){
     $scope.getScheduleDetails = function (schedule_id, template_status, 
                                           schedule_date, entity_type, 
                                           schedule_title, schedule_desc, 
-                                          post_time, action_status, days) {
+                                          post_time, action_status,
+                                          days,program_name,
+                                          program_id) {
            
         if (entity_type === getemail()) {
             $slider=2;
@@ -1195,6 +1197,8 @@ function programactions($scope, $http, $window){
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
+                $(".timepicker_wrap").css("width","27%");
+                $(".arrow_top").hide();
                 $scope.entitiesdetails = data;
                 if (data.body == undefined) {
                     $("#mailpreviewremove").hide();
@@ -1221,22 +1225,23 @@ function programactions($scope, $http, $window){
                     $("#emailgreen").hide();
                     $("#emailred").show();
                 }
-                var date = new Date(schedule_time);
-                $(".content").empty();
-                $(".content").append(data.body);
+//                var date = new Date(schedule_time);
+//                $(".content").empty();
+//                $(".content").append(data.body);
 //                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
-                
-                $scope.entities_selected_time = schedule_time;
+                //alert(schedule_title);
+                $scope.entities_selected_time = post_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
-                console.log(schedule_desc);
+                $scope.email_template_status = template_status;
+                //console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.email_template_status = template_status;
                 $scope.schedule_type = entity_type;
-                $scope.marketing_program_name = marketingName;
-                $scope.user_marketing_program_id = programId;
+                $scope.marketing_program_name = program_name;
+                $scope.user_marketing_program_id = program_id;
                 $scope.days = days;
-                $scope.is_today_active = is_today_active;
+                $scope.is_today_active = is_today_active;alert();
             }).error(function (data) {
                 alert("Request not successful! ");
             });
