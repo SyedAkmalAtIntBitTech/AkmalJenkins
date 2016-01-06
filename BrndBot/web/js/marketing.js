@@ -11,8 +11,6 @@
  * and open the template in the editor.
  */
 
-
-
 var latest_date="";
 var sliderDialog = "";
 var prevSliderDialog = "";
