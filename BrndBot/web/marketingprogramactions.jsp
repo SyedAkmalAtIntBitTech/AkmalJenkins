@@ -81,7 +81,7 @@
             <div class="page-inner-content-container" id="actionstab">
                 <div class="fleft content">
                      <div class="page-content-title-bar fleft col-1of1">
-                        <div class="page-content-title h2 fleft">Recurring Email Automations</div>
+                        <div id="noemailautomation" class="page-content-title h2 fleft">Recurring Email Automations</div>
                         <div class="action-cta-container">
                             <a href="" class="edit-button-detail fleft">
                                 <div class=" md-button" ng-click="addEditRecuringAction('add',<%=program_id%>, '0')">Add Recurring Email Automation</div>    
@@ -99,8 +99,9 @@
                                     <img type="image/svg+xml" src="images/Icons/templateSaved.svg" class="status-button"/>
                                 </div>
                                 <div class="slat-title-container col-1of2 fleft">
+                                    <div  class="slat-title email-list-slat-title col-1of1 sh1"></div>
                                     <div class="slat-title email-list-slat-title col-1of1 sh1">{{emailautomation.programTemplateName}}</div>
-                                    <div class="action-list-slat-description col-1of1 sh3">Howdy Again</div>
+                                    <div class="action-list-slat-description col-1of1 sh3">{{emailautomation.description}}</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{emailautomation.dateTime| date:'MMM dd'}}</div>
@@ -184,7 +185,7 @@
                 </div>
                 <div class="fleft content">
                     <div class="page-content-title-bar fleft col-1of1">
-                        <div class="page-content-title h2 fleft">One Time Actions</div>
+                        <div id="noota" class="page-content-title h2 fleft">One Time Actions</div>
                         <div class="action-cta-container">
                             <a href="" class="edit-button-detail fleft">
                                 <div class=" md-button" ng-click="ShowAddAction()">  Add One Time Action</div>    

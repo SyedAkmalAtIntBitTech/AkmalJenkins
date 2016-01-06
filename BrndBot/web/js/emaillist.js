@@ -28,7 +28,7 @@
             $("#"+id).toggleClass('selection-icon-selected');
             if(count > 0)
             {
-                $("#removeselactions").show();
+                 $("#removeselactions").show();
 //                $(".delete-button").show();
                  $(".gray-button").show();
 //                 $("#addcontact").hide();
@@ -713,7 +713,7 @@
                 count+=1;
                 $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
                 selected_draft = id+ "," + selected_draft;
-              
+
             }
             $("#"+id).toggleClass('selection-icon');
             $("#"+id).toggleClass('selection-icon-selected');

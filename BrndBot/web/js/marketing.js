@@ -11,8 +11,6 @@
  * and open the template in the editor.
  */
 
-
-
 var latest_date="";
 var sliderDialog = "";
 var prevSliderDialog = "";
@@ -1059,8 +1057,8 @@ function controllerMarketingCampaign($scope, $http) {
     { 
         //reSet();
         //$(".time_pick").width('200%');
-        $("#fade").hide();
-        $("#addAction").hide();
+        $("#fade").show();
+        $("#addAction").show();
         
 //        $slider=1;
 //        $edit=1; 

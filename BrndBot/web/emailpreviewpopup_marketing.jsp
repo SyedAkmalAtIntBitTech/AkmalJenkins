@@ -70,7 +70,7 @@
                         <div class="input-header-actionDetail" style="">
                                 TITLE
                         </div>
-                            <input id="email_edit_title" name="email_edit_title" class="input-field-textfield" value="{{schedule_title}}"/>
+                            <input id="email_edit_title" name="email_edit_title" class="input-field-textfield" value="{{schedule_title}}---"/>
                             <input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{schedule_id}}' />
                             <input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{schedule_type}}'/>
                                         

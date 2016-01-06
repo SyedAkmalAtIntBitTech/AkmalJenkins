@@ -678,7 +678,12 @@ function programactions($scope, $http, $window){
             method: 'GET',
             url: 'alluserMarketingProgramForDisplay.do?program_id='+program
         }).success(function (data, status, headers, config) {
-            
+            if(JSON.stringify(data.emailautomation)==='[]'){
+            $("#noemailautomation").empty().append('No Recurring Emails');
+            }
+            if(JSON.stringify(data.programactions)==='[]'){
+            $("#noota").empty().append('No One Time Actions');
+            }
             $scope.programs = data;
             program_status = data.programdetails.program_status;
 //            alert(JSON.stringify(data.programactions));
