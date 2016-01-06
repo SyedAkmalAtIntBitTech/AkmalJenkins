@@ -223,7 +223,7 @@ public class ScheduleSocialPostServlet extends HttpServlet {
                     if (postType.contains(ScheduledEntityType.Facebook.toString())) {
                         requiredKeys.add("post_text");
                         requiredKeys.add("url");
-                        requiredKeys.add("description");
+//                        requiredKeys.add("description");
                     } else if (postType.contains(ScheduledEntityType.Twitter.toString())) {
                         requiredKeys.add("text");
                     }
