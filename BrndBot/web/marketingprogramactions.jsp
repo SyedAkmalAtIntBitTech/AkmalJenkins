@@ -14,13 +14,18 @@
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="stylesheet" href="css/popup.css"/>
+    <link rel="stylesheet" href="css/pikaday.css"/>
+    <link rel="stylesheet" href="css/datepickerpikaday.css"/>
     <link rel="shortcut icon" href="images/favicon.png"></link>
+    <script src="js/pikaday.js"></script>
+    <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <title>Marketing Program Actions</title>
     <script src="js/jquery.min.js"></script>
     <script src="js/configurations.js"></script>
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
-    <script src="js/popup.js" type="text/javascript"></script>        
+    <script src="js/popup.js" type="text/javascript"></script>      
+    <script src="js/timepicki.js" type="text/javascript"></script>  
     <jsp:include page="basejsp.jsp"/>
      <%!
             String program_id = "";
