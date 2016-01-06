@@ -270,8 +270,6 @@
                     }
                     
 //                        var dateepoch = Date.parse(schedule);
-                    alert(schedule_id_facebook);
-                    console.log(schedule_id_facebook);
                     if ((schedule_id_facebook == "0") && (schedule_id_twitter == "0")) {
                         var schedule_date = $("#schedule_social_date").val();
                         var schedule_time = $("#schedule_social_time").val().replace(/ /g,'');  
@@ -406,7 +404,6 @@
                                 }
                             ];
                         }
-                        console.log(JSON.stringify(social_schedule));
                         $.ajax({
                             url: getHost() + 'ScheduleSocialPost',
                             method: 'post',
@@ -499,8 +496,7 @@
                                 }
                             ];
                         }
-                        console.log(JSON.stringify(social_schedule));
-                        $.ajax({
+                           $.ajax({
                             url: getHost() + 'ScheduleSocialPostActions',
                             method: 'post',
                             dataType: 'json',

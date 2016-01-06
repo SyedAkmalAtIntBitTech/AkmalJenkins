@@ -191,8 +191,9 @@
                                     <div class="list-column-description col-1of1 sh3-contact fleft">End Date</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{program.noofpostleft}}</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">Actions Left</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" ng-hide="program.noofpostleft=='0'">{{program.noofpostleft}}</div>
+                                    <div class="list-column-description col-1of1 sh3-contact fleft"ng-show="program.noofpostleft!='0'">Actions Left</div>
+                                    <div class="list-column-description col-1of1 sh3-contact fleft" ng-show="program.noofpostleft=='0'">No Actions Left</div>
                                 </div>
                                 <div class="col-2of10 fleft">
                                     <div class="slat-cta-container">
