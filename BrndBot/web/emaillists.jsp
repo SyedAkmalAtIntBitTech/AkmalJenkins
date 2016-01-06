@@ -332,7 +332,7 @@
         </div>
        <div class="bottom-cta-bar padleft" id="removeselactions"  >
             <div class="bottom-cta-button-container padright">
-               <div class="remove-action-detail md-button button-text-1" id="deleteEmailList" ng-click="deleteEmailList();">Remove Selected Action(s)</div>
+               <div class="remove-action-detail md-button button-text-1" id="deleteEmailList" ng-click="deleteEmailList();">Remove Selected Email List(s)</div>
             </div>
         </div>
     </div>

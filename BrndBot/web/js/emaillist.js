@@ -10,17 +10,18 @@
      
     var count=0;
         function selemlcheckbox(id){ 
-//            alert(id+"--selected");
-            content='<input type="checkbox" name="deleteid" value="'+id+'" hidden="" id="deleteid" checked>';
-//            alert(content);
+//          alert(id+"--selected");
+            
+            var content='<input type="checkbox" name="deleteid" value="'+id+'" hidden="" id="deleteid"'+id+'" checked>';
+            var content1='<input type="checkbox" name="deleteid" value="'+id+'" hidden="" id="deleteid"'+id+'">';
+//          alert(content);
             var htm=$("#"+id).html();
             if(htm.contains('class="check-icon"')){
-               count-=1;
-                $("#"+id).html(content);
+                count-=1;
+                $("#"+id).html(content1);
             }
             else
             {   
-                
                 count+=1;
                 $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
@@ -29,19 +30,21 @@
             if(count > 0)
             {
                  $("#removeselactions").show();
+                $("#delcontact").show();
 //                $(".delete-button").show();
                  $(".gray-button").show();
-//                 $("#addcontact").hide();
+                 $("#addcontact").hide();
                  $("#addcontacts").hide();
 //                 $(".add-action-button").hide();
             }
             if(count==0)
             {
                 $("#removeselactions").hide();
+                $("#delcontact").hide();
 //                 $(".add-action-button").show();
 //                 $(".delete-button").hide();
                  $(".gray-button").hide();
-//                 $("#addcontact").show();
+                 $("#addcontact").show();
                  $("#addcontacts").show();
             }
         }
@@ -583,14 +586,17 @@
 //                };
                 
                 $scope.deleteEmailList = function (){
+                    var noofemaillist="";
                     var selected_email_lists="";
                     $("input[type=checkbox]:checked").each ( function() {
                         selected_email_lists +=$(this).val()+",";
+                        noofemaillist=selected_email_lists.split(',');
                     });
                     //alert(selected_email_lists)
-                    if (selected_email_lists){
+                    if (noofemaillist.length>2){
                         var EmailLists = {"update":"deleteAllEmailLists", "emailListName": selected_email_lists};
-                    }else {
+                    }
+                    else {
                         var EmailLists = {"update":"deleteEmailLists", "emailListName": selected_email_lists};
                     }
                     $http({
@@ -600,6 +606,7 @@
                         data: EmailLists
                     }).success(function (data)
                     {
+//                        alert(JSON.stringify(data));
                         if (data === "true") {
                             alert("Data deleted successfully");
 //                                $scope.updateList(email_list_name);

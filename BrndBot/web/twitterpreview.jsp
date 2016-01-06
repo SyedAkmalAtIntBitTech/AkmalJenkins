@@ -9,13 +9,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="telephone=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay.css"></link>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <script src="js/popup.js"></script>
     <!--<style>.time_pick{width:100%;}</style>-->
+    <title>twitter preview</title>
 </head>    
 
 <body>
@@ -33,7 +34,8 @@
                     <div  class="top-navbar-inner-bb-detail">
                         <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Twitter Post Action Detail</span></div>
                         <div class="top-nav-cta-container">
-                            <div class="approve-button-detail md-button" id="fbapprove">Approve</div>
+                            <div class="approve-button-detail md-button" id="fbapprove" ng-show="twitter_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_twitter)">Approve to Send</div>
+                            <div class="approve-button-detail md-button" id="fbapprove" ng-show="twitter_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_twitter)">Disapprove</div>
                             <div class="delete-button-detail md-button" ng-click="deleteSchedule(schedule_id,'delete', master_twitter)">Delete Action</div>
                         </div>    
                     </div>
