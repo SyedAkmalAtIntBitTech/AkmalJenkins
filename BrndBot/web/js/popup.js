@@ -494,32 +494,7 @@ $(document).ready(function ()
     });
     
     
-    $(".close").click(function(){
-        
-        var change=$("#change").val();
-        if( change === "0")
-        {
-//            alert("nochange");
-            closeoverlay();
-            $('#slider-button').click();
-            $('.bottom-cta-bar').hide();
-        }
-        if( change !== "0")
-        {
-//            alert("change");
-            setTimeout(function (){
-            window.open(getHost() + 'marketing.jsp', "_self");
-               },430);
-//            document.location.reload();
-            $("#change").val("0");
-            closeoverlay();
-            $('#slider-button').click();
-            $('.bottom-cta-bar').hide();
-        }
-//        window.open(getHost() + 'marketing.jsp', "_self");
-        //$("#fade").hide();
-        //$("#facebooksection").hide();
-    });
+  
          
     
   //////////////////////////////////////////// emaillist popup ////////////////////////////////////////

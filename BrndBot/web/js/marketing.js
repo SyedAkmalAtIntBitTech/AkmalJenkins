@@ -234,6 +234,33 @@ function reSet()
     
 }
 
+  $(".close").click(function(){
+        
+        var change=$("#change").val();
+        if( change === "0")
+        {
+//            alert("nochange");
+            closeoverlay();
+            $('#slider-button').click();
+            $('.bottom-cta-bar').hide();
+        }
+        if( change !== "0")
+        {
+            alert(change);
+            setTimeout(function (){
+            window.open(getHost() + 'marketing.jsp', "_self");
+               },430);
+//            document.location.reload();
+            $("#change").val("0");
+            closeoverlay();
+            $('#slider-button').click();
+            $('.bottom-cta-bar').hide();
+        }
+//        window.open(getHost() + 'marketing.jsp', "_self");
+        //$("#fade").hide();
+        //$("#facebooksection").hide();
+    });
+
 function validateaction() {
     var title = $("#addactiontitle").val();
     var actiontype = $("#actiontype").val();
@@ -1032,8 +1059,9 @@ function controllerMarketingCampaign($scope, $http) {
     { 
         //reSet();
         //$(".time_pick").width('200%');
-        $("#fade").show();
-        $("#addAction").show();
+        alert();
+        $("#fade").hide();
+        $("#addAction").hide();
         
 //        $slider=1;
 //        $edit=1; 

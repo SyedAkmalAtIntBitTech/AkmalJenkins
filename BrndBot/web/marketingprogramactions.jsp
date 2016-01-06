@@ -19,7 +19,7 @@
     <title>Marketing Program Actions</title>
     <script src="js/jquery.min.js"></script>
     <script src="js/configurations.js"></script>
-    <script src="js/angular.min.js"></script>
+    <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="js/popup.js" type="text/javascript"></script>        
     <jsp:include page="basejsp.jsp"/>
      <%!
@@ -38,12 +38,13 @@
 <body class="" ng-app ng-controller="programactions">
     <!--SideNav-->
     <div class="content-main" ng-init="getProgramActions()">
-    <jsp:include page="facebookpreview.jsp"/> 
-    <jsp:include page="twitterpreview.jsp"/> 
-    <jsp:include page="emailpreviewpopup.jsp"/> 
+    <jsp:include page="facebookpreview_marketing.jsp"/> 
+    <jsp:include page="twitterpreview_marketing.jsp"/> 
+    <jsp:include page="emailpreviewpopup_marketing.jsp"/> 
     <jsp:include page="marketingprogramaddaction.jsp"/>
     <%@include file="navbarv2.jsp" %>
-        
+    <input type="hidden" name="program_id" id="program_id" value="<%= program_id %>"/>
+    <input type="hidden" name="change" id="change" value="0"/>
     <!--Top Nav-->   
     <div class="top-nav" >
         <div class="page-title-bar col-1of1"> 
