@@ -793,7 +793,7 @@ $edit=0;
                                 alert("Data deleted successfully.");
                                 $scope.updateList(email_list_name);
                                 selectedemailids = "";
-                                window.open(getHost() + 'emaillists.jsp', "_self");
+                                window.open(getHost() + 'emaillistsdetails.jsp?list_name='+email_list_name+'&type=user', "_self");
                             } else if (data === error) {
                                 alert(data);
                             }
