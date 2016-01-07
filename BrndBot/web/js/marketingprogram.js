@@ -60,7 +60,8 @@ function controllerMarketingCategories($scope, $http, $window){
                 $(".prognamelst").css("background-color", "#fff").css("color","#3f3f42");
                 $(".subcat"+id).css("background-color","#5cc1a3").css("color","#f6f7f7");
 //            console.log(html_data);
-        $("#html_data").empty();
+//        $("#html_data").empty();
+        $("#html_data").contents().find("body").html('');
         $("#html_data").contents().find('body').append(html_data);    
 //        $("#html_data").empty().append(html_data);
         $("#programidHidden").val(id);

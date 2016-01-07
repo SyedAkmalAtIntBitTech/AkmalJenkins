@@ -237,44 +237,40 @@ $(document).ready(function ()
         $("#facebooknote a").addClass("h3-subnav");
         
     });
-    $("#facebookaction").click(function(){
-         var note=$("#fbnote").val();
-            if(note === ''){
-                
-                $("#fbdescription").text(note);
-                $("#notesavedheader").css("display","none");
-                $("#emptynoteheader").css("display","block");
-            }
-            if(note !== '')
-            {
-                $("#fbdescription").text(note);
-                $("#emptynoteheader").css("display","none");
-                $("#notesavedheader").css("display","block");
-                
-            }
-         var change=$("#change").val();
-         $("#fbdescription").show();
-//         var desc=$("#fbnote").val();
-//         if(desc !== ''){alert(desc);$("#notesavedheader").css("display","block");$("#emptynoteheader").css("display","none");$("#fbdescription").show();}
-//         if(desc === ''){alert(desc);$("#emptynoteheader").css("display","block");$("#notesavedheader").css("display","none");}
+    $("#facebookaction").click(function(){        
+        var fb_scheduleid=$("#fb_scheduleid").val();
+        var change=$("#change").val();
         if(change === "1")
         {
-            var note=$("#fbnote").val();
-            if(note === ''){
-                
-                $("#fbdescription").text(note);
-                $("#notesavedheader").css("display","none");
-                $("#emptynoteheader").css("display","block");
-            }
-            if(note !== '')
-            {
-                $("#fbdescription").text(note);
-                $("#emptynoteheader").css("display","none");
-                $("#notesavedheader").css("display","block");
-                
-            }
+            var note=$("#fbnote"+fb_scheduleid).val();
+            $("#fbdescription").text(note);
+            $("#emptynoteheader").css("display","none");
+            $("#notesavedheader").css("display","block");
+      
             $("#change").val("0");
         }
+//        $("#fbdescription").show();
+////         var desc=$("#fbnote").val();
+////         if(desc !== ''){alert(desc);$("#notesavedheader").css("display","block");$("#emptynoteheader").css("display","none");$("#fbdescription").show();}
+////         if(desc === ''){alert(desc);$("#emptynoteheader").css("display","block");$("#notesavedheader").css("display","none");}
+//        if(change === "1")
+//        {
+//            var note=$("#fbnote").val();
+//            if(note === ''){
+//                
+//                $("#fbdescription").text(note);
+//                $("#notesavedheader").css("display","none");
+//                $("#emptynoteheader").css("display","block");
+//            }
+//            if(note !== '')
+//            {
+//                $("#fbdescription").text(note);
+//                $("#emptynoteheader").css("display","none");
+//                $("#notesavedheader").css("display","block");
+//                
+//            }
+//            $("#change").val("0");
+//        }
         $("#facebookactionsection").show();
         $("#fbactionsave").show();
         $("#facebookpostsection").hide();
@@ -370,25 +366,18 @@ $(document).ready(function ()
         $("#twitterpost a").addClass("h3-subnav");
     });
     $("#twitteraction").click(function(){
-        
-//        if(change === "1")
-//        {
+        var change=$("#change").val();
+        if(change === "1")
+        {
             var note=$("#twtnote").val();
-            if(note === ''){
-                
-                $("#twtnotetext").text(note);
-                $("#twtnoteheader").css("display","none");
-                $("#twtemptyheader").css("display","block");
-            }
-            if(note !== '')
-            {
-                $("#twtnotetext").text(note);
-                $("#twtemptyheader").css("display","none");
-                $("#twtnoteheader").css("display","block");
-                
-            }
-//            $("#change").val("0");
-//        }
+            $("#twtnotetext").text(note);
+            $("#twtnoteheader").css("display","none");
+            $("#twtemptyheader").css("display","block");
+      
+            $("#change").val("0");
+        }
+          
+        
         
         
         $("#twitteractionsection").show();

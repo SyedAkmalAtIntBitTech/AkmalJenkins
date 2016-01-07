@@ -276,7 +276,7 @@
         
         <div class="" id="fbnotesave">
             <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionFacebookNote(schedule_id)">Save Notes</div>
+                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionFacebookNote()">Save Notes</div>
             </div>
         </div>
          

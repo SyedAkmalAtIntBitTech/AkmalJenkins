@@ -55,7 +55,7 @@
                     <!--List Starts Here-->
                     <div class="main-container main-container50width col-1of1  pushUp fleft" >
                     <ul class="subcategory-list-container fleft" >
-                        <li class="subcategory-list-element subcat{{program.id}} col-1of1 fleft" ng-repeat="program in programs" >
+                        <li class="prognamelst subcategory-list-element subcat{{program.id}} col-1of1 fleft" ng-repeat="program in programs" >
                             <div class="subcat-list col-7of10 fleft"  id="{{program.id}}" ng-click="showhtmldata(program.id,program.html_data)">
                                 {{program.name}}
                             </div>

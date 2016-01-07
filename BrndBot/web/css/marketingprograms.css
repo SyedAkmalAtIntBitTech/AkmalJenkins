@@ -112,12 +112,12 @@ and open the template in the editor.
         margin-top:10px;
 }
 .prognamelst{
-        color:#3f3f42;
+/*        color:#3f3f42;
         font-size:14px;
         width:320px;
         height:17px;
         padding:10px 34px 10px 20px;
-        height:37px;
+        height:37px;*/
     }
 /*ul.promolist li a:hover,ul.promolist li:hover,ul.promolist div:hover{
     background-color: #5cc1a3 !important;
