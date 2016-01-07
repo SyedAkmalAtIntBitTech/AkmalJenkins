@@ -24,8 +24,12 @@
     <title>BrndBot - Email List Details</title>    
 </head>    
 <%
-String list_name=request.getParameter("list_name");
-String type=request.getParameter("type");
+    out.println("test");
+    String list_name=request.getParameter("list_name");
+    String type=request.getParameter("type");
+    
+    out.println(list_name);
+    out.println(type);
 %>
 <body ng-app>
     
@@ -37,7 +41,7 @@ String type=request.getParameter("type");
      <jsp:include page="addcontact.jsp"/>
         
     <!--Top Nav-->   
-    <div class="top-nav" >
+    <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
            <a class=" exit-button-icon" href="emaillists.jsp">
                <div class="exit-button-detail">
