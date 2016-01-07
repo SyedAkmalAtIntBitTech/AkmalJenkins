@@ -26,7 +26,6 @@
 <%
     String list_name=request.getParameter("list_name");
     String type=request.getParameter("type");
-    
 %>
 <body ng-app>
     
