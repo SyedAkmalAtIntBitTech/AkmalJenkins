@@ -83,7 +83,7 @@
                                     <div class="input-header-actionDetail" style="">
                                         Marketing Program
                                     </div>
-                                    <input type="text" id="Generalid" value="{{marketing_program_name}}" class="input-field-textfield width75" readonly/>
+                                    <input type="text" id="Generalid" value="{{programs.programdetails.programName}}" class="input-field-textfield width75" readonly/>
 
                                 </div>
                             </div>
@@ -103,38 +103,19 @@
                             </div>
                             <div class="inlineFlex">
                             <div class="half">
-                                <div ng-show="user_marketing_program_id > 0">
+                                <div >
                                      <div class="input-header-actionDetail " >
                                     DAY
                                 </div>
-                                <input type="text" readonly   name="datepickertwitter" id="datepickertwitter1"  class="input-field-textfield width75" value="Sun Jan 01 1970"/> 
-                                <input type="text" readonly class="input-field-textfield width75" id="twdays" name="twdays" value="{{days}}"/>                                                   
+                                <input type="text" readonly   name="datepickertwitter" id="datepickertwitter1"  class="input-field-textfield width75" value="{{entities_selected_date| date:'MMM dd yyyy'}}"/> 
+                                                                                  
                                </div>
-                                <div ng-show="user_marketing_program_id == 0">
-                                    <div class="input-header-actionDetail " >
-                                    DATE
-                                    </div>
-                                        <input type="hidden" class="textbox" id="twdays" name="twdays" value="0"/>
-                                        <input type="text"  name="datepickertwitter" id="datepickertwitter"  class="input-field-textfield width75" value="{{entities_selected_time| date:'MMM dd yyyy'}}" readonly/>                                        
-                                        <script>
-                                            var picker = new Pikaday(
-                                            {
-                                                format: 'MMM DD YYYY',
-                                                field: document.getElementById('datepickertwitter'),
-                                                firstDay: 1,
-                                                minDate: new Date(2000, 0, 1),
-                                                maxDate: new Date(2050, 12, 31),
-                                                yearRange: [2000,2050]
-                                            });
-
-                                        </script>
-                                </div>
                             </div>
                             <div class="half">
                                 <div class="input-header-actionDetail" style="">
                                     TIME
                                 </div>
-                                <input id="timepickertwitter" type="text" name="timepickertwitter" class="timepickertextbox " value="{{entities_selected_time| date:'h : mm : a'}}"/> 
+                                <input id="timepickertwitter" type="text" name="timepickertwitter" class="input-field-textfield twitertimepickerwid" value="{{post_time| date:'hh:mm a'}}"/> 
                                 <script>
                                     $('#timepickertwitter').timepicki({
                                         show_meridian:true,

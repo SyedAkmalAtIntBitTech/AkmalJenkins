@@ -1159,7 +1159,9 @@ function programactions($scope, $http, $window){
     $scope.getScheduleDetails = function (schedule_id, template_status, 
                                           schedule_date, entity_type, 
                                           schedule_title, schedule_desc, 
-                                          post_time, action_status, days) {
+                                          post_time, action_status,
+                                          days,program_name,
+                                          program_id) {
            
         if (entity_type === getemail()) {
             $slider=2;
@@ -1200,14 +1202,20 @@ function programactions($scope, $http, $window){
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
+                $(".timepicker_wrap").css("width","27%");
+                $(".arrow_top").hide();
                 $scope.entitiesdetails = data;
                 if (data.body == undefined) {
+                    $("#noemailsdiv").show();
+                    $("#savedemailsdiv").hide();
                     $("#mailpreviewremove").hide();
                     $('#mailremovedtemplate').show();
                     $('#mailpreviewdecond').hide();
                     $('.approve').hide();
                     $("#email_button_send").val(create_button_title);
                 } else {
+                    $("#savedemailsdiv").show();
+                    $("#noemailsdiv").show();
                     $('.approve').show();
                     $("#mailpreviewremove").show();
                     $('#mailremovedtemplate').hide();
@@ -1226,22 +1234,23 @@ function programactions($scope, $http, $window){
                     $("#emailgreen").hide();
                     $("#emailred").show();
                 }
-                var date = new Date(schedule_time);
-                $(".content").empty();
-                $(".content").append(data.body);
+//                var date = new Date(schedule_time);
+//                $(".content").empty();
+//                $(".content").append(data.body);
 //                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
-                
-                $scope.entities_selected_time = schedule_time;
+                //alert(schedule_title);
+                $scope.entities_selected_time = post_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
-                console.log(schedule_desc);
+                $scope.email_template_status = template_status;
+                //console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.email_template_status = template_status;
                 $scope.schedule_type = entity_type;
-                $scope.marketing_program_name = marketingName;
-                $scope.user_marketing_program_id = programId;
+                $scope.marketing_program_name = program_name;
+                $scope.user_marketing_program_id = program_id;
                 $scope.days = days;
-                $scope.is_today_active = is_today_active;
+                $scope.is_today_active = is_today_active;alert();
             }).error(function (data) {
                 alert("Request not successful! ");
             });
@@ -1323,23 +1332,27 @@ function programactions($scope, $http, $window){
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.image_name == undefined) {
-//                    $('.approve').hide();
+                    
+                    $('#nopostsaveddiv').show();
+                    $('#savedpostdiv').hide();
 //                    $('#fbpreviewremove').hide();
 //                    $('#fbremovedtemplate').show();
 //                    $('#fbpreviewdecond').hide();
 //                    $('#imgcontainer').hide();
 //                    $('#prevfbimg').hide();
-//                    $('#fbnotemplate').show();
-//                    $('#fbtemplatesaved').hide();
+                    $('#fbnotemplate').show();
+                    $('#fbtemplatesaved').hide();
 //                    $('#fb_preview_postdet').css("margin-top", 10);
 //                    $("#fb_button_post").val(create_button_title);
                 } else {
+                     $('#nopostsaveddiv').hide();
+                    $('#savedpostdiv').show();
 //                    $('.approve').css("display","inline-flex");
 //                    $('#fbpreviewremove').show();
 //                    $('#fbremovedtemplate').hide();
 //                    $('#fbpreviewdecond').show();
-//                    $('#fbnotemplate').hide();
-//                    $('#fbtemplatesaved').show();
+                    $('#fbnotemplate').hide();
+                    $('#fbtemplatesaved').show();
 //                    $('#imgcontainer').show();
 //                    $('#fb_preview_postdet').css("margin-top", 20);
 //                    $("#fb_button_post").val("Edit");
@@ -1348,15 +1361,16 @@ function programactions($scope, $http, $window){
 //                    $('#isTwitter').val("false");
                 }
                 
-//                $scope.entities_selected_date = schedule_date;
-//                $scope.schedule_title = schedule_title;
-//                $scope.schedule_id = schedule_id;
-//                $scope.schedule_desc = schedule_desc;
-//                $scope.facebook_action_status=action_status;
-//                $scope.facebook_template_status = template_status;
-//                $scope.schedule_type = entity_type;
-//                $scope.post_time=post_time;
-//                $scope.days=days;
+                $scope.entities_selected_date = schedule_date;
+                $scope.schedule_title = schedule_title;
+                $scope.schedule_id = schedule_id;
+//                $scope.manage_page= metadata.ManagedPage;
+                $scope.schedule_desc = schedule_desc;
+                $scope.facebook_action_status=action_status;
+                $scope.facebook_template_status = template_status;
+                $scope.schedule_type = entity_type;
+                $scope.post_time=post_time;
+                $scope.days=days;
             }).error(function (data) {
                 alert("Request not successful!");
             });
@@ -1367,6 +1381,7 @@ function programactions($scope, $http, $window){
             sliderDialog = "#twittersection";
             prevSliderDialog = "#twittersection";
             $("#twittersection").show();
+            $(".timepicker_wrap").css("width","27%");
 //            $('#prevtwtimg').show();
 //            $("#preview_twitter").show();
 //            $("#edit_twitter").hide();
@@ -1378,39 +1393,45 @@ function programactions($scope, $http, $window){
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.image_name == undefined) {
-//                    $('.approve').hide();
+                    $('#twtsavedpostdiv').hide();
+                    $('#twtnopostsaveddiv').show();
+                    $('#twtsavedposthead').hide();
 //                    $('#twpreviewremove').hide();
 //                    $('#twremovedtemplate').show();
 //                    $('#twpreviewdecond').hide();
 //                    $('#prevtwtimg').hide();
-//                    $('#twnotemplate').show();
-//                    $('#twtemplatesaved').hide();
+                    
+                    $('#twnotemplate').show();
+                    $('#twtemplatesaved').hide();
 //                    $('#twitter_preview_postdet').css("margin-top", 10);
 //                    $("#twitter_button_post").val(create_button_title);
                 } else {
+                      $('#twtsavedpostdiv').show();
+                    $('#twtnopostsaveddiv').hide();
+                    $('#twtsavedposthead').show();
 //                    $('.approve').css("display","inline-flex");
 //                    $('#twpreviewremove').show();
 //                    $('#twremovedtemplate').hide();
 //                    $('#twpreviewdecond').show();
 //                    $('#prevtwtimg').show();
-//                    $('#twnotemplate').hide();
-//                    $('#twtemplatesaved').show();
+                    $('#twnotemplate').hide();
+                    $('#twtemplatesaved').show();
 //                    $("#twitter_button_post").val("Edit");
 //                    $('#twitter_preview_postdet').css("margin-top", -250);
 //                    $('#isFacebook').val("false");
 //                    $('#isTwitter').val("true");
                 }
 
-//                $scope.entities_selected_date = schedule_date;
-//                $scope.schedule_title = schedule_title;
-//                $scope.schedule_id = schedule_id;
-//                $scope.twitter_action_status=action_status;
-//                console.log(schedule_desc);
-//                $scope.schedule_desc = schedule_desc;
-//                $scope.twitter_template_status = template_status;
-//                $scope.schedule_type = entity_type;
-//                $scope.post_time=post_time;
-//                $scope.days=days;
+                $scope.entities_selected_date = schedule_date;
+                $scope.schedule_title = schedule_title;
+                $scope.schedule_id = schedule_id;
+                $scope.twitter_action_status=action_status;
+                console.log(schedule_desc);
+                $scope.schedule_desc = schedule_desc;
+                $scope.twitter_template_status = template_status;
+                $scope.schedule_type = entity_type;
+                $scope.post_time=post_time;
+                $scope.days=days;
             }).error(function (data) {
                 alert("Request not successful!");
             });

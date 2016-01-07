@@ -625,13 +625,22 @@
                                                 SCHEDULED TO POST ON
                                             </div>
                                             <div class="inlineFlex">
-                                                <div class="half">
+                                                <div class="half" ng-show="user_marketing_program_id > 0">
                                                     <div class=" containe fontpnr tenpix topten">
                                                         Day
                                                     </div>
                                                     <div class="topsix">
                                                         <input type="hidden" readonly  name="emaildatetime" id="emaildatetime"  class="inputdate MH1 ptr" value="Sun Jan 01 1970">                                        
-                                                        <input type="text" value="{{days}}" name="emaildays" id="emaildays" class="textbox">
+                                                        <input type="text"id="emaildays" name="emaildays" value="{{days}}" class="textbox">
+                                                    </div>
+                                                </div>
+                                                <div class="half" ng-show="user_marketing_program_id == 0">
+                                                    <div class=" containe fontpnr tenpix topten">
+                                                        DATE
+                                                    </div>
+                                                    <div class="topsix">
+                                                        <input type="hidden" readonly  name="emaildatetime" id="emaildatetime"  class="inputdate MH1 ptr" value="Sun Jan 01 1970">                                        
+                                                        <input type="text"id="emaildays" name="emaildays" value="{{days}}" class="textbox">
                                                     </div>
                                                 </div>
                                                 <div class="half">

@@ -100,7 +100,7 @@
                                 <div class="input-header-actionDetail" style="">
                                     Marketing Program
                                 </div>
-                                <input type="text" id="Generalid" value="{{marketing_program_name}}" class="input-field-textfield width75" readonly/>
+                                <input type="text" id="Generalid" value="{{programs.programdetails.programName}}" class="input-field-textfield width75" readonly/>
                                 
                             </div>
                         </div>
@@ -115,60 +115,40 @@
                                 </div>
                                 <input type="text" value="{{schedule_type}}" class="input-field-textfield width75" readonly/>
                             </div>
-                            <div class="half">
+<!--                            <div class="half">
                                 <div class="input-header-actionDetail" style="">
                                   MANAGED PAGE
                                 </div>
-                                <input type="text" value="Cannot Edit" class="input-field-textfield width75" readonly/>
-                            </div>
+                                <input type="text" value="{{entitiesdetails.metadata.ManagedPage}}" class="input-field-textfield width75" readonly/>
+                            </div>-->
                         </div>
                         <div class="inlineFlex">
-                            <div class="half" ng-show="user_marketing_program_id == 0">
+                           
+                            <div class="half" >
                                 <div class="input-header-actionDetail half" style="">
-                                    Date
+                                   Day
                                 </div>
-
-                                <input type="text" readonly  name="datepickerfb" id="datepickerfb"  class="datepickertextbox" value="{{entities_selected_time| date:'MMM dd yyyy'}}">                                        
-                                <script>
-                                    var picker = new Pikaday(
-                                    {
-                                        format: 'MMM DD YYYY',
-                                        field: document.getElementById('datepickerfb'),
-                                        firstDay: 1,
-                                        minDate: new Date(1970, 0, 1),
-                                        maxDate: new Date(2050, 12, 31),
-                                        yearRange: [1970,2050]
-                                    });
-
-                                </script>
-
-                            </div>
-                            <div class="half" ng-show="user_marketing_program_id > 0">
-                                <div class="input-header-actionDetail half" style="">
-                                    Day
-                                </div>
-                                <input type="text" class="textbox"  id="fbdays" name="fbdays" value="{{days}}"/>
+                                <input type="text" class="input-field-textfield width75"  id="fbdays" name="fbdays" value="{{days}}"/>
                             </div>
 
                             <div class="half1">
                             <div class="input-header-actionDetail" style="">
                                 TIME
                             </div>
-                            <input id="timepickerfb" type="text" name="timepickerfb" class="timepickertextbox" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
-                            <script>
-                                $('#timepickerfb').timepicki({
-                                    show_meridian:true,
-                                    min_hour_value:0,
-                                    max_hour_value:12,
-                                    step_size_minutes:01,
-                                    overflow_minutes:true,
-                                    increase_direction:'up',
-                                    disable_keyboard_mobile: true
-                                });
-                            </script>
+                            <input id="timepickerfb" type="text" name="timepickerfb"  class="input-field-textfield width75" value="{{post_time| date:'hh : mm : a'}}"/> 
+                           <script>
+                                                        $('#timepickerfb').timepicki({
+                                                                    show_meridian:true,
+                                                                    min_hour_value:0,
+                                                                    max_hour_value:12,
+                                                                    step_size_minutes:01,
+                                                                    overflow_minutes:true,
+                                                                    increase_direction:'up',
+                                                                    disable_keyboard_mobile: true
+                                                                });
+                                                    </script>
                         </div>
                         </div>
-                             
                         
                         </div>
                     </div>
@@ -180,9 +160,7 @@
         <div id="facebookpostsection">
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="saved-post-header-detail" id="savedposthead">
-                    <div class="h4">Saved Facebook Post</div>
-                    <div class="instruction-text">Saved post.</div>
+                
                 </div>
                     <div class="inner-content-detail">
                         <div class="saved-post-preview-detail" id="nopostsaveddiv">
@@ -206,7 +184,9 @@
                         <div class="saved-post-preview-detail" id="savedpostdiv">
 
                             <!--SAVED Email GOES HERE-->
-
+                            <div class="saved-post-header-detail" >
+                                <div class="h4">Saved Facebook Post</div>
+                                <div class="instruction-text">Saved post.</div>
                             <div class="Facebook-preview">
                                 <div class="Facebook-preview-header">
                                     <div class="Facebook-preview-profpic"><img id="fb_preview_profpic" src="http://www.woomee.net/img/profile-blank.png"/></div>
@@ -252,7 +232,7 @@
                         <!--SAVED POST GOES HERE-->
 
                         <div class="notes-container">
-                            <textarea class="notes-container-textarea" id="fbnote{{schedule_id}}">{{schedule_desc}}</textarea>
+                            <textarea class="notes-container-textarea" name="fb_description" id="fb_description">{{schedule_desc}}</textarea>
                         </div>
                     </div>
                 </div>

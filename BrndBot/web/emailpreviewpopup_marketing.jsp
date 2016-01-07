@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="shortcut icon" href="favicon.png"></link>
     <script src="js/popup.js"></script>
+    <script src="js/timepicki.js" type="text/javascript"></script>
 </head>    
 
 <body>
@@ -70,7 +71,7 @@
                         <div class="input-header-actionDetail" style="">
                                 TITLE
                         </div>
-                            <input id="email_edit_title" name="email_edit_title" class="input-field-textfield" value="{{schedule_title}}---"/>
+                            <input id="email_edit_title" name="email_edit_title" class="input-field-textfield" value="{{schedule_title}}"/>
                             <input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{schedule_id}}' />
                             <input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{schedule_type}}'/>
                                         
@@ -79,14 +80,13 @@
                                     <div class="input-header-actionDetail" style="">
                                         Status
                                     </div>
-                                    <input type="text" id="mailnotemplate1" value="No Template" class="input-field-textfield width75  " readonly/>
-                                    <input type="text" id="mailtemplatesaved1" value="Template Saved" class="input-field-textfield width75 " readonly/>
+                                    <input type="text" id="mailtemplatesaved1" value="{{email_template_status}}" class="input-field-textfield width75" readonly/>
                                 </div>
                                 <div class="half">
                                     <div class="input-header-actionDetail" style="">
                                         Marketing Program
                                     </div>
-                                    <input type="text" id="emailmarkprog" value="{{marketing_program_name}}" class="input-field-textfield width75" readonly/>
+                                    <input type="text" id="" value="{{programs.programdetails.programName}}" class="input-field-textfield width75" readonly/>
                                 </div>
                         </div>
                             <div class="input-header-actionDetail h3" style="">
@@ -116,38 +116,27 @@
                                     <div class="input-header-actionDetail " >
                                         DATE
                                     </div>
-                                        <input type="hidden" class="textbox" id="emaildays" name="emaildays" value="0"/>
-                                        <input type="text"  readonly  name="emaildatetime" id="emaildatetime"  class="input-field-textfield width75" value="{{entities_selected_time| date:'MMM dd yyyy'}}" />                                        
-                                        <script>
-                                            var picker = new Pikaday(
-                                            {
-                                                format: 'MMM DD YYYY',
-                                                field: document.getElementById('emaildatetime'),
-                                                firstDay: 1,
-                                                minDate: new Date(2000, 0, 1),
-                                                maxDate: new Date(2050, 12, 31),
-                                                yearRange: [2000,2050]
-                                            });
-
-                                        </script>
+                                     <input type="hidden" readonly  name="emaildatetime" id="emaildatetime"  class="inputdate MH1 ptr" value="Sun Jan 01 1970">                                        
+                                     <input type="text"id="emaildays" name="emaildays" value="{{days}}" class="textbox">
                                 </div>
                             </div>
                             <div class="half">
                                 <div class="input-header-actionDetail" style="">
                                     TIME
                                 </div>
-                                <input id="timepickeremail" type="text" name="timepickeremail" class="timepickertextbox " value="{{entities_selected_time| date:'h : mm : a'}}"/> 
-                                <script>
-                                    $('#timepickeremail').timepicki({
-                                        show_meridian:true,
-                                        min_hour_value:0,
-                                        max_hour_value:12,
-                                        step_size_minutes:01,
-                                        overflow_minutes:true,
-                                        increase_direction:'up',
-                                        disable_keyboard_mobile: true
-                                    });
-                                </script>
+                               <input id="timepickeremail" type="text" name="timepickeremail" class="inputtime timepickertextbox width38 " style="width:150px;" value="{{post_time| date:'hh : mm : a'}}"/> 
+                                                        <script src="js/timepicki.js" type="text/javascript"></script>
+                                                        <script>
+                                                                $('#timepickeremail').timepicki({
+                                                                    show_meridian:true,
+                                                                    min_hour_value:0,
+                                                                    max_hour_value:12,
+                                                                    step_size_minutes:01,
+                                                                    overflow_minutes:true,
+                                                                    increase_direction:'up',
+                                                                    disable_keyboard_mobile: true
+                                                                });                                                        
+                                                        </script>
                             </div>
                         </div>
                             
@@ -164,18 +153,18 @@
 
                                 <!--SAVED Email GOES HERE-->
 
-                                <div class="overlay-emptystate-icon">
-                                    <img type="image/svg+xml" src="images/Icons/Overlay_EmptyStates_Email-Empty-State.svg" class="overlay-emptystate-icon"/>
-                                </div>
-                                <div class="empty-state-container">
-                                    <div class="h2new textCenter textColor-Graynew">
-                                        No emails saved to this action.
-                                    </div>
-                                    <a class="link" href="dashboard.jsp">
-                                        <div class="md-button empty-state-cta">
-                                        Go to Dashboard
-                                        </div></a>
-                                </div>
+                        <div class="overlay-emptystate-icon">
+                            <img type="image/svg+xml" src="images/Icons/Overlay_EmptyStates_Email-Empty-State.svg" class="overlay-emptystate-icon"/>
+                        </div>
+                        <div class="empty-state-container">
+                            <div class="h2new textCenter textColor-Graynew">
+                                No emails saved to this action.
+                            </div>
+                            <a class="link" href="dashboard.jsp">
+                                <div class="md-button empty-state-cta">
+                                Go to Dashboard
+                                </div></a>
+                        </div>
                 </div>
                 <div class="below-nav-container-saved-post-detail" id="savedemailsdiv">
                     <div class="inner-content-container-detail fleft">
@@ -215,7 +204,7 @@
                         <!--SAVED POST GOES HERE-->
 
                         <div class="notes-container">
-                              <textarea class="notes-container-textarea" id="emailnotes{{schedule_id}}">{{schedule_desc}}</textarea>
+                              <textarea class="notes-container-textarea" id="email_description" >{{schedule_desc}}</textarea>
                         </div>
                     </div>
                 </div>
