@@ -7,6 +7,38 @@
  $(".menu").hide();
  $("#emaillist").hide();
  $("#addAction").hide();
+ var count=0;
+        function selemldrftcheckbox(id){ 
+//            alert(id+"--selected");
+            content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
+//            alert(content);
+            var htm=$("#"+id).html();
+            var selected_schedule_id=id;
+            if(htm.contains('class="check-icon"')){
+                selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
+                count-=1;
+                $("#"+id).html(content);
+            }
+            else
+            {
+                selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
+//                alert(selected_schedules_to_delete);
+                count+=1;
+                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+            }
+            $("#"+id).toggleClass('selection-icon');
+            $("#"+id).toggleClass('selection-icon-selected');
+            if(count > 0)
+            {   
+//                $(".add-action-button").hide();
+                $("#deleteEmaildraft").show();
+            }
+            if(count==0)
+            {
+//                $(".add-action-button").show();
+                $("#deleteEmaildraft").hide();
+            }
+        }
     var count=0;var selectedemailids = "";
 
         function selemlcheckbox(id){ 
@@ -122,6 +154,7 @@
                 });
                 
                 $("#emllistab").click(function (){
+                    $("#deleteEmaildraft").hide();
                     $("#emaillistsdiv").show();
                     $("#emaildraftsdiv").hide();
                     $("#addemlstbtn").show();

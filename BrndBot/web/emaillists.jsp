@@ -200,9 +200,9 @@
                 <!--<div class="exit-button-detail"></div>-->
                 <div class="page-title-regular page-title-font">Your Email Hub</div>
                 <div class="page-cta-container">
-<!--                <a href="">
-                 <div class="delete-button md-button button fleft"  id="deleteEmailList"  > Delete Email List</div>
-                </a>-->
+                <a href="">
+                 <div class="delete-button md-button button fleft"  id="deleteEmaildraft"  > Delete Email Drafts</div>
+                </a>
                 <a href="">
                     <div id="addemlstbtn" class="add-action-button md-button button-text-1" ng-click="addemaillist()"> Add Email List</div>
                 </a>
@@ -309,7 +309,7 @@
                             </div>
                         <li class="slat-container fleft selfclear" ng-repeat="drafts in emaildrafts">
                             <div class="selection-container col-5p" id="deleteids"> 
-                                <div class="selection-icon" id="{{drafts.id}}" onclick="selcheckbox(this.id)">
+                                <div class="selection-icon" id="{{drafts.id}}" onclick="selemldrftcheckbox(this.id)">
                                     <input type="checkbox" id="{{drafts.id}}" value="{{drafts.id}}" name="draftname" style="display:none;"></input>
                                 </div>
                             </div>
