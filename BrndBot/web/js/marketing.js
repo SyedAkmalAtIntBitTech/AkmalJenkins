@@ -1294,9 +1294,8 @@ function controllerMarketingCampaign($scope, $http) {
             }).error(function (data) {
                 alert("Request not successful!");
             });
-            $('#slider-button').click();
             $("#fbapprove").focus();
-            
+            $('#slider-button').click();            
         } 
         
          if (entity_type === gettwitter()) {

@@ -75,6 +75,7 @@ function getImageId(idname)
 $(document).ready(function ()
 {
     /*------------------------------------------------ social image popup----------------*/
+    
     $("#schedule").click(function(){
         $("#postpopup").hide();        
         $("#schedulepopup").show();
