@@ -8,6 +8,7 @@
  $("#emaillist").hide();
  $("#addAction").hide();
  var count=0;
+ var selected_emaildrafts_to_delete = "";
         function selemldrftcheckbox(id){ 
 //            alert(id+"--selected");
             content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
@@ -15,13 +16,13 @@
             var htm=$("#"+id).html();
             var selected_schedule_id=id;
             if(htm.contains('class="check-icon"')){
-                selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
+                selected_emaildrafts_to_delete = selected_emaildrafts_to_delete.replace(selected_schedule_id + ",", "");
                 count-=1;
                 $("#"+id).html(content);
             }
             else
             {
-                selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
+                selected_emaildrafts_to_delete = selected_schedule_id + "," + selected_emaildrafts_to_delete;
 //                alert(selected_schedules_to_delete);
                 count+=1;
                 $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
@@ -38,6 +39,7 @@
 //                $(".add-action-button").show();
                 $("#deleteEmaildraft").hide();
             }
+//            alert(selected_emaildrafts_to_delete);
         }
     var count=0;var selectedemailids = "";
 
@@ -129,6 +131,7 @@
 
             
             $(document).ready(function () {
+                 
                 $("#removeselactions").hide();
                 $("#emaildraftsdiv").hide();
                 $(".delete-button").hide();
@@ -151,6 +154,7 @@
                     $("#emllistab").addClass("top-subnav-links");
                     $("#emllistab a").addClass("h3"); 
                     $("#removeselactions").hide();
+                    getAllDrafts();
                 });
                 
                 $("#emllistab").click(function (){
@@ -165,7 +169,19 @@
                     $("#emldrftab").addClass("top-subnav-links");
                     $("#emldrftab a").addClass("h3"); 
                 });
-                
+                if(location.search == "?emaildrafts=1"){
+                     $("#emaillistsdiv").hide();
+                    $("#emaildraftsdiv").show();
+                    $("#addemlstbtn").hide();
+                    $("#emldrftab").addClass("top-subnav-link-active");
+                    $("#emldrftab a").addClass("h3-active-subnav");
+                    $("#emllistab").removeClass("top-subnav-link-active");
+                    $("#emllistab a").removeClass("h3-active-subnav");
+                    $("#emllistab").addClass("top-subnav-links");
+                    $("#emllistab a").addClass("h3"); 
+                    $("#removeselactions").hide();
+                    getAllDrafts();
+                 }
                 $("#close").click(function(){
                    $("#fade").hide();
                    $("#addContact").hide(); 
@@ -947,20 +963,20 @@ $edit=0;
         var message;
         var requestBody;
         var responseMessage;
-        if(selected_draft !==""){
+        if(selected_emaildrafts_to_delete !==""){
            
         
         if (type == "deleteMultiple") {
             message = "Are you sure you want to delete these Draft(s)?";
 //            alert("draft del ="+selected_draft);
             requestBody = {"type": "deleteSelected",
-                "draft_ids": selected_draft, "entity_type": "null"};
+                "draft_ids": selected_emaildrafts_to_delete, "entity_type": "null"};
             responseMessage = "Selected Drafts were deleted successfully";
 //            alert("..."+requestBody.draft_ids);
         } else if (type == "delete") {
             message = "Are you sure you want to delete this Draft?";
             requestBody = {"type": "delete",
-                            "draft_ids": selected_draft};
+                            "draft_ids": selected_emaildrafts_to_delete};
             responseMessage = "Selected Drafts were deleted successfully";
         }
 
@@ -975,8 +991,16 @@ $edit=0;
             {
                 $scope.status = data;
                 if (data !== "") {
-                    alert(responseMessage);
-                    window.open(getHost() + 'emaildrafts.jsp', "_self");
+//                    alert(selected_emaildrafts_to_delete);
+//                    var totalid=selected_emaildrafts_to_delete.split(",");
+//                    for(var i=0;i<totalid.length;i++)
+//                    {
+//                        $("#li"+totalid[i]).hide();
+//                    }
+                    window.open(getHost() + 'emaillists.jsp?emaildrafts=1', "_self");
+                   
+//                  getAllDrafts();
+//                    $("#emaillistsdiv").hide();
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
@@ -1016,19 +1040,21 @@ $edit=0;
                 method : 'GET',
                 url : getHost() + 'displayAllEmailDrafts.do'
             }).success(function(data, status) {
-                console.log(JSON.stringify(data));
+//                console.log(JSON.stringify(data));
                 if (data.nodrafts == "yes"){
                     $scope.emaildraftnumber = '0';
                     $scope.emaildraftsstatus = "No email drafts present";
                 }else {
                     $scope.emaildrafts = data.emaildrafts;
                 }
+//                window.open(getHost() + 'emaillists.jsp', "_self");
 //                     alert(JSON.stringify(data));
             }).error(function(data, status) {
                 alert("No data available! Problem fetching the data.");
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
             });
+            
         };
 
         $scope.editDrafts = function(draft_id, category_id,email_subject, sub_category_id, sub_category_name){
