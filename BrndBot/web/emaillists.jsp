@@ -200,9 +200,9 @@
                 <!--<div class="exit-button-detail"></div>-->
                 <div class="page-title-regular page-title-font">Your Email Hub</div>
                 <div class="page-cta-container">
-<!--                <a href="">
-                 <div class="delete-button md-button button fleft"  id="deleteEmailList"  > Delete Email List</div>
-                </a>-->
+                <a href="">
+                    <div class="delete-button md-button button fleft"  id="deleteEmaildraft" ng-click="deletedrafts('deleteMultiple');" > Delete Email Drafts</div>
+                </a>
                 <a href="">
                     <div id="addemlstbtn" class="add-action-button md-button button-text-1" ng-click="addemaillist()"> Add Email List</div>
                 </a>
@@ -307,28 +307,29 @@
                                     <div ng-show="emaildraftnumber == '0'">{{emaildraftsstatus}}</div>
                                 </div>
                             </div>
-                        <li class="slat-container fleft selfclear" ng-repeat="drafts in emaildrafts">
-                            <div class="selection-container col-5p" id="deleteids"> 
-                                <div class="selection-icon" id="{{drafts.id}}" onclick="selcheckbox(this.id)">
-                                    <input type="checkbox" id="{{drafts.id}}" value="{{drafts.id}}" name="draftname" style="display:none;"></input>
+                        <div  ng-repeat="drafts in emaildrafts">
+                            <li class="slat-container fleft selfclear" id="li{{drafts.id}}">
+                                <div class="selection-container col-5p" id="deleteids"> 
+                                    <div class="selection-icon" id="{{drafts.id}}" onclick="selemldrftcheckbox(this.id)">
+                                        <input type="checkbox" id="{{drafts.id}}" value="{{drafts.id}}" name="draftname" style="display:none;"></input>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-7of10 slat-unit fleft ">
-                                <div class="slat-title-container col-1of1 fleft">
-                                    <div class="slat-title email-list-slat-title col-1of1 sh1">{{drafts.emailsubject}}</div>
-                                    <div class="action-list-slat-description col-1of1 sh3">This is an email draft| Last edited on {{drafts.editdate | date: "MMM dd yyyy"}}</div>
+                                <div class="col-7of10 slat-unit fleft ">
+                                    <div class="slat-title-container col-1of1 fleft">
+                                        <div class="slat-title email-list-slat-title col-1of1 sh1">{{drafts.emailsubject}}</div>
+                                        <div class="action-list-slat-description col-1of1 sh3">This is an email draft| Last edited on {{drafts.editdate | date: "MMM dd yyyy"}}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-1of4 fleft">
-                                <div class="slat-cta-container">
-                                    <a>
-<!--                                        <span class="small-button slat-button detail-button-font" ng-click="editDrafts(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</span>-->
-                                        <span class="small-button slat-button detail-button-font" ng-click="showdraftpopup(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</span>
-                                    </a>
+                                <div class="col-1of4 fleft">
+                                    <div class="slat-cta-container">
+                                        <a>
+    <!--                                        <span class="small-button slat-button detail-button-font" ng-click="editDrafts(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</span>-->
+                                            <span class="small-button slat-button detail-button-font" ng-click="showdraftpopup(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</span>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                     
+                            </li>
+                        </div>
                     </ul>
                 </div>
             </div> 
