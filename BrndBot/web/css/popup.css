@@ -708,4 +708,7 @@ select#dropdownurl,#url {
 .width38{
     width:38% !important;
 }
+img#prevfbimg {
+    width: 100%;
+}
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/
