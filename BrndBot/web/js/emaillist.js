@@ -958,14 +958,14 @@ $edit=0;
         
            };
             
-        $scope.deletedrafts = function (type) {
-            
+        $scope.deletedrafts = function (type,id) {
+            var delid=id+",";
         var message;
         var requestBody;
         var responseMessage;
-        if(selected_emaildrafts_to_delete !==""){
+//        if(selected_emaildrafts_to_delete !==""){
            
-        
+           
         if (type == "deleteMultiple") {
             message = "Are you sure you want to delete these Draft(s)?";
 //            alert("draft del ="+selected_draft);
@@ -976,7 +976,7 @@ $edit=0;
         } else if (type == "delete") {
             message = "Are you sure you want to delete this Draft?";
             requestBody = {"type": "delete",
-                            "draft_ids": selected_emaildrafts_to_delete};
+                            "draft_ids": delid};
             responseMessage = "Selected Drafts were deleted successfully";
         }
 
@@ -1009,9 +1009,9 @@ $edit=0;
                 alert("Some Error occured! Try after some time.");
             });
         }
-       }else{
-            alert("No Drafts Selected!");
-       }
+//       }else{
+//            alert("No Drafts Selected!");
+//       }
     };
             
         $scope.unseldrafts = function (id) {
