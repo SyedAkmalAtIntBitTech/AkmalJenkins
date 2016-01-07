@@ -189,8 +189,10 @@
     <div class="content-main" ng-controller="EmailListController" >
         <!--SideNav-->
         <%@include file="navbarv2.jsp" %>
-         <script src="js/marketing.js" type="text/javascript"></script>
+        <script src="js/marketing.js" type="text/javascript"></script>
        <jsp:include page="createemaillist.jsp"/>
+       <jsp:include page="savedEmailDraftPopup.jsp"/> 
+      
         <!--Top Nav-->   
         
         <div class="top-nav">
@@ -292,8 +294,9 @@
             </div>            
         </div>
             <div class="page-content-container email-list-contact-page email-draft-page" id="emaildraftsdiv" >
-                <div ng-controller="emailDraftsController">
-                    <jsp:include page="savedraftemailpopup.jsp"/> 
+                <div>
+                    <%--<jsp:include page="savedraftemailpopup.jsp"/>--%>
+                    
                    
                 <div class="fleft content" ng-init="getAllDrafts()">
                     <div class="page-content-title h2">Your Email Drafts</div>
@@ -319,7 +322,8 @@
                             <div class="col-1of4 fleft">
                                 <div class="slat-cta-container">
                                     <a>
-                                        <span class="small-button slat-button detail-button-font" ng-click="editDrafts(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</span>
+<!--                                        <span class="small-button slat-button detail-button-font" ng-click="editDrafts(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</span>-->
+                                        <span class="small-button slat-button detail-button-font" ng-click="showdraftpopup(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</span>
                                     </a>
                                 </div>
                             </div>
@@ -336,7 +340,13 @@
             </div>
         </div>
     </div>
-  
+    <div id="light" class="white_content closepopup">
+        <a href = "javascript:void(0)" style="text-decoration:none;">
+            <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
+                <p style="margin-top:-7px;"><img src="images/Icons/yourPlan.svg" height="25" width="25" /></p>
+            </div>
+        </a>
+    </div>     
         <!--CTA Bar-->
        
     </body>

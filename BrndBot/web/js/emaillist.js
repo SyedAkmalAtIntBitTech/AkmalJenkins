@@ -7,8 +7,8 @@
  $(".menu").hide();
  $("#emaillist").hide();
  $("#addAction").hide();
-     
     var count=0;var selectedemailids = "";
+
         function selemlcheckbox(id){ 
 //          alert(id+"--selected");
             
@@ -253,6 +253,143 @@
             }
 
             function EmailListController($scope, $http) {
+                
+                var sliderDialog="";
+ var prevSliderDialog="";
+ 
+    $("#liPriority").click(function () {
+        //$slider=1;
+        //sliderDialog = "#dvPriorityDialog";
+        //$('#slider-button').click();
+        //prevSliderDialog = "#dvPriorityDialog";
+    });
+
+    $("#liFasting").click(function () {
+        sliderDialog = "#dvFastingDialog";
+        $('#slider-button').click();
+        prevSliderDialog = "#dvFastingDialog";
+    });
+    
+$a=0;
+$edit=0;
+    $('#slider-button').click(function () {
+        $a+=1;
+         //To hide the dialog if user click on another node
+        if($a>=2 && $edit==1)
+        {   
+//            if (confirm("Do you want to close it .. !"))
+//            { 
+                $edit=0;  
+                if($slider==2)
+                {
+                    if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
+                        if ($('#slider-button').css("margin-right") == "788px")
+                        {
+                            $(prevSliderDialog).animate({"margin-right": '-=900px'});
+                            $('#slider-button').animate({"margin-right": '-=788px'});
+                        }
+                    }
+
+                    if ($('#slider-button').css("margin-right") == "788px")
+                    {
+                        $slider=0;
+                        $a=0;
+                        $(sliderDialog).animate({"margin-right": '-=900px'});
+                        $('#slider-button').animate({"margin-right": '-=788px'});
+                        closeoverlay();
+                    }
+                    else
+                    {
+                        $(sliderDialog).animate({"margin-right": '+=900px'});
+                        $('#slider-button').animate({"margin-right": '+=788px'});
+                        overlay();
+                    }  
+                }
+                if($slider==1)
+                {
+                    if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
+                        if ($('#slider-button').css("margin-right") == "375px")
+                        {
+                            $(prevSliderDialog).animate({"margin-right": '-=424px'});
+                            $('#slider-button').animate({"margin-right": '-=375px'});
+                        }
+                    }
+
+                    if ($('#slider-button').css("margin-right") == "375px")
+                    {
+                        $slider=0;
+                        $a=0;
+                        $(sliderDialog).animate({"margin-right": '-=424px'});
+                        $('#slider-button').animate({"margin-right": '-=375px'});
+                        closeoverlay();
+                    }
+                    else
+                    {
+                        $(sliderDialog).animate({"margin-right": '+=424px'});
+                        $('#slider-button').animate({"margin-right": '+=375px'});
+                        overlay();
+                    }  
+                }
+            }
+//            else
+//            {
+//            }
+//        }
+        else
+        {
+            if($slider==2)
+            {
+                if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
+                    if ($('#slider-button').css("margin-right") == "788px")
+                    {
+                        $(prevSliderDialog).animate({"margin-right": '-=900px'});
+                        $('#slider-button').animate({"margin-right": '-=788px'});
+                    }
+                }
+
+                if ($('#slider-button').css("margin-right") == "788px")
+                {
+                    $slider=0;
+                    $a=0;
+                    $(sliderDialog).animate({"margin-right": '-=900px'});
+                    $('#slider-button').animate({"margin-right": '-=788px'});
+                    closeoverlay();
+                }
+                else
+                {
+                    $(sliderDialog).animate({"margin-right": '+=900px'});
+                    $('#slider-button').animate({"margin-right": '+=788px'});
+                    overlay();
+                }  
+            }
+            if($slider==1)
+            {
+                if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
+                    if ($('#slider-button').css("margin-right") == "375px")
+                    {
+                        $(prevSliderDialog).animate({"margin-right": '-=424px'});
+                        $('#slider-button').animate({"margin-right": '-=375px'});
+                    }
+                }
+
+                if ($('#slider-button').css("margin-right") == "375px")
+                {
+                    $slider=0;
+                    $a=0;
+                    $(sliderDialog).animate({"margin-right": '-=424px'});
+                    $('#slider-button').animate({"margin-right": '-=375px'});
+                    closeoverlay();
+                }
+                else
+                {
+                    $(sliderDialog).animate({"margin-right": '+=424px'});
+                    $('#slider-button').animate({"margin-right": '+=375px'});
+                    overlay();
+                }  
+            }
+        }
+        
+    });
 
 
                 $scope.createEmailList = function () {
@@ -584,8 +721,8 @@
 //                    }
 //
 //                };
-                
-                $scope.deleteEmailList = function (){
+            
+            $scope.deleteEmailList = function (){
                     var noofemaillist="";
                     var selected_email_lists="";
                     $("input[type=checkbox]:checked").each ( function() {
@@ -694,50 +831,83 @@
                     $("#addActionemllist").show();
                     $("#fade").show();
                 };
+            
+            $("#closedraftpopup").click(function(){
+                sliderDialog = "#emaildraftpopup";
+                prevSliderDialog = "#emaildraftpopup";
+                $('#slider-button').click();
+            });
                 
-            }
-
-
-/////////Email drafts js///////
-       
+            $scope.showdraftpopup = function (Id,categoryId,emailSubject,subCategoryId,subCategoryName){
+                  
+            $slider=2;
+            sliderDialog = "#emaildraftpopup";
+            prevSliderDialog = "#emaildraftpopup";
+//            alert("ok");
+            $http({
+                    method : 'GET',
+                    url : getHost() + 'getEmailDraft.do?draftid='+Id
+                  }).success(function(data, status) {
+                  if (data == ""){
+                        $scope.emaildraftsstatus = "No email drafts present";
+                        }else {     
+                                $scope.htmlbody = data.htmlbody;
+                                $('#draftshow').empty().append(data.htmlbody);
+                              }
+                        }).error(function(data, status) {
+                            alert("No data available! Problem fetching the data.");
+                            // called asynchronously if an error occurs
+                            // or server returns response with an error status.
+                        }); 
+            
+//            $http({
+//                method: 'GET',
+//                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
+//            }).success(function (data) {
+//                $scope.entitiesdetails = data;
+//                if (data.image_name === undefined) {
+//                    $('#nopostsaveddiv').show();
+//                    $('#savedpostdiv').hide();
+//                    $('#savedposthead').hide();
+//                    $('#fbpostremove').hide();
+////                    $('.approve').hide();
+////                    $('#fbpreviewremove').hide();
+////                    $('#fbremovedtemplate').show();
+////                    $('#fbpreviewdecond').hide();
+////                    $('#imgcontainer').hide();
+////                    $('#prevfbimg').hide();
+//                    $('#fbnotemplate').show();
+//                    $('#fbtemplatesaved').hide();
+////                    $('#fb_preview_postdet').css("margin-top", 10);
+////                    $("#fb_button_post").val(create_button_title);
+//                } else {
+//                    $('#savedposthead').show();
+//                    $('#nopostsaveddiv').hide();
+//                    $('#savedpostdiv').show();
+//                    $('#fbpostremove').show();
+////                    $('.approve').show();
+////                    $('#fbpreviewremove').show();
+////                    $('#fbremovedtemplate').hide();
+////                    $('#fbpreviewdecond').show();
+//                    $('#fbnotemplate').hide();
+//                    $('#fbtemplatesaved').show();
+////                    $('#imgcontainer').show();
+////                    $('#fb_preview_postdet').css("margin-top", 20);
+////                    $("#fb_button_post").val("Edit");
+////                    $('#prevfbimg').show();
+////                    $('#isFacebook').val("true");
+////                    $('#isTwitter').val("false");
+//                }
+////                
+//                var date = new Date(schedule_time);
+                $scope.id = Id;
+                $scope.categoryid = categoryId;
+                $scope.emailsubject = emailSubject;
+                $scope.subcategoryid = subCategoryId;
+                $scope.subcategoryname = subCategoryName;
+            $('#slider-button').click();            
         
-        
-        var selected_draft="";
-        var count=0;
-        function selcheckbox(id){ 
-              
-//            alert(id+"--selected");
-            content='<input type="checkbox" id="'+'draftId'+id+'" checked="true" hidden="">';
-//            alert(content);
-            var htm=$("#"+id).html();
-            if(htm.contains('class="check-icon"')){
-                count-=1;
-                $("#"+id).html(content);
-                selected_draft = selected_draft.replace(id + ",", "");
-            }
-            else
-            { 
-                count+=1;
-                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
-                selected_draft = id+ "," + selected_draft;
-
-            }
-            $("#"+id).toggleClass('selection-icon');
-            $("#"+id).toggleClass('selection-icon-selected');
-            if(count > 0)
-            {
-                $("#drftEmailDelete").show();
-            }
-            if(count==0)
-            {
-                $("#drftEmailDelete").hide();
-            }
-        }
-        
-        
-        
-        
-        function emailDraftsController($http, $scope){
+           };
             
         $scope.deletedrafts = function (type) {
             
@@ -854,5 +1024,51 @@
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
             });
-        };
+        };    
+                
+            };
+
+
+/////////Email drafts js///////
+       
+        
+        
+        var selected_draft="";
+        var count=0;
+        function selcheckbox(id){ 
+              
+//            alert(id+"--selected");
+            content='<input type="checkbox" id="'+'draftId'+id+'" checked="true" hidden="">';
+//            alert(content);
+            var htm=$("#"+id).html();
+            if(htm.contains('class="check-icon"')){
+                count-=1;
+                $("#"+id).html(content);
+                selected_draft = selected_draft.replace(id + ",", "");
+            }
+            else
+            { 
+                count+=1;
+                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+                selected_draft = id+ "," + selected_draft;
+
+            }
+            $("#"+id).toggleClass('selection-icon');
+            $("#"+id).toggleClass('selection-icon-selected');
+            if(count > 0)
+            {
+                $("#drftEmailDelete").show();
+            }
+            if(count==0)
+            {
+                $("#drftEmailDelete").hide();
+            }
+        }
+        
+        
+        
+        
+        function emailDraftsController($http, $scope){
+            
+       
     };

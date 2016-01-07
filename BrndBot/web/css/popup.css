@@ -669,10 +669,43 @@ select#dropdownurl,#url {
     z-index: 99999;
     margin-left: 30%;
 }
+#emaildraftpopup{
+    //display: none;
+    position: fixed;
+    z-index: 999999;
+    height: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+    width: 900px;
+    right: 0px;
+    margin-right: -900px;
+}
+#draftshow {
+    position: relative;
+    top: 0px;
+    font-family: "proxima-nova";
+    font-weight: 500;
+    left: 10em;
+    float: left;
+    color: #2D4444;
+}
+.top-navbar_draft{
+    background-color: #FFFFFF;
+    height: 60px;
+    border-bottom: 1px solid #E9EAEE;
+    display: block;
+    position: fixed;
+    box-sizing: border-box;
+    width: 100%;
+    z-index: 1;
+}
 /*--------------------------------------------- satyajit start 5/01/2016-----------------------------------------------*/
 .fileupld{
     opacity: 0;
     margin-top: -26px;
     width: 100%;
 }
-/*--------------------------------------------- satyajit end 5/01/2016-----------------------------------------------*/
+.width38{
+    width:38% !important;
+}
+/*--------------------------------------------- satyajit end code-----------------------------------------------*/

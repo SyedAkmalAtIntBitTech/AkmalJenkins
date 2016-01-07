@@ -566,7 +566,7 @@
             </div>
             <div id="mask"></div>
         </div>
-        <input type="hidden" id='userid' value=<%= user_id%>>
+        <input type="hidden" id='userid' value="<%= user_id%>">
         <div class="row" ng-controller="MyController">
             <div class="col-sm-1 col-md-1 col-lg-1 halfcol"><jsp:include page="leftmenu.html"/></div>
             <div class="col-sm-7 col-md-7 col-lg-7">
