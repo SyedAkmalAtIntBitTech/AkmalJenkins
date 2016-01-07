@@ -160,7 +160,7 @@
         <div id="emailpostsection">
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="saved-post-preview-detail" id="noemailsdiv" ng-show="entitiesdetails.body === undefined">
+                <div class="saved-post-preview-detail" id="noemailsdiv" >
 
                                 <!--SAVED Email GOES HERE-->
 

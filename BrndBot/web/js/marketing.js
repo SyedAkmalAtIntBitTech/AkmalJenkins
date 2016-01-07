@@ -244,7 +244,6 @@ function reSet()
         }
         if( change !== "0")
         {
-            alert(change);
             setTimeout(function (){
             window.open(getHost() + 'marketing.jsp', "_self");
                },430);
@@ -255,8 +254,8 @@ function reSet()
             $('.bottom-cta-bar').hide();
         }
 //        window.open(getHost() + 'marketing.jsp', "_self");
-        //$("#fade").hide();
-        //$("#facebooksection").hide();
+//        $("#fade").hide();
+//        $("#facebooksection").hide();
     });
 
 function validateaction() {
@@ -1604,9 +1603,10 @@ function controllerMarketingCampaign($scope, $http) {
         }
     };
     
-    $scope.updateActionFacebookNote = function (schedule_id) {
+    $scope.updateActionFacebookNote = function () {
         
-        var actiontype = getfacebook();
+        var actiontype = $("#fb_scheduletype").val();
+        var schedule_id = $("#fb_scheduleid").val();
         var description = $("#fbnote"+schedule_id).val();
 //        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
 
@@ -1629,7 +1629,7 @@ function controllerMarketingCampaign($scope, $http) {
                     alert("Facebook Notes saved successfully");
                     $("#change").val("1");
                     $scope.getCampaigns();
-                   // window.open(getHost() + 'marketing.jsp', "_self");
+                    //window.open(getHost() + 'marketing.jsp', "_self");
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
@@ -1804,7 +1804,12 @@ function controllerMarketingCampaign($scope, $http) {
                         $("#mailremovedtemplate").show();                     
                     }
                     alert(responseMessage);
-                    window.open(getHost() + 'marketing.jsp', "_self");
+                    $("#emailpostremove").hide();
+                    $("#savedemailsdiv").hide();
+                    $("#noemailsdiv").show();
+                    $("#change").val("1");
+                    
+                    //window.open(getHost() + 'marketing.jsp', "_self");
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
