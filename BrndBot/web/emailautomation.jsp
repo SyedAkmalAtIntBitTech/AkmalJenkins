@@ -287,7 +287,7 @@
                     }).success(function (data, status, headers, config) {
                         if (data === "true") {
                             alert("Details saved succesfully.");
-                            window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
+                            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id, "_self");
                         }else {
                             alert("Problem saving the record!");
                         }
