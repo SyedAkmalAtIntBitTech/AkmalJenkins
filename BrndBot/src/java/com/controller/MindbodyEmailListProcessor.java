@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -39,6 +40,7 @@ public class MindbodyEmailListProcessor implements Runnable {
     private static final Logger logger = Logger.getLogger(util.Utility.getClassName(MindbodyEmailListProcessor.class));
     private static final ConnectionManager connectionManager = ConnectionManager.getInstance();
     private volatile boolean running = true;
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     //This is added just in case the application server itself shutdowns. That time the contextDestroyed is not called.
     void startThread() {
@@ -119,7 +121,7 @@ public class MindbodyEmailListProcessor implements Runnable {
 
                         String first_name = email_object1.getFirstName();
                         String last_name = email_object1.getLastName();
-                        EmailInfo email_info = new EmailInfo(email_id, first_name, last_name, null);
+                        EmailInfo email_info = new EmailInfo(email_id, first_name, last_name, dateFormat.format(new Date()));
                         json_array_emailclient.put(email_info.getEmailInfoJSONObject());
                     }
                     

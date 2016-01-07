@@ -262,7 +262,7 @@ $(document).ready(function () {
                                     <input id="from_address" class="form-control simplebox" type="text" name="from_address" />
                                     <label id="frmadr">FROM ADDRESS</label>
                                 </div>
-                            </div>
+                         </div>
                             <div class="group">
                                 <div class="">   
                                     <input id="reply_email_address" class="form-control simplebox" type="text" name="reply_email_address"/>

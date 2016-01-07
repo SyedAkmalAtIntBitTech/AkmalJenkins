@@ -91,7 +91,7 @@ public class ApplicationContextListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         logger.log(Level.INFO, "Application Un Deployed");
-//        mindbodyEmailListScheduler.stopScheduler();
+        mindbodyEmailListScheduler.stopScheduler();
         socialPostScheduler.stopScheduler();
         applicationContextListener = null;
         servletContextEvent = null;

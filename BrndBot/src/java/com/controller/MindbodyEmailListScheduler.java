@@ -50,8 +50,8 @@ public class MindbodyEmailListScheduler {
 
     void stopScheduler() {
         if (scheduler != null) {
-//            mindbodyEmailListRunnable.terminateThread();
-//            scheduler.shutdownNow();
+            mindbodyEmailListRunnable.terminateThread();
+            scheduler.shutdownNow();
         }
     }
     
