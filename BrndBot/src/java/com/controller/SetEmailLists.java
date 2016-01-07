@@ -405,7 +405,7 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
                     JSONArray emailAddressesJSONArray = (JSONArray)emailListJSONObject.get(IConstants.kEmailAddressesKey);
                     for (Object emailAddressesJSONArrayItem : emailAddressesJSONArray) {
                         JSONObject emailAddressJSONObject = (JSONObject) emailAddressesJSONArrayItem;
-                        String emailAddress = (String) emailAddressJSONObject.get(IConstants.kEmailAddressKey);
+                        String emailAddress = (String) emailAddressJSONObject.get("id");
                         if (emailAddress.equalsIgnoreCase(emailid)) {
                             emailAddressesJSONArray.remove(emailAddressesJSONArrayItem);
                             break;
@@ -424,7 +424,7 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
 
     
     
-     private Boolean deleteAllEmailList(Integer user_id, String emailListName) throws JSONException, SQLException {
+    private Boolean deleteAllEmailList(Integer user_id, String emailListName) throws JSONException, SQLException {
         org.json.simple.JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
         for (int i = 0; i < emailListArrayJSON.size(); i++) {
             JSONObject emailListJSONObject = (JSONObject)emailListArrayJSON.get(i);

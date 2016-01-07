@@ -29,8 +29,8 @@ String type=request.getParameter("type");
 %>
 <body ng-app>
     
-    <input type="hidden" id="get_list_name" value="<%=list_name%>">
-    <input type="hidden" id="get_type" value="<%=type%>">   
+    <input type="hidden" id="get_list_name" value="<%=list_name%>"/>
+    <input type="hidden" id="get_type" value="<%=type%>"/>   
     <!--SideNav-->
     <div class="content-main" ng-controller="EmailListController">
     <%@include file="navbarv2.jsp" %>
@@ -50,7 +50,7 @@ String type=request.getParameter("type");
                     <div class=" md-button" onclick="unsel()"> Unselect Contacts</div>    
                 </a>
                 <a href="" id="delcontact" class="delete-button button fleft">
-                    <div class=" md-button" ng-click="deleteEmailList()"> Delete Contact</div>    
+                    <div class=" md-button" ng-click="deleteSelected()"> Delete Contact</div>    
                 </a>
                 <a href="javascript:void(0)" class="fleft">
                      <div id="addcontact"  class="add-button md-button" onclick="fun('add','','','','');"> Add Contact</div>    
