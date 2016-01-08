@@ -189,7 +189,7 @@ var count=0;
                 $("#removeactionbutton").hide();
             }
         }
-        
+        var countota=0;
         function selcheckboxonetimeact(id){
 //            alert(id+"--selected");
             content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
@@ -198,25 +198,25 @@ var count=0;
             var selected_schedule_id=id;
             if(htm.contains('class="check-icon"')){
                 selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
-                count-=1;
+                countota-=1;
                 $("#"+id).html(content);
             }
             else
             {
                 selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
 //                alert(selected_schedules_to_delete);
-                count+=1;
+                countota+=1;
                 $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#"+id).toggleClass('selection-icon');
             $("#"+id).toggleClass('selection-icon-selected');
-            if(selected_schedules_to_delete !== "")
+            if(countota>0)
             {   
 //                $(".add-action-button").hide();
                 $("#deleteonetimeact").show();
                 $("#onetimeactbtn").hide();
             }
-            if(selected_schedules_to_delete === "")
+            if(countota==0)
             {
 //                $(".add-action-button").show();
 //                $(".delete-button").hide();
