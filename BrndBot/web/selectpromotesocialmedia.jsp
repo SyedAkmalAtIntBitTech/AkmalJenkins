@@ -148,11 +148,11 @@
             try {
                 sql_methods.session = request.getSession();
                 user_id = (Integer)sql_methods.session.getAttribute("UID");
-                if (!request.getParameter("id").equals("null")){
+                if (!request.getParameter("id").equals(null)){
                     mindbody_data_id = (String) request.getParameter("id");
                 } 
                 
-                if (!request.getParameter("mediatype").equals("null")){
+                if (!request.getParameter("mediatype").equals(null)){
                      media_type = (String)request.getParameter("mediatype");
                 } 
                 

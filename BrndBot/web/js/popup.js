@@ -25,6 +25,7 @@ function overlay(){
 
 function fun(type,email,id,fname,lname)
 {
+
     $("#fade").show();
     $("#addContact").show();
     $("#uuid").val(id);
@@ -181,6 +182,7 @@ $(document).ready(function ()
         var social=$("#social").val();
         var isFacebook=$("#isFacebook").val();
         var isTwitter=$("#isTwitter").val();
+        alert(social);
         window.open('socialeditor.jsp?id='+id+'&isFacebook='+isFacebook+'&isTwitter='+isTwitter+'&mediatype='+social+'&selectedtype='+selectedtype+'&data='+data, "_self");
     });
         $("#addimage").click(function(){

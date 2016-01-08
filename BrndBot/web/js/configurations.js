@@ -62,5 +62,4 @@ function getnote(){
     return "Note";
 }
 
-
 String.prototype.contains = function(it) { return this.indexOf(it) != -1; };
