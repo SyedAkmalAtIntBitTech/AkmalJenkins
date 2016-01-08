@@ -88,9 +88,9 @@ ul.autopadlft{
       width:100px;
   }
   .timepicker_wrap {
-    top: 42px !important;
-    left: -100px !important;
-    width: 263px;
+    top: 49px !important;
+    left: 0px !important;
+    width:35%;
   }
   .arrow_top{
     top: -10px;
