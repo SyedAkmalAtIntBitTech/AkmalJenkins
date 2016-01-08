@@ -653,7 +653,7 @@ function programactions($scope, $http, $window){
         }).success(function (data, status, headers, config) {
           if (data == "true"){
             alert("Template status changed successfully.");
-            window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
           }else {
               alert("Problem saving the record!");
           }
@@ -709,7 +709,7 @@ function programactions($scope, $http, $window){
               data: JSON.stringify(program_details)
           }).success(function (data, status, headers, config) {
             if (data == "true"){
-              window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+              window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
             }else {
                 alert("Problem saving the record!");
             }
@@ -1798,7 +1798,7 @@ function programactions($scope, $http, $window){
                         $("#mailremovedtemplate").show();                     
                     }
                     alert(responseMessage);
-                    window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
@@ -1816,10 +1816,20 @@ function programactions($scope, $http, $window){
         var responseMessage;
         var program=$("#program_id").val();
         if (type == "deleteMultiple") {
-            message = "Are you sure you want to delete these Action(s)?";
+            if(schedules_to_delete=="0"){
+                message = "Are you sure you want to delete these Email(s)?";
+            }
+            if(schedules_to_delete=="1"){
+                message = "Are you sure you want to delete these Action(s)?";
+            }
             requestBody = {"type": "deleteSelected",
                            "schedule_ids": selected_schedules_to_delete, "entity_type": "null"};
-            responseMessage = "Selected actions were deleted successfully";
+            if(schedules_to_delete=="0"){
+             responseMessage = "Selected Email(s) were deleted successfully";
+            }
+            if(schedules_to_delete=="1"){
+               responseMessage = "Selected actions were deleted successfully";
+            }
         } else if (type == "delete") {
             message = "Are you sure you want to delete this Action?";
             requestBody = {"type": "delete",

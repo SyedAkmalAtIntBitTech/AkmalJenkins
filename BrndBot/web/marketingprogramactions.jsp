@@ -199,7 +199,7 @@
                                 <div class=" md-button" ng-click="ShowAddAction()">  Add One Time Action</div>    
                             </a>
                             <a href="" id="deleteonetimeact" class="delete-button-detail fleft">
-                                <div class="md-button delrecemlbtn" ng-click="deleteSchedule('0', 'deleteMultiple')">Delete Selected Action(s)</div>
+                                <div class="md-button delrecemlbtn" ng-click="deleteSchedule('1', 'deleteMultiple')">Delete Selected Action(s)</div>
                             </a>
                         </div>
                     </div>
