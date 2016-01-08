@@ -669,7 +669,8 @@ $edit=0;
                     
 //                    $("#emailListli").addClass("top-subnav-links");
 //                    $("#emailList").addClass("h3");
-                    
+                    $(".page-background").css("background-color","#fff");
+                    $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","560px");
                     var list_name=$("#get_list_name").val();
                     var type=$("#get_type").val();
                     $("#tab4").hide();
@@ -678,6 +679,8 @@ $edit=0;
                         method: 'GET',
                         url: getHost() + 'GetEmailLists?update=emailsForEmailList&list_name='+list_name
                     }).success(function (data, status, headers, config) {
+                        $('#loadingGif').remove();
+                        $(".page-background").css("background-color","#EFF2F6");
                         $scope.user_emailAddresses = data.user_emailAddresses;
                         $scope.mindbody_emailAddresses = data.mindbody_emailAddresses;
                         $scope.selected_email_listname = list_name;
