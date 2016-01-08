@@ -224,7 +224,7 @@
                        <li class="top-subnav-links" id="emlhistab"> <a class="h3" href="emailhistory.jsp">Email History and Analytics</a></li>
 <!--                        <li class="top-subnav-links"> <a class="h3">Scheduled Emails</a></li>-->
                         <li class="top-subnav-link-active" id="emllistab"> <a href="" class="h3-active-subnav">Email Lists</a></li>
-                        <li class="top-subnav-links" id="emlsettab"> <a class="h3">Email Settings</a></li>
+                        <li class="top-subnav-links" id="emlsettab"> <a href="emailsettings.jsp" class="h3">Email Settings</a></li>
                     </ul>
                 </div>
                 
