@@ -705,14 +705,16 @@ $edit=0;
                             }
                         }else if (type == 'mindbody'){
                             
-                            $("#tab3").show();
-                            $("#tab1").hide();
-//                            $("#addcontacts").attr("disabled", true);
-                            $("#addcontacts").hide();
-                            $("#deleteSelected").hide();
-                            $("#emailaddrs").hide();
-                            $(".head").css("padding-bottom","15%");
-//                            
+//                            $("#tab3").show();
+//                            $("#tab1").hide();
+////                            $("#addcontacts").attr("disabled", true);
+//                            $("#addcontacts").hide();
+//                            $("#deleteSelected").hide();
+//                            $("#emailaddrs").hide();
+//                            $(".head").css("padding-bottom","15%");
+                            $("#addcontact").hide();
+//                            $("#hideformindbdy").hide();
+//                             $(".selection-container").hide();
 //                            $("#selectAll").attr("disabled", true);
 //                            document.getElementById('email1').hide();
                             $("#email1").hide();

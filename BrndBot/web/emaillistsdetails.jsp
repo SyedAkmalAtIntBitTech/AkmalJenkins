@@ -105,10 +105,10 @@
                         <li class="slat-container fleft selfclear" ng-repeat="email in mindbody_emailAddresses">
                             <div class="col-1of1 slat-unit fleft ">
                                 <a href="">
-                                    <div class="selection-container col-5p fleft"> 
-                                        <div class="selection-icon" id="{{email.id}}" onclick="selemlcheckbox(this.id);">
+                                    <div class="selection-container col-5p fleft" id="hideformindbdy"> 
+<!--                                        <div class="chkmbhide selection-icon" id="{{email.id}}" onclick="selemlcheckbox(this.id);">
                                             <input type="checkbox" id="emailid{{email.emailAddress}}" value="{{email.emailAddress}}" name="emaillistname" hidden></input>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </a>
                                 <div class="slat-title-container col-4of10 fleft">
