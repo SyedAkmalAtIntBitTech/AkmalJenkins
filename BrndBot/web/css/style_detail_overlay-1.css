@@ -1376,6 +1376,7 @@ input-field-container{
     text-align: center;
     background-color:#d5dadf;
     color:#767777  ;
+    cursor:pointer;
 }
 
 
@@ -1869,6 +1870,7 @@ margin-top: 30px;
     border-radius: 3px;
     margin-top: 5px;
     margin-right: 20px;
+    cursor:pointer;
 }
 
 .emailConnect-icon{
