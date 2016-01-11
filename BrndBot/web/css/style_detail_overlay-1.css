@@ -1,3 +1,6 @@
+.margintop30{
+    margin-top: 30px;
+}
 a:hover {
  cursor:pointer;
 }
@@ -435,7 +438,7 @@ border-top: 1px solid #E8E9EA ;
     height: 100vh;
     padding-left: 70px;
     padding-top: 40px;
-    
+    padding-bottom:100px;
 }
 
 .changeImage{
@@ -1111,6 +1114,12 @@ Facebook-preview-name{
     padding-left:0px !important;
     width:50% !important;
 }
+.width11{
+    width: 11% !important;
+}
+.width20{
+     width:20% !important;
+}
 .below-nav-container-detail{
      width:100%;
     background-color: #FFFFFF;
@@ -1367,6 +1376,7 @@ input-field-container{
     text-align: center;
     background-color:#d5dadf;
     color:#767777  ;
+    cursor:pointer;
 }
 
 
@@ -1860,6 +1870,7 @@ margin-top: 30px;
     border-radius: 3px;
     margin-top: 5px;
     margin-right: 20px;
+    cursor:pointer;
 }
 
 .emailConnect-icon{

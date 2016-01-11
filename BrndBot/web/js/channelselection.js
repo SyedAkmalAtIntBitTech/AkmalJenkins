@@ -18,7 +18,7 @@ $(document).ready(function (){
                     var configuration = global_host_address + "selectpromotesocialmedia.jsp" + "?id=mindbodyid" + "&mediatype=social";
                     window.open(configuration, "_self");
                 }else if (selectedmedia == 'emailsubject'){
-                    var configuration = global_host_address + "emailsubject.jsp" + "?id=mindbodyid" + "&mediatype=email";
+                    var configuration = global_host_address + "emailsubjects.jsp" + "?id=mindbodyid" + "&mediatype=email";
                     window.open(configuration, "_self");
                 }
             }
