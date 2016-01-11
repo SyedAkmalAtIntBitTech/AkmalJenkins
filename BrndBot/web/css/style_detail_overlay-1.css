@@ -1233,6 +1233,26 @@ input-field-container{
     
     
 }
+.sequenceTitleBar {
+    font-size: 20px;
+    color: #3F3F42 ;
+    
+    
+}
+.sequence-container{
+    padding-right:30px;
+    padding-left: 30px;
+    background-color: #ffffff;
+    margin-top: 30px;
+    margin-bottom: 45px;
+    list-style: none;
+    display: block;
+    padding-bottom: 30px;
+    padding-top: 20px;
+    width: 100%;
+    border-radius: 5px;
+    min-width: 700px;
+}
 .externalData-selection-content{
     padding-top: 120px;
      width: 80%;
@@ -1601,6 +1621,12 @@ selfclear:after{
 .lftpad{
     margin-left: 2%;
 }
+.lftpad-10{
+    margin-left: 10%;
+}
+.lftpad-5{
+    margin-left: 5%;
+}
 .lftpaddesc{
     font-size: 24px;
     color: #3F3F42 ;
@@ -1772,7 +1798,12 @@ ul{
 .pushUp{
     margin-top: 30px;
 }
-
+.pushUp-10{
+    margin-top: 10px;
+}
+.pushUp-30{
+    margin-top: 30px;
+}
 .pushUp-15{
     margin-top: 15px;
 }
