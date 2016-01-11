@@ -81,6 +81,7 @@ $(document).ready(function ()
         $("#schedulepopup").show();
         $("#fade").show();
     });
+    
     $("#closeschedulepopup").click(function(){
         $("#postpopup").show();        
         $("#schedulepopup").hide();
@@ -210,7 +211,78 @@ $(document).ready(function ()
         
 //        $("#gotoimageeditor").css("background-color", "#5CC1A4");
 //        $("#uploadimage").css("background-color", "#E3E3E3");
-    }); 
+    });
+    /*.......................................... recuring popup navbar ................*/
+    $("#recuringtemplate").click(function(){
+        
+        $("#recuringactiondiv").hide();
+        $("#recuringnotediv").hide();
+        $("#recuringtemplatediv").show();
+        $("#recuringaction").removeClass("top-subnav-link-active-detail");
+        $("#recuringaction a").removeAttr("class");
+        $("#recuringnote").removeClass("top-subnav-link-active-detail");
+        $("#recuringnote a").removeAttr("class");
+        $("#recuringtemplate").removeClass("top-subnav-link-active-detail");
+        $("#recuringtemplate a").removeAttr("class");
+        
+        $("#recuringtemplate").addClass("top-subnav-link-active-detail");
+        $("#recuringtemplate a").addClass("h3-subnav-subnav-active");
+        $("#recuringaction").addClass("top-subnav-links-detail");
+        $("#recuringaction a").addClass("h3-subnav");
+        $("#recuringnote").addClass("top-subnav-links-detail");
+        $("#recuringnote a").addClass("h3-subnav");
+    });
+    $("#recuringaction").click(function(){        
+//        var fb_scheduleid=$("#fb_scheduleid").val();
+//        var change=$("#change").val();
+//        if(change === "1")
+//        {
+//            var note=$("#fbnote"+fb_scheduleid).val();
+//            $("#fbdescription").text(note);
+//            $("#emptynoteheader").css("display","none");
+//            $("#notesavedheader").css("display","block");
+//      
+//            $("#change").val("0");
+//        }
+        $("#recuringactiondiv").show();
+        $("#recuringnotediv").hide();
+        $("#recuringtemplatediv").hide();
+        
+        $("#recuringaction").removeClass("top-subnav-link-active-detail");
+        $("#recuringaction a").removeAttr("class");
+        $("#recuringnote").removeClass("top-subnav-link-active-detail");
+        $("#recuringnote a").removeAttr("class");
+        $("#recuringtemplate").removeClass("top-subnav-link-active-detail");
+        $("#recuringtemplate a").removeAttr("class");
+        
+        $("#recuringaction").addClass("top-subnav-link-active-detail");
+        $("#recuringaction a").addClass("h3-subnav-subnav-active");
+        $("#recuringtemplate").addClass("top-subnav-links-detail");
+        $("#recuringtemplate a").addClass("h3-subnav");
+        $("#recuringnote").addClass("top-subnav-links-detail");
+        $("#recuringnote a").addClass("h3-subnav");
+        
+    });
+    $("#recuringnote").click(function(){
+        $("#recuringactiondiv").hide();
+        $("#recuringnotediv").show();
+        $("#recuringtemplatediv").hide();
+        
+        $("#recuringaction").removeClass("top-subnav-link-active-detail");
+        $("#recuringaction a").removeAttr("class");
+        $("#recuringnote").removeClass("top-subnav-link-active-detail");
+        $("#recuringnote a").removeAttr("class");
+        $("#recuringtemplate").removeClass("top-subnav-link-active-detail");
+        $("#recuringtemplate a").removeAttr("class");
+        
+        $("#recuringnote").addClass("top-subnav-link-active-detail");
+        $("#recuringnote a").addClass("h3-subnav-subnav-active");
+        $("#recuringtemplate").addClass("top-subnav-links-detail");
+        $("#recuringtemplate a").addClass("h3-subnav");
+        $("#recuringaction").addClass("top-subnav-links-detail");
+        $("#recuringaction a").addClass("h3-subnav");
+        
+    });
     /*.......................................... facebook popup navbar ................*/
     $("#facebookpost").click(function(){
         $("#facebookpostsection").show();

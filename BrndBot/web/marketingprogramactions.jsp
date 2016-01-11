@@ -47,6 +47,7 @@
     <jsp:include page="twitterpreview_marketing.jsp"/> 
     <jsp:include page="emailpreviewpopup_marketing.jsp"/> 
     <jsp:include page="marketingprogramaddaction.jsp"/>
+    <jsp:include page="recuringPopup.jsp"/>
     <%@include file="navbarv2.jsp" %>
     <input type="hidden" name="program_id" id="program_id" value="<%= program_id %>"/>
     <input type="hidden" name="change" id="change" value="0"/>
@@ -119,14 +120,15 @@
                             </div>
                             <div class="col-1of4 fleft">
                                 <div class="slat-cta-container">
-                                    <div class="small-button slat-button detail-button-font"> 
-                                         <!-- ng-click="getRecuringMailDetails(emailautomation.scheduledEntityListId,
+                                    <div class="small-button slat-button detail-button-font"
+                                         ng-click="getRecuringMailDetails(emailautomation.scheduledEntityListId,
                                                                 emailautomation.status,
                                                                 emailautomation.dateTime,
                                                                 emailautomation.actionType,
                                                                 emailautomation.programTemplateName,
                                                                 emailautomation.description,
-                                                                emailautomation.postDateStatus)"-->
+                                                                emailautomation.postDateStatus,
+                                                                programs.programdetails.programName)">
                                                                            Details</div> 
                                 </div>
                             </div>

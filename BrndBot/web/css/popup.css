@@ -344,6 +344,17 @@ img.exit-button {
     right: 0px;
     margin-right: -900px;
 }
+#recuringPopup{
+    //display: none;
+    position: fixed;
+    z-index: 999999;
+    height: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+    width: 900px;
+    right: 0px;
+    margin-right: -900px;
+}
 #slider-button
 {
     position:fixed;
@@ -710,5 +721,30 @@ select#dropdownurl,#url {
 }
 img#prevfbimg {
     width: 100%;
+}
+.bottom-cta-bar5 {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: #F9FAFC;
+    height: 0px;
+    border-top: 1px solid #D9D9D9;
+    padding-left: 0px;
+    padding-right: 0px;
+    box-sizing: border-box;
+}
+.fields-note-detail5 {
+    width: 100%;
+    background-color: #FFFFFF;
+    box-sizing: border-box;
+    float: left;
+    padding-top: 35px;
+    padding-left: 75px;
+    padding-right: 75px;
+    padding-bottom: 105px;
+}
+.edit-button-detail.md-button.button-text-1.fleft {
+    margin-left: 84%;
+    width: 150px;
 }
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/
