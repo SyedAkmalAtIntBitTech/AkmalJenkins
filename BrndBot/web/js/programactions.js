@@ -208,6 +208,12 @@ function validateEmail(sEmail) {
 }
 $(document).ready(function ()
 {
+    $("#closerecuringpopup").click(function(){
+        $slider=2;
+        sliderDialog = "#recuringPopup";
+        prevSliderDialog = "#recuringPopup";
+        $('#slider-button').click();
+    });
 $(".close").click(function(){
         var program_id=$("#program_id").val();
         var change=$("#change").val();
@@ -1100,47 +1106,46 @@ function programactions($scope, $http, $window){
             });
     }
     
-    $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, action_status) {
-         
-            $slider=2;
-            sliderDialog = "#emailsection";
-            $('#slider-button').click();
-            prevSliderDialog = "#emailsection";
-            $("#recuring_preview_email").show();
-            $("#recuring_edit_email_action").hide();
+    $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, date_status,program_name) {
+        //alert(schedule_desc);    
+        $slider=2;
+            sliderDialog = "#recuringPopup";
+            prevSliderDialog = "#recuringPopup";
+//            $("#recuring_preview_email").show();
+//            $("#recuring_edit_email_action").hide();
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.body == undefined) {
-                    $("#mailpreviewremove6").hide();
-                    $('#mailremovedtemplate6').show();
-                    $('#mailpreviewdecond5').hide();
-                    $('.approve').hide();
-                    $("#email_button_send").val(create_button_title);
+//                    $("#mailpreviewremove6").hide();
+//                    $('#mailremovedtemplate6').show();
+//                    $('#mailpreviewdecond5').hide();
+//                    $('.approve').hide();
+//                    $("#email_button_send").val(create_button_title);
                 } else {
-                    $('.approve').css("display","inline-flex");
-                    $("#mailpreviewremove6").show();
-                    $('#mailremovedtemplate6').hide();
-                    $('#mailpreviewdecond5').show();
-                    $('.content').show();
-                    $('#mailimgprev').show();
-                    $("#email_button_send").val("Send");
+//                    $('.approve').css("display","inline-flex");
+//                    $("#mailpreviewremove6").show();
+//                    $('#mailremovedtemplate6').hide();
+//                    $('#mailpreviewdecond5').show();
+//                    $('.content').show();
+//                    $('#mailimgprev').show();
+//                    $("#email_button_send").val("Send");
                 }
-                if(template_status=="complete")
-                {
-                    $("#recuringemailgreen").show();
-                    $("#recuringemailred").hide();
-                }
-                else
-                {
-                    $("#recuringemailgreen").hide();
-                    $("#recuringemailred").show();
-                }
-                var date = new Date(schedule_time);
-                $(".content").empty();
-                $(".content").append(data.body);
+//                if(template_status=="complete")
+//                {
+//                    $("#recuringemailgreen").show();
+//                    $("#recuringemailred").hide();
+//                }
+//                else
+//                {
+//                    $("#recuringemailgreen").hide();
+//                    $("#recuringemailred").show();
+//                }
+//                var date = new Date(schedule_time);
+//                $(".content").empty();
+//                $(".content").append(data.body);
 //                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
                 
                 $scope.entities_selected_time = schedule_time;
@@ -1151,9 +1156,11 @@ function programactions($scope, $http, $window){
                 $scope.recuring_template_status = template_status;
                 $scope.schedule_type = entity_type;
                 $scope.recuring_action_status=action_status;
+                $scope.program_name=program_name;
             }).error(function (data) {
                 alert("Request not successful! ");
             });
+            $('#slider-button').click();
     };
     
     $scope.getScheduleDetails = function (schedule_id, template_status, 
