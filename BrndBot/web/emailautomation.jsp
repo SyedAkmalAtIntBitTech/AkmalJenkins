@@ -1,12 +1,13 @@
 <%-- 
-    Document   : emailautomations
-    Created on : Jan 8, 2016, 4:06:53 PM
+    Document   : emailautomation_new
+    Created on : Jan 11, 2016, 12:31:58 PM
     Author     : Syed Akmal at IntBit Technologies.
 --%>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no"></meta>
@@ -22,13 +23,14 @@
     <jsp:include page="basejsp.jsp"/>
     <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
     <link href="css/emailautomationeditor.css" rel="stylesheet" type="text/css"/>
-    <link href="css/emailautomation.css" rel="stylesheet" type="text/css"/>
+    <!--<link href="css/emailautomation.css" rel="stylesheet" type="text/css"/>-->
     <script src="js/configurations.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay_new.css"></link>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="stylesheet" type="text/css" href="css/slat.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
+    <style>.arrow_top{display:none;}</style>
     <%! 
     String entity_id = "";
     String program_id = "";
@@ -46,6 +48,7 @@
     }
 %>
 <script src="js/angular.min.js"></script>
+
 <script>
     
     var emails = "";
@@ -535,70 +538,85 @@
 </script> 
 </head>    
 
-<body ng-app>
+<body ng-app ng-controller="emailautomation">
     <!--SideNav-->
-    <div class="content-main" ng-controller="emailautomation">
-        <%@include file="navbarv2.jsp" %>
+    <div class="content-main" >
+    <%@include file="navbarv2.jsp" %>
     <!--Top Nav-->   
-    <div class="top-nav">
+       <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
-            <div class="exit-button-detail" id="back">
-                   <a class=" exit-button-icon" href="">
+           <div class="exit-button-detail" id="back">
+                   <a class="exit-button-icon" href="">
                        <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
-                </a>
+                   </a>
             </div>
-            <div class="page-title-with-back page-title-font">Create a New Email Automation Action</div>
-            <!--<div class="page-cta-container">
-                <a href="" class="gray-button fleft">
-                    <div class=" md-button">  End Marketing Program</div>    
-                </a>
-            </div>-->
+            <div class="page-title-with-back page-title-font"> Create and Email Automation</div>
+         
         </div>
+           
+   
     </div>
-        <!--Main Content GENERIC--> 
-        <div class="sequence-page-background" >
-            <div class="sequence-page-content-container-recurring" ng-init="getEntityDetails();">
-                <div class="sequence-page-section-header-container col-6of10">
-                    <div class="sequence-page-section-header">Email Automation Details</div>
-                </div>
-                    <div class="email-detail-selection col-1of1 fleft">
-                        <div class="col-1of1 fleft">
-                            <div class="col-7of10 fleft">
-                                
-                                <div class="input-header" style="">
-                                Enter a name of this recurring email automation:</div>
-                                <input id="recuring_email_title" class="input-field-textfield" type="text" required placeholder="e.g. Recurring Email Automation for New Clients" value="{{entity_details.recuring_email_title}}"></input>
-                            
-                                <div class="input-header" style="">
-                                Enter a brief description of this email automation:
-                                    </div>
-                                <input id="recuring_email_description" class="input-field-textfield" type="text" required  
-                                       placeholder="e.g. First email sent to all new clients during their first month." value="{{entity_details.recuring_email_description}}"></input>
-
+        <!--Main Content--> 
+        <div class="page-background">
+        <div class="page-content-container email-list-contact-page" ng-init="getEntityDetails();">
+            
+            <!--Inner Content Conatiner GENERIC-->
+            <div class="page-inner-content-container ">
+                <div class="fleft content">
+                    <div class="page-content-title-bar">
+                        <div class="page-content-title sequenceTitleBar ">Email Automation Details</div>
+                    </div>
+                    <!--List Starts Here-->
+                    <div class="sequence-container fleft">
+                         <div class="col-6of10 fleft">
+                                <div class="h4" style="">
+                                    Enter a name for this recurring email:
+                                </div>
+                             <input id="recuring_email_title" class="input-field-textfield col-8of10" type="text" required placeholder="Enter Name of email" value="{{entity_details.recuring_email_title}}"></input>
+                             
                             </div>
+                         <div class="col-6of10 fleft pushUp">
+                                <div class="h4" style="">
+                                    Enter a description for this recurring email:
+                                </div>
+                             <input id="recuring_email_description" class="input-field-textfield col-8of10" type="text" required  
+                                       placeholder="Enter description of email" value="{{entity_details.recuring_email_description}}"></input>
+                            </div>
+                    </div>
+                </div>
+            </div>
+             <div class="page-inner-content-container ">
+                <div class="fleft content">
+                    <div class="page-content-title-bar">
+                        <div class="page-content-title sequenceTitleBar ">Create a trigger for when to send this email</div>
+                    </div>
+                    <!--List Starts Here-->
+                    <div class="sequence-container fleft">
+                        <div class="col-3of10 fleft ">
+                                <div class="h4 pushUp-10 ">
+                                    Send an email to a recipient
+                                </div>
                         </div>
-                        <div class="margintop30 sequence-page-section-header-container col-10of10 fleft">
-                            <div class="sequence-page-section-header pushUp-45 ">Email Automation Trigger Settings</div>
-                        </div>
-                    <div class="email-detail-selection col-1of1 fleft">
-                        <div class="col-1of1 fleft">
-                            <div class="col-7of10 fleft">
-                               <div class="input-header-first" style="">
-                                 Create a trigger for this email automation action</div>
-                                 <div class="margintop30 input-header" >
-                                Send an email to a recipient</div>
-                                <select id="days" class="input-field-textfield width11"></select>
-                                
-                                days after they are added to
-                                <select id="emaillist" name="emaillist" class="input-field-textfield width50">
+                         <div class="col-1of10 fleft">
+                             <select id="days" class="input-field-textfield "></select>
+                         </div>
+                        <div class="col-3of10 fleft">
+                             <div class="h4 pushUp-10 lftpad-10">
+                                    days after they are added to
+                             </div>
+                         </div>
+                        <div class="col-3of10 fleft">
+                              <select id="emaillist" name="emaillist" class="input-field-textfield">
                                    <option value="0">-- Select --</option>
                                    <option ng-repeat ="Lists in emailLists_user" value="{{Lists}}">{{Lists}}</option>
                                    <option ng-repeat ="Lists in emailLists_mindbody" value="{{Lists}}">{{Lists}}</option>
-                               </select>
-                                <div class="input-header" >
-                                Select a Time
+                              </select>
+                         </div>
+                        <div class="col-4of10 fleft pushUp-30">
+                                <div class="h4" style="">
+                                     Select a Time:
                                 </div>
-                                <input id="timepicker1" readonly type="text" name="timepicker1" class="input-field-textfield width50" 
+                            <input id="timepicker1" readonly type="text" name="timepicker1" class="input-field-textfield col-8of10" 
                                   value="{{entity_details.recuring_email_time | date:'hh : mm : a'}}" /> 
                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
@@ -612,16 +630,19 @@
                                             disable_keyboard_mobile: true
                                         });
                                     </script>
-                                    <div class="input-header" >
-                                    Select a till date
-                                    </div>
-                                    <input type="text" readonly  name="datepicker" 
+                        </div>
+                        <div class="col-4of10 fleft pushUp-30 lftpad-5">
+                                <div class="h4" style="">
+                                     Select a till date:
+                                </div>
+                            <input type="text" readonly  name="datepicker" 
                                     id="datepicker"  
-                                    class="input-field-textfield width50" 
-                                    value="{{entity_details.recuring_email_till_date| date:'EEE MMM dd yyyy'}}" />                                        
+                                    class="input-field-textfield col-1of1" 
+                                    value="{{entity_details.recuring_email_till_date| date:'MMM dd yyyy'}}" />                                        
                                     <script>
                                         var picker = new Pikaday(
                                         {
+                                            format:('MM DD YYYY'),
                                             field: document.getElementById('datepicker'),
                                             firstDay: 1,
                                             minDate: new Date(2000, 0, 1),
@@ -629,41 +650,57 @@
                                             yearRange: [2000,2050]
                                         });
                                     </script>
-                                    <div class="input-header" >
-                                    Enter a subject line
-                                    </div>
-                                        <input id="subject" class="input-field-textfield" type="text" required  
-                                        placeholder="e.g. New Promotional Event Coming Soon..." 
-                                        value="{{entity_details.recuring_email_subject}}">
-                                    <div class="input-header" >
-                                    Enter a from name
-                                    </div>
-                                    <input id="from_name" class="input-field-textfield" type="text" required  placeholder="e.g. your name" 
-                                      value="{{entity_details.recuring_email_from_name}}"></input>
-                                    <div class="input-header" >
-                                    Enter a reply-to-Address
-                                    </div>
-                                    <input id="reply_to_address" class="input-field-textfield" type="text" 
-                                     required  placeholder="e.g. abc@def.com" 
-                                     value="{{entity_details.recuring_email_reply_to_email_address}}"></input>        
-                                </div>
-                            </div>
-
-                    <!--Inner Content Conatiner GENERIC-->
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
+             <div class="page-inner-content-container ">
+                <div class="fleft content">
+                    <div class="page-content-title-bar">
+                        <div class="page-content-title sequenceTitleBar ">Email Details</div>
+                    </div>
+                    <!--List Starts Here-->
+                    <div class="sequence-container fleft">
+                            <div class="col-6of10 fleft ">
+                                <div class="h4" style="">
+                                    Enter a subject line for the email:
+                                </div>
+                                <input id="subject" class="input-field-textfield col-8of10" type="text" required  
+                                        placeholder="Enter subject line" 
+                                        value="{{entity_details.recuring_email_subject}}"></input>
+                            </div>
+                            <div class="col-6of10 fleft pushUp">
+                                <div class="h4" style="">
+                                    Enter a from name:
+                                </div>
+                                <input id="from_name" class="input-field-textfield col-8of10" type="text" required  placeholder="Enter from name" 
+                                      value="{{entity_details.recuring_email_from_name}}"></input>
+                            </div>    
+                            <div class="col-6of10 fleft pushUp">
+                                <div class="h4" style="">
+                                    Enter a reply-to-address:
+                                </div>
+                                <input id="reply_to_address" class="input-field-textfield col-8of10" type="text" 
+                                     required  placeholder="Enter reply-to-address" 
+                                     value="{{entity_details.recuring_email_reply_to_email_address}}"></input>  
+                            </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
         </div>
-        <!--CTA Bar-->
-        <div class="bottom-cta-bar">
+        
+    </div>
+  <div class="bottom-cta-bar">
             <div class="bottom-cta-button-container-lg">
-                <a href="">
-                    <div class="bottom-continue-button button-text-1" ng-click="addUpdateRecuringAction()">Continue</div>
-                </a>
+               <div class="bottom-continue-button button-text-1" ng-click="addUpdateRecuringAction()">Continue</div>
             </div>
         </div>
-         </div>
-<!--</div>-->
-
+     
+<!--        </div>
+     </div>
+</div>-->
     </body>
 </html>

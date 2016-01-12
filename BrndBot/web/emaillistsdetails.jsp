@@ -92,7 +92,7 @@
                                     </div>
                                 </a>
                                 <div class="slat-title-container col-4of10 fleft">
-                                    <div class="slat-title  col-1of1 sh1-contact" onclick="fun('update','{{email.emailAddress}}','{{email.id}}','{{email.firstName}}','{{email.lastName}}');">{{email.emailAddress}}</div>
+                                    <div class="slat-title  col-1of1 sh1-contact">{{email.emailAddress}}</div>
                                     <div class="slat-title  col-1of1 sh1-contact" ng-show="email.emailAddress == '' && type == 'user'" id='NoContacts'>No contacts available</div>
                                     <div class="action-list-slat-description col-1of1 sh3-contact">Added on {{email.addedDate| date:'  M/dd/yyyy'}}</div>
                                 </div>
@@ -103,6 +103,11 @@
                                 <div class=" col-2of10 fleft slat-attribute-container" ng-show="email.lastName !== ''">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.lastName}}</div>
                                     <div class="list-column-description col-1of1 sh3-contact fleft">Last Name</div>
+                                </div>
+                                <div class="col-1of10 slat-cta-container fright">
+                                    <a href="" onclick="fun('update','{{email.emailAddress}}','{{email.id}}','{{email.firstName}}','{{email.lastName}}');">
+                                        <div class="small-button slat-button detail-button-font">Edit</div>
+                                    </a>
                                 </div>
                             </div>
                         </li>
