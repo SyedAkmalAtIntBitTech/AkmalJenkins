@@ -208,16 +208,20 @@
                 </a>
                 </div>
             </div>
-            <div class="page-subnav-bar-with-dropdown"> 
-                <div class="subnav-dropdown pushright select-style" >
+            <div class="page-subnav-bar-with-dropdown">
+                <div class="subnav-dropdown pushright" onclick="funshowdropdown()">
+                    <span class="hub-dropdown-text" id="emlsclspanid">Email</span>
+                 <img type="image/svg+xml" src="images/Icons/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"></img>
+                </div>
+<!--                <div class="subnav-dropdown pushright select-style" >
                     <img src="images/Icons/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"> </img>
                 <select class="hub-dropdown-text emlsocdrpdwn">
                   <option class="hub-dropdown-text" value="Email">Email</option>
                   <option class="hub-dropdown-text" value="Social">Social</option>
                 </select>
-                     <!--<span >Email</span>-->
+                     <span >Email</span>
                 
-                </div>
+                </div>-->
                 <div class="top-subnav-tabs-container">
                    <ul class="top-subnav-nav-elements">
                        <li class="top-subnav-links" id="emldrftab"> <a href="" class="h3">Email Drafts</a></li>
@@ -229,7 +233,18 @@
                 </div>
                 
             </div>
-            
+            <div class="dropdown-hub" style="display:none;">
+                <ul class="dropdown-inner">
+                    <li class="dropdown-section fleft col-1of1 " id="emailhubli">
+                            <div><img type="image/svg+xml" src="images/Icons/Hub-Dropdowns_email.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
+                            <div class="fleft col-6of10 dropdown-label-active">Email Hub</div>
+                    </li>
+                    <li class="dropdown-section col-1of1 fleft" id="socialhubli">
+                         <div><img type="image/svg+xml" src="images/Icons/Hub-Dropdowns_social.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
+                         <div class="fleft col-6of10 dropdown-label">Social Hub</div>
+                    </li>
+                </ul>
+            </div>
         </div>
         <!--Main Content GENERIC--> 
         <div class="page-background">

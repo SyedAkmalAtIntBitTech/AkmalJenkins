@@ -1059,7 +1059,7 @@ function programactions($scope, $http, $window){
         //$(".time_pick").width('200%');
         $("#fade").show();
         $("#addAction").show();
-        
+        $(".timepicker_wrap").css("width","57%");
 //        $slider=1;
 //        $edit=1; 
 //        sliderDialog = "#dvPriorityDialog";

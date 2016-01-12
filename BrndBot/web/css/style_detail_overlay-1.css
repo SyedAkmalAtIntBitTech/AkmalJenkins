@@ -183,7 +183,37 @@ a.svg:after {
     height: 25px;
     
 }
+.dropdown-hub{
+    position: fixed;
+    left: 70px;
+    top: 60px;
+    width: 220px;
+    background-color: #FFFFFF;
+    float: left;
+    z-index: 10000;
+    border: 1px solid #EEEEEE;
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.1);
+}
+.dropdown-section{
+    padding: 15px 0px 15px 28px;
+       line-height: 30px;
+}
 
+.dropdown-section:hover{
+    padding: 15px 0px 15px 28px;
+    background-color: #F9F9F9;
+    cursor: pointer;
+    display: block;
+    box-sizing: padding-box;
+    line-height: 30px;
+}
+.dropdown-hub-icon{
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    margin-top: 4px
+
+}
 .dropdown-icon{
     width:16px;
     height: 16px;
@@ -191,7 +221,7 @@ a.svg:after {
     margin-top: 12px*/
    top: 71px;
     position: fixed;
-    left: 165px;
+    left: 155px;
 }
 
 .calendar-dropdown-text{
@@ -215,8 +245,8 @@ a.svg:after {
 
 .subnav-dropdown{
     height: 40px;
-    padding-left: 40px;
-    padding-right: 20px;
+    padding-left: 35px;
+    padding-right: 40px;
     background-color: #0F76A6 ;
     box-sizing: border-box;
     cursor:pointer;
