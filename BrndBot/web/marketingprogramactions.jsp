@@ -209,7 +209,7 @@
                                 <!--</div>-->
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft "> 
+                                <div class="icon-container fleft hint--left" data-hint="Template Saved"> 
                                     <img type="image/svg+xml" src="images/Icons/templateSaved.svg" class="status-button"/>
                                 </div>
                                 <div class="slat-title-container col-1of2 fleft">
