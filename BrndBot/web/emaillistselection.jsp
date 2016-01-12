@@ -24,7 +24,7 @@
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <jsp:include page="basejsp.jsp" />
     <style>
-        #emladdrstxtarea,#clktoupload,#upload{display:none;}
+        #emladdrstxtarea,#clktoupload,#upload,#emaildetailscontbtn,#emaildetailsid,#backemaildetails{display:none;}
     </style>
     <%!
         String emailSubject = "";
@@ -54,7 +54,14 @@
          $(document).ready(function () {
                     draft_id = <%= draft_id %>;
                     console.log(draft_id);
-                    
+                    $("#backemaildetails").click(function (){
+                            $("#emaillistselid").show();
+                            $("#emaildetailsid").hide();
+                            $("#emailIdContinueButton").show();
+                            $("#emaildetailscontbtn").hide();
+                            $("#backemaillist").show();
+                            $("#backemaildetails").hide();
+                    });
                     
                     
                      $("#emailIdContinueButton").click(function () {
@@ -65,8 +72,14 @@
                         var email_addresses = $("#emailaddresses").val();
                         
                         if(email_addresses!=="")
-                        {
+                        {   
                             $("#toaddress").val(email_addresses);
+                            $("#emaillistselid").hide();
+                            $("#emaildetailsid").show();
+                            $("#emailIdContinueButton").hide();
+                            $("#emaildetailscontbtn").show();
+                            $("#backemaillist").hide();
+                            $("#backemaildetails").show();
                             $("#emaillistdiv").hide();
                             $("#emailSettings").show();
                             $("#emaillistdiv").hide();
@@ -85,7 +98,7 @@
                         }
                         else
                         {
-                            alert("Please select at least one email list or add email manually.");
+                            alert("Please select atleast one email list or add email manually.");
                             selectCsvFile();
                             $("#emailaddresses").focus();
                             return false;
@@ -439,14 +452,14 @@
             var split=to_email_addresses.split(',');
             var fromaddrvalid=reg.test(from_email_address);
             var replytoaddrvalid=reg.test(reply_to_email_address);
-            if (from_name == ""){
-                alert("From name not entered! Please enter the from name.");
-                $("#name").focus();
-                return false;
-            }
             if (email_subject == ""){
                 alert("Email subject name not entered! Please enter the email subject.");
                 $("#subject").focus();
+                return false;
+            }
+            if (from_name == ""){
+                alert("From name not entered! Please enter the from name.");
+                $("#name").focus();
                 return false;
             }
             if (from_email_address == ""){
@@ -789,7 +802,10 @@
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
             <div class="exit-button-detail">
-                   <a class=" exit-button-icon" href="">
+                   <a class=" exit-button-icon" href="" id="backemaillist">
+                    <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
+                   </a>
+                   <a class=" exit-button-icon" href="" id="backemaildetails">
                     <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
                    </a>
             </div>
@@ -817,17 +833,19 @@
         </div>-->
     </div>
         <!--Main Content GENERIC--> 
-            <div class="sequence-page-background" >
+        <div class="sequence-page-background" id="emaillistselid">
         <div class="sequence-page-content-container" >
             <div class="sequence-page-header">Who do you want to send this email to?</div>
             <div class="email-list-selection fleft">
                <div class="col-1of1 fleft unit">
                     <div class="col-9of10 fleft ">
-                        <div class="h2 col-1of1"><select class="chooseEmailList col-1of1" id="chooseEmailList" name="chooseEmailList">
-                        <option value="1">Manual</option>
-                        <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
-                        <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists}}">{{Lists}}</option>
-                    </select></div>
+                        <div class="h2 col-1of1">
+                            <select class="chooseEmailList col-1of1" id="chooseEmailList" name="chooseEmailList">
+                                <option value="1">Manual</option>
+                                <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
+                                <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists}}">{{Lists}}</option>
+                            </select>
+                        </div>
                         <!--<div class="p chooseList-subtext col-1of1">Choose a recipient list</div>-->
                     </div>
                    <div class="col-9of10 fleft pushUp-30">
@@ -869,9 +887,59 @@
             <!--Inner Content Conatiner GENERIC-->
             
         </div>
+        <div class="sequence-page-background" id="emaildetailsid">
+            <div class="sequence-page-content-container">
+                <div class="sequence-page-header">Email Details</div>
+                    <div class="email-detail-selection col-1of1 fleft">
+<!--                       <div class="col-1of1 fleft">
+                            <div class="col-9of10 fleft">
+                                <div class="h4" style="">
+                                    Enter a name for this Email
+                                </div>
+                                <input id="emailName" class="input-field-textfield col-8of10" placeholder="Enter Name of email" type="text"></input>
+                            </div>
+                        </div>-->
+                        <div class="col-1of1 fleft pushUp">
+                            <div class="col-9of10 fleft">
+                                <div class="h4" style="">
+                                   Enter a subject line for this Email:
+                                </div>
+                                <input id="subject" class="input-field-textfield col-8of10" placeholder="Enter Subject of email" type="text"></input>
+                            </div>
+                        </div>
+                         <div class="cols-2 fleft col-9of10 pushUp">
+                             <div class="input-field-container col-3of10 fleft pushright">
+                                <div class="h4"> From Name </div>
+                                <input id="name" class="input-field-textfield input-placeholder" placeholder="Enter From Name" type="text"></input>
+                            </div>
+                             <div class="input-field-container col-3of10 fleft">
+                                <div class="h4"> From Email Address </div>
+                                <input id="formaddress" class="input-field-textfield input-placeholder" placeholder="Enter From  Email Address" type="text"></input>
+                            </div>
+                        </div>
+                        <div class="cols-2 fleft col-9of10 pushUp">
+                             <div class="input-field-container col-3of10 fleft pushright">
+                                <div class="h4">To Email Address</div>
+                                <input id="toaddress" class="input-field-textfield input-placeholder" placeholder="Enter To Email Address" type="text"></input>
+                            </div>
+                             <div class="input-field-container col-3of10 fleft">
+                                <div class="h4"> Reply To Email Address</div>
+                                <input id="email" class="input-field-textfield input-placeholder" placeholder="Enter Reply To Email Address" type="text"></input>
+                            </div>
+                        </div>
+                        <div class="input-field-container col-1of8 fleft pushUp-50">
+                        <div class="h2 curpointer">Preview</div>
+                        </div>
+                    <!--Inner Content Conatiner GENERIC-->
+                </div>
+            </div>
+        </div>
+  
+        <!--CTA Bar-->
         <div class="bottom-cta-bar">
             <div class="bottom-cta-button-container-lg">
-                <div class="bottom-continue-button button-text-1" id="emailIdContinueButton">Continue</div>
+                    <div class="bottom-continue-button button-text-1" id="emaildetailscontbtn" onclick="validate();">Continue</div>
+                    <div class="bottom-continue-button button-text-1" id="emailIdContinueButton">Continue</div>
             </div>
         </div>
         </div>

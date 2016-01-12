@@ -1254,7 +1254,7 @@ input-field-container{
     min-width: 700px;
 }
 .chooseEmailList{
-               border: none ;
+                border: none ;
                 width: 100%;
                 height: 27px;
                -webkit-appearance: none;
@@ -1269,8 +1269,8 @@ input-field-container{
                 border-bottom: none;
                 border-radius: 2px;
                 /*color:#2b2f35;*/
-                background: url("images/dropdown.png") no-repeat 275px center;
-                background-color: #F2F2F4; 
+                background: #F2F2F4 url("../images/dropdown.png") no-repeat 98% center;
+                /*background-color: ;*/ 
                 font-size:18px;
                 color: #3f4042;
                 height:40px;
@@ -1291,7 +1291,7 @@ input-field-container{
             line-height: 180px;
             font-size: 20px;
             color: rgba(0,0,0,.3);
-            /*margin-top: 3%;*/
+            margin-top: 17px;
             }
             #clickHere {
                 position: absolute;
@@ -1562,7 +1562,9 @@ input-field-container{
 
 }*/
 
-
+.curpointer{
+    cursor:pointer;
+}
 
 .slat-unit{
     padding-right:0px;
