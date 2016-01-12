@@ -100,6 +100,9 @@
                  $("#addcontacts").show();
             }
         }
+         function funshowdropdown(){
+           $(".dropdown-hub").show();           
+        }
         
 
  $("#fileUpload").change(function () {
@@ -217,7 +220,8 @@
                     }
 
                 });
-                
+                $("#emailhubli").click(function (){$("#emlsclspanid").empty().append('Email');$(".dropdown-hub").hide();});
+                $("#socialhubli").click(function (){$("#emlsclspanid").empty().append('Social');$(".dropdown-hub").hide();});
             });
             
             function setSelectedlistName(listname){
