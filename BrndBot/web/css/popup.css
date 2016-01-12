@@ -635,6 +635,15 @@ input#timepicker1 {
     padding-top: 1%;
     width:50%
 }
+#sendpopup
+{
+    display: none;
+    z-index: 100000;
+    position: fixed;
+    padding-left: 24%;
+    padding-top: 1%;
+    width:50%
+}
 #schedulepopup {
     display: none;
     z-index: 100000;
