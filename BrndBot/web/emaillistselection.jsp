@@ -428,6 +428,9 @@
                         .css("border-color", "transparent").css("background-color","#FFF");
                  $('#dynamictable').css("width","768px").css("height","615px").css("top","-316px").css("left","-272px").css("-webkit-transform","scale(0.3326)");
             }
+//            $("#"+id).toggleClass('selection-icon');
+//            $("#"+id).toggleClass('selection-icon-selected');
+
             else if (id === "iphone"){
                 $(".iphoneshow").css("background-image", imageUrl)
                         .css("display", 'block').css("height", "370px").css("width", "415px").css("margin-left", "150px").css("margin-top", "-80px")

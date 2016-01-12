@@ -747,4 +747,89 @@ img#prevfbimg {
     margin-left: 84%;
     width: 150px;
 }
+.mouseclk{
+    background-color: #F9F9F9;
+}
+.mouseunclk{
+     background-color: #FFFFFF;
+}
+#mousef{
+    cursor:pointer;
+}
+#mouset{
+    cursor:pointer;
+}
+#mousef:hover{
+    background-color: #F9F9F9;
+}
+#mouset:hover{
+    background-color: #F9F9F9;
+}
+#link,#link_title,#link_description,#Linkurl,#removeLink,#editLink{
+    display:none;
+}
+a#removeLink {
+    margin-left: 14px;
+}
+.editImage {
+    background-color: lightgrey;
+    width: 200px;
+    position: fixed;
+    height: 30px;
+    padding-top: 10px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 80px;
+    margin-left: 265px;
+    margin-right: auto;
+    color: white;
+    cursor: pointer;
+    opacity: .9;
+}
+.changeImage1 {
+    background-color: lightgrey;
+    width: 200px;
+    position: fixed;
+    height: 30px;
+    padding-top: 10px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 80px;
+    margin-left: 36px;
+    margin-right: auto;
+    color: white;
+    cursor: pointer;
+    opacity: .9;
+}
+.feditImage {
+    background-color: lightgrey;
+    width: 200px;
+    position: fixed;
+    height: 30px;
+    padding-top: 10px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 110px;
+    margin-left: 258px;
+    margin-right: auto;
+    color: white;
+    cursor: pointer;
+    opacity: .9;
+}
+.fchangeImage1 {
+    background-color: lightgrey;
+    width: 200px;
+    position: fixed;
+    height: 30px;
+    padding-top: 10px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 110px;
+    margin-left: 33px;
+    margin-right: auto;
+    color: white;
+    cursor: pointer;
+    opacity: .9;
+}
+
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/
