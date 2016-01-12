@@ -35,14 +35,6 @@
             }
             $("#"+id).toggleClass('selection-icon');
             $("#"+id).toggleClass('selection-icon-selected');
-            if(id==='chooselist'){
-                $("#uploademailaddrs").html(content+'');
-                $("#uploademailaddrs").removeClass('selection-icon-selected');
-            }
-            if(id==='uploademailaddrs'){
-                $("#chooselist").html(content+'');
-                $("#chooselist").removeClass('selection-icon-selected');
-            }
         }
     </script>
 </head>    

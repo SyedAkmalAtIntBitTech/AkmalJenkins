@@ -1,3 +1,4 @@
+      
             var facebook;
             var twitter;
             var number=0;
@@ -27,6 +28,42 @@
                 //$("#number").val(count);
                 facebook=$("#isFacebook").val();
                 twitter=$("#isTwitter").val();
+                var data=$("#data").val();
+                var singledata=data.split(",");
+                $("#posttext").val(singledata[0]);
+                
+                if(singledata[1] !=="" ||singledata[2] !==""||singledata[3] !=="")
+                {   
+                    
+                    $("#twittertext").val(singledata[5]);
+                    $("#link_title").val(singledata[1]);
+                    $("#link_description").val(singledata[2]);
+                    $("#Linkurl").val(singledata[3]);
+                    $("#link").val(singledata[3]);
+                    $("#editLink").show();
+                    $("#removeLink").show();
+                    $("#changeLink").hide();
+                    $("#link_title").show();
+                    $("#link_description").show();
+                    $("#Linkurl").show();
+                    $("#link").show();
+                                       
+                }
+                $("#removeLink").click(function(){
+                    $("#editLink").hide();
+                    $("#removeLink").hide();
+                    $("#changeLink").show();
+                    
+                    $("#link_title").hide();
+                    $("#link_description").hide();
+                    $("#Linkurl").hide();
+                    $("#link").hide();
+                    
+                    $("#link_title").val("");
+                    $("#link_description").val("");
+                    $("#Linkurl").val("");
+                    $("#link").val("");
+                });
                 $("#facebookimage").hide();
                 $("#fabookpreviewdiv").hide();
                 $(".forfb").hide();

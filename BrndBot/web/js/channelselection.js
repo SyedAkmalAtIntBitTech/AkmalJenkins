@@ -1,6 +1,8 @@
 var minbodyid=$("#minbodyid").val();
 var category_id=$("#category_id").val();
 var sub_category_id=$("#sub_category_id").val();
+var sub_category_name=$("#sub_category_name").val();
+
 $(document).ready(function (){
                 $("#soc,#eml,#prnt,#dwnld").hide();
             });
@@ -15,7 +17,7 @@ $(document).ready(function (){
                     var configuration = global_host_address + "socialeditor.jsp" + "?id=mindbodyid" + "&mediatype=image";
                     window.open(configuration, "_self");
                 }else if (selectedmedia == 'social'){
-                    var configuration = global_host_address + "selectpromotesocialmedia.jsp" + "?id=mindbodyid" + "&mediatype=social";
+                    var configuration = global_host_address + "selectpromotesocialmedia.jsp" + "?id=mindbodyid" + "&mediatype=social" + "&category_id=" +category_id+ "&sub_category_id="+sub_category_id+"&sub_category_name="+sub_category_name;
                     window.open(configuration, "_self");
                 }else if (selectedmedia == 'emailsubject'){
                     var configuration = global_host_address + "emailsubjects.jsp" + "?id=mindbodyid" + "&mediatype=email";
