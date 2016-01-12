@@ -84,9 +84,8 @@
                 padding-right: 5px;
             }
             #submitbutton{
-                top:70px;
-                left:80px;
-                height: 57px
+               height: 57px !important;
+               padding-top: 0px !important;
             }
             .red-cell {
                 background:#D8D8D8; /* Or some other color */

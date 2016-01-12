@@ -2,8 +2,39 @@ $(document).ready(function(){
     var count=0;
     $("#mousef").click(function(){
        $("#loadingGif").show();
-       var x = document.getElementById("facebook").checked;
-       if(x === false){
+       var facebookcheck = document.getElementById("facebook").checked;
+       if(facebookcheck === false){
+            $.ajax({
+                url: 'ServletUserPreferencesFacebook',
+                method: 'GET',
+                data: {
+                    access_token_method: "getAccessToken"
+                },
+                success: function (responseText) {
+//                           $("#tokenHere").html(responseText);
+
+                    var fb_details = responseText.split(",");
+
+                    if (fb_details[0] == "") {
+
+                        document.location.href = "GetFacebookManagePage";
+
+                        $("#isFacebook").val(facebookcheck);
+
+                    } else {
+
+//                        var fb_details = responseText.split(",");
+
+                        $("#fbaccessTokenSend").val(fb_details[0]);
+                        $("#pagenameSend").val(fb_details[2]);
+                        $("#fbdefaultAccessToken").val("true");
+                        $("#isFacebook").val("true");
+
+//                        $("#submitbutton").prop("disabled", false);
+                        $('#loadingGif').hide();
+                    }
+                }
+            });
            
        document.getElementById("facebook").checked=true;
        document.getElementById("fb").src="images/fbButton_darkblue_new.svg"; 
@@ -13,6 +44,10 @@ $(document).ready(function(){
    }
    else
    {
+       $("#isFacebook").val(facebookcheck);
+       $("#fbaccessTokenSend").val("");
+       $("#fbdefaultAccessToken").val("");
+       $('#loadingGif').hide();
        document.getElementById("fb").src=""; 
        document.getElementById("facebook").checked=false;   
        $("#isFacebook").val("false");
@@ -29,8 +64,72 @@ $(document).ready(function(){
    }
    });
     $("#mouset").click(function(){
-       var x = document.getElementById("twitter").checked;
-       if(x == false){
+       var twittercheck = document.getElementById("twitter").checked;
+       if(twittercheck == false){
+           $.ajax({
+                url: 'ServletUserPreferencesTwitter',
+                method: 'post',
+                data: {
+                    access_token_method: "getAccessToken"
+                },
+                success: function (responseText) {
+                    if (responseText == "") {
+
+                        //$("#twitterpopup").show();
+
+                        $(".clicktwitter").click();
+                        $.ajax({
+                            url: 'GetTwitterToken',
+                            method: 'get',
+                            success: function (responseText) {
+                                $("#twitterlink").html("<a href='" + responseText + "' target='_blank'>get your pin</a>");
+                            }
+                        });
+                        $('#setPin').click(function () {
+                            var pin = $("#pinTextBox").val();
+
+                            if (pin.length > 0) {
+                                $.ajax({
+                                    url: 'GetTwitterToken',
+                                    method: 'post',
+                                    data: {
+                                        pin: $("#pinTextBox").val()
+                                    },
+                                    success: function (responseText) {
+                                        //                        $("#tokenHere").html(responseText);
+                                        $("#twaccessTokenSend").val(responseText);
+                                        twitter_access_tokens = responseText;
+                                        $.ajax({
+                                            url: 'ServletUserPreferencesTwitter',
+                                            method: 'post',
+                                            data: {
+                                                access_token_method: "setAccessToken",
+                                                twitter_access_tokens: twitter_access_tokens
+                                            },
+                                            success: function (responseText) {
+                                            }
+                                        });
+
+//                                        $("#submitbutton").prop("disabled", false);
+                                    }
+                                });
+
+                                //$("#twitterpopup").hide();
+                                $(".close-reveal-modal").click();
+
+                            } else {
+                                alert("Please enter the pin code!");
+                                $("#pinTextBox").focus();
+                            }
+                        });
+
+                    } else {
+                        $("#twaccessTokenSend").val(responseText);
+//                        $("#submitbutton").prop("disabled", false);
+                    }
+
+                }
+            });
        document.getElementById("twitter").checked=true;
        document.getElementById("twt").src="images/twtButton_lightblue_new.svg";
        $("#isTwitter").val("true");
@@ -39,6 +138,9 @@ $(document).ready(function(){
    }
    else
    {
+       $("#twaccessTokenSend").val("");
+       $(".close-reveal-modal").click();
+       $('#loadingGif').hide();
        document.getElementById("twt").src="";
        document.getElementById("twitter").checked=false;
        $("#isTwitter").val("false");
@@ -57,6 +159,18 @@ $(document).ready(function(){
    
 
 });
+
+  
+    $("#closetwitter").click(function () {
+
+        //$("#twitterpopup").hide();
+        $(".close-reveal-modal").click();
+        $("#submitbutton").prop("disabled", true);
+
+
+    });
+
+
 var category_id=$("#category_id").val();
 var sub_category_id=$("#sub_category_id").val();
 var sub_category_name=$("#sub_category_name").val();
@@ -66,8 +180,8 @@ var sub_category_name=$("#sub_category_name").val();
             window.open(configuration, "_self");
         }
  function selcheckbox(id){
-     //changeImagef();
-     
+//     changeImagef();
+//     changeImaget();
             content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
             var htm=$("#"+id).html();
             if(htm.contains('class="check-icon"')){
