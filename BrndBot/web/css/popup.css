@@ -831,5 +831,16 @@ a#removeLink {
     cursor: pointer;
     opacity: .9;
 }
-
+#avpw_main_overlay,#avpw_main_frames,#avpw_main_resize,#avpw_main_orientation,#avpw_main_saturation,#avpw_main_focus,#avpw_main_brightness,#avpw_main_contrast{
+    display:none;
+}
+.avpw_scroll_page.avpw_scroll_page_incomplete {
+    display: none;
+}
+a#avpw_rghtArrow,#avpw_lftArrow {
+    display: none !important;
+}
+.Twitter-preview-image1 {
+    width: 100%;
+}
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/
