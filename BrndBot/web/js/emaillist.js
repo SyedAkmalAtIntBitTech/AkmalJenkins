@@ -134,7 +134,11 @@
 
             
             $(document).ready(function () {
-                 
+                
+                $("#savesetbtn").hide();
+                $("#emaisetdiv").hide();
+                $("#historydiv").hide();
+                $("#emailhistorydiv").hide();
                 $("#removeselactions").hide();
                 $("#emaildraftsdiv").hide();
                 $(".delete-button").hide();
@@ -146,31 +150,102 @@
                 $("#list_description").focus(function (){$("#lstdesc").css("left","-145px").css("font-size","13px").css("color","#999");});
                 $("#list_description").focusout(function (){var emllist=$("#list_description").val();if(emllist===""){$("#lstdesc").css("left","20px").css("font-size","12px").css("color","#2c4355");}if(emllist!==""){$("#lstdesc").css("left","-145px");}});
                 
+                 $("#emlsettab").click(function (){
+                    $("#savesetbtn").show();
+                    $("#emailhistorydiv").hide();
+                    $("#deleteEmaildraft").hide();
+                    $("#emaillistsdiv").hide();
+                    $("#emaisetdiv").show();
+                    $("#emaildraftsdiv").hide();
+                    $("#addemlstbtn").hide();
+                    $("#emlhistab").removeClass("top-subnav-link-active");
+                    $("#emlhistab a").removeClass("h3-active-subnav");
+                    $("#emlhistab").addClass("top-subnav-links");
+                    $("#emlhistab a").addClass("h3"); 
+                    $("#emlsettab").addClass("top-subnav-link-active");
+                    $("#emlsettab a").addClass("h3-active-subnav");
+                    $("#emldrftab").removeClass("top-subnav-link-active");
+                    $("#emldrftab a").removeClass("h3-active-subnav");
+                    $("#emldrftab").addClass("top-subnav-links");
+                    $("#emldrftab a").addClass("h3"); 
+                    $("#emllistab").removeClass("top-subnav-link-active");
+                    $("#emllistab a").removeClass("h3-active-subnav");
+                    $("#emllistab").addClass("top-subnav-links");
+                    $("#emllistab a").addClass("h3"); 
+                });
+                
+                
+                
                 $("#emldrftab").click(function (){
+                    $("#savesetbtn").hide();
+                    $("#emaisetdiv").hide();
+                    $("#emailhistorydiv").hide();
                     $("#emaillistsdiv").hide();
                     $("#emaildraftsdiv").show();
                     $("#addemlstbtn").hide();
+                    $("#emlhistab").removeClass("top-subnav-link-active");
+                    $("#emlhistab a").removeClass("h3-active-subnav");
+                    $("#emlhistab").addClass("top-subnav-links");
+                    $("#emlhistab a").addClass("h3"); 
                     $("#emldrftab").addClass("top-subnav-link-active");
                     $("#emldrftab a").addClass("h3-active-subnav");
                     $("#emllistab").removeClass("top-subnav-link-active");
                     $("#emllistab a").removeClass("h3-active-subnav");
                     $("#emllistab").addClass("top-subnav-links");
                     $("#emllistab a").addClass("h3"); 
+                    $("#emlsettab").removeClass("top-subnav-link-active");
+                    $("#emlsettab a").removeClass("h3-active-subnav");
+                    $("#emlsettab").addClass("top-subnav-links");
+                    $("#emlsettab a").addClass("h3"); 
                     $("#removeselactions").hide();
                     getAllDrafts();
                 });
                 
                 $("#emllistab").click(function (){
+                    $("#savesetbtn").hide();
+                    $("#emaisetdiv").hide();
+                    $("#emailhistorydiv").hide();
                     $("#deleteEmaildraft").hide();
                     $("#emaillistsdiv").show();
                     $("#emaildraftsdiv").hide();
                     $("#addemlstbtn").show();
+                    $("#emlhistab").removeClass("top-subnav-link-active");
+                    $("#emlhistab a").removeClass("h3-active-subnav");
+                    $("#emlhistab").addClass("top-subnav-links");
+                    $("#emlhistab a").addClass("h3"); 
                     $("#emllistab").addClass("top-subnav-link-active");
                     $("#emllistab a").addClass("h3-active-subnav");
                     $("#emldrftab").removeClass("top-subnav-link-active");
                     $("#emldrftab a").removeClass("h3-active-subnav");
                     $("#emldrftab").addClass("top-subnav-links");
                     $("#emldrftab a").addClass("h3"); 
+                    $("#emlsettab").removeClass("top-subnav-link-active");
+                    $("#emlsettab a").removeClass("h3-active-subnav");
+                    $("#emlsettab").addClass("top-subnav-links");
+                    $("#emlsettab a").addClass("h3");
+                });
+                 $("#emlhistab").click(function (){
+                     $("#savesetbtn").hide();
+                     $("#emaisetdiv").hide();
+                    $("#deleteEmaildraft").hide();
+                    $("#emaillistsdiv").hide();
+                    $("#emaildraftsdiv").hide();
+                    $("#addemlstbtn").hide();
+                    $("#emailhistorydiv").show();
+                    $("#emlhistab").addClass("top-subnav-link-active");
+                    $("#emlhistab a").addClass("h3-active-subnav");
+                    $("#emllistab").removeClass("top-subnav-link-active");
+                    $("#emllistab a").removeClass("h3-active-subnav");
+                    $("#emldrftab").removeClass("top-subnav-link-active");
+                    $("#emldrftab a").removeClass("h3-active-subnav");
+                    $("#emllistab").addClass("top-subnav-links");
+                    $("#emllistab a").addClass("h3"); 
+                    $("#emldrftab").addClass("top-subnav-links");
+                    $("#emldrftab a").addClass("h3"); 
+                    $("#emlsettab").removeClass("top-subnav-link-active");
+                    $("#emlsettab a").removeClass("h3-active-subnav");
+                    $("#emlsettab").addClass("top-subnav-links");
+                    $("#emlsettab a").addClass("h3");
                 });
                 if(location.search == "?emaildrafts=1"){
                      $("#emaillistsdiv").hide();
@@ -304,8 +379,111 @@
                $("#default_from_name").val("");
                return true;
             }
-
+ function emailHistory($scope, $http) {
+                $scope.displayemailhistory = function (){
+                $http({
+                        method : 'GET',
+                        url : 'GetEmailTagsServlet'
+                }).success(function(data, status, headers, config) {
+                    if (data == ""){
+                        $scope.email_history = "No email history present";
+//                        $("#scrl").hide();
+//                        $("#email_headings").hide();
+                        $("#nohistorydiv").empty().text('No email history present');
+                        $(".nohiswid").css("width","250px");
+                        $("#historydiv").hide();
+                    }else {
+//                        $("#scrl").show();
+                        $("#historydiv").show();
+//                        $("#nohistorydiv").hide();
+                        $scope.email_history = data;
+                    }
+                    if (data === error){
+                        alert(data);
+                    }
+                }).error(function(data, status, headers, config) {
+                    alert("No data available! Problem fetching the data.");
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                });        
+                }
+            }
             function EmailListController($scope, $http) {
+                
+                $scope.setEmailSettings = function () {
+                    var from_address = $("#from_address").val();
+                    var reply_email_address = $("#reply_email_address").val();
+                    if (validateemailset()) {
+                        var email_settings = {"from_address": from_address, "reply_email_address": reply_email_address, "type": "add"};
+
+                        $http({
+                            method: 'POST',
+                            url: getHost() + 'EmailSettingsServlet',
+                            headers: {'Content-Type': 'application/json'},
+                            data: email_settings
+                        }).success(function (data)
+                        {
+                            $scope.status = data;
+                            if (data === "false") {
+                                alert("User session has expired! Kindly resubmit a request.");
+                            } else if (data === "true") {
+                                alert("Settings saved successfully.");
+                                $("#from_address").val("");
+                                $("#reply_email_address").val("");
+                            } else if (data === error) {
+                                alert(data);
+                            }
+                        }).error(function (data, status) {
+                            // called asynchronously if an error occurs
+                            // or server returns response with an error status.
+
+                            alert("Request not successful!");
+                        });
+
+                    }
+                };
+                function validateemailset() {
+                var from_address = $("#from_address").val();
+                var reply_email_address = $("#reply_email_address").val();
+                
+                if (from_address === "") {
+                    alert("From address not entered! Please enter the from address.");
+                    $("#from_address").focus();
+                    return false;
+                }
+                
+                if ($.trim(from_address).length == 0) {
+                    alert('Please enter valid email address.');
+                    $("#from_address").focus();
+                    return false;
+                }
+                
+                if (!(validateEmail(from_address))) {
+                    alert('Invalid Email Address.');
+                    $("#from_address").focus();
+                    return false;
+                }
+
+                if (reply_email_address === "") {
+                    alert("Reply email not entered! Please enter the reply email address.");
+                    $("#reply_email_address").focus();
+                    return false;
+                }
+                
+                if ($.trim(reply_email_address).length == 0) {
+                    alert('Please enter valid email address.');
+                    $("#reply_email_address").focus();
+                    return false;
+                }
+                
+                if (!(validateEmail(reply_email_address))) {
+                    alert('Invalid Email Address');
+                    $("#reply_email_address").focus();
+                    return false;
+                }
+                
+                return true;
+            }
                 
                 var sliderDialog="";
  var prevSliderDialog="";
