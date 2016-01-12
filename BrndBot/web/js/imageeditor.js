@@ -21,6 +21,7 @@
            }
        },
        onError: function(errorObj) {
+           alert("error");
            alert(errorObj.message);
        }
    }); 
@@ -32,16 +33,21 @@
        });
       return false;
        }
+       var clickedImageId=0;
        $(function() {
-        $(".feditImage").click(function(){   
-            launchEditor($("#facebookpreviewimage").attr("id"));
-            //launchEditor($("#twitterpreviewimage").attr("id"));
-        });
-        $(".editImage").click(function(){   
-        var flag=launchEditor($("#twitterpreviewimage").attr("id"));
-        if(!flag)
+        if(clickedImageId === 0)
         {
-             //launchEditor($("#facebookpreviewimage").attr("id"));
+            $(".feditImage").click(function(){
+                clickedImageId=$("#facebookpreviewimage").attr("id");
+                launchEditor($("#facebookpreviewimage").attr("id"));
+            });
+            $(".editImage").click(function(){   
+                clickedImageId=$("#twitterpreviewimage").attr("id");
+                launchEditor($("#twitterpreviewimage").attr("id"));
+            });
         }
-        });
+        else
+        {
+            launchEditor(clickedImageId);
+        }
        });
