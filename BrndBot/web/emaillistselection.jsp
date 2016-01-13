@@ -59,17 +59,18 @@
     <div class="content-main" >
     <%@include file="navbarv2.jsp" %>
     <%@include file="emaillistselectionpopup.jsp" %>
-    <input type="hidden" value="<%= draft_id %>" name="draft_id" id="draft_id"></input>   
+    <input type="hidden" value="<%= draft_id %>" name="draft_id" id="draft_id"></input>  
+    <input type="hidden" value="<%= iframeName %>" name="iframeName" id="iframeName1"></input>  
     <!--Top Nav-->   
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
             <div class="exit-button-detail">
-                   <a class=" exit-button-icon" href="" id="backemaillist">
+                <a class=" exit-button-icon" href="" id="backemaillist">
                     <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
-                   </a>
-                   <a class=" exit-button-icon" href="" id="backemaildetails">
+                </a>
+                <a class=" exit-button-icon" href="" id="backemaildetails">
                     <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
-                   </a>
+                </a>
             </div>
             <div class="page-title-with-back page-title-font">Email List Selection</div>
             <!--<div class="page-cta-container">

@@ -940,6 +940,7 @@ function programactions($scope, $http, $window){
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
+                
                 $scope.entitiesdetails = data;
                 if (data.body == undefined) {
                     $("#preview_email").hide();
@@ -950,9 +951,10 @@ function programactions($scope, $http, $window){
                     $("#edit_email").show();
                     $("#edit_email_action").hide();
                 }
-
+                
                 $scope.schedule_id = schedule_id;
                 var date = new Date(schedule_time);
+                
                 $(".editcontent").empty();
                 $(".editcontent").append(data.body);
                 $(".editcontent").css("-webkit-transform", "scale(0.5,0.6)").css("margin-left", "-140px").css("margin-top", "-60px").css("margin-bottom", "-220px");
@@ -1241,6 +1243,8 @@ function programactions($scope, $http, $window){
                     $("#emailgreen").hide();
                     $("#emailred").show();
                 }
+                //alert(JSON.stringify(data.body));
+                $("#emailcontentiframe").contents().find('html').html(data.body);
 //                var date = new Date(schedule_time);
 //                $(".content").empty();
 //                $(".content").append(data.body);

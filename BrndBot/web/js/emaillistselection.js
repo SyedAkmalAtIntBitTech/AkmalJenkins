@@ -1,6 +1,7 @@
 
         var draft_id = "";
          $(document).ready(function () {
+             var iframeName = $("#iframeName1").val();
              var draft_id = $("#draft_id").val();
              $("#closesendpopup").click(function(){
                 $("#sendpopup").hide();
@@ -226,7 +227,7 @@ function emailSettings($scope, $http){
                 };
                 
                 $scope.setScheduling = function () {
-                    draft_id= $("#draft_id").val();
+                    draft_id = $("#draft_id").val();
                     var schedule_id = $("#email_actions").val();
                     var from_name = $("#name").val();
                     var email_subject = $("#subject").val();
@@ -237,7 +238,7 @@ function emailSettings($scope, $http){
                     var email_body = formattedHTMLData;
                     var email_list = $("#chooseEmailList").val();
                     var schedule_desc = "none";
-                    var iframe_name = $("#iframe_name").val();
+                    var iframe_name = $("#iframeName1").val();
                     console.log(schedule_id);
                     if (schedule_id == "0"){
                         if($("#schedule_title").val()=="")
@@ -286,7 +287,8 @@ function emailSettings($scope, $http){
                             url: 'ScheduleEmail',
                             headers: {'Content-Type': 'application/json'},
                             data: email_scheduling
-                        }).success(function (data) {  alert(JSON.stringify(data));                          
+                        }).success(function (data) {  
+                            
                             if (data != "") {
                                $http({
                                method: 'POST',
@@ -320,7 +322,7 @@ function emailSettings($scope, $http){
                             url: 'ScheduleEmailActions',
                             headers: {'Content-Type': 'application/json'},
                             data: email_scheduling
-                        }).success(function (data) {alert(JSON.stringify(data));
+                        }).success(function (data) {
                             if (data != "") {
                                $http({
                                method: 'POST',
@@ -334,12 +336,129 @@ function emailSettings($scope, $http){
                                 });
                             }
                         }).error(function (data) {
+                            alert("error after 8");
                             alert("No data available! Problem fetching the data.");
                         });
                         
                     }
                     
                 };
+                
+//                $scope.setScheduling = function () {
+//                    draft_id= $("#draft_id").val();
+//                    var schedule_id = $("#email_actions").val();
+//                    var from_name = $("#name").val();
+//                    var email_subject = $("#subject").val();
+//                    var to_email_addresses = $("#toaddress").val();
+//                    var from_email_address = $("#formaddress").val();
+//                    var reply_to_email_address = $("#email").val();
+//                    var program_id = $("#programs").val();
+//                    var email_body = formattedHTMLData;
+//                    var email_list = $("#chooseEmailList").val();
+//                    var schedule_desc = "none";
+//                    var iframe_name = $("#iframe_name").val();
+//                    console.log(schedule_id);
+//                    if (schedule_id == "0"){
+//                        if($("#schedule_title").val()=="")
+//                        {
+//                            alert("Please Enter Title.");
+//                            $("#schedule_title").focus();
+//                            return false;
+//                        }
+//                        if($("#schedule_date").val()=="")
+//                        {
+//                            alert("Please Choose Date.");
+//                            $("#schedule_date").focus();
+//                            return false;
+//                        }
+//                        if($("#schedule_time").val()=="")
+//                        {
+//                            alert("Please Chooose Time.");
+//                            $("#schedule_time").focus();
+//                            return false;
+//                        }
+//                        var schedule_title = $("#schedule_title").val();
+//                        var schedule_date = $("#schedule_date").val();
+//                        var schedule_time = $("#schedule_time").val().replace(/ /g,'');
+////                        var schedule = $("#schedule_time").val();
+//                        var l=schedule_date.toLocaleString() +" "+schedule_time.toLocaleString();
+//                        var schedule_time = Date.parse(l);
+//                        console.log("Epoch: " + schedule_time);
+//                        var myEpoch = schedule_time;
+//                        console.log("New Epoch: " + myEpoch);
+//                        var email_scheduling = {
+//                            "from_name": from_name, 
+//                            "program_id": program_id,
+//                            "email_subject": email_subject, 
+//                            "to_email_addresses": to_email_addresses, 
+//                            "from_email_address": from_email_address, 
+//                            "reply_to_email_address": reply_to_email_address, 
+//                            "email_list": email_list, 
+//                            "schedule_title": schedule_title, 
+//                            "schedule_time": myEpoch, 
+//                            "email_body": email_body, 
+//                            "schedule_desc": schedule_desc,
+//                            "iframeName": iframe_name
+//                        };
+//                        $http({
+//                            method: 'POST',
+//                            url: 'ScheduleEmail',
+//                            headers: {'Content-Type': 'application/json'},
+//                            data: email_scheduling
+//                        }).success(function (data) {  alert(JSON.stringify(data));                          
+//                            if (data != "") {
+//                               $http({
+//                               method: 'POST',
+//                               url: getHost() + "deleteEmailDraft.do?draftid="+draft_id
+//                               }).success(function (data) {
+//                                   alert("Your Email has been Scheduled Successfully");
+//                                   document.location.href = "dashboard.jsp";
+//                                
+//                                }).error(function (data) {
+//                                    alert("No data available! Problem fetching the data.");
+//                                });
+//                            }
+//                        }).error(function (data) {
+//                            alert("No data available! Problem fetching the data.");
+//                        });
+//                    }else {
+//                        var email_scheduling = {
+//                            "from_name": from_name, 
+//                            "email_subject": email_subject, 
+//                            "to_email_addresses": to_email_addresses, 
+//                            "from_email_address": from_email_address, 
+//                            "reply_to_email_address": reply_to_email_address, 
+//                            "email_list": email_list,
+//                            "schedule_id":schedule_id,
+//                            "email_body": email_body,
+//                            "schedule_desc": schedule_desc,
+//                            "iframeName": iframe_name
+//                        };
+//                        $http({
+//                            method: 'POST',
+//                            url: 'ScheduleEmailActions',
+//                            headers: {'Content-Type': 'application/json'},
+//                            data: email_scheduling
+//                        }).success(function (data) {alert(JSON.stringify(data));
+//                            if (data != "") {
+//                               $http({
+//                               method: 'POST',
+//                               url: getHost() + "deleteEmailDraft.do?draftid="+draft_id
+//                               }).success(function (data) {
+//                                alert("Your Email has been Scheduled Successfully.");
+//                                document.location.href = "dashboard.jsp";
+//                                
+//                                }).error(function (data) {
+//                                    alert("No data available! Problem fetching the data.");
+//                                });
+//                            }
+//                        }).error(function (data) {
+//                            alert("No data available! Problem fetching the data.");
+//                        });
+//                        
+//                    }
+//                    
+//                };
                 
                 $scope.getProgramNames = function() {
                     $http({
@@ -352,10 +471,22 @@ function emailSettings($scope, $http){
                         alert("Request not successful!");
                     });
                 };
+                 $scope.getActions = function (program_id) {
+                    alert(program_id);
+                    $http({
+                        method: 'GET',
+                        url: getHost() + 'GetScheduledActions?programid='+ program_id + '&type='+ getemail()
+                    }).success(function (data) {
+                        alert(JSON.stringify(data));
+                        $scope.email_actions = data;
+                    }).error(function (data) {
+                        alert("Request not successful!");
+                    });
+                }; 
                  $("#programs").change(function(){
                     
                 program_id = $("#programs").val();
-                //angular.element(document.getElementById('emailSettings')).scope().getActions(program_id);
+//                angular.element(document.getElementById('emailSettings')).scope().getActions(program_id);
                 $http({
                         method: 'GET',
                         url: getHost() + 'GetScheduledActions?programid='+ program_id + '&type='+ getemail()
@@ -379,18 +510,7 @@ function emailSettings($scope, $http){
                     document.getElementById('schedule_time').disabled=true;
 
                 }
-//                $scope.getActions = function (program_id) {
-//                    alert(program_id);
-//                    $http({
-//                        method: 'GET',
-//                        url: getHost() + 'GetScheduledActions?programid='+ program_id + '&type='+ getemail()
-//                    }).success(function (data) {
-//                        alert(JSON.stringify(data));
-//                        $scope.email_actions = data;
-//                    }).error(function (data) {
-//                        alert("Request not successful!");
-//                    });
-//                }; 
+               
             });
                               
             }
