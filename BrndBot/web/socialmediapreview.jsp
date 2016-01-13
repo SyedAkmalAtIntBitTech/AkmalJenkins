@@ -681,7 +681,8 @@ label:before {
                             </div>
                             
                             <p class="psttxt"></p><textarea class="hideinputborder ptr"  id="title" placeholder="Link title here" style="height:40px; resize: none;"></textarea><br>
-                        <p class="psttxt"></p><textarea class="hideinputborder ptr" id="description" placeholder="Link Description" style="height:40px; resize: none;"></textarea><br>
+                            <p class="psttxt"></p>
+                        <textarea class="hideinputborder ptr" id="description" placeholder="Link Description" style="height:40px; resize: none;"></textarea><br>
                         </div>
                         
                         <div class="fortw">

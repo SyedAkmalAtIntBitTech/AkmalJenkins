@@ -41,6 +41,7 @@ class PostToFacebook {
 
         String returnMessage = "success";
         ServletContext context = null;
+        String status = "";
         try {
             Facebook facebook = new FacebookFactory().getInstance();
             facebook.setOAuthAppId("592852577521569", "a87cc0c30d792fa5dd0aaef6b43994ef");
@@ -50,34 +51,38 @@ class PostToFacebook {
             ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
             String context_real_path = servletContext.getRealPath("");
             String imageContextPath = Utility.getServerName(context_real_path);
-            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "message while facebook post", imageContextPath);
+            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "message while facebook post:"+imageContextPath);
             
             if (title.equals("")) {
 
                 Media media = new Media(new File(file_image_path));
                 PhotoUpdate update = new PhotoUpdate(media);
                 update.message(posttext);
-                facebook.postPhoto(update);
+                status = facebook.postPhoto(update);
             } else {
                 logger.info("title:"+title);
                 if (imageType.equals("layout")){
                     PostUpdate post = new PostUpdate(posttext)
-                            .picture(new URL(imageContextPath + "DownloadImage?image_type=LAYOUT_IMAGES&image_name=" + getImageFile))
+                            .picture(new URL(imageContextPath + "DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile))
                             .name(title)
                             .link(new URL(url))
                             .description(description);
-                    facebook.postFeed(post);
+                status = facebook.postFeed(post);
                     
                 }else if (imageType.equals("gallery")){
                     PostUpdate post = new PostUpdate(posttext)
-                            .picture(new URL(imageContextPath + "DownloadImage?image_type=GALLERY&image_name=" + getImageFile +"&user_id="+user_id))
+                            .picture(new URL(imageContextPath + "DownloadImage?image_type=GALLERY&image_name="+getImageFile+"&user_id="+user_id))
                             .name(title)
                             .link(new URL(url))
                             .description(description);
-                    facebook.postFeed(post);
+                status = facebook.postFeed(post);
+                }
+                
+                if (!(status.equals(""))){
+                    status = returnMessage;
                 }
             }
-            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "message while facebook post", imageContextPath);
+            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "message while facebook post:"+status);
             try {
                 SqlMethods sqlMethods = new SqlMethods();
                 sqlMethods.setSocialPostHistory(user_id, htmlString, false, true, getImageFile, null);
@@ -91,7 +96,7 @@ class PostToFacebook {
             Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getCause());
             Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getMessage());
         }
-        return returnMessage;
+        return status;
     }
     public  HashMap<String,String> getFacebookUserPreferences(Integer userId) throws Throwable{
         UserPreferencesFacebook userPreferencesFacebook = new UserPreferencesFacebook();

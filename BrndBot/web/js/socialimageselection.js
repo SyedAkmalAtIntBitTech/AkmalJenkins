@@ -45,7 +45,7 @@
                     var isTwitter = $("#isTwitter").val();
                     var image_name = $("#imageToPost").val();
                     var image_type = $("#gallery").val();
-                    
+                    var link_description = $("#link_description").val();
                     if(isFacebook === true)
                     {
                         if(image_name==="")
@@ -68,6 +68,12 @@
                             alert("Please choose an Image");
                             return false;
                         }
+                        if($(link_description===""))
+                        {
+                            alert("Please write the description");
+                            $("#link_description").focus();
+                            return false;
+                        }                        
                     }
                     if(isTwitter === true)
                     {
@@ -124,6 +130,7 @@
                                         isFacebook: isFacebook,
                                         isTwitter: isTwitter,
                                         imagePost: image_name,
+                                        description: link_description,
                                         imageType: image_type,
                                         shorturl: $("#sortLengthurl").val()
                                     },
@@ -154,6 +161,8 @@
                     var facebookac=$("#facebookactions").val();
                     var twitterac=$("#twitteractions").val();
                     var imagetype = $("#gallery").val();
+                    var link_description = $("#link_description").val();
+                    
                     if(programs=== "0"){
                         if(schedule_date==="" && schedule_time==="" && schedule_title==="" && schedule_desc==="")
                         {
@@ -323,6 +332,7 @@
                                         "access_token": '"' + $("#accesstoken").val() + '"'
                                     },
                                     metadata: {
+                                        description: '"' + $("#link_description").val() + '"',
                                         post_text: '"' + $("#posttext").val() + '"',
                                         url: '"' + $("#url").val() + '"',
                                         ManagedPage: '"' + ManagedPage + '"',
@@ -379,6 +389,7 @@
                                         "access_token": '"' + $("#accesstoken").val() + '"'
                                     },
                                     metadata: {
+                                        description: '"' + $("#link_description").val() + '"',
                                         post_text: '"' + $("#posttext").val() + '"',
                                         url: '"' + $("#url").val() + '"',
                                         ManagedPage: '"' + ManagedPage + '"',
@@ -432,6 +443,7 @@
                                         "access_token": '"' + $("#accesstoken").val() + '"'
                                     },
                                     metadata: {
+                                        description: '"' + $("#link_description").val() + '"',
                                         post_text: '"' + $("#posttext").val() + '"',
                                         url: '"' + $("#url").val() + '"',
                                         ManagedPage: '"' + ManagedPage + '"',
@@ -473,6 +485,7 @@
                                         "access_token": '"' + $("#accesstoken").val() + '"'
                                     },
                                     metadata: {
+                                        description: '"' + $("#link_description").val() + '"',
                                         post_text: '"' + $("#posttext").val() + '"',
                                         url: '"' + $("#url").val() + '"',
                                         ManagedPage: '"' + ManagedPage + '"',

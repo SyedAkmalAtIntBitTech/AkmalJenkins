@@ -7,18 +7,18 @@ $(document).ready(function () {
 var print = "print";
 var download = "image";
 function selected_media(selectedmedia, mindbodyid) {
-
+    alert(mindbodyid);
     if (selectedmedia == print) {
-        var configuration = global_host_address + "socialeditor.jsp" + "?id="+ mindbodyid + "&mediatype=print";
+        var configuration = global_host_address+"socialeditor.jsp"+"?id="+mindbodyid+"&mediatype=print";
         window.open(configuration, "_self");
     } else if (selectedmedia == download) {
-        var configuration = global_host_address + "socialeditor.jsp" + "?id="+ mindbodyid + "&mediatype=image";
+        var configuration = global_host_address+"socialeditor.jsp"+"?id="+mindbodyid+"&mediatype=image";
         window.open(configuration, "_self");
     } else if (selectedmedia == 'social') {
-        var configuration = global_host_address + "selectpromotesocialmedia.jsp" + "?id="+ mindbodyid + "&mediatype=social";
+        var configuration = global_host_address+"selectpromotesocialmedia.jsp"+"?id="+mindbodyid+"&mediatype=social";
         window.open(configuration, "_self");
     } else if (selectedmedia == 'emailsubject') {
-        var configuration = global_host_address + "emailsubject.jsp" + "?id="+ mindbodyid + "&mediatype=email";
+        var configuration = global_host_address+"emailsubject.jsp"+"?id="+mindbodyid+"&mediatype=email";
         window.open(configuration, "_self");
     }
 }

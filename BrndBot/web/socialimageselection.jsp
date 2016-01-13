@@ -110,7 +110,7 @@
    <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign">
     <%@ include file="selectimagetype.jsp"%>
     <!--SideNav-->
-    <intput type="hidden" id="number" value=""/>
+    <input type="hidden" id="number" value=""/>
     <input type="hidden" id="isFacebook" value="<%=isFacebook%>"/>
     <input type="hidden" id="isTwitter" value="<%=isTwitter%>"/>
     <input type="hidden" id="imagen" value="<%=imageid%>"/>
@@ -226,7 +226,7 @@
                                     (imageid.equalsIgnoreCase("")){
                                 %>
                                 <div class="Twitter-preview-image fleft">
-                                    <div class="changeImage" onclick="fun('twitter','<%=mindbodydata%>');"> Upload Image </div>
+                                    <div class="changeImage" onclick="fun('twitter',null,'<%=mindbodydata%>',null,null);"> Upload Image </div>
                                 </div>
                                 <%
                                     } else{
@@ -267,9 +267,9 @@
                <div class="bottom-continue-button button-text-1" id="postorschedule">Post to Social Media</div>
             </div>
         </div>
-         </div>
+<!--         </div>
 </div>
-</div>
+</div>-->
   
     </body>
 </html>
