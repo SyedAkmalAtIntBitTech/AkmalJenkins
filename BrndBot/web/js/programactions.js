@@ -1108,11 +1108,13 @@ function programactions($scope, $http, $window){
             });
     }
     
-    $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, date_status,program_name) {
+    $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, date_status) {
         //alert(schedule_desc);    
         $slider=2;
             sliderDialog = "#recuringPopup";
             prevSliderDialog = "#recuringPopup";
+            var program_name=$("#program_name2").val();
+            var program_id=$("#program_id").val();
 //            $("#recuring_preview_email").show();
 //            $("#recuring_edit_email_action").hide();
             $http({
@@ -1121,14 +1123,14 @@ function programactions($scope, $http, $window){
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.body == undefined) {
-//                    $("#mailpreviewremove6").hide();
+                      $("#recuringremovediv").hide();
 //                    $('#mailremovedtemplate6').show();
 //                    $('#mailpreviewdecond5').hide();
 //                    $('.approve').hide();
 //                    $("#email_button_send").val(create_button_title);
                 } else {
 //                    $('.approve').css("display","inline-flex");
-//                    $("#mailpreviewremove6").show();
+                      $("#recuringremovediv").show();
 //                    $('#mailremovedtemplate6').hide();
 //                    $('#mailpreviewdecond5').show();
 //                    $('.content').show();
@@ -1145,10 +1147,12 @@ function programactions($scope, $http, $window){
 //                    $("#recuringemailgreen").hide();
 //                    $("#recuringemailred").show();
 //                }
-//                var date = new Date(schedule_time);
-//                $(".content").empty();
-//                $(".content").append(data.body);
-//                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
+ //               var date = new Date(schedule_time);
+//                $("#recuringemailcontentiframe").empty();
+//                $("#recuringemailcontentiframe").append(data.body);
+//                $("#recuringemailcontentiframe").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
+                
+                    $('#recuringemailcontentiframe').contents().find('html').html(data.body);
                 
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
@@ -1157,15 +1161,17 @@ function programactions($scope, $http, $window){
                 $scope.schedule_desc = schedule_desc;
                 $scope.recuring_template_status = template_status;
                 $scope.schedule_type = entity_type;
-                $scope.recuring_action_status=action_status;
+                $scope.recuring_date_status=date_status;
                 $scope.program_name=program_name;
+                $scope.program_id=program_id;
             }).error(function (data) {
                 alert("Request not successful! ");
             });
             $('#slider-button').click();
     };
     
-    $scope.getScheduleDetails = function (schedule_id, template_status, 
+    
+ $scope.getScheduleDetails = function (schedule_id, template_status, 
                                           schedule_date, entity_type, 
                                           schedule_title, schedule_desc, 
                                           post_time, action_status,
@@ -1215,23 +1221,23 @@ function programactions($scope, $http, $window){
                 $(".arrow_top").hide();
                 $scope.entitiesdetails = data;
                 if (data.body == undefined) {
-                    $("#noemailsdiv").show();
-                    $("#savedemailsdiv").hide();
-                    $("#mailpreviewremove").hide();
-                    $('#mailremovedtemplate').show();
-                    $('#mailpreviewdecond').hide();
-                    $('.approve').hide();
-                    $("#email_button_send").val(create_button_title);
+//                    $("#noemailsdiv").show();
+//                    $("#savedemailsdiv").hide();
+//                    $("#mailpreviewremove").hide();
+//                    $('#mailremovedtemplate').show();
+//                    $('#mailpreviewdecond').hide();
+//                    $('.approve').hide();
+//                    $("#email_button_send").val(create_button_title);
                 } else {
-                    $("#savedemailsdiv").show();
-                    $("#noemailsdiv").show();
-                    $('.approve').show();
-                    $("#mailpreviewremove").show();
-                    $('#mailremovedtemplate').hide();
-                    $('#mailpreviewdecond').show();
-                    $('.content').show();
-                    $('#mailimgprev').show();
-                    $("#email_button_send").val("Send");
+//                    $("#savedemailsdiv").show();
+//                    $("#noemailsdiv").show();
+//                    $('.approve').show();
+//                    $("#mailpreviewremove").show();
+//                    $('#mailremovedtemplate').hide();
+//                    $('#mailpreviewdecond').show();
+//                    $('.content').show();
+//                    $('#mailimgprev').show();
+//                    $("#email_button_send").val("Send");
                 }
                 if(template_status=="complete")
                 {

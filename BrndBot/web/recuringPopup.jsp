@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : AddAction.jsp
     Created on : 4 Dec, 2015, 11:58:16 AM
@@ -51,7 +52,7 @@
                 <!--Below Nav-->
                 <div id="recuringactiondiv">
                     <div class="below-nav-container-saved-post-detail">
-                    <div class="inner-content-container-detail">
+                        <div class="inner-content-container-detail">
                             <div class="saved-post-header-detail">
                                 <div class="h4 ng-hide" ng-show="schedule_desc === ''">Write Notes about this Action</div>                      
                                 <div class="h4" ng-show="schedule_desc !== ''">Notes</div>
@@ -62,75 +63,96 @@
 
                                     <!--SAVED POST GOES HERE-->
 
-                                <div class="input-header-actionDetail" style="">
-                                    TITLE
-                                </div>
-                                <input type="text" id="fb_action_title" value="{{schedule_title}}" class="input-field-textfield full"/>
-                                <input class="inputbox SP1" type="hidden" name="fb_scheduletype" id="fb_scheduletype" value='{{schedule_type}}'/>
-                                <input class="inputbox SP1" type="hidden" name="fb_scheduleid" id="fb_scheduleid" value='{{schedule_id}}'/>
-                                <div class="inlineFlex">
-                                    <div class="half"> 
-                                        <div class="input-header-actionDetail" style="">
-                                            Status
-                                        </div>
-                                        <input type="text" id="fbnotemplate" value="No Template" class="input-field-textfield width75" readonly/>
-                                        <input type="text" id="fbtemplatesaved" value="Template Saved" class="input-field-textfield width75 " readonly/>
+                                    <div class="input-header-actionDetail" style="">
+                                        TITLE
                                     </div>
-                                    <div class="half">
-                                        <div class="input-header-actionDetail" style="">
-                                            Marketing Program
+                                    <input type="text" id="recuring_email_title" value="{{schedule_title}}" class="input-field-textfield full"/>
+                                    <input class="inputbox SP1" type="hidden" name="fb_scheduletype" id="fb_scheduletype" value='{{schedule_type}}'/>
+                                    <input class="inputbox SP1" type="hidden" name="fb_scheduleid" id="fb_scheduleid" value='{{schedule_id}}'/>
+                                    <div class="inlineFlex">
+                                        <div class="half"> 
+                                            <div class="input-header-actionDetail" style="">
+                                                Status
+                                            </div>
+                                            <input type="text" id="fbnotemplate" value="{{recuring_template_status}}" class="input-field-textfield width75" readonly/>
                                         </div>
-                                        <input type="text" id="Generalid" value="{{program_name}}" class="input-field-textfield width75" readonly/>
+                                        <div class="half">
+                                            <div class="input-header-actionDetail" style="">
+                                                Marketing Program
+                                            </div>
+                                            <input type="text" id="Generalid" value="{{program_name}}" class="input-field-textfield width75" readonly/>
 
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="input-header-actionDetail" style="">
-                                    Date
-                                </div>
-                                <div class="input-field-textfield">
-                                    Enter Date of Workshop 
-                                </div>
-                                <div class="input-header-actionDetail" style="">
-                                    Time of Workshop
-                                </div>
-                                <div class="input-field-textfield">
-                                    Enter Time of Workshop 
-                                </div>
-                                <div class="input-header-actionDetail" style="">
-                                    Name of Workshop Instructor
-                                </div>
-                                <div class="input-field-textfield">
-                                    Enter Name of Workshop Instructor
-                                </div>
+                                    <div class="inlineFlex">
+                                        <div class="half">
+                                            <div class="input-header-actionDetail" style="">
+                                                Date
+                                            </div>
+                                            <input type="hidden" class="textbox" id="emaildays" name="emaildays" value="0"/>
+                                            <input type="text"  readonly  name="datepicker" id="datepicker"  class="input-field-textfield1 width75" value="{{entities_selected_time| date:'MMM dd yyyy'}}" />                                        
+                                            <script>
+                                                var picker = new Pikaday(
+                                                {
+                                                    format: 'MMM DD YYYY',
+                                                    field: document.getElementById('datepicker'),
+                                                    firstDay: 1,
+                                                    minDate: new Date(2000, 0, 1),
+                                                    maxDate: new Date(2050, 12, 31),
+                                                    yearRange: [2000,2050]
+                                                });
+                                            </script>
+                                        </div>
+                                        <div class="half">
+                                            <div class="input-header-actionDetail" style="">
+                                                TIME
+                                            </div>
+                                            <input id="timepicker5" type="text" name="timepicker5" class="timepickertextbox2" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
+                                            <script>
+                                                $('#timepicker5').timepicki({
+                                                    show_meridian:true,
+                                                    min_hour_value:0,
+                                                    max_hour_value:12,
+                                                    step_size_minutes:01,
+                                                    overflow_minutes:true,
+                                                    increase_direction:'up',
+                                                    disable_keyboard_mobile: true
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-
-
-                                </div>
-                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-cta-bar5">
+                        <div class="bottom-cta-button-container">
+                            <div class="edit-button-detail md-button button-text-1 fleft ">Save Changes</div>
+                        </div>
+                    </div>
                 </div>
                 <div id="recuringtemplatediv">
                     <div class="below-nav-container-saved-post-detail">
                     <div class="inner-content-container-detail">
-                        <div class="saved-post-preview-detail" id="noemailsdiv" >
-
-                                        <!--SAVED Email GOES HERE-->
-
-                                        <div class="overlay-emptystate-icon">
-                                            <img type="image/svg+xml" src="images/Icons/Overlay_EmptyStates_Email-Empty-State.svg" class="overlay-emptystate-icon"/>
+                        <div class="saved-post-preview-detail" id="noemailsdiv" ng-show="recuring_template_status === 'No Template'">
+                            <!--SAVED Email GOES HERE-->
+                            <div class="overlay-emptystate-icon">
+                                <img type="image/svg+xml" src="images/Icons/Overlay_EmptyStates_Email-Empty-State.svg" class="overlay-emptystate-icon"/>
+                            </div>
+                            <div class="empty-state-container">
+                                <div class="h2new textCenter textColor-Graynew">
+                                    No emails saved to this action.
+                                </div>
+                                <a class="link" href="dashboard.jsp">
+                                    <a href="emailautomation.jsp?type=template&program_id={{program_id}}&entity_id={{schedule_id}}">
+                                        <div class="md-button empty-state-cta">
+                                            Go to Dashboard
                                         </div>
-                                        <div class="empty-state-container">
-                                            <div class="h2new textCenter textColor-Graynew">
-                                                No emails saved to this action.
-                                            </div>
-                                            <a class="link" href="dashboard.jsp">
-                                                <div class="md-button empty-state-cta">
-                                                Go to Dashboard
-                                                </div></a>
-                                        </div>
+                                    </a>
+                                </a>
+                            </div>
                         </div>
-                        <div class="below-nav-container-saved-post-detail" id="savedemailsdiv">
+                        <div class="below-nav-container-saved-post-detail" id="savedemailsdiv" ng-show="recuring_template_status !== 'No Template'">
                             <div class="inner-content-container-detail fleft">
                                 <div class="saved-post-header-detail">
 
@@ -144,13 +166,18 @@
                                 </div>
                                 <div class="inner-content-detail">
                                     <div class="saved-email-preview-detail emailcontent">
-                                        <iframe id="emailcontentiframe" class="emailcontentiframetag"></iframe>
+                                        <iframe id="recuringemailcontentiframe" class="content"></iframe>
                                     </div>
                                 </div>
                             </div>
                         </div>
         <!--                        </div>
                             </div>-->
+                        </div>
+                    </div>
+                    <div class="bottom-cta-bar5"  id="recuringremovediv">
+                        <div class="bottom-cta-button-container">
+                            <div class="remove-button-detail md-button button-text-1 fleft ">Remove saved Template</div>
                         </div>
                     </div>
                 </div>
@@ -173,14 +200,14 @@
                         </div>
                     </div>
                     </div>
-                </div>
-                <!--CTA Bar-->
-                <div class="bottom-cta-bar5">
+                    <div class="bottom-cta-bar5">
                     <div class="bottom-cta-button-container">
-
-                             <div class="edit-button-detail md-button button-text-1 fleft ">Save Changes</div>
+                        <div class="edit-button-detail md-button button-text-1 fleft ">Save Changes</div>
                     </div>
                 </div>
+                </div>
+                <!--CTA Bar-->
+                
                   </div>
         </div>
          

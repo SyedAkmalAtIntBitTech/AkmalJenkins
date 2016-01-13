@@ -840,7 +840,7 @@ a#removeLink {
     cursor: pointer;
     opacity: .9;
 }
-#avpw_main_overlay,#avpw_main_frames,#avpw_main_resize,#avpw_main_orientation,#avpw_main_saturation,#avpw_main_focus,#avpw_main_brightness,#avpw_main_contrast{
+#recuringtemplatediv,#recuringnotediv,#avpw_main_overlay,#avpw_main_frames,#avpw_main_resize,#avpw_main_orientation,#avpw_main_saturation,#avpw_main_focus,#avpw_main_brightness,#avpw_main_contrast{
     display:none;
 }
 .avpw_scroll_page.avpw_scroll_page_incomplete {
@@ -851,5 +851,30 @@ a#avpw_rghtArrow,#avpw_lftArrow {
 }
 .Twitter-preview-image1 {
     width: 100%;
+}
+.input-field-textfield1 {
+    height: 30px;
+    background-color: #F9F9F9;
+    border: 1px solid #d5dadf;
+    padding: 0px -1px 0px 0px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    margin-left: 0px;
+    /* color: #cccccc; */
+    color: #000000;
+}
+.width45
+{
+    width:45%;
+}
+.timepickertextbox2 {
+    height: 30px;
+    background-color: #F9F9F9;
+    border: 1px solid #d5dadf;
+    padding: 6px 10px 3px 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    color: #000000;
+    width: 38%;
 }
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/
