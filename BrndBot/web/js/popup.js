@@ -96,6 +96,16 @@ $(document).ready(function ()
         $("#fade").hide();
     });
     $("#changeLink").click(function(){
+        $("#editLink").show();
+        $("#removeLink").show();
+        $("#changeLink").hide();
+        $("#linkpopup").show();
+        $("#fade").show();
+    });
+    $("#editLink").click(function(){
+        $("#editLink").show();
+        $("#removeLink").show();
+        $("#changeLink").hide();
         $("#linkpopup").show();
         $("#fade").show();
     });
@@ -113,8 +123,12 @@ $(document).ready(function ()
        }
        $("#link").val(textval);
        $("#Linkurl").val(textval);
-       $("#linkpopup").hide();
+       $("#link_title").show();
+       $("#link_description").show();
+       $("#Linkurl").show();
+       $("#link").show();
        $("#fade").hide();
+       $("#linkpopup").hide();
     });
      $("#dropdownurl").change(function(){
         var choosenlink=$("#dropdownurl").val();
@@ -185,13 +199,14 @@ $(document).ready(function ()
         window.open('socialeditor.jsp?id='+id+'&isFacebook='+isFacebook+'&isTwitter='+isTwitter+'&mediatype='+social+'&selectedtype='+selectedtype+'&data='+data, "_self");
     });
         $("#addimage").click(function(){
+        
         var data=[];
         var fbposttext=$("#posttext").val();
         var fblink_title=$("#link_title").val();
         var fblink_description=$("#link_description").val();
         var fbLinkurl=$("#Linkurl").val();
         var facebookpreviewimage=$("#facebookpreviewimage").val();
-        var twittertext=$("#link").val();
+        var twittertext=$("#twittertext").val();
         var twitterpreviewimage=$("#twitterpreviewimage").val();
         data.push(fbposttext);
         data.push(fblink_title);
@@ -199,8 +214,7 @@ $(document).ready(function ()
         data.push(fbLinkurl);
         data.push(facebookpreviewimage);
         data.push(twittertext);
-        data.push(twitterpreviewimage);        
-        
+        data.push(twitterpreviewimage);   
         var selectedtype=$("#selectedtype").val();
         var id=$("#selectedimagename").val();
         var social=$("#social").val();

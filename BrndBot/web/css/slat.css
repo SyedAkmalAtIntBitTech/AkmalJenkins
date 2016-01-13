@@ -60,7 +60,20 @@ selfclear:after{
     padding-left:30px;
     box-sizing: border-box;
 }
+.col-analytic-attribute{
+    width:12%;
+    box-sizing: border-box;
+}
 
+.col-analytic-attribute-lg{
+    width:16%;
+    box-sizing: border-box;
+}
+.slat-attribute-container-analytics{
+    box-sizing: border-box;
+    padding-left:30px;
+    margin-top: 5px;
+}
 .slat-attribute-container{
     box-sizing: border-box;
     padding-left:45px;

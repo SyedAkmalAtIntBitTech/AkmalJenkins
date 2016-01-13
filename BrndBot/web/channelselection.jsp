@@ -62,6 +62,8 @@
     <input type="hidden" name="mindbodyid" id="mindbodyid" value="<%=mindbodyid%>"/>
     <input type="hidden" name="category_id" id="category_id" value="<%=category_id%>"/>
     <input type="hidden" name="sub_category_id" id="sub_category_id" value="<%=sub_category_id%>"/>
+    <input type="hidden" name="sub_category_name" id="sub_category_name" value="<%=sub_category_name%>"/>
+    
     <!--SideNav-->
     <div class="content-main">
     <%@include file="navbarv2.jsp" %>
@@ -69,6 +71,11 @@
     <!--Top Nav-->   
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
+            <div class="exit-button-detail">
+                <a class="exit-button-icon" href="dashboard.jsp">
+                    <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
+                </a>
+            </div>
             <div id="channelhead" class="page-title-regular page-title-font">Channel Selection</div>
             <div class="page-cta-container"></div>
         </div>
