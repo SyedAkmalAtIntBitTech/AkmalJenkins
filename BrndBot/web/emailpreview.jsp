@@ -1018,11 +1018,13 @@
                                 }
                             },
                             error: function () {
+                                $('#loadingGif').remove();
                                 alert("Error!");
                             }        
                         });
                     },
                     error: function () {
+                        $('#loadingGif').remove();
                         alert("Error!");
                     }
                 });

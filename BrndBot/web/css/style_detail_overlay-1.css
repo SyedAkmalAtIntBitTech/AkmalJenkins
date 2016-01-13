@@ -620,6 +620,9 @@ padding-top: 0px;
     float: left;
     
 }
+.bckbtnwidth{
+    width:57px !important;
+}
 
 .exit-button-icon{
     margin: auto;

@@ -55,7 +55,7 @@
     <div class="top-nav" >
         <div class="page-title-bar col-1of1"> 
             <a class="exit-button-icon" href="marketingprogramlists.jsp">
-                <div class="exit-button-detail"> 
+                <div class="exit-button-detail bckbtnwidth"> 
                     <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/>
                 </div>
             </a>

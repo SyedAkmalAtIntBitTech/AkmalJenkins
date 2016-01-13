@@ -1,6 +1,7 @@
 
-        var draft_id = $("#draft_id").val();
+        var draft_id = "";
          $(document).ready(function () {
+             var draft_id = $("#draft_id").val();
              $("#closesendpopup").click(function(){
                 $("#sendpopup").hide();
                 $("#fade").hide();
@@ -70,10 +71,17 @@
                         var email_subject = "";
                         var email_addresses = $("#emailaddresses").val();
                         if(email_addresses!=="")
-                        {
+                        {   
                             $("#toaddress").val(email_addresses);
+                            $("#emaillistselid").hide();
+                            $("#emaildetailsid").show();
+                            $("#emailIdContinueButton").hide();
+                            $("#emaildetailscontbtn").show();
+                            $("#backemaillist").hide();
+                            $("#backemaildetails").show();
                             $("#emaillistdiv").hide();
-                            $("#toaddress").val(email_addresses);
+                            $("#emailSettings").show();
+                            $("#emaillistdiv").hide();
                             $("#emailSettings").show();
                             var email_list = $("#chooseEmailList").val();
                             $.ajax({
@@ -86,6 +94,21 @@
                                 success: function(result){
                                 }
                             });
+//                            $("#toaddress").val(email_addresses);
+//                            $("#emaillistdiv").hide();
+//                            $("#toaddress").val(email_addresses);
+//                            $("#emailSettings").show();
+//                            var email_list = $("#chooseEmailList").val();
+//                            $.ajax({
+//                                url: getHost() + "EmailTextDataServlet",
+//                                data: {
+//                                    email_subject: email_subject,
+//                                    email_addresses: email_addresses,
+//                                    email_list : email_list
+//                                },
+//                                success: function(result){
+//                                }
+//                            });
                         }
                         else
                         {
@@ -176,50 +199,6 @@
 //            }
 //            return true;
 //            }
-            function sendEmail() {
-                
-                if(validate()){
-                $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position", "absolute").css("top", "300px").css("left", "500px");
-               
-                $.ajax({
-
-                    url: getHost() + "SendEmailServlet",
-                    type: "post",
-                    data: {
-                        from_name: $("#name").val(),
-                        email_subject: $("#subject").val(),
-                        email_addresses: $("#toaddress").val(),
-                        from_email_address: $("#formaddress").val(),
-                        reply_to_email_address: $("#email").val(),
-                        htmldata: formattedHTMLData,
-                        email_list: $("#email_list").val(),
-                        iframeName: $("#iframe_name").val()
-                    },
-                    success: function (responseText) {
-                       
-                        
-                        $.ajax({
-                            url: getHost() + "deleteEmailDraft.do?draftid="+draft_id,
-                            type: "post",
-                            success: function (responseText) {
-                                if(responseText=="true")
-                                {
-                                    $('#loadingGif').remove();
-                                    document.location.href = "emailsent.jsp";
-                                }
-                            },
-                            error: function () {
-                                alert("Error!");
-                            }        
-                        });
-                    },
-                    error: function () {
-                        alert("Error!");
-                    }
-                });
-            }
-            }
-
 function emailSettings($scope, $http){
             
                
@@ -247,6 +226,7 @@ function emailSettings($scope, $http){
                 };
                 
                 $scope.setScheduling = function () {
+                    draft_id= $("#draft_id").val();
                     var schedule_id = $("#email_actions").val();
                     var from_name = $("#name").val();
                     var email_subject = $("#subject").val();
@@ -306,7 +286,7 @@ function emailSettings($scope, $http){
                             url: 'ScheduleEmail',
                             headers: {'Content-Type': 'application/json'},
                             data: email_scheduling
-                        }).success(function (data) {                            
+                        }).success(function (data) {  alert(JSON.stringify(data));                          
                             if (data != "") {
                                $http({
                                method: 'POST',
@@ -340,7 +320,7 @@ function emailSettings($scope, $http){
                             url: 'ScheduleEmailActions',
                             headers: {'Content-Type': 'application/json'},
                             data: email_scheduling
-                        }).success(function (data) {
+                        }).success(function (data) {alert(JSON.stringify(data));
                             if (data != "") {
                                $http({
                                method: 'POST',
@@ -372,17 +352,47 @@ function emailSettings($scope, $http){
                         alert("Request not successful!");
                     });
                 };
-                
-                $scope.getActions = function (program_id) {
-                    $http({
+                 $("#programs").change(function(){
+                    
+                program_id = $("#programs").val();
+                //angular.element(document.getElementById('emailSettings')).scope().getActions(program_id);
+                $http({
                         method: 'GET',
                         url: getHost() + 'GetScheduledActions?programid='+ program_id + '&type='+ getemail()
                     }).success(function (data) {
+                        //alert(JSON.stringify(data));
                         $scope.email_actions = data;
                     }).error(function (data) {
                         alert("Request not successful!");
                     });
-                };
+                
+                if (parseInt(program_id) === 0){
+                    $("#email_actions").attr("disabled", false);
+                    document.getElementById('schedule_title').disabled=false;
+                    document.getElementById('schedule_date').disabled=false;
+                    document.getElementById('schedule_time').disabled=false;
+                }
+                if (parseInt(program_id) !== 0){
+                    $("#email_actions").attr("disabled", false);
+                    document.getElementById('schedule_title').disabled=true;
+                    document.getElementById('schedule_date').disabled=true;
+                    document.getElementById('schedule_time').disabled=true;
+
+                }
+//                $scope.getActions = function (program_id) {
+//                    alert(program_id);
+//                    $http({
+//                        method: 'GET',
+//                        url: getHost() + 'GetScheduledActions?programid='+ program_id + '&type='+ getemail()
+//                    }).success(function (data) {
+//                        alert(JSON.stringify(data));
+//                        $scope.email_actions = data;
+//                    }).error(function (data) {
+//                        alert("Request not successful!");
+//                    });
+//                }; 
+            });
+                              
             }
             
         var formattedHTMLData = "";
@@ -438,26 +448,7 @@ function emailSettings($scope, $http){
                 });
            
 //            $(".hamburger,.cross").hide();
-            $("#programs").change(function(){
-                    
-                program_id = $("#programs").val();
-                angular.element(document.getElementById('emailSettings')).scope().getActions(program_id);
-                if (parseInt(program_id) == 0){
-                    $("#email_actions").attr("disabled", false);
-
-                    document.getElementById('schedule_title').disabled=false;
-                    document.getElementById('schedule_date').disabled=false;
-                    document.getElementById('schedule_time').disabled=false;
-                }else {
-                    $("#email_actions").attr("disabled", false);
-
-                    document.getElementById('schedule_title').disabled=true;
-                    document.getElementById('schedule_date').disabled=true;
-                    document.getElementById('schedule_time').disabled=true;
-
-                }
-
-            });
+            
            $("#humbrgr").click(function (){
             if (confirm("Are you sure, You want to leave this page?")){
                 
@@ -607,7 +598,7 @@ function emailSettings($scope, $http){
                 $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position", "absolute").css("top", "300px").css("left", "500px");
                
                 $.ajax({
-
+                    
                     url: getHost() + "SendEmailServlet",
                     type: "post",
                     data: {
@@ -630,15 +621,18 @@ function emailSettings($scope, $http){
                                 if(responseText=="true")
                                 {
                                     $('#loadingGif').remove();
-                                    document.location.href = "emailsent.jsp";
+                                   url:getHost() + "emailsent.jsp";
+                                   
                                 }
                             },
                             error: function () {
+                                $('#loadingGif').remove();
                                 alert("Error!");
                             }        
                         });
                     },
                     error: function () {
+                        $('#loadingGif').remove();
                         alert("Error!");
                     }
                 });
@@ -664,7 +658,6 @@ function emailSettings($scope, $http){
                 }
                  
         }
-        
         function EmailListController($scope, $http) {
 
                 $scope.addEmailList = function () {
@@ -747,6 +740,12 @@ function emailSettings($scope, $http){
                  
                 var x = document.getElementById("chooseEmailList").selectedIndex;
                 var list_name = document.getElementsByTagName("option")[x].value;
+                    if(list_name !== 1){
+                        $("#emladdrstxtarea,#clktoupload").show();
+                    $("#emailIdContinueButton").show();
+                    $("#upload").show();
+                    $("#emailIdContinueButton").show();
+                    }
                 if (list_name == 1){  
                     $("#emladdrstxtarea,#clktoupload").show();
                     $("#emailIdContinueButton").show();
@@ -759,59 +758,59 @@ function emailSettings($scope, $http){
                     $("#upload").show();
                     $(".fileclass").show();
                     $("#emailIdContinueButton").css("top","0px");
-                    $(function () {
-
-                    var dropZoneId = "drop-zone";
-                    var buttonId = "clickHere";
-                    var mouseOverClass = "mouse-over";
-
-                    var dropZone = $("#" + dropZoneId);
-                    var ooleft = dropZone.offset().left;
-                    var ooright = dropZone.outerWidth() + ooleft;
-                    var ootop = dropZone.offset().top;
-                    var oobottom = dropZone.outerHeight() + ootop;
-                    var inputFile = dropZone.find("input");
-
-                    document.getElementById(dropZoneId).addEventListener("dragover", function (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        dropZone.addClass(mouseOverClass);
-                        var x = e.pageX;
-                        var y = e.pageY;
-
-                        if (!(x < ooleft || x > ooright || y < ootop || y > oobottom)) {
-                            inputFile.offset({ top: y - 15, left: x - 100 });
-                        } else {
-                            inputFile.offset({ top: -400, left: -400 });
-                        }
-
-                    }, true);
-
-                    if (buttonId != "") {
-                        var clickZone = $("#" + buttonId);
-
-                        var oleft = clickZone.offset().left;
-                        var oright = clickZone.outerWidth() + oleft;
-                        var otop = clickZone.offset().top;
-                        var obottom = clickZone.outerHeight() + otop;
-
-                        $("#" + buttonId).mousemove(function (e) {
-                            var x = e.pageX;
-                            var y = e.pageY;
-                            if (!(x < oleft || x > oright || y < otop || y > obottom)) {
-                                inputFile.offset({ top: y - 15, left: x - 160 });
-                            } else {
-                                inputFile.offset({ top: -400, left: -400 });
-                            }
-                        });
-                    }
-
-                    document.getElementById(dropZoneId).addEventListener("drop", function (e) {
-                        $("#" + dropZoneId).removeClass(mouseOverClass);
-                        alert("File have been added, Click on the upload button to load the csv file.");
-    //                    upload();
-                    }, true);
-                    });
+//                    $(function () {
+//
+//                    var dropZoneId = "drop-zone";
+//                    var buttonId = "clickHere";
+//                    var mouseOverClass = "mouse-over";
+//
+//                    var dropZone = $("#" + dropZoneId);
+//                    var ooleft = dropZone.offset().left;
+//                    var ooright = dropZone.outerWidth() + ooleft;
+//                    var ootop = dropZone.offset().top;
+//                    var oobottom = dropZone.outerHeight() + ootop;
+//                    var inputFile = dropZone.find("input");
+//
+////                    document.getElementById(dropZoneId).addEventListener("dragover", function (e) {
+////                        e.preventDefault();
+////                        e.stopPropagation();
+////                        dropZone.addClass(mouseOverClass);
+////                        var x = e.pageX;
+////                        var y = e.pageY;
+////
+////                        if (!(x < ooleft || x > ooright || y < ootop || y > oobottom)) {
+////                            inputFile.offset({ top: y - 15, left: x - 100 });
+////                        } else {
+////                            inputFile.offset({ top: -400, left: -400 });
+////                        }
+////
+////                    }, true);
+//
+//                    if (buttonId != "") {
+//                        var clickZone = $("#" + buttonId);
+//
+//                        var oleft = clickZone.offset().left;
+//                        var oright = clickZone.outerWidth() + oleft;
+//                        var otop = clickZone.offset().top;
+//                        var obottom = clickZone.outerHeight() + otop;
+//
+//                        $("#" + buttonId).mousemove(function (e) {
+//                            var x = e.pageX;
+//                            var y = e.pageY;
+//                            if (!(x < oleft || x > oright || y < otop || y > obottom)) {
+//                                inputFile.offset({ top: y - 15, left: x - 160 });
+//                            } else {
+//                                inputFile.offset({ top: -400, left: -400 });
+//                            }
+//                        });
+//                    }
+//
+//                    document.getElementById(dropZoneId).addEventListener("drop", function (e) {
+//                        $("#" + dropZoneId).removeClass(mouseOverClass);
+//                        alert("File have been added, Click on the upload button to load the csv file.");
+//    //                    upload();
+//                    }, true);
+//                    });
 
                 }else {
                    $("#emailIdContinueButton").show();
@@ -823,59 +822,59 @@ function emailSettings($scope, $http){
                     $("#clickHere").show();
 //                    $("#upload").show();
                     $("#emailIdContinueButton").css("top","0px");
-                    $(function () {
-
-                    var dropZoneId = "drop-zone";
-                    var buttonId = "clickHere";
-                    var mouseOverClass = "mouse-over";
-
-                    var dropZone = $("#" + dropZoneId);
-                    var ooleft = dropZone.offset().left;
-                    var ooright = dropZone.outerWidth() + ooleft;
-                    var ootop = dropZone.offset().top;
-                    var oobottom = dropZone.outerHeight() + ootop;
-                    var inputFile = dropZone.find("input");
-
-                    document.getElementById(dropZoneId).addEventListener("dragover", function (e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        dropZone.addClass(mouseOverClass);
-                        var x = e.pageX;
-                        var y = e.pageY;
-
-                        if (!(x < ooleft || x > ooright || y < ootop || y > oobottom)) {
-                            inputFile.offset({ top: y - 15, left: x - 100 });
-                        } else {
-                            inputFile.offset({ top: -400, left: -400 });
-                        }
-
-                    }, true);
-
-                    if (buttonId != "") {
-                        var clickZone = $("#" + buttonId);
-
-                        var oleft = clickZone.offset().left;
-                        var oright = clickZone.outerWidth() + oleft;
-                        var otop = clickZone.offset().top;
-                        var obottom = clickZone.outerHeight() + otop;
-
-                        $("#" + buttonId).mousemove(function (e) {
-                            var x = e.pageX;
-                            var y = e.pageY;
-                            if (!(x < oleft || x > oright || y < otop || y > obottom)) {
-                                inputFile.offset({ top: y - 15, left: x - 160 });
-                            } else {
-                                inputFile.offset({ top: -400, left: -400 });
-                            }
-                        });
-                    }
-
-                    document.getElementById(dropZoneId).addEventListener("drop", function (e) {
-                        $("#" + dropZoneId).removeClass(mouseOverClass);
-                        alert("The CSV file has been added, click on the upload button to load the CSV file in the form.");
-    //                    upload();
-                    }, true);
-                    });
+//                    $(function () {
+//
+//                    var dropZoneId = "drop-zone";
+//                    var buttonId = "clickHere";
+//                    var mouseOverClass = "mouse-over";
+//
+//                    var dropZone = $("#" + dropZoneId);
+//                    var ooleft = dropZone.offset().left;
+//                    var ooright = dropZone.outerWidth() + ooleft;
+//                    var ootop = dropZone.offset().top;
+//                    var oobottom = dropZone.outerHeight() + ootop;
+//                    var inputFile = dropZone.find("input");
+//
+//                    document.getElementById(dropZoneId).addEventListener("dragover", function (e) {
+//                        e.preventDefault();
+//                        e.stopPropagation();
+//                        dropZone.addClass(mouseOverClass);
+//                        var x = e.pageX;
+//                        var y = e.pageY;
+//
+//                        if (!(x < ooleft || x > ooright || y < ootop || y > oobottom)) {
+//                            inputFile.offset({ top: y - 15, left: x - 100 });
+//                        } else {
+//                            inputFile.offset({ top: -400, left: -400 });
+//                        }
+//
+//                    }, true);
+//
+//                    if (buttonId != "") {
+//                        var clickZone = $("#" + buttonId);
+//
+//                        var oleft = clickZone.offset().left;
+//                        var oright = clickZone.outerWidth() + oleft;
+//                        var otop = clickZone.offset().top;
+//                        var obottom = clickZone.outerHeight() + otop;
+//
+//                        $("#" + buttonId).mousemove(function (e) {
+//                            var x = e.pageX;
+//                            var y = e.pageY;
+//                            if (!(x < oleft || x > oright || y < otop || y > obottom)) {
+//                                inputFile.offset({ top: y - 15, left: x - 160 });
+//                            } else {
+//                                inputFile.offset({ top: -400, left: -400 });
+//                            }
+//                        });
+//                    }
+//
+//                    document.getElementById(dropZoneId).addEventListener("drop", function (e) {
+//                        $("#" + dropZoneId).removeClass(mouseOverClass);
+//                        alert("The CSV file has been added, click on the upload button to load the CSV file in the form.");
+//    //                    upload();
+//                    }, true);
+//                    });
 
                 }
 

@@ -56,7 +56,7 @@
 
 <body ng-app>
     <!--SideNav-->
-    <div class="content-main" ng-controller="EmailListController" ng-init="showEmailList()">
+    <div class="content-main" >
     <%@include file="navbarv2.jsp" %>
     <%@include file="emaillistselectionpopup.jsp" %>
     <input type="hidden" value="<%= draft_id %>" name="draft_id" id="draft_id"></input>   
@@ -95,7 +95,7 @@
         </div>-->
     </div>
         <!--Main Content GENERIC--> 
-        <div class="sequence-page-background" id="emaillistselid">
+        <div class="sequence-page-background" id="emaillistselid" ng-controller="EmailListController" ng-init="showEmailList()">
         <div class="sequence-page-content-container" >
             <div class="sequence-page-header">Who do you want to send this email to?</div>
             <div class="email-list-selection fleft">
@@ -190,10 +190,15 @@
                             </div>
                         </div>
                         <div class="input-field-container col-1of8 fleft pushUp-50">
-                        <div class="h2 curpointer">Preview</div>
+                        <div class="h2 curpointer">Preview</div>                       
                         </div>
                     <!--Inner Content Conatiner GENERIC-->
                 </div>
+                 <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain;">
+                            <div class="content">  
+                                <iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='<%=iframeUrl%>'></iframe>                   
+                            </div>
+                        </div>
             </div>
         </div>
   
