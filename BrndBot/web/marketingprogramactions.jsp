@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : marketingprogramactions
     Created on : Dec 17, 2015, 7:46:00 PM
@@ -55,11 +56,12 @@
     <div class="top-nav" >
         <div class="page-title-bar col-1of1"> 
             <a class="exit-button-icon" href="marketingprogramlists.jsp">
-                <div class="exit-button-detail bckbtnwidth"> 
+                <div class="exit-button-detail"> 
                     <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/>
                 </div>
             </a>
             <div class="page-title-with-back page-title-font">{{programs.programdetails.programName}}</div>
+            <input type="hidden" name="program_name2" id="program_name2" value="{{programs.programdetails.programName}}"></input>
             <div class="page-cta-container">
                 <a href="" class="gray-button fleft">
                     <div class="md-button"  ng-click="endMarketingProgram()"> End Marketing Program</div>    
@@ -101,7 +103,7 @@
                                 <div class="selection-icon"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}"  onclick="setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}')" value="{{emailautomation.scheduledEntityListId}}" hidden/></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft hint--left" data-hint="Template Saved"> 
+                                <div class="icon-container fleft hint--left" data-hint="Template Saved" ng-show="emailautomation.status !=='No Template'"> 
                                     <img type="image/svg+xml" src="images/Icons/templateSaved.svg" class="status-button"/>
                                 </div>
                                 <div class="slat-title-container col-1of2 fleft">
@@ -127,8 +129,7 @@
                                                                 emailautomation.actionType,
                                                                 emailautomation.programTemplateName,
                                                                 emailautomation.description,
-                                                                emailautomation.postDateStatus,
-                                                                programs.programdetails.programName)">
+                                                                emailautomation.postDateStatus)">
                                                                            Details</div> 
                                 </div>
                             </div>
@@ -209,7 +210,7 @@
                                 <!--</div>-->
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft hint--left" data-hint="Template Saved"> 
+                                <div class="icon-container fleft hint--left" data-hint="Template Saved" ng-show="programaction.status !=='No Template'"> 
                                     <img type="image/svg+xml" src="images/Icons/templateSaved.svg" class="status-button"/>
                                 </div>
                                 <div class="slat-title-container col-1of2 fleft">

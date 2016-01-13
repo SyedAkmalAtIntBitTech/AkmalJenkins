@@ -74,6 +74,12 @@ function getImageId(idname)
     }
 $(document).ready(function ()
 {
+     $("#timepicker5").click(function(){
+       $(".timepicker_wrap").css("width","27%"); 
+    });
+     $("#timepicker1").click(function(){
+       $(".timepicker_wrap").css("width","56%"); 
+    });
     /*------------------------------------------------ social image popup----------------*/
     
     $("#schedule").click(function(){
