@@ -150,52 +150,52 @@
                 $("#list_description").focus(function (){$("#lstdesc").css("left","-145px").css("font-size","13px").css("color","#999");});
                 $("#list_description").focusout(function (){var emllist=$("#list_description").val();if(emllist===""){$("#lstdesc").css("left","20px").css("font-size","12px").css("color","#2c4355");}if(emllist!==""){$("#lstdesc").css("left","-145px");}});
                 
-//                 $("#emlhistab").click(function (){
-//                     $("#savesetbtn").hide();
-//                     $("#emaisetdiv").hide();
-//                    $("#deleteEmaildraft").hide();
-//                    $("#emaillistsdiv").hide();
-//                    $("#emaildraftsdiv").hide();
-//                    $("#addemlstbtn").hide();
-//                    $("#emailhistorydiv").show();
-//                    $("#emlhistab").addClass("top-subnav-link-active");
-//                    $("#emlhistab a").addClass("h3-active-subnav");
-//                    $("#emllistab").removeClass("top-subnav-link-active");
-//                    $("#emllistab a").removeClass("h3-active-subnav");
-//                    $("#emldrftab").removeClass("top-subnav-link-active");
-//                    $("#emldrftab a").removeClass("h3-active-subnav");
-//                    $("#emllistab").addClass("top-subnav-links");
-//                    $("#emllistab a").addClass("h3"); 
-//                    $("#emldrftab").addClass("top-subnav-links");
-//                    $("#emldrftab a").addClass("h3"); 
-//                    $("#emlsettab").removeClass("top-subnav-link-active");
-//                    $("#emlsettab a").removeClass("h3-active-subnav");
-//                    $("#emlsettab").addClass("top-subnav-links");
-//                    $("#emlsettab a").addClass("h3");
-//                });
-//                 $("#emlsettab").click(function (){
-//                    $("#savesetbtn").show();
-//                    $("#emailhistorydiv").hide();
-//                    $("#deleteEmaildraft").hide();
-//                    $("#emaillistsdiv").hide();
-//                    $("#emaisetdiv").show();
-//                    $("#emaildraftsdiv").hide();
-//                    $("#addemlstbtn").hide();
-//                    $("#emlhistab").removeClass("top-subnav-link-active");
-//                    $("#emlhistab a").removeClass("h3-active-subnav");
-//                    $("#emlhistab").addClass("top-subnav-links");
-//                    $("#emlhistab a").addClass("h3"); 
-//                    $("#emlsettab").addClass("top-subnav-link-active");
-//                    $("#emlsettab a").addClass("h3-active-subnav");
-//                    $("#emldrftab").removeClass("top-subnav-link-active");
-//                    $("#emldrftab a").removeClass("h3-active-subnav");
-//                    $("#emldrftab").addClass("top-subnav-links");
-//                    $("#emldrftab a").addClass("h3"); 
-//                    $("#emllistab").removeClass("top-subnav-link-active");
-//                    $("#emllistab a").removeClass("h3-active-subnav");
-//                    $("#emllistab").addClass("top-subnav-links");
-//                    $("#emllistab a").addClass("h3"); 
-//                });
+                 $("#emlhistab").click(function (){
+                     $("#savesetbtn").hide();
+                     $("#emaisetdiv").hide();
+                    $("#deleteEmaildraft").hide();
+                    $("#emaillistsdiv").hide();
+                    $("#emaildraftsdiv").hide();
+                    $("#addemlstbtn").hide();
+                    $("#emailhistorydiv").show();
+                    $("#emlhistab").addClass("top-subnav-link-active");
+                    $("#emlhistab a").addClass("h3-active-subnav");
+                    $("#emllistab").removeClass("top-subnav-link-active");
+                    $("#emllistab a").removeClass("h3-active-subnav");
+                    $("#emldrftab").removeClass("top-subnav-link-active");
+                    $("#emldrftab a").removeClass("h3-active-subnav");
+                    $("#emllistab").addClass("top-subnav-links");
+                    $("#emllistab a").addClass("h3"); 
+                    $("#emldrftab").addClass("top-subnav-links");
+                    $("#emldrftab a").addClass("h3"); 
+                    $("#emlsettab").removeClass("top-subnav-link-active");
+                    $("#emlsettab a").removeClass("h3-active-subnav");
+                    $("#emlsettab").addClass("top-subnav-links");
+                    $("#emlsettab a").addClass("h3");
+                });
+                 $("#emlsettab").click(function (){
+                    $("#savesetbtn").show();
+                    $("#emailhistorydiv").hide();
+                    $("#deleteEmaildraft").hide();
+                    $("#emaillistsdiv").hide();
+                    $("#emaisetdiv").show();
+                    $("#emaildraftsdiv").hide();
+                    $("#addemlstbtn").hide();
+                    $("#emlhistab").removeClass("top-subnav-link-active");
+                    $("#emlhistab a").removeClass("h3-active-subnav");
+                    $("#emlhistab").addClass("top-subnav-links");
+                    $("#emlhistab a").addClass("h3"); 
+                    $("#emlsettab").addClass("top-subnav-link-active");
+                    $("#emlsettab a").addClass("h3-active-subnav");
+                    $("#emldrftab").removeClass("top-subnav-link-active");
+                    $("#emldrftab a").removeClass("h3-active-subnav");
+                    $("#emldrftab").addClass("top-subnav-links");
+                    $("#emldrftab a").addClass("h3"); 
+                    $("#emllistab").removeClass("top-subnav-link-active");
+                    $("#emllistab a").removeClass("h3-active-subnav");
+                    $("#emllistab").addClass("top-subnav-links");
+                    $("#emllistab a").addClass("h3"); 
+                });
                 
                 
                 
