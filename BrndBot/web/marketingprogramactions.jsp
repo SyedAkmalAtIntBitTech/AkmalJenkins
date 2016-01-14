@@ -132,7 +132,8 @@
                                                                 emailautomation.actionType,
                                                                 emailautomation.programTemplateName,
                                                                 emailautomation.description,
-                                                                emailautomation.postDateStatus)">
+                                                                emailautomation.postDateStatus,
+                                                                emailautomation.days)">
                                                                            Details</div> 
                                 </div>
                             </div>

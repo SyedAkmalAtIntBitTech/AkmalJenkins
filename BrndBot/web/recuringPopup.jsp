@@ -53,15 +53,15 @@
                 <div id="recuringactiondiv">
                     <div class="below-nav-container-saved-post-detail">
                         <div class="inner-content-container-detail">
-                            <div class="saved-post-header-detail">
+<!--                            <div class="saved-post-header-detail">
                                 <div class="h4 ng-hide" ng-show="schedule_desc === ''">Write Notes about this Action</div>                      
                                 <div class="h4" ng-show="schedule_desc !== ''">Notes</div>
                                 <div class="instruction-text" ng-show="schedule_desc !== ''"><p id="emaildescription62" class="ng-binding">{{schedule_desc}}</p></div>
-                            </div>
+                            </div>-->
                             <div class="inner-content-detail">
-                                <div class="fields-note-detail5">
+<!--                                <div class="fields-note-detail5">
 
-                                    <!--SAVED POST GOES HERE-->
+                                    SAVED POST GOES HERE
 
                                     <div class="input-header-actionDetail" style="">
                                         TITLE
@@ -121,13 +121,93 @@
                                             </script>
                                         </div>
                                     </div>
+                                </div>-->
+                            <div class="fields-note-detail" >
+
+                            <!--SAVED POST GOES HERE-->
+                            <div class="fleft">
+                                <div class="input-header-actionDetail" style="">
+                                Name of Email
                                 </div>
+                                <div class="fleft input-field-textfield">
+                                    {{schedule_title}}
+                                </div>
+                                <input type="hidden"  id="recuring_email_title" value="{{schedule_title}}" class="input-field-textfield" readonly/>
+                                <input class="inputbox SP1" type="hidden" name="fb_scheduletype" id="fb_scheduletype" value='{{schedule_type}}'/>
+                                <input class="inputbox SP1" type="hidden" name="fb_scheduleid" id="fb_scheduleid" value='{{schedule_id}}'/>
+                            
+                            <div class="input-header-actionDetail pushUp-50" style="">
+                                Description of Email
+                            </div>
+                                <div class="fleft input-field-textfield">
+                                    {{schedule_desc}}
+                                </div>
+                                <!--<input id="recuring_email_description" class="input-field-textfield" type="text" readonly  value="{{schedule_desc}}"/>-->
+                            </div>
+                        <div class="fleft">
+                        <div class="input-header-actionDetail pushUp-30" style="">
+                            Email Sending Details
+                        </div>
+                        <div class="sendingDetails-row fleft">
+                            <div class="fleft input-supportText">
+                                Send an email
+                            </div>
+                                <div class="fleft  input-field-date">{{days}}
+                            </div>
+                                <div class="fleft input-supportText">
+                                days after added to
+                            </div>
+                                <div class="fleft input-field-date">
+                                {{entities_list_name}}
+                            </div>
+                            <div class="fleft input-supportText">
+                               email list.
+                            </div>
+                        </div>    
+                        <div class="sendingDetails-row fleft">
+                            <div class="fleft input-supportText">
+                                Send the email at
+                            </div>
+                                <div class="fleft  input-field-date">
+                                {{entities_selected_time| date:'HH:mm a'}}
+                            </div>
+                        </div>  
+                         <div class="sendingDetails-row fleft">
+                            <div class="fleft input-supportText">
+                                Have this email automation recur until:
+                            </div>
+                                <div class="fleft  input-field-date">
+                               {{entities_selected_time| date:'MMMM dd yyyy'}}
+                            </div>
+                        </div> 
+                        </div>    
+                        <div class="fleft pushUp-">
+                            <div class="input-header-actionDetail" style="">
+                                Subject Line of Email:
+                            </div>
+                            <div class="input-field-textfield">
+                                {{entities_subject}}
+                            </div>
+                            <div class="input-header-actionDetail" style="">
+                                From name:
+                            </div>
+                            <div class="input-field-textfield">
+                                {{entities_from_name}}
+                            </div>
+                            <div class="input-header-actionDetail" style="">
+                                Reply-to-address:
+                            </div>
+                            <div class="input-field-textfield">
+                                {{entities_reply_to_email_address}}
+                            </div>
+                        </div>
+                        </div>
                             </div>
                         </div>
                     </div>
                     <div class="bottom-cta-bar5">
                         <div class="bottom-cta-button-container">
-                            <div class="edit-button-detail md-button button-text-1 fleft ">Save Changes</div>
+                            <div class="edit-button-detail md-button button-text-1 fleft edit-button-detailrecemail" ng-click="calltoeditrecurring(program_id,schedule_id)">Edit Automation Details</div>
                         </div>
                     </div>
                 </div>
@@ -143,13 +223,13 @@
                                 <div class="h2new textCenter textColor-Graynew">
                                     No emails saved to this action.
                                 </div>
-                                <a class="link" href="dashboard.jsp">
+                                <!--<a class="link" href="">-->
                                     <a href="emailautomation.jsp?type=template&program_id={{program_id}}&entity_id={{schedule_id}}">
                                         <div class="md-button empty-state-cta">
                                             Go to Dashboard
                                         </div>
                                     </a>
-                                </a>
+                                <!--</a>-->
                             </div>
                         </div>
                         <div class="below-nav-container-saved-post-detail" id="savedemailsdiv" ng-show="recuring_template_status !== 'No Template'">

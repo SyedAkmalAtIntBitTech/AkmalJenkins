@@ -665,7 +665,28 @@ input-field-container{
     font-weight: 600;
     
 }
-
+.sendingDetails-row{
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+    padding-top: 15px;
+}
+.input-field-date{
+    height: 30px;
+    background-color: #F9F9F9;
+    border: 1px solid #d5dadf;
+    padding: 6px 10px 3px 10px;
+    margin-right: 5px;
+    box-sizing: border-box;
+}
+.input-supportText{
+       font-size: 16px;
+    color: #3F3F42 ;
+    font-weight: 400;
+    margin-right: 8px;
+    margin-top: 6px
+    
+}
 .input-placeholder{
         font-size:14px;
     color: lightgrey ;
@@ -704,7 +725,11 @@ input-field-container{
     background-color:#d5dadf;
     color:#767777  ;
 }
-
+.edit-button-detailrecemail{
+    margin-left: 81% !important;
+    width: 205px !important;
+    margin-top: 0.7% !important;
+    }
 .edit-button-detail:hover{
     background-color:#0F76A6;
     color:#FFFFFF  ;

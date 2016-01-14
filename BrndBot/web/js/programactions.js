@@ -12,6 +12,7 @@ var program_status;
 
 $(document).ready(function ()
 {
+    
     $("#deleteonetimeact").hide();
     $("#removeactionbutton").hide();
     $("#deleterecurringemail").hide();
@@ -264,7 +265,7 @@ var count=0;
 //            alert(selected_schedules_to_delete);
         }
         
-        
+       
 function showEditNote() {
     $("#noteprev").hide();
     $("#noteedit").show();
@@ -788,6 +789,9 @@ function programactions($scope, $http, $window){
             // or server returns response with an error status.
             $(".row").css("display","block");
         });
+        $scope.calltoeditrecurring = function(progid,scheduleid){
+            window.open(getHost() + 'emailautomation.jsp?type=template&program_id='+progid+"&entity_id="+scheduleid, "_self");
+        }        
     };
     $scope.checkProgramStatus= function (){
        var status;
@@ -890,9 +894,9 @@ function programactions($scope, $http, $window){
                 //var a="hi..";
                 $scope.schedule_id = schedule_id;
                 var date = new Date(schedule_time);
-                $(".editcontent").empty();
-                $(".editcontent").append(data.body);
-                $(".editcontent").css("-webkit-transform", "scale(0.5,0.6)").css("margin-left", "-140px").css("margin-top", "-60px").css("margin-bottom", "-220px");
+//                $(".editcontent").empty();
+//                $(".editcontent").append(data.body);
+//                $(".editcontent").css("-webkit-transform", "scale(0.5,0.6)").css("margin-left", "-140px").css("margin-top", "-60px").css("margin-bottom", "-220px");
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.marketing_program_name = marketingName;
@@ -1186,8 +1190,8 @@ function programactions($scope, $http, $window){
             });
     }
     
-    $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, date_status) {
-        //alert(schedule_desc);    
+    $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, date_status,days) {
+//        alert(eml_list_name);    
         $slider=2;
             sliderDialog = "#recuringPopup";
             prevSliderDialog = "#recuringPopup";
@@ -1200,6 +1204,7 @@ function programactions($scope, $http, $window){
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
+//                alert(JSON.stringify(data));
                 if (data.body == undefined) {
                       $("#recuringremovediv").hide();
 //                    $('#mailremovedtemplate6').show();
@@ -1231,7 +1236,10 @@ function programactions($scope, $http, $window){
 //                $("#recuringemailcontentiframe").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
                 
                     $('#recuringemailcontentiframe').contents().find('html').html(data.body);
-                
+                $scope.entities_subject = data.subject;
+                $scope.entities_from_name = data.from_name;
+                $scope.entities_reply_to_email_address = data.reply_to_email_address;
+                $scope.entities_list_name = data.email_list_name;
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
@@ -1242,6 +1250,7 @@ function programactions($scope, $http, $window){
                 $scope.recuring_date_status=date_status;
                 $scope.program_name=program_name;
                 $scope.program_id=program_id;
+                $scope.days=days;
             }).error(function (data) {
                 alert("Request not successful! ");
             });
@@ -2221,3 +2230,4 @@ function programactions($scope, $http, $window){
                 document.getElementById('fade').style.display = 'none';
                 document.body.style.overflow = 'scroll';
         }
+ 
