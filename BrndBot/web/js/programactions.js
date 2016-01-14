@@ -558,7 +558,7 @@ function programactions($scope, $http, $window){
         }).success(function (data, status, headers, config) {
           if (data == "true"){
             alert("Template status changed successfully.");
-            window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
           }else {
               alert("Problem saving the record!");
           }
@@ -581,7 +581,7 @@ function programactions($scope, $http, $window){
         }).success(function (data, status, headers, config) {
           if (data == "true"){
             alert("Template status changed successfully.");
-            window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
           }else {
               alert("Problem saving the record!");
           }
