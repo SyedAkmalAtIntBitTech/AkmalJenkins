@@ -1790,18 +1790,18 @@ function controllerMarketingCampaign($scope, $http) {
                 if (data !== "") {
                     if(section == getfacebook())
                     {
-                        $("#fbpreviewdecond").hide();
-                        $("#fbremovedtemplate").show();                        
+                        $("#savedpostdiv").hide();
+                        $("#nopostsaveddiv").show();                        
                     }
                     if(section == gettwitter())
                     {
-                        $("#twpreviewdecond").hide();
-                        $("#twremovedtemplate").show();                     
+                        $("#twtsavedpostdiv").hide();
+                        $("#twtnopostsaveddiv").show();                     
                     }
                     if(section == getemail())
                     {
-                        $("#mailpreviewdecond").hide();
-                        $("#mailremovedtemplate").show();                     
+                        $("#savedemailsdiv").hide();
+                        $("#noemailsdiv").show();                     
                     }
                     alert(responseMessage);
                     $("#emailpostremove").hide();

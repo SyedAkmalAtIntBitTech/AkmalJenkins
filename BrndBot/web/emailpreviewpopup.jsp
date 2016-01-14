@@ -162,20 +162,20 @@
             <div class="inner-content-container-detail">
                 <div class="saved-post-preview-detail" id="noemailsdiv" >
 
-                                <!--SAVED Email GOES HERE-->
+                    <!--SAVED Email GOES HERE-->
 
-                                <div class="overlay-emptystate-icon">
-                                    <img type="image/svg+xml" src="images/Icons/Overlay_EmptyStates_Email-Empty-State.svg" class="overlay-emptystate-icon"/>
-                                </div>
-                                <div class="empty-state-container">
-                                    <div class="h2new textCenter textColor-Graynew">
-                                        No emails saved to this action.
-                                    </div>
-                                    <a class="link" href="dashboard.jsp">
-                                        <div class="md-button empty-state-cta">
-                                        Go to Dashboard
-                                        </div></a>
-                                </div>
+                    <div class="overlay-emptystate-icon">
+                        <img type="image/svg+xml" src="images/Icons/Overlay_EmptyStates_Email-Empty-State.svg" class="overlay-emptystate-icon"/>
+                    </div>
+                    <div class="empty-state-container">
+                        <div class="h2new textCenter textColor-Graynew">
+                            No emails saved to this action.
+                        </div>
+                        <a class="link" href="dashboard.jsp">
+                            <div class="md-button empty-state-cta">
+                            Go to Dashboard
+                            </div></a>
+                    </div>
                 </div>
                 <div class="below-nav-container-saved-post-detail" id="savedemailsdiv">
                     <div class="inner-content-container-detail fleft">

@@ -1,4 +1,6 @@
-
+        function backeditor() {
+            window.open(getHost() + 'emaileditor.jsp?id=mindbodyid', "_self");
+        }
         var draft_id = "";
          $(document).ready(function () {
              var iframeName = $("#iframeName1").val();
@@ -237,7 +239,7 @@ function emailSettings($scope, $http){
                     var program_id = $("#programs").val();
                     var email_body = formattedHTMLData;
                     var email_list = $("#chooseEmailList").val();
-                    var schedule_desc = "none";
+                    var schedule_desc = "";
                     var iframe_name = $("#iframeName1").val();
                     console.log(schedule_id);
                     if (schedule_id == "0"){
