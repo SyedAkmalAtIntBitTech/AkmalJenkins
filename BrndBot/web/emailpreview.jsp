@@ -1018,16 +1018,20 @@
                                 }
                             },
                             error: function () {
+                                $('#loadingGif').remove();
                                 alert("Error!");
                             }        
                         });
                     },
                     error: function () {
+                        $('#loadingGif').remove();
                         alert("Error!");
                     }
                 });
             }
             }
+            
+            
             function validateact(){
                if(document.getElementById('email_actions').value === "0")
                 {
@@ -1095,7 +1099,33 @@
                     $("#chooseEmailList").val("");
                 };
             }
-       
+       function upload() {alert();
+
+                var fileUpload = document.getElementById("fileUpload");
+                var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+                if (regex.test(fileUpload.value.toLowerCase())) {
+                    if (typeof (FileReader) != "undefined") {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            var table = document.createElement("table");
+                            var rows = e.target.result.split("\n");
+                            if ($('#textArea').val() == "") {
+                                $('#textArea').val(rows);
+                            } else {
+                                $('#textArea').val($('#textArea').val() + rows);
+                            }
+                        }
+                        reader.readAsText(fileUpload.files[0]);
+
+                    } else {
+
+                        alert("This browser does not support HTML5!");
+                    }
+                } else {
+                    alert("Please upload a valid CSV file!");
+                }
+
+            }
         function selectCsvFile(){
                 $("#chooseEmailList").show();
 //                 $('#chooseEmailList').val("1").trigger('change');

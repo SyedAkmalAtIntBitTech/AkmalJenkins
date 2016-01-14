@@ -190,7 +190,7 @@
         <div class="page-subnav-bar-regular"> 
             <div class="top-subnav-tabs-container">
                 <ul class="top-subnav-nav-elements">
-                    <li class="top-subnav-links" id="createnewprogli"><a id="createnewprog" class="h3">Create New Program</a></li>
+                    <!--<li class="top-subnav-links" id="createnewprogli"><a id="createnewprog" class="h3">Create New Program</a></li>-->
                     <li class="top-subnav-link-active" id="curmarprogli"><a id="curmarprog" class="h3-active-subnav" onclick="currprograms()">Current Marketing Programs</a></li>
                     <li class="top-subnav-links" id="pstmarprogli"> <a class="h3" id="pstmarprog" onclick="pastprograms()">Past Marketing Programs</a></li>
                 </ul>

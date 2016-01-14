@@ -206,30 +206,48 @@
                 <a href="">
                     <div id="addemlstbtn" class="add-action-button md-button button-text-1" ng-click="addemaillist()"> Add Email List</div>
                 </a>
+                <a href="">
+                    <div id="savesetbtn" class="add-action-button md-button button-text-1" ng-click="setEmailSettings()">Save</div>
+                </a>
                 </div>
             </div>
-            <div class="page-subnav-bar-with-dropdown"> 
-                <div class="subnav-dropdown pushright select-style" >
+            <div class="page-subnav-bar-with-dropdown">
+                <div class="subnav-dropdown pushright" onclick="funshowdropdown()">
+                    <span class="hub-dropdown-text" id="emlsclspanid">Email</span>
+                 <img type="image/svg+xml" src="images/Icons/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"></img>
+                </div>
+<!--                <div class="subnav-dropdown pushright select-style" >
                     <img src="images/Icons/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"> </img>
                 <select class="hub-dropdown-text emlsocdrpdwn">
                   <option class="hub-dropdown-text" value="Email">Email</option>
                   <option class="hub-dropdown-text" value="Social">Social</option>
                 </select>
-                     <!--<span >Email</span>-->
+                     <span >Email</span>
                 
-                </div>
+                </div>-->
                 <div class="top-subnav-tabs-container">
                    <ul class="top-subnav-nav-elements">
-                       <li class="top-subnav-links" id="emldrftab"> <a href="" class="h3">Email Drafts</a></li>
-                       <li class="top-subnav-links" id="emlhistab"> <a class="h3" href="emailhistory.jsp">Email History and Analytics</a></li>
+                       <li class="top-subnav-links" id="emldrftab"> <a  class="h3">Email Drafts</a></li>
+                       <li class="top-subnav-links" id="emlhistab"> <a class="h3">Email History and Analytics</a></li>
 <!--                        <li class="top-subnav-links"> <a class="h3">Scheduled Emails</a></li>-->
-                        <li class="top-subnav-link-active" id="emllistab"> <a href="" class="h3-active-subnav">Email Lists</a></li>
-                        <li class="top-subnav-links" id="emlsettab"> <a href="emailsettings.jsp" class="h3">Email Settings</a></li>
+                        <li class="top-subnav-link-active" id="emllistab"> <a class="h3-active-subnav">Email Lists</a></li>
+                        <li class="top-subnav-links" id="emlsettab"> <a class="h3">Email Settings</a></li>
                     </ul>
                 </div>
                 
             </div>
-            
+            <div class="dropdown-hub" style="display:none;">
+                <ul class="dropdown-inner">
+                    <li class="dropdown-section fleft col-1of1 " id="emailhubli">
+                            <div><img type="image/svg+xml" src="images/Icons/Hub-Dropdowns_email.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
+                            <div class="fleft col-6of10 dropdown-label-active">Email Hub</div>
+                    </li>
+                    <li class="dropdown-section col-1of1 fleft" id="socialhubli">
+                         <div><img type="image/svg+xml" src="images/Icons/Hub-Dropdowns_social.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
+                         <div class="fleft col-6of10 dropdown-label">Social Hub</div>
+                    </li>
+                </ul>
+            </div>
         </div>
         <!--Main Content GENERIC--> 
         <div class="page-background">
@@ -334,8 +352,76 @@
                 </div>
             </div> 
             </div>
+                <div class="page-content-container email-list-contact-page email-draft-page" id="emailhistorydiv" ng-controller="emailHistory">
+                <div class="fleft content"  ng-init="displayemailhistory()">
+                    <div class="page-content-title h2" id="nohistorydiv">Your Email History</div>
+                    <!--List Starts Here-->
+                    <ul class="main-container fleft" id="historydiv" >
+                        <li class="slat-container-analytics fleft selfclear" ng-repeat="email in email_history">
+                            <div class="col-3of10 slat-unit fleft ">
+                                <div class="slat-title-container col-1of1 fleft">
+                                    <div class="slat-title email-list-slat-title col-1of1 sh1">{{email.tag}}</div>
+                                    <div class="action-list-slat-description col-1of1 sh3">Sent on</div>
+                                </div>
+                            </div>
+                             <div class=" col-analytic-attribute fleft slat-attribute-container-analytics">
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.sent}}</div>
+                                    <div class="list-column-description col-1of1 sh3 fleft">Number Sent</div>
+                                </div>
+                             <div class=" col-analytic-attribute fleft slat-attribute-container-analytics">
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{(email.opens/email.sent)*100}}%</div>
+                                    <div class="list-column-description col-1of1 sh3 fleft">Open Rate</div>
+                                </div>
+                             <div class=" col-analytic-attribute-lg fleft slat-attribute-container-analytics">
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{(email.clicks/email.sent)*100}}%</div>
+                                    <div class="list-column-description col-1of1 sh3 fleft">Click Through Rate</div>
+                                </div>
+                              <div class=" col-analytic-attribute fleft slat-attribute-container-analytics">
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.unsubs}}</div>
+                                    <div class="list-column-description col-1of1 sh3 fleft">Unsubscribes</div>
+                                </div>
+                            <div class=" fright">
+                                <div class="slat-cta-container">
+                                    <a href="">
+                                        <div class="small-button slat-button detail-button-font">View Email</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    
+                    </ul>
+                </div>
+            </div>  
+                    <div class="page-content-container email-list-contact-page email-draft-page" id="emaisetdiv">
+                <div class="fleft content ">
+                    <div class="page-content-title h2">Your Email Settings</div>
+                    <!--List Starts Here-->
+                    <div class="emailSettings-container fleft pushUp-50 main-container main-container50width col-8of10">
+                       <div class="col-1of1 fleft">
+                            <div class="col-7of10 fleft">
+                                <div class="h4" style="">
+                                    Default from Address:
+                                </div>
+                                <input id="from_address" class="input-field-textfield col-8of10" type="text" name="from_address" placeholder="Enter default email address"/>
+                                
+                            </div>
+                        </div>
+                        <div class="col-1of1 fleft pushUp">
+                            <div class="col-7of10 fleft">
+                                <div class="h4" style="">
+                                   Reply to Email Address:
+                                </div>
+                                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" name="reply_email_address" placeholder="Enter reply-to-email address"/>
+                            </div>
+                        </div>
+                    
+                    </div>                        
+                    </div>   
+                    </div>
+                    
+                </div>
         </div>
-       <div class="bottom-cta-bar padleft" id="removeselactions"  >
+       <div class="bottom-cta-bar padleft" id="removeselactions" >
             <div class="bottom-cta-button-container padright">
                <div class="remove-action-detail md-button button-text-1" id="deleteEmailList" ng-click="deleteEmailList();">Remove Selected Email List(s)</div>
             </div>

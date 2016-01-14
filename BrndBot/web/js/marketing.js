@@ -1790,18 +1790,20 @@ function controllerMarketingCampaign($scope, $http) {
                 if (data !== "") {
                     if(section == getfacebook())
                     {
-                        $("#fbpreviewdecond").hide();
-                        $("#fbremovedtemplate").show();                        
+                        $("#savedpostdiv").hide();
+                        $("#emptynoteheader1").hide(); 
+                        $("#nopostsaveddiv").show();  
+                        $("#emptynoteheader2").show(); 
                     }
                     if(section == gettwitter())
                     {
-                        $("#twpreviewdecond").hide();
-                        $("#twremovedtemplate").show();                     
+                        $("#twtsavedpostdiv").hide();
+                        $("#twtnopostsaveddiv").show();                     
                     }
                     if(section == getemail())
                     {
-                        $("#mailpreviewdecond").hide();
-                        $("#mailremovedtemplate").show();                     
+                        $("#savedemailsdiv").hide();
+                        $("#noemailsdiv").show();                     
                     }
                     alert(responseMessage);
                     $("#emailpostremove").hide();
@@ -1809,7 +1811,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $("#noemailsdiv").show();
                     $("#change").val("1");
                     
-                    //window.open(getHost() + 'marketing.jsp', "_self");
+                    window.open(getHost() + 'marketing.jsp', "_self");
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs

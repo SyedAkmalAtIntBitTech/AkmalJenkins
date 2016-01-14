@@ -924,7 +924,7 @@
                                                 },
                                                 success: function (responseText) {
                                                 if (responseText != "0"){
-                                                    document.location.href = "emailpreview.jsp?draftid="+responseText;
+                                                    document.location.href = "emaillistselection.jsp?draftid="+responseText;
                                                 } else {
                                                     alert("There was a problem while saving the draft! Please try again later.");
                                                 }
@@ -941,7 +941,7 @@
                                                 },
                                                 success: function (responseText) {
                                                 if (responseText == "true"){
-                                                    document.location.href = "emailpreview.jsp?draftid="+draft_id;
+                                                    document.location.href = "emaillistselection.jsp?draftid="+draft_id;
                                                 } else {
                                                     alert("There was a problem while saving the draft! Please try again later.");
                                                 }

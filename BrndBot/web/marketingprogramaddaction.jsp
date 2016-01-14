@@ -27,7 +27,7 @@
             program = <%= program_id %>;
         </script>
 </head>    
-    <style>arrow_top{display:none;}</style>
+    <style>.arrow_top{display:none;}</style>
 <body>
     <div id="fade" class="black_overlay" ></div>
         <div id="addAction">

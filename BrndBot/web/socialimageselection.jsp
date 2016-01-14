@@ -21,6 +21,9 @@
     <script src="js/popup.js" type="text/javascript"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
     <script src="js/socialimageselection.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
+    <script src="js/imageeditor.js" type="text/javascript"></script>
+                
     <title>socialimageselection</title>
 </head>
 <%@page import="com.controller.SqlMethods"%>
@@ -137,8 +140,14 @@
             </a>
             <div class="page-title-with-back page-title-font">Social Selection</div>
             <div class="page-cta-container">
-                <a href="" class="gray-button fleft">
+                <a href="" class="gray-button fleft rightfive">
+                    <div class=" md-button" id="editLink">  Edit Link</div>    
+                </a>
+                <a href="" class="gray-button fleft" id="">
                     <div class=" md-button" id="changeLink">  Change from Link Post Type</div>    
+                </a>
+                <a href="" class="gray-button fleft" id="">
+                    <div class=" md-button" id="removeLink">  Remove Link Post Type</div>    
                 </a>
             </div>
         </div>
@@ -172,9 +181,13 @@
                                      <% 
                                         if(gallery.equalsIgnoreCase("gallery")) {
                                      %>
-                                    <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>&user_id=<%=user_id%>"/>
+                                    <div class="fchangeImage1" onclick="fun('facebook','<%=mindbodydata%>');">Change Image</div>
+                                    <div id="facebookimg" class="feditImage">Edit Image</div>
+                                    <img class="imgsize" id="facebookpreviewimage" value="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>&user_id=<%=user_id%>"/>
                                     <%} else{%>
-                                    <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
+                                    <div class="fchangeImage1" onclick="fun('facebook','<%=mindbodydata%>');">Change Image</div>
+                                    <div id="facebookimg" class="feditImage">Edit Image</div>
+                                    <img class="imgsize" id="facebookpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
                                     <%}%>
                                 </div> 
                                 <%}%>
@@ -233,9 +246,15 @@
                                 %>
                                 <div class="Twitter-preview-image1 fleft">
                                     <% if(gallery.equalsIgnoreCase("gallery")) {%>
-                                    <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>&user_id=<%=user_id%>"/>
+                                    <div class="changeImage1" onclick="fun('twitter','<%=mindbodydata%>');"> Change Image </div>
+                                    <div id="twitterimg" class="feditImage" > Edit Image </div>
+                                    <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>&user_id=<%=user_id%>">
+                                    </img>
                                     <%} else{%>
-                                    <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
+                                    <div class="changeImage1" onclick="fun('twitter','<%=mindbodydata%>');"> Change Image </div>
+                                    <div id="twitterimg" class="feditImage"> Edit Image </div>
+                                    <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>">
+                                    </img>
                                     <%}%>
                                 </div>
                                 <%}%>
@@ -244,7 +263,7 @@
                     </div>
                     <%
                        }
-                         else
+                       else
                        {
                     %>      
                     <div class="Blank_Twitter-preview">

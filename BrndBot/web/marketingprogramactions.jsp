@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : marketingprogramactions
     Created on : Dec 17, 2015, 7:46:00 PM
@@ -47,6 +48,7 @@
     <jsp:include page="twitterpreview_marketing.jsp"/> 
     <jsp:include page="emailpreviewpopup_marketing.jsp"/> 
     <jsp:include page="marketingprogramaddaction.jsp"/>
+    <jsp:include page="recuringPopup.jsp"/>
     <%@include file="navbarv2.jsp" %>
     <input type="hidden" name="program_id" id="program_id" value="<%= program_id %>"/>
     <input type="hidden" name="change" id="change" value="0"/>
@@ -59,6 +61,7 @@
                 </div>
             </a>
             <div class="page-title-with-back page-title-font">{{programs.programdetails.programName}}</div>
+            <input type="hidden" name="program_name2" id="program_name2" value="{{programs.programdetails.programName}}"></input>
             <div class="page-cta-container">
                 <a href="" class="gray-button fleft">
                     <div class="md-button"  ng-click="endMarketingProgram()"> End Marketing Program</div>    
@@ -103,7 +106,7 @@
                                 <div class="selection-icon" id="{{emailautomation.scheduledEntityListId}}" onclick="selcheckboxrecemail(this.id);setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}');"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}"   value="{{emailautomation.scheduledEntityListId}}" hidden/></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft hint--left" data-hint="Template Saved"> 
+                                <div class="icon-container fleft hint--left" data-hint="Template Saved" ng-show="emailautomation.status !=='No Template'"> 
                                     <img type="image/svg+xml" src="images/Icons/templateSaved.svg" class="status-button"/>
                                 </div>
                                 <div class="slat-title-container col-1of2 fleft">
@@ -122,14 +125,14 @@
                             </div>
                             <div class="col-1of4 fleft">
                                 <div class="slat-cta-container">
-                                    <div class="small-button slat-button detail-button-font"> 
-                                         <!-- ng-click="getRecuringMailDetails(emailautomation.scheduledEntityListId,
+                                    <div class="small-button slat-button detail-button-font"
+                                         ng-click="getRecuringMailDetails(emailautomation.scheduledEntityListId,
                                                                 emailautomation.status,
                                                                 emailautomation.dateTime,
                                                                 emailautomation.actionType,
                                                                 emailautomation.programTemplateName,
                                                                 emailautomation.description,
-                                                                emailautomation.postDateStatus)"-->
+                                                                emailautomation.postDateStatus)">
                                                                            Details</div> 
                                 </div>
                             </div>
@@ -213,7 +216,7 @@
                                 <!--</div>-->
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft "> 
+                                <div class="icon-container fleft hint--left" data-hint="Template Saved" ng-show="programaction.status !=='No Template'"> 
                                     <img type="image/svg+xml" src="images/Icons/templateSaved.svg" class="status-button"/>
                                 </div>
                                 <div class="slat-title-container col-1of2 fleft">

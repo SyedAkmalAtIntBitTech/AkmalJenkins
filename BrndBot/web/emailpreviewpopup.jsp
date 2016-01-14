@@ -162,20 +162,20 @@
             <div class="inner-content-container-detail">
                 <div class="saved-post-preview-detail" id="noemailsdiv" >
 
-                                <!--SAVED Email GOES HERE-->
+                    <!--SAVED Email GOES HERE-->
 
-                                <div class="overlay-emptystate-icon">
-                                    <img type="image/svg+xml" src="images/Icons/Overlay_EmptyStates_Email-Empty-State.svg" class="overlay-emptystate-icon"/>
-                                </div>
-                                <div class="empty-state-container">
-                                    <div class="h2new textCenter textColor-Graynew">
-                                        No emails saved to this action.
-                                    </div>
-                                    <a class="link" href="dashboard.jsp">
-                                        <div class="md-button empty-state-cta">
-                                        Go to Dashboard
-                                        </div></a>
-                                </div>
+                    <div class="overlay-emptystate-icon">
+                        <img type="image/svg+xml" src="images/Icons/Overlay_EmptyStates_Email-Empty-State.svg" class="overlay-emptystate-icon"/>
+                    </div>
+                    <div class="empty-state-container">
+                        <div class="h2new textCenter textColor-Graynew">
+                            No emails saved to this action.
+                        </div>
+                        <a class="link" href="dashboard.jsp">
+                            <div class="md-button empty-state-cta">
+                            Go to Dashboard
+                            </div></a>
+                    </div>
                 </div>
                 <div class="below-nav-container-saved-post-detail" id="savedemailsdiv">
                     <div class="inner-content-container-detail fleft">
@@ -205,9 +205,8 @@
         <div id="emailnotesection">
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="saved-post-header-detail">
+                <div class="saved-post-header-detail" ng-hide="schedule_desc !==''">
                     <div class="h4">Write Notes about this Action</div>
-                    <div class="instruction-text">Text Goes here!</div>
                 </div>
                 <div class="inner-content-detail">
                     <div class="saved-note-detail">
@@ -215,7 +214,7 @@
                         <!--SAVED POST GOES HERE-->
 
                         <div class="notes-container">
-                              <textarea class="notes-container-textarea" id="emailnotes{{schedule_id}}">{{schedule_desc}}</textarea>
+                              <textarea class="notes-container-textarea" id="emailnotes{{schedule_id}}" placeholder="Text Goes Here!">{{schedule_desc}}</textarea>
                         </div>
                     </div>
                 </div>

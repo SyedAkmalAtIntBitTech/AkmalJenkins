@@ -1,3 +1,6 @@
+.margintop30{
+    margin-top: 30px;
+}
 a:hover {
  cursor:pointer;
 }
@@ -180,7 +183,37 @@ a.svg:after {
     height: 25px;
     
 }
+.dropdown-hub{
+    position: fixed;
+    left: 70px;
+    top: 60px;
+    width: 220px;
+    background-color: #FFFFFF;
+    float: left;
+    z-index: 10000;
+    border: 1px solid #EEEEEE;
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.1);
+}
+.dropdown-section{
+    padding: 15px 0px 15px 28px;
+       line-height: 30px;
+}
 
+.dropdown-section:hover{
+    padding: 15px 0px 15px 28px;
+    background-color: #F9F9F9;
+    cursor: pointer;
+    display: block;
+    box-sizing: padding-box;
+    line-height: 30px;
+}
+.dropdown-hub-icon{
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    margin-top: 4px
+
+}
 .dropdown-icon{
     width:16px;
     height: 16px;
@@ -188,7 +221,7 @@ a.svg:after {
     margin-top: 12px*/
    top: 71px;
     position: fixed;
-    left: 165px;
+    left: 155px;
 }
 
 .calendar-dropdown-text{
@@ -212,8 +245,8 @@ a.svg:after {
 
 .subnav-dropdown{
     height: 40px;
-    padding-left: 40px;
-    padding-right: 20px;
+    padding-left: 35px;
+    padding-right: 40px;
     background-color: #0F76A6 ;
     box-sizing: border-box;
     cursor:pointer;
@@ -435,7 +468,7 @@ border-top: 1px solid #E8E9EA ;
     height: 100vh;
     padding-left: 70px;
     padding-top: 40px;
-    
+    padding-bottom:100px;
 }
 
 .changeImage{
@@ -586,6 +619,9 @@ padding-top: 0px;
     cursor:pointer;
     float: left;
     
+}
+.bckbtnwidth{
+    width:57px !important;
 }
 
 .exit-button-icon{
@@ -1115,6 +1151,12 @@ Facebook-preview-name{
     padding-left:0px !important;
     width:50% !important;
 }
+.width11{
+    width: 11% !important;
+}
+.width20{
+     width:20% !important;
+}
 .below-nav-container-detail{
      width:100%;
     background-color: #FFFFFF;
@@ -1228,6 +1270,103 @@ input-field-container{
     
     
 }
+.sequenceTitleBar {
+    font-size: 20px;
+    color: #3F3F42 ;
+    
+    
+}
+.sequence-container{
+    padding-right:30px;
+    padding-left: 30px;
+    background-color: #ffffff;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    list-style: none;
+    display: block;
+    padding-bottom: 30px;
+    padding-top: 20px;
+    width: 100%;
+    border-radius: 5px;
+    min-width: 700px;
+}
+.chooseEmailList{
+                border: none ;
+                width: 100%;
+                height: 27px;
+               -webkit-appearance: none;
+                -moz-appearance: none;
+                 box-shadow: none !important ;
+                appearance: none;
+                padding: 7px 1px 5px 5px;
+                /*border: 2px solid #d0d0d0;*/
+                border-left: none;
+                border-right: none;
+                border-top: none;
+                border-bottom: none;
+                border-radius: 2px;
+                /*color:#2b2f35;*/
+                background: #F2F2F4 url("../images/dropdown.png") no-repeat 98% center;
+                /*background-color: ;*/ 
+                font-size:18px;
+                color: #3f4042;
+                height:40px;
+                /*margin-left: 24%;*/
+            }
+            #drop-zone {
+            /*Sort of important*/
+            width:100%;
+            /*Sort of important*/
+            height: 200px;
+            position:absolute;
+            /*margin-left: 34%;*/
+            border: 2px dashed rgba(0,0,0,.3);
+            border-radius: 20px;
+            font-family: Arial;
+            text-align: center;
+            position: relative;
+            line-height: 180px;
+            font-size: 20px;
+            color: rgba(0,0,0,.3);
+            margin-top: 17px;
+            }
+            #clickHere {
+                position: absolute;
+                cursor: pointer;
+                top: 0%;
+                margin-left: 12px;
+                margin-top: 20px;
+                line-height: 26px;
+                color: white;
+                font-size: 15px;
+                width: 90%;
+                height: 82%;
+                border-radius: 4px;
+                color:#000;
+                background-color: #f2f2f4;
+            }
+            .fileclass{
+                overflow:hidden;
+                width:100%;
+                height:100%;
+                border-radius:15px;
+                font-size: 20px;
+                cursor: pointer;
+                opacity:0;
+                margin-top: -65px !important;
+            }
+            .clktosel{
+                width:100%;
+                height:100%;
+            }
+            .emailaddresstextarea{
+                width:100%;
+                height:200px;
+                position:relative;
+                top:0px;
+                resize:none;
+                border-radius: 5px;
+            }
 .externalData-selection-content{
     padding-top: 120px;
      width: 80%;
@@ -1365,12 +1504,13 @@ input-field-container{
 
 .bottom-continue-button{
     float: left;
-    height: 100%;
+    height: 50px;
     width:200px;
     padding-top:18px;
     text-align: center;
     background-color:#d5dadf;
     color:#767777  ;
+    cursor:pointer;
 }
 
 
@@ -1461,7 +1601,9 @@ input-field-container{
 
 }*/
 
-
+.curpointer{
+    cursor:pointer;
+}
 
 .slat-unit{
     padding-right:0px;
@@ -1596,6 +1738,12 @@ selfclear:after{
 }
 .lftpad{
     margin-left: 2%;
+}
+.lftpad-10{
+    margin-left: 10%;
+}
+.lftpad-5{
+    margin-left: 5%;
 }
 .lftpaddesc{
     font-size: 24px;
@@ -1768,17 +1916,26 @@ ul{
 .pushUp{
     margin-top: 30px;
 }
-
+.pushUp-10{
+    margin-top: 10px;
+}
+.pushUp-30{
+    margin-top: 30px;
+}
 .pushUp-15{
     margin-top: 15px;
 }
-
+.pushUp-100{
+    margin-top: 100px;
+}
+.pushUp-50{
+    margin-top: 50px;
+}
 
 
 .sh1-contact{
     font-size: 16px;
     font-family: sans-serif;
-    cursor: pointer;
 }
 
 .sh2{
@@ -1837,6 +1994,8 @@ margin-top: 30px;
 .selection-container{
     float: left;
     display: inline-table;
+    margin-top:-9px;
+    cursor: pointer;
 }
 
 
@@ -1864,8 +2023,10 @@ margin-top: 30px;
     height: 15px;
     border: 2px solid #979797 ;
     border-radius: 3px;
-    margin-top: 5px;
+    margin-top: -2px;
     margin-right: 20px;
+    cursor:pointer;
+    margin-left: -2px
 }
 
 .emailConnect-icon{
@@ -2402,4 +2563,12 @@ width: 10%;
 }
 #socialscheduleid,.algnmnt{
     cursor: pointer;
+}
+.chooseChannelSelection-icon {
+    width: 15px;
+    height: 15px;
+    border: 2px solid #979797;
+    border-radius: 3px;
+    margin-top: 15px;
+    margin-right: 20px;
 }

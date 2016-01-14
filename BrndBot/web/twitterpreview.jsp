@@ -57,8 +57,8 @@
                 <div class="below-nav-container-saved-post-detail">
                 <div class="inner-content-container-detail">
                     <div class="saved-post-header-detail">
-                        <div id="twtemptyheader" class="h4" >Write Notes about this Action</div>                      
-                        <div id="twtnoteheader" class="h4" >Notes</div>
+                        <div id="twtemptyheader" class="h4" ng-show="schedule_desc ===''">Write Notes about this Action</div> 
+                        <div id="twtnoteheader" class="h4" ng-show="schedule_desc !==''">Notes</div>
                         <div id="twtnotetext" class="instruction-text">{{schedule_desc}}</div>
                     </div>
                         <div class="inner-content-detail">
@@ -210,9 +210,11 @@
             <div id="twitternotesection">
                 <div class="below-nav-container-saved-post-detail">
                 <div class="inner-content-container-detail">
-                    <div class="saved-post-header-detail">
+                    <div class="saved-post-header-detail" ng-show="schedule_desc ===''">
                         <div class="h4">Write Notes about this Action</div>
-                        <div class="instruction-text">Text Goes here!</div>
+                    </div>
+                    <div class="saved-post-header-detail" ng-show="schedule_desc !==''">
+                        <div class="h4">Notes</div>
                     </div>
                     <div class="inner-content-detail">
                         <div class="saved-note-detail">
@@ -220,7 +222,7 @@
                             <!--SAVED POST GOES HERE-->
 
                             <div class="notes-container">
-                                <textarea class="notes-container-textarea" id="twtnote">{{schedule_desc}}</textarea>
+                                <textarea class="notes-container-textarea" id="twtnote" placeholder="Text Goes here!">{{schedule_desc}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -238,7 +240,7 @@
 
             <div class="" id="twtpostremove">
                 <div class="bottom-cta-button-container">
-                    <div class="edit-button-detail md-button button-text-1 fleft removebutton" ng-click="deleteSchedule(schedule_id,'remove',master_twitter)">Remove Saved Post</div>
+                    <div class="remove-button-detail md-button button-text-1 fleft removebutton" ng-click="deleteSchedule(schedule_id,'remove',master_twitter)">Remove Saved Post</div>
                 </div>
             </div>
 

@@ -286,6 +286,12 @@ function validateEmail(sEmail) {
 }
 $(document).ready(function ()
 {
+    $("#closerecuringpopup").click(function(){
+        $slider=2;
+        sliderDialog = "#recuringPopup";
+        prevSliderDialog = "#recuringPopup";
+        $('#slider-button').click();
+    });
 $(".close").click(function(){
         var program_id=$("#program_id").val();
         var change=$("#change").val();
@@ -1012,6 +1018,7 @@ function programactions($scope, $http, $window){
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
+                
                 $scope.entitiesdetails = data;
                 if (data.body == undefined) {
                     $("#preview_email").hide();
@@ -1022,9 +1029,10 @@ function programactions($scope, $http, $window){
                     $("#edit_email").show();
                     $("#edit_email_action").hide();
                 }
-
+                
                 $scope.schedule_id = schedule_id;
                 var date = new Date(schedule_time);
+                
                 $(".editcontent").empty();
                 $(".editcontent").append(data.body);
                 $(".editcontent").css("-webkit-transform", "scale(0.5,0.6)").css("margin-left", "-140px").css("margin-top", "-60px").css("margin-bottom", "-220px");
@@ -1131,7 +1139,7 @@ function programactions($scope, $http, $window){
         //$(".time_pick").width('200%');
         $("#fade").show();
         $("#addAction").show();
-        
+        $(".timepicker_wrap").css("width","57%");
 //        $slider=1;
 //        $edit=1; 
 //        sliderDialog = "#dvPriorityDialog";
@@ -1178,48 +1186,51 @@ function programactions($scope, $http, $window){
             });
     }
     
-    $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, action_status) {
-         
-            $slider=2;
-            sliderDialog = "#emailsection";
-            $('#slider-button').click();
-            prevSliderDialog = "#emailsection";
-            $("#recuring_preview_email").show();
-            $("#recuring_edit_email_action").hide();
+    $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, date_status) {
+        //alert(schedule_desc);    
+        $slider=2;
+            sliderDialog = "#recuringPopup";
+            prevSliderDialog = "#recuringPopup";
+            var program_name=$("#program_name2").val();
+            var program_id=$("#program_id").val();
+//            $("#recuring_preview_email").show();
+//            $("#recuring_edit_email_action").hide();
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.body == undefined) {
-                    $("#mailpreviewremove6").hide();
-                    $('#mailremovedtemplate6').show();
-                    $('#mailpreviewdecond5').hide();
-                    $('.approve').hide();
-                    $("#email_button_send").val(create_button_title);
+                      $("#recuringremovediv").hide();
+//                    $('#mailremovedtemplate6').show();
+//                    $('#mailpreviewdecond5').hide();
+//                    $('.approve').hide();
+//                    $("#email_button_send").val(create_button_title);
                 } else {
-                    $('.approve').css("display","inline-flex");
-                    $("#mailpreviewremove6").show();
-                    $('#mailremovedtemplate6').hide();
-                    $('#mailpreviewdecond5').show();
-                    $('.content').show();
-                    $('#mailimgprev').show();
-                    $("#email_button_send").val("Send");
+//                    $('.approve').css("display","inline-flex");
+                      $("#recuringremovediv").show();
+//                    $('#mailremovedtemplate6').hide();
+//                    $('#mailpreviewdecond5').show();
+//                    $('.content').show();
+//                    $('#mailimgprev').show();
+//                    $("#email_button_send").val("Send");
                 }
-                if(template_status=="complete")
-                {
-                    $("#recuringemailgreen").show();
-                    $("#recuringemailred").hide();
-                }
-                else
-                {
-                    $("#recuringemailgreen").hide();
-                    $("#recuringemailred").show();
-                }
-                var date = new Date(schedule_time);
-                $(".content").empty();
-                $(".content").append(data.body);
-//                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
+//                if(template_status=="complete")
+//                {
+//                    $("#recuringemailgreen").show();
+//                    $("#recuringemailred").hide();
+//                }
+//                else
+//                {
+//                    $("#recuringemailgreen").hide();
+//                    $("#recuringemailred").show();
+//                }
+ //               var date = new Date(schedule_time);
+//                $("#recuringemailcontentiframe").empty();
+//                $("#recuringemailcontentiframe").append(data.body);
+//                $("#recuringemailcontentiframe").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
+                
+                    $('#recuringemailcontentiframe').contents().find('html').html(data.body);
                 
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
@@ -1228,13 +1239,17 @@ function programactions($scope, $http, $window){
                 $scope.schedule_desc = schedule_desc;
                 $scope.recuring_template_status = template_status;
                 $scope.schedule_type = entity_type;
-                $scope.recuring_action_status=action_status;
+                $scope.recuring_date_status=date_status;
+                $scope.program_name=program_name;
+                $scope.program_id=program_id;
             }).error(function (data) {
                 alert("Request not successful! ");
             });
+            $('#slider-button').click();
     };
     
-    $scope.getScheduleDetails = function (schedule_id, template_status, 
+    
+ $scope.getScheduleDetails = function (schedule_id, template_status, 
                                           schedule_date, entity_type, 
                                           schedule_title, schedule_desc, 
                                           post_time, action_status,
@@ -1284,23 +1299,23 @@ function programactions($scope, $http, $window){
                 $(".arrow_top").hide();
                 $scope.entitiesdetails = data;
                 if (data.body == undefined) {
-                    $("#noemailsdiv").show();
-                    $("#savedemailsdiv").hide();
-                    $("#mailpreviewremove").hide();
-                    $('#mailremovedtemplate').show();
-                    $('#mailpreviewdecond').hide();
-                    $('.approve').hide();
-                    $("#email_button_send").val(create_button_title);
+//                    $("#noemailsdiv").show();
+//                    $("#savedemailsdiv").hide();
+//                    $("#mailpreviewremove").hide();
+//                    $('#mailremovedtemplate').show();
+//                    $('#mailpreviewdecond').hide();
+//                    $('.approve').hide();
+//                    $("#email_button_send").val(create_button_title);
                 } else {
-                    $("#savedemailsdiv").show();
-                    $("#noemailsdiv").show();
-                    $('.approve').show();
-                    $("#mailpreviewremove").show();
-                    $('#mailremovedtemplate').hide();
-                    $('#mailpreviewdecond').show();
-                    $('.content').show();
-                    $('#mailimgprev').show();
-                    $("#email_button_send").val("Send");
+//                    $("#savedemailsdiv").show();
+//                    $("#noemailsdiv").show();
+//                    $('.approve').show();
+//                    $("#mailpreviewremove").show();
+//                    $('#mailremovedtemplate').hide();
+//                    $('#mailpreviewdecond').show();
+//                    $('.content').show();
+//                    $('#mailimgprev').show();
+//                    $("#email_button_send").val("Send");
                 }
                 if(template_status=="complete")
                 {
@@ -1312,6 +1327,8 @@ function programactions($scope, $http, $window){
                     $("#emailgreen").hide();
                     $("#emailred").show();
                 }
+                //alert(JSON.stringify(data.body));
+                $("#emailcontentiframe").contents().find('html').html(data.body);
 //                var date = new Date(schedule_time);
 //                $(".content").empty();
 //                $(".content").append(data.body);
