@@ -359,7 +359,7 @@ a.svg:after {
     padding-right: 20px;
     line-height: 100%;
     padding-top: 22px;
-    width: 50%;
+    width: 55%;
     margin: 0px;
     float: left;
     height:100%;
@@ -635,6 +635,10 @@ padding-top: 0px;
     
     float: right;
     box-sizing: border-box;
+}
+#deleterecurringemail,#deleteonetimeact{
+    padding: 0px 15px 0px 16px !important;
+    margin: 0px;
 }
 
 .delete-button-detail{
@@ -1529,7 +1533,9 @@ input-field-container{
     background-color:#d5dadf;
     color:#767777  ;
 }
-
+/*#deleterecurringemail{
+        margin-right: 30px !important;
+}*/
 .remove-button-detail:hover{
     background-color:#f44e4e ;
     color:#FFFFFF  ;

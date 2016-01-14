@@ -40,7 +40,7 @@ public class ScheduleTwitterPost implements Runnable {
                 //The time zone of the saved date should be extracted.
                 //This time zone should be applied to the current time and then this comparison needs to be made.
                 
-                    boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledTwitterPost.getScheduleTime());
+                boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledTwitterPost.getScheduleTime());
 
                 if (shouldPostNow) {
                     TblScheduledSocialpostList twitterPost = getTwitterPost(currentScheduledTwitterPost);
@@ -65,7 +65,7 @@ public class ScheduleTwitterPost implements Runnable {
                     if (message.equalsIgnoreCase("success")) {
                         updateStatusScheduledTwitter(currentScheduledTwitterPost);
                     }
-                }
+                    }
                 }
                 
             }

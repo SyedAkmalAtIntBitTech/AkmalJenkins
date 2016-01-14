@@ -12,7 +12,9 @@ var program_status;
 
 $(document).ready(function ()
 {
+    $("#deleteonetimeact").hide();
     $("#removeactionbutton").hide();
+    $("#deleterecurringemail").hide();
     $("#liPriority").click(function () {
         //$slider=1;
         //sliderDialog = "#dvPriorityDialog";
@@ -187,6 +189,82 @@ var count=0;
                 $("#removeactionbutton").hide();
             }
         }
+        var countota=0;
+        function selcheckboxonetimeact(id){
+//            alert(id+"--selected");
+            content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
+            var htm=$("#"+id).html();
+            
+            var selected_schedule_id=id;
+            if(htm.contains('class="check-icon"')){
+                selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
+                countota-=1;
+                $("#"+id).html(content);
+            }
+            else
+            {
+                selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
+//                alert(selected_schedules_to_delete);
+                countota+=1;
+                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+            }
+            $("#"+id).toggleClass('selection-icon');
+            $("#"+id).toggleClass('selection-icon-selected');
+            if(countota>0)
+            {   
+//                $(".add-action-button").hide();
+                $("#deleteonetimeact").show();
+                $("#onetimeactbtn").hide();
+            }
+            if(countota==0)
+            {
+//                $(".add-action-button").show();
+//                $(".delete-button").hide();
+                $("#onetimeactbtn").show();
+                $("#deleteonetimeact").hide();
+            }
+        }
+        
+            function selcheckboxrecemail(id){
+//            alert(id+"--selected");
+            content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
+            var htm=$("#"+id).html();
+            
+            var selected_schedule_id=id;
+            if(htm.contains('class="check-icon"')){
+                selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
+                count-=1;
+                $("#"+id).html(content);
+            }
+            else
+            {
+                selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
+//                alert(selected_schedules_to_delete);
+                count+=1;
+                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+            }
+            $("#"+id).toggleClass('selection-icon');
+            $("#"+id).toggleClass('selection-icon-selected');
+            if(count > 0)
+            {   
+//                $(".add-action-button").hide();
+                 $("#addrecemail").hide();
+//                $("#removeactionbutton").show();
+                $("#deleterecurringemail").show();
+            }
+            if(count==0)
+            {
+//                $(".add-action-button").show();
+//                $(".delete-button").hide();
+//                $("#removeactionbutton").hide();
+                $("#deleterecurringemail").hide();
+                $("#addrecemail").show();
+                
+            }
+//            alert(selected_schedules_to_delete);
+        }
+        
+        
 function showEditNote() {
     $("#noteprev").hide();
     $("#noteedit").show();
@@ -427,7 +505,7 @@ function validatetwitteraction() {
 
     return true;
 }
-
+    
 var selected_schedules_to_delete = "";
 var selected_schedules_to_delete_recuring = "";
 
@@ -637,7 +715,7 @@ function programactions($scope, $http, $window){
               data: JSON.stringify(program_details)
           }).success(function (data, status, headers, config) {
             if (data == "true"){
-              window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+              window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
             }else {
                 alert("Problem saving the record!");
             }
@@ -1610,7 +1688,7 @@ function programactions($scope, $http, $window){
                 $scope.status = data;
                 if (data != "") {
                     alert("Action saved successfully.");
-                    window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
 
                 }
             }).error(function (data, status) {
@@ -1737,7 +1815,7 @@ function programactions($scope, $http, $window){
                         $("#mailremovedtemplate").show();                     
                     }
                     alert(responseMessage);
-                    window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
@@ -1755,10 +1833,20 @@ function programactions($scope, $http, $window){
         var responseMessage;
         var program=$("#program_id").val();
         if (type == "deleteMultiple") {
-            message = "Are you sure you want to delete these Action(s)?";
+            if(schedules_to_delete=="0"){
+                message = "Are you sure you want to delete these Email(s)?";
+            }
+            if(schedules_to_delete=="1"){
+                message = "Are you sure you want to delete these Action(s)?";
+            }
             requestBody = {"type": "deleteSelected",
                            "schedule_ids": selected_schedules_to_delete, "entity_type": "null"};
-            responseMessage = "Selected actions were deleted successfully";
+            if(schedules_to_delete=="0"){
+             responseMessage = "Selected Email(s) were deleted successfully";
+            }
+            if(schedules_to_delete=="1"){
+               responseMessage = "Selected actions were deleted successfully";
+            }
         } else if (type == "delete") {
             message = "Are you sure you want to delete this Action?";
             requestBody = {"type": "delete",

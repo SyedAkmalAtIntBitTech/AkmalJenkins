@@ -34,7 +34,6 @@ import org.json.simple.parser.ParseException;
 public class SetEmailLists extends BrndBotBaseHttpServlet {
 
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

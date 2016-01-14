@@ -25,7 +25,7 @@
     <script src="js/imageeditor.js" type="text/javascript"></script>
                 
     <title>socialimageselection</title>
-</head>    
+</head>
 <%@page import="com.controller.SqlMethods"%>
 <%@ include file="checksession.jsp" %>
 
@@ -39,7 +39,7 @@
     String accesstoken = "";
     String ManagedPage = "";
     String media_type="";
-    String mindbodydata="";
+//    String mindbodydata="";
     String twaccessTokenSend="";
     String pagenameSend="";
     String fbaccessTokenSend="";
@@ -65,7 +65,7 @@
         isFacebook = request.getParameter("isFacebook");
         isTwitter = request.getParameter("isTwitter");
         media_type = request.getParameter("media_type");
-        mindbodydata = request.getParameter("mindbodydata");
+//        mindbodydata = request.getParameter("mindbodydata");
         twaccessTokenSend = request.getParameter("twaccessTokenSend");
         pagenameSend = request.getParameter("pagenameSend");
         fbaccessTokenSend = request.getParameter("fbaccessTokenSend");
@@ -113,13 +113,14 @@
    <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign">
     <%@ include file="selectimagetype.jsp"%>
     <!--SideNav-->
-    <intput type="hidden" id="number" value=""/>
+    <input type="hidden" id="number" value=""/>
     <input type="hidden" id="isFacebook" value="<%=isFacebook%>"/>
     <input type="hidden" id="isTwitter" value="<%=isTwitter%>"/>
     <input type="hidden" id="imagen" value="<%=imageid%>"/>
     <input type="hidden" id="data" value="<%=data%>"/>
     <input type="hidden" id="selectedimagename" value=""/>
     <input type="hidden" id="selectedimageid" value=""/>
+    <input type="hidden" id="selectedid" value="<%=mindbodydata%>" />
     <input type="hidden" id="gallery" name="gallery" value="<%=gallery%>"/>
     <input type="hidden" id="imageToPost" name="imageToPost" value="<%=imageid%>"/> 
     <input type="hidden" id="accesstoken" name="accesstoken" value="<%=accesstoken%>"/>
@@ -173,7 +174,7 @@
                                     if (imageid.equalsIgnoreCase("")){
                                 %>
                                 <div class="Facebook-preview-image">
-                                    <div class="changeImage" onclick="fun('facebook','<%=mindbodydata%>');">Upload Image</div>
+                                    <div class="changeImage" onclick="fun('facebook',null,'<%=mindbodydata%>',null,null);">Upload Image</div>
                                 </div>
                                 <%} else{%>
                                 <div class="Facebook-preview-image1">
@@ -238,7 +239,7 @@
                                     (imageid.equalsIgnoreCase("")){
                                 %>
                                 <div class="Twitter-preview-image fleft">
-                                    <div class="changeImage" onclick="fun('twitter','<%=mindbodydata%>');"> Upload Image </div>
+                                    <div class="changeImage" onclick="fun('twitter',null,'<%=mindbodydata%>',null,null);"> Upload Image </div>
                                 </div>
                                 <%
                                     } else{
@@ -285,9 +286,9 @@
                <div class="bottom-continue-button button-text-1" id="postorschedule">Post to Social Media</div>
             </div>
         </div>
-         </div>
+<!--         </div>
 </div>
-</div>
+</div>-->
   
     </body>
 </html>

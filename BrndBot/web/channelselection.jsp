@@ -28,7 +28,7 @@
       <%!
             SqlMethods sql_methods = new SqlMethods();
             String category_id, sub_category_name, sub_category_id;
-        %>
+      %>
 
         <%
             try {

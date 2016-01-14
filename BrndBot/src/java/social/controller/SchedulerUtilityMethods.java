@@ -42,6 +42,7 @@ public class SchedulerUtilityMethods {
         sbSql.append(" order by entitytable.schedule_time::time");
         //sbSql.append(" limit 1");
         sbSql.append(";");
+//        String entityId = "";
         ArrayList<String> entityId = new ArrayList<String>();
 
         try (Connection conn = connectionManager.getConnection();

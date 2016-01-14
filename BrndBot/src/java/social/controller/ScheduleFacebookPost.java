@@ -49,6 +49,7 @@ public class ScheduleFacebookPost implements Runnable {
 
                     Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, "Current time:" + new Date());
                     boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledFacebookPost.getScheduleTime());
+//                    boolean shouldPostNow = true;
 
                     if (shouldPostNow) {
                         TblScheduledSocialpostList facebookPost = getFacebookPost(currentScheduledFacebookPost);

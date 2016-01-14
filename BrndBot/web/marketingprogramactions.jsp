@@ -91,8 +91,11 @@
                      <div class="page-content-title-bar fleft col-1of1">
                         <div id="noemailautomation" class="page-content-title h2 fleft">Recurring Email Automations</div>
                         <div class="action-cta-container">
-                            <a href="" class="edit-button-detail fleft">
+                            <a href="" id="addrecemail" class="edit-button-detail fleft">
                                 <div class=" md-button" ng-click="addEditRecuringAction('add',<%=program_id%>, '0')">Add Recurring Email Automation</div>    
+                            </a>
+                            <a href="" id="deleterecurringemail" class="delete-button-detail fleft">
+                                <div class="md-button delrecemlbtn" ng-click="deleteSchedule('0', 'deleteMultiple')">Delete Selected Recurring Email(s)</div>    
                             </a>
                         </div>
                     </div>
@@ -100,7 +103,7 @@
                     <ul class="main-container fleft">
                   <li class="slat-container fleft selfclear" ng-repeat="emailautomation in programs.emailautomation">
                             <div class="selection-container col-5p"> 
-                                <div class="selection-icon"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}"  onclick="setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}')" value="{{emailautomation.scheduledEntityListId}}" hidden/></div>
+                                <div class="selection-icon" id="{{emailautomation.scheduledEntityListId}}" onclick="selcheckboxrecemail(this.id);setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}');"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}"   value="{{emailautomation.scheduledEntityListId}}" hidden/></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div class="icon-container fleft hint--left" data-hint="Template Saved" ng-show="emailautomation.status !=='No Template'"> 
@@ -195,8 +198,11 @@
                     <div class="page-content-title-bar fleft col-1of1">
                         <div id="noota" class="page-content-title h2 fleft">One Time Actions</div>
                         <div class="action-cta-container">
-                            <a href="" class="edit-button-detail fleft">
+                            <a id="onetimeactbtn" href="" class="edit-button-detail fleft">
                                 <div class=" md-button" ng-click="ShowAddAction()">  Add One Time Action</div>    
+                            </a>
+                            <a href="" id="deleteonetimeact" class="delete-button-detail fleft">
+                                <div class="md-button delrecemlbtn" ng-click="deleteSchedule('1', 'deleteMultiple')">Delete Selected Action(s)</div>
                             </a>
                         </div>
                     </div>
@@ -204,7 +210,7 @@
                     <ul class="main-container fleft">
                     <li class="slat-container fleft selfclear"  ng-repeat="programaction in programs.programactions">
                             <div class="selection-container col-5p"> 
-                                <div class="selection-icon" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}');selcheckbox(this.id);"><input type="checkbox" id="entityid{{programaction.scheduledEntityListId}}"  value="{{programaction.scheduledEntityListId}}" name="entityname" hidden></input></div>
+                                <div class="selection-icon" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" onclick="selcheckboxonetimeact(this.id);setSelectedIds('{{programaction.scheduledEntityListId}}');"><input type="checkbox" id="entityid{{programaction.scheduledEntityListId}}"  value="{{programaction.scheduledEntityListId}}" name="entityname" hidden></input></div>
                                 <!--<div class="selection-icon">-->    
                                     <!--<input type="checkbox" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="{{programaction.scheduledEntityListId}}" hidden />-->
                                 <!--</div>-->
@@ -310,10 +316,10 @@
         </div>                     
         <div class="bottom-cta-bar bordertop" id="removeactionbutton" >
             <div class="bottom-cta-button-container bottomheight">
-               <div class="remove-button-detail md-button button-text-1" ng-click="deleteSchedule('0', 'deleteMultiple')">Delete Selected Actions</div>
-
+                <!--<div id="deleteonetimeact" class="remove-button-detail md-button button-text-1" ng-click="deleteSchedule('0', 'deleteMultiple')">Delete Selected Action(s)</div>-->
+<!--               <div id="deleterecurringemail" class="remove-button-detail md-button button-text-1" ng-click="deleteSchedule('0', 'deleteMultiple')">Delete Selected Recurring Email(s)</div>-->
             </div>
-        </div>       
+        </div>   
         <div id="light" class="white_content closepopup">
                 <a href = "javascript:void(0)" style="text-decoration:none;">
                     <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">

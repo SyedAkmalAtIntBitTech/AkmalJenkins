@@ -852,15 +852,20 @@ $edit=0;
                     
 //                    $("#emailListli").addClass("top-subnav-links");
 //                    $("#emailList").addClass("h3");
+                    $(".page-background").css("background-color","#fff");
                     
                     var list_name=$("#get_list_name").val();
                     var type=$("#get_type").val();
                     $("#tab4").hide();
                     $("#email_list_name").val(list_name);
+                    $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","560px");
                     $http({
                         method: 'GET',
                         url: getHost() + 'GetEmailLists?update=emailsForEmailList&list_name='+list_name
                     }).success(function (data, status, headers, config) {
+                        $(".page-background").css("overflow","scroll");
+                        $('#loadingGif').remove();
+                        $(".page-background").css("background-color","#EFF2F6");
                         $scope.user_emailAddresses = data.user_emailAddresses;
                         $scope.mindbody_emailAddresses = data.mindbody_emailAddresses;
                         $scope.selected_email_listname = list_name;
@@ -888,14 +893,16 @@ $edit=0;
                             }
                         }else if (type == 'mindbody'){
                             
-                            $("#tab3").show();
-                            $("#tab1").hide();
-//                            $("#addcontacts").attr("disabled", true);
-                            $("#addcontacts").hide();
-                            $("#deleteSelected").hide();
-                            $("#emailaddrs").hide();
-                            $(".head").css("padding-bottom","15%");
-//                            
+//                            $("#tab3").show();
+//                            $("#tab1").hide();
+////                            $("#addcontacts").attr("disabled", true);
+//                            $("#addcontacts").hide();
+//                            $("#deleteSelected").hide();
+//                            $("#emailaddrs").hide();
+//                            $(".head").css("padding-bottom","15%");
+                            $("#addcontact").hide();
+//                            $("#hideformindbdy").hide();
+//                             $(".selection-container").hide();
 //                            $("#selectAll").attr("disabled", true);
 //                            document.getElementById('email1').hide();
                             $("#email1").hide();

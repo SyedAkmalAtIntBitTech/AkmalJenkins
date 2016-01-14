@@ -6,13 +6,19 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+    <%! 
+        String mindbodydata="";
+    %>    
+    <% 
+        mindbodydata = request.getParameter("mindbodydata");
+    %>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="telephone=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="shortcut icon" href="favicon.png">
-    <link rel="stylesheet" href="css/pikaday.css">
-    <link rel="stylesheet" href="css/datepickerpikaday.css">
+    <link rel="shortcut icon" href="favicon.png"/>
+    <link rel="stylesheet" href="css/pikaday.css"/>
+    <link rel="stylesheet" href="css/datepickerpikaday.css"/>
     <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
     <script src="js/pikaday.js"></script>
 <!--    <script src="js/socialimage.js" type="text/javascript"></script>-->
@@ -195,7 +201,7 @@
         
             <div id="fade" class="black_overlay"></div>
             <input type="hidden" name="selectedtype" id="selectedtype" value=""></input>
-            <input type="hidden" name="selectedid" id="selectedid" value=""></input>
+            <input type="hidden" name="selectedid" id="selectedid" value="<%=mindbodydata%>"></input>
             <input type="hidden" name="social" id="social" value="social"></input>
             
             <div id="addContact">

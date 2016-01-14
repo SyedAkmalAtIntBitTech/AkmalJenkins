@@ -38,6 +38,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         boolean face = false;
         boolean twit = false;
+        
         try {
             getSqlMethodsInstance().session = request.getSession();
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
@@ -49,7 +50,8 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             String url = request.getParameter("url");
             String imageType = request.getParameter("imageType");
             String file_image_path = "";
-            
+            String returnMessage = "";
+            boolean status = true;
             if (imageType.equals("layout")){
                 file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
             }else if (imageType.equals("gallery")) {
@@ -66,27 +68,28 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 String title = request.getParameter("title");
                 String description = request.getParameter("description");
                 String url1 = request.getParameter("url");
-                String returnMessage = PostToFacebook.postStatus(accessToken, title, 
+                returnMessage = PostToFacebook.postStatus(accessToken, title, 
                         file_image_path, posttext, imagePostURL, getImageFile, url1, 
                         description, imageType, user_id, htmlString);
-            }
-            if (isTwitter.equalsIgnoreCase("true")) {
+            }if (isTwitter.equalsIgnoreCase("true")) {
 
                 String twitterAccessToken = request.getParameter("twittweraccestoken");
                 String twitterTokenSecret = request.getParameter("twitterTokenSecret");
                 String text = request.getParameter("text");
                 String shortURL = request.getParameter("shorturl");
                 PrintWriter out1 = response.getWriter();
-                String returnMessage = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, 
+                returnMessage = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, 
                         text, shortURL, file_image_path, user_id, htmlString, getImageFile);
                 out1.println(returnMessage);
             }
-            
-            if (imageType.equals("layout")){
+            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "message while facebook post:"+returnMessage);
+
+            if (returnMessage.equals("success") && imageType.equals("layout")){
                 file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
                 File deleteFile = new File(file_image_path);
-                deleteFile.delete();
+                status = deleteFile.delete();
             }
+            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "message after social post:"+status);
 
         } catch (Exception e) {
             Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getCause());

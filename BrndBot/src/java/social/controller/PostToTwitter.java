@@ -60,6 +60,7 @@ public class PostToTwitter {
 
             status.setMedia(file);
             twitter.updateStatus(status);
+            
             try {
                 SqlMethods sql_methods = new SqlMethods();
                 sql_methods.setSocialPostHistory(userId, htmlString, false, true, getImageFile, null);

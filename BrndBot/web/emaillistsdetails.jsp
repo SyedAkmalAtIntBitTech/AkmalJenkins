@@ -24,12 +24,8 @@
     <title>BrndBot - Email List Details</title>    
 </head>    
 <%
-    out.println("test");
     String list_name=request.getParameter("list_name");
     String type=request.getParameter("type");
-    
-    out.println(list_name);
-    out.println(type);
 %>
 <body ng-app>
     
@@ -79,7 +75,7 @@
             
             <!--Inner Content Conatiner GENERIC-->
             <div class="page-inner-content-container ">
-                <div class="fleft content" ng-init="updateList()" >
+                <div class="fleft content" ng-init="updateList()">
                     <!--List Starts Here-->
                     <ul class="main-container fleft">
                         <li class="slat-container fleft selfclear" ng-repeat="email in user_emailAddresses">
@@ -111,6 +107,30 @@
                                 </div>
                             </div>
                         </li>
+                        <li class="slat-container fleft selfclear" ng-repeat="email in mindbody_emailAddresses">
+                            <div class="col-1of1 slat-unit fleft ">
+                                <a href="">
+                                    <div class="selection-container col-5p fleft" id="hideformindbdy"> 
+<!--                                        <div class="chkmbhide selection-icon" id="{{email.id}}" onclick="selemlcheckbox(this.id);">
+                                            <input type="checkbox" id="emailid{{email.emailAddress}}" value="{{email.emailAddress}}" name="emaillistname" hidden></input>
+                                        </div>-->
+                                    </div>
+                                </a>
+                                <div class="slat-title-container col-4of10 fleft">
+                                    <div class="slat-title  col-1of1 sh1-contact" onclick="fun('update','{{email.emailAddress}}','{{email.id}}','{{email.firstName}}','{{email.lastName}}');">{{email.emailAddress}}</div>
+                                    <div class="slat-title  col-1of1 sh1-contact" ng-show="email.emailAddress == '' && type == 'user'" id='NoContacts'>No contacts available</div>
+                                    <div class="action-list-slat-description col-1of1 sh3-contact">Added on {{email.addedDate| date:'  M/dd/yyyy'}}</div>
+                                </div>
+                                <div class=" col-2of10 fleft slat-attribute-container" ng-show="email.firstName !== ''">
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.firstName}}</div>
+                                    <div class="list-column-description col-1of1 sh3-contact fleft">First Name</div>
+                                </div>
+                                <div class=" col-2of10 fleft slat-attribute-container" ng-show="email.lastName !== ''">
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.lastName}}</div>
+                                    <div class="list-column-description col-1of1 sh3-contact fleft">Last Name</div>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>            
@@ -133,7 +153,7 @@
         </div>
     </div>
 
-    </div>
-</div>
+<!--    </div>
+</div>-->
 </body>
 </html>
