@@ -100,15 +100,23 @@
                                <div class="selection-icon" id="{{entitydetails.schedule_id}}" onclick="selcheckbox(this.id)"><input type="checkbox" id="entityid{{entitydetails.entity_id}}" value="{{entitydetails.entity_id}}" name="entityname" hidden></input></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status === 'Template Saved'"  data-hint="Template Saved" > 
-                                    <img src="images/Icons/templateSaved.svg" class="status-button" />
+                                <div ng-show="entitydetails.entity_type !== master_note">
+                                    <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status === 'Template Saved'"  data-hint="Template Saved" > 
+                                        <img src="images/Icons/templateSaved.svg" class="status-button" />
+                                    </div>
+                                    <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status === 'No Template'"  data-hint="No Template" > 
+                                        <img src="images/Icons/needTemplate.svg" class="status-button"/>
+                                    </div>
+                                    <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status === 'Approved'"  data-hint="Approved" > 
+                                        <img src="images/Icons/ActionApproved.svg" class="status-button"/>
+                                    </div>
                                 </div>
-                                <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status === 'No Template'"  data-hint="No Template" > 
-                                    <img src="images/Icons/needTemplate.svg" class="status-button"/>
+                                <div ng-show="entitydetails.entity_type === master_note">
+                                    <div class="icon-container fleft hint--top" data-hint="Reminder" > 
+                                        <img src="images/Icons/Reminder.svg" class="status-button"/>
+                                    </div>
                                 </div>
-                                <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status === 'Approved'"  data-hint="Approved" > 
-                                    <img src="images/Icons/ActionApproved.svg" class="status-button"/>
-                                </div>
+                                
                                 <div  class="slat-title-container col-1of2 fleft">                                    
                                     <div class="slat-title email-list-slat-title col-1of1 sh1" ng-hide="entitydetails.is_recuring">{{entitydetails.schedule_title}}</div>
                                     <div class="action-list-slat-description col-1of1 sh3" ng-show="entitydetails.user_marketing_program_id > 0">{{entitydetails.marketingName}}</div>
