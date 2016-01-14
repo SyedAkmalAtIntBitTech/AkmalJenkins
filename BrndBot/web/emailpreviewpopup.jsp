@@ -205,9 +205,8 @@
         <div id="emailnotesection">
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="saved-post-header-detail">
+                <div class="saved-post-header-detail" ng-hide="schedule_desc !==''">
                     <div class="h4">Write Notes about this Action</div>
-                    <div class="instruction-text">Text Goes here!</div>
                 </div>
                 <div class="inner-content-detail">
                     <div class="saved-note-detail">
@@ -215,7 +214,7 @@
                         <!--SAVED POST GOES HERE-->
 
                         <div class="notes-container">
-                              <textarea class="notes-container-textarea" id="emailnotes{{schedule_id}}">{{schedule_desc}}</textarea>
+                              <textarea class="notes-container-textarea" id="emailnotes{{schedule_id}}" placeholder="Text Goes Here!">{{schedule_desc}}</textarea>
                         </div>
                     </div>
                 </div>

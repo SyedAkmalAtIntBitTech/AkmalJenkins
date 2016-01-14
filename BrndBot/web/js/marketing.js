@@ -1791,7 +1791,9 @@ function controllerMarketingCampaign($scope, $http) {
                     if(section == getfacebook())
                     {
                         $("#savedpostdiv").hide();
-                        $("#nopostsaveddiv").show();                        
+                        $("#emptynoteheader1").hide(); 
+                        $("#nopostsaveddiv").show();  
+                        $("#emptynoteheader2").show(); 
                     }
                     if(section == gettwitter())
                     {
@@ -1809,7 +1811,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $("#noemailsdiv").show();
                     $("#change").val("1");
                     
-                    //window.open(getHost() + 'marketing.jsp', "_self");
+                    window.open(getHost() + 'marketing.jsp', "_self");
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
