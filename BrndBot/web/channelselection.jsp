@@ -87,22 +87,22 @@
                 <div class="button-row col-1of1">
                     <div class="button-column fleft col-1of10 pushright hint--bottom" ng-show="social_templates != 0"  data-hint="Social" >
                         <a  onclick="selected_media('social')" class="fleft" style="height:100%; width:100%;">
-                            <img src="images/NavIcon_Social-white.svg" id="social" class="big-selection-button" style="cursor:pointer;"/>
+                            <img src="images/bb_channelIcons_Social.svg" id="social" class="big-selection-button" style="cursor:pointer;"/>
                         </a>
                     </div>
                     <div class="button-column fleft col-1of10 pushright hint--bottom" ng-show="email_templates != 0" data-hint="Email" >
                         <a  onclick="selected_media('emailsubject')" class="fleft" style="height:100%; width:100%;">
-                            <img src="images/NavIcon_Email-white.svg" id="email" class="big-selection-button" style="cursor:pointer;"/>
+                            <img src="images/bb_channelIcons_Email.svg" id="email" class="big-selection-button" style="cursor:pointer;"/>
                         </a>
                     </div>
                     <div class="button-column fleft col-1of10 pushright hint--bottom" ng-show="social_templates_print != 0" data-hint="Print">
                         <a  onclick="selected_media('print')" class="fleft" style="height:100%; width:100%;">
-                            <img src="images/NavIcon_Social-white.svg" id="print" class="big-selection-button" style="cursor:pointer;"/>
+                            <img src="images/bb_channelIcons_Print.svg" id="print" class="big-selection-button" style="cursor:pointer;"/>
                         </a>
                     </div>
                     <div class="button-column fleft col-1of10 pushright hint--bottom" ng-show="social_templates_download != 0" data-hint="Download">
                         <a  onclick="selected_media('image')" class="fleft" style="height:100%; width:100%;">
-                            <img src="images/NavIcon_Social-white.svg" id="download" class="big-selection-button" style="cursor:pointer;"/>
+                            <img src="images/bb_channelIcons_imgDownload.svg" id="download" class="big-selection-button" style="cursor:pointer;"/>
                         </a>
                     </div>
                  
