@@ -34,7 +34,7 @@
                             <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Recurring Email Automation Detail</span></div>
                             <div class="top-nav-cta-container">
                                 <div class="approve-button-detail md-button">Pause</div>
-                                <div class="delete-button-detail md-button">Delete Recurring Email</div>
+                                <div class="delete-button-detail md-button" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="deleteSchedule(schedule_id, 'delete', master_email, 'true')">Delete Recurring Email</div>
                             </div>    
                         </div>
                     </div>
@@ -53,75 +53,7 @@
                 <div id="recuringactiondiv">
                     <div class="below-nav-container-saved-post-detail">
                         <div class="inner-content-container-detail">
-<!--                            <div class="saved-post-header-detail">
-                                <div class="h4 ng-hide" ng-show="schedule_desc === ''">Write Notes about this Action</div>                      
-                                <div class="h4" ng-show="schedule_desc !== ''">Notes</div>
-                                <div class="instruction-text" ng-show="schedule_desc !== ''"><p id="emaildescription62" class="ng-binding">{{schedule_desc}}</p></div>
-                            </div>-->
                             <div class="inner-content-detail">
-<!--                                <div class="fields-note-detail5">
-
-                                    SAVED POST GOES HERE
-
-                                    <div class="input-header-actionDetail" style="">
-                                        TITLE
-                                    </div>
-                                    <input type="text" id="recuring_email_title" value="{{schedule_title}}" class="input-field-textfield full"/>
-                                    <input class="inputbox SP1" type="hidden" name="fb_scheduletype" id="fb_scheduletype" value='{{schedule_type}}'/>
-                                    <input class="inputbox SP1" type="hidden" name="fb_scheduleid" id="fb_scheduleid" value='{{schedule_id}}'/>
-                                    <div class="inlineFlex">
-                                        <div class="half"> 
-                                            <div class="input-header-actionDetail" style="">
-                                                Status
-                                            </div>
-                                            <input type="text" id="fbnotemplate" value="{{recuring_template_status}}" class="input-field-textfield width75" readonly/>
-                                        </div>
-                                        <div class="half">
-                                            <div class="input-header-actionDetail" style="">
-                                                Marketing Program
-                                            </div>
-                                            <input type="text" id="Generalid" value="{{program_name}}" class="input-field-textfield width75" readonly/>
-
-                                        </div>
-                                    </div>
-                                    <div class="inlineFlex">
-                                        <div class="half">
-                                            <div class="input-header-actionDetail" style="">
-                                                Date
-                                            </div>
-                                            <input type="hidden" class="textbox" id="emaildays" name="emaildays" value="0"/>
-                                            <input type="text"  readonly  name="datepicker" id="datepicker"  class="input-field-textfield1 width75" value="{{entities_selected_time| date:'MMM dd yyyy'}}" />                                        
-                                            <script>
-                                                var picker = new Pikaday(
-                                                {
-                                                    format: 'MMM DD YYYY',
-                                                    field: document.getElementById('datepicker'),
-                                                    firstDay: 1,
-                                                    minDate: new Date(2000, 0, 1),
-                                                    maxDate: new Date(2050, 12, 31),
-                                                    yearRange: [2000,2050]
-                                                });
-                                            </script>
-                                        </div>
-                                        <div class="half">
-                                            <div class="input-header-actionDetail" style="">
-                                                TIME
-                                            </div>
-                                            <input id="timepicker5" type="text" name="timepicker5" class="timepickertextbox2" value="{{entities_selected_time| date:'h : mm : a'}}"/> 
-                                            <script>
-                                                $('#timepicker5').timepicki({
-                                                    show_meridian:true,
-                                                    min_hour_value:0,
-                                                    max_hour_value:12,
-                                                    step_size_minutes:01,
-                                                    overflow_minutes:true,
-                                                    increase_direction:'up',
-                                                    disable_keyboard_mobile: true
-                                                });
-                                            </script>
-                                        </div>
-                                    </div>
-                                </div>-->
                             <div class="fields-note-detail" >
 
                             <!--SAVED POST GOES HERE-->
@@ -157,9 +89,8 @@
                                 <div class="fleft input-supportText">
                                 days after added to
                             </div>
-                                <div class="fleft input-field-date">
-                                {{entities_list_name}}
-                            </div>
+                            <input class="fleft input-field-date" value="{{entities_list_name}}"/>
+                            
                             <div class="fleft input-supportText">
                                email list.
                             </div>

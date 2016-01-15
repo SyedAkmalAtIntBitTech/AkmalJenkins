@@ -790,7 +790,7 @@ function programactions($scope, $http, $window){
             $(".row").css("display","block");
         });
         $scope.calltoeditrecurring = function(progid,scheduleid){
-            window.open(getHost() + 'emailautomation.jsp?type=template&program_id='+progid+"&entity_id="+scheduleid, "_self");
+            window.open(getHost() + 'emailautomation.jsp?type=edit&program_id='+progid+"&entity_id="+scheduleid, "_self");
         }        
     };
     $scope.checkProgramStatus= function (){
@@ -1240,6 +1240,7 @@ function programactions($scope, $http, $window){
                 $scope.entities_from_name = data.from_name;
                 $scope.entities_reply_to_email_address = data.reply_to_email_address;
                 $scope.entities_list_name = data.email_list_name;
+//                $scope.entities_recurring_list_name=data.recuring_email_email_list_name;
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
@@ -1857,7 +1858,14 @@ function programactions($scope, $http, $window){
                responseMessage = "Selected actions were deleted successfully";
             }
         } else if (type == "delete") {
-            message = "Are you sure you want to delete this Action?";
+            if(isRecuring === "true"){
+                message = "Are you sure! You want to delete this Recurring Email?";
+                requestBody = {"type": "delete",
+                            "schedule_ids": schedules_to_delete, "entity_type": section, 
+                            "isRecuring": isRecuring};
+            responseMessage = "Selected Recurring Email was deleted successfully";
+            }
+            message = "Are you  sure! You want to delete this Action(s)?";
             requestBody = {"type": "delete",
                             "schedule_ids": schedules_to_delete, "entity_type": section, 
                             "isRecuring": isRecuring};
