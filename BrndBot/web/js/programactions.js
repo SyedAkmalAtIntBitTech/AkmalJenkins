@@ -1203,17 +1203,23 @@ function programactions($scope, $http, $window){
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
+//                alert(JSON.stringify(data.recuring_template_status));
                 $scope.entitiesdetails = data;
 //                alert(JSON.stringify(data));
                 if (data.body == undefined) {
                       $("#recuringremovediv").hide();
+                      $("#savedemailsdiv").hide();
+                      $("#noemailsdiv").show();
 //                    $('#mailremovedtemplate6').show();
 //                    $('#mailpreviewdecond5').hide();
 //                    $('.approve').hide();
 //                    $("#email_button_send").val(create_button_title);
                 } else {
+                      
 //                    $('.approve').css("display","inline-flex");
                       $("#recuringremovediv").show();
+                      $("#savedemailsdiv").show();
+                      $("#noemailsdiv").hide();
 //                    $('#mailremovedtemplate6').hide();
 //                    $('#mailpreviewdecond5').show();
 //                    $('.content').show();
@@ -1235,7 +1241,6 @@ function programactions($scope, $http, $window){
 //                $("#recuringemailcontentiframe").append(data.body);
 //                $("#recuringemailcontentiframe").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
                 
-                    $('#recuringemailcontentiframe').contents().find('html').html(data.body);
                 $scope.entities_subject = data.subject;
                 $scope.entities_from_name = data.from_name;
                 $scope.entities_reply_to_email_address = data.reply_to_email_address;
@@ -1252,6 +1257,7 @@ function programactions($scope, $http, $window){
                 $scope.program_name=program_name;
                 $scope.program_id=program_id;
                 $scope.days=days;
+                $('#recuringemailcontentiframe').contents().find('html').html(data.body);
             }).error(function (data) {
                 alert("Request not successful! ");
             });

@@ -1610,8 +1610,18 @@ input-field-container{
     padding-left:0px;
 }
 
-
-
+.col-emaileditor{
+    width:100%;
+    display: inline-flex;
+}
+.col-emaileditordiv{
+    width: 65%;
+    margin-left: -4%;
+}
+.col-templatelist{
+    width: 25%;
+    margin-left: 4%;
+}
 .col-1of10{
     width:10%;
     box-sizing: border-box;

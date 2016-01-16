@@ -213,7 +213,7 @@
                     </div>
                     <div class="bottom-cta-bar5">
                     <div class="bottom-cta-button-container">
-                        <div class="edit-button-detail md-button button-text-1 fleft ">Save Changes</div>
+                        <div class="edit-button-detail md-button button-text-1 fleft">Save Changes</div>
                     </div>
                 </div>
                 </div>

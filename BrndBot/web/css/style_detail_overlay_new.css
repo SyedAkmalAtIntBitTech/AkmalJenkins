@@ -1535,6 +1535,10 @@ input-field-container{
     background-color:#5CC2A5 ;
     color:white  ;
 }
+.paddingperfectbtn{
+    padding:5px 20px 25px 20px !important;
+    margin-top:1%;
+}
 
 .add-action-button:hover{
     background-color:#2BC18F   ;

@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="css/slat.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <link href="css/emailautomationeditor.css" rel="stylesheet" type="text/css"/>
-    <style>.arrow_top,#emlautomeditorcontainer,#emailautomationcontent,#emailautomation{display:none;}</style>
+    <style>.arrow_top,#emlautomeditorcontainer,#emailautomationcontent,#emailautomation,#textdiv,#myModal,#editpreviewtemplatebottom{display:none;}</style>
     <%! 
     String entity_id = "";
     String program_id = "";
@@ -413,6 +413,7 @@
        $("#emailautomationcontent").show();
        $("#emlautomeditorcontainer").hide();
        $("#emailautomation").hide();
+       $("#editpreviewtemplatebottom").hide();
        //                
 //                $.ajax({
 //                    url: getHost() + "getRecuringEntity.do",
@@ -453,6 +454,7 @@
                             $("#emailautomationcontent").hide();
                             $("#emailautomation").show();
                             $("#emlautomeditorcontainer").show();
+                            $("#editpreviewtemplatebottom").show();
                             entity_no_email_template = "false";
                         }else {
                             
@@ -460,6 +462,7 @@
                             $("#emailautomationcontent").show();
                             $("#emlautomeditorcontainer").hide();
                             $("#emailautomation").hide();
+                            $("#editpreviewtemplatebottom").hide();
                         }
                     }, 1000);
                 
@@ -468,6 +471,7 @@
                 $("#emailautomationcontent").show();
                 $("#emlautomeditorcontainer").hide();
                 $("#emailautomation").hide();
+                $("#editpreviewtemplatebottom").hide();
             }
             
             
@@ -669,6 +673,11 @@
 </head>    
 
 <body ng-app ng-controller="emailautomation">
+     <div id="boxes">
+            <div id="dialog" class="window">
+            </div>
+            <div id="mask"></div>
+        </div>
     <!--SideNav-->
     <div class="content-main" >
     <%@include file="navbarv2.jsp" %>
@@ -837,7 +846,8 @@
                <div id="emlautomeditorcontainer" class="page-content-container" ng-init="getEmailTemplates()">
                <!--<div class="col-1of1">-->
                <!--<div class="">-->
-                   <div class="col-7of10">
+                   <div class="col-emaileditor">
+                       <div class="col-emaileditordiv">
                             <style>
                                 #edit{
                                     position: relative;
@@ -852,22 +862,15 @@
                         <div id="editor">
                             <div id='edit' style="margin-top:0px;"></div>
                         </div>
-                   </div>
-               <div class="col-2of10">
-                   dfaf
-               </div>
-                   <div class="col-1of1">
-                       <!--<div class="col-3of4">-->
-                           <div class="btmdiv">
-                               <!--<div class="col-1of1">-->
-                                   <div class="">
+<!--                            <div class="btmdiv">
+                               <div class="col-1of1">
                                        <div class="editemail fontpnr">Edit this Email Automation Action</div>
-                                   </div>   
-                                   <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1">
+                                 
+                                   <div class="col-1of4">
                                        <div class="mobileprev fontpnr" id="iphone" class="img-responsive ptr" onclick="show('iphone');">Mobile Preview</div>
-                                       <!--<p id="button"></p>-->
+                                       <p id="button"></p>
                                    </div>
-                                   <div class="col-lg-1 col-md-1 col-sm-1">
+                                   <div class="col-3of4">
                                        <div class="emledtrsavebtn">
                                            <input class="emailedtrsave fontpns 
                                                   button button--moema 
@@ -876,101 +879,76 @@
                                                   button--size-s" 
                                                   type="button" 
                                                   value="save" 
-                                                  ng-click="addUpdateRecuringAction()">
+                                                  ng-click="addUpdateRecuringAction()"></input>
                                        </div>
                                    </div>
-                               <!--</div>-->
-                           </div>                                
-                       <!--</div>-->
-<!--                   </div> 
-       </div>-->
-       <div class="col-sm-3 col-md-3 col-lg-3">
-           
-           <div class="blockselection" id="templatediv">     
-               <div class="row">
-                   <div class="col-md-12 col-lg-12 col-sm-12">
-                       <div class="selblock fontpnr">Select a Template</div>
-                   </div>
-<!--                        <div class="col-md-6 col-lg-6 col-sm-6">
-                       <div class="addblkdiv"><input class="addblkbtn fontpns " type="button" value="Add Block"></div>
-                   </div>-->
-               </div>
-               <div class="row">
-                   <div class="selblklinediv"><hr class="selblkline"></div>
-               </div>
-               <div class="row">
-                   <div class="col-md-12 col-lg-12 col-sm-12">
-                       <ul id="blklist" class="blocklist fontpnr">
-                           <li ng-repeat="email_template in recuring_email_templates"> 
-                               <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
-                           </li>
-                       </ul>
-<!--                            <ul id="stylelist" class="blocklist fontpnr">
-                           <li ng-repeat="styles in datalistsstyles">
-                               <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" /></div>
-                           </li>
+                               </div>
+                           </div> -->
+                       </div>
+                        <div class="col-templatelist">
+                            <div class="blockselection" id="templatediv">     
+                                    <div class="col-1of1">
+                                        <div class="">
+                                            <div class="selblocknew fontpnr">Select a Template</div>
+                                        </div>
+                                            <div class="selblklinediv"><hr class="selblkline"></div>
+                     <!--                        <div class="col-md-6 col-lg-6 col-sm-6">
+                                            <div class="addblkdiv"><input class="addblkbtn fontpns " type="button" value="Add Block"></div>
+                                        </div>-->
+                                    </div>
+                                    
+                                    
+                                    <div class="col-1of1">
+                                            <ul id="blklist" class="blocklistnew fontpnr">
+                                                <li ng-repeat="email_template in recuring_email_templates"> 
+                                                    <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
+                                                </li>
+                                            </ul>
+                     <!--                            <ul id="stylelist" class="blocklist fontpnr">
+                                                <li ng-repeat="styles in datalistsstyles">
+                                                    <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" /></div>
+                                                </li>
 
-                       </ul>-->
-                   </div>
-               </div>
-           </div>
-       
-           <div class="blockselection" id="textdiv">     
-               <div class="row">
-                   <div class="col-md-12 col-lg-12 col-sm-12">
-                       <div class="selblock fontpnr">Select a Text</div>
-                   </div>
-                <div class="row">
-                   <div class="selblklinediv"><hr class="selblkline"></div>
-                </div>
-                   <div class="col-md-6 col-lg-6 col-sm-6">
-                        <div class="textstyle">To add client name please use these options</div>
-                        <div class="textstyle">Ex: Hi &LT;clientFirstName&GT; </div>
-                        <div class="textstyle">Hi &LT;clientLastName&GT; </div>
-                        <div class="textstyle">Hi &LT;clientFullName&GT; </div>
-                    </div>
-               </div>
+                                            </ul>-->
+                                    </div>
+                                </div>
+                                <div class="blockselection" id="textdiv">     
+                                    <div class="col-1of1">
+                                            <div class="selblock fontpnr">Select a Text</div>
+                                           <div class="selblklinediv"><hr class="selblkline"></div>
+                                     </div>
+                                    <div class="col-1of1">
+                                         <div class="textstyle">To add client name please use these options</div>
+                                         <div class="textstyle">Ex: Hi &LT;clientFirstName&GT; </div>
+                                         <div class="textstyle">Hi &LT;clientLastName&GT; </div>
+                                         <div class="textstyle">Hi &LT;clientFullName&GT; </div>
+                                     </div>
+                                    </div>
+
+                                </div>
+                                <div class="blockstyletab">      
+                                    <ul class="righttabs fontpnr">
+                     <!--                        <li id="templatetab">
+                                            <image src='images/sidebar/Icons_styleButton.svg' class="styleimg"/>
+                                            <p>STYLE</p>
+                                        </li>-->
+                                        <li id="templatetab">
+                                            <image src='images/sidebar/Icons_blockButton.svg' class="blockimg"/>
+                                            <p>TEMPLATE</p>
+                                        </li>
+                                        <li id="texttab">
+                                            <image src='images/sidebar/Icons_editButton_blue_new.svg' class="blockimg"/>
+                                            <p>TEXT</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                        </div>
                
-               <div class="row">
-                   <div class="col-md-12 col-lg-12 col-sm-12">
-<!--                       <ul id="blklist" class="blocklist fontpnr">
-                           <li ng-repeat="email_template in recuring_email_templates"> 
-                               <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
-                           </li>
-                       </ul>-->
-<!--                            <ul id="stylelist" class="blocklist fontpnr">
-                           <li ng-repeat="styles in datalistsstyles">
-                               <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" /></div>
-                           </li>
-
-                       </ul>-->
                    </div>
-               </div>
-           </div>
-           
-       </div>
-       <div class="col-sm-1 col-md-1 col-lg-1">
-           <div class="blockstyletab">      
-               <ul class="righttabs fontpnr">
-<!--                        <li id="templatetab">
-                       <image src='images/sidebar/Icons_styleButton.svg' class="styleimg"/>
-                       <p>STYLE</p>
-                   </li>-->
-                   <li id="templatetab">
-                       <image src='images/sidebar/Icons_blockButton.svg' class="blockimg"/>
-                       <p>TEMPLATE</p>
-                   </li>
-                   <li id="texttab">
-                       <image src='images/sidebar/Icons_editButton_blue_new.svg' class="blockimg"/>
-                       <p>TEXT</p>
-                   </li>
-               </ul>
-           </div>
-       </div>
+              
+       
    </div>
-   </div>
-   </div>
-<!--    <div class="modal fade" id="myModal" role="dialog">
+           <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
        Modal content
@@ -988,9 +966,16 @@
       </div>
       
     </div>
-</div>-->
-           
+</div>
+   </div>
+        <div class="bottom-cta-bar" id="editpreviewtemplatebottom">
+         <div class="bottom-cta-button-container col-inlineflex">
+             <div class="editemail fontpnr">Edit this Email Automation Action</div>   
+             <div class="mobileprev fontpnr" id="iphone" class="img-responsive ptr" onclick="show('iphone');">Mobile Preview</div>
+             <div class="add-action-button md-button button-text-1 paddingperfectbtn" type="button" ng-click="addUpdateRecuringAction()">save</div>
+         </div>
         </div>
+        <!--</div>-->
      <!--</div>-->
 <!--</div>-->
     </body>
