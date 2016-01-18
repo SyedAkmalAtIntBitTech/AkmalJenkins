@@ -106,8 +106,14 @@
                                 <div class="selection-icon" id="{{emailautomation.scheduledEntityListId}}" onclick="selcheckboxrecemail(this.id);setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}');"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}"   value="{{emailautomation.scheduledEntityListId}}" hidden/></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft hint--left" data-hint="Template Saved" ng-show="emailautomation.status !=='No Template'"> 
-                                    <img type="image/svg+xml" src="images/Icons/templateSaved.svg" class="status-button"/>
+                                <div class="icon-container fleft hint--top" ng-show="emailautomation.status === 'Template Saved'"  data-hint="Template Saved" > 
+                                    <img src="images/Icons/templateSaved.svg" class="status-button" />
+                                </div>
+                                <div class="icon-container fleft hint--top" ng-show="emailautomation.status === 'No Template'"  data-hint="No Template" > 
+                                    <img src="images/Icons/needTemplate.svg" class="status-button"/>
+                                </div>
+                                <div class="icon-container fleft hint--top" ng-show="emailautomation.status === 'Approved'"  data-hint="Approved" > 
+                                    <img src="images/Icons/ActionApproved.svg" class="status-button"/>
                                 </div>
                                 <div class="slat-title-container col-1of2 fleft">
                                     <div  class="slat-title email-list-slat-title col-1of1 sh1"></div>
@@ -217,8 +223,14 @@
                                 <!--</div>-->
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft hint--left" data-hint="Template Saved" ng-show="programaction.status !=='No Template'"> 
-                                    <img type="image/svg+xml" src="images/Icons/templateSaved.svg" class="status-button"/>
+                                <div class="icon-container fleft hint--top" ng-show="programaction.status === 'Template Saved'"  data-hint="Template Saved" > 
+                                    <img src="images/Icons/templateSaved.svg" class="status-button" />
+                                </div>
+                                <div class="icon-container fleft hint--top" ng-show="programaction.status === 'No Template'"  data-hint="No Template" > 
+                                    <img src="images/Icons/needTemplate.svg" class="status-button"/>
+                                </div>
+                                <div class="icon-container fleft hint--top" ng-show="programaction.status === 'Approved'"  data-hint="Approved" > 
+                                    <img src="images/Icons/ActionApproved.svg" class="status-button"/>
                                 </div>
                                 <div class="slat-title-container col-1of2 fleft">
                                     <div class="slat-title email-list-slat-title col-1of1 sh1">{{programaction.programTemplateName}}</div>

@@ -1432,6 +1432,28 @@ function programactions($scope, $http, $window){
             sliderDialog = "#facebooksection";
             prevSliderDialog = "#facebooksection";
             $("#facebooksection").show();
+            $("#facebookpostsection").show();
+            if($('#savedpostdiv').is(":visible")){
+                $("#fbpostremove").show();
+            }
+            $("#facebookactionsection").hide();
+            $("#facebooknotesection").hide();
+            $("#fbactionsave").hide();
+            $("#fbnotesave").hide();
+
+            $("#facebookaction").removeClass("top-subnav-link-active-detail");
+            $("#facebookaction a").removeAttr("class");
+            $("#facebooknote").removeClass("top-subnav-link-active-detail");
+            $("#facebooknote a").removeAttr("class");
+            $("#facebookpost").removeClass("top-subnav-link-active-detail");
+            $("#facebookpost a").removeAttr("class");
+
+            $("#facebookpost").addClass("top-subnav-link-active-detail");
+            $("#facebookpost a").addClass("h3-subnav-subnav-active");
+            $("#facebookaction").addClass("top-subnav-links-detail");
+            $("#facebookaction a").addClass("h3-subnav");
+            $("#facebooknote").addClass("top-subnav-links-detail");
+            $("#facebooknote a").addClass("h3-subnav");
             //$("#fade").show();
 //            $("#preview_facebook").show();
 //            $("#edit_facebook").hide();
@@ -1488,6 +1510,28 @@ function programactions($scope, $http, $window){
             $('#slider-button').click();
         }
         else if (entity_type == gettwitter()) {
+            $("#twitterpostsection").show();
+            if( $('#twtsavedpostdiv').css('display') === 'block' ){
+            $("#twtpostremove").show();
+            }
+            $("#twitteractionsection").hide();
+            $("#twitternotesection").hide();
+            $("#twactionsave").hide();
+            $("#twnotesave").hide();
+
+            $("#twitteraction").removeClass("top-subnav-link-active-detail");
+            $("#twitteraction a").removeAttr("class");
+            $("#twitternote").removeClass("top-subnav-link-active-detail");
+            $("#twitternote a").removeAttr("class");
+            $("#twitterpost").removeClass("top-subnav-link-active-detail");
+            $("#twitterpost a").removeAttr("class");
+
+            $("#twitterpost").addClass("top-subnav-link-active-detail");
+            $("#twitterpost a").addClass("h3-subnav-subnav-active");
+            $("#twitteraction").addClass("top-subnav-links-detail");
+            $("#twitteraction a").addClass("h3-subnav");
+            $("#twitternote").addClass("top-subnav-links-detail");
+            $("#twitternote a").addClass("h3-subnav");
             $slider=2;
             sliderDialog = "#twittersection";
             prevSliderDialog = "#twittersection";
@@ -1497,7 +1541,7 @@ function programactions($scope, $http, $window){
 //            $("#preview_twitter").show();
 //            $("#edit_twitter").hide();
 //            $("#edit_twitter_action").hide();
-
+            
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
@@ -1507,6 +1551,8 @@ function programactions($scope, $http, $window){
                     $('#twtsavedpostdiv').hide();
                     $('#twtnopostsaveddiv').show();
                     $('#twtsavedposthead').hide();
+                    $('#twtpostremove').hide();
+                    
 //                    $('#twpreviewremove').hide();
 //                    $('#twremovedtemplate').show();
 //                    $('#twpreviewdecond').hide();
@@ -1653,7 +1699,7 @@ function programactions($scope, $http, $window){
                 $scope.status = data;
                 if (data != "") {
                     alert("Action saved successfully.");
-                    window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
 
                 }
             }).error(function (data, status) {
@@ -1661,6 +1707,59 @@ function programactions($scope, $http, $window){
                 // or server returns response with an error status.
 
                 alert("Request not successful!");
+            });
+
+        }
+    };
+    function validaterecuringemailDescription(schedule_id)
+    {
+        var description = $("#email_description"+schedule_id).val();
+         if (description === "") {
+            alert("Please Enter The Description");
+            $("#email_description"+schedule_id).val().focus();
+            return false;
+        }
+        return true;
+    }
+    $scope.updateActionEmailNote = function (schedule_id) {
+        //var id=$("#emailaction_id").val();
+        //var a= $("#emailnotes"+id).val();
+        //alert(schedule_id);
+        //$("#emailnotes"+id).val(a);
+        var actiontype = getemail();
+        //alert(actiontype);
+//        console.log("action type" + actiontype);
+        var description = $("#email_description"+schedule_id).val();
+        
+//        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
+
+//        console.log("New Epoch: " + myEpoch);
+
+        if (validaterecuringemailDescription(schedule_id)) {
+            var action = {
+                "schedule_id": schedule_id, "type": "updatenotes","actiontype": actiontype,
+                "description": description
+            };
+        
+            $http({
+                method: 'POST',
+                url: getHost() + 'AddAction',
+                headers: {'Content-Type': 'application/json'},
+                data: JSON.stringify(action)
+            }).success(function (data)
+            {
+                $scope.status = data;
+                if (data != "") {
+                    alert("Email Notes saved successfully");
+                    $("#change").val("1");
+//                    $scope.getCampaigns();
+                   // window.open(getHost() + 'marketing.jsp', "_self");
+                }
+            }).error(function (data, status) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+
+                alert("request not succesful");
             });
 
         }
@@ -1716,6 +1815,7 @@ function programactions($scope, $http, $window){
 
         }
     };
+    
     $scope.updateActionTwitter = function () {
         var program=$("#program_id").val();
         var description = $("#twitter_description").val();
@@ -1754,7 +1854,7 @@ function programactions($scope, $http, $window){
                 $scope.status = data;
                 if (data != "") {
                     alert("Action saved successfully.");
-                    window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
 
                 }
             }).error(function (data, status) {
@@ -1766,6 +1866,7 @@ function programactions($scope, $http, $window){
 
         }
     };
+    
     $scope.showEmailList = function () {
 
         var emailids = {"update": "allEmailListNames"};
@@ -1961,7 +2062,7 @@ function programactions($scope, $http, $window){
                 $scope.status = data;
                 if (data != "") {
                     alert("Details saved successfully.");
-                    window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
 
                 }
             }).error(function (data, status) {
@@ -2018,7 +2119,7 @@ function programactions($scope, $http, $window){
             $scope.status = data;
             if (data != "") {
                 alert("Details saved successfully.");
-                window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+                window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
 
             }
         }).error(function (data, status) {
@@ -2076,7 +2177,7 @@ function programactions($scope, $http, $window){
                     $scope.status = data;
                     if (data != "") {
                         alert("Details saved successfully.");
-                        window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+                        window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
 
                     }
                 }).error(function (data, status) {
@@ -2128,7 +2229,7 @@ function programactions($scope, $http, $window){
                     $scope.status = data;
                     if (data != "") {
                         alert("Details saved successfully.");
-                        window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
+                        window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
 
                     }
                 }).error(function (data, status) {

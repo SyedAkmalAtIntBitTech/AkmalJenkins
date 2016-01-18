@@ -124,7 +124,7 @@
                                 <div class="input-header-actionDetail" style="">
                                     TIME
                                 </div>
-                               <input id="timepickeremail" type="text" name="timepickeremail" class="inputtime timepickertextbox width38 " style="width:150px;" value="{{post_time| date:'hh : mm : a'}}"/> 
+                               <input id="timepickeremail" type="text" name="timepickeremail" class="inputtime timepickertextbox width38 " style="width:150px;" value="{{entities_selected_time| date:'hh : mm : a'}}"/> 
                                                         <script src="js/timepicki.js" type="text/javascript"></script>
                                                         <script>
                                                                 $('#timepickeremail').timepicki({
@@ -204,7 +204,7 @@
                         <!--SAVED POST GOES HERE-->
 
                         <div class="notes-container">
-                              <textarea class="notes-container-textarea" id="email_description" >{{schedule_desc}}</textarea>
+                              <textarea class="notes-container-textarea" id="email_description{{schedule_id}}" >{{schedule_desc}}</textarea>
                         </div>
                     </div>
                 </div>
