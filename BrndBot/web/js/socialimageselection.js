@@ -119,7 +119,7 @@
                             alert("Please enter Title for Twitter");
                             return false;
                         }
-                        if($("#link").val()==="")
+                        if($("#Linkurl").val()==="")
                         {
                             alert("Please enter Title for Twitter");
                             return false;
@@ -131,13 +131,13 @@
                         }
                     }
                     
-                    var link = $("#link").val();
+                    var link = $("#Linkurl").val();
                     if (link != undefined){
                         var f = link.startsWith("http");
 
                         if (!f)
                         {
-                            link = "http://" + $("#link").val();
+                            link = "http://" + $("#Linkurl").val();
                         }
                         var url = link;
                         var username = "sandeep264328"; // bit.ly username
@@ -194,12 +194,35 @@
                     var schedule_title = $("#schedule_title").val();
                     var schedule_desc = $("#schedule_desc").val();
                     var programs = $("#programs").val();
-//                        var schedule = $("#schedule_time").val();
                     var facebookac=$("#facebookactions").val();
                     var twitterac=$("#twitteractions").val();
                     var imagetype = $("#gallery").val();
                     var link_description = $("#link_description").val();
+                    var bit_url = "";
+                    var link = $("#Linkurl").val();
+
+                    if (link != undefined){
+                        var f = link.startsWith("http");
+
+                        if (!f)
+                        {
+                            link = "http://" + $("#Linkurl").val();
+                        }
+                        var url = link;
+                        var username = "sandeep264328"; // bit.ly username
+                        var key = "R_63e2f83120b743bc9d9534b841d41be6";
+                    }
                     
+                    $.ajax({
+                        url: "http://api.bit.ly/v3/shorten",
+                        data: {longUrl: url, apiKey: key, login: username},
+                        dataType: "jsonp",
+                        success: function (v)
+                        {
+                            bit_url = v.data.url;
+                            $("#sortLengthurl").val(bit_url);
+                        }                    
+                    });
                     if(programs=== "0"){
                         if(schedule_date==="" && schedule_time==="" && schedule_title==="" && schedule_desc==="")
                         {
@@ -297,7 +320,7 @@
                             }
                         }
                     }
-                   
+                    
                     var image_name = $("#imageToPost").val();
                     var program_id = $("#programs").val();
                     var schedule_id_facebook = "0";
@@ -315,44 +338,16 @@
                         ManagedPage = $("#pagenameSend").val();
                     }
                     
-//                        var dateepoch = Date.parse(schedule);
                     if ((schedule_id_facebook == "0") && (schedule_id_twitter == "0")) {
                         var schedule_date = $("#schedule_social_date").val();
                         var schedule_time = $("#schedule_social_time").val().replace(/ /g,'');  
                         var schedule_title = $("#schedule_title").val();
                         var schedule_desc = $("#schedule_desc").val();
-//                        var schedule = $("#schedule_time").val();
-//                        var dateepoch = Date.parse(schedule);
                         var l=schedule_date.toLocaleString() +" "+schedule_time.toLocaleString();
                         var schedule_time = Date.parse(l);
                         console.log("Epoch: " + schedule_time);
                         var myEpoch = schedule_time;
                         console.log("New Epoch: " + myEpoch);
-//                        var newdate = new Date(dateepoch);
-//
-//                        console.log("new date:" + newdate);
-//                        var schedule_hour = $("#hour").val();
-//                        var schedule_minute = $("#minute").val();
-//                        var schedule_AM = $("#AMPM").val();
-//
-//                        if (schedule_AM == "PM") {
-//                            schedule_hour = parseInt(schedule_hour) + 12;
-//                        }
-//                        newdate.setHours(parseInt(schedule_hour));
-//                        newdate.setMinutes(parseInt(schedule_minute));
-//
-//                        console.log("Value selected from Component: " + newdate);
-//                        var schedule_time = Date.parse(newdate);
-//
-//                        console.log("Epoch: " + schedule_time);
-//
-//                        var dateObj = new Date(schedule_time);
-//                        console.log(dateObj.getTimezoneOffset());
-//
-//                        var tzOffsetInMillis = dateObj.getTimezoneOffset() * 60 * 1000;
-//
-//                        var newEpoch = schedule_time;
-//                        console.log("New Epoch: " + newEpoch);
                         var social_schedule = "";
                         if (isFacebook == "true" && isTwitter == "false") {
                             
@@ -371,7 +366,7 @@
                                     metadata: {
                                         description: '"' + $("#link_description").val() + '"',
                                         post_text: '"' + $("#posttext").val() + '"',
-                                        url: '"' + $("#url").val() + '"',
+                                        url: '"' + $("#Linkurl").val() + '"',
                                         ManagedPage: '"' + ManagedPage + '"',
                                         title:'"' + $("#link_title").val() + '"'
                                     }
@@ -394,7 +389,7 @@
                                     },
                                     metadata: {
                                         text: '"' + $("#twittertext").val() + '"',
-                                        shorturl:'"' + $("#url").val()+'"'
+                                        shorturl:'"' + $("#sortLengthurl").val()+'"'
                                     }
                                 }
                             ];
@@ -428,7 +423,7 @@
                                     metadata: {
                                         description: '"' + $("#link_description").val() + '"',
                                         post_text: '"' + $("#posttext").val() + '"',
-                                        url: '"' + $("#url").val() + '"',
+                                        url: '"' + $("#Linkurl").val() + '"',
                                         ManagedPage: '"' + ManagedPage + '"',
                                         title:'"' + $("#link_title").val() + '"'
                                     }
@@ -447,7 +442,7 @@
                                     },
                                     metadata: {
                                         text: '"' + $("#twittertext").val() + '"',
-                                        shorturl:'"' + $("#url").val()+'"'
+                                        shorturl:'"' + $("#sortLengthurl").val() +'"'
                                     }
                                 }
                             ];
@@ -482,7 +477,7 @@
                                     metadata: {
                                         description: '"' + $("#link_description").val() + '"',
                                         post_text: '"' + $("#posttext").val() + '"',
-                                        url: '"' + $("#url").val() + '"',
+                                        url: '"' + $("#Linkurl").val() + '"',
                                         ManagedPage: '"' + ManagedPage + '"',
                                         title:'"' + $("#link_title").val() + '"'
                                     }
@@ -503,7 +498,7 @@
                                     },
                                     metadata: {
                                         text: '"' + $("#twittertext").val() + '"',
-                                        shorturl:'"' + $("#url").val()+'"'
+                                        shorturl:'"' + $("#sortLengthurl").val() +'"'
                                     }
                                 }
                             ];
@@ -524,9 +519,9 @@
                                     metadata: {
                                         description: '"' + $("#link_description").val() + '"',
                                         post_text: '"' + $("#posttext").val() + '"',
-                                        url: '"' + $("#url").val() + '"',
+                                        url: '"' + $("#Linkurl").val() + '"',
                                         ManagedPage: '"' + ManagedPage + '"',
-                                        title:'"' + $("#link_title").val() + '"'
+                                        title:'"' + $("#sortLengthurl").val() + '"'
                                     }
                                 },
                                 {
@@ -541,7 +536,7 @@
                                     },
                                     metadata: {
                                         text: '"' + $("#twittertext").val() + '"',
-                                        shorturl:'"' + $("#url").val()+'"'
+                                        shorturl:'"' + $("#sortLengthurl").val()+'"'
                                     }
                                 }
                             ];
