@@ -545,6 +545,9 @@ function addDays(theDate, days) {
 }
 var user_selected_date = '';
 function setCurrentDate(selected_date) {
+    
+    $(".delete-button").hide();
+    $("#liPriority").show();
     user_selected_date = selected_date;
     angular.element(document.getElementById('controllerMarketingCampaign')).scope().getCampaigns();
 }

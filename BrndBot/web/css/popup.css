@@ -877,4 +877,8 @@ a#avpw_rghtArrow,#avpw_lftArrow {
     color: #000000;
     width: 38%;
 }
+#endMarketingProgram:hover{
+    color:#ffffff;
+    background-color: #F44E4E;
+}
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/

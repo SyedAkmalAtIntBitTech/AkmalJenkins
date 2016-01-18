@@ -64,7 +64,7 @@
             <input type="hidden" name="program_name2" id="program_name2" value="{{programs.programdetails.programName}}"></input>
             <div class="page-cta-container">
                 <a href="" class="gray-button fleft">
-                    <div class="md-button"  ng-click="endMarketingProgram()"> End Marketing Program</div>    
+                    <div class="md-button"  ng-click="endMarketingProgram()" id="endMarketingProgram"> End Marketing Program</div>    
                 </a>
             </div>
         </div>

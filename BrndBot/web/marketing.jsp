@@ -47,7 +47,7 @@
             <div class="page-title-regular page-title-font">Your Plan</div>
             <div class="page-cta-container">
                 <a href="" class="delete-button button fleft">
-                    <div class=" md-button" ng-click="deleteSchedule('0','deleteMultiple')">Delete Action</div>    
+                    <div class=" md-button" ng-click="deleteSchedule('0','deleteMultiple')" id="deleteactionbutton">Delete Action</div>    
                 </a>
                 <a href="javascript:void(0)">
                     <div id="liPriority" ng-click="ShowAddAction()" class="add-action-button md-button button-text-1"> Add Action</div>    
