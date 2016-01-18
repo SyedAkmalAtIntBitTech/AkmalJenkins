@@ -1115,27 +1115,26 @@ function controllerMarketingCampaign($scope, $http) {
             $slider=2;
             sliderDialog = "#emailsection";
             
-            $("#emailsection").show();
-            $("#emailactionsection").show();
-            $("#emailactionsave").show();
-            $("#emailpostsection").hide();
+            $("#emailpostsection").show();
+            $("#emailpostremove").show();
+            $("#emailactionsection").hide();
             $("#emailnotesection").hide();
-            $("#emailpostremove").hide();
+            $("#emailactionsave").hide();
             $("#emailnotesave").hide();
-            
-            $("#emailaction").removeClass("top-subnav-link-active-detail");
-            $("#emailaction a").removeAttr("class");
-            $("#emailnote").removeClass("top-subnav-link-active-detail");
-            $("#emailnote a").removeAttr("class");
-            $("#emailpost").removeClass("top-subnav-link-active-detail");
-            $("#emailpost a").removeAttr("class");
 
-            $("#emailaction").addClass("top-subnav-link-active-detail");
-            $("#emailaction a").addClass("h3-subnav-subnav-active");
-            $("#emailpost").addClass("top-subnav-links-detail");
-            $("#emailpost a").addClass("h3-subnav");
-            $("#emailnote").addClass("top-subnav-links-detail");
-            $("#emailnote a").addClass("h3-subnav");
+            $("#emailaction1").removeClass("top-subnav-link-active-detail");
+            $("#emailaction1 a").removeAttr("class");
+            $("#emailnote1").removeClass("top-subnav-link-active-detail");
+            $("#emailnote1 a").removeAttr("class");
+            $("#emailpost1").removeClass("top-subnav-link-active-detail");
+            $("#emailpost1 a").removeAttr("class");
+
+            $("#emailpost1").addClass("top-subnav-link-active-detail");
+            $("#emailpost1 a").addClass("h3-subnav-subnav-active");
+            $("#emailaction1").addClass("top-subnav-links-detail");
+            $("#emailaction1 a").addClass("h3-subnav");
+            $("#emailnote1").addClass("top-subnav-links-detail");
+            $("#emailnote1 a").addClass("h3-subnav");
             
             $(".time_pick").width('100%');
             
@@ -1217,19 +1216,19 @@ function controllerMarketingCampaign($scope, $http) {
             $("#fbpostremove").hide();
             $("#fbnotesave").hide();
             
-            $("#facebookaction").removeClass("top-subnav-link-active-detail");
-            $("#facebookaction a").removeAttr("class");
-            $("#facebooknote").removeClass("top-subnav-link-active-detail");
-            $("#facebooknote a").removeAttr("class");
-            $("#facebookpost").removeClass("top-subnav-link-active-detail");
-            $("#facebookpost a").removeAttr("class");
+            $("#facebookaction1").removeClass("top-subnav-link-active-detail");
+            $("#facebookaction1 a").removeAttr("class");
+            $("#facebooknote1").removeClass("top-subnav-link-active-detail");
+            $("#facebooknote1 a").removeAttr("class");
+            $("#facebookpost1").removeClass("top-subnav-link-active-detail");
+            $("#facebookpost1 a").removeAttr("class");
 
-            $("#facebookaction").addClass("top-subnav-link-active-detail");
-            $("#facebookaction a").addClass("h3-subnav-subnav-active");
-            $("#facebookpost").addClass("top-subnav-links-detail");
-            $("#facebookpost a").addClass("h3-subnav");
-            $("#facebooknote").addClass("top-subnav-links-detail");
-            $("#facebooknote a").addClass("h3-subnav");
+            $("#facebookaction1").addClass("top-subnav-link-active-detail");
+            $("#facebookaction1 a").addClass("h3-subnav-subnav-active");
+            $("#facebookpost1").addClass("top-subnav-links-detail");
+            $("#facebookpost1 a").addClass("h3-subnav");
+            $("#facebooknote1").addClass("top-subnav-links-detail");
+            $("#facebooknote1 a").addClass("h3-subnav");
             
             //$('#fbtopnav').css("float","left");
             //$('#fbtopnavdetails').show();
@@ -1312,19 +1311,19 @@ function controllerMarketingCampaign($scope, $http) {
             $("#twtpostremove").hide();
             $("#twnotesave").hide();
             
-            $("#twitteraction").removeClass("top-subnav-link-active-detail");
-            $("#twitteraction a").removeAttr("class");
-            $("#twitternote").removeClass("top-subnav-link-active-detail");
-            $("#twitternote a").removeAttr("class");
-            $("#twitterpost").removeClass("top-subnav-link-active-detail");
-            $("#twitterpost a").removeAttr("class");
+            $("#twitteraction1").removeClass("top-subnav-link-active-detail");
+            $("#twitteraction1 a").removeAttr("class");
+            $("#twitternote1").removeClass("top-subnav-link-active-detail");
+            $("#twitternote1 a").removeAttr("class");
+            $("#twitterpost1").removeClass("top-subnav-link-active-detail");
+            $("#twitterpost1 a").removeAttr("class");
 
-            $("#twitteraction").addClass("top-subnav-link-active-detail");
-            $("#twitteraction a").addClass("h3-subnav-subnav-active");
-            $("#twitternote").addClass("top-subnav-links-detail");
-            $("#twitternote a").addClass("h3-subnav");
-            $("#twitterpost").addClass("top-subnav-links-detail");
-            $("#twittepost a").addClass("h3-subnav"); 
+            $("#twitteraction1").addClass("top-subnav-link-active-detail");
+            $("#twitteraction1 a").addClass("h3-subnav-subnav-active");
+            $("#twitternote1").addClass("top-subnav-links-detail");
+            $("#twitternote1 a").addClass("h3-subnav");
+            $("#twitterpost1").addClass("top-subnav-links-detail");
+            $("#twittepost1 a").addClass("h3-subnav"); 
             
             prevSliderDialog = "#twittersection";
             $(".time_pick").width('100%');
@@ -1510,7 +1509,6 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.updateActionEmailNote = function (schedule_id) {
         var id=$("#emailaction_id").val();
         var a= $("#emailnotes"+id).val();
-        alert(a);
         $("#emailnotes"+id).val(a);
         var actiontype = getfacebook();
         //alert(actiontype);
@@ -1524,7 +1522,7 @@ function controllerMarketingCampaign($scope, $http) {
 
         if (validateemailDescription()) {
             var action = {
-                "schedule_id": schedule_id, "type": "updatenotes","actiontype": actiontype,
+                "schedule_id": schedule_id, "type": "updatenotesyourplan","actiontype": actiontype,
                 "description": description
             };
         
@@ -1607,15 +1605,15 @@ function controllerMarketingCampaign($scope, $http) {
     };
     $scope.updateActionFacebookNote = function () {
         
-        var actiontype = $("#fb_scheduletype").val();
+        var actiontype = getfacebook();
         var schedule_id = $("#fb_scheduleid").val();
         var description = $("#fbnote"+schedule_id).val();
 //        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
 
 //        console.log("New Epoch: " + myEpoch);
-
+        
             var action = {
-                "schedule_id": schedule_id, "type": "updatenotes","actiontype": actiontype,
+                "schedule_id": schedule_id, "type": "updatenotesyourplan","actiontype": actiontype,
                 "description": description
             };
         
@@ -1708,7 +1706,7 @@ function controllerMarketingCampaign($scope, $http) {
 
         if (validatetwitteraction()) {
             var action = {
-                "schedule_id": schedule_id, "type": "updatenotes",
+                "schedule_id": schedule_id, "type": "updatenotesyourplan",
                 "actiontype": actiontype,"description": description
             };
             $http({

@@ -59,10 +59,13 @@ function fun(type,email,id,fname,lname)
 }
 function getImageId(idname)
     {
+       
         var res = idname.split("-");
         var id=res[0];
         var imagename=res[1];
         var userid=res[2];
+        var imageId=id+userid+"images";
+         alert($("#"+imageId).width());
         imagename=imagename+"&user_id="+userid;
         $("#addimage").show();
         $(".imageGallery-card >div >div").css("color", "#5F6775");
@@ -409,6 +412,110 @@ $(document).ready(function ()
         $("#facebookaction a").addClass("h3-subnav");
         
     });
+    
+    $("#facebookpost1").click(function(){
+        $("#facebookpostsection").show();
+        if($('#savedpostdiv').is(":visible")){
+            $("#fbpostremove").show();
+        }
+        $("#facebookactionsection").hide();
+        $("#facebooknotesection").hide();
+        $("#fbactionsave").hide();
+        $("#fbnotesave").hide();
+        
+        $("#facebookaction1").removeClass("top-subnav-link-active-detail");
+        $("#facebookaction1 a").removeAttr("class");
+        $("#facebooknote1").removeClass("top-subnav-link-active-detail");
+        $("#facebooknote1 a").removeAttr("class");
+        $("#facebookpost1").removeClass("top-subnav-link-active-detail");
+        $("#facebookpost1 a").removeAttr("class");
+        
+        $("#facebookpost1").addClass("top-subnav-link-active-detail");
+        $("#facebookpost1 a").addClass("h3-subnav-subnav-active");
+        $("#facebookaction1").addClass("top-subnav-links-detail");
+        $("#facebookaction1 a").addClass("h3-subnav");
+        $("#facebooknote1").addClass("top-subnav-links-detail");
+        $("#facebooknote1 a").addClass("h3-subnav");
+        
+    });
+    $("#facebookaction1").click(function(){        
+        var fb_scheduleid=$("#fb_scheduleid").val();
+        var change=$("#change").val();
+        if(change === "1")
+        {
+            var note=$("#fbnote"+fb_scheduleid).val();
+            $("#fbdescription").text(note);
+            $("#emptynoteheader").css("display","none");
+            $("#notesavedheader").css("display","block");
+            //$("#change").val("0");
+        }
+//        $("#fbdescription").show();
+////         var desc=$("#fbnote").val();
+////         if(desc !== ''){alert(desc);$("#notesavedheader").css("display","block");$("#emptynoteheader").css("display","none");$("#fbdescription").show();}
+////         if(desc === ''){alert(desc);$("#emptynoteheader").css("display","block");$("#notesavedheader").css("display","none");}
+//        if(change === "1")
+//        {
+//            var note=$("#fbnote").val();
+//            if(note === ''){
+//                
+//                $("#fbdescription").text(note);
+//                $("#notesavedheader").css("display","none");
+//                $("#emptynoteheader").css("display","block");
+//            }
+//            if(note !== '')
+//            {
+//                $("#fbdescription").text(note);
+//                $("#emptynoteheader").css("display","none");
+//                $("#notesavedheader").css("display","block");
+//                
+//            }
+//            $("#change").val("0");
+//        }
+        $("#facebookactionsection").show();
+        $("#fbactionsave").show();
+        $("#facebookpostsection").hide();
+        $("#facebooknotesection").hide();
+        $("#fbpostremove").hide();
+        $("#fbnotesave").hide();
+        
+        $("#facebookaction1").removeClass("top-subnav-link-active-detail");
+        $("#facebookaction1 a").removeAttr("class");
+        $("#facebooknote1").removeClass("top-subnav-link-active-detail");
+        $("#facebooknote1 a").removeAttr("class");
+        $("#facebookpost1").removeClass("top-subnav-link-active-detail");
+        $("#facebookpost1 a").removeAttr("class");
+        
+        $("#facebookaction1").addClass("top-subnav-link-active-detail");
+        $("#facebookaction1 a").addClass("h3-subnav-subnav-active");
+        $("#facebookpost1").addClass("top-subnav-links-detail");
+        $("#facebookpost1 a").addClass("h3-subnav");
+        $("#facebooknote1").addClass("top-subnav-links-detail");
+        $("#facebooknote1 a").addClass("h3-subnav");
+        
+    });
+    $("#facebooknote1").click(function(){
+        $("#facebooknotesection").show();
+        $("#fbnotesave").show();
+        $("#facebookpostsection").hide();
+        $("#facebookactionsection").hide();
+        $("#fbpostremove").hide();
+        $("#fbactionsave").hide();
+        
+        $("#facebookaction1").removeClass("top-subnav-link-active-detail");
+        $("#facebookaction1 a").removeAttr("class");
+        $("#facebooknote1").removeClass("top-subnav-link-active-detail");
+        $("#facebooknote1 a").removeAttr("class");
+        $("#facebookpost1").removeClass("top-subnav-link-active-detail");
+        $("#facebookpost1 a").removeAttr("class");
+        
+        $("#facebooknote1").addClass("top-subnav-link-active-detail");
+        $("#facebooknote1 a").addClass("h3-subnav-subnav-active");
+        $("#facebookpost1").addClass("top-subnav-links-detail");
+        $("#facebookpost1 a").addClass("h3-subnav");
+        $("#facebookaction1").addClass("top-subnav-links-detail");
+        $("#facebookaction1 a").addClass("h3-subnav");
+        
+    });
    
     /*..................................... twitter popup navbar .................... */ 
     $("#twitterpost").click(function(){
@@ -470,9 +577,6 @@ $(document).ready(function ()
             //$("#change").val("0");
         }
           
-        
-        
-        
         $("#twitteractionsection").show();
         $("#twactionsave").show();
         $("#twitternotesection").hide();
@@ -495,6 +599,86 @@ $(document).ready(function ()
         $("#twitterpost a").addClass("h3-subnav"); 
     });
     
+    $("#twitteraction1").click(function(){
+        var change=$("#change").val();
+        var schedule_id=$("#twitter_scheduleid").val();
+        if(change === "1")
+        {
+            var note=$("#twtnote").val();
+            $("#twtnotetext").text(note);
+            $("#twtnoteheader").css("display","none");
+            $("#twtemptyheader").css("display","block");
+            //$("#change").val("0");
+        }
+          
+        $("#twitteractionsection").show();
+        $("#twactionsave").show();
+        $("#twitternotesection").hide();
+        $("#twitterpostsection").hide();
+        $("#twnotesave").hide();
+        $("#twtpostremove").hide();
+        
+        $("#twitteraction1").removeClass("top-subnav-link-active-detail");
+        $("#twitteraction1 a").removeAttr("class");
+        $("#twitternote1").removeClass("top-subnav-link-active-detail");
+        $("#twitternote1 a").removeAttr("class");
+        $("#twitterpost1").removeClass("top-subnav-link-active-detail");
+        $("#twitterpost1 a").removeAttr("class");
+        
+        $("#twitteraction1").addClass("top-subnav-link-active-detail");
+        $("#twitteraction1 a").addClass("h3-subnav-subnav-active");
+        $("#twitternote1").addClass("top-subnav-links-detail");
+        $("#twitternote1 a").addClass("h3-subnav");
+        $("#twitterpost1").addClass("top-subnav-links-detail");
+        $("#twitterpost1 a").addClass("h3-subnav"); 
+    });
+    $("#twitterpost1").click(function(){
+
+        $("#twitterpostsection").show();
+        if( $('#twtsavedpostdiv').css('display') === 'block' ){
+        $("#twtpostremove").show();
+        }
+        $("#twitteractionsection").hide();
+        $("#twitternotesection").hide();
+        $("#twactionsave").hide();
+        $("#twnotesave").hide();
+        
+        $("#twitteraction1").removeClass("top-subnav-link-active-detail");
+        $("#twitteraction1 a").removeAttr("class");
+        $("#twitternote1").removeClass("top-subnav-link-active-detail");
+        $("#twitternote1 a").removeAttr("class");
+        $("#twitterpost1").removeClass("top-subnav-link-active-detail");
+        $("#twitterpost1 a").removeAttr("class");
+        
+        $("#twitterpost1").addClass("top-subnav-link-active-detail");
+        $("#twitterpost1 a").addClass("h3-subnav-subnav-active");
+        $("#twitteraction1").addClass("top-subnav-links-detail");
+        $("#twitteraction1 a").addClass("h3-subnav");
+        $("#twitternote1").addClass("top-subnav-links-detail");
+        $("#twitternote1 a").addClass("h3-subnav");
+    });
+    $("#twitternote1").click(function(){
+        $("#twitternotesection").show();
+        $("#twnotesave").show();
+        $("#twitteractionsection").hide();
+        $("#twitterpostsection").hide();
+        $("#twactionsave").hide();
+        $("#twtpostremove").hide();
+        
+        $("#twitteraction1").removeClass("top-subnav-link-active-detail");
+        $("#twitteraction1 a").removeAttr("class");
+        $("#twitternote1").removeClass("top-subnav-link-active-detail");
+        $("#twitternote1 a").removeAttr("class");
+        $("#twitterpost1").removeClass("top-subnav-link-active-detail");
+        $("#twitterpost1 a").removeAttr("class");
+        
+        $("#twitternote1").addClass("top-subnav-link-active-detail");
+        $("#twitternote1 a").addClass("h3-subnav-subnav-active");
+        $("#twitteraction1").addClass("top-subnav-links-detail");
+        $("#twitteraction1 a").addClass("h3-subnav");
+        $("#twitterpost1").addClass("top-subnav-links-detail");
+        $("#twitterpost1 a").addClass("h3-subnav");
+    });
     /*..................................... email popup navbar .................... */ 
     $("#emailpost").click(function(){
         $("#emailpostsection").show();
@@ -576,6 +760,85 @@ $(document).ready(function ()
         $("#emailpost a").addClass("h3-subnav"); 
     });
     
+    $("#emailpost1").click(function(){
+        $("#emailpostsection").show();
+        $("#emailpostremove").show();
+        $("#emailactionsection").hide();
+        $("#emailnotesection").hide();
+        $("#emailactionsave").hide();
+        $("#emailnotesave").hide();
+        
+        $("#emailaction1").removeClass("top-subnav-link-active-detail");
+        $("#emailaction1 a").removeAttr("class");
+        $("#emailnote1").removeClass("top-subnav-link-active-detail");
+        $("#emailnote1 a").removeAttr("class");
+        $("#emailpost1").removeClass("top-subnav-link-active-detail");
+        $("#emailpost1 a").removeAttr("class");
+        
+        $("#emailpost1").addClass("top-subnav-link-active-detail");
+        $("#emailpost1 a").addClass("h3-subnav-subnav-active");
+        $("#emailaction1").addClass("top-subnav-links-detail");
+        $("#emailaction1 a").addClass("h3-subnav");
+        $("#emailnote1").addClass("top-subnav-links-detail");
+        $("#emailnote1 a").addClass("h3-subnav");
+    });
+    $("#emailnote1").click(function(){
+        var id=$("#emailaction_id").val();
+        var note=$("#emailnotes"+id).val();
+        $("#emaildescription"+id).html(note);
+        $("#emailnotesection").show();
+        $("#emailnotesave").show();
+        $("#emailactionsection").hide();
+        $("#emailpostsection").hide();
+        $("#emailactionsave").hide();
+        $("#emailpostremove").hide();
+        
+        $("#emailaction1").removeClass("top-subnav-link-active-detail");
+        $("#emailaction1 a").removeAttr("class");
+        $("#emailnote1").removeClass("top-subnav-link-active-detail");
+        $("#emailnote1 a").removeAttr("class");
+        $("#emailpost1").removeClass("top-subnav-link-active-detail");
+        $("#emailpost1 a").removeAttr("class");
+        
+        $("#emailnote1").addClass("top-subnav-link-active-detail");
+        $("#emailnote1 a").addClass("h3-subnav-subnav-active");
+        $("#emailaction1").addClass("top-subnav-links-detail");
+        $("#emailaction1 a").addClass("h3-subnav");
+        $("#emailpost1").addClass("top-subnav-links-detail");
+        $("#emailpost1 a").addClass("h3-subnav");
+    });
+    $("#emailaction1").click(function(){
+        var change=$("#change").val();
+        var id=$("#email_scheduleid").val();
+        
+        //alert(id);
+        if(change === "1")
+        {
+            var note=$("#emailnotes"+id).val();
+            $("#emaildescription"+id).html(note);
+            //$("#change").val("0");
+        }
+        $("#emailactionsection").show();
+        $("#emailactionsave").show();
+        $("#emailnotesection").hide();
+        $("#emailpostsection").hide();
+        $("#emailnotesave").hide();
+        $("#emailpostremove").hide();
+        
+        $("#emailaction1").removeClass("top-subnav-link-active-detail");
+        $("#emailaction1 a").removeAttr("class");
+        $("#emailnote1").removeClass("top-subnav-link-active-detail");
+        $("#emailnote1 a").removeAttr("class");
+        $("#emailpost1").removeClass("top-subnav-link-active-detail");
+        $("#emailpost1 a").removeAttr("class");
+        
+        $("#emailaction1").addClass("top-subnav-link-active-detail");
+        $("#emailaction1 a").addClass("h3-subnav-subnav-active");
+        $("#emailnote1").addClass("top-subnav-links-detail");
+        $("#emailnote1 a").addClass("h3-subnav");
+        $("#emailpost1").addClass("top-subnav-links-detail");
+        $("#emailpost1 a").addClass("h3-subnav"); 
+    });
     
   
          

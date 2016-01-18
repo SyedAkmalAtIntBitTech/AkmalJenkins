@@ -59,9 +59,9 @@
             <div class="top-subnav-detail" id="fbtopsubnav">
                 <div class="top-subnav-tabs-detail">
                      <ul class="top-subnav-nav-elements-detail">
-                        <li class="top-subnav-links-detail top-subnav-link-active-detail" id="facebookaction"> <a class="h3-subnav-subnav-active">Action Details</a></li>
-                        <li class="top-subnav-links-detail" id="facebookpost"> <a class="h3-subnav" >Saved Post</a></li>
-                        <li class="top-subnav-links-detail  top-subnav-links-detail-last" id="facebooknote"> <a class="h3-subnav" >Notes</a></li>
+                        <li class="top-subnav-links-detail top-subnav-link-active-detail" id="facebookaction1"> <a class="h3-subnav-subnav-active">Action Details</a></li>
+                        <li class="top-subnav-links-detail" id="facebookpost1"> <a class="h3-subnav" >Saved Post</a></li>
+                        <li class="top-subnav-links-detail  top-subnav-links-detail-last" id="facebooknote1"> <a class="h3-subnav" >Notes</a></li>
                     </ul>
                 </div>
             </div>

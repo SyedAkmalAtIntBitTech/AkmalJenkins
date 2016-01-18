@@ -43,9 +43,9 @@
                 <div class="top-subnav-detail" id="twtopsubnav">
                     <div class="top-subnav-tabs-detail">
                          <ul class="top-subnav-nav-elements-detail">
-                            <li class="top-subnav-links-detail top-subnav-link-active-detail" id="twitteraction"> <a class="h3-subnav-subnav-active">Action Details</a></li>
-                            <li class="top-subnav-links-detail" id="twitterpost"> <a class="h3-subnav">Saved Post</a></li>
-                            <li class="top-subnav-links-detail  top-subnav-links-detail-last" id="twitternote"> <a class="h3-subnav">Notes</a></li>
+                            <li class="top-subnav-links-detail top-subnav-link-active-detail" id="twitteraction1"> <a class="h3-subnav-subnav-active">Action Details</a></li>
+                            <li class="top-subnav-links-detail" id="twitterpost1"> <a class="h3-subnav">Saved Post</a></li>
+                            <li class="top-subnav-links-detail  top-subnav-links-detail-last" id="twitternote1"> <a class="h3-subnav">Notes</a></li>
                         </ul>
                     </div>
                 </div>

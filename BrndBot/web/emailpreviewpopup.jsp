@@ -40,13 +40,13 @@
             <div class="top-subnav-detail" id="emailtopsubnav">
                 <div class="top-subnav-tabs-detail">
                      <ul class="top-subnav-nav-elements-detail">
-                        <li class="top-subnav-links-detail top-subnav-link-active-detail" id="emailaction" val="{{schedule_id}}"> 
+                        <li class="top-subnav-links-detail top-subnav-link-active-detail" id="emailaction1" val="{{schedule_id}}"> 
                             <input type="hidden" id="emailaction_id" value="{{schedule_id}}"></input>
 <!--                            <input type="hidden" id="emaidesc_value" value="{{schedule_desc}}"></input>-->
                             <a class="h3-subnav-subnav-active">Action Details</a>
                         </li>
-                        <li class="top-subnav-links-detail" id="emailpost"> <a class="h3-subnav">Saved Email</a></li>
-                        <li class="top-subnav-links-detail  top-subnav-links-detail-last" id="emailnote"> <a class="h3-subnav">Notes</a></li>
+                        <li class="top-subnav-links-detail" id="emailpost1"> <a class="h3-subnav">Saved Email</a></li>
+                        <li class="top-subnav-links-detail  top-subnav-links-detail-last" id="emailnote1"> <a class="h3-subnav">Notes</a></li>
                     </ul>
                 </div>
             </div>
