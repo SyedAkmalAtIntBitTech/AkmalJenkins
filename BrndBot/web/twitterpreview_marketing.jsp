@@ -76,8 +76,7 @@
                                     <div class="input-header-actionDetail" style="">
                                         Status
                                     </div>
-                                    <input type="text" id="twnotemplate" value="No Template" class="input-field-textfield width75  " readonly/>
-                                    <input type="text" id="twtemplatesaved" value="Template Saved" class="input-field-textfield width75 " readonly/>
+                                    <input type="text" id="twittertemplatestatus" value="{{twitter_template_status}}" class="input-field-textfield width75  " readonly/>
                                 </div>
                                 <div class="half">
                                     <div class="input-header-actionDetail" style="">
@@ -104,18 +103,18 @@
                             <div class="inlineFlex">
                             <div class="half">
                                 <div >
-                                     <div class="input-header-actionDetail " >
-                                    DAY
+                                    <div class="input-header-actionDetail " >
+                                        DAY
+                                    </div>
+                                    <input type="hidden" readonly  name="tedatatime" id="twdatatime"  class="inputdate MH1 ptr" value="Sun Jan 01 1970">                                        
+                                    <input type="text" name="datepickertwitter1" id="twtdays"  class="input-field-textfield width75" value="{{days}}"/> 
                                 </div>
-                                <input type="text" readonly   name="datepickertwitter" id="datepickertwitter1"  class="input-field-textfield width75" value="{{entities_selected_date| date:'MMM dd yyyy'}}"/> 
-                                                                                  
-                               </div>
                             </div>
                             <div class="half">
                                 <div class="input-header-actionDetail" style="">
                                     TIME
                                 </div>
-                                <input id="timepickertwitter" type="text" name="timepickertwitter" class="input-field-textfield twitertimepickerwid" value="{{post_time| date:'hh:mm a'}}"/> 
+                                <input id="timepickertwitter" type="text" name="timepickertwitter" class="input-field-textfield twitertimepickerwid" value="{{post_time| date:'hh:mm:a'}}"/> 
                                 <script>
                                     $('#timepickertwitter').timepicki({
                                         show_meridian:true,
@@ -199,7 +198,7 @@
                             <!--SAVED POST GOES HERE-->
 
                             <div class="notes-container">
-                                <textarea class="notes-container-textarea" id="twtnote">{{schedule_desc}}</textarea>
+                                <textarea class="notes-container-textarea" id="twitternote{{schedule_id}}">{{schedule_desc}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -223,7 +222,7 @@
 
             <div class="" id="twnotesave">
             <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionTwitterNote()">Save Notes</div>
+                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionTwitterNote(schedule_id)">Save Notes</div>
             </div>
         </div>
         

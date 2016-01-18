@@ -1602,7 +1602,6 @@ function controllerMarketingCampaign($scope, $http) {
 
         }
     };
-    
     $scope.updateActionFacebookNote = function () {
         
         var actiontype = $("#fb_scheduletype").val();
@@ -1639,7 +1638,6 @@ function controllerMarketingCampaign($scope, $http) {
             });
 
     };
-    
     
     $scope.updateActionTwitter = function () {
 

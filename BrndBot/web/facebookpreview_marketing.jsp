@@ -128,6 +128,7 @@
                                 <div class="input-header-actionDetail half" style="">
                                    Day
                                 </div>
+                                <input type="hidden" readonly  name="fbdatetime" id="fbdatetime"  class="inputdate MH1 ptr" value="Sun Jan 01 1970">                                        
                                 <input type="text" class="input-field-textfield width75"  id="fbdays" name="fbdays" value="{{days}}"/>
                             </div>
 
@@ -232,7 +233,7 @@
                         <!--SAVED POST GOES HERE-->
 
                         <div class="notes-container">
-                            <textarea class="notes-container-textarea" name="fb_description" id="fb_description">{{schedule_desc}}</textarea>
+                            <textarea class="notes-container-textarea" name="fb_description" id="fb_description{{schedule_id}}">{{schedule_desc}}</textarea>
                         </div>
                     </div>
                 </div>

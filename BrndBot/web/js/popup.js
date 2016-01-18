@@ -336,12 +336,11 @@ $(document).ready(function ()
         var change=$("#change").val();
         if(change === "1")
         {
-            var note=$("#fbnote"+fb_scheduleid).val();
+            var note=$("#fb_description"+fb_scheduleid).val();
             $("#fbdescription").text(note);
             $("#emptynoteheader").css("display","none");
             $("#notesavedheader").css("display","block");
-      
-            $("#change").val("0");
+            //$("#change").val("0");
         }
 //        $("#fbdescription").show();
 ////         var desc=$("#fbnote").val();
@@ -461,14 +460,14 @@ $(document).ready(function ()
     });
     $("#twitteraction").click(function(){
         var change=$("#change").val();
+        var schedule_id=$("#twitter_scheduleid").val();
         if(change === "1")
         {
-            var note=$("#twtnote").val();
+            var note=$("#twitternote"+schedule_id).val();
             $("#twtnotetext").text(note);
             $("#twtnoteheader").css("display","none");
             $("#twtemptyheader").css("display","block");
-      
-            $("#change").val("0");
+            //$("#change").val("0");
         }
           
         
@@ -546,14 +545,14 @@ $(document).ready(function ()
     });
     $("#emailaction").click(function(){
         var change=$("#change").val();
-        var id=$("#emailaction_id").val();
+        var id=$("#scheduleId").val();
         
         //alert(id);
         if(change === "1")
         {
-            var note=$("#emailnotes"+id).val();
+            var note=$("#email_description"+id).val();
             $("#emaildescription"+id).html(note);
-            $("#change").val("0");
+            //$("#change").val("0");
         }
         $("#emailactionsection").show();
         $("#emailactionsave").show();
