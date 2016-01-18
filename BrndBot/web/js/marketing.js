@@ -545,6 +545,9 @@ function addDays(theDate, days) {
 }
 var user_selected_date = '';
 function setCurrentDate(selected_date) {
+    
+    $(".delete-button").hide();
+    $("#liPriority").show();
     user_selected_date = selected_date;
     angular.element(document.getElementById('controllerMarketingCampaign')).scope().getCampaigns();
 }
@@ -1602,7 +1605,6 @@ function controllerMarketingCampaign($scope, $http) {
 
         }
     };
-    
     $scope.updateActionFacebookNote = function () {
         
         var actiontype = $("#fb_scheduletype").val();
@@ -1639,7 +1641,6 @@ function controllerMarketingCampaign($scope, $http) {
             });
 
     };
-    
     
     $scope.updateActionTwitter = function () {
 

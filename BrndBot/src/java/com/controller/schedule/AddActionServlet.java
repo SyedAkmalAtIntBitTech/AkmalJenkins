@@ -122,9 +122,10 @@ public class AddActionServlet extends HttpServlet {
 //                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, "Log while updating the Actions");
             }
             else if (type.equalsIgnoreCase("updatenotes")){
-                String scheduleID = (String)requestBodyMap.get("schedule_id");
+                double scheduleID1 = (double)requestBodyMap.get("schedule_id");
+                int scheduleID=(int)scheduleID1;
                 try{
-                    int scheduleId = ScheduleDAO.updateDescriptionScheduledEntity(Integer.parseInt(scheduleID),
+                    int scheduleId = ScheduleDAO.updateDescriptionScheduledEntity(scheduleID,
                         requestBodyMap.get("description").toString(),
                         conn
                     );

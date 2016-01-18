@@ -22,11 +22,12 @@
 <div class="content">
     <div id="fade" class="black_overlay"></div>
     <div id="emailsection">
+        <input type="hidden" name="scheduleId" id="scheduleId" value="{{schedule_id}}"></input>
         <div class="detail-overlay-content">
         <!--Top Nav Bar-->
         <div class="top-nav-container-detail" id="emailtopnav">
             <div class=" top-navbar-detail" id="emailtopnavdetails">
-                <a class=" exit-button-detail link svg close" href="">
+                <a class=" exit-button-detail link svg close" id="closerecuringemailpopup">
                     <img type="image/svg+xml" src="images/Icons/Close.svg" class="exit-button" style="cursor:pointer;"> </img>
                 </a>
                 <div  class="top-navbar-inner-bb-detail">
@@ -110,11 +111,11 @@
                                     DAY
                                   </div>
                                 <!--<input type="text" readonly   name="datepickertwitter" id="datepickertwitter1"  class="input-field-textfield width75" value="Sun Jan 01 1970"/>--> 
-                                <input type="text" readonly class="input-field-textfield width75" id="emaildays" name="emaildays" value="{{days}}"/>                                                   
+                                <input type="text" class="input-field-textfield width75" id="emaildays" name="emaildays" value="{{days}}"/>                                                   
                                </div>
                                 <div ng-show="user_marketing_program_id == 0">
                                     <div class="input-header-actionDetail " >
-                                        DATE
+                                        Day
                                     </div>
                                      <input type="hidden" readonly  name="emaildatetime" id="emaildatetime"  class="inputdate MH1 ptr" value="Sun Jan 01 1970">                                        
                                      <input type="text"id="emaildays" name="emaildays" value="{{days}}" class="textbox">

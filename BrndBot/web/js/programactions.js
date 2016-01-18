@@ -296,29 +296,26 @@ $(document).ready(function ()
 $(".close").click(function(){
         var program_id=$("#program_id").val();
         var change=$("#change").val();
-        
         if( change === "0")
         {
-//            alert("nochange");
             closeoverlay();
             $('#slider-button').click();
             $('.bottom-cta-bar').hide();
         }
-        if( change === "0")
+        if( change !== "0")
         {
 //            setTimeout(function (){
 //            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id, "_self");
 //               },430);
 //            document.location.reload();
             $("#change").val("0");
-            closeoverlay();
-            $('#slider-button').click();
+            //closeoverlay();
+            //$('#slider-button').click();
+            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id, "_self");
             $('.bottom-cta-bar').hide();
             //$scope.getProgramActions();
         }
 //        window.open(getHost() + 'marketing.jsp', "_self");
-        //$("#fade").hide();
-        //$("#facebooksection").hide();
     });
 });
 function validateaction() {
@@ -469,13 +466,9 @@ function validatefacebookaction() {
 }
 
 function validatetwitteraction() {
-    var actiontype = $("#twitter_action_type").val();
-    var schedule_id = $("#twitter_scheduleid").val();
     var title = $("#edit_twitter_title").val();
-
-    var description = $("#twitter_description").val();
-    var actiondate = $("#datepickertwitter").val();
-    var actionDateTime=$("#timepickertw").val().replace(/ /g,'');
+    var days = $("#twtdays").val();
+    var actionDateTime=$("#timepickertwitter").val().replace(/ /g,'');
 
     if (title === "") {
         alert("Title not entered! Please enter the title.");
@@ -483,23 +476,13 @@ function validatetwitteraction() {
         return false;
     }
 
-    if (actiontype === "") {
-        alert("Actiontype not entered! Please enter the actiontype.");
+    if (days === "") {
+        alert("Days not entered! Please enter the days.");
         $("#twitter_action_type").focus();
         return false;
     }
-    if (description === "") {
-        alert("Description not entered! Please enter the description.");
-        $("#twitter_description").focus();
-        return false;
-    }
-    if (actiondate === "") {
-        alert("Actiondate not entered! Please enter the actiondate.");
-        $("#datepicker3").focus();
-        return false;
-    }
     if (actionDateTime === "") {
-        alert("Actiondate not entered! Please enter the actiondate.");
+        alert("Actiontime not entered! Please enter the Actiontime.");
         $("#timepickertwitter").focus();
         return false;
     }
@@ -1188,11 +1171,11 @@ function programactions($scope, $http, $window){
             }).error(function (data) {
                 alert("Request not successful!");
             });
-    }
+    };
     
     $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, date_status,days) {
-//        alert(eml_list_name);    
-        $slider=2;
+//            alert(eml_list_name);    
+            $slider=2;
             sliderDialog = "#recuringPopup";
             prevSliderDialog = "#recuringPopup";
             var program_name=$("#program_name2").val();
@@ -1661,12 +1644,21 @@ function programactions($scope, $http, $window){
 
         }
     };
+    function validaterecuringemailDescription(schedule_id)
+    {
+        var description = $("#email_description"+schedule_id).val();
+         if (description === "") {
+            alert("Please Enter The Description");
+            $("#email_description"+schedule_id).val().focus();
+            return false;
+        }
+        return true;
+    }
     
     $scope.updateActionEmail = function () {
         var program=$("#program_id").val();
         if (validateemailaction()) {
             var actiontype = getemail();
-            console.log("action type" + actiontype);
             var schedule_id = $("#email_scheduleid").val();
             var title = $("#email_edit_title").val();
 
@@ -1679,11 +1671,11 @@ function programactions($scope, $http, $window){
             var schedule_time = Date.parse(l);
             console.log("Epoch: " + schedule_time);
             var myEpoch = schedule_time;
-            var description = $("#email_description").val();
+            var description = $("#emaildescription"+schedule_id).html();
             console.log(actiontype + "," + schedule_id + "," + title + "," + description);
 
             console.log("New Epoch: " + myEpoch);
-
+            
             var action = {
                 "schedule_id": schedule_id, "type": "update",
                 "title": title, "actiontype": actiontype,
@@ -1710,17 +1702,7 @@ function programactions($scope, $http, $window){
             });
 
         }
-    };
-    function validaterecuringemailDescription(schedule_id)
-    {
-        var description = $("#email_description"+schedule_id).val();
-         if (description === "") {
-            alert("Please Enter The Description");
-            $("#email_description"+schedule_id).val().focus();
-            return false;
-        }
-        return true;
-    }
+    };    
     $scope.updateActionEmailNote = function (schedule_id) {
         //var id=$("#emailaction_id").val();
         //var a= $("#emailnotes"+id).val();
@@ -1784,7 +1766,7 @@ function programactions($scope, $http, $window){
             console.log("Epoch: " + schedule_time);
             var myEpoch = schedule_time;
 
-            var description = $("#fb_description").val();
+            var description = $("#fb_description"+schedule_id).html();
             console.log(actiontype + "," + schedule_id + "," + title + "," + description);
             console.log("New Epoch: " + myEpoch);
             
@@ -1815,23 +1797,61 @@ function programactions($scope, $http, $window){
 
         }
     };
+    $scope.updateActionFacebookNote = function (schedule_id) {
+        
+        var actiontype = getfacebook();
+        var description = $("#fb_description"+schedule_id).val();
+//        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
+
+//        console.log("New Epoch: " + myEpoch);
+
+            var action = {
+                "schedule_id": schedule_id, "type": "updatenotes","actiontype": actiontype,
+                "description": description
+            };
+        
+            $http({
+                method: 'POST',
+                url: getHost() + 'AddAction',
+                headers: {'Content-Type': 'application/json'},
+                data: JSON.stringify(action)
+            }).success(function (data)
+            {
+                $scope.status = data;
+                if (data != "") {
+                    alert("Facebook Notes saved successfully");
+                    $("#change").val("1");
+                    $scope.getCampaigns();
+                    //window.open(getHost() + 'marketing.jsp', "_self");
+                }
+            }).error(function (data, status) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+
+                alert("request not succesful");
+            });
+
+    };
     
     $scope.updateActionTwitter = function () {
         var program=$("#program_id").val();
-        var description = $("#twitter_description").val();
-        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
+        var description = $("#twtnotetext").html();
+        //console.log(actiontype + "," + schedule_id + "," + title + "," + description);
         
-        console.log("New Epoch: " + myEpoch);
+        //console.log("New Epoch: " + myEpoch);
 
+        //alert(description);
         if (validatetwitteraction()) {
+            var title = $("#edit_twitter_title").val(); 
+            var actiontype = gettwitter();
+            var days=$("#twtdays").val();
             
-            var actiontype = $("#twitter_action_type").val();
-            console.log("action type" + actiontype);
+            //console.log("action type" + actiontype);
             var schedule_id = $("#twitter_scheduleid").val();
-            var title = $("#edit_twitter_title").val();        
+                   
             var actiondate = "1970/01/01";//$("#datepickertwitter").val();
-            var days=$("#twdays").val();
-            var actionDateTime=$("#timepickertw").val().replace(/ /g,'');
+            
+            var actionDateTime=$("#timepickertwitter").val().replace(/ /g,'');
             var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
             l="Sun Jan 01 1970 "+actionDateTime.toLocaleString();
             var myDate = new Date(l); // Your timezone!
@@ -1856,6 +1876,42 @@ function programactions($scope, $http, $window){
                     alert("Action saved successfully.");
                     window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
 
+                }
+            }).error(function (data, status) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+
+                alert("Request not successful!");
+            });
+
+        }
+    };
+    $scope.updateActionTwitterNote = function (schedule_id) {
+
+        var actiontype = gettwitter();
+        var description = $("#twitternote"+schedule_id).val();
+//        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
+        
+//        console.log("New Epoch: " + myEpoch);
+
+        if (validatetwitteraction()) {
+            var action = {
+                "schedule_id": schedule_id, "type": "updatenotes",
+                "actiontype": actiontype,"description": description
+            };
+            $http({
+                method: 'POST',
+                url: getHost() + 'AddAction',
+                headers: {'Content-Type': 'application/json'},
+                data: JSON.stringify(action)
+            }).success(function (data)
+            {
+                $scope.status = data;
+                if (data != "") {
+                    alert("Twitter Notes saved successfully");
+//                    window.open(getHost() + 'marketing.jsp', "_self");
+                    $("#change").val("1");
+                    $scope.getCampaigns();
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
