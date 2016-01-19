@@ -95,12 +95,14 @@
                      <div class="page-content-title-bar fleft col-1of1">
                         <div id="noemailautomation" class="page-content-title h2 fleft">Recurring Email Automations</div>
                         <div class="action-cta-container">
+                            <% if(past!=1){%>
                             <a href="" id="addrecemail" class="edit-button-detail fleft">
                                 <div class=" md-button" ng-click="addEditRecuringAction('add',<%=program_id%>, '0')">Add Recurring Email Automation</div>    
                             </a>
                             <a href="" id="deleterecurringemail" class="delete-button-detail fleft">
                                 <div class="md-button delrecemlbtn" ng-click="deleteSchedule('0', 'deleteMultiple')">Delete Selected Recurring Email(s)</div>    
                             </a>
+                            <%}%>
                         </div>
                     </div>
                     <!--List Starts Here-->
@@ -209,12 +211,14 @@
                     <div class="page-content-title-bar fleft col-1of1">
                         <div id="noota" class="page-content-title h2 fleft">One Time Actions</div>
                         <div class="action-cta-container">
+                            <% if(past!=1){%>
                             <a id="onetimeactbtn" href="" class="edit-button-detail fleft">
                                 <div class=" md-button" ng-click="ShowAddAction()">  Add One Time Action</div>    
                             </a>
                             <a href="" id="deleteonetimeact" class="delete-button-detail fleft">
                                 <div class="md-button delrecemlbtn" ng-click="deleteSchedule('1', 'deleteMultiple')">Delete Selected Action(s)</div>
                             </a>
+                            <%}%>
                         </div>
                     </div>
                     <!--List Starts Here-->
