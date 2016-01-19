@@ -4,6 +4,7 @@
     Author     : Satyajit Roy
 --%>
 
+<%@page import="com.controller.SqlMethods"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -20,6 +21,23 @@
 </head>    
 
 <body>
+<%!
+    SqlMethods sql_methods = new SqlMethods();
+    int number;
+    Integer user_id = 0;
+%>
+<%
+    try {
+        sql_methods.session = request.getSession();
+        user_id = (Integer) sql_methods.session.getAttribute("UID");
+    } catch (Exception e) {
+        System.out.println(e.getCause());
+        System.out.println(e.getMessage());
+    } finally {
+        sql_methods.closeConnection();
+    }
+
+%>    
 <div class="content">
     <div id="fade" class="black_overlay"></div>
     <div id="twittersection">
@@ -193,8 +211,20 @@
                                     </div>
                                     <div class="Facebook-preview-usercontent">{{entitiesdetails.metadata.shorturl}}</div>
                                     <div class="Facebook-link-container">
-                                        <div class="Facebook-preview-image"><img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/></div>
-<!--                                        <div class="Facebook-preview-link-container">
+                                    <div class="Facebook-preview-image">
+                                        <div ng-show="entitiesdetails.image_type == 'gallery'">
+                                            <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=GALLERY&image_name={{entitiesdetails.image_name}}&user_id=<%= user_id %>'/>
+                                        </div>
+                                        <div ng-show="entitiesdetails.image_type == 'layout'">
+                                            <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                        </div>
+                                        <div ng-show="entitiesdetails.image_type == 'url'">
+                                            <img id="prevfbimg" src='{{entitiesdetails.image_name}}'/>
+                                        </div>
+                                        
+                                       <!--<img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=GALLERY&image_name={{entitiesdetails.image_name}}'/>-->
+                                    </div>
+                                        <!--                                        <div class="Facebook-preview-link-container">
                                             <div class="Facebook-preview-link-title">{{entitiesdetails.metadata.title}}</div>
                                             <div class="Facebook-preview-link-description">This workshop is going to be so awesoem for the new season and get you in really good shape!</div>
                                             <div class="Facebook-preview-link-url">Demo Description goes here but cuts off</div>
@@ -254,4 +284,4 @@
     </div>
 </div>
 </body>
-
+</html>
