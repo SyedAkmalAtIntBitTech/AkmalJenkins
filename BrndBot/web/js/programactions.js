@@ -311,7 +311,7 @@ $(".close").click(function(){
             $("#change").val("0");
             //closeoverlay();
             //$('#slider-button').click();
-            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id, "_self");
+            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id+'&past=0', "_self");
             $('.bottom-cta-bar').hide();
             //$scope.getProgramActions();
         }
@@ -620,7 +620,7 @@ function programactions($scope, $http, $window){
         }).success(function (data, status, headers, config) {
           if (data == "true"){
             alert("Template status changed successfully.");
-            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
+            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
           }else {
               alert("Problem saving the record!");
           }
@@ -643,7 +643,7 @@ function programactions($scope, $http, $window){
         }).success(function (data, status, headers, config) {
           if (data == "true"){
             alert("Template status changed successfully.");
-            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
+            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
           }else {
               alert("Problem saving the record!");
           }
@@ -699,7 +699,7 @@ function programactions($scope, $http, $window){
               data: JSON.stringify(program_details)
           }).success(function (data, status, headers, config) {
             if (data == "true"){
-              window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
+              window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
             }else {
                 alert("Problem saving the record!");
             }
@@ -1632,7 +1632,7 @@ function programactions($scope, $http, $window){
                 $scope.status = data;
                 if (data != "") {
                     alert("Action saved successfully.");
-                   window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
+                   window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
 
                 }
             }).error(function (data, status) {
@@ -1691,7 +1691,7 @@ function programactions($scope, $http, $window){
                 $scope.status = data;
                 if (data != "") {
                     alert("Action saved successfully.");
-                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
+                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
 
                 }
             }).error(function (data, status) {
@@ -1785,7 +1785,7 @@ function programactions($scope, $http, $window){
                 $scope.status = data;
                 if (data != "") {
                     alert("Action saved successfully.");
-                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
+                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
 
                 }
             }).error(function (data, status) {
@@ -1874,7 +1874,7 @@ function programactions($scope, $http, $window){
                 $scope.status = data;
                 if (data != "") {
                     alert("Action saved successfully.");
-                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
+                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
 
                 }
             }).error(function (data, status) {
@@ -1988,7 +1988,7 @@ function programactions($scope, $http, $window){
                         $("#mailremovedtemplate").show();                     
                     }
                     alert(responseMessage);
-                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
+                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
@@ -2069,7 +2069,7 @@ function programactions($scope, $http, $window){
                     }
                     alert(responseMessage);
 //                    window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
-                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
+                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
@@ -2118,7 +2118,7 @@ function programactions($scope, $http, $window){
                 $scope.status = data;
                 if (data != "") {
                     alert("Details saved successfully.");
-                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
+                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
 
                 }
             }).error(function (data, status) {
@@ -2175,7 +2175,7 @@ function programactions($scope, $http, $window){
             $scope.status = data;
             if (data != "") {
                 alert("Details saved successfully.");
-                window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
+                window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
 
             }
         }).error(function (data, status) {
@@ -2233,7 +2233,7 @@ function programactions($scope, $http, $window){
                     $scope.status = data;
                     if (data != "") {
                         alert("Details saved successfully.");
-                        window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
+                        window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
 
                     }
                 }).error(function (data, status) {
@@ -2285,7 +2285,7 @@ function programactions($scope, $http, $window){
                     $scope.status = data;
                     if (data != "") {
                         alert("Details saved successfully.");
-                        window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program, "_self");
+                        window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
 
                     }
                 }).error(function (data, status) {
