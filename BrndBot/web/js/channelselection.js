@@ -9,7 +9,10 @@ $(document).ready(function (){
             var print = "print";
             var download = "image";
             function selected_media(selectedmedia) {
-                
+                minbodyid=$("#minbodyid").val();
+                category_id=$("#category_id").val();
+                sub_category_id=$("#sub_category_id").val();
+                sub_category_name=$("#sub_category_name").val();
                 if (selectedmedia == print){
                     var configuration = global_host_address + "socialeditor.jsp" + "?id=mindbodyid" + "&mediatype=print";
                     window.open(configuration, "_self");
