@@ -76,8 +76,14 @@ class PostToFacebook {
                             .link(new URL(url))
                             .description(description);
                 status = facebook.postFeed(post);
+                }else if (imageType.equals("url")){
+                    PostUpdate post = new PostUpdate(posttext)
+                            .picture(new URL(getImageFile))
+                            .name(title)
+                            .link(new URL(url))
+                            .description(description);
+                status = facebook.postFeed(post);
                 }
-                
                 if (!(status.equals(""))){
                     status = returnMessage;
                 }

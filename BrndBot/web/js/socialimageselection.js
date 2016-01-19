@@ -76,6 +76,24 @@
                 $("#title").keyup(function () {
                     $(".link_title").val($("#title").val());
                 });
+                $("#postorschedule").click(function () {
+                    var isFacebook = $("#isFacebook").val();
+                    var isTwitter = $("#isTwitter").val();
+                    var check="";
+                    if(isFacebook==="true")
+                    {
+                        check=$("#facebookpreviewimage").attr("src");
+                    }
+                    if(isTwitter==="true")
+                    {
+                        check=$("#twitterpreviewimage").attr("src");
+                    }
+                    if(check.contains("http://"))
+                    {
+                        $("#gallery").val("url");
+                    }
+                    $("#imageToPost").val(check);
+                });
                 $("#posttofb").click(function () {
 
                     var isFacebook = $("#isFacebook").val();

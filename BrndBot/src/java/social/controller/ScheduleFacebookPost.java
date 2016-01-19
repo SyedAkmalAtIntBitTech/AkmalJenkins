@@ -68,6 +68,8 @@ public class ScheduleFacebookPost implements Runnable {
                             file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + facebookPost.getImageName();
                         }else if(facebookPost.getImageType().equals("gallery")){
                             file_image_path = AppConstants.USER_IMAGE_HOME + File.separator + userId + File.separator + facebookPost.getImageName();
+                        }else if (facebookPost.getImageType().equals("url")){
+                            file_image_path = facebookPost.getImageName();
                         }
                         
                         facebookPost.getImageType();

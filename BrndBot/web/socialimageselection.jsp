@@ -20,9 +20,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/popup.js" type="text/javascript"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
-    <script src="js/socialimageselection.js" type="text/javascript"></script>
     <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
     <script src="js/imageeditor.js" type="text/javascript"></script>
+    <script src="js/socialimageselection.js" type="text/javascript"></script>
                 
     <title>socialimageselection</title>
 </head>

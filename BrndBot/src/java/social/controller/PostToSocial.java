@@ -56,6 +56,8 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
             }else if (imageType.equals("gallery")) {
                 file_image_path = AppConstants.USER_IMAGE_HOME + File.separator + user_id + File.separator + getImageFile;
+            }else if (imageType.equals("url")){
+                file_image_path = getImageFile;
             }
 
 //            String file_image_path = getServletContext().getRealPath("") + "/temp/"+getImageFile;

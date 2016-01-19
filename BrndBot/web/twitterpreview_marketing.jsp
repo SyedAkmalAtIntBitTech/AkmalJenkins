@@ -52,7 +52,8 @@
                     <div  class="top-navbar-inner-bb-detail">
                         <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Twitter Post Action Detail</span></div>
                         <div class="top-nav-cta-container">
-                            <div class="approve-button-detail md-button" id="fbapprove">Approve</div>
+                            <div class="approve-button-detail md-button" id="fbapprove" ng-show="twitter_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_twitter)">Approve to Send</div>
+                            <div class="approve-button-detail md-button" id="fbapprove" ng-show="twitter_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_twitter)">Disapprove</div>
                             <div class="delete-button-detail md-button" ng-click="deleteSchedule(schedule_id,'delete', master_twitter)">Delete Action</div>
                         </div>    
                     </div>
@@ -183,7 +184,9 @@
 
                                 <div class="twitter-post-preview">
                                     <div class="Facebook-preview-header">
-                                        <div class="Facebook-preview-profpic"><img id="twitter_preview_profpic" src="http://www.adweek.com/socialtimes/files/2013/11/alltwitter-twitter-bird-logo-white-on-blue2.png"/></div>
+                                        <div class="Facebook-preview-profpic">
+                                            <img id="twitter_preview_profpic" src="http://www.adweek.com/socialtimes/files/2013/11/alltwitter-twitter-bird-logo-white-on-blue2.png"/>
+                                        </div>
                                         <div class="Facebook-preview-name-container">
                                             <div class="Facebook-preview-name">{{entitiesdetails.metadata.text}}</div>
                                         </div>

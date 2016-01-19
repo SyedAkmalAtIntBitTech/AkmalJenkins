@@ -96,7 +96,7 @@
                                     <div class="input-header-actionDetail" style="">
                                         Status
                                     </div>
-                                    <input type="text" id="twnotemplate" value="No Template" class="input-field-textfield width75  " readonly/>
+                                    <input type="text" id="twnotemplate" value="No Template" class="input-field-textfield width75" readonly/>
                                     <input type="text" id="twtemplatesaved" value="Template Saved" class="input-field-textfield width75 " readonly/>
                                 </div>
                                 <div class="half">
