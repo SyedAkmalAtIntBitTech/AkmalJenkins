@@ -1208,13 +1208,9 @@ function controllerMarketingCampaign($scope, $http) {
         if (entity_type === getfacebook()) {
             $slider=2;
             sliderDialog = "#facebooksection";
-            $("#facebooksection").show();
-            $("#facebookactionsection").show();
-            $("#fbactionsave").show();
-            $("#facebookpostsection").hide();
+            $("#facebookpostsection").show();
             $("#facebooknotesection").hide();
-            $("#fbpostremove").hide();
-            $("#fbnotesave").hide();
+            $("#facebookactionsection").hide();
             
             $("#facebookaction1").removeClass("top-subnav-link-active-detail");
             $("#facebookaction1 a").removeAttr("class");
@@ -1223,22 +1219,15 @@ function controllerMarketingCampaign($scope, $http) {
             $("#facebookpost1").removeClass("top-subnav-link-active-detail");
             $("#facebookpost1 a").removeAttr("class");
 
-            $("#facebookaction1").addClass("top-subnav-link-active-detail");
-            $("#facebookaction1 a").addClass("h3-subnav-subnav-active");
-            $("#facebookpost1").addClass("top-subnav-links-detail");
-            $("#facebookpost1 a").addClass("h3-subnav");
+            $("#facebookpost1").addClass("top-subnav-link-active-detail");
+            $("#facebookpost1 a").addClass("h3-subnav-subnav-active");
+            $("#facebookaction1").addClass("top-subnav-links-detail");
+            $("#facebookaction1 a").addClass("h3-subnav");
             $("#facebooknote1").addClass("top-subnav-links-detail");
             $("#facebooknote1 a").addClass("h3-subnav");
-            
-            //$('#fbtopnav').css("float","left");
-            //$('#fbtopnavdetails').show();
-            //$('#fbtopsubnav').show();
-            //$('#fbpopupfooter').show();
+
             prevSliderDialog = "#facebooksection";
             $(".time_pick").width('200%');
-//            $("#preview_facebook").show();
-//            $("#edit_facebook").hide();
-//            $("#edit_facebook_action").hide();
             $("#facebookpost").click(); 
             $http({
                 method: 'GET',
@@ -1246,6 +1235,8 @@ function controllerMarketingCampaign($scope, $http) {
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.image_name === undefined) {
+                    $('#fbactionsave').hide();
+                    $('#fbpostremove').hide();
                     $('#nopostsaveddiv').show();
                     $('#savedpostdiv').hide();
                     $('#savedposthead').hide();
@@ -1261,6 +1252,7 @@ function controllerMarketingCampaign($scope, $http) {
 //                    $('#fb_preview_postdet').css("margin-top", 10);
 //                    $("#fb_button_post").val(create_button_title);
                 } else {
+                    $('#fbactionsave').hide();
                     $('#savedposthead').show();
                     $('#nopostsaveddiv').hide();
                     $('#savedpostdiv').show();
@@ -1295,11 +1287,10 @@ function controllerMarketingCampaign($scope, $http) {
             }).error(function (data) {
                 alert("Request not successful!");
             });
-            $("#fbapprove").focus();
+            //$("#fbapprove").focus();
             $('#slider-button').click();            
         } 
-        
-         if (entity_type === gettwitter()) {
+        if (entity_type === gettwitter()) {
             $slider=2;
             sliderDialog = "#twittersection";
             

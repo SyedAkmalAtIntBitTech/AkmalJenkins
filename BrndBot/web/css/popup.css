@@ -312,7 +312,6 @@ img.exit-button {
     margin-left: -6px;
 }
 #facebooksection{
-    display: none;
     position: fixed;
     z-index: 999999;
     height: 100%;
@@ -323,7 +322,6 @@ img.exit-button {
     margin-right: -900px;
 }
 #twittersection{
-    display: none;
     position: fixed;
     z-index: 999999;
     height: 100%;
@@ -880,5 +878,8 @@ a#avpw_rghtArrow,#avpw_lftArrow {
 #endMarketingProgram:hover{
     color:#ffffff;
     background-color: #F44E4E;
+}
+input#schedule_social_time {
+    width: 57%;
 }
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/
