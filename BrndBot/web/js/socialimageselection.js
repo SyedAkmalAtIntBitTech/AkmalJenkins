@@ -91,8 +91,8 @@
                     if(check.contains("http://"))
                     {
                         $("#gallery").val("url");
+                        $("#imageToPost").val(check);
                     }
-                    $("#imageToPost").val(check);
                 });
                 $("#posttofb").click(function () {
 

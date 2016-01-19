@@ -149,6 +149,9 @@ $(document).ready(function ()
            $("#url").val("http://");
        }
     });
+    $("#curmarprogli").click(function (){
+       alert(); 
+    });
     $("#url").keyup(function(){
         var link=$("#url").val();
         if(link.contains("http://") === false)

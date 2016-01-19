@@ -18,6 +18,7 @@
      <title>Marketing Programs lists</title>
     <script src="js/configurations.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/popup.js"></script>
     <script src="js/angular.min.js"></script>
     <jsp:include page="basejsp.jsp"/>
     <style>
@@ -109,7 +110,8 @@
                 });                
             };
             $scope.sendProgramId = function(program_id){
-                window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id, "_self");
+                
+                window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id+'&past=1', "_self");
             };
 //            $scope.endMarketingProgram = function(){
 //                        var endprogid=selected_schedules_to_delete.replace(/[ ,]+/g, "");

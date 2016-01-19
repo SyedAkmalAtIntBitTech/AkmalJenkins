@@ -375,13 +375,13 @@ var jsondata;
 var selectedDivId;
 var mindbodydataId = $("#mindbodydata").val();
 
-        angular.module("myapp", [])
-
-        .controller("MyController", function($scope, $http) {
-        $http({
+        angular.module("myapp", []).controller("MyController", function($scope, $http) {
+            
+            $http({
                 method : 'GET',
                 url : 'GetUserPreferences'
         }).success(function(data, status, headers, config) {
+            
         //                        alert(JSON.stringify(data.user_font_names));
         $scope.user_preferences_colors = data.user_colors;
 
@@ -421,7 +421,8 @@ var mindbodydataId = $("#mindbodydata").val();
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
         });
-        $scope.showStyles = function(){
+            
+            $scope.showStyles = function(){
         var media_type=$("#media_type").val();
         $scope.curPage = 0;
                 $scope.pageSize = 2;
@@ -447,7 +448,8 @@ var mindbodydataId = $("#mindbodydata").val();
                 // or server returns response with an error status.
         });
         };
-        $scope.showImages = function(){
+        
+            $scope.showImages = function(){
                 $("#popup").hide();
                 $("#tabs-1").hide();
                 $("#tabs-2").hide();         
@@ -473,9 +475,10 @@ var mindbodydataId = $("#mindbodydata").val();
                 // or server returns response with an error status.
         });
         };
+        
         });
-        angular.module('myapp').filter('pagination', function()
-        {
+        
+        angular.module('myapp').filter('pagination', function(){
         return function(input, start)
         {
         start = + start;
@@ -797,7 +800,7 @@ var mindbodydataId = $("#mindbodydata").val();
                                 },
                                 error: function (e)
                                 {
-                                alert("Error in xml file read!");
+                                    alert("Error in xml file read!");
                                 }
                         });
                 }

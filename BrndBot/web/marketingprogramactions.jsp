@@ -30,9 +30,11 @@
     <jsp:include page="basejsp.jsp"/>
      <%!
             String program_id = "";
-        %>
+            int past = 0;
+      %>
         <%
             program_id = request.getParameter("program_id");
+            past = Integer.parseInt(request.getParameter("past"));
         %>
         <script>
             var program = "";
@@ -62,10 +64,12 @@
             </a>
             <div class="page-title-with-back page-title-font">{{programs.programdetails.programName}}</div>
             <input type="hidden" name="program_name2" id="program_name2" value="{{programs.programdetails.programName}}"></input>
-            <div class="page-cta-container">
+            <div class="page-cta-container"><%=past%>
+                <% if(past!=1) {%>
                 <a href="" class="gray-button fleft">
                     <div class="md-button"  ng-click="endMarketingProgram()" id="endMarketingProgram"> End Marketing Program</div>    
                 </a>
+                <% } %>
             </div>
         </div>
         <div class="page-subnav-bar-regular"> 
