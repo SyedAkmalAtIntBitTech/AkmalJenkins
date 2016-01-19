@@ -557,7 +557,8 @@
             $("#selcatdet").click(function (){
             $("#blocktab").click();
                     $("#tabs-4").hide();
-            });        </script>
+            });
+</script>
 
     </head>
     <body ng-app="myapp">
@@ -709,7 +710,7 @@
             </div>
         </div>
         <script>
-                            $("#addblkbtn").click(function (){
+                    $("#addblkbtn").click(function (){
                     $("#tabs-4").css("display", "block");
                             $("#clsbtn").css("display", "none");
                     });

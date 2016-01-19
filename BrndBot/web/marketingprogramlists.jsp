@@ -109,9 +109,9 @@
 //                    $(".row").css("display","block");
                 });                
             };
-            $scope.sendProgramId = function(program_id){
+            $scope.sendProgramId = function(program_id,past){
                 
-                window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id+'&past=1', "_self");
+                window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id+'&past='+past, "_self");
             };
 //            $scope.endMarketingProgram = function(){
 //                        var endprogid=selected_schedules_to_delete.replace(/[ ,]+/g, "");
@@ -238,7 +238,7 @@
                                 <div class="col-2of10 fleft">
                                     <div class="slat-cta-container">
                                         <a href=""> 
-                                            <div class="small-button slat-button detail-button-font" ng-click="sendProgramId(program.id)">View Program</div>
+                                            <div class="small-button slat-button detail-button-font" ng-click="sendProgramId(program.id,'0')">View Program</div>
                                         </a>
                                     </div>
                                 </div>
@@ -271,7 +271,7 @@
                                 <div class="col-2of10 fleft">
                                     <div class="slat-cta-container">
                                         <a href="">
-                                            <div class="small-button slat-button detail-button-font"  ng-click="sendProgramId(program.id)">View Program</div>
+                                            <div class="small-button slat-button detail-button-font"  ng-click="sendProgramId(program.id,'1')">View Program</div>
                                         </a>
                                     </div>
                                 </div>

@@ -202,11 +202,7 @@
 //            }
 //            return true;
 //            }
-function emailSettings($scope, $http){
-            
-               
-                
-            
+            function emailSettings($scope, $http){
                 $scope.getEmailSettings = function(){
                 
                 var email_settings = {"type": "get"};

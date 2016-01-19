@@ -8,11 +8,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="telephone=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="shortcut icon" href="favicon.png">
-    <link rel="stylesheet" href="css/pikaday.css">
-    <link rel="stylesheet" href="css/datepickerpikaday.css">
+    <link rel="shortcut icon" href="favicon.png"/>
+    <link rel="stylesheet" href="css/pikaday.css"/>
+    <link rel="stylesheet" href="css/datepickerpikaday.css"/>
     <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
     <script src="js/pikaday.js"></script>
 <!--    <script src="js/socialimage.js" type="text/javascript"></script>-->
