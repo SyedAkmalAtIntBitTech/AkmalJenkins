@@ -59,6 +59,8 @@ public class ScheduleTwitterPost implements Runnable {
                         file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + twitterPost.getImageName();
                     }else if(twitterPost.getImageType().equals("gallery")){
                         file_image_path = AppConstants.USER_IMAGE_HOME + File.separator + userId + File.separator + twitterPost.getImageName();
+                    }else if (twitterPost.getImageType().equals("url")){
+                        file_image_path = twitterPost.getImageName();
                     }
                     
                     Logger.getLogger(ScheduleTwitterPost.class.getName()).log(Level.SEVERE, text +" Tweet @"+new Date());

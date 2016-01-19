@@ -1,4 +1,4 @@
-var minbodyid=$("#minbodyid").val();
+var mindbodyid=$("#minbodyid").val();
 var category_id=$("#category_id").val();
 var sub_category_id=$("#sub_category_id").val();
 var sub_category_name=$("#sub_category_name").val();
@@ -8,22 +8,22 @@ $(document).ready(function (){
             });
             var print = "print";
             var download = "image";
-            function selected_media(selectedmedia) {
-                minbodyid=$("#minbodyid").val();
+            function selected_media(selectedmedia,mindbodyid) {
+                mindbodyid=mindbodyid;
                 category_id=$("#category_id").val();
                 sub_category_id=$("#sub_category_id").val();
                 sub_category_name=$("#sub_category_name").val();
                 if (selectedmedia == print){
-                    var configuration = global_host_address + "socialeditor.jsp" + "?id=mindbodyid" + "&mediatype=print";
+                    var configuration = global_host_address + "socialeditor.jsp" + "?id="+ mindbodyid + "&mediatype=print";
                     window.open(configuration, "_self");
                 }else if (selectedmedia == download){
-                    var configuration = global_host_address + "socialeditor.jsp" + "?id=mindbodyid" + "&mediatype=image";
+                    var configuration = global_host_address + "socialeditor.jsp" + "?id="+ mindbodyid + "&mediatype=image";
                     window.open(configuration, "_self");
                 }else if (selectedmedia == 'social'){
-                    var configuration = global_host_address + "selectpromotesocialmedia.jsp" + "?id=mindbodyid" + "&mediatype=social" + "&category_id=" +category_id+ "&sub_category_id="+sub_category_id+"&sub_category_name="+sub_category_name;
+                    var configuration = global_host_address + "selectpromotesocialmedia.jsp" + "?id="+ mindbodyid + "&mediatype=social" + "&category_id=" +category_id+ "&sub_category_id="+sub_category_id+"&sub_category_name="+sub_category_name;
                     window.open(configuration, "_self");
                 }else if (selectedmedia == 'emailsubject'){
-                    var configuration = global_host_address + "emailsubjects.jsp" + "?id=mindbodyid" + "&mediatype=email";
+                    var configuration = global_host_address + "emailsubjects.jsp" + "?id="+ mindbodyid + "&mediatype=email";
                     window.open(configuration, "_self");
                 }
             }

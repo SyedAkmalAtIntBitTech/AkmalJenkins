@@ -204,6 +204,9 @@
                                         <div ng-show="entitiesdetails.image_type == 'layout'">
                                             <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                         </div>
+                                        <div ng-show="entitiesdetails.image_type == 'url'">
+                                            <img id="prevfbimg" src='{{entitiesdetails.image_name}}'/>
+                                        </div>
                                         
                                        <!--<img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=GALLERY&image_name={{entitiesdetails.image_name}}'/>-->
                                     </div>

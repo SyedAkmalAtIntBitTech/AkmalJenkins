@@ -4,6 +4,7 @@
     Author     : Satyajit Roy
 --%>
 
+<%@page import="com.controller.SqlMethods"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -15,8 +16,26 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <script src="js/popup.js"></script>
+    <title>twitter preview</title>
     <!--<style>.time_pick{width:100%;}</style>-->
 </head>    
+<%!
+    SqlMethods sql_methods = new SqlMethods();
+    int number;
+    Integer user_id = 0;
+%>
+<%
+    try {
+        sql_methods.session = request.getSession();
+        user_id = (Integer) sql_methods.session.getAttribute("UID");
+    } catch (Exception e) {
+        System.out.println(e.getCause());
+        System.out.println(e.getMessage());
+    } finally {
+        sql_methods.closeConnection();
+    }
+
+%>
 
 <body>
 <div class="content">
@@ -33,7 +52,8 @@
                     <div  class="top-navbar-inner-bb-detail">
                         <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Twitter Post Action Detail</span></div>
                         <div class="top-nav-cta-container">
-                            <div class="approve-button-detail md-button" id="fbapprove">Approve</div>
+                            <div class="approve-button-detail md-button" id="fbapprove" ng-show="twitter_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_twitter)">Approve to Send</div>
+                            <div class="approve-button-detail md-button" id="fbapprove" ng-show="twitter_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_twitter)">Disapprove</div>
                             <div class="delete-button-detail md-button" ng-click="deleteSchedule(schedule_id,'delete', master_twitter)">Delete Action</div>
                         </div>    
                     </div>
@@ -76,7 +96,7 @@
                                     <div class="input-header-actionDetail" style="">
                                         Status
                                     </div>
-                                    <input type="text" id="twittertemplatestatus" value="{{twitter_template_status}}" class="input-field-textfield width75  " readonly/>
+                                    <input type="text" id="twittertemplatestatus" value="{{twitter_template_status}}" class="input-field-textfield width75" readonly/>
                                 </div>
                                 <div class="half">
                                     <div class="input-header-actionDetail" style="">
@@ -164,19 +184,24 @@
 
                                 <div class="twitter-post-preview">
                                     <div class="Facebook-preview-header">
-                                        <div class="Facebook-preview-profpic"><img id="twitter_preview_profpic" src="http://www.adweek.com/socialtimes/files/2013/11/alltwitter-twitter-bird-logo-white-on-blue2.png"/></div>
+                                        <div class="Facebook-preview-profpic">
+                                            <img id="twitter_preview_profpic" src="http://www.adweek.com/socialtimes/files/2013/11/alltwitter-twitter-bird-logo-white-on-blue2.png"/>
+                                        </div>
                                         <div class="Facebook-preview-name-container">
                                             <div class="Facebook-preview-name">{{entitiesdetails.metadata.text}}</div>
                                         </div>
                                     </div>
                                     <div class="Facebook-preview-usercontent">{{entitiesdetails.metadata.shorturl}}</div>
                                     <div class="Facebook-link-container">
-                                        <div class="Facebook-preview-image"><img id="prevtwtimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/></div>
-<!--                                        <div class="Facebook-preview-link-container">
-                                            <div class="Facebook-preview-link-title">{{entitiesdetails.metadata.title}}</div>
-                                            <div class="Facebook-preview-link-description">This workshop is going to be so awesoem for the new season and get you in really good shape!</div>
-                                            <div class="Facebook-preview-link-url">Demo Description goes here but cuts off</div>
-                                        </div>-->
+                                        <div ng-show="entitiesdetails.image_type == 'gallery'">
+                                            <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=GALLERY&image_name={{entitiesdetails.image_name}}&user_id=<%= user_id %>'/>
+                                        </div>
+                                        <div ng-show="entitiesdetails.image_type == 'layout'">
+                                            <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                        </div>
+                                        <div ng-show="entitiesdetails.image_type == 'url'">
+                                            <img id="prevfbimg" src='{{entitiesdetails.image_name}}'/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -230,4 +255,4 @@
     </div>
 </div>
 </body>
-
+</html>

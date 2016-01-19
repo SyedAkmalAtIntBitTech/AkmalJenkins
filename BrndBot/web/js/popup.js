@@ -195,6 +195,7 @@ $(document).ready(function ()
         var fbLinkurl=$("#Linkurl").val();
         var facebookpreviewimage=$("#facebookpreviewimage").val();
         var twittertext=$("#link").val();
+        var mindbodyid = $("#mindbodyid").val();
         var twitterpreviewimage=$("#twitterpreviewimage").val();
         data.push(fbposttext);
         data.push(fblink_title);
@@ -203,7 +204,7 @@ $(document).ready(function ()
         data.push(facebookpreviewimage);
         data.push(twittertext);
         data.push(twitterpreviewimage);        
-        
+
         var selectedtype=$("#selectedtype").val();
         var id=$("#selectedid").val();
         var social=$("#social").val();
