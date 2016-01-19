@@ -558,7 +558,7 @@
             $("#blocktab").click();
                     $("#tabs-4").hide();
             });
-</script>
+    </script>
 
     </head>
     <body ng-app="myapp">
@@ -761,20 +761,21 @@
         </script>
         
         <script>
-                            $(function () {
-                            var urlList11;
-                                    $.ajax({
-                                    url:'getAllUserMarketingProgramsBySessionUserId.do',
-                                            method:'Get',
-                                            dataType: 'json',
-                                            contentType: 'application/json',
-                                            mimeType: 'application/json',
-                                            success: function (responseText) {
-                                            urlList11 = responseText
-                                                    $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: urlList11});
-                                            }
-                     });
-                            });        </script>
+                $(function () {
+                var urlList11;
+                        $.ajax({
+                        url:'getAllUserMarketingProgramsBySessionUserId.do',
+                                method:'Get',
+                                dataType: 'json',
+                                contentType: 'application/json',
+                                mimeType: 'application/json',
+                                success: function (responseText) {
+                                urlList11 = responseText
+                                        $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: urlList11});
+                                }
+                        });
+                });
+        </script>
 
 
         <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
