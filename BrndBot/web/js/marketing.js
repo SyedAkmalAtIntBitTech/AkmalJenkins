@@ -1288,11 +1288,11 @@ function controllerMarketingCampaign($scope, $http) {
             sliderDialog = "#twittersection";
             
             $("#twittersection").show();
-            $("#twitteractionsection").show();
-            $("#twactionsave").show();
-            $("#twitterpostsection").hide();
+            $("#twitterpostsection").show();
+            $("#twtpostremove").show();
+            $("#twitteractionsection").hide();
             $("#twitternotesection").hide();
-            $("#twtpostremove").hide();
+            $("#twactionsave").hide();
             $("#twnotesave").hide();
             
             $("#twitteraction1").removeClass("top-subnav-link-active-detail");
@@ -1302,12 +1302,12 @@ function controllerMarketingCampaign($scope, $http) {
             $("#twitterpost1").removeClass("top-subnav-link-active-detail");
             $("#twitterpost1 a").removeAttr("class");
 
-            $("#twitteraction1").addClass("top-subnav-link-active-detail");
-            $("#twitteraction1 a").addClass("h3-subnav-subnav-active");
+            $("#twitterpost1").addClass("top-subnav-link-active-detail");
+            $("#twitterpost1 a").addClass("h3-subnav-subnav-active");
+            $("#twitteraction1").addClass("top-subnav-links-detail");
+            $("#twitteraction1 a").addClass("h3-subnav");
             $("#twitternote1").addClass("top-subnav-links-detail");
             $("#twitternote1 a").addClass("h3-subnav");
-            $("#twitterpost1").addClass("top-subnav-links-detail");
-            $("#twittepost1 a").addClass("h3-subnav"); 
             
             prevSliderDialog = "#twittersection";
             $(".time_pick").width('100%');

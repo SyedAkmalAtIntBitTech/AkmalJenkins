@@ -134,7 +134,7 @@
                                 <div class="input-header-actionDetail" style="">
                                     TIME
                                 </div>
-                                <input id="timepickertwitter" type="text" name="timepickertwitter" class="input-field-textfield twitertimepickerwid" value="{{post_time| date:'hh:mm:a'}}"/> 
+                                <input id="timepickertwitter" type="text" name="timepickertwitter" class="input-field-textfield twitertimepickerwid" value="{{post_time| date:'hh : mm : a'}}"/> 
                                 <script>
                                     $('#timepickertwitter').timepicki({
                                         show_meridian:true,
