@@ -27,7 +27,7 @@
     <title>socialimageselection</title>
 </head>
 <%@page import="com.controller.SqlMethods"%>
-<%@ include file="checksession.jsp" %>
+<%@include file="checksession.jsp" %>
 
 <%!
     SqlMethods sql_methods = new SqlMethods();

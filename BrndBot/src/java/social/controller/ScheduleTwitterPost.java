@@ -64,7 +64,7 @@ public class ScheduleTwitterPost implements Runnable {
                     }
                     
                     Logger.getLogger(ScheduleTwitterPost.class.getName()).log(Level.SEVERE, text +" Tweet @"+new Date());
-                    String message = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, text, url, file_image_path, userId, null, null);
+                    String message = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, twitterPost.getImageType(),text, url, file_image_path, userId, null, twitterPost.getImageName());
                     if (message.equalsIgnoreCase("success")) {
                         updateStatusScheduledTwitter(currentScheduledTwitterPost);
                     }

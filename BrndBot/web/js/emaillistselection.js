@@ -711,7 +711,7 @@
                 return true;
             }
             function sendEmail() {
-                
+                var draft_id = $("#draft_id").val();
                 if(validate()){
                 $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position", "absolute").css("top", "300px").css("left", "500px");
                
@@ -739,14 +739,14 @@
                                 if(responseText=="true")
                                 {
                                     $('#loadingGif').remove();
-                                   url:getHost() + "emailsent.jsp";
+                                    url:getHost() + "emailsent.jsp";
                                    
                                 }
                             },
                             error: function () {
                                 $('#loadingGif').remove();
                                 alert("Error!");
-                            }        
+                            }
                         });
                     },
                     error: function () {

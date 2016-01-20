@@ -27,7 +27,7 @@ import twitter4j.conf.ConfigurationBuilder;
  */
 public class PostToTwitter {
 
-    public static String postStatus(String twitterAccessToken, String twitterTokenSecret, String text, String shortURL, String fileImagePath, Integer userId, String htmlString, String getImageFile) {
+    public static String postStatus(String twitterAccessToken, String twitterTokenSecret,String image_type, String text, String shortURL, String fileImagePath, Integer userId, String htmlString, String getImageFile) {
         String returnMessage = "";
         try {
 
@@ -63,7 +63,7 @@ public class PostToTwitter {
             
             try {
                 SqlMethods sql_methods = new SqlMethods();
-                sql_methods.setSocialPostHistory(userId, htmlString, false, true, getImageFile, null);
+                sql_methods.setSocialPostHistory(userId, htmlString, false, true,image_type, getImageFile, null);
             } catch (Exception ex) {
                 Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getCause());
                 Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getMessage());

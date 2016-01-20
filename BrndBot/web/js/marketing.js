@@ -1655,7 +1655,7 @@ function controllerMarketingCampaign($scope, $http) {
                 "title": title, "actiontype": actiontype,
                 "description": description, "action_date": myEpoch, "days":days
             };
-            alert(JSON.stringify(action));
+            
             $http({
                 method: 'POST',
                 url: getHost() + 'AddAction',

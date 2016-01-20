@@ -81,7 +81,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 String shortURL = request.getParameter("shorturl");
                 PrintWriter out1 = response.getWriter();
                 returnMessage = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, 
-                        text, shortURL, file_image_path, user_id, htmlString, getImageFile);
+                        imageType, text, shortURL, file_image_path, user_id, htmlString, getImageFile);
                 out1.println(returnMessage);
             }
             Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "message while facebook post:"+returnMessage);

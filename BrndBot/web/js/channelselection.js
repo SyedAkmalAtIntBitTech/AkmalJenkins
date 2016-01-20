@@ -30,7 +30,7 @@ $(document).ready(function (){
 function selectPromoteMediaController($scope, $http) {
 
     $scope.checkTemplateAvailability = function () {
-        var category = {"category_id": category_id, "sub_category_id": sub_category_id};
+        var category = {"category_id": parseInt($("#category_id").val()), "sub_category_id": parseInt($("#sub_category_id").val())};
 
         $http({
             method: 'POST',

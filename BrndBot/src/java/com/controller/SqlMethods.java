@@ -8,6 +8,8 @@ import com.intbit.ScheduledEntityType;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -1011,11 +1013,14 @@ public class SqlMethods {
 
     }
 
-    public void setSocialPostHistory(Integer userid, String contenthtml, boolean twitter, boolean facebook, String imagefilename, String pdffilename) throws SQLException {
+    public void setSocialPostHistory(Integer userid, String contenthtml, 
+            boolean twitter, boolean facebook,String image_type, 
+            String imagefilename, String pdffilename) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-
+        String file_image_path = "";
+        
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
 
             if (pdffilename != null) {
@@ -1045,9 +1050,23 @@ public class SqlMethods {
                 prepared_statement.setBoolean(4, twitter);
                 prepared_statement.setBoolean(5, facebook);
 
-                File file = new File(AppConstants.LAYOUT_IMAGES_HOME + File.separator + imagefilename);
-                FileInputStream fis = new FileInputStream(file);
-                prepared_statement.setBinaryStream(6, fis, file.length());
+                if (image_type.equals("layout")){
+                    file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + imagefilename;
+                    File file = new File(file_image_path);
+                    FileInputStream fis = new FileInputStream(file);
+                    prepared_statement.setBinaryStream(6, fis, file.length());
+                }else if(image_type.equals("gallery")){
+                    file_image_path = AppConstants.USER_IMAGE_HOME + File.separator + userid + File.separator + imagefilename;
+                    File file = new File(file_image_path);
+                    FileInputStream fis = new FileInputStream(file);
+                    prepared_statement.setBinaryStream(6, fis, file.length());
+                }else if (image_type.equals("url")){
+//                    file_image_path = imagefilename;
+//                    File file = new File(file_image_path);
+//                    InputStream fiss = new URL(file_image_path).openStream();
+//                    prepared_statement.setBinaryStream(6, fiss);
+                }
+
             }
 
             prepared_statement.executeUpdate();

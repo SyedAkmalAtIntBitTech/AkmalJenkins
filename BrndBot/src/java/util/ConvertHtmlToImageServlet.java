@@ -6,6 +6,7 @@
 package util;
 
 import admin.controller.Layout;
+import com.controller.ApplicationContextListener;
 import com.controller.BrndBotBaseHttpServlet;
 import com.controller.SqlMethods;
 //import com.imagetopdf.Images2PDF;
@@ -25,6 +26,7 @@ import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -88,6 +90,7 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
             String filename = imagePngFile.getName();
             
             if (mediaType.equalsIgnoreCase("downloadpdf")){
+                
                 String image2 = AppConstants.LAYOUT_IMAGES_HOME + File.separator + filename;
                                                    
 
@@ -148,14 +151,14 @@ public class ConvertHtmlToImageServlet extends BrndBotBaseHttpServlet {
                         doc.close();
                     }
                 }          
-            getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false, null, pdf_file_name);
+            getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false,null, null, pdf_file_name);
 
     //                deleteFile(file_name);
             response.setContentType("text/plain");
             response.getWriter().write(pdf_file_name);
 
             }else if (mediaType.equalsIgnoreCase("downloadimage")){
-                getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false, filename, null);
+                getSqlMethodsInstance().setSocialPostHistory(user_id, "", false, false,null, filename, null);
 
                 
                 response.setContentType("text/plain");

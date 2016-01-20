@@ -18,6 +18,7 @@ import facebook4j.PhotoUpdate;
 import facebook4j.PostUpdate;
 import facebook4j.auth.AccessToken;
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -37,7 +38,7 @@ class PostToFacebook {
             String file_image_path, String posttext, 
             String imagePostURL, String getImageFile, 
             String url, String description, String imageType,
-            Integer user_id, String htmlString) throws MalformedURLException {
+            Integer user_id, String htmlString) throws MalformedURLException, IOException {
 
         String returnMessage = "success";
         ServletContext context = null;
@@ -55,7 +56,13 @@ class PostToFacebook {
             
             if (title.equals("")) {
 
-                Media media = new Media(new File(file_image_path));
+                Media media;
+                if (imageType.equals("url")){
+                media = new Media("xyz",new URL(file_image_path).openStream());
+                }
+                else{
+                    media = new Media(new File(file_image_path));
+                }
                 PhotoUpdate update = new PhotoUpdate(media);
                 update.message(posttext);
                 status = facebook.postPhoto(update);
@@ -91,7 +98,7 @@ class PostToFacebook {
             Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "message while facebook post:"+status);
             try {
                 SqlMethods sqlMethods = new SqlMethods();
-                sqlMethods.setSocialPostHistory(user_id, htmlString, false, true, getImageFile, null);
+                sqlMethods.setSocialPostHistory(user_id, htmlString, false, true,imageType, getImageFile, null);
             } catch (Exception ex) {
                 Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getCause());
                 Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getMessage());
