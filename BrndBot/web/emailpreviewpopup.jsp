@@ -118,6 +118,7 @@
                                     </div>
                                         <input type="hidden" class="textbox" id="emaildays" name="emaildays" value="0"/>
                                         <input type="text"  readonly  name="emaildatetime" id="emaildatetime"  class="input-field-textfield width75" value="{{entities_selected_time| date:'MMM dd yyyy'}}" />                                        
+                                        <input type="hidden" value="{{entities_selected_time| date:'MMM dd yyyy'}}" id="emaildateid"/>
                                         <script>
                                             var picker = new Pikaday(
                                             {
