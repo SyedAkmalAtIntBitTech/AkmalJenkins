@@ -312,6 +312,50 @@ $(document).ready(function ()
         $("#recuringaction a").addClass("h3-subnav");
         
     });
+    /*.......................................... reminder popup navbar ................*/
+    
+    $("#reminderdetailstab").click(function(){
+        var change=$("#change").val();
+        var scheduleID=$("#remainder_id").val();
+        if(change === "1")
+        {
+            var note=$("#reminderdesc"+scheduleID).val();
+            $("#note_desc").html(note);            
+        }
+        
+        $("#reminderdetailsdiv").show();
+        $("#savedreminderdiv").hide();
+        $("#reminderactionsave").show();
+        $("#remindernotesave").hide();
+        
+        //$("#reminderdetailstab").removeClass("top-subnav-links-detail");
+        $("#reminderdetailstab").addClass("top-subnav-link-active-detail");
+        $("#reminderdetailstab a").removeClass("h3-subnav");
+        $("#reminderdetailstab a").addClass("h3-subnav-active");
+        
+        $("#savedremindertab").removeClass("top-subnav-link-active-detail");
+        $("#savedremindertab a").removeClass("h3-subnav-active");
+        $("#savedremindertab").addClass("top-subnav-links-detail");
+        $("#savedremindertab a").addClass("h3-subnav");
+        
+    });
+    $("#savedremindertab").click(function(){
+        $("#reminderdetailsdiv").hide();
+        $("#savedreminderdiv").show();
+        $("#reminderactionsave").hide();
+        $("#remindernotesave").show();
+        
+        $("#reminderdetailstab").removeClass("top-subnav-link-active-detail");
+        $("#reminderdetailstab a").removeClass("h3-subnav-active");
+        $("#reminderdetailstab a").addClass("h3-subnav");
+        
+        //$("#savedremindertab").removeClass("top-subnav-link-active-detail");
+        $("#savedremindertab a").removeClass("h3-subnav");
+        $("#savedremindertab").addClass("top-subnav-link-active-detail");
+        $("#savedremindertab a").addClass("h3-subnav-active");
+        
+    });
+    
     /*.......................................... facebook popup navbar ................*/
     $("#facebookpost").click(function(){
         $("#facebookpostsection").show();

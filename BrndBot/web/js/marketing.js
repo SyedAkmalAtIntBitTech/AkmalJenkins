@@ -1101,7 +1101,18 @@ function controllerMarketingCampaign($scope, $http) {
             });
     }
 
-
+    $("#closenotepopup").click(function(){
+        var change=$("#change").val();
+        if(change === "1")
+        {
+            $("#change").val("0");
+            window.open(getHost() + 'marketing.jsp', "_self");
+        }
+        $slider=2;
+        sliderDialog = "#notediv";
+        prevSliderDialog = "#notediv";
+        $('#slider-button').click();
+    });
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active) {
         
         if (entity_type === getemail()) {
@@ -1373,26 +1384,35 @@ function controllerMarketingCampaign($scope, $http) {
             $('#slider-button').click();
            
         } 
-        
-//        else if (entity_type == getnote()) {
-//            $slider=1;
-//            sliderDialog = "#previewNote";
-//            $('#slider-button').click();
-//            prevSliderDialog = "#previewNote";
-//
-//            $("#noteprev").show();
-//            $("#noteedit").hide();
-//            $scope.entities_selected_time = schedule_time;
-//            $scope.schedule_title = schedule_title;
-//            $scope.schedule_id = schedule_id;
-//            $scope.schedule_desc = schedule_desc;
-//            $scope.schedule_type = entity_type;
-//            $scope.note_template_status = template_status;
-//            $scope.marketing_program_name = marketingName;
-//            $scope.user_marketing_program_id = programId;
-//            $scope.days = days;
-//
-//        }
+        if (entity_type == getnote()) {
+            $slider=2;
+            sliderDialog = "#notediv";
+            prevSliderDialog = "#notediv";
+
+            $("#reminderdetailsdiv").show();
+            $("#savedreminderdiv").hide();
+            $("#reminderactionsave").show();
+            $("#remindernotesave").hide();
+            
+            $("#reminderdetailstab").addClass("top-subnav-link-active-detail");
+            $("#reminderdetailstab a").removeClass("h3-subnav");
+            $("#reminderdetailstab a").addClass("h3-subnav-active");
+
+            $("#savedremindertab").removeClass("top-subnav-link-active-detail");
+            $("#savedremindertab a").removeClass("h3-subnav-active");
+            $("#savedremindertab").addClass("top-subnav-links-detail");
+            $("#savedremindertab a").addClass("h3-subnav");
+            $scope.entities_selected_time = schedule_time;
+            $scope.schedule_title = schedule_title;
+            $scope.schedule_id = schedule_id;
+            $scope.schedule_desc = schedule_desc;
+            $scope.schedule_type = entity_type;
+            $scope.note_template_status = template_status;
+            $scope.marketing_program_name = marketingName;
+            $scope.user_marketing_program_id = programId;
+            $scope.days = days;
+            $('#slider-button').click();
+        }
     };
 
 
@@ -1806,6 +1826,7 @@ function controllerMarketingCampaign($scope, $http) {
         }
     };
 
+    
     $scope.updateNote = function () {
         var message;
 //        $('#emailnotes').on("change",function(){
@@ -1815,14 +1836,14 @@ function controllerMarketingCampaign($scope, $http) {
 //        var emlnote=$('#emailnotes').val();
 //        alert(emlnote);
         
-        var schedule_id = $("#note_schedule_id").val();
-        var entity_id = $("#note_entity_id").val();
-        var note_title = $("#note_title").val();
-        var status = $("#status").val();
+        var schedule_id = $("#note_scheduleid").val();
+        //var entity_id = $("#note_entity_id").val();
+        var note_title = $("#edit_note_title").val();
+        var status = "no_template";
         var note_desc = $("#note_desc").val();
         var message = "Do you wan't to update the record?";
-        var actiondate = $("#datepicker4").val();
-        var actionDateTime=$("#timepicker3").val().replace(/ /g,'');
+        var actiondate = $("#datepickernote").val();
+        var actionDateTime=$("#timepickernote").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
 //        console.log("Epoch: " + schedule_time);
@@ -1837,28 +1858,58 @@ function controllerMarketingCampaign($scope, $http) {
             "schedule_desc": note_desc,
             "status": status,
             "schedule_time": myEpoch
-        }
-       if(confirm(message)){
+        };
+       
+        $http({
+            method: 'POST',
+            url: getHost() + 'ChangeScheduleServlet',
+            headers: {'Content-Type': 'application/json'},
+            data: JSON.stringify(schedule_details)
+        }).success(function (data)
+        {
+            $scope.status = data;
+            if (data != "") {
+                alert("Details saved successfully.");
+                //window.open(getHost() + 'marketing.jsp', "_self");
+                $("#change").val("1");
+            }
+        }).error(function (data, status) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+
+            alert("Request not successful!");
+        });        
+    };
+    $scope.updateNoteDescription = function (schedule_id) {
+        var actiontype = getnote();
+        var description = $("#reminderdesc"+schedule_id).val();
+ 
+        if (validateemailDescription()) {
+            var action = {
+                "schedule_id": schedule_id, "type": "updatenotes","actiontype": actiontype,
+                "description": description
+            };
             $http({
                 method: 'POST',
-                url: getHost() + 'ChangeScheduleServlet',
+                url: getHost() + 'AddAction',
                 headers: {'Content-Type': 'application/json'},
-                data: JSON.stringify(schedule_details)
+                data: JSON.stringify(action)
             }).success(function (data)
             {
                 $scope.status = data;
                 if (data != "") {
-                    alert("Details saved successfully.");
-                    window.open(getHost() + 'marketing.jsp', "_self");
-
+                    alert("Reminder Notes saved successfully");
+                    $("#change").val("1");
+//                    $scope.getCampaigns();
+                   // window.open(getHost() + 'marketing.jsp', "_self");
                 }
             }).error(function (data, status) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
 
-                alert("Request not successful!");
+                alert("request not succesful");
             });
-            
+
         }
     };
 
