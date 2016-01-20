@@ -36,7 +36,8 @@
     <jsp:include page="AddAction.jsp"/> 
     <jsp:include page="facebookpreview.jsp"/> 
     <jsp:include page="twitterpreview.jsp"/> 
-    <jsp:include page="emailpreviewpopup.jsp"/> 
+    <jsp:include page="emailpreviewpopup.jsp"/>
+    <jsp:include page="notepreview.jsp"/> 
     <%@include file="navbarv2.jsp" %>
     <script src="js/marketing.js" type="text/javascript"></script>
     <input type="hidden" name="change" id="change" value="0"/>

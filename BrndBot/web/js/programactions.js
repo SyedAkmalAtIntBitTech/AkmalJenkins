@@ -753,6 +753,7 @@ function programactions($scope, $http, $window){
             $("#noota").empty().append('No One Time Actions');
             }
             $scope.programs = data;
+            $scope.actionType="Email";
             program_status = data.programdetails.program_status;
 //            alert(JSON.stringify(data.programactions));
             if(program_status === "Closed"){
