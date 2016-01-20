@@ -635,7 +635,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $scope.entityS = JSON.stringify(data);
         //            $("#default").hide();
         //            $("#selected").show();
-                   
+                    //alert(JSON.stringify(data));
                     $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
                     $scope.tomorrow_date = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
                     $scope.entitySet = data.entitydata;
@@ -1182,7 +1182,7 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $('#emailcontentiframe').contents().find('html').html(data.body); 
                 
-                $scope.entities_selected_time = schedule_time;
+                $scope.entities_selected_time = date;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 console.log(schedule_desc);
@@ -1265,7 +1265,7 @@ function controllerMarketingCampaign($scope, $http) {
                 }
                 
                 var date = new Date(schedule_time);
-                $scope.entities_selected_time = schedule_time;
+                $scope.entities_selected_time = date;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 $scope.schedule_desc = schedule_desc;
@@ -1284,6 +1284,7 @@ function controllerMarketingCampaign($scope, $http) {
             $('#slider-button').click();            
         } 
         if (entity_type === gettwitter()) {
+            //alert(schedule_time);
             $slider=2;
             sliderDialog = "#twittersection";
             
@@ -1355,7 +1356,7 @@ function controllerMarketingCampaign($scope, $http) {
 //                    $('#isTwitter').val("true");
                 }
                 var date = new Date(schedule_time);
-                $scope.entities_selected_time = schedule_time;
+                $scope.entities_selected_time = date;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 console.log(schedule_desc);
