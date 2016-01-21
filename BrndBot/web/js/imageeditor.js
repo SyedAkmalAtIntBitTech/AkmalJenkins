@@ -21,8 +21,8 @@
            }
        },
        onError: function(errorObj) {
-           alert("error");
-           alert(errorObj.message);
+           //alert("error");
+           //alert(errorObj.message);
        }
    }); 
    
@@ -41,7 +41,7 @@
                 clickedImageId=$("#facebookpreviewimage").attr("id");
                 launchEditor($("#facebookpreviewimage").attr("id"));
             });
-            $(".editImage").click(function(){   
+            $("#twitterimg").click(function(){   
                 clickedImageId=$("#twitterpreviewimage").attr("id");
                 launchEditor($("#twitterpreviewimage").attr("id"));
             });
