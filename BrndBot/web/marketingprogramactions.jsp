@@ -27,11 +27,13 @@
     <jsp:include page="basejsp.jsp"/>
      <%!
             String program_id = "";
+            String program_date="";
             int past = 0;
       %>
         <%
             program_id = request.getParameter("program_id");
             past = Integer.parseInt(request.getParameter("past"));
+            program_date = request.getParameter("program_date");
         %>
         <script>
             var program = "";
@@ -72,7 +74,7 @@
         <div class="page-subnav-bar-regular"> 
             <div class="top-subnav-tabs-container-with-button">
                 <ul class="top-subnav-nav-elements">
-                    <li class="top-subnav-links" id="ovrviewli"> <a href="" id="overview" class="h3" id="overview">Overview</a></li>
+                    <li class="top-subnav-links" id="ovrviewli" ng-hide="programs.programdetails.program_status == 'Closed'"> <a href="" id="overview" class="h3" id="overview">Overview</a></li>
 <!--                    <li class="top-subnav-links" id="fieldsli"> <a href="" id="fields" class="h3" ng-click="showfieldstab()">Fields</a></li>-->
                     <li class="top-subnav-link-active" id="actionsli"> <a href="" id="actions" class="h3-active-subnav" ng-click="showactionstab()">Actions</a></li>
 <!--                        <li class="top-subnav-links"> <a class="h3" href="/Newest_Files/MarketingProgram_Notes.html">Notes</a></li>
@@ -330,27 +332,37 @@
                             <div class="h4" style="">
                                 Marketing Program Name:
                             </div>
-                            <div class="input-field-textfield col-8of10">
-                                Marketing Program Name
+                            <div class="">
+                                <input id="program_name" name="program_name" value="{{programs.programdetails.programName}}" class="input-field-textfield col-8of10"/>
                             </div>
-                               <div class="h4 pushUp" style="">
+                            <div class="h4 pushUp" style="">
                                End Date:
                             </div>
-                            <div class="input-field-textfield col-4of10">
-                                Enter Name of email
+                            <div class="">
+                                <input type="text" readonly name="datepicker" id="progactdatepicker"  class="input-field-textfield col-4of10" value="<%=program_date%>"/>                                        
+                                <script>
+                                            var picker = new Pikaday(
+                                            {
+                                            field: document.getElementById('progactdatepicker'),
+                                                    firstDay: 1,
+                                                    minDate: new Date(2000, 0, 1),
+                                                    maxDate: new Date(2050, 12, 31),
+                                                    yearRange: [2000, 2050]
+                                            });                                
+                                </script>
                             </div>
                                 <div class="h4 pushUp" style="">
                                 Enter a URL for this marketing program:
                             </div>
-                            <div class="input-field-textfield col-7of10">
-                                Enter Name of email
+                            <div class="">
+                                <input id="link_url" name="link_url" class="input-field-textfield col-7of10" value="{{programs.programdetails.linktodestination}}"/>
                             </div>
                            
                                 <div class="h4 pushUp" style="">
                                 Enter a name for this Marketing URL:
                             </div>
-                            <div class="input-field-textfield col-7of10">
-                                Enter Name of email
+                            <div class="">
+                                <input id="link_name" name="link_name" class="input-field-textfield col-7of10" value="{{programs.programdetails.link_name}}"/>
                             </div>
                         </div>
                     </div>
@@ -359,11 +371,9 @@
         </div>
         </div>
     </div>
-        <div class="bottom-cta-bar" id="savefieldsbutton" hidden>
-            <div class="bottom-cta-button-container bottomheight">
-             
-               <div class="add-action-button md-button button-text-1">Save</div>
-
+        <div class="bottom-cta-bar" id="saveprogram">
+            <div class="bottom-cta-button-container1 bottomheight">
+               <div class="add-action-button md-button button-text-1" ng-click="updateUserProgram()">Save changes</div>
             </div>
         </div>                     
         <div class="bottom-cta-bar bordertop" id="removeactionbutton" >

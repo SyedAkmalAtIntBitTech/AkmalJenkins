@@ -529,10 +529,12 @@ public class UserMarketingProgramController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
-            Double program_id = (Double) requestBodyMap.get("program_id");
+            String program_id1 = (String) requestBodyMap.get("program_id");
+            Double program_id=Double.parseDouble(program_id1);
             Double date_of_event = (Double) requestBodyMap.get("date_of_event");
             String link_url = (String) requestBodyMap.get("link_url");
             String link_name = (String) requestBodyMap.get("link_name");
+            String name = (String) requestBodyMap.get("program_name");
 
             TblUserMarketingProgram user_marketing_program = userMarketingProgramService.getById(program_id.intValue());
 
@@ -541,6 +543,7 @@ public class UserMarketingProgramController {
             user_marketing_program.setDateEvent(event_date);
             user_marketing_program.setUrl(link_url);
             user_marketing_program.setLinkName(link_name);
+            user_marketing_program.setName(name);
 
             userMarketingProgramService.update(user_marketing_program);
             return "true";

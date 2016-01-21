@@ -110,8 +110,8 @@
                 });                
             };
             $scope.sendProgramId = function(program_id,past){
-                
-                window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id+'&past='+past, "_self");
+                var program_end_date=$("#program_end_date").html();
+                window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id+'&past='+past+'&program_date='+program_end_date, "_self");
             };
 //            $scope.endMarketingProgram = function(){
 //                        var endprogid=selected_schedules_to_delete.replace(/[ ,]+/g, "");
@@ -227,8 +227,8 @@
                                     <div class="action-list-slat-description col-1of1 sh3-contact">Added on {{program.start_date | date: 'MMM dd yyyy'}}</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{program.end_date | date: "MMMM dd, yyyy"}}</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">End Date</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" id="program_end_date">{{program.end_date | date: "MMM dd yyyy"}}</div>
+                                    <input type="hidden" value="{{program.end_date| date: "MMM dd yyyy"}}" ></input>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft" ng-hide="program.noofpostleft=='0'">{{program.noofpostleft}}</div>
