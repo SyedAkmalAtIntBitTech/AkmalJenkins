@@ -1389,19 +1389,20 @@ function controllerMarketingCampaign($scope, $http) {
             sliderDialog = "#notediv";
             prevSliderDialog = "#notediv";
 
-            $("#reminderdetailsdiv").show();
-            $("#savedreminderdiv").hide();
-            $("#reminderactionsave").show();
-            $("#remindernotesave").hide();
-            
-            $("#reminderdetailstab").addClass("top-subnav-link-active-detail");
-            $("#reminderdetailstab a").removeClass("h3-subnav");
-            $("#reminderdetailstab a").addClass("h3-subnav-active");
+            $("#reminderdetailsdiv").hide();
+            $("#savedreminderdiv").show();
+            $("#reminderactionsave").hide();
+            $("#remindernotesave").show();
 
-            $("#savedremindertab").removeClass("top-subnav-link-active-detail");
-            $("#savedremindertab a").removeClass("h3-subnav-active");
-            $("#savedremindertab").addClass("top-subnav-links-detail");
-            $("#savedremindertab a").addClass("h3-subnav");
+            $("#reminderdetailstab").removeClass("top-subnav-link-active-detail");
+            $("#reminderdetailstab a").removeClass("h3-subnav-active");
+            $("#reminderdetailstab a").addClass("h3-subnav");
+
+            //$("#savedremindertab").removeClass("top-subnav-link-active-detail");
+            $("#savedremindertab a").removeClass("h3-subnav");
+            $("#savedremindertab").addClass("top-subnav-link-active-detail");
+            $("#savedremindertab a").addClass("h3-subnav-active");
+        
             $scope.entities_selected_time = schedule_time;
             $scope.schedule_title = schedule_title;
             $scope.schedule_id = schedule_id;

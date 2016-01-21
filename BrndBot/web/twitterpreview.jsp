@@ -136,6 +136,7 @@
                                     </div>
                                         <input type="hidden" class="textbox" id="twdays" name="twdays" value="0"/>
                                         <input type="text"  name="datepickertwitter" id="datepickertwitter"  class="input-field-textfield width75" value="{{entities_selected_time| date:'MMM dd yyyy'}}" readonly/>                                        
+                                        <input type="hidden" value="{{entities_selected_time| date:'MMM dd yyyy'}}" id="twdateid"/>
                                         <script>
                                             var picker = new Pikaday(
                                             {

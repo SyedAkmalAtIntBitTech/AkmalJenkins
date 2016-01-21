@@ -129,6 +129,7 @@
                                 </div>
 
                                 <input type="text" readonly  name="datepickerfb" id="datepickerfb"  class="datepickertextbox" value="{{entities_selected_time| date:'MMM dd yyyy'}}">                                        
+                                <input type="hidden" value="{{entities_selected_time| date:'MMM dd yyyy'}}" id="fbdateid"/>
                                 <script>
                                     var picker = new Pikaday(
                                     {

@@ -116,7 +116,7 @@ class PostToFacebook {
             Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, null, ex.getStackTrace());
             Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
-        return status;
+        return returnMessage;
     }
     public  HashMap<String,String> getFacebookUserPreferences(Integer userId) throws Throwable{
         UserPreferencesFacebook userPreferencesFacebook = new UserPreferencesFacebook();

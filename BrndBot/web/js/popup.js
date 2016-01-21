@@ -98,6 +98,14 @@ $(document).ready(function ()
         $("#fade").show();
     });
     $("#postorschedule").click(function(){
+        if($("#isFacebook").val()!=="true")
+        {
+            $("#facebookselection").hide();
+        }
+        if($("#isTwitter").val()!=="true")
+        {
+            $("#twitterselection").hide();
+        }
         $("#postpopup").show();
         $("#fade").show();
     });
@@ -316,7 +324,9 @@ $(document).ready(function ()
     
     $("#reminderdetailstab").click(function(){
         var change=$("#change").val();
-        var scheduleID=$("#remainder_id").val();
+        var scheduleID=$("#remainder_id").val();        
+        var dateid=$("#notedateid").val();
+        $("#datepickernote").val(dateid);
         if(change === "1")
         {
             var note=$("#reminderdesc"+scheduleID).val();
@@ -489,6 +499,8 @@ $(document).ready(function ()
     $("#facebookaction1").click(function(){        
         var fb_scheduleid=$("#fb_scheduleid").val();
         var change=$("#change").val();
+        var dateid=$("#fbdateid").val();
+        $("#datepickerfb").val(dateid);
         if(change === "1")
         {
             var note=$("#fbnote"+fb_scheduleid).val();
@@ -650,6 +662,8 @@ $(document).ready(function ()
     $("#twitteraction1").click(function(){
         var change=$("#change").val();
         var schedule_id=$("#twitter_scheduleid").val();
+        var dateid=$("#twdateid").val();
+        $("#datepickertwitter").val(dateid);
         if(change === "1")
         {
             var note=$("#twtnote").val();
@@ -778,7 +792,8 @@ $(document).ready(function ()
     $("#emailaction").click(function(){
         var change=$("#change").val();
         var id=$("#scheduleId").val();
-        
+        var dateid=$("#emaildateid").val();
+        $("#emaildatetime").val(dateid);
         //alert(id);
         if(change === "1")
         {
@@ -858,7 +873,8 @@ $(document).ready(function ()
     $("#emailaction1").click(function(){
         var change=$("#change").val();
         var id=$("#email_scheduleid").val();
-        
+        var dateid=$("#emaildateid").val();
+        $("#emaildatetime").val(dateid);
         //alert(id);
         if(change === "1")
         {

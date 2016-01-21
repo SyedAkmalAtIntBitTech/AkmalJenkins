@@ -243,7 +243,7 @@
                     });
 
                 }else if((type == 'template') && (entity_no_email_template == "true")){
-                    
+                    alert(entity_no_email_template);
                     var recuring_action = {
                         "entity_id" : entity_id, 
                         "days":days, "emaillist":emaillist, 
@@ -256,7 +256,7 @@
                         "schedule_time_epoch": schedule_time,
                         "program_id" :program_id 
                     };
-
+                    
                     $http({
                         method: 'POST',
                         url: 'addupdateRecuringAction.do',
@@ -278,6 +278,7 @@
                     });
 
                 }else if ((type == 'edit') && (entity_no_email_template == "true")){
+                    alert(entity_no_email_template);
                     var recuring_action = {
                         "entity_id" : entity_id, 
                         "days":days, "emaillist":emaillist, 
@@ -348,19 +349,19 @@
             }
             
              function showEmailListName(email_list_name){
-        setTimeout(function() 
-        {
-          //do something special
-         // alert("delay");
-          //$("#select option").filter(".a0").attr('selected','selected');
-          $('#emaillist option[value='+email_list_name+']').attr("selected", "selected");
-          $("#emaillist").change();
+                    setTimeout(function() 
+                    {
+                      //do something special
+                     // alert("delay");
+                      //$("#select option").filter(".a0").attr('selected','selected');
+                      $('#emaillist option[value='+email_list_name+']').attr("selected", "selected");
+                      $("#emaillist").change();
 
-           
-        }, 500);
 
-    }
-        };
+                    }, 500);
+
+                }
+            };
 
         $scope.showHTMLData = function(html_data, id){
                 var $iframe = $('.fr-iframe');

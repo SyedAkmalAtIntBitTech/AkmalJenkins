@@ -463,6 +463,15 @@
                        method: 'GET',
                        url:getHost() + 'getAllUserMarketingPrograms.do'
                     }).success(function (data){
+                        $http({
+                        method: 'GET',
+                        url: getHost() + 'GetScheduledActions?programid=0&type='+ getemail()
+                        }).success(function (data1) {
+                            //alert(JSON.stringify(data));
+                            $scope.email_actions = data1;
+                        }).error(function (data1) {
+                            alert("Request not successful!");
+                        });
 //                        alert(JSON.stringify(data));
                         $scope.marketing_programs = data;
                     }).error(function (data){

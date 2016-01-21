@@ -104,6 +104,7 @@
                                             DATE
                                             </div>
                                                 <input type="text"  name="datepickernote" id="datepickernote"  class="input-field-textfield width75" value="{{entities_selected_time| date:'MMM dd yyyy'}}" readonly/>                                        
+                                                <input type="hidden" value="{{entities_selected_time| date:'MMM dd yyyy'}}" id="notedateid"/>
                                                 <script>
                                                     var picker = new Pikaday(
                                                     {
