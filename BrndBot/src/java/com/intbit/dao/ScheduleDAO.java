@@ -572,7 +572,7 @@ public class ScheduleDAO {
                 }
 
             }
-            logger.log(Level.INFO, entityDataArray.toString());
+//            logger.log(Level.INFO, entityDataArray.toString());
 
         } catch (Exception e) {
             logger.log(Level.SEVERE, util.Utility.logMessage(e,

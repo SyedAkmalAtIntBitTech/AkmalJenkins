@@ -58,7 +58,7 @@ class PostToFacebook {
 
                 Media media;
                 if (imageType.equals("url")){
-                media = new Media("xyz",new URL(file_image_path).openStream());
+                    media = new Media("xyz",new URL(file_image_path).openStream());
                 }
                 else{
                     media = new Media(new File(file_image_path));
@@ -106,8 +106,15 @@ class PostToFacebook {
 
         } catch (FacebookException e) {
             returnMessage = "FB Exception:" + e.getMessage();
-            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getCause());
-            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, null, e.getCause());
+            Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, null, e.getMessage());
+        } catch (Exception ex){
+            returnMessage = "Exception:" + ex.getMessage();
+            System.out.println(ex);
+            System.out.println(ex.getCause());
+            System.out.println(ex.getMessage());
+            Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, null, ex.getStackTrace());
+            Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
         return status;
     }
