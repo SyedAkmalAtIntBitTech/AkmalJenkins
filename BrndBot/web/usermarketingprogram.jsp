@@ -233,7 +233,7 @@
                     }).success(function (data, status, headers, config) {
                         if (data !== null){
                             alert("Details saved successfully.");
-                            var redirect="marketingprogramactions.jsp?program_id="+data;
+                            var redirect="marketingprogramactions.jsp?past=0&program_id="+data;
                             window.open(getHost() + redirect, "_self");
                         }else {
                             alert("Problem saving the record!");

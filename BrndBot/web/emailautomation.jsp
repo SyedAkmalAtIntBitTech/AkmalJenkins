@@ -30,7 +30,9 @@
     <link rel="stylesheet" type="text/css" href="css/slat.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <link href="css/emailautomationeditor.css" rel="stylesheet" type="text/css"/>
-    <style>.arrow_top,#emlautomeditorcontainer,#emailautomationcontent,#emailautomation,#textdiv,#myModal,#editpreviewtemplatebottom{display:none;}</style>
+    <style>
+        .arrow_top,#emlautomeditorcontainer,#emailautomationcontent,#emailautomation,#textdiv,#myModal,#editpreviewtemplatebottom{display:none;}
+    </style>
     <%! 
     String entity_id = "";
     String program_id = "";
@@ -101,7 +103,7 @@
     
     function emailautomation($scope, $http){
         $("#back").click(function (){
-            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id, "_self");
+            window.open(getHost() + 'marketingprogramactions.jsp?past=0&program_id='+program_id, "_self");
         });
         $scope.getEntityDetails = function (){
             $scope.showEmailList();
@@ -777,7 +779,12 @@
                             <input type="text" readonly  name="datepicker" 
                                     id="datepicker"  
                                     class="input-field-textfield col-1of1" 
-                                    value="{{entity_details.recuring_email_till_date| date:'MMM dd yyyy'}}" />                                        
+                                    value="{{entity_details.recuring_email_till_date| date:'MMM dd yyyy'}}" />  
+                            <style>
+                                        .timepicker_wrap{
+              width: 48%;
+        }
+                            </style>
                                     <script>
                                         var picker = new Pikaday(
                                         {
