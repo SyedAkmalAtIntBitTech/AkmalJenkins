@@ -415,19 +415,23 @@
                                     <option ng-repeat="programs in marketing_programs" value="{{programs.program_id}}">{{programs.name}}</option>
                                 </select>
                             </div>
-                            <div class="input-header"> Choose Facebook Action</div>
-                            <div ng-init="getSocialFacebookActions();">
-                                <select name="facebookactions" id="facebookactions" class="input-field-textfield input-placeholder full" onchange="validateact();">
-                                    <option value="0" >CUSTOM FACEBOOK</option>
-                                    <option ng-repeat="fbactions in facebook_actions" value="{{fbactions.id}}">{{fbactions.schedule_title}}</option>
-                                </select>
+                            <div id="facebookselection">
+                                <div class="input-header"> Choose Facebook Action</div>
+                                <div ng-init="getSocialFacebookActions();">
+                                    <select name="facebookactions" id="facebookactions" class="input-field-textfield input-placeholder full" onchange="validateact();">
+                                        <option value="0" >CUSTOM FACEBOOK</option>
+                                        <option ng-repeat="fbactions in facebook_actions" value="{{fbactions.id}}">{{fbactions.schedule_title}}</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="input-header"> Choose Twitter Action</div>
-                            <div ng-init="getSocialTwitterActions();">
-                                 <select name="twitteractions" id="twitteractions" class="input-field-textfield input-placeholder full" onchange="validateact();">
-                            <option value="0">CUSTOM TWITTER</option>
-                            <option ng-repeat="twitteractions in twitter_actions" value="{{twitteractions.id}}">{{twitteractions.schedule_title}}</option>
-                        </select>
+                            <div id="twitterselection">
+                                <div class="input-header"> Choose Twitter Action</div>
+                                <div ng-init="getSocialTwitterActions();">
+                                    <select name="twitteractions" id="twitteractions" class="input-field-textfield input-placeholder full" onchange="validateact();">
+                                        <option value="0">CUSTOM TWITTER</option>
+                                        <option ng-repeat="twitteractions in twitter_actions" value="{{twitteractions.id}}">{{twitteractions.schedule_title}}</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="popup-section-header pushUp-45">-Or- Create a New Action</div>

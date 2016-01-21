@@ -98,6 +98,14 @@ $(document).ready(function ()
         $("#fade").show();
     });
     $("#postorschedule").click(function(){
+        if($("#isFacebook").val()!=="true")
+        {
+            $("#facebookselection").hide();
+        }
+        if($("#isTwitter").val()!=="true")
+        {
+            $("#twitterselection").hide();
+        }
         $("#postpopup").show();
         $("#fade").show();
     });
