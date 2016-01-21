@@ -30,7 +30,9 @@
     <link rel="stylesheet" type="text/css" href="css/slat.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <link href="css/emailautomationeditor.css" rel="stylesheet" type="text/css"/>
-    <style>.arrow_top,#emlautomeditorcontainer,#emailautomationcontent,#emailautomation,#textdiv,#myModal,#editpreviewtemplatebottom{display:none;}</style>
+    <style>
+        .arrow_top,#emlautomeditorcontainer,#emailautomationcontent,#emailautomation,#textdiv,#myModal,#editpreviewtemplatebottom{display:none;}
+    </style>
     <%! 
     String entity_id = "";
     String program_id = "";
@@ -101,7 +103,7 @@
     
     function emailautomation($scope, $http){
         $("#back").click(function (){
-            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id, "_self");
+            window.open(getHost() + 'marketingprogramactions.jsp?past=0&program_id='+program_id, "_self");
         });
         $scope.getEntityDetails = function (){
             $scope.showEmailList();
@@ -242,8 +244,7 @@
                         // or server returns response with an error status.
                     });
 
-                }else if((type == 'template') && (entity_no_email_template == "true")){
-                    
+                }else if((type == 'template') && (entity_no_email_template == "true")){                   
                     var recuring_action = {
                         "entity_id" : entity_id, 
                         "days":days, "emaillist":emaillist, 
@@ -256,7 +257,7 @@
                         "schedule_time_epoch": schedule_time,
                         "program_id" :program_id 
                     };
-
+                    
                     $http({
                         method: 'POST',
                         url: 'addupdateRecuringAction.do',
@@ -278,6 +279,7 @@
                     });
 
                 }else if ((type == 'edit') && (entity_no_email_template == "true")){
+                    
                     var recuring_action = {
                         "entity_id" : entity_id, 
                         "days":days, "emaillist":emaillist, 
@@ -310,6 +312,7 @@
                     });
                     
                 }else if((type == 'edit')||(type == 'template')){
+                    
                     var recuring_action = {
                         "entity_id" : entity_id, 
                         "template_id" : template_id, "html_data": html_data,
@@ -322,7 +325,7 @@
                         "till_date_epoch":till_date_epoch,
                         "schedule_time_epoch": schedule_time,
                         "program_id" :program_id 
-                    };
+                    };                    
                     $http({
                         method: 'POST',
                         url: 'updateRecuringAction.do',
@@ -348,19 +351,19 @@
             }
             
              function showEmailListName(email_list_name){
-        setTimeout(function() 
-        {
-          //do something special
-         // alert("delay");
-          //$("#select option").filter(".a0").attr('selected','selected');
-          $('#emaillist option[value='+email_list_name+']').attr("selected", "selected");
-          $("#emaillist").change();
+                    setTimeout(function() 
+                    {
+                      //do something special
+                     // alert("delay");
+                      //$("#select option").filter(".a0").attr('selected','selected');
+                      $('#emaillist option[value='+email_list_name+']').attr("selected", "selected");
+                      $("#emaillist").change();
 
-           
-        }, 500);
 
-    }
-        };
+                    }, 500);
+
+                }
+            };
 
         $scope.showHTMLData = function(html_data, id){
                 var $iframe = $('.fr-iframe');
@@ -777,7 +780,12 @@
                             <input type="text" readonly  name="datepicker" 
                                     id="datepicker"  
                                     class="input-field-textfield col-1of1" 
-                                    value="{{entity_details.recuring_email_till_date| date:'MMM dd yyyy'}}" />                                        
+                                    value="{{entity_details.recuring_email_till_date| date:'MMM dd yyyy'}}" />  
+                            <style>
+                                        .timepicker_wrap{
+              width: 48%;
+        }
+                            </style>
                                     <script>
                                         var picker = new Pikaday(
                                         {

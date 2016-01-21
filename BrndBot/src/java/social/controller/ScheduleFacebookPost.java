@@ -84,6 +84,7 @@ public class ScheduleFacebookPost implements Runnable {
             }
 
         } catch (Throwable ex) {
+            System.out.println(ex);
             Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, null, ex);
         }
         logger.log(Level.SEVERE, "In FB Schedule Call End Block" + new Date());

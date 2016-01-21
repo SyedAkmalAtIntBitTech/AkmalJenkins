@@ -387,7 +387,7 @@ function validateemailaction() {
     var title = $("#email_edit_title").val();
 
     var description = $("#email_description").val();
-    var actiondate = $("#emaildatetime").val();
+    var emaildays = $("#emaildays").val();
     var actionDateTime=$("#timepickeremail").val().replace(/ /g,'');
 
     if (title === "") {
@@ -401,9 +401,9 @@ function validateemailaction() {
         $("#email_description").focus();
         return false;
     }
-    if (actiondate === "") {
-        alert("Actiondate not entered! Please enter the actiondate.");
-        $("#emaildatetime").focus();
+    if (emaildays === "") {
+        alert("Action days not entered! Please enter the action days.");
+        $("#emaildays").focus();
         return false;
     }
     if (actionDateTime === "") {

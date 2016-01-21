@@ -65,7 +65,6 @@ function getImageId(idname)
         var imagename=res[1];
         var userid=res[2];
         var imageId=id+userid+"images";
-         alert($("#"+imageId).width());
         imagename=imagename+"&user_id="+userid;
         $("#addimage").show();
         $(".imageGallery-card >div >div").css("color", "#5F6775");
@@ -156,9 +155,6 @@ $(document).ready(function ()
        {
            $("#url").val("http://");
        }
-    });
-    $("#curmarprogli").click(function (){
-       alert(); 
     });
     $("#url").keyup(function(){
         var link=$("#url").val();
