@@ -749,6 +749,7 @@
                                 {
                                     $('#loadingGif').remove();
                                     setTimeout(function () {
+                                        alert("Your mail has been send successfully");
                                         window.location = "dashboard.jsp";
                                     }, 1000);
                                    
