@@ -182,6 +182,7 @@
             var draft_id = 0;
             console.log(draft_id);
             $(document).ready(function () {
+                mindbodydataId = $("#mindbodydata").val();
                     draft_id = <%= draft_id %>;
                     console.log(draft_id);
                     $("#addblkbtn").prop('disabled', true);
