@@ -1,11 +1,8 @@
-
 <%-- 
     Document   : marketingprogramactions
     Created on : Dec 17, 2015, 7:46:00 PM
     Author     : Syed Akmal at IntBit Technologies.
 --%>
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -75,8 +72,8 @@
         <div class="page-subnav-bar-regular"> 
             <div class="top-subnav-tabs-container-with-button">
                 <ul class="top-subnav-nav-elements">
-                    <li class="top-subnav-links" id="ovrviewli"> <a href="" id="ovrview" class="h3">Overview</a></li>
-                    <li class="top-subnav-links" id="fieldsli"> <a href="" id="fields" class="h3" ng-click="showfieldstab()">Fields</a></li>
+                    <li class="top-subnav-links" id="ovrviewli"> <a href="" id="overview" class="h3" id="overview">Overview</a></li>
+<!--                    <li class="top-subnav-links" id="fieldsli"> <a href="" id="fields" class="h3" ng-click="showfieldstab()">Fields</a></li>-->
                     <li class="top-subnav-link-active" id="actionsli"> <a href="" id="actions" class="h3-active-subnav" ng-click="showactionstab()">Actions</a></li>
 <!--                        <li class="top-subnav-links"> <a class="h3" href="/Newest_Files/MarketingProgram_Notes.html">Notes</a></li>
                     <li class="top-subnav-links"> <a class="h3">Website Integration</a></li>
@@ -324,7 +321,41 @@
                         </div>
                     </div>       
                   </div>           
-             </div>        
+             </div>       
+            <div class="page-inner-content-container" id="overviewtab">
+                <div class="fleft content">
+                    <div class="main-container fleft">
+                        <!--Content Starts Here-->
+                         <div class="col-6of10 fleft">
+                            <div class="h4" style="">
+                                Marketing Program Name:
+                            </div>
+                            <div class="input-field-textfield col-8of10">
+                                Marketing Program Name
+                            </div>
+                               <div class="h4 pushUp" style="">
+                               End Date:
+                            </div>
+                            <div class="input-field-textfield col-4of10">
+                                Enter Name of email
+                            </div>
+                                <div class="h4 pushUp" style="">
+                                Enter a URL for this marketing program:
+                            </div>
+                            <div class="input-field-textfield col-7of10">
+                                Enter Name of email
+                            </div>
+                           
+                                <div class="h4 pushUp" style="">
+                                Enter a name for this Marketing URL:
+                            </div>
+                            <div class="input-field-textfield col-7of10">
+                                Enter Name of email
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         </div>
     </div>

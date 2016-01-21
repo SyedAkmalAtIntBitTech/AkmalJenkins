@@ -1133,5 +1133,8 @@ input#schedule_social_time {
         #chooseEmailId:focus{
                 outline: none;
             }
-
+#overviewtab
+{
+    display:none;
+}
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/

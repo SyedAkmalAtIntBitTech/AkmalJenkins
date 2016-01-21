@@ -904,7 +904,31 @@ $(document).ready(function ()
         $("#emailpost1 a").addClass("h3-subnav"); 
     });
     
-  
+  /////////////////////////////////////////// overview and action tab /////////////////////////////////
+  $("#overview").click(function(){
+        $("#actionstab").hide();
+        $("#overviewtab").show();
+        
+        $("#actionsli").removeClass("top-subnav-link-active");
+        $("#actionsli a").removeClass("h3-active-subnav");
+        $("#ovrviewli").removeClass("top-subnav-links");
+        $("#ovrviewli a").removeClass("h3");
+
+        $("#ovrviewli").addClass("top-subnav-link-active");
+        $("#ovrviewli a").addClass("h3-active-subnav");
+        $("#actionsli").addClass("top-subnav-links");
+        $("#actionsli a").addClass("h3");
+  });
+  $("#actions").click(function(){
+        $("#overviewtab").hide();
+        $("#actionstab").show();
+
+        $("#ovrviewli").removeClass("top-subnav-link-active");
+        $("#ovrviewli a").removeClass("h3-active-subnav");
+        
+        $("#ovrviewli").addClass("top-subnav-links");
+        $("#ovrviewli a").addClass("h3");
+  });
          
     
   //////////////////////////////////////////// emaillist popup ////////////////////////////////////////
