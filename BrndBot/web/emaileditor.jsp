@@ -136,7 +136,9 @@
             String mindbody_data_id = "";
             String logoImageName = null;
             String draft_id = "0";
+            String email_subject="";
         %> 
+        <% email_subject = request.getParameter("subject"); %>
         <%  
         try {
                 sql_methods.session = request.getSession(true);
@@ -569,6 +571,7 @@
         </div>
         <input type="hidden" id='userid' value="<%= user_id%>">
         <div class="row" ng-controller="MyController">
+            <input type="hidden" value="<%=email_subject%>" id="email_subject"/>
             <div class="col-sm-1 col-md-1 col-lg-1 halfcol"><jsp:include page="leftmenu.html"/></div>
             <div class="col-sm-7 col-md-7 col-lg-7">
                 <div class="row">
@@ -893,6 +896,7 @@
         });
         });
         $("#saveButton").click(function (){
+        var email_subject=$("#email_subject").val();
         $.ajax({
         url: getHost() + "PreviewServlet",
                 method: "post",
@@ -926,7 +930,7 @@
                                                 },
                                                 success: function (responseText) {
                                                 if (responseText != "0"){
-                                                    document.location.href = "emaillistselection.jsp?draftid="+responseText;
+                                                    document.location.href = "emaillistselection.jsp?draftid="+responseText+"&subject="+email_subject;
                                                 } else {
                                                     alert("There was a problem while saving the draft! Please try again later.");
                                                 }
@@ -943,7 +947,7 @@
                                                 },
                                                 success: function (responseText) {
                                                 if (responseText == "true"){
-                                                    document.location.href = "emaillistselection.jsp?draftid="+draft_id;
+                                                    document.location.href = "emaillistselection.jsp?draftid="+draft_id+"&subject="+email_subject;
                                                 } else {
                                                     alert("There was a problem while saving the draft! Please try again later.");
                                                 }

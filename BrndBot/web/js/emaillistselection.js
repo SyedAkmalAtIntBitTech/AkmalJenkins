@@ -748,7 +748,9 @@
                                 if(responseText=="true")
                                 {
                                     $('#loadingGif').remove();
-                                    url:getHost() + "emailsent.jsp";
+                                    setTimeout(function () {
+                                        window.location = "dashboard.jsp";
+                                    }, 1000);
                                    
                                 }
                             },
