@@ -9,6 +9,7 @@ import com.controller.SqlMethods;
 import com.intbit.marketing.model.TblUserPreferences;
 import com.intbit.marketing.service.UserPreferencesService;
 import java.io.File;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,12 +54,17 @@ public class PostToTwitter {
                     statusMessage = statusMessage + " " + shortUrl;
                 }
             }
-            File file = new File(fileImagePath);
-            int count = statusMessage.length();
             StatusUpdate status = new StatusUpdate(statusMessage);
-            // set the image to be uploaded here.
-
-            status.setMedia(file);
+             if (image_type.equals("url")){
+                status.setMedia("xyz", new URL(fileImagePath).openStream());
+             }
+             else
+             {
+                File file = new File(fileImagePath);
+                 
+                // set the image to be uploaded here.
+                status.setMedia(file);
+             }
             twitter.updateStatus(status);
             
             try {

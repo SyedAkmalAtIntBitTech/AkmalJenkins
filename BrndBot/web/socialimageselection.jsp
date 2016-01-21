@@ -248,12 +248,12 @@
                                     <% if(gallery.equalsIgnoreCase("gallery")) {%>
                                     <div class="changeImage1" onclick="fun('twitter','<%=mindbodydata%>');"> Change Image </div>
                                     <div id="twitterimg" class="feditImage" > Edit Image </div>
-                                    <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>&user_id=<%=user_id%>">
+                                    <img class="imgsize img-responsive" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>&user_id=<%=user_id%>">
                                     </img>
                                     <%} else{%>
                                     <div class="changeImage1" onclick="fun('twitter','<%=mindbodydata%>');"> Change Image </div>
                                     <div id="twitterimg" class="feditImage"> Edit Image </div>
-                                    <img class="imgsize" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>">
+                                    <img class="imgsize .img-responsive" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>">
                                     </img>
                                     <%}%>
                                 </div>

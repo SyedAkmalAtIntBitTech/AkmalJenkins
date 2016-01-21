@@ -1256,6 +1256,7 @@ function controllerMarketingCampaign($scope, $http) {
 //                    $('#fb_preview_postdet').css("margin-top", 10);
 //                    $("#fb_button_post").val(create_button_title);
                 } else {
+                    $(".Facebook-preview-image").css("background-color","#ffffff");
                     $('#fbactionsave').hide();
                     $('#savedposthead').show();
                     $('#nopostsaveddiv').hide();
@@ -1350,6 +1351,7 @@ function controllerMarketingCampaign($scope, $http) {
                 }
                 else 
                 {     
+                    $(".Facebook-preview-image").css("background-color","#ffffff");
                     $('#twtsavedposthead').show();
                     $('#twtnopostsaveddiv').hide();
                     $('#twtsavedpostdiv').show();

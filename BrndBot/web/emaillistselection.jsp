@@ -36,11 +36,13 @@
         String iframeName = "";
         String iframeUrl="";
         String draft_id = "0";
+        String email_subject="";
     %>
+    <%  email_subject=request.getParameter("subject");%>
     <%
         sqlmethods.session = request.getSession(true);
-
-        emailSubject = (String) sqlmethods.session.getAttribute("email_subject");
+        session.setAttribute("email_subject",email_subject);
+        emailSubject = email_subject;
         //emailAddresses = (String) sqlmethods.session.getAttribute("email_addresses");
         htmlData = (String) sqlmethods.session.getAttribute("htmldata");
         iframeName = (String) sqlmethods.session.getAttribute("iframeName");
@@ -61,6 +63,7 @@
     <%@include file="emaillistselectionpopup.jsp" %>
     <input type="hidden" value="<%= draft_id %>" name="draft_id" id="draft_id"></input>  
     <input type="hidden" value="<%= iframeName %>" name="iframeName" id="iframeName1"></input>  
+    <input type="hidden" value="<%= emailSubject %>" name="iframeName" id="email_subject"></input> 
     <!--Top Nav-->   
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
@@ -73,27 +76,7 @@
                 </a>
             </div>
             <div class="page-title-with-back page-title-font">Email List Selection</div>
-            <!--<div class="page-cta-container">
-                <a href="" class="gray-button fleft">
-                    <div class=" md-button">  End Marketing Program</div>    
-                </a>
-            </div>-->
         </div>
-        <!--<div class="page-subnav-bar-with-dropdown"> 
-              <div class="subnav-dropdown">
-                 <span class="hub-dropdown-text">Email</span>
-                  <object type="image/svg+xml" data="/Icons/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"> </object>
-            </div>
-            <div class="top-subnav-tabs-container">
-                <ul class="top-subnav-nav-elements">
-                    <li class="top-subnav-link-active"> <a class="h3-active-subnav">Email Drafts</a></li>
-                    <li class="top-subnav-links"> <a class="h3">Email Analytics</a></li>
-                    <li class="top-subnav-links"> <a class="h3">Email History</a></li>
-                    <li class="top-subnav-links"> <a class="h3">Email Lists</a></li>
-                    <li class="top-subnav-links"> <a class="h3">Email Settings</a></li>
-                </ul>
-            </div>
-        </div>-->
     </div>
         <!--Main Content GENERIC--> 
         <div class="sequence-page-background" id="emaillistselid" ng-controller="EmailListController" ng-init="showEmailList()">
@@ -153,41 +136,30 @@
         <div class="sequence-page-background" id="emaildetailsid">
             <div class="sequence-page-content-container">
                 <div class="sequence-page-header">Email Details</div>
-                    <div class="email-detail-selection col-1of1 fleft">
-<!--                       <div class="col-1of1 fleft">
-                            <div class="col-9of10 fleft">
-                                <div class="h4" style="">
-                                    Enter a name for this Email
-                                </div>
-                                <input id="emailName" class="input-field-textfield col-8of10" placeholder="Enter Name of email" type="text"></input>
-                            </div>
-                        </div>-->
+                    <div class="email-detail-selection col-1of1 fleft" ng-controller="EmailListSetting" ng-init="getEmailSettings()">
                         <div class="col-1of1 fleft pushUp">
                             <div class="col-9of10 fleft">
                                 <div class="h4" style="">
                                    Enter a subject line for this Email:
                                 </div>
-                                <input id="subject" class="input-field-textfield col-8of10" placeholder="Enter Subject of email" type="text"></input>
+                                <input id="subject" class="input-field-textfield col-8of10" value="<%=emailSubject%>" type="text"></input>
                             </div>
                         </div>
-                         <div class="cols-2 fleft col-9of10 pushUp">
+                        <div class="cols-2 fleft col-9of10 pushUp">
                              <div class="input-field-container col-3of10 fleft pushright">
                                 <div class="h4"> From Name </div>
                                 <input id="name" class="input-field-textfield input-placeholder" placeholder="Enter From Name" type="text"></input>
                             </div>
                              <div class="input-field-container col-3of10 fleft">
                                 <div class="h4"> From Email Address </div>
-                                <input id="formaddress" class="input-field-textfield input-placeholder" placeholder="Enter From  Email Address" type="text"></input>
+                                <input id="formaddress" class="input-field-textfield input-placeholder" placeholder="Enter From  Email Address" type="text" value="{{email_settings.from_address}}"></input>
                             </div>
                         </div>
                         <div class="cols-2 fleft col-9of10 pushUp">
-                             <div class="input-field-container col-3of10 fleft pushright">
-                                <div class="h4">To Email Address</div>
-                                <input id="toaddress" class="input-field-textfield input-placeholder" placeholder="Enter To Email Address" type="text"></input>
-                            </div>
-                             <div class="input-field-container col-3of10 fleft">
+                            <input id="toaddress" class="input-field-textfield input-placeholder" placeholder="Enter To Email Address" type="hidden"></input>
+                            <div class="input-field-container col-3of10 fleft">
                                 <div class="h4"> Reply To Email Address</div>
-                                <input id="email" class="input-field-textfield input-placeholder" placeholder="Enter Reply To Email Address" type="text"></input>
+                                <input id="email" class="input-field-textfield input-placeholder" placeholder="Enter Reply To Email Address" type="text" value="{{email_settings.reply_email_address}}"></input>
                             </div>
                         </div>
                         <div class="input-field-container col-1of8 fleft pushUp-50">

@@ -748,7 +748,10 @@
                                 if(responseText=="true")
                                 {
                                     $('#loadingGif').remove();
-                                    url:getHost() + "emailsent.jsp";
+                                    setTimeout(function () {
+                                        alert("Your mail has been send successfully");
+                                        window.location = "dashboard.jsp";
+                                    }, 1000);
                                    
                                 }
                             },
@@ -785,56 +788,78 @@
                 }
                  
         }
+        function EmailListSetting($scope, $http) {
+            
+            $scope.getEmailSettings = function(){                
+            var email_settings = {"type": "get"};                
+            $http({
+                    method : 'POST',
+                    url : 'EmailSettingsServlet',
+                    headers: {'Content-Type': 'application/json'},
+                    data: email_settings
+                }).success(function (data, status, headers, config) {
+                    $scope.email_settings = data;
+                    if (data === error) {
+                        alert(data);
+                    }
+                }).error(function (data, status, headers, config) {
+                    alert("No data available, problem fetching the data");
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });
+            };
+        }
+        
         function EmailListController($scope, $http) {
+            
+            $scope.addEmailList = function () {
+                var email_list_name = $("#listname").val();
+                var email_list = $("#textArea").val();
 
-                $scope.addEmailList = function () {
-                    var email_list_name = $("#listname").val();
-                    var email_list = $("#textArea").val();
-                
-                    var Emails = {"emailListName": email_list_name, "emailAddresses": email_list , "update": "addUpdateEmailList"};
-                        $http({
-                            method: 'POST',
-                            url: getHost() + 'SetEmailLists',
-                            headers: {'Content-Type': 'application/json'},
-                            data: Emails
-                        }).success(function (data)
-                        {
-                            if (data === "true") {
-                                alert("Data saved successfully.");
-                               window.open(getHost() + 'emailsubject.jsp', "_self");
-                            } else if (data === error) {
-                                alert(data);
-                            }
-                        });
-                };
+                var Emails = {"emailListName": email_list_name, "emailAddresses": email_list , "update": "addUpdateEmailList"};
+                    $http({
+                        method: 'POST',
+                        url: getHost() + 'SetEmailLists',
+                        headers: {'Content-Type': 'application/json'},
+                        data: Emails
+                    }).success(function (data)
+                    {
+                        if (data === "true") {
+                            alert("Data saved successfully.");
+                           window.open(getHost() + 'emailsubject.jsp', "_self");
+                        } else if (data === error) {
+                            alert(data);
+                        }
+                    });
+            };
 
-                $scope.showEmailList = function () {
-                                $(".emaillist").show();
-                                $("#email_list_name").hide();
+            $scope.showEmailList = function () {
+                            $(".emaillist").show();
+                            $("#email_list_name").hide();
 
-                        var emailids = {"update": "allEmailListNames"};
-                        $http({
-                            method: 'GET',
-                            url: getHost() + 'GetEmailLists?update=allEmailListNames'
-                    }).success(function(data, status, headers, config) {
-                            $scope.emailLists = data.user;
-                            $scope.emailLists_mindbody = data.mindbody;
-                            if (data === "true") {
+                    var emailids = {"update": "allEmailListNames"};
+                    $http({
+                        method: 'GET',
+                        url: getHost() + 'GetEmailLists?update=allEmailListNames'
+                }).success(function(data, status, headers, config) {
+                        $scope.emailLists = data.user;
+                        $scope.emailLists_mindbody = data.mindbody;
+                        if (data === "true") {
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
-                            } else if (data === error) {
-                                alert(data);
-                            }
-                        });
-                };
-                
-                $scope.clearfields = function() {
+                        } else if (data === error) {
+                            alert(data);
+                        }
+                    });
+            };
+
+            $scope.clearfields = function() {
                     $("#email_list_name").val("");
                     $("#emailaddresses").val("");
                     $("#fileUpload").val("");
                     $("#chooseEmailList").val("");
                 };
-            }
-       function upload() {
+        }
+        function upload() {
 
                 var fileUpload = document.getElementById("fileid");
                 var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;

@@ -895,4 +895,246 @@ input#schedule_social_time {
 #remindernotesave{
     display: none;
 }
+
+        #drop-zone {
+            /*Sort of important*/
+            width: 300px;
+            /*Sort of important*/
+            height: 200px;
+            position:absolute;
+            left:0%;
+            top:80px;
+            
+            border: 2px dashed rgba(0,0,0,.3);
+            border-radius: 20px;
+            font-family: Arial;
+            text-align: center;
+            position: relative;
+            line-height: 180px;
+            font-size: 20px;
+            color: rgba(0,0,0,.3);
+            }
+        #drop-zone input {
+            /*Important*/
+            position: absolute;
+            /*Important*/
+            cursor: pointer;
+            left: 0px;
+            top: 0px;
+            /*Important This is only comment out for demonstration purpeses.
+            opacity:0; */
+        }
+        /*Important*/
+        #drop-zone.mouse-over {
+            border: 2px dashed rgba(0,0,0,.5);
+            color: rgba(0,0,0,.5);
+
+        }
+        /*If you dont want the button*/
+        #clickHere {
+            position: absolute;
+            cursor: pointer;
+            left: -2%;
+            top: 0%;
+            margin-left: 20px;
+            margin-top: 20px;
+            line-height: 26px;
+            color: white;
+            font-size: 15px;
+            width: 270px;
+            height: 150px;
+            border-radius: 4px;
+            color:#000;
+            background-color: #f2f2f4;
+        }
+        #clickHere:hover {
+             
+
+            }            
+        .header1{
+/*            font-family: "proxima-nova",sans-serif;
+            font-style: normal;
+            font-weight: 600;*/
+            color: #3f4042;
+            text-align: left;
+            line-height: 25.8px;
+            letter-spacing: 0em;
+            opacity: 1;
+            position: relative;
+            padding-top: 17%;
+           
+        }
+        .header2{
+            font-family: "proxima-nova",sans-serif;
+            font-style: normal;
+            font-weight: 300;
+            font-size:13.5px;
+            color: #3f4042;
+            text-align: left;
+            line-height: 15.8px;
+            letter-spacing: 0em;
+            opacity: 1;
+            position: relative;
+        }
+        .hideinputborder{
+                background-color:transparent;
+                border: 0px solid;
+                height:50px;
+                width:450px;
+                font-size:18.5px;
+                position: relative;
+                padding-top:10%;
+            }
+        .hideinputborder:focus{
+                outline: none;
+            }
+        .hideinputEmailId{
+            background-color:transparent;
+            border: 0px solid;
+            height:50px;
+            width:250px;
+            margin-left: 150px;
+            font-size: 18px;
+        }
+        .hideinputEmailId{
+            outline: none;
+        }
+        #chooseEmailListopt{
+
+            color:black;
+            border: 1px solid #DADADA;
+            height:2em;
+            width:350px;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+        fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+        .fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}               
+        #chooseEmailList{
+               border: none ;
+                width: 304px;
+                height: 27px;
+               -webkit-appearance: none;
+                -moz-appearance: none;
+                 box-shadow: none !important ;
+                appearance: none;
+                padding: 7px 1px 5px 5px;
+                border: 2px solid #d0d0d0;
+                border-left: none;
+                border-right: none;
+                border-top: none;
+                border-bottom: none;
+                border-radius: 2px;
+                color:#2b2f35;
+                background: url("images/dropdown.png") no-repeat 275px center;
+                background-color: #F2F2F4; 
+                font-size:18px;
+                color: #3f4042;
+                height:40px;
+            }
+        #chooseEmailId:focus{
+            outline: none;
+        }
+        #textArea{
+            width: 400px;
+            height : 300px;
+            background-color: #e4e4e4;
+        }
+        .btn-primary{
+            border-radius:10px;
+            position: fixed;
+            top: 70%;
+            width: 200px;
+            background-color: #00A37A;
+            border-color: #00A37A;
+        }
+        .btn-upload{
+            position: relative;
+            width: 100px;
+            background-color:#D1D2D9;
+            color:#fff;
+            font-size:15px;
+            border-radius:3px;
+            border-style: none;
+        }
+        .btn-csv{
+            font-size:20px;
+            border-radius:5px;
+            position:relative;
+            top: 20px;
+            width: 200px;
+            background-color:#D1D2D9;
+            color:#fff;
+            border-style: none;
+        }
+        .btn-prim{
+            position: fixed;
+            top: 44%;
+            left:17%;
+        }
+        .fileUpload {
+            position: relative;
+            overflow: hidden;
+            margin: 10px;
+        }
+        .fileUpload input.upload {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+        .hideinputborder{
+            background-color:transparent;
+            border: 0px solid;
+            height:50px;
+            width:450px;
+            font-size: 35px;
+        }
+        .hideinputborder:focus{
+            outline: none;
+        }
+        .hideinputEmailId{
+            background-color:transparent;
+            border: 0px solid;
+            height:50px;
+            width:250px;
+            margin-left: 150px;
+            font-size: 18px;
+        }
+        .hideinputEmailId{
+            outline: none;
+        }
+        #chooseEmailId{
+            background-color:transparent;
+            border: 0px solid;
+            height:50px;
+            width:250px;
+            font-size: 18px;
+        }
+        #chooseEmailId:focus{
+                outline: none;
+            }
+#overviewtab
+{
+    display:none;
+}
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/
