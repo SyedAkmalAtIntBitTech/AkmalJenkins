@@ -962,14 +962,12 @@ $edit=0;
 //                };
             
             $scope.deleteEmailList = function (){
-                alert();
                     var noofemaillist="";
                     var selected_email_lists="";
                     $("input[type=checkbox]:checked").each ( function() {
                         selected_email_lists +=$(this).val()+",";
                         noofemaillist=selected_email_lists.split(',');
                     });
-                    alert(selected_email_lists)
                     if (noofemaillist.length>2){
                         var EmailLists = {"update":"deleteAllEmailLists", "emailListName": selected_email_lists};
                     }

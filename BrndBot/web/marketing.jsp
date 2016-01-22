@@ -91,8 +91,8 @@
                 <div class="fleft content" ng-repeat="entity in entitySet">
                     <div class="page-content-title-bar">
                         <!--<div class="page-content-title h2" ng-show='entity.date==tomorrow_date'>Tomorrow's Actions</div>-->
-                        <div class="page-content-title h2" ng-show="entity.date == today_date">Today's Actions</div>
-                        <div class="page-content-title h2" ng-show="(entity.date != today_date)">{{entity.date| date: "MMM dd yyyy"}}</div>
+                        <div class="page-content-title h2" ng-show="entity.date === today_date">Today's Actions</div>
+                        <div class="page-content-title h2" ng-show="(entity.date !== today_date)">{{entity.date| date: "MMM dd yyyy"}}</div>
                     </div>
                     <!--List Starts Here-->
                     <ul class="main-container fleft" >
@@ -108,6 +108,9 @@
                                     <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status === 'No Template'"  data-hint="No Template" > 
                                         <img src="images/Icons/needTemplate.svg" class="status-button"/>
                                     </div>
+                                    <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status === 'Complete'"  data-hint="Complete" > 
+                                        <img src="images/Icons/ActionComplete.svg" class="status-button"/>
+                                    </div>
                                     <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status === 'Approved'"  data-hint="Approved" > 
                                         <img src="images/Icons/ActionApproved.svg" class="status-button"/>
                                     </div>
@@ -119,7 +122,8 @@
                                 </div>
                                 
                                 <div  class="slat-title-container col-1of2 fleft">                                    
-                                    <div class="slat-title email-list-slat-title col-1of1 sh1" ng-hide="entitydetails.is_recuring">{{entitydetails.schedule_title}}</div>
+                                    <!--<div class="slat-title email-list-slat-title col-1of1 sh1" ng-hide="entitydetails.is_recuring">{{entitydetails.schedule_title}}</div>-->
+                                    <div class="slat-title email-list-slat-title col-1of1 sh1" >{{entitydetails.schedule_title}}</div>
                                     <div class="action-list-slat-description col-1of1 sh3" ng-show="entitydetails.user_marketing_program_id > 0">{{entitydetails.marketingName}}</div>
                                     <div class="action-list-slat-description col-1of1 sh3" ng-show="entitydetails.user_marketing_program_id == 0">No Program</div>
                                 </div>
