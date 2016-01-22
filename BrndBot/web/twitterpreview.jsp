@@ -96,8 +96,7 @@
                                     <div class="input-header-actionDetail" style="">
                                         Status
                                     </div>
-                                    <input type="text" id="twnotemplate" value="No Template" class="input-field-textfield width75" readonly/>
-                                    <input type="text" id="twtemplatesaved" value="Template Saved" class="input-field-textfield width75 " readonly/>
+                                    <input type="text" id="tw_status" value="{{twitter_template_status}}" class="input-field-textfield width75" readonly/>
                                 </div>
                                 <div class="half">
                                     <div class="input-header-actionDetail" style="">
@@ -127,8 +126,8 @@
                                      <div class="input-header-actionDetail " >
                                     DAY
                                 </div>
-                                <input type="text" readonly   name="datepickertwitter" id="datepickertwitter1"  class="input-field-textfield width75" value="Sun Jan 01 1970"/> 
-                                <input type="text" readonly class="input-field-textfield width75" id="twdays" name="twdays" value="{{days}}"/>                                                   
+                                <input type="hidden" readonly   name="datepickertwitter" id="datepickertwitter1"  class="input-field-textfield width75" value="Sun Jan 01 1970"/> 
+                                <input type="text" class="input-field-textfield width75" id="twdays" name="twdays" value="{{days}}"/>                                                   
                                </div>
                                 <div ng-show="user_marketing_program_id == 0">
                                     <div class="input-header-actionDetail " >

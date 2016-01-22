@@ -904,6 +904,7 @@ $(document).ready(function ()
   $("#overview").click(function(){
         $("#actionstab").hide();
         $("#overviewtab").show();
+        $("#saveprogram").show();
         
         $("#actionsli").removeClass("top-subnav-link-active");
         $("#actionsli a").removeClass("h3-active-subnav");
@@ -917,6 +918,7 @@ $(document).ready(function ()
   });
   $("#actions").click(function(){
         $("#overviewtab").hide();
+        $("#saveprogram").hide();
         $("#actionstab").show();
 
         $("#ovrviewli").removeClass("top-subnav-link-active");

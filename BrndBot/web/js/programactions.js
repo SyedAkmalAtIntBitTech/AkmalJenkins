@@ -387,7 +387,7 @@ function validateemailaction() {
     var title = $("#email_edit_title").val();
 
     var description = $("#email_description").val();
-    var actiondate = $("#emaildatetime").val();
+    var emaildays = $("#emaildays").val();
     var actionDateTime=$("#timepickeremail").val().replace(/ /g,'');
 
     if (title === "") {
@@ -401,9 +401,9 @@ function validateemailaction() {
         $("#email_description").focus();
         return false;
     }
-    if (actiondate === "") {
-        alert("Actiondate not entered! Please enter the actiondate.");
-        $("#emaildatetime").focus();
+    if (emaildays === "") {
+        alert("Action days not entered! Please enter the action days.");
+        $("#emaildays").focus();
         return false;
     }
     if (actionDateTime === "") {
@@ -576,7 +576,8 @@ function programactions($scope, $http, $window){
             $scope.master_facebook = getfacebook();
             $scope.master_twitter = gettwitter();
             $scope.master_email = getemail();
-            $scope.master_note = getnote();               
+            $scope.master_note = getnote();      
+        
     $scope.endMarketingProgram = function(){
         var delconf=confirm("Do you really want to End this Program?");
         if(delconf===true){
@@ -688,9 +689,10 @@ function programactions($scope, $http, $window){
         var event_date_epoch = Date.parse(event_date);
         var link_url = $("#link_url").val();
         var link_name = $("#link_name").val();
+        var program_name = $("#program_name").val();
 
         var program_details = {"program_id": program, "date_of_event": event_date_epoch,
-                          "link_url": link_url, "link_name": link_name};
+                          "link_url": link_url, "link_name": link_name, "program_name":program_name};
         
           $http({
               method: 'POST',
@@ -699,7 +701,8 @@ function programactions($scope, $http, $window){
               data: JSON.stringify(program_details)
           }).success(function (data, status, headers, config) {
             if (data == "true"){
-              window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
+              alert("Program details has been change successsfully");
+              window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0'+'&program_date='+event_date, "_self");
             }else {
                 alert("Problem saving the record!");
             }
@@ -775,7 +778,7 @@ function programactions($scope, $http, $window){
         });
         $scope.calltoeditrecurring = function(progid,scheduleid){
             window.open(getHost() + 'emailautomation.jsp?type=edit&program_id='+progid+"&entity_id="+scheduleid, "_self");
-        }        
+        }
     };
     $scope.checkProgramStatus= function (){
        var status;
@@ -2042,7 +2045,7 @@ function programactions($scope, $http, $window){
             responseMessage = "Selected actions were deleted successfully";
         }
 
-
+        alert(schedules_to_delete);
         if (confirm(message)) {
             $http({
                 method: 'POST',

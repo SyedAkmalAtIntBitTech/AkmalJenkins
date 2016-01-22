@@ -93,8 +93,7 @@
                                 <div class="input-header-actionDetail" style="">
                                     Status
                                 </div>
-                                <input type="text" id="fbnotemplate" value="No Template" class="input-field-textfield width75" readonly/>
-                                <input type="text" id="fbtemplatesaved" value="Template Saved" class="input-field-textfield width75 " readonly/>
+                                <input type="text" id="fb_status" value="{{facebook_template_status}}" class="input-field-textfield width75 " readonly/>
                             </div>
                             <div class="half">
                                 <div class="input-header-actionDetail" style="">

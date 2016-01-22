@@ -4,7 +4,6 @@
     Author     : Syed Akmal at IntBit Technologies.
 --%>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -34,22 +33,22 @@
         .arrow_top,#emlautomeditorcontainer,#emailautomationcontent,#emailautomation,#textdiv,#myModal,#editpreviewtemplatebottom{display:none;}
     </style>
     <%! 
-    String entity_id = "";
-    String program_id = "";
-    String type = "";
-    String daysleft="";
-%>        
-<%
-    if (request.getParameter("entity_id") != null){
-        entity_id = request.getParameter("entity_id");
-    }
-    if (request.getParameter("program_id") != null){
-        program_id = request.getParameter("program_id");
-    }
-    if (request.getParameter("type") != null){
-        type = request.getParameter("type");
-    }
-%>
+        String entity_id = "";
+        String program_id = "";
+        String type = "";
+        String daysleft="";
+    %>        
+    <%
+        if (request.getParameter("entity_id") != null){
+            entity_id = request.getParameter("entity_id");
+        }
+        if (request.getParameter("program_id") != null){
+            program_id = request.getParameter("program_id");
+        }
+        if (request.getParameter("type") != null){
+            type = request.getParameter("type");
+        }
+    %>
 <script src="js/angular.min.js"></script>
 
 <script>
@@ -126,12 +125,14 @@
                    setTimeout(function (){$("#emaillist").val(email_list_name);},10);
                     if (data.recuring_email_template_id != null){
                         template_id = data.recuring_email_template_id;
+                        entity_no_email_template = "false";
                     }else {
                         entity_no_email_template = "true";
                     }
+                    alert(template_id);
                     html_data = data.recuring_email_body;
                     $('#edit').froalaEditor('html.set',''+html_data+'');
-
+//                    alert(data.recuring_email_email_list_name);
                     showEmailListName(data.recuring_email_email_list_name);
                     
                 }).error(function(){
@@ -208,11 +209,11 @@
 //                        var schedule_time_epoch = Date.parse(schedule_time);
 //                        alert(schedule_time_epoch);
 //                var $iframe = $('.fr-iframe');
-//                var html_data = $('#edit').froalaEditor('html.get');
-                
+                var html_data = $('#edit').froalaEditor('html.get');
 //                var html_data = $iframe.contents().find("html").html();
 //                html_data = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\">" + html_data + "</html>";
 //                alert(emails);
+                alert(entity_no_email_template);
                 if ( type == 'add'){
                     var recuring_action = {
                         "days":days, "emaillist":emaillist, 
@@ -245,7 +246,6 @@
                     });
 
                 }else if((type == 'template') && (entity_no_email_template == "true")){
-                    
                     var recuring_action = {
                         "entity_id" : entity_id, 
                         "days":days, "emaillist":emaillist, 
@@ -258,7 +258,7 @@
                         "schedule_time_epoch": schedule_time,
                         "program_id" :program_id 
                     };
-
+                    
                     $http({
                         method: 'POST',
                         url: 'addupdateRecuringAction.do',
@@ -311,7 +311,8 @@
                         // or server returns response with an error status.
                     });
                     
-                }else if((type == 'edit')||(type == 'template')){
+                }else if(((type == 'template') && (entity_no_email_template == 'false')) 
+                        || ((type = 'edit') && (entity_no_email_template == 'false'))){
                     var recuring_action = {
                         "entity_id" : entity_id, 
                         "template_id" : template_id, "html_data": html_data,
@@ -324,7 +325,7 @@
                         "till_date_epoch":till_date_epoch,
                         "schedule_time_epoch": schedule_time,
                         "program_id" :program_id 
-                    };
+                    };                    
                     $http({
                         method: 'POST',
                         url: 'updateRecuringAction.do',
@@ -345,24 +346,32 @@
                     });
 
                 }
-
-
             }
             
              function showEmailListName(email_list_name){
-        setTimeout(function() 
-        {
-          //do something special
-         // alert("delay");
-          //$("#select option").filter(".a0").attr('selected','selected');
-          $('#emaillist option[value='+email_list_name+']').attr("selected", "selected");
-          $("#emaillist").change();
+                    setTimeout(function() 
+                    {
+                      //do something special
+                     // alert("delay");
+                      //$("#select option").filter(".a0").attr('selected','selected');
 
-           
-        }, 500);
+                      $('#emaillist option[value='+email_list_name+']').attr("selected", "selected");
+                      $("#emaillist").change();
 
-    }
-        };
+                    for(i=1; i<=31; i++){
+                        if ( i == days){
+                            $('#days').append('<option value='+i+' selected>'+ i + '</option>');
+                        }else {
+                            $('#days').append('<option value='+i+'>'+ i + '</option>');
+                        }
+
+                    }
+
+
+                    }, 500);
+
+                }
+            };
 
         $scope.showHTMLData = function(html_data, id){
                 var $iframe = $('.fr-iframe');
@@ -554,7 +563,7 @@
 
 </script> 
     <!-----------------------EMAIL AUTOMATION EDITOR HEADER------------------>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/froala_editor.css">
   <link rel="stylesheet" href="css/froala_style.css">
   <link rel="stylesheet" href="css/plugins/code_view.css">
@@ -781,9 +790,9 @@
                                     class="input-field-textfield col-1of1" 
                                     value="{{entity_details.recuring_email_till_date| date:'MMM dd yyyy'}}" />  
                             <style>
-                                        .timepicker_wrap{
-              width: 48%;
-        }
+                                .timepicker_wrap{
+                                        width: 48%;
+                                 }
                             </style>
                                     <script>
                                         var picker = new Pikaday(
@@ -843,9 +852,9 @@
             <div class="bottom-cta-button-container-lg">
                <div class="bottom-continue-button button-text-1" ng-click="addUpdateRecuringAction()">Continue</div>
             </div>
-        </div>
-    </div>
-   <div id="emailautomation" class="page-background" ng-controller="emailautomation" >
+  </div>
+   </div>
+   <div id="emailautomation" class="page-background" ng-controller="emailautomation">
 <!--           <div class="col-md-1 col-lg-1 col-sm-2 halfcol" >
                <%--<jsp:include page="leftmenu.html"/>--%>
            </div>-->
@@ -954,25 +963,50 @@
               
        
    </div>
-           <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-       Modal content
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
+<script>
+
+    function showEmailListName(email_list_name){
+        setTimeout(
+        function() 
+        {
+          //do something special
+         // alert("delay");
+          //$("#select option").filter(".a0").attr('selected','selected');
+          $('#emaillist option[value='+email_list_name+']').attr("selected", "selected");
+          $("#emaillist").change();
+
+            for(i=1; i<=31; i++){
+                if ( i == days){
+                    $('#days').append('<option value='+i+' selected>'+ i + '</option>');
+                }else {
+                    $('#days').append('<option value='+i+'>'+ i + '</option>');
+                }
+
+            }
+        }, 1000);
+
+    }
+
+</script>    
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+           Modal content
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+              <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
         </div>
-        <div class="modal-body">
-          <p>Some text in the modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
     </div>
-</div>
    </div>
         <div class="bottom-cta-bar" id="editpreviewtemplatebottom">
          <div class="bottom-cta-button-container col-inlineflex">
