@@ -197,7 +197,7 @@
                 </div>
             </div> 
             </div>
-                <div class="page-content-container email-list-contact-page email-draft-page" id="emailhistorydiv" ng-controller="emailHistory">
+            <div class="page-content-container email-list-contact-page email-draft-page" id="emailhistorydiv" ng-controller="emailHistory">
                 <div class="fleft content"  ng-init="displayemailhistory()">
                     <div class="page-content-title h2" id="nohistorydiv">Your Email History</div>
                     <!--List Starts Here-->
@@ -233,11 +233,10 @@
                                 </div>
                             </div>
                         </li>
-                    
                     </ul>
                 </div>
             </div>  
-                    <div class="page-content-container email-list-contact-page email-draft-page" id="emaisetdiv">
+            <div class="page-content-container email-list-contact-page email-draft-page" id="emaisetdiv">
                 <div class="fleft content ">
                     <div class="page-content-title h2">Your Email Settings</div>
                     <!--List Starts Here-->
@@ -259,14 +258,11 @@
                                     <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" name="reply_email_address" placeholder="Enter reply-to-email address"/>
                             </div>
                         </div>
-                    
                     </div>                        
-                    </div>   
-                    </div>
-                    
-                </div>
+                </div>   
+            </div>
         </div>
-       <div class="bottom-cta-bar padleft" id="removeselactions" >
+        <div class="bottom-cta-bar padleft" id="removeselactions" >
             <div class="bottom-cta-button-container padright">
                <div class="remove-action-detail md-button button-text-1" id="deleteEmailList" ng-click="deleteEmailList();">Remove Selected Email List(s)</div>
             </div>
