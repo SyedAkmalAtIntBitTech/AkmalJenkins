@@ -67,7 +67,8 @@ import org.json.simple.JSONObject;
             }
 //        String jsonText = obj.toJSONString();        
         String json = new Gson().toJson(json_arr);
-        logger.info(json);
+//        logger.info(json);
+        logger.info("Image gallery in com.controller.GetImageGallery.processRequest");
         response.setContentType("application/json");
         response.getWriter().write(json);
             
