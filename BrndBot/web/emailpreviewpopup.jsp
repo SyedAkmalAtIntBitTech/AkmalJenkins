@@ -79,8 +79,7 @@
                                     <div class="input-header-actionDetail" style="">
                                         Status
                                     </div>
-                                    <input type="text" id="mailnotemplate1" value="No Template" class="input-field-textfield width75  " readonly/>
-                                    <input type="text" id="mailtemplatesaved1" value="Template Saved" class="input-field-textfield width75 " readonly/>
+                                    <input type="text" id="mail_status" value="{{email_template_status}}" class="input-field-textfield width75 " readonly/>
                                 </div>
                                 <div class="half">
                                     <div class="input-header-actionDetail" style="">

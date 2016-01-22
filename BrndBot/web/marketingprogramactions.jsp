@@ -120,6 +120,9 @@
                                 <div class="icon-container fleft hint--top" ng-show="emailautomation.status === 'Approved'"  data-hint="Approved" > 
                                     <img src="images/Icons/ActionApproved.svg" class="status-button"/>
                                 </div>
+                                <div class="icon-container fleft hint--top" ng-show="emailautomation.status === 'Complete'"  data-hint="Complete" > 
+                                    <img src="images/Icons/ActionComplete.svg" class="status-button"/>
+                                </div>
                                 <div class="slat-title-container col-1of2 fleft">
                                     <div  class="slat-title email-list-slat-title col-1of1 sh1"></div>
                                     <div class="slat-title email-list-slat-title col-1of1 sh1">{{emailautomation.programTemplateName}}</div>
@@ -238,6 +241,9 @@
                                 </div>
                                 <div class="icon-container fleft hint--top" ng-show="programaction.status === 'Approved'"  data-hint="Approved" > 
                                     <img src="images/Icons/ActionApproved.svg" class="status-button"/>
+                                </div>
+                                <div class="icon-container fleft hint--top" ng-show="programaction.status === 'Complete'"  data-hint="Complete" > 
+                                    <img src="images/Icons/ActionComplete.svg" class="status-button"/>
                                 </div>
                                 <div class="slat-title-container col-1of2 fleft">
                                     <div class="slat-title email-list-slat-title col-1of1 sh1">{{programaction.programTemplateName}}</div>
