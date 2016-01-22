@@ -29,7 +29,7 @@
             String program_id = "";
             String program_date="";
             int past = 0;
-      %>
+     %>
         <%
             program_id = request.getParameter("program_id");
             past = Integer.parseInt(request.getParameter("past"));

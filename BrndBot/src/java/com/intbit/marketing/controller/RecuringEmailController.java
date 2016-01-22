@@ -412,7 +412,7 @@ public class RecuringEmailController {
         String days = (String)requestBodyMap.get("days");
         String emaillist = (String)requestBodyMap.get("emaillist");
         ArrayList email_addresses = (ArrayList)requestBodyMap.get("to_email_addresses");
-
+        
         JSONParser parser = new JSONParser();
         JSONArray array = new JSONArray(email_addresses);
         org.json.simple.JSONObject json_object = new org.json.simple.JSONObject();
