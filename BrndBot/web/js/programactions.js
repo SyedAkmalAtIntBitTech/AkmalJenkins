@@ -775,7 +775,7 @@ function programactions($scope, $http, $window){
         });
         $scope.calltoeditrecurring = function(progid,scheduleid){
             window.open(getHost() + 'emailautomation.jsp?type=edit&program_id='+progid+"&entity_id="+scheduleid, "_self");
-        }        
+        }
     };
     $scope.checkProgramStatus= function (){
        var status;
@@ -2042,7 +2042,7 @@ function programactions($scope, $http, $window){
             responseMessage = "Selected actions were deleted successfully";
         }
 
-
+        alert(schedules_to_delete);
         if (confirm(message)) {
             $http({
                 method: 'POST',

@@ -186,7 +186,7 @@
                             </div>-->
                         </div>
                     </div>
-                    <div class="bottom-cta-bar5"  id="recuringremovediv">
+                    <div class="bottom-cta-bar5"  id="recuringremovediv" ng-click="deleteSchedule(schedule_id, 'remove', master_email, 'true')">
                         <div class="bottom-cta-button-container">
                             <div class="remove-button-detail md-button button-text-1 fleft ">Remove saved Template</div>
                         </div>

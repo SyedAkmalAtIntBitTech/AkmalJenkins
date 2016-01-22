@@ -119,7 +119,7 @@
         </script>
         <jsp:include page="basejsp.jsp" />
     </head>
-    <%!
+        <%!
             StringBuffer string_buffer = new StringBuffer();
             String mindbody_data_id = "";
             String logoImageName=null;
