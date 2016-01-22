@@ -60,7 +60,7 @@ function fun(type,email,id,fname,lname)
 function getImageId(idname)
     {
        
-        var res = idname.split("-");
+        var res = idname.split("--------");
         var id=res[0];
         var imagename=res[1];
         var userid=res[2];

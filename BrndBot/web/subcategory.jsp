@@ -75,11 +75,11 @@
     <!--Top Nav-->   
       <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
+            <a class="exit-button-icon" href="dashboard.jsp">
             <div class="exit-button-detail">
-                <a class="exit-button-icon" href="dashboard.jsp">
                     <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
-                </a>
             </div>
+            </a>
             <div class="page-title-with-back page-title-font" id="ifnodata">What would you like to do today?</div>
         </div>
    

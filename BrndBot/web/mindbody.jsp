@@ -155,11 +155,11 @@
     <!--Top Nav-->   
       <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
+           <a class=" exit-button-icon" href="subcategory.jsp?id=<%=category_id%>">
            <div class="exit-button-detail">
-               <a class=" exit-button-icon" href="subcategory.jsp?id=<%=category_id%>">
                     <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
-                </a>
            </div>
+            </a>
             <div class="page-title-with-back page-title-font">MINDBODY Selection</div>
         </div>
    

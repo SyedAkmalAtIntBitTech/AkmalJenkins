@@ -70,13 +70,13 @@
         
     <!--Top Nav-->   
     <div class="top-nav">
-        <div class="page-title-bar col-1of1"> 
+        <div class="page-title-bar col-1of1">
+            <a class="exit-button-icon" href="dashboard.jsp">
             <div class="exit-button-detail">
-                <a class="exit-button-icon" href="dashboard.jsp">
                     <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
-                </a>
             </div>
-            <div id="channelhead" class="page-title-regular page-title-font">Channel Selection</div>
+            </a>
+            <div id="channelhead" style="width: 50%;" class="page-title-regular page-title-font">Channel Selection</div>
             <div class="page-cta-container"></div>
         </div>
     </div>
