@@ -1958,14 +1958,14 @@ function programactions($scope, $http, $window){
                             "schedule_ids": schedules_to_delete, "entity_type": section, 
                             "isRecuring": isRecuring};
             responseMessage = "Selected actions were deleted successfully";
-        } else if (type == "remove") {
+        } else if (type == "removetemplate") {
             message = "Are you sure you want to remove the template?";
             requestBody = {"type": "removetemplate",
                             "schedule_ids": schedules_to_delete, "entity_type": section, 
                             "isRecuring": isRecuring};
             responseMessage = "Selected actions were deleted successfully";
         }
-
+        alert(requestBody);
         if (confirm(message)) {
             $http({
                 method: 'POST',
@@ -1991,7 +1991,6 @@ function programactions($scope, $http, $window){
                         $("#mailpreviewdecond").hide();
                         $("#mailremovedtemplate").show();                     
                     }
-                    alert(responseMessage);
                     window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
                 }
             }).error(function (data, status) {

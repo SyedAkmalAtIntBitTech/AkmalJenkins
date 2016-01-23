@@ -34,7 +34,7 @@
                             <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Recurring Email Automation Detail</span></div>
                             <div class="top-nav-cta-container">
                                 <div class="approve-button-detail md-button">Pause</div>
-                                <div class="delete-button-detail md-button" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="deleteSchedule(schedule_id, 'delete', master_email, 'true')">Delete Recurring Email</div>
+                                <div class="delete-button-detail md-button" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="deleteAutomationSchedule(schedule_id, 'delete', master_email, 'true')">Delete Recurring Email</div>
                             </div>    
                         </div>
                     </div>
@@ -186,7 +186,7 @@
                             </div>-->
                         </div>
                     </div>
-                    <div class="bottom-cta-bar5"  id="recuringremovediv" ng-click="deleteSchedule(schedule_id, 'remove', master_email, 'true')">
+                    <div class="bottom-cta-bar5"  id="recuringremovediv" ng-click="deleteAutomationSchedule(schedule_id, 'removetemplate', master_email, 'true')">
                         <div class="bottom-cta-button-container">
                             <div class="remove-button-detail md-button button-text-1 fleft ">Remove saved Template</div>
                         </div>
