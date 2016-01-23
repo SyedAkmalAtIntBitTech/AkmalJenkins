@@ -31,7 +31,7 @@
                             <img type="image/svg+xml" src="images/Icons/close.svg" class="exit-button" style="cursor:pointer;"> </img>
                         </a>
                         <div  class="top-navbar-inner-bb-detail">
-                            <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Facebook Post Action Detail</span></div>
+                            <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Reminder Action Detail</span></div>
                             <div class="top-nav-cta-container">
                                 <div class="delete-button-detail md-button" ng-click="deleteSchedule(schedule_id,'delete', getnote())">Delete Reminder</div>
                             </div>    

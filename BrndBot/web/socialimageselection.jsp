@@ -232,7 +232,7 @@
                             <div class="col-1of1 Twitter-preview-name-container fleft">
                                 <div class="Twitter-preview-name fleft"><span>BrndBot Demo</span></div>
                                 <div class="Twitter-handle fleft">@BrndBot</div>
-                                <textarea id="twittertext" class="noborder" placeholder="Demo content goes right here for twitter"></textarea>
+                                <textarea id="twittertext" style="resize: none;  margin-bottom: 5px;" class="noborder" placeholder="Demo content goes right here for twitter"></textarea>
                             </div>
 
                                 <%if 

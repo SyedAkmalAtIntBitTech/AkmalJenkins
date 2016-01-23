@@ -218,13 +218,13 @@
                                 <div class="Facebook-link-container">
                                     <div class="Facebook-preview-image">
                                         <div ng-show="entitiesdetails.image_type == 'gallery'">
-                                            <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=GALLERY&image_name={{entitiesdetails.image_name}}&user_id=<%= user_id %>'/>
+                                            <img id="prevfbimg" style="max-height: 240px;" src='/BrndBot/DownloadImage?image_type=GALLERY&image_name={{entitiesdetails.image_name}}&user_id=<%= user_id %>'/>
                                         </div>
                                         <div ng-show="entitiesdetails.image_type == 'layout'">
-                                            <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                            <img id="prevfbimg" style="max-width: 240px;" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
                                         </div>
                                         <div ng-show="entitiesdetails.image_type == 'url'">
-                                            <img id="prevfbimg" src='{{entitiesdetails.image_name}}'/>
+                                            <img id="prevfbimg" style="max-width: 240px;" src='{{entitiesdetails.image_name}}'/>
                                         </div>
                                         
                                        <!--<img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=GALLERY&image_name={{entitiesdetails.image_name}}'/>-->
