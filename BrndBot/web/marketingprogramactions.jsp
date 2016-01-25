@@ -141,7 +141,7 @@
                                 <div class="slat-cta-container">
                                     <div class="small-button slat-button detail-button-font"
                                          ng-click="getRecuringMailDetails(emailautomation.scheduledEntityListId,
-                                                                emailautomation.status,
+                                                                emailautomation.status, emailautomation.tillDate,
                                                                 emailautomation.dateTime,
                                                                 emailautomation.actionType,
                                                                 emailautomation.programTemplateName,

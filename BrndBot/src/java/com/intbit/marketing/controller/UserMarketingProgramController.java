@@ -317,9 +317,10 @@ public class UserMarketingProgramController {
                 }
 
                 jSONObject.put("scheduledEntityListId", scheduledEntityListObject.getId());
-                jSONObject.put("dateTime", scheduledEntityListObject.getTblUserMarketingProgram().getCreateDate().getTime());
+                jSONObject.put("dateTime", scheduledEntityListObject.getScheduleTime().getTime());
                 jSONObject.put("programTemplateName", scheduledEntityListObject.getScheduleTitle());
                 jSONObject.put("days", scheduledEntityListObject.getDays());
+                jSONObject.put("tillDate", scheduledEntityListObject.getTillDate().getTime());
                 int d = scheduledEntityListObject.getDays();
                 jSONObject.put("description", scheduledEntityListObject.getScheduleDesc());
                 jSONObject.put("postDateStatus", postDateStatus);
