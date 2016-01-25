@@ -160,9 +160,9 @@
                     %>
                     <div class="Facebook-preview">
                         <div class="Facebook-preview-header">
-                            <div class="Facebook-preview-profpic"></div>
+                            <div class="Facebook-preview-profpic"><img id="companyimage" class="companyimage" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>"></div>
                             <div class="Facebook-preview-name-container">
-                                <div class="Facebook-preview-name">BrndBot Demo</div>
+                                <div class="Facebook-preview-name"><%=companyName%></div>
                             </div>
                         </div>
                         <div class="">
@@ -224,14 +224,14 @@
                     <div class="Twitter-preview">
                         <div class="Twitter-left-content fleft">
                             <div class="Twitter-preview-header fleft">
-                                <div class="Twitter-preview-profpic"></div>
+                                <div class="Twitter-preview-profpic"><img id="companyimage" class="companyimage" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>"></div>
                             </div>
                         </div>
                         <div class="Twitter-inner fleft">
                             
                             <div class="col-1of1 Twitter-preview-name-container fleft">
-                                <div class="Twitter-preview-name fleft"><span>BrndBot Demo</span></div>
-                                <div class="Twitter-handle fleft">@BrndBot</div>
+                                <div class="Twitter-preview-name fleft"><span><%=companyName%></span></div>
+                                <div class="Twitter-handle fleft">@<%=companyName%></div>
                                 <textarea id="twittertext" style="resize: none;  margin-bottom: 5px;" class="noborder" placeholder="Demo content goes right here for twitter"></textarea>
                             </div>
 
