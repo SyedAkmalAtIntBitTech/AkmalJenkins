@@ -31,11 +31,9 @@
                 var data=$("#data").val();
                 var singledata=data.split(",");
                 $("#posttext").val(singledata[0]);
-                
+                $("#twittertext").val(singledata[4]);
                 if(singledata[1] !=="" ||singledata[2] !==""||singledata[3] !=="")
-                {   
-                    
-                    $("#twittertext").val(singledata[5]);
+                {                       
                     $("#link_title").val(singledata[1]);
                     $("#link_description").val(singledata[2]);
                     $("#Linkurl").val(singledata[3]);
