@@ -187,7 +187,7 @@
                                     <div class="slat-cta-container">
                                         <a>
     <!--                                        <span class="small-button slat-button detail-button-font" ng-click="editDrafts(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</span>-->
-                                            <span class="small-button slat-button detail-button-font" ng-click="showdraftpopup(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</span>
+                                            <span class="small-button slat-button detail-button-font" ng-click="showdraftpopup(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.editdate, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</span>
                                         </a>
                                     </div>
                                 </div>

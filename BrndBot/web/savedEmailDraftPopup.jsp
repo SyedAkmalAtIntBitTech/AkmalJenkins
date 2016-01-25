@@ -42,8 +42,8 @@
         <div class="below-nav-container-saved-draft-detail">
             <div class="inner-content-container-detail">
                    <div class="saved-post-header-detail">
-                    <div class="h4">Saved Draft Name</div>
-                    <div class="instruction-text">Last edited on November 28th at 1:03 PM</div>
+                    <div class="h4">{{emailsubject}}</div>
+                    <div class="instruction-text">Last edited on {{editdate|date: "MMMM dd yyyy"}} at {{editdate|date: "hh:mm a"}}</div>
                 </div>
                     <div class="inner-content-detail">
                         <div class="saved-email-preview-detail">

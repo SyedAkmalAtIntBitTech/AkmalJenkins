@@ -952,18 +952,13 @@
                                                 } else {
                                                     alert("There was a problem while saving the draft! Please try again later.");
                                                 }
-                                                }
-
+                                            }
                                         });
-
-                                    }
-                                    
-                                
+                                    }                                
                                 }
-
                         });
                 }
-        });
+            });
         });
                 function hlt(){
                 var $li = $('#blklistid li').click(function() {
