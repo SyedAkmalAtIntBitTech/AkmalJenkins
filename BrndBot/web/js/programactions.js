@@ -1695,7 +1695,8 @@ function programactions($scope, $http, $window){
                 $scope.status = data;
                 if (data != "") {
                     alert("Action saved successfully.");
-                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
+                    $("#change").val("1");
+                    //window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
 
                 }
             }).error(function (data, status) {
@@ -1789,7 +1790,8 @@ function programactions($scope, $http, $window){
                 $scope.status = data;
                 if (data != "") {
                     alert("Action saved successfully.");
-                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
+                    $("#change").val("1");
+                    //window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
 
                 }
             }).error(function (data, status) {
@@ -1878,7 +1880,8 @@ function programactions($scope, $http, $window){
                 $scope.status = data;
                 if (data != "") {
                     alert("Action saved successfully.");
-                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
+                    $("#change").val("1");
+                    //window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
 
                 }
             }).error(function (data, status) {
@@ -2121,7 +2124,8 @@ function programactions($scope, $http, $window){
                 $scope.status = data;
                 if (data != "") {
                     alert("Details saved successfully.");
-                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
+                    $("#change").val("1");
+                    //window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
 
                 }
             }).error(function (data, status) {
