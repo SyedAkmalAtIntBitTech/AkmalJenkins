@@ -11,14 +11,14 @@
  
                     var email_subject = $("#emailsubject").val();
                     var mindbody_id = $("#mindbody_id").val();
-                    if(email_subject=="")
+                    if(email_subject==="")
                     {
                         alert("Please enter email subject.");
                         $("#emailsubject").focus();
                         return false;
                     }
                     else{
-                    document.title="BrndBot - Email List Selection"; 
+                        document.title="BrndBot - Email List Selection"; 
                     }
                     var email_addresses = "";
                     var email_list = "";
@@ -31,9 +31,8 @@
                             email_list : email_list
                         },
                         success: function(result){
-//                            alert("Email sent successfully");
-                           
-                            if (result == "true"){
+                            //alert(result);
+                            if (result === "true"){
                                 document.location.href = "emaileditor.jsp?id="+mindbody_id+"&subject="+email_subject;
                             }
                         }

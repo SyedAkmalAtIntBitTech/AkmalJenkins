@@ -1076,7 +1076,7 @@ $edit=0;
                 $('#slider-button').click();
             });
                 
-            $scope.showdraftpopup = function (Id,categoryId,emailSubject,subCategoryId,subCategoryName){
+            $scope.showdraftpopup = function (Id,categoryId,emailSubject,editdate,subCategoryId,subCategoryName){
                   
             $slider=2;
             sliderDialog = "#emaildraftpopup";
@@ -1141,6 +1141,7 @@ $edit=0;
                 $scope.id = Id;
                 $scope.categoryid = categoryId;
                 $scope.emailsubject = emailSubject;
+                $scope.editdate = editdate;
                 $scope.subcategoryid = subCategoryId;
                 $scope.subcategoryname = subCategoryName;
             $('#slider-button').click();            
@@ -1264,7 +1265,7 @@ $edit=0;
                 if (data == "false"){
                     alert("There was a problem while saving the draft! Please try again later.")
                 }else {
-                    window.open(getHost() + 'emaileditor.jsp?id='+null+'&draftid='+draft_id, "_self");                    
+                    window.open(getHost() + 'emaileditor.jsp?id='+null+'&draftid='+draft_id+'&subject='+email_subject, "_self");                    
                 }
 
             }).error(function(data, status) {

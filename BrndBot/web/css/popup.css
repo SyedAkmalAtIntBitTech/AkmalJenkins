@@ -1152,4 +1152,14 @@ input#schedule_social_time {
     border-top: 0px solid #bbb;
     cursor: pointer;
 }
+.cur{
+    cursor: pointer;
+}
+#addActionemllist
+{
+    display: none;
+}
+img#companyimage {
+    width: 38px;
+}
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/

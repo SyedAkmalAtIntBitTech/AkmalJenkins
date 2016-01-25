@@ -112,10 +112,7 @@ $(document).ready(function ()
         $("#postpopup").hide();
         $("#fade").hide();
     });
-    $("#changeLink").click(function(){
-        $("#editLink").show();
-        $("#removeLink").show();
-        $("#changeLink").hide();
+    $("#changeLink").click(function(){       
         $("#linkpopup").show();
         $("#fade").show();
     });
@@ -144,6 +141,9 @@ $(document).ready(function ()
        $("#link_description").show();
        $("#Linkurl").show();
        $("#link").show();
+       $("#editLink").show();
+       $("#removeLink").show();
+       $("#changeLink").hide();
        $("#fade").hide();
        $("#linkpopup").hide();
     });
@@ -158,23 +158,23 @@ $(document).ready(function ()
     });
     $("#url").keyup(function(){
         var link=$("#url").val();
-        if(link.contains("http://") === false)
+        if(link.contains("http://www.") === false)
         {
             if(link.contains("http:/") === true)
-                $("#url").val("http://");
+                $("#url").val("http://www.");
             if(link.contains("http:") === true)
-                $("#url").val("http://");
+                $("#url").val("http://www.");
             if(link.contains("http") === true)
-                $("#url").val("http://");
+                $("#url").val("http://www.");
             if(link.contains("htt") === true)
-                $("#url").val("http://");
+                $("#url").val("http://wwww.");
             if(link.contains("ht") === true)
-                $("#url").val("http://");
+                $("#url").val("http://www.");
             if(link.contains("h") === true)
-                $("#url").val("http://");
+                $("#url").val("http://www.");
             else
             {
-                $("#url").val("http://"+link);
+                $("#url").val("http://www."+link);
             }
         }        
     });
@@ -198,15 +198,15 @@ $(document).ready(function ()
         var fblink_description=$("#link_description").val();
         var fbLinkurl=$("#Linkurl").val();
         var facebookpreviewimage=$("#facebookpreviewimage").val();
-        var twittertext=$("#link").val();
+        var twittertext=$("#twittertext").val();
         var mindbodyid = $("#mindbodyid").val();
         var twitterpreviewimage=$("#twitterpreviewimage").val();
         data.push(fbposttext);
         data.push(fblink_title);
         data.push(fblink_description);
         data.push(fbLinkurl);
-        data.push(facebookpreviewimage);
         data.push(twittertext);
+        data.push(facebookpreviewimage);        
         data.push(twitterpreviewimage);        
 
         var selectedtype=$("#selectedtype").val();
@@ -226,14 +226,15 @@ $(document).ready(function ()
         var fbLinkurl=$("#Linkurl").val();
         var facebookpreviewimage=$("#facebookpreviewimage").val();
         var twittertext=$("#twittertext").val();
+        //alert(twittertext);
         var twitterpreviewimage=$("#twitterpreviewimage").val();
         data.push(fbposttext);
         data.push(fblink_title);
         data.push(fblink_description);
         data.push(fbLinkurl);
-        data.push(facebookpreviewimage);
         data.push(twittertext);
-        data.push(twitterpreviewimage);   
+        data.push(facebookpreviewimage);
+        data.push(twitterpreviewimage);  
         var selectedtype=$("#selectedtype").val();
         var id=$("#selectedimagename").val();
         var social=$("#social").val();

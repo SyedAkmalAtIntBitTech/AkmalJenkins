@@ -90,13 +90,11 @@
             
         </div>
     </div>
-    <div class="pop-up-cta-container pop-up-cta-container-newaction">
+    <div class="pop-up-cta-container pop-up-cta-container-newaction cur" ng-click="AddAction()" >
         <a href="javascript:void(0)">
-            <div class="pop-up-cta-button-full" ng-click="AddAction()" > Save Action</div>
+            <div class="pop-up-cta-button-full"> Save Action</div>
         </a>
     </div>
-        </div>
-         
-    
+    </div>
     </body>
 </html>
