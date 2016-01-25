@@ -1152,4 +1152,7 @@ input#schedule_social_time {
     border-top: 0px solid #bbb;
     cursor: pointer;
 }
+.cur{
+    cursor: pointer;
+}
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/
