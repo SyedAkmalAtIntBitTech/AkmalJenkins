@@ -115,7 +115,7 @@
                     url: getHost() + 'getRecuringEntity.do',
                     headers: {'Content-Type':'application/json'},
                     data: JSON.stringify(entity_details)
-                }).success(function(data, status){    
+                }).success(function(data, status){
 //                    alert(JSON.stringify(data.recuring_email_time));
                     $scope.entity_details = data;
                     days = data.recuring_email_days;
@@ -129,7 +129,6 @@
                     }else {
                         entity_no_email_template = "true";
                     }
-                    alert(template_id);
                     html_data = data.recuring_email_body;
                     $('#edit').froalaEditor('html.set',''+html_data+'');
 //                    alert(data.recuring_email_email_list_name);
@@ -206,14 +205,12 @@
                 var schedule_time=$("#timepicker1").val().replace(/ /g,'');
 //                        var schedule_time=$("#timepicker1").val();
                 var till_date_epoch = Date.parse(till_date);
-//                        var schedule_time_epoch = Date.parse(schedule_time);
-//                        alert(schedule_time_epoch);
+                var schedule_time_epoch = Date.parse(schedule_time);
 //                var $iframe = $('.fr-iframe');
                 var html_data = $('#edit').froalaEditor('html.get');
 //                var html_data = $iframe.contents().find("html").html();
 //                html_data = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\">" + html_data + "</html>";
 //                alert(emails);
-                alert(entity_no_email_template);
                 if ( type == 'add'){
                     var recuring_action = {
                         "days":days, "emaillist":emaillist, 
@@ -301,7 +298,7 @@
                     }).success(function (data, status, headers, config) {
                         if ((data === "true")) {
                             alert("Details saved succesfully.");
-                            window.open(getHost() + 'programactions.jsp?program_id='+program_id, "_self");
+                            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+ program_id + '&past=0', "_self");
                         }else {
                             alert("Problem saving the record!");
                         }
@@ -459,7 +456,6 @@
                           //do something special
                          // alert("delay");
                           //$("#select option").filter(".a0").attr('selected','selected');
-                        
                         if (validate()){
                             $("#emailautomationcontent").hide();
                             $("#emailautomation").show();
@@ -467,7 +463,6 @@
                             $("#editpreviewtemplatebottom").show();
                             entity_no_email_template = "false";
                         }else {
-                            
                             entity_no_email_template = "true";
                             $("#emailautomationcontent").show();
                             $("#emlautomeditorcontainer").hide();
@@ -491,7 +486,7 @@
                 var emlval = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
                 
                 var days = $("#days").val();
-                var emaillisttext = $("#emaillist :selected").text();
+//                var emaillisttext = $("#emaillist :selected").text();
                 var emaillist = $("#emaillist").val();
                 var subject = $("#subject").val();
                 var from_name = $("#from_name").val();
@@ -517,17 +512,17 @@
                     $("#days").focus();
                     return false;
                 }
-                if (emaillisttext === "") {
-                    alert("Please select the email list text.");
-                    emaillisttext.focus();
-                    return false;
-                }
-                 if (schedule_time === ""){
+//                if (emaillisttext === "") {
+//                    alert("Please select the email list text.");
+//                    emaillisttext.focus();
+//                    return false;
+//                }
+                if (schedule_time === ""){
                     alert("Select the time.");
                     $("#timepicker1").focus();
                     return false;
                 }
-                 if (till_date === ""){
+                if (till_date === ""){
                     alert("Till date not selected! Please select the date.");
                     $("#datepicker").focus();
                     return false;
@@ -563,19 +558,19 @@
 
 </script> 
     <!-----------------------EMAIL AUTOMATION EDITOR HEADER------------------>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/froala_editor.css">
-  <link rel="stylesheet" href="css/froala_style.css">
-  <link rel="stylesheet" href="css/plugins/code_view.css">
-  <link rel="stylesheet" href="css/plugins/colors.css">
-  <link rel="stylesheet" href="css/plugins/emoticons.css">
-  <link rel="stylesheet" href="css/plugins/image_manager.css">
-  <link rel="stylesheet" href="css/plugins/image.css">
-  <link rel="stylesheet" href="css/plugins/line_breaker.css">
-  <link rel="stylesheet" href="css/plugins/table.css">
-  <link rel="stylesheet" href="css/plugins/char_counter.css">
-  <link rel="stylesheet" href="css/plugins/video.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="css/froala_editor.css"/>
+  <link rel="stylesheet" href="css/froala_style.css"/>
+  <link rel="stylesheet" href="css/plugins/code_view.css"/>
+  <link rel="stylesheet" href="css/plugins/colors.css"/>
+  <link rel="stylesheet" href="css/plugins/emoticons.css"/>
+  <link rel="stylesheet" href="css/plugins/image_manager.css"/>
+  <link rel="stylesheet" href="css/plugins/image.css"/>
+  <link rel="stylesheet" href="css/plugins/line_breaker.css"/>
+  <link rel="stylesheet" href="css/plugins/table.css"/>
+  <link rel="stylesheet" href="css/plugins/char_counter.css"/>
+  <link rel="stylesheet" href="css/plugins/video.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css"/>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
    <link href="css/emailautomation.css" rel="stylesheet" type="text/css"/>
@@ -705,7 +700,7 @@
         </div>
            
    
-    </div>
+      </div>
         <!--Main Content--> 
         <div class="page-background" >
         <div class="page-content-container email-list-contact-page" ng-init="getEntityDetails();">
@@ -761,7 +756,7 @@
                                    <option ng-repeat ="Lists in emailLists_user" value="{{Lists}}">{{Lists}}</option>
                                    <option ng-repeat ="Lists in emailLists_mindbody" value="{{Lists}}">{{Lists}}</option>
                               </select>
-                         </div>
+                        </div>
                         <div class="col-4of10 fleft pushUp-30">
                                 <div class="h4" style="">
                                      Select a Time:

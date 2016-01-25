@@ -17,6 +17,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLType;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.time.Instant;
@@ -759,11 +760,12 @@ public class ScheduleDAO {
                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
             }
             String query_string2 = "UPDATE tbl_scheduled_entity_list"
-                    + " SET entity_id = ?, status = ? where id = ?";
+                    + " SET entity_id = ?, status = ?, recuring_email_id = ? where id = ?";
             try (PreparedStatement prepared_statement = connection.prepareStatement(query_string2)) {
                 prepared_statement.setInt(1, 0);
                 prepared_statement.setString(2, TemplateStatus.no_template.toString());
-                prepared_statement.setInt(3, schedule_id);
+                prepared_statement.setNull(3, java.sql.Types.INTEGER);
+                prepared_statement.setInt(4, schedule_id);
                 prepared_statement.executeUpdate();
             } catch (Exception e) {
                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating the schedule:", null), e);
