@@ -961,83 +961,67 @@ $edit=0;
 //
 //                };
             
-            $scope.deleteEmailList = function (){
-                    var noofemaillist="";
-                    var selected_email_lists="";
-                    $("input[type=checkbox]:checked").each ( function() {
-                        selected_email_lists +=$(this).val()+",";
-                        noofemaillist=selected_email_lists.split(',');
-                    });
-                    if (noofemaillist.length>2){
-                        var EmailLists = {"update":"deleteAllEmailLists", "emailListName": selected_email_lists};
-                    }
-                    else {
-                        var EmailLists = {"update":"deleteEmailLists", "emailListName": selected_email_lists};
-                    }
-                    $http({
-                        method: 'POST',
-                        url: getHost() + 'SetEmailLists',
-                        headers: {'Content-Type': 'application/json'},
-                        data: EmailLists
-                    }).success(function (data)
-                    {
-//                        alert(JSON.stringify(data));
-                        if (data === "true") {
-                            alert("Data deleted successfully");
-//                                $scope.updateList(email_list_name);
-
-                            window.open(getHost() + 'emaillists.jsp', "_self");
-                        } else if (data === error) {
-                            alert(data);
+                $scope.deleteEmailList = function (){
+                    if (confirm("Are you sure, You want to Delete Email List?")){
+                        var noofemaillist="";
+                        var selected_email_lists="";
+                        $("input[type=checkbox]:checked").each ( function() {
+                            selected_email_lists +=$(this).val()+",";
+                            noofemaillist=selected_email_lists.split(',');
+                        });
+                        if (noofemaillist.length>2){
+                            var EmailLists = {"update":"deleteAllEmailLists", "emailListName": selected_email_lists};
                         }
-                    });                        
+                        else {
+                            var EmailLists = {"update":"deleteEmailLists", "emailListName": selected_email_lists};
+                        }
+                        $http({
+                            method: 'POST',
+                            url: getHost() + 'SetEmailLists',
+                            headers: {'Content-Type': 'application/json'},
+                            data: EmailLists
+                        }).success(function (data)
+                        {
+    //                        alert(JSON.stringify(data));
+                            if (data === "true") {
+                                alert("Data deleted successfully");
+    //                                $scope.updateList(email_list_name);
+
+                                window.open(getHost() + 'emaillists.jsp', "_self");
+                            } else if (data === error) {
+                                alert(data);
+                            }
+                        });
+                    }                        
                 };
                 
                 
                 $scope.deleteSelected = function (){
                     //var selectAll = document.getElementById("selectAll").checked;
-                    var email_list_name = "";
-//                    if (selectAll){
-//                        email_list_name = $("#email_list_name").val();
-//                        var Emails = {"update": "deleteAllEmailsFromList", "emailListName":email_list_name};
-//                        $http({
-//                            method: 'POST',
-//                            url: getHost() + 'SetEmailLists',
-//                            headers: {'Content-Type': 'application/json'},
-//                            data: Emails
-//                        }).success(function (data)
-//                        {
-//                            if (data === "true") {
-//                                alert("Data deleted successfully.");
-////                                $scope.updateList(email_list_name);
-//                                
-//                                window.open(getHost() + 'emaillists.jsp', "_self");
-//                            } else if (data === error) {
-//                                alert(data);
-//                            }
-//                        });
-//                    }else 
-                    if (selectedemailids != ""){
-                        email_list_name = $("#email_list_name").val();
-                        var Emails = {"update": "deleteEmailInEmailList", "emailListName":email_list_name, "emailAddresses":selectedemailids};
-                        $http({
-                            method: 'POST',
-                            url: getHost() + 'SetEmailLists',
-                            headers: {'Content-Type': 'application/json'},
-                            data: Emails
-                        }).success(function (data)
-                        {
-                            if (data === "true") {
-                                alert("Data deleted successfully.");
-                                $scope.updateList(email_list_name);
-                                selectedemailids = "";
-                                window.open(getHost() + 'emaillistsdetails.jsp?list_name='+email_list_name+'&type=user', "_self");
-                            } else if (data === error) {
-                                alert(data);
-                            }
-                        });
-                    }else {
-                        alert("No email has been selected!");
+                    if (confirm("Are you sure, You want to delete contact?")){
+                        var email_list_name = "";
+                        if (selectedemailids != ""){
+                            email_list_name = $("#email_list_name").val();
+                            var Emails = {"update": "deleteEmailInEmailList", "emailListName":email_list_name, "emailAddresses":selectedemailids};
+                            $http({
+                                method: 'POST',
+                                url: getHost() + 'SetEmailLists',
+                                headers: {'Content-Type': 'application/json'},
+                                data: Emails
+                            }).success(function (data)
+                            {
+                                if (data === "true") {
+                                    alert("Data deleted successfully.");
+                                    $scope.updateList(email_list_name);
+                                    selectedemailids = "";
+                                    window.open(getHost() + 'emaillistsdetails.jsp?list_name='+email_list_name+'&type=user', "_self");
+                                } else if (data === error) {
+                                    alert(data);
+                                }
+                            });
+                        }else {
+                            alert("No email has been selected!");
+                        }
                     }
                 };
                 $scope.showAddContacts = function (){

@@ -38,7 +38,7 @@
                 <div class="line-divider"></div>
                  <div class="input-field-container col-1of1">
                     <div class="input-header"> List Description </div>
-                    <input id="list_description" type="text" class="input-field-textfield input-placeholder" placeholder="Enter Last Name"></input>
+                    <input id="list_description" type="text" class="input-field-textfield input-placeholder" placeholder="Enter List Description"></input>
                 </div>
                 <div class="input-field-container col-1of1">
                     <div class="input-header">Default from Address </div>

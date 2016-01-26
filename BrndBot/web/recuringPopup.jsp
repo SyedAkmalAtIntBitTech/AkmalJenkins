@@ -91,7 +91,7 @@
                                 <div class="fleft input-supportText">
                                 days after added to
                             </div>
-                            <input class="fleft input-field-date" value="{{entities_list_name}}"/>
+                            <input class="fleft input-field-date" readonly value="{{entities_list_name}}"/>
                             
                             <div class="fleft input-supportText">
                                email list.
