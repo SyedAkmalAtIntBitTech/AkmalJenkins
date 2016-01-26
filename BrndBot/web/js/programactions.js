@@ -1177,7 +1177,7 @@ function programactions($scope, $http, $window){
             });
     };
     
-    $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, date_status,days) {
+    $scope.getRecuringMailDetails = function (schedule_id, template_status, till_date, schedule_time, entity_type, schedule_title, schedule_desc, date_status,days) {
 //            alert(eml_list_name);    
             $slider=2;
             sliderDialog = "#recuringPopup";
@@ -1234,6 +1234,7 @@ function programactions($scope, $http, $window){
                 $scope.entities_list_name = data.email_list_name;
 //                $scope.entities_recurring_list_name=data.recuring_email_email_list_name;
                 $scope.entities_selected_time = schedule_time;
+                $scope.entities_till_date = till_date;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 console.log(schedule_desc);
@@ -1968,7 +1969,6 @@ function programactions($scope, $http, $window){
                             "isRecuring": isRecuring};
             responseMessage = "Selected actions were deleted successfully";
         }
-        alert(requestBody);
         if (confirm(message)) {
             $http({
                 method: 'POST',
@@ -2047,7 +2047,6 @@ function programactions($scope, $http, $window){
             responseMessage = "Selected actions were deleted successfully";
         }
 
-        alert(schedules_to_delete);
         if (confirm(message)) {
             $http({
                 method: 'POST',
@@ -2103,7 +2102,6 @@ function programactions($scope, $http, $window){
         console.log("Epoch: " + schedule_time);
         var myEpoch = schedule_time;
         console.log("New Epoch: " + myEpoch);
-
  
         var schedule_details = {
             "type": "Note",

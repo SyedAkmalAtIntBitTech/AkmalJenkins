@@ -8,7 +8,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
+<head>
+    
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
@@ -33,7 +34,8 @@
                         <div  class="top-navbar-inner-bb-detail">
                             <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Recurring Email Automation Detail</span></div>
                             <div class="top-nav-cta-container">
-                                <div class="approve-button-detail md-button">Pause</div>
+                                <div class="approve-button-detail md-button" id="emailapprove" ng-show="recuring_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_email)">Approve</div>
+                                <div class="approve-button-detail md-button" id="emailapprove" ng-show="recuring_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_email)">Disapprove</div>
                                 <div class="delete-button-detail md-button" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="deleteAutomationSchedule(schedule_id, 'delete', master_email, 'true')">Delete Recurring Email</div>
                             </div>    
                         </div>
@@ -103,12 +105,12 @@
                                 {{entities_selected_time| date:'HH:mm a'}}
                             </div>
                         </div>  
-                         <div class="sendingDetails-row fleft">
+                        <div class="sendingDetails-row fleft">
                             <div class="fleft input-supportText">
                                 Have this email automation recur until:
                             </div>
-                                <div class="fleft  input-field-date">
-                               {{entities_selected_time| date:'MMMM dd yyyy'}}
+                            <div class="fleft  input-field-date">
+                               {{entities_till_date| date:'MMMM dd yyyy'}}
                             </div>
                         </div> 
                         </div>    

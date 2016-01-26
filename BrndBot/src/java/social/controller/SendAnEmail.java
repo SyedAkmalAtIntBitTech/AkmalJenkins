@@ -108,14 +108,14 @@ public class SendAnEmail {
                 String emailListNameInUserPreferences = (String) emailListJSONObject.get("emailListName");
                 if (emailListNameInUserPreferences.equals(emailListName)) {
                     
-                 jSONArray = (JSONArray)emailListJSONObject.get("emailAddresses");
-                 for (int i = 0; i < jSONArray.size(); i++){
-                     
-                     EmailInfo emailinfo = new EmailInfo().fromJSON(jSONArray.get(i).toString());
-                     listemailInfos.add(emailinfo);
-                 }
-                 break;
-             }
+                    jSONArray = (JSONArray)emailListJSONObject.get("emailAddresses");
+                    for (int i = 0; i < jSONArray.size(); i++){
+
+                        EmailInfo emailinfo = new EmailInfo().fromJSON(jSONArray.get(i).toString());
+                        listemailInfos.add(emailinfo);
+                    }
+                    break;
+                }
         }
         
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -135,7 +135,7 @@ public class SendAnEmail {
                 jsonArrayEmailAddresses.add(emailInfo);
             }
         }
-        jsonObject.put(IConstants.kEmailClientName, jsonArrayEmailClient);
+        jsonObject.put(IConstants.kEmailClientName, jsonArrayEmailAddresses);
 
         return jsonArrayEmailAddresses;
     }
