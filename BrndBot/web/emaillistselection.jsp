@@ -53,7 +53,19 @@
                     out.println();
         }
     %>    
-    
+    <script>
+function myFunction() {
+    var x = document.getElementById("fileid").value;
+    if(x==="")
+    {
+        document.getElementById("filetext").innerHTML = "Click to Select file";
+    }
+    else
+    {
+        document.getElementById("filetext").innerHTML = x;        
+    }
+}
+</script>
 </head>    
 
 <body ng-app>
@@ -101,11 +113,14 @@
                        <div class="h3 col-1of1" id="dragtext" hidden="true">Drag and drop a csv file here and click to upload:</div>
                        <!--<div class="h3 col-1of1 "> Drop files here...</div>-->
                        <div id="drop-zone" class="col-1of4 pushUp-30">
-                            <div id="clickHere">
-                                <label for="fileid" class="h4 clktosel">Click to Select file </label>      
-                                       <input type="file" id="fileid" name="file"  class="" style="display:none;" onchange="fileselected()"/>
-                                <!--<div id="fileselect" class="h4">Click to Select file</div>-->                          
-                            </div>
+                           <input type="file" id="fileid" class="filrstyle" onchange="myFunction()">
+                           <p id="filetext">Click to Select file</p>
+                           <!--clickHere-->
+<!--                            <div id="">
+                                <div for="fileid" class="h4 clktosel" id="filetext">Click to Select file </div>      
+                                <input type="file" id="fileid" name="file"  class="filrstyle" onchange="myFunction()">
+                                    <div id="fileselect" class="h4">Click to Select file</div>                          
+                            </div>-->
                         </div>
                     </div>
                    <div  class="col-2of4 fleft pushUp-30 lftpad-10" id="emladdrstxtarea">
@@ -114,7 +129,7 @@
                    </div>
                    
                 </div>
-                <div class="col-15of4 fleft unit pushUp-30">
+                <div class="col-15of4 fleft unit">
                       <input type="button" id="upload" value="Upload" onclick="upload()" class="md-button add-action-button"/>      
                    </div>
                     </div>

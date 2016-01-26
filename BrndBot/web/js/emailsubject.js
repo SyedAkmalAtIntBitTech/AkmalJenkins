@@ -1,4 +1,3 @@
-      
 
             
             $(document).ready(function () {
@@ -240,8 +239,13 @@
                 }
 
             }
-            function fileselected(){
-             
+            function fileselected(val){
+                alert(val);
+                alert($('input[type=file]').val());
+               var text=$("#fileid").val();alert(text);
+               $("#filetext").html(text);
+               
+               
                var a = document.getElementById('file');
                 if(a.value == "")
                 {
