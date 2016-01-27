@@ -105,8 +105,6 @@ $(document).ready(function ()
         {
             $("#twitterselection").hide();
         }
-        $("#postpopup").show();
-        $("#fade").show();
     });
     $("#closepostpopup").click(function(){
         $("#postpopup").hide();

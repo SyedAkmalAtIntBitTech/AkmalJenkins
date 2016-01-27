@@ -75,21 +75,95 @@
                     $(".link_title").val($("#title").val());
                 });
                 $("#postorschedule").click(function () {
+                    var flag=0;
                     var isFacebook = $("#isFacebook").val();
                     var isTwitter = $("#isTwitter").val();
-                    var check="";
-                    if(isFacebook==="true")
+                    var image_name = $("#imageToPost").val();
+                    if(isFacebook === "true")
                     {
-                        check=$("#facebookpreviewimage").attr("src");
+                        if($("#posttext").val()==="")
+                        {
+                            alert("Please enter Title for Facebook");
+                            flag=1;
+                            $("#posttext").focus();
+                            return false;
+                        }
+                        if(image_name==="")
+                        {
+                            alert("Please choose an Image");
+                            flag=1;
+                            $("#fade").show();
+                            $("#addContact").show();
+                            return false;
+                        }                        
+                        if($("#Linkurl").val()==="")
+                        {
+                            alert("Please choose or enter Link");
+                            $("#linkpopup").show();
+                            $("#fade").show();
+                            flag=1;
+                            $("#Linkurl").focus();
+                            return false;
+                        }
+                        if($("#link_title").val()==="")
+                        {
+                            alert("Please enter Link Title");
+                            flag=1;
+                            $("#link_title").focus();
+                            return false;
+                        }
+                        if($("#link_description").val()==="")
+                        {
+                            alert("Please write the description");
+                            flag=1;
+                            $("#link_description").focus();
+                            return false;
+                        }                        
                     }
-                    if(isTwitter==="true")
+                    if(isTwitter === "true")
                     {
-                        check=$("#twitterpreviewimage").attr("src");
+                        if($("#twittertext").val()==="")
+                        {
+                            alert("Please enter Title for Twitter");
+                            flag=1;
+                            $("#twittertext").focus();
+                            return false;
+                        }
+                        if($("#link").val()==="")
+                        {
+                            alert("Please enter Title for Twitter");
+                            $("#linkpopup").show();
+                            $("#fade").show();
+                            flag=1;
+                            return false;
+                        }
+                        if(image_name==="")
+                        {
+                            alert("Please choose an Image");
+                            flag=1;
+                            $("#fade").show();
+                            $("#addContact").show();
+                            return false;
+                        }
                     }
-                    if(check.contains("http://"))
+                    if(flag===0)
                     {
-                        $("#gallery").val("url");
-                        $("#imageToPost").val(check);
+                        var check="";
+                        if(isFacebook==="true")
+                        {
+                            check=$("#facebookpreviewimage").attr("src");
+                        }
+                        if(isTwitter==="true")
+                        {
+                            check=$("#twitterpreviewimage").attr("src");
+                        }
+                        if(check.contains("http://"))
+                        {
+                            $("#gallery").val("url");
+                            $("#imageToPost").val(check);
+                        }
+                        $("#postpopup").show();
+                        $("#fade").show();
                     }
                 });
                 $("#posttofb").click(function () {
@@ -99,7 +173,7 @@
                     var image_name = $("#imageToPost").val();
                     var image_type = $("#gallery").val();
                     var link_description = $("#link_description").val();
-                    if(isFacebook === true)
+                    if(isFacebook === "true")
                     {
                         if(image_name==="")
                         {
@@ -116,7 +190,7 @@
                             alert("Please enter Link Title");
                             return false;
                         }
-                        if($(image_name===""))
+                        if(image_name==="")
                         {
                             alert("Please choose an Image");
                             return false;
@@ -128,7 +202,7 @@
                             return false;
                         }                        
                     }
-                    if(isTwitter === true)
+                    if(isTwitter === "true")
                     {
                         if($("#twittertext").val()==="")
                         {
@@ -147,13 +221,13 @@
                         }
                     }
                     
-                    var link = $("#Linkurl").val();
+                    var link = $("#link").val();
                     if (link != undefined){
                         var f = link.startsWith("http");
 
                         if (!f)
                         {
-                            link = "http://" + $("#Linkurl").val();
+                            link = "http://" + $("#link").val();
                         }
                         var url = link;
                         var username = "sandeep264328"; // bit.ly username

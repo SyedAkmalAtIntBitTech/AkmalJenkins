@@ -10,9 +10,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -296,8 +299,6 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
                             Logger.getLogger(SetEmailLists.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                        
-                    
                     emailListJSONObject.put(IConstants.kEmailAddressesKey, emailAddressesJSONArray);
                     emailListArrayJSON.set(i, emailListJSONObject);
                     break;
@@ -425,25 +426,26 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
     
     private Boolean deleteAllEmailList(Integer user_id, String emailListName) throws JSONException, SQLException {
         org.json.simple.JSONArray emailListArrayJSON = getSqlMethodsInstance().getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
-        for (int i = 0; i < emailListArrayJSON.size(); i++) {
-            JSONObject emailListJSONObject = (JSONObject)emailListArrayJSON.get(i);
-            String id = (String)emailListJSONObject.get(IConstants.kEmailListID);
 
             String emailAddressesSplit[] = emailListName.split(",");
             
             Set<String> receivedEmailListNames = new HashSet<String>(Arrays.asList(emailAddressesSplit));
-            
+
             for (String emailList : receivedEmailListNames) {
                 
                 String emailLists = emailList;
-                if (!emailListName.isEmpty() && id!=null) {
-                    if(emailLists.equals(id))
-                    {
-                        emailListArrayJSON.remove(i);
+                for (int j = 0; j< emailListArrayJSON.size(); j++){
+                    JSONObject emailListJSONObject = (JSONObject)emailListArrayJSON.get(j);
+                    String id = (String)emailListJSONObject.get(IConstants.kEmailListID);
+
+                    if (!emailListName.isEmpty() && id!=null) {
+                        if(emailLists.equals(id))
+                        {
+                            emailListArrayJSON.remove(j);
+                        }
                     }
                 }
-            }
-        }
+            }         
         return updateEmailListUserPreference(user_id, emailListArrayJSON);
     }
     

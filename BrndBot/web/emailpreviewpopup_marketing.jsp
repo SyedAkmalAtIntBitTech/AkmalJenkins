@@ -167,7 +167,7 @@
                                 </div></a>
                         </div>
                 </div>
-                <div class="below-nav-container-saved-post-detail" id="savedemailsdiv">
+                <div class="below-nav-container-saved-post-detail" id="savedemailsdiv" ng-show="entitiesdetails.body !== undefined">
                     <div class="inner-content-container-detail fleft">
                         <div class="saved-post-header-detail">
 

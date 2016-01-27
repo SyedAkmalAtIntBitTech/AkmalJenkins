@@ -14,10 +14,17 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="shortcut icon" href="favicon.png"></link>
     <link rel="stylesheet" type="text/css" href="css/popup.css"></link>
-     <script src="js/popup.js" type="text/javascript"></script>
+    <script src="js/popup.js" type="text/javascript"></script>
+    <title>create email list</title>
 </head>    
-    <style>#addActionemllist{display:none;}</style>
-<body >
+    <style>
+        
+        #addActionemllist{
+            display:none;
+        }
+        
+    </style>
+<body>
     <div id="fade" class="black_overlay" ></div>
         <div id="addActionemllist">
     <!--Top Nav-->   
@@ -38,7 +45,7 @@
                 <div class="line-divider"></div>
                  <div class="input-field-container col-1of1">
                     <div class="input-header"> List Description </div>
-                    <input id="list_description" type="text" class="input-field-textfield input-placeholder" placeholder="Enter Last Name"></input>
+                    <input id="list_description" type="text" class="input-field-textfield input-placeholder" placeholder="Enter List Description"></input>
                 </div>
                 <div class="input-field-container col-1of1">
                     <div class="input-header">Default from Address </div>

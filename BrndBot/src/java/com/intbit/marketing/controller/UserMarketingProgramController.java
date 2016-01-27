@@ -185,8 +185,10 @@ public class UserMarketingProgramController {
             String target = requestBodyMap.get("program_date_time").toString();
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             Date eventDate = df.parse(target);
-            Double marketingCategoryId = (Double) requestBodyMap.get("marketing_category_id");
-            Double marketingProgramId = (Double) requestBodyMap.get("marketing_program_id");
+            String marketingCategoryId1 = (String) requestBodyMap.get("marketing_category_id");
+            Double marketingCategoryId = Double.parseDouble(marketingCategoryId1);
+            String marketingProgramId1 = (String) requestBodyMap.get("marketing_program_id");
+            Double marketingProgramId =Double.parseDouble(marketingProgramId1);
             marketingProgram.setId(marketingProgramId.intValue());
             addUserMarketingProgram.setId(0);
             addUserMarketingProgram.setDateEvent(eventDate);
