@@ -77,6 +77,15 @@ function getImageId(idname)
     }
 $(document).ready(function ()
 {
+    $("#emailpreview").click(function(){
+        $("#fade").show();
+        $("#email_previewdiv").show();
+    });
+     $("#closePreview").click(function(){
+        $("#fade").hide();
+        $("#email_previewdiv").hide();
+    });
+    
     $("#schedule_social_time").click(function(){
         $(".timepicker_wrap").css("margin-top","-207px");
         $(".timepicker_wrap").css("width","195px");

@@ -50,9 +50,9 @@
 
             </div>
         </div>
-        <div class="pop-up-cta-container pop-up-cta-container-newContact">
+        <div class="pop-up-cta-container pop-up-cta-container-newContact cur" ng-click="updateEmailID()">
         <a href="">
-            <div class="pop-up-cta-button-full" ng-click="updateEmailID()"> Save Contact</div>
+            <div class="pop-up-cta-button-full"> Save Contact</div>
         </a>
     </div> 
     </div>

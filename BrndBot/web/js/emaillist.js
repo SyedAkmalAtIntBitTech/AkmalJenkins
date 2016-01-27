@@ -966,7 +966,6 @@ $edit=0;
                         var noofemaillist="";
                         var selected_email_lists="";
                         $("input[type=checkbox]:checked").each ( function() {
-                            alert($(this).val());
                             selected_email_lists +=$(this).val()+",";
                             noofemaillist=selected_email_lists.split(',');
                         });
