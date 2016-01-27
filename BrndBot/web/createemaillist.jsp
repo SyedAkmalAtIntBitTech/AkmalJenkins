@@ -48,9 +48,9 @@
             </div>
         </div>
     </div>
-    <div class="pop-up-cta-container pop-up-cta-container-newaction">
+    <div class="pop-up-cta-container pop-up-cta-container-newaction cur"  ng-click="createEmailList()">
         <a href="javascript:void(0)">
-            <div class="pop-up-cta-button-full" ng-click="createEmailList()">Create List</div>
+            <div class="pop-up-cta-button-full">Create List</div>
         </a>
     </div>
     </div>

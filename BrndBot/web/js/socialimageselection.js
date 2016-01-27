@@ -195,7 +195,7 @@
                             alert("Please choose an Image");
                             return false;
                         }
-                        if($(link_description===""))
+                        if(link_description==="")
                         {
                             alert("Please write the description");
                             $("#link_description").focus();
@@ -209,12 +209,12 @@
                             alert("Please enter Title for Twitter");
                             return false;
                         }
-                        if($("#Linkurl").val()==="")
+                        if($("#link").val()==="")
                         {
                             alert("Please enter Title for Twitter");
                             return false;
                         }
-                        if($(image_name===""))
+                        if(image_name==="")
                         {
                             alert("Please choose an Image");
                             return false;
@@ -241,7 +241,7 @@
                         {
                             var bit_url = v.data.url;
                             $("#sortLengthurl").val(bit_url);
-                            if (isFacebook == "true" || isTwitter == "true") {
+                            if (isFacebook == "true") {
                                 $.ajax({
                                     url: 'PostToSocial',
                                     method: 'post',
@@ -269,7 +269,37 @@
                                         document.location.href = "dashboard.jsp";
                                     }
                                 });
-                            }else {
+                            }
+                            if (isTwitter == "true") {
+                                $.ajax({
+                                    url: 'PostToSocial',
+                                    method: 'post',
+                                    data: {
+                                        imageToPost: image_name,
+                                        accesstoken: $("#accesstoken").val(),
+                                        postText: $("#posttext").val(),
+                                        title: $("#link_title").val(),
+                                        url: $("#link").val(),
+                                        twittweraccestoken: $("#twittweraccestoken").val(),
+                                        twitterTokenSecret: $("#twitterTokenSecret").val(),
+                                        text: $("#twittertext").val(),
+                                        isFacebook: isFacebook,
+                                        isTwitter: isTwitter,
+                                        imagePost: image_name,
+                                        description: link_description,
+                                        imageType: image_type,
+                                        shorturl: $("#sortLengthurl").val()
+                                    },
+                                    success: function (responseText) {
+                                        $('#mask').hide();
+                                        $('.window').hide();
+                                        alert("Your post has been published successfully");
+
+                                        document.location.href = "dashboard.jsp";
+                                    }
+                                });
+                            }
+                            else {
                                 alert("select atleast one");
                             }
                         }
