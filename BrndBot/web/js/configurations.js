@@ -47,6 +47,7 @@ function getColor5(){
 function getColor6(){
     return "color6";
 }
+
 function getemail(){
     return "Email";
 }
