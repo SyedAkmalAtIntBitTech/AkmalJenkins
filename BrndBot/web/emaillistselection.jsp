@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="css/popup.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <script src="js/emaillistselection.js" type="text/javascript"></script>
+    <script src="js/popup.js" type="text/javascript"></script>
     <jsp:include page="basejsp.jsp" />
     <style>
         #emladdrstxtarea,#clktoupload,#upload,#emaildetailscontbtn,#emaildetailsid,#backemaildetails{display:none;}
@@ -53,6 +54,13 @@
                     out.println();
         }
     %>    
+    <style>
+        .filrstyle {
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
     <script>
 function myFunction() {
     var x = document.getElementById("fileid").value;
@@ -178,13 +186,14 @@ function myFunction() {
                             </div>
                         </div>
                         <div class="input-field-container col-1of8 fleft pushUp-50">
-                        <div class="h2 curpointer">Preview</div>                       
+                        <%@include file="email_preview.jsp" %>
+                        <div class="h2 curpointer" id="emailpreview">Preview</div>                       
                         </div>
                     <!--Inner Content Conatiner GENERIC-->
                 </div>
                  <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain;">
                             <div class="content">  
-                                <iframe id='dynamictable' style='position:relative;background-color:#FFF;' src='<%=iframeUrl%>'></iframe>                   
+                                                 
                             </div>
                         </div>
             </div>

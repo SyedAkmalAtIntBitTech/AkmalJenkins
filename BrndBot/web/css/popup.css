@@ -1170,4 +1170,21 @@ img#companyimage {
 p#filetext {
     margin-top: 1px;
 }
+#email_previewdiv{
+    position: fixed;
+    display: none;
+    margin-top: -38%;
+    z-index: 99999;
+    margin-left: -9%;
+}
+.closeemailpreview {
+    width: 36px;
+    margin-left: -6px;
+    margin-top: -5px;
+    margin-bottom: -4px;
+}
+.bottom-continue-button:hover {
+    color: #ffffff;
+    background-color: #767777;
+}
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/
