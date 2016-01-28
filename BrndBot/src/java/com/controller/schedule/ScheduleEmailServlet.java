@@ -141,9 +141,10 @@ public class ScheduleEmailServlet extends HttpServlet {
         if (!mapContainsKey(requestBodyMap, "to_email_addresses")) {
             errorMsgs.add("To email address is missing");
         }
-        if (!mapContainsKey(requestBodyMap, "email_body")) {
-            errorMsgs.add("Email body is missing");
-        }
+        //Email Body comes from iframe now
+//        if (!mapContainsKey(requestBodyMap, "email_body")) {
+//            errorMsgs.add("Email body is missing");
+//        }
         if (!mapContainsKey(requestBodyMap, "email_list")) {
             errorMsgs.add("Email List name is missing");
         }
