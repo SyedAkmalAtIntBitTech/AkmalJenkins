@@ -615,28 +615,28 @@
             formattedHTMLData=$("#dynamictable").contents().find("html").html();
             
             var imageUrl = $("#" + id).css("background-image");
-
-            if (id === "ipad") {
-                $(".iphoneshow").css("background-image", imageUrl).css("display", 'block').css("width", "239px").css("height", "300px")
-                        .css("border-color", "transparent").css("margin-left", "150px").css("margin-top", "-80px").css("background-color","#FFF");
-                $('#dynamictable').css("width","770px").css("height","958px").css("top","-465px").css("left","-300px").css("-webkit-transform"," scale(0.265)");
-            }
-            else if (id === "imac")
-            {
-                $(".iphoneshow").css("background-image", imageUrl)
-                        .css("display", 'block').css("height", "413px").css("width", "295px").css("margin-left", "150px").css("margin-top", "-80px")
-                        .css("border-color", "transparent").css("background-color","#FFF");
-                 $('#dynamictable').css("width","768px").css("height","615px").css("top","-316px").css("left","-272px").css("-webkit-transform","scale(0.3326)");
-            }
-//            $("#"+id).toggleClass('selection-icon');
-//            $("#"+id).toggleClass('selection-icon-selected');
-
-            else if (id === "iphone"){
-                $(".iphoneshow").css("background-image", imageUrl)
-                        .css("display", 'block').css("height", "370px").css("width", "415px").css("margin-left", "150px").css("margin-top", "-80px")
-                        .css("border-color", "transparent").css("background-color","#FFF");
-                 $('#dynamictable').css("width","640px").css("height","1024px").css("top","-465px").css("left","-249px").css("-webkit-transform","scale(0.278)");
-            }
+//
+//            if (id === "ipad") {
+//                $(".iphoneshow").css("background-image", imageUrl).css("display", 'block').css("width", "239px").css("height", "300px")
+//                        .css("border-color", "transparent").css("margin-left", "150px").css("margin-top", "-80px").css("background-color","#FFF");
+//                $('#dynamictable').css("width","770px").css("height","958px").css("top","-465px").css("left","-300px").css("-webkit-transform"," scale(0.265)");
+//            }
+//            else if (id === "imac")
+//            {
+//                $(".iphoneshow").css("background-image", imageUrl)
+//                        .css("display", 'block').css("height", "413px").css("width", "295px").css("margin-left", "150px").css("margin-top", "-80px")
+//                        .css("border-color", "transparent").css("background-color","#FFF");
+//                 $('#dynamictable').css("width","768px").css("height","615px").css("top","-316px").css("left","-272px").css("-webkit-transform","scale(0.3326)");
+//            }
+////            $("#"+id).toggleClass('selection-icon');
+////            $("#"+id).toggleClass('selection-icon-selected');
+//
+//            else if (id === "iphone"){
+//                $(".iphoneshow").css("background-image", imageUrl)
+//                        .css("display", 'block').css("height", "370px").css("width", "415px").css("margin-left", "150px").css("margin-top", "-80px")
+//                        .css("border-color", "transparent").css("background-color","#FFF");
+//                 $('#dynamictable').css("width","640px").css("height","1024px").css("top","-465px").css("left","-249px").css("-webkit-transform","scale(0.278)");
+//            }
             
         }
         

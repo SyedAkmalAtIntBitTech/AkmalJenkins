@@ -1187,4 +1187,20 @@ p#filetext {
     color: #ffffff;
     background-color: #767777;
 }
+.mobileshow
+{
+    display: block;
+    height: 370px;
+    width: 415px;
+    margin-left: 150px;
+    margin-top: -80px;
+    border-color: transparent;
+    background-image: url(http://localhost:8080/BrndBot/images/Phone.svg);
+    background-color: rgb(255, 255, 255);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.height400 {
+    height: 400px;
+}
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/

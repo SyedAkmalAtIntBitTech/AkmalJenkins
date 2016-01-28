@@ -81,10 +81,11 @@ $(document).ready(function ()
         $("#fade").show();
         $("#email_previewdiv").show();
     });
-     $("#closePreview").click(function(){
+    $("#closePreview").click(function(){
         $("#fade").hide();
         $("#email_previewdiv").hide();
     });
+    
     
     $("#schedule_social_time").click(function(){
         $(".timepicker_wrap").css("margin-top","-207px");

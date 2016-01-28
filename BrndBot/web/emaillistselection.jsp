@@ -123,12 +123,6 @@ function myFunction() {
                        <div id="drop-zone" class="col-1of4 pushUp-30">
                            <input type="file" id="fileid" class="filrstyle" onchange="myFunction()">
                            <p id="filetext">Click to Select file</p>
-                           <!--clickHere-->
-<!--                            <div id="">
-                                <div for="fileid" class="h4 clktosel" id="filetext">Click to Select file </div>      
-                                <input type="file" id="fileid" name="file"  class="filrstyle" onchange="myFunction()">
-                                    <div id="fileselect" class="h4">Click to Select file</div>                          
-                            </div>-->
                         </div>
                     </div>
                    <div  class="col-2of4 fleft pushUp-30 lftpad-10" id="emladdrstxtarea">
@@ -141,20 +135,7 @@ function myFunction() {
                       <input type="button" id="upload" value="Upload" onclick="upload()" class="md-button add-action-button"/>      
                    </div>
                     </div>
-                </div>
-<!--                <div class="col-1of1 fleft unit pushUp-15">
-                    <div class="selection-container col-5p fleft"> 
-                        <div id="uploademailaddrs" class="chooseList-icon" onclick="selcheckbox(this.id)"></div>
-                    </div>
-                    <div class="col-9of10 fleft">
-                        <div class="h2 col-1of1">Enter or upload email addresses</div>
-                        <div class="p chooseList-subtext col-1of1">Choose a recipient list</div>
-                    </div>
-                </div>-->
-           
-            
-            <!--Inner Content Conatiner GENERIC-->
-            
+                </div>            
         </div>
         <div class="sequence-page-background" id="emaildetailsid">
             <div class="sequence-page-content-container">
@@ -186,24 +167,22 @@ function myFunction() {
                             </div>
                         </div>
                         <div class="input-field-container col-1of8 fleft pushUp-50">
-                        <%@include file="email_preview.jsp" %>
+                        <%@include file="emailpreview.jsp" %>
                         <div class="h2 curpointer" id="emailpreview">Preview</div>                       
                         </div>
                     <!--Inner Content Conatiner GENERIC-->
                 </div>
-                 <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain;">
-                            <div class="content">  
-                                                 
-                            </div>
-                        </div>
+                <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain;">
+                    <div class="content"></div>
+                </div>
             </div>
         </div>
   
         <!--CTA Bar-->
         <div class="bottom-cta-bar">
             <div class="bottom-cta-button-container-lg">
-                    <div class="bottom-continue-button button-text-1" id="emaildetailscontbtn" onclick="validate();">Continue</div>
-                    <div class="bottom-continue-button button-text-1" id="emailIdContinueButton">Continue</div>
+                <div class="bottom-continue-button button-text-1" id="emaildetailscontbtn" onclick="validate();">Continue</div>
+                <div class="bottom-continue-button button-text-1" id="emailIdContinueButton">Continue</div>
             </div>
         </div>
         </div>
