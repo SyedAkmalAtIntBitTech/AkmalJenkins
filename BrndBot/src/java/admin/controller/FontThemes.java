@@ -100,9 +100,8 @@ public class FontThemes {
             }
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
-        }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
-
+        } finally {
+            sqlmethods.close(result_set, prepared_statement);
         }
 
         return theme;
@@ -144,9 +143,8 @@ public class FontThemes {
             prepared_statement.executeUpdate();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
-        }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
-
+        } finally {
+            sqlmethods.close(result_set, prepared_statement);
         }
 
     }
@@ -178,9 +176,8 @@ public class FontThemes {
             prepared_statement.executeUpdate();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
-        }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
-
+        } finally {
+           sqlmethods.close(result_set, prepared_statement);
         }
 
     }
@@ -198,9 +195,8 @@ public class FontThemes {
             prepared_statement.executeUpdate();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
-        }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
-
+        } finally {
+            sqlmethods.close(result_set, prepared_statement);
         }
 
     }

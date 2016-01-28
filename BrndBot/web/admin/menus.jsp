@@ -19,6 +19,7 @@
           <ul class="dropdown-menu">
               <li><a href="fontsfamily.jsp">Fonts Family</a></li>
               <li><a href="fonttheme.jsp">Font theme</a></li>
+              <li><a href="userbranddetails.jsp">User Brands</a></li>
           </ul>
         </li>
         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Colors<span class="caret"></span></a>

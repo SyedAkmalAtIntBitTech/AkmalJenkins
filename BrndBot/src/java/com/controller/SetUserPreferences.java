@@ -58,19 +58,23 @@ public class SetUserPreferences extends BrndBotBaseHttpServlet {
             
             Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
             Integer brand_id = (Integer)getSqlMethodsInstance().session.getAttribute("brandID");
+            String brand_name = (String)getSqlMethodsInstance().session.getAttribute("brandName");
             Integer look_id = (Integer)getSqlMethodsInstance().session.getAttribute("LookID");
             String studio_id = (String)getSqlMethodsInstance().session.getAttribute("studioID");
+            String org_id = (String)getSqlMethodsInstance().session.getAttribute("org_id");
+            String email_id = (String)getSqlMethodsInstance().session.getAttribute("EmailID");
+                    
             String type = (String)json_user_preferences.get("type");
 
             if (type.equalsIgnoreCase("update")){
                 JSONObject json_user_preferences_from_database = getSqlMethodsInstance().getJSONUserPreferences(user_id);
                 
-                json_user_preferences_from_database.put(IConstants.kColor1 , json_user_preferences.get(IConstants.kColor1));
-                json_user_preferences_from_database.put(IConstants.kColor2 , json_user_preferences.get(IConstants.kColor2));
+                json_user_preferences_from_database.put(IConstants.kColor1, json_user_preferences.get(IConstants.kColor1));
+                json_user_preferences_from_database.put(IConstants.kColor2, json_user_preferences.get(IConstants.kColor2));
                 json_user_preferences_from_database.put(IConstants.kColor3, json_user_preferences.get(IConstants.kColor3));
-                json_user_preferences_from_database.put(IConstants.kColor4 , json_user_preferences.get(IConstants.kColor4));
-                json_user_preferences_from_database.put(IConstants.kColor5 , json_user_preferences.get(IConstants.kColor5));
-                json_user_preferences_from_database.put(IConstants.kColor6 , json_user_preferences.get(IConstants.kColor6));
+                json_user_preferences_from_database.put(IConstants.kColor4, json_user_preferences.get(IConstants.kColor4));
+                json_user_preferences_from_database.put(IConstants.kColor5, json_user_preferences.get(IConstants.kColor5));
+                json_user_preferences_from_database.put(IConstants.kColor6, json_user_preferences.get(IConstants.kColor6));
 
                 getSqlMethodsInstance().updateJSONUserPreference(user_id, json_user_preferences_from_database);
 
@@ -79,7 +83,12 @@ public class SetUserPreferences extends BrndBotBaseHttpServlet {
                 getSqlMethodsInstance().session.setAttribute("Checked", "true");
 
                 Integer font_theme_id = getSqlMethodsInstance().getFontthemeid(brand_id.toString());
-                getSqlMethodsInstance().addUserPreferences(user_id, Integer.parseInt(brand_id.toString()), font_theme_id,  studio_id, Integer.parseInt(look_id.toString()), json_user_preferences);
+                getSqlMethodsInstance().addUserPreferences(user_id, brand_id, 
+                                                           font_theme_id,  studio_id, 
+                                                           Integer.parseInt(look_id.toString()), 
+                                                           Integer.parseInt(org_id), 
+                                                           json_user_preferences, email_id, 
+                                                           brand_name);
                 
             }
         }catch(Exception e){

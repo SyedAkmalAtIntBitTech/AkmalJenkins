@@ -176,7 +176,7 @@ function loginController($scope, $http) {
 
 }
 
-angular.module("myapp", [])
+        angular.module("myapp", [])
         .controller("MyController", function ($scope, $http) {
             $scope.organizations = {};
             $http({
@@ -189,26 +189,52 @@ angular.module("myapp", [])
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
-
+            
+            $scope.validate = function(){
+                var company_name = $("#inputcompanyname").val();
+                var organization_name = $("#organizationdropdown").val();
+                
+                if (company_name == ""){
+                    alert("company name not entered, please enter the company name");
+                    $("#inputcompanyname").focus();
+                    return false;
+                }
+                
+                if (organization_name == 0){
+                    alert("organization name not entered, please enter the organization name");
+                    $("#organizationdropdown").focus();
+                    return false;
+                }
+                return true;
+            };
+            
             $scope.createOrganization = function ()
             {
-                $http({
-                    method: 'POST',
-                    url: getHost() + 'AddUpdateOrganization',
-                    headers: {'Content-Type': 'application/json'},
-                    data: $scope.organizations
-                }).success(function (data)
-                {
-                    $scope.status = data;
-                    if (data === "true") {
-                        window.open(getHost() + 'services.html', "_self");
-                    } else {
-                        alert(data);
-                    }
-                }).error(function (data, status) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                    alert("Request not successful!");
-                });
+                if ($scope.validate()){
+                    
+                var company_name = $("#inputcompanyname").val();
+                var organization_name = $("#organizationdropdown").val();
+
+                var organization = {"company": company_name, "organization": organization_name}
+                    
+                    $http({
+                        method: 'POST',
+                        url: getHost() + 'AddUpdateOrganization',
+                        headers: {'Content-Type': 'application/json'},
+                        data: organization
+                    }).success(function (data)
+                    {
+                        $scope.status = data;
+                        if (data === "true") {
+                            window.open(getHost() + 'services.html', "_self");
+                        } else {
+                            alert(data);
+                        }
+                    }).error(function (data, status) {
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                        alert("Request not successful!");
+                    });
+                }
             };
         });

@@ -223,38 +223,38 @@ public class Layout {
 //  JSONArray json_font_names = new JSONArray();
         JSONObject json_font;
         if (rs3.next()){
-                        Integer font_id1 = rs3.getInt("font_id1");
-                        getFontsList(connection, font_id1);
-                        Integer font_id2 = rs3.getInt("font_id2");
-                        getFontsList(connection, font_id2);
-                        Integer font_id3 = rs3.getInt("font_id3");
-                        getFontsList(connection, font_id3);
-                        Integer font_id4 = rs3.getInt("font_id4");
-                        getFontsList(connection, font_id4);
-                        Integer font_id5 = rs3.getInt("font_id5");
-                        getFontsList(connection, font_id5);
-                        Integer font_id6 = rs3.getInt("font_id6");
-                        getFontsList(connection, font_id6);
-                        Integer font_id7 = rs3.getInt("font_id7");
-                        getFontsList(connection, font_id7);
-                        Integer font_id8 = rs3.getInt("font_id8");
-                        getFontsList(connection, font_id8);
-                        Integer font_id9 = rs3.getInt("font_id9");
-                        getFontsList(connection, font_id9);
-                        Integer font_id10 = rs3.getInt("font_id10");
-                        getFontsList(connection, font_id10);
-                        Integer font_id11 = rs3.getInt("font_id11");
-                        getFontsList(connection, font_id11);
-                        Integer font_id12 = rs3.getInt("font_id12");
-                        getFontsList(connection, font_id12);
-                        Integer font_id13 = rs3.getInt("font_id13");
-                        getFontsList(connection, font_id13);
-                        Integer font_id14 = rs3.getInt("font_id14");
-                        getFontsList(connection, font_id14);
-                        Integer font_id15 = rs3.getInt("font_id15");
-                        getFontsList(connection, font_id15);
+                Integer font_id1 = rs3.getInt("font_id1");
+                getFontsList(connection, font_id1);
+                Integer font_id2 = rs3.getInt("font_id2");
+                getFontsList(connection, font_id2);
+                Integer font_id3 = rs3.getInt("font_id3");
+                getFontsList(connection, font_id3);
+                Integer font_id4 = rs3.getInt("font_id4");
+                getFontsList(connection, font_id4);
+                Integer font_id5 = rs3.getInt("font_id5");
+                getFontsList(connection, font_id5);
+                Integer font_id6 = rs3.getInt("font_id6");
+                getFontsList(connection, font_id6);
+                Integer font_id7 = rs3.getInt("font_id7");
+                getFontsList(connection, font_id7);
+                Integer font_id8 = rs3.getInt("font_id8");
+                getFontsList(connection, font_id8);
+                Integer font_id9 = rs3.getInt("font_id9");
+                getFontsList(connection, font_id9);
+                Integer font_id10 = rs3.getInt("font_id10");
+                getFontsList(connection, font_id10);
+                Integer font_id11 = rs3.getInt("font_id11");
+                getFontsList(connection, font_id11);
+                Integer font_id12 = rs3.getInt("font_id12");
+                getFontsList(connection, font_id12);
+                Integer font_id13 = rs3.getInt("font_id13");
+                getFontsList(connection, font_id13);
+                Integer font_id14 = rs3.getInt("font_id14");
+                getFontsList(connection, font_id14);
+                Integer font_id15 = rs3.getInt("font_id15");
+                getFontsList(connection, font_id15);
 
-                    }
+            }
         this.json_font_list = json_font_names;
     }catch (Exception e){
         logger.log(Level.SEVERE, "", e);
@@ -405,8 +405,6 @@ public class Layout {
                     else if(modelElement.getAttribute("blur").equalsIgnoreCase("undefined")) {
                        
                         filter = "blur(0px) grayscale(0%) sepia(0%) saturate(100%) hue-rotate(0deg) invert(0%) brightness(100%) contrast(100%)";  
-                       
-     
                     }
                     else if(modelElement.getAttribute("filterEnable").equalsIgnoreCase("true")){
                         Blur = modelElement.getAttribute("blur");
@@ -434,12 +432,6 @@ public class Layout {
                     background_size = "contain";
                     htmldata.append("<div id='" + id + "' style='position: absolute; width:" + width + "; height:" + height + "; background-blend-mode:" + Blend_mode + "; background-color:" + blend_mode + "; background-image:" + backgroundimage + "; margin-left:" + margin_left + "px; margin-top:" + margin_top + "px; background-repeat:" + background_repeat + "; -webkit-background-size:" + background_size + ";-webkit-filter:" + filter + ";  opacity:" + opacity + "; '></div>");
                     logger.log(Level.INFO, htmldata.toString());
-                    
-                    
-                    
-                    
-                    
-                    
                     
                 } else if (modelElement.getAttribute("tag").equalsIgnoreCase("block")) {
                     String filter = "";
