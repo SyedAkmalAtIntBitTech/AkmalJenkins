@@ -47,15 +47,15 @@
             <jsp:include page="leftmenu.html"/><!--/end left column-->
             </div><!--/end left column-->
             <div id="datadiv" class="col-md-8 col-md-offset-2">
-                <intput type="hidden" id="mindbody_id" value="<%=mindbody_id%>"></intput>
+                <intput type="hidden" id="mindbodyid" name="mindbodyid" value="2345"></intput>
                 <div id="emailsubjectdiv">
                     <p class="header1 MH2"> Enter the Subject Line of the Email:</p>
                    <div class="sublingrp">
-                   <div class="col-md-5 col-md-offset-0">                            
+                    <div class="col-md-5 col-md-offset-0">                            
                        <input id="emailsubject" class="inputsubline" name="emailsubject" type="text" required/>
                        <label>SUBJECT LINE</label><br>
                     </div>
-                    </div>
+                   </div>
                     <input id="emailSubjectContinueButton" type="button" class="button button--moema button--text-thick button--text-upper button--size-s btn-prim" value="CONTINUE"/>
                 </div>
             </div>      

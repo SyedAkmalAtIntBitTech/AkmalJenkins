@@ -1,46 +1,46 @@
-
             
             $(document).ready(function () {
-                
                 $("#emaillist").hide();
                 $("#popup").hide();
+
                 $("#emailSubjectContinueButton").click(function () {
-                    
- ///////////////////////////// Added by Satyajit Roy on 30th nov 2015 ///////////////////////////
- 
+
+        ///////////////////////////// Added by Satyajit Roy on 30th nov 2015 ///////////////////////////
+
+                    var mindbodyid = $("#mindbodyid").val();
                     var email_subject = $("#emailsubject").val();
-                    var mindbody_id = $("#mindbody_id").val();
                     if(email_subject==="")
                     {
                         alert("Please enter email subject.");
                         $("#emailsubject").focus();
                         return false;
                     }
-                    else{
+                        else
+                    {
                         document.title="BrndBot - Email List Selection"; 
                     }
                     var email_addresses = "";
                     var email_list = "";
                         $.ajax({
                         url: getHost() + "EmailTextDataServlet",
-//                        dataType: 'json',
+        //                        dataType: 'json',
                         data: {
                             email_subject: email_subject,
                             email_addresses: email_addresses,
                             email_list : email_list
                         },
                         success: function(result){
-                            //alert(result);
+//                            alert(result);
                             if (result === "true"){
-                                document.location.href = "emaileditor.jsp?id="+mindbody_id+"&subject="+email_subject;
+                                document.location.href = "emaileditor.jsp?id="+mindbodyid+"&subject="+email_subject;
                             }
                         }
                     });
-                
- ////////////////////////////////////////// END ////////////////////////////////////////////////
+
+        ////////////////////////////////////////// END ////////////////////////////////////////////////
 
                 });
-          
+                
                 $("#emailIdContinueButton").click(function () {
                     var selectedEmail=$("#chooseEmailList").val();
                     alert("..");
@@ -79,7 +79,6 @@
                         }
                 }
                 else{
-                        
                         var email_subject = "";
                         var email_addresses = $("#emailaddresses").val();
                         if(trim(email_addresses)!=="")
