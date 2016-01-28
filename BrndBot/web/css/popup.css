@@ -1203,4 +1203,47 @@ p#filetext {
 .height400 {
     height: 400px;
 }
+.reveal-modal-bg {
+    display:none;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: #000;
+    background: rgba(0,0,0,.8);
+    z-index: 99999;
+    display: none;
+    top: 0;
+    left: 0;
+}
+.reveal-modal {
+    position: fixed;
+    visibility: hidden;
+    top: 100px;
+    left: 50%;
+    margin-left: -300px;
+    width: 520px;
+    background: #eee url(modal-gloss.png) no-repeat -200px -80px;
+    position: absolute;
+    z-index: 99999;
+    padding: 30px 40px 34px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,.4);
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,.4);
+    -box-shadow: 0 0 10px rgba(0,0,0,.4);
+}
+#twpopup{
+    display: none;
+    position: fixed;
+    z-index: 999999;
+    margin-left: 27%;
+}
+#fbpopup{
+    display: none;
+    position: fixed;
+    z-index: 999999;
+    height: 500px !important;
+    margin-left: 27%;
+}
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/

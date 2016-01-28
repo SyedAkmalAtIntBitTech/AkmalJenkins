@@ -1,9 +1,10 @@
+
 $(document).ready(function(){
     var count=0;
     $("#mousef").click(function(){
-       $("#loadingGif").show();
-       var facebookcheck = document.getElementById("facebook").checked;
-       if(facebookcheck === false){
+       var facebookcheck = "true";
+       if(facebookcheck === "true")
+       {
             $.ajax({
                 url: 'ServletUserPreferencesFacebook',
                 method: 'GET',
@@ -12,60 +13,92 @@ $(document).ready(function(){
                 },
                 success: function (responseText) {
 //                           $("#tokenHere").html(responseText);
-
                     var fb_details = responseText.split(",");
-
-                    if (fb_details[0] == "") {
-
+                    if (fb_details[0] == "") {    
                         document.location.href = "GetFacebookManagePage";
-
                         $("#isFacebook").val(facebookcheck);
-
                     } else {
-
-//                        var fb_details = responseText.split(",");
-
+//                      var fb_details = responseText.split(",");
                         $("#fbaccessTokenSend").val(fb_details[0]);
                         $("#pagenameSend").val(fb_details[2]);
                         $("#fbdefaultAccessToken").val("true");
                         $("#isFacebook").val("true");
-
-//                        $("#submitbutton").prop("disabled", false);
+//                      $("#submitbutton").prop("disabled", false);
                         $('#loadingGif').hide();
                     }
                 }
-            });
-           
-       document.getElementById("facebook").checked=true;
-       document.getElementById("fb").src="images/fbButton_darkblue_new.svg"; 
-       $("#mousef").css("background-color","#F9F9F9");
-       $("#isFacebook").val("true");
-       count++;
-   }
-   else
-   {
-       $("#isFacebook").val(facebookcheck);
-       $("#fbaccessTokenSend").val("");
-       $("#fbdefaultAccessToken").val("");
-       $('#loadingGif').hide();
-       document.getElementById("fb").src=""; 
-       document.getElementById("facebook").checked=false;   
-       $("#isFacebook").val("false");
-       $("#mousef").css("background-color","#FFFFFF");
-       count--;
-   }
-   if(count >0)
-   {
-       $("#submitbutton").prop("disabled",false);
-   }
-   else
-   {
-       $("#submitbutton").prop("disabled",true);
-   }
+            });           
+            document.getElementById("facebook").checked=true;
+            document.getElementById("fb").src="images/fbButton_darkblue_new.svg"; 
+            $("#mousef").css("background-color","#F9F9F9");
+            $("#isFacebook").val("true");
+            count++;
+        }
+        else
+        {
+            $("#isFacebook").val(facebookcheck);
+            $("#fbaccessTokenSend").val("");
+            $("#fbdefaultAccessToken").val("");
+            $('#loadingGif').hide();
+            document.getElementById("fb").src=""; 
+            document.getElementById("facebook").checked=false;   
+            $("#isFacebook").val("false");
+            $("#mousef").css("background-color","#FFFFFF");
+            count--;
+        }
+        if(count >0)
+        {
+            $("#submitbutton").prop("disabled",false);
+        }
+        else
+        {
+            $("#submitbutton").prop("disabled",true);
+        }
    });
+   
+    $("#twpopupClose2").click(function(){
+        $("#fade").hide();
+        $("#twpopup").hide();
+    });
+    $('#setPin').click(function () {
+        var pin = $("#pinTextBox").val();
+
+        if (pin.length > 0) {
+            $.ajax({
+                url: 'GetTwitterToken',
+                method: 'post',
+                data: {
+                    pin: $("#pinTextBox").val()
+                },
+                success: function (responseText) {
+                    //                        $("#tokenHere").html(responseText);
+                    $("#twaccessTokenSend").val(responseText);
+                    twitter_access_tokens = responseText;
+                    $.ajax({
+                        url: 'ServletUserPreferencesTwitter',
+                        method: 'post',
+                        data: {
+                            access_token_method: "setAccessToken",
+                            twitter_access_tokens: twitter_access_tokens
+                        },
+                        success: function (responseText) {
+                            alert("Twitter token successfully added to your profile")
+                            $("#twpopup").hide();                            
+                            $("#fade").hide();
+                        }
+                    });
+                }
+            });
+
+        } else {
+            alert("Please enter the pin code!");
+            $("#pinTextBox").focus();
+        }
+    });
     $("#mouset").click(function(){
-       var twittercheck = document.getElementById("twitter").checked;
-       if(twittercheck == false){
+       var twittercheck = "true";
+       if(twittercheck === "true")
+       {
            $.ajax({
                 url: 'ServletUserPreferencesTwitter',
                 method: 'post',
@@ -73,56 +106,18 @@ $(document).ready(function(){
                     access_token_method: "getAccessToken"
                 },
                 success: function (responseText) {
-                    if (responseText == "") {
-
+                    if (responseText == "") {                             
+                        $("#fade").show();
+                        $("#twpopup").show();
                         //$("#twitterpopup").show();
-
-                        $(".clicktwitter").click();
+                        //$(".clicktwitter").click();
                         $.ajax({
                             url: 'GetTwitterToken',
                             method: 'get',
-                            success: function (responseText) {
+                            success: function (responseText) {   
                                 $("#twitterlink").html("<a href='" + responseText + "' target='_blank'>get your pin</a>");
                             }
                         });
-                        $('#setPin').click(function () {
-                            var pin = $("#pinTextBox").val();
-
-                            if (pin.length > 0) {
-                                $.ajax({
-                                    url: 'GetTwitterToken',
-                                    method: 'post',
-                                    data: {
-                                        pin: $("#pinTextBox").val()
-                                    },
-                                    success: function (responseText) {
-                                        //                        $("#tokenHere").html(responseText);
-                                        $("#twaccessTokenSend").val(responseText);
-                                        twitter_access_tokens = responseText;
-                                        $.ajax({
-                                            url: 'ServletUserPreferencesTwitter',
-                                            method: 'post',
-                                            data: {
-                                                access_token_method: "setAccessToken",
-                                                twitter_access_tokens: twitter_access_tokens
-                                            },
-                                            success: function (responseText) {
-                                            }
-                                        });
-
-//                                        $("#submitbutton").prop("disabled", false);
-                                    }
-                                });
-
-                                //$("#twitterpopup").hide();
-                                $(".close-reveal-modal").click();
-
-                            } else {
-                                alert("Please enter the pin code!");
-                                $("#pinTextBox").focus();
-                            }
-                        });
-
                     } else {
                         $("#twaccessTokenSend").val(responseText);
 //                        $("#submitbutton").prop("disabled", false);
@@ -130,34 +125,32 @@ $(document).ready(function(){
 
                 }
             });
-       document.getElementById("twitter").checked=true;
-       document.getElementById("twt").src="images/twtButton_lightblue_new.svg";
-       $("#isTwitter").val("true");
-       $("#mouset").css("background-color","#F9F9F9");
-       count++;
-   }
-   else
-   {
-       $("#twaccessTokenSend").val("");
-       $(".close-reveal-modal").click();
-       $('#loadingGif').hide();
-       document.getElementById("twt").src="";
-       document.getElementById("twitter").checked=false;
-       $("#isTwitter").val("false");
-       $("#mouset").css("background-color","#FFFFFF");
-       count--;
-   }
-   if(count >0)
-   {
-       $("#submitbutton").prop("disabled",false);
-   }
-   else
-   {
-       $("#submitbutton").prop("disabled",true);
-   }
-  });
-   
-
+            document.getElementById("twitter").checked=true;
+            document.getElementById("twt").src="images/twtButton_lightblue_new.svg";
+            $("#isTwitter").val("true");
+            $("#mouset").css("background-color","#F9F9F9");
+            count++;
+        }
+        else
+        {
+            $("#twaccessTokenSend").val("");
+            $(".close-reveal-modal").click();
+            $('#loadingGif').hide();
+            document.getElementById("twt").src="";
+            document.getElementById("twitter").checked=false;
+            $("#isTwitter").val("false");
+            $("#mouset").css("background-color","#FFFFFF");
+            count--;
+        }
+        if(count >0)
+        {
+            $("#submitbutton").prop("disabled",false);
+        }
+        else
+        {
+            $("#submitbutton").prop("disabled",true);
+        }
+    });
 });
 
   
@@ -186,7 +179,7 @@ var sub_category_name=$("#sub_category_name").val();
             var htm=$("#"+id).html();
             if(htm.contains('class="check-icon"')){
                 $("#"+id).html(content);
-                alert(id);
+                //alert(id);
             }
             else
             {alert(id);
@@ -204,71 +197,7 @@ var sub_category_name=$("#sub_category_name").val();
             });
             
             $(document).ready(function () {
-                $("#submitbutton").click(function(){
-                    //alert($("#isFacebook").val());
-                    //alert($("#isTwitter").val());
-                    
-                });
-                $("#loadingGif").hide();
-                // $('#myModal').trigger('reveal:open');
                 
-//                $("#abc").click(function () {
-//                    alert("close already!");
-//                   
-//                    $('#myModal').foundation('reveal', 'close');
-//                });
-                var myVar1 = '<%= code %>';    /* retrieve json from request attribute */
-                var mytest = eval('(' + myVar1 + ')');
-                //alert(JSON.stringify(myVar1));      // display complete json
-
-                var removecote = myVar1.replace("[", '').replace(/"/g, '').replace(']', '');
-                var pages = removecote.split(",");
-                //       alert(pages.length);
-
-                if (myVar1 === "null") {
-                    //$("#popup").hide();
-                    $(".close-reveal-modal").click();
-                }
-                else {
-                    $(".clickthis").click();
-                    if(pages.length==1)
-                    {
-                        $("#fbmanagepages").append("<tr><td><strong>Please create atleast one <a href='https://www.facebook.com/help/104002523024878' target='_blank'>facebook page</a></strong></td></tr>");
-                    }
-                    else
-                    {
-                    for (var i = 0; i < pages.length; i = i + 3) {
-                        $("#fbmanagepages").append("<tr  id=page#" + i + "><td>" + pages[i] + "</td><td><input type=hidden id=access" + i + " value=" + pages[i + 1] + "></td><td><img src=" + pages[i + 2] + "></td></tr>");
-                    }
-
-                    $("#content").append(" <br><center><input id=isdefault name=isdefault type=checkbox class=btn btn-primary value=default>Default</input></center>");
-                    }
-                    
-                    $("#content").append(" <br><center><input id=facebookok name=facebookok type=button class=btn btn-primary value=ok>&nbsp;&nbsp;<input id=close name=close type=button class=btn btn-primary value=cancel></center>");
-                }
- 
-                var managed_page = "";
-                var default_access_token;
-                var check_default = "false";
-                var check_default_managed_page;
-                $("tr").click(function () {
-                    var id = this.id.split("#");
-                   var selected = $(this).hasClass("red-cell");
-                    $("tr").removeClass("red-cell");
-                    if(!selected){
-                            $(this).addClass("red-cell");}
-                    var page = $("#" + this.id).text();
-                    var accessToken = $("#access" + id[1]).val();
-                    $("#access" + id[1]).css("background-color","red");
-                    $("#pagenameSend").val(page);
-                    $("#fbaccessTokenSend").val(accessToken);
-                    $("#fbdefaultAccessToken").val("true");
-                    check_default = $("#fbdefaultAccessToken").val();
-                    $("#facebook").prop("checked", true);
-                    $("#isFacebook").val("true");
-
-                });
-
                 $("#isdefault").click(function () {
 //                    managed_page = $("#isDefault").val();
 //                    alert(check_default);
