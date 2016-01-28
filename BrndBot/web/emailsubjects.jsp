@@ -39,7 +39,7 @@
     <!--Top Nav-->   
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
-            <intput type="hidden" id="mindbody_id" value="<%=mindbody_id%>"></intput>
+            <input type="hidden" class="input-field-textfield col-8of10" id="mindbodyid" placeholder="Enter Name of email" value="<%=mindbody_id%>"></input>
             <a class=" exit-button-icon" href="channelselection.jsp?id=<%=mindbody_id%>">
                 <div class="exit-button-detail">
                      <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
@@ -64,7 +64,7 @@
                             </div>
                         </div>
                          
-                          <div class="col-1of1 pushUp fleft">
+                        <div class="col-1of1 pushUp fleft">
                              <div class="fleft">
            
                             </div>
@@ -82,7 +82,7 @@
                 </a>
             </div>
         </div>
-         </div>
+    </div>
 <!--</div>-->
     </body>
 </html>
