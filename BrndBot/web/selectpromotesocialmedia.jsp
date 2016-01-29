@@ -145,7 +145,7 @@
                 var managed_page = "";
                 var default_access_token;
                 var check_default = "false";
-                var check_default_managed_page;
+                var check_default_managed_page;                
                 $("tr").click(function () {
                     var id = this.id.split("#");
                     var selected = $(this).hasClass("red-cell");
@@ -172,8 +172,8 @@
                     });
 
                 $("#facebookok").click(function () {
-//                  managed_page = $("#isDefault").val();
                     document.getElementById("fb").src="images/fbButton_darkblue_new.svg";
+                    $("#mousef").css("background-color","#F9F9F9");
                     check_default_managed_page = document.getElementById("isdefault").checked;
                     if ((check_default_managed_page == true) && (check_default == "true")){
                         $.ajax({
@@ -198,17 +198,12 @@
                     }else {
                         alert("No default page selected");
                     } 
-            });
+                });
             
-            $("#close").click(function(){
-                    $("#fbaccessTokenSend").val("") ;
-                    $("#fbdefaultAccessToken").val("");
-                    $("#isFacebook").val("false");
-                    $("#facebook").prop("checked",false);
-                    //$("#popup").hide();
-                    $(".close-reveal-modal").click();
-                    $("#twitterpopup").hide();
-                    $("#submitbutton").prop("disabled",true);
+            $("#closefbpopupa").click(function(){
+                $("#fbpopup").hide();
+                $("#fade").hide();
+                window.open(getHost() + 'selectpromotesocialmedia.jsp?id=null&mediatype=social&category_id=<%=category_id%>&sub_category_id=<%=sub_category_id%>&sub_category_name=<%=sub_category_name%>',"_self");
             });   
            });
            

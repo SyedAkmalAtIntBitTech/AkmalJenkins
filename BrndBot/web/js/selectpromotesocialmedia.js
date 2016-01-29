@@ -2,10 +2,15 @@
 $(document).ready(function(){
     var count=0;
     $("#mousef").click(function(){
-       var facebookcheck = "true";
-       var facebookcheckimg = $("#fb").attr("src");       
-       if(facebookcheck === "true")
-       {
+        var facebookcheck = "true";
+        var facebookcheckimg = $("#fb").attr("src");     
+        if(facebookcheckimg ==="images/white.png"){}
+        else
+        {
+            facebookcheck = "false";
+        }
+        if(facebookcheck === "true")
+        {
             $.ajax({
                 url: 'ServletUserPreferencesFacebook',
                 method: 'GET',
@@ -28,7 +33,7 @@ $(document).ready(function(){
                         $('#loadingGif').hide();
                     }
                 }
-            });           
+            });facebookok
             document.getElementById("facebook").checked=true;
             document.getElementById("fb").src="images/fbButton_darkblue_new.svg"; 
             $("#mousef").css("background-color","#F9F9F9");
@@ -109,10 +114,18 @@ $(document).ready(function(){
         }
     });
     $("#mouset").click(function(){
-       var twittercheck = "true";
-       var twittercheckimg = $("#twt").attr("src");       
-       if(twittercheck === "true")
-       {
+        var twittercheck = "true";
+        var twittercheckimg = $("#twt").attr("src"); 
+        if(twittercheckimg==="images/white.png")
+        {
+            document.getElementById("twitter").checked=true;
+        }       
+        else
+        {
+            twittercheck="false";
+        }
+        if(twittercheck === "true")
+        {
            $.ajax({
                 url: 'ServletUserPreferencesTwitter',
                 method: 'post',
@@ -141,6 +154,7 @@ $(document).ready(function(){
             });
             document.getElementById("twitter").checked=true;
             document.getElementById("twt").src="images/twtButton_lightblue_new.svg";
+            $("#mouset").css("background-color","#ffffff");
             $("#isTwitter").val("true");
             $("#mouset").css("background-color","#F9F9F9");
             count++;
@@ -153,7 +167,7 @@ $(document).ready(function(){
             document.getElementById("twt").src="";
             document.getElementById("twitter").checked=false;
             $("#isTwitter").val("false");
-            $("#mouset").css("background-color","#FFFFFF");
+            $("#mouset").css("background-color","#F9F9F9");
             count--;
         }
         if(count >0)
@@ -165,15 +179,15 @@ $(document).ready(function(){
             $("#submitbutton").prop("disabled",true);
         }
         if(twittercheckimg==="images/white.png")
-       {
-           document.getElementById("twitter").checked=true;
-       }       
-       else
-       {
-           document.getElementById("twitter").checked=false;
-           $("#twimgd").html('<img id="twt" class="chooseList-icon" src="images/white.png">');
-           $("#mouset").css("background-color","#ffffff");
-       }
+        {
+            document.getElementById("twitter").checked=true;
+        }       
+        else
+        {
+            document.getElementById("twitter").checked=false;
+            $("#twimgd").html('<img id="twt" class="chooseList-icon" src="images/white.png">');
+            $("#mouset").css("background-color","#ffffff");
+        }
     });
 });
   
