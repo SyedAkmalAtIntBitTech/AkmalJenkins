@@ -4,7 +4,6 @@
     Author     : satyajit-roy
 --%>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -22,11 +21,10 @@
     <div id="email_previewdiv">
         <div class="pop-up-background">
         <div class="pop-up-container-emailPreview"> 
-              <a class=" exit-button-detail-ep link svg" href="" id="closePreview">
+                <a class=" exit-button-detail-ep link svg" href="" id="closePreview">
                     <img type="image/svg+xml" src="images/Icons/close.svg" class="closeemailpreview" style="cursor:pointer;"> </img>
                 </a>
             <div class="pop-up-title-emailpreview "> 
-               
                 <div class="emailPreview-header fleft">Email Preview</div>
             </div>
             <!--inner-->
