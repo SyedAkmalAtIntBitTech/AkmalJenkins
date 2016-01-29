@@ -21,27 +21,24 @@
     <body>
         <div id="fade" class="black_overlay" ></div>
         <div id="fbpopup">
+            <img type="image/svg+xml" src="images/Icons/Close.svg" id="closefbpopupa" class="cur fbclose" />
             <div class="pop-up-background">
-        <div class="pop-up-container pop-up-container-newaction"> 
-            <div class="pop-up-title pop-up-title-h1"></div>
-             <div class="pop-up-exit-container"  id="fbpopupClose5">
-                <a href="" class="">
-                    <img type="image/svg+xml" src="images/Icons/Close.svg" class="exit-button-icon" />
+                <div class="pop-up-container pop-up-container-newaction"> 
+                    <div class="pop-up-title pop-up-title-h1"></div>                        
+                        <div id="">
+                            <center>
+                                <table id="fbmanagepages">
+                                </table>
+                            </center>
+                        </div>   
+                    <input id="isdefault" name="isdefault" type="checkbox" class="btn" btn-primary="" value="default">&nbsp;&nbsp;&nbsp; Default
+                </div>
+            </div>
+            <div class="pop-up-cta-container pop-up-cta-container-newaction cur" id="facebookok" >
+                <a href="javascript:void(0)">
+                    <div class="pop-up-cta-button-full" >OK</div>
                 </a>
-            </div> 
-                <div id="">
-                    <center>
-                        <table id="fbmanagepages">
-                        </table>
-                    </center>
-                </div>   
+            </div>
         </div>
-    </div>
-    <div class="pop-up-cta-container pop-up-cta-container-newaction cur" id="facebookok" >
-        <a href="javascript:void(0)">
-            <div class="pop-up-cta-button-full" >OK</div>
-        </a>
-    </div>
-    </div>
     </body>
 </html>

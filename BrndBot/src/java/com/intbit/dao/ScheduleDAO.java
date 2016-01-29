@@ -501,7 +501,7 @@ public class ScheduleDAO {
 
                     result.get(String.valueOf(scheduleDate)).add(scheduleDetailJSONObject);
                 }
-                logger.log(Level.INFO, "result:" + result.toString());
+                logger.log(Level.INFO, "In com.intbit.dao.ScheduleDAO.getScheduledEntities");
             } catch (Exception e) {
                 logger.log(Level.SEVERE, util.Utility.logMessage(e,
                         "Exception while getting the schedule:", null), e);
