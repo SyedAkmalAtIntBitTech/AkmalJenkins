@@ -29,7 +29,11 @@ public class ScheduleFacebookPost implements Runnable {
     private static final Logger logger = Logger.getLogger(ScheduleFacebookPost.class.getName());
 
     public void terminateThread() {
-        Thread.currentThread().interrupt();
+        try {
+            Thread.currentThread().interrupt();
+        } catch (Exception ex) {
+            Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -39,10 +43,10 @@ public class ScheduleFacebookPost implements Runnable {
 
         try {
             List<TblScheduledEntityList> scheduledFacebookPost = getLatestApprovedFacebookPost();
-            
+
             for (TblScheduledEntityList currentScheduledFacebookPost : scheduledFacebookPost) {
-                if (scheduledFacebookPost != null) {    
-                
+                if (scheduledFacebookPost != null) {
+
                     //The time zone of the saved date should be extracted.
                     //This time zone should be applied to the current time and then this comparison needs to be made.
                     Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, "Message to display entity id " + currentScheduledFacebookPost.getEntityId() + " and schedule time", currentScheduledFacebookPost.getScheduleTime());
@@ -64,14 +68,14 @@ public class ScheduleFacebookPost implements Runnable {
                         PostToFacebook postToFacebook = new PostToFacebook();
                         String accessToken = postToFacebook.getFacebookAccessToken(userId);
                         String file_image_path = "";
-                        if (facebookPost.getImageType().equals("layout")){
+                        if (facebookPost.getImageType().equals("layout")) {
                             file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + facebookPost.getImageName();
-                        }else if(facebookPost.getImageType().equals("gallery")){
+                        } else if (facebookPost.getImageType().equals("gallery")) {
                             file_image_path = AppConstants.USER_IMAGE_HOME + File.separator + userId + File.separator + facebookPost.getImageName();
-                        }else if (facebookPost.getImageType().equals("url")){
+                        } else if (facebookPost.getImageType().equals("url")) {
                             file_image_path = facebookPost.getImageName();
                         }
-                        
+
                         facebookPost.getImageType();
                         Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "Message while scheduling the post", file_image_path);
 
@@ -104,15 +108,13 @@ public class ScheduleFacebookPost implements Runnable {
     private List<TblScheduledEntityList> getLatestApprovedFacebookPost() throws Throwable {
         ArrayList<String> entityId = SchedulerUtilityMethods.getLatestApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kFacebookKey, IConstants.kUserMarketingProgramOpenStatus);
         List<TblScheduledEntityList> scheduledEntityList = new ArrayList<TblScheduledEntityList>();;
-        if (entityId.size()>0) {
+        if (entityId.size() > 0) {
             for (String currentEntityId : entityId) {
                 TblScheduledEntityList tblScheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(currentEntityId), IConstants.kFacebookKey);
-            scheduledEntityList.add(tblScheduledEntityList);
+                scheduledEntityList.add(tblScheduledEntityList);
             }
         }
         return scheduledEntityList;
     }
-
-    
 
 }

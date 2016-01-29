@@ -38,7 +38,7 @@ public class ApplicationContextListener implements ServletContextListener {
         refreshEmailScheduler();
         refreshFacebookScheduler();
     }
-    
+
     public static void refreshTwitterScheduler() {
         logger.log(Level.INFO, "Refresh Twitter Scheduler");
 //        getApplicationContextListener().getSocialPostScheduler().startTwitterScheduler();

@@ -30,7 +30,11 @@ public class ScheduleAnEmail implements Runnable {
     public static final Logger logger = Logger.getLogger(util.Utility.getClassName(ScheduleAnEmail.class));
 
     public void terminateThread() {
-        Thread.currentThread().interrupt();
+        try {
+            Thread.currentThread().interrupt();
+        } catch (Exception ex) {
+            Logger.getLogger(ScheduleAnEmail.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -43,46 +47,46 @@ public class ScheduleAnEmail implements Runnable {
 
             //The below table should be reused or needs a new table specifically for FB.
             for (TblScheduledEntityList currentScheduledEmail : scheduledAnEmail) {
-            if (scheduledAnEmail != null) {
+                if (scheduledAnEmail != null) {
                 //The time zone of the saved date should be extracted.
-                //This time zone should be applied to the current time and then this comparison needs to be made.
-                boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledEmail.getScheduleTime());
+                    //This time zone should be applied to the current time and then this comparison needs to be made.
+                    boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledEmail.getScheduleTime());
 //                boolean shouldPostNow = true;
-                logger.log(Level.SEVERE, "Message to display entity id " + currentScheduledEmail.getEntityId() + " and schedule time:", currentScheduledEmail.getScheduleTime());
-                logger.log(Level.SEVERE, "Current time:" + new Date());
-                if (shouldPostNow) {
-                    logger.log(Level.SEVERE, "Should post now is true: Sending Mail");
+                    logger.log(Level.SEVERE, "Message to display entity id " + currentScheduledEmail.getEntityId() + " and schedule time:", currentScheduledEmail.getScheduleTime());
+                    logger.log(Level.SEVERE, "Current time:" + new Date());
+                    if (shouldPostNow) {
+                        logger.log(Level.SEVERE, "Should post now is true: Sending Mail");
 
-                    TblScheduledEmailList sendAnEmail = getSendEmail(currentScheduledEmail);
-                    String html_text = sendAnEmail.getBody();
-                    String email_subject = sendAnEmail.getSubject();
-                    String jsonString = sendAnEmail.getToEmailAddresses();
-                    JSONObject json = (JSONObject) new JSONParser().parse(jsonString);
-                    String to_email_addresses = "";
-                    org.json.simple.JSONArray jSONArray = (org.json.simple.JSONArray) json.get("emailAddresses");
-                    for (Integer i = 0; i < jSONArray.size(); i++) {
-                        to_email_addresses += jSONArray.get(i).toString();
-                        if ((i + 1) < jSONArray.size()) {
-                            to_email_addresses += ",";
+                        TblScheduledEmailList sendAnEmail = getSendEmail(currentScheduledEmail);
+                        String html_text = sendAnEmail.getBody();
+                        String email_subject = sendAnEmail.getSubject();
+                        String jsonString = sendAnEmail.getToEmailAddresses();
+                        JSONObject json = (JSONObject) new JSONParser().parse(jsonString);
+                        String to_email_addresses = "";
+                        org.json.simple.JSONArray jSONArray = (org.json.simple.JSONArray) json.get("emailAddresses");
+                        for (Integer i = 0; i < jSONArray.size(); i++) {
+                            to_email_addresses += jSONArray.get(i).toString();
+                            if ((i + 1) < jSONArray.size()) {
+                                to_email_addresses += ",";
+                            }
+                        }
+                        String emaillist_name = sendAnEmail.getEmailListName();
+                        Integer user_id = currentScheduledEmail.getUserId();
+                        String reply_to_address = sendAnEmail.getReplyToEmailAddress();
+                        String from_email_address = sendAnEmail.getFromAddress();
+                        String from_name = sendAnEmail.getFromName();
+//                    String message = "success";//TODO
+                        String message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name, "");
+
+                        if (message.equalsIgnoreCase("success")) {
+                            updateStatusScheduledEmail(currentScheduledEmail);
+                            logger.log(Level.SEVERE, "Should post now is true: Sent the mail");
+                            //Get the next in line
                         }
                     }
-                    String emaillist_name = sendAnEmail.getEmailListName();
-                    Integer user_id = currentScheduledEmail.getUserId();
-                    String reply_to_address = sendAnEmail.getReplyToEmailAddress();
-                    String from_email_address = sendAnEmail.getFromAddress();
-                    String from_name = sendAnEmail.getFromName();
-//                    String message = "success";//TODO
-                    String message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name, "");
-
-                    if (message.equalsIgnoreCase("success")) {
-                        updateStatusScheduledEmail(currentScheduledEmail);
-                        logger.log(Level.SEVERE, "Should post now is true: Sent the mail");
-                        //Get the next in line
-                    }
+                } else {
+                    logger.log(Level.SEVERE, "Should post now is false: Not sending mail");
                 }
-            } else {
-            logger.log(Level.SEVERE, "Should post now is false: Not sending mail");
-            }
             }
 
         } catch (Throwable ex) {
@@ -109,10 +113,10 @@ public class ScheduleAnEmail implements Runnable {
     private List<TblScheduledEntityList> getLatestApprovedSendEmail() throws Throwable {
         ArrayList<String> entityId = SchedulerUtilityMethods.getLatestEmailApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.FALSE);
         List<TblScheduledEntityList> scheduledEntityList = new ArrayList<TblScheduledEntityList>();
-        if (entityId.size()>0) {
+        if (entityId.size() > 0) {
             for (String currentEntityId : entityId) {
-            TblScheduledEntityList tblScheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(currentEntityId), IConstants.kEmailKey);
-            scheduledEntityList.add(tblScheduledEntityList);
+                TblScheduledEntityList tblScheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(currentEntityId), IConstants.kEmailKey);
+                scheduledEntityList.add(tblScheduledEntityList);
             }
         }
         return scheduledEntityList;
