@@ -96,12 +96,11 @@
                             } else if (data === error) {
                                 alert(data);
                             }
-                        })
-                                .error(function (data, status) {
-                                    // called asynchronously if an error occurs
-                                    // or server returns response with an error status.
-                                    alert("Request not successful!");
-                                });
+                        }).error(function (data, status) {
+                            // called asynchronously if an error occurs
+                            // or server returns response with an error status.
+                            alert("Request not successful!");
+                        });
                     }
                 };
             }
@@ -154,10 +153,13 @@
                         <br>
                     Select mindbody query: <select id="mindbodyquery" name="mindbodyquery" >
                         <option value="0">--select--</option>
-                        <option value="promote work shop">promote work shop</option>
-                        <option value="promote class">promote class</option>
-                        <option value="promote event">promote event</option>
-                        <option value="promote staff">promote staff</option>
+                        <option value="promote new workshop">promote new workshop</option>
+                        <option value="promote new class">promote new class</option>
+                        <option value="promote todays class">promote todays class</option>
+                        <option value="promote new staff">promote new staff</option>
+                        <option value="staff spotlight">staff spotlight</option>
+                        <option value="promote todays workshop">promote todays workshop</option>
+                        <option value="promote upcoming workshops">promote upcoming workshops</option>
                     </select><br>
                     <%
                         
