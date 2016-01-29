@@ -729,19 +729,20 @@
 //                
 //                $(this).css("background-color","#0f76a6").css("color","#f4f4f4");   
 //                });
-                            $("#styletab").click(function(){
-                    $("#addblkbtn").prop('disabled', true);
+                    $("#styletab").click(function(){
+                            $("#addblkbtn").prop('disabled', true);
                             $("#stylelist").css("display", "block");
                             $("#blklist").css("display", "none");
                             $("#styletab").css("background-color", "#ffffff").css("color", "#19587c");
                             $("#blocktab").css("background-color", "transparent").css("color", "#19587c");
                     });
-                            $("#blocktab").click(function(){
-                    $("#stylelist").css("display", "none");
+                    $("#blocktab").click(function(){
+                            $("#stylelist").css("display", "none");
                             $("#blklist").css("display", "block");
                             $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
                             $("#styletab").css("background-color", "transparent").css("color", "#19587c");
-                    });        </script>
+                    });
+        </script>
         <link rel="stylesheet" href="css/plugins/image_manager.css">
         <script src="js/froala_editor.min_editor.js" type="text/javascript"></script>
 <!--        <script src="js/plugins/code_view.min.js" type="text/javascript"></script>-->

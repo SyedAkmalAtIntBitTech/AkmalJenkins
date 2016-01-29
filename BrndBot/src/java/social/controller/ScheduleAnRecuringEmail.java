@@ -30,7 +30,11 @@ import util.Utility;
 public class ScheduleAnRecuringEmail implements Runnable {
 
     public void terminateThread() {
-        Thread.currentThread().interrupt();
+        try {
+            Thread.currentThread().interrupt();
+        } catch (Exception ex) {
+            Logger.getLogger(ScheduleAnRecuringEmail.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -40,7 +44,7 @@ public class ScheduleAnRecuringEmail implements Runnable {
             List<TblScheduledEntityList> scheduledAnRecuringEmail = getLatestApprovedSendEmail();
             for (TblScheduledEntityList currentScheduledRecuringEmail : scheduledAnRecuringEmail) {
                 if (scheduledAnRecuringEmail != null) {
-                boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledRecuringEmail.getScheduleTime());
+                    boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledRecuringEmail.getScheduleTime());
 //                    boolean shouldPostNow = true;
 
                     if (shouldPostNow) {
@@ -51,15 +55,15 @@ public class ScheduleAnRecuringEmail implements Runnable {
                         String emaillist_name = sendAnEmail.getEmailListName();
                         Integer user_id = currentScheduledRecuringEmail.getUserId();
                         String reply_to_address = "";
-                        if (sendAnEmail.getReplyToEmailAddress() != null){
+                        if (sendAnEmail.getReplyToEmailAddress() != null) {
                             reply_to_address = sendAnEmail.getReplyToEmailAddress();
-                        }else {
+                        } else {
                             reply_to_address = "";
                         }
                         String from_email_address = "";
-                        if (sendAnEmail.getReplyToEmailAddress() != null){
+                        if (sendAnEmail.getReplyToEmailAddress() != null) {
                             from_email_address = sendAnEmail.getFromAddress();
-                        }else {
+                        } else {
                             from_email_address = "";
                         }
                         String from_name = sendAnEmail.getFromName();

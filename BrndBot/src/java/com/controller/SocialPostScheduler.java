@@ -47,12 +47,16 @@ public class SocialPostScheduler {
     }
 
     void stopScheduler() {
-        if (scheduler != null) {
-            twitterPostCallable.terminateThread();
-            facebookPostCallable.terminateThread();
-            scheduleEmailCallable.terminateThread();
-            scheduleRecurringEmailCallable.terminateThread();
-            scheduler.shutdownNow();
+        try {
+            if (scheduler != null) {
+                twitterPostCallable.terminateThread();
+                facebookPostCallable.terminateThread();
+                scheduleEmailCallable.terminateThread();
+                scheduleRecurringEmailCallable.terminateThread();
+                scheduler.shutdownNow();
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(SocialPostScheduler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
