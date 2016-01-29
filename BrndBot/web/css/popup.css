@@ -1246,4 +1246,16 @@ p#filetext {
     height: 500px !important;
     margin-left: 27%;
 }
+input#isdefault {
+    margin-left: 192px;
+    margin-top: 25px;
+}
+.fbclose {
+    width: 32px;
+    margin-left: 178%;
+    margin-top: 3%;
+}
+table#fbmanagepages {
+    margin-left: -50px;
+}
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/
