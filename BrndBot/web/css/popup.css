@@ -1246,4 +1246,8 @@ p#filetext {
     height: 500px !important;
     margin-left: 27%;
 }
+input#isdefault {
+    margin-left: 252px;
+    margin-top: 25px;
+}
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/

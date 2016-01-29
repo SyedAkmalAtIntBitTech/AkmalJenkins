@@ -148,7 +148,7 @@
                 var check_default_managed_page;
                 $("tr").click(function () {
                     var id = this.id.split("#");
-                   var selected = $(this).hasClass("red-cell");
+                    var selected = $(this).hasClass("red-cell");
                     $("tr").removeClass("red-cell");
                     if(!selected){
                             $(this).addClass("red-cell");}
@@ -172,7 +172,7 @@
                     });
 
                 $("#facebookok").click(function () {
-//                    managed_page = $("#isDefault").val();
+//                  managed_page = $("#isDefault").val();
                     document.getElementById("fb").src="images/fbButton_darkblue_new.svg";
                     check_default_managed_page = document.getElementById("isdefault").checked;
                     if ((check_default_managed_page == true) && (check_default == "true")){
@@ -185,13 +185,15 @@
                                    access_token:default_access_token
                                 },
                                 success: function (responseText) {
-                                    $(".close-reveal-modal").click();
-                                     $("#submitbutton").prop("disabled",false);
+                                    $("#fbpopup").hide();
+                                    $("#fade").hide();
+                                    $("#submitbutton").prop("disabled",false);
                                 }
                             });
                     }else if((check_default_managed_page == false) && (check_default == "true")) { 
                         //$("#popup").hide(); 
-                        $(".close-reveal-modal").click();
+                        $("#fbpopup").hide();
+                        $("#fade").hide();
                         $("#submitbutton").prop("disabled",false);
                     }else {
                         alert("No default page selected");
@@ -259,10 +261,10 @@
             <div class="email-list-selection col-1of1 fleft">
                <div class="col-1of1 fleft unit socialNetwork-Selection-Slat mouseunclk" id="mousef">
                     <div class="selection-container col-5p fleft"> 
-                        <div class="chooseChannelSelection-icon"> 
-                            <img id="fb" class="chooseList-icon" src="">
-                            <input type="checkbox" id="facebook" name="social" value="Facebook" hidden="true">
-                        </div>
+                        <div class="chooseChannelSelection-icon" id="fbimgd"> 
+                            <img id="fb" class="chooseList-icon" src="images/white.png">
+                        </div>                        
+                        <input type="checkbox" id="facebook" name="social" value="Facebook" hidden="true">
                     </div>
                     <div class="col-4of10 fleft ">
                         <div class="h2 col-1of1 socialNetwork-Name">Facebook</div>
@@ -271,10 +273,10 @@
                 </div>
                 <div class="col-1of1 fleft unit pushUp-15 socialNetwork-Selection-Slat mouseunclk" id="mouset" >
                     <div class="selection-container col-5p fleft"> 
-                        <div class="chooseChannelSelection-icon">
-                            <img id="twt" class="chooseList-icon" src="">
-                            <input type="checkbox" id="twitter" name="social" value="Twitter" hidden="true">
+                        <div class="chooseChannelSelection-icon" id="twimgd">
+                            <img id="twt" class="chooseList-icon" src="images/white.png">
                         </div>
+                        <input type="checkbox" id="twitter" name="social" value="Twitter" hidden="true">
                     </div>
                     
                     <div class="col-4of10 fleft">

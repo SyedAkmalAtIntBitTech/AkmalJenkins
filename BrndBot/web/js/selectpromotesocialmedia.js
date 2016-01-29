@@ -3,6 +3,7 @@ $(document).ready(function(){
     var count=0;
     $("#mousef").click(function(){
        var facebookcheck = "true";
+       var facebookcheckimg = $("#fb").attr("src");       
        if(facebookcheck === "true")
        {
             $.ajax({
@@ -54,6 +55,18 @@ $(document).ready(function(){
         {
             $("#submitbutton").prop("disabled",true);
         }
+        if(facebookcheckimg ==="images/white.png")
+        {
+            document.getElementById("facebook").checked=true;
+        }
+        else
+        {
+            document.getElementById("facebook").checked=false;
+            $("#fbimgd").html('<img id="fb" class="chooseList-icon" src="images/white.png">');
+            $("#mousef").css("background-color","#ffffff");
+            //$("#fb").attr("src", "images/white.png");
+            //document.getElementById("fb").src="images/white.png";
+        }
    });
    
     $("#twpopupClose2").click(function(){
@@ -97,6 +110,7 @@ $(document).ready(function(){
     });
     $("#mouset").click(function(){
        var twittercheck = "true";
+       var twittercheckimg = $("#twt").attr("src");       
        if(twittercheck === "true")
        {
            $.ajax({
@@ -150,17 +164,23 @@ $(document).ready(function(){
         {
             $("#submitbutton").prop("disabled",true);
         }
+        if(twittercheckimg==="images/white.png")
+       {
+           document.getElementById("twitter").checked=true;
+       }       
+       else
+       {
+           document.getElementById("twitter").checked=false;
+           $("#twimgd").html('<img id="twt" class="chooseList-icon" src="images/white.png">');
+           $("#mouset").css("background-color","#ffffff");
+       }
     });
 });
-
   
     $("#closetwitter").click(function () {
-
         //$("#twitterpopup").hide();
         $(".close-reveal-modal").click();
         $("#submitbutton").prop("disabled", true);
-
-
     });
 
 
@@ -197,71 +217,71 @@ var sub_category_name=$("#sub_category_name").val();
             });
             
             $(document).ready(function () {
-                
-                $("#isdefault").click(function () {
-//                    managed_page = $("#isDefault").val();
-//                    alert(check_default);
-                    if (check_default == "true"){
-                        default_access_token = $("#fbaccessTokenSend").val();
-                    }
-                    
+//                
+//                $("#isdefault").click(function () {
+////                    managed_page = $("#isDefault").val();
+////                    alert(check_default);
 //                    if (check_default == "true"){
+//                        default_access_token = $("#fbaccessTokenSend").val();
+//                    }
+//                    
+////                    if (check_default == "true"){
+////                        $.ajax({
+////                                url: 'SetUserFacebookAccessToken',
+////                                method: 'post',
+////                                type:"JSON",
+////                                data: {
+////                                    method: "setAccessToken",
+////                                    access_token:default_access_token
+////                                },
+////                                success: function (responseText) {
+////    //                            $("#tokenHere").html(responseText);
+////                                    alert("sucess");
+////                                }
+////                            });
+////                    }
+//                    });
+//
+//                $("#facebookok").click(function () {
+////                    managed_page = $("#isDefault").val();
+//                    document.getElementById("fb").src="images/fbButton_darkblue_new.svg";
+//                    check_default_managed_page = document.getElementById("isdefault").checked;
+//                    if ((check_default_managed_page == true) && (check_default == "true")){
 //                        $.ajax({
-//                                url: 'SetUserFacebookAccessToken',
+//                                url: 'ServletUserPreferencesFacebook',
 //                                method: 'post',
-//                                type:"JSON",
+////                                type:"JSON",
 //                                data: {
-//                                    method: "setAccessToken",
-//                                    access_token:default_access_token
+//                                   access_token_method: "setAccessToken",
+//                                   access_token:default_access_token
 //                                },
 //                                success: function (responseText) {
 //    //                            $("#tokenHere").html(responseText);
-//                                    alert("sucess");
+//                   
+//                                    //$("#popup").hide(); 
+//                                    $(".close-reveal-modal").click();
+//                                     $("#submitbutton").prop("disabled",false);
 //                                }
 //                            });
-//                    }
-                    });
-
-                $("#facebookok").click(function () {
-//                    managed_page = $("#isDefault").val();
-                    document.getElementById("fb").src="images/fbButton_darkblue_new.svg";
-                    check_default_managed_page = document.getElementById("isdefault").checked;
-                    if ((check_default_managed_page == true) && (check_default == "true")){
-                        $.ajax({
-                                url: 'ServletUserPreferencesFacebook',
-                                method: 'post',
-//                                type:"JSON",
-                                data: {
-                                   access_token_method: "setAccessToken",
-                                   access_token:default_access_token
-                                },
-                                success: function (responseText) {
-    //                            $("#tokenHere").html(responseText);
-                   
-                                    //$("#popup").hide(); 
-                                    $(".close-reveal-modal").click();
-                                     $("#submitbutton").prop("disabled",false);
-                                }
-                            });
-                    }else if((check_default_managed_page == false) && (check_default == "true")) { 
-                        //$("#popup").hide(); 
-                        $(".close-reveal-modal").click();
-                        $("#submitbutton").prop("disabled",false);
-                    }else {
-                        alert("No default page selected!");
-                    } 
-            });
-            
-            $("#close").click(function(){
-                    $("#fbaccessTokenSend").val("") ;
-                    $("#fbdefaultAccessToken").val("");
-                    $("#isFacebook").val("false");
-                    $("#facebook").prop("checked",false);
-                    //$("#popup").hide();
-                    $(".close-reveal-modal").click();
-                    $("#twitterpopup").hide();
-                    $("#submitbutton").prop("disabled",true);
-            });   
+//                    }else if((check_default_managed_page == false) && (check_default == "true")) { 
+//                        //$("#popup").hide(); 
+//                        $(".close-reveal-modal").click();
+//                        $("#submitbutton").prop("disabled",false);
+//                    }else {
+//                        alert("No default page selected!");
+//                    } 
+//            });
+//            
+//                $("#close").click(function(){
+//                    $("#fbaccessTokenSend").val("") ;
+//                    $("#fbdefaultAccessToken").val("");
+//                    $("#isFacebook").val("false");
+//                    $("#facebook").prop("checked",false);
+//                    //$("#popup").hide();
+//                    $(".close-reveal-modal").click();
+//                    $("#twitterpopup").hide();
+//                    $("#submitbutton").prop("disabled",true);
+//            });   
            });
            
            function imgchng(){
