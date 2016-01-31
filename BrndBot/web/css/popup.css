@@ -1282,4 +1282,7 @@ div#savePassword {
     float: left;
     margin-top: 10px;
 }
+#socialdropdown{
+    display: none;
+}
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/
