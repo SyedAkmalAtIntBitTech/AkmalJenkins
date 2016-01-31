@@ -1,28 +1,161 @@
+<%@page import="com.controller.SqlMethods"%>
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>BrndBot - Social Settings</title>
+        <meta charset="UTF-8" >
+         <%@ include file="fonttypekit.jsp"%>
+         <%@ include file="checksession.jsp" %>
 
-sd<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css">
-    <link rel="stylesheet" type="text/css" href="css/normalize.css">
-    <link rel="stylesheet" type="text/css" href="css/slat.css">
-    <link rel="shortcut icon" href="favicon.png">
-    <meta charset="UTF-8" >
-    <%@ include file="fonttypekit.jsp"%>
-    <%@ include file="checksession.jsp" %>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="js/angular.min.js"></script>  
+        <script src="js/configurations.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
+        <script src="js/tabcontent.js" type="text/javascript"></script>
+        <link href="tabs/tabcontent.css" rel="stylesheet" type="text/css"/>
+        <script src="js/socialsettings.js" type="text/javascript"></script>
+        
+        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+        <style>
+            .glyphicon.glyphicon-home,.glyphicon.glyphicon-envelope,.glyphicon.glyphicon-comment, .glyphicon.glyphicon-picture, .glyphicon.glyphicon-cog{
+                font-size:20px;
+                position: relative;
+                left:-15px;
+                padding: 7px;
+            }
+            
+            #popup
+            {
+                display:none;
+                position: fixed;
+                width:350px;
+                height: 450px;
+                top: 40%;
+                left: 50%;
+                margin-left:-155px;
+                margin-top:-110px;
+                border:5px solid #98b3b5;
+                background-color:#F0F8FF;
+                padding:30px;
+                z-index:102;
+                font-family:Verdana;
+                font-size:10pt;
+                border-radius:10px;
+                -webkit-border-radius:20px;
+                -moz-border-radius:20px;
+                font-weight:bold;
+            }
+            #content
+            {
+                height:auto;
+                width:300px;
+                margin:30px auto;
+            }
+            
+        </style>
+        <style>
+            .socialimage{
+                width: 100px;
+                height: 100px;
+                margin-left:  5px;
+            } 
+            
+            #popup
+            {
+               display:none;
+                position: fixed;
+                width: auto;
+                height:300px;
+                top: 30%;
+                left: 50%;
+                margin-left:-155px;
+                margin-top:-110px;
+                border:5px solid #686868 ;
+                background-color:#CDCDFF;
+                padding:30px;
+                z-index:102;
+                font-family:Verdana;
+                font-size:10pt;
+                border-radius:10px;
+                -webkit-border-radius:20px;
+                -moz-border-radius:20px;
+                font-weight:bold;
+                overflow: auto;
+            }
+            #twitterpopup{
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="text/javascript" src="js/angular.min.js"></script>  
-    <script src="js/configurations.js" type="text/javascript"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
-    <script src="js/tabcontent.js" type="text/javascript"></script>
-    <link href="tabs/tabcontent.css" rel="stylesheet" type="text/css"/>
-    <script src="js/socialsettings.js" type="text/javascript"></script>
+                position: fixed;
+                width: 450px;
+                height:200px;
+                top: 40%;
+                left: 50%;
+                margin-left:-155px;
+                margin-top:-110px;
+                border:5px solid #686868 ;
+                background-color:#CDCDFF;
+                padding:30px;
+                z-index:102;
+                font-family:Verdana;
+                font-size:10pt;
+                border-radius:10px;
+                -webkit-border-radius:20px;
+                -moz-border-radius:20px;
+                font-weight:bold;
+                text-align: center;
 
-    <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+            }
+            #content
+            {
+                height:auto;
+                width:300px;
+                height:500px;
+                margin:5px auto;
+            }
+            #popupclose
+            {
+                margin:35px 0 0 80px;
+                width:50px;
+
+            }
+            tr,td{
+                margin-left: 2px;
+                padding-right: 5px;
+            }
+           
+        </style>        
+        <style>
+            .fileUpload {
+                position: relative;
+                overflow: hidden;
+                margin: 10px;
+            }
+            .fileUpload input.upload {
+                position: absolute;
+                top: 0;
+                right: 0;
+                margin: 0;
+                padding: 0;
+                font-size: 20px;
+                cursor: pointer;
+                opacity: 0;
+                filter: alpha(opacity=0);
+            }
+
+            .container{
+                   position: absolute;
+                   float: left;
+/*                            margin-left: -250px;*/
+               }
+
+        </style>
         <%! 
             Object code = "";
             String ImageName="";
@@ -217,56 +350,9 @@ sd<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.
        
         </script>
         <jsp:include page="basejsp.jsp" />
-</head>    
-
-<body ng-app ng-controller="controllerSocial" id="controllerSocial">
-    <!--SideNav-->
-    <%@include file="navbarv2.jsp" %>
+    </head>
+    <body ng-app>
         
-    <!--Top Nav-->   
-    <div class="top-nav">
-        <div class="page-title-bar col-1of1"> 
-            <!--<div class="exit-button-detail"></div>-->
-            <div class="page-title-regular page-title-font">Your Social Hub</div>
-        </div>
-        <div class="page-subnav-bar-with-dropdown"> 
-            <div class="subnav-dropdown pushright">
-                 <span class="hub-dropdown-text">Social</span>
-                  <img type="image/svg+xml" src="images/Icons/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"> </img>
-            </div>
-            <div class="top-subnav-tabs-container">
-                <ul class="top-subnav-nav-elements">
-                    <li class="top-subnav-link-active" ng-click="getFacebookDetails()" id="fbsetting"> <a class="h3-active-subnav">Facebook Settings</a></li>
-                    <li class="top-subnav-links" ng-click="getTwitterDetails()" id="twsetting"> <a class="h3">Twitter Settings</a></li>
-                </ul>
-            </div>
-            <div class="dropdown-hub" style="display:none;">
-                <ul class="dropdown-inner">
-                    <li class="dropdown-section fleft col-1of1 " id="emailhubli">
-                        <a href="emaillists.jsp">
-                            <div><img type="image/svg+xml" src="images/Icons/Hub-Dropdowns_email.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
-                            <div class="fleft col-6of10 dropdown-label-active">Email Hub</div>
-                        </a>                        
-                    </li>
-                    <li class="dropdown-section col-1of1 fleft" id="socialhubli" >
-                        <a href="social.jsp">
-                            <div><img type="image/svg+xml" src="images/Icons/Hub-Dropdowns_social.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
-                            <div class="fleft col-6of10 dropdown-label">Social Hub</div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-        <!--Main Content GENERIC--> 
-    <div class="page-background">
-        <div class="page-content-container email-draft-page">
-            <!--Inner Content Conatiner GENERIC-->
-            <div class="page-inner-content-container">
-                <div class="fleft content">
-                    <div class="page-content-title h2">Your Social Settings</div>
-                    <!--List Starts Here-->
-                    
         <div id="popup">
             <div id="content">
                 <center>
@@ -285,9 +371,10 @@ sd<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.
 <!--                <input id="closetwitter" type="button" class="btn btn-primary" value="cancel">-->
             </div>   
         </div>        
-        <div>
+        <div ng-controller="controllerSocial" id="controllerSocial">
 
             <div class="row">
+                <jsp:include page="mainmenu.html"/><!--/end left column-->
 
                 <div class="col-md-10 col-md-offset-1">
                     <div class="col-md-10 ">
@@ -336,31 +423,6 @@ sd<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.
 
             </div>
         </div>
-<!--                    <div class="emailSettings-container fleft">
-                       <div class="col-1of1 fleft">
-                            <div class="col-7of10 fleft">
-                                <div class="h4" style="">
-                                    SOCIAL SETTINGS HERE
-                                </div>
-                            </div>
-                        </div>
-                      
-                    </div>-->
-                </div>
-            </div>            
-        </div>
-        </div>
-    </div>
-  
-        <!--CTA Bar
-        <div class="bottom-cta-bar">
-            <div class="bottom-cta-button-container">
-                 REMOVE BUTTON HERE
-               <div class="remove-action-detail md-button button-text-1">Remove Selected Action(s)</div>
--->
-            </div>
-        </div>
-         </div>
-</div>
+
     </body>
 </html>

@@ -234,6 +234,10 @@
 .width75{
     width:75% !important;
 }
+.width33{
+    width:33% !important;
+}
+  
     
 .black_overlay1{
     display: none;
@@ -1257,5 +1261,25 @@ input#isdefault {
 }
 table#fbmanagepages {
     margin-left: -50px;
+}
+.input-field-textfield5 {
+    height: 30px;
+    background-color: #ffffff;
+    border: 1px solid #d5dadf;
+    padding: 6px 10px 3px 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    /* color: #cccccc; */
+    color: #000;
+    border-radius: 3px;
+}
+#brandsettingdiv
+{
+    display: none;
+}
+div#savePassword {
+    margin-left: -126px;
+    float: left;
+    margin-top: 10px;
 }
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/

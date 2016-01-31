@@ -84,12 +84,16 @@
             <div class="dropdown-hub" style="display:none;">
                 <ul class="dropdown-inner">
                     <li class="dropdown-section fleft col-1of1 " id="emailhubli">
+                        <a href="emaillists.jsp">
                             <div><img type="image/svg+xml" src="images/Icons/Hub-Dropdowns_email.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
                             <div class="fleft col-6of10 dropdown-label-active">Email Hub</div>
+                        </a>                        
                     </li>
-                    <li class="dropdown-section col-1of1 fleft" id="socialhubli">
-                         <div><img type="image/svg+xml" src="images/Icons/Hub-Dropdowns_social.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
-                         <div class="fleft col-6of10 dropdown-label">Social Hub</div>
+                    <li class="dropdown-section col-1of1 fleft" id="socialhubli" >
+                        <a href="social.jsp">
+                            <div><img type="image/svg+xml" src="images/Icons/Hub-Dropdowns_social.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
+                            <div class="fleft col-6of10 dropdown-label">Social Hub</div>
+                        </a>
                     </li>
                 </ul>
             </div>

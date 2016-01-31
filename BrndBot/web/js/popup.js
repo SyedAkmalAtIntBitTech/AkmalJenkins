@@ -76,158 +76,7 @@ function getImageId(idname)
         $("#selectedimageid").val(id);
     }
 $(document).ready(function ()
-{
-//    $("#fbpopupClose2").click(function(){
-//    $("#fade").hide();
-//    $("#fbpopup").hide();
-//    });
-//     $("#mousef").click(function () {
-//        $("#fade").show();        
-//        $('#loadingGif').show();
-//        $("#fbpopup").show();
-//        facebookcheck = document.getElementById("facebook").checked;
-//
-//        if (facebookcheck) {
-//
-//            $.ajax({
-//                url: 'ServletUserPreferencesFacebook',
-//                method: 'GET',
-//                data: {
-//                    access_token_method: "getAccessToken"
-//                },
-//                success: function (responseText) {
-////                           $("#tokenHere").html(responseText);
-//                        
-//                        var fb_details = responseText.split(",");
-//                    
-//                    if (fb_details[0] == "") {
-//
-//                        document.location.href = "GetFacebookManagePage";
-//
-//                        $("#isFacebook").val(facebookcheck);
-//
-//                    } else {
-//                        
-////                        var fb_details = responseText.split(",");
-//                        
-//                        $("#fbaccessTokenSend").val(fb_details[0]);
-//                        $("#pagenameSend").val(fb_details[2]);
-//                        $("#fbdefaultAccessToken").val("true");
-//                        $("#isFacebook").val("true");
-//
-//                        $("#submitbutton").prop("disabled", false);
-//                        $('#loadingGif').hide();
-//                    }
-//                }
-//            });
-//
-//        } else {
-//            $("#isFacebook").val(facebookcheck);
-//            $("#submitbutton").prop("disabled", true);
-//            $("#fbaccessTokenSend").val("");
-//            $("#fbdefaultAccessToken").val("");
-//            $('#loadingGif').hide();
-//        }
-//
-//
-//        $("#close").click(function () {
-//
-//            //$("#popup").hide();
-//            $(".close-reveal-modal").click();
-//        });
-//    });
-//    $("#twpopupClose2").click(function(){
-//    $("#fade").hide();
-//    $("#twpopup").hide();
-//    });
-//    var twitter_access_tokens="";
-//    $('#setPin').click(function () {                        
-//        
-//        var pin = $("#pinTextBox").val();
-//        if (pin.length > 0) {
-//            $.ajax({
-//                url: 'GetTwitterToken',
-//                method: 'post',
-//                data: {
-//                    pin: $("#pinTextBox").val()
-//                },
-//                success: function (responseText) {
-//                    alert();
-//                    //                        $("#tokenHere").html(responseText);
-//                    $("#twaccessTokenSend").val(responseText);
-//                    twitter_access_tokens = responseText;
-//                    $.ajax({
-//                        url: 'ServletUserPreferencesTwitter',
-//                        method: 'post',
-//                        data: {
-//                            access_token_method: "setAccessToken",
-//                            twitter_access_tokens: twitter_access_tokens
-//                        },
-//                        success: function (responseText) {
-//                        }
-//                    });
-//
-//                    $("#submitbutton").prop("disabled", false);
-//                }
-//            });
-//
-//            //$("#twitterpopup").hide();
-//            $(".close-reveal-modal").click();
-//
-//        } else {}
-//    });
-//    $("#mouset").click(function () {
-//        $("#fade").show();
-//        $("#twpopup").show();
-//        twittercheck = true;
-//           
-//        $("#submitbutton").prop("disabled", true);
-//        $("#isTwitter").val(twittercheck);
-//        var twitter_access_tokens = "";
-//
-//        if (twittercheck) {
-//            $.ajax({
-//                url: 'ServletUserPreferencesTwitter',
-//                method: 'post',
-//                data: {
-//                    access_token_method: "getAccessToken"
-//                },
-//                success: function (responseText) {
-//                    
-//                    if (responseText == "") {
-//
-//                        //$("#twitterpopup").show();
-//                        
-//                        $(".clicktwitter").click();
-//                        $.ajax({
-//                            url: 'GetTwitterToken',
-//                            method: 'get',
-//                            success: function (responseText) {
-//                                //alert("1");
-//                                $("#twitterlink").html("<a href='" + responseText + "' target='_blank'>get your pin</a>");
-//                            }
-//                        });     
-//                    } else {
-//                        $("#twaccessTokenSend").val(responseText);
-//                        $("#submitbutton").prop("disabled", false);
-//                    }
-//
-//                }
-//            });
-//
-//        }
-//        else
-//        {
-//            $("#twaccessTokenSend").val("");
-//            //$("#twitterpopup").hide();
-//            $(".close-reveal-modal").click();
-//            $("#submitbutton").prop("disabled", true);
-//             $('#loadingGif').hide();
-//        }
-//       
-//    });
-//   
-    
+{    
     $("#emailpreview").click(function(){
         $("#fade").show();
         $("#email_previewdiv").show();
@@ -237,7 +86,36 @@ $(document).ready(function ()
         $("#email_previewdiv").hide();
     });
     
+    $("#accountsettingtab").click(function(){
+        $("#brandsettingdiv").hide();
+        $("#accountsettingdiv").show();
+        
+        $("#brndsettingtab").removeClass("top-subnav-link-active");
+        $("#brndsettingtab a").removeClass("h3-active-subnav");
+        $("#accountsettingtab").removeClass("top-subnav-links");
+        $("#accountsettingtab a").removeClass("h3");
+                
+        $("#brndsettingtab").addClass("top-subnav-links");
+        $("#brndsettingtab a").addClass("h3");
+        $("#accountsettingtab").addClass("top-subnav-link-active"); 
+        $("#accountsettingtab a").addClass("h3-active-subnav"); 
+    });
     
+    $("#brndsettingtab").click(function(){
+        $("#accountsettingdiv").hide();
+        $("#brandsettingdiv").show();
+        
+        $("#brndsettingtab").removeClass("top-subnav-links");
+        $("#brndsettingtab a").removeClass("h3");
+        $("#accountsettingtab").removeClass("top-subnav-link-active");
+        $("#accountsettingtab a").removeClass("h3-active-subnav");
+        
+        $("#brndsettingtab").addClass("top-subnav-link-active");
+        $("#brndsettingtab a").addClass("h3-active-subnav");
+        $("#accountsettingtab").addClass("top-subnav-links"); 
+        $("#accountsettingtab a").addClass("h3"); 
+    });
+        
     $("#schedule_social_time").click(function(){
         $(".timepicker_wrap").css("margin-top","-207px");
         $(".timepicker_wrap").css("width","195px");
