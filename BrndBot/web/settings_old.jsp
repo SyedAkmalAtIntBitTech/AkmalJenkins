@@ -129,17 +129,11 @@ and open the template in the editor.
                 <div class="col-md-10 col-md-offset-2">
                     <div class="col-md-10 ">
                         <p class="MH2" id="t3"> Setting page</p>
-
-
                         <div style="width:500px; margin:0px; padding:120px 0 40px;">
-
                             <div class="tabcontents">
                                 <div id="view1" style="width:550px; height:230px ">
-
                                     <b>Change Password</b>
-
                                     <form class="form-horizontal" id="signform" ng-submit="changePassword()" >
-
                                         <div class="group">
                                             <div class="col-md-3 col-md-offset-5">                            
                                                 <input id="inputpassword" class="form-control simplebox settingPassword" type="password" name="password"/>
@@ -152,29 +146,23 @@ and open the template in the editor.
                                                 <label>CONFIRM PASSWORD</label><br>
                                             </div>
                                         </div>
-
                                         <div  class="form-group">
                                             <div class="col-md-5 col-md-offset-5">
                                                 <button type="submit"  class="button button--moema button--text-thick button--text-upper button--size-s">Save</button><br>
                                             </div>
                                         </div>
-
                                     </form> 
                                 </div>
                                 <div id="view2" style="width:750px; height:auto;" >
                                     <b>Select color palettes</b>
-
                                     <div class="container" ng-init="showColors()">
                                         <div class="row">
                                         </div>
-
                                         <div id="contentdiv" class="row">   
-
                                             <div class="col-md-8 col-md-offset-0">
                                                 <p id="comment1"> Choose a palette </p> 
                                                 <p id="comment2">Click on a color to change it or choose from a theme. Don't worry, you can always change it later.</p>
                                                 <div class="col-md-12"><p id="test" class="span3" >MOST USED<span class="col-md-offset-5" id="leastuse">LEAST USE</span></p> </div>
-
                                                 <div id="sortable" class="step_wrapper">
                                                     <div id="elementToPutStyleInto1" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color1}}"  onclick="getElementID('elementToPutStyleInto1')"></div>
                                                     <div id="elementToPutStyleInto2" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color2}}"  onclick="getElementID('elementToPutStyleInto2')"></div>
@@ -184,51 +172,37 @@ and open the template in the editor.
                                                     <div id="elementToPutStyleInto6" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color6}}"  onclick="getElementID('elementToPutStyleInto6')"></div>
                                                     <div class="resetpalette ptr"> <p id="resetpalette">RESET ORIGINAL PALETTE</p></div>
                                                 </div>
-
                                             </div>
-
                                             <div class="col-md-7 col-md-offset-0 ">
                                                 <div class="tabbable tabs-top">
                                                     <br>
                                                     <ul id="btn" class="nav nav-tabs" >
-
                                                         <li id="li1" class="active"><a id="a1" href="#picktheme" data-toggle="tab">PICK FROM A THEME</a></li>
                                                         <li id="li2" class=""><a id="a1" href="#custom" data-toggle="tab">CHOOSE CUSTOM</a></li>
                                                         <li id="li3" class=""><a id="a1" href="#logocolor" data-toggle="tab">PICK FROM LOGO COLORS</a></li>
-
                                                     </ul> 
                                                     <div class="tab-content">
-
                                                         <br>
                                                         <%! Integer i = 1;%>
                                                         <div class="tab-pane active" id="picktheme">
                                                             <div style="height:250px; overflow-y:scroll;">
-
                                                                 <div ng-repeat= "theme in themes" id="rep" >
-
                                                                     <div ng-repeat="colors in theme" id="rep1">
                                                                         <div ng-show="colors.theme_id == null">
                                                                             <div id="{{colors.id}}" class="foo blankcolor-box step_box ptr" onclick="getIDNo('{{colors.id}}')" style="background-color:{{colors.colorHex}};"></div>
                                                                         </div>
-
                                                                         <div id="{{colors.theme_id}}" class="ptr" onclick="doSomething('{{colors.theme_id}}')"><div ng-show="colors.id == null" style="padding-top: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{colors.theme_name}}</div></div>
-
                                                                     </div> 
                                                                     <div id='id'>
                                                                         <p><br/></p>
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                         </div>
-
                                                         <div class="tab-pane" id="custom">
-
                                                             <br>     
                                                             <div  id="picker"></div><br><br>
-
                                                         </div>
-
                                                         <div class="tab-pane" id="logocolor" >
                                                             <div class="tab-pane active" id="picktheme" ng-init="getLogoColors()">
                                                                 <!--                                                                <div><button type="button" class="btn btn-primary" value="click to display colors" ng-click="getLogoColors()">click to display colors</button></div>-->
@@ -248,34 +222,25 @@ and open the template in the editor.
                                                                     <input type="hidden" id="finalcolor4" name="finalcolor4" ng-model="selColor.finalcolor4"/>
                                                                     <input type="hidden" id="finalcolor5" name="finalcolor5" ng-model="selColor.finalcolor5"/>
                                                                     <input type="hidden" id="finalcolor6" name="finalcolor6" ng-model="selColor.finalcolor6"/>
-
                                                                     <div class="span4 col-md-offset-0">
                                                                         <button  type="button" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="createUserPreferences()">SAVE</button>
                                                                     </div>
-
                                                                 </form>
                                                             </div>
                                                         </div>
-
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-
-
                                 </div>
                                 <div id="view3">
                                     <b>Look</b>
                                     <div class="row" id="buttonlength" style="">
                                         <div class="span7">
                                             <div class="col-md-7 pull-right pull-up">
-
                                                 <div class="item"><p>Selected look preview</p>
                                                     <img id="image1" class="img-responsive" ng-src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{UserLooks.image_name}}" width="700" height="400"><br>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -286,7 +251,6 @@ and open the template in the editor.
                                         <div  class="col-md-2 step_box" ng-repeat="first in First" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
                                             <img id="{{first.id}}" class="img-responsive lookchooser1 ptr " ng-src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{first.file_name}}"  onclick="showLook({{first.id}})" width=250 height=150 />
                                         </div>
-
                                         <div class="col-md-12"></div>
                                         <div class="col-md-2 step_box" ng-repeat="second in Second" style="border:1px solid #dadada; border-radius: 5px; margin-left: 20px; margin-bottom: 10px;">
                                             <img id="{{second.id}}" class="img-responsive lookchooser1 ptr" ng-src="/BrndBot/DownloadImage?image_type=LOOKS&image_name={{second.file_name}}" onclick="showLook({{second.id}})" width=250 height=150 />
@@ -311,10 +275,8 @@ and open the template in the editor.
                                     <div class="row" id="buttonlength" style="">
                                         <div class="span7">
                                             <div class="col-md-7 pull-right pull-up">
-
                                                 <div class="item"><p>Selected brand preview</p>
                                                     <img id="image1" class="img-responsive" ng-src="/BrndBot/DownloadImage?image_type=BRAND_PERSONALITY&image_name={{UserBrand.image_name}}" width="700" height="400"><br>
-
                                                 </div>
                                             </div>
                                         </div>
