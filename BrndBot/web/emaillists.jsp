@@ -23,7 +23,6 @@
     <script src="js/jquery-1.11.3.min.js"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
     <script src="js/emaillist.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="js/popup.js" type="text/javascript"></script> 
     <link rel="stylesheet" href="css/popup.css"/>
@@ -81,15 +80,19 @@
                 </div>
                 
             </div>
-            <div class="dropdown-hub" style="display:none;">
+            <div class="dropdown-hub" id="emaildropdown" style="display:none;">
                 <ul class="dropdown-inner">
                     <li class="dropdown-section fleft col-1of1 " id="emailhubli">
+                        <a href="emaillists.jsp">
                             <div><img type="image/svg+xml" src="images/Icons/Hub-Dropdowns_email.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
                             <div class="fleft col-6of10 dropdown-label-active">Email Hub</div>
+                        </a>                        
                     </li>
-                    <li class="dropdown-section col-1of1 fleft" id="socialhubli">
-                         <div><img type="image/svg+xml" src="images/Icons/Hub-Dropdowns_social.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
-                         <div class="fleft col-6of10 dropdown-label">Social Hub</div>
+                    <li class="dropdown-section col-1of1 fleft" id="socialhubli" >
+                        <a href="social.jsp">
+                            <div><img type="image/svg+xml" src="images/Icons/Hub-Dropdowns_social.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
+                            <div class="fleft col-6of10 dropdown-label">Social Hub</div>
+                        </a>
                     </li>
                 </ul>
             </div>

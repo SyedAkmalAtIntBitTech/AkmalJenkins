@@ -196,7 +196,17 @@
                     $("#emllistab").addClass("top-subnav-links");
                     $("#emllistab a").addClass("h3"); 
                 });
-                
+                   
+                var mouse_is_inside = false;
+                $('#emaildropdown').hover(function(){ 
+                    mouse_is_inside=true; 
+                }, function(){ 
+                    mouse_is_inside=false; 
+                });
+
+                $("body").mouseover(function(){ 
+                    if(! mouse_is_inside){ $('#emaildropdown').hide();}
+                });
                 
                 
                 $("#emldrftab").click(function (){

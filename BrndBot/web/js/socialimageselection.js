@@ -96,29 +96,24 @@
                             $("#addContact").show();
                             return false;
                         }                        
-                        if($("#Linkurl").val()==="")
+                        if($("#Linkurl").val()!=="")
                         {
-                            alert("Please choose or enter Link");
-                            $("#linkpopup").show();
-                            $("#fade").show();
-                            flag=1;
-                            $("#Linkurl").focus();
-                            return false;
+                            if($("#link_title").val()==="")
+                            {
+                                alert("Please enter Link Title");
+                                flag=1;
+                                $("#link_title").focus();
+                                return false;
+                            }
+                            if($("#link_description").val()==="")
+                            {
+                                alert("Please write the description");
+                                flag=1;
+                                $("#link_description").focus();
+                                return false;
+                            }     
                         }
-                        if($("#link_title").val()==="")
-                        {
-                            alert("Please enter Link Title");
-                            flag=1;
-                            $("#link_title").focus();
-                            return false;
-                        }
-                        if($("#link_description").val()==="")
-                        {
-                            alert("Please write the description");
-                            flag=1;
-                            $("#link_description").focus();
-                            return false;
-                        }                        
+                                           
                     }
                     if(isTwitter === "true")
                     {
@@ -131,11 +126,11 @@
                         }
                         if($("#link").val()==="")
                         {
-                            alert("Please enter Title for Twitter");
-                            $("#linkpopup").show();
-                            $("#fade").show();
-                            flag=1;
-                            return false;
+//                            alert("Please enter Link for Twitter");
+//                            $("#linkpopup").show();
+//                            $("#fade").show();
+//                            flag=1;
+//                            return false;
                         }
                         if(image_name==="")
                         {
@@ -185,22 +180,20 @@
                             alert("Please enter Title for Facebook");
                             return false;
                         }
-                        if($("#link_title").val()==="")
+                        if($("#link_title").val()!=="")
                         {
-                            alert("Please enter Link Title");
-                            return false;
-                        }
-                        if(image_name==="")
-                        {
-                            alert("Please choose an Image");
-                            return false;
-                        }
-                        if(link_description==="")
-                        {
-                            alert("Please write the description");
-                            $("#link_description").focus();
-                            return false;
-                        }                        
+                            if($("#link_title").val()==="")
+                            {
+                                alert("Please choose an Image");
+                                return false;
+                            }
+                            if(link_description==="")
+                            {
+                                alert("Please write the description");
+                                $("#link_description").focus();
+                                return false;
+                            }
+                        }                                                
                     }
                     if(isTwitter === "true")
                     {
@@ -211,8 +204,8 @@
                         }
                         if($("#link").val()==="")
                         {
-                            alert("Please enter Title for Twitter");
-                            return false;
+//                            alert("Please enter Link for Twitter");
+//                            return false;
                         }
                         if(image_name==="")
                         {

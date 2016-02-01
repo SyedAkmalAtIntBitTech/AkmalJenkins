@@ -4,6 +4,44 @@
  * and open the template in the editor.
  */
 
+
+       $(document).ready(function (){
+           if($("#image2").attr('src')==""){
+              $("#image2").hide();
+           }
+       });
+               var ElementID;
+               /*------ get selected element ID -----*/
+               function getElementID(IDNo){
+               ElementID = IDNo;
+                       $('.step_wrapper').on('click', '.step_box', function () {
+               $(this).parent().find('.step_box').css('width', '').css('height', '').css('border-color', '').css('border-radius', '');
+                       $(this).css('width', '80px').css('height', '40px').css('border-color', '#FF0000').css('border-radius', '10px');
+               });
+                       $("#sortable").sortable();
+                       $("#sortable").disableSelection();
+               }
+               /*------ pass color into the selected element got by id-----*/
+               function getIDNo(IDNo){
+                       var s = $("#" + IDNo).attr("style");
+                       var s1 = s.split(":");
+                       $("#" + ElementID).css("background-color", s1[1].replace(";", " "));
+               }
+
+
+               var id = 1;
+               var theme_id = 0;
+               function doSomething(theme_id){
+               var theamNum = parseInt(theme_id.replace("theme", ""));
+                       theamNum--;
+                       var num = theamNum * 6;
+                       $("#themeid").val(theme_id);
+                       for (var i = 1; i <= 6; i++){
+               var colorid = "color" + (i + num);
+                       $("#elementToPutStyleInto" + i).css("background-color", $("#" + colorid).css("background-color"));
+               }
+               }
+
 var elementid1;
 function showLook(lookid){
         $("#lookid").val(lookid);
@@ -169,7 +207,6 @@ function controllerUserChanges($scope, $http) {
     };
 
     $scope.changePassword = function () {
-
         var password = $("#inputpassword").val();
         var confirmpassword = $("#inputreenter").val();
 
