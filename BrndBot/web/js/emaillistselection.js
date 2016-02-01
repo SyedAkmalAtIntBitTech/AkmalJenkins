@@ -70,33 +70,32 @@
                         }
                     }
                 else{
-                        
-                        var email_subject = "";
-                        var email_addresses = $("#emailaddresses").val();
-                        if(email_addresses!=="")
-                        {   
-                            $("#toaddress").val(email_addresses);
-                            $("#emaillistselid").hide();
-                            $("#emaildetailsid").show();
-                            $("#emailIdContinueButton").hide();
-                            $("#emaildetailscontbtn").show();
-                            $("#backemaillist").hide();
-                            $("#backemaildetails").show();
-                            $("#emaillistdiv").hide();
-                            $("#emailSettings").show();
-                            $("#emaillistdiv").hide();
-                            $("#emailSettings").show();
-                            var email_list = $("#chooseEmailList").val();
-                            $.ajax({
-                                url: getHost() + "EmailTextDataServlet",
-                                data: {
-                                    email_subject: email_subject,
-                                    email_addresses: email_addresses,
-                                    email_list : email_list
-                                },
-                                success: function(result){
-                                }
-                            });
+                    var email_subject = "";
+                    var email_addresses = $("#emailaddresses").val();
+                    if(email_addresses!=="")
+                    {   
+                        $("#toaddress").val(email_addresses);
+                        $("#emaillistselid").hide();
+                        $("#emaildetailsid").show();
+                        $("#emailIdContinueButton").hide();
+                        $("#emaildetailscontbtn").show();
+                        $("#backemaillist").hide();
+                        $("#backemaildetails").show();
+                        $("#emaillistdiv").hide();
+                        $("#emailSettings").show();
+                        $("#emaillistdiv").hide();
+                        $("#emailSettings").show();
+                        var email_list = $("#chooseEmailList").val();
+                        $.ajax({
+                            url: getHost() + "EmailTextDataServlet",
+                            data: {
+                                email_subject: email_subject,
+                                email_addresses: email_addresses,
+                                email_list : email_list
+                            },
+                            success: function(result){
+                            }
+                        });
 //                            $("#toaddress").val(email_addresses);
 //                            $("#emaillistdiv").hide();
 //                            $("#toaddress").val(email_addresses);
@@ -112,14 +111,14 @@
 //                                success: function(result){
 //                                }
 //                            });
-                        }
-                        else
-                        {
-                            alert("Please select at least one email list or add email manually.");
-                            selectCsvFile();
-                            $("#emailaddresses").focus();
-                            return false;
-                        }
+                    }
+                    else
+                    {
+                        alert("Please select at least one email list or add email manually.");
+                        selectCsvFile();
+                        $("#emailaddresses").focus();
+                        return false;
+                    }
                 }
             });
                 });
@@ -723,7 +722,7 @@
                 var draft_id = $("#draft_id").val();
                 if(validate()){
                 $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position", "absolute").css("top", "300px").css("left", "500px");
-               
+                alert(formattedHTMLData);
                 $.ajax({
                     
                     url: getHost() + "SendEmailServlet",
@@ -740,7 +739,6 @@
                     },
                     success: function (responseText) {
                        
-                        
                         $.ajax({
                             url: getHost() + "deleteEmailDraft.do?draftid="+draft_id,
                             type: "post",

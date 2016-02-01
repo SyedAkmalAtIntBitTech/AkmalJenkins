@@ -4,11 +4,10 @@
     Author     : Syed Akmal at IntBit Technologies.
 --%>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <%@page import="com.controller.SqlMethods"%>
+    <%@ page import="com.controller.SqlMethods"%>
     <%@ include file="fonttypekit.jsp"%>
     <%@ include file="checksession.jsp" %>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -50,8 +49,8 @@
         iframeUrl="/BrndBot/DownloadHtmlServlet?file_name="+iframeName+".html";
         draft_id = "0";
         if (!request.getParameter("draftid").equals("null")){
-                    draft_id = (String)request.getParameter("draftid");
-                    out.println();
+            draft_id = (String)request.getParameter("draftid");
+            out.println();
         }
     %>    
     <style>
@@ -62,19 +61,19 @@
         }
     </style>
     <script>
-function myFunction() {
-    var x = document.getElementById("fileid").value;
-    if(x==="")
-    {
-        document.getElementById("filetext").innerHTML = "Click to Select file";
-    }
-    else
-    {
-        document.getElementById("filetext").innerHTML = x;        
-    }
-}
-</script>
-</head>    
+        function myFunction() {
+            var x = document.getElementById("fileid").value;
+            if(x==="")
+            {
+                document.getElementById("filetext").innerHTML = "Click to Select file";
+            }
+            else
+            {
+                document.getElementById("filetext").innerHTML = x;        
+            }
+        }
+    </script>
+    </head>    
 
 <body ng-app>
     <!--SideNav-->

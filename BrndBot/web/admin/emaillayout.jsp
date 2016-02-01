@@ -581,7 +581,7 @@
                 Organization : <select name="organization" id="organization" onchange="showUsers(this.value)">
 
                     <option value="0">-Select</option>
-                    <%                        Connection connection = null;
+                    <%  Connection connection = null;
                         try {
                             connection = ConnectionManager.getInstance().getConnection();
 
@@ -611,7 +611,8 @@
 
                 Brand : <select name="brand" id="brand" onchange="showblocks(this.value)">
                     <option value="0">-Select-</option>
-                    <%                        try {
+                    <% 
+                        try {
                             connection = ConnectionManager.getInstance().getConnection();
                             Query = "Select * from tbl_brand_personality";
                             ps = connection.prepareStatement(Query);

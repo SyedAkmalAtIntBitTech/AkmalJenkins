@@ -37,9 +37,9 @@
                                 <iframe id="dynamictable5" style="position: relative; width: 768px; border: none; height: 615px; top: -187px; left: -239px; transform: scale(0.3326); background-color: rgb(255, 255, 255);" src="<%=iframeUrl%>"></iframe>                   
                             </div>
                         </div>
-<!--                        <div class="desktopshow">
-                            <iframe id='dynamictable1' class="desktoppreview" src='<%=iframeUrl%>'></iframe> 
-                        </div>                        -->
+                        <div class="desktopshow" style="display:none;">
+                            <iframe id='dynamictable' class="desktoppreview" src='<%=iframeUrl%>'></iframe> 
+                        </div>                        
                     </div>
                     <div class="emailPreview-mobile-col fleft">
                         <div class="emailPreview-headers">Desktop Preview</div>

@@ -184,13 +184,13 @@
                     var draft_id = 0;
                     console.log(draft_id);
                     $(document).ready(function () {
-            mindbodydataId = $("#mindbodydata").val();
-                    draft_id = <%= draft_id%>;
-                    console.log(draft_id);
+                        mindbodydataId = $("#mindbodydata").val();
+                        draft_id = <%= draft_id%>;
+                        console.log(draft_id);
                     $("#addblkbtn").prop('disabled', true);
                     $(".selectrow").css("display", "none");
-                    rendomIframeFilename = event.timeStamp;
-                    selecterBlockId('defaultblock1', temp_block_id);
+                        rendomIframeFilename = event.timeStamp;
+                        selecterBlockId('defaultblock1', temp_block_id);
                     $("#sortUpBlock").click(function () {
             var current = $("#" + addblockid);
                     current.prev().before(current);
@@ -198,7 +198,7 @@
 //     $("#deleteBlock").easyconfirm(); 
                     $("#deleteBlock").click(function () {
             new $.flavr({
-            content     : 'Are you sure you want to delete this style?',
+                    content     : 'Are you sure you want to delete this style?',
                     dialog      : 'confirm',
                     onConfirm   : function($container){
                     var tempSelectedBlockId = addblockid;
@@ -221,7 +221,7 @@
                             dataType: 'json',
                             success: function (data) {
                             var jsondataDefault = data;
-                                    //                                    alert(JSON.stringify(data));
+//                                    alert(JSON.stringify(data));
                                     var allLayoutFilename = [];
                                     $(jsondataDefault).each(function (i, val) {
                             var i = 0;
@@ -890,9 +890,9 @@
                     });
                     });
                             $("#saveButton").click(function (){
-                    var email_subject = $("#email_subject").val();
+                                var email_subject = $("#email_subject").val();
                             $.ajax({
-                            url: getHost() + "PreviewServlet",
+                                    url: getHost() + "PreviewServlet",
                                     method: "post",
                                     data:{
                                     htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
@@ -902,10 +902,10 @@
                                     $("#previewcontent").empty();
                                             $("#previewcontent").append(responseText);
                                             $.ajax({
-                                            url: getHost() + "SaveKeyValueSessionServlet",
+                                                    url: getHost() + "SaveKeyValueSessionServlet",
                                                     method: "post",
                                                     data:{
-                                                    process:"save",
+                                                            process:"save",
                                                             sessionKey:"htmldata",
                                                             sessionValue: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
                                                             sessionIframeKey:"iframeName",
