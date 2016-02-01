@@ -8,15 +8,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css">
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" href="css/version2/hint.css"/>
-    <script>
-    </script>
     </head>
     <body>
        <div class="navigation">
@@ -32,7 +30,6 @@
                 </a>
             </li>
             <li class="nav-elements-icon-container hint--right"  data-hint="Marketing program">
-
                  <a class="" href="marketingprogramlists.jsp">
                     <img type="image/svg+xml" src="images/Icons/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;"/>
                 </a>
@@ -56,8 +53,7 @@
                  <a  href="signout.jsp" >
                     <img type="image/svg+xml" src="images/Icons/logout.svg" class="nav-elements-icon " style="cursor:pointer;"/>
                 </a>
-            </li>
-            
+            </li>            
         </ul>    
     </div>
     </body>

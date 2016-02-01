@@ -109,7 +109,7 @@
                                     DAY
                                   </div>
                                 <!--<input type="text" readonly   name="datepickertwitter" id="datepickertwitter1"  class="input-field-textfield width75" value="Sun Jan 01 1970"/>--> 
-                                <input type="text" readonly class="input-field-textfield width75" id="emaildays" name="emaildays" value="{{days}}"/>                                                   
+                                <input type="text" class="input-field-textfield width75" id="emaildays" name="emaildays" value="{{days}}"/>                                                   
                                </div>
                                 <div ng-show="user_marketing_program_id == 0">
                                     <div class="input-header-actionDetail " >
@@ -229,13 +229,6 @@
                 <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionEmail()">Save Action</div>
             </div>
         </div>
-         
-<!--        <div class="" id="emailpostremove">
-            <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft remove-button-detail" style="width:23%;">Remove Saved Email</div>
-            </div>
-        </div>-->
-        
         <div class="" id="emailnotesave">
             <div class="bottom-cta-button-container">
                 <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionEmailNote(schedule_id)">Save Notes</div>
