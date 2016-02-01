@@ -12,18 +12,16 @@
     <meta charset="UTF-8" >
     <%@ include file="fonttypekit.jsp"%>
     <%@ include file="checksession.jsp" %>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="js/angular.min.js"></script>  
     <script src="js/configurations.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
+    <script src="js/alert_message.js" type="text/javascript"></script>
     <script src="js/tabcontent.js" type="text/javascript"></script>
     <link href="tabs/tabcontent.css" rel="stylesheet" type="text/css"/>
     <script src="js/socialsettings.js" type="text/javascript"></script>
     <link href="css/popup.css" rel="stylesheet" type="text/css"/>
-
-    <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <%! 
             Object code = "";
             String ImageName="";
@@ -45,7 +43,8 @@
         <jsp:include page="basejsp.jsp" />
 </head>    
 
-<body ng-app ng-controller="controllerSocial" id="controllerSocial">
+<body ng-app >
+    <div ng-controller="controllerSocial" id="controllerSocial"> 
     <!--SideNav-->
     <%@include file="navbarv2.jsp" %>
      
@@ -63,8 +62,8 @@
             </div>
             <div class="top-subnav-tabs-container">
                 <ul class="top-subnav-nav-elements">
-                    <li class="top-subnav-link-active" ng-click="getFacebookDetails()" id="fbsetting"> <a class="h3-active-subnav">Facebook Settings</a></li>
-                    <li class="top-subnav-links" ng-click="getTwitterDetails()" id="twsetting"> <a class="h3">Twitter Settings</a></li>
+                    <li class="top-subnav-link-active" id="fbsetting"> <a class="h3-active-subnav" ng-click="getFacebookDetails()">Facebook Settings</a></li>
+                    <li class="top-subnav-links" id="twsetting"> <a class="h3" ng-click="getTwitterDetails()">Twitter Settings</a></li>
                 </ul>
             </div>
             <div class="dropdown-hub" id="socialdropdown">
@@ -91,103 +90,67 @@
             <!--Inner Content Conatiner GENERIC-->
             <div class="page-inner-content-container">
                 <div class="fleft content">
-                    <div class="page-content-title h2">Your Social Settings</div>
-                    <!--List Starts Here-->
-                    
-        <div id="popup">
-            <div id="content">
-                <center>
-                    <table id="fbmanagepages">
-                        
-                    </table>
-                </center>
-            </div>   
-        </div>
-        <div id="twitterpopup" style="display: none">
-            <div id="content">
-                <p>Please click the url and get the pin</p>
-                <div id="twitterlink">wait...</div>
-                Enter the pin<input type="text" id="pinTextBox" name="pinTextBox"><br><br><br>
-                <input id="setPin" type="button" class="btn btn-primary" value="ok">
-<!--                <input id="closetwitter" type="button" class="btn btn-primary" value="cancel">-->
-            </div>   
-        </div>        
-        <div>
+                    <!--List Starts Here-->                    
+                    <div id="popup">
+                        <div id="content">
+                            <center>
+                                <table id="fbmanagepages">
 
-            <div class="row">
-
-                <div class="col-md-10 col-md-offset-1">
-                    <div class="col-md-10 ">
-                        <p id="t3" class="MH1"> Setting page</p>
-
-
-                        <div style="width:500px; margin:0px; padding:120px 0 40px;">
-
-                            <div class="tabcontents">
-                                <div id="view1" style="width:550px; height:230px ">
-
-                                    <b>Facebook</b>
-                                    <div id="fbpagename" ng-init="getFacebookDetails()">
-                                        Profile Name : {{facebookPage.user_profile_page}}<br>
-                                        Default Managed Page Name : {{facebookPage.fb_default_page_name}}<br>
-                                        <button id="facebook" class="button button--moema button--text-thick button--text-upper button--size-s" name="change">change</button>
-                                        <button id="fbclear" class="button button--moema button--text-thick button--text-upper button--size-s" name="fbclear" ng-click="clearFacebookDetails()">clear</button><br>
-                                    </div>
-                                    
-                                    
-                                </div>
-                                <div id="view2" style="width:750px; height:auto;" >
-                                    <b>Twitter</b>
-                                    <div id="twpagename" >
-                                        Profile Name : {{twitterPage.twitter_user_name}}<br>
-                                        <button id="twitter" class="button button--moema button--text-thick button--text-upper button--size-s" name="change">change</button>
-                                        <button id="twitterclear" class="button button--moema button--text-thick button--text-upper button--size-s" name="twitterclear" ng-click="clearTwitterDetails()">clear</button><br>
-                                    </div>
-                                    
-                                </div>
-
-                            </div>
-                            <input type="hidden" id="fbusername" name="fbusername" value="<%= user_name %>"/>
-                            <input type="hidden" id="fbaccessTokenSend" name="fbaccessTokenSend">
-                            <input type="hidden" id="pagenameSend" name="pagenameSend">
-                            <input type="hidden" id="fbdefaultAccessToken" name="fbdefaultAccessToken">
-                            <input type="hidden" id="twaccessTokenSend" name="twaccessTokenSend" >
-                            <ul class="tabs1" data-persist="true">
-                                <li><a href="#view1" style="width:180px;" ng-click="getFacebookDetails()">Facebook</a></li>
-                                <li><a href="#view2"  style="width:180px;" ng-click="getTwitterDetails()">Twitter</a></li>
-                            </ul>
-                        </div>                        
+                                </table>
+                            </center>
+                        </div>   
                     </div>
-                </div>
-
-
-            </div>
-        </div>
-<!--                    <div class="emailSettings-container fleft">
-                       <div class="col-1of1 fleft">
-                            <div class="col-7of10 fleft">
-                                <div class="h4" style="">
-                                    SOCIAL SETTINGS HERE
+                    <div id="twitterpopup" style="display: none">
+                        <div id="content">
+                            <p>Please click the url and get the pin</p>
+                            <div id="twitterlink">wait...</div>
+                            Enter the pin<input type="text" id="pinTextBox" name="pinTextBox"><br><br><br>
+                            <input id="setPin" type="button" class="btn btn-primary" value="ok">
+            <!--                <input id="closetwitter" type="button" class="btn btn-primary" value="cancel">-->
+                        </div>   
+                    </div>        
+                    <div>
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="col-md-10 ">
+                                    <div style="width:500px; margin:0px; padding:120px 0 40px;">
+                                        <div class="tabcontents">
+                                            <div id="view1" style="width:550px; height:140px ">
+                                                <div class="slat-title email-list-slat-title col-1of1">Facebook</div>
+                                                <div id="fbpagename" ng-init="getFacebookDetails()">
+                                                    <div class="list-column-description col-1of1 sh3 fleft">Profile Name : {{facebookPage.user_profile_page}}</div>
+                                                    <div class="list-column-description col-1of1 sh3 fleft">Default Managed Page Name : {{facebookPage.fb_default_page_name}}</div>
+                                                    <button id="facebook" class="buttonchange" name="change">Change</button>
+                                                    <button id="fbclear" class="buttonchange" name="fbclear" ng-click="clearFacebookDetails()">Clear</button>
+                                                </div>
+                                            </div>
+                                            <div id="view2" ng-init="getTwitterDetails()" style="width:550px; height:140px;" >
+                                                <div class="slat-title email-list-slat-title col-1of1">Twitter</div>
+                                                <div id="twpagename" >
+                                                    <div class="list-column-description col-1of1 sh3 fleft">Profile Name : {{twitterPage.twitter_user_name}}</div>
+                                                    <button id="twitter" class="buttonchange" name="change">Change</button>
+                                                    <button id="twitterclear" class="buttonchange" name="twitterclear" ng-click="clearTwitterDetails()">Clear</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" id="fbusername" name="fbusername" value="<%= user_name %>"/>
+                                        <input type="hidden" id="fbaccessTokenSend" name="fbaccessTokenSend">
+                                        <input type="hidden" id="pagenameSend" name="pagenameSend">
+                                        <input type="hidden" id="fbdefaultAccessToken" name="fbdefaultAccessToken">
+                                        <input type="hidden" id="twaccessTokenSend" name="twaccessTokenSend" >
+<!--                                        <ul class="tabs1" data-persist="true">
+                                            <li><a href="#view1" style="width:180px;" ng-click="getFacebookDetails()">Facebook</a></li>
+                                            <li><a href="#view2"  style="width:180px;" ng-click="getTwitterDetails()">Twitter</a></li>
+                                        </ul>-->
+                                    </div>                        
                                 </div>
                             </div>
                         </div>
-                      
-                    </div>-->
+                    </div>
                 </div>
             </div>            
         </div>
         </div>
     </div>
-  
-        <!--CTA Bar
-        <div class="bottom-cta-bar">
-            <div class="bottom-cta-button-container">
-                 REMOVE BUTTON HERE
-               <div class="remove-action-detail md-button button-text-1">Remove Selected Action(s)</div>
--->
-            </div>
-        </div>
-         </div>
-</div>
     </body>
 </html>

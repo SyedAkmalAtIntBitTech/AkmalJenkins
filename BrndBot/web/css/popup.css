@@ -1285,4 +1285,22 @@ div#savePassword {
 #socialdropdown{
     display: none;
 }
+#view2
+{
+    display: none;
+}
+.buttonchange {
+    height: 35px;
+    width: 120px;
+    margin-top: 12px;
+    background-color: #d5dadf;
+    border: none;
+    border-radius: 5px;
+    color: #767777;
+}
+.buttonchange:hover {
+    background-color: #0F76A6;
+    color: #ffffff;
+}
+
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/

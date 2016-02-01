@@ -1,6 +1,34 @@
 
             $(document).ready(function () {
-                
+                $("#twsetting").click(function(){
+                   $("#view1").hide();
+                   $("#view2").show();
+                   
+                   $("#twsetting").removeClass("top-subnav-links");
+                   $("#twsetting a").removeClass("h3");
+                   $("#fbsetting").removeClass("top-subnav-link-active");
+                   $("#fbsetting a").removeClass("h3-active-subnav");
+                   
+                   $("#twsetting").addClass("top-subnav-link-active");
+                   $("#twsetting a").addClass("h3-active-subnav");
+                   $("#fbsetting").addClass("top-subnav-links");
+                   $("#fbsetting a").addClass("h3");
+                   
+                });
+                $("#fbsetting").click(function(){
+                   $("#view2").hide();
+                   $("#view1").show();
+                   
+                   $("#twsetting").removeClass("top-subnav-link-active");
+                   $("#twsetting a").removeClass("h3-active-subnav");
+                   $("#fbsetting").removeClass("top-subnav-links");
+                   $("#fbsetting a").removeClass("h3");
+                   
+                   $("#twsetting").addClass("top-subnav-links");
+                   $("#twsetting a").addClass("h3");
+                   $("#fbsetting").addClass("top-subnav-link-active");
+                   $("#fbsetting a").addClass("h3-active-subnav");
+                });
                 $("#socialclick").click(function(){
                     $("#socialdropdown").css("display","block");
                 });
@@ -74,7 +102,7 @@
                         $("#popup").hide(); 
                         $("#submitbutton").prop("disabled",false);
                     }else {
-                        alert("No default page selected");
+                        alert(nodefaultpage);
                     }   
             });
             
@@ -111,7 +139,7 @@
                                 alert(data);
                             }
                         }).error(function (data, status, headers, config) {
-                            alert("No data available! Problem fetching the data.");
+                            alert(nodataerror);
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                         });
@@ -119,18 +147,18 @@
                     
                     $scope.clearFacebookDetails = function () {
 
-                    if(confirm('Do you want to really clear the details?')){
+                    if(confirm(clearconfirm)){
                         $http({
                             method: 'POST',
                             url: 'ServletUserPreferencesFacebook?access_token_method=clearFacebookDetails'
                         }).success(function (data, status, headers, config) {
                             $scope.getfacebookdetails();
                         }).error(function (data, status, headers, config) {
-                            alert("No data available! Problem fetching the data.");
+                            alert(nodataerror);
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                         });
-                        alert('Details cleared successfully!');
+                        alert(detailsclear);
                     }
                     };
                     
@@ -148,7 +176,7 @@
                                 $("#twitterclear").hide();
                             }
                         }).error(function (data, status, headers, config) {
-                            alert("No data available! Problem fetching the data.");
+                            alert(nodataerror);
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                         });
@@ -163,11 +191,11 @@
                         }).success(function (data, status, headers, config) {
                             $scope.getTwitterDetails();
                         }).error(function (data, status, headers, config) {
-                            alert("No data available! Problem fetching the data.");
+                            alert(nodataerror);
                             // called asynchronously if an error occurs
                             // or server returns response with an error status.
                         });
-                        alert('Details cleared successfully!');
+                        alert(detailsclear);
                     }
                     };
                  }    
