@@ -330,7 +330,4 @@
                     $("#fileUpload").val("");
                     $("#chooseEmailList").val("");
                 };
-            }
-       
-            
-        
+            }  
