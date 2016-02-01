@@ -69,8 +69,6 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             if (request.getParameter("htmldata") != null){
                 html_text = request.getParameter("htmldata");
             }
-
-            
             //
             String emaillist_name = request.getParameter("email_list");
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");

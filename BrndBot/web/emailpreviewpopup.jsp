@@ -15,7 +15,8 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="shortcut icon" href="favicon.png"></link>
     <script src="js/popup.js"></script>
-</head>    
+    <title>emailpreviewpopup</title>
+</head>
 
 <body>
 <div class="content">
@@ -79,7 +80,7 @@
                                     <div class="input-header-actionDetail" style="">
                                         Status
                                     </div>
-                                    <input type="text" id="mail_status" value="{{email_template_status}}" class="input-field-textfield width75 " readonly/>
+                                    <input type="text" id="mail_status" value="{{email_template_status}}" class="input-field-textfield width75" readonly/>
                                 </div>
                                 <div class="half">
                                     <div class="input-header-actionDetail" style="">

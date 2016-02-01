@@ -4,7 +4,6 @@
     Author     : satyajit-roy
 --%>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-5.css">
     <link rel="stylesheet" type="text/css" href="css/normalize5.css">
     <link rel="shortcut icon" href="favicon.png">
+    <script src="js/configurations.js" type="text/javascript"></script>
 </head>    
 
 <body>
@@ -22,11 +22,10 @@
     <div id="email_previewdiv">
         <div class="pop-up-background">
         <div class="pop-up-container-emailPreview"> 
-              <a class=" exit-button-detail-ep link svg" href="" id="closePreview">
+                <a class=" exit-button-detail-ep link svg" href="" id="closePreview">
                     <img type="image/svg+xml" src="images/Icons/close.svg" class="closeemailpreview" style="cursor:pointer;"> </img>
                 </a>
             <div class="pop-up-title-emailpreview "> 
-               
                 <div class="emailPreview-header fleft">Email Preview</div>
             </div>
             <!--inner-->
@@ -39,9 +38,9 @@
                                 <iframe id="dynamictable5" style="position: relative; width: 768px; border: none; height: 615px; top: -187px; left: -239px; transform: scale(0.3326); background-color: rgb(255, 255, 255);" src="<%=iframeUrl%>"></iframe>                   
                             </div>
                         </div>
-<!--                        <div class="desktopshow">
-                            <iframe id='dynamictable1' class="desktoppreview" src='<%=iframeUrl%>'></iframe> 
-                        </div>                        -->
+                        <div class="desktopshow" style="display:none;">
+                            <iframe id='dynamictable' class="desktoppreview" src='<%=iframeUrl%>'></iframe> 
+                        </div>                        
                     </div>
                     <div class="emailPreview-mobile-col fleft">
                         <div class="emailPreview-headers">Mobile Preview</div>
