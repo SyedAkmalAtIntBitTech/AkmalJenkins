@@ -29,6 +29,20 @@
                    $("#fbsetting").addClass("top-subnav-link-active");
                    $("#fbsetting a").addClass("h3-active-subnav");
                 });
+                $("#socialdropdown").mouseout(function(){
+                   // $("#socialdropdown").hide();
+                });    
+                var mouse_is_inside = false;
+                $('#socialdropdown').hover(function(){ 
+                    mouse_is_inside=true; 
+                }, function(){ 
+                    mouse_is_inside=false; 
+                });
+
+                $("body").mouseover(function(){ 
+                    if(! mouse_is_inside){ $('#socialdropdown').hide();}
+                });
+                
                 $("#socialclick").click(function(){
                     $("#socialdropdown").css("display","block");
                 });
