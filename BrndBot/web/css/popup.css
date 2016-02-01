@@ -1302,6 +1302,10 @@ div#savePassword {
     background-color: #0F76A6;
     color: #ffffff;
 }
-
+.sgnup{
+    position: relative;
+    left:150px;
+    top:-2.15em;
+}
 
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/

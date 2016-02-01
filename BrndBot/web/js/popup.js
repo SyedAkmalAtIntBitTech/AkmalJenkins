@@ -1,27 +1,17 @@
+
+var script = document.createElement('script');
+script.src = "js/alert_message.js";
+document.getElementsByTagName('script')[0].parentNode.appendChild(script);
+
 function overlay(){
     $("#fbpopupfooter").show();
-            //$(".black_overlay").fade(1000);
-            //document.getElementById('light').style.display = 'block';
             document.getElementById('fade').style.display = 'block';
             document.getElementById('blk').style.display = 'block';
-
-            //document.getElementById('slider-button').style.display = 'block';
             document.body.style.overflow = 'hidden';
-            // $("#calendar").css("pointer-events","none");
-            //$("#slider-button").hide();
         }
 function closeoverlay(){
-        //document.getElementById('light').style.display = 'none';
-        //$("#calendar").css("pointer-events","auto");
         document.getElementById('fade').style.display = 'none';
-//                    document.body.style.overflow = 'scroll';
-        //document.getElementById('blk').style.display = 'none';
-        //document.getElementById('edtfbimg').style.display = 'none';
-        //document.getElementById('prevtwtimg').style.display = 'none';
-        //document.getElementById('edttwtimg').style.display = 'none';
-        //document.getElementById('prevfbimg').style.display = 'none';
-}
-
+    }
 
 function fun(type,email,id,fname,lname)
 {
@@ -70,7 +60,7 @@ function getImageId(idname)
         $(".imageGallery-card >div >div").css("color", "#5F6775");
         $(".imageGallery-card").removeClass("blueborder");
         $(".imageGallery-card").addClass("bottom-margin");
-         $("#div"+id).removeClass("bottom-margin");
+        $("#div"+id).removeClass("bottom-margin");
         $("#div"+id).addClass("blueborder");
         $("#selectedimagename").val(imagename);
         $("#selectedimageid").val(id);
@@ -173,7 +163,7 @@ $(document).ready(function ()
        var urlregex = new RegExp("^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)");
        if(urlregex.test(textval) === false)
        {
-           alert("Please Enter Valid Link");
+           alert(linkerror);
            return false; 
        }
        $("#link").val(textval);
@@ -267,7 +257,6 @@ $(document).ready(function ()
         var fbLinkurl=$("#Linkurl").val();
         var facebookpreviewimage=$("#facebookpreviewimage").val();
         var twittertext=$("#twittertext").val();
-        //alert(twittertext);
         var twitterpreviewimage=$("#twitterpreviewimage").val();
         data.push(fbposttext);
         data.push(fblink_title);
@@ -281,15 +270,10 @@ $(document).ready(function ()
         var social=$("#social").val();
         var isFacebook=$("#isFacebook").val();
         var isTwitter=$("#isTwitter").val();
-        //document.location.href = "socialimageselection.jsp?image="+image+"&isTwitter="+isTwitter+"&isFacebook="+isFacebook+"&mediaType="+mediaType+"&selectedType="+selectedType+"&data="+data;
         window.open('socialimageselection.jsp?image='+id+'&isFacebook='+isFacebook+'&isTwitter='+isTwitter+'&mediatype='+social+'&selectedtype='+selectedtype+'&data='+data+'&gallery=gallery', "_self");
-        
-//        $("#gotoimageeditor").css("background-color", "#5CC1A4");
-//        $("#uploadimage").css("background-color", "#E3E3E3");
     });
     /*.......................................... recuring popup navbar ................*/
-    $("#recuringtemplate").click(function(){
-        
+    $("#recuringtemplate").click(function(){        
         $("#recuringactiondiv").hide();
         $("#recuringnotediv").hide();
         $("#recuringtemplatediv").show();
@@ -308,17 +292,6 @@ $(document).ready(function ()
         $("#recuringnote a").addClass("h3-subnav");
     });
     $("#recuringaction").click(function(){        
-//        var fb_scheduleid=$("#fb_scheduleid").val();
-//        var change=$("#change").val();
-//        if(change === "1")
-//        {
-//            var note=$("#fbnote"+fb_scheduleid).val();
-//            $("#fbdescription").text(note);
-//            $("#emptynoteheader").css("display","none");
-//            $("#notesavedheader").css("display","block");
-//      
-//            $("#change").val("0");
-//        }
         $("#recuringactiondiv").show();
         $("#recuringnotediv").hide();
         $("#recuringtemplatediv").hide();
@@ -439,30 +412,7 @@ $(document).ready(function ()
             $("#fbdescription").text(note);
             $("#emptynoteheader").css("display","none");
             $("#notesavedheader").css("display","block");
-            //$("#change").val("0");
         }
-//        $("#fbdescription").show();
-////         var desc=$("#fbnote").val();
-////         if(desc !== ''){alert(desc);$("#notesavedheader").css("display","block");$("#emptynoteheader").css("display","none");$("#fbdescription").show();}
-////         if(desc === ''){alert(desc);$("#emptynoteheader").css("display","block");$("#notesavedheader").css("display","none");}
-//        if(change === "1")
-//        {
-//            var note=$("#fbnote").val();
-//            if(note === ''){
-//                
-//                $("#fbdescription").text(note);
-//                $("#notesavedheader").css("display","none");
-//                $("#emptynoteheader").css("display","block");
-//            }
-//            if(note !== '')
-//            {
-//                $("#fbdescription").text(note);
-//                $("#emptynoteheader").css("display","none");
-//                $("#notesavedheader").css("display","block");
-//                
-//            }
-//            $("#change").val("0");
-//        }
         $("#facebookactionsection").show();
         $("#fbactionsave").show();
         $("#facebookpostsection").hide();
@@ -545,30 +495,7 @@ $(document).ready(function ()
             $("#fbdescription").text(note);
             $("#emptynoteheader").css("display","none");
             $("#notesavedheader").css("display","block");
-            //$("#change").val("0");
         }
-//        $("#fbdescription").show();
-////         var desc=$("#fbnote").val();
-////         if(desc !== ''){alert(desc);$("#notesavedheader").css("display","block");$("#emptynoteheader").css("display","none");$("#fbdescription").show();}
-////         if(desc === ''){alert(desc);$("#emptynoteheader").css("display","block");$("#notesavedheader").css("display","none");}
-//        if(change === "1")
-//        {
-//            var note=$("#fbnote").val();
-//            if(note === ''){
-//                
-//                $("#fbdescription").text(note);
-//                $("#notesavedheader").css("display","none");
-//                $("#emptynoteheader").css("display","block");
-//            }
-//            if(note !== '')
-//            {
-//                $("#fbdescription").text(note);
-//                $("#emptynoteheader").css("display","none");
-//                $("#notesavedheader").css("display","block");
-//                
-//            }
-//            $("#change").val("0");
-//        }
         $("#facebookactionsection").show();
         $("#fbactionsave").show();
         $("#facebookpostsection").hide();
@@ -832,12 +759,10 @@ $(document).ready(function ()
         var id=$("#scheduleId").val();
         var dateid=$("#emaildateid").val();
         $("#emaildatetime").val(dateid);
-        //alert(id);
         if(change === "1")
         {
             var note=$("#email_description"+id).val();
             $("#emaildescription"+id).html(note);
-            //$("#change").val("0");
         }
         $("#emailactionsection").show();
         $("#emailactionsave").show();
@@ -913,12 +838,10 @@ $(document).ready(function ()
         var id=$("#email_scheduleid").val();
         var dateid=$("#emaildateid").val();
         $("#emaildatetime").val(dateid);
-        //alert(id);
         if(change === "1")
         {
             var note=$("#emailnotes"+id).val();
             $("#emaildescription"+id).html(note);
-            //$("#change").val("0");
         }
         $("#emailactionsection").show();
         $("#emailactionsave").show();
@@ -992,29 +915,5 @@ $(document).ready(function ()
     $("#addactionlistClose").click(function(){
     $("#fade").hide();
     $("#addActionemllist").hide();
-//    document.getElementById('light').style.display = 'none';
-//    $("#calendar").css("pointer-events","auto");
-//    document.getElementById('fade').style.display = 'none';
-//    document.body.style.overflow = 'scroll';
-//    document.getElementById('blk').style.display = 'none';
-//    document.getElementById('edtfbimg').style.display = 'none';
-//    document.getElementById('prevtwtimg').style.display = 'none';
-//    document.getElementById('edttwtimg').style.display = 'none';
-//    document.getElementById('prevfbimg').style.display = 'none';
     });
-//    $("#fade").click(function(){
-//    $("#fade").hide();
-//    $("#addAction").hide();
-//    document.getElementById('light').style.display = 'none';
-//    $("#calendar").css("pointer-events","auto");
-//    document.getElementById('fade').style.display = 'none';
-//    document.body.style.overflow = 'scroll';
-//    document.getElementById('blk').style.display = 'none';
-//    document.getElementById('edtfbimg').style.display = 'none';
-//    document.getElementById('prevtwtimg').style.display = 'none';
-//    document.getElementById('edttwtimg').style.display = 'none';
-//    document.getElementById('prevfbimg').style.display = 'none';
-//  });
-    
-  
 });

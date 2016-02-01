@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/datepickerpikaday.css"/>
     <link rel="stylesheet" href="css/popup.css"/>
     <script src="js/moment.js" type="text/javascript"></script>
+    <script src="js/alert_message.js" type="text/javascript"></script>
     <script src="js/pikaday.js"></script>
     <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
