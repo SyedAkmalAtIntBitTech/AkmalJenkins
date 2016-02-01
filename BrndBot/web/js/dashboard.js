@@ -20,9 +20,9 @@ angular.module("myapp", [])
                     $(".message").hide();
                     $(".mindbodyactivationstatus").show();
                     if (data.activation_link === "") {
-                        $scope.mindbodyactivationmessage = "Mindbody not activated. Unknown error has occured.";
+                        $scope.mindbodyactivationmessage = mindbodynotactivated;
                     } else {
-                        $scope.mindbodyactivationmessage = "Mindbody not activated. Please visit this link to activate mindbody.";
+                        $scope.mindbodyactivationmessage = visitlinktoactivatemindbodydata;
                         $scope.mindbodyactivationlink = mindbody_data.activation_link;
                     }
                 } else if (data === error) {
@@ -38,18 +38,12 @@ angular.module("myapp", [])
                             alert(data);
                         }
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
+                        alert(nodataerror);
                     });
-
-
                     $scope.categories = data;
                 }
             }).error(function (data, status, headers, config) {
-                alert("No data available, problem fetching the data");
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
+                alert(nodataerror);
             });
 
 
@@ -70,17 +64,10 @@ angular.module("myapp", [])
                 {
                     $("#promoteheading").hide();
                     $("#subcatdiv").hide();
-                    $("#ifnodata").empty().append("Oops! This Category doesn't contain Sub Categories.");
+                    $("#ifnodata").empty().append(nosubcategoryerror);
                 }
-//                    if (data === error){
-//                        alert(data);
-//                    }
-
                 }).error(function (data, status) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-
-                    alert("request not succesful");
+                    alert(requesterror);
                 });
                         
                 if (CatID === 1) { 
@@ -124,16 +111,15 @@ angular.module("myapp", [])
         });
 
 function setSubCategoryID(category_id, id, sub_category_name, external_source) {
-            if (external_source == "null"){
-                var sub_category_data_id = id;
-                var category_data_id = category_id;
-                var sub_category_data_name = sub_category_name;
+    if (external_source == "null"){
+        var sub_category_data_id = id;
+        var category_data_id = category_id;
+        var sub_category_data_name = sub_category_name;
+        var configuration = global_host_address + "channelselection.jsp?category_id=" + category_data_id + "&sub_category_name=" + sub_category_data_name + "&sub_category_id=" + sub_category_data_id + "&external_source=" + external_source;
+        window.open(configuration, "_self");
+    }else {
 
-                var configuration = global_host_address + "channelselection.jsp?category_id=" + category_data_id + "&sub_category_name=" + sub_category_data_name + "&sub_category_id=" + sub_category_data_id + "&external_source=" + external_source;
-                window.open(configuration, "_self");
-            }else {
-
-                var configuration = global_host_address + "mindbody.jsp?category_id=" + category_id + "&sub_category_name=" + sub_category_name + "&sub_category_id=" + id + "&external_source=" + external_source;
-                window.open(configuration, "_self");
-            }    
+        var configuration = global_host_address + "mindbody.jsp?category_id=" + category_id + "&sub_category_name=" + sub_category_name + "&sub_category_id=" + id + "&external_source=" + external_source;
+        window.open(configuration, "_self");
+    }    
 }

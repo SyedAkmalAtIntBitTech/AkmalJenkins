@@ -17,35 +17,34 @@ function UserController($scope, $http)
             return false;
         }
     }
-
     function validate() {
         var sEmail = $('#inputemail').val();
         var password = $("#inputpassword").val();
         var confirmPass = $("#inputreenter").val();
 
         if ($.trim(sEmail).length == 0) {
-            alert('Please enter valid email address');
+            alert(emailerror);
             $("#inputemail").focus();
             return false;
         }
         if (!(validateEmail(sEmail))) {
-            alert('Invalid Email Address');
+            alert(wrongemail);
             $("#inputemail").focus();
             return false;
         }
         if (password === "") {
-            alert("Enter the password!");
+            alert(passworderror);
             $("#inputpassword").focus();
             return false;
         }
         if (confirmPass === "") {
-            alert("Enter the password!");
+            alert(confirmpassworderror);
             $("#inputpassword").focus();
             return false;
         }
 
         if (password !== confirmPass) {
-            alert("Enter the same password!");
+            alert(passwordmatcherror);
             $("#inputreenter").focus();
             return false;
         }
@@ -65,7 +64,7 @@ function UserController($scope, $http)
             {
                 $scope.status = data;
                 if (data === "false") {
-                    alert("User already exist!");
+                    alert(userexits);
                     window.open(getHost() + 'signup.jsp', "_self");
                 } else if (data === "true") {
                     window.open(getHost() + 'organization.jsp', "_self");
@@ -73,20 +72,15 @@ function UserController($scope, $http)
                     alert(data);
                 }
             })
-                    .error(function (data, status) {
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-                        alert("Request not successful!");
-                    });
+            .error(function (data, status) {
+                alert(requesterror);
+            });
         }
-
     };
-
 }
 
 function ForgotPassController($scope, $http) {
     $scope.user = {};
-
     function validateEmail(sEmail) {
         var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
         if (filter.test(sEmail)) {
@@ -99,14 +93,13 @@ function ForgotPassController($scope, $http) {
 
     function validate() {
         var sEmail = $('#inputemail').val();
-
         if ($.trim(sEmail).length == 0) {
-            alert('Please enter valid email address');
+            alert(emailerror);
             $("#inputemail").focus();
             return false;
         }
         if (!(validateEmail(sEmail))) {
-            alert('Invalid Email Address');
+            alert(wrongemail);
             $("#inputemail").focus();
             return false;
         }
@@ -114,7 +107,6 @@ function ForgotPassController($scope, $http) {
     }
 
     $scope.checkEmail = function () {
-
         if (validate()) {
             $http({
                 method: 'POST',
@@ -125,21 +117,18 @@ function ForgotPassController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "true") {
-                    alert("Password reset link has been sent to your email id.");
+                    alert(passwordresetlinksent);
                 } else if (data === "false") {
-                    alert("Incorrect email id!");
+                    alert(wrongemail);
                 } else if (data === error) {
                     alert(data);
                 }
             })
-                    .error(function (data, status) {
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-                        alert("Request not successful!");
-                    });
+            .error(function (data, status) {
+                alert(requesterror);
+            });
         }
     };
-
 }
 function loginController($scope, $http) {
     $scope.user = {};
@@ -154,28 +143,19 @@ function loginController($scope, $http) {
         {
             $scope.status = data;
             if (data === "true") {
-//                $("#inputpassword").prop({type:"password"});
                 window.open(getHost() + 'dashboard.jsp', "_self");
             } else if (data === "false") {
-                alert("Incorrect username or password!");
+                alert(incorrectpasswordorusername);
                 window.open(getHost() + 'login.jsp', "_self");
-//                $("#inputpassword").prop({type:"text"});
-//                $("#inputpassword").val('');
-//                alert($("#inputpassword").val());
             } else if (data === error) {
                 alert(data);
             }
         })
-                .error(function (data, status) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                    alert("Request not successful!");
-                });
-
+        .error(function (data, status) {
+            alert(requesterror);
+        });
     };
-
 }
-
         angular.module("myapp", [])
         .controller("MyController", function ($scope, $http) {
             $scope.organizations = {};
@@ -185,23 +165,18 @@ function loginController($scope, $http) {
             }).success(function (data, status, headers, config) {
                 $scope.organizations.org_name = data;
             }).error(function (data, status, headers, config) {
-                alert("No data available! Problem fetching the data.");
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
-            
+                alert(nodataerror);
+            });            
             $scope.validate = function(){
                 var company_name = $("#inputcompanyname").val();
-                var organization_name = $("#organizationdropdown").val();
-                
+                var organization_name = $("#organizationdropdown").val();                
                 if (company_name == ""){
-                    alert("company name not entered, please enter the company name");
+                    alert(companynameerror);
                     $("#inputcompanyname").focus();
                     return false;
-                }
-                
+                }                
                 if (organization_name == 0){
-                    alert("organization name not entered, please enter the organization name");
+                    alert(organizationnameerror);
                     $("#organizationdropdown").focus();
                     return false;
                 }
@@ -210,13 +185,10 @@ function loginController($scope, $http) {
             
             $scope.createOrganization = function ()
             {
-                if ($scope.validate()){
-                    
+                if ($scope.validate()){                    
                 var company_name = $("#inputcompanyname").val();
                 var organization_name = $("#organizationdropdown").val();
-
-                var organization = {"company": company_name, "organization": organization_name}
-                    
+                var organization = {"company": company_name, "organization": organization_name}                    
                     $http({
                         method: 'POST',
                         url: getHost() + 'AddUpdateOrganization',
@@ -231,9 +203,7 @@ function loginController($scope, $http) {
                             alert(data);
                         }
                     }).error(function (data, status) {
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-                        alert("Request not successful!");
+                        alert(requesterror);
                     });
                 }
             };

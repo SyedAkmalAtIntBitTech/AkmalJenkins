@@ -22,10 +22,11 @@
     <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/alert_message.js"></script>
     <script src="js/configurations.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/dashboard.js"></script>
-     <jsp:include page="basejsp.jsp" />
+    <jsp:include page="basejsp.jsp" />
 </head>    
 
 <body class="" >
@@ -59,15 +60,6 @@
             </div>
         </div>
         </div>
-    </div>
-  
-        <!--CTA Bar
-        <div class="bottom-cta-bar">
-            <div class="bottom-cta-button-container">
-             REMOVE BUTTON HERE
-               <div class="remove-button-detail md-button button-text-1">Delete Selected Actions</div>
-
-            </div>-->
-       
+    </div>       
     </body>
 </html>
