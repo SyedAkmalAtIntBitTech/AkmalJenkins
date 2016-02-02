@@ -221,7 +221,7 @@
                         {
                             var bit_url = v.data.url;
                             $("#sortLengthurl").val(bit_url);
-                            if (isFacebook == "true") {
+                            if (isFacebook == "true" || isTwitter == "true") {
                                 $.ajax({
                                     url: 'PostToSocial',
                                     method: 'post',
@@ -246,34 +246,6 @@
                                         $('.window').hide();
                                         alert(postpublish);
 
-                                        document.location.href = "dashboard.jsp";
-                                    }
-                                });
-                            }
-                            if (isTwitter == "true") {
-                                $.ajax({
-                                    url: 'PostToSocial',
-                                    method: 'post',
-                                    data: {
-                                        imageToPost: image_name,
-                                        accesstoken: $("#accesstoken").val(),
-                                        postText: $("#posttext").val(),
-                                        title: $("#link_title").val(),
-                                        url: $("#link").val(),
-                                        twittweraccestoken: $("#twittweraccestoken").val(),
-                                        twitterTokenSecret: $("#twitterTokenSecret").val(),
-                                        text: $("#twittertext").val(),
-                                        isFacebook: isFacebook,
-                                        isTwitter: isTwitter,
-                                        imagePost: image_name,
-                                        description: link_description,
-                                        imageType: image_type,
-                                        shorturl: $("#sortLengthurl").val()
-                                    },
-                                    success: function (responseText) {
-                                        $('#mask').hide();
-                                        $('.window').hide();
-                                        alert(postpublish);
                                         document.location.href = "dashboard.jsp";
                                     }
                                 });
