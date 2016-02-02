@@ -601,20 +601,16 @@ $edit=0;
                             return false;
                         }
                     }
-                    if(email_first_name==="")
+                    if(email_first_name!=="")
                     {
-                        error++;
-                        alert(firstnameerror);
-                        $("#firstName").focus();
-                        return false;
-                    }
-                    if(email_last_name==="")
-                    {
-                        error++;
-                        alert(lastnameerror);
-                        $("#lastName").focus();
-                        return false;
-                    }
+                        if(email_last_name==="")
+                        {
+                            error++;
+                            alert(lastnameerror);
+                            $("#lastName").focus();
+                            return false;
+                        }
+                    }                    
                     if(error===0)
                     {
                         return true;   

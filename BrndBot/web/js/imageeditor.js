@@ -21,8 +21,6 @@
            }
        },
        onError: function(errorObj) {
-           //alert("error");
-           //alert(errorObj.message);
        }
    }); 
    

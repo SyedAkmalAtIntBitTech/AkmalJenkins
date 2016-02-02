@@ -12,7 +12,6 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <%@ include file="fonttypekit.jsp"%>
         <%@ include file="checksession.jsp" %>
-
         <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="js/angular.min.js"></script>  
         <script src="js/configurations.js" type="text/javascript"></script>

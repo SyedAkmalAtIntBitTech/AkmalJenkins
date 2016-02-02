@@ -1273,7 +1273,7 @@ table#fbmanagepages {
     color: #000;
     border-radius: 3px;
 }
-#brandsettingdiv
+#logosettingdiv,#palettesettingdiv
 {
     display: none;
 }
@@ -1306,6 +1306,46 @@ div#savePassword {
     position: relative;
     left:150px;
     top:-2.15em;
+}
+.glyphicon.glyphicon-home,.glyphicon.glyphicon-envelope,.glyphicon.glyphicon-comment, .glyphicon.glyphicon-picture, .glyphicon.glyphicon-cog{
+    font-size:20px;
+    position: relative;
+    left:-15px;
+    padding: 7px;
+}
+#inputreenter:valid ~ label {
+    left: -70px !important;
+    font-size: 13px;
+    color: #999;
+}
+.leftassign{
+    float:left;
+}
+.tabcontents{
+    margin-left:130px !important;
+    margin-bottom: 30px;
+}
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.container{
+    position: absolute;
+    float: left;
+    /*margin-left: -250px;*/
 }
 
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/

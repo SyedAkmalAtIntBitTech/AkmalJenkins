@@ -79,34 +79,64 @@ $(document).ready(function ()
     });
     
     $("#accountsettingtab").click(function(){
-        $("#brandsettingdiv").hide();
+        $("#logosettingdiv").hide();
+        $("#palettesettingdiv").hide();
         $("#accountsettingdiv").show();
         
-        $("#brndsettingtab").removeClass("top-subnav-link-active");
-        $("#brndsettingtab a").removeClass("h3-active-subnav");
-        $("#accountsettingtab").removeClass("top-subnav-links");
-        $("#accountsettingtab a").removeClass("h3");
+        $("#logosettingtab").removeAttr("class");
+        $("#logosettingtab a").removeAttr("class");
+        $("#palettesettingtab").removeAttr("class");
+        $("#palettesettingtab a").removeAttr("class");
+        $("#accountsettingtab").removeAttr("class");
+        $("#accountsettingtab a").removeAttr("class");
                 
-        $("#brndsettingtab").addClass("top-subnav-links");
-        $("#brndsettingtab a").addClass("h3");
+        $("#logosettingtab").addClass("top-subnav-links");
+        $("#logosettingtab a").addClass("h3");
+        $("#palettesettingtab").addClass("top-subnav-links");
+        $("#palettesettingtab a").addClass("h3");
         $("#accountsettingtab").addClass("top-subnav-link-active"); 
         $("#accountsettingtab a").addClass("h3-active-subnav"); 
     });
     
-    $("#brndsettingtab").click(function(){
+    $("#logosettingtab").click(function(){
         $("#accountsettingdiv").hide();
-        $("#brandsettingdiv").show();
+        $("#palettesettingdiv").hide();
+        $("#logosettingdiv").show();
         
-        $("#brndsettingtab").removeClass("top-subnav-links");
-        $("#brndsettingtab a").removeClass("h3");
-        $("#accountsettingtab").removeClass("top-subnav-link-active");
-        $("#accountsettingtab a").removeClass("h3-active-subnav");
+        $("#logosettingtab").removeAttr("class");
+        $("#logosettingtab a").removeAttr("class");
+        $("#palettesettingtab").removeAttr("class");
+        $("#palettesettingtab a").removeAttr("class");
+        $("#accountsettingtab").removeAttr("class");
+        $("#accountsettingtab a").removeAttr("class");
         
-        $("#brndsettingtab").addClass("top-subnav-link-active");
-        $("#brndsettingtab a").addClass("h3-active-subnav");
+        $("#logosettingtab").addClass("top-subnav-link-active");
+        $("#logosettingtab a").addClass("h3-active-subnav");
+        $("#palettesettingtab").addClass("top-subnav-links");
+        $("#palettesettingtab a").addClass("h3");
         $("#accountsettingtab").addClass("top-subnav-links"); 
         $("#accountsettingtab a").addClass("h3"); 
     });
+    $("#palettesettingtab").click(function(){
+        $("#accountsettingdiv").hide();
+        $("#logosettingdiv").hide();
+        $("#palettesettingdiv").show();
+        
+        $("#logosettingtab").removeAttr("class");
+        $("#logosettingtab a").removeAttr("class");
+        $("#palettesettingtab").removeAttr("class");
+        $("#palettesettingtab a").removeAttr("class");
+        $("#accountsettingtab").removeAttr("class");
+        $("#accountsettingtab a").removeAttr("class");
+        
+        $("#palettesettingtab").addClass("top-subnav-link-active");
+        $("#palettesettingtab a").addClass("h3-active-subnav");
+        $("#logosettingtab").addClass("top-subnav-links");
+        $("#logosettingtab a").addClass("h3");
+        $("#accountsettingtab").addClass("top-subnav-links"); 
+        $("#accountsettingtab a").addClass("h3"); 
+    });
+    
         
     $("#schedule_social_time").click(function(){
         $(".timepicker_wrap").css("margin-top","-207px");
