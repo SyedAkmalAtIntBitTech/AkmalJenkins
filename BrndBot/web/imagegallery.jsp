@@ -37,8 +37,8 @@ s    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
 <body ng-app="rootApp"  class="claro1" ng-controller="controllerMarketingCampaign">
     <!--SideNav-->
     <div class="content-main">
+        <jsp:include page="imageuploadpopup.jsp"/>
     <jsp:include page="navbarv2.jsp"/>  
-    <jsp:include page="imageuploadpopup.jsp"/>
     <!--Top Nav-->   
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
