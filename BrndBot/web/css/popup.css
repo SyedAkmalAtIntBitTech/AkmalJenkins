@@ -1342,10 +1342,14 @@ div#savePassword {
     filter: alpha(opacity=0);
 }
 
-.container{
-    position: absolute;
-    float: left;
-    /*margin-left: -250px;*/
+.page-background11 {
+    background-color: #EFF2F6;
+    width: 105%;
+    margin: 0px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    height: 100vh;
+    padding-left: 70px;
 }
-
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/
