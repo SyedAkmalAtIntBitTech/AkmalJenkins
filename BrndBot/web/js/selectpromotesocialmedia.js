@@ -30,7 +30,7 @@ $(document).ready(function(){
                         $('#loadingGif').hide();
                     }
                 }
-            });facebookok
+            });
             document.getElementById("facebook").checked=true;
             document.getElementById("fb").src="images/fbButton_darkblue_new.svg"; 
             $("#mousef").css("background-color","#F9F9F9");
@@ -215,11 +215,6 @@ var sub_category_name=$("#sub_category_name").val();
                 $('#facebook').prop('checked', false); 
                 $('#twitter').prop('checked', false); 
             });
-            
-            $(document).ready(function () {
-                           alert(success);
-           });
-           
            function imgchng(){
                document.getElementById("fb").src="images/fb_icon.png";
                

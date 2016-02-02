@@ -26,30 +26,66 @@ $(document).ready(function () {
 //                           $("#tokenHere").html(responseText);
 //                           alert(responseText);
                 var fb_details = responseText.split(",");
-
                 if (fb_details[0] == "") {
-
                     document.location.href = "GetUserFacebookManagePages";
-
                 } else {
                     document.location.href = "GetUserFacebookManagePages";
                 }
             }
         });
 
-        $("#close").click(function () {
-
-            $("#popup").hide();
-
+        $("#closefbpopupa").click(function () {            
+            $("#fbpopup").hide();
+            $("#fade").fadeOut();
         });
     });
 
+$('#setPin').click(function () {
+        var pin = $("#pinTextBox").val();
+
+        if (pin.length > 0) {
+            $.ajax({
+                url: 'GetTwitterToken',
+                method: 'post',
+                data: {
+                    pin: $("#pinTextBox").val()
+                },
+                success: function (responseText) {
+//                        $("#tokenHere").html(responseText);
+                    $("#twaccessTokenSend").val(responseText);
+                    twitter_access_tokens = responseText;
+                    $.ajax({
+                        url: 'ServletUserPreferencesTwitter',
+                        method: 'post',
+                        data: {
+                            access_token_method: "setAccessToken",
+                            twitter_access_tokens: twitter_access_tokens
+                        },
+                        success: function (responseText) {
+                            angular.element(document.getElementById('controllerSocial')).scope().getTwitterDetails();
+
+                        }
+                    });
+
+                    $("#submitbutton").prop("disabled", false);
+                }
+            });
+        $("#twpopup").hide();
+        $("#fade").hide();
+
+        } else {
+            alert("Please enter the pin code!");
+            $("#pinTextBox").focus();
+        }
+
+    });
     $("#twitter").click(function () {
         twittercheck = document.getElementById("twitter").checked;
-//            alert(twittercheck);
         $("#submitbutton").prop("disabled", true);
         $("#isTwitter").val(twittercheck);
         var twitter_access_tokens = "";
+
+        
 
         $.ajax({
             url: 'ServletUserPreferencesTwitter',
@@ -59,9 +95,9 @@ $(document).ready(function () {
             },
             success: function (responseText) {
                 if (responseText == "") {
-
-                    $("#twitterpopup").show();
-
+                    $("#pinTextBox").val("");
+                    $("#fade").show();
+                    $("#twpopup").show();
                     $.ajax({
                         url: 'GetTwitterToken',
                         method: 'get',
@@ -70,47 +106,7 @@ $(document).ready(function () {
                             //alert(responseText);
                         }
                     });
-                    $('#setPin').click(function () {
-                        var pin = $("#pinTextBox").val();
-
-                        if (pin.length > 0) {
-                            $.ajax({
-                                url: 'GetTwitterToken',
-                                method: 'post',
-                                data: {
-                                    pin: $("#pinTextBox").val()
-                                },
-                                success: function (responseText) {
-//                        $("#tokenHere").html(responseText);
-                                    $("#twaccessTokenSend").val(responseText);
-                                    twitter_access_tokens = responseText;
-                                    $.ajax({
-                                        url: 'ServletUserPreferencesTwitter',
-                                        method: 'post',
-                                        data: {
-                                            access_token_method: "setAccessToken",
-                                            twitter_access_tokens: twitter_access_tokens
-                                        },
-                                        success: function (responseText) {
-                                            angular.element(document.getElementById('controllerSocial')).scope().getTwitterDetails();
-
-                                        }
-                                    });
-
-                                    $("#submitbutton").prop("disabled", false);
-                                }
-                            });
-
-                            $("#twitterpopup").hide();
-
-
-                        } else {
-                            alert("Please enter the pin code!");
-                            $("#pinTextBox").focus();
-                        }
-
-                    });
-
+                    
                 } else {
                     $("#twaccessTokenSend").val(responseText);
                     $("#submitbutton").prop("disabled", false);
@@ -121,11 +117,8 @@ $(document).ready(function () {
         });
 
     });
-    $("#closetwitter").click(function () {
-
-        $("#twitterpopup").hide();
-        $("#submitbutton").prop("disabled", true);
-
-
+    $("#twpopupClose2").click(function () {
+        $("#twpopup").hide();
+        $("#fade").hide();
     });
 });
