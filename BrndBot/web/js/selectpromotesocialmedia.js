@@ -18,18 +18,15 @@ $(document).ready(function(){
                     access_token_method: "getAccessToken"
                 },
                 success: function (responseText) {
-//                           $("#tokenHere").html(responseText);
                     var fb_details = responseText.split(",");
                     if (fb_details[0] == "") {    
                         document.location.href = "GetFacebookManagePage";
                         $("#isFacebook").val(facebookcheck);
                     } else {
-//                      var fb_details = responseText.split(",");
                         $("#fbaccessTokenSend").val(fb_details[0]);
                         $("#pagenameSend").val(fb_details[2]);
                         $("#fbdefaultAccessToken").val("true");
                         $("#isFacebook").val("true");
-//                      $("#submitbutton").prop("disabled", false);
                         $('#loadingGif').hide();
                     }
                 }
@@ -69,8 +66,6 @@ $(document).ready(function(){
             document.getElementById("facebook").checked=false;
             $("#fbimgd").html('<img id="fb" class="chooseList-icon" src="images/white.png">');
             $("#mousef").css("background-color","#ffffff");
-            //$("#fb").attr("src", "images/white.png");
-            //document.getElementById("fb").src="images/white.png";
         }
    });
    
@@ -100,7 +95,7 @@ $(document).ready(function(){
                             twitter_access_tokens: twitter_access_tokens
                         },
                         success: function (responseText) {
-                            alert("Twitter token successfully added to your profile")
+                            alert(twittertokenseccess)
                             $("#twpopup").hide();                            
                             $("#fade").hide();
                         }
@@ -109,7 +104,7 @@ $(document).ready(function(){
             });
 
         } else {
-            alert("Please enter the pin code!");
+            alert(pinerror);
             $("#pinTextBox").focus();
         }
     });
@@ -136,8 +131,6 @@ $(document).ready(function(){
                     if (responseText == "") {                             
                         $("#fade").show();
                         $("#twpopup").show();
-                        //$("#twitterpopup").show();
-                        //$(".clicktwitter").click();
                         $.ajax({
                             url: 'GetTwitterToken',
                             method: 'get',
@@ -147,9 +140,7 @@ $(document).ready(function(){
                         });
                     } else {
                         $("#twaccessTokenSend").val(responseText);
-//                        $("#submitbutton").prop("disabled", false);
                     }
-
                 }
             });
             document.getElementById("twitter").checked=true;
@@ -191,12 +182,10 @@ $(document).ready(function(){
     });
 });
   
-    $("#closetwitter").click(function () {
-        //$("#twitterpopup").hide();
-        $(".close-reveal-modal").click();
-        $("#submitbutton").prop("disabled", true);
-    });
-
+$("#closetwitter").click(function () {
+    $(".close-reveal-modal").click();
+    $("#submitbutton").prop("disabled", true);
+});
 
 var category_id=$("#category_id").val();
 var sub_category_id=$("#sub_category_id").val();
@@ -207,16 +196,13 @@ var sub_category_name=$("#sub_category_name").val();
             window.open(configuration, "_self");
         }
  function selcheckbox(id){
-//     changeImagef();
-//     changeImaget();
             content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
             var htm=$("#"+id).html();
             if(htm.contains('class="check-icon"')){
                 $("#"+id).html(content);
-                //alert(id);
             }
             else
-            {alert(id);
+            {
                 $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
                 alert(id+"1");
             }
@@ -231,71 +217,7 @@ var sub_category_name=$("#sub_category_name").val();
             });
             
             $(document).ready(function () {
-//                
-//                $("#isdefault").click(function () {
-////                    managed_page = $("#isDefault").val();
-////                    alert(check_default);
-//                    if (check_default == "true"){
-//                        default_access_token = $("#fbaccessTokenSend").val();
-//                    }
-//                    
-////                    if (check_default == "true"){
-////                        $.ajax({
-////                                url: 'SetUserFacebookAccessToken',
-////                                method: 'post',
-////                                type:"JSON",
-////                                data: {
-////                                    method: "setAccessToken",
-////                                    access_token:default_access_token
-////                                },
-////                                success: function (responseText) {
-////    //                            $("#tokenHere").html(responseText);
-////                                    alert("sucess");
-////                                }
-////                            });
-////                    }
-//                    });
-//
-//                $("#facebookok").click(function () {
-////                    managed_page = $("#isDefault").val();
-//                    document.getElementById("fb").src="images/fbButton_darkblue_new.svg";
-//                    check_default_managed_page = document.getElementById("isdefault").checked;
-//                    if ((check_default_managed_page == true) && (check_default == "true")){
-//                        $.ajax({
-//                                url: 'ServletUserPreferencesFacebook',
-//                                method: 'post',
-////                                type:"JSON",
-//                                data: {
-//                                   access_token_method: "setAccessToken",
-//                                   access_token:default_access_token
-//                                },
-//                                success: function (responseText) {
-//    //                            $("#tokenHere").html(responseText);
-//                   
-//                                    //$("#popup").hide(); 
-//                                    $(".close-reveal-modal").click();
-//                                     $("#submitbutton").prop("disabled",false);
-//                                }
-//                            });
-//                    }else if((check_default_managed_page == false) && (check_default == "true")) { 
-//                        //$("#popup").hide(); 
-//                        $(".close-reveal-modal").click();
-//                        $("#submitbutton").prop("disabled",false);
-//                    }else {
-//                        alert("No default page selected!");
-//                    } 
-//            });
-//            
-//                $("#close").click(function(){
-//                    $("#fbaccessTokenSend").val("") ;
-//                    $("#fbdefaultAccessToken").val("");
-//                    $("#isFacebook").val("false");
-//                    $("#facebook").prop("checked",false);
-//                    //$("#popup").hide();
-//                    $(".close-reveal-modal").click();
-//                    $("#twitterpopup").hide();
-//                    $("#submitbutton").prop("disabled",true);
-//            });   
+                           alert(success);
            });
            
            function imgchng(){

@@ -25,21 +25,21 @@
     <script src="js/popup.js" type="text/javascript"></script>      
     <script src="js/timepicki.js" type="text/javascript"></script>  
     <jsp:include page="basejsp.jsp"/>
-     <%!
+    <%!
             String program_id = "";
             String program_date="";
             int past = 0;
-     %>
-        <%
-            program_id = request.getParameter("program_id");
-            past = Integer.parseInt(request.getParameter("past"));
-            program_date = request.getParameter("program_date");
-        %>
-        <script>
-            var program = "";
-            program = <%= program_id %>;
-        </script>        
-        <script src="js/programactions.js"></script>
+    %>
+    <%
+        program_id = request.getParameter("program_id");
+        past = Integer.parseInt(request.getParameter("past"));
+        program_date = request.getParameter("program_date");
+    %>
+    <script>
+        var program = "";
+        program = <%= program_id %>;
+    </script>        
+    <script src="js/programactions.js"></script>
 </head>    
 
 <body class="" ng-app ng-controller="programactions">

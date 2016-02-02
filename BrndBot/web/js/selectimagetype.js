@@ -1,11 +1,4 @@
-function Showimguploadpopup()
-{
-    document.getElementById('fade').style.display = 'block';
-    document.getElementById('imagepopup').style.display = 'block';
-    document.getElementById('addAction').style.display = 'block';
-    overlay();
-}
-             $("#Servicecontinue").hide();
+        $("#Servicecontinue").hide();
         var rootApp = angular.module('rootApp', ['uploadModule','imagegallery']);
     
         var uploadModule = angular.module('uploadModule', []);
@@ -59,7 +52,7 @@ function Showimguploadpopup()
             angular.element(document).ready(function() {
                    angular.bootstrap(uploadModule, ['uploadModule']);
             });
-
+           
             var imagegallery = angular.module('imagegallery', []);
 
                 imagegallery.controller('samplecontoller', function ($scope,$http) {
@@ -118,3 +111,52 @@ function Showimguploadpopup()
                  };
                 });
             
+        var fl = document.getElementById('filesToUpload');
+
+        fl.onchange = function (e) {
+            var ext = this.value.match(/\.(.+)$/)[1];
+            switch (ext)
+            {
+                case 'jpg':
+                case 'png':
+                case 'jpeg':
+                case 'JPG':
+                case 'PNG':
+                case 'JPEG':
+                case 'svg':
+                case 'SVG':
+                break;
+                default:
+                    alert('This type of image is not allowed');
+                    this.value = '';
+            }
+        };
+
+        function fileSelect(evt) {
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+                var files = evt.target.files;
+
+                var result = '';
+                var file;
+                for (var i = 0; file = files[i]; i++) {
+                    if (!file.type.match('image.*')) {
+                        continue;
+
+                    }
+                    reader = new FileReader();
+                    reader.onload = (function (tFile) {
+                        return function (evt) {
+                            var div = document.createElement('div');
+                            div.innerHTML = '<img style="width: 90px;" src="' + evt.target.result + '" />';
+                            document.getElementById('logoimage').src = evt.target.result;
+                            $("#Servicecontinue").show();
+                        };
+                    }(file));
+                    reader.readAsDataURL(file);
+                }
+            } else {
+                alert(filenotsuporte);
+            }
+        }
+
+        document.getElementById('filesToUpload').addEventListener('change', fileSelect, false);
