@@ -46,12 +46,12 @@ public class ScheduleAnEmail implements Runnable {
             List<TblScheduledEntityList> scheduledAnEmail = getLatestApprovedSendEmail();
 
             //The below table should be reused or needs a new table specifically for FB.
-            for (TblScheduledEntityList currentScheduledEmail : scheduledAnEmail) {
+            for (TblScheduledEntityList currentScheduledEmail:scheduledAnEmail) {
                 if (scheduledAnEmail != null) {
                 //The time zone of the saved date should be extracted.
                     //This time zone should be applied to the current time and then this comparison needs to be made.
-                    boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledEmail.getScheduleTime());
-//                boolean shouldPostNow = true;
+                  boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledEmail.getScheduleTime());
+//                    boolean shouldPostNow = true;
                     logger.log(Level.SEVERE, "Message to display entity id " + currentScheduledEmail.getEntityId() + " and schedule time:", currentScheduledEmail.getScheduleTime());
                     logger.log(Level.SEVERE, "Current time:" + new Date());
                     if (shouldPostNow) {
@@ -63,20 +63,18 @@ public class ScheduleAnEmail implements Runnable {
                         String jsonString = sendAnEmail.getToEmailAddresses();
                         JSONObject json = (JSONObject) new JSONParser().parse(jsonString);
                         String to_email_addresses = "";
-                        org.json.simple.JSONArray jSONArray = (org.json.simple.JSONArray) json.get("emailAddresses");
-                        for (Integer i = 0; i < jSONArray.size(); i++) {
-                            to_email_addresses += jSONArray.get(i).toString();
-                            if ((i + 1) < jSONArray.size()) {
-                                to_email_addresses += ",";
-                            }
-                        }
                         String emaillist_name = sendAnEmail.getEmailListName();
                         Integer user_id = currentScheduledEmail.getUserId();
                         String reply_to_address = sendAnEmail.getReplyToEmailAddress();
                         String from_email_address = sendAnEmail.getFromAddress();
+                        String message = "";
                         String from_name = sendAnEmail.getFromName();
+                        org.json.simple.JSONArray jSONArray = (org.json.simple.JSONArray) json.get("emailAddresses");
+                        for (Integer i = 0; i < jSONArray.size(); i++) {
+                            to_email_addresses = jSONArray.get(i).toString();
+                            message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name, "");
+                        }
 //                    String message = "success";//TODO
-                        String message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name, "");
 
                         if (message.equalsIgnoreCase("success")) {
                             updateStatusScheduledEmail(currentScheduledEmail);
