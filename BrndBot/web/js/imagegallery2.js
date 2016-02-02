@@ -38,7 +38,7 @@ function Showimguploadpopup()
                                 window.open(global_host_address + 'imagegallery.jsp', "_self");
                             })
                             .error(function () {
-                                alert("request unsuccessful");
+                                alert(requesterror);
                             });
                     };
                 }]);
@@ -82,9 +82,7 @@ function Showimguploadpopup()
                             alert(data);
                         }
                     }).error(function(data, status, headers, config) {
-                            alert("No data available, problem fetching the data");
-                            // called asynchronously if an error occurs
-                            // or server returns response with an error status.
+                            alert(nodataerror);
                     });
 
                     };
@@ -101,7 +99,7 @@ function Showimguploadpopup()
                         {
                             $scope.status = data;
                             if (data === "true") {
-                                alert("Image deleted successfully");
+                                alert(imagedeletesuccess);
                                 window.open(getHost() + 'imagegallery.jsp', "_self");
                             } else if (data === error) {
                                 alert(data);

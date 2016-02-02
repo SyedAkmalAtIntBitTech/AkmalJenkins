@@ -83,14 +83,14 @@
                     {
                         if($("#posttext").val()==="")
                         {
-                            alert("Please enter Title for Facebook");
+                            alert(facebooktitle);
                             flag=1;
                             $("#posttext").focus();
                             return false;
                         }
                         if(image_name==="")
                         {
-                            alert("Please choose an Image");
+                            alert(chooseimage);
                             flag=1;
                             $("#fade").show();
                             $("#addContact").show();
@@ -100,14 +100,14 @@
                         {
                             if($("#link_title").val()==="")
                             {
-                                alert("Please enter Link Title");
+                                alert(linktitleerror);
                                 flag=1;
                                 $("#link_title").focus();
                                 return false;
                             }
                             if($("#link_description").val()==="")
                             {
-                                alert("Please write the description");
+                                alert(descriptionerror);
                                 flag=1;
                                 $("#link_description").focus();
                                 return false;
@@ -119,22 +119,14 @@
                     {
                         if($("#twittertext").val()==="")
                         {
-                            alert("Please enter Title for Twitter");
+                            alert(twittertitle);
                             flag=1;
                             $("#twittertext").focus();
                             return false;
                         }
-                        if($("#link").val()==="")
-                        {
-//                            alert("Please enter Link for Twitter");
-//                            $("#linkpopup").show();
-//                            $("#fade").show();
-//                            flag=1;
-//                            return false;
-                        }
                         if(image_name==="")
                         {
-                            alert("Please choose an Image");
+                            alert(chooseimage);
                             flag=1;
                             $("#fade").show();
                             $("#addContact").show();
@@ -172,24 +164,24 @@
                     {
                         if(image_name==="")
                         {
-                            alert("Please choose an Image");
+                            alert(chooseimage);
                             return false;
                         }
                         if($("#posttext").val()==="")
                         {
-                            alert("Please enter Title for Facebook");
+                            alert(facebooktitle);
                             return false;
                         }
                         if($("#link_title").val()!=="")
                         {
                             if($("#link_title").val()==="")
                             {
-                                alert("Please choose an Image");
+                                alert(chooseimage);
                                 return false;
                             }
                             if(link_description==="")
                             {
-                                alert("Please write the description");
+                                alert(descriptionerror);
                                 $("#link_description").focus();
                                 return false;
                             }
@@ -199,17 +191,12 @@
                     {
                         if($("#twittertext").val()==="")
                         {
-                            alert("Please enter Title for Twitter");
+                            alert(twittertitle);
                             return false;
-                        }
-                        if($("#link").val()==="")
-                        {
-//                            alert("Please enter Link for Twitter");
-//                            return false;
                         }
                         if(image_name==="")
                         {
-                            alert("Please choose an Image");
+                            alert(chooseimage);
                             return false;
                         }
                     }
@@ -257,7 +244,7 @@
                                     success: function (responseText) {
                                         $('#mask').hide();
                                         $('.window').hide();
-                                        alert("Your post has been published successfully");
+                                        alert(postpublish);
 
                                         document.location.href = "dashboard.jsp";
                                     }
@@ -286,14 +273,13 @@
                                     success: function (responseText) {
                                         $('#mask').hide();
                                         $('.window').hide();
-                                        alert("Your post has been published successfully");
-
+                                        alert(postpublish);
                                         document.location.href = "dashboard.jsp";
                                     }
                                 });
                             }
                             else {
-                                alert("select atleast one");
+                                alert(selectone);
                             }
                         }
                     });
@@ -343,13 +329,13 @@
                             {
                                 if(facebookac==="0")
                                 {
-                                    alert("Please Choose The Facebook Action");
+                                    alert(facebookactionchoose);
                                     $("#facebookactions").focus();
                                     return false;
                                 }
                                 if(twitterac==="0")
                                 {
-                                    alert("Please Choose The Twitter Action");
+                                    alert(twitteractionchoose);
                                     $("#twitteractions").focus();
                                     return false;
                                 }
@@ -360,13 +346,13 @@
                                 {
                                     if(fb===1 && facebookac==="0")
                                     {
-                                        alert("Please Choose The Facebook Action");
+                                        alert(facebookactionchoose);
                                         $("#facebookactions").focus();
                                         return false;
                                     }
                                     else if(tw===1 && twitterac==="0")
                                     {
-                                        alert("Please Choose The Twitter Action");
+                                        alert(twitteractionchoose);
                                         $("#twitteractions").focus();
                                         return false;
                                     }
@@ -375,25 +361,19 @@
                         }else{
                         if(schedule_title==="")
                         {
-                            alert("Please Enter Title");
+                            alert(titleerror);
                             $("#schedule_title").focus();
                             return false;
                         }
                         if(schedule_desc==="")
                         {
-                            alert("Please Enter Description");
+                            alert(descriptionerror);
                             $("#schedule_desc").focus();
                             return false;
                         }
-                        if(schedule_date==="")
-                        {
-                            //alert("Please Choose Date");
-                            //$("#schedule_social_date").focus();
-                            //return false;
-                        }
                         if(schedule_time==="")
                         {
-                            alert("Please Choose Time");
+                            alert(timeerror);
                             $("#schedule_social_time").focus();
                             return false;
                         }
@@ -403,13 +383,13 @@
                         {
                             if(facebookac==="0")
                             {
-                                alert("Please Choose The Facebook Action");
+                                alert(facebookactionchoose);
                                 $("#facebookactions").focus();
                                 return false;
                             }
                             if(twitterac==="0")
                             {
-                                alert("Please Choose The Twitter Action");
+                                alert(twitteractionchoose);
                                 $("#twitteractions").focus();
                                 return false;
                             }
@@ -420,13 +400,13 @@
                             {
                                 if(fb===1 && facebookac==="0")
                                 {
-                                    alert("Please Choose The Facebook Action");
+                                    alert(facebookactionchoose);
                                     $("#facebookactions").focus();
                                     return false;
                                 }
                                 else if(tw===1 && twitterac==="0")
                                 {
-                                    alert("Please Choose The Twitter Action");
+                                    alert(twitteractionchoose);
                                     $("#twitteractions").focus();
                                     return false;
                                 }
@@ -507,19 +487,7 @@
                                 }
                             ];
 
-                        } else if (isFacebook == "true" && isTwitter == "true") {
-//                            alert(getfacebook());
-//                            alert(image_name);
-//                            alert(myEpoch);
-//                            alert(schedule_title);
-//                            alert(program_id);
-//                            alert(schedule_desc);
-//                            alert($("#accesstoken").val());
-//                            alert($("#posttext").val());
-//                            alert($("#url").val());
-//                            alert(ManagedPage);
-//                            alert($("#link_title").val());
-                            
+                        } else if (isFacebook == "true" && isTwitter == "true") {                            
                     social_schedule =
                             [
                                 {
@@ -568,10 +536,7 @@
                             mimeType: 'application/json',
                             data: JSON.stringify(social_schedule),
                             success: function (responseText) {
-//                        alert();
-//                            $("#tokenHere").html(responseText);
-//                                alert(image_name);
-                                alert("Your post has been Scheduled Successfully");
+                                alert(postsuccess);
                                 document.location.href = "dashboard.jsp";
                             }
                         });
@@ -662,9 +627,7 @@
                             mimeType: 'application/json',
                             data: JSON.stringify(social_schedule),
                             success: function (responseText) {
-//                            $("#tokenHere").html(responseText);
-//                                alert(image_name);
-                                alert("Your post has been Scheduled Successfully");
+                                alert(postsuccess);
                                 document.location.href = "dashboard.jsp";
                             }
                         });
@@ -712,10 +675,7 @@
                     $(this).hide();
                     $('.window').hide();
                 });
-
             }
-
-
 
 function overlay() {
                 document.getElementById('light').style.display = 'block';
@@ -802,7 +762,7 @@ function overlay() {
                         $scope.urls = data;
                         console.log($scope.urls);
                     }).error(function (data) {
-                        alert("request not successful...1");
+                        alert(requesterror);
                     });
                 
                 $scope.getSocialFacebookActions = function (program_id) {
@@ -814,7 +774,7 @@ function overlay() {
                         $scope.facebook_actions = data;
                         console.log($scope.facebook_actions);
                     }).error(function (data) {
-                        alert("request not successful");
+                        alert(requesterror);
                     });
                 };
 
@@ -826,7 +786,7 @@ function overlay() {
                     }).success(function (data) {
                         $scope.twitter_actions = data;
                     }).error(function (data) {
-                        alert("request not successful");
+                        alert(requesterror);
                     });
                 };
                 
@@ -838,7 +798,7 @@ function overlay() {
 //                        alert(JSON.stringify(data));
                         $scope.marketing_programs = data;
                     }).error(function (data){
-                        alert("request not successful");
+                        alert(requesterror);
                     });
                 };
                 
@@ -850,7 +810,7 @@ function overlay() {
                     }).success(function (data) {
                         $scope.social_actions = data;
                     }).error(function (data) {
-                        alert("request not successful");
+                        alert(requesterror);
                     });
                 };
 
@@ -916,32 +876,6 @@ function overlay() {
             }
 
 function controllerMarketingCampaign($scope, $http) {
-//    alert();
-//     $scope.uploadFile = function () {
-//         alert();
-//                        var file = $scope.myFile;
-//                        console.log('file is ' + JSON.stringify(file));
-//                        var uploadUrl = global_host_address + 'UploadImages';
-//                        fileUpload.uploadFileToUrl(file, uploadUrl);
-//                    };
-    
-//    $scope.entities_selected_time = "";
-//    $scope.master_facebook = getfacebook();
-//    $scope.master_twitter = gettwitter();
-//    $scope.master_email = getemail();
-//    $scope.master_note = getnote();
-//    $scope.getImageId = function(id,imagename)
-//    {
-//        alert(imageName);
-//        $("#addimage").show();
-//        $(".imageGallery-card").css("background-color", "#ffffff");
-//        $(".imageGallery-card >div >div").css("color", "#5F6775");
-//        $("#div"+id).css("background-color", "#5cc1a4");
-//        $("#div"+id+" > div > div").css("color", "#ffffff");
-//        $("#selectedimagename").val(imagename);
-//        $("#selectedimageid").val(id);
-//    };
-//    
     $scope.getSocialFacebookActions = function (program_id) {
     $http({
         method: 'GET',
@@ -950,7 +884,7 @@ function controllerMarketingCampaign($scope, $http) {
             $scope.facebook_actions = data;
             console.log($scope.facebook_actions);
         }).error(function (data) {
-            alert("request not successful");
+            alert(requesterror);
         });
     };
 
@@ -961,7 +895,7 @@ function controllerMarketingCampaign($scope, $http) {
         }).success(function (data) {
             $scope.twitter_actions = data;
         }).error(function (data) {
-            alert("request not successful");
+            alert(requesterror);
         });
     };
     
@@ -973,7 +907,7 @@ function controllerMarketingCampaign($scope, $http) {
 //                        alert(JSON.stringify(data));
                         $scope.marketing_programs = data;
                     }).error(function (data){
-                        alert("request not successful");
+                        alert(requesterror);
                     });
                 };
     
@@ -985,10 +919,10 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.urls = data;
                 console.log($scope.urls);
             }).error(function (data) {
-            alert("request not successful...1");
+            alert(requesterror);
         });
     };
-    $scope.uploadFile = function(){alert("..");
+    $scope.uploadFile = function(){
         $("#myFile").upload("UploadImages",function(success){
         
            $("#fileuploaddiv").hide();
@@ -1008,16 +942,8 @@ function controllerMarketingCampaign($scope, $http) {
                 }).success(function(data, status, headers, config) {
                 //alert(JSON.stringify(data));
                   $scope.datalistimages = data;
-//                $scope.numberOfPages = function() {
-//                return Math.ceil($scope.datalistimages.length / $scope.pageSize);
-//                };
-//                if (data === error){
-//                    alert(data);
-//                }
         }).error(function(data, status, headers, config) {
-        alert("No data available, problem fetching the data");
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
+            alert(nodataerror);
         });
         };
 };
@@ -1054,7 +980,7 @@ $("#Servicecontinue").hide();
                                 window.open(global_host_address + 'imagegallery.jsp', "_self");
                             })
                             .error(function () {
-                                alert("request unsuccessful");
+                                alert(requesterror);
                             });
                     };
                 }]);
@@ -1081,7 +1007,6 @@ $("#Servicecontinue").hide();
                 imagegallery.controller('samplecontoller', function ($scope,$http) {
 
                 $scope.showData = function(){
-//                     alert("showData");
                  $scope.curPage = 0;
                  $scope.pageSize = 1000;
 
@@ -1098,9 +1023,7 @@ $("#Servicecontinue").hide();
                             alert(data);
                         }
                     }).error(function(data, status, headers, config) {
-                            alert("No data available, problem fetching the data");
-                            // called asynchronously if an error occurs
-                            // or server returns response with an error status.
+                            alert(nodataerror);
                     });
 
                     };
@@ -1117,7 +1040,7 @@ $("#Servicecontinue").hide();
                         {
                             $scope.status = data;
                             if (data === "true") {
-                                alert("Image deleted successfully");
+                                alert(imagedeletesuccess);
                                 window.open(getHost() + 'imagegallery.jsp', "_self");
                             } else if (data === error) {
                                 alert(data);
@@ -1152,7 +1075,7 @@ $("#Servicecontinue").hide();
                 case 'SVG':
                 break;
                 default:
-                    alert('This type of image is not allowed');
+                    alert(wrongimage);
                     this.value = '';
             }
         };
@@ -1164,27 +1087,22 @@ $("#Servicecontinue").hide();
                 var result = '';
                 var file;
                 for (var i = 0; file = files[i]; i++) {
-                    // if the file is not an image, continue
                     if (!file.type.match('image.*')) {
                         continue;
-
                     }
-                    //            alert("only .png file");
-
                     reader = new FileReader();
                     reader.onload = (function (tFile) {
                         return function (evt) {
                             var div = document.createElement('div');
                             div.innerHTML = '<img style="width: 90px;" src="' + evt.target.result + '" />';
                             document.getElementById('logoimage').src = evt.target.result;
-//                            document.getElementById("Servicecontinue").disabled = false;
                             $("#Servicecontinue").show();
                         };
                     }(file));
                     reader.readAsDataURL(file);
                 }
             } else {
-                alert('The File APIs are not fully supported in this browser.');
+                alert(filenotsuporte);
             }
         }
 

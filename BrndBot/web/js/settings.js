@@ -3,8 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
        $(document).ready(function (){
            if($("#image2").attr('src')==""){
               $("#image2").hide();
@@ -27,8 +25,6 @@
                        var s1 = s.split(":");
                        $("#" + ElementID).css("background-color", s1[1].replace(";", " "));
                }
-
-
                var id = 1;
                var theme_id = 0;
                function doSomething(theme_id){
@@ -51,7 +47,6 @@ function showLook(lookid){
             $(this).css('background-color', '#DCDCDF');
         });
 }
-
 function nextLooks(){
     var lt = 0;
             lt = lt + 4;
@@ -68,17 +63,17 @@ function validate() {
     var password = $("#inputpassword").val();
     var confirmpassword = $("#inputreenter").val();
     if (password === "") {
-        alert("Password not entered! Please enter the password.");
+        alert(passwordemptyerror);
         $("#inputpassword").focus();
         return false;
     }
     if (confirmpassword === "") {
-        alert("Confirm password not entered! Please enter the confirm password.");
+        alert(confirmpasswordemptyerror);
         $("#inputreenter").focus();
         return false;
     } else
     if (password !== confirmpassword) {
-        alert("Confirm password does't match to password!");
+        alert(confirmpassworderror);
         $("#inputreenter").focus();
         return false;
     }
@@ -97,9 +92,7 @@ function controllerUserChanges($scope, $http) {
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available! Problem fetching the data.");
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            alert(nodataerror);
         });
 
         $http({
@@ -111,19 +104,14 @@ function controllerUserChanges($scope, $http) {
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available! Problem fetching the data.");
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            alert(nodataerror);
         });
-
     };
 
-    $scope.updateLooks = function() {
-        
-        var look_id = $("#lookid").val();
-        
-     if (look_id == ""){
-        alert('Please select a look');
+    $scope.updateLooks = function() {        
+    var look_id = $("#lookid").val();        
+    if (look_id == ""){
+        alert(lockerror);
     }
     else{
         $http({
@@ -133,18 +121,15 @@ function controllerUserChanges($scope, $http) {
         }).success(function (data, status, headers, config) {
             $scope.status= data;
             if (data === "true"){
-                alert("Details updated successfully.");
+                alert(detailssaveds);
                 $scope.getLooks();
             }else
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available! Problem fetching the data.");
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            alert(nodataerror);
         });
-    }
-        
+    }        
     };
     
     $scope.getBrands = function () {
@@ -157,9 +142,7 @@ function controllerUserChanges($scope, $http) {
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available! Problem fetching the data.");
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            alert(nodataerror);
         });
 
         $http({
@@ -170,18 +153,15 @@ function controllerUserChanges($scope, $http) {
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available! Problem fetching the data.");
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            alert(nodataerror);
         });
-
     };
 
     $scope.updateBrands = function() {
         
     var brandID = $("#hiddenform").val();
     if (brandID == "") {
-        alert("Please select a personality!");
+        alert(personalityerror);
     }
     else {
         $http({
@@ -191,19 +171,15 @@ function controllerUserChanges($scope, $http) {
         }).success(function (data, status, headers, config) {
             $scope.status = data;
             if (data === "true"){
-                alert("Details updated successfully.");
+                alert(detailssaved);
                 $scope.getBrands();
             }else
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available! Problem fetching the data.");
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            alert(nodataerror);
         });
-
-    }
-        
+    }        
     };
 
     $scope.changePassword = function () {
@@ -223,22 +199,18 @@ function controllerUserChanges($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "false") {
-                    alert("User session has expired! Kindly resubmit a request.");
+                    alert(sessionexpire);
                 } else if (data === "true") {
-                    alert("password has been changed successfully.");
+                    alert(passwordchanged);
                     $("#inputpassword").val("");
                     $("#inputreenter").val("");
                 } else if (data === error) {
                 }
             }).error(function (data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-
-                alert("Request not successful!");
+                alert(requesterror);
             });
         }
     };
-
             $scope.showColors = function() {
 
             $http({
@@ -251,9 +223,7 @@ function controllerUserChanges($scope, $http) {
                         if (data === error){
                         }
                 }).error(function(data, status, headers, config) {
-                alert("No data available! Problem fetching the data.");
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
+                    alert(nodataerror);
                 });
 
             $http({
@@ -266,9 +236,7 @@ function controllerUserChanges($scope, $http) {
                 if (data === error){
                 }
             }).error(function(data, status, headers, config) {
-                    alert("No data available! Problem fetching the data.");
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
+                    alert(nodataerror);
             });
 
             };
@@ -283,9 +251,7 @@ function controllerUserChanges($scope, $http) {
                     if (data === error ){
                     }
             }).error(function(data, status, headers, config) {
-                    alert("No data available! Problem fetching the data.");
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
+                    alert(nodataerror);
             });
             };
 
@@ -299,9 +265,7 @@ function controllerUserChanges($scope, $http) {
                     if (data === error ){
                     }
             }).error(function(data, status, headers, config) {
-                    alert("No data available! Problem fetching the data.");
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
+                    alert(nodataerror);
             });
             };
     
@@ -345,16 +309,12 @@ function controllerUserChanges($scope, $http) {
                     
                     if(data === error){
                     }else{
-                        alert("Details saved successfully.");
+                        alert(detailssaved);
                         $scope.showColors();
-//                        window.open(getHost() + 'settings.jsp', "_self");
                     }
                 }).error(function(data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                        alert("Request not successful!");
+                        alert(requesterror);
                 });
-        }
+            }
         };
-
 };

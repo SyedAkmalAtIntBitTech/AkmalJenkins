@@ -17,7 +17,7 @@
    <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
    <script type="text/javascript" src="js/angular.min.js"></script>  
    <script src="js/configurations.js" type="text/javascript"></script>
-
+   <script src="js/alert_message.js" type="text/javascript"></script>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
    <link rel="stylesheet" href="/resources/demos/style.css">
    <link href="css/colpick.css" rel="stylesheet" type="text/css">
