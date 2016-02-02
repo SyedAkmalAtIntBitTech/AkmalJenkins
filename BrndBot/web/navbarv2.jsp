@@ -23,7 +23,7 @@
             <img  type="image/svg+xml" src="images/Icons/Logo_Reverse.svg" class="bb-logo " style="cursor:pointer;" />
          </a>
         </div>
-        <ul class="nav-tabs">
+        <ul class="nav-tabs1">
             <li class="nav-elements-icon-container hint--right"  data-hint="Your Plan">
                 <a href="marketing.jsp"> 
                     <img type="image/svg+xml" src="images/Icons/yourPlan.svg" class="nav-elements-icon" style="cursor:pointer;"/>

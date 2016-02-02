@@ -72,9 +72,7 @@ function selectPromoteMediaController($scope, $http) {
                 alert(data);
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            alert(nodataerror);
         });
     };
 };

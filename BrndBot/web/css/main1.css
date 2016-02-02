@@ -510,7 +510,7 @@ left:0%;
 }
 #contentdiv {
     position: relative;
-    top:104px;
+    top:10px;
 }
 
 #continuelookchooser{
@@ -715,8 +715,8 @@ select#organizationdropdown option{
     
 }
 #Servicecontinue{
-
-    top:120px;
+    border:none;
+    top:0px;
     left:0px;
     position: relative;
 }

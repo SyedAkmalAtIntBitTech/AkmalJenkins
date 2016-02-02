@@ -24,7 +24,7 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/slat.css">
     <link rel="shortcut icon" href="favicon.png">
-	 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
@@ -33,6 +33,7 @@
     <%@ include file="fonttypekit.jsp"%>        
     <%@ include file="checksession.jsp" %>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="js/alert_message.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
     <script src="js/popup.js" type="text/javascript"></script>
