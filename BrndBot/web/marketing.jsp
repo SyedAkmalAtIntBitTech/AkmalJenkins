@@ -86,7 +86,7 @@
         </div>
         <!--Main Content--> 
         <div class="page-background">
-        <div class="page-content-container email-list-contact-page" ng-init="getCampaigns()">
+        <div class="page-content-container your-plan-inner-content" ng-init="getCampaigns()">
             
             <!--Inner Content Conatiner GENERIC-->
             <div class="page-inner-content-container " >

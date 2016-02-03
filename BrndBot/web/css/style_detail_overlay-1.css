@@ -497,8 +497,10 @@ border-top: 1px solid #E8E9EA ;
 }
 
 .email-list-contact-page{
-    padding-top: 110px;
-    
+    padding-top: 110px;    
+}
+.your-plan-inner-content{
+    padding-top: 140px;    
 }
 
 .marketingProgram-action-page{
