@@ -1,6 +1,10 @@
 package com.divtohtml;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -18,6 +22,7 @@ public class ProcessHTML {
     private final static String KStyleKey = "style";
 
     private final static String KElementText = "text";
+    private final static String KElementDate = "date";
     private final static String kElementId = "id";
     private final static String kElementGeneral = "general";
     private final static String kElementImage = "image";
@@ -28,6 +33,7 @@ public class ProcessHTML {
     private final static String KExternalvalue = "externalvalue";
     private final static String KUserbordercolor = "userbordercolor";
     private final static String KUserimage = "userimage";
+    private final static String KUserdateepoch = "userdateepoch";
 
     private final static String KExternalValueMindBody = "mindbody";
 
@@ -43,6 +49,8 @@ public class ProcessHTML {
     private final HashMap<String, String> colorHashmap;
     private final Map<String, String> externalSourceMapper;
     private final String userLogoURL;
+    
+    private static DateFormat inputFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
 
     //color hash map should have keys with color1,color2
     public ProcessHTML(String htmlContent, HashMap<String, String> colorHashmap, Map<String, String> externalSourceMapper, String logoURL) {
@@ -52,7 +60,7 @@ public class ProcessHTML {
         this.userLogoURL = logoURL;
     }
 
-    public String processHTML() {
+    public String processHTML() throws ParseException {
         ArrayList<HTMLModel> foundIdsList = new ArrayList<>();
 
         Document doc = Jsoup.parse(htmlContent);
@@ -76,6 +84,25 @@ public class ProcessHTML {
                 if (!StringUtil.isEmpty(externalValue)) {
                     String text = getTextForExternalValue(externalValue);
                     item.text(text);
+                }
+
+            } else if (elementType.contains(KElementDate)) {
+                String userFontColor = item.attr(KUserfontcolor);
+                if (!StringUtil.isEmpty(userFontColor)) {
+                    styleHashmap.put(KColorKey, getUserColorForColorKey(userFontColor));
+                }
+
+                String externalValue = item.attr(KExternalvalue);
+                String text = "";
+                if (!StringUtil.isEmpty(externalValue)) {
+                    text = getTextForExternalValue(externalValue);
+                    //item.text(text);
+                }
+                
+                String userDateEpoch = item.attr(KUserdateepoch);
+                if (!StringUtil.isEmpty(userDateEpoch)) {
+                    String epochDateText = getEpochDateFromText(userDateEpoch,text);
+                    item.text(epochDateText);
                 }
 
             } else if (elementType.contains(kElementImage)) {
@@ -241,5 +268,29 @@ public class ProcessHTML {
         }
 
         return builder.toString();
+    }
+
+    private String getEpochDateFromText(String userDateEpoch, String rawDate) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEEE h:mm a");
+        String formattedDate = "";
+        if (!StringUtil.isEmpty(userDateEpoch)) {
+            dateFormat = new SimpleDateFormat(userDateEpoch);
+        }
+        if (!StringUtil.isEmpty(rawDate)) {
+            Date date = parseDateToEpochDate(rawDate);
+            try {
+                formattedDate = dateFormat.format(date);
+            } catch (Exception e) {
+                //This is double make sure that the client doesn't enter garbage values                                    
+                dateFormat = new SimpleDateFormat("EEEEE h:mm a");
+                formattedDate = dateFormat.format(date);
+            }
+        }
+        return formattedDate;
+    }
+    private static Date parseDateToEpochDate(String dateTimeString) throws ParseException {
+
+        Date date = inputFormat.parse(dateTimeString);
+        return date;
     }
 }
