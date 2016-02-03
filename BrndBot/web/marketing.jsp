@@ -26,8 +26,7 @@
     <script src="js/timepicki.js" type="text/javascript"></script>
     <script src="js/popup.js" type="text/javascript"></script>
     <jsp:include page="basejsp.jsp" />
-    <%@ include file="checksession.jsp" %>
-    
+    <%@ include file="checksession.jsp" %>    
     <link rel="shortcut icon" href="images/favicon.png"/>
     <title>BrndBot - Your Plan</title>
 </head>    
@@ -162,7 +161,7 @@
                                     <object type="image/svg+xml" data="images/Icons/templateSaved.svg" class="status-button"> </object>
                                 </div>
                                 <div class="slat-title-container col-1of2 fleft">
-                                    <div class="slat-title email-list-slat-title col-1of1 sh1">{{nodata}}</div>
+                                    <div class="gray email-list-slat-title col-1of1 sh1">{{nodata}}</div>
                                 </div>
                             </div>
                         </li>

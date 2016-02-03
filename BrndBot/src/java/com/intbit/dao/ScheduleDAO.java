@@ -580,7 +580,7 @@ public class ScheduleDAO {
                     "Exception while reading the dates :", null), e);
         }
         JSONObject json_data = new JSONObject();
-        json_data.put("noactionsmessage", "No Actions Setup");
+        json_data.put("noactionsmessage", "No Actions scheduled for this day");
         json_data.put("entitydata", entityDataArray);
         return json_data;
 

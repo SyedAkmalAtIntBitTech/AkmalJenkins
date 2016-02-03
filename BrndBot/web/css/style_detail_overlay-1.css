@@ -793,6 +793,18 @@ padding-top: 0px;
 
 
 
+.saved-post-header-detail1{
+    background-color: #FFFFFF;
+    padding-top: 0px;
+    padding-left: 75px;
+    padding-right: 75px;
+    padding-bottom: 0px;
+    float: left;
+    width: 100%;
+    box-sizing: border-box;
+    width: 100%;
+}
+
 .saved-post-header-detail{
     background-color: #FFFFFF;
     padding-top:45px;
@@ -806,7 +818,6 @@ padding-top: 0px;
 
 
 }
-
 
 .saved-post-preview-detail{
      width:100%;
@@ -831,11 +842,11 @@ padding-top: 0px;
 }
 
 .fields-note-detail{
-     width:100%;
+    width:100%;
     background-color: #FFFFFF;
     box-sizing: border-box; 
     float: left;
-    padding-top: 30px;
+    padding-top: 0px;
     padding-left:75px;
     padding-right: 75px;
     padding-bottom:105px;
@@ -1416,6 +1427,14 @@ input-field-container{
 .instruction-text{
     width:500px;
     margin-top: 10px;
+    font-size: 12px;
+    color: #3F3F42 ;
+    float: left;
+    line-height: 140%;
+}
+.instruction-text1{
+    width:500px;
+    margin-top: 0px;
     font-size: 12px;
     color: #3F3F42 ;
     float: left;

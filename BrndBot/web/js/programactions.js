@@ -1000,6 +1000,22 @@ function programactions($scope, $http, $window){
                       $("#savedemailsdiv").show();
                       $("#noemailsdiv").hide();
                 }
+                $("#recuringactiondiv").hide();
+                $("#recuringnotediv").hide();
+                $("#recuringtemplatediv").show();
+                $("#recuringaction").removeClass("top-subnav-link-active-detail");
+                $("#recuringaction a").removeAttr("class");
+                $("#recuringnote").removeClass("top-subnav-link-active-detail");
+                $("#recuringnote a").removeAttr("class");
+                $("#recuringtemplate").removeClass("top-subnav-link-active-detail");
+                $("#recuringtemplate a").removeAttr("class");
+
+                $("#recuringtemplate").addClass("top-subnav-link-active-detail");
+                $("#recuringtemplate a").addClass("h3-subnav-subnav-active");
+                $("#recuringaction").addClass("top-subnav-links-detail");
+                $("#recuringaction a").addClass("h3-subnav");
+                $("#recuringnote").addClass("top-subnav-links-detail");
+                $("#recuringnote a").addClass("h3-subnav");
                 $scope.entities_subject = data.subject;
                 $scope.entities_from_name = data.from_name;
                 $scope.entities_reply_to_email_address = data.reply_to_email_address;

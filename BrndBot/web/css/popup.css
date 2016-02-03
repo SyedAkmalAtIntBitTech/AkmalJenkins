@@ -559,7 +559,7 @@ input#timepicker1 {
     margin: 5px;
 }
 .gallery-page-content-container.fleft {
-    height: 500px;
+    height: 100%;
     overflow: auto;
 }
 .space-right
@@ -1389,5 +1389,8 @@ textarea#filetext1 {
 .posi {
     margin-top: -17px;
     margin-left: 17px;
+}
+.gray{
+    color: #71717B;
 }
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/
