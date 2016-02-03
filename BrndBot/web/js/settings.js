@@ -3,11 +3,59 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-       $(document).ready(function (){
-           if($("#image2").attr('src')==""){
-              $("#image2").hide();
-           }
-       });
+var x="";
+function changefilename() {
+    x = document.getElementById("filevalue").value;
+    if(x!=="")
+    { 
+        document.getElementById("filetext1").innerHTML = x;
+    }
+    else
+    {
+        document.getElementById("filetext1").innerHTML = "Choose an Image to upload";
+    }
+    //document.getElementById("demo").innerHTML = "You selected: " + x;
+}
+$(document).ready(function (){
+    if($("#image2").attr('src')==""){
+       $("#image2").hide();
+    }
+        var x=$("#showpassword").is(':checked'); 
+        if(x===true)
+        {            
+            password = $("#inputpassword1").val();
+            confirmpassword = $("#inputreenter1").val();
+        }
+        else
+        {
+            password = $("#inputpassword").val();
+            confirmpassword = $("#inputreenter").val();
+        } 
+    $("#showpassword").click(function(){
+        var password ="";
+        var confirmpassword="";
+        var x=$("#showpassword").is(':checked'); 
+        if(x===true)
+        {       
+            password = $("#inputpassword").val();
+            confirmpassword = $("#inputreenter").val();
+            $("#inputpassword1").val(password);
+            $("#inputreenter1").val(confirmpassword);
+            $(".showornot").hide();
+            $(".hideornot").show();
+        }
+        else
+        {
+            password = $("#inputpassword1").val();
+            confirmpassword = $("#inputreenter1").val();
+            $("#inputpassword").val(password);
+            $("#inputreenter").val(confirmpassword);
+            $(".hideornot").hide();
+            $(".showornot").show();
+        }
+    });   
+});
+       
                var ElementID;
                /*------ get selected element ID -----*/
                function getElementID(IDNo){
@@ -60,8 +108,19 @@ function showBrand(brandid, image_name) {
 }
 
 function validate() {
-    var password = $("#inputpassword").val();
-    var confirmpassword = $("#inputreenter").val();
+    var password ="";
+    var confirmpassword="";
+    var x=$("#showpassword").is(':checked'); 
+    if(x===true)
+    {            
+        password = $("#inputpassword1").val();
+        confirmpassword = $("#inputreenter1").val();
+    }
+    else
+    {
+        password = $("#inputpassword").val();
+        confirmpassword = $("#inputreenter").val();
+    } 
     if (password === "") {
         alert(passwordemptyerror);
         $("#inputpassword").focus();
@@ -183,8 +242,19 @@ function controllerUserChanges($scope, $http) {
     };
 
     $scope.changePassword = function () {
-        var password = $("#inputpassword").val();
-        var confirmpassword = $("#inputreenter").val();
+        var password ="";
+        var confirmpassword="";
+        var x=$("#showpassword").is(':checked'); 
+        if(x===true)
+        {            
+            password = $("#inputpassword1").val();
+            confirmpassword = $("#inputreenter1").val();
+        }
+        else
+        {
+            password = $("#inputpassword").val();
+            confirmpassword = $("#inputreenter").val();
+        }       
 
         if (validate()) {
 

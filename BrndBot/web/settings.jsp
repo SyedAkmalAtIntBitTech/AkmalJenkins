@@ -20,9 +20,9 @@
     <script src="js/alert_message.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <link href="css/colpick.css" rel="stylesheet" type="text/css">
-    <link href="css/popup.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/resources/demos/style.css"/>
+    <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
+    <link href="css/popup.css" rel="stylesheet" type="text/css"/>
     <script src="js/popup.js" type="text/javascript"></script>
     <script src="js/colpick.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/main1.css">
@@ -66,9 +66,14 @@
                         <!--List Starts Here-->
                        <div class="input-field-container col-1of1 fleft">
                             <div class="input-header"> Change Password </div>
-                            <input type="text" placeholder="Enter New Password" id="inputpassword" class="input-field-textfield5 width33"></input>
-                            <input type="text" placeholder="Enter Confirm Password" id="inputreenter" class="input-field-textfield5 width33"></input>
-                        </div>
+                            <input type="password" placeholder="Enter New Password" id="inputpassword" class="input-field-textfield5 width33 showornot"></input>
+                            <input type="text" placeholder="Enter New Password" id="inputpassword1" class="input-field-textfield5 width33 hideornot"></input>
+                            <input type="password" placeholder="Enter Confirm Password" id="inputreenter" class="input-field-textfield5 width33 showornot"></input>
+                            <input type="text" placeholder="Enter Confirm Password" id="inputreenter1" class="input-field-textfield5 width33 hideornot"></input>
+                            <div class="inlineblock">
+                                <input type="checkbox" name="showpassword" value="" id="showpassword"> Show Password</input>
+                            </div>
+                       </div>
                     </div>
                 </div>                    
                 <div class="" id="savePassword">
@@ -85,10 +90,10 @@
                         </div>
                         <div class="pushUp">
                             <form name="formpersonality" action="/BrndBot/changeLogo" enctype="multipart/form-data" method="post" class="ng-pristine ng-valid">
-                                <div class="col-2of10 fleft ">
-                                    <div class="logo-container">
+                                <div class="col-2of10 fleft cur1">
+                                    <div class="logo-container"><textarea class="top55 left10 right10" id="filetext1">Choose an Image to upload</textarea>
                                         <input type="hidden" name="upload" value="update"></input>
-                                        <input type="file" name="fileUpload" style="border: 1px solid;" class="upload"></input>
+                                        <input type="file" name="fileUpload" style="border: 1px solid;" class="upload" id="filevalue" onchange="changefilename()"></input>
                                     </div>
                                 </div>
                                 <div class="col-1of2 fleft">
@@ -137,7 +142,7 @@
                                                         <div ng-show="colors.theme_id == null">
                                                             <div id="{{colors.id}}" class="foo blankcolor-box step_box ptr" onclick="getIDNo('{{colors.id}}')" style="background-color:{{colors.colorHex}};"></div>
                                                         </div>
-                                                        <div id="{{colors.theme_id}}" class="ptr" onclick="doSomething('{{colors.theme_id}}')"><div ng-show="colors.id == null" style="padding-top: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{colors.theme_name}}</div></div>
+                                                        <div id="{{colors.theme_id}}" class="ptr" onclick="doSomething('{{colors.theme_id}}')"><div ng-show="colors.id == null" style="padding-top: 10px; color: #7f7f7f;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{colors.theme_name}}</div></div>
                                                     </div> 
                                                     <div id='id'>
                                                         <p><br/></p>
