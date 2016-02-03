@@ -45,7 +45,7 @@
                 </a>
             </li>
             <li class="nav-elements-icon-container hint--right" data-hint="User">
-                <a  href="settings.jsp" >
+                <a  href="settings.jsp?change=0" >
                     <img type="image/svg+xml" src="images/Icons/user.svg" class="nav-elements-icon1 " style="cursor:pointer;"/>
                 </a>
             </li>

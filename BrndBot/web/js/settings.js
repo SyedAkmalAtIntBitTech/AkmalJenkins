@@ -17,6 +17,11 @@ function changefilename() {
     //document.getElementById("demo").innerHTML = "You selected: " + x;
 }
 $(document).ready(function (){
+    var change=$("#change").val();
+    if(change==="1")
+    {
+        alert("Logo change Successfully");
+    }
     if($("#image2").attr('src')==""){
        $("#image2").hide();
     }
@@ -272,8 +277,11 @@ function controllerUserChanges($scope, $http) {
                     alert(sessionexpire);
                 } else if (data === "true") {
                     alert(passwordchanged);
+                    $("#inputpassword1").val("");
+                    $("#inputreenter1").val("");
                     $("#inputpassword").val("");
                     $("#inputreenter").val("");
+                    $("#showpassword").prop( "checked", false );
                 } else if (data === error) {
                 }
             }).error(function (data, status) {

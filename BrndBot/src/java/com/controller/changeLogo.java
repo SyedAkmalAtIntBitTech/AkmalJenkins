@@ -126,7 +126,7 @@ public class changeLogo extends BrndBotBaseHttpServlet {
                                 getSqlMethodsInstance().updateUsers(UID, fileName);
                                 out.println("Uploaded Filename: " + filePath + "<br>");
                             
-                                response.sendRedirect(request.getContextPath() + "/settings.jsp");
+                                response.sendRedirect(request.getContextPath() + "/settings.jsp?change=1");
 
                             }
                             

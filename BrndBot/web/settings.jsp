@@ -35,10 +35,24 @@
     <link href="tabs/tabcontent.css" rel="stylesheet" type="text/css"/>
     <script src="js/settingspalettechooser.js" type="text/javascript"></script>     
    <jsp:include page="basejsp.jsp" />
+   <%! 
+            String change = "";
+        %>
+        <% 
+            try{
+                change = (String)request.getAttribute("change");
+            }catch (Exception e){
+                System.out.println(e.getCause());
+                System.out.println(e.getMessage());
+                
+            }
+        
+        %>
 </head>    
 
 <body ng-app>    
     <div class="content-main" ng-controller="controllerUserChanges">
+        <input type="hidden" value="<%=change%>" id="change"></input>
         <!--SideNav-->
         <%@ include file="navbarv2.jsp"%>  
         <!--Top Nav-->   
@@ -71,7 +85,7 @@
                             <input type="password" placeholder="Enter Confirm Password" id="inputreenter" class="input-field-textfield5 width33 showornot"></input>
                             <input type="text" placeholder="Enter Confirm Password" id="inputreenter1" class="input-field-textfield5 width33 hideornot"></input>
                             <div class="inlineblock">
-                                <input type="checkbox" name="showpassword" value="" id="showpassword"><p> Show Password</p></input>
+                                <input type="checkbox" name="showpassword" value="" id="showpassword"><p class="posi"> Show Password</p></input>
                             </div>
                        </div>
                     </div>
