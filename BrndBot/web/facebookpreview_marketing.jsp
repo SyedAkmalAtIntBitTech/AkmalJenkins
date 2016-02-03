@@ -186,8 +186,8 @@
 
                             <!--SAVED Email GOES HERE-->
                             <div class="saved-post-header-detail" >
-                                <div class="h4">Saved Facebook Post</div>
-                                <div class="instruction-text">Saved post.</div>
+<!--                                <div class="h4">Saved Facebook Post</div>
+                                <div class="instruction-text">Saved post.</div>-->
                             <div class="Facebook-preview">
                                 <div class="Facebook-preview-header">
                                     <div class="Facebook-preview-profpic"><img id="fb_preview_profpic" src="http://www.woomee.net/img/profile-blank.png"/></div>

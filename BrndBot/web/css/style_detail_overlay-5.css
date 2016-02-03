@@ -1351,13 +1351,11 @@ Facebook-preview-name{
 }
 
 .inner-content-container-button{
-    float: right;
-    
-    
+    float: right;   
 }
 
 .inner-content-detail{ 
-    margin-top:20px;
+    margin-top:0px;
     width:100%;
     float:left;
    

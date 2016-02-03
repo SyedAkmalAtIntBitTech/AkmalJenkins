@@ -180,10 +180,10 @@
         <div id="facebookpostsection">
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="saved-post-header-detail" id="savedposthead">
+<!--                <div class="saved-post-header-detail" id="savedposthead">
                     <div class="h4">Saved Facebook Post</div>
                     <div class="instruction-text">Saved post.</div>
-                </div>
+                </div>-->
                     <div class="inner-content-detail">
                         <div class="saved-post-preview-detail" id="nopostsaveddiv">
 

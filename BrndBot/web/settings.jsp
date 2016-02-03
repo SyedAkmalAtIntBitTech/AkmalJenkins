@@ -71,7 +71,7 @@
                             <input type="password" placeholder="Enter Confirm Password" id="inputreenter" class="input-field-textfield5 width33 showornot"></input>
                             <input type="text" placeholder="Enter Confirm Password" id="inputreenter1" class="input-field-textfield5 width33 hideornot"></input>
                             <div class="inlineblock">
-                                <input type="checkbox" name="showpassword" value="" id="showpassword"> Show Password</input>
+                                <input type="checkbox" name="showpassword" value="" id="showpassword"><p> Show Password</p></input>
                             </div>
                        </div>
                     </div>
