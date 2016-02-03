@@ -350,7 +350,7 @@
                                 <option value="Email">Email</option>
                                 <option value="Facebook">Facebook</option>
                                 <option value="Twitter">Twitter</option>
-                                <option value="Note">Note</option>
+                                <option value="Reminder">Reminder</option>
                             </select>
                         <br>
                         <button type="button" id="saveaction" name="saveaction" class="btn btn-info" ng-click="createMarketingActionsJSON()" style="margin-top:15px;margin-bottom:5px;">Save Action</button>

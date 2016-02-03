@@ -74,7 +74,7 @@ a.svg:after {
 .nav-tabs1{ 
     display: block;
     height: 54px;
-    line-height: 53px;
+    line-height: 39px;
     list-style: none;
     margin-left: 10px;
     padding: 0;
@@ -2586,4 +2586,20 @@ width: 10%;
     border-radius: 3px;
     margin-top: 15px;
     margin-right: 20px;
+}
+.nav-elements-icon1 {
+    border-top: 1px solid #203c4f;
+    display: block;
+    line-height: 53px;
+    list-style: none;
+    margin: 0;
+    width: 100%;
+    padding: 0px;
+    padding-top: 6px;
+    width: 48px;
+    height: 42px;
+    margin: auto;
+}
+div#editor {
+    margin-left: 23px;
 }

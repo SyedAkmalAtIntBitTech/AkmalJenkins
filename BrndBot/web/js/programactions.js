@@ -1633,7 +1633,7 @@ function programactions($scope, $http, $window){
         var myEpoch = schedule_time;
         console.log("New Epoch: " + myEpoch); 
         var schedule_details = {
-            "type": "Note",
+            "type": "Reminder",
             "schedule_id": schedule_id,
             "schedule_title": note_title,
             "schedule_desc": note_desc,

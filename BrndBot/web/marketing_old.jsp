@@ -221,7 +221,7 @@
                             <option value="Facebook">Facebook Post</option>
                             <option value="Twitter">Twitter Post</option>
                             <option value="Email">Email</option>
-                            <option value="Note">Note</option>
+                            <option value="Reminder">Reminder</option>
                         </select>
                     </div>
                     <div class="top18 fontpns tenpix headcolor">DESCRIPTION</div>
@@ -275,88 +275,6 @@
                 </div>
                  </form>
                 
-<!--                <div id="dvPriorityContent" style="position:relative;top:30px;left:100px;"><br>
-                    <h1 class="SP2 actfnt">ADD ACTION</h1>
-                    <form class="form-horizontal" id="signform" >
-                        <div class="group" style="position:relative;">
-                            <p class="actionLable SH2" >type of action</p>
-                        </div>
-                        
-                        <div style="position:absolute;left:15px;top:20px;" class="SH2">
-                                <select id="actiontype" class="SS1 " name="actiontype" style="margin-top:10%;margin-left:2px;">
-                                 <option value="0">Select</option>
-                                 <option value="facebook">facebook</option>
-                                 <option value="twitter">twitter</option>
-                                 <option value="email">email</option>
-                                 <option value="note">note</option>
-                               </select>
-                        </div>
-                        <div  style="position:absolute;top:80px;left:15px;">
-                            <p class="SH1">TITLE</p><textarea cols="36" rows="2" name="addactiontitle" id="addactiontitle" class="SS2" style="resize:none;font-size:1.3em;height:70px;margin-top:-5px;"></textarea>
-                        </div>
-                            <div style="position:absolute;top:180px;left:15px;" class="SH2">                              
-                                description <br><textarea cols="40" rows="2" name="description" id="description" class="SS2" style="font-variant:normal;resize: none;height:70px;"></textarea>
-                            </div>
-                            <div class="SH2" style="position:absolute;top:282px;left:15px;" >
-                                scheduled to post on<br><br>
-                                date 
-                                <input type="text" readonly name="actiondatetime"  class="inputdate MH1 ptr" id="datepicker" >
-                                        <script>
-
-                                    var picker = new Pikaday(
-                                    {
-                                        field: document.getElementById('datepicker'),
-                                        firstDay: 1,
-                                        minDate: new Date(2000, 0, 1),
-                                        maxDate: new Date(2050, 12, 31),
-                                        yearRange: [2000,2050]
-                                    });
-
-                                        </script><br>
-                                        <div style="position:relative;margin-top:-84px;margin-left:180px;">
-                                        time
-                                     <input id="timepicker1" type="text" name="timepicker1" class="inputtime MH1 ptr" style="width:110px;"/>
-                                     <script src="js/timepicki.js" type="text/javascript"></script>
-                                    <script>
-                                        $('#timepicker1').timepicki();
-                                    </script>
-                                    <script src="js/bootstrap.min.js" type="text/javascript"></script></div>
-
-                            </div>
-                            
-                                                                Date : <input type="datetime-local" id="actiondate" name="actiondate" style="position:relative;left:50px;top:-60px;"/>
-                           
-                   
-                        <div class="row">
-                            <div class="col-md-12" style="width:250px;position:absolute;top:420px;left:-15px;">
-
-                                <div class="row">
-                                    <div>
-                                        <div class="col-md-6" id="dvButtonContainer">
-                                            <input type="button" value="Save" 
-                                                   class="button button--moema 
-                                                   button--text-thick 
-                                                   button--text-upper 
-                                                   button--size-s" 
-                                                   ng-click="AddAction()" 
-                                                   style="width:100px;" />
-                                        </div>
-                                        <div class="col-md-6" id="dvButtonContainer">
-                                            <input id="addactioncancel" type="reset" value="Cancel" onclick="cancelform();" 
-                                                   class="button button--moema 
-                                                   button--text-thick 
-                                                   button--text-upper 
-                                                   button--size-s" 
-                                                   style="width:100px;" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </form> 
-
-                </div>-->
             </div>
             <div id="preview" class="pollSlider">
                 <div>

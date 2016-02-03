@@ -104,7 +104,7 @@
                             </div>
                         </div>
                         
-                        <div class="h3 input-header-actionDetail" style="">
+<!--                        <div class="h3 input-header-actionDetail" style="">
                             POSTING DETAILS
                         </div>
                         <div class="inlineFlex">
@@ -120,7 +120,7 @@
                                 </div>
                                 <input type="text" value="Cannot Edit" class="input-field-textfield width75" readonly/>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="inlineFlex">
                             <div class="half" ng-show="user_marketing_program_id == 0">
                                 <div class="input-header-actionDetail half" style="">

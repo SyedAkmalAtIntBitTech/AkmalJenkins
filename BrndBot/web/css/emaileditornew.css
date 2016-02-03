@@ -81,15 +81,11 @@ and open the template in the editor.
     width:623px;
     height:519px;                 
 }
-.btmdiv{
-/*    background-color: #e2e3e7;
-    width:746px;
-    height:38px;
-    margin-left:-16px;*/
+.btmdiv {
     background-color: #e2e3e7;
-    width: 746px;
+    width: 728px;
     height: 38px;
-    margin-left: -16px;
+    margin-left: 2px;
     position: fixed;
     bottom: 0%;
 }

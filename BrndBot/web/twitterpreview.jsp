@@ -106,7 +106,7 @@
 
                                 </div>
                             </div>
-                            <div class="input-header-actionDetail h3" style="">
+<!--                            <div class="input-header-actionDetail h3" style="">
                                 POSTING DETAILS
                             </div>
                             <div class="inlineFlex">
@@ -116,7 +116,7 @@
                                     </div>
                                     <input type="text" value="{{schedule_type}}" class="input-field-textfield width75" readonly/>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="input-header-actionDetail h3" style="">
                                  SCHEDULED TO POST ON
                             </div>
