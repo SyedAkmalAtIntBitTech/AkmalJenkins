@@ -26,7 +26,7 @@
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="js/imagegallery2.js"></script>
     <script src="js/socialimageselection.js" type="text/javascript"></script>
-    <link rel="shortcut icon" href="favicon.png"/>
+    <link rel="shortcut icon" href="images/favicon.png"/>
     <title>BrndBot - Library</title>
 </head>    
     <style>#imagepopup{display: none;

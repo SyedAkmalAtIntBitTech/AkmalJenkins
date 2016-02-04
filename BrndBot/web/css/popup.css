@@ -613,11 +613,11 @@ input#timepicker1 {
 }*/
 .blueborder
 {
-    border: 2px solid #64B6EE;
-    top: -3px;
+    border: 2px solid #64B6EE !important;
+/*    top: -3px;
     bottom: -3px;
     left: -3px;
-    right: -3px;
+    right: -3px;*/
 }
 .greyborder{
     border: solid 1px #D5DADF;
