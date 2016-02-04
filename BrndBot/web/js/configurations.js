@@ -61,7 +61,7 @@ function gettwitter(){
 }
 
 function getnote(){
-    return "Note";
+    return "Reminder";
 }
 
 String.prototype.contains = function(it) { 

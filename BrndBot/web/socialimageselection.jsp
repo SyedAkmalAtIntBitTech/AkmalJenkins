@@ -145,10 +145,10 @@
                     <div class=" md-button" id="editLink">  Edit Link</div>    
                 </a>
                 <a href="" class="gray-button fleft" id="">
-                    <div class=" md-button" id="changeLink">  Change from Link Post Type</div>    
+                    <div class=" md-button" id="changeLink">  Change to Link Post</div>    
                 </a>
                 <a href="" class="gray-button fleft" id="">
-                    <div class=" md-button" id="removeLink">  Remove Link Post Type</div>    
+                    <div class=" md-button" id="removeLink">  Remove Link Post</div>    
                 </a>
             </div>
         </div>

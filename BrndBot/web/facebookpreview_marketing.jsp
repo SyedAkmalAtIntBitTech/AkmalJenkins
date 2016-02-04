@@ -105,7 +105,7 @@
                             </div>
                         </div>
                         
-                        <div class="h3 input-header-actionDetail" style="">
+<!--                        <div class="h3 input-header-actionDetail" style="">
                             POSTING DETAILS
                         </div>
                         <div class="inlineFlex">
@@ -115,13 +115,13 @@
                                 </div>
                                 <input type="text" value="{{schedule_type}}" class="input-field-textfield width75" readonly/>
                             </div>
-<!--                            <div class="half">
+                            <div class="half">
                                 <div class="input-header-actionDetail" style="">
                                   MANAGED PAGE
                                 </div>
                                 <input type="text" value="{{entitiesdetails.metadata.ManagedPage}}" class="input-field-textfield width75" readonly/>
-                            </div>-->
-                        </div>
+                            </div>
+                        </div>-->
                         <div class="inlineFlex">
                            
                             <div class="half" >
@@ -186,8 +186,8 @@
 
                             <!--SAVED Email GOES HERE-->
                             <div class="saved-post-header-detail" >
-                                <div class="h4">Saved Facebook Post</div>
-                                <div class="instruction-text">Saved post.</div>
+<!--                                <div class="h4">Saved Facebook Post</div>
+                                <div class="instruction-text">Saved post.</div>-->
                             <div class="Facebook-preview">
                                 <div class="Facebook-preview-header">
                                     <div class="Facebook-preview-profpic"><img id="fb_preview_profpic" src="http://www.woomee.net/img/profile-blank.png"/></div>

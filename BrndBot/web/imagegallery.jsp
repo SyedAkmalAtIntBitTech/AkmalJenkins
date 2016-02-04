@@ -4,12 +4,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no">
-s    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay_new.css">
-    <link rel="stylesheet" type="text/css" href="css/normalize_new.css">
-    <link rel="shortcut icon" href="favicon.png">
-    <link href="css/style_detail_overlay-1.css" rel="stylesheet" type="text/css"/>
-    <title>BrndBot - Library</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay_new.css"/>
+    <link rel="stylesheet" type="text/css" href="css/normalize_new.css"/>    
+    <link href="css/style_detail_overlay-1.css" rel="stylesheet" type="text/css"/>    
     <meta charset="UTF-8">
     <%@ include file="fonttypekit.jsp"%>
     <%@ include file="checksession.jsp" %>
@@ -28,6 +26,8 @@ s    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="js/imagegallery2.js"></script>
     <script src="js/socialimageselection.js" type="text/javascript"></script>
+    <link rel="shortcut icon" href="favicon.png"/>
+    <title>BrndBot - Library</title>
 </head>    
     <style>#imagepopup{display: none;
     position: fixed;
@@ -37,8 +37,8 @@ s    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
 <body ng-app="rootApp"  class="claro1" ng-controller="controllerMarketingCampaign">
     <!--SideNav-->
     <div class="content-main">
-    <jsp:include page="navbarv2.jsp"/>  
     <jsp:include page="imageuploadpopup.jsp"/>
+    <jsp:include page="navbarv2.jsp"/>  
     <!--Top Nav-->   
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
@@ -67,7 +67,9 @@ s    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
                                 <div class="galImage-description">Added on Nov 26 2015</div>
                                 <div class="galCard-divider"></div>
                                  <img type="image/svg+xml" src="images/Icons/settings.svg" class="galCard-settingsicon fleft"> </img>
-                                 <img type="image/svg+xml" name="delete"  id="delete" src="images/Icons/trash.svg" class="galCard-trashicon fleft" ng-click="deleteImage(images.id, images.user_id, images.image_name)"> </img>
+                                    <li class="nav-elements-icon-container hint--top"  data-hint="Delete">
+                                        <img type="image/svg+xml" id="delete" src="images/Icons/trash.svg" class="galCard-trashicon fleft cur" ng-click="deleteImage(images.id, images.user_id, images.image_name)"/>
+                                    </li>                                 
                                  <!--<button name="delete"  id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>-->
                             </div>
                         </div>

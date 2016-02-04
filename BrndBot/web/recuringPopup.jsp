@@ -167,14 +167,14 @@
                         </div>
                         <div class="below-nav-container-saved-post-detail" id="savedemailsdiv" ng-show="recuring_template_status !== 'No Template'">
                             <div class="inner-content-container-detail fleft">
-                                <div class="saved-post-header-detail">
+                                <div class="saved-post-header-detail1">
 
-                                    <div class="h4">Saved Email</div>
+<!--                                    <div class="h4">Saved Email</div>
 
                                     <div class="instruction-text">Subject Line: {{entitiesdetails.subject}}</div>
                                     <div class="instruction-text">To: {{entitiesdetails.email_list_name}}</div>
-                                    <div class="instruction-text">From Name: {{entitiesdetails.from_name}}</div>
-                                    <div class="instruction-text">Reply to Address: {{entitiesdetails.reply_to_email_address}}</div>
+                                    <div class="instruction-text">From Name: {{entitiesdetails.from_name}}</div>-->
+                                    <div class="instruction-text1"></div>
 
                                 </div>
                                 <div class="inner-content-detail">

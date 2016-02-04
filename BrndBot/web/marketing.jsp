@@ -12,26 +12,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <link rel="stylesheet" href="css/version2/hint.css"/>
     <link rel="stylesheet" href="css/pikaday.css"/>
-    <link rel="stylesheet" href="css/datepickerpikaday.css"/>
-    <link rel="stylesheet" href="css/popup.css"/>
-    <script src="js/moment.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/datepickerpikaday.css"/>     
+    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-5.css"/>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="css/popup.css"/>    
+    <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>    
+	<script src="js/moment.js" type="text/javascript"></script>
     <script src="js/alert_message.js" type="text/javascript"></script>
     <script src="js/pikaday.js"></script>
-    <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
     <script src="js/timepicki.js" type="text/javascript"></script>
     <script src="js/popup.js" type="text/javascript"></script>
     <jsp:include page="basejsp.jsp" />
-    <%@ include file="checksession.jsp" %>
-    
+    <%@ include file="checksession.jsp" %>    
     <link rel="shortcut icon" href="images/favicon.png"/>
     <title>BrndBot - Your Plan</title>
 </head>    
 
 <body ng-app class="claro1">
-     <div id="fade"></div>
+    <div id="fade"></div>
     <!--SideNav-->
     <div ng-controller="controllerMarketingCampaign" id="controllerMarketingCampaign"  class="container content-main">
     <jsp:include page="AddAction.jsp"/> 
@@ -85,7 +86,7 @@
         </div>
         <!--Main Content--> 
         <div class="page-background">
-        <div class="page-content-container email-list-contact-page" ng-init="getCampaigns()">
+        <div class="page-content-container your-plan-inner-content" ng-init="getCampaigns()">
             
             <!--Inner Content Conatiner GENERIC-->
             <div class="page-inner-content-container " >
@@ -160,7 +161,7 @@
                                     <object type="image/svg+xml" data="images/Icons/templateSaved.svg" class="status-button"> </object>
                                 </div>
                                 <div class="slat-title-container col-1of2 fleft">
-                                    <div class="slat-title email-list-slat-title col-1of1 sh1">{{nodata}}</div>
+                                    <div class="gray email-list-slat-title col-1of1 sh1">{{nodata}}</div>
                                 </div>
                             </div>
                         </li>

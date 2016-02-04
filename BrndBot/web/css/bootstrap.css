@@ -1128,13 +1128,13 @@ input[type="checkbox"] {
 }
 
 select,
-input[type="file"] {
-  height: 129px;
-  width: 134px;
-  opacity: 0;
-  line-height: 30px;
+input[type="file"] {  
+    height: 128px;
+    width: 133px;
+    opacity: 0;
+    line-height: 30px;
+    margin-top: -98px;
 }
-
 select {
   width: 220px;
   background-color: #ffffff;
@@ -4168,6 +4168,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .tabbable {
+  margin-top: 84px;
   *zoom: 1;
 }
 
@@ -6109,3 +6110,4 @@ a.badge:focus {
 .form-group {
 
 }
+

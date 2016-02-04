@@ -161,18 +161,17 @@
                     
                     $scope.clearFacebookDetails = function () {
 
-                    if(confirm(clearconfirm)){
+                    if(confirm(clearconfirm)){                        
+                        $("#fbclear").hide();
                         $http({
                             method: 'POST',
                             url: 'ServletUserPreferencesFacebook?access_token_method=clearFacebookDetails'
-                        }).success(function (data, status, headers, config) {
+                        }).success(function (data, status, headers, config) {                            
+                            alert(detailsclear);
                             $scope.getfacebookdetails();
                         }).error(function (data, status, headers, config) {
                             alert(nodataerror);
-                            // called asynchronously if an error occurs
-                            // or server returns response with an error status.
                         });
-                        alert(detailsclear);
                     }
                     };
                     
@@ -199,6 +198,7 @@
                     $scope.clearTwitterDetails = function () {
 
                     if(confirm('Do you want to really clear the details?')){
+                        $("#twitterclear").hide();
                         $http({
                             method: 'POST',
                             url: 'ServletUserPreferencesTwitter?access_token_method=clearTwitterDetails'

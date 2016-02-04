@@ -75,16 +75,17 @@
                         <option value="Facebook">Facebook Post</option>
                         <option value="Twitter">Twitter Post</option>
                         <option value="Email">Email</option>
-                        <option value="Note">Note</option>
+                        <option value="Reminder">Reminder</option>
                     </select>
                 </div>
-                <div class="input-field-container col-1of1">
+                <input type="hidden" id="marketing_program" value="0" name="marketing_program_type"/>
+<!--                <div class="input-field-container col-1of1">
                     <div class="input-header"> Marketing Program Association </div>
-                    <select disabled id="marketing_program" class="full topten" name="marketing_program_type" >
+                    <select disabled id="marketing_program" class="full topten" name="marketing_program_type" hidden >
                         <option value="0">General</option>
                         <option ng-repeat="row in marketprogram" value="{{row.user_program_id}}">{{row.name}}</option>
                     </select>
-                </div>
+                </div>-->
                 
             </div>
             

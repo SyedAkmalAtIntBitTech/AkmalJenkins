@@ -22,6 +22,7 @@
     <link href="tabs/tabcontent.css" rel="stylesheet" type="text/css"/>
     <script src="js/socialsettings.js" type="text/javascript"></script>
     <link href="css/popup.css" rel="stylesheet" type="text/css"/>
+    <link href="css/social.css" rel="stylesheet" type="text/css"/>
         <%! 
             Object code = "";
             String ImageName="";
@@ -41,11 +42,120 @@
         %>
           
         <jsp:include page="basejsp.jsp" />
+        <script>
+            
+            $(document).ready(function () {
+                var myVar1 = '<%= code %>';    /* retrieve json from request attribute */
+                var mytest = eval('(' + myVar1 + ')');
+                //alert(JSON.stringify(myVar1));      // display complete json
+
+                var removecote = myVar1.replace("[", '').replace(/"/g, '').replace(']', '');
+                var pages = removecote.split(",");
+                       //alert(pages.length);
+                if (myVar1 === "null") {
+                    //$("#popup").hide();
+                    $("#fade").hide();
+                    $("#fbpopup").hide();                    
+                }
+                else {
+                    $("#fade").show();
+                    $("#fbpopup").show();
+                    if(pages.length==1)
+                    {
+                        $("#fbmanagepages").append("<tr><td><strong>Please create atleast one <a href='https://www.facebook.com/help/104002523024878' target='_blank'>facebook page</a></strong></td></tr>");
+                    }
+                    else
+                    {
+                    for (var i = 0; i < pages.length; i = i + 3) {
+                        $("#fbmanagepages").append("<tr  id=page#" + i + "><td>" + pages[i] + "</td><td><input type=hidden id=access" + i + " value=" + pages[i + 1] + "></td><td><img src=" + pages[i + 2] + "></td></tr>");
+                    }
+
+                    $("#content").append(" <br><center><input id=isdefault name=isdefault type=checkbox class=btn btn-primary value=default>Default</input></center>");
+                    }
+                    
+                    $("#content").append(" <br><center><input id=facebookok name=facebookok type=button class=btn btn-primary value=ok>&nbsp;&nbsp;<input id=close name=close type=button class=btn btn-primary value=cancel></center>");
+                }
+ 
+                var managed_page = "";
+                var default_access_token;
+                var check_default = "false";
+                var check_default_managed_page;                
+                $("tr").click(function () {
+                    var id = this.id.split("#");
+                    var selected = $(this).hasClass("red-cell");
+                    $("tr").removeClass("red-cell");
+                    if(!selected){
+                            $(this).addClass("red-cell");}
+                    var page = $("#" + this.id).text();
+                    var accessToken = $("#access" + id[1]).val();
+                    $("#access" + id[1]).css("background-color","red");
+                    $("#pagenameSend").val(page);
+                    $("#fbaccessTokenSend").val(accessToken);
+                    $("#fbdefaultAccessToken").val("true");
+                    check_default = $("#fbdefaultAccessToken").val();
+                    $("#facebook").prop("checked", true);
+                    $("#isFacebook").val("true");
+
+                });
+
+                $("#isdefault").click(function () {
+                    if (check_default === "true"){
+                        default_access_token = $("#fbaccessTokenSend").val();
+                    }
+                    if(default_access_token === "undefine")
+                    {
+                        alert("Please choose atleast one!");
+                        $("#isdefault").prop('checked', false);
+                    }                    
+                    });
+
+                $("#facebookok").click(function () {
+                    //document.getElementById("fb").src="images/fbButton_darkblue_new.svg";
+                    check_default_managed_page = document.getElementById("isdefault").checked;
+                    if ((check_default_managed_page == true) && (check_default === "true")){
+                        $.ajax({
+                                url: 'ServletUserPreferencesFacebook',
+                                method: 'post',
+                                data: {
+                                   access_token_method: "setAccessToken",
+                                   access_token:default_access_token
+                                },
+                                success: function (responseText) {
+                                    $("#fbclear").show();
+                                    $("#fbpopup").hide();
+                                    $("#fade").hide();
+                                    $("#submitbutton").prop("disabled",false);
+                                }
+                            });
+                    }else if((check_default_managed_page == false) && (check_default === "true")) { 
+                        $("#fbclear").show();
+                        $("#fbpopup").hide();
+                        $("#fade").hide();
+                        $("#submitbutton").prop("disabled","false");
+                    }else {
+                        alert("No default page selected");
+                    } 
+                });
+            
+            $("#closefbpopupa").click(function(){
+                $("#fbpopup").hide();
+                $("#fade").hide();
+            });   
+           });
+           
+           function imgchng(){
+               document.getElementById("fb").src="images/fb_icon.png";
+               
+           }
+           
+        </script>
 </head>    
 
 <body ng-app >
     <div ng-controller="controllerSocial" id="controllerSocial"> 
     <!--SideNav-->
+    <%@ include file="onetimetwitterpopup.jsp"%>
+    <%@ include file="onetimefacebookpopup.jsp"%>  
     <%@include file="navbarv2.jsp" %>
      
     <script src="js/social.js" type="text/javascript"></script>   

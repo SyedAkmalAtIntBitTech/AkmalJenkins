@@ -104,7 +104,7 @@
                             </div>
                         </div>
                         
-                        <div class="h3 input-header-actionDetail" style="">
+<!--                        <div class="h3 input-header-actionDetail" style="">
                             POSTING DETAILS
                         </div>
                         <div class="inlineFlex">
@@ -120,7 +120,7 @@
                                 </div>
                                 <input type="text" value="Cannot Edit" class="input-field-textfield width75" readonly/>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="inlineFlex">
                             <div class="half" ng-show="user_marketing_program_id == 0">
                                 <div class="input-header-actionDetail half" style="">
@@ -180,10 +180,10 @@
         <div id="facebookpostsection">
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="saved-post-header-detail" id="savedposthead">
+<!--                <div class="saved-post-header-detail" id="savedposthead">
                     <div class="h4">Saved Facebook Post</div>
                     <div class="instruction-text">Saved post.</div>
-                </div>
+                </div>-->
                     <div class="inner-content-detail">
                         <div class="saved-post-preview-detail" id="nopostsaveddiv">
 

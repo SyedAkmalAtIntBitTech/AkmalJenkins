@@ -23,6 +23,11 @@
     display:inline-flex;
     width:100%;
 }
+.inlineblock
+{
+    display:inline-block;
+    width:100%;
+}
 .left{
     margin-left:57px;
     width: 100%;
@@ -31,6 +36,14 @@
 {
     margin-left:47px;
     width: 100%;
+}
+.left10
+{
+    margin-left:10px;
+}
+.right10
+{
+    margin-right:10px;
 }
 .rightthirty{
     margin-right:30px;
@@ -149,6 +162,9 @@
 }
 .top32{
     margin-top:32px;
+}
+.top55{
+    margin-top:55px;
 }
 .topthirty7{
     margin-top:37px;
@@ -543,7 +559,7 @@ input#timepicker1 {
     margin: 5px;
 }
 .gallery-page-content-container.fleft {
-    height: 500px;
+    height: 100%;
     overflow: auto;
 }
 .space-right
@@ -1159,6 +1175,7 @@ input#schedule_social_time {
 .cur{
     cursor: pointer;
 }
+
 #addActionemllist
 {
     display: none;
@@ -1342,10 +1359,38 @@ div#savePassword {
     filter: alpha(opacity=0);
 }
 
-.container{
-    position: absolute;
-    float: left;
-    /*margin-left: -250px;*/
+.page-background11 {
+    background-color: #EFF2F6;
+    width: 105%;
+    margin: 0px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    height: 100vh;
+    padding-left: 70px;
 }
-
+div#sortable {
+    margin-left: 0px !important;
+    margin-top: 40px;
+    margin-right: 297px;
+}
+input.upload {
+    cursor: pointer;
+}
+textarea#filetext1 {
+    width: 126px;
+    border:none;
+    resize: none;
+}
+.hideornot
+{
+    display: none;
+}
+.posi {
+    margin-top: -17px;
+    margin-left: 17px;
+}
+.gray{
+    color: #71717B;
+}
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/

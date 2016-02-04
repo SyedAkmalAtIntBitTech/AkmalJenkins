@@ -59,7 +59,7 @@ a.svg:after {
 
 .nav-tabs{ 
     display: block;
-    height: 75px;
+    height: 36px;
     line-height: 53px;
     list-style: none;
     margin: 0;
@@ -1650,6 +1650,7 @@ input-field-container{
     height: 150px;
     border: #CCC 1px solid;
     border-radius: 3px;
+    color:#7e7e7e;
 }
     
 

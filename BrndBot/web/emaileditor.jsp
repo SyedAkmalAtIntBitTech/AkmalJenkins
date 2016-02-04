@@ -569,7 +569,7 @@
         <input type="hidden" id='userid' value="<%= user_id%>">
         <div class="row" ng-controller="MyController">
             <input type="hidden" value="<%=email_subject%>" id="email_subject"/>
-            <div class="col-sm-1 col-md-1 col-lg-1 halfcol"><jsp:include page="leftmenu.html"/></div>
+            <div class="col-sm-1 col-md-1 col-lg-1 halfcol"><%@ include file="navbar2.jsp"%></div>
             <div class="col-sm-7 col-md-7 col-lg-7">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 bgcolor"> 
