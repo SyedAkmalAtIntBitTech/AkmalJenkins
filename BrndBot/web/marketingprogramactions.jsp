@@ -152,61 +152,6 @@
                                 </div>
                             </div>
                         </li>
-<!--                          <li class="slat-container fleft selfclear">
-                            <div class="selection-container col-5p"> 
-                                <div class="selection-icon"></div>
-                            </div>
-                            <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft "> 
-                                    <object type="image/svg+xml" data="/Icons/templateSaved.svg" class="status-button"> </object>
-                                </div>
-                                <div class="slat-title-container col-1of2 fleft">
-                                    <div class="slat-title email-list-slat-title col-1of1 sh1">Upcoming Workshop Post</div>
-                                    <div class="action-list-slat-description col-1of1 sh3">Howdy Again</div>
-                                </div>
-                                <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Nov. 16</div>
-                                    <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
-                                </div>
-                                <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Email</div>
-                                    <div class="list-column-description col-1of1 sh3 fleft">Action Type</div>
-                                </div>
-                            </div>
-                            <div class="col-1of4 fleft">
-                                <div class="slat-cta-container">
-                                    <div class="small-button slat-button detail-button-font">Details</div>
-                                </div>
-                            </div>
-                        </li>
-
-                          <li class="slat-container fleft selfclear">
-                            <div class="selection-container col-5p"> 
-                                <div class="selection-icon"></div>
-                            </div>
-                            <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft "> 
-                                    <object type="image/svg+xml" data="/Icons/templateSaved.svg" class="status-button"> </object>
-                                </div>
-                                <div class="slat-title-container col-1of2 fleft">
-                                    <div class="slat-title email-list-slat-title col-1of1 sh1">Upcoming Workshop Post</div>
-                                    <div class="action-list-slat-description col-1of1 sh3">Howdy Again</div>
-                                </div>
-                                <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Nov. 16</div>
-                                    <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
-                                </div>
-                                <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Email</div>
-                                    <div class="list-column-description col-1of1 sh3 fleft">Action Type</div>
-                                </div>
-                            </div>
-                            <div class="col-1of4 fleft">
-                                <div class="slat-cta-container">
-                                    <div class="small-button slat-button detail-button-font">Details</div>
-                                </div>
-                            </div>
-                        </li>-->
                 </ul>
                 </div>
                 <div class="fleft content">
