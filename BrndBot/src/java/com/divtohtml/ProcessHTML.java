@@ -104,6 +104,10 @@ public class ProcessHTML {
                     String epochDateText = getEpochDateFromText(userDateEpoch,text);
                     item.text(epochDateText);
                 }
+                else
+                {
+                    item.text(text);
+                }
 
             } else if (elementType.contains(kElementImage)) {
                 String customImageKey = item.attr(KUserimage);
