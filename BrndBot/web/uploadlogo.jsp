@@ -106,13 +106,12 @@
                 }]);
 
             myApp.controller('myCtrl', ['$scope', 'fileUpload', function ($scope, fileUpload) {
-                    $scope.uploadFile = function () {
+                    $scope.uploadFile = function () {                                                    
                         var file = $scope.myFile;
                         console.log('file is ' + JSON.stringify(file));
                         var uploadUrl = global_host_address + 'UploadLogo';
-                        fileUpload.uploadFileToUrl(file, uploadUrl);
+                        fileUpload.uploadFileToUrl(file, uploadUrl);                        
                     };
-
               }]);
 
         </script>
