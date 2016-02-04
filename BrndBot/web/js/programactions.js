@@ -1113,9 +1113,6 @@ function programactions($scope, $http, $window){
             prevSliderDialog = "#facebooksection";
             $("#facebooksection").show();
             $("#facebookpostsection").show();
-            if($('#savedpostdiv').is(":visible")){
-                $("#fbpostremove").show();
-            }
             $("#facebookactionsection").hide();
             $("#facebooknotesection").hide();
             $("#fbactionsave").hide();

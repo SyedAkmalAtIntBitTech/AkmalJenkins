@@ -24,6 +24,7 @@
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="js/popup.js" type="text/javascript"></script>      
     <script src="js/timepicki.js" type="text/javascript"></script>  
+    <style>#fbpostremove{display:none;}</style>
     <jsp:include page="basejsp.jsp"/>
     <%!
             String program_id = "";

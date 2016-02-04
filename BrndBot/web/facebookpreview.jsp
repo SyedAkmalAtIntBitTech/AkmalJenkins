@@ -272,7 +272,7 @@
         </div>
          
         <div class="" id="fbpostremove">
-            <div class="bottom-cta-button-container">
+            <div class="bottom-cta-button-container fbpostremovebar">
                 <div class="remove-button-detail md-button button-text-1 fleft removebutton" ng-click="deleteSchedule(schedule_id,'remove',master_facebook)">Remove Saved Post</div>
             </div>
         </div>
