@@ -861,6 +861,7 @@ a#removeLink {
 #recuringtemplatediv,#recuringnotediv,#avpw_main_overlay,#avpw_main_frames,#avpw_main_resize,#avpw_main_orientation,#avpw_main_saturation,#avpw_main_focus,#avpw_main_brightness,#avpw_main_contrast{
     display:none;
 }
+.emailcontentbordertop{margin-top:7% !important;}
 .avpw_scroll_page.avpw_scroll_page_incomplete {
     display: none;
 }

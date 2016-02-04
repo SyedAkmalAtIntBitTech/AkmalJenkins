@@ -145,7 +145,7 @@
                     </div>
                 </div>
                 <div id="recuringtemplatediv">
-                    <div class="below-nav-container-saved-post-detail">
+                    <div class="below-nav-container-saved-post-detail emailcontentbordertop" >
                     <div class="inner-content-container-detail">
                         <div class="saved-post-preview-detail" id="noemailsdiv" ng-show="recuring_template_status === 'No Template'">
                             <!--SAVED Email GOES HERE-->
@@ -165,7 +165,7 @@
                                 <!--</a>-->
                             </div>
                         </div>
-                        <div class="below-nav-container-saved-post-detail" id="savedemailsdiv" ng-show="recuring_template_status !== 'No Template'">
+                        <div class="below-nav-container-saved-post-detail fixingpos" id="savedemailsdiv" ng-show="recuring_template_status !== 'No Template'">
                             <div class="inner-content-container-detail fleft">
                                 <div class="saved-post-header-detail1">
 
@@ -178,8 +178,8 @@
 
                                 </div>
                                 <div class="inner-content-detail">
-                                    <div class="saved-email-preview-detail emailcontent">
-                                        <iframe id="recuringemailcontentiframe" class="content"></iframe>
+                                    <div class="saved-email-preview-detail ">
+                                        <iframe id="recuringemailcontentiframe" class="content  emailcontentiframetag"></iframe>
                                     </div>
                                 </div>
                             </div>
@@ -188,9 +188,9 @@
                             </div>-->
                         </div>
                     </div>
-                    <div class="bottom-cta-bar5"  id="recuringremovediv" ng-click="deleteAutomationSchedule(schedule_id, 'removetemplate', master_email, 'true')">
-                        <div class="bottom-cta-button-container">
-                            <div class="remove-button-detail md-button button-text-1 fleft ">Remove saved Template</div>
+                    <div class="bottom-cta-bar"  id="recuringremovediv" >
+                        <div class=" fixtobotom">
+                            <div class="remove-button-detail md-button button-text-1 fleft fixbotomremovebtn" ng-click="deleteAutomationSchedule(schedule_id, 'removetemplate', master_email, 'true')">Remove saved Template</div>
                         </div>
                     </div>
                 </div>

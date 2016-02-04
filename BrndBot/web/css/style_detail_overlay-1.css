@@ -792,7 +792,9 @@ padding-top: 0px;
     //overflow: auto;
     
 }
-
+.fixingpos{
+    position: fixed;
+}
 
 
 .saved-post-header-detail1{
@@ -1533,7 +1535,10 @@ input-field-container{
     color:#767777  ;
     cursor:pointer;
 }
-
+.bottom-continue-button:hover {
+    color: #ffffff;
+    background-color: #767777;
+}
 
 .edit-button-detail{
     float: left;
