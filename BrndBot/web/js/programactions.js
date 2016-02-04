@@ -202,13 +202,13 @@ var count=0;
             
             var selected_schedule_id=id;
             if(htm.contains('class="check-icon"')){
-                selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
+                selected_schedules_to_delete_recuring = selected_schedules_to_delete_recuring.replace(selected_schedule_id + ",", "");
                 count-=1;
                 $("#"+id).html(content);
             }
             else
             {
-                selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
+                selected_schedules_to_delete_recuring = selected_schedule_id + "," + selected_schedules_to_delete_recuring;
                 count+=1;
                 $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
@@ -1556,8 +1556,17 @@ function programactions($scope, $http, $window){
             });
         }
     };
-    
+        
     $scope.deleteSchedule = function (schedules_to_delete, type, section, isRecuring){
+        var data="";
+        if(section==='recurring')
+        {
+            data=selected_schedules_to_delete_recuring;
+        }
+        if(section==='nonrecurring')
+        {
+            data=selected_schedules_to_delete;
+        }        
         var program=$("#program_id").val();
         var message;
         var requestBody;
@@ -1571,7 +1580,7 @@ function programactions($scope, $http, $window){
                 message = multideleteconfirm;
             }
             requestBody = {"type": "deleteSelected",
-                           "schedule_ids": selected_schedules_to_delete, "entity_type": "null"};
+                           "schedule_ids": data, "entity_type": "null"};
             if(schedules_to_delete=="0"){
              responseMessage = emaildeletesuccess;
             }

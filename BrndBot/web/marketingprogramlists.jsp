@@ -63,17 +63,14 @@
             
             <!--Inner Content Conatiner GENERIC-->
             <div class="page-inner-content-container ">
-                <div class="fleft content" ng-init="getUserMarketingProgramsOpen()">
-                    <!--List Starts Here-->
-                    <ul class="main-container fleft" ng-show="current_programs==''">
+                <div class="fleft content" id="currprogs" ng-init="getUserMarketingProgramsOpen()">
+                    <ul class="main-container fleft" ng-show="current_programs==''" id="noprogramsavailable">
                         <li class="slat-container fleft selfclear">
                             <div class="col-1of1 slat-unit fleft " >
                                 No Programs Available
                             </div>
                         </li>
                     </ul>
-                </div>
-                <div class="fleft content" id="currprogs" ng-init="getUserMarketingProgramsOpen()">
                     <ul  class="main-container fleft" ng-show="current_programs!=''">
                         <li class="slat-container fleft selfclear" ng-repeat="program in current_programs">
                             <div class="col-1of1 slat-unit fleft ">
@@ -131,7 +128,7 @@
                             </div>
                         </li>
                     </ul>
-                     <ul class="main-container fleft" ng-show="past_programs==''">
+                     <ul class="main-container fleft" ng-show="past_programs==''" id="nopastprogramsavailable">
                         <li class="slat-container fleft selfclear">
                             <div class="col-1of1 slat-unit fleft " >
                                 No Past Programs Available

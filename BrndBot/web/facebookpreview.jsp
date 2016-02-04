@@ -147,7 +147,7 @@
                                 <div class="input-header-actionDetail half" style="">
                                     Day
                                 </div>
-                                <input type="text" class="textbox"  id="fbdays" name="fbdays" value="{{days}}"/>
+                                <input type="text" class="textbox datepickertextbox"  id="fbdays" name="fbdays" value="{{days}}"/>
                             </div>
 
                             <div class="half1">
