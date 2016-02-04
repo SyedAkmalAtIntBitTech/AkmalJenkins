@@ -1,8 +1,11 @@
 function Showimguploadpopup()
 {
+    document.getElementById("imagetext").value="";
+    document.getElementById("filesToUpload").value="";    
     document.getElementById('fade').style.display = 'block';
     document.getElementById('imagepopup').style.display = 'block';
     document.getElementById('addAction').style.display = 'block';
+    
     overlay();
 }
              $("#Servicecontinue").hide();
@@ -46,6 +49,7 @@ function Showimguploadpopup()
             uploadModule.controller('myCtrl', ['$scope', 'fileUpload', function ($scope, fileUpload) {
 
                     $scope.uploadFile = function () {
+                        $("#imagetext").val(imagetext);
                         var file = $scope.myFile;
                         console.log('file is ' + JSON.stringify(file));
                         var uploadUrl = global_host_address + 'UploadImages';

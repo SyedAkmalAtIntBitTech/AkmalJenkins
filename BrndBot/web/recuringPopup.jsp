@@ -159,7 +159,7 @@
                                 <!--<a class="link" href="">-->
                                     <a href="emailautomation.jsp?type=template&program_id={{program_id}}&entity_id={{schedule_id}}">
                                         <div class="md-button empty-state-cta">
-                                            Go to Dashboard
+                                            Lets change CTA to Add Email to this automation
                                         </div>
                                     </a>
                                 <!--</a>-->

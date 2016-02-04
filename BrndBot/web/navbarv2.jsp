@@ -34,7 +34,7 @@
                     <img type="image/svg+xml" src="images/Icons/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;"/>
                 </a>
             </li>
-            <li class="nav-elements-icon-container hint--right" data-hint="Email Hub">
+            <li class="nav-elements-icon-container hint--right" data-hint="Marketing Hub">
                 <a  href="emaillists.jsp" >
                     <img type="image/svg+xml" src="images/Icons/yourHubs.svg" class="nav-elements-icon " style="cursor:pointer;"/>
                 </a>
@@ -49,7 +49,7 @@
                     <img type="image/svg+xml" src="images/Icons/user.svg" class="nav-elements-icon " style="cursor:pointer;"/>
                 </a>
             </li>
-            <li class="nav-elements-icon-container hint--right" data-hint="Logout" style="position: absolute;bottom: 0%;left: 13%;">
+             <li class="nav-elements-icon-container hint--right" id="logoutid" data-hint="Logout">
                  <a  href="signout.jsp" >
                     <img type="image/svg+xml" src="images/Icons/logout.svg" class="nav-elements-icon " style="cursor:pointer;"/>
                 </a>

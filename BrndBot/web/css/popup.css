@@ -554,7 +554,7 @@ input#timepicker1 {
 }
 .galCard-content.col-1of1 {
     padding-bottom: 10px;
-    padding-top: 5px;
+    padding-top: 40px;
     padding-left: 10px;
     margin: 5px;
 }
@@ -1393,5 +1393,9 @@ textarea#filetext1 {
 }
 .gray{
     color: #71717B;
+}
+.textcenter{
+    margin-left: 232px;
+    margin-top: 20px;
 }
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/

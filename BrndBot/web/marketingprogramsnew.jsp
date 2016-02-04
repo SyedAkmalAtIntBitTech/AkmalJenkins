@@ -9,10 +9,9 @@
     <head>
         <title>Marketing Programs</title>
         <meta charset="UTF-8"></meta>
-         <%@ include file="fonttypekit.jsp"%>
-         
-         <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-         <!--<link rel="stylesheet" href="css/bootstrap.min.css"></link>-->
+        <%@ include file="fonttypekit.jsp"%>         
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+        <!--<link rel="stylesheet" href="css/bootstrap.min.css"></link>-->
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
@@ -55,14 +54,17 @@
                     <!--List Starts Here-->
                     <div class="main-container main-container50width col-1of1  pushUp fleft" >
                     <ul class="subcategory-list-container fleft" >
-                        <li class="prognamelst subcategory-list-element subcat{{program.id}} col-1of1 fleft" ng-repeat="program in programs" >
-                            <div class="subcat-list col-7of10 fleft"  id="{{program.id}}" ng-click="showhtmldata(program.id,program.html_data)">
-                                {{program.name}}
-                            </div>
-                            <div class="col-3of10 fleft">
-                                <img type="image/svg+xml" src="images/Icons/nextArrow.svg" class="next-button-icon" ></img>
-                            </div>
-                        </li>
+                        <div ng-repeat="program in programs">
+                            <li class="prognamelst subcategory-list-element subcat{{program.id}} col-1of1 fleft" ng-click="showhtmldata(program.id,program.html_data)">
+                            
+                                <div class="subcat-list col-7of10 fleft"  id="{{program.id}}">
+                                    {{program.name}}
+                                </div>
+                                <div class="col-3of10 fleft">
+                                    <img type="image/svg+xml" src="images/Icons/nextArrow.svg" class="next-button-icon" ></img>
+                                </div>                            
+                            </li>
+                        </div>
                     </ul>
                     </div>
                 </div>
@@ -77,25 +79,7 @@
                 </div>
             </div>
         </div>
-        
-  
-        <!--CTA Bar
-        <div class="bottom-cta-bar">
-            <div class="bottom-cta-button-container">
-             REMOVE BUTTON HERE
-               <div class="remove-button-detail md-button button-text-1">Delete Selected Actions</div>
-
-            </div>-->
         </div>
-    </div>
-  
-        <!--CTA Bar
-        <div class="bottom-cta-bar">
-            <div class="bottom-cta-button-container">
-             REMOVE BUTTON HERE
-               <div class="remove-button-detail md-button button-text-1">Delete Selected Actions</div>
-
-            </div>-->
-       
+    </div>       
     </body>
 </html>
