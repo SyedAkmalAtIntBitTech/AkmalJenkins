@@ -76,7 +76,8 @@ and open the template in the editor.
   .hint:after, [data-hint]:after {
     content: attr(data-hint);
     background: #203c4f;
-    color: #b5d6fd;
+/*    color: #b5d6fd;*/
+    color: #ffffff;
     padding: 8px 10px;
     font-size: 14px;
     line-height: 16px;

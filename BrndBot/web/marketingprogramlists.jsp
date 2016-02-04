@@ -79,7 +79,7 @@
                                     <div class="action-list-slat-description col-1of1 sh3-contact">Added on {{program.start_date | date: 'MMM dd yyyy'}}</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" id="program_end_date">{{program.end_date | date: "MMM dd yyyy"}}</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" id="program_end_date{{program.id}}">{{program.end_date | date: "MMM dd yyyy"}}</div>
                                     <div class="action-list-slat-description col-1of1 sh3-contact">End Date</div>
                                     <input type="hidden" value="{{program.end_date| date: "MMM dd yyyy"}}" ></input>
                                 </div>

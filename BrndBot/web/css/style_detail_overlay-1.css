@@ -620,7 +620,7 @@ padding-top: 0px;
     box-sizing: border-box;
     cursor:pointer;
     float: left;
-    
+    width: 60px;
 }
 .bckbtnwidth{
     width:57px !important;
@@ -2630,4 +2630,27 @@ width: 10%;
 }
 div#editor {
     margin-left: 23px;
+}
+
+.dropdown-label{
+ line-height: 100%;
+    margin: 0px 0px 0px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(63,63,66);
+    line-height: 30px;
+
+
+    
+}
+
+.dropdown-label-active{
+ line-height: 100%;
+    margin: 0px 0px 0px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0F76A6;
+    line-height: 30px;
+  
+ 
 }
