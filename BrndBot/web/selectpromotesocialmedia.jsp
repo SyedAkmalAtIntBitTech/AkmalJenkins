@@ -235,11 +235,11 @@
     <!--Top Nav-->   
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
-           <div class="exit-button-detail">
-                <a class=" exit-button-icon" href="channelselection.jsp?category_id=<%=category_id%>&sub_category_name=<%=sub_category_name%>&sub_category_id=<%=sub_category_id%>&external_sourcenull">
+            <a class=" exit-button-icon" href="channelselection.jsp?category_id=<%=category_id%>&sub_category_name=<%=sub_category_name%>&sub_category_id=<%=sub_category_id%>&external_sourcenull">
+                <div class="exit-button-detail">
                     <img type="image/svg+xml" src="images/Icons/backbutton.svg" onclick="backtocategory()" class="exit-button-icon" style="cursor:pointer;"> </img>
-                </a>
-            </div>
+                </div>
+            </a>
             <div class="page-title-with-back page-title-font">Social Channel Selection</div>
             <!--<div class="page-cta-container">
                 <a href="" class="gray-button fleft">
