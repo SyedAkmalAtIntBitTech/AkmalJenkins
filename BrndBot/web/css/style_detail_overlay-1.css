@@ -762,6 +762,7 @@ padding-top: 0px;
 .top-subnav-link-active-detail{
     border-bottom: 3px #0F76A6 solid;
     color: #0F76A6;
+    font-size: 14px;
 }
 
 .top-subnav-links-detail-last{
@@ -853,7 +854,8 @@ padding-top: 0px;
     padding-top: 0px;
     padding-left:75px;
     padding-right: 75px;
-    padding-bottom:105px;
+    padding-bottom:160px;
+    height: 76vh;
 
 }
 .saved-email-preview-detail{
@@ -1404,14 +1406,13 @@ input-field-container{
     font-size: 14px;
     color: #3F3F42 ;
     font-weight: 600;
-    
+    text-decoration:none !important;    
 }
 
 .h3-active-subnav {
     font-size: 14px;
     color: #0F76A6 ;
-   
-    
+   text-decoration:none !important;    
 }
 
 .h3-subnav:hover {
@@ -1549,7 +1550,7 @@ input-field-container{
 }
 .bottom-continue-button:hover {
     color: #ffffff;
-    background-color: #767777;
+    background-color: #5cc2a5;
 }
 
 .edit-button-detail{
@@ -2042,7 +2043,7 @@ margin-top: 30px;
 .selection-container{
     float: left;
     display: inline-table;
-    margin-top:-9px;
+    margin-top: 2px;
     cursor: pointer;
 }
 

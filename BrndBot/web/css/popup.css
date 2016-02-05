@@ -1062,7 +1062,7 @@ input#schedule_social_time {
                 border-bottom: none;
                 border-radius: 2px;
                 color:#2b2f35;
-                background: url("images/dropdown.png") no-repeat 275px center;
+                /*background: url("images/dropdown.png") no-repeat 275px center;*/
                 background-color: #F2F2F4; 
                 font-size:18px;
                 color: #3f4042;

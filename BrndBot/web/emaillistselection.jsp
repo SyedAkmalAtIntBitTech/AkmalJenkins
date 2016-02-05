@@ -115,7 +115,7 @@
                         <!--<div class="p chooseList-subtext col-1of1">Choose a recipient list</div>-->
                     </div>
                    <div class="col-9of10 fleft pushUp-30">
-                       <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="md-button add-button22" value="Add CSV or Email Manually"></input>
+                       <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="md-button add-button22 noborder" value="Add CSV or Email Manually"></input>
                    </div>
                    <div class="col-2of4 fleft pushUp-30" id="clktoupload"> 
                        <div class="h3 col-1of1" id="dragtext" hidden="true">Drag and drop a csv file here and click to upload:</div>
@@ -132,7 +132,7 @@
                    
                 </div>
                 <div class="col-15of4 fleft unit">
-                      <input type="button" id="upload" value="Upload" onclick="upload()" class="md-button add-action-button"/>      
+                      <input type="button" id="upload" value="Upload" onclick="upload()" class="md-button add-action-button noborder"/>      
                    </div>
                     </div>
                 </div>            

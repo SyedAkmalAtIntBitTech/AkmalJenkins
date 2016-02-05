@@ -84,7 +84,7 @@
         <!--Main Content GENERIC--> 
         <div class="dashboard-background" ng-controller="selectPromoteMediaController">
             <div class="dashboard-content" ng-init="checkTemplateAvailability()">
-                <div id="header" class="h1"> What would you like to do today?</div>
+                <div id="header" class="h1"> How would you like to promote this?</div>
                 <div class="button-row col-1of1">
                     <div class="button-column fleft col-1of10 pushright hint--bottom" ng-show="social_templates != 0"  data-hint="Social" >
                         <a onclick="selected_media('social', '<%=mindbodyid%>')" class="fleft" style="height:100%; width:100%;">
