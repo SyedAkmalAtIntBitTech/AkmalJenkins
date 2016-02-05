@@ -1095,7 +1095,7 @@ public class SqlMethods {
                 prepared_statement.setBinaryStream(6, fis, pdf_file.length());
             }
 
-            if (imagefilename != null) {
+            if (imagefilename != null || !image_type.equals("url")) {
                 query_string = "Insert into tbl_socialposthistory(user_id, timesent, contenthtml, twitter, facebook, imagefilename) Values (?,?,?,?,?,?)";
 
                 prepared_statement = getConnection().prepareStatement(query_string);
