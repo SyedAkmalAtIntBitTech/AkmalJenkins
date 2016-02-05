@@ -455,7 +455,7 @@ img.exit-button {
     width:130px;
 }
 .removebutton {
-    margin-left: 81%;
+    margin-left: 43%;
     margin-top: 1%;
     width: 179px;
 }
@@ -771,8 +771,9 @@ img#prevfbimg {
     padding-bottom: 105px;
 }
 .edit-button-detail.md-button.button-text-1.fleft {
-    margin-left: 84%;
+    margin-left: 46%;
     width: 150px;
+    margin-top: 6px;
 }
 .mouseclk{
     background-color: #F9F9F9;

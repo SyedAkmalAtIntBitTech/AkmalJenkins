@@ -66,7 +66,7 @@ function getImageId(idname)
         $("#selectedimageid").val(id);
     }
 $(document).ready(function ()
-{    
+{  
     $("#emailpreview").click(function(){
         $("#deskpreview").css('background-image', 'url("' + global_host_address +'images/imac27.png'+ '")')
         $("#mobpreview").css('background-image', 'url("' + global_host_address +'images/Phone.svg'+ '")')

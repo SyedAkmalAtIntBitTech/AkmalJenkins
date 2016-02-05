@@ -231,13 +231,13 @@
             </div>
         </div>
         <div class="bottom-cta-bar" id="emailpostremove" ng-show="entitiesdetails.body !== undefined">
-             <div class="bottom-cta-button-left-container">
+             <div class="bottom-cta-button-container-email-mark">
  
                      <div class="remove-button-detail md-button button-text-1 fleft" ng-click="deleteSchedule(schedule_id,'remove',master_email)">Remove Saved Email</div>
-            <div class="bottom-cta-button-containernew">
+<!--            <div class="bottom-cta-button-containernew">
  
                 <div class="edit-button-detail md-button button-text-1 fleft" style="left:550px;position:relative;">Edit Email</div>
-            </div>
+            </div>-->
         </div>
         </div>
     </div>
