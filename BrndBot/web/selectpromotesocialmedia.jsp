@@ -256,7 +256,7 @@
             <div class="sequence-page-subheader">If you select more than one network you will not be able to schedule as actions.</div>
             <div class="email-list-selection col-1of1 fleft">
                <div class="col-1of1 fleft unit socialNetwork-Selection-Slat mouseunclk" id="mousef">
-                    <div class="selection-container col-5p fleft"> 
+                    <div class="selection-container topnegative10 col-5p fleft"> 
                         <div class="chooseChannelSelection-icon" id="fbimgd"> 
                             <img id="fb" class="chooseList-icon" src="images/white.png">
                         </div>                        
@@ -268,7 +268,7 @@
                     </div>
                 </div>
                 <div class="col-1of1 fleft unit pushUp-15 socialNetwork-Selection-Slat mouseunclk" id="mouset" >
-                    <div class="selection-container col-5p fleft"> 
+                    <div class="selection-container topnegative10 col-5p fleft"> 
                         <div class="chooseChannelSelection-icon" id="twimgd">
                             <img id="twt" class="chooseList-icon" src="images/white.png">
                         </div>

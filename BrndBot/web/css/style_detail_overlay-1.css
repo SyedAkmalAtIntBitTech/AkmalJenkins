@@ -2046,7 +2046,9 @@ margin-top: 30px;
     margin-top: 2px;
     cursor: pointer;
 }
-
+.topnegative10{
+    margin-top: -10px;
+}
 
 .selection-icon{
     width:10px;

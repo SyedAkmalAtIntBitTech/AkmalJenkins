@@ -88,7 +88,7 @@
                                     <div class="list-column-description col-1of1 sh3-contact fleft"ng-show="program.noofpostleft!='0'">Actions Left</div>
                                     <div class="list-column-description col-1of1 sh3-contact fleft" ng-show="program.noofpostleft=='0'">No Actions Left</div>
                                 </div>
-                                <div class="col-2of10 fleft">
+                                <div class="col-1of4 fleft">
                                     <div class="slat-cta-container">
                                         <a href=""> 
                                             <div class="small-button slat-button detail-button-font" ng-click="sendProgramId(program.id,'0')">View Program</div>
@@ -118,7 +118,7 @@
 <!--                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{program.noofpostleft}}</div>
                                     <div class="list-column-description col-1of1 sh3-contact fleft">Actions Left</div>-->
                                 </div>
-                                <div class="col-2of10 fleft">
+                                <div class="col-1of4 fleft">
                                     <div class="slat-cta-container">
                                         <a href="">
                                             <div class="small-button slat-button detail-button-font"  ng-click="sendProgramId(program.id,'1')">View Program</div>
