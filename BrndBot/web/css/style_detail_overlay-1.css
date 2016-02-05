@@ -2597,6 +2597,14 @@ width: 10%;
     /*color: #cccccc;*/
     color: #000000;
 }
+.width20
+{
+    width:20% !important;
+}
+.width40
+{
+    width:40% !important;
+}
 .input-field-textfield2
 {
     height: 30px;

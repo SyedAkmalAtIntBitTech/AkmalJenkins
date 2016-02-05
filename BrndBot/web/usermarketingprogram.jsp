@@ -79,7 +79,7 @@
                                 <div class="h4" style="">
                                     Enter a name for this Marketing Program
                                 </div>
-                                <input id="program_name" class="input-field-textfield col-8of10" value="" type="text" required="" placeholder="Enter a name for this Marketing Program">
+                                <input id="program_name" class="input-field-textfield col-8of10 width40" value="" type="text" required="" placeholder="Enter a name for this Marketing Program">
                             </div>
                         </div>
                         <div class="col-1of1 fleft pushUp">
@@ -87,7 +87,7 @@
                                 <div class="h4" style="">
                                    Select a date for the end of this program:
                                 </div>
-                                <input type="text" class="input-field-textfield col-8of10" name="programdatetime" id="programdatetime" value="" readonly="">
+                                <input type="text" class="input-field-textfield col-8of10 width20" name="programdatetime" id="programdatetime" value="" readonly="">
                                 <script>
                                     var picker = new Pikaday(
                                     {
