@@ -1196,9 +1196,9 @@ p#filetext {
 #email_previewdiv{
     position: fixed;
     display: none;
-    margin-top: -38%;
+    margin-top: -42%;
     z-index: 99999;
-    margin-left: -9%;
+    margin-left: -10%;
 }
 .closeemailpreview {
     width: 36px;

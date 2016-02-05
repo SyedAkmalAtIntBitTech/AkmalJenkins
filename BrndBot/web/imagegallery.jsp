@@ -57,7 +57,7 @@
             <div class="page-inner-content-container fleft" ng-module="imagegallery" >
                 <div class="fleft content" ng-controller="samplecontoller" ng-init="showData()">
                 <!--List Starts Here-->
-                    <div class="imageGallery-container  fleft"ng-repeat="images in datalists | pagination: curPage * pageSize | limitTo: pageSize">
+                    <div class="imageGallery-container  fleft"ng-repeat="images in datalists.slice().reverse()">
                         <div class="imageGallery-card">
                             <div class="galCard-image col-1of1">
                                 <img id="{{images.id}}" class="lookchooser5 ptr imagesize" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}" onclick="showText('{{images.id}}','{{images.image_name}}')" />
