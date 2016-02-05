@@ -28,7 +28,6 @@
     <div class="content-main" ng-controller="controllerMarketingCategories">
     <%@include file="navbarv2.jsp" %>
     
-        
     <!--Top Nav--> 
         <!--Main Content GENERIC--> 
         <div class="dashboard-background" ng-init="getMarketingCategories()" >

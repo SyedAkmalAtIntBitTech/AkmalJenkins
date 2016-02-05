@@ -18,38 +18,38 @@
     </head>
     <body>
        <div class="navigation">
-        <div class="main-nav-logo hint--right" data-hint="Dashboard" >
+        <div class="main-nav-logo hint--right" data-hint="DASHBOARD" >
          <a class=" bb-logo-nav" href="dashboard.jsp" >
             <img  type="image/svg+xml" src="images/Icons/Logo_Reverse.svg" class="bb-logo " style="cursor:pointer;" />
          </a>
         </div>
         <ul class="nav-tabs1">
-            <li class="nav-elements-icon-container hint--right"  data-hint="Your Plan">
+            <li class="nav-elements-icon-container hint--right"  data-hint="YOUR PLAN">
                 <a href="marketing.jsp"> 
                     <img type="image/svg+xml" src="images/Icons/yourPlan.svg" class="nav-elements-icon" style="cursor:pointer;"/>
                 </a>
             </li>
-            <li class="nav-elements-icon-container hint--right"  data-hint="Marketing program">
+            <li class="nav-elements-icon-container hint--right"  data-hint="MARKETING PROGRAM">
                  <a class="" href="marketingprogramlists.jsp">
                     <img type="image/svg+xml" src="images/Icons/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;"/>
                 </a>
             </li>
-            <li class="nav-elements-icon-container hint--right" data-hint="Marketing Hub">
+            <li class="nav-elements-icon-container hint--right" data-hint="MARKETING HUB">
                 <a  href="emaillists.jsp" >
                     <img type="image/svg+xml" src="images/Icons/yourHubs.svg" class="nav-elements-icon " style="cursor:pointer;"/>
                 </a>
             </li>
-            <li class="nav-elements-icon-container hint--right" data-hint="Media">
+            <li class="nav-elements-icon-container hint--right" data-hint="MEDIA">
                 <a  href="imagegallery.jsp" >
                     <img type="image/svg+xml" src="images/Icons/media.svg" class="nav-elements-icon " style="cursor:pointer;"/>
                 </a>
             </li>
-            <li class="nav-elements-icon-container hint--right" data-hint="User">
+            <li class="nav-elements-icon-container hint--right" data-hint="USER">
                 <a  href="settings.jsp?change=0" >
                     <img type="image/svg+xml" src="images/Icons/user.svg" class="nav-elements-icon " style="cursor:pointer;"/>
                 </a>
             </li>
-             <li class="nav-elements-icon-container hint--right" id="logoutid" data-hint="Logout">
+             <li class="nav-elements-icon-container hint--right" id="logoutid" data-hint="LOGOUT">
                  <a  href="signout.jsp" >
                     <img type="image/svg+xml" src="images/Icons/logout.svg" class="nav-elements-icon " style="cursor:pointer;"/>
                 </a>

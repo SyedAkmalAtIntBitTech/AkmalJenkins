@@ -22,7 +22,6 @@ import org.hibernate.annotations.GenericGenerator;
 )
 public class TblMarketingProgramUsersLookup  implements java.io.Serializable {
 
-
      private int id;
      private TblMarketingProgram tblMarketingProgram;
      private TblUserLoginDetails tblUserLoginDetails;
@@ -30,7 +29,6 @@ public class TblMarketingProgramUsersLookup  implements java.io.Serializable {
     public TblMarketingProgramUsersLookup() {
     }
 
-	
     public TblMarketingProgramUsersLookup(int id) {
         this.id = id;
     }
@@ -41,7 +39,6 @@ public class TblMarketingProgramUsersLookup  implements java.io.Serializable {
     }
    
     @Id 
-
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id", unique=true, nullable=false)
     public int getId() {
@@ -71,10 +68,6 @@ public class TblMarketingProgramUsersLookup  implements java.io.Serializable {
     public void setTblUserLoginDetails(TblUserLoginDetails tblUserLoginDetails) {
         this.tblUserLoginDetails = tblUserLoginDetails;
     }
-
-
-
-
 }
 
 

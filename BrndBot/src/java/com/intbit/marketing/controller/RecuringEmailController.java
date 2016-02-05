@@ -276,7 +276,11 @@ public class RecuringEmailController {
         schedule_email_list.setTblUserLoginDetails(user_login);
         schedule_email_list.setEmailListName(emaillist);
         org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(user_id);
-        schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
+        
+        if (jsonFromAddress != null){
+            schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
+        }
+
         schedule_email_list.setFromName(from_name);
         schedule_email_list.setReplyToEmailAddress(reply_to_address);
         schedule_email_list.setSubject(subject);
@@ -310,7 +314,7 @@ public class RecuringEmailController {
         }catch (Throwable throwable){
             logger.log(Level.SEVERE,"Exception while saving the email action in the table:", throwable);
         }
-        return "true";
+        return "false";
     }
     
     @RequestMapping (value = "/addupdateRecuringAction", method = RequestMethod.POST)
@@ -359,7 +363,11 @@ public class RecuringEmailController {
         schedule_email_list.setTblUserLoginDetails(user_login);
         schedule_email_list.setEmailListName(emaillist);
         org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(user_id);
-        schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
+        
+        if (jsonFromAddress != null){
+            schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
+        }
+        
         schedule_email_list.setFromName(from_name);
         schedule_email_list.setReplyToEmailAddress(reply_to_address);
         schedule_email_list.setSubject(subject);
@@ -475,7 +483,10 @@ public class RecuringEmailController {
         schedule_email_list.setEmailListName(emaillist);
         schedule_email_list.setBody(html_data);
         org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(user_id);
-        schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
+        
+        if (jsonFromAddress != null){
+            schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
+        }
         schedule_email_list.setFromName(from_name);
         schedule_email_list.setReplyToEmailAddress(reply_to_address);
         schedule_email_list.setSubject(subject);
@@ -494,17 +505,21 @@ public class RecuringEmailController {
     }
     
     public org.json.simple.JSONObject getFromAddress(Integer user_id){
-        
-        SqlMethods sql_methods = new SqlMethods();
+        try{
 
-        org.json.simple.JSONObject json_user_preferences = sql_methods.getJSONUserPreferences(user_id);
-            
-        org.json.simple.JSONObject json_object_email_settings = (org.json.simple.JSONObject)json_user_preferences.get(IConstants.kEmailSettings);
+            SqlMethods sql_methods = new SqlMethods();
 
-        String from_address = (String)json_object_email_settings.get(IConstants.kEmailFromAddress);
+            org.json.simple.JSONObject json_user_preferences = sql_methods.getJSONUserPreferences(user_id);
 
-        return json_object_email_settings;
-        
+            org.json.simple.JSONObject json_object_email_settings = (org.json.simple.JSONObject)json_user_preferences.get(IConstants.kEmailSettings);
+
+            String from_address = (String)json_object_email_settings.get(IConstants.kEmailFromAddress);
+
+            return json_object_email_settings;
+        }catch (Throwable throwable){
+            logger.log(Level.SEVERE,"Exception while getting the from address:", throwable);
+        }
+        return null;
     }
     
     @RequestMapping (value = "/getUserPreferences", method = RequestMethod.GET)

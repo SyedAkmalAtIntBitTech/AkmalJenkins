@@ -46,10 +46,13 @@ public class MarketingCategoryUsersDaoImpl implements MarketingCategoryUsersDao{
     /**
          * {@inheritDoc}
     */
-    public List<TblMarketingCategoryUsersLookup> getAllMarketingCategoryUsers() throws Throwable {
+    public List<TblMarketingCategoryUsersLookup> getAllMarketingCategoryUsers(Integer user_id) throws Throwable {
       try {
         Criteria criteria = sessionFactory.getCurrentSession()
-                .createCriteria(TblMarketingCategoryUsersLookup.class);
+                .createCriteria(TblMarketingCategoryUsersLookup.class)
+                    .setFetchMode("tbl_marketing_category", FetchMode.JOIN)
+                    .setFetchMode("tbl_user_login_details", FetchMode.JOIN)
+                    .add(Restrictions.eq("tbl_user_login_details.user_id", user_id));
             return criteria.list();
          } catch (Throwable throwable) {
             logger.log(Level.SEVERE, null, throwable);

@@ -2493,11 +2493,13 @@ width: 10%;
     margin-top: 30px;
 }
 .imageGallery-card {
-    border: solid 1px #D5DADF;
+    border: solid 2px #D5DADF;
     border-radius: 4px;
     box-sizing: border-box;
     width: 100%;
+    margin-bottom: 3px;
 }
+.imageGallery-card:hover{ border: solid 2px #0F76A6;}
 .galCard-content-popup {
     height: 100px;
     padding: 10px 15px 10px 10px;
@@ -2628,4 +2630,27 @@ width: 10%;
 }
 div#editor {
     margin-left: 23px;
+}
+
+.dropdown-label{
+ line-height: 100%;
+    margin: 0px 0px 0px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(63,63,66);
+    line-height: 30px;
+
+
+    
+}
+
+.dropdown-label-active{
+ line-height: 100%;
+    margin: 0px 0px 0px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0F76A6;
+    line-height: 30px;
+  
+ 
 }

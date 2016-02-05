@@ -89,12 +89,12 @@
                             <div class="fleft col-6of10 dropdown-label-active">Email Hub</div>
                         </a>                        
                     </li>
-                    <li class="dropdown-section col-1of1 fleft" id="socialhubli" >
-                        <a href="social.jsp">
+                    <a href="social.jsp">
+                        <li class="dropdown-section col-1of1 fleft" id="socialhubli" >
                             <div><img type="image/svg+xml" src="images/Icons/Hub-Dropdowns_social.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
                             <div class="fleft col-6of10 dropdown-label">Social Hub</div>
-                        </a>
-                    </li>
+                        </li>
+                    </a>
                 </ul>
             </div>
         </div>
