@@ -12,6 +12,19 @@
             {
                tw=1;
             }
+            
+            function changeimagetext() {
+                var imagetext=$("#filesToUpload").val();
+                if(imagetext ==="")
+                {
+                    alert("Please choose an image!");
+                }
+                else
+                {
+                    $("#imagetext").val(imagetext);
+                }
+            }
+                        
             $(document).ready(function () {
                 var isFacebook1 = $("#isFacebook").val();
                 var isTwitter1 = $("#isTwitter").val();
@@ -896,9 +909,17 @@ function controllerMarketingCampaign($scope, $http) {
     };
     $scope.uploadFile = function(){
         $("#myFile").upload("UploadImages",function(success){
-        
-           $("#fileuploaddiv").hide();
-           $scope.showImages();
+            var imagetext=$("#filesToUpload").val();
+            alert(imagetext);
+            if(imagetext ==="")
+            {
+                alert("Please choose an image!");
+            }
+            else
+            {        
+                $("#fileuploaddiv").hide();
+                $scope.showImages();
+            }
        });
     };
     $scope.showImages = function(){
@@ -956,14 +977,22 @@ $("#Servicecontinue").hide();
                             });
                     };
                 }]);
-
+            
             uploadModule.controller('myCtrl', ['$scope', 'fileUpload', function ($scope, fileUpload) {
 
                     $scope.uploadFile = function () {
-                        var file = $scope.myFile;
-                        console.log('file is ' + JSON.stringify(file));
-                        var uploadUrl = global_host_address + 'UploadImages';
-                        fileUpload.uploadFileToUrl(file, uploadUrl);
+                        var imagetext=$("#filesToUpload").val();
+                        if(imagetext ==="")
+                        {
+                            alert("Please choose an image!");
+                        }
+                        else
+                        {
+                            var file = $scope.myFile;
+                            console.log('file is ' + JSON.stringify(file));
+                            var uploadUrl = global_host_address + 'UploadImages';
+                            fileUpload.uploadFileToUrl(file, uploadUrl);
+                        }
                     };
 
               }]);

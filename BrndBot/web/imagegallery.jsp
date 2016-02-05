@@ -26,7 +26,7 @@
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="js/imagegallery2.js"></script>
     <script src="js/socialimageselection.js" type="text/javascript"></script>
-    <link rel="shortcut icon" href="favicon.png"/>
+    <link rel="shortcut icon" href="images/favicon.png"/>
     <title>BrndBot - Library</title>
 </head>    
     <style>#imagepopup{display: none;
@@ -63,13 +63,13 @@
                                 <img id="{{images.id}}" class="lookchooser5 ptr imagesize" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.image_name}}&user_id={{images.user_id}}" onclick="showText('{{images.id}}','{{images.image_name}}')" />
                             </div>
                             <div class="galCard-content col-1of1"> 
-                                <div class="galImage-name">Image Name</div>
-                                <div class="galImage-description">Added on Nov 26 2015</div>
+<!--                                <div class="galImage-name">Image Name</div>
+                                <div class="galImage-description">Added on Nov 26 2015</div>-->
                                 <div class="galCard-divider"></div>
-                                 <img type="image/svg+xml" src="images/Icons/settings.svg" class="galCard-settingsicon fleft"> </img>
-                                    <li class="nav-elements-icon-container hint--top"  data-hint="Delete">
-                                        <img type="image/svg+xml" id="delete" src="images/Icons/trash.svg" class="galCard-trashicon fleft cur" ng-click="deleteImage(images.id, images.user_id, images.image_name)"/>
-                                    </li>                                 
+                                <!--<img type="image/svg+xml" src="images/Icons/settings.svg" class="galCard-settingsicon fleft"> </img>-->
+                                <li class="nav-elements-icon-container hint--top"  data-hint="Delete">
+                                    <img type="image/svg+xml" id="delete" src="images/Icons/trash.svg" class="galCard-trashicon fleft cur" ng-click="deleteImage(images.id, images.user_id, images.image_name)"/>
+                                </li>                                 
                                  <!--<button name="delete"  id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>-->
                             </div>
                         </div>

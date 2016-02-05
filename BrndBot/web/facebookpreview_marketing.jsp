@@ -72,11 +72,11 @@
         <div id="facebookactionsection">    
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="saved-post-header-detail">
+<!--                <div class="saved-post-header-detail">
                     <div id="emptynoteheader" class="h4" >Write Notes about this Action</div>
                     <div id="notesavedheader" class="h4" >Notes</div>
                     <div class="instruction-text" ><p id="fbdescription">{{schedule_desc}}</p></div>
-                </div>
+                </div>-->
                     <div class="inner-content-detail">
                         <div class="fields-note-detail">
 
@@ -226,10 +226,10 @@
         <div id="facebooknotesection">
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="saved-post-header-detail">
+<!--                <div class="saved-post-header-detail">
                     <div class="h4">Write Notes about this Action</div>
                     <div class="instruction-text">Text Goes here!</div>
-                </div>
+                </div>-->
                 <div class="inner-content-detail">
                     <div class="saved-note-detail">
 

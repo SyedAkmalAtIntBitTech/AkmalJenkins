@@ -455,7 +455,7 @@ img.exit-button {
     width:130px;
 }
 .removebutton {
-    margin-left: 81%;
+    margin-left: 43%;
     margin-top: 1%;
     width: 179px;
 }
@@ -554,7 +554,7 @@ input#timepicker1 {
 }
 .galCard-content.col-1of1 {
     padding-bottom: 10px;
-    padding-top: 5px;
+    padding-top: 40px;
     padding-left: 10px;
     margin: 5px;
 }
@@ -613,11 +613,11 @@ input#timepicker1 {
 }*/
 .blueborder
 {
-    border: 2px solid #64B6EE;
-    top: -3px;
+    border: 2px solid #64B6EE !important;
+/*    top: -3px;
     bottom: -3px;
     left: -3px;
-    right: -3px;
+    right: -3px;*/
 }
 .greyborder{
     border: solid 1px #D5DADF;
@@ -771,8 +771,9 @@ img#prevfbimg {
     padding-bottom: 105px;
 }
 .edit-button-detail.md-button.button-text-1.fleft {
-    margin-left: 84%;
+    margin-left: 46%;
     width: 150px;
+    margin-top: 6px;
 }
 .mouseclk{
     background-color: #F9F9F9;
@@ -861,6 +862,7 @@ a#removeLink {
 #recuringtemplatediv,#recuringnotediv,#avpw_main_overlay,#avpw_main_frames,#avpw_main_resize,#avpw_main_orientation,#avpw_main_saturation,#avpw_main_focus,#avpw_main_brightness,#avpw_main_contrast{
     display:none;
 }
+.emailcontentbordertop{margin-top:7% !important;}
 .avpw_scroll_page.avpw_scroll_page_incomplete {
     display: none;
 }
@@ -1060,7 +1062,7 @@ input#schedule_social_time {
                 border-bottom: none;
                 border-radius: 2px;
                 color:#2b2f35;
-                background: url("images/dropdown.png") no-repeat 275px center;
+                /*background: url("images/dropdown.png") no-repeat 275px center;*/
                 background-color: #F2F2F4; 
                 font-size:18px;
                 color: #3f4042;
@@ -1392,5 +1394,9 @@ textarea#filetext1 {
 }
 .gray{
     color: #71717B;
+}
+.textcenter{
+    margin-left: 232px;
+    margin-top: 20px;
 }
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/

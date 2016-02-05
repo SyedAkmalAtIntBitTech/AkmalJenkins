@@ -620,7 +620,7 @@ padding-top: 0px;
     box-sizing: border-box;
     cursor:pointer;
     float: left;
-    
+    width: 60px;
 }
 .bckbtnwidth{
     width:57px !important;
@@ -762,6 +762,7 @@ padding-top: 0px;
 .top-subnav-link-active-detail{
     border-bottom: 3px #0F76A6 solid;
     color: #0F76A6;
+    font-size: 14px;
 }
 
 .top-subnav-links-detail-last{
@@ -792,7 +793,9 @@ padding-top: 0px;
     //overflow: auto;
     
 }
-
+.fixingpos{
+    position: fixed;
+}
 
 
 .saved-post-header-detail1{
@@ -851,7 +854,8 @@ padding-top: 0px;
     padding-top: 0px;
     padding-left:75px;
     padding-right: 75px;
-    padding-bottom:105px;
+    padding-bottom:160px;
+    height: 76vh;
 
 }
 .saved-email-preview-detail{
@@ -1402,14 +1406,13 @@ input-field-container{
     font-size: 14px;
     color: #3F3F42 ;
     font-weight: 600;
-    
+    text-decoration:none !important;    
 }
 
 .h3-active-subnav {
     font-size: 14px;
     color: #0F76A6 ;
-   
-    
+   text-decoration:none !important;    
 }
 
 .h3-subnav:hover {
@@ -1497,6 +1500,18 @@ input-field-container{
     border-top: 1px solid #bbb;
     cursor:pointer;
 }
+.bottom-cta-button-container-email-mark{
+    float: left;
+    height: 0px;
+    box-sizing: border-box;
+    background-color: #F9FAFC;
+    padding-right: 0px;
+    width: 100%;
+    margin-top: 0%;
+    margin-left: 28%;
+    border-top: 0px solid #bbb;
+    cursor:pointer;
+}
 .editemailbtn{
     float: left;
     height: 0px;
@@ -1533,7 +1548,10 @@ input-field-container{
     color:#767777  ;
     cursor:pointer;
 }
-
+.bottom-continue-button:hover {
+    color: #ffffff;
+    background-color: #5cc2a5;
+}
 
 .edit-button-detail{
     float: left;
@@ -2025,10 +2043,12 @@ margin-top: 30px;
 .selection-container{
     float: left;
     display: inline-table;
-    margin-top:-9px;
+    margin-top: 2px;
     cursor: pointer;
 }
-
+.topnegative10{
+    margin-top: -10px;
+}
 
 .selection-icon{
     width:10px;
@@ -2488,11 +2508,13 @@ width: 10%;
     margin-top: 30px;
 }
 .imageGallery-card {
-    border: solid 1px #D5DADF;
+    border: solid 2px #D5DADF;
     border-radius: 4px;
     box-sizing: border-box;
     width: 100%;
+    margin-bottom: 3px;
 }
+.imageGallery-card:hover{ border: solid 2px #0F76A6;}
 .galCard-content-popup {
     height: 100px;
     padding: 10px 15px 10px 10px;
@@ -2575,6 +2597,14 @@ width: 10%;
     /*color: #cccccc;*/
     color: #000000;
 }
+.width20
+{
+    width:20% !important;
+}
+.width40
+{
+    width:40% !important;
+}
 .input-field-textfield2
 {
     height: 30px;
@@ -2623,4 +2653,27 @@ width: 10%;
 }
 div#editor {
     margin-left: 23px;
+}
+
+.dropdown-label{
+ line-height: 100%;
+    margin: 0px 0px 0px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(63,63,66);
+    line-height: 30px;
+
+
+    
+}
+
+.dropdown-label-active{
+ line-height: 100%;
+    margin: 0px 0px 0px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0F76A6;
+    line-height: 30px;
+  
+ 
 }

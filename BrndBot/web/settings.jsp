@@ -40,7 +40,7 @@
         %>
         <% 
             try{
-                change = (String)request.getAttribute("change");
+                change = (String)request.getParameter("change");
             }catch (Exception e){
                 System.out.println(e.getCause());
                 System.out.println(e.getMessage());

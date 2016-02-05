@@ -63,17 +63,14 @@
             
             <!--Inner Content Conatiner GENERIC-->
             <div class="page-inner-content-container ">
-                <div class="fleft content" ng-init="getUserMarketingProgramsOpen()">
-                    <!--List Starts Here-->
-                    <ul class="main-container fleft" ng-show="current_programs==''">
+                <div class="fleft content" id="currprogs" ng-init="getUserMarketingProgramsOpen()">
+                    <ul class="main-container fleft" ng-show="current_programs==''" id="noprogramsavailable">
                         <li class="slat-container fleft selfclear">
                             <div class="col-1of1 slat-unit fleft " >
                                 No Programs Available
                             </div>
                         </li>
                     </ul>
-                </div>
-                <div class="fleft content" id="currprogs" ng-init="getUserMarketingProgramsOpen()">
                     <ul  class="main-container fleft" ng-show="current_programs!=''">
                         <li class="slat-container fleft selfclear" ng-repeat="program in current_programs">
                             <div class="col-1of1 slat-unit fleft ">
@@ -82,7 +79,7 @@
                                     <div class="action-list-slat-description col-1of1 sh3-contact">Added on {{program.start_date | date: 'MMM dd yyyy'}}</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" id="program_end_date">{{program.end_date | date: "MMM dd yyyy"}}</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" id="program_end_date{{program.id}}">{{program.end_date | date: "MMM dd yyyy"}}</div>
                                     <div class="action-list-slat-description col-1of1 sh3-contact">End Date</div>
                                     <input type="hidden" value="{{program.end_date| date: "MMM dd yyyy"}}" ></input>
                                 </div>
@@ -91,7 +88,7 @@
                                     <div class="list-column-description col-1of1 sh3-contact fleft"ng-show="program.noofpostleft!='0'">Actions Left</div>
                                     <div class="list-column-description col-1of1 sh3-contact fleft" ng-show="program.noofpostleft=='0'">No Actions Left</div>
                                 </div>
-                                <div class="col-2of10 fleft">
+                                <div class="col-1of4 fleft">
                                     <div class="slat-cta-container">
                                         <a href=""> 
                                             <div class="small-button slat-button detail-button-font" ng-click="sendProgramId(program.id,'0')">View Program</div>
@@ -121,7 +118,7 @@
 <!--                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{program.noofpostleft}}</div>
                                     <div class="list-column-description col-1of1 sh3-contact fleft">Actions Left</div>-->
                                 </div>
-                                <div class="col-2of10 fleft">
+                                <div class="col-1of4 fleft">
                                     <div class="slat-cta-container">
                                         <a href="">
                                             <div class="small-button slat-button detail-button-font"  ng-click="sendProgramId(program.id,'1')">View Program</div>
@@ -131,7 +128,7 @@
                             </div>
                         </li>
                     </ul>
-                     <ul class="main-container fleft" ng-show="past_programs==''">
+                     <ul class="main-container fleft" ng-show="past_programs==''" id="nopastprogramsavailable">
                         <li class="slat-container fleft selfclear">
                             <div class="col-1of1 slat-unit fleft " >
                                 No Past Programs Available

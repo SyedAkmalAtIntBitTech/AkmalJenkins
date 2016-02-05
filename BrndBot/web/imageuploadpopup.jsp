@@ -35,20 +35,14 @@
             <div class="pop-up-inner-gallery" ng-controller="myCtrl">
                 <div class="imageGallery-inner-popup">
                     <div class="imageUpload-container">
-<!--                        <div class="imageUpload-drag">
-                            <div class="imageUpload-drophere drop-instruction" > Drop Image Here</div>
-                        </div>
-                        <div class="imageUpload-browse drop-instruction"> or Browse your local files:</div> -->
-
                         <div class="browse-button">
                             <div id="triggerfile" class="md-button gray-button">Browse your Images</div>
-                            <input type="file" name="filesToUpload[]" id="filesToUpload" class="upload fileupld" file-model="myFile"/>
+                            <input type="file" name="filesToUpload[]" id="filesToUpload" class="upload fileupld" onchange="changeimagetext()" file-model="myFile"/>
                         </div>
-                    </div>
-                     
+                        <input type="text" placeholder="No image selected" class="noborder textcenter" id="imagetext" readonly/>
+                    </div>                     
                 </div>
-                    <div class="add-action-button md-button button-text-1 uploadimgbtn" id="upload" ng-click="uploadFile()" > Upload Image</div>
-
+                <div class="add-action-button md-button button-text-1 uploadimgbtn" id="upload" ng-click="uploadFile()" > Upload Image</div>
             </div>
             </div>
         </div>

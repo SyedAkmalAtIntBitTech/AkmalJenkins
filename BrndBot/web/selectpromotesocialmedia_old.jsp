@@ -15,16 +15,12 @@
 <%@page import="org.json.JSONObject"%>
 <%@page import="org.json.JSONArray"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
 <!DOCTYPE html>
 <html>
     <head>
         <%@ include file="fonttypekit.jsp"%>
         <%@ include file="checksession.jsp" %>
-
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
@@ -33,11 +29,9 @@
         <link href="css/popup.css" rel="stylesheet" type="text/css"/>
         <link href="css/glyphiconiconstyle.css" rel="stylesheet" type="text/css"/>
         <!--<script src="js/foundation.min.js" type="text/javascript"></script>-->
-        <script src="js/jquery.reveal.js" type="text/javascript"></script>
-        
+        <script src="js/jquery.reveal.js" type="text/javascript"></script>        
         <script src="js/socialmedia.js" type="text/javascript"></script>
-        
-<link href="css/reveal.css" rel="stylesheet" type="text/css"/>
+        <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
 <!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
         <title>BrndBot - Social Media</title>
 

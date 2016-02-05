@@ -1587,7 +1587,7 @@ input-field-container{
     box-sizing: border-box;
     padding-right: 60px;
 }
-
+.centerbtn{float: none !important;margin-left: 27%;}
 .bottom-continue-button{
     float: left;
     height: 100%;
@@ -2787,7 +2787,7 @@ width:100%;
     margin: 0px 0px 0px 12px;
     font-size: 14px;
     font-weight: 500;
-    color: rgb(85,85,85);
+    color: rgb(63,63,66);
     line-height: 30px;
 
 
@@ -2799,7 +2799,7 @@ width:100%;
     margin: 0px 0px 0px 12px;
     font-size: 14px;
     font-weight: 600;
-    color: rgb(43,43,43);
+    color: #0F76A6;
     line-height: 30px;
   
  

@@ -35,17 +35,43 @@
        $(function() {
         if(clickedImageId === 0)
         {
-            $(".feditImage").click(function(){
+            var facebook=$("#isFacebook").val();
+            var twitter=$("#isTwitter").val();
+            var number=0;
+            if(facebook==="true" && twitter==="true")
+            {
+                clickedImageId=$("#facebookpreviewimage").attr("id");
+                number=2;
+            }
+            if(facebook==="true" && twitter!=="true")
+            {
+                clickedImageId=$("#facebookpreviewimage").attr("id");
+                number=1;
+            }
+            if(facebook!=="true" && twitter==="true")
+            {
+                clickedImageId=$("#twitterpreviewimage").attr("id");
+                number=1;
+            }
+            $(".feditImage").click(function(){                
                 clickedImageId=$("#facebookpreviewimage").attr("id");
                 launchEditor($("#facebookpreviewimage").attr("id"));
             });
             $("#twitterimg").click(function(){   
-                clickedImageId=$("#twitterpreviewimage").attr("id");
-                launchEditor($("#twitterpreviewimage").attr("id"));
+                if(number===2)
+                {
+                    clickedImageId=$("#facebookpreviewimage").attr("id");
+                    launchEditor($("#facebookpreviewimage").attr("id"));
+                }
+                else
+                {
+                    clickedImageId=$("#twitterpreviewimage").attr("id");
+                    launchEditor($("#twitterpreviewimage").attr("id"));                    
+                }
             });
         }
         else
         {
-            launchEditor(clickedImageId);
+            //launchEditor(clickedImageId);
         }
        });

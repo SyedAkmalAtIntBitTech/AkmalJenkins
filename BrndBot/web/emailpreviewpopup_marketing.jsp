@@ -59,11 +59,11 @@
         <div id="emailactionsection">    
             <div class="below-nav-container-saved-post-detail">
                 <div class="inner-content-container-detail">
-                <div class="saved-post-header-detail">
+<!--                <div class="saved-post-header-detail">
                    <div class="h4" ng-show="schedule_desc === ''">Write Notes about this Action</div>                      
                    <div class="h4" ng-show="schedule_desc !== ''">Notes</div>
                    <div class="instruction-text" ng-show="schedule_desc !== ''"><p id="emaildescription{{schedule_id}}">{{schedule_desc}}</p></div>
-                </div>
+                </div>-->
                     <div class="inner-content-detail">
                         <div class="fields-note-detail">
 
@@ -193,10 +193,10 @@
         <div id="emailnotesection">
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="saved-post-header-detail">
+<!--                <div class="saved-post-header-detail">
                     <div class="h4">Write Notes about this Action</div>
                     <div class="instruction-text">Text Goes here!</div>
-                </div>
+                </div>-->
                 <div class="inner-content-detail">
                     <div class="saved-note-detail">
 
@@ -231,13 +231,13 @@
             </div>
         </div>
         <div class="bottom-cta-bar" id="emailpostremove" ng-show="entitiesdetails.body !== undefined">
-             <div class="bottom-cta-button-left-container">
+             <div class="bottom-cta-button-container-email-mark">
  
                      <div class="remove-button-detail md-button button-text-1 fleft" ng-click="deleteSchedule(schedule_id,'remove',master_email)">Remove Saved Email</div>
-            <div class="bottom-cta-button-containernew">
+<!--            <div class="bottom-cta-button-containernew">
  
                 <div class="edit-button-detail md-button button-text-1 fleft" style="left:550px;position:relative;">Edit Email</div>
-            </div>
+            </div>-->
         </div>
         </div>
     </div>

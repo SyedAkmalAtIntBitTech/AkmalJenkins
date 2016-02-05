@@ -24,7 +24,7 @@
     <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
     <script src="js/imageeditor.js" type="text/javascript"></script>
     <script src="js/socialimageselection.js" type="text/javascript"></script>
-                
+    <link rel="shortcut icon" href="images/favicon.png"/>            
     <title>socialimageselection</title>
 </head>
 <%@page import="com.controller.SqlMethods"%>
