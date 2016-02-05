@@ -32,7 +32,8 @@ $(document).ready(function(){
                 }
             });
             document.getElementById("facebook").checked=true;
-            document.getElementById("fb").src="images/fbButton_darkblue_new.svg"; 
+            document.getElementById("fb").src="images/Icons/check.svg"; 
+            $("#fbimgd").css("background-color","#0F76A6");
             $("#mousef").css("background-color","#F9F9F9");
             $("#isFacebook").val("true");
             count++;
@@ -144,7 +145,8 @@ $(document).ready(function(){
                 }
             });
             document.getElementById("twitter").checked=true;
-            document.getElementById("twt").src="images/twtButton_lightblue_new.svg";
+            document.getElementById("twt").src="images/Icons/check.svg";
+            $("#twimgd").css("background-color","#0F76A6");
             $("#mouset").css("background-color","#ffffff");
             $("#isTwitter").val("true");
             $("#mouset").css("background-color","#F9F9F9");

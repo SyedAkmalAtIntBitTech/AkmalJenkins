@@ -18,6 +18,10 @@
 <!--    <script src="js/socialimage.js" type="text/javascript"></script>-->
     <script src="js/socialeditor.js" type="text/javascript"></script>
     <script src="js/ajaxfileupload.js" type="text/javascript"></script>
+    <style>.arrow_top{display:none;}
+        .timepicker_wrap{top:-155px !important;width: 200px;}
+        #schedule_time{width:60% !important;}
+    </style>
 <!--    <script>
 
         $("#Servicecontinue").hide();
@@ -283,7 +287,15 @@
                                     <input id="schedule_time" type="text" name="schedule_time" class="input-field-textfield input-placeholder" placeholder="Enter Action Time" readonly/><br>
                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
-                                        $('#schedule_time').timepicki();
+                                        $('#schedule_time').timepicki({
+                                            show_meridian:true,
+                                   min_hour_value:0,
+                                   max_hour_value:12,
+                                   step_size_minutes:01,
+                                   overflow_minutes:true,
+                                   increase_direction:'up',
+                                   disable_keyboard_mobile: true
+                                        });
                                     </script>
                                 </div>
                             </div>

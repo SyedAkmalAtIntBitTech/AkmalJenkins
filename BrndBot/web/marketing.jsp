@@ -130,7 +130,7 @@
                                     <div class="action-list-slat-description col-1of1 sh3" ng-show="entitydetails.user_marketing_program_id == 0">No Program</div>
                                 </div>
                                 
-                                <div class=" col-2of10 fleft slat-attribute-container">
+                                <div class=" col-1of4 fleft slat-attribute-container">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft"ng-show="entitydetails.entity_type==master_facebook || entitydetails.entity_type==master_twitter">{{entitydetails.entity_type}}</div>
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft"ng-show="entitydetails.entity_type==master_email || entitydetails.entity_type==master_note">{{entitydetails.entity_type}}</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Action Type</div>
@@ -157,12 +157,13 @@
                                 <!--<div class="selection-icon"></div>-->
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft " ng-show="entitydetails.template_status=='No Template'"> 
+                                <div class="gray email-list-slat-title col-7of10 sh1">{{nodata}}</div>
+<!--                                <div class="icon-container fleft " ng-show="entitydetails.template_status=='No Template'"> 
                                     <object type="image/svg+xml" data="images/Icons/templateSaved.svg" class="status-button"> </object>
                                 </div>
-                                <div class="slat-title-container col-1of2 fleft">
-                                    <div class="gray email-list-slat-title col-1of1 sh1">{{nodata}}</div>
-                                </div>
+                                <div class="slat-title-container  fleft">
+                                    <div class="gray email-list-slat-title col-7of10 sh1">{{nodata}}</div>
+                                </div>-->
                             </div>
                         </li>
                     </ul>

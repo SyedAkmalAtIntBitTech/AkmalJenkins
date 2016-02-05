@@ -455,7 +455,7 @@ img.exit-button {
     width:130px;
 }
 .removebutton {
-    margin-left: 81%;
+    margin-left: 43%;
     margin-top: 1%;
     width: 179px;
 }
@@ -771,8 +771,9 @@ img#prevfbimg {
     padding-bottom: 105px;
 }
 .edit-button-detail.md-button.button-text-1.fleft {
-    margin-left: 84%;
+    margin-left: 46%;
     width: 150px;
+    margin-top: 6px;
 }
 .mouseclk{
     background-color: #F9F9F9;
@@ -1061,7 +1062,7 @@ input#schedule_social_time {
                 border-bottom: none;
                 border-radius: 2px;
                 color:#2b2f35;
-                background: url("images/dropdown.png") no-repeat 275px center;
+                /*background: url("images/dropdown.png") no-repeat 275px center;*/
                 background-color: #F2F2F4; 
                 font-size:18px;
                 color: #3f4042;
@@ -1195,9 +1196,9 @@ p#filetext {
 #email_previewdiv{
     position: fixed;
     display: none;
-    margin-top: -38%;
+    margin-top: -42%;
     z-index: 99999;
-    margin-left: -9%;
+    margin-left: -10%;
 }
 .closeemailpreview {
     width: 36px;

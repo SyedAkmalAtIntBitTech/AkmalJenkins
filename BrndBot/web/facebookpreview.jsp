@@ -72,11 +72,11 @@
         <div id="facebookactionsection">    
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="saved-post-header-detail">
+<!--                <div class="saved-post-header-detail">
                     <div id="emptynoteheader1" class="h4" ng-show="schedule_desc ===''">Write Notes about this Action</div>
                     <div id="emptynoteheader2" class="h4" ng-show="schedule_desc !==''" >Notes</div>
                     <div class="instruction-text" ><p id="fbdescription">{{schedule_desc}}</p></div>
-                </div>
+                </div>-->
                     <div class="inner-content-detail">
                         <div class="fields-note-detail">
 
@@ -147,7 +147,7 @@
                                 <div class="input-header-actionDetail half" style="">
                                     Day
                                 </div>
-                                <input type="text" class="textbox"  id="fbdays" name="fbdays" value="{{days}}"/>
+                                <input type="text" class="textbox datepickertextbox"  id="fbdays" name="fbdays" value="{{days}}"/>
                             </div>
 
                             <div class="half1">
@@ -245,10 +245,10 @@
         <div id="facebooknotesection">
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="saved-post-header-detail" ng-hide="schedule_desc !==''">
+<!--                <div class="saved-post-header-detail" ng-hide="schedule_desc !==''">
                     <div id="fbemptynoteheader" class="h4">Write Notes about this Action</div>
                     <div id="fbnotetext" class="instruction-text">{{schedule_desc}}</div>
-                </div>
+                </div>-->
                 <div class="inner-content-detail">
                     <div class="saved-note-detail">
 
@@ -272,7 +272,7 @@
         </div>
          
         <div class="" id="fbpostremove">
-            <div class="bottom-cta-button-container">
+            <div class="bottom-cta-button-container fbpostremovebar">
                 <div class="remove-button-detail md-button button-text-1 fleft removebutton" ng-click="deleteSchedule(schedule_id,'remove',master_facebook)">Remove Saved Post</div>
             </div>
         </div>

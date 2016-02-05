@@ -24,6 +24,7 @@
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="js/popup.js" type="text/javascript"></script>      
     <script src="js/timepicki.js" type="text/javascript"></script>  
+    <style>#fbpostremove{display:none;}</style>
     <jsp:include page="basejsp.jsp"/>
     <%!
             String program_id = "";
@@ -99,7 +100,7 @@
                                 <div class=" md-button" ng-click="addEditRecuringAction('add',<%=program_id%>, '0')">Add Recurring Email Automation</div>    
                             </a>
                             <a href="" id="deleterecurringemail" class="delete-button-detail fleft">
-                                <div class="md-button delrecemlbtn" ng-click="deleteSchedule('0', 'deleteMultiple')">Delete Selected Recurring Email(s)</div>    
+                                <div class="md-button delrecemlbtn" ng-click="deleteSchedule('0', 'deleteMultiple','recurring')">Delete Selected Recurring Email(s)</div>    
                             </a>
                             <%}%>
                         </div>
@@ -152,61 +153,6 @@
                                 </div>
                             </div>
                         </li>
-<!--                          <li class="slat-container fleft selfclear">
-                            <div class="selection-container col-5p"> 
-                                <div class="selection-icon"></div>
-                            </div>
-                            <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft "> 
-                                    <object type="image/svg+xml" data="/Icons/templateSaved.svg" class="status-button"> </object>
-                                </div>
-                                <div class="slat-title-container col-1of2 fleft">
-                                    <div class="slat-title email-list-slat-title col-1of1 sh1">Upcoming Workshop Post</div>
-                                    <div class="action-list-slat-description col-1of1 sh3">Howdy Again</div>
-                                </div>
-                                <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Nov. 16</div>
-                                    <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
-                                </div>
-                                <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Email</div>
-                                    <div class="list-column-description col-1of1 sh3 fleft">Action Type</div>
-                                </div>
-                            </div>
-                            <div class="col-1of4 fleft">
-                                <div class="slat-cta-container">
-                                    <div class="small-button slat-button detail-button-font">Details</div>
-                                </div>
-                            </div>
-                        </li>
-
-                          <li class="slat-container fleft selfclear">
-                            <div class="selection-container col-5p"> 
-                                <div class="selection-icon"></div>
-                            </div>
-                            <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft "> 
-                                    <object type="image/svg+xml" data="/Icons/templateSaved.svg" class="status-button"> </object>
-                                </div>
-                                <div class="slat-title-container col-1of2 fleft">
-                                    <div class="slat-title email-list-slat-title col-1of1 sh1">Upcoming Workshop Post</div>
-                                    <div class="action-list-slat-description col-1of1 sh3">Howdy Again</div>
-                                </div>
-                                <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Nov. 16</div>
-                                    <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
-                                </div>
-                                <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Email</div>
-                                    <div class="list-column-description col-1of1 sh3 fleft">Action Type</div>
-                                </div>
-                            </div>
-                            <div class="col-1of4 fleft">
-                                <div class="slat-cta-container">
-                                    <div class="small-button slat-button detail-button-font">Details</div>
-                                </div>
-                            </div>
-                        </li>-->
                 </ul>
                 </div>
                 <div class="fleft content">
@@ -218,7 +164,7 @@
                                 <div class=" md-button" ng-click="ShowAddAction()">  Add One Time Action</div>    
                             </a>
                             <a href="" id="deleteonetimeact" class="delete-button-detail fleft">
-                                <div class="md-button delrecemlbtn" ng-click="deleteSchedule('1', 'deleteMultiple')">Delete Selected Action(s)</div>
+                                <div class="md-button delrecemlbtn" ng-click="deleteSchedule('1', 'deleteMultiple','nonrecurring')">Delete Selected Action(s)</div>
                             </a>
                             <%}%>
                         </div>

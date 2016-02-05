@@ -84,7 +84,8 @@ a.svg:after {
 .fixtobotom{
     position: fixed;
     bottom: 9%;
-    margin-left:50%;
+    /*margin-left:50%;*/ 
+    margin-left: 27%;
 }
 .detail-content {
    width:100%;
@@ -740,7 +741,7 @@ input-field-container{
     color:#767777  ;
 }
 .edit-button-detailrecemail{
-    margin-left: 81% !important;
+    margin-left: 45% !important;
     width: 205px !important;
     margin-top: 0.7% !important;
     }

@@ -49,7 +49,8 @@
                     <img type="image/svg+xml" src="images/Icons/user.svg" class="nav-elements-icon " style="cursor:pointer;"/>
                 </a>
             </li>
-             <li class="nav-elements-icon-container hint--right" id="logoutid" data-hint="LOGOUT">
+             <li class="nav-elements-icon-container hint--right" id="logoutid" data-hint="LOGOUT" style="position: absolute;bottom: 0%;left: 13%;">
+
                  <a  href="signout.jsp" >
                     <img type="image/svg+xml" src="images/Icons/logout.svg" class="nav-elements-icon " style="cursor:pointer;"/>
                 </a>

@@ -33,22 +33,22 @@
                 <div class="emailPreviews col-1of1 fleft"> 
                     <div class="emailPreview-desktop-col  fleft">
                         <div class="emailPreview-headers">Desktop Preview</div>
-                        <div class="iphoneshow img-responsive" id="deskpreview" style="display: block; height: 300px; width: 295px; margin-left: 215px; margin-top: 50px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">
+                        <!--<div class="iphoneshow img-responsive" id="deskpreview" style="display: block; height: 300px; width: 295px; margin-left: 215px; margin-top: 50px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">-->
                             <div class="content">  
-                                <iframe id="dynamictable5" style="position: relative; width: 768px; border: none; height: 615px; top: -187px; left: -239px; transform: scale(0.3326); background-color: rgb(255, 255, 255);" src="<%=iframeUrl%>"></iframe>                   
+                                <iframe id="dynamictable5" style="position: relative; width: 100%; border: none; height: 400px;background-color: rgb(255, 255, 255);" src="<%=iframeUrl%>"></iframe>                   
                             </div>
-                        </div>
+                        <!--</div>-->
                         <div class="desktopshow" style="display:none;">
                             <iframe id='dynamictable' class="desktoppreview" src='<%=iframeUrl%>'></iframe> 
                         </div>                        
                     </div>
                     <div class="emailPreview-mobile-col fleft">
                         <div class="emailPreview-headers">Mobile Preview</div>
-                        <div class="iphoneshow img-responsive" id="mobpreview" style="display: block; height: 370px; width: 254px; margin-left: 85px; margin-top: 32px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">
+                        <!--<div class="iphoneshow img-responsive" id="mobpreview" style="display: block; height: 370px; width: 254px; margin-left: 85px; margin-top: 32px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">-->
                             <div class="content">  
-                                <iframe id="dynamictable6" style="position: relative; width: 358px; height: 573px; top: -109px; border: none; left: -77px; transform: scale(0.4999); background-color: rgb(255, 255, 255);" src="<%=iframeUrl%>"></iframe>                   
+                                <iframe id="dynamictable6" style="position: relative; width: 100%; height: 400px; border: none; background-color: rgb(255, 255, 255);" src="<%=iframeUrl%>"></iframe>                   
                             </div>
-                        </div>
+                        <!--</div>-->
                     </div>
                 </div>
             </div>
