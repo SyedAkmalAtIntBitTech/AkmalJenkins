@@ -39,11 +39,15 @@
                             <div id="triggerfile" class="md-button gray-button">Browse your Images</div>
                             <input type="file" name="filesToUpload[]" id="filesToUpload" class="upload fileupld" onchange="changeimagetext()" file-model="myFile"/>
                         </div>
-                        <input type="text" placeholder="No image selected" class="noborder textcenter" id="imagetext" readonly/>
+                        <div class="browse-button">
+                        <input type="text" placeholder="No image selected" class="noborder " id="imagetext" readonly/>
+                        </div>
                     </div>                     
                 </div>
+                <div class="browse-button">
                 <div class="add-action-button md-button button-text-1 uploadimgbtn" id="upload" ng-click="uploadFile()" > Upload Image</div>
-            </div>
+                </div>
+                </div>
             </div>
         </div>
     </body>

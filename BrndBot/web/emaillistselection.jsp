@@ -80,7 +80,8 @@
     <!--SideNav-->
     <div class="content-main" >
     <%@include file="navbarv2.jsp" %>
-    <%@include file="emaillistselectionpopup.jsp" %>
+    <%@include file="emaillistselectionpopup.jsp" %>    
+        <%@include file="emailpreview.jsp" %>
     <input type="hidden" value="<%= draft_id %>" name="draft_id" id="draft_id"></input>  
     <input type="hidden" value="<%= iframeName %>" name="iframeName" id="iframeName1"></input>  
     <input type="hidden" value="<%= emailSubject %>" name="iframeName" id="email_subject"></input> 
@@ -141,6 +142,7 @@
             <div class="sequence-page-content-container">
                 <div class="sequence-page-header">Email Details</div>
                     <div class="email-detail-selection col-1of1 fleft" ng-controller="EmailListSetting" ng-init="getEmailSettings()">
+                        
                         <div class="col-1of1 fleft pushUp">
                             <div class="col-9of10 fleft">
                                 <div class="h4" style="">
@@ -167,7 +169,7 @@
                             </div>
                         </div>
                         <div class="input-field-container col-1of8 fleft pushUp-50">
-                        <%@include file="emailpreview.jsp" %>
+                        
                         <div class="h2 curpointer" id="emailpreview">Preview</div>                       
                         </div>
                     <!--Inner Content Conatiner GENERIC-->
