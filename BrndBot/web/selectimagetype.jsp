@@ -67,12 +67,14 @@
                             </div>
                             <div class="pop-up-title-gallery fleft col-9of10"> 
                                 <div class="pop-up-title-h1-gallery fleft"> Select an image to use:</div>
-                                <a href="" class="space-right fleft">
-                                    <div class=" add-button22 md-button" id="addimage"> Add Image</div>    
-                                </a>
-                                <a href="" class="gray-button fright ">
-                                    <div class=" md-button" id="galleryupload">Upload an Image</div>    
-                                </a>
+                                <div class="space-right">
+                                    <a href="" class=" fleft padhlf">
+                                        <div class="add-button22 md-button" id="addimage"> Add Image</div>    
+                                    </a>
+                                    <a href="" class="gray-button fright ">
+                                        <div class=" md-button" id="galleryupload">Upload an Image</div>    
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <div class="pop-up-inner-gallery " ng-init="getLinks()">
@@ -185,8 +187,8 @@
 
                 </div>
             </div>
-            <div class="pop-up-cta-container-1 pop-up-cta-container-newaction">
-                    <div class="pop-up-cta-button-full" id="submitLink"> Add Link</div>
+            <div id="submitLink" class="pop-up-cta-container-1 pop-up-cta-container-newaction">
+                    <div class="pop-up-cta-button-full" > Add Link</div>
                 </a>
             </div> 
             </div>
@@ -301,9 +303,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="pop-up-cta-container pop-up-cta-container-newaction1" id ="schedulethepost">
+                    <div class="pop-up-cta-container pop-up-cta-container-newaction1"  id="socialscheduleid">
                         <input type="hidden" value="socialmedia"/>
-                        <div class="algnmnt" name="socialscheduleid" id="socialscheduleid">SCHEDULE</div>
+                        <div class="algnmnt" name="socialscheduleid" id="schedulethepost">SCHEDULE</div>
                     </div>
                     </div>
                 </div>

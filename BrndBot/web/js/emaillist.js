@@ -871,7 +871,7 @@ $edit=0;
                         }).success(function (data)
                         {
                             if (data === "true") {
-                                alert(datasaved);
+                                alert(deleteemaillist);
                                 window.open(getHost() + 'emaillists.jsp', "_self");
                             } else if (data === error) {
                                 alert(data);
@@ -894,7 +894,7 @@ $edit=0;
                             }).success(function (data)
                             {
                                 if (data === "true") {
-                                    alert(datasaved);
+                                    alert(contactdelete);
                                     $scope.updateList(email_list_name);
                                     selectedemailids = "";
                                     window.open(getHost() + 'emaillistsdetails.jsp?list_name='+email_list_name+'&type=user', "_self");

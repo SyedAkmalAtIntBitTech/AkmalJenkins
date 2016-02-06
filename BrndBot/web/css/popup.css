@@ -564,10 +564,14 @@ input#timepicker1 {
 }
 .space-right
 {
-    margin-left: 36%;
+    float:right;
+    overflow: hidden;
+    box-sizing: border-box;
+    display:inline-flex;
 }
 #addimage{
     display: none;
+    margin-right: 10px;
 }
 #fileuploaddiv {
     display: none;
@@ -774,6 +778,9 @@ img#prevfbimg {
     margin-left: 46%;
     width: 150px;
     margin-top: 6px;
+}
+.padlft{
+    padding-left:20%;
 }
 .mouseclk{
     background-color: #F9F9F9;
