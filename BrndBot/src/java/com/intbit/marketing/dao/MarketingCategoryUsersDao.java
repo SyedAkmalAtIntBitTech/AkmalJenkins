@@ -26,7 +26,7 @@ public interface MarketingCategoryUsersDao {
 	 * @return {@link MarketingCategory}
 	 * @throws java.lang.Throwable 
     */
-   public List<TblMarketingCategoryUsersLookup> getAllMarketingCategoryUsers() throws Throwable;
+   public List<TblMarketingCategoryUsersLookup> getAllMarketingCategoryUsers(Integer user_id) throws Throwable;
    
    /**
 	 * This method save {@link MarketingCategory} by passing marketingCategory
