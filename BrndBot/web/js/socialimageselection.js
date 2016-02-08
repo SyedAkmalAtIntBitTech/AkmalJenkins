@@ -258,7 +258,6 @@
                                         $('#mask').hide();
                                         $('.window').hide();
                                         alert(postpublish);
-
                                         document.location.href = "dashboard.jsp";
                                     }
                                 });
