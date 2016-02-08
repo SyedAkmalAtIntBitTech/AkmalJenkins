@@ -53,7 +53,7 @@
 
                 <!--Below Nav-->
                 <div id="recuringactiondiv">
-                    <div class="below-nav-container-saved-post-detail">
+                    <div class="below-nav-container-saved-post-detail bgwhite">
                         <div class="inner-content-container-detail">
                             <div class="inner-content-detail">
                             <div class="fields-note-detail" >

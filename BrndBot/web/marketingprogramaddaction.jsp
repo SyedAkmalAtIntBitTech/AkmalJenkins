@@ -63,15 +63,15 @@
                          <input id="timepicker1" type="text" name="timepicker1"  class="input-field-textfield input-placeholder" placeholder="Enter Action Time"></input>
                          <script src="js/timepicki.js" type="text/javascript"></script>
                         <script>
-                                $('#timepicker1').timepicki({
-                                                    show_meridian:true,
-                                                    min_hour_value:0,
-                                                    max_hour_value:12,
-                                                    step_size_minutes:01,
-                                                    overflow_minutes:true,
-                                                    increase_direction:'up',
-                                                    disable_keyboard_mobile: true
-                                                });
+                                    $('#timepicker1').timepicki({
+                                                        show_meridian:true,
+                                                        min_hour_value:0,
+                                                        max_hour_value:12,
+                                                        step_size_minutes:01,
+                                                        overflow_minutes:true,
+                                                        increase_direction:'up',
+                                                        disable_keyboard_mobile: true
+                                                    });
                         </script>
                     </div>
                 </div>

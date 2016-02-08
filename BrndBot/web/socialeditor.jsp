@@ -844,7 +844,7 @@ var mindbodydataId = $("#mindbodydata").val();
                                 </center>
                             </div>
 
-                            <p class="edit SP1">EDIT THIS POST </p>&nbsp;&nbsp; <p id="edtgb" class="BT2" style="position:relative;top: -12px;"><a href="selectpromotemedia.jsp">go back</a></p>
+                            <p class="edit SP2">Social Post Editor </p>&nbsp;&nbsp; <p id="edtgb" class="BT2" style="position:relative;top: -12px;"><a href="selectpromotemedia.jsp">go back</a></p>
                             <div class="preview" style="zoom: 0.5;position:relative;left:180px;top:-200px;">
 
 

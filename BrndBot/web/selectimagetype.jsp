@@ -297,7 +297,15 @@
                                     <input id="schedule_social_time" type="text" name="schedule_social_time" class="input-field-textfield input-placeholder" placeholder="Enter Action Time" readonly/><br>
                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
-                                        $('#schedule_social_time').timepicki();
+                                        $('#schedule_social_time').timepicki({
+                                                    show_meridian:true,
+                                                    min_hour_value:0,
+                                                    max_hour_value:12,
+                                                    step_size_minutes:01,
+                                                    overflow_minutes:true,
+                                                    increase_direction:'up',
+                                                    disable_keyboard_mobile: true
+                                                });
                                     </script>
                                 </div>
                             </div>

@@ -140,7 +140,7 @@
                 <div class="group" ng-controller="myCtrl">
                     <div class="span5 col-md-offset-3 ">
                           <div class="fileUpload btn ">
-                            <span>Click to upload a logo</span>
+                              <span class="curpointer">Click to upload a logo</span>
                             <input type="file" name="filesToUpload[]"  id="filesToUpload" class="upload"  file-model="myFile" />
                         </div>
                         <button style="left:18.5em;" id="Servicecontinue" type="submit"  class="button button--moema button--text-thick  button--size-s" disabled ng-click="uploadFile()">UPLOAD LOGO</button>
