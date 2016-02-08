@@ -58,7 +58,7 @@
         <script>
             angular.module("myapp", [])
                     .controller("controllerGetMindBody", function($scope, $http) {
-                         $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","560px");
+                         $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","40%").css("left","45%");
                          $(".page-background").css("background-color","#fff");
 //                          $("#continuebutton").hide();
                             $scope.showData = function(){

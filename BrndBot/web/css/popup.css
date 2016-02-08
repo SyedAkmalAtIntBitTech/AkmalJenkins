@@ -328,8 +328,9 @@
     margin-left: 27%;
 }
 img.exit-button {
-    width: 25px;
-    margin-left: -6px;
+    width: 37px;
+    margin-left: -5px;
+    margin-top: -6px;
 }
 #facebooksection{
     position: fixed;
@@ -1405,5 +1406,16 @@ textarea#filetext1 {
 .textcenter{
     margin-left: 232px;
     margin-top: 20px;
+}
+ #edit{
+    position: relative;
+    top:0px;
+    font-family:"proxima-nova",sans-serif;
+    font-weight:500;
+    left: 0em; 
+    color: #2D4444;
+    max-height: 600px;
+    margin-left: 0%;
+    /*                                overflow: auto;*/
 }
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/
