@@ -92,6 +92,31 @@
                     var isFacebook = $("#isFacebook").val();
                     var isTwitter = $("#isTwitter").val();
                     var image_name = $("#imageToPost").val();
+                    var bit_url = "";
+                    var link = $("#Linkurl").val();
+
+                    if (link != undefined){
+                        var f = link.startsWith("http");
+
+                        if (!f)
+                        {
+                            link = "http://" + $("#Linkurl").val();
+                        }
+                        var url = link;
+                        var username = "sandeep264328"; // bit.ly username
+                        var key = "R_63e2f83120b743bc9d9534b841d41be6";
+                    }
+                    
+                    $.ajax({
+                        url: "http://api.bit.ly/v3/shorten",
+                        data: {longUrl: url, apiKey: key, login: username},
+                        dataType: "jsonp",
+                        success: function (v)
+                        {
+                            bit_url = v.data.url;
+                            $("#sortLengthurl").val(bit_url);
+                        }                    
+                    });
                     if(isFacebook === "true")
                     {
                         if($("#posttext").val()==="")
@@ -450,7 +475,8 @@
                                 }
                             ];
 
-                        } else if (isFacebook == "false" && isTwitter == "true") {
+                        } 
+                        else if (isFacebook == "false" && isTwitter == "true") {
                             social_schedule = [
                                 {
                                     type: gettwitter(),
@@ -471,7 +497,8 @@
                                 }
                             ];
 
-                        } else if (isFacebook == "true" && isTwitter == "true") {                            
+                        } 
+                        else if (isFacebook == "true" && isTwitter == "true") {                            
                     social_schedule =
                             [
                                 {
