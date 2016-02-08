@@ -1271,7 +1271,7 @@ label:before {
                                     },
                                     metadata: {
                                         text: '"' + $("#twittertext").val() + '"',
-                                        shorturl:'"' + $("#url").val()+'"'
+                                        shorturl:'"' + $("#link").val()+'"'
                                     }
                                 }
                             ];
@@ -1311,7 +1311,7 @@ label:before {
                                             },
                                             metadata: {
                                                 text: '"' + $("#twittertext").val() + '"',
-                                                shorturl:'"' + $("#url").val()+'"'
+                                                shorturl:'"' + $("#link").val()+'"'
                                             }
                                         }
                                     ];
@@ -1365,7 +1365,7 @@ label:before {
                                     },
                                     metadata: {
                                         text: '"' + $("#twittertext").val() + '"',
-                                        shorturl:'"' + $("#url").val()+'"'
+                                        shorturl:'"' + $("#link").val()+'"'
                                     }
                                 }
                             ];
@@ -1401,7 +1401,7 @@ label:before {
                                             },
                                             metadata: {
                                                 text: '"' + $("#twittertext").val() + '"',
-                                                shorturl:'"' + $("#url").val()+'"'
+                                                shorturl:'"' + $("#link").val()+'"'
                                             }
                                         }
                                     ];

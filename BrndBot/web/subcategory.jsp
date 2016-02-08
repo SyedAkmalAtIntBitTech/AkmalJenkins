@@ -21,7 +21,7 @@
     <script src="js/configurations.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/dashboard.js"></script>
-     <jsp:include page="basejsp.jsp" />
+    <jsp:include page="basejsp.jsp" />
      
 </head>    
 
@@ -32,6 +32,7 @@
     <%@include file="navbarv2.jsp" %> 
     <!--SideNav-->
     <div class="content-main" ng-controller="controllerCategories">
+        <input type="hidden" id="id" value="<%=id%>"/>
     <!--Top Nav-->   
       <div class="top-nav">
         <div class="page-title-bar col-1of1"> 

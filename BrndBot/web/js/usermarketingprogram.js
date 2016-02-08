@@ -79,7 +79,7 @@
                 $scope.saveMarketingProgram = function(){
                     
                 if (validate()){
-//                    alert("enter");
+//                  alert("enter");
                     var program_name = $("#program_name").val();
                     var program_date_time = $("#programdatetime").val();
                     
@@ -145,7 +145,7 @@
                         count++;
                     }
                     var d=year+"-"+month+"-"+day;
-                     var program_url = $("#program_url").val();
+                    var program_url = $("#program_url").val();
                     var program_url_name = $("#program_url_name").val();
                     if(program_url === "http://" || program_url_name === "")
                     {
