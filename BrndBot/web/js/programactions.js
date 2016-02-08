@@ -705,7 +705,8 @@ function programactions($scope, $http, $window){
         return toUTCDate(new Date(millis));
     };    
     $scope.addEditRecuringAction = function(type,program_id,entity_id){
-        window.open(getHost() + 'emailautomation.jsp?type='+type+'&program_id='+program_id+'&entity_id='+entity_id, "_self");
+        var program_end_date=$("#program_end_date").val();
+        window.open(getHost() + 'emailautomation.jsp?type='+type+'&program_id='+program_id+'&entity_id='+entity_id+'&program_date='+program_end_date, "_self");
     };    
     $scope.createPost = function(){
         window.open(getHost() + 'dashboard.jsp', "_self");
@@ -1556,6 +1557,7 @@ function programactions($scope, $http, $window){
         
     $scope.deleteSchedule = function (schedules_to_delete, type, section, isRecuring){
         var data="";
+        var program_end_date=$("#program_end_date").val();
         if(section==='recurring')
         {
             data=selected_schedules_to_delete_recuring;
@@ -1630,7 +1632,7 @@ function programactions($scope, $http, $window){
                         $("#mailremovedtemplate").show();                     
                     }
                     alert(responseMessage);
-                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
+                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0&program_date='+program_end_date, "_self");
                 }
             }).error(function (data, status) {
                 alert(requesterror);

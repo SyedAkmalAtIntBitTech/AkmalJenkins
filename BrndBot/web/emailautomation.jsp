@@ -102,7 +102,7 @@
     
     function emailautomation($scope, $http){
         $("#back").click(function (){
-            window.open(getHost() + 'marketingprogramactions.jsp?past=0&program_id='+program_id, "_self");
+            window.open(getHost() + 'marketingprogramactions.jsp?past=0&program_id='+program_id+'&program_date='+program_end_date, "_self");
         });
         $scope.getEntityDetails = function (){
             $scope.showEmailList();
@@ -202,6 +202,7 @@
                 var recuring_email_description = $("#recuring_email_description").val();
 
                 var till_date = $("#datepicker").val();
+                var program_end_date=$("#program_end_date").val();
                 var schedule_time=$("#timepicker1").val().replace(/ /g,'');
 //                        var schedule_time=$("#timepicker1").val();
                 var till_date_epoch = Date.parse(till_date);
@@ -232,7 +233,7 @@
                     }).success(function (data, status, headers, config) {
                         if (data === "true") {
                             alert("Details saved succesfully.");
-                            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+ program_id + '&past=0', "_self");
+                            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+ program_id + '&past=0&program_date='+program_end_date, "_self");
                         }else {
                             alert("Problem saving the record!");
                         }
@@ -298,7 +299,7 @@
                     }).success(function (data, status, headers, config) {
                         if ((data === "true")) {
                             alert("Details saved succesfully.");
-                            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+ program_id + '&past=0', "_self");
+                            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+ program_id + '&past=0&program_date='+program_end_date, "_self");
                         }else {
                             alert("Problem saving the record!");
                         }
@@ -331,7 +332,7 @@
                     }).success(function (data, status, headers, config) {
                         if ((data === "true")) {
                             alert("Details saved succesfully.");
-                            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id+'&past=0', "_self");
+                            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id+'&past=0&program_date='+program_end_date, "_self");
                         }else {
                             alert("Problem saving the record!");
                         }
@@ -573,11 +574,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css"/>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
-   <link href="css/emailautomation.css" rel="stylesheet" type="text/css"/>
-        <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
-        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-       <script src="js/configurations.js"></script>
-       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <link href="css/emailautomation.css" rel="stylesheet" type="text/css"/>
+  <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
+  <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+  <script src="js/configurations.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
   <script type="text/javascript" src="js/froala_editor.min_editor.js" ></script>
@@ -674,10 +675,17 @@
     }       
                     
                
-</script>          
+</script>     
+         <%!
+            String program_date="";
+    %>
+    <%
+        program_date = request.getParameter("program_date");
+    %>
 </head>    
 
 <body ng-app ng-controller="emailautomation">
+    <input type="hidden" name="program_end_date" id="program_end_date" value="<%= program_date %>"/>
      <div id="boxes">
             <div id="dialog" class="window">
             </div>
