@@ -17,7 +17,7 @@
                 var imagetext=$("#filesToUpload").val();
                 if(imagetext ==="")
                 {
-                    alert("Please choose an image!");
+                    alert(chooseimage);
                 }
                 else
                 {
@@ -913,7 +913,7 @@ function controllerMarketingCampaign($scope, $http) {
             alert(imagetext);
             if(imagetext ==="")
             {
-                alert("Please choose an image!");
+                alert(chooseimage);
             }
             else
             {        
@@ -984,7 +984,7 @@ $("#Servicecontinue").hide();
                         var imagetext=$("#filesToUpload").val();
                         if(imagetext ==="")
                         {
-                            alert("Please choose an image!");
+                            alert(chooseimage);
                         }
                         else
                         {

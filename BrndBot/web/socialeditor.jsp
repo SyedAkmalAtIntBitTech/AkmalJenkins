@@ -28,7 +28,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <link href="css/simple").cbutton.css" rel="stylesheet" type="text/css"/>
+        <!--<link href="css/simple").cbutton.css" rel="stylesheet" type="text/css">-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
@@ -423,11 +423,11 @@ var mindbodydataId = $("#mindbodydata").val();
         });
             
             $scope.showStyles = function(){
-        var media_type=$("#media_type").val();
-        $scope.curPage = 0;
+                var media_type=$("#media_type").val();
+                $scope.curPage = 0;
                 $scope.pageSize = 2;
                 $http({
-                method : 'GET',
+                 method : 'GET',
                     url : 'GetLayoutStyles?editorType=social&media_type='+media_type+''
                 }).success(function(data, status, headers, config) {
 //                                            alert(JSON.stringify(data));
@@ -437,16 +437,16 @@ var mindbodydataId = $("#mindbodydata").val();
                             document.getElementById('edt').style.backgroundColor = 'transparent';
                             document.getElementById('stl').style.backgroundColor = '#fff';
                 $scope.numberOfPages = function() {
-                return Math.ceil($scope.datalists.length / $scope.pageSize);
+                    return Math.ceil($scope.datalists.length / $scope.pageSize);
                 };
                 if (data === error){
                     alert(data);
-                    }
-        }).error(function(data, status, headers, config) {
-            alert("No data available! Problem fetching the data.");
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-        });
+                }
+            }).error(function(data, status, headers, config) {
+                alert("No data available! Problem fetching the data.");
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+            });
         };
         
             $scope.showImages = function(){
@@ -458,7 +458,7 @@ var mindbodydataId = $("#mindbodydata").val();
                 $scope.curPage = 0;
                 $scope.pageSize = 100;
                 $http({
-                method : 'GET',
+                        method : 'GET',
                         url : 'GetUserImages'
                 }).success(function(data, status, headers, config) {
 //                                        alert(JSON.stringify(data));
@@ -470,7 +470,7 @@ var mindbodydataId = $("#mindbodydata").val();
                     alert(data);
                 }
         }).error(function(data, status, headers, config) {
-        alert("No data available! Problem fetching the data.");
+            alert("No data available! Problem fetching the data.");
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
         });

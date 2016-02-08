@@ -565,10 +565,14 @@ input#timepicker1 {
 }
 .space-right
 {
-    margin-left: 36%;
+    float:right;
+    overflow: hidden;
+    box-sizing: border-box;
+    display:inline-flex;
 }
 #addimage{
     display: none;
+    margin-right: 10px;
 }
 #fileuploaddiv {
     display: none;
@@ -775,6 +779,9 @@ img#prevfbimg {
     margin-left: 46%;
     width: 150px;
     margin-top: 6px;
+}
+.padlft{
+    padding-left:20%;
 }
 .mouseclk{
     background-color: #F9F9F9;
@@ -1063,7 +1070,7 @@ input#schedule_social_time {
                 border-bottom: none;
                 border-radius: 2px;
                 color:#2b2f35;
-                background: url("images/dropdown.png") no-repeat 275px center;
+                /*background: url("images/dropdown.png") no-repeat 275px center;*/
                 background-color: #F2F2F4; 
                 font-size:18px;
                 color: #3f4042;
@@ -1197,9 +1204,9 @@ p#filetext {
 #email_previewdiv{
     position: fixed;
     display: none;
-    margin-top: -38%;
+    margin-top: 5%;
     z-index: 99999;
-    margin-left: -9%;
+    margin-left: 10%;
 }
 .closeemailpreview {
     width: 36px;

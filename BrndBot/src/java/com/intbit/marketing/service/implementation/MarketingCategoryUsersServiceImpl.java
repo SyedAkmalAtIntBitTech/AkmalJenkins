@@ -37,8 +37,8 @@ public class MarketingCategoryUsersServiceImpl implements MarketingCategoryUsers
      /**
 	 * {@inheritDoc}
      */
-    public List<TblMarketingCategoryUsersLookup> getAllMarketingCategoryUsers() throws Throwable {
-       return  marketingCategoryDaoUsers.getAllMarketingCategoryUsers();
+    public List<TblMarketingCategoryUsersLookup> getAllMarketingCategoryUsers(Integer user_id) throws Throwable {
+       return  marketingCategoryDaoUsers.getAllMarketingCategoryUsers(user_id);
     }
 
      /**

@@ -610,7 +610,8 @@ function programactions($scope, $http, $window){
         $scope.showfieldstab = function (){
         };
         $scope.showactionstab = function (){
-            $("#removeactionbutton").show();
+            $("#saveprogram").hide();
+//            $("#removeactionbutton").show();
             $("#actionstab").show();
             $("#fieldstab").hide();
             $("#savefieldsbutton").hide();
@@ -625,6 +626,7 @@ function programactions($scope, $http, $window){
             method: 'GET',
             url: 'alluserMarketingProgramForDisplay.do?program_id='+program
         }).success(function (data, status, headers, config) {
+            document.getElementById("instancehidden").style.display="block";
             if(JSON.stringify(data.emailautomation)==='[]'){
             $("#noemailautomation").empty().append('No Recurring Emails');
             }

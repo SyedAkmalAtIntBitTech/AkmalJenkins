@@ -1587,7 +1587,7 @@ input-field-container{
     box-sizing: border-box;
     padding-right: 60px;
 }
-
+.centerbtn{float: none !important;margin-left: 27%;}
 .bottom-continue-button{
     float: left;
     height: 100%;
@@ -2276,7 +2276,7 @@ margin-top: 30px;
     border: 1px solid #F9FAFC;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 45px;
+    margin-top: 0px;
     box-sizing: border-box;
 
 

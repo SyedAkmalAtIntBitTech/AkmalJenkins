@@ -175,8 +175,8 @@
         
                     var marketing_category_id =$("#marketing_category_id").val();
                     var marketing_program_id =$("#marketing_program_id").val();
-                    alert("cat.."+marketing_category_id);
-                    alert("mar.."+marketing_program_id);
+//                    alert("cat.."+marketing_category_id);
+//                    alert("mar.."+marketing_program_id);
                     var program_details = {"program_name": program_name, 
                                            "program_date_time": d,
                                            "program_url":program_url,

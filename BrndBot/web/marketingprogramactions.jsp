@@ -24,7 +24,7 @@
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="js/popup.js" type="text/javascript"></script>      
     <script src="js/timepicki.js" type="text/javascript"></script>  
-    <style>#fbpostremove{display:none;}</style>
+    <style>#instancehidden,#fbpostremove{display:none;}</style>
     <jsp:include page="basejsp.jsp"/>
     <%!
             String program_id = "";
@@ -76,7 +76,7 @@
         <div class="page-subnav-bar-regular"> 
             <div class="top-subnav-tabs-container-with-button">
                 <ul class="top-subnav-nav-elements">
-                    <li class="top-subnav-links" id="ovrviewli" ng-hide="programs.programdetails.program_status == 'Closed'"> <a href="" id="overview" class="h3" id="overview">Overview</a></li>
+                    <li class="top-subnav-links" id="ovrviewli" ng-hide="programs.programdetails.program_status == 'Closed'"> <a href="" id="overview" class="h3" id="overview" >Overview</a></li>
 <!--                    <li class="top-subnav-links" id="fieldsli"> <a href="" id="fields" class="h3" ng-click="showfieldstab()">Fields</a></li>-->
                     <li class="top-subnav-link-active" id="actionsli"> <a href="" id="actions" class="h3-active-subnav" ng-click="showactionstab()">Actions</a></li>
 <!--                        <li class="top-subnav-links"> <a class="h3" href="/Newest_Files/MarketingProgram_Notes.html">Notes</a></li>
@@ -88,7 +88,7 @@
     </div>
         <!--Main Content GENERIC--> 
         <div class="page-background">
-        <div class="page-content-container marketingProgram-action-page">
+            <div class="page-content-container marketingProgram-action-page" id="instancehidden">
             
             <!--Inner Content Conatiner GENERIC-->
             <div class="page-inner-content-container" id="actionstab">

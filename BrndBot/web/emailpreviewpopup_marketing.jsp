@@ -59,11 +59,11 @@
         <div id="emailactionsection">    
             <div class="below-nav-container-saved-post-detail">
                 <div class="inner-content-container-detail">
-                <div class="saved-post-header-detail">
+<!--                <div class="saved-post-header-detail">
                    <div class="h4" ng-show="schedule_desc === ''">Write Notes about this Action</div>                      
                    <div class="h4" ng-show="schedule_desc !== ''">Notes</div>
                    <div class="instruction-text" ng-show="schedule_desc !== ''"><p id="emaildescription{{schedule_id}}">{{schedule_desc}}</p></div>
-                </div>
+                </div>-->
                     <div class="inner-content-detail">
                         <div class="fields-note-detail">
 
@@ -193,10 +193,10 @@
         <div id="emailnotesection">
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="saved-post-header-detail">
+<!--                <div class="saved-post-header-detail">
                     <div class="h4">Write Notes about this Action</div>
                     <div class="instruction-text">Text Goes here!</div>
-                </div>
+                </div>-->
                 <div class="inner-content-detail">
                     <div class="saved-note-detail">
 

@@ -14,7 +14,7 @@
          
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="js/jquery.min.js"></script>
-        <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
+        <!--<link href="css/dashboard.css" rel="stylesheet" type="text/css"/>-->
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js"></script>
         <script src="js/angular.min.js"></script>
@@ -33,7 +33,7 @@
         <script src="js/pikaday.js"></script>
         
         <script src="js/dashboard.js"></script>
-        
+        <style>.nav-tabs1{line-height: 0px !important;}</style>
         <%!
             String marketing_category_id = "";
             String marketing_program_id = "";
@@ -56,11 +56,11 @@
             <!--Top Nav-->   
             <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
-           <div class="exit-button-detail">
-                <a class=" exit-button-icon" href="marketingprogramsnew.jsp?categoryid=<%=marketing_category_id%>">
+            <a class=" exit-button-icon" href="marketingprogramsnew.jsp?categoryid=<%=marketing_category_id%>">
+            <div class="exit-button-detail">               
                     <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
-                </a>
             </div>
+             </a>
             <div class="page-title-with-back page-title-font">Marketing Program Details</div>
             <!--<div class="page-cta-container">
                 <a href="" class="gray-button fleft">
@@ -79,7 +79,7 @@
                                 <div class="h4" style="">
                                     Enter a name for this Marketing Program
                                 </div>
-                                <input id="program_name" class="input-field-textfield col-8of10" value="" type="text" required="" placeholder="Enter a name for this Marketing Program">
+                                <input id="program_name" class="input-field-textfield col-8of10 width40" value="" type="text" required="" placeholder="Enter a name for this Marketing Program">
                             </div>
                         </div>
                         <div class="col-1of1 fleft pushUp">
@@ -87,7 +87,7 @@
                                 <div class="h4" style="">
                                    Select a date for the end of this program:
                                 </div>
-                                <input type="text" class="input-field-textfield col-8of10" name="programdatetime" id="programdatetime" value="" readonly="">
+                                <input type="text" class="input-field-textfield col-8of10 width20" name="programdatetime" id="programdatetime" value="" readonly="">
                                 <script>
                                     var picker = new Pikaday(
                                     {
@@ -107,7 +107,7 @@
                                 <input id="program_url" value="" class="input-field-textfield input-placeholder" type="text" required="" onchange="validateurl()" placeholder="Ex. http://www.google.com">
                             </div>
                             <div class="input-field-container col-3of10 fleft">
-                                <div class="h4"> From Email Address </div>
+                                <div class="h4"> Link Name</div>
                                 <input id="program_url_name" value="" class="input-field-textfield input-placeholder" type="text" required="" placeholder="Enter Name for Link">
                             </div>
                         </div>

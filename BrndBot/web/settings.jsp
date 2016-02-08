@@ -188,7 +188,7 @@
                                                     <input type="hidden" id="finalcolor5" name="finalcolor5" ng-model="selColor.finalcolor5"/>
                                                     <input type="hidden" id="finalcolor6" name="finalcolor6" ng-model="selColor.finalcolor6"/>
                                                     <div class="span4 col-md-offset-0">
-                                                        <button  type="button" class="button button--moema button--text-thick button--text-upper button--size-s" ng-click="createUserPreferences()">SAVE</button>
+                                                        <button  type="button" class="edit-button-detail md-button button-text-1 fleft savebutton noborder" ng-click="createUserPreferences()">SAVE</button>
                                                     </div>
                                                 </form>
                                             </div>
