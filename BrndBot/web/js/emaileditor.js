@@ -607,7 +607,6 @@ $(document).ready(function () {
     });
 
 
-
 //    $('#cropButton').on("click", function () {
 //        // grab width and height of .crop-img for canvas
 //        var width = $('.crop-container').width() - 80, // new image width

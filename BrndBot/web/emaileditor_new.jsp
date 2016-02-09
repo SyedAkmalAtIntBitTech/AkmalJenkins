@@ -1,171 +1,111 @@
-<%-- 
-    Document   : emaileditornew
-    Created on : Oct 21, 2015, 9:13:55 PM
-    Author     : Syed Akmal at IntBit Technologies.
---%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Email Editor</title>
-        <meta charset="UTF-8">
-        <%@ include file="fonttypekit.jsp"%>
-        <%@ include file="checksession.jsp" %>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/> 
-        <link href="css/emaileditornew.css" rel="stylesheet" type="text/css"/>
-        <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
-        <script src="js/configurations.js"></script>
-        <script src="js/angular.min.js"></script>
-        <script src="js/dashboard.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Email Editor</title>
+    <%@ include file="fonttypekit.jsp"%>
+    <%@ include file="checksession.jsp" %>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-6.css"/>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="css/slat.css"/>
+    <link rel="shortcut icon" href="images/favicon.png"/>   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+    <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/> 
+    <link href="css/emaileditornew.css" rel="stylesheet" type="text/css"/>
+    <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
+    <script src="js/configurations.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/dashboard.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 
-        <link href="css/froala_editor.css" rel="stylesheet" type="text/css"/>
-        <link href="css/froala_style.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" href="css/plugins/code_view.css">
-        <link rel="stylesheet" href="css/plugins/colors.css">
-        <link rel="stylesheet" href="css/plugins/emoticons.css">
-        <link rel="stylesheet" href="css/plugins/image_manager.css">
-        <link rel="stylesheet" href="css/plugins/image.css">
-        <link rel="stylesheet" href="css/plugins/line_breaker.css">
-        <link rel="stylesheet" href="css/plugins/table.css">
-        <link rel="stylesheet" href="css/plugins/char_counter.css">
-        <link rel="stylesheet" href="css/plugins/video.css">
-        <link rel="stylesheet" href="css/plugins/fullscreen.css">
-        <link rel="stylesheet" href="css/plugins/file.css">
+    <link href="css/froala_editor.css" rel="stylesheet" type="text/css"/>
+    <link href="css/popup.css" rel="stylesheet" type="text/css"/>
+    <link href="css/froala_style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="css/plugins/code_view.css">
+    <link rel="stylesheet" href="css/plugins/colors.css">
+    <link rel="stylesheet" href="css/plugins/emoticons.css">
+    <link rel="stylesheet" href="css/plugins/image_manager.css">
+    <link rel="stylesheet" href="css/plugins/image.css">
+    <link rel="stylesheet" href="css/plugins/line_breaker.css">
+    <link rel="stylesheet" href="css/plugins/table.css">
+    <link rel="stylesheet" href="css/plugins/char_counter.css">
+    <link rel="stylesheet" href="css/plugins/video.css">
+    <link rel="stylesheet" href="css/plugins/fullscreen.css">
+    <link rel="stylesheet" href="css/plugins/file.css">
+    <link rel="shortcut icon" href="images/favicon.png"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css"> 
+    <link rel="stylesheet" href="css/plugins/image_manager.css">
+    <script src="js/froala_editor.min_editor.js" type="text/javascript"></script>
+    <!--        <script src="js/plugins/code_view.min.js" type="text/javascript"></script>-->
+    <script type="text/javascript" src="js/emaileditor_new.js"></script>
+    <script type="text/javascript" src="js/plugins/align.min.js"></script>
+    <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
+    <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
+    <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
+    <script src="js/plugins/image.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
+    <script type="text/javascript" src="js/emaileditor_new.js"></script>
+    <script type="text/javascript" src="js/plugins/file.min.js"></script>
+    <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/url.min.js"></script>
+    <script type="text/javascript" src="js/plugins/entities.min.js"></script>
+    <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
+    <script type="text/javascript" src="js/plugins/save.min.js"></script>
+    <script type="text/javascript" src="js/plugins/quote.min.js"></script>
+    <script type="text/javascript" src="js/plugins/link.min.js"></script>
+    <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
+    <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
+    
+    <%!            
+        SqlMethods sql_methods = new SqlMethods();
+        StringBuffer string_buffer = new StringBuffer();
+        String mindbody_data_id = "";
+        String logoImageName = null;
+        String draft_id = "0";
+        String email_subject = "";
+    %>
+    <% email_subject = request.getParameter("subject"); %>
+    <%
+        try {
+            sql_methods.session = request.getSession(true);          
+            sql_methods.session.setAttribute("email_subject", email_subject);
+            draft_id = "0";
+            user_id = (Integer) sql_methods.session.getAttribute("UID");
+            logoImageName = (String) sql_methods.session.getAttribute("ImageFileName");
+            if (!request.getParameter("id").equals("null")) {
+                mindbody_data_id = (String) request.getParameter("id");
+            } else {
+                mindbody_data_id = "";
+            }
+            if (!request.getParameter("draftid").equals("null")) {
+                draft_id = (String) request.getParameter("draftid");
+                out.println();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }
 
-        <link rel="shortcut icon" href="images/favicon.png"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
-        <style>
-            .fr-popup.fr-active{
-                /*top:490px !important;*/
-                /*position:relative !important;*/
-            }
-            body {
-                margin: 0; 
-                height: 100%;
-                overflow: hidden;
-            }
-            .datafromindbody:hover{
-                background-color: #00A37A;
-                color:#fff;
-            }
-            .fr-box .fr-basic .fr-element {
-                /*                max-height: 480px;*/
-                max-height: 690px;
-            } 
-
-            #mask {
-                position: absolute;
-                left: 0;
-                top: 0;
-                z-index: 9000;
-                background-color: #ffffff;
-                display: none;
-            }
-
-            #boxes .window {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 0px;
-                height: 0px;
-                display: none;
-                z-index: 9999;
-                padding: 20px;
-                border-radius: 15px;
-                text-align: center;
-            }
-            #boxes #dialog {
-                width: 250px;
-                height: 300px;
-                padding: 10px;
-                background-color: #ffffff;
-                font-family: 'Segoe UI Light', sans-serif;
-                font-size: 15pt;
-            }
-
-            #popupfoot {
-                font-size: 16pt;
-                position: absolute;
-                bottom: 0px;
-                width: 250px;
-                left: 250px;
-            }
-            #avpw_rghtArrow,#avpw_lftArrow
-            {
-                display:none !important;
-            }
-
-            #avpw_main_frames,#avpw_main_overlay,#avpw_main_resize,
-            #avpw_main_orientation,#avpw_main_focus,#avpw_main_brightness,
-            #avpw_main_contrast,#avpw_main_saturation,#avpw_main_warmth,
-            #avpw_main_sharpness,#avpw_main_colorsplash,#avpw_main_drawing,
-            #avpw_main_textwithfont,#avpw_main_redeye,#avpw_main_whiten,#avpw_main_blemish
-            {
-                display:none;
-            }
-            .fr-view table td, .fr-view table th{
-                border:none;
-            }
-            .fr-wrapper{
-                /*                    min-height: 550px !important;
-                    height: auto !important;
-                     max-height: 546px !important;*/
-                /*min-height: 0% !important;*/
-                height: auto !important;
-                max-height: 100% !important;
-                position: relative !important;
-            }
-            li.border-highlight {
-                /*width: 250px;*/
-                /*height: inherit;*/
-                color: #f6f7f7;
-                background-color: #0f76a6; 
-            }
-
-        </style>
-        <%!            
-            SqlMethods sql_methods = new SqlMethods();
-            StringBuffer string_buffer = new StringBuffer();
-            String mindbody_data_id = "";
-            String logoImageName = null;
-            String draft_id = "0";
-            String email_subject = "";
-        %>
-        <% email_subject = request.getParameter("subject"); %>
-        <%
-            try {
-                sql_methods.session = request.getSession(true);
-                draft_id = "0";
-                user_id = (Integer) sql_methods.session.getAttribute("UID");
-                logoImageName = (String) sql_methods.session.getAttribute("ImageFileName");
-                if (!request.getParameter("id").equals("null")) {
-                    mindbody_data_id = (String) request.getParameter("id");
-                } else {
-                    mindbody_data_id = "";
-                }
-                if (!request.getParameter("draftid").equals("null")) {
-                    draft_id = (String) request.getParameter("draftid");
-                    out.println();
-                }
-//                String msg = request.getParameter("msg");
-//              JOptionPane.showMessageDialog(null,"name cannot be blank "+msg);
-            } catch (Exception e) {
-                System.out.println(e.getCause());
-                System.out.println(e.getMessage());
-            }
-
-        %>
-
-        <script>
+    %>
+     <script>
+        $(document).ready(function(){
+//            $("li").click(function(){
+//                alert();
+//                var selectedID=this.id;
+//                $("#"+selectedID).removeClass("style-slat");
+//                $("#"+selectedID).addClass("style-slat-active");
+//                alert(selectedID);
+//            });
+            $("#stylediv li:nth-child(1)").removeClass("style-slat");
+            $("#stylediv li:nth-child(1)").addClass("style-slat-active");
+        });
                     var jsondata;
                     var selectedDivId;
                     var block_clicked = "false";
@@ -195,8 +135,10 @@
             var current = $("#" + addblockid);
                     current.prev().before(current);
             });
-//     $("#deleteBlock").easyconfirm(); 
-                    $("#deleteBlock").click(function () {
+            
+//            $("#deleteBlock").easyconfirm(); 
+
+            $("#deleteBlock").click(function () {
             new $.flavr({
                     content     : 'Are you sure you want to delete this style?',
                     dialog      : 'confirm',
@@ -211,35 +153,37 @@
                     }
             });
             });
-                    $("#sortDownBlock").click(function () {
+            
+            $("#sortDownBlock").click(function () {
             var current = $("#" + addblockid);
                     current.next().after(current);
             });
-                    $.ajax({
-                    type: 'POST',
-                            url: "GetLayoutStyles?editorType=email",
-                            dataType: 'json',
-                            success: function (data) {
-                            var jsondataDefault = data;
-//                                    alert(JSON.stringify(data));
-                                    var allLayoutFilename = [];
-                                    $(jsondataDefault).each(function (i, val) {
-                            var i = 0;
-                                    $.each(val, function (k, v) {
-                                    allLayoutFilename[i] = v;
-                                            i++;
-                                    });
-                            });
-                                    showText(allLayoutFilename[0]);
-                                    angular.element(document.getElementById('MyController')).scope().getEmailDrafts();
-//                                    $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
-//                                    $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
-                            }
+            
+            $.ajax({
+                type: 'POST',
+                url: "GetLayoutStyles?editorType=email",
+                dataType: 'json',
+                success: function (data) {
+                var jsondataDefault = data;
+                    var allLayoutFilename = [];
+                    $(jsondataDefault).each(function (i, val) {
+                    var i = 0;
+                    $.each(val, function (k, v)
+                    {
+                        allLayoutFilename[i] = v;
+                        i++;
                     });
+                });
+                showText(allLayoutFilename[0]);
+                angular.element(document.getElementById('MyController')).scope().getEmailDrafts();
+//                $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
+//                $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
+                }
+            });
             });
                     angular.module("myapp", [])
 
-                    .controller("MyController", function($scope, $http) {
+                    .controller("MyController", function($scope, $http) {                        
 
                     $scope.getEmailDrafts = function(){
 
@@ -265,13 +209,22 @@
                     }
 
                     };
-                            $scope.showStylesAfterData = function(){
+                    
+                    $scope.addActive = function(id){
+                        $("#stylediv li").removeClass("style-slat-active");
+                        $("#stylediv li").addClass("style-slat");
+                        $("#"+id).removeClass("style-slat");
+                        $("#"+id).addClass("style-slat-active");
+                    };
+                    
+                    $scope.showStylesAfterData = function(){
 
                             blockIdSelected = $(selectedBlockId).attr("id").toString();
                                     var arr = blockIdSelected.split('SSS');
                                     block_id = arr[0].replace("block", "");
                             };
-                            $scope.showStyles = function(){
+                    
+                    $scope.showStyles = function(){
                             $(".selectrow").css("display", "none");
                                     document.getElementById("addblkbtn").style.backgroundColor = "#e3e3e3";
                                     document.getElementById("addblkbtn").style.color = "#9c9da1";
@@ -297,13 +250,13 @@
                                     url : queryurl
                             }).success(function(data, status, headers, config) {
                             $scope.datalistsstyles = data;
-//                                    alert(JSON.stringify(data));
-                                    document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
-                                    document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
-                                    document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
-                                    document.getElementById('edt').style.backgroundColor = 'transparent';
-                                    document.getElementById('stl').style.backgroundColor = '#fff';
-                                    document.getElementById('blk').style.backgroundColor = 'transparent';
+                                    alert(JSON.stringify(data));
+//                                    document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
+//                                    document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
+//                                    document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
+//                                    document.getElementById('edt').style.backgroundColor = 'transparent';
+//                                    document.getElementById('stl').style.backgroundColor = '#fff';
+//                                    document.getElementById('blk').style.backgroundColor = 'transparent';
                                     $scope.numberOfPages = function() {
                                     return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
                                     };
@@ -316,43 +269,106 @@
                                     // called asynchronously if an error occurs
                                     // or server returns response with an error status.
                             });
+                        };
+                        
+ /*---------------------------------- show style -------------------------------*/
+    
+                        var queryurl;
+                        queryurl = 'GetLayoutStyles?editorType=email';
+                        $http({
+                        method : 'GET',
+                                url : queryurl
+                        }).success(function(data, status, headers, config) {
+                            $scope.datalistsstyles = data;
+//                            alert(JSON.stringify(data));
+                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
+                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
+                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
+                            document.getElementById('edt').style.backgroundColor = 'transparent';
+                            document.getElementById('stl').style.backgroundColor = '#fff';
+                            document.getElementById('blk').style.backgroundColor = 'transparent';
+                            $scope.numberOfPages = function() {
+                                return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
                             };
-                            $scope.showBlocks = function(){
-                            $("#addblkbtn").prop("disabled", true);
-                                    $(".selectrow").css("display", "block");
-                                    $("#stylelist").css("display", "none");
-                                    $("#selectstyleid").css("display", "none");
-                                    $("#blklistid").css("display", "block");
-                                    $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
-                                    $("#styletab").css("background-color", "transparent").css("color", "#19587c");
-                                    $('body').scrollTop(0);
-                                    $scope.curPage = 0;
-                                    $scope.pageSize = 2;
-                                    $http({
-                                    method : 'GET',
-                                            url : 'GetBlocks'
-                                    }).success(function(data, status, headers, config) {
-                            $scope.datalists = data;
-//                                    alert(JSON.stringtify(data));
-                                    document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
-                                    document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton_blue_new.svg";
-                                    document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
-                                    document.getElementById('edt').style.backgroundColor = 'transparent';
-                                    document.getElementById('stl').style.backgroundColor = 'transparent';
-                                    document.getElementById('blk').style.backgroundColor = '#fff';
-                                    $scope.numberOfPages = function() {
-                                    return Math.ceil($scope.datalists.length / $scope.pageSize);
-                                    };
-                                    if (data === error){
-                            alert(data);
+                            if (data === error){
+                                alert(data);
                             }
-                            }).error(function(data, status, headers, config) {
-                            alert("No data available! Problem fetching the data.");
-                                    // called asynchronously if an error occurs
-                                    // or server returns response with an error status.
-                            });
+
+                        }).error(function(data, status, headers, config) {
+                        alert("No data available! Problem fetching the data.");
+                                // called asynchronously if an error occurs
+                                // or server returns response with an error status.
+                        });
+                            
+ /*---------------------------------- Show  Block ------------------------------*/     
+ 
+                        $("#addblkbtn").prop("disabled", true);
+                        $(".selectrow").css("display", "block");
+                        $("#stylelist").css("display", "none");
+                        $("#selectstyleid").css("display", "none");
+                        $("#blklistid").css("display", "block");
+                        $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
+                        $("#styletab").css("background-color", "transparent").css("color", "#19587c");
+                        $('body').scrollTop(0);
+                        $scope.curPage = 0;
+                        $scope.pageSize = 2;
+                        $http({
+                        method : 'GET',
+                                url : 'GetBlocks'
+                        }).success(function(data, status, headers, config) {
+                        $scope.datalists = data;
+                            //alert(JSON.stringtify(data));
+//                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
+//                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton_blue_new.svg";
+//                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
+//                            document.getElementById('edt').style.backgroundColor = 'transparent';
+//                            document.getElementById('stl').style.backgroundColor = 'transparent';
+//                            document.getElementById('blk').style.backgroundColor = '#fff';
+                            $scope.numberOfPages = function() {
+                                return Math.ceil($scope.datalists.length / $scope.pageSize);
                             };
-                            $scope.showImageOfBlock = function(id, mind_body_query){
+                            if (data === error){
+                                alert(data);
+                            }
+                        }).error(function(data, status, headers, config) {
+                        alert("No data available! Problem fetching the data.");
+                        });
+        
+                    $scope.showBlocks = function(){
+                        $("#addblkbtn").prop("disabled", true);
+                        $(".selectrow").css("display", "block");
+                        $("#stylelist").css("display", "none");
+                        $("#selectstyleid").css("display", "none");
+                        $("#blklistid").css("display", "block");
+                        $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
+                        $("#styletab").css("background-color", "transparent").css("color", "#19587c");
+                        $('body').scrollTop(0);
+                        $scope.curPage = 0;
+                        $scope.pageSize = 2;
+                        $http({
+                        method : 'GET',
+                                url : 'GetBlocks'
+                        }).success(function(data, status, headers, config) {
+                        $scope.datalists = data;
+                            alert(JSON.stringtify(data));
+//                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
+//                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton_blue_new.svg";
+//                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
+//                            document.getElementById('edt').style.backgroundColor = 'transparent';
+//                            document.getElementById('stl').style.backgroundColor = 'transparent';
+//                            document.getElementById('blk').style.backgroundColor = '#fff';
+                            $scope.numberOfPages = function() {
+                                return Math.ceil($scope.datalists.length / $scope.pageSize);
+                            };
+                            if (data === error){
+                                alert(data);
+                            }
+                        }).error(function(data, status, headers, config) {
+                        alert("No data available! Problem fetching the data.");
+                        });
+                    };
+                    
+                    $scope.showImageOfBlock = function(id, mind_body_query){
 
                             hlt();
                                     $("#stylelist").css("display", "none");
@@ -375,9 +391,11 @@
                             }).error();
                                     $("#addblkbtn").prop("disabled", true);
                             };
-                            $scope.showDataTemp = function(){
+                    
+                    $scope.showDataTemp = function(){
                             $scope.showData(temp_block_id, temp_mind_body_query);
                             }
+                    
                     $scope.showData = function(id, mind_body_query){
                     block_clicked = "true";
                             blockIdSelected = "";
@@ -431,7 +449,8 @@
                     }
                     $scope.showStyles();
                     };
-                            $scope.select_category_details = function(id) {
+                    
+                    $scope.select_category_details = function(id) {
                             mindbodydataId = id;
                                     $("#stylelist").css("display", "block");
                                     $scope.showStyles();
@@ -443,7 +462,6 @@
                                     $("#tabs-4").hide();
                                     $("#tabs-5").hide();
                             }
-
                     });
                     angular.module('myapp').filter('pagination', function()
             {
@@ -559,158 +577,42 @@
                     $("#tabs-4").hide();
             });    </script>
 
-    </head>
-    <body ng-app="myapp">
-        <div id="boxes">
-            <div id="dialog" class="window">
+</head>    
+<body ng-app="myapp">
+     <div id="boxes" >
+            <div id="dialog" class="window" >
             </div>
             <div id="mask"></div>
         </div>
-        <input type="hidden" id='userid' value="<%= user_id%>">
-        <div class="row" ng-controller="MyController">
-            <input type="hidden" value="<%=email_subject%>" id="email_subject"/>
-            <div class="col-sm-1 col-md-1 col-lg-1 halfcol"><%@ include file="navbar2.jsp"%></div>
-            <div class="col-sm-7 col-md-7 col-lg-7">
-                <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12 bgcolor"> 
-                        <style>
-                            #edit{
-                                position: relative;
-                                top:0px;
-                                font-family:"proxima-nova",sans-serif;
-                                font-weight:500;
-                                left: 0em; 
-                                color: #2D4444;
-                                max-height: 600px;
-                                /*                                overflow: auto;*/
-                            }
-                        </style>
-                        <div id="editor">
-                            <div id='edit' style="margin-top: 5px;">
-                            </div>
-                        </div>
-                    </div>
+    <input type="hidden" id='userid' value="<%= user_id%>"/>
+    <input type="hidden" id='draftid' value="<%= draft_id%>"/>
+    <input type="hidden" value="<%=email_subject%>" id="email_subject"/>
+    <!--SideNav-->
+    <div class="content-main" ng-controller="MyController">        
+    <!--Top Nav-->   
+    <div class="top-nav-full">
+        <div class="page-title-bar col-1of1"> 
+            <a class=" exit-button-icon" href="emailsubjects.jsp?id=<%= mindbody_data_id %>&mediatype=email">    
+                <div class="exit-button-detail">
+                    <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 col-lg-6 col-sm-6">
-                        <div class="btmdiv">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <input type="hidden" id="mindbodydata" value='<%= mindbody_data_id%>'>
-                                    <div class="editemail fontpnr">Edit this Email</div>
-                                </div>   
-
-                                <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1 display-none">
-                                    <div class="mobileprev fontpnr" id="iphone" class="img-responsive ptr" onclick="show('iphone');">Mobile Preview</div>
-                                    <!--                                    <div class="glyphicon glyphicon-arrow-up ptr" id="sortUpBlock"></div><br /><br />
-                                                                        <div class="glyphicon glyphicon-trash ptr" id="deleteBlock"></div><br /><br />
-                                                                        <div class="glyphicon glyphicon-arrow-down ptr" id="sortDownBlock"></div>-->
-                                    <p id="button"></p>
-                                </div>
-                                <div class="col-lg-1 col-md-1 col-sm-1">
-                                    <div class="emledtrsavebtn"><input id="saveToDraft" class="emailedtrsavetodraft fontpns button button--moema button--text-thick button--text-upper button--size-s" type="button" value="Save to Draft"></div>
-                                </div>
-                                <div class="col-lg-1 col-md-1 col-sm-1"></div>
-                                <div class="col-lg-1 col-md-1 col-sm-1"></div>
-                                <div class="col-lg-2 col-md-2 col-sm-2">
-                                    <div class="emledtrsavebtn"><input id="saveButton" class="emailedtrsave fontpns button button--moema button--text-thick button--text-upper button--size-s" type="button" value="Continue"></div>
-                                </div>
-                            </div>
-                        </div>                                
-                    </div>
-                </div> 
-            </div>
-            <div class="col-sm-3 col-md-3 col-lg-3">
-                <div class="blockselection" >     
-                    <div class="row selectrow" id="selectblockid" style="display: none;">
-
-                        <div class="col-md-6 col-lg-6 col-sm-6">
-                            <div class="selblock fontpnr">Select a Block</div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-sm-6">
-                            <div class="addblkdiv"><input id="addblkbtn" ng-click="showDataTemp()" class="addblkbtn fontpns button button--moema button--text-thick button--text-upper button--size-s" type="button" value="Add Block" disabled></div>
-                        </div> 
-                        <div class="row">
-                            <div class="selblklinediv"><hr class="selblkline"></div>
-                        </div>
-                    </div>
-                    <div class="row selectrow1" id="selectstyleid">
-
-                        <div class="col-md-6 col-lg-6 col-sm-6">
-                            <div class="selblock fontpnr">Select a Style</div>
-                        </div>
-                        <div class="row">
-                            <div class="selblklinediv1"><hr class="selblkline"></div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12 col-sm-12">
-                            <ul id="blklistid" class="blocklist fontpnr" value="blklist" style="display: none;">
-                                <li ng-repeat="blocks in datalists" id="blklist" class="listblock" > 
-                                    <div  id="{{blocks.block_id}}" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)">{{blocks.block_name}}</div>
-                                </li>
-                            </ul>
-                            <ul id="stylelist" class="stylelist fontpnr" style="display: none;">
-                                <li ng-repeat="styles in datalistsstyles" id="stylelistid">
-                                    <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="{{styles.image_url}}"  onclick="showText('{{styles.id}}')" width="275" style="height:200px;"/><br></div>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-sm-1 col-md-1 col-lg-1" style="z-index: 10">
-                <div class="blockstyletab">      
-                    <ul class="righttabs fontpnr">
-                        <li id="styletab" ng-init="showStyles()" ng-click="showStyles()">
-                            <image src='images/sidebar/Icons_styleButton.svg' class="styleimg"/>
-                            <p>STYLE</p>
-                        </li>
-                        <li id="blocktab"  ng-click="showBlocks()">
-                            <image src='images/sidebar/Icons_blockButton.svg' class="blockimg"/>
-                            <p>BLOCK</p>
-                        </li>
-                        <li id="tabs-4" style="background:#FFFFFF; position:absolute;z-index: 10;overflow-y: scroll;display:none;">
-                            <a class="boxclose" id="boxclose"><img id="clsbtn" src="images/CloseIcon.svg" height="15" width="15" style="display:none;"/></a>
-                            <div id="loadingGifformindbody" style="position: absolute; top:240px;left: 335px;" > <img src="images/YogaLoadingGif.gif" /></div>
-                            <div ng-controller="MyController" id="MyController" > 
-                                <p class="selclasstopromote fontpnr">{{datalists.title}}</p><br>
-                                <ul class="dataheaderfromindbody">
-                                    <div class="mindbodyHeaderData fontpns" >
-                                        <li>{{datalists.column_header[0]}}</li>
-                                        <li class="teach">{{datalists.column_header[1]}}</li>
-                                        <li>{{datalists.column_header[2]}}</li>
-                                    </div>
-                                </ul>
-
-
-                                <div  class="tab-pane active" id="picktheme">
-                                    <div>
-
-                                        <div class="mindbodydatacontainer" >
-
-                                            <ul class="datafromindbody" ng-repeat="jsonclass in datalists.mindbody_data">
-                                                <!--                                    {{jsonclass}}-->
-                                                <div class='mindbodyOneRowData fontpnr' id="selcatdet" ng-click="select_category_details(jsonclass.id)" >
-                                                    <li class="frstcol">{{jsonclass.column1}}</li>
-                                                    <li>{{jsonclass.column2}}</li>
-                                                    <li>{{jsonclass.column3}}</li>
-                                                </div>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-                        </li>
-                    </ul>
-                </div>
+            </a>
+            <div class="page-title-with-back page-title-font">Email Editor</div>
+            <div class="page-cta-container">
+                <a href="" class="gray-button fleft pushright">
+                    <div class="nounderline md-button" onclick="show('iphone');">  Mobile Preview</div>    
+                </a>
+                <a href="" class="gray-button fleft ">
+                    <div class=" md-button" id="saveToDraft">  Save as Draft</div>    
+                </a>
             </div>
         </div>
-        <script>
-                            $("#addblkbtn").click(function (){
+    </div>
+        <!--Main Content GENERIC--> 
+        <div class="emailEditor-page-background fleft">
+            <div class="emailEditor-leftCol ">
+                 <script>
+                    $("#addblkbtn").click(function (){
                     $("#tabs-4").css("display", "block");
                             $("#clsbtn").css("display", "none");
                     });
@@ -718,12 +620,8 @@
                     $("#blocktab").click();
                             $("#tabs-4").hide();
                     });
-//            
-//            $("#blklist").click(function (){
-//                
-//                $(this).css("background-color","#0f76a6").css("color","#f4f4f4");   
-//                });
-                            $("#styletab").click(function(){
+
+                    $("#styletab").click(function(){
                     $("#addblkbtn").prop('disabled', true);
                             $("#stylelist").css("display", "block");
                             $("#blklist").css("display", "none");
@@ -735,31 +633,9 @@
                             $("#blklist").css("display", "block");
                             $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
                             $("#styletab").css("background-color", "transparent").css("color", "#19587c");
-                    });        </script>
-        <link rel="stylesheet" href="css/plugins/image_manager.css">
-        <script src="js/froala_editor.min_editor.js" type="text/javascript"></script>
-        <!--        <script src="js/plugins/code_view.min.js" type="text/javascript"></script>-->
-        <script type="text/javascript" src="js/plugins/align.min.js"></script>
-        <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
-        <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
-        <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
-        <script src="js/plugins/image.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
-
-        <script type="text/javascript" src="js/plugins/file.min.js"></script>
-        <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
-        <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
-        <script type="text/javascript" src="js/plugins/url.min.js"></script>
-        <script type="text/javascript" src="js/plugins/entities.min.js"></script>
-        <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
-        <script type="text/javascript" src="js/plugins/save.min.js"></script>
-        <script type="text/javascript" src="js/plugins/quote.min.js"></script>
-        <script type="text/javascript" src="js/plugins/link.min.js"></script>
-
-        <script>
-                            $.FroalaEditor.DEFAULTS.htmlAllowedAttrs = $.merge($.FroalaEditor.DEFAULTS.htmlAllowedAttrs, ['onclick']);        </script>
-
-        <script>
+                    });        
+                            $.FroalaEditor.DEFAULTS.htmlAllowedAttrs = $.merge($.FroalaEditor.DEFAULTS.htmlAllowedAttrs, ['onclick']); 
+                            
                             $(function () {
                             var urlList11;
                                     $.ajax({
@@ -773,11 +649,8 @@
                                                     $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: urlList11});
                                             }
                                     });
-                            });        </script>
-
-
-        <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
-        <script>
+                            });        
+                            
                             function show(id) {
                             var getId = id;
                                     var dynamicStyle, dynamicWidth, dynamicHeight;
@@ -791,6 +664,7 @@
                                     //transition effect
                                     $('#mask').fadeIn(500);
                                     $('#mask').fadeTo("slow", 0.95);
+                                    $("body").css("overflow","none");
                                     //Get the window height and width
                                     var winH = $(window).height();
                                     var winW = $(window).width();
@@ -808,7 +682,7 @@
                             });
                                     //if mask is clicked
                                     $('#mask').click(function () {
-                            $(this).hide();
+                                    $(this).hide();
                                     $('.window').hide();
                             });
                                     $.ajax({
@@ -833,13 +707,16 @@
                                             }
                                     });
                             }
-
-
-        </script> 
-        <script>
-
+                    
+                            function hlt(){
+                            var $li = $('#blklistid li').click(function() {
+                            $li.removeClass('border-highlight');
+                                    $(this).addClass('border-highlight');
+                            });
+                            };
+                $(document).ready(function(){
+                                
                     $("#saveToDraft").click(function (){
-
                     $.ajax({
                     url: getHost() + "PreviewServlet",
                             method: "post",
@@ -889,9 +766,9 @@
                             }
                     });
                     });
-                            $("#saveButton").click(function (){
-                                var email_subject = $("#email_subject").val();
-                            $.ajax({
+                    $("#saveButton").click(function (){
+                        var email_subject = $("#email_subject").val();
+                        $.ajax({
                                     url: getHost() + "PreviewServlet",
                                     method: "post",
                                     data:{
@@ -951,32 +828,79 @@
                                     }
                             });
                     });
-                            function hlt(){
-                            var $li = $('#blklistid li').click(function() {
-                            $li.removeClass('border-highlight');
-                                    $(this).addClass('border-highlight');
-                            });
-                            }
+                    
+    $("#styletab").click(function (){
+        $("#blockdivheader").hide();
+        $("#styledivheader").show();
+        $("#blockdiv").hide();
+        $("#stylediv").show();
+        $("#blocktab").removeClass("emailSideBar-tab-active");
+        $("#blocktab").addClass("emailSideBar-tab");
+         $("#styletab").removeClass("emailSideBar-tab");
+        $("#styletab").addClass("emailSideBar-tab-active");
+    });
+    $("#blocktab").click(function (){
+        $("#blockdivheader").show();
+        $("#styledivheader").hide();
+        $("#blockdiv").show();
+        $("#stylediv").hide();
+        $("#styletab").removeClass("emailSideBar-tab-active");
+        $("#styletab").addClass("emailSideBar-tab");
+        $("#blocktab").removeClass("emailSideBar-tab");
+        $("#blocktab").addClass("emailSideBar-tab-active");
+    });
+                });
         </script>   
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Modal Header</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>Some text in the modal.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <div id="editor">
+                    <div id='edit' style="margin-top: 5px;">
                     </div>
                 </div>
-
+            </div>
+            <div class="emailEditor-rightCol fright">
+                <div class="emailSideBar-Header">
+                    <div class="col-1of2 fleft">
+                        <div class="emailSideBar-tab-active" id="blocktab" ng-init="showBlocks()" ng-click="showBlocks()">
+                         Add Block
+                        </div>
+                    </div>
+                    <div class="col-1of2 fleft">
+                        <div class="emailSideBar-tab" id="styletab" ng-init="showStyles()" ng-click="showStyles()">
+                         Change Style
+                        </div>
+                    </div>
+                </div>
+                <div class="email-Block-Selection">
+                    <div class="email-Block-Header" id="blockdivheader">Select a block to add:</div>
+                    <div class="email-Block-Header" id="styledivheader">Select a style for this block:</div>
+                    <div class="block-selection-divider"></div>
+                    <ul class="block-list" id="blockdiv"  >
+<!--                        <li class="block-slat-active" >
+                            <div class="block-name">Header Block</div>
+                            <div class="block-button" ng-click="showDataTemp()">Add Block</div>                            
+                        </li>-->
+                        <li class="block-slat" ng-repeat="blocks in datalists" id="blklist">
+                            <div class="block-name" id="{{blocks.block_id}}" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)">{{blocks.block_name}}</div>                            
+                        </li>
+                    </ul>
+                    
+                    <ul class="block-list" id="stylediv">
+                        <li ng-repeat="styles in datalistsstyles" class="style-slat" id="stylelistid{{styles.id}}" ng-click="addActive('stylelistid'+styles.id)">
+                            <div class="block-name">
+                                <img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="{{styles.image_url}}" onclick="showText('{{styles.id}}')" width="100%" style="height:175px;"/>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-
+    </div>  
+        <!--CTA Bar-->
+        <div class="bottom-cta-bar">
+            <div class="bottom-cta-button-container-lg">
+               <div class="bottom-continue-button button-text-1" id="saveButton">Continue</div>
+            </div>
+        </div>
+         </div>
+</div>
     </body>
 </html>

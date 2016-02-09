@@ -154,7 +154,7 @@
                     }
                     var schedule_time = Date.parse(program_date_time);
                     
-                     if (program_name === "") {
+                    if (program_name === "") {
                         alert("Please enter the Program Name!");
                         $("#program_name").focus();
                         return false;
@@ -192,7 +192,7 @@
                     }).success(function (data, status, headers, config) {
                         if (data !== null){
                             alert("Details saved successfully.");
-                            var redirect="marketingprogramactions.jsp?past=0&program_id="+data;
+                            var redirect="marketingprogramactions.jsp?past=0&program_id="+data+"&program_date="+program_date_time;
                             window.open(getHost() + redirect, "_self");
                         }else {
                             alert("Problem saving the record!");

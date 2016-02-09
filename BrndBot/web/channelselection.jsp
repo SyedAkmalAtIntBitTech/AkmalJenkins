@@ -34,6 +34,7 @@
         <%
             try {
                 sql_methods.session = request.getSession(true);
+                sql_methods.session.setAttribute("email_subject", null);
                 category_id = request.getParameter("category_id");
                 sub_category_name = request.getParameter("sub_category_name");
                 sub_category_id = request.getParameter("sub_category_id");

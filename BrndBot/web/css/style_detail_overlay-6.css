@@ -2920,17 +2920,17 @@ width:100%;
 .emailEditor-rightCol{
     width: 400px;
     border-left: 1px solid #E3E3E3;
-    height:100vh;
-    padding-bottom: 60px;
-    background-color: #FFFFFF;
-    
-    
+    height:auto;
+    padding-bottom: 0px;
+    background-color: #FFFFFF;   
 }
 
 .emailSideBar-Header{
     height: 40px;
     border-bottom: 1px solid #E3E3E3;
-    width: 100%;
+    width: 420px;
+    position: fixed;
+    background-color: #fff;
 }
 
 .emailSideBar-tab-active{
@@ -2971,7 +2971,9 @@ width:100%;
 
 
 .email-Block-Selection{
-    overflow-y: scroll
+    overflow-y: scroll;
+    margin-top: 31px;
+    background-color: #f9f9f9;
 }
 
 .email-Block-Header{
@@ -2979,6 +2981,10 @@ width:100%;
       font-size: 16px;
     color: rgb(43,43,43);
     font-weight: 400;
+    position: fixed;
+    background-color: #fff;
+    width: 100%;
+    margin-top: 10px;
 }
 
 .block-selection-divider{}
@@ -2987,17 +2993,34 @@ width:100%;
     background: #f9f9f9;
     padding: 0px 20px;
     height: 435px;
+    margin-top: 18%;
+    padding-top: 2px;
+    cursor: pointer;
 }
 
 .block-slat{
-      padding: 15px 30px;
-      font-size: 16px;
+    padding: 15px 30px;
+    font-size: 16px;
     color: #5C627A;
     font-weight: 400;
     clear: right;
     overflow-x: auto;
     background: #FFFFFF;
-    margin-top: 4px
+    margin-top: 4px;
+    margin-bottom: 6px;
+}
+
+.block-slat-active{
+    padding: 15px 30px;
+    font-size: 16px;
+    color: #5C627A;
+    font-weight: 400;
+    clear: right;
+    overflow-x: auto;
+    border: 2px solid #0F76A6;
+    background-color: #FFFFFF;
+    margin-top: 4px;
+    margin-bottom: 6px;
 }
 
 .style-slat{
@@ -3008,7 +3031,8 @@ width:100%;
     clear: right;
     overflow-x: auto;
     background: #FFFFFF;
-    margin-top: 4px
+    margin-top: 4px;
+    margin-bottom: 6px;
 }
 
 .style-slat-active{
@@ -3020,22 +3044,9 @@ width:100%;
     clear: right;
     overflow-x: auto;
     background: #FFFFFF;
-    margin-top: 4px
+    margin-top: 4px;
+    margin-bottom: 6px;
 }
-
-
-.block-slat-active{
-      padding: 15px 30px;
-      font-size: 16px;
-    color: #5C627A;
-    font-weight: 400;
-    clear: right;
-    overflow-x: auto;
-    border: 2px solid #0F76A6;
-    background-color: #FFFFFF;
-    margin-top: 4px
-}
-
 
 .block-slat:hover{
      padding: 15px 30px;
