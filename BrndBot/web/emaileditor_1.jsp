@@ -271,6 +271,7 @@
                                     var arr = blockIdSelected.split('SSS');
                                     block_id = arr[0].replace("block", "");
                             };
+                            
                             $scope.showStyles = function(){
                             $(".selectrow").css("display", "none");
                                     document.getElementById("addblkbtn").style.backgroundColor = "#e3e3e3";
@@ -652,7 +653,7 @@
                                 </li>
                             </ul>
                             <ul id="stylelist" class="stylelist fontpnr" style="display: none;">
-                                <li ng-repeat="styles in datalistsstyles" id="stylelistid">
+                                <li ng-repeat="styles in datalistsstyles" id="stylelistid{{styles.id}}" ng-click="addActive(this.id)">
                                     <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="{{styles.image_url}}"  onclick="showText('{{styles.id}}')" width="275" style="height:200px;"/><br></div>
                                 </li>
 
@@ -669,7 +670,7 @@
                             <image src='images/sidebar/Icons_styleButton.svg' class="styleimg"/>
                             <p>STYLE</p>
                         </li>
-                        <li id="blocktab"  ng-click="showBlocks()">
+                        <li id="blocktab" ng-click="showBlocks()">
                             <image src='images/sidebar/Icons_blockButton.svg' class="blockimg"/>
                             <p>BLOCK</p>
                         </li>

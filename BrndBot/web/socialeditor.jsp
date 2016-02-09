@@ -42,7 +42,7 @@ and open the template in the editor.
         <!--
         <script src="js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
         <script src="js/jquery.blend.min.js" type="text/javascript"></script>-->
-          <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"><!--
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"><!--
             <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 -->            
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -1230,7 +1230,7 @@ var mindbodydataId = $("#mindbodydata").val();
                success: function (responseText) {
                        $('#loadingGif').remove();
                        var image=responseText;
-//                       alert(image);
+                       alert(image);
                        document.location.href = "socialimageselection.jsp?image="+image+"&isTwitter="+isTwitter+"&isFacebook="+isFacebook+"&mediaType="+mediaType+"&selectedType="+selectedType+"&data="+data+'&gallery=layout';
                                         $('#mask').hide();
                                     $('.window').hide();

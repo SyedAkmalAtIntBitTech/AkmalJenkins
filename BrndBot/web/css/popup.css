@@ -1408,14 +1408,20 @@ textarea#filetext1 {
     margin-top: 20px;
 }
  #edit{
-    position: relative;
-    top:0px;
+    position: fixed;
+    margin-top: 59px;
+    margin-left: 10px;
+    width: 68%;
     font-family:"proxima-nova",sans-serif;
     font-weight:500;
-    left: 0em; 
     color: #2D4444;
     max-height: 600px;
-    margin-left: 0%;
     /*                                overflow: auto;*/
+}
+#styledivheader{
+    display: none;
+}
+#stylediv{
+    display: none;
 }
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/

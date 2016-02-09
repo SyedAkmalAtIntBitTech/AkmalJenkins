@@ -28,7 +28,22 @@
     <%! String mindbody_id=""; %>
     <% mindbody_id = request.getParameter("id"); %>
     <jsp:include page="basejsp.jsp" />
-     
+      <%!            
+        SqlMethods sql_methods = new SqlMethods();
+        String email_subject = "";
+        String from_emaileeditor=null;
+    %>
+    <% email_subject = request.getParameter("subject"); %>
+    <%
+        try {
+            sql_methods.session = request.getSession(true);          
+            email_subject=(String)sql_methods.session.getAttribute("email_subject");             
+        } catch (Exception e) {
+            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+        }
+
+    %>
        
 </head>    
  
@@ -61,7 +76,11 @@
                     <div class="email-detail-selection col-1of1 fleft">
                         <div class="col-1of1 fleft">
                             <div class="col-9of10 fleft">
+                                <% if(email_subject!=null){ %>
+                                <input id="emailsubject" class="input-field-textfield col-8of10" placeholder="Enter Name of email" name="emailsubject" type="text" value="<%= email_subject%>" required/>
+                                <%} else{%>
                                 <input id="emailsubject" class="input-field-textfield col-8of10" placeholder="Enter Name of email" name="emailsubject" type="text" required/>
+                                <%}%>
                             </div>
                         </div>
                          
