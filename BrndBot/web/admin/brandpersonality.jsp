@@ -111,7 +111,7 @@
                     }catch (Exception e){
 
                     }finally {
-                        result_set.close();
+//                        result_set.close();
                         prepared_statement.close();
                         SqlMethods.closeConnection(conn);
                     }
@@ -177,7 +177,7 @@
                         }
                     }catch (Exception e){
                     }finally {
-                        result_set.close();
+//                        result_set.close();
                         prepared_statement.close();
                         ConnectionManager.getInstance().closeConnection(conn);
                     }

@@ -89,7 +89,7 @@
                         }catch (Exception e) {
                             logger.log(Level.SEVERE, "", e);
                         }finally {
-                            result_set.close();
+//                            result_set.close();
                             prepared_statement.close();
                             ConnectionManager.getInstance().closeConnection(conn);
                         }
@@ -113,7 +113,7 @@
                         }catch (Exception e) {
                             logger.log(Level.SEVERE, "", e);
                         }finally {
-                            result_set.close();
+//                            result_set.close();
                             prepared_statement.close();
                             ConnectionManager.getInstance().closeConnection(conn);
                         }
@@ -174,7 +174,7 @@
                     <%
                         num = num +1;
                     }
-                        result_set.close();
+//                        result_set.close();
                         prepared_statement.close();
                     }catch (Exception e){
                         logger.log(Level.SEVERE, "", e);

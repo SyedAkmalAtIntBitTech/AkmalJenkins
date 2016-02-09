@@ -77,7 +77,7 @@ public class GetLooks extends BrndBotBaseHttpServlet {
                             lk.setFile_name(file_name);
                             jsonarr.add(lk);
                         }
-                        result_set.close();  
+//                        result_set.close();  
                         prepared_statement.close();
                         jsonobject.put("first", jsonarr);
 

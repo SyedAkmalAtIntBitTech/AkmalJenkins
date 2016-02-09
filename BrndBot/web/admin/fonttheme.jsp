@@ -215,7 +215,7 @@
                             System.out.println(e.getCause());
                             System.out.println(e.getMessage());
                         }finally{
-                            result_set.close();
+//                            result_set.close();
                             prepared_statement.close();
                         }
                     %>
@@ -240,7 +240,7 @@
                             System.out.println(e.getCause());
                             System.out.println(e.getMessage());
                         }finally{
-                            result_set.close();
+//                            result_set.close();
                             prepared_statement.close();
                         }
                         }
@@ -323,7 +323,7 @@
                             number = number + 1;
                         }
                      }finally{
-                        result_set.close();
+//                        result_set.close();
                         prepared_statement.close();
                         ConnectionManager.getInstance().closeConnection(connection);
                      }
