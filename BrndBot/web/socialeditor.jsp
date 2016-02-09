@@ -1230,9 +1230,9 @@ var mindbodydataId = $("#mindbodydata").val();
                success: function (responseText) {
                        $('#loadingGif').remove();
                        var image=responseText;
-                       alert(image);
+//                       alert(image);
                        document.location.href = "socialimageselection.jsp?image="+image+"&isTwitter="+isTwitter+"&isFacebook="+isFacebook+"&mediaType="+mediaType+"&selectedType="+selectedType+"&data="+data+'&gallery=layout';
-                                        $('#mask').hide();
+                                    $('#mask').hide();
                                     $('.window').hide();
                }
 
