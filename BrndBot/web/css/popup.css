@@ -1206,7 +1206,7 @@ p#filetext {
     display: none;
     margin-top: 5%;
     z-index: 99999;
-    margin-left: 10%;
+    margin-left: 5%;
 }
 .closeemailpreview {
     width: 36px;

@@ -789,9 +789,12 @@ padding-top: 0px;
     padding-top:0px;
     padding-bottom:0px;
     height: 100% !important;
-    max-height: 485px;
+    max-height: 490px;
     //overflow: auto;
     
+}
+.bgwhite{
+ background-color: #FFFFFF !important;   
 }
 .fixingpos{
     position: fixed;
@@ -1279,7 +1282,7 @@ input-field-container{
      color: #3F3F42 ;
 }
 #channelhead{
-    width:100%;
+    width:90%;
 }
 .h2 {
     font-size: 24px;
@@ -1955,7 +1958,7 @@ ul{
 
 
 .sequence-page-header{
-    font-size: 28px;
+    font-size: 22px;
     font-family: sans-serif;
     color:#3F3F42 ;
     font-weight: 600;

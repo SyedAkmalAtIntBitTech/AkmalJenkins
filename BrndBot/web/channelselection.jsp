@@ -78,7 +78,7 @@
                     <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
             </div>
             </a>
-            <div id="channelhead" style="width: 50%;" class="page-title-regular page-title-font">Channel Selection</div>
+            <div id="channelhead" class="page-title-regular page-title-font">Channel Selection</div>
             <div class="page-cta-container"></div>
         </div>
     </div>

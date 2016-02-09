@@ -812,16 +812,19 @@ public class SqlMethods {
                 }
 
 
-                if (pgobject != null & pgobject.getValue() != null && !StringUtil.isEmpty(pgobject.getValue())) {
-                    pgobject.setType("json");
-                    String obj = pgobject.getValue();
-                    userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
-                    org.json.simple.JSONArray emailLists = (org.json.simple.JSONArray) userPreferencesJSONObject.get(IConstants.kEmailAddressUserPreferenceKey);
+                if (pgobject != null) {
+                    if(pgobject.getValue() != null && !StringUtil.isEmpty(pgobject.getValue()))
+                    {
+                        pgobject.setType("json");
+                        String obj = pgobject.getValue();
+                        userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
+                        org.json.simple.JSONArray emailLists = (org.json.simple.JSONArray) userPreferencesJSONObject.get(IConstants.kEmailAddressUserPreferenceKey);
 
-                    if (userPreferencesJSONObject != null && emailLists != null) {
-                        for (int i = 0; i < emailLists.size(); i++) {
-                            org.json.simple.JSONObject emailJSONObject = (org.json.simple.JSONObject) emailLists.get(i);
-                            emailListJSONArray.add(emailJSONObject);
+                        if (userPreferencesJSONObject != null && emailLists != null) {
+                            for (int i = 0; i < emailLists.size(); i++) {
+                                org.json.simple.JSONObject emailJSONObject = (org.json.simple.JSONObject) emailLists.get(i);
+                                emailListJSONArray.add(emailJSONObject);
+                            }
                         }
                     }
                     

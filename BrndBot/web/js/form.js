@@ -116,6 +116,7 @@ function ForgotPassController($scope, $http) {
             }).success(function (data)
             {
                 $scope.status = data;
+//                alert(JSON.stringify(status));
                 if (data === "true") {
                     alert(passwordresetlinksent);
                 } else if (data === "false") {
