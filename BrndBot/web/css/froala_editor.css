@@ -18,6 +18,7 @@
   position: relative;
   z-index: 2;
   text-align: initial;
+  background-color: #EEEEEE;
   -webkit-user-select: auto;
 }
 .fr-element img {
