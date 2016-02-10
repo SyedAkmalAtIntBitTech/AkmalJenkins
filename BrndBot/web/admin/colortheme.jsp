@@ -80,7 +80,7 @@
                                     }catch (Exception e){
 
                                     }finally {
-                                        result_set.close();
+//                                        result_set.close();
                                         prepared_statement.close();
                                         ConnectionManager.getInstance().closeConnection(connection);
                                     }
@@ -108,7 +108,7 @@
                                     }catch (Exception e){
 
                                     }finally {
-                                        result_set.close();
+//                                        result_set.close();
                                         prepared_statement.close();
                                         ConnectionManager.getInstance().closeConnection(connection);
                                     }
@@ -176,7 +176,7 @@
                             }catch (Exception e){
 
                             }finally {
-                                result_set.close();
+//                                result_set.close();
                                 prepared_statement.close();
                                 ConnectionManager.getInstance().closeConnection(connection);
                             }

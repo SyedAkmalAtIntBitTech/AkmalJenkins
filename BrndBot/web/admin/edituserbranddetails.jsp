@@ -253,7 +253,7 @@
                             System.out.println(e.getMessage());
                         } finally {
                             prepared_statement.close();
-                            result_set.close();
+//                            result_set.close();
                         }
                     } finally {
                         ConnectionManager.getInstance().closeConnection(conn);
@@ -297,7 +297,7 @@
                                 System.out.println(e.getCause());
                                 System.out.println(e.getMessage());
                             } finally {
-                                result_set.close();
+//                                result_set.close();
                                 prepared_statement.close();
                             }
                         }finally{
