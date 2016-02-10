@@ -96,7 +96,7 @@
                                 }catch (Exception e){
                                     logger.log(Level.SEVERE, "", e);
                                 }finally {
-                                    result_set.close();
+//                                    result_set.close();
                                     prepared_statement.close();
                                     ConnectionManager.getInstance().closeConnection(connection);
                                 }
@@ -158,7 +158,7 @@
                         }catch (Exception e){
                             logger.log(Level.SEVERE, "", e);
                         }finally {
-                            result_set.close();
+//                            result_set.close();
                             prepared_statement.close();
                             ConnectionManager.getInstance().closeConnection(connection);
                         }

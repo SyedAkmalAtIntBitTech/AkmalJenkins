@@ -14,7 +14,9 @@
   empty-cells: show;
   max-width: 100%;
 }
-.fr-view table td,
+.fr-view table td{
+    
+}
 .fr-view table th {
   border: 1px solid transparent;
 }
@@ -117,7 +119,7 @@ img.fr-dii {
   margin: auto;
   display: inline-block;
   float: none;
-  margin-top: 5px;
+/*  margin-top: 5px;*/
   margin-bottom: 5px;
 }
 img.fr-dii.fr-fil {
@@ -135,7 +137,7 @@ img.fr-rounded {
   -moz-border-radius: 100%;
   -webkit-border-radius: 100%;
   -moz-background-clip: padding;
-  -webkit-background-clip: padding-box;
+  /*-webkit-background-clip: padding-box;*/
   background-clip: padding-box;
 }
 img.fr-bordered {
