@@ -767,6 +767,15 @@ function overlay() {
 //                    autosize("#link_title");
                     autosize("#link_description");
                 });
+                var maxLength = 140;
+                $('#twittertext').keyup(function() {
+                  var length = $(this).val().length;
+                  var length = maxLength-length;
+                  if(length <= 0){
+                      alert("140 Characters only!");
+                  }
+                  $('#chars').text(length);
+                });
             });
             function autosize(textarea) {
                 $(textarea).height(1); // temporarily shrink textarea so that scrollHeight returns content height when content does not fill textarea

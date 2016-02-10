@@ -233,7 +233,8 @@
                             <div class="col-1of1 Twitter-preview-name-container fleft">
                                 <div class="Twitter-preview-name fleft"><span><%=companyName%></span></div>
                                 <div class="Twitter-handle fleft">@<%=companyName%></div>
-                                <textarea id="twittertext" style="resize: none;  margin-bottom: 5px;" class="noborder" placeholder="Demo content goes right here for twitter"></textarea>
+                                <textarea id="twittertext" maxlength="140" style="resize: none;  margin-bottom: 5px;" class="noborder" placeholder="Demo content goes right here for twitter"></textarea>
+                                <div id="charlimit" class="fright"><span id="chars">140</span> characters remaining</div>
                             </div>
 
                                 <%if 
