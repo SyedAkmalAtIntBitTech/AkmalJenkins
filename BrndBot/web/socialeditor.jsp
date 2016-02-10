@@ -33,7 +33,7 @@ and open the template in the editor.
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
         <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-       
+       <link rel="shortcut icon" href="images/favicon.png"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
@@ -823,7 +823,7 @@ var mindbodydataId = $("#mindbodydata").val();
         <script src="js/socialeditor.js" type="text/javascript"></script>
         <div ng-controller="MyController" class="container" id="container"> 
             <div class="row">
-                 <jsp:include page="leftmenu.html"/><!--/end left column-->
+                 <jsp:include page="navbar2.jsp"/><!--/end left column-->
             </div>
 
             <!-- Page content -->

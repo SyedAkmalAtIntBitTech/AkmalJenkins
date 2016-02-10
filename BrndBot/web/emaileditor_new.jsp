@@ -210,6 +210,15 @@
 
                     };
                     
+                     $scope.addBlockActive = function(divid,id){
+                         $(".block-button").addClass("hide");
+                         $("#blockdiv li").removeClass("block-slat-active");
+                         $("#blockdiv li").addClass("block-slat");
+                         $("#"+divid).removeClass("block-slat");
+                         $("#"+divid).addClass("block-slat-active");
+                         $("#div2"+id).removeClass("hide");
+                    };
+                    
                     $scope.addActive = function(id){
                         $("#stylediv li").removeClass("style-slat-active");
                         $("#stylediv li").addClass("style-slat");
@@ -369,14 +378,13 @@
                     };
                     
                     $scope.showImageOfBlock = function(id, mind_body_query){
-
                             hlt();
-                                    $("#stylelist").css("display", "none");
-                                    $("#blklist").css("display", "block");
-                                    $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
-                                    $(":button").removeAttr("disabled");
-                                    $("#styletab").css("background-color", "transparent").css("color", "#19587c");
-                                    $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data, status){
+                            $("#stylelist").css("display", "none");
+                            $("#blklist").css("display", "block");
+                            $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
+                            $(":button").removeAttr("disabled");
+                            $("#styletab").css("background-color", "transparent").css("color", "#19587c");
+                            $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data, status){
                             var jsondataDefault = data;
                                     //alert(JSON.stringify(data));
                                     var allLayoutFilename = [];
@@ -397,15 +405,16 @@
                             }
                     
                     $scope.showData = function(id, mind_body_query){
-                    block_clicked = "true";
-                            blockIdSelected = "";
-                            block_id = id;
-                            addblockid = "block" + addBlockcCount;
-                            addBlockcCount++;
+                        alert();
+                        block_clicked = "true";
+                        blockIdSelected = "";
+                        block_id = id;
+                        addblockid = "block" + addBlockcCount;
+                        addBlockcCount++;
 //                            $(".fr-element").append("<div id=" + addblockid + " onclick=selecterBlockId('" + addblockid + "','" + temp_block_id + "');></div>")
-                            if (mind_body_query == "null")
-                    {
-                    mindbodydataId = "0";
+                        if (mind_body_query == "null")
+                        {
+                        mindbodydataId = "0";
                             //$scope.showStyles();
                             showText(temp_style_id);
                             $("#tabs-1").show();
@@ -414,10 +423,10 @@
                             $("#tabs-3").hide();
                             $("#tabs-4").hide();
                             $("#tabs-5").hide();
-                    }
-                    else
-                    {
-                    $("#tabs-1").hide();
+                        }
+                        else
+                        {
+                        $("#tabs-1").hide();
                             $("#tabs-2").hide();
                             $("#tabs-3").hide();
                             $("#tabs-5").hide();
@@ -429,23 +438,23 @@
                             method : 'GET',
                                     url : 'MindBodyDataServlet?mindbody_query=' + mind_body_query
                             }).success(function(data, status, headers, config) {
-                    //                    alert(JSON.stringify(data));
-                    $scope.datalists = data;
+                        //                    alert(JSON.stringify(data));
+                        $scope.datalists = data;
                             $scope.numberOfPages = function() {
                             return Math.ceil($scope.datalists.length / $scope.pageSize);
                             };
                             if (data === error){
-                    alert(data);
-                    }
-                    $("#loadingGifformindbody").hide();
-                            $("#clsbtn").css("display", "block");
-                            $("#addblkbtn").prop('disabled', true).css("background-color", "#e3e3e3").css("color", "#9c9da1");
-                            $("#tabs-4").css("width", "830px").css("position", "fixed").css("margin-left", "-600px").css("top", "0px").show("slide", { direction: "right" }, 1000);
-                    }).error(function(data, status, headers, config) {
-                    alert("No data available! Problem fetching the data.");
-                            // called asynchronously if an error occurs
-                            // or server returns response with an error status.
-                    });
+                        alert(data);
+                        }
+                        $("#loadingGifformindbody").hide();
+                                $("#clsbtn").css("display", "block");
+                                $("#addblkbtn").prop('disabled', true).css("background-color", "#e3e3e3").css("color", "#9c9da1");
+                                $("#tabs-4").css("width", "830px").css("position", "fixed").css("margin-left", "-600px").css("top", "0px").show("slide", { direction: "right" }, 1000);
+                        }).error(function(data, status, headers, config) {
+                        alert("No data available! Problem fetching the data.");
+                                // called asynchronously if an error occurs
+                                // or server returns response with an error status.
+                        });
                     }
                     $scope.showStyles();
                     };
@@ -878,8 +887,9 @@
                             <div class="block-name">Header Block</div>
                             <div class="block-button" ng-click="showDataTemp()">Add Block</div>                            
                         </li>-->
-                        <li class="block-slat" ng-repeat="blocks in datalists" id="blklist">
-                            <div class="block-name" id="{{blocks.block_id}}" ng-init="showImageOfBlock(blocks.block_id, blocks.mindbody_query)">{{blocks.block_name}}</div>                            
+                        <li class="block-slat" ng-repeat="blocks in datalists" id="blklist----{{blocks.block_id}}" ng-click="addBlockActive('blklist----'+blocks.block_id,blocks.block_id)">
+                            <div class="block-name" id="{{blocks.block_id}}" ng-click="showImageOfBlock(blocks.block_id, blocks.mindbody_query)">{{blocks.block_name}}</div>                            
+                            <div class="block-button hide" ng-click="showDataTemp()" id="div2{{blocks.block_id}}">Add Block</div>
                         </li>
                     </ul>
                     
