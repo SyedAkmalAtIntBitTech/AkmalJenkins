@@ -66,7 +66,7 @@ public class GetEmaiLayoutHtmlServlet extends BrndBotBaseHttpServlet {
 
         for (int i = 0; i < userColors.size(); i++) {
             String userColor = (String) userColors.get(i);
-            colorHashmap.put("color" + i, userColor);
+            colorHashmap.put("color" + (i+1), userColor);
 
         }
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
