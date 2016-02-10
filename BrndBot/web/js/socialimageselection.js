@@ -4,6 +4,7 @@
             var number=0;
             var fb=0;
             var tw=0;
+            var latesttwtext="";
             if(facebook===true)
             {
                fb=1; 
@@ -12,6 +13,12 @@
             {
                tw=1;
             }
+            
+//            $( "#twittertext" ).keyup(function()
+//            {
+//                var text=$("#twittertext").val();
+//                alert( text +"bit.ly/1XOkJo");
+//            });
             
             function changeimagetext() {
                 var imagetext=$("#filesToUpload").val();
@@ -23,9 +30,10 @@
                 {
                     $("#imagetext").val(imagetext);
                 }
-            }
-                        
-            $(document).ready(function () {
+            }            
+      
+            $(document).ready(function () {                
+                
                 var isFacebook1 = $("#isFacebook").val();
                 var isTwitter1 = $("#isTwitter").val();
                 
@@ -74,6 +82,7 @@
                     $("#link_description").val("");
                     $("#Linkurl").val("");
                     $("#link").val("");
+                    $("#twittertext").val("");
                 });
                 $("#facebookimage").hide();
                 $("#fabookpreviewdiv").hide();
@@ -150,8 +159,7 @@
                                 $("#link_description").focus();
                                 return false;
                             }     
-                        }
-                                           
+                        }                                           
                     }
                     if(isTwitter === "true")
                     {
@@ -161,6 +169,26 @@
                             flag=1;
                             $("#twittertext").focus();
                             return false;
+                        }
+                        if($("#twittertext").val().trim()==="bit.ly/1XOkJo")
+                        {
+                            alert(twittertitle);
+                            return false;
+                        }
+                        if($("#twittertext").val().trim().contains("bit.ly/1XOkJo"))
+                        {
+                            var twtext=$("#twittertext").val();
+                            var res= twtext.split(" ");
+                            var text="";
+                            var i="";
+                            $.each( res, function( i, value ){
+                                if(value==="bit.ly/1XOkJo"){}
+                                else
+                                {
+                                    text +=" "+ value;
+                                }
+                            });
+                            latesttwtext=text;
                         }
                         if(image_name==="")
                         {
@@ -225,9 +253,15 @@
                             }
                         }                                                
                     }
+                    var twittertext=$("#twittertext").val();
                     if(isTwitter === "true")
                     {
                         if($("#twittertext").val()==="")
+                        {
+                            alert(twittertitle);
+                            return false;
+                        }
+                        if($("#twittertext").val().trim()==="bit.ly/1XOkJo")
                         {
                             alert(twittertitle);
                             return false;
@@ -271,7 +305,7 @@
                                         url: $("#Linkurl").val(),
                                         twittweraccestoken: $("#twittweraccestoken").val(),
                                         twitterTokenSecret: $("#twitterTokenSecret").val(),
-                                        text: $("#twittertext").val(),
+                                        text:latesttwtext,
                                         isFacebook: isFacebook,
                                         isTwitter: isTwitter,
                                         imagePost: image_name,
@@ -491,7 +525,7 @@
                                         "token_secret": '"' + $("#twitterTokenSecret").val() + '"'
                                     },
                                     metadata: {
-                                        text: '"' + $("#twittertext").val() + '"',
+                                        text: '"' + latesttwtext + '"',
                                         shorturl:'"' + $("#sortLengthurl").val()+'"'
                                     }
                                 }
@@ -533,7 +567,7 @@
                                         "token_secret": '"' + $("#twitterTokenSecret").val() + '"'
                                     },
                                     metadata: {
-                                        text: '"' + $("#twittertext").val() + '"',
+                                        text: '"' + latesttwtext + '"',
                                         shorturl:'"' + $("#sortLengthurl").val() +'"'
                                     }
                                 }
@@ -767,15 +801,7 @@ function overlay() {
 //                    autosize("#link_title");
                     autosize("#link_description");
                 });
-                var maxLength = 140;
-                $('#twittertext').keyup(function() {
-                  var length = $(this).val().length;
-                  var length = maxLength-length;
-                  if(length === 0){
-                      alert("140 Characters only!");
-                  }
-                  $('#chars').text(length);
-                });
+               
             });
             function autosize(textarea) {
                 $(textarea).height(1); // temporarily shrink textarea so that scrollHeight returns content height when content does not fill textarea

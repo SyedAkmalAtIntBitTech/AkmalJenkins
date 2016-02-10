@@ -260,7 +260,7 @@
                                     <%}%>
                                 </div>
                                 <%}%>
-                            <input type="text" readonly id="link" class="noborder top8" placeholder="This should equal the marketing program link"></input></div>
+                            <input type="text" hidden id="link" class="noborder top8" placeholder="This should equal the marketing program link"></input></div>
                         </div>   
                     </div>
                     <%

@@ -185,32 +185,54 @@ $(document).ready(function ()
         $("#changeLink").hide();
         $("#linkpopup").show();
         $("#fade").show();
+        
     });
     $("#closeLinkPopup").click(function(){
         $("#linkpopup").hide();
         $("#fade").hide();
     });
-     $("#submitLink").click(function(){
-       var textval=$("#url").val();
-       var urlregex = new RegExp("^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)");
-       if(urlregex.test(textval) === false)
-       {
-           alert(linkerror);
-           return false; 
-       }
-       $("#link").val(textval);
-       $("#Linkurl").val(textval);
-       $("#link_title").show();
-       $("#link_description").show();
-       $("#Linkurl").show();
-       $("#link").show();
-       $("#editLink").show();
-       $("#removeLink").show();
-       $("#changeLink").hide();
-       $("#fade").hide();
-       $("#linkpopup").hide();
+    var maxLength = 140;
+    $('#twittertext').keyup(function() {
+      var length = $(this).val().length;
+      var length = maxLength-length;
+      if(length === 0){
+          alert("140 Characters only!");
+      }
+      $('#chars').text(length);
     });
-     $("#dropdownurl").change(function(){
+    var sortlink="bit.ly/1XOkJo1t4CYn0.t5uI/q5093b";
+    $("#submitLink").click(function(){
+        var textval=$("#url").val();
+        var link=textval;
+        var urlregex = new RegExp("^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)");
+        if(urlregex.test(textval) === false)
+        {
+            alert(linkerror);
+            return false; 
+        }
+        $("#link").val(textval);
+        $("#Linkurl").val(textval);
+        $("#link_title").show();
+        $("#link_description").show();
+        $("#Linkurl").show();
+//        $("#link").show();
+        $("#editLink").show();
+        $("#removeLink").show();
+        $("#changeLink").hide();
+        $("#fade").hide();
+        $("#linkpopup").hide();
+        var value=$("#twittertext").val();
+        var valuelenght=$("#twittertext").val().length;
+        if(valuelenght >108){
+            $("#twittertext").val(value); 
+            alert("Link can't be added! atleast leave 32 characters to add link in twitter text.");
+        }
+        else{
+            $("#twittertext").val(value+" "+sortlink);        
+        }
+    });
+      
+    $("#dropdownurl").change(function(){
         var choosenlink=$("#dropdownurl").val();
         var link=choosenlink.split("--");
         $("#url").val(link[0]);
