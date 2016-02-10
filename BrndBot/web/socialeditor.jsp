@@ -33,7 +33,7 @@ and open the template in the editor.
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
         <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-       
+       <link rel="shortcut icon" href="images/favicon.png"/>
         <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
         <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>

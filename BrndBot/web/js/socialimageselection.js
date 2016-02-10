@@ -762,10 +762,19 @@ function overlay() {
                         
                     }
                 });
-                
+                $(document).on("input", "textarea", function() {
+                    autosize("#posttext");
+//                    autosize("#link_title");
+                    autosize("#link_description");
+                });
             });
+            function autosize(textarea) {
+                $(textarea).height(1); // temporarily shrink textarea so that scrollHeight returns content height when content does not fill textarea
+                $(textarea).height($(textarea).prop("scrollHeight"));
+            }
             function controllerMarketingCampaign($scope, $http) {
-                
+//               
+//                $('#posttext').css('overflow', 'hidden').autogrow();
                 $http({
                         method: 'GET',
                         url: getHost() + 'getAllUserMarketingProgramsByUserId.do'
