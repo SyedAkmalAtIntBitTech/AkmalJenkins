@@ -51,21 +51,20 @@ function selectPromoteMediaController($scope, $http) {
                 $(".h1").hide();
                 setTimeout(function () {
                     window.location = "dashboard.jsp";
-                }, 4000);
+                }, 4500);
             }
 
             if ($scope.email_templates !== 0) {
-                $("#eml").show();
-                $("")
+                $("#email").show();
             }
             if ($scope.social_templates !== 0) {
-                $("#soc").show();
+                $("#social").show();
             }
             if ($scope.social_templates_print !== 0) {
-                $("#prnt").show();
+                $("#print").show();
             }
             if ($scope.social_templates_download !== 0) {
-                $("#dwnld").show();
+                $("#download").show();
             }
 
             if (data === error) {

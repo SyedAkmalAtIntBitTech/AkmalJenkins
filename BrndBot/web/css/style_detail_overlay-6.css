@@ -2998,6 +2998,10 @@ width:100%;
     cursor: pointer;
 }
 
+.hide{
+    display: none;
+}
+
 .block-slat{
     padding: 15px 30px;
     font-size: 16px;

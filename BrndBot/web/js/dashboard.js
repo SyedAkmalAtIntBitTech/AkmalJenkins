@@ -56,7 +56,7 @@ angular.module("myapp", [])
                     headers: {'Content-Type': 'application/json'},
                     data: CategoryID
                 }).success(function (data)
-                {   
+                {
                     if(JSON.stringify(data)!== "[]"){
                     $scope.SubCategories = data;
                 }
@@ -64,12 +64,15 @@ angular.module("myapp", [])
                 {
                     $("#promoteheading").hide();
                     $("#subcatdiv").hide();
-                    $("#ifnodata").empty().append(nosubcategoryerror);
+                    $("#ifnodata").empty();alert(nosubcategoryerror);
+                    setTimeout(function () {
+                    window.location = "dashboard.jsp";
+                }, 1000);
                 }
                 }).error(function (data, status) {
                     alert(requesterror);
                 });
-                        
+                
                 if (CatID === 1) { 
                     $("#subpromotelist").css("position","relative").css("left", "-77px").css("top", "-10px").css("width","100px");
                 }
