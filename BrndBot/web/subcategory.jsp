@@ -21,6 +21,7 @@
     <script src="js/configurations.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/dashboard.js"></script>
+    <script src="js/alert_message.js"></script>
     <jsp:include page="basejsp.jsp" />
      
 </head>    

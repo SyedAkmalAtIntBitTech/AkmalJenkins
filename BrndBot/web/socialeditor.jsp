@@ -823,7 +823,7 @@ var mindbodydataId = $("#mindbodydata").val();
         <script src="js/socialeditor.js" type="text/javascript"></script>
         <div ng-controller="MyController" class="container" id="container"> 
             <div class="row">
-                 <jsp:include page="leftmenu.html"/><!--/end left column-->
+                 <jsp:include page="navbar2.jsp"/><!--/end left column-->
             </div>
 
             <!-- Page content -->
