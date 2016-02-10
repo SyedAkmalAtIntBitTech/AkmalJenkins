@@ -45,7 +45,7 @@
                              <ul class="top-subnav-nav-elements-detail">
                                 <li class="top-subnav-links-detail top-subnav-link-active-detail" id="recuringaction"> <a class="h3-subnav-active">Automation Details</a></li>
                                 <li class="top-subnav-links-detail" id="recuringtemplate"> <a class="h3-subnav" >Saved Email</a></li>
-                                <li class="top-subnav-links-detail  top-subnav-links-detail-last" id="recuringnote"> <a class="h3-subnav" >Notes</a></li>
+                                <!--<li class="top-subnav-links-detail  top-subnav-links-detail-last" id="recuringnote"> <a class="h3-subnav" >Notes</a></li>-->
                             </ul>
                         </div>
                     </div>
