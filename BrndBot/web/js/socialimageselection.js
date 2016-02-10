@@ -771,7 +771,7 @@ function overlay() {
                 $('#twittertext').keyup(function() {
                   var length = $(this).val().length;
                   var length = maxLength-length;
-                  if(length <= 0){
+                  if(length === 0){
                       alert("140 Characters only!");
                   }
                   $('#chars').text(length);

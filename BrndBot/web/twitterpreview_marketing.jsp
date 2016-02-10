@@ -76,9 +76,9 @@
                 <div class="inner-content-container-detail">
 <!--                    <div class="saved-post-header-detail">
                         <div id="twtemptyheader" class="h4" >Write Notes about this Action</div>                      
-                        <div id="twtnoteheader" class="h4" >Notes</div>
-                        <div id="twtnotetext" class="instruction-text">{{schedule_desc}}</div>
-                    </div>-->
+                        <div id="twtnoteheader" class="h4" >Notes</div>-->
+                        <div hidden id="twtnotetext" class="instruction-text">{{schedule_desc}}</div>
+                    <!--</div>-->
                         <div class="inner-content-detail">
                             <div class="fields-note-detail">
 
