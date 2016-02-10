@@ -952,17 +952,21 @@ function controllerMarketingCampaign($scope, $http) {
         });
     };
     $scope.uploadFile = function(){
+        if($("#myFile").val()=== ""){alert(chooseimage);}
+       
         $("#myFile").upload("UploadImages",function(success){
-            var imagetext=$("#filesToUpload").val();
-            alert(imagetext);
-            if(imagetext ==="")
+            var imagetext=$("#myFile").val();
+//            alert(imagetext);
+            if(imagetext === "")
             {
                 alert(chooseimage);
             }
             else
             {        
+                alert(imageuploadsuccess);
                 $("#fileuploaddiv").hide();
                 $scope.showImages();
+                $("#myFile").val('');
             }
        });
     };

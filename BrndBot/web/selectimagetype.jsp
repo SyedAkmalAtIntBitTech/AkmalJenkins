@@ -147,7 +147,7 @@
                             <div class="imageGallery-inner-popup">
                                 <div class="imageUpload-container">
                                    <div class="browse-button">
-                                        <div><input id="myFile" type="file" name="myFile" class="md-button gray-button" value="Browse your Images"></div>
+                                       <div class="md-button gray-button"><input id="myFile" class="md-button gray-button outlinenone" type="file" name="myFile"  value="Browse your Images"></input></div>
                                     </div>
                                     <div class="browse-button top18">
                                         <div class="md-button gray-button" id="upload" ng-click="uploadFile()">Upload</div>
