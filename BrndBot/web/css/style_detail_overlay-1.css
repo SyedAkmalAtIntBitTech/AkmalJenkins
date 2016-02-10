@@ -862,13 +862,16 @@ padding-top: 0px;
 
 }
 .saved-email-preview-detail{
-     width:100%;
+    width: 80%;
     background-color: #F9F9F9;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     float: left;
     padding-top: 0px;
-    padding-bottom:50px;
-
+    padding-bottom: 50px;
+    position: relative;
+    left: 100px;
+    right: 100px;
+    
 }
 .emailcontentiframetag{
     width: 100%;
