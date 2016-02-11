@@ -829,12 +829,12 @@ a#removeLink {
 .changeImage1 {
     background-color: lightgrey;
     width: 200px;
-    position: fixed;
+    position: absolute;
     height: 30px;
     padding-top: 10px;
     text-align: center;
     border-radius: 5px;
-    margin-top: 110px;
+    margin-top: 150px;
     margin-left: 36px;
     margin-right: auto;
     color: white;
@@ -844,27 +844,28 @@ a#removeLink {
 .feditImage {
     background-color: lightgrey;
     width: 200px;
-    position: fixed;
+    position: absolute;
     height: 30px;
     padding-top: 10px;
     text-align: center;
     border-radius: 5px;
-    margin-top: 110px;
+    margin-top: 150px;
     margin-left: 258px;
     margin-right: auto;
     color: white;
     cursor: pointer;
     opacity: .9;
 }
+.editbtnalgnment{ margin-top: 150px !important;}
 .teditImage {
     background-color: lightgrey;
     width: 200px;
-    position: fixed;
+    position: absolute;
     height: 30px;
     padding-top: 10px;
     text-align: center;
     border-radius: 5px;
-    margin-top: 110px;
+    margin-top: 150px;
     margin-left: 258px;
     margin-right: auto;
     color: white;
@@ -872,20 +873,21 @@ a#removeLink {
     opacity: .9;
 }
 .fchangeImage1 {
-    background-color: lightgrey;
+        background-color: lightgrey;
     width: 200px;
-    position: fixed;
+    position: absolute;
     height: 30px;
     padding-top: 10px;
     text-align: center;
     border-radius: 5px;
-    margin-top: 110px;
+    margin-top: 150px;
     margin-left: 33px;
     margin-right: auto;
     color: white;
     cursor: pointer;
     opacity: .9;
 }
+.Facebook-preview-image1{position: relative;}
 #recuringtemplatediv,#recuringnotediv,#avpw_main_overlay,#avpw_main_frames,#avpw_main_resize,#avpw_main_orientation,#avpw_main_saturation,#avpw_main_focus,#avpw_main_brightness,#avpw_main_contrast{
     display:none;
 }
@@ -897,6 +899,7 @@ a#avpw_rghtArrow,#avpw_lftArrow {
     display: none !important;
 }
 .Twitter-preview-image1 {
+    position:relative;
     width: 100%;
 }
 .input-field-textfield1 {
@@ -1421,6 +1424,9 @@ textarea#filetext1 {
 }
 .gray{
     color: #71717B;
+}
+.red{
+    color: #FF0000;
 }
 .textcenter{
     margin-left: 232px;
