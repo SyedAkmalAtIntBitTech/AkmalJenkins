@@ -167,7 +167,7 @@
                             </div>
                         </div>
                         <div class="">
-                            <textarea type="text" id="posttext" class="width100 noborder" placeholder="Demo content goes right here"></textarea>
+                            <textarea type="text" id="posttext" class="width100 noborder" placeholder="Facebook Demo content goes right here"></textarea>
                         </div>
                         <div class="Facebook-link-container">
 
@@ -196,7 +196,7 @@
                                 <div class="Facebook-preview-link-title">
                                 <textarea type="text" id="link_title" class="width100 noborder noresize" placeholder="Input in Admin-- This Weekend Workshop"></textarea></div>
                                 <div class="Facebook-preview-link-description">
-                                <textarea type="text" id="link_description" class="width100 noborder noresize" placeholder="This workshop is going to be so awesoem for the new season and get you in really good shape!"></textarea></div>
+                                <textarea type="text" id="link_description" class="full98 noborder noresize" placeholder="This workshop is going to be so awesoem for the new season and get you in really good shape!"></textarea></div>
                                 <div class="Facebook-preview-link-url">
                                 <input type="text" readonly id="Linkurl" class="full99 noborder" placeholder="This should equal the marketing program link"></input></div>
                             </div>
@@ -233,7 +233,7 @@
                             <div class="col-1of1 Twitter-preview-name-container fleft">
                                 <div class="Twitter-preview-name fleft"><span><%=companyName%></span></div>
                                 <div class="Twitter-handle fleft">@<%=companyName%></div>
-                                <textarea id="twittertext" maxlength="140" style="resize: none;  margin-bottom: 5px;" class="noborder" placeholder="Demo content goes right here for twitter"></textarea>
+                                <textarea id="twittertext" maxlength="140" style="resize: none;  margin-bottom: 5px;" class="noborder" placeholder="Twitter Demo content goes right here"></textarea>
                                 <div id="charlimit" class="fright"><span id="chars">140</span> characters remaining</div>
                             </div>
 

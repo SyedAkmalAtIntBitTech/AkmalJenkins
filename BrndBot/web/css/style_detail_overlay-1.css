@@ -890,6 +890,8 @@ padding-top: 0px;
     border: 1px solid rgb(223, 224, 228);
     border-radius: 3px;
     background-color: #FFFFFF;
+    overflow: auto;
+    margin-bottom: 65px;
     
 }
 .twitter-post-preview{
