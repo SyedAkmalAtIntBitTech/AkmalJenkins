@@ -375,7 +375,7 @@
                 }
             }
             function EmailListController($scope, $http) {
-                
+                $("#addemlstbtn").show();
                 $scope.setEmailSettings = function () {
                     var from_address = $("#from_address").val();
                     var reply_email_address = $("#reply_email_address").val();
@@ -388,6 +388,7 @@
                             data: email_settings
                         }).success(function (data)
                         {
+                            
                             $scope.status = data;
                             if (data === "false") {
                                 alert(sessionexpire);

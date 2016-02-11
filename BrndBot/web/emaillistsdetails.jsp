@@ -22,6 +22,7 @@
     <script src="js/configurations.js" type="text/javascript"></script>  
     <script src="js/emaillist.js"></script>
     <title>BrndBot - Email List Details</title>    
+    <style>#unselect,#delcontact{display:none;}</style>
 </head>    
 <%
     String list_name=request.getParameter("list_name");
@@ -46,7 +47,7 @@
            </a>
             <div class="page-title-with-back page-title-font"><%=list_name%></div>
             <div class="page-cta-container">
-                <a href="" class="gray-button button pushright fleft">
+                <a id="unselect" href="" class="gray-button button pushright fleft">
                     <div class=" md-button" onclick="unsel()"> Unselect Contacts</div>    
                 </a>
                 <a href="" id="delcontact" class="delete-button button fleft">
