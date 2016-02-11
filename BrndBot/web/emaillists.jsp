@@ -27,13 +27,15 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="js/popup.js" type="text/javascript"></script> 
     <link rel="stylesheet" href="css/popup.css"/>
+    <style>#deleteEmaildraft,#addemlstbtn,#savesetbtn{display:none;}</style>
     <title>BrndBot - Email List</title>  
 </head>    
 <body ng-app class="claro1" >
+     <%@include file="navbarv2.jsp" %>
     <div id="fade"></div>
     <div class="content-main" ng-controller="EmailListController" >
         <!--SideNav-->
-        <%@include file="navbarv2.jsp" %>
+       
         <script src="js/marketing.js" type="text/javascript"></script>
        <jsp:include page="createemaillist.jsp"/>
        <jsp:include page="savedEmailDraftPopup.jsp"/> 

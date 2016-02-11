@@ -53,7 +53,10 @@ function selectPromoteMediaController($scope, $http) {
                     window.location = "dashboard.jsp";
                 }, 4500);
             }
-
+            if(($scope.email_templates !== 0)||($scope.social_templates !== 0)||($scope.social_templates_print !== 0)||($scope.social_templates_download !== 0))
+            {
+                $("#header").show();
+            }
             if ($scope.email_templates !== 0) {
                 $("#email").show();
             }

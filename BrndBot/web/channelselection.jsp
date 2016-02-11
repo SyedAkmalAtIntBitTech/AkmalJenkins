@@ -25,7 +25,7 @@
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
     <script src="js/channelselection.js" type="text/javascript"></script>
-    <style>#email,#social,#image,#download{display:none;}</style>
+    <style>#header,#email,#social,#print,#download{display:none;}</style>
       <%!
             SqlMethods sql_methods = new SqlMethods();
             String category_id, sub_category_name, sub_category_id;
