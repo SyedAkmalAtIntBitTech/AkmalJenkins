@@ -46,7 +46,7 @@
                     <div class="instruction-text">Last edited on {{editdate|date: "MMMM dd yyyy"}} at {{editdate|date: "hh:mm a"}}</div>
                 </div>
                     <div class="inner-content-detail">
-                        <div class="saved-email-preview-detail">
+                        <div class="saved-draftemail-preview-detail">
 
                             <!--SAVED Email GOES HERE-->
 

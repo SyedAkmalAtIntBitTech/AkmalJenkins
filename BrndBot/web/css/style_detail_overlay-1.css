@@ -861,6 +861,17 @@ padding-top: 0px;
     height: 76vh;
 
 }
+.saved-draftemail-preview-detail {
+    width: 100%;
+    background-color: #F9F9F9;
+    box-sizing: border-box;
+    float: left;
+    padding-top: 0px;
+    padding-bottom: 50px;
+    position: relative;
+    left: 0px;
+    right: 0px;
+}
 .saved-email-preview-detail{
     width: 80%;
     background-color: #F9F9F9;
