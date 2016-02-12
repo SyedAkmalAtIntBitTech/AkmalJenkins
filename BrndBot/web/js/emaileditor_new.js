@@ -403,6 +403,7 @@
   $(document).ready(function(){
      
     $("#saveToDraft").click(function (){
+        $("#saveToDraft").unbind('click');
         $.ajax({
             url: getHost() + "PreviewServlet",
             method: "post",
@@ -423,6 +424,7 @@
                     success: function (responseText) {
                     if (responseText != "0"){
                     alert("Draft saved successfully.");
+                    $("#saveToDraft").bind('click');
                             document.location.href = "dashboard.jsp";
                     } else {
                     alert("There was a problem while saving the draft! Please try again later.");
