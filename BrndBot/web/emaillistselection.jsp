@@ -184,7 +184,7 @@
         <div class="bottom-cta-bar">
             <div class="bottom-cta-button-container-lg">
                 <div class="bottom-continue-button button-text-1" id="emaildetailscontbtn" onclick="validate();">Continue</div>
-                <div class="bottom-continue-button button-text-1" id="emailIdContinueButton">Continue</div>
+                <div class="bottom-continue-button button-text-1" id="emailIdContinueButton" >Continue</div>
             </div>
         </div>
         </div>
