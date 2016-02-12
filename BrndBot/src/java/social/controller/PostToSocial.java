@@ -97,6 +97,10 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getCause());
             Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getMessage());
         }
+        catch (Throwable t) {
+            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, t.getCause());
+            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null,"message in throw:"+ t.getMessage());
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
