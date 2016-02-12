@@ -267,12 +267,14 @@ $(document).ready(function () {
                 var text = "";
                 var i = "";
                 var space=0;
+                var link=0;
                 $.each(res, function (i, value) {
                     if (value === " ")
                     {
                           space=1;
                     }
-                    if (value === "bit.ly/1XOkJo") {
+                    if (value === "bit.ly/1XOkJo") { 
+                        link=1;
                         space=0;
                     }
                     else if(space===0)
@@ -285,7 +287,14 @@ $(document).ready(function () {
                     }
 
                 });
+                if(link==="0")
+                {
+                    $("#link").val("");
+                }
                 latesttwtext = text;
+            }
+            else{
+                latesttwtext=$("#twittertext").val(); 
             }
             if (image_name === "")
             {
