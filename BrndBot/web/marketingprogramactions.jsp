@@ -110,7 +110,7 @@
                     <ul class="main-container fleft">
                   <li class="slat-container fleft selfclear" ng-repeat="emailautomation in programs.emailautomation">
                             <div class="selection-container col-5p"> 
-                                <div class="selection-icon" id="{{emailautomation.scheduledEntityListId}}" onclick="selcheckboxrecemail(this.id);setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}');"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}"   value="{{emailautomation.scheduledEntityListId}}" hidden/></div>
+                                <div class="selection-icon" ng-hide="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}" onclick="selcheckboxrecemail(this.id);setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}');"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}"   value="{{emailautomation.scheduledEntityListId}}" hidden/></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div class="icon-container fleft hint--top" ng-show="emailautomation.status === 'Template Saved'"  data-hint="Template Saved" > 
@@ -174,7 +174,7 @@
                     <ul class="main-container fleft">
                     <li class="slat-container fleft selfclear"  ng-repeat="programaction in programs.programactions">
                             <div class="selection-container col-5p"> 
-                                <div class="selection-icon" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" onclick="selcheckboxonetimeact(this.id);setSelectedIds('{{programaction.scheduledEntityListId}}');"><input type="checkbox" id="entityid{{programaction.scheduledEntityListId}}"  value="{{programaction.scheduledEntityListId}}" name="entityname" hidden></input></div>
+                                <div class="selection-icon" ng-hide="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" onclick="selcheckboxonetimeact(this.id);setSelectedIds('{{programaction.scheduledEntityListId}}');"><input type="checkbox" id="entityid{{programaction.scheduledEntityListId}}"  value="{{programaction.scheduledEntityListId}}" name="entityname" hidden></input></div>
                                 <!--<div class="selection-icon">-->    
                                     <!--<input type="checkbox" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="{{programaction.scheduledEntityListId}}" hidden />-->
                                 <!--</div>-->
