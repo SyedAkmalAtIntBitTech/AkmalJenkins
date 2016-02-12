@@ -1,4 +1,5 @@
 
+var maxLength = 140;
 var script = document.createElement('script');
 script.src = "js/alert_message.js";
 document.getElementsByTagName('script')[0].parentNode.appendChild(script);
@@ -10,6 +11,7 @@ function overlay(){
             document.body.style.overflow = 'hidden';
         }
 function closeoverlay(){
+             $(".timepicker_wrap").css("width","56%");
         document.getElementById('fade').style.display = 'none';
     }
 
@@ -67,6 +69,14 @@ function getImageId(idname)
     }
 $(document).ready(function ()
 {  
+    
+//    var length = $("#twittertext").val().length;
+//    var length = maxLength-length;
+//    if(length === 0){
+//        alert("140 Characters only!");
+//    }
+    $('#chars').text(length);
+    
     $("#emailpreview").click(function(){
         $("#deskpreview").css('background-image', 'url("' + global_host_address +'images/imac27.png'+ '")')
         $("#mobpreview").css('background-image', 'url("' + global_host_address +'images/Phone.svg'+ '")')
@@ -191,16 +201,46 @@ $(document).ready(function ()
         $("#linkpopup").hide();
         $("#fade").hide();
     });
-    var maxLength = 140;
+    
+      
     $('#twittertext').keyup(function() {
-      var length = $(this).val().length;
-      var length = maxLength-length;
-      if(length === 0){
-          alert("140 Characters only!");
-      }
-      $('#chars').text(length);
+        var length = $(this).val().length;
+        var length = maxLength-length;
+        $("#chars").removeClass("red");
+        $("#chars").addClass("gray");
+        if(length === 0){
+            $("#chars").removeClass("gray");
+            $("#chars").addClass("red");
+        }
+        $('#chars').text(length);
     });
-    var sortlink="bit.ly/1XOkJo1t4CYn0.t5uI/q5093b";
+    
+    $('#twittertext').mouseover(function() {
+        var length = $(this).val().length;
+        var length = maxLength-length;
+        $("#chars").removeClass("red");
+        $("#chars").addClass("gray");
+        if(length === 0){
+            $("#chars").removeClass("gray");
+            $("#chars").addClass("red");
+        }
+        $('#chars').text(length);
+    });
+    
+    $('#twittertext').mouseout(function() {
+        var length = $(this).val().length;
+        var length = maxLength-length;
+        $("#chars").removeClass("red");
+        $("#chars").addClass("gray");
+        if(length === 0){
+            $("#chars").removeClass("gray");
+            $("#chars").addClass("red");
+        }
+        $('#chars').text(length);
+    });
+   
+    
+    var sortlink="bit.ly/1XOkJo";
     $("#submitLink").click(function(){
         var textval=$("#url").val();
         var link=textval;
@@ -227,11 +267,50 @@ $(document).ready(function ()
             $("#twittertext").val(value); 
             alert("Link can't be added! atleast leave 32 characters to add link in twitter text.");
         }
+        if($("#twittertext").val().trim().contains("bit.ly/1XOkJo")){
+             var twtext = $("#twittertext").val();
+                var res = twtext.split(" ");
+                var text = "";
+                var i = "";
+                var flag1=0;
+                 var space=0;
+                $.each(res, function (i, value) {
+                    if (value === " ")
+                    {
+                          space=1;
+                    }
+                    if (value === "bit.ly/1XOkJo") {
+                        flag1=1;
+                        space=0;
+                    }
+                    else if(space===0)
+                    {
+                        flag1=0;
+                        text +=value+" ";
+                    }
+                    else
+                    {
+                        flag1=0;
+                        text +=value;
+                    }
+
+                });
+                latesttwtext = text;
+                if(flag1 === "1")
+                {        
+                    $("#twittertext").val(latesttwtext); 
+                }
+                else
+                {
+                    $("#twittertext").val(latesttwtext+" "+sortlink);   
+                }                      
+        }
         else{
             $("#twittertext").val(value+" "+sortlink);        
         }
     });
-      
+    
+    
     $("#dropdownurl").change(function(){
         var choosenlink=$("#dropdownurl").val();
         var link=choosenlink.split("--");
@@ -388,6 +467,8 @@ $(document).ready(function ()
     /*.......................................... reminder popup navbar ................*/
     
     $("#reminderdetailstab").click(function(){
+        $("#timepickernote").css("width",'40%');
+        $(".timepicker_wrap").css("margin-top","-200px").css("width",'28%');
         var change=$("#change").val();
         var scheduleID=$("#remainder_id").val();        
         var dateid=$("#notedateid").val();
