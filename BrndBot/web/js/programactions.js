@@ -626,6 +626,7 @@ function programactions($scope, $http, $window){
             method: 'GET',
             url: 'alluserMarketingProgramForDisplay.do?program_id='+program
         }).success(function (data, status, headers, config) {
+            $("#progname").show();
             document.getElementById("instancehidden").style.display="block";
             if(JSON.stringify(data.emailautomation)==='[]'){
             $("#noemailautomation").empty().append('No Recurring Emails');

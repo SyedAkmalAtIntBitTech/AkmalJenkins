@@ -24,7 +24,7 @@
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="js/popup.js" type="text/javascript"></script>      
     <script src="js/timepicki.js" type="text/javascript"></script>  
-    <style>#instancehidden,#fbpostremove{display:none;}</style>
+    <style>#progname,#instancehidden,#fbpostremove{display:none;}</style>
     <jsp:include page="basejsp.jsp"/>
     <%!
             String program_id = "";
@@ -63,7 +63,7 @@
                     <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/>
                 </div>
             </a>
-            <div class="page-title-with-back page-title-font">{{programs.programdetails.programName}}</div>
+            <div id="progname" class="page-title-with-back page-title-font">{{programs.programdetails.programName}}</div>
             <input type="hidden" name="program_name2" id="program_name2" value="{{programs.programdetails.programName}}"></input>
             <div class="page-cta-container">
                 <% if(past!=1) {%>

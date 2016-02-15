@@ -24,7 +24,7 @@
     <script src="js/marketinglist.js"></script>
     <jsp:include page="basejsp.jsp"/>
     <style>
-        #pastprogs{display: none;}
+        #pastprogs,#delmarkprog{display: none;}
     </style>
     
 </head>    
