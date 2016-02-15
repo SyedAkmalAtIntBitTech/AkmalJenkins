@@ -25,6 +25,8 @@
         <script src="js/configurations.js"></script>
         <script src="js/angular.min.js"></script>
         <script src="js/dashboard.js"></script>
+        <script src="js/popup.js" type="text/javascript"></script>
+        <!--<script src="js/emaileditor.js" type="text/javascript"></script>-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 
         <link href="css/froala_editor.css" rel="stylesheet" type="text/css"/>
@@ -44,6 +46,17 @@
         <link rel="shortcut icon" href="images/favicon.png"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
         <style>
+            
+            #emaileditorexternalpopup{
+                position: fixed;
+                z-index: 999999;
+                height: 100%;
+                /*overflow-y: auto;*/
+                max-height: 100%;
+                width: 900px;
+                right: 0px;
+                margin-right: -900px;
+            }
             .fr-popup.fr-active{
                 /*top:490px !important;*/
                 /*position:relative !important;*/
@@ -130,7 +143,7 @@
                 color: #f6f7f7;
                 background-color: #0f76a6; 
             }
-
+            
         </style>
         <%!            
             SqlMethods sql_methods = new SqlMethods();
@@ -404,6 +417,8 @@
                             $("#tabs-2").hide();
                             $("#tabs-3").hide();
                             $("#tabs-5").hide();
+                            $('#slider-button').click();
+//                            $("#emaileditorexternalpopup").show();
                             $("#tabs-4").show().css("width", "830px").css("height", "100%").css("position", "fixed").css("margin-left", "-600px").css("top", "0px");
                             $("#loadingGifformindbody").show();
                             $scope.curPage = 0;
@@ -559,8 +574,8 @@
             $("#blocktab").click();
                     $("#tabs-4").hide();
             });    </script>
-
-    </head>
+         <jsp:include page="emaileditormindbodypopup.jsp"/> 
+        </head>
     <body ng-app="myapp">
         <div id="boxes">
             <div id="dialog" class="window">
@@ -978,6 +993,12 @@
 
             </div>
         </div>
-
+        <div id="light" class="white_content closepopup">
+                <a href = "javascript:void(0)" style="text-decoration:none;">
+                    <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
+                        <p style="margin-top:-7px;"><img src="images/Icons/yourPlan.svg" height="25" width="25" /></p>
+                    </div>
+                </a>
+        </div>
     </body>
 </html>
