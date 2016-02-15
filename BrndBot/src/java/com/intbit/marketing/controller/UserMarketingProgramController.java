@@ -263,7 +263,7 @@ public class UserMarketingProgramController {
             Long end_date_in = end_date.getTime();
             json_obj.put("start_date", create_date_in);
             json_obj.put("end_date", end_date_in);
-            if (programType.equalsIgnoreCase("Open")) {
+            if ((programType.equalsIgnoreCase("Open"))||(programType.equalsIgnoreCase("Closed"))) {
                 Integer noofrecords = scheduledEntityListService.getCurrentRecords(userMarketingProgramObject.getId());
                 json_obj.put("noofpostleft", noofrecords);
             }

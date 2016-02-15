@@ -23,7 +23,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
         <script>
-
+            var hashURL="";
             function validat(){
                     var password = $("#inputpassword").val();
                     var confirmpassword = $("#inputreenter").val();
@@ -46,11 +46,15 @@
                         
                     }
                     
+            $(document).ready(function (){                        
+                hashURL = $("#hashURL").val();
+                alert(hashURL);
+            });
+       
+                    
             function controllerPassword($scope, $http){
                 $scope.changePassword = function() 
                 {
-                        
-                      var hashURL = $("#hashURL").val();
                       var password = $("#inputpassword").val();
                       var confirmpassword = $("#inputreenter").val();
 
