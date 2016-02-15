@@ -220,6 +220,7 @@
                             $scope.showData(temp_block_id, temp_mind_body_query);
                             }
                     $scope.showData = function(id, mind_body_query){
+                        //alert("1");
                     block_clicked = "true";
                             blockIdSelected = "";
                             block_id = id;

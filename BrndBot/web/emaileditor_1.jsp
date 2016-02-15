@@ -355,81 +355,82 @@
                             };
                             $scope.showImageOfBlock = function(id, mind_body_query){
 
-                            hlt();
-                                    $("#stylelist").css("display", "none");
-                                    $("#blklist").css("display", "block");
-                                    $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
-                                    $(":button").removeAttr("disabled");
-                                    $("#styletab").css("background-color", "transparent").css("color", "#19587c");
-                                    $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data, status){
-                            var jsondataDefault = data;
+                                hlt();
+                                $("#stylelist").css("display", "none");
+                                $("#blklist").css("display", "block");
+                                $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
+                                $(":button").removeAttr("disabled");
+                                $("#styletab").css("background-color", "transparent").css("color", "#19587c");
+                                $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data, status){
+                                    var jsondataDefault = data;
                                     //alert(JSON.stringify(data));
                                     var allLayoutFilename = [];
                                     $(jsondataDefault).each(function (i, val) {
-                            var i = 0;
-                                    $.each(val, function (k, v) {
-                                    allLayoutFilename[i] = v;
+                                        var i = 0;
+                                        $.each(val, function (k, v) {
+                                            allLayoutFilename[i] = v;
                                             i++;
+                                        });
                                     });
-                            });
-                                    $("#" + id).attr('onclick', "showSomething('" + id + "','" + allLayoutFilename[0] + "','" + allLayoutFilename[1] + "','" + mind_body_query + "')");
-                            }).error();
-                                    $("#addblkbtn").prop("disabled", true);
+                                $("#" + id).attr('onclick', "showSomething('" + id + "','" + allLayoutFilename[0] + "','" + allLayoutFilename[1] + "','" + mind_body_query + "')");
+                                }).error();
+                                $("#addblkbtn").prop("disabled", true);
                             };
-                            $scope.showDataTemp = function(){
-                            $scope.showData(temp_block_id, temp_mind_body_query);
+                            $scope.showDataTemp = function(){    
+                                $scope.showData(temp_block_id, temp_mind_body_query);
                             }
-                    $scope.showData = function(id, mind_body_query){
-                    block_clicked = "true";
+                            $scope.showData = function(id, mind_body_query){
+                            block_clicked = "true";
                             blockIdSelected = "";
                             block_id = id;
                             addblockid = "block" + addBlockcCount;
                             addBlockcCount++;
 //                            $(".fr-element").append("<div id=" + addblockid + " onclick=selecterBlockId('" + addblockid + "','" + temp_block_id + "');></div>")
                             if (mind_body_query == "null")
-                    {
-                    mindbodydataId = "0";
-                            //$scope.showStyles();
-                            showText(temp_style_id);
-                            $("#tabs-1").show();
-                            $("#filtercontainer").hide();
-                            $("#tabs-2").hide();
-                            $("#tabs-3").hide();
-                            $("#tabs-4").hide();
-                            $("#tabs-5").hide();
-                    }
-                    else
-                    {
-                    $("#tabs-1").hide();
-                            $("#tabs-2").hide();
-                            $("#tabs-3").hide();
-                            $("#tabs-5").hide();
-                            $("#tabs-4").show().css("width", "830px").css("height", "100%").css("position", "fixed").css("margin-left", "-600px").css("top", "0px");
-                            $("#loadingGifformindbody").show();
-                            $scope.curPage = 0;
-                            $scope.pageSize = 4;
-                            $http({
-                            method : 'GET',
-                                    url : 'MindBodyDataServlet?mindbody_query=' + mind_body_query
-                            }).success(function(data, status, headers, config) {
-                    //                    alert(JSON.stringify(data));
-                    $scope.datalists = data;
-                            $scope.numberOfPages = function() {
-                            return Math.ceil($scope.datalists.length / $scope.pageSize);
-                            };
-                            if (data === error){
-                    alert(data);
-                    }
-                    $("#loadingGifformindbody").hide();
-                            $("#clsbtn").css("display", "block");
-                            $("#addblkbtn").prop('disabled', true).css("background-color", "#e3e3e3").css("color", "#9c9da1");
-                            $("#tabs-4").css("width", "830px").css("position", "fixed").css("margin-left", "-600px").css("top", "0px").show("slide", { direction: "right" }, 1000);
-                    }).error(function(data, status, headers, config) {
-                    alert("No data available! Problem fetching the data.");
-                            // called asynchronously if an error occurs
-                            // or server returns response with an error status.
-                    });
-                    }
+                            {
+                                mindbodydataId = "0";
+                                //$scope.showStyles();
+                                showText(temp_style_id);
+                                $("#tabs-1").show();
+                                $("#filtercontainer").hide();
+                                $("#tabs-2").hide();
+                                $("#tabs-3").hide();
+                                $("#tabs-4").hide();
+                                $("#tabs-5").hide();
+                            }
+                            else
+                            {
+                                $("#tabs-1").hide();
+                                $("#tabs-2").hide();
+                                $("#tabs-3").hide();
+                                $("#tabs-5").hide();
+                                $("#tabs-4").show().css("width", "830px").css("height", "100%").css("position", "fixed").css("margin-left", "-600px").css("top", "0px");
+                                $("#loadingGifformindbody").show();
+                                $scope.curPage = 0;
+                                $scope.pageSize = 4;
+                                $http({
+                                method : 'GET',
+                                        url : 'MindBodyDataServlet?mindbody_query=' + mind_body_query
+                                }).success(function(data, status, headers, config) {
+                                    //                    alert(JSON.stringify(data));
+                                    $scope.datalists = data;
+                                    $scope.numberOfPages = function() {
+                                    return Math.ceil($scope.datalists.length / $scope.pageSize);
+                                    };
+                                    if (data === error)
+                                    {
+                                        alert(data);
+                                    }
+                                    $("#loadingGifformindbody").hide();
+                                    $("#clsbtn").css("display", "block");
+                                    $("#addblkbtn").prop('disabled', true).css("background-color", "#e3e3e3").css("color", "#9c9da1");
+                                    $("#tabs-4").css("width", "830px").css("position", "fixed").css("margin-left", "-600px").css("top", "0px").show("slide", { direction: "right" }, 1000);
+                                }).error(function(data, status, headers, config) {
+                                alert("No data available! Problem fetching the data.");
+                                        // called asynchronously if an error occurs
+                                        // or server returns response with an error status.
+                                });
+                            }
                     $scope.showStyles();
                     };
                             $scope.select_category_details = function(id) {
@@ -454,18 +455,18 @@
                     return input.slice(start);
             };
             });
-                    function showSomething(block_id_temp, id, style, mind_body_query){
+            function showSomething(block_id_temp, id, style, mind_body_query){
                     $("#addblkbtn").prop('disabled', false);
-                            hlt();
-                            addblock();
-                            temp_style_id = id;
-                            temp_style_layout = style;
-                            temp_block_id = block_id_temp;
-                            temp_mind_body_query = mind_body_query;
-                            $('.listblock').removeClass('border-highlight');
-                            $("#" + block_id_temp).addClass('border-highlight');
-                            $('#continueblock').prop('disabled', false);
-                    }
+                    hlt();
+                    addblock();
+                    temp_style_id = id;
+                    temp_style_layout = style;
+                    temp_block_id = block_id_temp;
+                    temp_mind_body_query = mind_body_query;
+                    $('.listblock').removeClass('border-highlight');
+                    $("#" + block_id_temp).addClass('border-highlight');
+                    $('#continueblock').prop('disabled', false);
+                }
             function showText(id){
             //hiding filter Container 
             var layout_mapper_url = "";

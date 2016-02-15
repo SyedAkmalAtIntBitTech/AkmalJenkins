@@ -94,6 +94,23 @@
 
     %>
      <script>
+        var jsondata;
+        var selectedDivId;
+        var block_clicked = "false";
+        var block_id = "0";
+        var blockIdSelected = "defaultblock1";
+        var mindbodydataId = $("#mindbodydata").val();
+        var temp_style_id;
+        var temp_style_layout;
+        var temp_block_id;
+        var temp_mind_body_query;
+        var addblockid;
+        var addBlockcCount = 1;
+        var styleHtml = "";
+        var BlockHtml = "";
+        var rendomIframeFilename = "";
+        var draft_id = 0;
+                    
         $(document).ready(function(){
 //            $("li").click(function(){
 //                alert();
@@ -105,22 +122,7 @@
             $("#stylediv li:nth-child(1)").removeClass("style-slat");
             $("#stylediv li:nth-child(1)").addClass("style-slat-active");
         });
-                    var jsondata;
-                    var selectedDivId;
-                    var block_clicked = "false";
-                    var block_id = "0";
-                    var blockIdSelected = "defaultblock1";
-                    var mindbodydataId = $("#mindbodydata").val();
-                    var temp_style_id;
-                    var temp_style_layout;
-                    var temp_block_id;
-                    var temp_mind_body_query;
-                    var addblockid;
-                    var addBlockcCount = 1;
-                    var styleHtml = "";
-                    var BlockHtml = "";
-                    var rendomIframeFilename = "";
-                    var draft_id = 0;
+                    
                     console.log(draft_id);
                     $(document).ready(function () {
                         mindbodydataId = $("#mindbodydata").val();
@@ -182,7 +184,7 @@
             });
                     angular.module("myapp", [])
 
-                    .controller("MyController", function($scope, $http) {                        
+            .controller("MyController", function($scope, $http) {                        
 
                     $scope.getEmailDrafts = function(){
 
@@ -209,14 +211,14 @@
 
                     };
                     
-                     $scope.addBlockActive = function(divid,id){
-                         $(".block-button").addClass("hide");
-                         $("#blockdiv li").removeClass("block-slat-active");
-                         $("#blockdiv li").addClass("block-slat");
-                         $("#"+divid).removeClass("block-slat");
-                         $("#"+divid).addClass("block-slat-active");
-                         $("#div2"+id).removeClass("hide");
-                    };
+//                    $scope.addBlockActive = function(divid,id){
+//                         $(".block-button").addClass("hide");
+//                         $("#blockdiv li").removeClass("block-slat-active");
+//                         $("#blockdiv li").addClass("block-slat");
+//                         $("#"+divid).removeClass("block-slat");
+//                         $("#"+divid).addClass("block-slat-active");
+//                         $("#div2"+id).removeClass("hide");
+//                    };
                     
                     $scope.addActive = function(id){
                         $("#stylediv li").removeClass("style-slat-active");
@@ -226,25 +228,17 @@
                     };
                     
                     $scope.showStylesAfterData = function(){
-
-                            blockIdSelected = $(selectedBlockId).attr("id").toString();
-                                    var arr = blockIdSelected.split('SSS');
-                                    block_id = arr[0].replace("block", "");
-                            };
+                        blockIdSelected = $(selectedBlockId).attr("id").toString();
+                        var arr = blockIdSelected.split('SSS');
+                        block_id = arr[0].replace("block", "");
+                    };
                     
                     $scope.showStyles = function(){
-                            $(".selectrow").css("display", "none");
-                                    document.getElementById("addblkbtn").style.backgroundColor = "#e3e3e3";
-                                    document.getElementById("addblkbtn").style.color = "#9c9da1";
-                                    $("#stylelist").css("display", "block");
-                                    $("#selectstyleid").css("display", "block");
-                                    $("#blklistid").css("display", "none");
-                                    $("#styletab").css("background-color", "#ffffff").css("color", "#19587c");
-                                    $("#blocktab").css("background-color", "transparent").css("color", "#19587c");
-                                    var queryurl;
-                                    $scope.curPage = 0;
-                                    $scope.pageSize = 2;
-                                    if (block_clicked == "true" || blockIdSelected != "defaultblock1")
+                            //alert("..");
+                            var queryurl;
+                            $scope.curPage = 0;
+                            $scope.pageSize = 2;
+                            if (block_clicked == "true" || blockIdSelected != "defaultblock1")
                             {
                             queryurl = 'GetLayoutStyles?editorType=email&query=block&block_id=' + block_id;
                             }
@@ -258,18 +252,11 @@
                                     url : queryurl
                             }).success(function(data, status, headers, config) {
                             $scope.datalistsstyles = data;
-                                    alert(JSON.stringify(data));
-//                                    document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
-//                                    document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
-//                                    document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
-//                                    document.getElementById('edt').style.backgroundColor = 'transparent';
-//                                    document.getElementById('stl').style.backgroundColor = '#fff';
-//                                    document.getElementById('blk').style.backgroundColor = 'transparent';
-                                    $scope.numberOfPages = function() {
-                                    return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
-                                    };
-                                    if (data === error){
-                            alert(data);
+                            $scope.numberOfPages = function() {
+                                return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
+                            };
+                            if (data === error){
+                                alert(data);
                             }
 
                             }).error(function(data, status, headers, config) {
@@ -287,14 +274,14 @@
                         method : 'GET',
                                 url : queryurl
                         }).success(function(data, status, headers, config) {
-                            $scope.datalistsstyles = data;
+                            //$scope.datalistsstyles = data;
 //                            alert(JSON.stringify(data));
-                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
-                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
-                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
-                            document.getElementById('edt').style.backgroundColor = 'transparent';
-                            document.getElementById('stl').style.backgroundColor = '#fff';
-                            document.getElementById('blk').style.backgroundColor = 'transparent';
+//                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
+//                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
+//                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
+//                            document.getElementById('edt').style.backgroundColor = 'transparent';
+//                            document.getElementById('stl').style.backgroundColor = '#fff';
+//                            document.getElementById('blk').style.backgroundColor = 'transparent';
                             $scope.numberOfPages = function() {
                                 return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
                             };
@@ -377,6 +364,12 @@
                     };
                     
                     $scope.showImageOfBlock = function(id, mind_body_query){
+                            $(".block-button").addClass("hide");
+                            $("#blockdiv li").removeClass("block-slat-active");
+                            $("#blockdiv li").addClass("block-slat");
+                            $("#"+id).removeClass("block-slat");
+                            $("#"+id).addClass("block-slat-active");
+                            $("#div2"+id).removeClass("hide");
                             hlt();
                             $("#stylelist").css("display", "none");
                             $("#blklist").css("display", "block");
@@ -385,26 +378,44 @@
                             $("#styletab").css("background-color", "transparent").css("color", "#19587c");
                             $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data, status){
                             var jsondataDefault = data;
-                                    //alert(JSON.stringify(data));
-                                    var allLayoutFilename = [];
-                                    $(jsondataDefault).each(function (i, val) {
-                            var i = 0;
-                                    $.each(val, function (k, v) {
-                                    allLayoutFilename[i] = v;
-                                            i++;
+                                //alert(JSON.stringify(data));
+                                ///alert(id);
+                                var allLayoutFilename = [];
+                                $(jsondataDefault).each(function (i, val)
+                                {
+                                    var i = 0;
+                                    $.each(val, function (k, v) 
+                                    {
+                                        allLayoutFilename[i] = v;
+                                        i++;
                                     });
-                            });
-                                    $("#" + id).attr('onclick', "showSomething('" + id + "','" + allLayoutFilename[0] + "','" + allLayoutFilename[1] + "','" + mind_body_query + "')");
+                                });
+                                temp_block_id = id;
+                                temp_style_id = allLayoutFilename[0];
+                                temp_style_layout = allLayoutFilename[1];                
+                                temp_mind_body_query = mind_body_query;
+                                //$("#" + id).attr('onclick', "showSomething('" + id + "','" + allLayoutFilename[0] + "','" + allLayoutFilename[1] + "','" + mind_body_query + "')");
+//                                alert("smtng...block id.."+temp_block_id);
+//                                alert("smtng...style id.."+temp_style_id);
+//                                alert("smtng...style.."+temp_style_layout);
+//                                alert("smtng...mind_body_query.."+temp_mind_body_query);
                             }).error();
-                                    $("#addblkbtn").prop("disabled", true);
+                                $("#addblkbtn").prop("disabled", true);
                             };
                     
                     $scope.showDataTemp = function(){
-                            $scope.showData(temp_block_id, temp_mind_body_query);
-                            }
+                        $scope.showData(temp_block_id, temp_mind_body_query);
+                        $("#blockdivheader").hide();
+                        $("#styledivheader").show();
+                        $("#blockdiv").hide();
+                        $("#stylediv").show();
+                        $("#blocktab").removeClass("emailSideBar-tab-active");
+                        $("#blocktab").addClass("emailSideBar-tab");
+                        $("#styletab").removeClass("emailSideBar-tab");
+                        $("#styletab").addClass("emailSideBar-tab-active");                        
+                    }
                     
                     $scope.showData = function(id, mind_body_query){
-                        alert();
                         block_clicked = "true";
                         blockIdSelected = "";
                         block_id = id;
@@ -413,19 +424,13 @@
 //                            $(".fr-element").append("<div id=" + addblockid + " onclick=selecterBlockId('" + addblockid + "','" + temp_block_id + "');></div>")
                         if (mind_body_query == "null")
                         {
-                        mindbodydataId = "0";
+                            mindbodydataId = "0";
                             //$scope.showStyles();
                             showText(temp_style_id);
-                            $("#tabs-1").show();
-                            $("#filtercontainer").hide();
-                            $("#tabs-2").hide();
-                            $("#tabs-3").hide();
-                            $("#tabs-4").hide();
-                            $("#tabs-5").hide();
                         }
                         else
                         {
-                        $("#tabs-1").hide();
+                            $("#tabs-1").hide();
                             $("#tabs-2").hide();
                             $("#tabs-3").hide();
                             $("#tabs-5").hide();
@@ -459,18 +464,18 @@
                     };
                     
                     $scope.select_category_details = function(id) {
-                            mindbodydataId = id;
-                                    $("#stylelist").css("display", "block");
-                                    $scope.showStyles();
-                                    showText(temp_style_id);
-                                    $("#tabs-1").show();
-                                    $("#filtercontainer").hide();
-                                    $("#tabs-2").hide();
-                                    $("#tabs-3").hide();
-                                    $("#tabs-4").hide();
-                                    $("#tabs-5").hide();
-                            }
-                    });
+                        mindbodydataId = id;
+                        $("#stylelist").css("display", "block");
+                        $scope.showStyles();
+                        showText(temp_style_id);
+                        $("#tabs-1").show();
+                        $("#filtercontainer").hide();
+                        $("#tabs-2").hide();
+                        $("#tabs-3").hide();
+                        $("#tabs-4").hide();
+                        $("#tabs-5").hide();
+                    }
+            });
                     angular.module('myapp').filter('pagination', function()
             {
             return function(input, start)
@@ -479,18 +484,19 @@
                     return input.slice(start);
             };
             });
-                    function showSomething(block_id_temp, id, style, mind_body_query){
-                    $("#addblkbtn").prop('disabled', false);
-                            hlt();
-                            addblock();
-                            temp_style_id = id;
-                            temp_style_layout = style;
-                            temp_block_id = block_id_temp;
-                            temp_mind_body_query = mind_body_query;
-                            $('.listblock').removeClass('border-highlight');
-                            $("#" + block_id_temp).addClass('border-highlight');
-                            $('#continueblock').prop('disabled', false);
-                    }
+            function showSomething(block_id_temp, id, style, mind_body_query){
+                
+                $("#addblkbtn").prop('disabled', false);
+                hlt();
+                addblock();
+                temp_block_id = block_id_temp;
+                temp_style_id = id;
+                temp_style_layout = style;                
+                temp_mind_body_query = mind_body_query;
+                $('.listblock').removeClass('border-highlight');
+                $("#" + block_id_temp).addClass('border-highlight');
+                $('#continueblock').prop('disabled', false);
+            }
             function showText(id){
             //hiding filter Container 
             var layout_mapper_url = "";
@@ -630,17 +636,17 @@
                     });
 
                     $("#styletab").click(function(){
-                    $("#addblkbtn").prop('disabled', true);
-                            $("#stylelist").css("display", "block");
-                            $("#blklist").css("display", "none");
-                            $("#styletab").css("background-color", "#ffffff").css("color", "#19587c");
-                            $("#blocktab").css("background-color", "transparent").css("color", "#19587c");
+                        $("#addblkbtn").prop('disabled', true);
+                        $("#stylelist").css("display", "block");
+                        $("#blklist").css("display", "none");
+                        $("#styletab").css("background-color", "#ffffff").css("color", "#19587c");
+                        $("#blocktab").css("background-color", "transparent").css("color", "#19587c");
                     });
-                            $("#blocktab").click(function(){
-                    $("#stylelist").css("display", "none");
-                            $("#blklist").css("display", "block");
-                            $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
-                            $("#styletab").css("background-color", "transparent").css("color", "#19587c");
+                    $("#blocktab").click(function(){
+                        $("#stylelist").css("display", "none");
+                        $("#blklist").css("display", "block");
+                        $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
+                        $("#styletab").css("background-color", "transparent").css("color", "#19587c");
                     });        
                             $.FroalaEditor.DEFAULTS.htmlAllowedAttrs = $.merge($.FroalaEditor.DEFAULTS.htmlAllowedAttrs, ['onclick']); 
                             
@@ -799,7 +805,7 @@
         $("#stylediv").show();
         $("#blocktab").removeClass("emailSideBar-tab-active");
         $("#blocktab").addClass("emailSideBar-tab");
-         $("#styletab").removeClass("emailSideBar-tab");
+        $("#styletab").removeClass("emailSideBar-tab");
         $("#styletab").addClass("emailSideBar-tab-active");
     });
     $("#blocktab").click(function (){
@@ -841,8 +847,8 @@
                             <div class="block-name">Header Block</div>
                             <div class="block-button" ng-click="showDataTemp()">Add Block</div>                            
                         </li>-->
-                        <li class="block-slat" ng-repeat="blocks in datalists" id="blklist----{{blocks.block_id}}" ng-click="addBlockActive('blklist----'+blocks.block_id,blocks.block_id)">
-                            <div class="block-name" id="{{blocks.block_id}}" ng-click="showImageOfBlock(blocks.block_id, blocks.mindbody_query)">{{blocks.block_name}}</div>                            
+                        <li class="block-slat" ng-repeat="blocks in datalists" id="{{blocks.block_id}}" ng-click="showImageOfBlock(blocks.block_id, blocks.mindbody_query)">
+                            <div class="block-name" id="blklist----{{blocks.block_id}}" >{{blocks.block_name}}</div>                            
                             <div class="block-button hide" ng-click="showDataTemp()" id="div2{{blocks.block_id}}">Add Block</div>
                         </li>
                     </ul>
