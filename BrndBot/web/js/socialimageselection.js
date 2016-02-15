@@ -269,6 +269,7 @@ $(document).ready(function () {
                 var space=0;
                 var link=0;
                 $.each(res, function (i, value) {
+                    
                     if (value === " ")
                     {
                           space=1;
@@ -285,16 +286,16 @@ $(document).ready(function () {
                     {
                         text +=value;
                     }
-
                 });
-                if(link==="0")
+                if(link===0)                
                 {
                     $("#link").val("");
                 }
                 latesttwtext = text;
             }
             else{
-                latesttwtext=$("#twittertext").val(); 
+                latesttwtext=$("#twittertext").val();                 
+                $("#link").val("");
             }
             if (image_name === "")
             {
