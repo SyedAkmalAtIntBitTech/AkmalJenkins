@@ -25,7 +25,7 @@
     <script src="js/imageeditor.js" type="text/javascript"></script>
     <script src="js/socialimageselection.js" type="text/javascript"></script>
     <link rel="shortcut icon" href="images/favicon.png"/>            
-    <style>#link{opacity: 0;}</style>
+    <style>#link{opacity: 0;}#charlimit{display:none;}</style>
     <title>socialimageselection</title>
 </head>
 <%@page import="com.controller.SqlMethods"%>
