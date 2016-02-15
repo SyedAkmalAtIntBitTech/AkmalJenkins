@@ -209,7 +209,7 @@
            });
            
            function imgchng(){
-               document.getElementById("fb").src="images/fb_icon.png";
+               document.getElementById("fb").src="images/Icons/check.svg";
                
            }
            
