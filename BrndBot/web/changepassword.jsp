@@ -9,7 +9,7 @@
 <html ng-app>
     <head>
          <%@ include file="fonttypekit.jsp"%>
-         <%@ include file="checksession.jsp" %>
+         <%--<%@ include file="checksession.jsp" %>--%>
         <script src="js/configurations.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>  
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -18,11 +18,11 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-1.11.3.min.js"></script>
-        
 
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
         <script>
+            
             var hashURL="";
             function validat(){
                     var password = $("#inputpassword").val();
@@ -48,19 +48,23 @@
                     
             $(document).ready(function (){                        
                 hashURL = $("#hashURL").val();
-                alert(hashURL);
+                if(hashURL==="null"){
+                    window.open(getHost() +'login.jsp',"_self");
+                }
             });
        
                     
             function controllerPassword($scope, $http){
                 $scope.changePassword = function() 
                 {
+                      $("#enter").css("pointer-events","none");
                       var password = $("#inputpassword").val();
                       var confirmpassword = $("#inputreenter").val();
+                      var type="change";
 
                     if(validat()){
 
-                            var password_object = {"hashURL":hashURL,"password":password,"confirmpassword":confirmpassword};
+                            var password_object = {"hashURL":hashURL,"password":password,"confirmpassword":confirmpassword,"type":type};
                             
                             $http({
                               method: 'POST',
@@ -75,6 +79,7 @@
                                 }else if (data === "true"){
                                     alert("Password has been changed successfully.");
                                     window.open(getHost() +'login.jsp',"_self");
+//                                     $("#enter").bind('click');
                                 }else if(data === error){
                                     alert(data);
                                 }
@@ -126,7 +131,7 @@
                         </div>
 
                         <div  class="form-group">
-                               <div class="col-md-5 col-md-offset-5">
+                               <div class="col-md-5 col-md-offset-5" >
                                    <button type="submit"  class="btn btn-info">Enter</button><br>
                                </div>
                         </div>

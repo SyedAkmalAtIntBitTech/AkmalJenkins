@@ -76,7 +76,7 @@
         <div class="page-subnav-bar-regular"> 
             <div class="top-subnav-tabs-container-with-button">
                 <ul class="top-subnav-nav-elements">
-                    <li class="top-subnav-links" id="ovrviewli" ng-hide="programs.programdetails.program_status == 'Closed'"> <a href="" id="overview" class="h3" id="overview" >Overview</a></li>
+                    <li class="top-subnav-links" id="ovrviewli" ng-hide="checkProgramStatus()"> <a href="" id="overview" class="h3" id="overview" >Overview</a></li>
 <!--                    <li class="top-subnav-links" id="fieldsli"> <a href="" id="fields" class="h3" ng-click="showfieldstab()">Fields</a></li>-->
                     <li class="top-subnav-link-active" id="actionsli"> <a href="" id="actions" class="h3-active-subnav" ng-click="showactionstab()">Actions</a></li>
 <!--                        <li class="top-subnav-links"> <a class="h3" href="/Newest_Files/MarketingProgram_Notes.html">Notes</a></li>

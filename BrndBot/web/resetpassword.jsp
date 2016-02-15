@@ -47,7 +47,7 @@
                 </div>
                 <div  class="form-group">
                        <div class="col-md-5 col-md-offset-5">
-                           <button type="submit" class="button button--moema button--text-thick button--text-upper button--size-s">Enter</button><br><br>
+                           <button type="submit" id="enter" class="button button--moema button--text-thick button--text-upper button--size-s">Enter</button><br><br>
                        </div>
                 </div>
                 </form>
