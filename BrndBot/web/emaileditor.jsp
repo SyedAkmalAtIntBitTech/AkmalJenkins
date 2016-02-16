@@ -110,15 +110,29 @@
         var BlockHtml = "";
         var rendomIframeFilename = "";
         var draft_id = 0;
-                    
-        $(document).ready(function(){
-//            $("li").click(function(){
-//                alert();
-//                var selectedID=this.id;
-//                $("#"+selectedID).removeClass("style-slat");
-//                $("#"+selectedID).addClass("style-slat-active");
-//                alert(selectedID);
-//            });
+        var prevSliderDialog="#emaileditorexternalpopup";
+        var sliderDialog="#emaileditorexternalpopup";
+        
+        $(document).ready(function(){    
+            $("#mindbodyclose").click(function(){
+                $("#fade").hide();
+                $('#slider-button').click();                
+            });
+//            $slider=2;
+            $a=0;
+            $edit=0;
+            $('#slider-button').click(function () {
+                if ($('#slider-button').css("margin-right") == "788px")
+                {
+                    $(sliderDialog).animate({"margin-right": '-=900px'});
+                    $('#slider-button').animate({"margin-right": '-=788px'});
+                }
+                else
+                {
+                    $(sliderDialog).animate({"margin-right": '+=900px'});
+                    $('#slider-button').animate({"margin-right": '+=788px'});
+                }     
+            });
             $("#stylediv li:nth-child(1)").removeClass("style-slat");
             $("#stylediv li:nth-child(1)").addClass("style-slat-active");
         });
@@ -430,35 +444,44 @@
                         }
                         else
                         {
-                            $("#tabs-1").hide();
-                            $("#tabs-2").hide();
-                            $("#tabs-3").hide();
-                            $("#tabs-5").hide();
-                            $("#tabs-4").show().css("width", "830px").css("height", "100%").css("position", "fixed").css("margin-left", "-600px").css("top", "0px");
+//                            $("#tabs-1").hide();
+//                            $("#tabs-2").hide();
+//                            $("#tabs-3").hide();
+//                            $("#tabs-5").hide();
+//                            $("#tabs-4").show().css("width", "830px").css("height", "100%").css("position", "fixed").css("margin-left", "-600px").css("top", "0px");
+                            $("#fade").show();
+                            $('#slider-button').click();
+                            $(".scrollydiv").hide();
                             $("#loadingGifformindbody").show();
                             $scope.curPage = 0;
                             $scope.pageSize = 4;
                             $http({
                             method : 'GET',
                                     url : 'MindBodyDataServlet?mindbody_query=' + mind_body_query
-                            }).success(function(data, status, headers, config) {
-                        //                    alert(JSON.stringify(data));
-                        $scope.datalists = data;
-                            $scope.numberOfPages = function() {
-                            return Math.ceil($scope.datalists.length / $scope.pageSize);
-                            };
-                            if (data === error){
-                        alert(data);
-                        }
-                        $("#loadingGifformindbody").hide();
+                            }).success(function(data, status, headers, config)
+                            {
+//                                $("#loadingGifformindbody").show();
+//                                alert(JSON.stringify(data));
+                                $scope.datalists2 = data;
+                                $scope.numberOfPages = function() 
+                                {
+                                    return Math.ceil($scope.datalists2.length / $scope.pageSize);
+                                };
+                                if (data === error)
+                                {
+                                    alert(data);
+                                }
+                                $("#loadingGifformindbody").hide();
+                                $(".scrollydiv").show();
                                 $("#clsbtn").css("display", "block");
                                 $("#addblkbtn").prop('disabled', true).css("background-color", "#e3e3e3").css("color", "#9c9da1");
-                                $("#tabs-4").css("width", "830px").css("position", "fixed").css("margin-left", "-600px").css("top", "0px").show("slide", { direction: "right" }, 1000);
-                        }).error(function(data, status, headers, config) {
-                        alert("No data available! Problem fetching the data.");
+//                              $("#tabs-4").css("width", "830px").css("position", "fixed").css("margin-left", "-600px").css("top", "0px").show("slide", { direction: "right" }, 1000);
+                            }).error(function(data, status, headers, config)
+                            {
+                                alert("No data available! Problem fetching the data.");
                                 // called asynchronously if an error occurs
                                 // or server returns response with an error status.
-                        });
+                            });
                     }
                     $scope.showStyles();
                     };
@@ -468,12 +491,9 @@
                         $("#stylelist").css("display", "block");
                         $scope.showStyles();
                         showText(temp_style_id);
-                        $("#tabs-1").show();
                         $("#filtercontainer").hide();
-                        $("#tabs-2").hide();
-                        $("#tabs-3").hide();
-                        $("#tabs-4").hide();
-                        $("#tabs-5").hide();
+                        $("#fade").hide();
+                        $("#slider-button").click();
                     }
             });
                     angular.module('myapp').filter('pagination', function()
@@ -500,8 +520,8 @@
             function showText(id){
             //hiding filter Container 
             var layout_mapper_url = "";
-                    if (block_clicked == "true"){
-            currentBlockID = temp_block_id;
+            if (block_clicked == "true"){
+                    currentBlockID = temp_block_id;
                     currentMindbodyQuery = temp_mind_body_query;
             }
             if ((mindbodydataId != "") && (mindbodydataId != "0") && (typeof (mindbodydataId) !== "undefined")){
@@ -592,17 +612,19 @@
             });    </script>
 
 </head>    
+<div id="fade" class="black_overlay"></div>
 <body ng-app="myapp">
-     <div id="boxes" >
-            <div id="dialog" class="window" >
-            </div>
-            <div id="mask"></div>
+    <div id="boxes" >
+        <div id="dialog" class="window" >
         </div>
+        <div id="mask"></div>
+    </div>
     <input type="hidden" id='userid' value="<%= user_id%>"/>
     <input type="hidden" id='draftid' value="<%= draft_id%>"/>
     <input type="hidden" value="<%=email_subject%>" id="email_subject"/>
     <!--SideNav-->
-    <div class="content-main" ng-controller="MyController">        
+    <div class="content-main" ng-controller="MyController">   
+    <jsp:include page="emaileditormindbodypopup.jsp"/>
     <!--Top Nav-->   
     <div class="top-nav-full">
         <div class="page-title-bar col-1of1"> 
@@ -627,12 +649,12 @@
             <div class="emailEditor-leftCol ">
                  <script>
                     $("#addblkbtn").click(function (){
-                    $("#tabs-4").css("display", "block");
+                    $("#tabs-4").css("display", "none");
                             $("#clsbtn").css("display", "none");
                     });
-                            $("#boxclose").click(function (){
-                    $("#blocktab").click();
-                            $("#tabs-4").hide();
+                    $("#boxclose").click(function (){
+                        $("#blocktab").click();
+                        $("#tabs-4").hide();
                     });
 
                     $("#styletab").click(function(){
@@ -674,7 +696,8 @@
                                     var maskHeight = $(document).height();
                                     var maskWidth = $(window).width();
                                     //Set heigth and width to mask to fill up the whole screen
-                                    $('#mask').css({'width':maskWidth, 'height':maskHeight});
+                                    $('#mask').css({'height':maskHeight});
+                                    $('#mask').css('width','100%');
                                     //transition effect
                                     $('#mask').fadeIn(500);
                                     $('#mask').fadeTo("slow", 0.95);
@@ -821,7 +844,7 @@
                 });
         </script>   
                 <div id="editor">
-                    <div id='edit' style="margin-top: 5px;">
+                    <div id='edit' class="editorclass" style="margin-top: 5px;">
                     </div>
                 </div>
             </div>
@@ -836,7 +859,7 @@
                         <div class="emailSideBar-tab" id="styletab" ng-init="showStyles()" ng-click="showStyles()">
                          Change Style
                         </div>
-                    </div>
+                    </div> 
                 </div>
                 <div class="email-Block-Selection">
                     <div class="email-Block-Header" id="blockdivheader">Select a block to add:</div>
@@ -854,7 +877,7 @@
                     </ul>
                     
                     <ul class="block-list" id="stylediv">
-                        <li ng-repeat="styles in datalistsstyles" class="style-slat" id="stylelistid{{styles.id}}" ng-click="addActive('stylelistid'+styles.id)">
+                        <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.id}}" ng-click="addActive('stylelistid'+styles.id)">
                             <div class="block-name">
                                 <img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="{{styles.image_url}}" onclick="showText('{{styles.id}}')" width="100%" style="height:175px;"/>
                             </div>
@@ -864,13 +887,18 @@
             </div>
         </div>
     </div>  
-        <!--CTA Bar-->
-        <div class="bottom-cta-bar">
-            <div class="bottom-cta-button-container-lg">
-               <div class="bottom-continue-button button-text-1" id="saveButton">Continue</div>
-            </div>
+    <!--CTA Bar-->
+    <div class="bottom-cta-bar" id="bottomdiv">
+        <div class="bottom-cta-button-container-lg">
+           <div class="bottom-continue-button button-text-1" id="saveButton">Continue</div>
         </div>
-         </div>
-</div>
+    </div>
+    <div id="light" class="white_content closepopup">
+        <a href = "javascript:void(0)" style="text-decoration:none;">
+            <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
+                <p style="margin-top:-7px;"><img src="images/Icons/yourPlan.svg" height="25" width="25" /></p>
+            </div>
+        </a>
+    </div>
     </body>
 </html>

@@ -172,11 +172,11 @@
         </div>
         </div>
         <div id="light" class="white_content closepopup">
-                <a href = "javascript:void(0)" style="text-decoration:none;">
-                    <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
-                        <p style="margin-top:-7px;"><img src="images/Icons/yourPlan.svg" height="25" width="25" /></p>
-                    </div>
-                </a>
+            <a href = "javascript:void(0)" style="text-decoration:none;">
+                <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
+                    <p style="margin-top:-7px;"><img src="images/Icons/yourPlan.svg" height="25" width="25" /></p>
+                </div>
+            </a>
         </div>
     </div>
   

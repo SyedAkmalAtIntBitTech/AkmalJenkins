@@ -14,16 +14,19 @@
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay.css"></link>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="shortcut icon" href="favicon.png"></link>
+    <style>
+        .close{width:60px !important;}
+        .exit-button{margin-left: 4px !important;}
+    </style>
 </head>    
 
-<div class="content" id="emaileditorexternalpopup">
-     <div id="fade" class="black_overlay"></div>
+<div class="content" id="emaileditorexternalpopup">     
     <!--MainContent-->
     <div class="detail-overlay-content" ng-controller="MyController" id="MyController">
         <!--Top Nav Bar-->
         <div class="top-nav-container-detail">
             <div class=" top-navbar-detail topnav-exdata">
-                <a class=" exit-button-detail link svg close" href="">
+                <a class=" exit-button-detail link svg close" href="" id="mindbodyclose">
                     <img src="images/Icons/close.svg" class="exit-button" style="cursor:pointer;"></img>
                 </a>
                 <div  class="top-navbar-inner-bb-detail">
@@ -39,184 +42,29 @@
         <!--Below Nav-->
         <div class="exdata-selection-overlay">
             <div class="inner-content-container-detail">
-                    <div class="exdata-content-detail">
-
-                            <!--SAVED POST GOES HERE-->
-<ul class="subcategory-list-container col-1of1 fleft">
-                   <li class="subcategory-list-element col-1of1 fleft ">
-                       <div class="subcat-list col-4of10 fleft padding-right-15 ">Name of Workshop Here and 
+                <div class="exdata-content-detail" ng-controller="MyController" id="MyController" >
+                <img id="loadingGifformindbody" src="images/YogaLoadingGif.gif"/>
+                <!--SAVED POST GOES HERE-->
+                <ul class="subcategory-list-container col-1of1 fleft scrollydiv">  
+                    <li class="subcategory-list-element col-1of1 fleft" ng-repeat="jsonclass in datalists2.mindbody_data" ng-click="select_category_details(jsonclass.id)">
+                       <div class="subcat-list col-4of10 fleft padding-right-15 ">{{jsonclass.column1}} 
                        </div>
                         <div class=" col-2of10 fleft ">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft margin-top-12">Nov 27 at 6:30am</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">End Date</div>
-                                </div>
-                                <div class=" col-3of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Andy Swansburg</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">Instructor</div>
-                                </div>
-                       <div class="col-21f10 fleft">
-                           <img src="images/Icons/nextArrow.svg" class="next-button-icon" ></img>
-                       </div>
-                       
-                   </li>
-                         <li class="subcategory-list-element col-1of1 fleft ">
-                       <div class="subcat-list col-4of10 fleft padding-right-15 ">Name of Workshop Here and 
-                       </div>
-                        <div class=" col-2of10 fleft ">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft margin-top-12">Nov 27 at 6:30am</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">End Date</div>
-                                </div>
-                                <div class=" col-3of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Andy Swansburg</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">Instructor</div>
-                                </div>
-                       <div class="col-21f10 fleft">
-                           <img  src="images/Icons/nextArrow.svg" class="next-button-icon" ></img>
-                       </div>
-                       
-                   </li>
-                         <li class="subcategory-list-element col-1of1 fleft ">
-                       <div class="subcat-list col-4of10 fleft padding-right-15 ">Name of Workshop Here and 
-                       </div>
-                        <div class=" col-2of10 fleft ">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft margin-top-12">Nov 27 at 6:30am</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">End Date</div>
-                                </div>
-                                <div class=" col-3of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Andy Swansburg</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">Instructor</div>
-                                </div>
-                       <div class="col-21f10 fleft">
-                           <img src="images/Icons/nextArrow.svg" class="next-button-icon" ></img>
-                       </div>
-                       
-                   </li>
-                         <li class="subcategory-list-element col-1of1 fleft ">
-                       <div class="subcat-list col-4of10 fleft padding-right-15 ">Name of Workshop Here and 
-                       </div>
-                        <div class=" col-2of10 fleft ">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft margin-top-12">Nov 27 at 6:30am</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">End Date</div>
-                                </div>
-                                <div class=" col-3of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Andy Swansburg</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">Instructor</div>
-                                </div>
-                       <div class="col-21f10 fleft">
-                           <img src="images/Icons/nextArrow.svg" class="next-button-icon" ></img>
-                       </div>
-                       
-                   </li>
-                    <li class="subcategory-list-element col-1of1 fleft ">
-                       <div class="subcat-list col-4of10 fleft padding-right-15 ">Name of Workshop Here and 
-                       </div>
-                        <div class=" col-2of10 fleft ">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft margin-top-12">Nov 27 at 6:30am</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">End Date</div>
-                                </div>
-                                <div class=" col-3of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Andy Swansburg</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">Instructor</div>
-                                </div>
-                       <div class="col-21f10 fleft">
-                           <img src="images/Icons/nextArrow.svg" class="next-button-icon" ></img>
-                       </div>
-                       
-                   </li> <li class="subcategory-list-element col-1of1 fleft ">
-                       <div class="subcat-list col-4of10 fleft padding-right-15 ">Name of Workshop Here and 
-                       </div>
-                        <div class=" col-2of10 fleft ">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft margin-top-12">Nov 27 at 6:30am</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">End Date</div>
-                                </div>
-                                <div class=" col-3of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Andy Swansburg</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">Instructor</div>
-                                </div>
-                       <div class="col-21f10 fleft">
-                           <img src="images/Icons/nextArrow.svg" class="next-button-icon" ></img>
-                       </div>
-                       
-                   </li> <li class="subcategory-list-element col-1of1 fleft ">
-                       <div class="subcat-list col-4of10 fleft padding-right-15 ">Name of Workshop Here and 
-                       </div>
-                        <div class=" col-2of10 fleft ">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft margin-top-12">Nov 27 at 6:30am</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">End Date</div>
-                                </div>
-                                <div class=" col-3of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Andy Swansburg</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">Instructor</div>
-                                </div>
-                       <div class="col-21f10 fleft">
-                           <img src="images/Icons/nextArrow.svg" class="next-button-icon" ></img>
-                       </div>
-                       
-                   </li> <li class="subcategory-list-element col-1of1 fleft ">
-                       <div class="subcat-list col-4of10 fleft padding-right-15 ">Name of Workshop Here and 
-                       </div>
-                        <div class=" col-2of10 fleft ">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft margin-top-12">Nov 27 at 6:30am</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">End Date</div>
-                                </div>
-                                <div class=" col-3of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Andy Swansburg</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">Instructor</div>
-                                </div>
-                       <div class="col-21f10 fleft">
-                           <img src="images/Icons/nextArrow.svg" class="next-button-icon" ></img>
-                       </div>
-                       
-                   </li> <li class="subcategory-list-element col-1of1 fleft ">
-                       <div class="subcat-list col-4of10 fleft padding-right-15 ">Name of Workshop Here and 
-                       </div>
-                        <div class=" col-2of10 fleft ">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft margin-top-12">Nov 27 at 6:30am</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">End Date</div>
-                                </div>
-                                <div class=" col-3of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Andy Swansburg</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">Instructor</div>
-                                </div>
-                       <div class="col-21f10 fleft">
-                           <img src="images/Icons/nextArrow.svg" class="next-button-icon" ></img>
-                       </div>
-                       
-                   </li> <li class="subcategory-list-element col-1of1 fleft ">
-                       <div class="subcat-list col-4of10 fleft padding-right-15 ">Name of Workshop Here and 
-                       </div>
-                        <div class=" col-2of10 fleft ">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft margin-top-12">Nov 27 at 6:30am</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">End Date</div>
-                                </div>
-                                <div class=" col-3of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Andy Swansburg</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">Instructor</div>
-                                </div>
-                       <div class="col-21f10 fleft">
-                           <img src="images/Icons/nextArrow.svg" class="next-button-icon" ></img>
-                       </div>
-                       
-                   </li> <li class="subcategory-list-element col-1of1 fleft ">
-                       <div class="subcat-list col-4of10 fleft padding-right-15 ">Name of Workshop Here and 
-                       </div>
-                        <div class=" col-2of10 fleft ">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft margin-top-12">Nov 27 at 6:30am</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">End Date</div>
-                                </div>
-                                <div class=" col-3of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Andy Swansburg</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">Instructor</div>
-                                </div>
-                       <div class="col-21f10 fleft">
-                           <img src="images/Icons/nextArrow.svg" class="next-button-icon" ></img>
-                       </div>
-                       
-                   </li>
+                            <div class="slat-column-font list-column-number col-1of1 sh2 fleft margin-top-12">{{jsonclass.column3}}</div>
+                            <div class="list-column-description col-1of1 sh3-contact fleft">Date</div>
+                        </div>
+                        <div class=" col-3of10 fleft slat-attribute-container">
+                            <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{jsonclass.column2}}</div>
+                            <div class="list-column-description col-1of1 sh3-contact fleft">Instructor</div>
+                        </div>
+                        <div class="col-21f10 fleft">
+                            <img src="images/Icons/nextArrow.svg" class="next-button-icon" ></img>
+                        </div>                       
+                    </li>
                 </ul>
+                </div>
             </div>
         </div>
-    </div>
   
         <!--CTA Bar
         <div class="bottom-cta-bar">
