@@ -41,6 +41,8 @@ public class ProcessHTML {
     private final static String KColorKey = "color";
     private final static String kBorderColorKey = "border-color";
     private final static String kBackgroundImageKey = "background";
+    
+    private final static String kLogoSourceKey = "src";
 
     private final static String kElementSearchPattern = "*[" + kElementId
             + "]";
@@ -117,7 +119,7 @@ public class ProcessHTML {
                 }
 
             } else if (elementType.contains(kElementLogo)) {
-                item.attr(kBackgroundImageKey, getUserLogoImage());
+                item.attr(kLogoSourceKey, getUserLogoImage());
             }
             item.attr(KStyleKey, createKeyValuePair(styleHashmap));
             String cleanItemString = StringEscapeUtils.unescapeHtml4(item.toString());
