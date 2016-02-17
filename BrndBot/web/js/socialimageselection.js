@@ -1,4 +1,4 @@
-var maxLength = 140;
+
 var facebook;
 var twitter;
 var number = 0;
@@ -33,11 +33,20 @@ function changeimagetext() {
 }
 
 $(document).ready(function () {
+    var isFacebook = $("#isFacebook").val();
+    var isTwitter = $("#isTwitter").val();
     function showpanel() {
-          var length ="";
-        //alert($("#twittertext").val());
-       length = $("#twittertext").val().length;
-        
+       var maxLength = 140;
+       var length ="";
+       length = $("#twittertext").val().length;  
+       
+       if(($("#twittertext").val().trim().contains("bit.ly/1XOkJo"))){$("#twittertext").prop('maxlength', '117');$("#charlimits").hide();}
+       if(!($("#twittertext").val().trim().contains("bit.ly/1XOkJo"))){$("#twittertext").prop('maxlength', '140');$("#charlimitswithlink").hide();}
+       if(length>=140){$("#charlimits").css("display","block");}
+       if(length!==140){$("#charlimits").hide();}
+       if((length!==117) && ($("#twittertext").val().trim().contains("bit.ly/1XOkJo"))){$("#charlimitswithlink").hide();}
+       if((length>=117) && ($("#twittertext").val().trim().contains("bit.ly/1XOkJo"))){$("#charlimitswithlink").show();}
+       
         if ($("#twittertext").val().trim().contains("bit.ly/1XOkJo"))
         {
             var twtext = $("#twittertext").val();
@@ -72,10 +81,25 @@ $(document).ready(function () {
         if(flag === 1)
         {
             length = maxLength - length;
-            length=length-18;
+//            length=length-18; need to check
+            //$("#twittertext").attr('maxlength',length);
+            var valuelenght=$("#twittertext").val().length;
+            var max=0;
+            if(length >117){
+                max=1;
+                $("#twittertext").val(value); 
+                alert("Link can't be added! Because Twitter can't accept More than 140 characters.");
+            }
         } 
         else
         {
+            if(isFacebook==="false" && isTwitter==="true")
+            {    
+                $("#editLink").hide();
+                $("#removeLink").hide();
+                $("#changeLink").show();
+            }   
+            $("#link").val("");
             length = maxLength - length;
         }
         
@@ -114,16 +138,25 @@ $(document).ready(function () {
         $("#link_title").val(singledata[1]);
         $("#link_description").val(singledata[2]);
         $("#Linkurl").val(singledata[3]);
-        $("#link").val(singledata[3]);
+        $("#link").val(singledata[5]);
+        
         $("#editLink").show();
         $("#removeLink").show();
         $("#changeLink").hide();
+        
         $("#link_title").show();
         $("#link_description").show();
         $("#Linkurl").show();
         $("#link").show();
-
     }
+    if (singledata[5] !== "" )
+    {
+        $("#link").val(singledata[5]);
+        $("#editLink").show();
+        $("#removeLink").show();
+        $("#changeLink").hide();
+    }
+    
     $("#removeLink").click(function () {
         var twtext = $("#twittertext").val();
         var res = twtext.split(" ");
@@ -173,10 +206,7 @@ $(document).ready(function () {
     $("#fabookpreviewdiv").hide();
     $(".forfb").hide();
     $("#twitterimage").hide();
-    $("#twitterpreviewdiv").hide();
-
-    var isFacebook = $("#isFacebook").val();
-    var isTwitter = $("#isTwitter").val();
+    $("#twitterpreviewdiv").hide();    
 
     $("#title").keyup(function () {
         $(".link_title").val($("#title").val());
@@ -187,7 +217,7 @@ $(document).ready(function () {
         var isTwitter = $("#isTwitter").val();
         var image_name = $("#imageToPost").val();
         var bit_url = "";
-        var link = $("#Linkurl").val();
+        var link = $("#link").val();
 
         if (link != undefined) {
             var f = link.startsWith("http");
@@ -206,7 +236,7 @@ $(document).ready(function () {
             data: {longUrl: url, apiKey: key, login: username},
             dataType: "jsonp",
             success: function (v)
-            {
+            {  
                 bit_url = v.data.url;
                 $("#sortLengthurl").val(bit_url);
             }
@@ -289,6 +319,9 @@ $(document).ready(function () {
                 });
                 if(link===0)                
                 {
+                    $("#editLink").hide();
+                    $("#removeLink").hide();
+                    $("#changeLink").show();
                     $("#link").val("");
                 }
                 latesttwtext = text;
@@ -325,6 +358,9 @@ $(document).ready(function () {
             $("#postpopup").show();
             $("#fade").show();
         }
+        
+        alert("LatestTwittertext----"+latesttwtext);
+        alert("Sort length url----"+$("#link").val());
     });
     $("#posttofb").click(function () {
 //        $("#posttofb").css("pointer-events","none;");
@@ -378,7 +414,7 @@ $(document).ready(function () {
             {
                 alert(chooseimage);
                 return false;
-            }
+            }            
         }
 
         var link = $("#link").val();
@@ -393,6 +429,8 @@ $(document).ready(function () {
             var username = "sandeep264328"; // bit.ly username
             var key = "R_63e2f83120b743bc9d9534b841d41be6";
         }
+        alert("LatestTwittertext----"+latesttwtext);
+        alert("Sort length url----"+$("#sortLengthurl").val());
         $.ajax({
             url: "http://api.bit.ly/v3/shorten",
             data: {longUrl: url, apiKey: key, login: username},
@@ -421,7 +459,7 @@ $(document).ready(function () {
                             imageType: image_type,
                             shorturl: $("#sortLengthurl").val()
                         },
-                        success: function (responseText) {
+                        success: function (responseText) {       
                             $('#mask').hide();
                             $('.window').hide();
                             alert(postpublish);

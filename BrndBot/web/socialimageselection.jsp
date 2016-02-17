@@ -25,7 +25,7 @@
     <script src="js/imageeditor.js" type="text/javascript"></script>
     <script src="js/socialimageselection.js" type="text/javascript"></script>
     <link rel="shortcut icon" href="images/favicon.png"/>            
-    <style>#link{opacity: 0;}#charlimit{display:none;}</style>
+    <style>#link{opacity: 0;}#charlimit,#charlimits,#charlimitswithlink{display:none;}</style>
     <title>socialimageselection</title>
 </head>
 <%@page import="com.controller.SqlMethods"%>
@@ -237,7 +237,8 @@
                                 <div class="Twitter-preview-name fleft"><span><%=companyName%></span></div>
                                 <div class="Twitter-handle fleft">@<%=companyName%></div>
                                 <textarea id="twittertext" maxlength="140" style="resize: none;  margin-bottom: 5px;" class="noborder" placeholder="Twitter Demo content goes right here"></textarea>
-                                <div id="charlimit" class="fright"><span id="chars" class="gray">140</span></div>
+                                 <div id="charlimits" class="fright font12">Sorry! Twitter Accepts only 140 Characters to Tweet.</div>
+                                 <div id="charlimitswithlink" class="fright font12">Sorry! Twitter Accepts only 117 Characters with Link to Tweet.</div>
                             </div>
 
                                 <%if 

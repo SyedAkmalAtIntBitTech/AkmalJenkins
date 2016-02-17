@@ -69,12 +69,6 @@ function getImageId(idname)
     }
 $(document).ready(function ()
 {  
-    
-//    var length = $("#twittertext").val().length;
-//    var length = maxLength-length;
-//    if(length === 0){
-//        alert("140 Characters only!");
-//    }
     $('#chars').text(length);
     
     $("#emailpreview").click(function(){
@@ -203,42 +197,42 @@ $(document).ready(function ()
     });
     
       
-    $('#twittertext').keyup(function() {
-        var length = $(this).val().length;
-        var length = maxLength-length;
-        $("#chars").removeClass("red");
-        $("#chars").addClass("gray");
-        if(length === 0){
-            $("#chars").removeClass("gray");
-            $("#chars").addClass("red");
-        }
-        $('#chars').text(length);
-    });
+//    $('#twittertext').keyup(function() {
+//        var length = $(this).val().length;
+//        var length = maxLength-length;
+//        $("#chars").removeClass("red");
+//        $("#chars").addClass("gray");
+//        if(length === 0){
+//            $("#chars").removeClass("gray");
+//            $("#chars").addClass("red");
+//        }
+//        $('#chars').text(length);
+//    });
+//    
+//    $('#twittertext').mouseover(function() {
+//        var length = $(this).val().length;
+//        var length = maxLength-length;
+//        $("#chars").removeClass("red");
+//        $("#chars").addClass("gray");
+//        if(length === 0){
+//            $("#chars").removeClass("gray");
+//            $("#chars").addClass("red");
+//        }
+//        $('#chars').text(length);
+//    });
     
-    $('#twittertext').mouseover(function() {
-        var length = $(this).val().length;
-        var length = maxLength-length;
-        $("#chars").removeClass("red");
-        $("#chars").addClass("gray");
-        if(length === 0){
-            $("#chars").removeClass("gray");
-            $("#chars").addClass("red");
-        }
-        $('#chars').text(length);
-    });
-    
-    $('#twittertext').mouseout(function() {
-        var length = $(this).val().length;
-        var length = maxLength-length;
-        $("#chars").removeClass("red");
-        $("#chars").addClass("gray");
-        if(length === 0){
-            $("#chars").removeClass("gray");
-            $("#chars").addClass("red");
-        }
-        $('#chars').text(length);
-    });
-   
+//    $('#twittertext').mouseout(function() {
+//        var length = $(this).val().length;
+//        var length = maxLength-length;
+//        $("#chars").removeClass("red");
+//        $("#chars").addClass("gray");
+//        if(length === 0){
+//            $("#chars").removeClass("gray");
+//            $("#chars").addClass("red");
+//        }
+//        $('#chars').text(length);
+//    });
+//   
     
     var sortlink="bit.ly/1XOkJo";
     $("#submitLink").click(function(){
@@ -256,16 +250,16 @@ $(document).ready(function ()
         $("#link_description").show();
         $("#Linkurl").show();
 //        $("#link").show();
-        $("#editLink").show();
-        $("#removeLink").show();
-        $("#changeLink").hide();
+       
         $("#fade").hide();
         $("#linkpopup").hide();
         var value=$("#twittertext").val();
         var valuelenght=$("#twittertext").val().length;
-        if(valuelenght >108){
+        var max=0;
+        if(valuelenght >117){
+            max=1;
             $("#twittertext").val(value); 
-            alert("Link can't be added! atleast leave 32 characters to add link in twitter text.");
+            alert("Link can't be added! Because Twitter can't accept More than 140 characters.");
         }
         if($("#twittertext").val().trim().contains("bit.ly/1XOkJo")){
              var twtext = $("#twittertext").val();
@@ -306,8 +300,13 @@ $(document).ready(function ()
                 }                      
         }
         else{
-            $("#twittertext").val(value+" "+sortlink);        
+            if(max!==1){
+                $("#twittertext").val(value+" "+sortlink);        
+            }
         }
+        $("#editLink").show();
+        $("#removeLink").show();
+        $("#changeLink").hide();
     });
     
     
@@ -361,6 +360,7 @@ $(document).ready(function ()
         var fblink_title=$("#link_title").val();
         var fblink_description=$("#link_description").val();
         var fbLinkurl=$("#Linkurl").val();
+        var twitterlink=$("#link").val();
         var facebookpreviewimage=$("#facebookpreviewimage").val();
         var twittertext=$("#twittertext").val();
         var mindbodyid = $("#mindbodyid").val();
@@ -370,6 +370,7 @@ $(document).ready(function ()
         data.push(fblink_description);
         data.push(fbLinkurl);
         data.push(twittertext);
+        data.push(twitterlink);
         data.push(facebookpreviewimage);        
         data.push(twitterpreviewimage);        
 
@@ -390,12 +391,14 @@ $(document).ready(function ()
         var fbLinkurl=$("#Linkurl").val();
         var facebookpreviewimage=$("#facebookpreviewimage").val();
         var twittertext=$("#twittertext").val();
+        var twitterlink=$("#link").val();
         var twitterpreviewimage=$("#twitterpreviewimage").val();
         data.push(fbposttext);
         data.push(fblink_title);
         data.push(fblink_description);
         data.push(fbLinkurl);
         data.push(twittertext);
+        data.push(twitterlink);
         data.push(facebookpreviewimage);
         data.push(twitterpreviewimage);  
         var selectedtype=$("#selectedtype").val();
