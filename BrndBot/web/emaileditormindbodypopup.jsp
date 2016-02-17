@@ -32,8 +32,7 @@
                 <div  class="top-navbar-inner-bb-detail">
                     <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Please select which program to use:</span></div>
                     <div class="top-nav-cta-container">
-                        <div class="approve-button-detail md-button">Use Default Values</div>
-                       
+<!--                        <div class="approve-button-detail md-button">Use Default Values</div>                       -->
                     </div>    
                 </div>
             </div>
