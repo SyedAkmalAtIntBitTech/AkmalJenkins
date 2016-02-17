@@ -358,9 +358,9 @@ $(document).ready(function () {
             $("#postpopup").show();
             $("#fade").show();
         }
-        
-        alert("LatestTwittertext----"+latesttwtext);
-        alert("Sort length url----"+$("#link").val());
+//        
+//        alert("LatestTwittertext----"+latesttwtext);
+//        alert("Sort length url----"+$("#link").val());
     });
     $("#posttofb").click(function () {
 //        $("#posttofb").css("pointer-events","none;");
@@ -429,8 +429,8 @@ $(document).ready(function () {
             var username = "sandeep264328"; // bit.ly username
             var key = "R_63e2f83120b743bc9d9534b841d41be6";
         }
-        alert("LatestTwittertext----"+latesttwtext);
-        alert("Sort length url----"+$("#sortLengthurl").val());
+//        alert("LatestTwittertext----"+latesttwtext);
+//        alert("Sort length url----"+$("#sortLengthurl").val());
         $.ajax({
             url: "http://api.bit.ly/v3/shorten",
             data: {longUrl: url, apiKey: key, login: username},
