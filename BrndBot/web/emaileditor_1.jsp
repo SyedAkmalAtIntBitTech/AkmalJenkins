@@ -525,12 +525,12 @@
 //                                                   $("#defaultblock1").empty().append(data.htmldata);
                             }
                             else{
-                            var editorHtml = $('#edit').froalaEditor('html.get');
-                                    if (editorHtml.contains('id="' + addblockid + '"')){
-                            var jHtmlObject = jQuery(editorHtml);
-                                    var editor = jQuery("<p>").append(jHtmlObject);
-                                    editor.find("#" + addblockid).remove();
-                                    editorHtml = editor.html();
+                            var editorHtml = $('#edit').froalaEditor('html.get'); 
+                            if (editorHtml.contains('id="' + addblockid + '"')){  
+                                var jHtmlObject = jQuery(editorHtml);
+                                var editor = jQuery("<p>").append(jHtmlObject);
+                                editor.find("#" + addblockid).remove();
+                                editorHtml = editor.html();
                             }
                             BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.htmldata + '</div>';
                                     $('#edit').froalaEditor('html.set', '' + editorHtml + '' + BlockHtml + '');
