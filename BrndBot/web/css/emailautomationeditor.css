@@ -50,23 +50,25 @@ and open the template in the editor.
              }
              .btmdiv{
                 background-color: #e2e3e7;
-                width: 746px;
+                width: 100%;
                 height: 38px;
-                margin-left: -16px;
+                padding-left:0px;
+/*                margin-left: -16px;*/
                 position: fixed;
                 bottom: 0%;
              }
              .editemail{
-                 margin-left:20px; 
+                 margin-left:10%; 
                  padding-top:8px;
-                 width:266px;
+                 width:25%;
                  height:22px;
                  color:#3f3f42;
                  font-size:18px;
              }
              .mobileprev{
-                 margin-left:0px; 
-                 padding-top:11px;
+                 margin-left: 12%;
+                 margin-right: 2%;
+                 padding-top:17px;
                  width:89px;
                  height:16px;
                  color:#3f3f42;
@@ -88,7 +90,7 @@ and open the template in the editor.
                               
              }
              .blockselection{
-                 margin-left:28px;
+                 margin-left: 0px;
                  width:314px;
                  height:635px;
                  border:#979797 1px;
@@ -97,15 +99,28 @@ and open the template in the editor.
              .blockstyletab{
                 right:0px;
                 position:fixed;
-                width:61px;
+                width:6%;
                 height:635px;
                 background-color:#f4f4f4;
              }
+             .selblocknew{
+                margin-left: 25%;
+                margin-top: 2%;
+                width: 162px;
+                height: 24px;
+                color: #68686c;
+                font-size: 20px; 
+                padding-top: 5%;
+             }
              .selblock{
-                margin-left:30px; 
+                margin-left:30%; 
+                margin-top: 2%;
+                width: 100%;
+                height: 100%;
+/*
                 margin-top:47px;
                 width:162px;
-                height:24px;
+                height:24px;*/
                 color:#68686c;
                 font-size:20px;
              }
@@ -130,9 +145,19 @@ and open the template in the editor.
                  background-color: #979797;
              }
              .selblklinediv{
-                 margin-left: 25.9px;
+                 margin-left:5%;
                  margin-top:16px;
              }
+             .textstyle
+      {
+        margin-top: 7px;
+        width: 280px;
+        height: 30px;
+        display: inline-block;
+        color: #3f3f42;
+        font-size: 16px;
+        padding: 5px 8px 5px 8px;
+      }
 .stylelist{
 margin-left: -15px;
 margin-top:2.5px;
@@ -169,6 +194,30 @@ height:480px;
 /*overflow: -moz-scrollbars-none;
 -ms-overflow-style: none;*/
 }
+.blocklistnew{
+    margin-left: 10%;
+    height: 100%;
+}
+
+.blocklistnew li{
+    margin-top: 7px;
+    width:92%;
+    height: 30px;
+    display: inline-block;
+    color:#3f3f42;
+    font-size:16px;
+    padding:5px 8px 5px 8px;
+}
+.blocklistnew li a:hover,ul.blocklistnew li:hover,ul.blocklistnew div:hover{
+    background-color: #0f76a6 !important;
+    text-decoration: none;
+    color:#f6f7f7 !important;
+    cursor: pointer;
+}
+.col-inlineflex{
+    display: inline-flex;
+    width:100%;
+}
 /*.blocklist::-webkit-scrollbar { width: 0 !important }*/
 .blocklist li{
     margin-top: 7px;
@@ -198,13 +247,13 @@ height:480px;
     width:50px;
     height:63px;
 }
-::-webkit-scrollbar { 
+/*::-webkit-scrollbar { 
     display: none; 
-}
+}*/
 
 .righttabs{
-    margin-left: -28px;
-    padding-top:197px;
+    margin-left: 0px;
+    padding-top: 144px;
 }
 .righttabs li{
     display:inline-block; 
@@ -212,18 +261,18 @@ height:480px;
     width:70px;
     height: 85px;
     font-size: 12px;
-    margin-left: -15px;
+    margin-left: 0px;
     cursor:pointer;
 }
 .righttabs li p{
     font-size:10px;
     color:#3f3f42;
-    margin-left:8px;
+    margin-left: 20%;
 }
 .righttabs li img{
-    width:55px;
-    height: 63px;
-    margin-left: 12px;
+    width: 50px;
+    height: 56px;
+    margin-left: 14px;
     
 }
         

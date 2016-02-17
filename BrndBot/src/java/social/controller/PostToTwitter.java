@@ -9,6 +9,7 @@ import com.controller.SqlMethods;
 import com.intbit.marketing.model.TblUserPreferences;
 import com.intbit.marketing.service.UserPreferencesService;
 import java.io.File;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +28,7 @@ import twitter4j.conf.ConfigurationBuilder;
  */
 public class PostToTwitter {
 
-    public static String postStatus(String twitterAccessToken, String twitterTokenSecret, String text, String shortURL, String fileImagePath, Integer userId, String htmlString, String getImageFile) {
+    public static String postStatus(String twitterAccessToken, String twitterTokenSecret,String image_type, String text, String shortURL, String fileImagePath, Integer userId, String htmlString, String getImageFile) {
         String returnMessage = "";
         try {
 
@@ -53,16 +54,22 @@ public class PostToTwitter {
                     statusMessage = statusMessage + " " + shortUrl;
                 }
             }
-            File file = new File(fileImagePath);
-            int count = statusMessage.length();
             StatusUpdate status = new StatusUpdate(statusMessage);
-            // set the image to be uploaded here.
-
-            status.setMedia(file);
+             if (image_type.equals("url")){
+                status.setMedia("xyz", new URL(fileImagePath).openStream());
+             }
+             else
+             {
+                File file = new File(fileImagePath);
+                 
+                // set the image to be uploaded here.
+                status.setMedia(file);
+             }
             twitter.updateStatus(status);
+            
             try {
                 SqlMethods sql_methods = new SqlMethods();
-                sql_methods.setSocialPostHistory(userId, htmlString, false, true, getImageFile, null);
+                sql_methods.setSocialPostHistory(userId, htmlString, false, true,image_type, getImageFile, null);
             } catch (Exception ex) {
                 Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getCause());
                 Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getMessage());

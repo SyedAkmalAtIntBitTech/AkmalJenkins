@@ -9,17 +9,17 @@ function validate() {
     var files = $("#filesToUpload").val();
 
     if (category_name === "") {
-        alert("please enter the category name");
+        alert("Please enter the category name.");
         $("#category_name").focus();
         return false;
     }
     if (parseInt(organization) === 0) {
-        alert("No organization selected. please select the organization");
+        alert("No organization selected! Please select the organization.");
         $("#organization").focus();
         return false;
     }
     if (files == "") {
-        alert("No files selected, please select the file");
+        alert("No files selected! Please select the file.");
         $("#filesToUpload").focus();
         return false;
     }
@@ -39,7 +39,7 @@ function categoryController($scope, $http) {
         {
             $scope.status = data;
             if (data === "true") {
-                alert("category deleted successfully");
+                alert("Category deleted successfully.");
                 window.open(getHost() + 'admin/categories.jsp', "_self");
             } else if (data === error) {
                 alert(data);

@@ -5,19 +5,19 @@
  */
 //var global_host_address = "http://clients.brndbot.com/BrndBot/";
 //var global_host_address = "http://development.brndbot.com/BrndBot/";
-//var global_host_address = "http://45.33.92.14:8080/BrndBot/";
 //var global_host_address = "http://development2.brndbot.com/BrndBot/";
+//var global_host_address = "http://dev1.intbittech.com/BrndBot/";
 var global_host_address = "http://localhost:8080/BrndBot/";
 
 var error = "system failure error";  
 var FroalaLicenseKey ="snJ-7c1krD-13fD1wzF-7==";
 
 function getHost(){
-//    return "http://clients.brndbot.com/BrndBot/";
-//    return "http://development.brndbot.com/BrndBot/";
-//    return "http://45.33.92.14:8080/BrndBot/";
-//    return "http://development2.brndbot.com/BrndBot/";
-    return "http://localhost:8080/BrndBot/";
+     return global_host_address;
+}
+
+function debugAlert(message){
+    alert(message);
 }
 
 function kUserPreference_HasLoggedInFacebook (){
@@ -47,6 +47,7 @@ function getColor5(){
 function getColor6(){
     return "color6";
 }
+
 function getemail(){
     return "Email";
 }
@@ -60,8 +61,9 @@ function gettwitter(){
 }
 
 function getnote(){
-    return "Note";
+    return "Reminder";
 }
 
-
-String.prototype.contains = function(it) { return this.indexOf(it) != -1; };
+String.prototype.contains = function(it) { 
+    return this.indexOf(it) != -1; 
+};

@@ -49,25 +49,25 @@
             //        mindbodyquery = document.getElementsByTagName("option")[y].value;
 
                     if (name === "") {
-                        alert("Enter the block name");
+                        alert("Enter the Block name.");
                         $("#name").focus();
                         return false;
                     }
 
                     if (mindbodyquery == 0) {
-                        alert("select the mindbodyquery");
+                        alert("Select the mindbodyquery.");
                         $("#mindbodyquery").focus();
                         return false;
                     }
 
                     if (brand_id == 0) {
-                        alert("No brand selected, please select the brand");
+                        alert("No brand selected! Please select the brand.");
                         document.getElementById("brand").focus();
                         return false;
                     }
 
                     if (sub_category_id == 0) {
-                        alert("No sub category selected, please select the sub category");
+                        alert("No sub category selected! Please select the sub category.");
                         document.getElementById("sub_categories").focus();
                         return false;
                     }
@@ -92,16 +92,15 @@
                             if (data === "true") {
                                 window.open(getHost() + 'admin/blocks.jsp', "_self");
                             }else if (data === "false"){
-                                alert("record cannot be modified");
+                                alert("Record cannot be modified.");
                             } else if (data === error) {
                                 alert(data);
                             }
-                        })
-                                .error(function (data, status) {
-                                    // called asynchronously if an error occurs
-                                    // or server returns response with an error status.
-                                    alert("request not succesful");
-                                });
+                        }).error(function (data, status) {
+                            // called asynchronously if an error occurs
+                            // or server returns response with an error status.
+                            alert("Request not successful!");
+                        });
                     }
                 };
             }
@@ -154,10 +153,13 @@
                         <br>
                     Select mindbody query: <select id="mindbodyquery" name="mindbodyquery" >
                         <option value="0">--select--</option>
-                        <option value="promote work shop">promote work shop</option>
-                        <option value="promote class">promote class</option>
-                        <option value="promote event">promote event</option>
-                        <option value="promote staff">promote staff</option>
+                        <option value="promote new workshop">promote new workshop</option>
+                        <option value="promote new class">promote new class</option>
+                        <option value="promote todays class">promote todays class</option>
+                        <option value="promote new staff">promote new staff</option>
+                        <option value="staff spotlight">staff spotlight</option>
+                        <option value="promote todays workshop">promote todays workshop</option>
+                        <option value="promote upcoming workshops">promote upcoming workshops</option>
                     </select><br>
                     <%
                         
@@ -191,7 +193,7 @@
                             System.out.println(e.getCause());
                             System.out.println(e.getMessage());
                         }finally {
-                            result_set.close();
+//                            result_set.close();
                             prepared_statement.close();
                             ConnectionManager.getInstance().closeConnection(conn);
                         }
@@ -224,7 +226,7 @@
                             System.out.println(e.getCause());
                             System.out.println(e.getMessage());
                         }finally {
-                            result_set.close();
+//                            result_set.close();
                             prepared_statement.close();
                             ConnectionManager.getInstance().closeConnection(conn);
                         }

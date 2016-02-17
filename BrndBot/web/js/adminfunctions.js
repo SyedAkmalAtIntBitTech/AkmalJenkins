@@ -12,7 +12,7 @@ function organizationController($scope, $http) {
     function validate() {
         organizationname = $("#organizationname").val();
         if (organizationname === "") {
-            alert("Enter the organization");
+            alert("Enter the organization.");
             $("#organizationname").focus();
             return false;
         }
@@ -34,10 +34,10 @@ function organizationController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "false") {
-                    alert("Organization already exist");
+                    alert("Organization already exist!");
                     $("#organizationname").focus();
                 } else if (data === "true") {
-                    alert("Organization saved successfully");
+                    alert("Organization saved successfully.");
                     window.open(getHost() + 'admin/organizations.jsp', "_self");
                 } else if (data === error) {
                     alert(data);
@@ -46,7 +46,7 @@ function organizationController($scope, $http) {
                     .error(function (data, status) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                     });
         }
     };
@@ -58,7 +58,7 @@ function organizationController($scope, $http) {
 
         function validate() {
             if (organizationname === "") {
-                alert("Enter the organization");
+                alert("Enter the organization.");
                 $(org_id).focus();
                 return false;
             }
@@ -77,19 +77,19 @@ function organizationController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "true") {
-                    alert("Organization updated successfully");
+                    alert("Organization updated successfully.");
                     window.open(getHost() + 'admin/organizations.jsp', "_self");
                 } else if (data === error) {
                     alert(data);
                 } else if (data === "false") {
-                    alert("Organization already exist");
+                    alert("Organization already exist!");
                     $("#organizationname").focus();
                 }    
             })
                     .error(function (data, status) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                     });
         }
     };
@@ -105,7 +105,7 @@ function organizationController($scope, $http) {
         {
             $scope.status = data;
             if (data === "true") {
-                alert("Organization deleted successfully");
+                alert("Organization deleted successfully.");
                 window.open(getHost() + 'admin/organizations.jsp', "_self");
             } else if (data === error) {
                 alert(data);

@@ -108,29 +108,29 @@
                 var type = $("#type").val();
                 alert(type);
                 if (marketingactiontitle == ""){
-                    alert("title not entered, kindly enter the title");
+                    alert("Title not entered! Kindly enter the title.");
                     $("#marketingactiontitle").focus();
                     return false;
                 }
                 
                 if (days == ""){
-                    alert("days not selected, kindly select an days");
+                    alert("Days not selected! Kindly select an days.");
                     $("#days").focus();
                     return false;
                 }
                 
                 if (marketingactiontime == ""){
-                    alert("time not entered,kindly enter the time");
+                    alert("Time not entered! Kindly enter the time.");
                     $("#marketingactiontime").focus();
                     return false;
                 }
                 if (type == "0"){
-                    alert("type not entered,kindly enter the type");
+                    alert("Type not entered! Kindly enter the type.");
 //                    $("#type").focus();
                     return false;
                 }
                 if (description == ""){
-                    alert("description not entered,kindly enter the description");
+                    alert("Description not entered! Kindly enter the description.");
                     $("#description").focus();
                     return false;
                 }
@@ -145,7 +145,7 @@
                     }).success(function (data, status, headers, config) {
                         $scope.categories = data.marketingData;
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });
@@ -160,7 +160,7 @@
                     }).success(function (data, status, headers, config) {
                         $scope.programs = data;
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });
@@ -175,29 +175,29 @@
                     var description = $("#description").val();
                     var type = $("#type").val();
                     if (marketingactiontitle == ""){
-                        alert("title not entered, kindly enter the title");
+                        alert("Title not entered! Kindly enter the title.");
                         $("#marketingactiontitle").focus();
                         return false;
                     }
 
                     if (days == ""){
-                        alert("days not selected, kindly select an days");
+                        alert("Days not selected! Kindly select an days.");
                         $("#days").focus();
                         return false;
                     }
 
                     if (marketingactiontime == ""){
-                        alert("time not entered,kindly enter the time");
+                        alert("Time not entered! Kindly enter the time.");
                         $("#marketingactiontime").focus();
                         return false;
                     }
                     if (type == "0"){
-                        alert("type not entered,kindly enter the type");
+                        alert("Type not entered! Kindly enter the type.");
                         $("#type").focus();
                         return false;
                     }
                     if (description == ""){
-                        alert("description not entered,kindly enter the description");
+                        alert("Description not entered! Kindly enter the description.");
                         $("#description").focus();
                         return false;
                     }
@@ -243,13 +243,13 @@
                     var programs = $("#programs").val();
                   
                     if (category == "0"){
-                        alert("category not selected, kindly select the category");
+                        alert("Category not selected! Kindly select the category.");
                         $("#category").focus();
                         return false;
                     }
 
                     if (programs == "0"){
-                        alert("programs not selected, kindly select an one program");
+                        alert("Programs not selected! Kindly select any one program.");
                         $("#programs").focus();
                         return false;
                     }
@@ -273,7 +273,7 @@
                     }).success(function (data, status){
                          window.open(getHost() + 'admin/marketingactions.jsp', "_self");
                     }).error(function (){
-                          alert("No data available, problem fetching the data");
+                          alert("No data available! Problem fetching the data.");
                     });
                       
                   }
@@ -288,7 +288,7 @@
                         
                         $scope.marketingActions = data;
                     }).error(function (){
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                     });
                 };
                 
@@ -302,11 +302,11 @@
                         data: JSON.stringify(action_details)
                 }).success(function (data, status){
                     if (data == "true"){
-                        alert("record deleted successfully");
+                        alert("Record deleted successfully.");
                     }
                     $scope.getMarketingActions();
                 }).error(function (){
-                    alert("No data available, problem fetching the data");
+                    alert("No data available! Problem fetching the data.");
                 });                
             };
             };
@@ -350,7 +350,7 @@
                                 <option value="Email">Email</option>
                                 <option value="Facebook">Facebook</option>
                                 <option value="Twitter">Twitter</option>
-                                <option value="Note">Note</option>
+                                <option value="Reminder">Reminder</option>
                             </select>
                         <br>
                         <button type="button" id="saveaction" name="saveaction" class="btn btn-info" ng-click="createMarketingActionsJSON()" style="margin-top:15px;margin-bottom:5px;">Save Action</button>

@@ -25,7 +25,6 @@ import org.hibernate.annotations.GenericGenerator;
 )
 public class TblScheduledEntityList  implements java.io.Serializable {
 
-
      private int id;
      private TblUserMarketingProgram tblUserMarketingProgram;
      private Integer entityId;
@@ -40,11 +39,8 @@ public class TblScheduledEntityList  implements java.io.Serializable {
      private Date tillDate;
      private Integer recuringEmailId;
      
-    
-
     public TblScheduledEntityList() {
     }
-
 	
     public TblScheduledEntityList(int id) {
         this.id = id;
@@ -62,11 +58,9 @@ public class TblScheduledEntityList  implements java.io.Serializable {
        this.isRecuring = isRecuring;
        this.days= days;
        this.recuringEmailId= recuringEmailId;
-       
     }
    
      @Id 
-
 //     @GenericGenerator(name="id" , strategy="increment")
 //    @GeneratedValue(generator="id")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -89,7 +83,6 @@ public class TblScheduledEntityList  implements java.io.Serializable {
         this.tblUserMarketingProgram  = tblUserMarketingProgram;
     }
 
-    
     @Column(name="entity_id")
     public Integer getEntityId() {
         return this.entityId;
@@ -98,7 +91,6 @@ public class TblScheduledEntityList  implements java.io.Serializable {
     public void setEntityId(Integer entityId) {
         this.entityId = entityId;
     }
-
     
     @Column(name="schedule_title", length=1024)
     public String getScheduleTitle() {

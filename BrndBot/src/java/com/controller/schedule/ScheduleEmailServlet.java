@@ -87,9 +87,9 @@ public class ScheduleEmailServlet extends HttpServlet {
             //Added by Syed Ilyas 27 Nov 2015 - email body from iframe
             String html_text = "";
             String path = "";
-            if (requestBodyMap.get("iframeName").toString().trim() != null) {
-                String iframeName = requestBodyMap.get("iframeName").toString().trim();
-                path = AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator + iframeName + ".html";
+            if (requestBodyMap.get("iframeName").toString().trim() != null){
+                String iframeName=requestBodyMap.get("iframeName").toString().trim();
+                path=AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH+File.separator+iframeName+".html";
                 File file = new File(path);
                 html_text = FileUtils.readFileToString(file, "UTF-8");
             }
@@ -141,9 +141,10 @@ public class ScheduleEmailServlet extends HttpServlet {
         if (!mapContainsKey(requestBodyMap, "to_email_addresses")) {
             errorMsgs.add("To email address is missing");
         }
-        if (!mapContainsKey(requestBodyMap, "email_body")) {
-            errorMsgs.add("Email body is missing");
-        }
+        //Email Body comes from iframe now
+//        if (!mapContainsKey(requestBodyMap, "email_body")) {
+//            errorMsgs.add("Email body is missing");
+//        }
         if (!mapContainsKey(requestBodyMap, "email_list")) {
             errorMsgs.add("Email List name is missing");
         }

@@ -63,7 +63,6 @@ public class AddActionServlet extends HttpServlet {
 //            return;
 //        }
         
-        
         try(Connection conn = ConnectionManager.getInstance().getConnection()){
             conn.setAutoCommit(false);
             String type = (String)requestBodyMap.get("type");
@@ -107,6 +106,47 @@ public class AddActionServlet extends HttpServlet {
                         requestBodyMap.get("actiontype").toString(), 
                         userId,
                         Integer.parseInt(requestBodyMap.get("days").toString()),
+                        conn
+                    );
+                    conn.commit();
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("schedule_entity_id", scheduleId);
+                    ServletUtil.printSuccessData(response, data);
+//                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, "Log while updating the Actions");
+                } catch (SQLException ex) {
+                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    conn.rollback();
+                    ServletUtil.printInternalException(response, ex.getMessage());
+                }                
+                ApplicationContextListener.refreshAllSchedulers();
+//                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, "Log while updating the Actions");
+            }
+            else if (type.equalsIgnoreCase("updatenotesyourplan")){
+                String scheduleID = (String)requestBodyMap.get("schedule_id");
+                try{
+                    int scheduleId = ScheduleDAO.updateDescriptionScheduledEntity(Integer.parseInt(scheduleID),
+                        requestBodyMap.get("description").toString(),
+                        conn
+                    );
+                    conn.commit();
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("schedule_entity_id", scheduleId);
+                    ServletUtil.printSuccessData(response, data);
+//                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, "Log while updating the Actions");
+                } catch (SQLException ex) {
+                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    conn.rollback();
+                    ServletUtil.printInternalException(response, ex.getMessage());
+                }                
+                ApplicationContextListener.refreshAllSchedulers();
+//                    Logger.getLogger(AddActionServlet.class.getName()).log(Level.SEVERE, "Log while updating the Actions");
+            }
+            else if (type.equalsIgnoreCase("updatenotes")){
+                double scheduleID1 = (double)requestBodyMap.get("schedule_id");
+                int scheduleID=(int)scheduleID1;
+                try{
+                    int scheduleId = ScheduleDAO.updateDescriptionScheduledEntity(scheduleID,
+                        requestBodyMap.get("description").toString(),
                         conn
                     );
                     conn.commit();

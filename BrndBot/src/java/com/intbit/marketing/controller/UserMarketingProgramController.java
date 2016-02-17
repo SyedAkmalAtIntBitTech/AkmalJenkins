@@ -185,8 +185,10 @@ public class UserMarketingProgramController {
             String target = requestBodyMap.get("program_date_time").toString();
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             Date eventDate = df.parse(target);
-            Double marketingCategoryId = (Double) requestBodyMap.get("marketing_category_id");
-            Double marketingProgramId = (Double) requestBodyMap.get("marketing_program_id");
+            String marketingCategoryId1 = (String) requestBodyMap.get("marketing_category_id");
+            Double marketingCategoryId = Double.parseDouble(marketingCategoryId1);
+            String marketingProgramId1 = (String) requestBodyMap.get("marketing_program_id");
+            Double marketingProgramId =Double.parseDouble(marketingProgramId1);
             marketingProgram.setId(marketingProgramId.intValue());
             addUserMarketingProgram.setId(0);
             addUserMarketingProgram.setDateEvent(eventDate);
@@ -200,38 +202,41 @@ public class UserMarketingProgramController {
             String link = userMarketingProgramId.toString();
 
             TblMarketingAction marketingAction = marketingActionService.getMarketingActionByMCategoryIdAndMProgramId(marketingCategoryId.intValue(), marketingProgramId.intValue());
-            String jsonString = marketingAction.getJsonTemplate();
-            JSONObject json = (JSONObject) new JSONParser().parse(jsonString);
-            org.json.simple.JSONArray jSONArray = (org.json.simple.JSONArray) json.get(IConstants.kMarketingActionsKey);
-            for (Integer i = 0; i < jSONArray.size(); i++) {
-                JSONObject jsonObject = (JSONObject) jSONArray.get(i);
-                String tillDateString = jsonObject.get("tilldate").toString();
+            if (marketingAction != null){
+                String jsonString = marketingAction.getJsonTemplate();
+                JSONObject json = (JSONObject) new JSONParser().parse(jsonString);
+                org.json.simple.JSONArray jSONArray = (org.json.simple.JSONArray) json.get(IConstants.kMarketingActionsKey);
+                for (Integer i = 0; i < jSONArray.size(); i++) {
+                    JSONObject jsonObject = (JSONObject) jSONArray.get(i);
+                    String tillDateString = jsonObject.get("tilldate").toString();
 
-                if (!(tillDateString.equals(""))) {
-                    formatter = new SimpleDateFormat("yyyy-MM-DD");
-                    tillDate = formatter.parse(tillDateString);
+                    if (!(tillDateString.equals(""))) {
+                        formatter = new SimpleDateFormat("yyyy-MM-DD");
+                        tillDate = formatter.parse(tillDateString);
+                    }
+
+                    String timeString = jsonObject.get("time").toString();
+                    SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm");
+                    Date time = formatterTime.parse(timeString);
+
+                    TblScheduledEntityList scheduledEntityList = new TblScheduledEntityList();
+                    scheduledEntityList.setEntityType(jsonObject.get("type").toString());
+                    scheduledEntityList.setIsRecuring(Boolean.parseBoolean(jsonObject.get("is_recuring").toString()));
+                    scheduledEntityList.setScheduleDesc(jsonObject.get("description").toString());
+                    scheduledEntityList.setEntityId(0);
+                    scheduledEntityList.setScheduleTime(time);
+                    scheduledEntityList.setTillDate(tillDate);
+                    scheduledEntityList.setDays(Integer.parseInt(jsonObject.get("days").toString()));
+                    scheduledEntityList.setStatus(TemplateStatus.no_template.toString());
+                    scheduledEntityList.setScheduleTitle(jsonObject.get("title").toString());
+                    scheduledEntityList.setUserId(user_id);
+                    TblUserMarketingProgram userMarketingProgram = new TblUserMarketingProgram();
+                    userMarketingProgram.setId(userMarketingProgramId);
+                    scheduledEntityList.setTblUserMarketingProgram(userMarketingProgram);
+                    scheduledEntityListService.save(scheduledEntityList);
                 }
-                String timeString = jsonObject.get("time").toString();
-                SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm");
-                Date time = formatterTime.parse(timeString);
-
-                TblScheduledEntityList scheduledEntityList = new TblScheduledEntityList();
-                scheduledEntityList.setEntityType(jsonObject.get("type").toString());
-                scheduledEntityList.setIsRecuring(Boolean.parseBoolean(jsonObject.get("is_recuring").toString()));
-                scheduledEntityList.setScheduleDesc(jsonObject.get("description").toString());
-                scheduledEntityList.setEntityId(0);
-                scheduledEntityList.setScheduleTime(time);
-                scheduledEntityList.setTillDate(tillDate);
-                scheduledEntityList.setDays(Integer.parseInt(jsonObject.get("days").toString()));
-                scheduledEntityList.setStatus(TemplateStatus.no_template.toString());
-                scheduledEntityList.setScheduleTitle(jsonObject.get("title").toString());
-                scheduledEntityList.setUserId(user_id);
-                TblUserMarketingProgram userMarketingProgram = new TblUserMarketingProgram();
-                userMarketingProgram.setId(userMarketingProgramId);
-                scheduledEntityList.setTblUserMarketingProgram(userMarketingProgram);
-                scheduledEntityListService.save(scheduledEntityList);
             }
-            return link;
+                return link;
         } catch (Exception ex) {
             logger.log(Level.SEVERE, "Exception while saving the user marketing program", ex);
         }
@@ -314,9 +319,10 @@ public class UserMarketingProgramController {
                 }
 
                 jSONObject.put("scheduledEntityListId", scheduledEntityListObject.getId());
-                jSONObject.put("dateTime", scheduledEntityListObject.getTblUserMarketingProgram().getCreateDate().getTime());
+                jSONObject.put("dateTime", scheduledEntityListObject.getScheduleTime().getTime());
                 jSONObject.put("programTemplateName", scheduledEntityListObject.getScheduleTitle());
                 jSONObject.put("days", scheduledEntityListObject.getDays());
+                jSONObject.put("tillDate", scheduledEntityListObject.getTillDate().getTime());
                 int d = scheduledEntityListObject.getDays();
                 jSONObject.put("description", scheduledEntityListObject.getScheduleDesc());
                 jSONObject.put("postDateStatus", postDateStatus);
@@ -526,10 +532,12 @@ public class UserMarketingProgramController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
-            Double program_id = (Double) requestBodyMap.get("program_id");
+            String program_id1 = (String) requestBodyMap.get("program_id");
+            Double program_id=Double.parseDouble(program_id1);
             Double date_of_event = (Double) requestBodyMap.get("date_of_event");
             String link_url = (String) requestBodyMap.get("link_url");
             String link_name = (String) requestBodyMap.get("link_name");
+            String name = (String) requestBodyMap.get("program_name");
 
             TblUserMarketingProgram user_marketing_program = userMarketingProgramService.getById(program_id.intValue());
 
@@ -538,6 +546,7 @@ public class UserMarketingProgramController {
             user_marketing_program.setDateEvent(event_date);
             user_marketing_program.setUrl(link_url);
             user_marketing_program.setLinkName(link_name);
+            user_marketing_program.setName(name);
 
             userMarketingProgramService.update(user_marketing_program);
             return "true";
@@ -582,7 +591,6 @@ public class UserMarketingProgramController {
             }
             scheduledEntityListService.update(scheduled_entity_list);
             logger.log(Level.INFO, "Refresh Email scheduler in Usermarketing");
-            ApplicationContextListener.refreshEmailRecuringScheduler();
             return "true";
         } catch (Throwable throwable) {
             logger.log(Level.SEVERE, null, throwable);
@@ -613,15 +621,6 @@ public class UserMarketingProgramController {
             scheduledEntityListService.update(scheduled_entity_list);
 
             logger.log(Level.INFO, "Refresh Email, FB and Twitter scheduler in Usermarketing");
-
-            ApplicationContextListener.refreshFacebookScheduler();
-            ApplicationContextListener.refreshTwitterScheduler();
-            ApplicationContextListener.refreshEmailScheduler();
-
-            if (entity_type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString())) {
-            } else if (entity_type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString())) {
-            } else if (entity_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
-            }
 
             return "true";
         } catch (Throwable throwable) {

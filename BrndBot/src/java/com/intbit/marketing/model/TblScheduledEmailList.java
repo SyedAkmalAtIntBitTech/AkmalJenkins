@@ -27,7 +27,6 @@ import org.hibernate.annotations.TypeDefs;
 @TypeDefs( {@TypeDef( name= "StringJsonObject", typeClass = StringJsonUserType.class)})
 public class TblScheduledEmailList  implements java.io.Serializable {
 
-
      private int id;
      private TblUserLoginDetails tblUserLoginDetails;
      private String subject;
@@ -42,7 +41,6 @@ public class TblScheduledEmailList  implements java.io.Serializable {
     public TblScheduledEmailList() {
     }
 
-	
     public TblScheduledEmailList(int id) {
         this.id = id;
     }

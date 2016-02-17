@@ -11,6 +11,8 @@ import com.intbit.util.ServletUtil;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +38,7 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         boolean face = false;
         boolean twit = false;
+        
         try {
             getSqlMethodsInstance().session = request.getSession();
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
@@ -45,8 +48,17 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
             String getImageFile = request.getParameter("imageToPost");
             String getFile = request.getParameter("imagePost");
             String url = request.getParameter("url");
-
-            String file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
+            String imageType = request.getParameter("imageType");
+            String file_image_path = "";
+            String returnMessage = "";
+            boolean status = true;
+            if (imageType.equals("layout")){
+                file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
+            }else if (imageType.equals("gallery")) {
+                file_image_path = AppConstants.USER_IMAGE_HOME + File.separator + user_id + File.separator + getImageFile;
+            }else if (imageType.equals("url")){
+                file_image_path = getImageFile;
+            }
 
 //            String file_image_path = getServletContext().getRealPath("") + "/temp/"+getImageFile;
             String imagePostURL = ServletUtil.getServerName(request.getServletContext());
@@ -58,23 +70,32 @@ public class PostToSocial extends BrndBotBaseHttpServlet {
                 String title = request.getParameter("title");
                 String description = request.getParameter("description");
                 String url1 = request.getParameter("url");
-                String returnMessage = PostToFacebook.postStatus(accessToken, title, file_image_path, posttext, imagePostURL, getImageFile, url1, description, user_id, htmlString);
-
-            }
-            if (isTwitter.equalsIgnoreCase("true")) {
+                returnMessage = PostToFacebook.postStatus(accessToken, title, 
+                        file_image_path, posttext, imagePostURL, getImageFile, url1, 
+                        description, imageType, user_id, htmlString);
+            }if (isTwitter.equalsIgnoreCase("true")) {
 
                 String twitterAccessToken = request.getParameter("twittweraccestoken");
                 String twitterTokenSecret = request.getParameter("twitterTokenSecret");
                 String text = request.getParameter("text");
                 String shortURL = request.getParameter("shorturl");
                 PrintWriter out1 = response.getWriter();
-                String returnMessage = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, text, shortURL, file_image_path, user_id, htmlString, getImageFile);
+                returnMessage = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, 
+                        imageType, text, shortURL, file_image_path, user_id, htmlString, getImageFile);
                 out1.println(returnMessage);
-
             }
+            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "message while facebook post:"+returnMessage);
+
+            if (returnMessage.equals("success") && imageType.equals("layout")){
+                file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
+                File deleteFile = new File(file_image_path);
+                status = deleteFile.delete();
+            }
+            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "message after social post:"+status);
 
         } catch (Exception e) {
-            
+            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getCause());
+            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getMessage());
         }
     }
 

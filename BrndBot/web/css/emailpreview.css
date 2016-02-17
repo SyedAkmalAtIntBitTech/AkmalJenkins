@@ -71,16 +71,16 @@ label                {
   color:#999;
 }
 #email:focus ~ label, #email:valid ~ label        {
-  left:-100px;
+  left:-90px;
   font-size:13px;
   color:#999;
 }
 
-#text1{
+#t1{
     margin-top: 50px;
     font-size: 18px;   
 }
-#text2{
+#t2{
     color: #999;
 }
 #emailform{

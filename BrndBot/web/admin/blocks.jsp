@@ -67,7 +67,7 @@
                         <option value="promote new class">promote new class</option>
                         <option value="promote todays class">promote todays class</option>
                         
-                        <option value="promote event">promote event</option>
+                        <option value="staff spotlight">staff spotlight</option>
                         <option value="promote new staff">promote new staff</option>
                     </select><br>
                     Select brand personality: <select name="brand" id="brand" style="width:180px;">
@@ -89,7 +89,7 @@
                         }catch (Exception e) {
                             logger.log(Level.SEVERE, "", e);
                         }finally {
-                            result_set.close();
+//                            result_set.close();
                             prepared_statement.close();
                             ConnectionManager.getInstance().closeConnection(conn);
                         }
@@ -113,14 +113,12 @@
                         }catch (Exception e) {
                             logger.log(Level.SEVERE, "", e);
                         }finally {
-                            result_set.close();
+//                            result_set.close();
                             prepared_statement.close();
                             ConnectionManager.getInstance().closeConnection(conn);
                         }
                         %>
-                    </select><br>
-
-                    
+                    </select><br>              
                     </div>
                 </div>
                 <div class="group">
@@ -176,7 +174,7 @@
                     <%
                         num = num +1;
                     }
-                        result_set.close();
+//                        result_set.close();
                         prepared_statement.close();
                     }catch (Exception e){
                         logger.log(Level.SEVERE, "", e);

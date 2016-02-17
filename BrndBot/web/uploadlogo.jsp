@@ -106,13 +106,12 @@
                 }]);
 
             myApp.controller('myCtrl', ['$scope', 'fileUpload', function ($scope, fileUpload) {
-                    $scope.uploadFile = function () {
+                    $scope.uploadFile = function () {                                                    
                         var file = $scope.myFile;
                         console.log('file is ' + JSON.stringify(file));
                         var uploadUrl = global_host_address + 'UploadLogo';
-                        fileUpload.uploadFileToUrl(file, uploadUrl);
+                        fileUpload.uploadFileToUrl(file, uploadUrl);                        
                     };
-
               }]);
 
         </script>
@@ -141,7 +140,7 @@
                 <div class="group" ng-controller="myCtrl">
                     <div class="span5 col-md-offset-3 ">
                           <div class="fileUpload btn ">
-                            <span>Click to upload a logo</span>
+                              <span class="curpointer">Click to upload a logo</span>
                             <input type="file" name="filesToUpload[]"  id="filesToUpload" class="upload"  file-model="myFile" />
                         </div>
                         <button style="left:18.5em;" id="Servicecontinue" type="submit"  class="button button--moema button--text-thick  button--size-s" disabled ng-click="uploadFile()">UPLOAD LOGO</button>
@@ -169,7 +168,7 @@
                 case 'svg':    
                     break;
                 default:
-                    alert('This type of image is not allowed');
+                    alert('This type of image is not allowed.');
                     this.value = '';
             }
         };

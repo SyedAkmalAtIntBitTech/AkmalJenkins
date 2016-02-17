@@ -34,7 +34,7 @@ public class ServletUserRegistration extends BrndBotBaseHttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         getSqlMethodsInstance().session = request.getSession(true);
-        getSqlMethodsInstance().session.setMaxInactiveInterval(0);
+        getSqlMethodsInstance().session.setMaxInactiveInterval(1 * 15 * 60);
 
         StringBuffer string_buffer = new StringBuffer();
         boolean check = true;

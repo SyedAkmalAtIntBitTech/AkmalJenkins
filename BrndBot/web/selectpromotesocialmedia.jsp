@@ -1,9 +1,8 @@
-<%-- 
-    Document   : selectpromotesocialmedia
-    Created on : 17 Jul, 2015, 11:58:23 AM
-    Author     : sandeep-kumar
---%>
-
+<!-- 
+    Document   : selectpromotesocialmedia.jsp
+    Created on : 11 jan, 2016, 12:58:23 PM
+    Author     : satyajit-roy
+-->
 <%@page import="facebook4j.Account" %>
 <%@page import="facebook4j.Facebook" %>
 <%@page import="facebook4j.FacebookException" %>
@@ -15,134 +14,48 @@
 <%@page import="org.json.JSONObject"%>
 <%@page import="org.json.JSONArray"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
-<!DOCTYPE html>
-<html>
-    <head>
-         <%@ include file="fonttypekit.jsp"%>
-         <%@ include file="checksession.jsp" %>
-
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-       <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-        <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
-
-        <link href="css/glyphiconiconstyle.css" rel="stylesheet" type="text/css"/>
-        <!--<script src="js/foundation.min.js" type="text/javascript"></script>-->
-        <script src="js/jquery.reveal.js" type="text/javascript"></script>
-        
-        <script src="js/socialmedia.js" type="text/javascript"></script>
-        
-<link href="css/reveal.css" rel="stylesheet" type="text/css"/>
-<!--        <script src="js/socialeditor.js" type="text/javascript"></script>-->
-        <title>BrndBot - Social Media</title>
-
-        <style>
-            #loadingGif{
-               position: absolute;
-               top:250px;
-               left: 550px;
-            }
-            .socialimage{
-                width: 120px;
-                height: 120px;
-                position: relative;
-                top:-25px;
-                left:-40px;
-                margin-right: 0px;
-            } 
-            #facebook{
-                 position: absolute;
-                margin-left: -70px;
-           
-            }
-            #twitter{
-                position: absolute;
-                margin-left: -70px;
-           
-            }
-            
-            #popup
-            {
-                /*                   display:none;*/
-                position: fixed;
-                width: auto;
-                height:300px;
-                top: 30%;
-                left: 50%;
-                margin-left:-155px;
-                margin-top:-110px;
-                border:5px solid #686868 ;
-                background-color:#CDCDFF;
-                padding:30px;
-                z-index:102;
-                font-family:Verdana;
-                font-size:10pt;
-                border-radius:10px;
-                -webkit-border-radius:20px;
-                -moz-border-radius:20px;
-                font-weight:bold;
-                overflow: auto;
-            }
-            #twitterpopup{
-
-                position: fixed;
-                width: 450px;
-                height:200px;
-                top: 40%;
-                left: 50%;
-                margin-left:-155px;
-                margin-top:-110px;
-                border:5px solid #686868 ;
-                background-color:#CDCDFF;
-                padding:30px;
-                z-index:102;
-                font-family:Verdana;
-                font-size:10pt;
-                border-radius:10px;
-                -webkit-border-radius:20px;
-                -moz-border-radius:20px;
-                font-weight:bold;
-                text-align: center;
-
-            }
-            #content
-            {
-                height:auto;
-                width:300px;
-                height:500px;
-                margin:5px auto;
-            }
-            #popupclose
-            {
-                margin:35px 0 0 80px;
-                width:50px;
-
-            }
-            tr,td{
-                margin-left: 2px;
-                padding-right: 5px;
-            }
-            #submitbutton{
-                position:relative;
-                top:70px;
-                left:80px;
-            }
-            .red-cell {
-                background:#D8D8D8; /* Or some other color */
-             }
-
-        </style>
-        <%! 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/slat.css">
+    <link rel="shortcut icon" href="favicon.png">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
+    <link rel="shortcut icon" href="images/favicon.png"></link>
+    <%@ include file="fonttypekit.jsp"%>        
+    <%@ include file="checksession.jsp" %>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="js/alert_message.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+    <script src="js/popup.js" type="text/javascript"></script>
+    <link href="css/popup.css" rel="stylesheet" type="text/css"/>
+    <link href="css/glyphiconiconstyle.css" rel="stylesheet" type="text/css"/>
+    <!--<script src="js/foundation.min.js" type="text/javascript"></script>-->
+    <script src="js/jquery.reveal.js" type="text/javascript"></script>
+    <link href="css/reveal.css" rel="stylesheet" type="text/css"/>
+    <!--<script src="js/socialeditor.js" type="text/javascript"></script>-->
+    <title>BrndBot - Social Media</title>
+    <script src="js/selectpromotesocialmedia.js" type="text/javascript"></script>
+    <link href="css/selectpromotesocialmedia.css" rel="stylesheet" type="text/css"/>
+    <title>BrndBot - Image Selection</title>
+	<%! 
+            SqlMethods sql_methods = new SqlMethods();
             Object code = "";
+            String mindbody_data_id = "";
+            String media_type = "";
             String ImageName="";
         %>
         <% 
-            try{
+        try{
                 code = (Object)request.getAttribute("objkey");
                 ImageName=request.getParameter("image");
             }catch (Exception e){
@@ -150,55 +63,70 @@
                 System.out.println(e.getMessage());
                 
             }
-        
+            try {
+                sql_methods.session = request.getSession();
+                user_id = (Integer)sql_methods.session.getAttribute("UID");
+                if (!request.getParameter("id").equals(null)){
+                    mindbody_data_id = (String) request.getParameter("id");
+                } 
+                
+                if (!request.getParameter("mediatype").equals(null)){
+                     media_type = (String)request.getParameter("mediatype");
+                } 
+            } catch (Exception e) {
+                System.out.println(e.getCause());
+                System.out.println(e.getMessage());
+            }
         %>
-        
-<!--           <script>
-            $(document).ready(function () {
-               
-//                     $(".cross").hide();
-//                            $(".menu").hide();
-//                            $(".hamburger").click(function () {
-//                                 $(".menu").slideToggle("slow", function () {
-//                                     $(".hamburger").hide();
-//                                             $(".cross").show();
-//                                 });
-//                             });
-//                            $(".cross").click(function () {
-//                                $(".menu").slideToggle("slow", function () {
-//                                $(".cross").hide();
-//                                        $(".hamburger").show();
-//                                });
-//                            });
-                        });
-        </script>-->
-        
-        
-        <script>
+        <%!
+            String category_id, sub_category_name, sub_category_id;
+        %>
+        <%
+            try {
+                sql_methods.session = request.getSession(true);
+                category_id = request.getParameter("category_id");
+                sub_category_name = request.getParameter("sub_category_name");
+                sub_category_id = request.getParameter("sub_category_id");
+                if(category_id==null)
+                {
+                    category_id = sql_methods.session.getAttribute("category_id").toString();
+                    sub_category_name = sql_methods.session.getAttribute("sub_category_name").toString();
+                    sub_category_id = sql_methods.session.getAttribute("sub_category_id").toString();
+                }
+                else
+                {
+                    sql_methods.session.setAttribute("sub_category_name", sub_category_name);
+                    sql_methods.session.setAttribute("sub_category_id", sub_category_id);
+                    sql_methods.session.setAttribute("category_id", category_id);
+                }
+
+            } catch (Exception e) {
+                System.out.println(e.getCause());
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+        %>
+    <%@ include file="onetimetwitterpopup.jsp"%>
+    <%@ include file="onetimefacebookpopup.jsp"%>   
+    <jsp:include page="basejsp.jsp" />
+      <script>
             
             $(document).ready(function () {
-                $("#loadingGif").hide();
-                // $('#myModal').trigger('reveal:open');
-                
-//                $("#abc").click(function () {
-//                    alert("close already!");
-//                   
-//                    $('#myModal').foundation('reveal', 'close');
-//                });
                 var myVar1 = '<%= code %>';    /* retrieve json from request attribute */
                 var mytest = eval('(' + myVar1 + ')');
                 //alert(JSON.stringify(myVar1));      // display complete json
 
                 var removecote = myVar1.replace("[", '').replace(/"/g, '').replace(']', '');
                 var pages = removecote.split(",");
-                //       alert(pages.length);
-
+                       //alert(pages.length);
                 if (myVar1 === "null") {
                     //$("#popup").hide();
-                    $(".close-reveal-modal").click();
+                    $("#fade").hide();
+                    $("#fbpopup").hide();                    
                 }
                 else {
-                    $(".clickthis").click();
+                    $("#fade").show();
+                    $("#fbpopup").show();
                     if(pages.length==1)
                     {
                         $("#fbmanagepages").append("<tr><td><strong>Please create atleast one <a href='https://www.facebook.com/help/104002523024878' target='_blank'>facebook page</a></strong></td></tr>");
@@ -218,10 +146,10 @@
                 var managed_page = "";
                 var default_access_token;
                 var check_default = "false";
-                var check_default_managed_page;
+                var check_default_managed_page;                
                 $("tr").click(function () {
                     var id = this.id.split("#");
-                   var selected = $(this).hasClass("red-cell");
+                    var selected = $(this).hasClass("red-cell");
                     $("tr").removeClass("red-cell");
                     if(!selected){
                             $(this).addClass("red-cell");}
@@ -238,32 +166,15 @@
                 });
 
                 $("#isdefault").click(function () {
-//                    managed_page = $("#isDefault").val();
-//                    alert(check_default);
                     if (check_default == "true"){
                         default_access_token = $("#fbaccessTokenSend").val();
                     }
                     
-//                    if (check_default == "true"){
-//                        $.ajax({
-//                                url: 'SetUserFacebookAccessToken',
-//                                method: 'post',
-//                                type:"JSON",
-//                                data: {
-//                                    method: "setAccessToken",
-//                                    access_token:default_access_token
-//                                },
-//                                success: function (responseText) {
-//    //                            $("#tokenHere").html(responseText);
-//                                    alert("sucess");
-//                                }
-//                            });
-//                    }
                     });
 
                 $("#facebookok").click(function () {
-//                    managed_page = $("#isDefault").val();
                     document.getElementById("fb").src="images/fbButton_darkblue_new.svg";
+                    $("#mousef").css("background-color","#F9F9F9");
                     check_default_managed_page = document.getElementById("isdefault").checked;
                     if ((check_default_managed_page == true) && (check_default == "true")){
                         $.ajax({
@@ -275,31 +186,25 @@
                                    access_token:default_access_token
                                 },
                                 success: function (responseText) {
-    //                            $("#tokenHere").html(responseText);
-                   
-                                    //$("#popup").hide(); 
-                                    $(".close-reveal-modal").click();
-                                     $("#submitbutton").prop("disabled",false);
+                                    $("#fbpopup").hide();
+                                    $("#fade").hide();
+                                    $("#submitbutton").prop("disabled",false);
                                 }
                             });
                     }else if((check_default_managed_page == false) && (check_default == "true")) { 
                         //$("#popup").hide(); 
-                        $(".close-reveal-modal").click();
+                        $("#fbpopup").hide();
+                        $("#fade").hide();
                         $("#submitbutton").prop("disabled",false);
                     }else {
                         alert("No default page selected");
                     } 
-            });
+                });
             
-            $("#close").click(function(){
-                    $("#fbaccessTokenSend").val("") ;
-                    $("#fbdefaultAccessToken").val("");
-                    $("#isFacebook").val("false");
-                    $("#facebook").prop("checked",false);
-                    //$("#popup").hide();
-                    $(".close-reveal-modal").click();
-                    $("#twitterpopup").hide();
-                    $("#submitbutton").prop("disabled",true);
+            $("#closefbpopupa").click(function(){
+                $("#fbpopup").hide();
+                $("#fade").hide();
+                window.open(getHost() + 'selectpromotesocialmedia.jsp?id=null&mediatype=social&category_id=<%=category_id%>&sub_category_id=<%=sub_category_id%>&sub_category_name=<%=sub_category_name%>',"_self");
             });   
            });
            
@@ -309,93 +214,114 @@
            }
            
         </script>
-        <jsp:include page="basejsp.jsp" />
-    </head>
-    <body>
-    <img id="loadingGif" src="images/YogaLoadingGif.gif" />
-    <a href="#" data-reveal-id="myModal" class="clickthis" style="display: none;">Click Me For A Modal</a>
-    <a href="#" data-reveal-id="myModal1" class="clicktwitter" style="display: none;">Click Me For A Modal</a>
-    <div class="row">
-       <jsp:include page="leftmenu.html"/><!--/end left column-->
-       
-        <div class="col-md-10 col-md-offset-2">
-            <p id="textgrt" class="MH2">Great! Which social media platform(s)<br>
-                would you like to post it on?</p>
-            <p class="smltxt BC1">Click which social media platforms you want to post it on</p>
-            <ul id="promotebuttonlist">
+</head>    
 
-                <li><img id="fb" class="socialimage fb ptr" src="images/fbButton.svg" onclick="changeImagef();"/> <input type="checkbox" id="facebook" name="social"  value="Facebook" hidden="true"><p class="il2">Facebook</p></li>
-                <li><img id="twt" class="socialimage twt ptr" src="images/twtButton.svg" onclick="changeImaget();"/> <input type="checkbox" id="twitter" name="social" value="Twitter" hidden="true"><p class="il2">Twitter</p></li>
-                <li><div style="left:-330px;" class="col-md-5 col-md-offset-0">
-
-                        <form action="<%=request.getContextPath()%>/socialmediapreview.jsp" method="POST">
-                            <input type="hidden" id="imageName" name="imageName" value='<%=ImageName%>' >
-                            <input type="hidden" id="twaccessTokenSend" name="twaccessTokenSend" >
-                            <input type="hidden" id="pagenameSend" name="pagenameSend" >
-                            <input type="hidden" id="fbaccessTokenSend" name="fbaccessTokenSend">
-                            <input type="hidden" id="fbdefaultAccessToken" name="fbdefaultAccessToken">
-                            <input type="hidden" id="isFacebook" name="isFacebook" value="false">
-                            <input type="hidden" id="isTwitter" name="isTwitter" value="false">
-                            <input type="submit"  id="submitbutton" class="button button--moema button--text-thick button--text-upper button--size-s" value="Continue" disabled>
-                        </form> 
-                    </div>
-                </li>
-            </ul>  
+<body class="">
+    <!--SideNav-->
+    <div class="content-main">
+    <input type="hidden" name="category_id" id="category_id" value="<%=category_id%>"/>
+    <input type="hidden" name="sub_category_id" id="sub_category_id" value="<%=sub_category_id%>"/>
+    <input type="hidden" name="sub_category_name" id="sub_category_name" value="<%=sub_category_name%>"/>
+    <input type="hidden" name="code" id="code" value="<%=code%>"/>
+    <input type="hidden" name="code" id="ImageName" name="imageName" value="<%=ImageName%>"/>
+    <div class="navigation">
+        <div class="main-nav-logo">
+            <a class=" bb-logo-nav" href="Dashboard.html">
+                <img type="image/svg+xml" src="images/Icons/Logo_Reverse.svg" class="bb-logo" style="cursor:pointer;"> </img>
+            </a>
         </div>
-
-        <div id="myModal" class="reveal-modal">
-            <div id="content">
-                <center>
-                    <table id="fbmanagepages">
-                    </table>
-                </center>
-            </div>   
-            <a class="close-reveal-modal">&#215;</a>
-        </div>
-        <div id="myModal1" class="reveal-modal">
-            <div id="content">
-                <p>"You now need to connect BrndBot to your Twitter account. Click 'get your pin' you will be given a 7 digit pin by Twitter. Copy and paste that pin here and you are all set!"</p>
-                <div id="twitterlink">wait...</div>
-                Enter the pin<input type="text" id="pinTextBox" name="pinTextBox"><br><br><br>
-                <input id="setPin" type="button" class="btn btn-primary" value="ok">
-<!--                <input id="closetwitter" type="button" class="btn btn-primary" value="cancel">-->
-            </div> 
-<!--            <a class="close-reveal-modal">&#215;</a>  -->
-        </div>        
     </div>
-                            <script>
-                                        <link href="css/foundation.min.css" rel="stylesheet" type="text/css"/>
-                                
-                            </script>
-                            <script>
-    function changeImagef() {
-        $("#loadingGif").show();
-       var x = document.getElementById("facebook").checked;
-       if(x == false){
-       document.getElementById("facebook").checked=true;
-       document.getElementById("fb").src="images/fbButton_darkblue_new.svg"; 
-   }
-   else
-   {
-       document.getElementById("fb").src="images/fbButton.svg"; 
-       document.getElementById("facebook").checked=false;    
-   }
-       
-   }
-      function changeImaget() {
-       var x = document.getElementById("twitter").checked;
-       if(x == false){
-       document.getElementById("twitter").checked=true;
-       document.getElementById("twt").src="images/twtButton_lightblue_new.svg";
-   }
-   else
-   {
-       document.getElementById("twt").src="images/twtButton.svg";
-       document.getElementById("twitter").checked=false;    
-   }
-}
+    <jsp:include page="navbarv2.jsp"/>    
+    <!--Top Nav-->   
+    <div class="top-nav">
+        <div class="page-title-bar col-1of1"> 
+            <a class=" exit-button-icon" href="channelselection.jsp?category_id=<%=category_id%>&sub_category_name=<%=sub_category_name%>&sub_category_id=<%=sub_category_id%>&external_sourcenull">
+                <div class="exit-button-detail">
+                    <img type="image/svg+xml" src="images/Icons/backbutton.svg" onclick="backtocategory()" class="exit-button-icon" style="cursor:pointer;"> </img>
+                </div>
+            </a>
+            <div class="page-title-with-back page-title-font">Social Channel Selection</div>
+            <!--<div class="page-cta-container">
+                <a href="" class="gray-button fleft">
+                    <div class=" md-button">  End Marketing Program</div>    
+                </a>
+            </div>-->
+        </div>
 
-</script>
+    </div>
+        <!--Main Content GENERIC--> 
+            <div class="sequence-page-background">
+        <div class="sequence-page-content-container">
+            <div class="sequence-page-header">Choose which network(s) to post on:</div>
+            <div class="sequence-page-subheader">If you select more than one network you will not be able to schedule as actions.</div>
+            <div class="email-list-selection col-1of1 fleft">
+               <div class="col-1of1 fleft unit socialNetwork-Selection-Slat mouseunclk" id="mousef">
+                    <div class="selection-container topnegative10 col-5p fleft"> 
+                        <div class="chooseChannelSelection-icon" id="fbimgd"> 
+                            <img id="fb" class="chooseList-icon" src="images/white.png">
+                        </div>                        
+                        <input type="checkbox" id="facebook" name="social" value="Facebook" hidden="true">
+                    </div>
+                    <div class="col-4of10 fleft ">
+                        <div class="h2 col-1of1 socialNetwork-Name">Facebook</div>
+                      
+                    </div>
+                </div>
+                <div class="col-1of1 fleft unit pushUp-15 socialNetwork-Selection-Slat mouseunclk" id="mouset" >
+                    <div class="selection-container topnegative10 col-5p fleft"> 
+                        <div class="chooseChannelSelection-icon" id="twimgd">
+                            <img id="twt" class="chooseList-icon" src="images/white.png">
+                        </div>
+                        <input type="checkbox" id="twitter" name="social" value="Twitter" hidden="true">
+                    </div>
+                    
+                    <div class="col-4of10 fleft">
+                        <div class="h2 col-1of1 socialNetwork-Name">Twitter</div>
+                        
+                    </div>
+                </div>
+           
+            
+            <!--Inner Content Conatiner GENERIC-->
+            
+        </div>
+        </div>
+    </div>
+  
+        <!--CTA Bar-->
+        <div class="bottom-cta-bar">
+            <div class="bottom-cta-button-container-lg">
+                <form action="<%=request.getContextPath()%>/socialimageselection.jsp" method="POST">
+                    <input type="hidden" id="media_type" name="media_type" value = '<%=media_type%>' />
+                    <input type="hidden" id="mindbodydata" name="mindbodydata" value='<%= mindbody_data_id %>'>
+                    <input type="hidden" id="twaccessTokenSend" name="twaccessTokenSend" >
+                    <input type="hidden" id="pagenameSend" name="pagenameSend" >
+                    <input type="hidden" id="fbaccessTokenSend" name="fbaccessTokenSend">
+                    <input type="hidden" id="fbdefaultAccessToken" name="fbdefaultAccessToken">
+                    <input type="hidden" id="isFacebook" name="isFacebook" value="false">
+                    <input type="hidden" id="isTwitter" name="isTwitter" value="false">
+                    <input type="hidden" id="image" name="image" value="">
+                    <input type="hidden" id="selectedType" name="selectedType" value="">
+                    <input type="hidden" id="mediaType" name="mediaType" value="">
+                    <input type="hidden" id="data" name="data" value=",,,,,,">
+                        <input type="submit" value="Continue" id="submitbutton" class="bottom-continue-button button-text-1" disabled ></input>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myModal" class="reveal-modal">
+    <div id="content">
+        <center>
+            <table id="fbmanagepages">
+            </table>
+        </center>
+    </div>   
+    <a class="close-reveal-modal">&#215;</a>
+</div>
+<div id="myModal1" class="reveal-modal">
+    
+<!--            <a class="close-reveal-modal">&#215;</a>  -->
+</div>    
 </body>
-
 </html>

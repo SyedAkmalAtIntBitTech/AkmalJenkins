@@ -42,12 +42,16 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
             throws ServletException, IOException {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
-        
+        PrintWriter out=response.getWriter();
         try {
              sqlmethods.session = request.getSession();
 //            String html_data = request.getParameter("htmlString");
 //            sqlmethods.session.setAttribute("htmldata", html_data);
              String emailSubject = request.getParameter("email_subject");
+             if(emailSubject=="")
+             {
+                 emailSubject=(String)sqlmethods.session.getAttribute("email_subject");
+             }
              String email_addresses = request.getParameter("email_addresses");
              String emaillistname = request.getParameter("email_list");
              
@@ -55,7 +59,8 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
              sqlmethods.session.setAttribute("email_subject", emailSubject);
              sqlmethods.session.setAttribute("email_addresses", email_addresses);
              sqlmethods.session.setAttribute("email_list", emaillistname);
-             
+             out.print("true");
+             //response.getWriter().write("true");
         }catch (Exception e){
             Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, e.getCause());
             Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, e.getMessage());

@@ -17,6 +17,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLType;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.time.Instant;
@@ -115,7 +116,7 @@ public class ScheduleDAO {
                         ScheduledEntityType.Email.toString(),
                         "0",
                         templateStatus,
-                        userId,
+                        userId, 
                         connection);
 
                 connection.commit();
@@ -271,7 +272,10 @@ public class ScheduleDAO {
             int userId,
             Connection connection) throws SQLException {
         String sql = "INSERT INTO tbl_scheduled_entity_list"
-                + " (entity_id, schedule_title,schedule_time,entity_type,status,user_id, schedule_desc,is_recuring,user_marketing_program_id,days,till_date,recuring_email_id ) VALUES"
+                + " (entity_id, schedule_title,schedule_time,entity_type,"
+                + "status,user_id, schedule_desc,is_recuring,"
+                + "user_marketing_program_id,days,till_date,recuring_email_id"
+                + ") VALUES"
                 + " (?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id";
 
         int scheduleId = -1;
@@ -305,6 +309,26 @@ public class ScheduleDAO {
         return scheduleId;
     }
 
+      public static int updateDescriptionScheduledEntity(Integer scheduleId,
+            String scheduleDesc,
+            Connection connection) throws SQLException {
+        String query_string = "Update tbl_scheduled_entity_list"
+                + " SET schedule_desc = ?"
+                + " Where id = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(query_string)) {
+
+            ps.setString(1, scheduleDesc);
+            ps.setInt(2, scheduleId);
+            ps.execute();
+
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e,
+                    "Exception while updating the schedule:", null), e);
+        }
+        return scheduleId;
+    }
+    
     public static int updateScheduledEntity(Integer scheduleId,
             String scheduleTitle,
             String scheduleDesc,
@@ -315,7 +339,7 @@ public class ScheduleDAO {
             Connection connection) throws SQLException {
         String query_string = "Update tbl_scheduled_entity_list"
                 + " SET schedule_title = ?, schedule_time = ?,"
-                + " entity_type = ?, schedule_desc = ?, days= ?"
+                + " entity_type = ?, days= ?"
                 + " Where id = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query_string)) {
@@ -323,9 +347,8 @@ public class ScheduleDAO {
             ps.setString(1, scheduleTitle);
             ps.setTimestamp(2, scheduleTime);
             ps.setString(3, entityType);
-            ps.setString(4, scheduleDesc);
-            ps.setInt(5, days);
-            ps.setInt(6, scheduleId);
+            ps.setInt(4, days);
+            ps.setInt(5, scheduleId);
             ps.execute();
 
         } catch (Exception e) {
@@ -393,14 +416,14 @@ public class ScheduleDAO {
 //                + " ORDER BY slist.id, schedule_time ";
         String sql = "SELECT DISTINCT ON (id) slist.*, concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time, concat(date(programtable.date_event), ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time_recuring, date(schedule_time) schedule_date "
                 + " FROM tbl_scheduled_entity_list slist, "
-                + " tbl_scheduled_entity_type_color tc, tbl_user_marketing_program programtable"
+                + " tbl_user_marketing_program programtable"
                 + " WHERE slist.user_id = ? "
-                + " AND (date(schedule_time) <= ? "
+                + " AND ((date(schedule_time) <= ? "
                 + " AND date(schedule_time) >= ?) "
                 + " OR ((slist.is_recuring = 'false' AND date(programtable.date_event) - slist.days <= ? "
                 + " AND date(programtable.date_event) - slist.days >= ?) "
                 + " OR (slist.is_recuring = 'true' AND date(programtable.date_event) <= ? "
-                + " AND date(programtable.date_event) >= ?)) "
+                + " AND date(programtable.date_event) >= ?))) "
                 + " AND slist.user_marketing_program_id = programtable.id"
                 + " ORDER BY slist.id, schedule_time ";
         try (Connection connection = connectionManager.getConnection();
@@ -478,7 +501,7 @@ public class ScheduleDAO {
 
                     result.get(String.valueOf(scheduleDate)).add(scheduleDetailJSONObject);
                 }
-                logger.log(Level.INFO, "result:" + result.toString());
+                logger.log(Level.INFO, "In com.intbit.dao.ScheduleDAO.getScheduledEntities");
             } catch (Exception e) {
                 logger.log(Level.SEVERE, util.Utility.logMessage(e,
                         "Exception while getting the schedule:", null), e);
@@ -550,14 +573,14 @@ public class ScheduleDAO {
                 }
 
             }
-            logger.log(Level.INFO, entityDataArray.toString());
+//            logger.log(Level.INFO, entityDataArray.toString());
 
         } catch (Exception e) {
             logger.log(Level.SEVERE, util.Utility.logMessage(e,
                     "Exception while reading the dates :", null), e);
         }
         JSONObject json_data = new JSONObject();
-        json_data.put("noactionsmessage", "No Actions Setup");
+        json_data.put("noactionsmessage", "No Actions scheduled for this day");
         json_data.put("entitydata", entityDataArray);
         return json_data;
 
@@ -737,11 +760,12 @@ public class ScheduleDAO {
                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
             }
             String query_string2 = "UPDATE tbl_scheduled_entity_list"
-                    + " SET entity_id = ?, status = ? where id = ?";
+                    + " SET entity_id = ?, status = ?, recuring_email_id = ? where id = ?";
             try (PreparedStatement prepared_statement = connection.prepareStatement(query_string2)) {
                 prepared_statement.setInt(1, 0);
                 prepared_statement.setString(2, TemplateStatus.no_template.toString());
-                prepared_statement.setInt(3, schedule_id);
+                prepared_statement.setNull(3, java.sql.Types.INTEGER);
+                prepared_statement.setInt(4, schedule_id);
                 prepared_statement.executeUpdate();
             } catch (Exception e) {
                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating the schedule:", null), e);

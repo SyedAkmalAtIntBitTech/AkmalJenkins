@@ -3,6 +3,93 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+var x="";
+function changefilename() {
+    x = document.getElementById("filevalue").value;
+    if(x!=="")
+    { 
+        document.getElementById("filetext1").innerHTML = x;
+    }
+    else
+    {
+        document.getElementById("filetext1").innerHTML = "Choose an Image to upload";
+    }
+    //document.getElementById("demo").innerHTML = "You selected: " + x;
+}
+$(document).ready(function (){
+    var change=$("#change").val();
+    if(change==="1")
+    {
+        alert("Logo change Successfully");
+    }
+    if($("#image2").attr('src')==""){
+       $("#image2").hide();
+    }
+        var x=$("#showpassword").is(':checked'); 
+        if(x===true)
+        {            
+            password = $("#inputpassword1").val();
+            confirmpassword = $("#inputreenter1").val();
+        }
+        else
+        {
+            password = $("#inputpassword").val();
+            confirmpassword = $("#inputreenter").val();
+        } 
+    $("#showpassword").click(function(){
+        var password ="";
+        var confirmpassword="";
+        var x=$("#showpassword").is(':checked'); 
+        if(x===true)
+        {       
+            password = $("#inputpassword").val();
+            confirmpassword = $("#inputreenter").val();
+            $("#inputpassword1").val(password);
+            $("#inputreenter1").val(confirmpassword);
+            $(".showornot").hide();
+            $(".hideornot").show();
+        }
+        else
+        {
+            password = $("#inputpassword1").val();
+            confirmpassword = $("#inputreenter1").val();
+            $("#inputpassword").val(password);
+            $("#inputreenter").val(confirmpassword);
+            $(".hideornot").hide();
+            $(".showornot").show();
+        }
+    });   
+});
+       
+               var ElementID;
+               /*------ get selected element ID -----*/
+               function getElementID(IDNo){
+               ElementID = IDNo;
+                       $('.step_wrapper').on('click', '.step_box', function () {
+               $(this).parent().find('.step_box').css('width', '').css('height', '').css('border-color', '').css('border-radius', '');
+                       $(this).css('width', '80px').css('height', '40px').css('border-color', '#FF0000').css('border-radius', '10px');
+               });
+                       $("#sortable").sortable();
+                       $("#sortable").disableSelection();
+               }
+               /*------ pass color into the selected element got by id-----*/
+               function getIDNo(IDNo){
+                       var s = $("#" + IDNo).attr("style");
+                       var s1 = s.split(":");
+                       $("#" + ElementID).css("background-color", s1[1].replace(";", " "));
+               }
+               var id = 1;
+               var theme_id = 0;
+               function doSomething(theme_id){
+               var theamNum = parseInt(theme_id.replace("theme", ""));
+                       theamNum--;
+                       var num = theamNum * 6;
+                       $("#themeid").val(theme_id);
+                       for (var i = 1; i <= 6; i++){
+               var colorid = "color" + (i + num);
+                       $("#elementToPutStyleInto" + i).css("background-color", $("#" + colorid).css("background-color"));
+               }
+               }
 
 var elementid1;
 function showLook(lookid){
@@ -13,7 +100,6 @@ function showLook(lookid){
             $(this).css('background-color', '#DCDCDF');
         });
 }
-
 function nextLooks(){
     var lt = 0;
             lt = lt + 4;
@@ -27,20 +113,31 @@ function showBrand(brandid, image_name) {
 }
 
 function validate() {
-    var password = $("#inputpassword").val();
-    var confirmpassword = $("#inputreenter").val();
+    var password ="";
+    var confirmpassword="";
+    var x=$("#showpassword").is(':checked'); 
+    if(x===true)
+    {            
+        password = $("#inputpassword1").val();
+        confirmpassword = $("#inputreenter1").val();
+    }
+    else
+    {
+        password = $("#inputpassword").val();
+        confirmpassword = $("#inputreenter").val();
+    } 
     if (password === "") {
-        alert("password not entered, please enter the password");
+        alert(passwordemptyerror);
         $("#inputpassword").focus();
         return false;
     }
     if (confirmpassword === "") {
-        alert("confirm password not entered, please enter the confirm password");
+        alert(confirmpasswordemptyerror);
         $("#inputreenter").focus();
         return false;
     } else
     if (password !== confirmpassword) {
-        alert("confirm password does't match to password");
+        alert(confirmpassworderror);
         $("#inputreenter").focus();
         return false;
     }
@@ -59,9 +156,7 @@ function controllerUserChanges($scope, $http) {
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            alert(nodataerror);
         });
 
         $http({
@@ -73,19 +168,14 @@ function controllerUserChanges($scope, $http) {
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            alert(nodataerror);
         });
-
     };
 
-    $scope.updateLooks = function() {
-        
-        var look_id = $("#lookid").val();
-        
-     if (look_id == ""){
-        alert('Please select a look');
+    $scope.updateLooks = function() {        
+    var look_id = $("#lookid").val();        
+    if (look_id == ""){
+        alert(lockerror);
     }
     else{
         $http({
@@ -95,18 +185,15 @@ function controllerUserChanges($scope, $http) {
         }).success(function (data, status, headers, config) {
             $scope.status= data;
             if (data === "true"){
-                alert("Details updated successfully");
+                alert(detailssaveds);
                 $scope.getLooks();
             }else
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            alert(nodataerror);
         });
-    }
-        
+    }        
     };
     
     $scope.getBrands = function () {
@@ -119,9 +206,7 @@ function controllerUserChanges($scope, $http) {
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            alert(nodataerror);
         });
 
         $http({
@@ -132,18 +217,15 @@ function controllerUserChanges($scope, $http) {
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            alert(nodataerror);
         });
-
     };
 
     $scope.updateBrands = function() {
         
     var brandID = $("#hiddenform").val();
     if (brandID == "") {
-        alert("Please select a personality");
+        alert(personalityerror);
     }
     else {
         $http({
@@ -153,25 +235,31 @@ function controllerUserChanges($scope, $http) {
         }).success(function (data, status, headers, config) {
             $scope.status = data;
             if (data === "true"){
-                alert("Details updated successfully");
+                alert(detailssaved);
                 $scope.getBrands();
             }else
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            alert(nodataerror);
         });
-
-    }
-        
+    }        
     };
 
     $scope.changePassword = function () {
-
-        var password = $("#inputpassword").val();
-        var confirmpassword = $("#inputreenter").val();
+        var password ="";
+        var confirmpassword="";
+        var x=$("#showpassword").is(':checked'); 
+        if(x===true)
+        {            
+            password = $("#inputpassword1").val();
+            confirmpassword = $("#inputreenter1").val();
+        }
+        else
+        {
+            password = $("#inputpassword").val();
+            confirmpassword = $("#inputreenter").val();
+        }       
 
         if (validate()) {
 
@@ -186,22 +274,21 @@ function controllerUserChanges($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "false") {
-                    alert("user session has expired, kindly resubmit a request");
+                    alert(sessionexpire);
                 } else if (data === "true") {
-                    alert("password has been changed successfully");
+                    alert(passwordchanged);
+                    $("#inputpassword1").val("");
+                    $("#inputreenter1").val("");
                     $("#inputpassword").val("");
                     $("#inputreenter").val("");
+                    $("#showpassword").prop( "checked", false );
                 } else if (data === error) {
                 }
             }).error(function (data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-
-                alert("request not succesful");
+                alert(requesterror);
             });
         }
     };
-
             $scope.showColors = function() {
 
             $http({
@@ -214,9 +301,7 @@ function controllerUserChanges($scope, $http) {
                         if (data === error){
                         }
                 }).error(function(data, status, headers, config) {
-                alert("No data available, problem fetching the data");
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
+                    alert(nodataerror);
                 });
 
             $http({
@@ -229,9 +314,7 @@ function controllerUserChanges($scope, $http) {
                 if (data === error){
                 }
             }).error(function(data, status, headers, config) {
-                    alert("No data available, problem fetching the data");
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
+                    alert(nodataerror);
             });
 
             };
@@ -246,9 +329,7 @@ function controllerUserChanges($scope, $http) {
                     if (data === error ){
                     }
             }).error(function(data, status, headers, config) {
-                    alert("No data available, problem fetching the data");
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
+                    alert(nodataerror);
             });
             };
 
@@ -262,9 +343,7 @@ function controllerUserChanges($scope, $http) {
                     if (data === error ){
                     }
             }).error(function(data, status, headers, config) {
-                    alert("No data available, problem fetching the data");
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
+                    alert(nodataerror);
             });
             };
     
@@ -292,7 +371,7 @@ function controllerUserChanges($scope, $http) {
             var color5 = $("#finalcolor5").val();
             var color6 = $("#finalcolor6").val();
             if (color1 == "" || color2 == "" || color3 == "" || color4 == "" || color5 == "" || color6 == ""){
-                    alert("Please fill all six colors, click MOST USED to select colors");
+                    alert("Please fill all six colors! Click MOST USED to select colors.");
                 }
            else{
 
@@ -308,16 +387,12 @@ function controllerUserChanges($scope, $http) {
                     
                     if(data === error){
                     }else{
-                        alert("details saved successfully");
+                        alert(detailssaved);
                         $scope.showColors();
-//                        window.open(getHost() + 'settings.jsp', "_self");
                     }
                 }).error(function(data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert(requesterror);
                 });
-        }
+            }
         };
-
 };

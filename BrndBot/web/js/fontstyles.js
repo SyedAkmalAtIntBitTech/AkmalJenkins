@@ -10,7 +10,7 @@ function fontsStyleController($scope, $http) {
     function validate() {
         font_style = $("#fontstyle").val();
         if (font_style === "") {
-            alert("Enter the font style");
+            alert("Enter the font style!");
             $("#fontstyle").focus();
             return false;
         }
@@ -32,10 +32,10 @@ function fontsStyleController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "false") {
-                    alert("Font style already exist");
+                    alert("Font style already exist!");
                     $("#fontsize").focus();
                 } else if (data === "true") {
-                    alert("font saved successfully");
+                    alert("font saved successfully.");
                     window.open(getHost() + 'admin/fontsstyle.jsp', "_self");
                 } else if (data === error) {
                     alert(data);
@@ -44,7 +44,7 @@ function fontsStyleController($scope, $http) {
                     .error(function (data, status) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                     });
         }
     };
@@ -56,7 +56,7 @@ function fontsStyleController($scope, $http) {
 
         function validate() {
             if (font_style === "") {
-                alert("Enter the font size");
+                alert("Enter the font size!");
                 $(org_id).focus();
                 return false;
             }
@@ -75,7 +75,7 @@ function fontsStyleController($scope, $http) {
             {
                 $scope.status = data;
                 if (data === "true") {
-                    alert("font style updated successfully");
+                    alert("Font style updated successfully.");
                     window.open(getHost() + 'admin/fontsstyle.jsp', "_self");
                 } else if (data === error) {
                     alert(data);
@@ -84,7 +84,7 @@ function fontsStyleController($scope, $http) {
                     .error(function (data, status) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
-                        alert("request not succesful");
+                        alert("Request not successful!");
                     });
         }
     };
@@ -100,7 +100,7 @@ function fontsStyleController($scope, $http) {
         {
             $scope.status = data;
             if (data === "true") {
-                alert("Font style deleted successfully");
+                alert("Font style deleted successfully.");
                 window.open(getHost() + 'admin/fontsstyle.jsp', "_self");
             } else if (data === error) {
                 alert(data);

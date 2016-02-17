@@ -11,6 +11,7 @@
   <table-filter match-name="tbl_model"/>
   <table-filter match-name="tbl_marketing_action"/>
   <table-filter match-name="tbl_email_mandrill_history"/>
+  <table-filter match-name="tbl_email_draft"/>
   <table-filter match-name="tbl_scheduled_socialpost_list"/>
   <table-filter match-name="tbl_scheduled_email_list"/>
   <table-filter match-name="tbl_sub_category"/>

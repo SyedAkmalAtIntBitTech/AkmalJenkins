@@ -97,7 +97,8 @@ public class MandrillApiHandler {
             HttpEntity responseEntity = response.getEntity();
             if ( responseEntity != null){
                 String jsonContent = EntityUtils.toString(responseEntity);
-                logger.info(jsonContent);
+//                logger.info(jsonContent);
+                logger.info("Tags list in MandrillApiHandler.getTags()");
                 // Create a Reader from String
                 Reader stringReader = new StringReader(jsonContent);
                 

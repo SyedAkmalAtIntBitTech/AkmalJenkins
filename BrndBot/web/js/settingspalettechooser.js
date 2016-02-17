@@ -3,32 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
-
-
-        
-
-                $(document).ready(function(){
-
-                            
-                        $('#picker').colpick({
-                flat:true,
-                        layout:'hex',
-                        onSubmit:function(hsb, hex, rgb, el) {
-                        //for haking hex value alert(hex);
-
-                        $('#' + ElementID).css("background-color", "#" + hex);
-                        }
-
-                });
-                
-                
-                
-                
-                    
-                $("#test").click(function(){
-                   
+        $(document).ready(function(){
+            $('#picker').colpick({
+            flat:true,
+                    layout:'hex',
+                    onSubmit:function(hsb, hex, rgb, el) {
+                    $('#' + ElementID).css("background-color", "#" + hex);
+                    }
+            });         
+                $("#test").click(function(){                   
                         var s1 =$("#elementToPutStyleInto1").css("background-color");                    
                         var s2 =$("#elementToPutStyleInto2").css("background-color");
                         var s3 = $("#elementToPutStyleInto3").css("background-color");                    
@@ -42,10 +25,8 @@
                         document.getElementById("finalcolor5").value = s5;
                         document.getElementById("finalcolor6").value = s6;
                 });
-                });
-//  Reset pslette color   
-
-                $(document).ready(function(){
+        });
+        $(document).ready(function(){
 
                 $("#resetpalette").click(function(){
 

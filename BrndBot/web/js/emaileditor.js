@@ -14,7 +14,7 @@ var selectedImgDiv;
 var title;
 var teacher;
 var date;
-
+var prevSliderDialog="#emaileditorexternalpopup";
 var head1 = "Head1";
 var i = 1;
 
@@ -26,6 +26,118 @@ function setSocialParameters(title, teacher, date) {
 }
 
 $(document).ready(function () {
+    
+     $('#slider-button').click(function () {
+        $a+=1;
+        if($a>=2 && $edit==1)
+        {   
+                $edit=0;  
+                if($slider==2)
+                {
+                    if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
+                        if ($('#slider-button').css("margin-right") == "788px")
+                        {
+                            $(prevSliderDialog).animate({"margin-right": '-=900px'});
+                            $('#slider-button').animate({"margin-right": '-=788px'});
+                        }
+                    }
+
+                    if ($('#slider-button').css("margin-right") == "788px")
+                    {
+                        $slider=0;
+                        $a=0;
+                        $(sliderDialog).animate({"margin-right": '-=900px'});
+                        $('#slider-button').animate({"margin-right": '-=788px'});
+                        closeoverlay();
+                    }
+                    else
+                    {
+                        $(sliderDialog).animate({"margin-right": '+=900px'});
+                        $('#slider-button').animate({"margin-right": '+=788px'});
+                        overlay();
+                    }  
+                }
+                if($slider==1)
+                {
+                    if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
+                        if ($('#slider-button').css("margin-right") == "375px")
+                        {
+                            $(prevSliderDialog).animate({"margin-right": '-=424px'});
+                            $('#slider-button').animate({"margin-right": '-=375px'});
+                        }
+                    }
+
+                    if ($('#slider-button').css("margin-right") == "375px")
+                    {
+                        $slider=0;
+                        $a=0;
+                        $(sliderDialog).animate({"margin-right": '-=424px'});
+                        $('#slider-button').animate({"margin-right": '-=375px'});
+                        closeoverlay();
+                    }
+                    else
+                    {
+                        $(sliderDialog).animate({"margin-right": '+=424px'});
+                        $('#slider-button').animate({"margin-right": '+=375px'});
+                        overlay();
+                    }  
+                }
+            }
+        else
+        {
+            if($slider==2)
+            {
+                if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
+                    if ($('#slider-button').css("margin-right") == "788px")
+                    {
+                        $(prevSliderDialog).animate({"margin-right": '-=900px'});
+                        $('#slider-button').animate({"margin-right": '-=788px'});
+                    }
+                }
+                if ($('#slider-button').css("margin-right") == "788px")
+                {
+                    $slider=0;
+                    $a=0;
+                    $(sliderDialog).animate({"margin-right": '-=900px'});
+                    $('#slider-button').animate({"margin-right": '-=788px'});
+                    closeoverlay();
+                }
+                else
+                {
+                    $(sliderDialog).animate({"margin-right": '+=900px'});
+                    $('#slider-button').animate({"margin-right": '+=788px'});
+                    overlay();
+                }  
+            }
+            if($slider==1)
+            {
+                if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
+                    if ($('#slider-button').css("margin-right") == "375px")
+                    {
+                        $(prevSliderDialog).animate({"margin-right": '-=424px'});
+                        $('#slider-button').animate({"margin-right": '-=375px'});
+                    }
+                }
+
+                if ($('#slider-button').css("margin-right") == "375px")
+                {
+                    $slider=0;
+                    $a=0;
+                    $(sliderDialog).animate({"margin-right": '-=424px'});
+                    $('#slider-button').animate({"margin-right": '-=375px'});
+                    closeoverlay();
+                }
+                else
+                {
+                    $(sliderDialog).animate({"margin-right": '+=424px'});
+                    $('#slider-button').animate({"margin-right": '+=375px'});
+                    overlay();
+                }  
+            }
+        }        
+    });
+    
+    
    $("#galleryupload").click(function(){
         $(".fileclick").click();
     });
@@ -444,7 +556,7 @@ $(document).ready(function () {
                         },
                         error: function (e)
                         {
-                            alert("error in xml file read");
+                            alert("Error in xml file read!");
                         }
                     });
 
@@ -605,7 +717,6 @@ $(document).ready(function () {
         }
 
     });
-
 
 
 //    $('#cropButton').on("click", function () {

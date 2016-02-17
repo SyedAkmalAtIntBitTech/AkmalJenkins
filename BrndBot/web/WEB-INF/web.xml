@@ -432,6 +432,10 @@
         <servlet-name>GetEmaiLayoutHtmlServlet</servlet-name>
         <servlet-class>com.controller.GetEmaiLayoutHtmlServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletUserBrand</servlet-name>
+        <servlet-class>admin.controller.ServletUserBrand</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
         <url-pattern>/Authentication</url-pattern>
@@ -863,6 +867,10 @@
     <servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletUserBrand</servlet-name>
+        <url-pattern>/ServletUserBrand</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

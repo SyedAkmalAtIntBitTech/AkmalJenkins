@@ -8,6 +8,8 @@ import com.intbit.ScheduledEntityType;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -374,7 +376,9 @@ public class SqlMethods {
         return checked;
     }
 
-    public void addUserPreferences(Integer user_id, Integer brand_id, Integer font_theme_id, String location, Integer look_id, JSONObject json_object) throws SQLException {
+    public void addUserPreferences(Integer user_id, Integer brand_id, Integer font_theme_id, 
+                                   String location, Integer look_id, Integer organization, 
+                                   JSONObject json_object, String user_email_id, String brand_name) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
@@ -402,6 +406,26 @@ public class SqlMethods {
         } finally {
             close(result_set, prepared_statement);
         }
+        
+        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+            query_string = "Insert Into tbl_user_brands(user_id, brand_id, organization, "
+                    + "     user_email_id, brand_name) Values(?,?,?,?,?)";
+            prepared_statement = connection.prepareStatement(query_string);
+
+            prepared_statement.setInt(1, user_id);
+            prepared_statement.setInt(2, brand_id);
+            prepared_statement.setInt(3, organization);
+            prepared_statement.setString(4, user_email_id);
+            prepared_statement.setString(5, brand_name);
+
+            prepared_statement.executeUpdate();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+        } finally {
+            close(result_set, prepared_statement);
+        }
+        
+        
     }
 
     public Boolean updateJSONUserPreference(Integer user_id, JSONObject userPreferenceJSON) throws SQLException {
@@ -497,6 +521,7 @@ public class SqlMethods {
         }
     }
 
+    
     public void updateUsersOrg(int idno, int Org_id, String Company_name) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
@@ -787,16 +812,19 @@ public class SqlMethods {
                 }
 
 
-                if (pgobject != null & pgobject.getValue() != null && !StringUtil.isEmpty(pgobject.getValue())) {
-                    pgobject.setType("json");
-                    String obj = pgobject.getValue();
-                    userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
-                    org.json.simple.JSONArray emailLists = (org.json.simple.JSONArray) userPreferencesJSONObject.get(IConstants.kEmailAddressUserPreferenceKey);
+                if (pgobject != null) {
+                    if(pgobject.getValue() != null && !StringUtil.isEmpty(pgobject.getValue()))
+                    {
+                        pgobject.setType("json");
+                        String obj = pgobject.getValue();
+                        userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
+                        org.json.simple.JSONArray emailLists = (org.json.simple.JSONArray) userPreferencesJSONObject.get(IConstants.kEmailAddressUserPreferenceKey);
 
-                    if (userPreferencesJSONObject != null && emailLists != null) {
-                        for (int i = 0; i < emailLists.size(); i++) {
-                            org.json.simple.JSONObject emailJSONObject = (org.json.simple.JSONObject) emailLists.get(i);
-                            emailListJSONArray.add(emailJSONObject);
+                        if (userPreferencesJSONObject != null && emailLists != null) {
+                            for (int i = 0; i < emailLists.size(); i++) {
+                                org.json.simple.JSONObject emailJSONObject = (org.json.simple.JSONObject) emailLists.get(i);
+                                emailListJSONArray.add(emailJSONObject);
+                            }
                         }
                     }
                     
@@ -910,7 +938,8 @@ public class SqlMethods {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-
+        org.json.simple.JSONArray json_array_brand_id = new org.json.simple.JSONArray();
+        
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
 
             query_string = "Select brand_id from tbl_user_preferences where user_id=" + user_id;
@@ -930,6 +959,87 @@ public class SqlMethods {
         return brand_id;
     }
 
+    public org.json.simple.JSONArray getUserBrandIDs(Integer user_id) {
+        Integer brand_id = 0;
+        String query_string = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+        org.json.simple.JSONArray json_array_brand_id = new org.json.simple.JSONArray();
+        
+        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+
+            query_string = "Select brand_id from tbl_user_brands where user_id=" + user_id;
+
+            prepared_statement = connection.prepareStatement(query_string);
+            result_set = prepared_statement.executeQuery();
+
+            while (result_set.next()) {
+                brand_id = Integer.parseInt(result_set.getString(1));
+                json_array_brand_id.add(brand_id);
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
+        } finally {
+            close(result_set, prepared_statement);
+        }
+        return json_array_brand_id;
+    }
+    
+    public Integer getLookIDFromLooks(){
+        String query_string = "";
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Integer look_id = 0;
+        
+        try(Connection connection = ConnectionManager.getInstance().getConnection()){
+            
+            query_string = "Select id from tbl_look";
+            
+            preparedStatement = connection.prepareStatement(query_string);
+            resultSet = preparedStatement.executeQuery();
+            
+            if (resultSet.next()){
+                look_id = Integer.parseInt(resultSet.getString(1));
+            }
+        }catch (Exception e){
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while getting the look id", null));
+        }finally{
+            close(resultSet, preparedStatement);
+        }
+        return look_id;
+    }
+    
+    public List getBrandIDFromBrands(Integer lookid){
+        String query_string = "";
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Integer brand_id = 0;
+        JSONObject json_object = new JSONObject();
+        String brand_name = "";
+        List list_brand = new ArrayList();
+        
+        try(Connection connection = ConnectionManager.getInstance().getConnection()){
+            
+            query_string = "Select id, brand_name from tbl_brand_personality where look_id="+ lookid;
+            
+            preparedStatement = connection.prepareStatement(query_string);
+            resultSet = preparedStatement.executeQuery();
+            
+            if (resultSet.next()){
+                brand_id = Integer.parseInt(resultSet.getString(1));
+                brand_name = resultSet.getString(2);
+                list_brand.add(brand_id);
+                list_brand.add(brand_name);
+            }
+        }catch (Exception e){
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while geting the brand id", null));
+        }finally{
+            close(resultSet, preparedStatement);
+        }
+        return list_brand;
+    }
+    
     public Integer getLookID(Integer user_id) {
         Integer look_id = 0;
         String query_string = "";
@@ -962,11 +1072,14 @@ public class SqlMethods {
 
     }
 
-    public void setSocialPostHistory(Integer userid, String contenthtml, boolean twitter, boolean facebook, String imagefilename, String pdffilename) throws SQLException {
+    public void setSocialPostHistory(Integer userid, String contenthtml, 
+            boolean twitter, boolean facebook,String image_type, 
+            String imagefilename, String pdffilename) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
-
+        String file_image_path = "";
+        
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
 
             if (pdffilename != null) {
@@ -985,7 +1098,7 @@ public class SqlMethods {
                 prepared_statement.setBinaryStream(6, fis, pdf_file.length());
             }
 
-            if (imagefilename != null) {
+            if (imagefilename != null && !image_type.equals("url")) {
                 query_string = "Insert into tbl_socialposthistory(user_id, timesent, contenthtml, twitter, facebook, imagefilename) Values (?,?,?,?,?,?)";
 
                 prepared_statement = getConnection().prepareStatement(query_string);
@@ -996,9 +1109,23 @@ public class SqlMethods {
                 prepared_statement.setBoolean(4, twitter);
                 prepared_statement.setBoolean(5, facebook);
 
-                File file = new File(AppConstants.LAYOUT_IMAGES_HOME + File.separator + imagefilename);
-                FileInputStream fis = new FileInputStream(file);
-                prepared_statement.setBinaryStream(6, fis, file.length());
+                if (image_type.equals("layout")){
+                    file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + imagefilename;
+                    File file = new File(file_image_path);
+                    FileInputStream fis = new FileInputStream(file);
+                    prepared_statement.setBinaryStream(6, fis, file.length());
+                }else if(image_type.equals("gallery")){
+                    file_image_path = AppConstants.USER_IMAGE_HOME + File.separator + userid + File.separator + imagefilename;
+                    File file = new File(file_image_path);
+                    FileInputStream fis = new FileInputStream(file);
+                    prepared_statement.setBinaryStream(6, fis, file.length());
+                }else if (image_type.equals("url")){
+//                    file_image_path = imagefilename;
+//                    File file = new File(file_image_path);
+//                    InputStream fiss = new URL(file_image_path).openStream();
+//                    prepared_statement.setBinaryStream(6, fiss);
+                }
+
             }
 
             prepared_statement.executeUpdate();

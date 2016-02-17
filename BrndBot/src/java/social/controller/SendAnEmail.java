@@ -22,8 +22,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.EmailInfo;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -36,7 +38,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class SendAnEmail {
     SqlMethods sqlMethods = new SqlMethods();
     
-    public static String sendEmail(String html_text, String email_subject, String to_email_addresses, String emaillist_name, Integer user_id, String reply_to_address, String from_email_address, String from_name) {
+    public static String sendEmail(String html_text, String email_subject, String to_email_addresses, String emaillist_name, Integer user_id, String reply_to_address, String from_email_address, String from_name, String to_name) {
         String returnMessage = "";
         try {
             SendMail send_email = new SendMail();
@@ -57,29 +59,27 @@ public class SendAnEmail {
 
             ArrayList<Recipient> messageToList = new ArrayList<Recipient>();
 
-            String emailids[] = to_email_addresses.split(",");
+            Recipient rec = new Recipient();
 
-            for (int i = 0; i < emailids.length; i++) {
-
-                String email = emailids[i];
-                Recipient rec = new Recipient();
-
-                rec.setEmail(email);
-                rec.setName(email);
-                rec.setType("to");
-                messageToList.add(rec);
-                message.setMessageTo(messageToList);
-                RecipientMetadata recipientMetadata1 = new RecipientMetadata();
-                recipientMetadata1.setRcpt(email);
-                HashMap<String, String> map = new HashMap<String, String>();
-                map.put("key", "value");
-                recipientMetadata1.setValues(map);
-
-                ArrayList<RecipientMetadata> metadataList1 = new ArrayList<RecipientMetadata>();
-                metadataList1.add(recipientMetadata1);
-                message.setRecipient_metadata(metadataList1);
-
+            rec.setEmail(to_email_addresses);
+            if (to_name != null){
+                rec.setName(to_name);
+            }else{
+                rec.setName(to_email_addresses);
             }
+            rec.setType("to");
+            messageToList.add(rec);
+            message.setMessageTo(messageToList);
+            RecipientMetadata recipientMetadata1 = new RecipientMetadata();
+            recipientMetadata1.setRcpt(to_email_addresses);
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("key", "value");
+            recipientMetadata1.setValues(map);
+
+            ArrayList<RecipientMetadata> metadataList1 = new ArrayList<RecipientMetadata>();
+            metadataList1.add(recipientMetadata1);
+            message.setRecipient_metadata(metadataList1);
+
             MessageResponses mandrillResponse = send_email.sendMail(message);
             int lastUpdateId = EmailHistoryDAO.addToEmailHistory(user_id,
                     html_text, from_email_address, emaillist_name,
@@ -96,26 +96,34 @@ public class SendAnEmail {
         return returnMessage;
     }
 
-    public String getAllEmailAddressesForEmailList(Integer userId, Integer days, String emailListName) throws Throwable {
+    public JSONArray getAllEmailAddressesForEmailList(Integer userId, Integer days, String emailListName) throws Throwable {
         
         JSONObject userPreferences = (JSONObject)sqlMethods.getJSONUserPreferences(userId);
         JSONArray userPreferencesJson = (JSONArray)userPreferences.get(IConstants.kEmailAddressUserPreferenceKey);
         org.json.simple.JSONArray jSONArray = null;
-         for (Object emaiListObject : userPreferencesJson) {
+        JSONObject jsonObject = new JSONObject();
+        List listemailInfos = new ArrayList();
+        for (Object emaiListObject : userPreferencesJson) {
                 JSONObject emailListJSONObject = (JSONObject) emaiListObject;
                 String emailListNameInUserPreferences = (String) emailListJSONObject.get("emailListName");
                 if (emailListNameInUserPreferences.equals(emailListName)) {
-                 jSONArray = (JSONArray)emailListJSONObject.get("emailAddresses");
-                 break;
-             }
+                    
+                    jSONArray = (JSONArray)emailListJSONObject.get("emailAddresses");
+                    for (int i = 0; i < jSONArray.size(); i++){
+
+                        EmailInfo emailinfo = new EmailInfo().fromJSON(jSONArray.get(i).toString());
+                        listemailInfos.add(emailinfo);
+                    }
+                    break;
+                }
         }
         
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        String to_email_addresses = "";
-        for (Integer i = 0; i < jSONArray.size(); i++) {
-            JSONObject json = (JSONObject) jSONArray.get(i);
-
-            String createDate = json.get("addedDate").toString();
+        JSONArray jsonArrayEmailClient = new JSONArray();
+        JSONArray jsonArrayEmailAddresses = new JSONArray();
+        for (Integer i = 0; i < listemailInfos.size(); i++) {
+            EmailInfo emailInfo = (EmailInfo)listemailInfos.get(i);
+            String createDate = emailInfo.getAddedDate().toString();
             Date date = formatter.parse(createDate);
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
@@ -124,16 +132,12 @@ public class SendAnEmail {
             Date todayDate = Calendar.getInstance().getTime();
             String currentDateString = formatter.format(todayDate);
             if (postDate.equalsIgnoreCase(currentDateString)) {
-                to_email_addresses += json.get("emailAddress").toString();
-
-                if ((i + 1) < jSONArray.size()) {
-                    to_email_addresses += ",";
-                }
-
+                jsonArrayEmailAddresses.add(emailInfo);
             }
         }
+        jsonObject.put(IConstants.kEmailClientName, jsonArrayEmailAddresses);
 
-        return to_email_addresses;
+        return jsonArrayEmailAddresses;
     }
 
 }

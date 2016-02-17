@@ -100,21 +100,27 @@ public class FontThemes {
             }
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
-        }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
-
+        } finally {
+            sqlmethods.close(result_set, prepared_statement);
         }
 
         return theme;
     }
 
-    public void addFontTheme(Integer brand_id, Integer font_id1, Integer font_id2, Integer font_id3, Integer font_id4, Integer font_id5, Integer font_size1, Integer font_size2, Integer font_size3, Integer font_size4, Integer font_size5, Integer font_style1, Integer font_style2, Integer font_style3, Integer font_style4, Integer font_style5) throws SQLException {
+    public void addFontTheme(Integer brand_id, Integer font_id1, Integer font_id2, 
+            Integer font_id3, Integer font_id4, Integer font_id5, Integer font_id6, 
+            Integer font_id7, Integer font_id8, Integer font_id9, Integer font_id10, 
+            Integer font_id11, Integer font_id12, Integer font_id13, 
+            Integer font_id14, Integer font_id15) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Insert into tbl_brand_font_family (brand_id, font_id1, font_id2, font_id3, font_id4, font_id5, font_size1, font_size2, font_size3, font_size4, font_size5, font_styles1, font_styles2, font_styles3, font_styles4, font_styles5) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            query_string = "Insert into tbl_brand_font_family (brand_id, font_id1, "
+                    + "font_id2, font_id3, font_id4, font_id5, font_id6, font_id7, "
+                    + "font_id8, font_id9, font_id10, font_id11, font_id12, font_id13, "
+                    + "font_id14, font_id15) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.setInt(1, brand_id);
@@ -123,46 +129,55 @@ public class FontThemes {
             prepared_statement.setInt(4, font_id3);
             prepared_statement.setInt(5, font_id4);
             prepared_statement.setInt(6, font_id5);
-            prepared_statement.setInt(7, font_size1);
-            prepared_statement.setInt(8, font_size2);
-            prepared_statement.setInt(9, font_size3);
-            prepared_statement.setInt(10, font_size4);
-            prepared_statement.setInt(11, font_size5);
-            prepared_statement.setInt(12, font_style1);
-            prepared_statement.setInt(13, font_style2);
-            prepared_statement.setInt(14, font_style3);
-            prepared_statement.setInt(15, font_style4);
-            prepared_statement.setInt(16, font_style5);
+            prepared_statement.setInt(7, font_id6);
+            prepared_statement.setInt(8, font_id7);
+            prepared_statement.setInt(9, font_id8);
+            prepared_statement.setInt(10, font_id9);
+            prepared_statement.setInt(11, font_id10);
+            prepared_statement.setInt(12, font_id11);
+            prepared_statement.setInt(13, font_id12);
+            prepared_statement.setInt(14, font_id13);
+            prepared_statement.setInt(15, font_id14);
+            prepared_statement.setInt(16, font_id15);
 
             prepared_statement.executeUpdate();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
-        }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
-
+        } finally {
+            sqlmethods.close(result_set, prepared_statement);
         }
 
     }
 
-    public void editFontTheme(Integer font_theme_id, Integer brand_id, Integer font_id1, Integer font_id2, Integer font_id3, Integer font_id4, Integer font_id5, Integer font_size1, Integer font_size2, Integer font_size3, Integer font_size4, Integer font_size5, Integer font_style1, Integer font_style2, Integer font_style3, Integer font_style4, Integer font_style5) throws SQLException {
+    public void editFontTheme(Integer font_theme_id, Integer brand_id, Integer font_id1, 
+                              Integer font_id2, Integer font_id3, Integer font_id4, 
+                              Integer font_id5, Integer font_id6, Integer font_id7, 
+                              Integer font_id8, Integer font_id9, Integer font_id10, 
+                              Integer font_id11, Integer font_id12, Integer font_id13, 
+                              Integer font_id14, Integer font_id15) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             query_string = "UPDATE tbl_brand_font_family"
-                    + " SET brand_id='" + brand_id + "', font_id1=" + font_id1 + ",font_id2=" + font_id2 + ",font_id3=" + font_id3 + ",font_id4=" + font_id4 + ",font_id5=" + font_id5 + ","
-                    + " font_size1=" + font_size1 + ", font_size2=" + font_size2 + ", font_size3=" + font_size3 + ", font_size4=" + font_size4 + ", font_size5=" + font_size5 + ", "
-                    + " font_styles1=" + font_style1 + ", font_styles2=" + font_style2 + ", font_styles3=" + font_style3 + ", font_styles4=" + font_style4 + ", font_styles5=" + font_style5 + ""
+                    + " SET brand_id='" + brand_id + "', font_id1=" + font_id1 + ","
+                    + " font_id2=" + font_id2 + ",font_id3=" + font_id3 + ","
+                    + " font_id4=" + font_id4 + ",font_id5=" + font_id5 + ","
+                    + " font_id6=" + font_id6 + ", font_id7=" + font_id7 + ","
+                    + " font_id8=" + font_id8 + ", font_id9=" + font_id9 + ","
+                    + " font_id10=" + font_id10 + ","
+                    + " font_id11=" + font_id11 + ", font_id12=" + font_id12 + ","
+                    + " font_id13=" + font_id13 + ", font_id14=" + font_id14 + ","
+                    + " font_id15=" + font_id15 + ""
                     + " WHERE id='" + font_theme_id + "'";
 
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
-        }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
-
+        } finally {
+           sqlmethods.close(result_set, prepared_statement);
         }
 
     }
@@ -180,9 +195,8 @@ public class FontThemes {
             prepared_statement.executeUpdate();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
-        }        finally {
-                        sqlmethods.close(result_set, prepared_statement);
-
+        } finally {
+            sqlmethods.close(result_set, prepared_statement);
         }
 
     }

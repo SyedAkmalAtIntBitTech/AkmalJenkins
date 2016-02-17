@@ -4,18 +4,37 @@
  * and open the template in the editor.
  */
 
+var latest_date="";
 var sliderDialog = "";
 var prevSliderDialog = "";
 var create_button_title = "Edit";
 
 $(document).ready(function ()
 {
+    $(".arrow_top").hide();  
+    $(".delete-button").hide();
     
+    $(".calendar-dropdown").click(function (){$("#jumptodatepicker").trigger( "click" );});
+    
+    var picker = new Pikaday(
+                            {
+                                field: document.getElementById('jumptodatepicker'),
+                                firstDay: 1,
+                                minDate: new Date('2000-01-01'),
+                                maxDate: new Date('2050-12-31'),
+                                yearRange: [2000,2050],
+                                onSelect: function() {
+                                    var mydate=this.getMoment();
+                                   var mydt=mydate.toLocaleString();
+                                    var myDate = new Date(mydt);
+                                    setCurrentDate(myDate);
+                                }                                
+                            });               
+    var d = new Date();
+    var c_day = d.getDate();
+    var c_month = d.getMonth() + 1;
+    var c_year = d.getFullYear();
     $("#liPriority").click(function () {
-        //$slider=1;
-        //sliderDialog = "#dvPriorityDialog";
-        //$('#slider-button').click();
-        //prevSliderDialog = "#dvPriorityDialog";
     });
 
     $("#liFasting").click(function () {
@@ -23,42 +42,19 @@ $(document).ready(function ()
         $('#slider-button').click();
         prevSliderDialog = "#dvFastingDialog";
     });
-//    $('#datetimepicker3').datetimepicker({
-//        pickDate: false
-//    });
-//    $("#entitydetails").click(function () {
-//        
-//        sliderDialog = "#previewfb";
-//        $('#slider-button').click();
-//        prevSliderDialog = "#previewfb";
-//    });
-//    
-//    function cancelform()
-//    {
-//        
-////    $("#"+cancelbtn).click(function(){
-//        if(confirm("Do you want to cancel the process?")){
-//            $('#slider-button').click();
-//            
-//        }
-////    })
-//    }
 $a=0;
 $edit=0;
     $('#slider-button').click(function () {
         $a+=1;
-         //To hide the dialog if user click on another node
         if($a>=2 && $edit==1)
         {   
-            if (confirm("Do you want to close it .. !"))
-            { 
                 $edit=0;  
                 if($slider==2)
                 {
                     if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
                         if ($('#slider-button').css("margin-right") == "788px")
                         {
-                            $(prevSliderDialog).animate({"margin-right": '-=850px'});
+                            $(prevSliderDialog).animate({"margin-right": '-=900px'});
                             $('#slider-button').animate({"margin-right": '-=788px'});
                         }
                     }
@@ -67,13 +63,13 @@ $edit=0;
                     {
                         $slider=0;
                         $a=0;
-                        $(sliderDialog).animate({"margin-right": '-=850px'});
+                        $(sliderDialog).animate({"margin-right": '-=900px'});
                         $('#slider-button').animate({"margin-right": '-=788px'});
                         closeoverlay();
                     }
                     else
                     {
-                        $(sliderDialog).animate({"margin-right": '+=850px'});
+                        $(sliderDialog).animate({"margin-right": '+=900px'});
                         $('#slider-button').animate({"margin-right": '+=788px'});
                         overlay();
                     }  
@@ -104,10 +100,6 @@ $edit=0;
                     }  
                 }
             }
-            else
-            {
-            }
-        }
         else
         {
             if($slider==2)
@@ -115,22 +107,21 @@ $edit=0;
                 if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
                     if ($('#slider-button').css("margin-right") == "788px")
                     {
-                        $(prevSliderDialog).animate({"margin-right": '-=850px'});
+                        $(prevSliderDialog).animate({"margin-right": '-=900px'});
                         $('#slider-button').animate({"margin-right": '-=788px'});
                     }
                 }
-
                 if ($('#slider-button').css("margin-right") == "788px")
                 {
                     $slider=0;
                     $a=0;
-                    $(sliderDialog).animate({"margin-right": '-=850px'});
+                    $(sliderDialog).animate({"margin-right": '-=900px'});
                     $('#slider-button').animate({"margin-right": '-=788px'});
                     closeoverlay();
                 }
                 else
                 {
-                    $(sliderDialog).animate({"margin-right": '+=850px'});
+                    $(sliderDialog).animate({"margin-right": '+=900px'});
                     $('#slider-button').animate({"margin-right": '+=788px'});
                     overlay();
                 }  
@@ -160,30 +151,8 @@ $edit=0;
                     overlay();
                 }  
             }
-        }
-        
+        }        
     });
-
-//    $('#button_edit').click(function(){
-//        if (prevSliderDialog != "" && prevSliderDialog != sliderDialog) {
-//            if ($('#slider-button').css("margin-right") == "530px")
-//            {
-//                $(prevSliderDialog).animate({"margin-right": '-=600'});
-//                $('#slider-button').animate({"margin-right": '-=530'});
-//            }
-//        }
-//        if ($('#slider-button').css("margin-right") == "530px")
-//        {
-//            $(sliderDialog).animate({"margin-right": '-=600'});
-//            $('#slider-button').animate({"margin-right": '-=530'});
-//        }
-//        else
-//        {
-//            $(sliderDialog).animate({"margin-right": '+=600'});
-//            $('#slider-button').animate({"margin-right": '+=530'});
-//        }
-//        
-//    });
 });
 
 function showEditNote() {
@@ -217,6 +186,27 @@ function reSet()
     
 }
 
+  $(".close").click(function(){
+        
+        var change=$("#change").val();
+        if( change === "0")
+        {
+            closeoverlay();
+            $('#slider-button').click();
+            $('.bottom-cta-bar').hide();
+        }
+        if( change !== "0")
+        {
+            setTimeout(function (){
+            window.open(getHost() + 'marketing.jsp', "_self");
+               },430);
+            $("#change").val("0");
+            closeoverlay();
+            $('#slider-button').click();
+            $('.bottom-cta-bar').hide();
+        }
+    });
+
 function validateaction() {
     var title = $("#addactiontitle").val();
     var actiontype = $("#actiontype").val();
@@ -224,39 +214,59 @@ function validateaction() {
     var actiondate = $("#datepicker").val();
     var actiontime = $("#timepicker1").val();
     var marketing_program = $("#marketing_program").val();
-    
     if (marketing_program === '0') {
-        //alert("Marketing Program not selected, please select any one Program");
-        //$("#marketing_program").focus();
-        //return false;
     }
     if (actiontype === '0') {
-        alert("actiontype not selected, please select any one action");
+        alert(actiontypeerror);
         $("#actiontype").focus();
         return false;
     }
     if (title === "") {
-        alert("title not entered, please enter the title");
+        alert(titleerror);
         $("#addactiontitle").focus();
         return false;
     }
 
-    if (description === "") {
-        alert("description not entered, please enter the description");
-        $("#description").focus();
-        return false;
-    }
     if (actiondate === "") {
-        alert("date not selected, please select the date");
-        $("#datepicker").focus();
+        alert(dateerror);
         return false;
+    }else {
+        var current_date = new Date();
+        var format_curr_date = moment(current_date.date).format('YYYY-MM-DD');
+        console.log(format_curr_date);
+        var current_date = Date.parse(format_curr_date.toString());
+        console.log(current_date);
+        console.log(actiondate);
+        var selected_date = new Date(actiondate);
+        console.log(selected_date);
+        var format_selected_date = moment(selected_date).format('YYYY-MM-DD');
+        console.log(format_selected_date);
+        var epoch_selected_date = Date.parse(format_selected_date.toString());
+        console.log(epoch_selected_date);
+        if (parseInt(epoch_selected_date) < parseInt(current_date)){
+            alert(wrongdate);
+            $("#datepicker").focus();
+            return false;
+        }
+        
     }
+
     if (actiontime === "") {
-        alert("time not selected, please selecet the time");
+        alert(timeerror);
         $("#timepicker1").focus();
         return false;
     }
 
+    return true;
+}
+function validateemailDescription()
+{
+    var description = $("#emailnotes").val();
+     if (description === "") {
+        alert(decsriptionerror);
+        $("#emailnotes").focus();
+        return false;
+    }
     return true;
 }
 function validateemailaction() {
@@ -269,45 +279,39 @@ function validateemailaction() {
     var actionDateTime=$("#timepickeremail").val().replace(/ /g,'');
 
     if (title === "") {
-        alert("title not entered, please enter the title");
+        alert(titleerror);
         $("#email_edit_title").focus();
         return false;
     }
 
     if (actiontype === "") {
-        alert("actiontype not entered, please enter the actiontype");
+        alert(actiontypeerror);
         $("#email_schedule_type").focus();
-        return false;
-    }
-    if (description === "") {
-        alert("description not entered, please enter the description");
-        $("#email_description").focus();
         return false;
     }
     if (actiondate === "" || days =="") {
         if(days=="")
         {
-            alert("days not entered, please enter the days");
+            alert(dayserror);
             $("#twdays").focus();
         }
         if(!isNaN(days))
         {
-            alert("days must be numeric");
+            alert(wrongdays);
             $("#twdays").focus();
         }
         if(actiondate=="")
         {
-            alert("actiondate not selected, please choose the actiondate");
+            alert(dateerror);
             $("#datepicker3").focus();
         }
         return false;
     }
     if (actionDateTime === "") {
-        alert("actiondate not entered, please enter the actiondate");
+        alert("Actiondate not entered! Please enter the actiondate.");
         $("#timepickeremail").focus();
         return false;
     }
-
     return true;
 }
 
@@ -319,43 +323,37 @@ function validatefacebookaction() {
     var description = $("#fb_description").val();
     var actiondate = $("#datepickerfb").val();
     var actionDateTime=$("#timepickerfb").val().replace(/ /g,'');
-
     if (title === "") {
-        alert("title not entered, please enter the title");
+        alert(titleerror);
         $("#fb_action_title").focus();
         return false;
     }
 
     if (actiontype === "") {
-        alert("actiontype not entered, please enter the actiontype");
+        alert("Actiontype not entered! Please enter the actiontype.");
         $("#fb_scheduletype").focus();
-        return false;
-    }
-    if (description === "") {
-        alert("description not entered, please enter the description");
-        $("#fb_description").focus();
         return false;
     }
     if (actiondate === "" || days =="") {
         if(days=="")
         {
-            alert("days not entered, please enter the days");
+            alert(dayserror);
             $("#twdays").focus();
         }
         if(!isNaN(days))
         {
-            alert("days must be numeric");
+            alert(wrongdays);
             $("#twdays").focus();
         }
         if(actiondate=="")
         {
-            alert("actiondate not selected, please choose the actiondate");
+            alert(dateerror);
             $("#datepicker3").focus();
         }
         return false;
     }
     if (actionDateTime === "") {
-        alert("actiontime not entered, please enter the actiondate");
+        alert(timeerror);
         $("#timepicker2").focus();
         return false;
     }
@@ -369,75 +367,67 @@ function validatetwitteraction() {
     var title = $("#edit_twitter_title").val();
     var days=$("#twdays").val();
     var description = $("#twitter_description").val();
-        var actiondate = $("#datepickertwitter").val();
-        var actionDateTime=$("#timepickertwitter").val().replace(/ /g,'');
+    var actiondate = $("#datepickertwitter").val();
+    var actionDateTime=$("#timepickertwitter").val().replace(/ /g,'');
 
     if (title === "") {
-        alert("title not entered, please enter the title");
+        alert("Title not entered! Please enter the title.");
         $("#edit_twitter_title").focus();
         return false;
     }
 
     if (actiontype === "") {
-        alert("actiontype not entered, please enter the actiontype");
+        alert(actiontypeerror);
         $("#twitter_action_type").focus();
         return false;
     }
     if (description === "") {
-        alert("description not entered, please enter the description");
+        alert(decsriptionerror);
         $("#twitter_description").focus();
         return false;
     }
     if (actiondate === "" || days =="") {
         if(days=="")
         {
-            alert("days not entered, please enter the days");
+            alert(dayserror);
             $("#twdays").focus();
         }
         if(!isNaN(days))
         {
-            alert("days must be numeric");
+            alert(wrongdays);
             $("#twdays").focus();
         }
         if(actiondate=="")
         {
-            alert("actiondate not selected, please choose the actiondate");
+            alert(dateerror);
             $("#datepicker3").focus();
         }
         return false;
     }
     if (actionDateTime === "") {
-        alert("actiondate not entered, please enter the actiondate");
+        alert(timeerror);
         $("#timepickertwitter").focus();
         return false;
     }
 
     return true;
 }
-
 var selected_schedules_to_delete = "";
-
 function setSelectedIds(selectedid) {
-
     var checked = document.getElementById(selectedid).checked;
-
     if (checked) {
         $("#delsel").show();
         var selected_schedule_id = $("#" + selectedid).val();
-        selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
-        console.log(selected_schedules_to_delete);
+        selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;   
     }
     else {
         var selected_schedule_id = $("#" + selectedid).val();
         selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
-        console.log(selected_schedules_to_delete);
         if (selected_schedules_to_delete === "") {
             $("#delsel").hide();
-        }
-        ;
+        }        
     }
 }
-
 
 Date.prototype.customFormat = function (formatString) {
     var YYYY, YY, MMMM, MMM, MM, M, DDDD, DDD, DD, D, hhhh, hhh, hh, h, mm, m, ss, s, ampm, AMPM, dMod, th;
@@ -465,7 +455,9 @@ function addDays(theDate, days) {
     return new Date(theDate.getTime() + days * 24 * 60 * 60 * 1000);
 }
 var user_selected_date = '';
-function setCurrentDate(selected_date) {
+function setCurrentDate(selected_date) {    
+    $(".delete-button").hide();
+    $("#liPriority").show();
     user_selected_date = selected_date;
     angular.element(document.getElementById('controllerMarketingCampaign')).scope().getCampaigns();
 }
@@ -478,20 +470,50 @@ function setTodaysDate() {
 
       $scope.ShowAddEmployee = function () {
            alert('Approved');
-         return $scope.EmployeeInfoDiv = true;
-        
+         return $scope.EmployeeInfoDiv = true;        
      }
    
     $scope.SaveData = function () {
           alert('Unapproved');
           $("#button1").css("display", "block");
-         return $scope.EmployeeInfoDiv1 = true;
-        
+         return $scope.EmployeeInfoDiv1 = true;        
      }
     
  }
 
+var count=0;
+        function selcheckbox(id){ 
+            content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
+            var htm=$("#"+id).html();
+            var selected_schedule_id=id;
+            if(htm.contains('class="check-icon"')){
+                selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
+                count-=1;
+                $("#"+id).html(content);
+            }
+            else
+            {
+                selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
+                count+=1;
+                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+            }
+            $("#"+id).toggleClass('selection-icon');
+            $("#"+id).toggleClass('selection-icon-selected');
+            if(count > 0)
+            {   
+                $(".add-action-button").hide();
+                $(".delete-button").show();
+            }
+            if(count==0)
+            {
+                $(".add-action-button").show();
+                $(".delete-button").hide();
+            }
+        }
+
 function controllerMarketingCampaign($scope, $http) {
+    
+    
     $scope.entities_selected_time = "";
     $scope.master_facebook = getfacebook();
     $scope.master_twitter = gettwitter();
@@ -501,41 +523,31 @@ function controllerMarketingCampaign($scope, $http) {
         var curr_date = '';
         var tomorrowDate = '';
         var new_date = '';
-        $("#messagetoday").show();
-        $("#messagetomorrow").show();
-
-        if (user_selected_date != "") {
-            curr_date = moment(user_selected_date.date).format('YYYY-MM-DD');
-            
-            tomorrowDate = moment(addDays(user_selected_date.date, 1)).format('YYYY-MM-DD');
-            new_date = moment(addDays(user_selected_date.date, 15)).format('YYYY-MM-DD');
+        if (user_selected_date !== "") {
+            curr_date = moment(user_selected_date).format('YYYY-MM-DD');
+            tomorrowDate = moment(addDays(user_selected_date, 1)).format('YYYY-MM-DD');
+            new_date = moment(addDays(user_selected_date, 15)).format('YYYY-MM-DD');
         } else {
             curr_date = moment(new Date()).format('YYYY-MM-DD');
             tomorrowDate = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
             new_date = moment(addDays(new Date(), 15)).format('YYYY-MM-DD');
         }
+        latest_date=curr_date;
         var invalid= "Invalid date";
         if(curr_date !== invalid){
                 $http({
                     method: 'GET',
                     url: getHost() + 'GetScheduledEntities?from=' + curr_date + '&to=' + new_date
-                }).success(function (data) {
+                }).success(function (data) { 
                     var entitySet = {};
-        //            console.log(JSON.stringify(data));
                     $scope.entityS = JSON.stringify(data);
-        //            $("#default").hide();
-        //            $("#selected").show();
                     $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
                     $scope.tomorrow_date = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
                     $scope.entitySet = data.entitydata;
-                    console.log(JSON.stringify(data.entitydata));
                     $scope.nodata = data.noactionsmessage;
                     $("#default").css("display", "block");
-
-        //            $("#selected").css("display","none");            
-                    //console.log($scope.entitySet);
                 }).error(function (data) {
-                    alert("request not successful");
+                    alert(requesterror);
                 });
         }
     };
@@ -585,12 +597,9 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $(".content").empty();
                 $(".content").append(data.body);
-//                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
-                
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
-                console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.recuring_template_status = template_status;
                 $scope.schedule_type = entity_type;
@@ -599,7 +608,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.marketingProgramName=marketingProgramName;
                 $scope.days=days;
             }).error(function (data) {
-                alert("request not successful ");
+                alert(requesterror);
             });
     };
     
@@ -614,15 +623,13 @@ function controllerMarketingCampaign($scope, $http) {
             data: JSON.stringify(approval_type)
         }).success(function (data, status, headers, config) {
           if (data == "true"){
-            alert("template status changed successfully");
+            alert(templetestatussaved);
             window.open(getHost() + 'programactions.jsp?program_id='+program, "_self");
           }else {
-              alert("problem saving the record");
+              alert(savingrecordproblem);
           }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            alert(nodataerror);
         });      
         
     }; 
@@ -640,15 +647,13 @@ function controllerMarketingCampaign($scope, $http) {
             data: JSON.stringify(approval_type)
         }).success(function (data, status, headers, config) {
           if (data == "true"){
-            alert("template status changed successfully");
+            alert(templetestatussaved);
             window.open(getHost() + 'marketing.jsp', "_self");
           }else {
-              alert("problem saving the record");
+              alert(savingrecordproblem);
           }
         }).error(function (data, status, headers, config) {
-            alert("No data available, problem fetching the data");
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            alert(nodataerror);
         });      
         
     };
@@ -670,8 +675,6 @@ function controllerMarketingCampaign($scope, $http) {
                     $("#edit_email").show();
                     $('#mailnotemplate1').show();
                     $('#mailtemplatesaved1').hide();
-                    
-                    //$("#edit_email_action").hide();
                 } else {
                     $('#maileditremove').show();
                     $('#mailremovedtemplate2').hide();
@@ -680,9 +683,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $('#mailnotemplate1').hide();
                     $('#mailtemplatesaved1').show();
                     $("#edit_email").show();
-                    //$("#edit_email_action").hide();
                 }
-                //var a="hi..";
                 $scope.schedule_id = schedule_id;
                 var date = new Date(schedule_time);
                 $(".editcontent").empty();
@@ -694,7 +695,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.is_today_active = is_today_active;
                 $scope.showEmailList();
             }).error(function (data) {
-                alert("request not successful");
+                alert(requesterror);
             });
 
         } else if (entity_type == getfacebook()) {
@@ -705,6 +706,7 @@ function controllerMarketingCampaign($scope, $http) {
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.image_name == undefined) {
+                    $("#fbpostremove").hide();
                     $('#fbeditremove').hide();
                     $('#fbremovedtemplate2').show();
                     $('#fbpreviewdecond2').hide();
@@ -712,9 +714,9 @@ function controllerMarketingCampaign($scope, $http) {
                     $("#edit_facebook").show();
                     $('#fbnotemplate1').show();
                     $('#fbtemplatesaved1').hide();
-                    //$("#edit_facebook_action").hide();
                     $('#edtfbimg').hide();
                 } else {
+                    $("#fbpostremove").show();
                     $('#fbeditremove').show();
                     $('#fbremovedtemplate2').hide();
                     $('#fbpreviewdecond2').show();
@@ -723,18 +725,16 @@ function controllerMarketingCampaign($scope, $http) {
                     $("#edit_facebook").show();
                     $('#fbnotemplate1').hide();
                     $('#fbtemplatesaved1').show();
-                    //$("#edit_facebook_action").hide();
                 }
                 $scope.schedule_id = schedule_id;
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
                 $scope.is_today_active = is_today_active;
             }).error(function (data) {
-                alert("request not successful");
+                alert(requesterror);
             });
 
         } else if (entity_type == gettwitter()) {
@@ -752,7 +752,6 @@ function controllerMarketingCampaign($scope, $http) {
                     $("#edit_twitter").show();
                     $('#twnotemplate1').show();
                     $('#twtemplatesaved1').hide();
-                    //$("#edit_twitter_action").hide();
                     $('#edttwtimg').hide();
 
                 } else {
@@ -765,21 +764,17 @@ function controllerMarketingCampaign($scope, $http) {
                     $("#edit_twitter").show();
                     $('#twnotemplate1').hide();
                     $('#twtemplatesaved1').show();
-                    //$("#edit_twitter_action").hide();
                 }
-
+                
                 $scope.schedule_id = schedule_id;
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log("twitter description" + schedule_desc);
-                console.log("twitter time" + schedule_time);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
                 $scope.is_today_active = is_today_active;
-
             }).error(function (data) {
-                alert("request not successful");
+                alert(requesterror);
             });
 
         } else if (entity_type == getnote()) {
@@ -794,16 +789,12 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
-                alert("request not successful");
+                alert(requesterror);
             });
-
         }
-
-
     };
 
     $scope.showScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc) {
@@ -839,13 +830,13 @@ function controllerMarketingCampaign($scope, $http) {
 
                 $scope.showEmailList();
             }).error(function (data) {
-                alert("request not successful");
+                alert(requesterror);
             });
-
-        } else if (entity_type == getfacebook()) {
-            sliderDialog = "#previewfb";
-            $('#slider-button').click();
-            prevSliderDialog = "#previewfb";
+        }         
+        
+        else if (entity_type == getfacebook()) {
+            sliderDialog = "#facebooksection";
+            prevSliderDialog = "#facebooksection";
             $('#edtfbimg').show();
             $http({
                 method: 'GET',
@@ -853,10 +844,12 @@ function controllerMarketingCampaign($scope, $http) {
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.image_name == undefined) {
+                    $("#fbpostremove").hide();
                     $("#preview_facebook").hide();
                     $("#edit_facebook").hide();
                     $("#edit_facebook_action").show();
                 } else {
+                    $("#fbpostremove").show();
                     $("#preview_facebook").hide();
                     $("#edit_facebook").show();
                     $("#edit_facebook_action").hide();
@@ -865,11 +858,10 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
-                alert("request not successful");
+                alert(requesterror);
             });
 
         } else if (entity_type == gettwitter()) {
@@ -896,11 +888,10 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
-                alert("request not successful");
+                alert(requesterror);
             });
 
         } else if (entity_type == getnote()) {
@@ -918,11 +909,10 @@ function controllerMarketingCampaign($scope, $http) {
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
-                console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
                 $scope.schedule_type = entity_type;
             }).error(function (data) {
-                alert("request not successful");
+                alert(requesterror);
             });
 
         }
@@ -930,78 +920,92 @@ function controllerMarketingCampaign($scope, $http) {
     };
 
     $scope.ShowAddAction = function()
-    {
+    { 
+        $("#fade").show();
+        $("#addAction").show();
         if(reSet()){ }
         $slider=1;
         $edit=1; 
-        sliderDialog = "#dvPriorityDialog";
-        $('#slider-button').click();
-        prevSliderDialog = "#dvPriorityDialog";
         $http({
                 method: 'GET',
                 url: getHost() + 'getMarketingProgramName.do'
             }).success(function (data, status) {
                 $scope.marketprogram = data.userProgramData;
-                if (data.userProgramData.user_program_id == "") {
-                    
+                if (data.userProgramData.user_program_id == "") {                    
                 } else {
                     $("dvPriorityDialog").show();
                 }
-                
-//                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
-                
             }).error(function (data) {
-                alert("request not successful");
+                alert("Request not successful!");
             });
     }
 
-
+    $("#closenotepopup").click(function(){
+        var change=$("#change").val();
+        if(change === "1")
+        {
+            $("#change").val("0");
+            window.open(getHost() + 'marketing.jsp', "_self");
+        }
+        $slider=2;
+        sliderDialog = "#notediv";
+        prevSliderDialog = "#notediv";
+        $('#slider-button').click();
+    });
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active) {
         
-        if (entity_type == getemail()) {
+        if (entity_type === getemail()) {
             $slider=2;
-            sliderDialog = "#preview";
-            $('#slider-button').click();
-            prevSliderDialog = "#preview";
-            $("#preview_email").show();
-            $("#edit_email").hide();
-            $("#edit_email_action").hide();
+            sliderDialog = "#emailsection";
+            
+            $("#emailpostsection").show();
+            $("#emailpostremove").show();
+            $("#emailactionsection").hide();
+            $("#emailnotesection").hide();
+            $("#emailactionsave").hide();
+            $("#emailnotesave").hide();
+
+            $("#emailaction1").removeClass("top-subnav-link-active-detail");
+            $("#emailaction1 a").removeAttr("class");
+            $("#emailnote1").removeClass("top-subnav-link-active-detail");
+            $("#emailnote1 a").removeAttr("class");
+            $("#emailpost1").removeClass("top-subnav-link-active-detail");
+            $("#emailpost1 a").removeAttr("class");
+
+            $("#emailpost1").addClass("top-subnav-link-active-detail");
+            $("#emailpost1 a").addClass("h3-subnav-subnav-active");
+            $("#emailaction1").addClass("top-subnav-links-detail");
+            $("#emailaction1 a").addClass("h3-subnav");
+            $("#emailnote1").addClass("top-subnav-links-detail");
+            $("#emailnote1 a").addClass("h3-subnav");
+            
+            $(".time_pick").width('100%');
+            
+            prevSliderDialog = "#emailsection";
+             $("#emailpost").click();
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.body == undefined) {
-                    $("#mailpreviewremove").hide();
-                    $('#mailremovedtemplate').show();
-                    $('#mailpreviewdecond').hide();
-                    $('.approve').hide();
-                    $("#email_button_send").val(create_button_title);
+                    $("#emailapprove").hide();
+                    $("#mailtemplatesaved1").hide();
+                    $("#mailnotemplate1").show();
+                    $('#emailpostremove').hide();
+                    $("#noemailsdiv").show();
+                    $("#savedemailsdiv").hide();
                 } else {
-                    $('.approve').show();
-                    $("#mailpreviewremove").show();
-                    $('#mailremovedtemplate').hide();
-                    $('#mailpreviewdecond').show();
-                    $('.content').show();
-                    $('#mailimgprev').show();
-                    $("#email_button_send").val("Send");
-                }
-                if(template_status=="complete")
-                {
-                    $("#emailgreen").show();
-                    $("#emailred").hide();
-                }
-                else
-                {
-                    $("#emailgreen").hide();
-                    $("#emailred").show();
+                    $("#emailapprove").show();
+                    $("#noemailsdiv").hide();
+                    $("#savedemailsdiv").show();
+                     $("#mailtemplatesaved1").show();
+                    $("#mailnotemplate1").hide();
+                    $('#emailpostremove').show();
                 }
                 var date = new Date(schedule_time);
-                $(".content").empty();
-                $(".content").append(data.body);
-//                $(".content").css("-webkit-transform", " scale(0.7,0.6)").css("left", "0px").css("top", "-20px");
-                
-                $scope.entities_selected_time = schedule_time;
+                $('#emailcontentiframe').contents().find('html').html(data.body);                 
+                $scope.entities_selected_time = date;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 console.log(schedule_desc);
@@ -1013,51 +1017,61 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.days = days;
                 $scope.is_today_active = is_today_active;
             }).error(function (data) {
-                alert("request not successful");
+                alert(requesterror);
             });
-        } else if (entity_type == getfacebook()) {
-            $slider=2;
-            sliderDialog = "#previewfb";
             $('#slider-button').click();
-            prevSliderDialog = "#previewfb";
-            $("#preview_facebook").show();
-            $("#edit_facebook").hide();
-            $("#edit_facebook_action").hide();
+        } 
+        if (entity_type === getfacebook()) {
+            $slider=2;
+            sliderDialog = "#facebooksection";
+            $("#facebookpostsection").show();
+            $("#facebooknotesection").hide();
+            $("#facebookactionsection").hide();
+            
+            $("#facebookaction1").removeClass("top-subnav-link-active-detail");
+            $("#facebookaction1 a").removeAttr("class");
+            $("#facebooknote1").removeClass("top-subnav-link-active-detail");
+            $("#facebooknote1 a").removeAttr("class");
+            $("#facebookpost1").removeClass("top-subnav-link-active-detail");
+            $("#facebookpost1 a").removeAttr("class");
 
+            $("#facebookpost1").addClass("top-subnav-link-active-detail");
+            $("#facebookpost1 a").addClass("h3-subnav-subnav-active");
+            $("#facebookaction1").addClass("top-subnav-links-detail");
+            $("#facebookaction1 a").addClass("h3-subnav");
+            $("#facebooknote1").addClass("top-subnav-links-detail");
+            $("#facebooknote1 a").addClass("h3-subnav");
+
+            prevSliderDialog = "#facebooksection";
+            $(".time_pick").width('200%');
+            $("#facebookpost").click(); 
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
-                
-                if (data.image_name == undefined) {
-                    $('.approve').hide();
-                    $('#fbpreviewremove').hide();
-                    $('#fbremovedtemplate').show();
-                    $('#fbpreviewdecond').hide();
-                    $('#imgcontainer').hide();
-                    $('#prevfbimg').hide();
+                if (data.image_name === undefined) {
+                    $('#fbactionsave').hide();
+                    $('#fbpostremove').hide();
+                    $('#nopostsaveddiv').show();
+                    $('#savedpostdiv').hide();
+                    $('#savedposthead').hide();
+                    $('#fbpostremove').hide();
                     $('#fbnotemplate').show();
                     $('#fbtemplatesaved').hide();
-                    $('#fb_preview_postdet').css("margin-top", 10);
-//                    $("#fb_button_post").val(create_button_title);
                 } else {
-                    $('.approve').show();
-                    $('#fbpreviewremove').show();
-                    $('#fbremovedtemplate').hide();
-                    $('#fbpreviewdecond').show();
+                    $(".Facebook-preview-image").css("background-color","#ffffff");
+                    $('#fbactionsave').hide();
+                    $('#savedposthead').show();
+                    $('#nopostsaveddiv').hide();
+                    $('#savedpostdiv').show();
+                    $('#fbpostremove').show();
                     $('#fbnotemplate').hide();
                     $('#fbtemplatesaved').show();
-                    $('#imgcontainer').show();
-                    $('#fb_preview_postdet').css("margin-top", 20);
-                    $("#fb_button_post").val("Edit");
-                    $('#prevfbimg').show();
-                    $('#isFacebook').val("true");
-                    $('#isTwitter').val("false");
                 }
                 
                 var date = new Date(schedule_time);
-                $scope.entities_selected_time = schedule_time;
+                $scope.entities_selected_time = date;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 $scope.schedule_desc = schedule_desc;
@@ -1067,52 +1081,67 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.user_marketing_program_id = programId;
                 $scope.days = days;
                 $scope.is_today_active = is_today_active;
+                
 
             }).error(function (data) {
-                alert("request not successful");
+                alert(requesterror);
             });
-
-        } else if (entity_type == gettwitter()) {
+            $('#slider-button').click();            
+        } 
+        if (entity_type === gettwitter()) {
             $slider=2;
-            sliderDialog = "#previewtwitter";
-            $('#slider-button').click();
-            prevSliderDialog = "#previewtwitter";
-            $('#prevtwtimg').show();
-            $("#preview_twitter").show();
-            $("#edit_twitter").hide();
-            $("#edit_twitter_action").hide();
+            sliderDialog = "#twittersection";            
+            $("#twittersection").show();
+            $("#twitterpostsection").show();
+            $("#twtpostremove").show();
+            $("#twitteractionsection").hide();
+            $("#twitternotesection").hide();
+            $("#twactionsave").hide();
+            $("#twnotesave").hide();
+            
+            $("#twitteraction1").removeClass("top-subnav-link-active-detail");
+            $("#twitteraction1 a").removeAttr("class");
+            $("#twitternote1").removeClass("top-subnav-link-active-detail");
+            $("#twitternote1 a").removeAttr("class");
+            $("#twitterpost1").removeClass("top-subnav-link-active-detail");
+            $("#twitterpost1 a").removeAttr("class");
 
+            $("#twitterpost1").addClass("top-subnav-link-active-detail");
+            $("#twitterpost1 a").addClass("h3-subnav-subnav-active");
+            $("#twitteraction1").addClass("top-subnav-links-detail");
+            $("#twitteraction1 a").addClass("h3-subnav");
+            $("#twitternote1").addClass("top-subnav-links-detail");
+            $("#twitternote1 a").addClass("h3-subnav");
+            
+            prevSliderDialog = "#twittersection";
+            $(".time_pick").width('100%');
+             $("#twitterpost").click();
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.image_name == undefined) {
-                    $('.approve').hide();
-                    $('#twpreviewremove').hide();
-                    $('#twremovedtemplate').show();
-                    $('#twpreviewdecond').hide();
-                    $('#prevtwtimg').hide();
+                    
+                    $('#twtnopostsaveddiv').show();
+                    $('#twtsavedpostdiv').hide();
+                    $('#twtsavedposthead').hide();
+                    $('#twtpostremove').hide();
                     $('#twnotemplate').show();
-                    $('#twtemplatesaved').hide();
-                    $('#twitter_preview_postdet').css("margin-top", 10);
-//                    $("#twitter_button_post").val(create_button_title);
-                } else {
-                    $('.approve').show();
-                    $('#twpreviewremove').show();
-                    $('#twremovedtemplate').hide();
-                    $('#twpreviewdecond').show();
-                    $('#prevtwtimg').show();
+                    $('#twtemplatesaved').hide();            
+                }
+                else 
+                {     
+                    $(".Facebook-preview-image").css("background-color","#ffffff");
+                    $('#twtsavedposthead').show();
+                    $('#twtnopostsaveddiv').hide();
+                    $('#twtsavedpostdiv').show();
+                    $('#twtpostremove').show();
                     $('#twnotemplate').hide();
                     $('#twtemplatesaved').show();
-                    $("#twitter_button_post").val("Edit");
-                    $('#twitter_preview_postdet').css("margin-top", -250);
-                    $('#isFacebook').val("false");
-                    $('#isTwitter').val("true");
                 }
-
                 var date = new Date(schedule_time);
-                $scope.entities_selected_time = schedule_time;
+                $scope.entities_selected_time = date;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 console.log(schedule_desc);
@@ -1124,16 +1153,29 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.days = days;
                 $scope.is_today_active = is_today_active;
             }).error(function (data) {
-                alert("request not successful");
+                alert(requesterror);
             });
-        } else if (entity_type == getnote()) {
-            $slider=1;
-            sliderDialog = "#previewNote";
             $('#slider-button').click();
-            prevSliderDialog = "#previewNote";
+           
+        } 
+        if (entity_type == getnote()) {
+            $slider=2;
+            sliderDialog = "#notediv";
+            prevSliderDialog = "#notediv";
 
-            $("#noteprev").show();
-            $("#noteedit").hide();
+            $("#reminderdetailsdiv").hide();
+            $("#savedreminderdiv").show();
+            $("#reminderactionsave").hide();
+            $("#remindernotesave").show();
+
+            $("#reminderdetailstab").removeClass("top-subnav-link-active-detail");
+            $("#reminderdetailstab a").removeClass("h3-subnav-active");
+            $("#reminderdetailstab a").addClass("h3-subnav");
+
+            $("#savedremindertab a").removeClass("h3-subnav");
+            $("#savedremindertab").addClass("top-subnav-link-active-detail");
+            $("#savedremindertab a").addClass("h3-subnav-active");
+        
             $scope.entities_selected_time = schedule_time;
             $scope.schedule_title = schedule_title;
             $scope.schedule_id = schedule_id;
@@ -1143,7 +1185,7 @@ function controllerMarketingCampaign($scope, $http) {
             $scope.marketing_program_name = marketingName;
             $scope.user_marketing_program_id = programId;
             $scope.days = days;
-
+            $('#slider-button').click();
         }
     };
 
@@ -1152,20 +1194,14 @@ function controllerMarketingCampaign($scope, $http) {
         var title = $("#addactiontitle").val();
         var actiontype = $("#actiontype").val();
         var marketingProgramType=$("#marketing_program").val();
-        var description = $("#description").val();
+        var description = "";
         var actiondate = $("#datepicker").val();
         var actionDateTime=$("#timepicker1").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
-        var myDate = new Date(l); // Your timezone!
+        var myDate = new Date(l);
         var days=0;
-        
         var schedule_time = Date.parse(l);
-        console.log("Epoch: " + schedule_time);
-        
-
         var myEpoch = schedule_time;
-
-        console.log("New Epoch: " + myEpoch);
         if (validateaction()) {
             var action = {"title": title, "actiontype": actiontype, "marketingType":marketingProgramType, "type": "save",
                 "description": description, "action_date": myEpoch, "days":days
@@ -1179,26 +1215,19 @@ function controllerMarketingCampaign($scope, $http) {
             {
                 $scope.status = data;
                 if (data != "") {
-                    alert("action saved successfully");
+                    alert(actionsaved);
                     window.open(getHost() + 'marketing.jsp', "_self");
-
                 }
             }).error(function (data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-
-                alert("request not succesful");
+                alert(requesterror);
             });
-
         }
     };
     $scope.updateActionEmail = function () {
-
+        
         var actiontype = $("#email_schedule_type").val();
-        console.log("action type" + actiontype);
         var schedule_id = $("#email_scheduleid").val();
         var title = $("#email_edit_title").val();
-
         var actiondate = $("#emaildatetime").val();
         var days=$("#emaildays").val();
         if(days!="0")
@@ -1208,15 +1237,8 @@ function controllerMarketingCampaign($scope, $http) {
         var actionDateTime=$("#timepickeremail").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
-        console.log("Epoch: " + schedule_time);
         var myEpoch = schedule_time;
-        console.log("New Epoch: " + myEpoch);
-
-        var description = $("#email_description").val();
-        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
-
-        console.log("New Epoch: " + myEpoch);
-
+        var description = "";
         if (validateemailaction()) {
             var action = {
                 "schedule_id": schedule_id, "type": "update",
@@ -1232,26 +1254,51 @@ function controllerMarketingCampaign($scope, $http) {
             {
                 $scope.status = data;
                 if (data != "") {
-                    alert("action saved successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
-
+                    alert(actionsaved);
+                    $("#change").val("1");
+                    $scope.getCampaigns();
                 }
             }).error(function (data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-
-                alert("request not succesful");
+                alert(requesterror);
+            });
+        }
+    };
+    $scope.updateActionEmailNote = function (schedule_id) {
+        var id=$("#emailaction_id").val();
+        var a= $("#emailnotes"+id).val();
+        $("#emailnotes"+id).val(a);
+        var actiontype = getfacebook();
+        var schedule_id = $("#email_scheduleid").val();
+        var description = $("#emailnotes"+schedule_id).val();
+        if (validateemailDescription()) {
+            var action = {
+                "schedule_id": schedule_id, "type": "updatenotesyourplan","actiontype": actiontype,
+                "description": description
+            };        
+            $http({
+                method: 'POST',
+                url: getHost() + 'AddAction',
+                headers: {'Content-Type': 'application/json'},
+                data: JSON.stringify(action)
+            }).success(function (data)
+            {
+                $scope.status = data;
+                if (data != "") {
+                    alert(emailnotesaved);
+                    $("#change").val("1");
+                }
+            }).error(function (data, status) {
+                alert(reqemailnotesaved);
             });
 
         }
     };
+    
     $scope.updateActionFacebook = function () {
-
+        
         var actiontype = $("#fb_scheduletype").val();
-        console.log("action type" + actiontype);
         var schedule_id = $("#fb_scheduleid").val();
         var title = $("#fb_action_title").val();
-        
         var actiondate = $("#datepickerfb").val();
         var days=$("#fbdays").val();
         if(days!="0")
@@ -1261,12 +1308,8 @@ function controllerMarketingCampaign($scope, $http) {
         var actionDateTime=$("#timepickerfb").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
-        console.log("Epoch: " + schedule_time);
         var myEpoch = schedule_time;
-        console.log("New Epoch: " + myEpoch);
-        var description = $("#fb_description").val();
-        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
-        console.log("New Epoch: " + myEpoch);
+        var description = "";
         if (validatefacebookaction()) {
             var action = {
                 "schedule_id": schedule_id, "type": "update",
@@ -1282,27 +1325,47 @@ function controllerMarketingCampaign($scope, $http) {
             { 
                 $scope.status = data;
                 if (data != "") {
-                    alert("action saved successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
-
+                    alert(actionsaved);
+                    $("#change").val("1");
+                    $scope.getCampaigns();
                 }
             }).error(function (data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-
-                alert("request not succesful");
+                alert(requesterror);
             });
 
         }
     };
-    $scope.updateActionTwitter = function () {
-
-        var actiontype = $("#twitter_action_type").val();
-        console.log("action type" + actiontype);
-        var schedule_id = $("#twitter_scheduleid").val();
-        var title = $("#edit_twitter_title").val();
+    $scope.updateActionFacebookNote = function () {
         
-
+        var actiontype = getfacebook();
+        var schedule_id = $("#fb_scheduleid").val();
+        var description = $("#fbnote"+schedule_id).val();        
+            var action = {
+                "schedule_id": schedule_id, "type": "updatenotesyourplan","actiontype": actiontype,
+                "description": description
+            };        
+            $http({
+                method: 'POST',
+                url: getHost() + 'AddAction',
+                headers: {'Content-Type': 'application/json'},
+                data: JSON.stringify(action)
+            }).success(function (data)
+            {
+                $scope.status = data;
+                if (data != "") {
+                    alert(facebooknotesaved);
+                    $("#change").val("1");
+                    $scope.getCampaigns();
+                }
+            }).error(function (data, status) {
+                alert(requesterror);
+            });
+    };
+    
+    $scope.updateActionTwitter = function () {
+        var actiontype = $("#twitter_action_type").val();
+        var schedule_id = $("#twitter_scheduleid").val();
+        var title = $("#edit_twitter_title").val();        
         var actiondate = $("#datepickertwitter").val();
         var days=$("#twdays").val();
         if(days!="0")
@@ -1312,21 +1375,43 @@ function controllerMarketingCampaign($scope, $http) {
         var actionDateTime=$("#timepickertwitter").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
-        console.log("Epoch: " + schedule_time);
         var myEpoch = schedule_time;
-        console.log("New Epoch: " + myEpoch);
-
-
-        var description = $("#twitter_description").val();
-        console.log(actiontype + "," + schedule_id + "," + title + "," + description);
-        
-        console.log("New Epoch: " + myEpoch);
+        var description = "";
 
         if (validatetwitteraction()) {
             var action = {
                 "schedule_id": schedule_id, "type": "update",
                 "title": title, "actiontype": actiontype,
                 "description": description, "action_date": myEpoch, "days":days
+            };
+            
+            $http({
+                method: 'POST',
+                url: getHost() + 'AddAction',
+                headers: {'Content-Type': 'application/json'},
+                data: JSON.stringify(action)
+            }).success(function (data)
+            {
+                $scope.status = data;
+                if (data != "") {
+                    alert(actionsaved);
+                    $("#change").val("1");
+                    $scope.getCampaigns();
+                }
+            }).error(function (data, status) {
+                alert(requesterror);
+            });
+        }
+    };
+    $scope.updateActionTwitterNote = function () {
+
+        var actiontype = $("#twitter_action_type").val();
+        var schedule_id = $("#twitter_scheduleid").val();
+        var description = $("#twtnote").val();
+        if (validatetwitteraction()) {
+            var action = {
+                "schedule_id": schedule_id, "type": "updatenotesyourplan",
+                "actiontype": actiontype,"description": description
             };
             $http({
                 method: 'POST',
@@ -1337,22 +1422,17 @@ function controllerMarketingCampaign($scope, $http) {
             {
                 $scope.status = data;
                 if (data != "") {
-                    alert("action saved successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
-
+                    alert(twitternotesaved);
+                    $("#change").val("1");
+                    $scope.getCampaigns();
                 }
             }).error(function (data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-
-                alert("request not succesful");
+                alert(requesterror);
             });
-
         }
     };
 
-
-$scope.addEditRecuringAction = function(type,program_id,entity_id){
+    $scope.addEditRecuringAction = function(type,program_id,entity_id){
             window.open(getHost() + 'emailautomation.jsp?type='+type+'&program_id='+program_id+'&entity_id='+entity_id, "_self");
       };
 
@@ -1376,24 +1456,23 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
         var requestBody;
         var responseMessage;
         if (type == "deleteMultiple") {
-            message = "Are you sure you want to delete these Action(s)?";
+            message = multideleteconfirm;
             requestBody = {"type": "deleteSelected",
                 "schedule_ids": selected_schedules_to_delete, "entity_type": "null"};
-            responseMessage = "Selected actions were deleted successfully";
+            responseMessage =multideletesuccess;
         } else if (type == "delete") {
-            message = "Are you sure you want to delete this Action?";
+            message = singledeleteconfirm;
             requestBody = {"type": "delete",
                             "schedule_ids": schedules_to_delete, "entity_type": section, 
                             "isRecuring": isRecuring};
-            responseMessage = "Selected actions were deleted successfully";
+            responseMessage = singledeletesuccess;
         } else if (type == "remove") {
-            message = "Are you sure you want to remove the template?";
+            message = removecnfirm;
             requestBody = {"type": "removetemplate", 
                            "schedule_ids": schedules_to_delete, "entity_type": section, 
                            "isRecuring": isRecuring};
-            responseMessage = "Selected actions were deleted successfully";
+            responseMessage = multideletesuccess;
         }
-
 
         if (confirm(message)) {
             $http({
@@ -1407,48 +1486,47 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
                 if (data !== "") {
                     if(section == getfacebook())
                     {
-                        $("#fbpreviewdecond").hide();
-                        $("#fbremovedtemplate").show();                        
+                        $("#savedpostdiv").hide();
+                        $("#emptynoteheader1").hide(); 
+                        $("#nopostsaveddiv").show();  
+                        $("#emptynoteheader2").show(); 
                     }
                     if(section == gettwitter())
                     {
-                        $("#twpreviewdecond").hide();
-                        $("#twremovedtemplate").show();                     
+                        $("#twtsavedpostdiv").hide();
+                        $("#twtnopostsaveddiv").show();                     
                     }
                     if(section == getemail())
                     {
-                        $("#mailpreviewdecond").hide();
-                        $("#mailremovedtemplate").show();                     
+                        $("#savedemailsdiv").hide();
+                        $("#noemailsdiv").show();                     
                     }
                     alert(responseMessage);
+                    $("#emailpostremove").hide();
+                    $("#savedemailsdiv").hide();
+                    $("#noemailsdiv").show();
+                    $("#change").val("1");                    
                     window.open(getHost() + 'marketing.jsp', "_self");
                 }
             }).error(function (data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-
-                alert("request not succesful");
+                alert(requesterror);
             });
         }
     };
 
+    
     $scope.updateNote = function () {
         var message;
-        
-        var schedule_id = $("#note_schedule_id").val();
-        var entity_id = $("#note_entity_id").val();
-        var note_title = $("#note_title").val();
-        var status = $("#status").val();
+        var schedule_id = $("#note_scheduleid").val();
+        var note_title = $("#edit_note_title").val();
+        var status = "no_template";
         var note_desc = $("#note_desc").val();
         var message = "Do you wan't to update the record?";
-        var actiondate = $("#datepicker4").val();
-        var actionDateTime=$("#timepicker3").val().replace(/ /g,'');
+        var actiondate = $("#datepickernote").val();
+        var actionDateTime=$("#timepickernote").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
-        console.log("Epoch: " + schedule_time);
-        var myEpoch = schedule_time;
-        console.log("New Epoch: " + myEpoch);
-
+        var myEpoch = schedule_time;    
  
         var schedule_details = {
             "type": getnote(),
@@ -1457,31 +1535,50 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
             "schedule_desc": note_desc,
             "status": status,
             "schedule_time": myEpoch
-        }
-       if(confirm(message)){
+        };
+       
+        $http({
+            method: 'POST',
+            url: getHost() + 'ChangeScheduleServlet',
+            headers: {'Content-Type': 'application/json'},
+            data: JSON.stringify(schedule_details)
+        }).success(function (data)
+        {
+            $scope.status = data;
+            if (data != "") {
+                alert(detailssaved);
+                $("#change").val("1");
+            }
+        }).error(function (data, status) {
+            alert(requesterror);
+        });        
+    };
+    $scope.updateNoteDescription = function (schedule_id) {
+        var actiontype = getnote();
+        var description = $("#reminderdesc"+schedule_id).val();
+ 
+        if (validateemailDescription()) {
+            var action = {
+                "schedule_id": schedule_id, "type": "updatenotes","actiontype": actiontype,
+                "description": description
+            };
             $http({
                 method: 'POST',
-                url: getHost() + 'ChangeScheduleServlet',
+                url: getHost() + 'AddAction',
                 headers: {'Content-Type': 'application/json'},
-                data: JSON.stringify(schedule_details)
+                data: JSON.stringify(action)
             }).success(function (data)
             {
                 $scope.status = data;
                 if (data != "") {
-                    alert("details saved successfully");
-                    window.open(getHost() + 'marketing.jsp', "_self");
-
+                    alert(remindernotesaved);
+                    $("#change").val("1");
                 }
             }).error(function (data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-
-                alert("request not succesful");
+                alert(requesterror);
             });
-            
         }
     };
-
 
     $scope.updateEmailSchedule = function () {
         var schedule_id = $("#email_schedule_id").val();
@@ -1490,21 +1587,14 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
         var email_entitysubject = $("#email_entitysubject").val();
         var email_entitytoaddress = $("#email_entitytoaddress").val();
         var email_entityfromaddress = $("#email_entityfromaddress").val();
-        var email_entityreplytoaddress = $("#email_entityreplytoaddress").val();
-        
+        var email_entityreplytoaddress = $("#email_entityreplytoaddress").val();        
         var actiondate = $("#email_schedule_datetime").val();
         var actionDateTime=$("#timepickeremailaction").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
-        console.log("Epoch: " + schedule_time);
-        var myEpoch = schedule_time;
-        console.log("New Epoch: " + myEpoch);
-        
+        var myEpoch = schedule_time;        
         
         var chooseEmailList = $("#chooseEmailList").val();
-
-        console.log("New Epoch: " + myEpoch);
-
         var schedule_details = {
             "type": "updateemail",
             "schedule_id": schedule_id,
@@ -1526,43 +1616,31 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
         {
             $scope.status = data;
             if (data != "") {
-                alert("details saved successfully");
+                alert(detailssaved);
                 window.open(getHost() + 'marketing.jsp', "_self");
-
             }
         }).error(function (data, status) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-
-            alert("request not succesful");
+            alert(requesterror);
         });
 
     };
 
     $scope.updateSocialSchedule = function () {
-
         var social_type = $("#social_type").val();
-
         if (social_type == getfacebook()) {
-
             if ($scope.validatefacebook()) {
-
                 var schedule_id = $("#facebook_schedule_id").val();
                 var entity_id = $("#facebook_entity_id").val();
                 var schedule_title = $("#facebook_schedule_title").val();
                 var schedule_Description = $("#facebook_schedule_Description").val();
                 var facebook_schedule_posttext = $("#facebook_schedule_posttext").val();
                 var facebook_schedule_url = $("#facebook_schedule_url").val();
-                var facebook_schedule_description = $("#facebook_schedule_description").val();
-                
+                var facebook_schedule_description = $("#facebook_schedule_description").val();                
                 var actiondate = $("#facebook_schedule_date").val();
                 var actionDateTime=$("#facebook_schedule_time").val().replace(/ /g,'');
                 var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
                var schedule_time = Date.parse(l);
-                console.log("Epoch: " + schedule_time);
                 var myEpoch = schedule_time;
-                console.log("New Epoch: " + myEpoch);
-
                
                    var schedule_details = {"type": "updatesocial",
                     "schedule_id": schedule_id,
@@ -1585,15 +1663,11 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
                 {
                     $scope.status = data;
                     if (data != "") {
-                        alert("details saved successfully");
+                        alert(detailssaved);
                         window.open(getHost() + 'marketing.jsp', "_self");
-
                     }
                 }).error(function (data, status) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-
-                    alert("request not succesful");
+                    alert(requesterror);
                 });
 
             }
@@ -1605,17 +1679,13 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
                 var entity_id = $("#twitter_entity_id").val();
                 var schedule_title = $("#twitter_schedule_title").val();
                 var schedule_Description = $("#twitter_schedule_Description").val();
-                var schedule_posttext = $("#twitter_schedule_post_text").val();
-                
-
+                var schedule_posttext = $("#twitter_schedule_post_text").val();    
 
                 var actiondate = $("#twitter_schedule_date").val();
                 var actionDateTime=$("#timepicker_twittertime").val().replace(/ /g,'');
                 var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
                 var schedule_time = Date.parse(l);
-                console.log("Epoch: " + schedule_time);
                 var myEpoch = schedule_time;
-                console.log("New Epoch: " + myEpoch);
                 
                var schedule_details = {"type": "updatesocial",
                     "schedule_id": schedule_id,
@@ -1637,17 +1707,12 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
                 {
                     $scope.status = data;
                     if (data != "") {
-                        alert("details saved successfully");
+                        alert(detailssaved);
                         window.open(getHost() + 'marketing.jsp', "_self");
-
                     }
                 }).error(function (data, status) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-
-                    alert("request not succesful");
+                    alert(requesterror);
                 });
-
             }
         }
     };
@@ -1662,42 +1727,41 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
         var actionDateTime=$("#facebook_schedule_time").val().replace(/ /g,'');
 
         if (facebook_schedule_title == "") {
-            alert("schedule title not entered, please enter the value");
+            alert(scheduletitleerror);
             $("#facebook_schedule_title").focus();
             return false;
         }
         if (facebook_schedule_Description == "") {
-            alert("schedule description not entered, please enter the value");
+            alert(scheduledescriptionerror);
             $("#facebook_schedule_Description").focus();
             return false;
         }
         if (facebook_schedule_posttext == "") {
-            alert("schedule post text not entered, please enter the value");
+            alert(scheduleposttexterror);
             $("#facebook_schedule_posttext").focus();
             return false;
         }
         if (facebook_schedule_url == "") {
-            alert("schedule url not entered, please enter the value");
+            alert(scheduleurlerror);
             $("#facebook_schedule_url").focus();
             return false;
         }
         if (facebook_schedule_description == "") {
-            alert("schedule description not entered, please enter the value");
+            alert(scheduledescriptionerror);
             $("#facebook_schedule_description").focus();
             return false;
         }
         if (actiondate == "") {
-            alert("schedule date not entered, please enter the date");
+            alert(scheduledateerror);
             $("#facebook_schedule_date").focus();
             return false;
         }
         if (actionDateTime == "") {
-            alert("schedule time not entered, please enter the time");
+            alert(scheduletimeerror);
             $("#facebook_schedule_time").focus();
             return false;
         }
         return true;
-
     };
     $scope.validatetwitter = function () {
 
@@ -1710,37 +1774,33 @@ $scope.addEditRecuringAction = function(type,program_id,entity_id){
         var actionDateTime=$("#timepicker_twittertime").val().replace(/ /g,'');
 
         if (schedule_title == "") {
-            alert("schedule title not entered, please enter the value");
+            alert(scheduletitleerror);
             $("#twitter_schedule_title").focus();
             return false;
         }
         if (schedule_Description == "") {
-            alert("schedule description not entered, please enter the value");
+            alert(scheduledescriptionerror);
             $("#twitter_schedule_Description").focus();
             return false;
         }
         if (schedule_posttext == "") {
-            alert("schedule post text not entered, please enter the value");
+            alert(scheduleposttexterror);
             $("#twitter_schedule_post_text").focus();
             return false;
         }
         if (actiondate == "") {
-            alert("schedule date not entered, please enter the value");
+            alert(scheduledateerror);
             $("#schedule_date").focus();
             return false;
         }
         if (actionDateTime == "") {
-            alert("schedule time not entered, please enter the value");
+            alert(scheduletimeerror);
             $("#schedule_time").focus();
             return false;
         }
         return true;
-
     };
-    };
-var error_message = "unable to post the schedule";
-var error_message_email = "unable to send the email";
-
+};
 function sendEmail() {
     var email_from_name = $("#email_entity_from_name").val();
     var email_entitysubject = $("#email_entitysubject").val();
@@ -1771,7 +1831,6 @@ function sendEmail() {
                                             scheduleid: scheduleid,
                                             entityid: entityid
                                             }
-                        //alert(JSON.stringify(schedule_data));
                         $.ajax({
                            url:'ChangeScheduleServlet',
                            method:'Post',
@@ -1782,7 +1841,7 @@ function sendEmail() {
                            success: function (responseText) {
                                alert(responseText);
                                if (responseText == "true"){
-                                 alert("Your email has been sent successfully");
+                                 alert("Your email has been sent successfully.");
                                }
                             }
                         });
@@ -1791,13 +1850,11 @@ function sendEmail() {
             error: function () {
                 alert(error_message);
             }
-
         });
 
     } else if (checkifcreatebutton($("#email_button_send").val())) {
         document.location.href = "dashboard.jsp";
     }
-
 }
 
 function postSocial() {
@@ -1816,7 +1873,6 @@ function postSocial() {
             scheduleid = $("#twitter_schedule_id").val();
             entityid = $("#twitter_entity_id").val();
         }
-
         var link = $("#twitter_schedule_post_url").val();
         var f = link.startsWith("http");
         if (!f)
@@ -1857,7 +1913,6 @@ function postSocial() {
                                             scheduleid: scheduleid,
                                             entityid: entityid
                                             }
-                        //alert(JSON.stringify(schedule_data));
                         $.ajax({
                            url:'ChangeScheduleServlet',
                            method:'Post',
@@ -1866,7 +1921,7 @@ function postSocial() {
                            mimeType: 'application/json',
                            data:JSON.stringify(schedule_data),
                            success: function (responseText) {
-                               alert("Your post has been published successfully");
+                               alert(postsuccess);
                                document.location.href = "marketing.jsp";
                             },
                             error: function () {
@@ -1880,13 +1935,11 @@ function postSocial() {
                     }
                 });
             }
-
         });
 
     } else if (checkifcreatebutton($("#fb_button_post").val()) || (checkifcreatebutton($("#twitter_button_post").val()))) {
         document.location.href = "dashboard.jsp";
     }
-
     function checkifcreatebutton(value) {
         if (value == create_button_title) {
             return true;
@@ -1896,4 +1949,3 @@ function postSocial() {
     }
 
 }
-

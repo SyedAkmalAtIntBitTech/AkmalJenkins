@@ -10,6 +10,7 @@ import email.mandrill.Recipient;
 import email.mandrill.RecipientMetadata;
 import email.mandrill.SendMail;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -76,6 +77,7 @@ public class ForgotSendEmail extends BrndBotBaseHttpServlet {
             joUser = (org.json.simple.JSONObject) parser.parse(string_buffer.toString());
             ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
             String context_real_path = servletContext.getRealPath("");
+
             String imageContextPath = Utility.getServerName(context_real_path);
 
             String email_id = (String) joUser.get("emailid");

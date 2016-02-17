@@ -36,9 +36,6 @@ and open the template in the editor.
   
 }
 
-
-
-
 /*////// signup page animation    //////*/
 #std >div {
     position: relative;
@@ -147,16 +144,13 @@ input               {
 
  -webkit-box-shadow: none !important;
  -moz-box-shadow: none !important;
-   box-shadow: none !important ;
+  box-shadow: none !important ;
   border-bottom:1px solid #757575;
   border-radius:0px; 
-    
-    
-    
   font-size:18px;
   padding:10px 10px 10px 5px;
   display:block;
-  width:300px;
+  width:100%;
   border:none;
   border-bottom:1px solid #757575;
 }
@@ -179,6 +173,7 @@ label                {
                 font-size:18px;
                 position: relative;
                 padding-top:10%;
+                margin-left: -11px;
 }
 /* active state */
 #title:focus ~ label, .inputsubline:valid ~ label     {
@@ -191,8 +186,6 @@ label                {
     left:-130px;
   font-size:13px;
   color:#999;
-  
- 
 }
 #default_from_name:focus ~ label, .inputsubline:valid ~ label     {
     left:-170px;
@@ -228,7 +221,7 @@ label                {
 }
 
 #inputemail:focus ~ label, #inputemail:valid ~ label        {
-  left:-35px;
+  left:-40px;
   font-size:13px;
   color:#999;
 }
@@ -239,7 +232,7 @@ label                {
   font-size:13px;
   color:#999;
 }
-
+/*#inputpassword{-webkit-text-security:disc;}*/
 #inputpassword:focus ~ label, #inputpassword:valid ~ label{
   left:-70px;
   font-size:13px;
@@ -248,22 +241,30 @@ label                {
 }
 .settingPassword:focus ~ label{
   left:-132px !important;
+}
+/*#inputpassword:valid ~ label{
+  left:-72px !important;
   font-size:13px !important;
   color:#999 !important;
-}
-#inputpassword:valid ~ label
+}*/
+/*#inputpassword:valid ~ label
 {
   left:-70px !important;
   font-size:13px !important;
   color:#999 !important;
-}
+}*/
 #inputreenter:focus ~ label, #inputreenter:valid ~ label{
-    left:-133px;
+    left:-128px;
     font-size:13px;
     color:#999;
     
 }
-
+/*#reply_email_address:valid ~ label,#reply_email_address:focus ~ label {
+            left: -170px;
+            }
+            #from_address:valid ~ label,#from_address:focus ~ label {
+            left: -170px;
+            }*/
 
 
 #inputcompanyname:focus ~ label, #inputcompanyname:valid ~ label        {
@@ -487,10 +488,11 @@ margin-bottom:  30px;
 position:relative;
 left:0%;
 }
-#comment2{
-    position:relative;
-    left:13%;
-    font-size: 12px;
+#comment2 {
+    position: relative;
+    left: 0px;
+    font-size: 15px;
+    color: #7f7f7f;
 }
 #comment3{
     position: relative;
@@ -509,7 +511,7 @@ left:0%;
 }
 #contentdiv {
     position: relative;
-    top:104px;
+    top:10px;
 }
 
 #continuelookchooser{
@@ -649,7 +651,7 @@ opacity: 1;
 }
 #leastuse{
     position: relative;
-    right: -10px;
+    right: -322px;
 }
 /*---------------Organization */
 
@@ -714,8 +716,8 @@ select#organizationdropdown option{
     
 }
 #Servicecontinue{
-
-    top:120px;
+    border:none;
+    top:50px;
     left:0px;
     position: relative;
 }

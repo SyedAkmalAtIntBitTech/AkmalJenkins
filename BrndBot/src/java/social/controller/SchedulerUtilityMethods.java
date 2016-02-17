@@ -15,6 +15,8 @@ import com.intbit.marketing.model.TblUserMarketingProgram;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,28 +29,30 @@ public class SchedulerUtilityMethods {
     private static final ConnectionManager connectionManager = ConnectionManager.getInstance();
     private static final Logger logger = Logger.getLogger(ScheduledEntityListDaoImpl.class.getName());
 
-    public static String getLatestApprovedPost(String status, String entityType, String programStatus) {
+    public static ArrayList<String> getLatestApprovedPost(String status, String entityType, String programStatus) {
         StringBuilder sbSql = new StringBuilder();
-        sbSql.append("select  entitytable.schedule_time::time,entitytable.entity_id as en_id  from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
+        sbSql.append("select entitytable.schedule_time::time,entitytable.entity_id as en_id  from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
         sbSql.append(" where programtable.id = entitytable.user_marketing_program_id ");
         sbSql.append(" and lower(programtable.status)");
-        sbSql.append(" like'").append(programStatus).append("'");
+        sbSql.append(" like '").append(programStatus).append("'");
         sbSql.append(" and lower(entitytable.status) like '").append(status).append("'");
         sbSql.append(" and entitytable.entity_type like'").append(entityType).append("'");
         sbSql.append(" and (date(programtable.date_event AT TIME ZONE 'US/Eastern') - entitytable.days  = current_date AT TIME ZONE 'US/Eastern' or (date(entitytable.schedule_time AT TIME ZONE 'US/Eastern'))= current_date AT TIME ZONE 'US/Eastern')");
+        sbSql.append(" and date_trunc('minute', entitytable.schedule_time)::time AT TIME ZONE 'US/Eastern' = date_trunc('minute', localtimestamp)::time AT TIME ZONE 'US/Eastern'");
         sbSql.append(" order by entitytable.schedule_time::time");
-        sbSql.append(" limit 1");
+        //sbSql.append(" limit 1");
         sbSql.append(";");
-        String entityId = "";
+//        String entityId = "";
+        ArrayList<String> entityId = new ArrayList<String>();
 
         try (Connection conn = connectionManager.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sbSql.toString())) {
             ps.execute();
             try (ResultSet resultSet = ps.getResultSet()) {
 
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     int e = resultSet.getInt("en_id");
-                    entityId = Integer.toString(e);
+                    entityId.add(Integer.toString(e));
                 }
             }
 
@@ -60,7 +64,7 @@ public class SchedulerUtilityMethods {
         }
     }
 
-    public static String getLatestEmailApprovedPost(String status, String entityType, String programStatus, Boolean isRecuring) {
+    public static ArrayList<String> getLatestEmailApprovedPost(String status, String entityType, String programStatus, Boolean isRecuring) {
 
         StringBuilder sbSql = new StringBuilder();
 
@@ -73,13 +77,13 @@ public class SchedulerUtilityMethods {
             sbSql.append(" and entitytable.days > 0 and entitytable.entity_type like'").append(entityType).append("'");
             sbSql.append(" and entitytable.is_recuring =  '").append(isRecuring).append("'");
             //Need to review this
-            sbSql.append(" and date_trunc('minute', entitytable.schedule_time)::time AT TIME ZONE 'US/Eastern' >= date_trunc('minute', localtimestamp)::time AT TIME ZONE 'US/Eastern' ");
+            sbSql.append(" and date_trunc('minute', entitytable.schedule_time)::time AT TIME ZONE 'US/Eastern' >= date_trunc('minute', localtimestamp)::time AT TIME ZONE 'US/Eastern'");
 //            sbSql.append(" and entitytable.schedule_time::time AT TIME ZONE 'US/Eastern' >= current_time AT TIME ZONE 'US/Eastern' ");
             sbSql.append(" order by entitytable.schedule_time::time");
-            sbSql.append(" limit 1");
+//            sbSql.append(" limit 1");
             sbSql.append(";");
 
-        } else {            
+        } else {
             sbSql.append("select  entitytable.schedule_time::time, entitytable.entity_id as en_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
             sbSql.append(" where programtable.id = entitytable.user_marketing_program_id ");
             sbSql.append(" and lower(programtable.status)");
@@ -87,20 +91,21 @@ public class SchedulerUtilityMethods {
             sbSql.append(" and lower(entitytable.status) like '").append(status).append("'");
             sbSql.append(" and entitytable.entity_type like'").append(entityType).append("'");
             sbSql.append(" and entitytable.is_recuring = '").append(isRecuring).append("'");
-            sbSql.append(" and date(programtable.date_event AT TIME ZONE 'US/Eastern') - entitytable.days  = current_date AT TIME ZONE 'US/Eastern' or (date(entitytable.schedule_time AT TIME ZONE 'US/Eastern'))= current_date AT TIME ZONE 'US/Eastern'");
+            sbSql.append(" and (date(programtable.date_event AT TIME ZONE 'US/Eastern') - entitytable.days  = current_date AT TIME ZONE 'US/Eastern' or (date(entitytable.schedule_time AT TIME ZONE 'US/Eastern'))= current_date AT TIME ZONE 'US/Eastern')");
+            sbSql.append(" and date_trunc('minute', entitytable.schedule_time)::time AT TIME ZONE 'US/Eastern' = date_trunc('minute', localtimestamp)::time AT TIME ZONE 'US/Eastern'");
             sbSql.append(" order by entitytable.schedule_time::time");
-            sbSql.append(" limit 1");
+//            sbSql.append(" limit 1");
             sbSql.append(";");
         }
-        String entityId = "";
+        ArrayList<String> entityId = new ArrayList<String>();
 
         try (Connection conn = connectionManager.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sbSql.toString())) {
             ps.execute();
             try (ResultSet resultSet = ps.getResultSet()) {
 
-                if (resultSet.next()) {
-                    entityId = String.valueOf(resultSet.getInt("en_id"));
+                while (resultSet.next()) {
+                    entityId.add(String.valueOf(resultSet.getInt("en_id")));
                 }
             }
 
@@ -174,6 +179,7 @@ public class SchedulerUtilityMethods {
                     result.setType(resultSet.getString("type"));
                     result.setTblScheduledEntityList(new TblScheduledEntityList(resultSet.getInt("entity_list_id")));
                     result.setUserId(resultSet.getInt("user_id"));
+                    result.setImageType(resultSet.getString("image_type"));
                 }
             }
         } catch (Exception e) {

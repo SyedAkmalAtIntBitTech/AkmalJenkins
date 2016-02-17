@@ -15,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>email layout</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script src="js/configurations.js" type="text/javascript"></script>
@@ -106,7 +106,7 @@
                                 validate(data.link);
                             })
                             .error(function () {
-                                alert("request unsuccessful");
+                                alert("Request unsuccessful!");
                             });
                     };
                 }]);
@@ -204,7 +204,7 @@
                 }
                 if (xmlHttp === null) {
 
-                    alert("Browser does not support XMLHTTP Request");
+                    alert("Browser does not support XMLHTTP Request!");
 
                     return;
                 }
@@ -252,7 +252,7 @@
                 }
                 if (xmlHttp === null) {
 
-                    alert("Browser does not support XMLHTTP Request");
+                    alert("Browser does not support XMLHTTP Request!");
 
                     return;
                 }
@@ -290,7 +290,7 @@
                 }
                 if (xmlHttp === null) {
 
-                    alert("Browser does not support XMLHTTP Request");
+                    alert("Browser does not support XMLHTTP Request!");
 
                     return;
                 }
@@ -332,7 +332,7 @@
                 }
                 if (xmlHttp === null) {
 
-                    alert("Browser does not support XMLHTTP Request");
+                    alert("Browser does not support XMLHTTP Request!");
 
                     return;
                 }
@@ -381,7 +381,7 @@
                 }
                 if (xmlHttp === null) {
 
-                    alert("Browser does not support XMLHTTP Request");
+                    alert("Browser does not support XMLHTTP Request!");
 
                     return;
                 }
@@ -445,19 +445,19 @@
                 var htmldata=$('#edit').froalaEditor('html.get');//$(".fr-wrapper").children().html();
 
                 if (model_name === ""){
-                    alert("model name not entered");
+                    alert("Model name not entered!");
                     $("#namexml").focus();
                     return false;
                 }
                 else if(UploadImage === "null")
                     {
-                    alert("Please select a image");
+                    alert("Please select a image!");
                     HidePopUp();
                     $("#filesToUpload").focus();
                     return false;
                 } 
                 else if(htmldata === "<p><br></p>"){
-                    alert("Please add html data");
+                    alert("Please add html data!");
                     HidePopUp();
                     return false;
                     
@@ -471,7 +471,7 @@
                         },
                         success: function (responseText) {
                             if (responseText == "yes") {
-                                alert("name already exist, please give some other name");
+                                alert("Name already exist! Please give some other name.");
                                 $("#namexml").focus();
                                 return false;
                             } else if (responseText == "no") {
@@ -526,7 +526,7 @@
                                         UploadImage:UploadImage
                                     },
                                     success: function (responseText) {
-                                        alert("Model saved successfully");
+                                        alert("Model saved successfully.");
                                         window.open(getHost() + 'admin/emaillayout.jsp', "_self");
                                     }
                                 });
@@ -581,7 +581,7 @@
                 Organization : <select name="organization" id="organization" onchange="showUsers(this.value)">
 
                     <option value="0">-Select</option>
-                    <%                        Connection connection = null;
+                    <%  Connection connection = null;
                         try {
                             connection = ConnectionManager.getInstance().getConnection();
 
@@ -611,7 +611,8 @@
 
                 Brand : <select name="brand" id="brand" onchange="showblocks(this.value)">
                     <option value="0">-Select-</option>
-                    <%                        try {
+                    <% 
+                        try {
                             connection = ConnectionManager.getInstance().getConnection();
                             Query = "Select * from tbl_brand_personality";
                             ps = connection.prepareStatement(Query);

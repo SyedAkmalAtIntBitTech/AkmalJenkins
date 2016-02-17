@@ -5,22 +5,24 @@
  */
 package com.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
  * @author intbit
  */
 public class SubBrandPersonality extends BrndBotBaseHttpServlet {
-
-    RequestDispatcher request_dispatcher;
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,26 +36,49 @@ public class SubBrandPersonality extends BrndBotBaseHttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         super.processRequest(request, response);
+        RequestDispatcher request_dispatcher;
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         getSqlMethodsInstance().session = request.getSession();
+        StringBuffer string_buffered;
+        string_buffered = new StringBuffer();
         try {
-            String brandID = request.getParameter("brndID");
-            String type = request.getParameter("type");
+            List brand = new ArrayList();
+            
+            BufferedReader reader = request.getReader();
+             String line = null;
+              while ((line = reader.readLine()) != null)
+              {
+                string_buffered.append(line);
+              }
+
+            JSONParser parser = new JSONParser();
+            JSONObject json_look = null;
+            json_look = (JSONObject) parser.parse(string_buffered.toString());
+            
+            String type = (String)json_look.get("type");
+            String lookID = (String)json_look.get("lookID");
             
             if (type.equalsIgnoreCase("insert")){
-                getSqlMethodsInstance().session.setAttribute("brandID", brandID);
-                request_dispatcher = request.getRequestDispatcher("/uploadlogo.jsp");
-                request_dispatcher.forward(request, response);
+                brand = getSqlMethodsInstance().getBrandIDFromBrands(Integer.parseInt(lookID));
+                
+                getSqlMethodsInstance().session.setAttribute("brandID", brand.get(0));
+                getSqlMethodsInstance().session.setAttribute("brandName", brand.get(1));
+                
+                out.write("true");
+//                request_dispatcher = request.getRequestDispatcher("/uploadlogo.jsp");
+//                request_dispatcher.forward(request, response);
             }else if(type.equalsIgnoreCase("update")){
                 Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
-                getSqlMethodsInstance().updateBrandPersonality(user_id, Integer.parseInt(brandID));
+                Integer brand_id = (Integer) brand.get(0);
+                getSqlMethodsInstance().updateBrandPersonality(user_id, brand_id);
                 out.write("true");
             }
             
 
         } catch (Exception e) {
-                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while reading the Subbrand personality", getSqlMethodsInstance().error));
 
             out.println(getSqlMethodsInstance().error);
         }

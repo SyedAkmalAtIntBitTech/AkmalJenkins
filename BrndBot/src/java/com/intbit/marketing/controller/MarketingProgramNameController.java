@@ -74,6 +74,7 @@ public class MarketingProgramNameController {
            json_object.put("id", i);
            json_object.put("user_program_id", userMarketingProgramObject.getId());
            json_object.put("name", userMarketingProgramObject.getName());
+           json_object.put("event_date", userMarketingProgramObject.getDateEvent());
            marketingCategoryJsonArray.put(json_object);
            i++;
         }

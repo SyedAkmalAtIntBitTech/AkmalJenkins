@@ -48,32 +48,31 @@
                 var category = $("#category").val();
                 var program_order = $("#program_order").val();
                 var html_data = $("#html_data").val();
-
                 if (program_name == ""){
-                    alert("program name not entered, kindly enter the program");
+                    alert("Program name not entered! Kindly enter the program.");
                     $("#program_name").focus();
                     return false;
                 }
                 
-                if (user == ""){
-                    alert("user not selected, kindly select an user");
+                if (user == "0" || user == null){
+                    alert("User not selected! Kindly select an user.");
                     $("#users").focus();
                     return false;
                 }
                 
-                if (category == ""){
-                    alert("category not entered,kindly enter the category");
+                if (category == "0"){
+                    alert("Category not entered! Kindly enter the category.");
                     $("#category").focus();
                     return false;
                 }
                 
                 if (program_order == ""){
-                    alert("program_order not entered,kindly enter the program order");
+                    alert("Program_order not entered! Kindly enter the program order.");
                     $("#program_order").focus();
                     return false;
                 }
                 if (html_data == ""){
-                    alert("html data not entered,kindly enter the html data");
+                    alert("Html data not entered! Kindly enter the html data.");
                     $("#html_data").focus();
                     return false;
                 }
@@ -90,7 +89,7 @@
                     }).success(function (data, status, headers, config) {
                         $scope.Users = data;
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });
@@ -106,7 +105,7 @@
                     }).success(function (data, status){
                         $scope.marketingcategories = data.marketingData;
                     }).error(function (){
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                     });
                 };
                 
@@ -131,7 +130,7 @@
                         }).success(function (data, status){
                             window.open(getHost() + 'admin/marketingprogram.jsp', "_self");
                         }).error(function(){
-                            alert("No data available, problem fetching the data");
+                            alert("No data available! Problem fetching the data.");
                         });
                     };
                     
@@ -144,7 +143,7 @@
                     }).success(function (data, status, headers, config) {
                         $scope.programs = data;
                     }).error(function (data, status, headers, config) {
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });  
@@ -162,13 +161,13 @@
                     }).success(function (data, status){
                         $scope.data = data;
                         if (data == "true"){
-                            alert("record deleted successfully");
+                            alert("Record deleted successfully.");
                             window.open(getHost() + 'admin/marketingprogram.jsp', "_self");
                         }else {
-                            alert("problem deleting record");
+                            alert("Problem deleting record!");
                         }
                     }).error(function (){
-                        alert("No data available, problem fetching the data");
+                        alert("No data available! Problem fetching the data.");
                     });                
                 };
                 

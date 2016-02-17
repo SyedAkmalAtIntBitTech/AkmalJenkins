@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mindbody.controller.MindBodyClass;
+import model.EmailInfo;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -38,6 +40,7 @@ public class MindbodyEmailListProcessor implements Runnable {
     private static final Logger logger = Logger.getLogger(util.Utility.getClassName(MindbodyEmailListProcessor.class));
     private static final ConnectionManager connectionManager = ConnectionManager.getInstance();
     private volatile boolean running = true;
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     //This is added just in case the application server itself shutdowns. That time the contextDestroyed is not called.
     void startThread() {
@@ -115,8 +118,13 @@ public class MindbodyEmailListProcessor implements Runnable {
                     for (int i = 0; i < email_client.size(); i++) {
                         Client email_object1 = (Client) email_client.get(i);
                         String email_id = email_object1.getEmail();
-                        json_array_emailclient.put(email_id);
+
+                        String first_name = email_object1.getFirstName();
+                        String last_name = email_object1.getLastName();
+                        EmailInfo email_info = new EmailInfo(email_id, first_name, last_name, dateFormat.format(new Date()));
+                        json_array_emailclient.put(email_info.getEmailInfoJSONObject());
                     }
+                    
                     json_email_object.put(IConstants.kEmailListNameKey, "Mindbody - " + email_list_name);
                     json_email_object.put(IConstants.kEmailAddressesKey, json_array_emailclient);
                     json_email_array.add(json_email_object);

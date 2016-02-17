@@ -10,17 +10,17 @@ function validate() {
     var files = $("#filesToUpload").val();
 
     if (brand_name === "") {
-        alert("please enter the brand name");
+        alert("Please enter the brand name.");
         $("#brandname").focus();
         return false;
     }
     if (parseInt(look) === 0) {
-        alert("No look selected. please select the look");
+        alert("No look selected! Please select the look.");
         $("#look").focus();
         return false;
     }
     if (files == "") {
-        alert("No files selected, please select the file");
+        alert("No files selected! Please select the file.");
         $("#filesToUpload").focus();
         return false;
     }
@@ -39,7 +39,7 @@ function brandController($scope, $http) {
         {
             $scope.status = data;
             if (data === "true") {
-                alert("brand deleted successfully");
+                alert("Brand deleted successfully.");
                 window.open(getHost() + 'admin/brandpersonality.jsp', "_self");
             } else if (data === error) {
                 alert(data);

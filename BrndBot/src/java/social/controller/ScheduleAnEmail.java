@@ -11,7 +11,9 @@ import com.controller.SocialPostScheduler;
 import com.divtohtml.StringUtil;
 import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledEntityList;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +30,11 @@ public class ScheduleAnEmail implements Runnable {
     public static final Logger logger = Logger.getLogger(util.Utility.getClassName(ScheduleAnEmail.class));
 
     public void terminateThread() {
-        Thread.currentThread().interrupt();
+        try {
+            Thread.currentThread().interrupt();
+        } catch (Exception ex) {
+            Logger.getLogger(ScheduleAnEmail.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -37,51 +43,53 @@ public class ScheduleAnEmail implements Runnable {
         logger.log(Level.INFO, "In Email Schedule CallBlock");
 
         try {
-            TblScheduledEntityList scheduledAnEmail = getLatestApprovedSendEmail();
+            List<TblScheduledEntityList> scheduledAnEmail = getLatestApprovedSendEmail();
 
             //The below table should be reused or needs a new table specifically for FB.
-            if (scheduledAnEmail != null) {
+            for (TblScheduledEntityList currentScheduledEmail:scheduledAnEmail) {
+                if (scheduledAnEmail != null) {
                 //The time zone of the saved date should be extracted.
-                //This time zone should be applied to the current time and then this comparison needs to be made.
-                boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(scheduledAnEmail.getScheduleTime());
-                logger.log(Level.SEVERE, "Message to display entity id " + scheduledAnEmail.getEntityId() + " and schedule time:", scheduledAnEmail.getScheduleTime());
-                logger.log(Level.SEVERE, "Current time:" + new Date());
-                if (!shouldPostNow) {
-                    logger.log(Level.SEVERE, "Should post now is true: Sending Mail");
+                    //This time zone should be applied to the current time and then this comparison needs to be made.
+                  boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledEmail.getScheduleTime());
+//                    boolean shouldPostNow = true;
+                    logger.log(Level.SEVERE, "Message to display entity id " + currentScheduledEmail.getEntityId() + " and schedule time:", currentScheduledEmail.getScheduleTime());
+                    logger.log(Level.SEVERE, "Current time:" + new Date());
+                    if (shouldPostNow) {
+                        logger.log(Level.SEVERE, "Should post now is true: Sending Mail");
 
-                    TblScheduledEmailList sendAnEmail = getSendEmail(scheduledAnEmail);
-                    String html_text = sendAnEmail.getBody();
-                    String email_subject = sendAnEmail.getSubject();
-                    String jsonString = sendAnEmail.getToEmailAddresses();
-                    JSONObject json = (JSONObject) new JSONParser().parse(jsonString);
-                    String to_email_addresses = "";
-                    org.json.simple.JSONArray jSONArray = (org.json.simple.JSONArray) json.get("emailAddresses");
-                    for (Integer i = 0; i < jSONArray.size(); i++) {
-                        to_email_addresses += jSONArray.get(i).toString();
-                        if ((i + 1) < jSONArray.size()) {
-                            to_email_addresses += ",";
+                        TblScheduledEmailList sendAnEmail = getSendEmail(currentScheduledEmail);
+                        String html_text = sendAnEmail.getBody();
+                        String email_subject = sendAnEmail.getSubject();
+                        String jsonString = sendAnEmail.getToEmailAddresses();
+                        JSONObject json = (JSONObject) new JSONParser().parse(jsonString);
+                        String to_email_addresses = "";
+                        String emaillist_name = sendAnEmail.getEmailListName();
+                        Integer user_id = currentScheduledEmail.getUserId();
+                        String reply_to_address = sendAnEmail.getReplyToEmailAddress();
+                        String from_email_address = sendAnEmail.getFromAddress();
+                        String message = "";
+                        String from_name = sendAnEmail.getFromName();
+                        org.json.simple.JSONArray jSONArray = (org.json.simple.JSONArray) json.get("emailAddresses");
+                        for (Integer i = 0; i < jSONArray.size(); i++) {
+                            to_email_addresses = jSONArray.get(i).toString();
+                            message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name, "");
+                        }
+//                    String message = "success";//TODO
+
+                        if (message.equalsIgnoreCase("success")) {
+                            updateStatusScheduledEmail(currentScheduledEmail);
+                            logger.log(Level.SEVERE, "Should post now is true: Sent the mail");
+                            //Get the next in line
                         }
                     }
-                    String emaillist_name = sendAnEmail.getEmailListName();
-                    Integer user_id = getLatestApprovedSendEmail().getUserId();
-                    String reply_to_address = sendAnEmail.getReplyToEmailAddress();
-                    String from_email_address = sendAnEmail.getFromAddress();
-                    String from_name = sendAnEmail.getFromName();
-//                    String message = "success";//TODO
-                    String message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name);
-
-                    if (message.equalsIgnoreCase("success")) {
-                        updateStatusScheduledEmail(scheduledAnEmail);
-                        logger.log(Level.SEVERE, "Should post now is true: Sent the mail");
-                        //Get the next in line
-                    }
+                } else {
+                    logger.log(Level.SEVERE, "Should post now is false: Not sending mail");
                 }
-            } else {
-            logger.log(Level.SEVERE, "Should post now is false: Not sending mail");
             }
 
         } catch (Throwable ex) {
-            Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+            Logger.getLogger(ScheduleAnEmail.class.getName()).log(Level.SEVERE, null, ex);
         }
         logger.log(Level.INFO, "In Email Schedule CallBlock End");
 
@@ -100,11 +108,14 @@ public class ScheduleAnEmail implements Runnable {
         return scheduledEmailList;
     }
 
-    private TblScheduledEntityList getLatestApprovedSendEmail() throws Throwable {
-        String entityId = SchedulerUtilityMethods.getLatestEmailApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.FALSE);
-        TblScheduledEntityList scheduledEntityList = null;
-        if (!StringUtil.isEmpty(entityId)) {
-            scheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(entityId), IConstants.kEmailKey);
+    private List<TblScheduledEntityList> getLatestApprovedSendEmail() throws Throwable {
+        ArrayList<String> entityId = SchedulerUtilityMethods.getLatestEmailApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.FALSE);
+        List<TblScheduledEntityList> scheduledEntityList = new ArrayList<TblScheduledEntityList>();
+        if (entityId.size() > 0) {
+            for (String currentEntityId : entityId) {
+                TblScheduledEntityList tblScheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(currentEntityId), IConstants.kEmailKey);
+                scheduledEntityList.add(tblScheduledEntityList);
+            }
         }
         return scheduledEntityList;
     }

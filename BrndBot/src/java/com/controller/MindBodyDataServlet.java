@@ -133,7 +133,7 @@ public class MindBodyDataServlet extends BrndBotBaseHttpServlet {
                 getSqlMethodsInstance().session.setAttribute(getSqlMethodsInstance().k_mind_body, mind_body_processed_data.getData_hash_map());
 
                 String jsonn = new Gson().toJson(mind_body_processed_data.getJSON());
-                logger.log(Level.INFO, jsonn);
+//                logger.log(Level.INFO, jsonn);
                 response.setContentType("application/json");
                 out.write(jsonn);
             }

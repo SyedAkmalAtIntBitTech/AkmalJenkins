@@ -27,7 +27,7 @@ public interface MarketingCategoryUsersService {
 	 * @return {@link MarketingCategorUsers}
 	 * @throws java.lang.Throwable 
     */
-   public List<TblMarketingCategoryUsersLookup> getAllMarketingCategoryUsers() throws Throwable;
+   public List<TblMarketingCategoryUsersLookup> getAllMarketingCategoryUsers(Integer user_id) throws Throwable;
    
    /**
 	 * This method save {@link MarketingCategoryUsers} by passing marketingCategory

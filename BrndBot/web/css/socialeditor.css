@@ -93,7 +93,7 @@ and open the template in the editor.
     letter-spacing: 0em;
     cursor:auto !important;
 }
-#text3{
+#t3{
        
 /*    font-family: "proxima-nova",sans-serif;
     font-style: normal;
@@ -110,7 +110,7 @@ and open the template in the editor.
 }
 .highlight {background-color:white;}
 
-#text1{
+#t1{
     position: relative;
     right: 30px;
     text-align: center;
@@ -144,7 +144,7 @@ and open the template in the editor.
     
 
 }
-#text2{
+#t2{
    color:#fff;
 /*   font-size:12px;
    font-family:"proxima-nova";*/
@@ -315,6 +315,7 @@ left:-4px;
 }
 #promotebuttonlist {
         width: 600px;
+        margin-left: 4%;
 }
 #promotebuttonlist li{
         display: inline-block;
@@ -323,7 +324,7 @@ left:-4px;
 }
 #promotebuttonlist  li input{
         position: relative;
-        left:5px;
+        left:-247%;
 }
 
 #sidebar-wrapper {
@@ -482,13 +483,13 @@ left:-4px;
 }*/
 #twitterpreviewdiv{
      position: relative;
-    margin-top: 10px;
+    margin-top: 0px;
     
 }
 
 #fabookpreviewdiv{
     position: relative;
-    margin-top: 10px;
+    margin-top: 0px;
     
     
 }
@@ -548,7 +549,7 @@ left:-4px;
     position: fixed;
     width:150px;
     margin-top: 5px;
-    margin-left: -42px;
+    margin-left: -46px;
     height: 60px !important;
 }
 .menu li a,p{
@@ -757,3 +758,7 @@ left:-6px;
                 font-size: small;
               text-align: center;
             }
+#leftalign
+{
+    margin-left: 15%;
+}

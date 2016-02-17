@@ -22,8 +22,10 @@ import javax.naming.NamingException;
 public class Fonts {
     private static final Logger logger = Logger.getLogger(Fonts.class.getName());
 
+    
     SqlMethods sqlmethods;
 
+    
     public Fonts() throws NamingException {
         this.sqlmethods = new SqlMethods();
     }

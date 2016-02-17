@@ -30,7 +30,10 @@ public class ServletFontTheme extends BrndBotBaseHttpServlet {
 
     RequestDispatcher request_dispatcher;
     FontThemes fontthemes;
-    Long font1, font2, font3, font4, font5, font_size1, font_size2, font_size3, font_size4, font_size5, font_style1, font_style2, font_style3, font_style4, font_style5;
+    Long font1, font2, font3, font4, font5,font6,font7,font8,font9,font10,font11,
+         font12, font13, font14, font15, font_size1, font_size2, font_size3, 
+         font_size4, font_size5, font_style1, font_style2, font_style3, 
+         font_style4, font_style5;
     String CC = "CC";
     Integer cl = 1;
 
@@ -80,8 +83,6 @@ public class ServletFontTheme extends BrndBotBaseHttpServlet {
             } else if (type.equals("add")) {
                 String brand = (String) joFontTheme.get("brand_id");
                 JSONArray font_name_array = (JSONArray) joFontTheme.get("font_name_array");
-                JSONArray font_size_array = (JSONArray) joFontTheme.get("font_size_array");
-                JSONArray font_style_array = (JSONArray) joFontTheme.get("font_style_array");
 
                 for (int i = 0; i < font_name_array.size(); i++) {
                     CC = "CC" + i;
@@ -101,60 +102,51 @@ public class ServletFontTheme extends BrndBotBaseHttpServlet {
                     if (CC.equals("CC4")) {
                         font5 = (Long) font_name_array.get(i);
                     }
-
+                    if (CC.equals("CC5")) {
+                        font6 = (Long) font_name_array.get(i);
+                    }
+                    if (CC.equals("CC6")) {
+                        font7 = (Long) font_name_array.get(i);
+                    }
+                    if (CC.equals("CC7")) {
+                        font8 = (Long) font_name_array.get(i);
+                    }
+                    if (CC.equals("CC8")) {
+                        font9 = (Long) font_name_array.get(i);
+                    }
+                    if (CC.equals("CC9")) {
+                        font10 = (Long) font_name_array.get(i);
+                    }
+                    if (CC.equals("CC10")) {
+                        font11 = (Long) font_name_array.get(i);
+                    }
+                    if (CC.equals("CC11")) {
+                        font12 = (Long) font_name_array.get(i);
+                    }
+                    if (CC.equals("CC12")) {
+                        font13 = (Long) font_name_array.get(i);
+                    }
+                    if (CC.equals("CC13")) {
+                        font14 = (Long) font_name_array.get(i);
+                    }
+                    if (CC.equals("CC14")) {
+                        font15 = (Long) font_name_array.get(i);
+                    }
+                    
                 }
 
-                for (int i = 0; i < font_size_array.size(); i++) {
-                    CC = "CC" + i;
-
-                    if (CC.equals("CC0")) {
-                        font_size1 = (Long) font_size_array.get(i);
-                    }
-                    if (CC.equals("CC1")) {
-                        font_size2 = (Long) font_size_array.get(i);
-                    }
-                    if (CC.equals("CC2")) {
-                        font_size3 = (Long) font_size_array.get(i);
-                    }
-                    if (CC.equals("CC3")) {
-                        font_size4 = (Long) font_size_array.get(i);
-                    }
-                    if (CC.equals("CC4")) {
-                        font_size5 = (Long) font_size_array.get(i);
-                    }
-
-                }
-
-                for (int i = 0; i < font_style_array.size(); i++) {
-                    CC = "CC" + i;
-
-                    if (CC.equals("CC0")) {
-                        font_style1 = (Long) font_style_array.get(i);
-                    }
-                    if (CC.equals("CC1")) {
-                        font_style2 = (Long) font_style_array.get(i);
-                    }
-                    if (CC.equals("CC2")) {
-                        font_style3 = (Long) font_style_array.get(i);
-                    }
-                    if (CC.equals("CC3")) {
-                        font_style4 = (Long) font_style_array.get(i);
-                    }
-                    if (CC.equals("CC4")) {
-                        font_style5 = (Long) font_style_array.get(i);
-                    }
-
-                }
-
-                fontthemes.addFontTheme(Integer.parseInt(brand), font1.intValue(), font2.intValue(), font3.intValue(), font4.intValue(), font5.intValue(), font_size1.intValue(), font_size2.intValue(), font_size3.intValue(), font_size4.intValue(), font_size5.intValue(), font_style1.intValue(), font_style2.intValue(), font_style3.intValue(), font_style4.intValue(), font_style5.intValue());
+                fontthemes.addFontTheme(Integer.parseInt(brand), font1.intValue(), 
+                        font2.intValue(), font3.intValue(), font4.intValue(), 
+                        font5.intValue(), font6.intValue(), font7.intValue(),
+                        font8.intValue(), font9.intValue(), font10.intValue(),
+                        font11.intValue(), font12.intValue(), font13.intValue(),
+                        font14.intValue(), font15.intValue());
 
             } else if (type.equals("update")) {
 
                 String font_theme_id = (String) joFontTheme.get("font_theme_id");
                 String brand = (String) joFontTheme.get("brand_id");
                 JSONArray font_name_array = (JSONArray) joFontTheme.get("font_name_array");
-                JSONArray font_size_array = (JSONArray) joFontTheme.get("font_size_array");
-                JSONArray font_style_array = (JSONArray) joFontTheme.get("font_style_array");
 
                 for (int i = 0; i < font_name_array.size(); i++) {
                     CC = "CC" + i;
@@ -174,52 +166,45 @@ public class ServletFontTheme extends BrndBotBaseHttpServlet {
                     if (CC.equals("CC4")) {
                         font5 = (Long) font_name_array.get(i);
                     }
-
-                }
-
-                for (int i = 0; i < font_size_array.size(); i++) {
-                    CC = "CC" + i;
-
-                    if (CC.equals("CC0")) {
-                        font_size1 = (Long) font_size_array.get(i);
+                    if (CC.equals("CC5")) {
+                        font6 = (Long) font_name_array.get(i);
                     }
-                    if (CC.equals("CC1")) {
-                        font_size2 = (Long) font_size_array.get(i);
+                    if (CC.equals("CC6")) {
+                        font7 = (Long) font_name_array.get(i);
                     }
-                    if (CC.equals("CC2")) {
-                        font_size3 = (Long) font_size_array.get(i);
+                    if (CC.equals("CC7")) {
+                        font8 = (Long) font_name_array.get(i);
                     }
-                    if (CC.equals("CC3")) {
-                        font_size4 = (Long) font_size_array.get(i);
+                    if (CC.equals("CC8")) {
+                        font9 = (Long) font_name_array.get(i);
                     }
-                    if (CC.equals("CC4")) {
-                        font_size5 = (Long) font_size_array.get(i);
+                    if (CC.equals("CC9")) {
+                        font10 = (Long) font_name_array.get(i);
                     }
-
-                }
-
-                for (int i = 0; i < font_style_array.size(); i++) {
-                    CC = "CC" + i;
-
-                    if (CC.equals("CC0")) {
-                        font_style1 = (Long) font_style_array.get(i);
+                    if (CC.equals("CC10")) {
+                        font11 = (Long) font_name_array.get(i);
                     }
-                    if (CC.equals("CC1")) {
-                        font_style2 = (Long) font_style_array.get(i);
+                    if (CC.equals("CC11")) {
+                        font12 = (Long) font_name_array.get(i);
                     }
-                    if (CC.equals("CC2")) {
-                        font_style3 = (Long) font_style_array.get(i);
+                    if (CC.equals("CC12")) {
+                        font13 = (Long) font_name_array.get(i);
                     }
-                    if (CC.equals("CC3")) {
-                        font_style4 = (Long) font_style_array.get(i);
+                    if (CC.equals("CC13")) {
+                        font14 = (Long) font_name_array.get(i);
                     }
-                    if (CC.equals("CC4")) {
-                        font_style5 = (Long) font_style_array.get(i);
+                    if (CC.equals("CC14")) {
+                        font15 = (Long) font_name_array.get(i);
                     }
 
                 }
 
-                fontthemes.editFontTheme(Integer.parseInt(font_theme_id), Integer.parseInt(brand), font1.intValue(), font2.intValue(), font3.intValue(), font4.intValue(), font5.intValue(), font_size1.intValue(), font_size2.intValue(), font_size3.intValue(), font_size4.intValue(), font_size5.intValue(), font_style1.intValue(), font_style2.intValue(), font_style3.intValue(), font_style4.intValue(), font_style5.intValue());
+                fontthemes.editFontTheme(Integer.parseInt(font_theme_id), Integer.parseInt(brand), 
+                        font1.intValue(), font2.intValue(), font3.intValue(), 
+                        font4.intValue(), font5.intValue(), font6.intValue(), 
+                        font7.intValue(), font8.intValue(), font9.intValue(), 
+                        font10.intValue(), font11.intValue(), font12.intValue(), 
+                        font13.intValue(), font14.intValue(), font15.intValue());
             }
 
             out.write("true");

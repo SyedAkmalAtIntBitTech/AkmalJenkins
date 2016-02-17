@@ -84,7 +84,7 @@ public class ScheduleSocialPostActionsServlet extends HttpServlet {
                 return;
             }
             
-        for (Map<String, Object> requestBodyMap : requestBodyList) {
+        for(Map<String, Object> requestBodyMap : requestBodyList) {
             String tokenDataString = requestBodyMap.get("token_data").toString();
             String type = requestBodyMap.get("type").toString();
             errorMessages.addAll(validateTokenData(tokenDataString, type));
@@ -108,6 +108,7 @@ public class ScheduleSocialPostActionsServlet extends HttpServlet {
                     String tokenDataString = requestBodyMap.get("token_data").toString();
                     String metadataString = requestBodyMap.get("metadata").toString();
                     String schedule_id = (String)requestBodyMap.get("schedule_id");
+                    String image_type = (String)requestBodyMap.get("image_type");
                     Map<String, Integer> daoResponse = ScheduleSocialPostDAO.updateActionsToScheduleSocialPost(
                             userId,
                             Integer.parseInt(schedule_id),
@@ -116,6 +117,7 @@ public class ScheduleSocialPostActionsServlet extends HttpServlet {
                             AppConstants.GSON.fromJson(metadataString, Map.class),
                             requestBodyMap.get("type").toString(),
                             TemplateStatus.template_saved.toString(),
+                            image_type,
                             conn);
                     daoResponseList.add(daoResponse);
                 }
@@ -199,7 +201,7 @@ public class ScheduleSocialPostActionsServlet extends HttpServlet {
             if (postType.contains(ScheduledEntityType.Facebook.toString())){
                 requiredKeys.add("post_text");
                 requiredKeys.add("url");
-                requiredKeys.add("description");
+//                requiredKeys.add("description");
             }else if(postType.contains(ScheduledEntityType.Twitter.toString())){
                 requiredKeys.add("text");
             }
@@ -227,7 +229,7 @@ public class ScheduleSocialPostActionsServlet extends HttpServlet {
         return errorMsgs;
     }
     
-     private boolean mapContainsKey(Map<String, Object> requestBodyMap, String key){
+    private boolean mapContainsKey(Map<String, Object> requestBodyMap, String key){
         if ( !requestBodyMap.containsKey(key) || 
                 requestBodyMap.get(key) == null ||
                 StringUtils.isEmpty(requestBodyMap.get(key).toString())){

@@ -97,7 +97,7 @@
                                         System.out.println(e.getCause());
                                         System.out.println(e.getMessage());
                                     }finally {
-                                        result_set.close();
+//                                        result_set.close();
                                         prepared_statement.close();
                                         ConnectionManager.getInstance().closeConnection(connection);
                                     }
@@ -161,7 +161,7 @@
                         System.out.println(e.getCause());
                         System.out.println(e.getMessage());
                     }finally {
-                        result_set.close();
+//                        result_set.close();
                         prepared_statement.close();
                         ConnectionManager.getInstance().closeConnection(connection);
                     }
@@ -188,7 +188,7 @@
                 case 'SVG':                      
                     break;
                 default:
-                    alert('This type of image is not allowed');
+                    alert('This type of image is not allowed.');
                     this.value = '';
             }
         };

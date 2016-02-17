@@ -47,7 +47,7 @@
                     var x = document.getElementById("brand").selectedIndex;
                     brand_id = document.getElementsByTagName("option")[x].value;
                     if (brand_id == 0) {
-                        alert("No brand selected, please select any one brand");
+                        alert("No brand selected! Please select any one brand.");
                         document.getElementById("brand").focus();
                         return false;
                     }
@@ -65,66 +65,22 @@
                     }
 
                     if (a === 0) {
-                        alert("No font name selected, please select any five fonts");
+                        alert("No font name selected! Please select any fifteen fonts.");
                         document.getElementById("font_name").focus();
                         return false;
-                    } else if (a !== 5) {
-                        alert("please select five fonts");
+                    } else if (a !== 15) {
+                        alert("Please select fifteen fonts.");
                         document.getElementById("font_name").focus();
                         return false;
                     }
-                    var font_size = document.getElementById("font_size");
-
-                    var len = font_size.options.length;
-
-                    var b = 0;
-
-                    for (var i = 1; i < font_size.options.length; i++) {
-                        if (font_size.options[i].selected === true) {
-                            font_size_array[b] = parseInt(font_size.options[i].value);
-                            b = b + 1;
-                        }
-                    }
-
-                    if (b === 0) {
-                        alert("No font size selected, please select five sizes");
-                        document.getElementById("font_size").focus();
-                        return false;
-                    } else if (b !== 5) {
-                        alert("please select five sizes");
-                        document.getElementById("font_size").focus();
-                        return false;
-                    }
-                    var font_style = document.getElementById("font_style");
-
-                    var len = font_style.options.length;
-
-                    var c = 0;
-                    for (var i = 1; i < font_style.options.length; i++) {
-                        if (font_style.options[i].selected === true) {
-                            font_style_array[c] = parseInt(font_style.options[i].value);
-                            c = c + 1;
-                        }
-                    }
-
-                    if (c === 0) {
-                        alert("No font style selected, please select five styles");
-                        document.getElementById("font_style").focus();
-                        return false;
-                    } else if (c !== 5) {
-                        alert("please select five styles");
-                        document.getElementById("font_style").focus();
-                        return false;
-                    }
-
                     return true;
                 }
 
                 $scope.updateFontTheme = function () {
 
                     if (validate()) {
-                        var fonttheme = {"font_theme_id": font_theme_id, "brand_id": brand_id.toString(), "font_name_array": font_name_array,
-                            "font_size_array": font_size_array, "font_style_array": font_style_array, "type": "update"};
+                        var fonttheme = {"font_theme_id": font_theme_id, "brand_id": brand_id.toString(),
+                                        "font_name_array": font_name_array, "type": "update"};
 
                         $http({
                             method: 'POST',
@@ -139,12 +95,11 @@
                             } else if (data === error) {
                                 alert(data);
                             }
-                        })
-                                .error(function (data, status) {
-                                    // called asynchronously if an error occurs
-                                    // or server returns response with an error status.
-                                    alert("request not succesful");
-                                });
+                        }).error(function (data, status) {
+                            // called asynchronously if an error occurs
+                            // or server returns response with an error status.
+                            alert("Request not successful!");
+                        });
                     }
                 };
             }
@@ -174,7 +129,7 @@
                 <form ng-model="colortheme">
                     <div>
                         <div class="col-md-3 col-md-offset-5">
-                            <p text-center >Font Theme Family</p>
+                            <p>Font Theme Family</p>
                         </div>
                     </div>
                     <div style="float:left; left:20px; padding-left: 166px; padding-top: 20px;">
@@ -198,7 +153,7 @@
                                     System.out.println(e.getCause());
                                     System.out.println(e.getMessage());
                                 }finally {
-                                    result_set.close();
+//                                    result_set.close();
                                     prepared_statement.close();
                                     ConnectionManager.getInstance().closeConnection(connection);
                                 }
@@ -226,67 +181,13 @@
                                     System.out.println(e.getCause());
                                     System.out.println(e.getMessage());
                                 }finally {
-                                    result_set.close();
+//                                    result_set.close();
                                     prepared_statement.close();
                                     ConnectionManager.getInstance().closeConnection(connection);
                                 }
                             %>
                         </select><br>
-                    </div><br>    
-
-                    <div style="float:left; left:20px; padding-left: 166px; padding-top: 20px;">
-                        Select sizes: <select name="font_size" id="font_size" style="width:180px;" multiple="true" ng-model="fonttheme.size">
-                            <option value="0">--select--</option>
-                            <%
-                                try{
-                                    connection = ConnectionManager.getInstance().getConnection();
-                                query_string = "select * from tbl_font_size Order By id ASC";
-                                prepared_statement = connection.prepareStatement(query_string);
-                                result_set = prepared_statement.executeQuery();
-
-                                while (result_set.next()) {
-                            %>
-                                    <option value="<%= result_set.getInt("id")%>"><%= result_set.getString("font_size")%> </option>
-                            <%
-                                }
-                                }catch (Exception e){
-                                    System.out.println(e.getCause());
-                                    System.out.println(e.getMessage());
-                                }finally {
-                                    result_set.close();
-                                    prepared_statement.close();
-                                    ConnectionManager.getInstance().closeConnection(connection);
-                                }
-                            %>
-                        </select><br>
-                    </div><br>    
-
-                    <div style="float:left; left:20px; padding-left: 166px; padding-top: 20px;">
-                        Select styles: <select name="font_style" id="font_style" style="width:180px;" multiple="true" ng-model="fonttheme.style">
-                            <option value="0">--select--</option>
-                            <%
-                                try{
-                                    connection = ConnectionManager.getInstance().getConnection();
-                                    query_string = "select * from tbl_font_style Order By id ASC";
-                                    prepared_statement = connection.prepareStatement(query_string);
-                                    result_set = prepared_statement.executeQuery();
-
-                                while (result_set.next()) {
-                            %>
-                                    <option value="<%= result_set.getInt("id")%>"><%= result_set.getString("font_style")%> </option>
-                            <%
-                                }
-                                }catch (Exception e){
-                                    System.out.println(e.getCause());
-                                    System.out.println(e.getMessage());
-                                }finally {
-                                    result_set.close();
-                                    prepared_statement.close();
-                                    ConnectionManager.getInstance().closeConnection(connection);
-                                }
-                            %>
-                        </select><br>
-                    </div><br>    
+                    </div><br>
 
                     <div style="position: absolute; float:left; left:550px; top: 580px;">
                         <div>
