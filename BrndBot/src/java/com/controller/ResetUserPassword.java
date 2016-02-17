@@ -65,7 +65,8 @@ public class ResetUserPassword extends BrndBotBaseHttpServlet {
                 confirmpassword = (String) joUser.get("confirmpassword");
                 Integer user = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
                 userid = String.valueOf(user);
-            }else{
+            }
+            if(type.equalsIgnoreCase("change")){
                 hashURL = (String) joUser.get("hashURL");
                 password = (String) joUser.get("password");
                 confirmpassword = (String) joUser.get("confirmpassword");

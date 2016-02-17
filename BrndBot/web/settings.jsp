@@ -91,7 +91,7 @@
                     </div>
                 </div>                    
                 <div class="" id="savePassword">
-                    <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="changePassword()">Save Password</div>
+                    <div class="edit-button-detail md-button button-text-1 fleft savebutton savebuttonsettingspage" ng-click="changePassword()">Save Password</div>
                 </div>
             </div>
             

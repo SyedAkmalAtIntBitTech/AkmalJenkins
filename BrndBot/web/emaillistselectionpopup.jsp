@@ -303,9 +303,9 @@
                         </div>
                         
                     </div>
-                    <div class="pop-up-cta-container pop-up-cta-container-newaction1" id ="schedulethepost">
+                    <div class="pop-up-cta-container pop-up-cta-container-newaction1 cur" id ="schedulethepost"  ng-click="setScheduling()">
                         <input type="hidden" value="socialmedia"/>
-                        <div class="algnmnt" name="socialscheduleid" id="socialscheduleid" ng-click="setScheduling()" >SCHEDULE</div>
+                        <div class="algnmnt" name="socialscheduleid" id="socialscheduleid" >SCHEDULE</div>
                     </div>
                     </div>
                 </div>

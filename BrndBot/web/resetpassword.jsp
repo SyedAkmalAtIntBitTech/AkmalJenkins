@@ -12,6 +12,7 @@
 
         <script src="js/configurations.js"></script>
         <script src="js/form.js"></script>
+        <script src="js/alert_message.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scaleu=1.0">
@@ -46,7 +47,7 @@
                 </div>
                 <div  class="form-group">
                        <div class="col-md-5 col-md-offset-5">
-                           <button type="submit" class="button button--moema button--text-thick button--text-upper button--size-s">Enter</button><br><br>
+                           <button type="submit" id="enter" class="button button--moema button--text-thick button--text-upper button--size-s">Enter</button><br><br>
                        </div>
                 </div>
                 </form>

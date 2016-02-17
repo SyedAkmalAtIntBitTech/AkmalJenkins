@@ -24,7 +24,7 @@
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="js/popup.js" type="text/javascript"></script>      
     <script src="js/timepicki.js" type="text/javascript"></script>  
-    <style>#instancehidden,#fbpostremove{display:none;}</style>
+    <style>#progname,#instancehidden,#fbpostremove{display:none;}</style>
     <jsp:include page="basejsp.jsp"/>
     <%!
             String program_id = "";
@@ -63,7 +63,7 @@
                     <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/>
                 </div>
             </a>
-            <div class="page-title-with-back page-title-font">{{programs.programdetails.programName}}</div>
+            <div id="progname" class="page-title-with-back page-title-font">{{programs.programdetails.programName}}</div>
             <input type="hidden" name="program_name2" id="program_name2" value="{{programs.programdetails.programName}}"></input>
             <div class="page-cta-container">
                 <% if(past!=1) {%>
@@ -76,7 +76,7 @@
         <div class="page-subnav-bar-regular"> 
             <div class="top-subnav-tabs-container-with-button">
                 <ul class="top-subnav-nav-elements">
-                    <li class="top-subnav-links" id="ovrviewli" ng-hide="programs.programdetails.program_status == 'Closed'"> <a href="" id="overview" class="h3" id="overview" >Overview</a></li>
+                    <li class="top-subnav-links" id="ovrviewli" ng-hide="checkProgramStatus()"> <a href="" id="overview" class="h3" id="overview" >Overview</a></li>
 <!--                    <li class="top-subnav-links" id="fieldsli"> <a href="" id="fields" class="h3" ng-click="showfieldstab()">Fields</a></li>-->
                     <li class="top-subnav-link-active" id="actionsli"> <a href="" id="actions" class="h3-active-subnav" ng-click="showactionstab()">Actions</a></li>
 <!--                        <li class="top-subnav-links"> <a class="h3" href="/Newest_Files/MarketingProgram_Notes.html">Notes</a></li>
@@ -110,7 +110,7 @@
                     <ul class="main-container fleft">
                   <li class="slat-container fleft selfclear" ng-repeat="emailautomation in programs.emailautomation">
                             <div class="selection-container col-5p"> 
-                                <div class="selection-icon" id="{{emailautomation.scheduledEntityListId}}" onclick="selcheckboxrecemail(this.id);setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}');"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}"   value="{{emailautomation.scheduledEntityListId}}" hidden/></div>
+                                <div class="selection-icon" ng-hide="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}" onclick="selcheckboxrecemail(this.id);setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}');"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}"   value="{{emailautomation.scheduledEntityListId}}" hidden/></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div class="icon-container fleft hint--top" ng-show="emailautomation.status === 'Template Saved'"  data-hint="Template Saved" > 
@@ -174,7 +174,7 @@
                     <ul class="main-container fleft">
                     <li class="slat-container fleft selfclear"  ng-repeat="programaction in programs.programactions">
                             <div class="selection-container col-5p"> 
-                                <div class="selection-icon" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" onclick="selcheckboxonetimeact(this.id);setSelectedIds('{{programaction.scheduledEntityListId}}');"><input type="checkbox" id="entityid{{programaction.scheduledEntityListId}}"  value="{{programaction.scheduledEntityListId}}" name="entityname" hidden></input></div>
+                                <div class="selection-icon" ng-hide="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" onclick="selcheckboxonetimeact(this.id);setSelectedIds('{{programaction.scheduledEntityListId}}');"><input type="checkbox" id="entityid{{programaction.scheduledEntityListId}}"  value="{{programaction.scheduledEntityListId}}" name="entityname" hidden></input></div>
                                 <!--<div class="selection-icon">-->    
                                     <!--<input type="checkbox" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="{{programaction.scheduledEntityListId}}" hidden />-->
                                 <!--</div>-->

@@ -455,7 +455,7 @@ img.exit-button {
     filter: alpha(opacity=80);
 }
 .savebutton {
-    margin-left: 86%;
+    margin-left: 0%;
     margin-top: 1%;
     width:130px;
 }
@@ -783,6 +783,9 @@ img#prevfbimg {
     margin-left: 46%;
     width: 150px;
     margin-top: 6px;
+}
+.savebuttonsettingspage{
+    margin-left:0% !important;
 }
 .padlft{
     padding-left:20%;
@@ -1327,7 +1330,7 @@ table#fbmanagepages {
     display: none;
 }
 div#savePassword {
-    margin-left: -126px;
+    margin-left:0px;
     float: left;
     margin-top: 10px;
 }

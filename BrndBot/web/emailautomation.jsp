@@ -794,7 +794,7 @@
                                     value="{{entity_details.recuring_email_till_date| date:'MMM dd yyyy'}}" />  
                             <style>
                                 .timepicker_wrap{
-                                        width: 48%;
+                                        width: 52%;
                                  }
                             </style>
                                     <script>
@@ -978,14 +978,14 @@
           $('#emaillist option[value='+email_list_name+']').attr("selected", "selected");
           $("#emaillist").change();
 
-            for(i=1; i<=31; i++){
-                if ( i == days){
-                    $('#days').append('<option value='+i+' selected>'+ i + '</option>');
-                }else {
-                    $('#days').append('<option value='+i+'>'+ i + '</option>');
-                }
-
-            }
+//            for(i=1; i<=31; i++){
+//                if ( i == days){
+//                    $('#days').append('<option value='+i+' selected>'+ i + '</option>');
+//                }else {
+//                    $('#days').append('<option value='+i+'>'+ i + '</option>');
+//                }
+//
+//            }
         }, 1000);
 
     }

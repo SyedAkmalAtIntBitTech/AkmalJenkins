@@ -1,8 +1,36 @@
         function backeditor() {
-            window.open(getHost() + 'emaileditor.jsp?id=mindbodyid', "_self");
+            window.open(getHost() + 'emaileditor.jsp?id=mindbodyid&subject='+$("#email_subject").val(), "_self");
         }
         var draft_id = "";
          $(document).ready(function () {
+             
+             function validateemailList(){
+                                var emailaddresstextarea=$("#emailaddresses").val();
+                                var reg=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                                var toemailvalid=reg.test(emailaddresstextarea);
+                                var split=emailaddresstextarea.split(',');
+                                if(emailaddresstextarea !== ""){
+                                     var split = emailaddresstextarea.split(",");
+
+                                     for (var i = 0; i < split.length; i++) {
+                                         //alert(split[i]+"  split length"+split.length);
+                                         var email=split[i].trim();
+                                         if(reg.test(email) !== "")
+                                         {
+                                             if(email !== "")
+                                             {
+                                                 if(reg.test(split[i]) === false){
+                                                     alert("Email Address is not Valid! Please Enter Valid Email Address \n\n'"+split[i]+"'\t is Invalid Email id.");
+                                                     $("#emailaddresses").focus();
+                                                     return false;
+                                                }                                                
+                                             }                       
+                                         }
+                                      }
+                                 }
+                                 return true;
+                             }
+             
              var iframeName = $("#iframeName1").val();
              var draft_id = $("#draft_id").val();
              $("#closesendpopup").click(function(){
@@ -38,28 +66,30 @@
                         
                         if(email_addresses!=="")
                         {   
-                            $("#toaddress").val(email_addresses);
-                            $("#emaillistselid").hide();
-                            $("#emaildetailsid").show();
-                            $("#emailIdContinueButton").hide();
-                            $("#emaildetailscontbtn").show();
-                            $("#backemaillist").hide();
-                            $("#backemaildetails").show();
-                            $("#emaillistdiv").hide();
-                            $("#emailSettings").show();
-                            $("#emaillistdiv").hide();
-                            $("#emailSettings").show();
-                            var email_list = $("#chooseEmailList").val();
-                            $.ajax({
-                                url: getHost() + "EmailTextDataServlet",
-                                data: {
-                                    email_subject: email_subject,
-                                    email_addresses: email_addresses,
-                                    email_list : email_list
-                                },
-                                success: function(result){
-                                }
-                            });
+                                if(validateemailList()){
+                                $("#toaddress").val(email_addresses);
+                                $("#emaillistselid").hide();
+                                $("#emaildetailsid").show();
+                                $("#emailIdContinueButton").hide();
+                                $("#emaildetailscontbtn").show();
+                                $("#backemaillist").hide();
+                                $("#backemaildetails").show();
+                                $("#emaillistdiv").hide();
+                                $("#emailSettings").show();
+                                $("#emaillistdiv").hide();
+                                $("#emailSettings").show();
+                                var email_list = $("#chooseEmailList").val();
+                                $.ajax({
+                                    url: getHost() + "EmailTextDataServlet",
+                                    data: {
+                                        email_subject: email_subject,
+                                        email_addresses: email_addresses,
+                                        email_list : email_list
+                                    },
+                                    success: function(result){
+                                    }
+                                });
+                            }
                         }
                         else
                         {
@@ -224,6 +254,7 @@
                 };
                 
                 $scope.setScheduling = function () {
+                    $("#schedulethepost").unbind('click');
                     draft_id = $("#draft_id").val();
                     var schedule_id = $("#email_actions").val();
                     var from_name = $("#name").val();
@@ -293,7 +324,7 @@
                                }).success(function (data) {
                                    alert("Your Email has been Scheduled Successfully");
                                    document.location.href = "dashboard.jsp";
-                                
+                                   $("#schedulethepost").bind('click');
                                 }).error(function (data) {
                                     alert("No data available! Problem fetching the data.");
                                 });
@@ -327,7 +358,7 @@
                                }).success(function (data) {
                                 alert("Your Email has been Scheduled Successfully.");
                                 document.location.href = "dashboard.jsp";
-                                
+                                $("#schedulethepost").bind('click');
                                 }).error(function (data) {
                                     alert("No data available! Problem fetching the data.");
                                 });
