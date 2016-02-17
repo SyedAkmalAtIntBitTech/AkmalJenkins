@@ -378,44 +378,44 @@
                     };
                     
                     $scope.showImageOfBlock = function(id, mind_body_query){
-                            $(".block-button").addClass("hide");
-                            $("#blockdiv li").removeClass("block-slat-active");
-                            $("#blockdiv li").addClass("block-slat");
-                            $("#"+id).removeClass("block-slat");
-                            $("#"+id).addClass("block-slat-active");
-                            $("#div2"+id).removeClass("hide");
-                            hlt();
-                            $("#stylelist").css("display", "none");
-                            $("#blklist").css("display", "block");
-                            $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
-                            $(":button").removeAttr("disabled");
-                            $("#styletab").css("background-color", "transparent").css("color", "#19587c");
-                            $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data, status){
-                            var jsondataDefault = data;
-                                //alert(JSON.stringify(data));
-                                ///alert(id);
-                                var allLayoutFilename = [];
-                                $(jsondataDefault).each(function (i, val)
+                        $(".block-button").addClass("hide");
+                        $("#blockdiv li").removeClass("block-slat-active");
+                        $("#blockdiv li").addClass("block-slat");
+                        $("#"+id).removeClass("block-slat");
+                        $("#"+id).addClass("block-slat-active");
+                        $("#div2"+id).removeClass("hide");
+                        hlt();
+                        $("#stylelist").css("display", "none");
+                        $("#blklist").css("display", "block");
+                        $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
+                        $(":button").removeAttr("disabled");
+                        $("#styletab").css("background-color", "transparent").css("color", "#19587c");
+                        $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data, status){
+                        var jsondataDefault = data;
+                            //alert(JSON.stringify(data));
+                            ///alert(id);
+                            var allLayoutFilename = [];
+                            $(jsondataDefault).each(function (i, val)
+                            {
+                                var i = 0;
+                                $.each(val, function (k, v) 
                                 {
-                                    var i = 0;
-                                    $.each(val, function (k, v) 
-                                    {
-                                        allLayoutFilename[i] = v;
-                                        i++;
-                                    });
+                                    allLayoutFilename[i] = v;
+                                    i++;
                                 });
-                                temp_block_id = id;
-                                temp_style_id = allLayoutFilename[0];
-                                temp_style_layout = allLayoutFilename[1];                
-                                temp_mind_body_query = mind_body_query;
-                                //$("#" + id).attr('onclick', "showSomething('" + id + "','" + allLayoutFilename[0] + "','" + allLayoutFilename[1] + "','" + mind_body_query + "')");
-//                                alert("smtng...block id.."+temp_block_id);
-//                                alert("smtng...style id.."+temp_style_id);
-//                                alert("smtng...style.."+temp_style_layout);
-//                                alert("smtng...mind_body_query.."+temp_mind_body_query);
-                            }).error();
-                                $("#addblkbtn").prop("disabled", true);
-                            };
+                            });
+                            temp_block_id = id;
+                            temp_style_id = allLayoutFilename[0];
+                            temp_style_layout = allLayoutFilename[1];                
+                            temp_mind_body_query = mind_body_query;
+                            //$("#" + id).attr('onclick', "showSomething('" + id + "','" + allLayoutFilename[0] + "','" + allLayoutFilename[1] + "','" + mind_body_query + "')");
+//                           alert("smtng...block id.."+temp_block_id);
+//                           alert("smtng...style id.."+temp_style_id);
+//                           alert("smtng...style.."+temp_style_layout);
+//                           alert("smtng...mind_body_query.."+temp_mind_body_query);
+                        }).error();
+                        $("#addblkbtn").prop("disabled", true);
+                     };
                     
                     $scope.showDataTemp = function(){
                         $scope.showData(temp_block_id, temp_mind_body_query);
@@ -521,8 +521,8 @@
             //hiding filter Container 
             var layout_mapper_url = "";
             if (block_clicked == "true"){
-                    currentBlockID = temp_block_id;
-                    currentMindbodyQuery = temp_mind_body_query;
+                currentBlockID = temp_block_id;
+                currentMindbodyQuery = temp_mind_body_query;
             }
             if ((mindbodydataId != "") && (mindbodydataId != "0") && (typeof (mindbodydataId) !== "undefined")){
             if (block_clicked == "true"){
@@ -587,6 +587,7 @@
 
             function selecterBlockId(selectblock, blockid){
             var selectblockid = selectblock.id;
+            temp_block_id =blockid;
 //                alert(selectblockid);
                     $("img").click(function(){
             uploadImageToEditor(this.id);

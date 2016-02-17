@@ -469,23 +469,23 @@
             };
             });
             function showSomething(block_id_temp, id, style, mind_body_query){
-                    $("#addblkbtn").prop('disabled', false);
-                    hlt();
-                    addblock();
-                    temp_style_id = id;
-                    temp_style_layout = style;
-                    temp_block_id = block_id_temp;
-                    temp_mind_body_query = mind_body_query;
-                    $('.listblock').removeClass('border-highlight');
-                    $("#" + block_id_temp).addClass('border-highlight');
-                    $('#continueblock').prop('disabled', false);
-                }
+                $("#addblkbtn").prop('disabled', false);
+                hlt();
+                addblock();
+                temp_style_id = id;
+                temp_style_layout = style;
+                temp_block_id = block_id_temp;
+                temp_mind_body_query = mind_body_query;
+                $('.listblock').removeClass('border-highlight');
+                $("#" + block_id_temp).addClass('border-highlight');
+                $('#continueblock').prop('disabled', false);
+            }
             function showText(id){
             //hiding filter Container 
             var layout_mapper_url = "";
-                    if (block_clicked == "true"){
-            currentBlockID = temp_block_id;
-                    currentMindbodyQuery = temp_mind_body_query;
+            if (block_clicked == "true"){
+                currentBlockID = temp_block_id;
+                currentMindbodyQuery = temp_mind_body_query;
             }
             if ((mindbodydataId != "") && (mindbodydataId != "0") && (typeof (mindbodydataId) !== "undefined")){
             if (block_clicked == "true"){
@@ -497,7 +497,7 @@
             } else {
             layout_mapper_url = 'GenericAnnouncementServlet?model_mapper_id=' + id + "&editor_type=email";
             }
-//            alert(layout_mapper_url);
+            //alert(temp_block_id);
             $.ajax({
             type: 'GET',
                     url: layout_mapper_url,
@@ -549,29 +549,30 @@
             }
 
             function selecterBlockId(selectblock, blockid){
-            var selectblockid = selectblock.id;
-//                alert(selectblockid);
-                    $("img").click(function(){
-            uploadImageToEditor(this.id);
-            });
-                    MoveBlock(selectblock.id);
-                    if (selectblock == "defaultblock1" || selectblockid == "defaultblock1")
-            {
-            block_clicked = "false";
+                var selectblockid = selectblock.id;
+                temp_block_id =blockid;
+//              alert(selectblockid);
+                $("img").click(function(){
+                    uploadImageToEditor(this.id);
+                });
+                MoveBlock(selectblock.id);
+                if (selectblock == "defaultblock1" || selectblockid == "defaultblock1")
+                {
+                    block_clicked = "false";
                     blockIdSelected = "defaultblock1";
                     addblockid = selectblockid;
-            }
-            else{
-            block_clicked = "true";
+                }
+                else{
+                    block_clicked = "true";
                     blockIdSelected = "";
                     block_id = blockid;
                     addblockid = selectblockid;
-            }
-            $("#styletab").trigger("click");
+                }
+                $("#styletab").trigger("click");
             }
             $("#selcatdet").click(function (){
-            $("#blocktab").click();
-                    $("#tabs-4").hide();
+                $("#blocktab").click();
+                $("#tabs-4").hide();
             });    </script>
          <jsp:include page="emaileditormindbodypopup.jsp"/> 
         </head>
