@@ -400,6 +400,10 @@ a.svg:after {
 .page-content-title-bar{
 padding-top: 0px;
 }
+.scrollydiv{
+    overflow-y: scroll !important;
+    height: 1000vh;
+}
 .subcategory-list-container{
     width:100%;
     border-bottom: 1px solid #E8E9EA;

@@ -322,31 +322,33 @@ div.mindbodyOneRowData li{
     margin-left: 10px;
 }
 #mask {
-                position: absolute;
-                left: 0;
-                top: 0;
-                z-index: 9000;
-                background-color: #ffffff;
-                display: none;
-            }
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9000;
+    background-color: #ffffff;
+    display: none;
+}
 
-            #boxes .window {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 0px;
-                height: 0px;
-                display: none;
-                z-index: 9999;
-                padding: 20px;
-                border-radius: 15px;
-                text-align: center;
-            }
-            #boxes #dialog {
-                width: 250px;
-                height: 300px;
-                padding: 10px;
-                background-color: #ffffff;
-                font-family: 'Segoe UI Light', sans-serif;
-                font-size: 15pt;
-            }
+#boxes .window {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0px;
+    height: 0px;
+    display: none;
+    z-index: 9999;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+#boxes #dialog {
+    position: fixed;
+    width: 250px;
+    height: 300px;
+    padding: 10px;
+    background-color: #ffffff;
+    font-family: 'Segoe UI Light', sans-serif;
+    font-size: 15pt;
+}
+#loadingGifformindbody{margin-left: 40%;margin-top: 25%;}

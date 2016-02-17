@@ -220,6 +220,7 @@
                             $scope.showData(temp_block_id, temp_mind_body_query);
                             }
                     $scope.showData = function(id, mind_body_query){
+                        //alert("1");
                     block_clicked = "true";
                             blockIdSelected = "";
                             block_id = id;
@@ -403,6 +404,7 @@
   $(document).ready(function(){
      
     $("#saveToDraft").click(function (){
+        $("#saveToDraft").unbind('click');
         $.ajax({
             url: getHost() + "PreviewServlet",
             method: "post",
@@ -423,6 +425,7 @@
                     success: function (responseText) {
                     if (responseText != "0"){
                     alert("Draft saved successfully.");
+                    $("#saveToDraft").bind('click');
                             document.location.href = "dashboard.jsp";
                     } else {
                     alert("There was a problem while saving the draft! Please try again later.");

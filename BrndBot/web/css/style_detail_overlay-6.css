@@ -1579,7 +1579,11 @@ input-field-container{
 
 
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^BOTTOM CTA BAR^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
-
+#bottomdiv{
+        width: 100% !important;
+        padding-top: 0px !important;
+        padding-right: 0px !important;
+}
 .bottom-cta-bar{
     position:fixed;
     bottom:0;
