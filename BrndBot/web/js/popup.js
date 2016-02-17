@@ -236,6 +236,9 @@ $(document).ready(function ()
     
     var sortlink="bit.ly/1XOkJo";
     $("#submitLink").click(function(){
+        $("#editLink").show();
+        $("#removeLink").show();
+        $("#changeLink").hide();
         var textval=$("#url").val();
         var link=textval;
         var urlregex = new RegExp("^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)");
@@ -303,10 +306,7 @@ $(document).ready(function ()
             if(max!==1){
                 $("#twittertext").val(value+" "+sortlink);        
             }
-        }
-        $("#editLink").show();
-        $("#removeLink").show();
-        $("#changeLink").hide();
+        }        
     });
     
     

@@ -836,8 +836,8 @@ padding-top: 0px;
     background-color: #F9F9F9;
     box-sizing: border-box; 
     float: left;
-    padding-top: 30px;
-    padding-bottom:105px;
+    padding-top: 50px;
+    padding-bottom: 80px;
 
 }
 
@@ -898,7 +898,7 @@ padding-top: 0px;
 }
 .Facebook-preview{
     width:494px;
-    height: 600px;
+    height: 455px;
     margin: auto;
     padding:12px 12px 0px 12px;
     float: none;
