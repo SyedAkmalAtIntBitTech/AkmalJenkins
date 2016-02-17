@@ -1,4 +1,5 @@
 
+var maxLength = 140;
 var script = document.createElement('script');
 script.src = "js/alert_message.js";
 document.getElementsByTagName('script')[0].parentNode.appendChild(script);
@@ -10,6 +11,7 @@ function overlay(){
             document.body.style.overflow = 'hidden';
         }
 function closeoverlay(){
+             $(".timepicker_wrap").css("width","56%");
         document.getElementById('fade').style.display = 'none';
     }
 
@@ -67,6 +69,8 @@ function getImageId(idname)
     }
 $(document).ready(function ()
 {  
+    $('#chars').text(length);
+    
     $("#emailpreview").click(function(){
         $("#deskpreview").css('background-image', 'url("' + global_host_address +'images/imac27.png'+ '")')
         $("#mobpreview").css('background-image', 'url("' + global_host_address +'images/Phone.svg'+ '")')
@@ -185,32 +189,128 @@ $(document).ready(function ()
         $("#changeLink").hide();
         $("#linkpopup").show();
         $("#fade").show();
+        
     });
     $("#closeLinkPopup").click(function(){
         $("#linkpopup").hide();
         $("#fade").hide();
     });
-     $("#submitLink").click(function(){
-       var textval=$("#url").val();
-       var urlregex = new RegExp("^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)");
-       if(urlregex.test(textval) === false)
-       {
-           alert(linkerror);
-           return false; 
-       }
-       $("#link").val(textval);
-       $("#Linkurl").val(textval);
-       $("#link_title").show();
-       $("#link_description").show();
-       $("#Linkurl").show();
-       $("#link").show();
-       $("#editLink").show();
-       $("#removeLink").show();
-       $("#changeLink").hide();
-       $("#fade").hide();
-       $("#linkpopup").hide();
+    
+      
+//    $('#twittertext').keyup(function() {
+//        var length = $(this).val().length;
+//        var length = maxLength-length;
+//        $("#chars").removeClass("red");
+//        $("#chars").addClass("gray");
+//        if(length === 0){
+//            $("#chars").removeClass("gray");
+//            $("#chars").addClass("red");
+//        }
+//        $('#chars').text(length);
+//    });
+//    
+//    $('#twittertext').mouseover(function() {
+//        var length = $(this).val().length;
+//        var length = maxLength-length;
+//        $("#chars").removeClass("red");
+//        $("#chars").addClass("gray");
+//        if(length === 0){
+//            $("#chars").removeClass("gray");
+//            $("#chars").addClass("red");
+//        }
+//        $('#chars').text(length);
+//    });
+    
+//    $('#twittertext').mouseout(function() {
+//        var length = $(this).val().length;
+//        var length = maxLength-length;
+//        $("#chars").removeClass("red");
+//        $("#chars").addClass("gray");
+//        if(length === 0){
+//            $("#chars").removeClass("gray");
+//            $("#chars").addClass("red");
+//        }
+//        $('#chars').text(length);
+//    });
+//   
+    
+    var sortlink="bit.ly/1XOkJo";
+    $("#submitLink").click(function(){
+        var textval=$("#url").val();
+        var link=textval;
+        var urlregex = new RegExp("^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.){1}([0-9A-Za-z]+\.)");
+        if(urlregex.test(textval) === false)
+        {
+            alert(linkerror);
+            return false; 
+        }
+        $("#link").val(textval);
+        $("#Linkurl").val(textval);
+        $("#link_title").show();
+        $("#link_description").show();
+        $("#Linkurl").show();
+//        $("#link").show();
+       
+        $("#fade").hide();
+        $("#linkpopup").hide();
+        var value=$("#twittertext").val();
+        var valuelenght=$("#twittertext").val().length;
+        var max=0;
+        if(valuelenght >117){
+            max=1;
+            $("#twittertext").val(value); 
+            alert("Link can't be added! Because Twitter can't accept More than 140 characters.");
+        }
+        if($("#twittertext").val().trim().contains("bit.ly/1XOkJo")){
+             var twtext = $("#twittertext").val();
+                var res = twtext.split(" ");
+                var text = "";
+                var i = "";
+                var flag1=0;
+                 var space=0;
+                $.each(res, function (i, value) {
+                    if (value === " ")
+                    {
+                          space=1;
+                    }
+                    if (value === "bit.ly/1XOkJo") {
+                        flag1=1;
+                        space=0;
+                    }
+                    else if(space===0)
+                    {
+                        flag1=0;
+                        text +=value+" ";
+                    }
+                    else
+                    {
+                        flag1=0;
+                        text +=value;
+                    }
+
+                });
+                latesttwtext = text;
+                if(flag1 === "1")
+                {        
+                    $("#twittertext").val(latesttwtext); 
+                }
+                else
+                {
+                    $("#twittertext").val(latesttwtext+" "+sortlink);   
+                }                      
+        }
+        else{
+            if(max!==1){
+                $("#twittertext").val(value+" "+sortlink);        
+            }
+        }
+        $("#editLink").show();
+        $("#removeLink").show();
+        $("#changeLink").hide();
     });
-     $("#dropdownurl").change(function(){
+    
+    
+    $("#dropdownurl").change(function(){
         var choosenlink=$("#dropdownurl").val();
         var link=choosenlink.split("--");
         $("#url").val(link[0]);
@@ -260,6 +360,7 @@ $(document).ready(function ()
         var fblink_title=$("#link_title").val();
         var fblink_description=$("#link_description").val();
         var fbLinkurl=$("#Linkurl").val();
+        var twitterlink=$("#link").val();
         var facebookpreviewimage=$("#facebookpreviewimage").val();
         var twittertext=$("#twittertext").val();
         var mindbodyid = $("#mindbodyid").val();
@@ -269,6 +370,7 @@ $(document).ready(function ()
         data.push(fblink_description);
         data.push(fbLinkurl);
         data.push(twittertext);
+        data.push(twitterlink);
         data.push(facebookpreviewimage);        
         data.push(twitterpreviewimage);        
 
@@ -289,12 +391,14 @@ $(document).ready(function ()
         var fbLinkurl=$("#Linkurl").val();
         var facebookpreviewimage=$("#facebookpreviewimage").val();
         var twittertext=$("#twittertext").val();
+        var twitterlink=$("#link").val();
         var twitterpreviewimage=$("#twitterpreviewimage").val();
         data.push(fbposttext);
         data.push(fblink_title);
         data.push(fblink_description);
         data.push(fbLinkurl);
         data.push(twittertext);
+        data.push(twitterlink);
         data.push(facebookpreviewimage);
         data.push(twitterpreviewimage);  
         var selectedtype=$("#selectedtype").val();
@@ -366,6 +470,8 @@ $(document).ready(function ()
     /*.......................................... reminder popup navbar ................*/
     
     $("#reminderdetailstab").click(function(){
+        $("#timepickernote").css("width",'40%');
+        $(".timepicker_wrap").css("margin-top","-200px").css("width",'28%');
         var change=$("#change").val();
         var scheduleID=$("#remainder_id").val();        
         var dateid=$("#notedateid").val();
