@@ -660,6 +660,14 @@ function programactions($scope, $http, $window){
        var status;
        if(program_status === "Closed"){
            status=true;
+           $('.detail-overlay-content').find('input, textarea, button, select').attr('disabled','disabled');
+           $('#facebooksection').find('input, textarea, button, select').attr('disabled','disabled');
+           $('.savebutton').hide();
+           $('.removebutton').hide();
+           $('.delete-button-detail').hide();
+           $('.edit-button-detail').hide();
+           $('.remove-button-detail').hide();
+           $('.approve-button-detail').hide();
        }
        else{
            status=false;
