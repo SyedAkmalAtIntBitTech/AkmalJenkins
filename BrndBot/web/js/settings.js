@@ -6,22 +6,49 @@
 var x="";
 function changefilename() {
     x = document.getElementById("filevalue").value;
+    
+    
+    
+    
+    if (x === "") {
+        alert(chooseimage);
+        return false;
+    }
+    if(imagefilevalidation("filevalue")){   }
+    else
+    {
+        $("#filetext1").val(chooseimage);
+        return false;
+    }
     if(x!=="")
     { 
         document.getElementById("filetext1").innerHTML = x;
     }
     else
     {
-        document.getElementById("filetext1").innerHTML = "Choose an Image to upload";
+        document.getElementById("filetext1").innerHTML = chooseimage;
     }
     //document.getElementById("demo").innerHTML = "You selected: " + x;
 }
+var attempt=0;
 $(document).ready(function (){
     var change=$("#change").val();
     if(change==="1")
     {
-        alert("Logo change Successfully");
+        alert(logochangesuccessfully);
     }
+    
+    $("#Servicecontinue").click(function (){
+        var filename=$("#filevalue").val();
+        if(filename=="")
+        {
+            $("#filevalue").val("");
+            alert(chooseimage);
+            return false;
+        }        
+    });    
+    
+   
     if($("#image2").attr('src')==""){
        $("#image2").hide();
     }

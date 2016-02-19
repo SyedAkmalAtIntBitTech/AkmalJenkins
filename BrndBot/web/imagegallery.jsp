@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="js/angular.min.js"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
-    <script src="js/alert_message.js" type="text/javascript"></script>
+    <script src="js/alertmessage.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
@@ -22,9 +22,10 @@
     <link href="css/popup.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"></link>
     <script src="js/popup.js"></script>
+    <script src="js/reuseablefunctions.js"></script>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script src="js/imagegallery2.js"></script>
+    <script src="js/imagegallery.js"></script>    
     <script src="js/socialimageselection.js" type="text/javascript"></script>
     <link rel="shortcut icon" href="images/favicon.png"/>
     <title>BrndBot - Library</title>
@@ -44,8 +45,8 @@
         <div class="page-title-bar col-1of1"> 
             <div class="page-title-regular page-title-font">Image Gallery</div>
             <div class="page-cta-container">
-                 <a href="" class=" fleft">
-                     <div id="liPriority" class=" add-button md-button" onclick="Showimguploadpopup()" > Upload an Image</div>    
+                <a href="" class=" fleft">
+                   <div id="liPriority" class=" add-button md-button" onclick="Showimguploadpopup()" > Upload an Image</div>    
                 </a>
             </div>
         </div>

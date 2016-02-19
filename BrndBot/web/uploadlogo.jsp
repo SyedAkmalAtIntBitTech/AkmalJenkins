@@ -36,7 +36,7 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-1.11.3.min.js"></script>
-
+        <script src="js/reuseablefunctions.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -106,7 +106,17 @@
                 }]);
 
             myApp.controller('myCtrl', ['$scope', 'fileUpload', function ($scope, fileUpload) {
-                    $scope.uploadFile = function () {                                                    
+                    $scope.uploadFile = function () {  
+                        if ($("#filesToUpload").val() === "") {
+                            alert(chooseimage);
+                            return false;
+                        }
+                        if(imagefilevalidation("filevalue")){   }
+                        else
+                        {
+                            return false;
+                //            $("#filetext1").val("");
+                        }
                         var file = $scope.myFile;
                         console.log('file is ' + JSON.stringify(file));
                         var uploadUrl = global_host_address + 'UploadLogo';
