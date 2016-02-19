@@ -81,7 +81,7 @@
     <div class="content-main" >
     <%@include file="navbarv2.jsp" %>
     <%@include file="emaillistselectionpopup.jsp" %>    
-        <%@include file="emailpreview.jsp" %>
+    <%@include file="emailpreview.jsp" %>
     <input type="hidden" value="<%= draft_id %>" name="draft_id" id="draft_id"></input>  
     <input type="hidden" value="<%= iframeName %>" name="iframeName" id="iframeName1"></input>  
     <input type="hidden" value="<%= emailSubject %>" name="iframeName" id="email_subject"></input> 
