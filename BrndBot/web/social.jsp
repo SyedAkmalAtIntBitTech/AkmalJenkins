@@ -17,7 +17,7 @@
     <script src="js/configurations.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
-    <script src="js/alert_message.js" type="text/javascript"></script>
+    <script src="js/alertmessage.js" type="text/javascript"></script>
     <script src="js/tabcontent.js" type="text/javascript"></script>
     <link href="tabs/tabcontent.css" rel="stylesheet" type="text/css"/>
     <script src="js/socialsettings.js" type="text/javascript"></script>

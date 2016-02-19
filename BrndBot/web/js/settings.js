@@ -6,93 +6,19 @@
 var x="";
 function changefilename() {
     x = document.getElementById("filevalue").value;
+    
+    
+    
+    
     if (x === "") {
         alert(chooseimage);
         return false;
     }
+    if(imagefilevalidation("filevalue")){   }
     else
     {
-        var filename=x;
-        var array=filename.split('.');
-        var length=array.length;
-        var extenion=array[length-1];
-        var error=1;
-        switch (extenion)
-        {
-            case 'jpg':
-                    error=0;
-                    break;
-            case 'png':
-                    error=0;
-                    break;
-            case 'jpeg':
-                    error=0;
-                    break;
-            case 'JPG':
-                    error=0;
-                    break;
-            case 'PNG':
-                    error=0;
-                    break;
-            case 'JPEG':
-                    error=0;
-                    break;
-            case 'svg':
-                    error=0;
-                    break;
-            case 'SVG':
-                    error=0;
-                    break;
-            case 'bmp':
-                    error=0;
-                    break;
-            case 'BMP':
-                    error=0;
-                    break;
-            case 'TIF':
-                    error=0;
-                    break;
-            case 'tif':
-                    error=0;
-                    break;
-            case 'gif':
-                    error=0;
-                    break;
-            case 'GIF':
-                    error=0;
-                    break;
-            case 'PSD':
-                    error=0;
-                    break;
-            case 'psd':
-                    error=0;
-                    break;
-            case 'yuv':
-                    error=0;
-                    break;
-            case 'YUV':
-                    error=0;
-                    break;
-            case 'THM':
-                    error=0;
-                    break;
-            case 'thm':
-                    error=0;
-                    break;
-            case 'PSPIMAGE':
-                    error=0;
-                    break;
-            case 'pspimage':
-                    error=0;
-                    break;
-        }
-        if(error===1)
-        {
-            $("#imagetext").val("");
-            $("#filevalue").val("");            
-            alert(errorimagefile);
-            return false;
-        } 
+        $("#filetext1").val(chooseimage);
+        return false;
     }
     if(x!=="")
     { 
@@ -104,8 +30,8 @@ function changefilename() {
     }
     //document.getElementById("demo").innerHTML = "You selected: " + x;
 }
+var attempt=0;
 $(document).ready(function (){
-    
     var change=$("#change").val();
     if(change==="1")
     {

@@ -33,7 +33,7 @@
     <%@ include file="fonttypekit.jsp"%>        
     <%@ include file="checksession.jsp" %>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script src="js/alert_message.js" type="text/javascript"></script>
+    <script src="js/alertmessage.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
     <script src="js/popup.js" type="text/javascript"></script>

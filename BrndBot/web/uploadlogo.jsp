@@ -36,7 +36,7 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-1.11.3.min.js"></script>
-
+        <script src="js/reuseablefunctions.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -111,89 +111,11 @@
                             alert(chooseimage);
                             return false;
                         }
+                        if(imagefilevalidation("filevalue")){   }
                         else
                         {
-                            var filename=$("#filesToUpload").val();
-                            alert(filename);
-                            var array=filename.split('.');
-                            var length=array.length;
-                            var extenion=array[length-1];
-                            var error=1;
-                            switch (extenion)
-                            {
-                                case 'jpg':
-                                        error=0;
-                                        break;
-                                case 'png':
-                                        error=0;
-                                        break;
-                                case 'jpeg':
-                                        error=0;
-                                        break;
-                                case 'JPG':
-                                        error=0;
-                                        break;
-                                case 'PNG':
-                                        error=0;
-                                        break;
-                                case 'JPEG':
-                                        error=0;
-                                        break;
-                                case 'svg':
-                                        error=0;
-                                        break;
-                                case 'SVG':
-                                        error=0;
-                                        break;
-                                case 'bmp':
-                                        error=0;
-                                        break;
-                                case 'BMP':
-                                        error=0;
-                                        break;
-                                case 'TIF':
-                                        error=0;
-                                        break;
-                                case 'tif':
-                                        error=0;
-                                        break;
-                                case 'gif':
-                                        error=0;
-                                        break;
-                                case 'GIF':
-                                        error=0;
-                                        break;
-                                case 'PSD':
-                                        error=0;
-                                        break;
-                                case 'psd':
-                                        error=0;
-                                        break;
-                                case 'yuv':
-                                        error=0;
-                                        break;
-                                case 'YUV':
-                                        error=0;
-                                        break;
-                                case 'THM':
-                                        error=0;
-                                        break;
-                                case 'thm':
-                                        error=0;
-                                        break;
-                                case 'PSPIMAGE':
-                                        error=0;
-                                        break;
-                                case 'pspimage':
-                                        error=0;
-                                        break;
-                            }
-                            if(error===1)
-                            {
-                                $("#imagetext").val("");
-                                alert(errorimagefile);
-                                return false;
-                            } 
+                            return false;
+                //            $("#filetext1").val("");
                         }
                         var file = $scope.myFile;
                         console.log('file is ' + JSON.stringify(file));

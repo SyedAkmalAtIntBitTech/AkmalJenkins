@@ -30,93 +30,10 @@ function changeimagetext() {
     {
         $("#imagetext").val(imagetext);
     }
-    if ($("#imagetext").val() === "") {
-        alert(chooseimage);
-        return false;
-    }
+    if(imagefilevalidation("imagetext")){   }
     else
     {
-        var filename=$("#imagetext").val();
-        var array=filename.split('.');
-        var length=array.length;
-        var extenion=array[length-1];
-        var error=1;
-        switch (extenion)
-        {
-            case 'jpg':
-                    error=0;
-                    break;
-            case 'png':
-                    error=0;
-                    break;
-            case 'jpeg':
-                    error=0;
-                    break;
-            case 'JPG':
-                    error=0;
-                    break;
-            case 'PNG':
-                    error=0;
-                    break;
-            case 'JPEG':
-                    error=0;
-                    break;
-            case 'svg':
-                    error=0;
-                    break;
-            case 'SVG':
-                    error=0;
-                    break;
-            case 'bmp':
-                    error=0;
-                    break;
-            case 'BMP':
-                    error=0;
-                    break;
-            case 'TIF':
-                    error=0;
-                    break;
-            case 'tif':
-                    error=0;
-                    break;
-            case 'gif':
-                    error=0;
-                    break;
-            case 'GIF':
-                    error=0;
-                    break;
-            case 'PSD':
-                    error=0;
-                    break;
-            case 'psd':
-                    error=0;
-                    break;
-            case 'yuv':
-                    error=0;
-                    break;
-            case 'YUV':
-                    error=0;
-                    break;
-            case 'THM':
-                    error=0;
-                    break;
-            case 'thm':
-                    error=0;
-                    break;
-            case 'PSPIMAGE':
-                    error=0;
-                    break;
-            case 'pspimage':
-                    error=0;
-                    break;
-        }
-        if(error===1)
-        {
-            $("#imagetext").val("");
-            $("#filesToUpload").val("");
-            alert(errorimagefile);
-            return false;
-        } 
+        $("#filesToUpload").val("");
     }
 }
 
@@ -1217,93 +1134,14 @@ function controllerMarketingCampaign($scope, $http) {
             alert(chooseimage);
             return false;
         }
+        if(imagefilevalidation("myFile")){   }
         else
         {
-            var filename=$("#myFile").val();
-            var array=filename.split('.');
-            var length=array.length;
-            var extenion=array[length-1];
-            var error=1;
-            switch (extenion)
-            {
-                case 'jpg':
-                        error=0;
-                        break;
-                case 'png':
-                        error=0;
-                        break;
-                case 'jpeg':
-                        error=0;
-                        break;
-                case 'JPG':
-                        error=0;
-                        break;
-                case 'PNG':
-                        error=0;
-                        break;
-                case 'JPEG':
-                        error=0;
-                        break;
-                case 'svg':
-                        error=0;
-                        break;
-                case 'SVG':
-                        error=0;
-                        break;
-                case 'bmp':
-                        error=0;
-                        break;
-                case 'BMP':
-                        error=0;
-                        break;
-                case 'TIF':
-                        error=0;
-                        break;
-                case 'tif':
-                        error=0;
-                        break;
-                case 'gif':
-                        error=0;
-                        break;
-                case 'GIF':
-                        error=0;
-                        break;
-                case 'PSD':
-                        error=0;
-                        break;
-                case 'psd':
-                        error=0;
-                        break;
-                case 'yuv':
-                        error=0;
-                        break;
-                case 'YUV':
-                        error=0;
-                        break;
-                case 'THM':
-                        error=0;
-                        break;
-                case 'thm':
-                        error=0;
-                        break;
-                case 'PSPIMAGE':
-                        error=0;
-                        break;
-                case 'pspimage':
-                        error=0;
-                        break;
-            }
-            if(error===1)
-            {
-                $("#myFile").val("");
-                alert(errorimagefile);
-                return false;
-            } 
+            return false;
         }
 
         $("#myFile").upload("UploadImages", function (success) {
             var imagetext = $("#myFile").val();
-//            alert(imagetext);
             if (imagetext === "")
             {
                 alert(chooseimage);

@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="css/slat.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <link rel="stylesheet" href="css/popup.css"/>
-    <script src="js/alert_message.js"></script>
+    <script src="js/alertmessage.js"></script>
     <script src="js/angular.min.js" type="text/javascript"></script>    
     <script src="js/bootstrap.min.js"></script>
     <script src="js/form.js"></script>

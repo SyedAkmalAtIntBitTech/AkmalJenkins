@@ -39,6 +39,7 @@
             uploadModule.controller('myCtrl', ['$scope', 'fileUpload', function ($scope, fileUpload) {
 
                     $scope.uploadFile = function () {
+                        alert();
                         var file = $scope.myFile;
                         console.log('file is ' + JSON.stringify(file));
                         var uploadUrl = global_host_address + 'UploadImages';
