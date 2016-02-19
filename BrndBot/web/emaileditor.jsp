@@ -649,7 +649,7 @@
             <div class="page-cta-container">
                 <a href="" class="gray-button fleft pushright">
                     <!--<div class="nounderline md-button" onclick="show('iphone');">  Mobile Preview</div>-->  
-                    <div class="nounderline md-button" id="emailpreview">  Mobile Preview</div>  
+                    <div class="nounderline md-button" id="emailpreview">  Preview</div>  
                 </a>
                 <a href="" class="gray-button fleft ">
                     <div class=" md-button" id="saveToDraft">  Save as Draft</div>    
