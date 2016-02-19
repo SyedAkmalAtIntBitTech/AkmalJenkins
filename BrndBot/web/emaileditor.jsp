@@ -27,14 +27,14 @@
     <link href="css/froala_editor.css" rel="stylesheet" type="text/css"/>
     <link href="css/popup.css" rel="stylesheet" type="text/css"/>
     <link href="css/froala_style.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="css/plugins/code_view.css">
-    <link rel="stylesheet" href="css/plugins/colors.css">
-    <link rel="stylesheet" href="css/plugins/emoticons.css">
-    <link rel="stylesheet" href="css/plugins/image_manager.css">
-    <link rel="stylesheet" href="css/plugins/image.css">
-    <link rel="stylesheet" href="css/plugins/line_breaker.css">
-    <link rel="stylesheet" href="css/plugins/table.css">
-    <link rel="stylesheet" href="css/plugins/char_counter.css">
+    <link rel="stylesheet" href="css/plugins/code_view.css"/>
+    <link rel="stylesheet" href="css/plugins/colors.css"/>
+    <link rel="stylesheet" href="css/plugins/emoticons.css"/>
+    <link rel="stylesheet" href="css/plugins/image_manager.css"/>
+    <link rel="stylesheet" href="css/plugins/image.css"/>
+    <link rel="stylesheet" href="css/plugins/line_breaker.css"/>
+    <link rel="stylesheet" href="css/plugins/table.css"/>
+    <link rel="stylesheet" href="css/plugins/char_counter.css"/>
     <link rel="stylesheet" href="css/plugins/video.css">
     <link rel="stylesheet" href="css/plugins/fullscreen.css">
     <link rel="stylesheet" href="css/plugins/file.css">
@@ -42,7 +42,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css"> 
     <link rel="stylesheet" href="css/plugins/image_manager.css">
     <script src="js/froala_editor.min_editor.js" type="text/javascript"></script>
-    <!--        <script src="js/plugins/code_view.min.js" type="text/javascript"></script>-->
+<!--<script src="js/plugins/code_view.min.js" type="text/javascript"></script>-->
     <script type="text/javascript" src="js/emaileditor_new.js"></script>
     <script type="text/javascript" src="js/plugins/align.min.js"></script>
     <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
@@ -114,10 +114,16 @@
         var sliderDialog="#emaileditorexternalpopup";
         
         $(document).ready(function(){    
+            $("#closePrev").click(function(){
+                $("#email_previewdiv").hide();
+                $('#fade').hide();                
+            });
+                    
             $("#mindbodyclose").click(function(){
                 $("#fade").hide();
                 $('#slider-button').click();                
-            });
+            });            
+            
 //            $slider=2;
             $a=0;
             $edit=0;
@@ -618,7 +624,8 @@
 
 </head>    
 <div id="fade" class="black_overlay"></div>
-<body ng-app="myapp">
+<%--<jsp:include page="emailpreview.jsp" />--%>  
+<body ng-app="myapp"> 
     <div id="boxes" >
         <div id="dialog" class="window" >
         </div>
@@ -629,7 +636,7 @@
     <input type="hidden" value="<%=email_subject%>" id="email_subject"/>
     <!--SideNav-->
     <div class="content-main" ng-controller="MyController">   
-    <jsp:include page="emaileditormindbodypopup.jsp"/>
+    <jsp:include page="emaileditormindbodypopup.jsp"/>    
     <!--Top Nav-->   
     <div class="top-nav-full">
         <div class="page-title-bar col-1of1"> 
@@ -641,7 +648,8 @@
             <div class="page-title-with-back page-title-font">Email Editor</div>
             <div class="page-cta-container">
                 <a href="" class="gray-button fleft pushright">
-                    <div class="nounderline md-button" onclick="show('iphone');">  Mobile Preview</div>    
+                    <!--<div class="nounderline md-button" onclick="show('iphone');">  Mobile Preview</div>-->  
+                    <div class="nounderline md-button" id="emailpreview">  Mobile Preview</div>  
                 </a>
                 <a href="" class="gray-button fleft ">
                     <div class=" md-button" id="saveToDraft">  Save as Draft</div>    
@@ -653,6 +661,16 @@
         <div class="emailEditor-page-background fleft">
             <div class="emailEditor-leftCol ">
                  <script>
+                    $("#emailpreview").click(function(){
+                        $("#email_previewdiv").show();
+                        var template=$('#edit').froalaEditor('html.get');
+//                        alert(template);
+                        $("#dynamictable5" ).html(template);
+                        $("#dynamictable6" ).html(template);
+                        
+                        $("#fade").show();
+                    });
+                    
                     $("#addblkbtn").click(function (){
                     $("#tabs-4").css("display", "none");
                             $("#clsbtn").css("display", "none");
@@ -892,6 +910,50 @@
             </div>
         </div>
     </div>  
+    
+    <div id="fade" class="black_overlay" ></div>
+    <!--Top Nav-->  
+    <div id="email_previewdiv">
+        <div class="pop-up-background">
+            <div class="pop-up-container-emailPreview"> 
+                <a class=" exit-button-detail-ep link svg" href="" id="closePrev">
+                    <img type="image/svg+xml" src="images/Icons/close.svg" class="closeemailpreview" style="cursor:pointer;"> </img>
+                </a>
+                <div class="pop-up-title-emailpreview "> 
+                    <div class="emailPreview-header fleft">Email Preview</div>
+                </div>
+                <!--inner-->
+                <div class="pop-up-inner-ep height400">
+                    <div class="emailPreviews col-1of1 fleft"> 
+                        <div class="emailPreview-desktop-col  fleft">
+                            <div class="emailPreview-headers">Desktop Preview</div>
+                            <!--<div class="iphoneshow img-responsive" id="deskpreview" style="display: block; height: 300px; width: 295px; margin-left: 215px; margin-top: 50px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">-->
+                                <div class="content">  
+                                    <div id="dynamictable5" style="position: relative; width: 100%; border: none; overflow: scroll; height: 400px;background-color: rgb(255, 255, 255);" src="">
+                                    
+                                    </div>                   
+                                </div>
+                            <!--</div>-->
+                            <div class="desktopshow" style="display:none;">
+                                <iframe id='dynamictable' class="desktoppreview" src=''></iframe> 
+                            </div>                        
+                        </div>
+                        <div class="emailPreview-mobile-col fleft">
+                            <div class="emailPreview-headers">Mobile Preview</div>
+                            <div class="iphoneshow img-responsive" id="mobpreview" style="display: block; height: 370px; width: 254px; margin-left: 63px; margin-top: 13px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">
+                                <div class="content">  
+                                    <div id="dynamictable6" style="position: relative; width: 100%; height: 400px; overflow: scroll; border: none; background-color: rgb(255, 255, 255);">
+                                    
+                                    </div>                   
+                                </div>
+                            <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>           
     <!--CTA Bar-->
     <div class="bottom-cta-bar" id="bottomdiv">
         <div class="bottom-cta-button-container-lg">
