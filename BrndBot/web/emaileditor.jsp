@@ -649,7 +649,7 @@
             <div class="page-cta-container">
                 <a href="" class="gray-button fleft pushright">
                     <!--<div class="nounderline md-button" onclick="show('iphone');">  Mobile Preview</div>-->  
-                    <div class="nounderline md-button" id="emailpreview">  Preview</div>  
+                    <div class="nounderline md-button" id="emailpreview">  Preview Email</div>  
                 </a>
                 <a href="" class="gray-button fleft ">
                     <div class=" md-button" id="saveToDraft">  Save as Draft</div>    
@@ -902,7 +902,7 @@
                     <ul class="block-list" id="stylediv">
                         <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.id}}" ng-click="addActive('stylelistid'+styles.id)">
                             <div class="block-name">
-                                <img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="{{styles.image_url}}" onclick="showText('{{styles.id}}')" width="100%" style="height:175px;"/>
+                                <img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="{{styles.image_url}}" onclick="showText('{{styles.id}}')" width="100%" />
                             </div>
                         </li>
                     </ul>

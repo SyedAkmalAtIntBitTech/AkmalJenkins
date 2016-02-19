@@ -139,7 +139,7 @@ a.svg:after {
     height: 60px;
     box-sizing: border-box;
     display: block;
-    border-bottom: 1px solid #EEEFF5 ;
+    border-bottom: 1px solid #ddd !important;
     
 }
 
