@@ -63,15 +63,6 @@
                     <span class="hub-dropdown-text" id="emlsclspanid">Email</span>
                  <img type="image/svg+xml" src="images/Icons/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"></img>
                 </div>
-<!--                <div class="subnav-dropdown pushright select-style" >
-                    <img src="images/Icons/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"> </img>
-                <select class="hub-dropdown-text emlsocdrpdwn">
-                  <option class="hub-dropdown-text" value="Email">Email</option>
-                  <option class="hub-dropdown-text" value="Social">Social</option>
-                </select>
-                     <span >Email</span>
-                
-                </div>-->
                 <div class="top-subnav-tabs-container">
                    <ul class="top-subnav-nav-elements">
                        <li class="top-subnav-links" id="emldrftab"> <a  class="h3">Email Drafts</a></li>
@@ -108,12 +99,12 @@
             <div class="page-inner-content-container ">
                 <div class="fleft content">
                     <div class="page-content-title-bar">
-                        <div class="page-content-title pushUp h2">Your Email Lists</div>
+                        <div class="page-content-title pushUp h2" ng-show="emailLists.length>0">Your Email Lists </div>
+                        <div class="page-content-title pushUp h2" ng-show="emailLists.length==0">No email lists present</div>
                     </div>
                     <!--List Starts Here-->
                     <div ng-init="showEmailListWithContacts()">
-                        
-                        <ul class="main-container fleft">
+                        <ul class="main-container fleft"ng-show="emailLists.length>0">
                         <li class="slat-container fleft selfclear" ng-repeat="email in emailLists">
                              <div class="selection-container col-5p"> 
                                  <div class="selection-icon" id="{{email.emailListID}}" onclick="selemlcheckbox(this.id)"><input type="checkbox" id="{{email.emailListID}}" value="{{email.emailListName}}" name="entityname" hidden></input></div>
