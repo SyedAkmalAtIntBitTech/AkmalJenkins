@@ -29,7 +29,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Choose color palette</title>
+        <title>Brndbot - Choose color palette</title>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">

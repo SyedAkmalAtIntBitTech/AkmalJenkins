@@ -48,7 +48,7 @@
         <link rel="stylesheet" href="css/main1.css">
         <script src="js/configurations.js"></script>
          
-        <title>upload logo</title>
+        <title>Brndbot - Upload logo</title>
         <style>
             .fileUpload {
                 position: relative;

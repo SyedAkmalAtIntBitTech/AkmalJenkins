@@ -28,7 +28,7 @@
     <script src="js/popup.js" type="text/javascript"></script> 
     <link rel="stylesheet" href="css/popup.css"/>
     <style>#deleteEmaildraft,#addemlstbtn,#savesetbtn{display:none;}</style>
-    <title>BrndBot - Email List</title>  
+    <title>Brndbot - Marketing Hub</title>  
 </head>    
 <body ng-app class="claro1" >
      <%@include file="navbarv2.jsp" %>

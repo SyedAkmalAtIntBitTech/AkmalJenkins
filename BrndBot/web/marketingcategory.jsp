@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Marketing category</title>
+    <title>Brndbot - Marketing category</title>
     <meta charset="UTF-8">
     <%@ include file="fonttypekit.jsp"%>
     <%@ include file="checksession.jsp" %>

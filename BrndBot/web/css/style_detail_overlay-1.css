@@ -921,7 +921,7 @@ padding-top: 0px;
 }
 
 .Facebook-preview-header{
-    width:470px;
+    width: 500px;
     height:40px;
     float: left;
      margin-bottom: 11px;
@@ -940,7 +940,7 @@ padding-top: 0px;
     height: 100%;
 }
 .Facebook-preview-name-container{
-    width:422px;
+    width:445px;
     height: 100%;
     float: inherit;
   
@@ -2706,4 +2706,8 @@ div#editor {
 .font12{
     font-size: 12px;
     color:red;
+}
+.font20px
+{
+    font-size: 20px;
 }

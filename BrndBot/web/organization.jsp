@@ -40,7 +40,7 @@
        
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link href="css/main1.css" rel="stylesheet" type="text/css"/>
-        <title>organization</title>
+        <title>Brndbot - Organization</title>
             <script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
    
             <style>

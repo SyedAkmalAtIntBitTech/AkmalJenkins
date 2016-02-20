@@ -23,6 +23,7 @@
     <script src="js/socialsettings.js" type="text/javascript"></script>
     <link href="css/popup.css" rel="stylesheet" type="text/css"/>
     <link href="css/social.css" rel="stylesheet" type="text/css"/>
+    <title>Brndbot - Marketing Hub</title>  
         <%! 
             Object code = "";
             String ImageName="";

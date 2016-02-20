@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
-    <title>Marketing Programs lists</title>
+    <title>Brndbot - Marketing Programs lists</title>
     <script src="js/configurations.js"></script>
     <script src="js/alert_message.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

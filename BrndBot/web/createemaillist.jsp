@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="favicon.png"></link>
     <link rel="stylesheet" type="text/css" href="css/popup.css"></link>
     <script src="js/popup.js" type="text/javascript"></script>
-    <title>create email list</title>
+    <title>Brndbot - Create email list</title>
 </head>    
     <style>
         

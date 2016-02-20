@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Email Program Action</title>
+        <title>Brndbot - Email Program Action</title>
         <meta charset="UTF-8">
         <%@ include file="fonttypekit.jsp"%>
 

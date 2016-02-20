@@ -29,7 +29,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>personality</title>
+        <title>Brndbot - Personality</title>
         <meta charset="UTF-8">
          <%@ include file="fonttypekit.jsp"%>
 

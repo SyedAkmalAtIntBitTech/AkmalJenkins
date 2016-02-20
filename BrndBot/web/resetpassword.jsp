@@ -25,7 +25,7 @@
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
      
         <link rel="stylesheet" href="css/main1.css">
-        <title>change password</title>
+        <title>Brndbot - Change password</title>
         <jsp:include page="basejsp.jsp" />
     </head>
     <body class="container">
