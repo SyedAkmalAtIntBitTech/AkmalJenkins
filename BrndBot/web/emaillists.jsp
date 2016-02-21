@@ -237,13 +237,13 @@
                 <div class="fleft content ">
                     <div class="page-content-title h2">Your Email Settings</div>
                     <!--List Starts Here-->
-                    <div class="emailSettings-container fleft pushUp-50 main-container main-container50width col-8of10">
+                      <div class="emailSettings-container fleft pushUp-50 main-container main-container50width col-8of10" ng-init="getEmailSettings()">
                        <div class="col-1of1 fleft">
                             <div class="col-7of10 fleft">
                                 <div class="h4" style="">
                                     Default from Address:
                                 </div>
-                                <input id="from_address" class="input-field-textfield col-8of10" type="text" name="from_address" placeholder="Enter default email address"/>
+                                <input id="from_address" class="input-field-textfield col-8of10" type="text" name="from_address" value="{{email_settings.from_address}}" placeholder="Enter default email address"/>
                                 
                             </div>
                         </div>
@@ -252,7 +252,7 @@
                                 <div class="h4" style="">
                                    Reply to Email Address:
                                 </div>
-                                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" name="reply_email_address" placeholder="Enter reply-to-email address"/>
+                                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{email_settings.reply_email_address}}" name="reply_email_address" placeholder="Enter reply-to-email address"/>
                             </div>
                         </div>
                     </div>                        

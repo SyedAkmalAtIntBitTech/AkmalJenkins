@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="css/newversion/normalize.css"/>
     <link rel="stylesheet" type="text/css" href="css/newversion/slat.css"/>
     <link rel="shortcut icon" href="images/favicon.png"/>
-    <title>Email Drafts</title>
+    <title>BrndBot - Email Drafts</title>
     
     <script>
        

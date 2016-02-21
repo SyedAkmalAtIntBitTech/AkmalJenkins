@@ -376,6 +376,26 @@
             }
             function EmailListController($scope, $http) {
                 $("#addemlstbtn").show();
+                
+                $scope.getEmailSettings = function(){                
+                var email_settings = {"type": "get"};                
+                $http({
+                        method : 'POST',
+                        url : 'EmailSettingsServlet',
+                        headers: {'Content-Type': 'application/json'},
+                        data: email_settings
+                    }).success(function (data, status, headers, config) {
+                        $scope.email_settings = data;
+                        if (data === error) {
+                            alert(data);
+                        }
+                    }).error(function (data, status, headers, config) {
+                        alert("No data available, problem fetching the data");
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                    });
+                };
+                
                 $scope.setEmailSettings = function () {
                     var from_address = $("#from_address").val();
                     var reply_email_address = $("#reply_email_address").val();

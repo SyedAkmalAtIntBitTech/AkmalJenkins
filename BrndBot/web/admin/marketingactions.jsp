@@ -39,7 +39,7 @@
 //                fil.setAttribute("name", file)
             }
         </script>
-        <title>Marketing Actions</title>
+        <title>BrndBot - Marketing Actions</title>
    
     <jsp:declaration>
         Logger logger = Logger.getLogger("categories.jsp");

@@ -31,7 +31,7 @@
 
 <html>
     <head>
-        <title>look_chooser</title>
+        <title>BrndBot - Look Chooser</title>
         <meta charset="UTF-8">
          <%@ include file="fonttypekit.jsp"%>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">

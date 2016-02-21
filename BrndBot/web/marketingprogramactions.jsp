@@ -18,7 +18,7 @@
     <script src="js/pikaday.js"></script>
     <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <title>Marketing Program Actions</title>
+    <title>BrndBot - Marketing Program Actions</title>
     <script src="js/jquery.min.js"></script>
     <script src="js/configurations.js"></script>
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>

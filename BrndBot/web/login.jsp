@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="css/main1.css">
         <link rel="stylesheet" href="css/popup.css">
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-        <title>User Login</title>
+        <title>BrndBot - User Login</title>
         <script>
          $("document").ready(function() {setTimeout(function(){ $("#inputemail").focus();},10);});  
         </script>

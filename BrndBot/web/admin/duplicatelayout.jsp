@@ -28,7 +28,7 @@
         <script src="../js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
         <script src="../js/jquery.reveal.js" type="text/javascript"></script>
         <link href="../css/reveal.css" rel="stylesheet" type="text/css"/>
-        <title>Duplicate Layout</title>
+        <title>BrndBot - Duplicate Layout</title>
     </head>
     <jsp:include page="checksession.jsp" />
     <jsp:declaration>

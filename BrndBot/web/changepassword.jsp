@@ -98,7 +98,7 @@
             
         </script>
         <link rel="stylesheet" href="css/main1.css">
-        <title>Password Change</title>
+        <title>BrndBot - Password Change</title>
         <jsp:include page="basejsp.jsp" />
     </head>
     <body class="container" >
