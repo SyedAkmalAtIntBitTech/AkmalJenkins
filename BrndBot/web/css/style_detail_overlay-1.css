@@ -570,7 +570,7 @@ padding-top: 0px;
     width: 100%;
     margin: auto;
     min-width: 800px;
-    max-width: 1170px;
+    max-width: 100%;
 }
 
 .page-inner-content-containerfullwidth{
