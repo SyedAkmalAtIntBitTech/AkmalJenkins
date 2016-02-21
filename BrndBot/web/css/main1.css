@@ -717,8 +717,8 @@ select#organizationdropdown option{
 }
 #Servicecontinue{
     border:none;
-    top:50px;
-    left:0px;
+    top: 100px;
+    left: 100px;
     position: relative;
 }
 

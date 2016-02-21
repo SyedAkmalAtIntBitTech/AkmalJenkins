@@ -9,7 +9,6 @@
 <html>
    <head>
         <title>BrndBot - Marketing Programs</title>
-        <meta charset="UTF-8">
         <%@ include file="checksession.jsp" %>
         <%@ include file="fonttypekit.jsp"%>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">

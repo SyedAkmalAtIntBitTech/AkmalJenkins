@@ -14,7 +14,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <link rel="stylesheet" href="css/pikaday.css"></link>
     <link rel="stylesheet" href="css/datepickerpikaday.css"></link>
-    <script src="js/pikaday.js"></script>   
+    <script src="js/pikaday.js"></script>  
     <title>BrndBot - Email Automation</title>
   
     <%@ include file="fonttypekit.jsp"%>
