@@ -30,7 +30,7 @@ public class UserProgramUtility {
         } else if (checkProgram > 0) {
             logger.log(Level.INFO, "In UserProgramUtility: General Program already exists in database");
         } else if (checkProgram < 0) {
-            logger.log(Level.INFO, "In UserProgramUtility: Something went wrong while saving General Program");
+            logger.log(Level.INFO, "In UserProgramUtility: Something went wrong while selecting General Program");
         }
     }
 
