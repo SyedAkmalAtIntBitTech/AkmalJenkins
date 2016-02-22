@@ -85,6 +85,8 @@ public class ApplicationContextListener implements ServletContextListener {
         socialPostScheduler.startFacebookScheduler();
         socialPostScheduler.startEmailScheduler();
         socialPostScheduler.startRecurringEmailScheduler();
+        
+        UserProgramUtility.generalProgramChecker();
     }
 
     @Override
