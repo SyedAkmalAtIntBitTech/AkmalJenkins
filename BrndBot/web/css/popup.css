@@ -1475,3 +1475,38 @@ textarea#filetext1 {
     margin-right: -900px;
 }
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/
+
+
+
+
+/*-----------------rasim start code-----------------*/
+@media screen and (min-width:1500px) and (max-width:2500px)
+{
+    
+    #edit{
+        
+        height: 877px !important;
+        max-height: 850px !important;
+            margin-left: 5% !important;
+    }
+    .fr-box.fr-basic .fr-element{
+        max-height: 983px !important;
+    height: 806px;
+        
+    }
+    
+    .fr-wrapper{
+        max-height: 823px !important;
+        
+    }
+    .block-list{
+        height: 764px !important;
+        
+    }
+}
+/*-----------------rasim end code-----------------*/
+
+
+
+
+
