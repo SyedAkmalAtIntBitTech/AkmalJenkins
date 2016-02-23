@@ -46,15 +46,15 @@
 <body class="" ng-app ng-controller="programactions">
     <!--SideNav-->
     <div class="content-main" ng-init="getProgramActions()">
+    <input type="hidden" name="program_id" id="program_id" value="<%= program_id %>"/>
+    <input type="hidden" name="program_end_date" id="program_end_date" value="<%= program_date %>"/>
+    <input type="hidden" name="change" id="change" value="0"/>
     <jsp:include page="facebookpreview_marketing.jsp"/> 
     <jsp:include page="twitterpreview_marketing.jsp"/> 
     <jsp:include page="emailpreviewpopup_marketing.jsp"/>
     <jsp:include page="marketingprogramaddaction.jsp"/>
     <jsp:include page="recuringPopup.jsp"/>
-    <%@include file="navbarv2.jsp" %>
-    <input type="hidden" name="program_id" id="program_id" value="<%= program_id %>"/>
-    <input type="hidden" name="program_end_date" id="program_end_date" value="<%= program_date %>"/>
-    <input type="hidden" name="change" id="change" value="0"/>
+    <%@include file="navbarv2.jsp" %>   
     <!--Top Nav-->   
     <div class="top-nav" >
         <div class="page-title-bar col-1of1"> 

@@ -737,9 +737,10 @@ select#dropdownurl,#url {
     top: 0px;
     font-family: "proxima-nova";
     font-weight: 500;
-    left: 10em;
+    left: 7em;
     float: left;
     color: #2D4444;
+    width: 680px;
 }
 .top-navbar_draft{
     background-color: #FFFFFF;

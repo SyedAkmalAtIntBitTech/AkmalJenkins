@@ -940,7 +940,7 @@
                         </div>
                         <div class="emailPreview-mobile-col fleft">
                             <div class="emailPreview-headers">Mobile Preview</div>
-                            <div class="iphoneshow img-responsive" id="mobpreview" style="display: block; height: 370px; width: 254px; margin-left: 63px; margin-top: 13px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">
+                            <div class="iphoneshow img-responsive" id="mobpreview" style="display: block; height: 370px; width: 100%; margin-left: 6px; margin-top: 0px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">
                                 <div class="content">  
                                     <div id="dynamictable6" style="position: relative; width: 100%; height: 400px; overflow: scroll; border: none; background-color: rgb(255, 255, 255);">
                                     

@@ -42,8 +42,8 @@
             </div> 
             <div class="pop-up-inner">
                 <div class="input-field-container ">
-                    <div class="input-header"> Marketing Program </div>
-                    <select disabled id="marketing_program" name="option" class="input-field-textfield input-placeholder">
+                    <!--<div class="input-header"> Marketing Program </div>-->
+                    <select disabled id="marketing_program" hidden name="option" class="input-field-textfield input-placeholder">
                         <!--<option value="0" class="a0">General</option>-->
                         <option class="a<%=program_id%>" value="<%=program_id%>">{{programs.programdetails.programName}}</option>
                     </select>
@@ -55,7 +55,7 @@
                 <div class="line-divider"></div>
                 <div class="cols-2">
                      <div class="input-field-container col-4of10 fleft pushright">
-                        <div class="input-header"> Action Days </div>
+                        <div class="input-header"> Days from Event </div>
                         <input type="number" name="days" id="days"  class="input-field-textfield input-placeholder" placeholder="Enter days"></input>
                     </div>
                      <div class="input-field-container col-4of10 fleft">
