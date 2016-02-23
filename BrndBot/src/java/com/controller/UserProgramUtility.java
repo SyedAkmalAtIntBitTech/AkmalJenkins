@@ -36,20 +36,20 @@ public class UserProgramUtility {
 
     public static int getGeneralProgram() {
         StringBuilder sbSql = new StringBuilder();
-        sbSql.append("SELECT * FROM tbl_user_marketing_program where id =0;");
+        int programCount = 0;
+        sbSql.append("SELECT count(*) FROM tbl_user_marketing_program where id =0;");
         try (Connection conn = connectionManager.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sbSql.toString())) {
             ps.execute();
             try (ResultSet resultSet = ps.getResultSet()) {
-                int i = 0;
-                while (resultSet.next()) {
-                    i++;
-                }
-                return i;
+                resultSet.next();
+                programCount = resultSet.getInt(1);
             }
         } catch (Exception e) {
             logger.log(Level.SEVERE, e.toString());
-            return -1;
+            programCount = -1;
+        } finally {
+            return programCount;
         }
 
     }
@@ -60,10 +60,8 @@ public class UserProgramUtility {
         try (Connection conn = connectionManager.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sbSql.toString())) {
             ps.execute();
-
         } catch (Exception e) {
             logger.log(Level.SEVERE, e.toString());
-
         }
     }
 }

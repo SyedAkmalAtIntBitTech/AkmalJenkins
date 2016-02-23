@@ -86,6 +86,7 @@ public class ApplicationContextListener implements ServletContextListener {
         socialPostScheduler.startEmailScheduler();
         socialPostScheduler.startRecurringEmailScheduler();
         
+        //Checks if default user program exists else adds general program which is used for your plan
         UserProgramUtility.generalProgramChecker();
     }
 
