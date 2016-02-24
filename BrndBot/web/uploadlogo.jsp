@@ -47,6 +47,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="css/main1.css">
+        <link rel="shortcut icon" href="images/favicon.png"/>
         <script src="js/configurations.js"></script>
         <title>BrndBot - Upload Logo</title>
         <style>

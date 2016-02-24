@@ -53,7 +53,7 @@
         <script type="text/javascript" src="jscolor/jscolor.js"></script>
         <script src="js/configurations.js"></script>
         <script src="js/angular.min.js"></script>
-         
+        <link rel="shortcut icon" href="images/favicon.png"/>         
 
         <style>
             #sortable { list-style-type: none; margin: 0; padding: 0;}
@@ -77,22 +77,14 @@
                 }
                 .pagination{
                     margin:5px 12px !important;
-                }
-            
+                }            
         </style>
-
-
         <script>
-
-
         angular.module("myapp", [])
         .controller("controllerGetColourPalettes", function($scope, $http) {
-
             $scope.showData = function( ){
-
              $scope.curPage = 0;
              $scope.pageSize = 10;
-
                 $http({
                         method : 'GET',
                         url : 'GetColorPalettes'
@@ -108,15 +100,10 @@
                     }
                 }).error(function(data, status, headers, config) {
                         alert("No data available! Problem fetching the data.");
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
                 });
-
                 }
-            });
-                    
+            });                    
             function controllerGetColoursFromLogo($scope, $http) {
-
             $scope.getLogoColors = function() {
                 $http({
                     method : 'GET',
@@ -128,8 +115,6 @@
                     }
             }).error(function(data, status, headers, config) {
                     alert("No data available! Problem fetching the data.");
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
             });
             };
             }
@@ -178,15 +163,11 @@
                                 }
                             })
                 .error(function(data, status) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
                         alert("Request not successful!");
                 });
             }
             }
-
-            };
-                
+            };                
                 angular.module('myapp').filter('pagination', function()
                 {
                  return function(input, start)
