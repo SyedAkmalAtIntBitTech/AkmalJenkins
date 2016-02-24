@@ -321,23 +321,23 @@ $(document).ready(function ()
     });
     $("#url").keyup(function(){
         var link=$("#url").val();
-        if(link.contains("http://www.") === false)
+        if(link.contains("http://") === false)
         {
             if(link.contains("http:/") === true)
-                $("#url").val("http://www.");
+                $("#url").val("http://");
             if(link.contains("http:") === true)
-                $("#url").val("http://www.");
+                $("#url").val("http://");
             if(link.contains("http") === true)
-                $("#url").val("http://www.");
+                $("#url").val("http://");
             if(link.contains("htt") === true)
-                $("#url").val("http://wwww.");
+                $("#url").val("http://");
             if(link.contains("ht") === true)
-                $("#url").val("http://www.");
+                $("#url").val("http://");
             if(link.contains("h") === true)
-                $("#url").val("http://www.");
+                $("#url").val("http://");
             else
             {
-                $("#url").val("http://www."+link);
+                $("#url").val("http://"+link);
             }
         }        
     });
