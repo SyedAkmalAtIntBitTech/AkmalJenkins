@@ -1451,7 +1451,9 @@ textarea#filetext1 {
     font-family:"proxima-nova",sans-serif;
     font-weight:500;
     color: #2D4444;
-    max-height: 600px;
+    height: -webkit-calc(100% - 141px);
+    overflow: scroll;
+   //max-height: 600px;
     /*                                overflow: auto;*/
 }
 .editorclass{
@@ -1485,25 +1487,40 @@ textarea#filetext1 {
     
     #edit{
         
-        height: 877px !important;
-        max-height: 850px !important;
-            margin-left: 5% !important;
-    }
-    .fr-box.fr-basic .fr-element{
-        max-height: 983px !important;
-    height: 806px;
+       
+        margin-left: 5% !important;
         
     }
     
-    .fr-wrapper{
-        max-height: 823px !important;
-        
-    }
-    .block-list{
-        height: 764px !important;
-        
-    }
 }
+@media screen and (min-width:500px) and (max-width:1500px)
+{
+    
+    .emailEditor-rightCol{
+        width: 30% !important;
+    }
+    
+}
+
+.fr-box.fr-basic.fr-top .fr-wrapper{
+    
+    background-color: #EEEEEE !important;
+    
+}
+.fr-box.fr-basic .fr-element{
+      
+    background-color: #EEEEEE;
+        
+    }
+    
+    .rightcoloumn{
+        height: -webkit-calc(100% - 76px) !important;
+        
+    }
+    .right-email-select{
+        
+         height: -webkit-calc(100% - 33px) !important;
+    }
 /*-----------------rasim end code-----------------*/
 
 

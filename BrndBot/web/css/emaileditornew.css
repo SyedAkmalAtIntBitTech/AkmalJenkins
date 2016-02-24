@@ -11,15 +11,15 @@ and open the template in the editor.
 {
     .bgcolor
     {
-        min-height: 650px !important;
-        height: auto !important;
-        height: 650px;
+        //min-height: 650px !important;
+        //height: auto !important;
+       // height: 650px;
     }
-    .fr-wrapper{
+/*    .fr-wrapper{
         min-height: 515px !important;
         height: auto !important;
 
-    }
+    }*/
 }
 .show-placeholder{
     min-height: 819px !important;

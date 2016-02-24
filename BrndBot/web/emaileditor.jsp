@@ -871,7 +871,7 @@
                     </div>
                 </div>
             </div>
-            <div class="emailEditor-rightCol fright">
+            <div class="emailEditor-rightCol fright rightcoloumn">
                 <div class="emailSideBar-Header">
                     <div class="col-1of2 fleft">
                         <div class="emailSideBar-tab-active" id="blocktab" ng-init="showBlocks()" ng-click="showBlocks()">
@@ -884,7 +884,7 @@
                         </div>
                     </div> 
                 </div>
-                <div class="email-Block-Selection">
+                <div class="email-Block-Selection right-email-select">
                     <div class="email-Block-Header" id="blockdivheader">Select a block to add:</div>
                     <div class="email-Block-Header" id="styledivheader">Select a style for this block:</div>
                     <div class="block-selection-divider"></div>

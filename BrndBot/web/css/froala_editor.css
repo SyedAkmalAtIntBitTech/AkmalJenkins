@@ -34,8 +34,8 @@
 }
 .fr-box.fr-basic .fr-element {
   padding: 10px;
-  max-height: 542px;
-  min-height: 100%;
+  //max-height: 542px;
+  //min-height: 100%;
   background-color: #ffffff;
 }
 iframe.fr-iframe {
@@ -45,7 +45,7 @@ iframe.fr-iframe {
   position: relative;
   overflow: auto;
   z-index: 1;
-  max-height: 480px !important;
+  //max-height: 480px !important;
 }
 .fr-wrapper .fr-placeholder {
   position: absolute;
