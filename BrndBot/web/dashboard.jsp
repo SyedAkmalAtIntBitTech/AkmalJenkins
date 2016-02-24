@@ -22,7 +22,7 @@
     <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="js/alert_message.js"></script>
+    <script src="js/alertmessage.js"></script>
     <script src="js/configurations.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/dashboard.js"></script>

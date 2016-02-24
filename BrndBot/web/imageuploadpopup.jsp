@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay.css">
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/popup.css">
-    <link rel="shortcut icon" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.png">    
     <script src="js/ajaxfileupload.js" type="text/javascript"></script>
     <script src="js/popup.js" type="text/javascript"></script>
     </head>

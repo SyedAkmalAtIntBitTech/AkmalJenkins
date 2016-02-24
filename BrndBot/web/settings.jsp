@@ -17,13 +17,14 @@
     <link rel="stylesheet" href="css/bootstrap.css"></link>
     <script type="text/javascript" src="js/angular.min.js"></script>  
     <script src="js/configurations.js" type="text/javascript"></script>
-    <script src="js/alert_message.js" type="text/javascript"></script>
+    <script src="js/alertmessage.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/resources/demos/style.css"/>
     <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
     <link href="css/popup.css" rel="stylesheet" type="text/css"/>
     <script src="js/popup.js" type="text/javascript"></script>
+    <script src="js/reuseablefunctions.js"></script>
     <script src="js/colpick.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/main1.css">
     <script src="js/prettify.js"></script>

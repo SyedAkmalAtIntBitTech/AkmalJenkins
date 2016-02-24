@@ -1,7 +1,7 @@
 
 var maxLength = 140;
 var script = document.createElement('script');
-script.src = "js/alert_message.js";
+script.src = "js/alertmessage.js";
 document.getElementsByTagName('script')[0].parentNode.appendChild(script);
 
 function overlay(){

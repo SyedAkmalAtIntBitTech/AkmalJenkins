@@ -16,10 +16,11 @@
     <link rel="stylesheet" type="text/css" href="css/slat.css"/>
     <link rel="stylesheet" type="text/css" href="css/popup.css"/>
     <link rel="shortcut icon" href="favicon.png"/>
-    <script src="js/alert_message.js" type="text/javascript"></script>
+    <script src="js/alertmessage.js" type="text/javascript"></script>
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/popup.js" type="text/javascript"></script>
+    <script src="js/reuseablefunctions.js"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
     <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
     <script src="js/imageeditor.js" type="text/javascript"></script>

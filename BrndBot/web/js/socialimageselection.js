@@ -30,6 +30,11 @@ function changeimagetext() {
     {
         $("#imagetext").val(imagetext);
     }
+    if(imagefilevalidation("imagetext")){   }
+    else
+    {
+        $("#filesToUpload").val("");
+    }
 }
 
 $(document).ready(function () {
@@ -1127,11 +1132,16 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.uploadFile = function () {
         if ($("#myFile").val() === "") {
             alert(chooseimage);
+            return false;
+        }
+        if(imagefilevalidation("myFile")){   }
+        else
+        {
+            return false;
         }
 
         $("#myFile").upload("UploadImages", function (success) {
             var imagetext = $("#myFile").val();
-//            alert(imagetext);
             if (imagetext === "")
             {
                 alert(chooseimage);
