@@ -14,8 +14,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <link rel="stylesheet" href="css/pikaday.css"></link>
     <link rel="stylesheet" href="css/datepickerpikaday.css"></link>
-    <script src="js/pikaday.js"></script>   
-    <title>Email Automation</title>
+    <script src="js/pikaday.js"></script>  
+    <title>BrndBot - Email Automation</title>
   
     <%@ include file="fonttypekit.jsp"%>
     <jsp:include page="basejsp.jsp"/>
@@ -50,7 +50,17 @@
         }
     %>
 <script src="js/angular.min.js"></script>
+ <%!
+            String program_date="";
+    %>
+    <%
+        program_date = request.getParameter("program_date");
+    %>
+</head>    
 
+<body ng-app ng-controller="emailautomation">
+    <input type="hidden" name="program_end_date" id="program_end_date" value="<%= program_date %>"/>
+    
 <script>
     
     var emails = "";
@@ -63,8 +73,10 @@
     var entity_id = 0;
     var type = "";
     var program_id = "";
+    var program_end_date="";
     
     $(document).ready(function () {
+         program_end_date=$("#program_end_date").val();
 //         for(var i=1; i<=31; i++){
 //                if ( i == days){
 //                    $('#days').append('<option value='+i+' selected>'+ i + '</option>');
@@ -202,7 +214,7 @@
                 var recuring_email_description = $("#recuring_email_description").val();
 
                 var till_date = $("#datepicker").val();
-                var program_end_date=$("#program_end_date").val();
+                program_end_date=$("#program_end_date").val();
                 var schedule_time=$("#timepicker1").val().replace(/ /g,'');
 //                        var schedule_time=$("#timepicker1").val();
                 var till_date_epoch = Date.parse(till_date);
@@ -559,43 +571,43 @@
 
 </script> 
     <!-----------------------EMAIL AUTOMATION EDITOR HEADER------------------>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
-  <link rel="stylesheet" href="css/froala_editor.css"/>
-  <link rel="stylesheet" href="css/froala_style.css"/>
-  <link rel="stylesheet" href="css/plugins/code_view.css"/>
-  <link rel="stylesheet" href="css/plugins/colors.css"/>
-  <link rel="stylesheet" href="css/plugins/emoticons.css"/>
-  <link rel="stylesheet" href="css/plugins/image_manager.css"/>
-  <link rel="stylesheet" href="css/plugins/image.css"/>
-  <link rel="stylesheet" href="css/plugins/line_breaker.css"/>
-  <link rel="stylesheet" href="css/plugins/table.css"/>
-  <link rel="stylesheet" href="css/plugins/char_counter.css"/>
-  <link rel="stylesheet" href="css/plugins/video.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css"/>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <link href="css/emailautomation.css" rel="stylesheet" type="text/css"/>
-  <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
-  <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-  <script src="js/configurations.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
-  <script type="text/javascript" src="js/froala_editor.min_editor.js" ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/froala_editor.css"/>
+    <link rel="stylesheet" href="css/froala_style.css"/>
+    <link rel="stylesheet" href="css/plugins/code_view.css"/>
+    <link rel="stylesheet" href="css/plugins/colors.css"/>
+    <link rel="stylesheet" href="css/plugins/emoticons.css"/>
+    <link rel="stylesheet" href="css/plugins/image_manager.css"/>
+    <link rel="stylesheet" href="css/plugins/image.css"/>
+    <link rel="stylesheet" href="css/plugins/line_breaker.css"/>
+    <link rel="stylesheet" href="css/plugins/table.css"/>
+    <link rel="stylesheet" href="css/plugins/char_counter.css"/>
+    <link rel="stylesheet" href="css/plugins/video.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css"/>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="css/emailautomation.css" rel="stylesheet" type="text/css"/>
+    <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
+    <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
+    <script src="js/configurations.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
+    <script type="text/javascript" src="js/froala_editor.min_editor.js" ></script>
 
-        <script type="text/javascript" src="js/plugins/align.min.js"></script>
-        <script type="text/javascript" src="js/plugins/colors.min_Editor.js" ></script>
-        <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
-        <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
-        <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
-        <script type="text/javascript" src="js/plugins/file.min.js"></script>
-        <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
-        <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
-        <script type="text/javascript" src="js/plugins/url.min.js"></script>
-        <script type="text/javascript" src="js/plugins/entities.min.js"></script>
-        <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
-        <script type="text/javascript" src="js/plugins/save.min.js"></script>
-        <script type="text/javascript" src="js/plugins/quote.min.js"></script>
+    <script type="text/javascript" src="js/plugins/align.min.js"></script>
+    <script type="text/javascript" src="js/plugins/colors.min_Editor.js" ></script>
+    <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
+    <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
+    <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/file.min.js"></script>
+    <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/url.min.js"></script>
+    <script type="text/javascript" src="js/plugins/entities.min.js"></script>
+    <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
+    <script type="text/javascript" src="js/plugins/save.min.js"></script>
+    <script type="text/javascript" src="js/plugins/quote.min.js"></script>
 
   <script>
     $(function(){
@@ -676,17 +688,7 @@
                     
                
 </script>     
-         <%!
-            String program_date="";
-    %>
-    <%
-        program_date = request.getParameter("program_date");
-    %>
-</head>    
-
-<body ng-app ng-controller="emailautomation">
-    <input type="hidden" name="program_end_date" id="program_end_date" value="<%= program_date %>"/>
-     <div id="boxes">
+        <div id="boxes">
             <div id="dialog" class="window">
             </div>
             <div id="mask"></div>

@@ -129,6 +129,7 @@ var cvsfileadded="The CSV file has been added, click on the upload button to loa
 var contactdelete="Contact(s) deleted successfully.";
 var deleteemaillist="Email List deleted successfully";
 var imageuploadsuccess="Image has been uploaded successfully.";
+var logoutmsg="You're now logged out";
 var errorimagefile="Invalid file type! Please choose an image file.";
 var logochangesuccessfully="Logo changed Successfully";
 var emailsenderror="test";

@@ -1254,6 +1254,7 @@ function programactions($scope, $http, $window){
     
     $scope.AddAction = function () {
         var program=$("#program_id").val();
+        var program_end_date=$("#program_end_date").val();
         var title = $("#addactiontitle").val();
         var actiontype = $("#actiontype").val();
         var marketingProgramType=$("#marketing_program").val();
@@ -1284,7 +1285,7 @@ function programactions($scope, $http, $window){
                 $scope.status = data;
                 if (data != "") {
                     alert("Action saved successfully.");
-                   window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
+                   window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0&program_date='+program_end_date, "_self");
                 }
             }).error(function (data, status) {
                 alert(requesterror);

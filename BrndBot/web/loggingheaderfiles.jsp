@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>logging Header files</title>
+        <title>BrndBot - Logging Header Files</title>
         <script src="js/configurations.js"></script>
         <script src="js/form.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>

@@ -546,6 +546,8 @@ function controllerMarketingCampaign($scope, $http) {
                     $scope.entitySet = data.entitydata;
                     $scope.nodata = data.noactionsmessage;
                     $("#default").css("display", "block");
+                    $('.page-background').animate({ scrollTop: 0 },500);
+                    
                 }).error(function (data) {
                     alert(requesterror);
                 });

@@ -170,7 +170,7 @@
                         </div>
                         <div class="input-field-container col-1of8 fleft pushUp-50">
                         
-                        <div class="h2 curpointer" id="emailpreview">Preview</div>                       
+                        <div class="curpointer gray-button font20px fleft nounderline md-button width200px" id="emailpreview">Preview Email</div>                       
                         </div>
                     <!--Inner Content Conatiner GENERIC-->
                 </div>

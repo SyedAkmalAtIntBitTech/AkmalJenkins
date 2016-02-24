@@ -64,8 +64,8 @@
                         var email_subject = "";
                         var email_addresses = $("#emailaddresses").val();
                         
-                        if(email_addresses!=="")
-                        {   
+                        if(email_addresses !== "")
+                        {       
                                 if(validateemailList()){
                                 $("#toaddress").val(email_addresses);
                                 $("#emaillistselid").hide();
@@ -103,7 +103,8 @@
                     var email_subject = "";
                     var email_addresses = $("#emailaddresses").val();
                     if(email_addresses!=="")
-                    {   
+                    {  
+                        if(validateemailList()){
                         $("#toaddress").val(email_addresses);
                         $("#emaillistselid").hide();
                         $("#emaildetailsid").show();
@@ -126,6 +127,7 @@
                             success: function(result){
                             }
                         });
+                    }
 //                            $("#toaddress").val(email_addresses);
 //                            $("#emaillistdiv").hide();
 //                            $("#toaddress").val(email_addresses);
@@ -889,7 +891,6 @@
                 };
         }
         function upload() {
-
                 var fileUpload = document.getElementById("fileid");
                 var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
                 if (regex.test(fileUpload.value.toLowerCase())) {

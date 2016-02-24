@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="css/datepickerpikaday.css">
   <script src="js/pikaday.js"></script>
 
-   <title>Email Automation</title>
+   <title>BrndBot - Email Automation</title>
         <meta charset="UTF-8">
         <%@ include file="fonttypekit.jsp"%>
 

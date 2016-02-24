@@ -32,7 +32,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
         
-        <title>font theme</title>
+        <title>BrndBot - Edit User Brand Details</title>
         <style>
             .box{width:80px;}
         </style>

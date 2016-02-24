@@ -140,7 +140,7 @@
                     </div>
                     <div class="bottom-cta-bar5">
                         <div class="bottom-cta-button-container">
-                            <div class="edit-button-detail md-button button-text-1 fleft edit-button-detailrecemail" ng-click="calltoeditrecurring(program_id,schedule_id)">Edit Automation Details</div>
+                            <div class="edit-button-detail md-button button-text-1 fright edit-button-detailrecemail" ng-click="calltoeditrecurring(program_id,schedule_id)">Edit Automation Details</div>
                         </div>
                     </div>
                 </div>
@@ -159,7 +159,7 @@
                                 <!--<a class="link" href="">-->
                                     <a href="emailautomation.jsp?type=template&program_id={{program_id}}&entity_id={{schedule_id}}">
                                         <div class="md-button empty-state-cta">
-                                            Lets change CTA to Add Email to this automation
+                                            Save an email to this action
                                         </div>
                                     </a>
                                 <!--</a>-->

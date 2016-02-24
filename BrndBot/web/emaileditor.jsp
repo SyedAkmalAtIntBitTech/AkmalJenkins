@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Email Editor</title>
+    <title>BrndBot - Email Editor</title>
     <%@ include file="fonttypekit.jsp"%>
     <%@ include file="checksession.jsp" %>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -649,7 +649,7 @@
             <div class="page-cta-container">
                 <a href="" class="gray-button fleft pushright">
                     <!--<div class="nounderline md-button" onclick="show('iphone');">  Mobile Preview</div>-->  
-                    <div class="nounderline md-button" id="emailpreview">  Preview</div>  
+                    <div class="nounderline md-button" id="emailpreview">  Preview Email</div>  
                 </a>
                 <a href="" class="gray-button fleft ">
                     <div class=" md-button" id="saveToDraft">  Save as Draft</div>    
@@ -871,7 +871,7 @@
                     </div>
                 </div>
             </div>
-            <div class="emailEditor-rightCol fright">
+            <div class="emailEditor-rightCol fright rightcoloumn">
                 <div class="emailSideBar-Header">
                     <div class="col-1of2 fleft">
                         <div class="emailSideBar-tab-active" id="blocktab" ng-init="showBlocks()" ng-click="showBlocks()">
@@ -884,7 +884,7 @@
                         </div>
                     </div> 
                 </div>
-                <div class="email-Block-Selection">
+                <div class="email-Block-Selection right-email-select">
                     <div class="email-Block-Header" id="blockdivheader">Select a block to add:</div>
                     <div class="email-Block-Header" id="styledivheader">Select a style for this block:</div>
                     <div class="block-selection-divider"></div>
@@ -902,7 +902,7 @@
                     <ul class="block-list" id="stylediv">
                         <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.id}}" ng-click="addActive('stylelistid'+styles.id)">
                             <div class="block-name">
-                                <img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="{{styles.image_url}}" onclick="showText('{{styles.id}}')" width="100%" style="height:175px;"/>
+                                <img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="{{styles.image_url}}" onclick="showText('{{styles.id}}')" width="100%" />
                             </div>
                         </li>
                     </ul>
@@ -940,7 +940,7 @@
                         </div>
                         <div class="emailPreview-mobile-col fleft">
                             <div class="emailPreview-headers">Mobile Preview</div>
-                            <div class="iphoneshow img-responsive" id="mobpreview" style="display: block; height: 370px; width: 254px; margin-left: 63px; margin-top: 13px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">
+                            <div class="iphoneshow img-responsive" id="mobpreview" style="display: block; height: 370px; width: 100%; margin-left: 6px; margin-top: 0px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">
                                 <div class="content">  
                                     <div id="dynamictable6" style="position: relative; width: 100%; height: 400px; overflow: scroll; border: none; background-color: rgb(255, 255, 255);">
                                     

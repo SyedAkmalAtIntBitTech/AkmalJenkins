@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
     <link rel="shortcut icon" href="favicon.png"/>
     <link rel="stylesheet" href="css/popup.css"/>
-    <title>xyz</title>
+    <title>BrndBot - Add Contact</title>
 </head>    
 
 <body>

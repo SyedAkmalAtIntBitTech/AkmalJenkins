@@ -26,7 +26,7 @@
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
         <script src="../js/colorthemefunctions.js" type="text/javascript"></script>
         
-        <title>JSP Page</title>
+        <title>BrndBot -  Editor Color Theme</title>
         <style>
             .box{width:80px;}
             

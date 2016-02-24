@@ -27,7 +27,7 @@
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
 <!--        <script src="../js/colorthemefunctions.js" type="text/javascript"></script>-->
 
-        <title>font theme</title>
+        <title>BrndBot - Editor Font Theme</title>
         <style>
             .box{width:80px;}
 

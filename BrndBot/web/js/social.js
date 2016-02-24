@@ -143,6 +143,7 @@
                             method: 'GET',
                             url: 'ServletUserPreferencesFacebook?access_token_method=getAccessToken&settings=true'
                         }).success(function (data, status, headers, config) {
+//                            alert(JSON.stringify(data));
                             $scope.facebookPage = data;
                             if (data.FacebookLoggedIn == "true"){
                                 $("#fbclear").show();

@@ -201,15 +201,15 @@ a.svg:after {
 }
 
 .exit-button-detail{
-    width:45px;
+    width:60px;
     height: 100%;
     padding-top:14px;
-    padding-left: 7px;
+    padding-left: 14px;
     padding-right: 7px;
-    background-color: #2c4355;
     box-sizing: border-box;
     cursor:pointer;
     float: left;
+    background-color: #0F76A6;
 }
 
 .exit-button-icon{

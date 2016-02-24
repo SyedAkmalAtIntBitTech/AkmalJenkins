@@ -2,7 +2,9 @@
     Created on : 1 Aug, 2015, 11:39:04 AM
     Author     : Satyajit Roy At IntBit Technologies
 */
-
+.margin-top-10{
+    margin-top: 10px !important;
+}
 .firstcol{
     margin: 51px 40.3px 48px 57px;
 }
@@ -253,6 +255,9 @@
 }
 .width33{
     width:33% !important;
+}
+.width200px{
+    width:200px;
 }
 .noresize{resize: none !important;} 
     
@@ -732,9 +737,10 @@ select#dropdownurl,#url {
     top: 0px;
     font-family: "proxima-nova";
     font-weight: 500;
-    left: 10em;
+    left: 7em;
     float: left;
     color: #2D4444;
+    width: 680px;
 }
 .top-navbar_draft{
     background-color: #FFFFFF;
@@ -1445,7 +1451,9 @@ textarea#filetext1 {
     font-family:"proxima-nova",sans-serif;
     font-weight:500;
     color: #2D4444;
-    max-height: 600px;
+    height: -webkit-calc(100% - 141px);
+    overflow: scroll;
+   //max-height: 600px;
     /*                                overflow: auto;*/
 }
 .editorclass{
@@ -1469,3 +1477,53 @@ textarea#filetext1 {
     margin-right: -900px;
 }
 /*--------------------------------------------- satyajit end code-----------------------------------------------*/
+
+
+
+
+/*-----------------rasim start code-----------------*/
+@media screen and (min-width:1500px) and (max-width:2500px)
+{
+    
+    #edit{
+        
+       
+        margin-left: 5% !important;
+        
+    }
+    
+}
+@media screen and (min-width:500px) and (max-width:1500px)
+{
+    
+    .emailEditor-rightCol{
+        width: 30% !important;
+    }
+    
+}
+
+.fr-box.fr-basic.fr-top .fr-wrapper{
+    
+    background-color: #EEEEEE !important;
+    
+}
+.fr-box.fr-basic .fr-element{
+      
+    background-color: #EEEEEE;
+        
+    }
+    
+    .rightcoloumn{
+        height: -webkit-calc(100% - 76px) !important;
+        
+    }
+    .right-email-select{
+        
+         height: -webkit-calc(100% - 33px) !important;
+    }
+/*-----------------rasim end code-----------------*/
+
+
+
+
+

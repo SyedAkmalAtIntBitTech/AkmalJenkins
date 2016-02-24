@@ -28,7 +28,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
-        <title>categories</title>
+        <title>BrndBot - Marketing Email Template</title>
         <script src="../js/categoriesfunctions.js" type="text/javascript"></script>
         <script src="../js/marketingemailtemplate.js" type="text/javascript"></script>
         <script type="text/javascript">

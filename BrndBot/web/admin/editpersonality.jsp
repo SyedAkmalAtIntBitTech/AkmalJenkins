@@ -26,7 +26,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
         <script src="../js/brandfunctions.js" type="text/javascript"></script>
-        <title>JSP Page</title>
+        <title>BrndBot - Edit Personality</title>
     </head>
 <jsp:include page="checksession.jsp" />
     <jsp:declaration>

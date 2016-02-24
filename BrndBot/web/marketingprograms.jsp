@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-        <title>Marketing Programs</title>
+        <title>BrndBot - Marketing Programs</title>
         <meta charset="UTF-8">
          <%@ include file="fonttypekit.jsp"%>
          

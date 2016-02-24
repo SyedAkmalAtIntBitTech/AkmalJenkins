@@ -27,7 +27,7 @@
     <script src="js/socialimageselection.js" type="text/javascript"></script>
     <link rel="shortcut icon" href="images/favicon.png"/>            
     <style>#link{opacity: 0;}#charlimit,#charlimits,#charlimitswithlink{display:none;}</style>
-    <title>socialimageselection</title>
+    <title>BrndBot - Social Image Selection</title>
 </head>
 <%@page import="com.controller.SqlMethods"%>
 <%@include file="checksession.jsp" %>

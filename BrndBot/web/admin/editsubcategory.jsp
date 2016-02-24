@@ -100,7 +100,7 @@
             }
 
         </script>
-        <title>categories</title>
+        <title>BrndBot - Categories</title>
 
     </head>
 <jsp:include page="checksession.jsp" />

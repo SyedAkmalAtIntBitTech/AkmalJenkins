@@ -17,7 +17,7 @@
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <script src="js/popup.js"></script>
     <!--<style>.time_pick{width:100%;}</style>-->
-    <title>twitter preview</title>
+    <title>BrndBot - Twitter Preview</title>
 </head>    
 
 <body>

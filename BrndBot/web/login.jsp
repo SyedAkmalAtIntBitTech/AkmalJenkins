@@ -22,9 +22,15 @@
         <link rel="stylesheet" href="css/main1.css">
         <link rel="stylesheet" href="css/popup.css">
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-        <title>User Login</title>
+        <title>BrndBot - User Login</title>
         <script>
-         $("document").ready(function() {setTimeout(function(){ $("#inputemail").focus();},10);});  
+         $("document").ready(function() {
+             if(window.location.href.indexOf("signout.jsp") > -1) {
+                window.location = getHost() +"login.jsp";
+                
+                alert(logoutmsg);
+             }
+        setTimeout(function(){ $("#inputemail").focus();},10);});  
         </script>
         <jsp:include page="basejsp.jsp" />
     </head>

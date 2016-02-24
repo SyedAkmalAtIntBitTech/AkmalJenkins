@@ -29,7 +29,7 @@
         <link href="../css/main1.css" rel="stylesheet" type="text/css"/>
         <script src="../js/colorthemefunctions.js" type="text/javascript"></script>
 
-        <title>color theme</title>
+        <title>BrndBot - Color Theme</title>
         <style>
             .box{width:80px;}
 

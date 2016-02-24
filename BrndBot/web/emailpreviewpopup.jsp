@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="shortcut icon" href="favicon.png"></link>
     <script src="js/popup.js"></script>
-    <title>emailpreviewpopup</title>
+    <title>BrndBot - Email Preview Popup</title>
 </head>
 
 <body>
