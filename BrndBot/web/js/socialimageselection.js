@@ -771,7 +771,7 @@ $(document).ready(function () {
                             "token_secret": '"' + $("#twitterTokenSecret").val() + '"'
                         },
                         metadata: {
-                            text: '"' + $("#twittertext").val() + '"',
+                            text: '"' + latesttwtext + '"',
                             shorturl: '"' + $("#sortLengthurl").val() + '"'
                         }
                     }
@@ -809,7 +809,7 @@ $(document).ready(function () {
                                     "token_secret": '"' + $("#twitterTokenSecret").val() + '"'
                                 },
                                 metadata: {
-                                    text: '"' + $("#twittertext").val() + '"',
+                                    text: '"' + latesttwtext + '"',
                                     shorturl: '"' + $("#sortLengthurl").val() + '"'
                                 }
                             }

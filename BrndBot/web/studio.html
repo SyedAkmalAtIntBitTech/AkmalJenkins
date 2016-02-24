@@ -17,13 +17,11 @@ and open the template in the editor.
         <script type="text/javascript" src="js/angular.min.js"></script>
         <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js"></script>
-
+        <link rel="shortcut icon" href="images/favicon.png"/>
         <script>
             function studioController($scope, $http)
             {
-
-                $scope.createStudio = function (){
-                    
+                $scope.createStudio = function (){                    
                 var siteid = $("#inputstudio").val();
                 var studio = {"studioid": siteid};
                     $http({
@@ -33,10 +31,8 @@ and open the template in the editor.
                         data: studio
                     }).success(function (data)
                     {
-                        if (data == "true") {
-                            
-                            var look = {"type": "insert"};
-                            
+                        if (data == "true") {                            
+                            var look = {"type": "insert"};                            
                             $http({
                                 method: 'POST',
                                 url: getHost() + 'SetLookID',
@@ -60,16 +56,10 @@ and open the template in the editor.
                                             alert("Problem saving the data! Please try after some time.");
                                         }
                                     }).error(function (data, status) {
-                                        // called asynchronously if an error occurs
-                                        // or server returns response with an error status.
-
                                         alert("Request not successful! Please try after some time.");
                                     });
                                 } 
                             }).error(function (data, status) {
-                                // called asynchronously if an error occurs
-                                // or server returns response with an error status.
-
                                 alert("Request not successful! Please try after some time.");
                             });
         
@@ -77,9 +67,6 @@ and open the template in the editor.
                             alert("Problem saving the data! Please try after some time.");
                         }
                     }).error(function (data, status) {
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-
                         alert("Request not succesful! Please try after some time.");
                     });
                 };
