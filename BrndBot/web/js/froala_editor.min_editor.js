@@ -1327,7 +1327,7 @@ function MoveBlock(selectedBlockId) {
             b.opts.iframe && b.$head.append('<style data-fr-style="true">' + a + "</style>")
         }
         function d() {
-            b.opts.iframe || b.$el.addClass("fr-element fr-view")
+            b.opts.iframe || b.$el.addClass("fr-element fr-view frhieght")
         }
         function e() {
             if (b.$box.addClass("fr-box" + (b.opts.editorClass ? " " + b.opts.editorClass : "")), b.$wp.addClass("fr-wrapper"), d(), b.opts.iframe) {
@@ -2503,7 +2503,7 @@ function MoveBlock(selectedBlockId) {
             b.$box.removeClass("fr-top fr-bottom fr-inline fr-basic"), b.$box.find(".fr-sticky-dummy").remove(), b.$tb.off(b._mousedown + " " + b._mouseup), b.$tb.html("").removeData().remove()
         }
         function l() {
-            return b.$wp ? (b.$tb = a('<div class="fr-toolbar"></div>'), b.opts.theme && b.$tb.addClass(b.opts.theme + "-theme"), b.opts.zIndex > 1 && b.$tb.css("z-index", b.opts.zIndex + 1), "auto" != b.opts.direction && b.$tb.removeClass("fr-ltr fr-rtl").addClass("fr-" + b.opts.direction), b.helpers.isMobile() ? b.$tb.addClass("fr-mobile") : b.$tb.addClass("fr-desktop"), j(), o = b.$tb.get(0).ownerDocument, p = "defaultView"in o ? o.defaultView : o.parentWindow, c(), d(), b.$tb.on(b._mousedown + " " + b._mouseup, function (a) {
+            return b.$wp ? (b.$tb = a('<div class="fr-toolbar fr-editheader"></div>'), b.opts.theme && b.$tb.addClass(b.opts.theme + "-theme"), b.opts.zIndex > 1 && b.$tb.css("z-index", b.opts.zIndex + 1), "auto" != b.opts.direction && b.$tb.removeClass("fr-ltr fr-rtl").addClass("fr-" + b.opts.direction), b.helpers.isMobile() ? b.$tb.addClass("fr-mobile") : b.$tb.addClass("fr-desktop"), j(), o = b.$tb.get(0).ownerDocument, p = "defaultView"in o ? o.defaultView : o.parentWindow, c(), d(), b.$tb.on(b._mousedown + " " + b._mouseup, function (a) {
                 var b = a.originalEvent ? a.originalEvent.target || a.originalEvent.originalTarget : null;
                 return b && "INPUT" != b.tagName ? (a.stopPropagation(), a.preventDefault(), !1) : void 0
             }), void b.events.on("destroy", k, !0)) : !1
