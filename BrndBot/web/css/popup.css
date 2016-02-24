@@ -1521,6 +1521,18 @@ textarea#filetext1 {
         
          height: -webkit-calc(100% - 33px) !important;
     }
+    .fr-editheader{
+        
+    top: 63px !important;
+    bottom: 23px !important;
+    position: fixed;
+    height: 39px;
+    width: 66%;
+    }
+    .frhieght{
+        margin-top: 4% !important;
+        
+    }
 /*-----------------rasim end code-----------------*/
 
 
