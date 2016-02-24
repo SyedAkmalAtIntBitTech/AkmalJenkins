@@ -34,6 +34,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="js/angular.min.js"></script>
         <link rel="stylesheet" href="css/bootstrap.min.css">
+        <script src="js/alertmessage.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery-1.11.3.min.js"></script>
         <script src="js/reuseablefunctions.js"></script>
@@ -110,16 +111,18 @@
                             alert(chooseimage);
                             return false;
                         }
-                        if(imagefilevalidation("filevalue")){   }
+                        if(imagefilevalidation("filesToUpload")){  
+                            var file = $scope.myFile;
+                            console.log('file is ' + JSON.stringify(file));
+                            var uploadUrl = global_host_address + 'UploadLogo';
+                            fileUpload.uploadFileToUrl(file, uploadUrl);
+                            alert(logouploadsuccess);
+                        }
                         else
                         {
                             return false;
                 //            $("#filetext1").val("");
-                        }
-                        var file = $scope.myFile;
-                        console.log('file is ' + JSON.stringify(file));
-                        var uploadUrl = global_host_address + 'UploadLogo';
-                        fileUpload.uploadFileToUrl(file, uploadUrl);                        
+                        }                        
                     };
               }]);
 
