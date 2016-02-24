@@ -1690,9 +1690,9 @@ input-field-container{
 }
 
 .col-2of10{
-    width: 17%;
+    width: 21%;
     box-sizing: border-box;
-    margin-right: 26px;
+    margin-right: 10px;
 }
 
 .col-1of4{
@@ -1858,7 +1858,7 @@ selfclear:after{
 
 .slat-attribute-container{
     box-sizing: border-box;
-    padding-left:45px;
+    padding-left:22px;
 }
 
 
