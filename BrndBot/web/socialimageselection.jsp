@@ -259,7 +259,7 @@
                                     </img>
                                     <%} else{%>
                                     <div class="changeImage1" onclick="fun('twitter','<%=mindbodydata%>');"> Change Image </div>
-                                    <div id="twitterimg" class="teditImage"> Edit Image </div>
+                                    <div id="twitterimg" class="feditImage"> Edit Image </div>
                                     <img class="imgsize .img-responsive" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>">
                                     </img>
                                     <%}%>

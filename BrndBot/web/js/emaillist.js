@@ -353,12 +353,12 @@
             }
  function emailHistory($scope, $http) {
                 $scope.displayemailhistory = function (){
-                $http({
+                    $http({
                         method : 'GET',
                         url : 'GetEmailTagsServlet'
-                }).success(function(data, status, headers, config) {
+                    }).success(function(data, status, headers, config) { 
                     if (data == ""){
-                        $scope.email_history = noemailhistory;
+                        $scope.email_history = data;
                         $("#nohistorydiv").empty().text(noemailhistory);
                         $(".nohiswid").css("width","250px");
                         $("#historydiv").hide();
