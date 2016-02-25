@@ -104,8 +104,8 @@
                     </div>
                     <!--List Starts Here-->
                     <div ng-init="showEmailListWithContacts()">
-                        <ul class="main-container fleft"ng-show="emailLists.length>0">
-                        <li class="slat-container fleft selfclear" ng-repeat="email in emailLists">
+                        <ul class="main-container fleft">
+                        <li class="slat-container fleft selfclear" ng-show="emailLists.length>0" ng-repeat="email in emailLists">
                              <div class="selection-container col-5p"> 
                                  <div class="selection-icon" id="{{email.emailListID}}" onclick="selemlcheckbox(this.id)"><input type="checkbox" id="{{email.emailListID}}" value="{{email.emailListName}}" name="entityname" hidden></input></div>
                             </div>
@@ -154,12 +154,10 @@
             </div>            
         </div>
             <div class="page-content-container email-list-contact-page email-draft-page" id="emaildraftsdiv" >
-                <div>
-                    <%--<jsp:include page="savedraftemailpopup.jsp"/>--%>
-                    
-                   
+                <div>                   
                 <div class="fleft content" ng-init="getAllDrafts()">
-                    <div class="page-content-title h2">Your Email Drafts</div>
+                    <div class="page-content-title pushUp h2" ng-show="emaildrafts.length>0">Your Email Drafts </div>
+                    <div class="page-content-title pushUp h2" ng-show="emaildrafts.length==0">No Email Drafts present</div>
                     <!--List Starts Here-->
                     <ul class="main-container fleft">
                             <div class="col-7of10 slat-unit fleft">
@@ -196,25 +194,26 @@
             </div>
             <div class="page-content-container email-list-contact-page email-draft-page" id="emailhistorydiv" ng-controller="emailHistory">
                 <div class="fleft content"  ng-init="displayemailhistory()">
-                    <div class="page-content-title h2" id="nohistorydiv">Your Email History</div>
+                    <div class="page-content-title pushUp h2" ng-show="email_history.length>0">Your Email History</div>
+                    <div class="page-content-title pushUp h2" ng-show="email_history.length==0">No Email History present</div>
                     <!--List Starts Here-->
-                    <ul class="main-container fleft" id="historydiv" >
+                    <ul class="main-container fleft" id="historydiv" ng-show="email_history.length>0" >
                         <li class="slat-container-analytics fleft selfclear" ng-repeat="email in email_history">
-                            <div class="col-3of10 slat-unit fleft ">
+                            <div class="width37 slat-unit fleft ">
                                 <div class="slat-title-container col-1of1 fleft">
                                     <div class="slat-title email-list-slat-title col-1of1 sh1">{{email.tag}}</div>
                                     <div class="action-list-slat-description col-1of1 sh3">Sent on</div>
                                 </div>
                             </div>
-                             <div class=" col-analytic-attribute fleft slat-attribute-container-analytics">
+                             <div class=" width15 fleft slat-attribute-container-analytics">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.sent}}</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Number Sent</div>
                                 </div>
-                             <div class=" col-analytic-attribute fleft slat-attribute-container-analytics">
+                             <div class=" width15 fleft slat-attribute-container-analytics">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{(email.opens/email.sent)*100}}%</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Open Rate</div>
                                 </div>
-                             <div class=" col-analytic-attribute-lg fleft slat-attribute-container-analytics">
+                             <div class=" width20 fleft slat-attribute-container-analytics">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{(email.clicks/email.sent)*100}}%</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Click Through Rate</div>
                                 </div>
@@ -222,13 +221,13 @@
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.unsubs}}</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Unsubscribes</div>
                                 </div>
-                            <div class=" fright">
+<!--                            <div class=" fright">
                                 <div class="slat-cta-container">
                                     <a href="">
                                         <div class="small-button slat-button detail-button-font">View Email</div>
                                     </a>
                                 </div>
-                            </div>
+                            </div>-->
                         </li>
                     </ul>
                 </div>
