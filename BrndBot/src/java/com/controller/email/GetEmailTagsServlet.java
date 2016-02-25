@@ -57,6 +57,7 @@ public class GetEmailTagsServlet extends HttpServlet {
         Set<String> tagsForUser = EmailHistoryDAO.getTagsForUser(userId);
         for(Map<String,Object> mTag : tagsFromMandrill){
             if ( mTag.get("tag") != null){
+                String aa=mTag.get("tag").toString();
                 if(tagsForUser.contains(mTag.get("tag").toString())){
                     tagsFromMandrillForUser.add(mTag);
                 }
