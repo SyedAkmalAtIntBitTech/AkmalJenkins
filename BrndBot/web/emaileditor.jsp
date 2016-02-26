@@ -36,7 +36,7 @@
     <link rel="stylesheet" href="css/plugins/table.css"/>
     <link rel="stylesheet" href="css/plugins/char_counter.css"/>
     <link rel="stylesheet" href="css/plugins/video.css">
-    <link rel="stylesheet" href="css/plugins/fullscreen.css">
+    <link rel="stylesheet" href="css/plugins/fullscreen.css"/>
     <link rel="stylesheet" href="css/plugins/file.css">
     <link rel="shortcut icon" href="images/favicon.png"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css"> 
@@ -48,7 +48,7 @@
     <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
     <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
     <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
-    <script src="js/plugins/image.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/plugins/image.min.js"></script>
     <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
     <script type="text/javascript" src="js/plugins/file.min.js"></script>
     <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
