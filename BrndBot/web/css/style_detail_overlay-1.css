@@ -1890,7 +1890,9 @@ selfclear:after{
 .action-list-slat-description{
     margin-top: 6px;
 }
-
+.padtop25{
+    padding-top: 21px !important;
+}
 
 .list-column-number{
     margin-top: 3px;
