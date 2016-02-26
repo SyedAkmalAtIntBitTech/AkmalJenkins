@@ -61,6 +61,12 @@
                 width: 100%;
                 background-color: white;
             }
+            .fr-element,.fa-code{
+                background-color: #eee !important;
+            }
+            textarea.fr-code{
+                background-color: #eee !important;
+            }
         </style>
         <style>
             body {
