@@ -30,6 +30,17 @@
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <link href="css/emailautomationeditor.css" rel="stylesheet" type="text/css"/>
     <style>
+        .fr-box.fr-code-view textarea.fr-code{
+            padding-top: 35px !important;
+        }
+        .fr-editheader {
+            top: 5px !important;
+            bottom: 23px !important;
+            position: fixed !important;
+            height: 39px !important;
+            width: 57%;
+        }
+        .fr-wrapper{    margin-top: 2% !important;}
         .arrow_top,#emlautomeditorcontainer,#emailautomationcontent,#emailautomation,#textdiv,#myModal,#editpreviewtemplatebottom{display:none;}
     </style>
     <%! 
@@ -571,7 +582,7 @@
 
 </script> 
     <!-----------------------EMAIL AUTOMATION EDITOR HEADER------------------>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="css/froala_editor.css"/>
     <link rel="stylesheet" href="css/froala_style.css"/>
     <link rel="stylesheet" href="css/plugins/code_view.css"/>
@@ -596,6 +607,7 @@
     <script type="text/javascript" src="js/froala_editor.min_editor.js" ></script>
 
     <script type="text/javascript" src="js/plugins/align.min.js"></script>
+    <script type="text/javascript" src="js/plugins/code_view.min.js"></script>
     <script type="text/javascript" src="js/plugins/colors.min_Editor.js" ></script>
     <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
     <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
@@ -607,7 +619,46 @@
     <script type="text/javascript" src="js/plugins/entities.min.js"></script>
     <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
     <script type="text/javascript" src="js/plugins/save.min.js"></script>
+    <script type="text/javascript" src="js/plugins/quote.min.js"></script>-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <link href="css/froala_editor.css" rel="stylesheet" type="text/css"/>
+    <!--<link href="css/popup.css" rel="stylesheet" type="text/css"/>-->
+    <link href="css/froala_style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="css/plugins/code_view.css"/>
+    <link rel="stylesheet" href="css/plugins/colors.css"/>
+    <link rel="stylesheet" href="css/plugins/emoticons.css"/>
+    <link rel="stylesheet" href="css/plugins/image_manager.css"/>
+    <link rel="stylesheet" href="css/plugins/image.css"/>
+    <link rel="stylesheet" href="css/plugins/line_breaker.css"/>
+    <link rel="stylesheet" href="css/plugins/table.css"/>
+    <link rel="stylesheet" href="css/plugins/char_counter.css"/>
+    <link rel="stylesheet" href="css/plugins/video.css">
+    <link rel="stylesheet" href="css/plugins/fullscreen.css"/>
+    <link rel="stylesheet" href="css/plugins/file.css">
+    <link rel="shortcut icon" href="images/favicon.png"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css"> 
+    <link rel="stylesheet" href="css/plugins/image_manager.css">
+    <script src="js/froala_editor.min_editor.js" type="text/javascript"></script>
+<script src="js/plugins/code_view.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/emaileditor_new.js"></script>
+    <script type="text/javascript" src="js/plugins/align.min.js"></script>
+    <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
+    <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
+    <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
+    <script type="text/javascript" src="js/plugins/image.min.js"></script>
+    <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/file.min.js"></script>
+    <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/url.min.js"></script>
+    <script type="text/javascript" src="js/plugins/entities.min.js"></script>
+    <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
+    <script type="text/javascript" src="js/plugins/save.min.js"></script>
     <script type="text/javascript" src="js/plugins/quote.min.js"></script>
+    <script type="text/javascript" src="js/plugins/link.min.js"></script>
+    <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
 
   <script>
     $(function(){
@@ -870,17 +921,27 @@
                        <div class="col-emaileditordiv">
                             <style>
                                 #edit{
-                                    position: relative;
-                                    top:0px;
+                                    position: fixed;
+                                    top:10px;
                                     font-family:"proxima-nova";
                                     font-weight:500;
-                                    left: 0em; 
+                                    left: 5em; 
                                     color: #2D4444;
+                                    width:57% !important;
+                                    height: 600px;
+                                    overflow-y: auto;
+                                }
+                                ::-webkit-scrollbar { 
+                                    display: none; 
+                                }
+                                
+                                .editorheight{
+                                    height: 620px;
                                 }
                             </style>
 
                         <div id="editor">
-                            <div id='edit' style="margin-top:0px;"></div>
+                            <div id='edit' class="editorheight" style="margin-top:0px;"></div>
                         </div>
 <!--                            <div class="btmdiv">
                                <div class="col-1of1">
