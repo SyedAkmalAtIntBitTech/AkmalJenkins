@@ -1526,7 +1526,7 @@ textarea#filetext1 {
     }
     
     .rightcoloumn{
-        height: -webkit-calc(100% - 76px) !important;
+        height: -webkit-calc(100% -  53px) !important;
         
     }
     .right-email-select{

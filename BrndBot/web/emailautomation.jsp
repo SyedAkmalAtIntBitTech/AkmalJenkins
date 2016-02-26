@@ -596,6 +596,7 @@
     <script type="text/javascript" src="js/froala_editor.min_editor.js" ></script>
 
     <script type="text/javascript" src="js/plugins/align.min.js"></script>
+    <script type="text/javascript" src="js/plugins/code_view.min.js"></script>
     <script type="text/javascript" src="js/plugins/colors.min_Editor.js" ></script>
     <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
     <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
@@ -877,10 +878,13 @@
                                     left: 0em; 
                                     color: #2D4444;
                                 }
+                                .editorheight{
+                                    height: 620px;
+                                }
                             </style>
 
                         <div id="editor">
-                            <div id='edit' style="margin-top:0px;"></div>
+                            <div id='edit' class="editorheight" style="margin-top:0px;"></div>
                         </div>
 <!--                            <div class="btmdiv">
                                <div class="col-1of1">

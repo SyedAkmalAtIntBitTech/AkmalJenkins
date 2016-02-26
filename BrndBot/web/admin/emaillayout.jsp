@@ -654,7 +654,6 @@
                 <input type="hidden" name="containerstyle" id="containerstyle">
                 <input type="hidden" name="textstyle" id="textstyle">
                 <input type="hidden" name="element" id="element">
-                <input type="hidden" name="mapper" id="mapper">
                 <input type="hidden" name="layout" id="layout" >
                 <input type="hidden" name="model_name" id="model_name" >
                 <input type="hidden" name="selectedtype" id="selectedtype" value="non" >
@@ -695,6 +694,7 @@
             <script type="text/javascript" src="../js/plugins/line_breaker.min.js"></script>
             <script type="text/javascript" src="../js/plugins/link.min.js"></script>
             <script type="text/javascript" src="../js/plugins/lists.min.js"></script>
+                <input type="hidden" name="mapper" id="mapper">
             <script type="text/javascript" src="../js/plugins/paragraph_format.min.js"></script>
             <script type="text/javascript" src="../js/plugins/paragraph_style.min.js"></script>
             <script type="text/javascript" src="../js/plugins/video.min.js"></script>
