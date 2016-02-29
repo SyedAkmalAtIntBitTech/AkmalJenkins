@@ -48,7 +48,7 @@ public class ScheduledEmailList implements Serializable {
     private String fromName;
     @Column(name = "to_email_addresses")
     @Type(type = "StringJsonObject")
-    private Object toEmailAddresses;
+    private String toEmailAddresses;
     @Column(name = "reply_to_email_address")
     private String replyToEmailAddress;
     @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
@@ -113,11 +113,11 @@ public class ScheduledEmailList implements Serializable {
         this.fromName = fromName;
     }
 
-    public Object getToEmailAddresses() {
+    public String getToEmailAddresses() {
         return toEmailAddresses;
     }
 
-    public void setToEmailAddresses(Object toEmailAddresses) {
+    public void setToEmailAddresses(String toEmailAddresses) {
         this.toEmailAddresses = toEmailAddresses;
     }
 

@@ -38,12 +38,12 @@ public class CompanyPreferences implements Serializable {
     private Integer companyPreferencesId;
     @Column(name = "company_location")
     private String companyLocation;
-    @Column(name = "mindbody_email_list")
+    @Column(name = "email_list")
     @Type(type = "StringJsonObject")
-    private Object mindbodyEmailList;
+    private String emailList;
     @Column(name = "company_preferences")
     @Type(type = "StringJsonObject")
-    private Object companyPreferences;
+    private String companyPreferences;
     @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
     @ManyToOne
     private Company fkCompanyId;
@@ -74,19 +74,19 @@ public class CompanyPreferences implements Serializable {
         this.companyLocation = companyLocation;
     }
 
-    public Object getMindbodyEmailList() {
-        return mindbodyEmailList;
+    public String getEmailList() {
+        return emailList;
     }
 
-    public void setMindbodyEmailList(Object mindbodyEmailList) {
-        this.mindbodyEmailList = mindbodyEmailList;
+    public void setEmailList(String emailList) {
+        this.emailList = emailList;
     }
 
-    public Object getCompanyPreferences() {
+    public String getCompanyPreferences() {
         return companyPreferences;
     }
 
-    public void setCompanyPreferences(Object companyPreferences) {
+    public void setCompanyPreferences(String companyPreferences) {
         this.companyPreferences = companyPreferences;
     }
 

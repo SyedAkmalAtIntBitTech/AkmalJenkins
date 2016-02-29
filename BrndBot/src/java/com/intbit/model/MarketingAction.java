@@ -38,7 +38,7 @@ public class MarketingAction implements Serializable {
     private Integer marketingActionId;
     @Column(name = "json_template")
     @Type(type = "StringJsonObject")
-    private Object jsonTemplate;
+    private String jsonTemplate;
     @JoinColumn(name = "fk_marketing_program_id", referencedColumnName = "marketing_program_id")
     @ManyToOne
     private MarketingProgram fkMarketingProgramId;
@@ -58,11 +58,11 @@ public class MarketingAction implements Serializable {
         this.marketingActionId = marketingActionId;
     }
 
-    public Object getJsonTemplate() {
+    public String getJsonTemplate() {
         return jsonTemplate;
     }
 
-    public void setJsonTemplate(Object jsonTemplate) {
+    public void setJsonTemplate(String jsonTemplate) {
         this.jsonTemplate = jsonTemplate;
     }
 

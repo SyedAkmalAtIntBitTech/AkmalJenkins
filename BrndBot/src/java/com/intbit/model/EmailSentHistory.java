@@ -54,7 +54,7 @@ public class EmailSentHistory implements Serializable {
     private String subject;
     @Column(name = "to_email_addresses")
     @Type(type = "StringJsonObject")
-    private Object toEmailAddresses;
+    private String toEmailAddresses;
     @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
     @ManyToOne
     private Company fkCompanyId;
@@ -122,11 +122,11 @@ public class EmailSentHistory implements Serializable {
         this.subject = subject;
     }
 
-    public Object getToEmailAddresses() {
+    public String getToEmailAddresses() {
         return toEmailAddresses;
     }
 
-    public void setToEmailAddresses(Object toEmailAddresses) {
+    public void setToEmailAddresses(String toEmailAddresses) {
         this.toEmailAddresses = toEmailAddresses;
     }
 

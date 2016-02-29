@@ -44,7 +44,7 @@ public class EmailDraft implements Serializable {
     private Date draftDate;
     @Column(name = "draft_json")
     @Type(type = "StringJsonObject")
-    private Object draftJson;
+    private String draftJson;
     @Column(name = "edit_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date editDate;
@@ -75,11 +75,11 @@ public class EmailDraft implements Serializable {
         this.draftDate = draftDate;
     }
 
-    public Object getDraftJson() {
+    public String getDraftJson() {
         return draftJson;
     }
 
-    public void setDraftJson(Object draftJson) {
+    public void setDraftJson(String draftJson) {
         this.draftJson = draftJson;
     }
 
