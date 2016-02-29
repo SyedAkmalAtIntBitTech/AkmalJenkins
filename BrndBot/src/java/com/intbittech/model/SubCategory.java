@@ -66,4 +66,5 @@ public class SubCategory implements Serializable {
     public void setFkCategoryId(Category fkCategoryId) {
         this.fkCategoryId = fkCategoryId;
     }
+
 }

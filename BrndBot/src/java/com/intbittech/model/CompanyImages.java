@@ -25,7 +25,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "user_images")
-public class UserImages implements Serializable {
+public class CompanyImages implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,10 +42,10 @@ public class UserImages implements Serializable {
     @ManyToOne
     private Company fkCompanyId;
 
-    public UserImages() {
+    public CompanyImages() {
     }
 
-    public UserImages(Integer userImagesId) {
+    public CompanyImages(Integer userImagesId) {
         this.userImagesId = userImagesId;
     }
 

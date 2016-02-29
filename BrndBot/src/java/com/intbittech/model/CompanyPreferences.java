@@ -36,8 +36,6 @@ public class CompanyPreferences implements Serializable {
     @Basic(optional = false)
     @Column(name = "company_preferences_id")
     private Integer companyPreferencesId;
-    @Column(name = "company_location")
-    private String companyLocation;
     @Column(name = "email_list")
     @Type(type = "StringJsonObject")
     private String emailList;
@@ -64,14 +62,6 @@ public class CompanyPreferences implements Serializable {
 
     public void setCompanyPreferencesId(Integer companyPreferencesId) {
         this.companyPreferencesId = companyPreferencesId;
-    }
-
-    public String getCompanyLocation() {
-        return companyLocation;
-    }
-
-    public void setCompanyLocation(String companyLocation) {
-        this.companyLocation = companyLocation;
     }
 
     public String getEmailList() {
