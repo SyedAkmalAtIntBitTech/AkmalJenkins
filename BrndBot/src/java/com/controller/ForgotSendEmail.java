@@ -42,9 +42,9 @@ public class ForgotSendEmail extends BrndBotBaseHttpServlet {
     ResultSet result_set = null;
     StringBuffer string_buffer;
 
-//    public final static String MANDRILL_KEY = "RP6AOa3QZA8qMJYC1lBXRg";//Prod key
+    public final static String MANDRILL_KEY = "WWrKm3opZGJqATjad-YoTg";//Prod key
 //    public final static String MANDRILL_KEY = "UTyvdEzohDOZf3F95ZK6zg";//Test key
-    public final static String MANDRILL_KEY = "o-QeQQHbtCk4i6rCphfCcg";//Test key
+//    public final static String MANDRILL_KEY = "o-QeQQHbtCk4i6rCphfCcg";//Test key
     SendMail send_email = new SendMail();
 
     /**
