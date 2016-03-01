@@ -6,7 +6,6 @@
 package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Organization;
 import com.intbittech.model.SubCategory;
 import java.util.List;
 
@@ -37,8 +36,8 @@ public interface SubCategoryDao {
     public void update(SubCategory subCategory) throws ProcessFailed;
 
     /**
-     * This method delete particular {@link Organization} based on the
-     * organization from the database.
+     * This method delete particular {@link SubCategory} based on the
+     * subCategory from the database.
      *
      * @param subCategory the SubCategory
      * @throws ProcessFailed the process failed
