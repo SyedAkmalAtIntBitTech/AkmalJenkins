@@ -1,0 +1,9 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Copyright 2015 Intbit Technologies. This software and documentation contains
+${licensePrefix}confidential and proprietary information that is owned by Intbit
+${licensePrefix}Technologies. Unauthorized use and distribution are strictly prohibited.
+<#if licenseLast??>
+${licenseLast}
+</#if>
