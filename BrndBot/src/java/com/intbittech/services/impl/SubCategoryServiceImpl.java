@@ -17,20 +17,20 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(rollbackFor = ProcessFailed.class)
 public class SubCategoryServiceImpl implements SubCategoryService {
-    
+
     @Autowired
     private SubCategoryDao subCategoryDao;
-    
+
     @Override
     public Integer Save(SubCategory subCategory) throws ProcessFailed {
         return subCategoryDao.Save(subCategory);
     }
-    
+
     @Override
     public void update(SubCategory subCategory) throws ProcessFailed {
         subCategoryDao.update(subCategory);
     }
-    
+
     @Override
     public void delete(Integer subCategoryId) throws ProcessFailed {
         SubCategory subCategory = subCategoryDao.getSubCategoryById(subCategoryId);
@@ -39,15 +39,23 @@ public class SubCategoryServiceImpl implements SubCategoryService {
         }
         subCategoryDao.delete(subCategory);
     }
-    
+
     @Override
     public SubCategory getSubCategoryById(Integer subCategoryId) throws ProcessFailed {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        SubCategory subCategory = subCategoryDao.getSubCategoryById(subCategoryId);
+        if (subCategory == null) {
+            throw new ProcessFailed("No Sub Category found.");
+        }
+        return subCategory;
     }
-    
+
     @Override
     public List<SubCategory> getAllSubCategoriesByCategoryId(Integer categoryId) throws ProcessFailed {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<SubCategory> subCategories = subCategoryDao.getAllSubCategoriesByCategoryId(categoryId);
+        if (subCategories.isEmpty()) {
+            throw new ProcessFailed("No Sub Categories found.");
+        }
+        return subCategories;
     }
-    
+
 }
