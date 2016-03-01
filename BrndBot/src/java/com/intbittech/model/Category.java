@@ -1,12 +1,11 @@
-/**
- * Copyright 2015 Intbit Technologies. This software and documentation contains
- * confidential and proprietary information that is owned by Intbit
- * Technologies. Unauthorized use and distribution are strictly prohibited.
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package com.intbittech.model;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,9 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -35,6 +32,9 @@ public class Category implements Serializable {
     private Integer categoryId;
     @Column(name = "category_name")
     private String categoryName;
+    @JoinColumn(name = "fk_channel_id", referencedColumnName = "channel_id")
+    @ManyToOne
+    private Channel fkChannelId;
 
     public Category() {
     }
@@ -57,6 +57,14 @@ public class Category implements Serializable {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public Channel getFkChannelId() {
+        return fkChannelId;
+    }
+
+    public void setFkChannelId(Channel fkChannelId) {
+        this.fkChannelId = fkChannelId;
     }
 
 }
