@@ -24,15 +24,15 @@ import javax.persistence.TemporalType;
  * @author ajit
  */
 @Entity
-@Table(name = "user_images")
+@Table(name = "company_images")
 public class CompanyImages implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "user_images_id")
-    private Integer userImagesId;
+    @Column(name = "company_images_id")
+    private Integer companyImagesId;
     @Column(name = "image_name")
     private String imageName;
     @Column(name = "created_date")
@@ -45,16 +45,16 @@ public class CompanyImages implements Serializable {
     public CompanyImages() {
     }
 
-    public CompanyImages(Integer userImagesId) {
-        this.userImagesId = userImagesId;
+    public CompanyImages(Integer companyImagesId) {
+        this.companyImagesId = companyImagesId;
     }
 
-    public Integer getUserImagesId() {
-        return userImagesId;
+    public Integer getCompanyImagesId() {
+        return companyImagesId;
     }
 
-    public void setUserImagesId(Integer userImagesId) {
-        this.userImagesId = userImagesId;
+    public void setCompanyImagesId(Integer companyImagesId) {
+        this.companyImagesId = companyImagesId;
     }
 
     public String getImageName() {
