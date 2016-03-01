@@ -8,7 +8,6 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.ChannelDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Channel;
-import com.intbittech.model.Company;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;

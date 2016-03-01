@@ -1,7 +1,7 @@
-/**
- * Copyright 2015 Intbit Technologies. This software and documentation contains
- * confidential and proprietary information that is owned by Intbit
- * Technologies. Unauthorized use and distribution are strictly prohibited.
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package com.intbittech.model;
 
