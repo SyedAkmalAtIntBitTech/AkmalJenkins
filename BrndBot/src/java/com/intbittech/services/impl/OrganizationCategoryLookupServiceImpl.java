@@ -19,19 +19,19 @@ import org.springframework.transaction.annotation.Transactional;
  * @author ajit
  */
 @Service
-@Transactional(rollbackFor = ProcessFailed.class) 
-public class OrganizationCategoryLookupServiceImpl implements OrganizationCategoryLookupService{
-   
+@Transactional(rollbackFor = ProcessFailed.class)
+public class OrganizationCategoryLookupServiceImpl implements OrganizationCategoryLookupService {
+
     @Autowired
     private OrganizationCategoryLookupDao organizationCategoryLookupDao;
 
-     /**
+    /**
      * {@inheritDoc}
      */
     public List<OrganizationCategoryLookup> getAllOrganizationCategoryLookup(Integer organizationId, Integer channelId) throws ProcessFailed {
         List<OrganizationCategoryLookup> OrganizationCategoryList = organizationCategoryLookupDao.getAllOrganizationCategoryLookup(organizationId, channelId);
-        if(OrganizationCategoryList == null){
-            throw new ProcessFailed("No organization category found .");
+        if (OrganizationCategoryList == null) {
+            throw new ProcessFailed("No category found .");
         }
         return OrganizationCategoryList;
     }
@@ -40,14 +40,14 @@ public class OrganizationCategoryLookupServiceImpl implements OrganizationCatego
      * {@inheritDoc}
      */
     public Integer save(OrganizationCategoryLookup organizationCategoryLookup) throws ProcessFailed {
-       return organizationCategoryLookupDao.save(organizationCategoryLookup);
+        return organizationCategoryLookupDao.save(organizationCategoryLookup);
     }
 
-     /**
+    /**
      * {@inheritDoc}
      */
     public void update(OrganizationCategoryLookup organizationCategoryLookup) throws ProcessFailed {
         organizationCategoryLookupDao.update(organizationCategoryLookup);
     }
-    
+
 }
