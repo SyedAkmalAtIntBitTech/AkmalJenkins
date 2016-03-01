@@ -7,11 +7,9 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.SubCategoryDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Organization;
 import com.intbittech.model.SubCategory;
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
@@ -29,7 +27,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class SubCategoryDaoImpl implements SubCategoryDao {
 
-    private static Logger logger = Logger.getLogger(OrganizationDaoImpl.class);
+    private static Logger logger = Logger.getLogger(SubCategoryDaoImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;
