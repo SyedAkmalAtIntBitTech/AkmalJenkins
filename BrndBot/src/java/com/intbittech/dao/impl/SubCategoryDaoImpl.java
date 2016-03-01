@@ -67,7 +67,7 @@ public class SubCategoryDaoImpl implements SubCategoryDao {
             sessionFactory.getCurrentSession().delete(subCategory);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while delete record.");
+            throw new ProcessFailed("Database error while deleting record.");
         }
     }
 
