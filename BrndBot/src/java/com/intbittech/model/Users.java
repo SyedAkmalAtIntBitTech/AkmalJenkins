@@ -1,13 +1,12 @@
 /**
-* Copyright 2015 Intbit Technologies. This software and documentation contains
-* confidential and proprietary information that is owned by Intbit
-* Technologies. Unauthorized use and distribution are strictly prohibited.
-*/
+ * Copyright 2015 Intbit Technologies. This software and documentation contains
+ * confidential and proprietary information that is owned by Intbit
+ * Technologies. Unauthorized use and distribution are strictly prohibited.
+ */
 package com.intbittech.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -45,8 +43,6 @@ public class Users implements Serializable {
     @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
     @ManyToOne
     private Company fkCompanyId;
-    @OneToMany(mappedBy = "fkUserId")
-    private Set<ForgotPassword> forgotPasswordSet;
 
     public Users() {
     }

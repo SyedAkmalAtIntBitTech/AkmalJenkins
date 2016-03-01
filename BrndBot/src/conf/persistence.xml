@@ -3,6 +3,9 @@
   <persistence-unit name="BrndBotPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.intbit.marketing.model.TblEmailDraft</class>
+    <class>com.intbittech.model.ExternalSource</class>
+    <class>com.intbittech.model.ExternalSourceKeyword</class>
+    <class>com.intbittech.model.SubCaterogyExternalSource</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/brnd"/>

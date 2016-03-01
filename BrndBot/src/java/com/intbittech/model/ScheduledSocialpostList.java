@@ -38,9 +38,7 @@ public class ScheduledSocialpostList implements Serializable {
     private Integer scheduledSocialpostListId;
     @Column(name = "image_name")
     private String imageName;
-    @Column(name = "token_data")
-    @Type(type = "StringJsonObject")
-    private String tokenData;
+
     @Column(name = "meta_data")
     @Type(type = "StringJsonObject")
     private String metaData;
@@ -76,14 +74,6 @@ public class ScheduledSocialpostList implements Serializable {
 
     public void setImageName(String imageName) {
         this.imageName = imageName;
-    }
-
-    public String getTokenData() {
-        return tokenData;
-    }
-
-    public void setTokenData(String tokenData) {
-        this.tokenData = tokenData;
     }
 
     public String getMetaData() {
