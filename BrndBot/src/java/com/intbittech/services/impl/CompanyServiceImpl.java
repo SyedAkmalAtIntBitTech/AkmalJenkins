@@ -32,7 +32,7 @@ public class CompanyServiceImpl implements CompanyService{
         List<Company> companyList = companyDao.getAllCompanies();
         if(companyList == null)
         {
-             throw new ProcessFailed("No company foun.");
+             throw new ProcessFailed("No company found.");
         }
               return  companyList;
     }
