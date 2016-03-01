@@ -661,13 +661,22 @@
         <div class="emailEditor-page-background fleft">
             <div class="emailEditor-leftCol ">
                  <script>
-                    $("#emailpreview").click(function(){
+                    $("#emailpreview").click(function(){                        
                         $("#email_previewdiv").show();
-                        var template=$('#edit').froalaEditor('html.get');
-//                        alert(template);
-                        $("#dynamictable5" ).html(template);
-                        $("#dynamictable6" ).html(template);
-                        
+                        $.ajax({
+                                url: getHost() + "PreviewServlet",
+                                method: "post",
+                                data: {
+                                htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                                        iframeName: rendomIframeFilename
+                                },
+                                success: function (responseText) {
+                                    $("#dynamictable5").empty();
+                                    $("#dynamictable6").empty();
+                                    $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='/BrndBot/DownloadHtmlServlet?file_name=" + rendomIframeFilename + ".html'></iframe>");
+                                    $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='/BrndBot/DownloadHtmlServlet?file_name=" + rendomIframeFilename + ".html'></iframe>");
+                                }
+                        });
                         $("#fade").show();
                     });
                     
@@ -942,9 +951,9 @@
                             <div class="emailPreview-headers">Mobile Preview</div>
                             <div class="iphoneshow img-responsive" id="mobpreview" style="display: block; height: 370px; width: 100%; margin-left: 6px; margin-top: 0px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">
                                 <div class="content">  
-                                    <div id="dynamictable6" style="position: relative; width: 100%; height: 400px; overflow: scroll; border: none; background-color: rgb(255, 255, 255);">
+                                    <div  id="dynamictable6" style="position: relative; width: 100%; height: 400px; overflow: scroll; border: none; background-color: rgb(255, 255, 255);">
                                     
-                                    </div>                   
+                                    </div>                
                                 </div>
                             <!--</div>-->
                             </div>
