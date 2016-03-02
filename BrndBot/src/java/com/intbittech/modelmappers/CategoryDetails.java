@@ -12,9 +12,9 @@ import java.io.Serializable;
  * @author ajit
  */
 public class CategoryDetails implements Serializable {
-
+   
     private Integer categoryId;
-    private String CategoryName;
+    private String categoryName;
     private Integer channelId;
 
     public Integer getCategoryId() {
@@ -26,11 +26,11 @@ public class CategoryDetails implements Serializable {
     }
 
     public String getCategoryName() {
-        return CategoryName;
+        return categoryName;
     }
 
-    public void setCategoryName(String CategoryName) {
-        this.CategoryName = CategoryName;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public Integer getChannelId() {
@@ -40,5 +40,7 @@ public class CategoryDetails implements Serializable {
     public void setChannelId(Integer channelId) {
         this.channelId = channelId;
     }
+
+   
 
 }
