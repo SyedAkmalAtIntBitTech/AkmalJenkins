@@ -1,26 +1,26 @@
+<%-- 
+    Document   : organisationmain
+    Created on : Mar 2, 2016, 2:08:49 PM
+    Author     : development
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="shortcut icon" href="../images/favicon.png"></link>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <link rel="stylesheet" type="text/css" href="admincss/normalize.css"></link>
-    <link rel="stylesheet" type="text/css" href="admincss/admin.css"></link>
+    <link rel="stylesheet" type="text/css" href="admincss/admin.css"></link> 
+    <title>Organizations</title>    
 </head>    
 <body class="body-normal">
-    <div class="nav">
-        <div class="nav_logo fleft">
-            <img  src="../images/Icons/Logo_Reverse.svg" class="bb-logo" style="cursor:pointer;"/>
-        </div>
-        <div class="nav_tab fleft"> Users </div>
-        <div class="nav_tab fleft"> Organizations and Groups </div>
-        <div class="nav_tab fleft"> Templates </div>
-        <div class="nav_tab fleft"> Marketing Programs </div>
-        <div class="nav_tab fleft"> Assets </div>
-    </div>
+    <jsp:include page="organisationheader.jsp"/>
     <div class="content-area">
         <div class="content-area_header">
-            <div class="header_path fleft"> Organizations > </div>
+            <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="allorganizations.jsp"> Organizations</a>  > </div>
             <div class="header_title fleft"> Organization Name </div>
             <div class="CTA_Button Button--Delete fright">Delete Organization</div>
         </div>

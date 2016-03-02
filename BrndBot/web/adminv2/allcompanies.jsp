@@ -1,26 +1,25 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
+<%-- 
+    Document   : allcompanies
+    Created on : Mar 2, 2016, 5:07:27 PM
+    Author     : development
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="format-detection" content="telephone=no"/>
+    <link rel="shortcut icon" href="../images/favicon.png"></link>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <link rel="stylesheet" type="text/css" href="admincss/normalize.css"></link>
     <link rel="stylesheet" type="text/css" href="admincss/admin.css"></link>
-</head>    
-<body class="body-normal">
-    <div class="nav">
-        <div class="nav_logo fleft">
-            <img type="image/svg+xml" src="../images/Icons/Logo_Reverse.svg" class="bb-logo" style="cursor:pointer;"></img>
-        </div>
-        <div class="nav_tab fleft"> Users </div>
-        <div class="nav_tab fleft"> Organizations and Groups </div>
-        <div class="nav_tab fleft"> Templates </div>
-        <div class="nav_tab fleft"> Marketing Programs </div>
-        <div class="nav_tab fleft"> Assets </div>
-    </div>
-    <div class="content-area">
+    <title>All Companies</title>
+    </head>
+    <body  class="body-normal">
+      <jsp:include page="organisationheader.jsp"/>
+      <div class="content-area">
         <div class="content-area_header">
-            <div class="header_path fleft"> All Companies </div>
+            <div class="header_path fleft">All Companies</div>
         </div>
         <div class="slatSection">
             <div class="slatHeaders">
@@ -40,7 +39,7 @@
                         <span class="listCol_Text fleft"> Organization</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <div class="CTA_Button Button--Gray fright">Manage Company</div>
+                        <div class="CTA_Button Button--Gray fright"><a style="text-decoration:none;color:#888;" href="companydetails.jsp">Manage Company</a></div>
                     </div>
                 </li>
                 <li class="listItem">
@@ -53,7 +52,8 @@
                     <div class="listCol col1of4 fleft">
                         <div class="CTA_Button Button--Gray fright">Manage Company</div>
                     </div>
-                </li>   <li class="listItem">
+                </li>  
+                <li class="listItem">
                     <div class="listCol col1of2 fleft">
                         <span class="listCol_Text fleft"> Company Name</span>
                     </div>
@@ -64,8 +64,9 @@
                         <div class="CTA_Button Button--Gray fright">Manage Company</div>
                     </div>
                 </li>
+                
             </ul>
         </div>
     </div>
-  
-</body>
+    </body>
+</html>
