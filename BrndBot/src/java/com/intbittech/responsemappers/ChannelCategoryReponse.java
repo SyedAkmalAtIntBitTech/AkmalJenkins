@@ -5,30 +5,25 @@
  */
 package com.intbittech.responsemappers;
 
-import com.intbittech.modelmappers.CategoryDetails;
+import com.intbittech.modelmappers.ChannelDetails;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
  * @author ajit
  */
-public class CategoryResponse extends BaseResponse implements Serializable {
+public class ChannelCategoryReponse extends BaseResponse implements Serializable {
 
-    public CategoryResponse() {
+    public ChannelCategoryReponse() {
         super();
         operationStatus = new OperationStatus();
+
     }
 
-    private CategoryDetails categoryDetails;
     private OperationStatus operationStatus;
 
-    public CategoryDetails getCategoryDetails() {
-        return categoryDetails;
-    }
-
-    public void setCategoryDetails(CategoryDetails categoryDetails) {
-        this.categoryDetails = categoryDetails;
-    }
+    private List<ChannelDetails> channelDetailsList;
 
     public OperationStatus getOperationStatus() {
         return operationStatus;
@@ -36,6 +31,14 @@ public class CategoryResponse extends BaseResponse implements Serializable {
 
     public void setOperationStatus(OperationStatus operationStatus) {
         this.operationStatus = operationStatus;
+    }
+
+    public List<ChannelDetails> getChannelDetailsList() {
+        return channelDetailsList;
+    }
+
+    public void setChannelDetailsList(List<ChannelDetails> channelDetailsList) {
+        this.channelDetailsList = channelDetailsList;
     }
 
 }
