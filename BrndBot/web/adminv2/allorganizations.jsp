@@ -8,21 +8,18 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script type="text/javascript" src="../js/angular.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no"/>
-    <link rel="shortcut icon" href="../images/favicon.png"></link>
-    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="admincss/normalize.css"></link>
-    <link rel="stylesheet" type="text/css" href="admincss/admin.css"></link> 
-    <title>All Organizations</title>
-    
+        <title>All Organizations</title>
     </head>
     <body class="body-normal">
-    <jsp:include page="organisationheader.jsp"/>
+        <jsp:include page="addorganization.jsp"/>
+        <jsp:include page="adminheader.jsp"/>
          <div class="content-area">
         <div class="content-area_header">
             <div class="header_path fleft"> All Organizations </div>
-            <div class="CTA_Button Button--Blue fright">Add Organization</div>
+            <div class="CTA_Button Button--Blue fright" id="addorg">Add Organization</div>
         </div>
         <div class="slatSection">
             <div class="slatHeaders">
@@ -42,7 +39,7 @@
                         <span class="listCol_Text fleft"> Organization</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <div class="CTA_Button Button--Gray fright"><a style="text-decoration:none;color:#888;" href="organisationdetails.jsp">Manage Org</a></div>
+                        <a style="text-decoration:none;color:#888;" href="organizationdetails.jsp"><div class="CTA_Button Button--Gray fright">Manage Org</div></a>
                     </div>
                 </li>
                 <li class="listItem">

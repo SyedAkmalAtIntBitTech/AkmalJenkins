@@ -8,15 +8,10 @@
 <!DOCTYPE html>
 <html>
     <head> 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="format-detection" content="telephone=no"/>
-    <link rel="shortcut icon" href="../images/favicon.png"></link>
-    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="admincss/normalize.css"></link>
-    <link rel="stylesheet" type="text/css" href="admincss/admin.css"></link>
         <title>Company details</title>
     </head>
     <body class="body-normal">
-         <jsp:include page="organisationheader.jsp"/>
+         <jsp:include page="adminheader.jsp"/>
        <div class="content-area">
         <div class="content-area_header">
             <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="allcompanies.jsp">  All Companies > </a></div>
