@@ -13,19 +13,20 @@ import com.intbittech.modelmappers.ChannelDetails;
 import com.intbittech.responsemappers.CategoryResponse;
 import com.intbittech.responsemappers.ChannelCategoryReponse;
 import com.intbittech.responsemappers.ContainerResponse;
+import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.CategoryService;
 import com.intbittech.services.ChannelService;
 import com.intbittech.services.OrganizationCategoryLookupService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -96,6 +97,28 @@ public class CategoryController {
             channelCategoryReponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(channelCategoryReponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "saveCategory", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+
+    public ResponseEntity<ContainerResponse> saveCategory(@RequestBody CategoryDetails categoryDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            Category category = new Category();
+            category.setCategoryName(categoryDetails.getCategoryName());
+            Channel channel = new Channel();
+            channel.setChannelId(categoryDetails.getChannelId());
+            category.setFkChannelId(channel);
+            categoryService.save(category);
+
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Category created successfully"));
+
+        } catch (Throwable ex) {
+            logger.error(ex);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
 }
