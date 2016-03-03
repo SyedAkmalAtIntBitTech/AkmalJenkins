@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2015 Intbit Technologies. This software and documentation contains
+ * confidential and proprietary information that is owned by Intbit
+ * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 package com.intbittech.model;
 
@@ -30,12 +30,9 @@ public class SubCaterogyExternalSource implements Serializable {
     @Basic(optional = false)
     @Column(name = "sub_caterogy_external_source_id")
     private Integer subCaterogyExternalSourceId;
-    @JoinColumn(name = "fk_external_source_id", referencedColumnName = "external_source_id")
+    @JoinColumn(name = "fk_external_source_keyword_lookup_id", referencedColumnName = "external_source_keyword_lookup_id")
     @ManyToOne
-    private ExternalSource fkExternalSourceId;
-    @JoinColumn(name = "fk_external_source_keyword_id", referencedColumnName = "external_source_keyword_id")
-    @ManyToOne
-    private ExternalSourceKeyword fkExternalSourceKeywordId;
+    private ExternalSourceKeywordLookup fkExternalSourceKeywordLookupId;
     @JoinColumn(name = "fk_sub_caterogy_id", referencedColumnName = "sub_category_id")
     @ManyToOne
     private SubCategory fkSubCaterogyId;
@@ -55,20 +52,12 @@ public class SubCaterogyExternalSource implements Serializable {
         this.subCaterogyExternalSourceId = subCaterogyExternalSourceId;
     }
 
-    public ExternalSource getFkExternalSourceId() {
-        return fkExternalSourceId;
+    public ExternalSourceKeywordLookup getFkExternalSourceKeywordLookupId() {
+        return fkExternalSourceKeywordLookupId;
     }
 
-    public void setFkExternalSourceId(ExternalSource fkExternalSourceId) {
-        this.fkExternalSourceId = fkExternalSourceId;
-    }
-
-    public ExternalSourceKeyword getFkExternalSourceKeywordId() {
-        return fkExternalSourceKeywordId;
-    }
-
-    public void setFkExternalSourceKeywordId(ExternalSourceKeyword fkExternalSourceKeywordId) {
-        this.fkExternalSourceKeywordId = fkExternalSourceKeywordId;
+    public void setFkExternalSourceKeywordLookupId(ExternalSourceKeywordLookup fkExternalSourceKeywordLookupId) {
+        this.fkExternalSourceKeywordLookupId = fkExternalSourceKeywordLookupId;
     }
 
     public SubCategory getFkSubCaterogyId() {
@@ -78,4 +67,5 @@ public class SubCaterogyExternalSource implements Serializable {
     public void setFkSubCaterogyId(SubCategory fkSubCaterogyId) {
         this.fkSubCaterogyId = fkSubCaterogyId;
     }
+
 }

@@ -22,6 +22,7 @@ import javax.persistence.Table;
 @Table(name = "channel")
 public class Channel implements Serializable {
 
+   
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,5 +54,4 @@ public class Channel implements Serializable {
     public void setChannelName(String channelName) {
         this.channelName = channelName;
     }
-
 }

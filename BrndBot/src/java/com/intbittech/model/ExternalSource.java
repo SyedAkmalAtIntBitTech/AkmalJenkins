@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015 Intbit Technologies. This software and documentation contains
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
@@ -22,7 +22,6 @@ import javax.persistence.Table;
 @Table(name = "external_source")
 public class ExternalSource implements Serializable {
 
-   
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
