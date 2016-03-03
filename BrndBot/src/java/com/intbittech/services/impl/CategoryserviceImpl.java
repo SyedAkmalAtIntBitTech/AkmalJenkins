@@ -74,12 +74,16 @@ public class CategoryserviceImpl implements CategoryService {
      */
     public void saveCategory(CategoryDetails categoryDetails) throws ProcessFailed {
         try {
+
+            /*  saving the category  */
             Category category = new Category();
             category.setCategoryName(categoryDetails.getCategoryName());
             Channel channel = new Channel();
             channel.setChannelId(categoryDetails.getChannelId());
             category.setFkChannelId(channel);
             Integer categoryId = categoryDao.save(category);
+
+            /*saving organizationCategoryLookup using categoryId and OrganizationId */
             OrganizationCategoryLookup organizationCategoryLookup = new OrganizationCategoryLookup();
             Category categoryObject = new Category();
             categoryObject.setCategoryId(categoryId);
@@ -88,6 +92,7 @@ public class CategoryserviceImpl implements CategoryService {
             organization.setOrganizationId(categoryDetails.getOrgnizationId());
             organizationCategoryLookup.setFkOrganizationId(organization);
             organizationCategoryLookupDao.save(organizationCategoryLookup);
+
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed("Database error while saving category");
