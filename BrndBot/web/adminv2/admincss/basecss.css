@@ -8,6 +8,6 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
     Author     : development
 */
 
-#addorganizationpopup{
+#addorganizationpopup,#addorgpopupdiv{
     display:none;
 }

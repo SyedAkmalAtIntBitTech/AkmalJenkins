@@ -6,9 +6,13 @@
        $(document).ready(function () {
            $("#addorg").click(function (){
               $("#addorganizationpopup").show();
+              $("#addorgpopupdiv").show();
            });
            
             $("#createorg").click(function (){
               $("#addorganizationpopup").hide();
+           });
+           $("#addorgpopupdiv").click(function (){
+               $("#addorganizationpopup").hide();
            });
        });

@@ -39,7 +39,7 @@
                         <span class="listCol_Text fleft"> Organization</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a style="text-decoration:none;color:#888;" href="companydetails.jsp"><div class="CTA_Button Button--Gray fright">Manage Company</div></a>
+                        <a href="companydetails.jsp"><div class="CTA_Button Button--Gray fright">Manage Company</div></a>
                     </div>
                 </li>
                 <li class="listItem">
