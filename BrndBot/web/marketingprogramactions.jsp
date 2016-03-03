@@ -125,16 +125,16 @@
                                 <div class="icon-container fleft hint--top" ng-show="emailautomation.status === 'Complete'"  data-hint="Complete" > 
                                     <img src="images/Icons/ActionComplete.svg" class="status-button"/>
                                 </div>
-                                <div class="slat-title-container col-1of2 fleft">
+                                <div class="slat-title-container col-1of2  fleft">
                                     <div  class="slat-title email-list-slat-title col-1of1 sh1"></div>
                                     <div class="slat-title email-list-slat-title col-1of1 sh1">{{emailautomation.programTemplateName}}</div>
                                     <div class="action-list-slat-description col-1of1 sh3">{{emailautomation.description}}</div>
                                 </div>
-                                <div class=" col-2of10 fleft slat-attribute-container">
+                                <div class=" col-2of10  fleft slat-attribute-container">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{emailautomation.dateTime| date:'MMM dd'}}</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
                                 </div>
-                                <div class=" col-2of10 fleft slat-attribute-container">
+                                <div class=" col-2of10  fleft slat-attribute-container">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft" >{{actionType}}</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Status</div>
                                 </div>
@@ -192,15 +192,15 @@
                                 <div class="icon-container fleft hint--top" ng-show="programaction.status === 'Complete'"  data-hint="Complete" > 
                                     <img src="images/Icons/ActionComplete.svg" class="status-button"/>
                                 </div>
-                                <div class="slat-title-container col-1of2 fleft">
+                                <div class="slat-title-container  col-1of2 fleft">
                                     <div class="slat-title email-list-slat-title col-1of1 sh1">{{programaction.programTemplateName}}</div>
                                     <div class="action-list-slat-description col-1of1 sh3">{{programaction.description}}</div>
                                 </div>
-                                <div class=" col-2of10 fleft slat-attribute-container">
+                                <div class=" col-2of10 fleft width20 slat-attribute-container">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{programaction.postDate| date:'MMM dd yyyy'}}</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
                                 </div>
-                                <div class=" col-2of10 fleft slat-attribute-container">
+                                <div class=" col-2of10 fleft width20 slat-attribute-container">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft" ng-show="programaction.actionType==master_facebook || programaction.actionType==master_twitter">{{programaction.actionType}}</div>
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft" ng-show="programaction.actionType==master_note || programaction.actionType==master_email">{{programaction.actionType}}</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Action Type</div>

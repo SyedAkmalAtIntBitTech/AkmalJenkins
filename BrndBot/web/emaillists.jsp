@@ -175,7 +175,7 @@
                                 <div class="col-7of10 slat-unit fleft ">
                                     <div class="slat-title-container col-1of1 fleft">
                                         <div class="slat-title email-list-slat-title col-1of1 sh1">{{drafts.emailsubject}}</div>
-                                        <div class="action-list-slat-description col-1of1 sh3">This is an email draft| Last edited on {{drafts.editdate | date: "MMM dd yyyy"}}</div>
+                                        <div class="action-list-slat-description col-1of1 sh3">Last edited on {{drafts.editdate | date: "MMM dd yyyy "}}at{{drafts.editdate | date: " h:mm a"}}</div>
                                     </div>
                                 </div>
                                 <div class="col-1of4 fleft">
