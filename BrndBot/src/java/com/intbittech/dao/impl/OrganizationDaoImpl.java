@@ -11,6 +11,7 @@ import com.intbittech.model.Organization;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(Organization.class)
+                    .setFetchMode("fkOrganizationTypeId", FetchMode.JOIN)
                     .add(Restrictions.eq("organizationId", id));
             List<Organization> organization = criteria.list();
             if (organization.isEmpty()) {
@@ -57,7 +59,8 @@ public class OrganizationDaoImpl implements OrganizationDao {
     public List<Organization> getAllOrganizations() throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(Organization.class);
+                    .createCriteria(Organization.class)
+                    .setFetchMode("fkOrganizationTypeId", FetchMode.JOIN);
             if (criteria.list().isEmpty()) {
                 return null;
             }

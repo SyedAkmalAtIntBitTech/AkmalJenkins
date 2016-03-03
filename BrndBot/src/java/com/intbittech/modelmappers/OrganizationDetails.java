@@ -13,23 +13,32 @@ import java.io.Serializable;
  */
 public class OrganizationDetails implements Serializable {
 
-    private Integer OrganizationId;
-    private String OrganizationName;
+    private Integer organizationId;
+    private String organizationName;
+    private Integer organizationTypeId;
 
-    public Integer getOrganizationId() {
-        return OrganizationId;
+    public Integer getOrganizationTypeId() {
+        return organizationTypeId;
     }
 
-    public void setOrganizationId(Integer OrganizationId) {
-        this.OrganizationId = OrganizationId;
+    public void setOrganizationTypeId(Integer organizationTypeId) {
+        this.organizationTypeId = organizationTypeId;
+    }
+
+    public Integer getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(Integer organizationId) {
+        this.organizationId = organizationId;
     }
 
     public String getOrganizationName() {
-        return OrganizationName;
+        return organizationName;
     }
 
-    public void setOrganizationName(String OrganizationName) {
-        this.OrganizationName = OrganizationName;
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
     }
 
 }
