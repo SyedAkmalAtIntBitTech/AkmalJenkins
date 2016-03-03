@@ -5,10 +5,13 @@
  */
 package com.intbittech.controller;
 
+import org.springframework.stereotype.Controller;
+
 /**
  *
  * @author ajit
  */
+@Controller
 public class OrganizationController {
     
 }

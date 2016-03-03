@@ -7,8 +7,10 @@ package com.intbittech.model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +35,7 @@ public class Category implements Serializable {
     @Column(name = "category_name")
     private String categoryName;
     @JoinColumn(name = "fk_channel_id", referencedColumnName = "channel_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Channel fkChannelId;
 
     public Category() {
