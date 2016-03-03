@@ -25,8 +25,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -101,12 +99,11 @@ public class CategoryController {
         return new ResponseEntity<>(new ContainerResponse(channelCategoryReponse), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "saveCategory", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, headers = "Accept=application/json")
-
+    @RequestMapping(value = "saveCategory", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveCategory(@RequestBody CategoryDetails categoryDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-             System.out.println(categoryDetails.getCategoryName()); 
+            System.out.println(categoryDetails.getCategoryName());
             Category category = new Category();
             category.setCategoryName(categoryDetails.getCategoryName());
             Channel channel = new Channel();
@@ -115,6 +112,42 @@ public class CategoryController {
             categoryService.save(category);
 
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Category created successfully"));
+
+        } catch (Throwable ex) {
+            logger.error(ex);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "updateCategory", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> updateCategory(@RequestBody CategoryDetails categoryDetails, @RequestParam("categoryId") Integer categoryId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            Category category = categoryService.getByCategoryId(categoryId);
+            category.setCategoryName(categoryDetails.getCategoryName());
+            Channel channel = new Channel();
+            channel.setChannelId(categoryDetails.getChannelId());
+            category.setFkChannelId(channel);
+            categoryService.update(category);
+
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Category updated successfully"));
+
+        } catch (Throwable ex) {
+            logger.error(ex);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+     @RequestMapping(value = "deleteCategory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteCategory(@RequestParam("categoryId") Integer categoryId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+             categoryService.delete(categoryId);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Category deleted successfully"));
 
         } catch (Throwable ex) {
             logger.error(ex);
