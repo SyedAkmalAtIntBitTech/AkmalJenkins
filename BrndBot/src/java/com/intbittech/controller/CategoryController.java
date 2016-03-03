@@ -1,7 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Copyright 2015 Intbit Technologies. This software and documentation contains
+ * confidential and proprietary information that is owned by Intbit
+ * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 package com.intbittech.controller;
 
@@ -87,7 +87,6 @@ public class CategoryController {
                 channelDetails.setCategoryDetailsList(categoryDetailList);
                 channelDetailsList.add(channelDetails);
                 channelCategoryReponse.setChannelDetailsList(channelDetailsList);
-
             }
 
             channelCategoryReponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Category retrieved successfully"));
@@ -103,16 +102,9 @@ public class CategoryController {
     public ResponseEntity<ContainerResponse> saveCategory(@RequestBody CategoryDetails categoryDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            System.out.println(categoryDetails.getCategoryName());
-            Category category = new Category();
-            category.setCategoryName(categoryDetails.getCategoryName());
-            Channel channel = new Channel();
-            channel.setChannelId(categoryDetails.getChannelId());
-            category.setFkChannelId(channel);
-            categoryService.save(category);
 
+            categoryService.saveCategory(categoryDetails);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Category created successfully"));
-
         } catch (Throwable ex) {
             logger.error(ex);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
@@ -141,19 +133,17 @@ public class CategoryController {
 
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
-     @RequestMapping(value = "deleteCategory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @RequestMapping(value = "deleteCategory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteCategory(@RequestParam("categoryId") Integer categoryId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-             categoryService.delete(categoryId);
+            categoryService.delete(categoryId);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Category deleted successfully"));
-
         } catch (Throwable ex) {
             logger.error(ex);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
         }
-
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 

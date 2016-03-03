@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Category;
+import com.intbittech.modelmappers.CategoryDetails;
 
 /**
  * <code>{@link CategoryService}</code> is service layer interface for
@@ -51,5 +52,13 @@ public interface CategoryService {
      * @throws ProcessFailed the process failed
      */
     public void delete(Integer categoryId) throws ProcessFailed;
+    
+    /**
+     * This method save {@link Category} into the database.
+     *
+     * @param categoryDetails the categoryDetails
+     * @throws ProcessFailed the process failed
+     */
+    public void saveCategory(CategoryDetails categoryDetails) throws ProcessFailed;
 
 }

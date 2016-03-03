@@ -12,10 +12,11 @@ import java.io.Serializable;
  * @author ajit
  */
 public class CategoryDetails implements Serializable {
-   
+
     private Integer categoryId;
     private String categoryName;
     private Integer channelId;
+    private Integer orgnizationId;
 
     public Integer getCategoryId() {
         return categoryId;
@@ -41,6 +42,12 @@ public class CategoryDetails implements Serializable {
         this.channelId = channelId;
     }
 
-   
+    public Integer getOrgnizationId() {
+        return orgnizationId;
+    }
+
+    public void setOrgnizationId(Integer orgnizationId) {
+        this.orgnizationId = orgnizationId;
+    }
 
 }
