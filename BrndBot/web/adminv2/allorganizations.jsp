@@ -8,20 +8,23 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="../js/configurations.js" type="text/javascript"></script>
+        <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
+        <script src="adminjs/organisation.js" type="text/javascript"></script>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script type="text/javascript" src="../js/angular.min.js"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <title>All Organizations</title>
     </head>
-    <body class="body-normal">
+    <body class="body-normal" >
         <jsp:include page="addorganization.jsp"/>
         <jsp:include page="adminheader.jsp"/>
-         <div class="content-area">
+        <div class="content-area" ng-app  ng-controller="organizationcontroller" >
         <div class="content-area_header">
             <div class="header_path fleft"> All Organizations </div>
             <div class="CTA_Button Button--Blue fright" id="addorg">Add Organization</div>
         </div>
-        <div class="slatSection">
+        <div class="slatSection" ng-init="organisation()">
             <div class="slatHeaders">
                 <div class="listHeaderCol col1of2 fleft">
                     <span class="listCol_Header fleft"> Organization Name </span>
@@ -30,10 +33,10 @@
                     <span class="listCol_Header fleft"> Set Type </span>
                 </div>
             </div>
-            <ul class="slatArea">
-                <li class="listItem">
+            <ul class="slatArea" >
+                <li class="listItem" ng-repeat="organisations in organisationdetails">
                     <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft"> Org Name</span>
+                        <span class="listCol_Text fleft">{{organisations.organisationdetails}}Org Name dynamic</span>
                     </div>
                     <div class="listCol col1of4 fleft">
                         <span class="listCol_Text fleft"> Organization</span>
