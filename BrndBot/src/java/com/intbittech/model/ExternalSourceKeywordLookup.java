@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2015 Intbit Technologies. This software and documentation contains
+ * confidential and proprietary information that is owned by Intbit
+ * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 package com.intbittech.model;
 
@@ -21,38 +21,35 @@ import javax.persistence.Table;
  * @author ajit
  */
 @Entity
-@Table(name = "sub_caterogy_external_source")
-public class SubCaterogyExternalSource implements Serializable {
+@Table(name = "external_source_keyword_lookup")
+public class ExternalSourceKeywordLookup implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "sub_caterogy_external_source_id")
-    private Integer subCaterogyExternalSourceId;
+    @Column(name = "external_source_keyword_lookup_id")
+    private Integer externalSourceKeywordLookupId;
     @JoinColumn(name = "fk_external_source_id", referencedColumnName = "external_source_id")
     @ManyToOne
     private ExternalSource fkExternalSourceId;
     @JoinColumn(name = "fk_external_source_keyword_id", referencedColumnName = "external_source_keyword_id")
     @ManyToOne
     private ExternalSourceKeyword fkExternalSourceKeywordId;
-    @JoinColumn(name = "fk_sub_caterogy_id", referencedColumnName = "sub_category_id")
-    @ManyToOne
-    private SubCategory fkSubCaterogyId;
 
-    public SubCaterogyExternalSource() {
+    public ExternalSourceKeywordLookup() {
     }
 
-    public SubCaterogyExternalSource(Integer subCaterogyExternalSourceId) {
-        this.subCaterogyExternalSourceId = subCaterogyExternalSourceId;
+    public ExternalSourceKeywordLookup(Integer externalSourceKeywordLookupId) {
+        this.externalSourceKeywordLookupId = externalSourceKeywordLookupId;
     }
 
-    public Integer getSubCaterogyExternalSourceId() {
-        return subCaterogyExternalSourceId;
+    public Integer getExternalSourceKeywordLookupId() {
+        return externalSourceKeywordLookupId;
     }
 
-    public void setSubCaterogyExternalSourceId(Integer subCaterogyExternalSourceId) {
-        this.subCaterogyExternalSourceId = subCaterogyExternalSourceId;
+    public void setExternalSourceKeywordLookupId(Integer externalSourceKeywordLookupId) {
+        this.externalSourceKeywordLookupId = externalSourceKeywordLookupId;
     }
 
     public ExternalSource getFkExternalSourceId() {
@@ -69,13 +66,5 @@ public class SubCaterogyExternalSource implements Serializable {
 
     public void setFkExternalSourceKeywordId(ExternalSourceKeyword fkExternalSourceKeywordId) {
         this.fkExternalSourceKeywordId = fkExternalSourceKeywordId;
-    }
-
-    public SubCategory getFkSubCaterogyId() {
-        return fkSubCaterogyId;
-    }
-
-    public void setFkSubCaterogyId(SubCategory fkSubCaterogyId) {
-        this.fkSubCaterogyId = fkSubCaterogyId;
     }
 }

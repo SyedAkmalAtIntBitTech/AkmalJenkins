@@ -10,7 +10,7 @@ import com.intbittech.model.Category;
 
 /**
  * <code> {@link CategoryDao} </code> Interface to get Category details from
- * Channel table
+ * Category table
  *
  * @author Ajit
  */

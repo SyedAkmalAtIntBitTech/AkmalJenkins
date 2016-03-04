@@ -21,35 +21,35 @@ import javax.persistence.Table;
  * @author ajit
  */
 @Entity
-@Table(name = "sub_caterogy_print_model")
-public class SubCaterogyPrintModel implements Serializable {
+@Table(name = "sub_category_print_model")
+public class SubCategoryPrintModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "sub_caterogy_print_model_id")
-    private Integer subCaterogyPrintModelId;
+    @Column(name = "sub_category_print_model_id")
+    private Integer subCategoryPrintModelId;
     @JoinColumn(name = "fk_print_model_id", referencedColumnName = "print_model_id")
     @ManyToOne
     private PrintModel fkPrintModelId;
-    @JoinColumn(name = "fk_sub_caterogy_id", referencedColumnName = "sub_category_id")
+    @JoinColumn(name = "fk_sub_category_id", referencedColumnName = "sub_category_id")
     @ManyToOne
-    private SubCategory fkSubCaterogyId;
+    private SubCategory fkSubCategoryId;
 
-    public SubCaterogyPrintModel() {
+    public SubCategoryPrintModel() {
     }
 
-    public SubCaterogyPrintModel(Integer subCaterogyPrintModelId) {
-        this.subCaterogyPrintModelId = subCaterogyPrintModelId;
+    public SubCategoryPrintModel(Integer subCategoryPrintModelId) {
+        this.subCategoryPrintModelId = subCategoryPrintModelId;
     }
 
-    public Integer getSubCaterogyPrintModelId() {
-        return subCaterogyPrintModelId;
+    public Integer getSubCategoryPrintModelId() {
+        return subCategoryPrintModelId;
     }
 
-    public void setSubCaterogyPrintModelId(Integer subCaterogyPrintModelId) {
-        this.subCaterogyPrintModelId = subCaterogyPrintModelId;
+    public void setSubCategoryPrintModelId(Integer subCategoryPrintModelId) {
+        this.subCategoryPrintModelId = subCategoryPrintModelId;
     }
 
     public PrintModel getFkPrintModelId() {
@@ -60,11 +60,11 @@ public class SubCaterogyPrintModel implements Serializable {
         this.fkPrintModelId = fkPrintModelId;
     }
 
-    public SubCategory getFkSubCaterogyId() {
-        return fkSubCaterogyId;
+    public SubCategory getFkSubCategoryId() {
+        return fkSubCategoryId;
     }
 
-    public void setFkSubCaterogyId(SubCategory fkSubCaterogyId) {
-        this.fkSubCaterogyId = fkSubCaterogyId;
+    public void setFkSubCategoryId(SubCategory fkSubCategoryId) {
+        this.fkSubCategoryId = fkSubCategoryId;
     }
 }
