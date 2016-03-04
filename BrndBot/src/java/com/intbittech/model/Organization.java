@@ -9,9 +9,12 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -30,6 +33,17 @@ public class Organization implements Serializable {
     private Integer organizationId;
     @Column(name = "organization_name")
     private String organizationName;
+    @JoinColumn(name = "fk_organization_type_id", referencedColumnName = "organization_type_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private OrganizationType fkOrganizationTypeId;
+
+    public OrganizationType getFkOrganizationTypeId() {
+        return fkOrganizationTypeId;
+    }
+
+    public void setFkOrganizationTypeId(OrganizationType fkOrganizationTypeId) {
+        this.fkOrganizationTypeId = fkOrganizationTypeId;
+    }
 
     public Organization() {
     }
