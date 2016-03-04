@@ -1522,7 +1522,7 @@ function controllerMarketingCampaign($scope, $http) {
         var schedule_id = $("#note_scheduleid").val();
         var note_title = $("#edit_note_title").val();
         var status = "no_template";
-        var note_desc = $("#note_desc").val();
+        var note_desc = "";
         var message = "Do you wan't to update the record?";
         var actiondate = $("#datepickernote").val();
         var actionDateTime=$("#timepickernote").val().replace(/ /g,'');
@@ -1558,7 +1558,7 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.updateNoteDescription = function (schedule_id) {
         var actiontype = getnote();
         var description = $("#reminderdesc"+schedule_id).val();
- 
+        
         if (validateemailDescription()) {
             var action = {
                 "schedule_id": schedule_id, "type": "updatenotes","actiontype": actiontype,

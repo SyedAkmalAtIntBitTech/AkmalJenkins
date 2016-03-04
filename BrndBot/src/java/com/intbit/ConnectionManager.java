@@ -49,8 +49,8 @@ public class ConnectionManager {
             throw new SQLException("Datasource not initialized");
         }
         BasicDataSource bdSource = (BasicDataSource)dataSource;
-        logger.info("Active DB Connections : " + bdSource.getNumActive());
-        logger.info("Idle DB Connections : " + bdSource.getNumIdle());
+//        logger.info("Active DB Connections : " + bdSource.getNumActive());
+//        logger.info("Idle DB Connections : " + bdSource.getNumIdle());
         return dataSource.getConnection();
         
     }
