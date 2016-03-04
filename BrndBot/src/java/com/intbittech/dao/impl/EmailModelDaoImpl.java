@@ -7,12 +7,10 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.EmailModelDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Category;
 import com.intbittech.model.EmailModel;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
