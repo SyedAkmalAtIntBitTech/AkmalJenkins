@@ -48,9 +48,9 @@ public interface EmailModelService {
      * This method delete particular {@link EmailModel} based on the EmailModel
      * from the database.
      *
-     * @param emailModel the emailModel
+     * @param emailModelId the emailModelId
      * @throws ProcessFailed the process failed
      */
-    public void delete(EmailModel emailModel) throws ProcessFailed;
+    public void delete(Integer emailModelId) throws ProcessFailed;
 
 }

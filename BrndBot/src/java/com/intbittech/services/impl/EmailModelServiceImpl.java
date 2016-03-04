@@ -19,8 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional(rollbackFor = ProcessFailed.class)
-public class EmailModelServiceImpl implements EmailModelService{
-    
+public class EmailModelServiceImpl implements EmailModelService {
+
     @Autowired
     private EmailModelDao emailModelDao;
 
@@ -28,28 +28,35 @@ public class EmailModelServiceImpl implements EmailModelService{
      * {@inheritDoc}
      */
     public EmailModel getByEmailModelId(Integer emailModelId) throws ProcessFailed {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EmailModel emailModel = emailModelDao.getByEmailModelId(emailModelId);
+        if (emailModel == null) {
+            throw new ProcessFailed("No email template found with id " + emailModelId + ".");
+        }
+        return emailModel;
     }
 
     /**
      * {@inheritDoc}
      */
     public Integer save(EmailModel emailModel) throws ProcessFailed {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return emailModelDao.save(emailModel);
     }
 
     /**
      * {@inheritDoc}
      */
     public void update(EmailModel emailModel) throws ProcessFailed {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        emailModelDao.update(emailModel);
     }
 
     /**
      * {@inheritDoc}
      */
-    public void delete(EmailModel emailModel) throws ProcessFailed {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(Integer emailModelId) throws ProcessFailed {
+        EmailModel emailModel = emailModelDao.getByEmailModelId(emailModelId);
+        if (emailModel == null)
+            throw new ProcessFailed("No email template found with id " + emailModelId + ".");
+        emailModelDao.delete(emailModel);
+        
     }
-    
 }

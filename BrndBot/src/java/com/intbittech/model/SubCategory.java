@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +34,7 @@ public class SubCategory implements Serializable {
     @Column(name = "sub_category_name")
     private String subCategoryName;
     @JoinColumn(name = "fk_category_id", referencedColumnName = "category_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Category fkCategoryId;
 
     public SubCategory() {
