@@ -21,35 +21,35 @@ import javax.persistence.Table;
  * @author ajit
  */
 @Entity
-@Table(name = "sub_caterogy_image_model")
-public class SubCaterogyImageModel implements Serializable {
+@Table(name = "sub_category_image_model")
+public class SubCategoryImageModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "sub_caterogy_image_model_id")
-    private Integer subCaterogyImageModelId;
+    @Column(name = "sub_category_image_model_id")
+    private Integer subCategoryImageModelId;
     @JoinColumn(name = "fk_image_model_id", referencedColumnName = "image_model_id")
     @ManyToOne
     private ImageModel fkImageModelId;
-    @JoinColumn(name = "fk_sub_caterogy_id", referencedColumnName = "sub_category_id")
+    @JoinColumn(name = "fk_sub_category_id", referencedColumnName = "sub_category_id")
     @ManyToOne
-    private SubCategory fkSubCaterogyId;
+    private SubCategory fkSubCategoryId;
 
-    public SubCaterogyImageModel() {
+    public SubCategoryImageModel() {
     }
 
-    public SubCaterogyImageModel(Integer subCaterogyImageModelId) {
-        this.subCaterogyImageModelId = subCaterogyImageModelId;
+    public SubCategoryImageModel(Integer subCategoryImageModelId) {
+        this.subCategoryImageModelId = subCategoryImageModelId;
     }
 
-    public Integer getSubCaterogyImageModelId() {
-        return subCaterogyImageModelId;
+    public Integer getSubCategoryImageModelId() {
+        return subCategoryImageModelId;
     }
 
-    public void setSubCaterogyImageModelId(Integer subCaterogyImageModelId) {
-        this.subCaterogyImageModelId = subCaterogyImageModelId;
+    public void setSubCategoryImageModelId(Integer subCategoryImageModelId) {
+        this.subCategoryImageModelId = subCategoryImageModelId;
     }
 
     public ImageModel getFkImageModelId() {
@@ -60,11 +60,11 @@ public class SubCaterogyImageModel implements Serializable {
         this.fkImageModelId = fkImageModelId;
     }
 
-    public SubCategory getFkSubCaterogyId() {
-        return fkSubCaterogyId;
+    public SubCategory getFkSubCategoryId() {
+        return fkSubCategoryId;
     }
 
-    public void setFkSubCaterogyId(SubCategory fkSubCaterogyId) {
-        this.fkSubCaterogyId = fkSubCaterogyId;
+    public void setFkSubCategoryId(SubCategory fkSubCategoryId) {
+        this.fkSubCategoryId = fkSubCategoryId;
     }
 }
