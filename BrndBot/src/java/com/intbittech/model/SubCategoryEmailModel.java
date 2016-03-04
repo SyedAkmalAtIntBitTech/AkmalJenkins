@@ -32,7 +32,7 @@ public class SubCategoryEmailModel implements Serializable {
     @Column(name = "sub_category_email_model_id")
     private Integer subCategoryEmailModelId;
     @JoinColumn(name = "fk_email_model_id", referencedColumnName = "email_model_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private EmailModel fkEmailModelId;
     @JoinColumn(name = "fk_sub_category_id", referencedColumnName = "sub_category_id")
     @ManyToOne(fetch = FetchType.LAZY)

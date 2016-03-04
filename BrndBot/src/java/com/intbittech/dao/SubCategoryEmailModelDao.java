@@ -20,7 +20,7 @@ public interface SubCategoryEmailModelDao {
 
     /**
      * This method pass id as input and get the
-     * {@link SubCategoryEmailModel} from DB.
+     * {@link SubCategoryEmailModel} from database.
      *
      * @param subCategoryId is the subCategoryId
      * @return list of {@link SubCategoryEmailModel}
@@ -29,22 +29,31 @@ public interface SubCategoryEmailModelDao {
     public List<SubCategoryEmailModel> getAllSubCategoryEmailModel(Integer subCategoryId) throws ProcessFailed;
 
     /**
-     * This method save {@link OrganizationCategoryLookup} into the database.
+     * This method save {@link SubCategoryEmailModel} into the database.
      *
-     * @param organizationCategoryLookup the organizationCategoryLookup
+     * @param subCategoryEmailModel the subCategoryEmailModel
      * @return the Integer
      * @throws ProcessFailed the process failed
      */
-    public Integer save(OrganizationCategoryLookup organizationCategoryLookup) throws ProcessFailed;
+    public Integer save(SubCategoryEmailModel subCategoryEmailModel) throws ProcessFailed;
 
     /**
-     * This method update {@link organizationCategoryLookup} updates existing
+     * This method {@link SubCategoryEmailModel} updates existing
      * data from the database.
      *
-     * @param organizationCategoryLookup the organizationCategoryLookup
+     * @param subCategoryEmailModel the subCategoryEmailModel
      * @throws ProcessFailed the process failed
      */
-    public void update(OrganizationCategoryLookup organizationCategoryLookup) throws ProcessFailed;
+    public void update(SubCategoryEmailModel subCategoryEmailModel) throws ProcessFailed;
+    
+    /**
+     * This method {@link SubCategoryEmailModel} deletes existing
+     * data from the database.
+     *
+     * @param subCategoryEmailModel the subCategoryEmailModel
+     * @throws ProcessFailed the process failed
+     */
+    public void delete(SubCategoryEmailModel subCategoryEmailModel) throws ProcessFailed;
 
 
 }
