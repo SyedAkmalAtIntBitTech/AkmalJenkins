@@ -21,35 +21,35 @@ import javax.persistence.Table;
  * @author ajit
  */
 @Entity
-@Table(name = "sub_caterogy_external_source")
-public class SubCaterogyExternalSource implements Serializable {
+@Table(name = "sub_category_external_source")
+public class SubCategoryExternalSource implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "sub_caterogy_external_source_id")
-    private Integer subCaterogyExternalSourceId;
+    @Column(name = "sub_category_external_source_id")
+    private Integer subCategoryExternalSourceId;
     @JoinColumn(name = "fk_external_source_keyword_lookup_id", referencedColumnName = "external_source_keyword_lookup_id")
     @ManyToOne
     private ExternalSourceKeywordLookup fkExternalSourceKeywordLookupId;
-    @JoinColumn(name = "fk_sub_caterogy_id", referencedColumnName = "sub_category_id")
+    @JoinColumn(name = "fk_sub_category_id", referencedColumnName = "sub_category_id")
     @ManyToOne
-    private SubCategory fkSubCaterogyId;
+    private SubCategory fkSubCategoryId;
 
-    public SubCaterogyExternalSource() {
+    public SubCategoryExternalSource() {
     }
 
-    public SubCaterogyExternalSource(Integer subCaterogyExternalSourceId) {
-        this.subCaterogyExternalSourceId = subCaterogyExternalSourceId;
+    public SubCategoryExternalSource(Integer subCategoryExternalSourceId) {
+        this.subCategoryExternalSourceId = subCategoryExternalSourceId;
     }
 
-    public Integer getSubCaterogyExternalSourceId() {
-        return subCaterogyExternalSourceId;
+    public Integer getSubCategoryExternalSourceId() {
+        return subCategoryExternalSourceId;
     }
 
-    public void setSubCaterogyExternalSourceId(Integer subCaterogyExternalSourceId) {
-        this.subCaterogyExternalSourceId = subCaterogyExternalSourceId;
+    public void setSubCategoryExternalSourceId(Integer subCategoryExternalSourceId) {
+        this.subCategoryExternalSourceId = subCategoryExternalSourceId;
     }
 
     public ExternalSourceKeywordLookup getFkExternalSourceKeywordLookupId() {
@@ -60,12 +60,12 @@ public class SubCaterogyExternalSource implements Serializable {
         this.fkExternalSourceKeywordLookupId = fkExternalSourceKeywordLookupId;
     }
 
-    public SubCategory getFkSubCaterogyId() {
-        return fkSubCaterogyId;
+    public SubCategory getFkSubCategoryId() {
+        return fkSubCategoryId;
     }
 
-    public void setFkSubCaterogyId(SubCategory fkSubCaterogyId) {
-        this.fkSubCaterogyId = fkSubCaterogyId;
+    public void setFkSubCategoryId(SubCategory fkSubCategoryId) {
+        this.fkSubCategoryId = fkSubCategoryId;
     }
 
 }

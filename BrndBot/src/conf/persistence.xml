@@ -5,11 +5,11 @@
     <class>com.intbit.marketing.model.TblEmailDraft</class>
     <class>com.intbittech.model.Channel</class>
     <class>com.intbittech.model.Category</class>
-    <class>com.intbittech.model.SubCaterogyExternalSource</class>
     <class>com.intbittech.model.ExternalSourceKeywordLookup</class>
     <class>com.intbittech.model.ExternalSourceKeyword</class>
     <class>com.intbittech.model.ExternalSource</class>
     <class>com.intbittech.model.EmailBlockExternalSource</class>
+    <class>com.intbittech.model.SubCategoryExternalSource</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/brnd"/>
