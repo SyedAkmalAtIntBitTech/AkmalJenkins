@@ -6,7 +6,6 @@
 package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.OrganizationCategoryLookup;
 import com.intbittech.model.SubCategoryEmailModel;
 import java.util.List;
 

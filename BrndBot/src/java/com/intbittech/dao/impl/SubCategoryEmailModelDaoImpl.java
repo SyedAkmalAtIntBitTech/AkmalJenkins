@@ -7,7 +7,6 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.SubCategoryEmailModelDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.OrganizationCategoryLookup;
 import com.intbittech.model.SubCategoryEmailModel;
 import java.util.List;
 import org.apache.log4j.Logger;
