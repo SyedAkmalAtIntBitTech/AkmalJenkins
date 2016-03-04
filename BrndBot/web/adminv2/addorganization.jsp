@@ -22,7 +22,7 @@
                 <div class="input_Label">Name this Organization?</div>
                 <input class="input_Field" type="text" placeholder="Organization Name" />
                 <div class="input_Label pushUp_30">Is this an organization or a group?</div>
-                <div class="input_Field">Dropdown</div>
+                <select class="input_Field"><option class="input_Field">Dropdown</option></select>
                 <div id="createorg" class="CTA_Button Button--Gray fleft pushUp_30">Create this Organization</div>
             </div>
         </div>
