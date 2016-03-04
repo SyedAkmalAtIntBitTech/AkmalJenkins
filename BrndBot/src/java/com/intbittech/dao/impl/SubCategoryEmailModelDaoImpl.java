@@ -90,4 +90,25 @@ public class SubCategoryEmailModelDaoImpl implements SubCategoryEmailModelDao {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public SubCategoryEmailModel getSubCategoryEmailModelById(Integer subCategoryEmailModelId) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(SubCategoryEmailModel.class)
+                    .setFetchMode("fkEmailModelId", FetchMode.JOIN)
+                    .setFetchMode("fkSubCategoryId", FetchMode.JOIN)
+                    .add(Restrictions.eq("subCategoryEmailModelId", subCategoryEmailModelId));
+            List<SubCategoryEmailModel> subCategoryEmailModelList = criteria.list();
+            if(subCategoryEmailModelList.isEmpty())
+                return null;
+            return (SubCategoryEmailModel) criteria.list().get(0);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while deleting record.");
+        }
+        
+    }
+
 }
