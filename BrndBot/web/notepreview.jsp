@@ -150,12 +150,12 @@
                 <div class="below-nav-container-saved-post-detail" id="savedreminderdiv">
                     <div class="below-nav-container-saved-post-detail">
                         <div class="inner-content-container-detail">
-                            <div class="saved-post-header-detail" ng-show="schedule_desc ===''">
+<!--                            <div class="saved-post-header-detail" ng-show="schedule_desc ===''">
                                 <div class="h4">Write Notes about this Action</div>
-                            </div>
-                            <div class="saved-post-header-detail" ng-show="schedule_desc !==''">
+                            </div>-->
+<!--                            <div class="saved-post-header-detail" ng-show="schedule_desc !==''">
                                 <div class="h4">Notes</div>
-                            </div>
+                            </div>-->
                             <div class="inner-content-detail">
                                 <div class="saved-note-detail">
 
