@@ -14,7 +14,7 @@
     <jsp:include page="adminheader.jsp"/>
     <div class="content-area">
         <div class="content-area_header">
-            <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="allorganizations.jsp"> Organizations</a>  > </div>
+            <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="organization.jsp"> Organizations</a>  > </div>
             <div class="header_title fleft"> Organization Name </div>
             <div class="CTA_Button Button--Delete fright">Delete Organization</div>
         </div>

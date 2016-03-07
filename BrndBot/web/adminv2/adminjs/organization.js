@@ -3,10 +3,7 @@
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
-//$(document).ready(function (){
-//    
-//});
-//var app = angular.module('myApp',[]);
+
 function organizationcontroller($scope,$http) {
     
     $scope.organization = function () {

@@ -1,5 +1,5 @@
 <%-- 
-    Document   : allorganizations
+    Document   : organization
     Created on : Mar 2, 2016, 6:23:44 PM
     Author     : development
 --%>
@@ -11,7 +11,7 @@
         <link rel="shortcut icon" href="../images/favicon.png"/>        
         <script src="../js/configurations.js" type="text/javascript"></script>
         <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
-        <script src="adminjs/organisation.js" type="text/javascript"></script>
+        <script src="adminjs/organization.js" type="text/javascript"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script type="text/javascript" src="../js/angular.min.js"></script>
