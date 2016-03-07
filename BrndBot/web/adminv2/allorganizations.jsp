@@ -39,7 +39,7 @@
                         <span class="listCol_Text fleft">{{organizations.organizationName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <span class="listCol_Text fleft"> Organization</span>
+                        <span class="listCol_Text fleft">{{organizations.organizationTypeName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
                         <a href="organizationdetails.jsp"><div class="CTA_Button Button--Gray fright">Manage Org</div></a>
