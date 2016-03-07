@@ -9,10 +9,11 @@
               $("#addorgpopupdiv").show();
            });
            
-            $("#createorg").click(function (){
-              $("#addorganizationpopup").hide();
-           });
+//            $("#createorg").click(function (){
+//              $("#addorganizationpopup").hide();
+//           });
            $("#addorgpopupdiv").click(function (){
                $("#addorganizationpopup").hide();
+                $("#addorgpopupdiv").hide();
            });
        });

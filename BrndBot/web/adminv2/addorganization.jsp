@@ -12,7 +12,7 @@
       <title>Add Organization</title>
     </head>
     <body>
-        <div id="addorgpopupdiv"></div>
+        <div id="addorgpopupdiv" class="popUp_backgroundlayer"></div>
         <div id="addorganizationpopup" class="popUp_background">
         <div  class="popUp">
              <div class="content-area_header">
@@ -22,11 +22,11 @@
                 <div class="input_Label">Name this Organization?</div>
                 <input id="orgname" class="input_Field" type="text" placeholder="Organization Name" />
                 <div class="input_Label pushUp_30">Is this an organization or a group?</div>
-                <select class="input_Field" id="orgdropdown">
-                    <option class="input_Field">organization</option>
-                    <option class="input_Field">group</option>
+                <select class="input_Field" id="orgtype">
+                    <option class="input_Field" value="2">organization</option>
+                    <option class="input_Field" value="1">group</option>
                 </select>
-                <div id="createorg" class="CTA_Button Button--Gray fleft pushUp_30">Create this Organization</div>
+                <div id="createorg" class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addorganization()">Create this Organization</div>
             </div>
         </div>
         </div> 

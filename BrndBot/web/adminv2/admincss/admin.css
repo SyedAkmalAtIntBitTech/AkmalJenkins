@@ -310,8 +310,7 @@ font-size: 14px;
 
 
 /** Pop Up **/
-
-.popUp_background{
+.popUp_backgroundlayer{
     width: 100vw;
     height: 100vh;
     background-color: rgba(62,69,81,.64);
@@ -320,19 +319,28 @@ font-size: 14px;
     left: 0;
     z-index: 1000;
 }
+.popUp_background{
+    /* width: 100vw; */
+    /* height: 100vh; */
+    /* background-color: rgba(62,69,81,.64); */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
 .popUp{
     z-index: 1100;
     background-color: #FFFFFF;
-        background-color: #FFFFFF;
     display: block;
     border-radius: 3px;
     border: 1px solid #D2D3D5;
     padding: 0px 30px;
     margin: auto;
+    position: relative;
+    left:45%;
     margin-top:100px;
     width: 600px;
     padding-bottom: 30px;
-    
 }
 
 .popUp_title{

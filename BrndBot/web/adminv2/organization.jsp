@@ -8,19 +8,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="shortcut icon" href="../images/favicon.png"/>        
+         <link rel="shortcut icon" href="../images/favicon.png"/>
+         <script type="text/javascript" src="../adminv2/adminjs/basejs.js"/>         
+        <script src="../js/alertmessage.js" type="text/javascript"></script>
         <script src="../js/configurations.js" type="text/javascript"></script>
-        <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
-        <script src="adminjs/organization.js" type="text/javascript"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="../adminv2/adminjs/organization.js" type="text/javascript"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script type="text/javascript" src="../js/angular.min.js"></script>
         <title>BrndBot-Admin Organization</title>
     </head>
-    <body class="body-normal" >
-        <jsp:include page="addorganization.jsp"/>
+    <body class="body-normal" ng-app  ng-controller="organizationcontroller" >        
         <jsp:include page="adminheader.jsp"/>
-        <div class="content-area" ng-app  ng-controller="organizationcontroller" >
+        <jsp:include page="addorganization.jsp"/>
+        <div class="content-area" >
         <div class="content-area_header">
             <div class="header_path fleft"> All Organizations </div>
             <div class="CTA_Button Button--Blue fright" id="addorg">Add Organization</div>
@@ -43,7 +43,7 @@
                         <span class="listCol_Text fleft">{{organizations.organizationTypeName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href="organizationdetails.jsp"><div class="CTA_Button Button--Gray fright">Manage Org</div></a>
+                        <a href="organizationdetails.jsp?orgId={{organizations.organizationId}}&orgName={{organizations.organizationName}}"><div class="CTA_Button Button--Gray fright">Manage Org</div></a>
                     </div>
                 </li>                
             </ul>

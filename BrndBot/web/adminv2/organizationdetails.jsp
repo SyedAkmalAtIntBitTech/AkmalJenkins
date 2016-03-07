@@ -7,16 +7,28 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Organizations</title>    
+<head> 
+    <link rel="shortcut icon" href="../images/favicon.png"/>        
+    <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
+    <script src="adminjs/organization.js" type="text/javascript"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/angular.min.js"></script>
+    <title>Organization-Details</title>   
+    
 </head>    
+    <%
+    String orgID=request.getParameter("orgId");
+    String orgName=request.getParameter("orgName");
+%>
 <body class="body-normal">
+
     <jsp:include page="adminheader.jsp"/>
-    <div class="content-area">
-        <div class="content-area_header">
+    <div class="content-area" ng-app  ng-controller="organizationcontroller" >
+        <div class="content-area_header" ng-init="organizationdetails()">
             <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="organization.jsp"> Organizations</a>  > </div>
-            <div class="header_title fleft"> Organization Name </div>
-            <div class="CTA_Button Button--Delete fright">Delete Organization</div>
+            <div class="header_title fleft"><%=orgName%></div>
+            <div class="CTA_Button Button--Delete fright" ng-click="deleteOrganization(<%=orgID%>)">Delete Organization</div>
         </div>
         <div class="inputSection col1of4">
             <div class="input_Label">Is this an organization or a group?</div>

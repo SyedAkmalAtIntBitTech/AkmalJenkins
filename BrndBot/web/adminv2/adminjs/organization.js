@@ -12,11 +12,55 @@ function organizationcontroller($scope,$http) {
                             method : 'GET',
                             url : getHost()+'/getAllOrganizations.do'
                         }).success(function(data, status, headers, config) {
-                            $scope.organizationDetails = data.d.details;                            
+                            $scope.organizationDetails = data.d.details;    
                         }).error(function(data, status, headers, config) {
                                 alert(nodataerror);
                         });
        
+    };
+    
+    $scope.addorganization = function () {
+                    
+                    var orgname = $("#orgname").val();
+                    var orgtype = $("#orgtype").val();
+                    var organization = {"organizationName": orgname,"organizationTypeId": orgtype};
+                   if(orgname===""){
+                       alert("Please Enter Organization Name!");
+                       $("#orgname").focus();
+                   }else{
+                    $.ajax({
+                            method: 'POST',
+                            url: getHost() + '/saveOrganization.do',
+                            dataType: "json",
+                            contentType: "application/json",
+                            data: JSON.stringify(organization)
+                        }).success(function (data)
+                        { 
+                            alert("Organization saved successfully.");
+                            window.open(getHost() + 'adminv2/organization.jsp', "_self");
+
+                        }).error(function(e){
+                            alert(JSON.stringify(e));
+                        });                         
+                    }
+    };
+    
+    
+    
+    
+    
+    $scope.organizationdetails= function (){
+        $scope.deleteOrganization=function (orgId){
+            $http({
+                            method : 'GET',
+                            url : getHost()+'/deleteOrganization.do'
+                        }).success(function(data, status, headers, config) {
+                            $scope.organizationDetails = data.d.details;    
+                        }).error(function(data, status, headers, config) {
+                                alert(nodataerror);
+                        });
+            alert(orgId);
+        }
     };
        
 }
