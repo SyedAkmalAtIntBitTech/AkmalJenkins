@@ -5,44 +5,42 @@
  */
 package com.intbittech.dao.impl;
 
-import com.intbittech.dao.EmailModelDao;
+import com.intbittech.dao.PrintModelDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.EmailModel;
+import com.intbittech.model.PrintModel;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 /**
- * <code> {@link EmailModelDaoImpl} </code> is implementation of
- * {@link EmailModelDao} and perform the database related operation for managing
- * {@link EmailModel}
+ * <code> {@link PrintModelDaoImpl} </code> is implementation of
+ * {@link PrintModelDao} and perform the database related operation for managing
+ * {@link PrintModel}
  *
  * @author ilyas
  */
-@Repository
-public class EmailModelDaoImpl implements EmailModelDao {
+public class PrintModelDaoImpl implements PrintModelDao {
 
-    private static Logger logger = Logger.getLogger(EmailModelDaoImpl.class);
+    private static Logger logger = Logger.getLogger(PrintModelDaoImpl.class);
     @Autowired
     private SessionFactory sessionFactory;
 
     /**
      * {@inheritDoc}
      */
-    public EmailModel getByEmailModelId(Integer emailModelId) throws ProcessFailed {
+    public PrintModel getByPrintModelId(Integer printModelId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(EmailModel.class)
-                    .add(Restrictions.eq("emailModelId", emailModelId));
-            List<EmailModel> emailModelList = criteria.list();
-            if (emailModelList.isEmpty()) {
+                    .createCriteria(PrintModel.class)
+                    .add(Restrictions.eq("printModelId", printModelId));
+            List<PrintModel> printModelList = criteria.list();
+            if (printModelList.isEmpty()) {
                 return null;
             }
-            return (EmailModel) criteria.list().get(0);
+            return (PrintModel) criteria.list().get(0);
 
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -53,9 +51,9 @@ public class EmailModelDaoImpl implements EmailModelDao {
     /**
      * {@inheritDoc}
      */
-    public Integer save(EmailModel emailModel) throws ProcessFailed {
+    public Integer save(PrintModel printModel) throws ProcessFailed {
         try {
-            return ((Integer) sessionFactory.getCurrentSession().save(emailModel));
+            return ((Integer) sessionFactory.getCurrentSession().save(printModel));
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed("Database error while saving record.");
@@ -65,9 +63,9 @@ public class EmailModelDaoImpl implements EmailModelDao {
     /**
      * {@inheritDoc}
      */
-    public void update(EmailModel emailModel) throws ProcessFailed {
+    public void update(PrintModel printModel) throws ProcessFailed {
         try {
-            sessionFactory.getCurrentSession().update(emailModel);
+            sessionFactory.getCurrentSession().update(printModel);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed("Database error while updating record.");
@@ -77,13 +75,13 @@ public class EmailModelDaoImpl implements EmailModelDao {
     /**
      * {@inheritDoc}
      */
-    public void delete(EmailModel emailModel) throws ProcessFailed {
+    public void delete(PrintModel printModel) throws ProcessFailed {
         try {
-            sessionFactory.getCurrentSession().delete(emailModel);
+            sessionFactory.getCurrentSession().delete(printModel);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed("Database error while deleting record.");
         }
     }
-
+    
 }
