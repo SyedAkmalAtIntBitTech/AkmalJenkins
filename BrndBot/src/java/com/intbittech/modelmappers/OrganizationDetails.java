@@ -16,6 +16,15 @@ public class OrganizationDetails implements Serializable {
     private Integer organizationId;
     private String organizationName;
     private Integer organizationTypeId;
+    private String organizationTypeName;
+
+    public String getOrganizationTypeName() {
+        return organizationTypeName;
+    }
+
+    public void setOrganizationTypeName(String organizationTypeName) {
+        this.organizationTypeName = organizationTypeName;
+    }
 
     public Integer getOrganizationTypeId() {
         return organizationTypeId;

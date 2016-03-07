@@ -14,13 +14,13 @@
     <jsp:include page="adminheader.jsp"/>
     <div class="content-area">
         <div class="content-area_header">
-            <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="allorganizations.jsp"> Organizations</a>  > </div>
+            <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="organization.jsp"> Organizations</a>  > </div>
             <div class="header_title fleft"> Organization Name </div>
             <div class="CTA_Button Button--Delete fright">Delete Organization</div>
         </div>
         <div class="inputSection col1of4">
             <div class="input_Label">Is this an organization or a group?</div>
-            <div class="input_Field">Dropdown</div>
+            <select class="input_Field"><option class="input_Field">Dropdown</option></select>
             <div class="CTA_Button Button--Gray fleft pushUp_10">Update</div>
         </div>
         <div class="slatSection">

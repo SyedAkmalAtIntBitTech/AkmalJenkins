@@ -1,5 +1,5 @@
 <%-- 
-    Document   : organisationheader
+    Document   : adminheader
     Created on : Mar 2, 2016, 2:04:01 PM
     Author     : development
 --%>
@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="shortcut icon" href="images/favicon.png"/>
+        <link rel="shortcut icon" href="../images/favicon.png"/>        
         <script type="text/javascript" src="adminjs/basejs.js"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script type="text/javascript" src="../js/angular.min.js"></script>
@@ -27,7 +27,7 @@
         </div>
         <div class="headernav">
             <a href="allcompanies.jsp"><div class="nav_tab fleft"> Users </div></a>
-            <a href="allorganizations.jsp"><div class="nav_tab fleft"> Organizations </div></a>
+            <a href="organization.jsp"><div class="nav_tab fleft"> Organizations </div></a>
             <a href="#"><div class="nav_tab fleft"> Email Templates </div></a>
             <a href="#"><div class="nav_tab fleft"> Email Blocks</div></a>
             <a href="#"><div class="nav_tab fleft"> Print Templates </div></a>

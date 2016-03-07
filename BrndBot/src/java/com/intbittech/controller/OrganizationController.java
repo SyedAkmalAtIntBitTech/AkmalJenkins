@@ -49,6 +49,7 @@ public class OrganizationController {
                 organizationDetails.setOrganizationId(organizationObject.getOrganizationId());
                 organizationDetails.setOrganizationName(organizationObject.getOrganizationName());
                 organizationDetails.setOrganizationTypeId(organizationObject.getFkOrganizationTypeId().getOrganizationTypeId());
+                organizationDetails.setOrganizationTypeName(organizationObject.getFkOrganizationTypeId().getOrganizationTypeName());
                 organizationDetailsList.add(organizationDetails);
             }
 

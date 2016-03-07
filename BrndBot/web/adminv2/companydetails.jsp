@@ -23,7 +23,7 @@
         </div>
         <div class="inputSection col1of4">
             <div class="input_Label">Select an Organzation</div>
-            <div class="input_Field">Dropdown</div>
+            <select class="input_Field"><option class="input_Field">Dropdown</option></select>
             <div class="CTA_Button Button--Gray fleft pushUp_10">Update</div>
         </div>
         
