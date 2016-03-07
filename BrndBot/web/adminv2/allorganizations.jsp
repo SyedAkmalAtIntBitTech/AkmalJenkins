@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="shortcut icon" href="../images/favicon.png"/>        
         <script src="../js/configurations.js" type="text/javascript"></script>
         <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
         <script src="adminjs/organisation.js" type="text/javascript"></script>

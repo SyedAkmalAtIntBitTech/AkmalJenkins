@@ -9,7 +9,7 @@
 <html>
     <head>
 
-      <title>add Organization</title>
+      <title>Add Organization</title>
     </head>
     <body>
         <div id="addorgpopupdiv"></div>
@@ -20,9 +20,12 @@
             </div>
             <div class="inputSection col1of2">
                 <div class="input_Label">Name this Organization?</div>
-                <input class="input_Field" type="text" placeholder="Organization Name" />
+                <input id="orgname" class="input_Field" type="text" placeholder="Organization Name" />
                 <div class="input_Label pushUp_30">Is this an organization or a group?</div>
-                <select class="input_Field"><option class="input_Field">Dropdown</option></select>
+                <select class="input_Field" id="orgdropdown">
+                    <option class="input_Field">organization</option>
+                    <option class="input_Field">group</option>
+                </select>
                 <div id="createorg" class="CTA_Button Button--Gray fleft pushUp_30">Create this Organization</div>
             </div>
         </div>

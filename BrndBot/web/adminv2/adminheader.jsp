@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="shortcut icon" href="images/favicon.png"/>
+        <link rel="shortcut icon" href="../images/favicon.png"/>        
         <script type="text/javascript" src="adminjs/basejs.js"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script type="text/javascript" src="../js/angular.min.js"></script>

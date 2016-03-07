@@ -13,10 +13,9 @@ function organizationcontroller($scope,$http) {
         
                     $http({
                             method : 'GET',
-                            url : '../getAllOrganizations.do'
+                            url : getHost()+'/getAllOrganizations.do'
                         }).success(function(data, status, headers, config) {
-                            $scope.organizationDetails = data.d.details;
-                            //alert(JSON.stringify(data.d.details[0].organizationName));                                
+                            $scope.organizationDetails = data.d.details;                            
                         }).error(function(data, status, headers, config) {
                                 alert(nodataerror);
                         });
