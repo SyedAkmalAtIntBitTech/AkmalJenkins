@@ -9,14 +9,14 @@
 //var app = angular.module('myApp',[]);
 function organizationcontroller($scope,$http) {
     
-    $scope.organisation = function () {
+    $scope.organization = function () {
         
                     $http({
                             method : 'GET',
                             url : '../getAllOrganizations.do'
-                        }).success(function(data, status, headers, config) { 
-                            $scope.organisationdetails = data.d.details;
-                            alert(JSON.stringify(data.d.details));
+                        }).success(function(data, status, headers, config) {
+                            $scope.organizationDetails = data.d.details;
+                            //alert(JSON.stringify(data.d.details[0].organizationName));                                
                         }).error(function(data, status, headers, config) {
                                 alert(nodataerror);
                         });

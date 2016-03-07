@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script type="text/javascript" src="../js/angular.min.js"></script>
-        <title>All Organizations</title>
+        <title>BrndBot-Admin Organization</title>
     </head>
     <body class="body-normal" >
         <jsp:include page="addorganization.jsp"/>
@@ -24,7 +24,7 @@
             <div class="header_path fleft"> All Organizations </div>
             <div class="CTA_Button Button--Blue fright" id="addorg">Add Organization</div>
         </div>
-        <div class="slatSection" ng-init="organisation()">
+        <div class="slatSection" ng-init="organization()">
             <div class="slatHeaders">
                 <div class="listHeaderCol col1of2 fleft">
                     <span class="listCol_Header fleft"> Organization Name </span>
@@ -34,9 +34,9 @@
                 </div>
             </div>
             <ul class="slatArea" >
-                <li class="listItem" ng-repeat="organisations in organisationdetails">
+                <li class="listItem" ng-repeat="organizations in organizationDetails">
                     <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft">{{organisations.organisationdetails}}Org Name dynamic</span>
+                        <span class="listCol_Text fleft">{{organizations.organizationName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
                         <span class="listCol_Text fleft"> Organization</span>
@@ -44,29 +44,7 @@
                     <div class="listCol col1of4 fleft">
                         <a href="organizationdetails.jsp"><div class="CTA_Button Button--Gray fright">Manage Org</div></a>
                     </div>
-                </li>
-                <li class="listItem">
-                    <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft"> Org Name</span>
-                    </div>
-                    <div class="listCol col1of4 fleft">
-                        <span class="listCol_Text fleft"> Group</span>
-                    </div>
-                    <div class="listCol col1of4 fleft">
-                        <div class="CTA_Button Button--Gray fright">Manage Org</div>
-                    </div>
-                </li>
-                <li class="listItem">
-                    <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft"> Org Name</span>
-                    </div>
-                    <div class="listCol col1of4 fleft">
-                        <span class="listCol_Text fleft"> Group</span>
-                    </div>
-                    <div class="listCol col1of4 fleft">
-                        <div class="CTA_Button Button--Gray fright">Manage Org</div>
-                    </div>
-                </li>
+                </li>                
             </ul>
         </div>
     </div>
