@@ -10,7 +10,9 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ExternalSourceKeywordLookup;
 import com.intbittech.services.ExternalSourceKeywordLookupService;
 import java.util.List;
+import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +26,8 @@ public class ExternalSourceKeywordLookupServiceImpl implements ExternalSourceKey
 
     @Autowired
     private ExternalSourceKeywordLookupDao externalSourceKeywordLookupDao;
+     @Autowired
+    private MessageSource messageSource;
 
     /**
      * {@inheritDoc}
@@ -31,7 +35,7 @@ public class ExternalSourceKeywordLookupServiceImpl implements ExternalSourceKey
     public ExternalSourceKeywordLookup getByExternalSourceKeywordLookupId(Integer externalSourceKeywordLookupId) throws ProcessFailed {
          ExternalSourceKeywordLookup externalSourceKeywordLookup = externalSourceKeywordLookupDao.getByExternalSourceKeywordLookupId(externalSourceKeywordLookupId);
         if (externalSourceKeywordLookup == null) {
-            throw new ProcessFailed("No external source keyword lookup with id" + externalSourceKeywordLookupId + ".");
+            throw new ProcessFailed(messageSource.getMessage("externalSourceKeywordLookup_not_found", new String[]{}, Locale.US));
         }
         return externalSourceKeywordLookup;
     }
@@ -42,7 +46,7 @@ public class ExternalSourceKeywordLookupServiceImpl implements ExternalSourceKey
     public List<ExternalSourceKeywordLookup> getALLExternalSourceKeywordLookups() throws ProcessFailed {
         List<ExternalSourceKeywordLookup> externalSourceKeywordLookupList = externalSourceKeywordLookupDao.getALLExternalSourceKeywordLookups();
         if (externalSourceKeywordLookupList == null) {
-            throw new ProcessFailed("No external source keyword lookup found .");
+            throw new ProcessFailed(messageSource.getMessage("externalSourceKeywordLookup_not_found", new String[]{}, Locale.US));
         }
         return externalSourceKeywordLookupList;
     }
@@ -67,7 +71,7 @@ public class ExternalSourceKeywordLookupServiceImpl implements ExternalSourceKey
     public void delete(Integer externalSourceKeywordLookupId) throws ProcessFailed {
          ExternalSourceKeywordLookup externalSourceKeywordLookup = externalSourceKeywordLookupDao.getByExternalSourceKeywordLookupId(externalSourceKeywordLookupId);
         if (externalSourceKeywordLookup == null) {
-            throw new ProcessFailed("No external source keyword lookup with id" + externalSourceKeywordLookupId + ".");
+            throw new ProcessFailed(messageSource.getMessage("externalSourceKeywordLookup_not_found", new String[]{}, Locale.US));
         }
        externalSourceKeywordLookupDao.delete(externalSourceKeywordLookup);
     }

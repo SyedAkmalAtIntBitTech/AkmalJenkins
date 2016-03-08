@@ -10,7 +10,9 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.SubCategoryExternalSource;
 import com.intbittech.services.SubCategoryExternalSourceService;
 import java.util.List;
+import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +26,8 @@ public class SubCategoryExternalSourceServiceImpl implements SubCategoryExternal
 
     @Autowired
     private SubCategoryExternalSourceDao subCategoryExternalSourceDao;
+     @Autowired
+    private MessageSource messageSource;
 
     /**
      * {@inheritDoc}
@@ -31,7 +35,7 @@ public class SubCategoryExternalSourceServiceImpl implements SubCategoryExternal
     public SubCategoryExternalSource getBySubCategoryExternalSourceId(Integer subCategoryExternalSourceId) throws ProcessFailed {
         SubCategoryExternalSource subCategoryExternalSource = subCategoryExternalSourceDao.getBySubCategoryExternalSourceId(subCategoryExternalSourceId);
         if (subCategoryExternalSource == null) {
-            throw new ProcessFailed("No sub category external source with id" + subCategoryExternalSourceId + ".");
+            throw new ProcessFailed(messageSource.getMessage("subCategoryExternalSource_not_found", new String[]{}, Locale.US));
         }
         return subCategoryExternalSource;
     }
@@ -42,7 +46,7 @@ public class SubCategoryExternalSourceServiceImpl implements SubCategoryExternal
     public List<SubCategoryExternalSource> getALLSubCategoryExternalSources() throws ProcessFailed {
          List<SubCategoryExternalSource> subCategoryExternalSourceList = subCategoryExternalSourceDao.getALLSubCategoryExternalSources();
         if (subCategoryExternalSourceList == null) {
-            throw new ProcessFailed("No sub category external source found .");
+            throw new ProcessFailed(messageSource.getMessage("subCategoryExternalSource_not_found", new String[]{}, Locale.US));
         }
         return subCategoryExternalSourceList;
     }
@@ -67,7 +71,7 @@ public class SubCategoryExternalSourceServiceImpl implements SubCategoryExternal
     public void delete(Integer subCategoryExternalSourceId) throws ProcessFailed {
          SubCategoryExternalSource subCategoryExternalSource = subCategoryExternalSourceDao.getBySubCategoryExternalSourceId(subCategoryExternalSourceId);
         if (subCategoryExternalSource == null) {
-            throw new ProcessFailed("No sub category external source with id" + subCategoryExternalSourceId + ".");
+            throw new ProcessFailed(messageSource.getMessage("subCategoryExternalSource_not_found", new String[]{}, Locale.US));
         }
        subCategoryExternalSourceDao.delete(subCategoryExternalSource);
     }

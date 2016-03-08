@@ -10,7 +10,9 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ExternalSourceKeyword;
 import com.intbittech.services.ExternalSourceKeywordService;
 import java.util.List;
+import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +26,8 @@ public class ExternalSourceKeywordServiceImpl implements ExternalSourceKeywordSe
 
     @Autowired
     private ExternalSourceKeywordDao externalSourceKeywordDao;
+    @Autowired
+    private MessageSource messageSource;
 
     /**
      * {@inheritDoc}
@@ -31,7 +35,7 @@ public class ExternalSourceKeywordServiceImpl implements ExternalSourceKeywordSe
     public ExternalSourceKeyword getByExternalSourceKeywordId(Integer externalSourceKeywordId) throws ProcessFailed {
         ExternalSourceKeyword externalSourceKeyword = externalSourceKeywordDao.getByExternalSourceKeywordId(externalSourceKeywordId);
         if (externalSourceKeyword == null) {
-            throw new ProcessFailed("No external source keyword with id" + externalSourceKeywordId + ".");
+            throw new ProcessFailed(messageSource.getMessage("externalSourceKeyword_not_found", new String[]{}, Locale.US));
         }
         return externalSourceKeyword;
     }
@@ -42,7 +46,7 @@ public class ExternalSourceKeywordServiceImpl implements ExternalSourceKeywordSe
     public List<ExternalSourceKeyword> getALLExternalSourceKeywords() throws ProcessFailed {
         List<ExternalSourceKeyword> externalSourceKeywordList = externalSourceKeywordDao.getALLExternalSourceKeywords();
         if (externalSourceKeywordList == null) {
-            throw new ProcessFailed("No external source keyword found.");
+            throw new ProcessFailed(messageSource.getMessage("externalSourceKeyword_not_found", new String[]{}, Locale.US));
         }
         return externalSourceKeywordList;
     }
@@ -67,7 +71,7 @@ public class ExternalSourceKeywordServiceImpl implements ExternalSourceKeywordSe
     public void delete(Integer externalSourceKeywordId) throws ProcessFailed {
         ExternalSourceKeyword externalSourceKeyword = externalSourceKeywordDao.getByExternalSourceKeywordId(externalSourceKeywordId);
         if (externalSourceKeyword == null) {
-            throw new ProcessFailed("No external source keyword with id" + externalSourceKeywordId + ".");
+            throw new ProcessFailed(messageSource.getMessage("externalSourceKeyword_not_found", new String[]{}, Locale.US));
         }
         externalSourceKeywordDao.delete(externalSourceKeyword);
     }

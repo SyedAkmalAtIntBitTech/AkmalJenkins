@@ -10,7 +10,9 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ExternalSource;
 import com.intbittech.services.ExternalSourceService;
 import java.util.List;
+import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +26,8 @@ public class ExternalSourceServiceImpl implements ExternalSourceService {
     
     @Autowired
     private ExternalSourceDao externalSourceDao;
+    @Autowired
+    private MessageSource messageSource;
 
     /**
      * {@inheritDoc}
@@ -31,7 +35,7 @@ public class ExternalSourceServiceImpl implements ExternalSourceService {
     public ExternalSource getByExternalSourceId(Integer externalSourceId) throws ProcessFailed {
          ExternalSource externalSource = externalSourceDao.getByExternalSourceId(externalSourceId);
         if (externalSource == null) {
-            throw new ProcessFailed("No external source with id" + externalSourceId + ".");
+            throw new ProcessFailed(messageSource.getMessage("externalSource_not_found",new String[]{}, Locale.US));
         }
         return externalSource;
     }
@@ -42,7 +46,7 @@ public class ExternalSourceServiceImpl implements ExternalSourceService {
     public List<ExternalSource> getALLExternalSources() throws ProcessFailed {
          List<ExternalSource> externalSourceList = externalSourceDao.getALLExternalSources();
         if (externalSourceList == null) {
-            throw new ProcessFailed("No external source found .");
+            throw new ProcessFailed(messageSource.getMessage("externalSource_not_found",new String[]{}, Locale.US));
         }
         return externalSourceList;
     }
@@ -67,7 +71,7 @@ public class ExternalSourceServiceImpl implements ExternalSourceService {
     public void delete(Integer externalSourceId) throws ProcessFailed {
          ExternalSource externalSource = externalSourceDao.getByExternalSourceId(externalSourceId);
         if (externalSource == null) {
-            throw new ProcessFailed("No external source with id" + externalSourceId + ".");
+            throw new ProcessFailed(messageSource.getMessage("externalSource_not_found",new String[]{}, Locale.US));
         }
         externalSourceDao.delete(externalSource);
     }
