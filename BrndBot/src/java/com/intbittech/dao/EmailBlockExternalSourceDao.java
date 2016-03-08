@@ -16,7 +16,7 @@ import java.util.List;
  * @author ilyas
  */
 public interface EmailBlockExternalSourceDao {
-    
+
     /**
      * This method pass id as input and get the {@link EmailBlockExternalSource}
      * from database.
@@ -47,8 +47,8 @@ public interface EmailBlockExternalSourceDao {
     public Integer save(EmailBlockExternalSource emailBlockExternalSource) throws ProcessFailed;
 
     /**
-     * This method {@link EmailBlockExternalSource} updates existing data from the
-     * database.
+     * This method {@link EmailBlockExternalSource} updates existing data from
+     * the database.
      *
      * @param emailBlockExternalSource the emailBlockExternalSource
      * @throws ProcessFailed the process failed
@@ -56,12 +56,12 @@ public interface EmailBlockExternalSourceDao {
     public void update(EmailBlockExternalSource emailBlockExternalSource) throws ProcessFailed;
 
     /**
-     * This method {@link EmailBlockExternalSource} deletes existing data from the
-     * database.
+     * This method {@link EmailBlockExternalSource} deletes existing data from
+     * the database.
      *
      * @param emailBlockExternalSource the emailBlockExternalSource
      * @throws ProcessFailed the process failed
      */
     public void delete(EmailBlockExternalSource emailBlockExternalSource) throws ProcessFailed;
-    
+
 }

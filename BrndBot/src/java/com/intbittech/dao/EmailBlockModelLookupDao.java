@@ -16,7 +16,7 @@ import java.util.List;
  * @author ilyas
  */
 public interface EmailBlockModelLookupDao {
-    
+
     /**
      * This method pass id as input and get the {@link EmailBlockModelLookup}
      * from database.
@@ -63,5 +63,5 @@ public interface EmailBlockModelLookupDao {
      * @throws ProcessFailed the process failed
      */
     public void delete(EmailBlockModelLookup emailBlockModelLookup) throws ProcessFailed;
-    
+
 }

@@ -19,15 +19,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * <code> {@link OrganizationEmailBlockLookupDaoImpl} </code> is implementation of
- * {@link OrganizationEmailBlockLookupDao} and perform the database related operation for managing
- * {@link OrganizationEmailBlockLookup}
+ * <code> {@link OrganizationEmailBlockLookupDaoImpl} </code> is implementation
+ * of {@link OrganizationEmailBlockLookupDao} and perform the database related
+ * operation for managing {@link OrganizationEmailBlockLookup}
  *
  * @author ilyas
  */
 @Repository
 public class OrganizationEmailBlockLookupDaoImpl implements OrganizationEmailBlockLookupDao {
-    
+
     private static Logger logger = Logger.getLogger(OrganizationEmailBlockLookupDaoImpl.class);
     @Autowired
     private SessionFactory sessionFactory;
@@ -85,5 +85,5 @@ public class OrganizationEmailBlockLookupDaoImpl implements OrganizationEmailBlo
             throw new ProcessFailed("Database error while retrieving records");
         }
     }
-    
+
 }

@@ -86,5 +86,5 @@ public class EmailBlockDaoImpl implements EmailBlockDao {
             throw new ProcessFailed("Database error while deleting record.");
         }
     }
-    
+
 }

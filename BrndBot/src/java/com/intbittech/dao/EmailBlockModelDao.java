@@ -9,22 +9,23 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlockModel;
 
 /**
- * <code> {@link EmailBlockModelDao} </code> Interface to get
- * EmailBlockModelDao details from email_block_model table
+ * <code> {@link EmailBlockModelDao} </code> Interface to get EmailBlockModelDao
+ * details from email_block_model table
  *
  * @author ilyas
  */
 public interface EmailBlockModelDao {
-    
+
     /**
-     * This method pass id as input and get the {@link EmailBlockModel} from database.
+     * This method pass id as input and get the {@link EmailBlockModel} from
+     * database.
      *
      * @param emailBlockModelId the emailBlockModelId
      * @return {@link EmailBlockModel}
      * @throws ProcessFailed the process failed
      */
     public EmailBlockModel getByEmailBlockModelId(Integer emailBlockModelId) throws ProcessFailed;
-    
+
     /**
      * This method save {@link EmailBlockModel} into the database.
      *
@@ -51,5 +52,5 @@ public interface EmailBlockModelDao {
      * @throws ProcessFailed the process failed
      */
     public void delete(EmailBlockModel emailBlockModel) throws ProcessFailed;
-    
+
 }

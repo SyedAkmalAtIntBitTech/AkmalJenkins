@@ -9,22 +9,23 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlock;
 
 /**
- * <code> {@link EmailBlockDao} </code> Interface to get Email Block details from
- * email_block table
+ * <code> {@link EmailBlockDao} </code> Interface to get Email Block details
+ * from email_block table
  *
  * @author ilyas
  */
 public interface EmailBlockDao {
-    
+
     /**
-     * This method pass id as input and get the {@link EmailBlock} from database.
+     * This method pass id as input and get the {@link EmailBlock} from
+     * database.
      *
      * @param emailBlockId the emailBlockId
      * @return {@link EmailBlock}
      * @throws ProcessFailed the process failed
      */
     public EmailBlock getByEmailBlockId(Integer emailBlockId) throws ProcessFailed;
-    
+
     /**
      * This method save {@link EmailBlock} into the database.
      *
@@ -44,13 +45,12 @@ public interface EmailBlockDao {
     public void update(EmailBlock emailBlock) throws ProcessFailed;
 
     /**
-     * This method delete particular {@link EmailBlock} based on the
-     * EmailBlock from the database.
+     * This method delete particular {@link EmailBlock} based on the EmailBlock
+     * from the database.
      *
      * @param emailBlock the emailBlock
      * @throws ProcessFailed the process failed
      */
     public void delete(EmailBlock emailBlock) throws ProcessFailed;
-    
-    
+
 }

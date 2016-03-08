@@ -5,9 +5,9 @@
  */
 package com.intbittech.dao.impl;
 
-import com.intbittech.dao.EmailBlockModelLookupDao;
+import com.intbittech.dao.EmailBlockExternalSourceDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.EmailBlockModelLookup;
+import com.intbittech.model.EmailBlockExternalSource;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -18,34 +18,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * <code> {@link EmailBlockModelLookupDaoImpl} </code> is implementation of
- * {@link EmailBlockModelLookupDao} and perform the database related operation
- * for managing {@link EmailBlockModelLookup}
+ * <code> {@link EmailBlockExternalSourceDaoImpl} </code> is implementation of
+ * {@link EmailBlockExternalSourceDao} and perform the database related
+ * operation for managing {@link EmailBlockExternalSource}
  *
  * @author ilyas
  */
 @Repository
-public class EmailBlockModelLookupDaoImpl implements EmailBlockModelLookupDao {
+public class EmailBlockExternalSourceDaoImpl implements EmailBlockExternalSourceDao {
 
-    private static Logger logger = Logger.getLogger(EmailBlockModelLookupDaoImpl.class);
+    private static Logger logger = Logger.getLogger(EmailBlockExternalSourceDaoImpl.class);
+
     @Autowired
     private SessionFactory sessionFactory;
 
     /**
      * {@inheritDoc}
      */
-    public EmailBlockModelLookup getEmailBlockModelLookupById(Integer emailBlockModelLookupId) throws ProcessFailed {
+    public EmailBlockExternalSource getEmailBlockExternalSourceById(Integer emailBlockExternalSourceId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(EmailBlockModelLookup.class)
+                    .createCriteria(EmailBlockExternalSource.class)
                     .setFetchMode("fkEmailBlockId", FetchMode.JOIN)
-                    .setFetchMode("fkEmailBlockModelId", FetchMode.JOIN)
-                    .add(Restrictions.eq("emailBlockModelLookupId", emailBlockModelLookupId));
+                    .setFetchMode("fkExternalSourceKeywordLookupId", FetchMode.JOIN)
+                    .add(Restrictions.eq("emailBlockExternalSourceId", emailBlockExternalSourceId));
             if (criteria.list().isEmpty()) {
                 return null;
             }
-            return (EmailBlockModelLookup) criteria.list().get(0);
-
+            return (EmailBlockExternalSource) criteria.list();
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed("Database error while retrieving record.");
@@ -55,12 +55,12 @@ public class EmailBlockModelLookupDaoImpl implements EmailBlockModelLookupDao {
     /**
      * {@inheritDoc}
      */
-    public List<EmailBlockModelLookup> getAllEmailBlockModel(Integer emailBlockId) throws ProcessFailed {
+    public List<EmailBlockExternalSource> getAllEmailBlockExternalSource(Integer emailBlockId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(EmailBlockModelLookup.class)
+                    .createCriteria(EmailBlockExternalSource.class)
                     .setFetchMode("fkEmailBlockId", FetchMode.JOIN)
-                    .setFetchMode("fkEmailBlockModelId", FetchMode.JOIN)
+                    .setFetchMode("fkExternalSourceKeywordLookupId", FetchMode.JOIN)
                     .add(Restrictions.eq("fkEmailBlockId.emailBlockId", emailBlockId));
             if (criteria.list().isEmpty()) {
                 return null;
@@ -76,9 +76,9 @@ public class EmailBlockModelLookupDaoImpl implements EmailBlockModelLookupDao {
     /**
      * {@inheritDoc}
      */
-    public Integer save(EmailBlockModelLookup emailBlockModelLookup) throws ProcessFailed {
+    public Integer save(EmailBlockExternalSource emailBlockExternalSource) throws ProcessFailed {
         try {
-            return ((Integer) sessionFactory.getCurrentSession().save(emailBlockModelLookup));
+            return (Integer) sessionFactory.getCurrentSession().save(emailBlockExternalSource);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed("Database error while saving record.");
@@ -88,9 +88,9 @@ public class EmailBlockModelLookupDaoImpl implements EmailBlockModelLookupDao {
     /**
      * {@inheritDoc}
      */
-    public void update(EmailBlockModelLookup emailBlockModelLookup) throws ProcessFailed {
+    public void update(EmailBlockExternalSource emailBlockExternalSource) throws ProcessFailed {
         try {
-            sessionFactory.getCurrentSession().update(emailBlockModelLookup);
+            sessionFactory.getCurrentSession().update(emailBlockExternalSource);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed("Database error while updating record.");
@@ -100,9 +100,9 @@ public class EmailBlockModelLookupDaoImpl implements EmailBlockModelLookupDao {
     /**
      * {@inheritDoc}
      */
-    public void delete(EmailBlockModelLookup emailBlockModelLookup) throws ProcessFailed {
+    public void delete(EmailBlockExternalSource emailBlockExternalSource) throws ProcessFailed {
         try {
-            sessionFactory.getCurrentSession().delete(emailBlockModelLookup);
+            sessionFactory.getCurrentSession().delete(emailBlockExternalSource);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed("Database error while deleting record.");

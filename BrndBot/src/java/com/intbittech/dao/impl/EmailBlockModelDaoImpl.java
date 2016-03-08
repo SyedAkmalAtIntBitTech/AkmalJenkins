@@ -18,14 +18,14 @@ import org.springframework.stereotype.Repository;
 
 /**
  * <code> {@link EmailBlockModelDaoImpl} </code> is implementation of
- * {@link EmailBlockModelDao} and perform the database related operation for managing
- * {@link EmailBlockModel}
+ * {@link EmailBlockModelDao} and perform the database related operation for
+ * managing {@link EmailBlockModel}
  *
  * @author ilyas
  */
 @Repository
 public class EmailBlockModelDaoImpl implements EmailBlockModelDao {
-    
+
     private static Logger logger = Logger.getLogger(EmailBlockModelDaoImpl.class);
     @Autowired
     private SessionFactory sessionFactory;
@@ -34,7 +34,7 @@ public class EmailBlockModelDaoImpl implements EmailBlockModelDao {
      * {@inheritDoc}
      */
     public EmailBlockModel getByEmailBlockModelId(Integer emailBlockModelId) throws ProcessFailed {
-         try {
+        try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(OrganizationEmailBlockLookup.class)
                     .add(Restrictions.eq("emailBlockModelId", emailBlockModelId));
@@ -84,5 +84,5 @@ public class EmailBlockModelDaoImpl implements EmailBlockModelDao {
             throw new ProcessFailed("Database error while deleting record.");
         }
     }
-    
+
 }
