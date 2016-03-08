@@ -8,7 +8,6 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.EmailBlockModelLookupDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlockModelLookup;
-import com.intbittech.model.OrganizationEmailBlockLookup;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -28,7 +27,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class EmailBlockModelLookupDaoImpl implements EmailBlockModelLookupDao {
     
-    private static Logger logger = Logger.getLogger(EmailModelDaoImpl.class);
+    private static Logger logger = Logger.getLogger(EmailBlockModelLookupDaoImpl.class);
     @Autowired
     private SessionFactory sessionFactory;
 

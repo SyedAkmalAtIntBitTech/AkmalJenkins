@@ -11,7 +11,6 @@ import com.intbittech.model.EmailBlockModel;
 import com.intbittech.model.OrganizationEmailBlockLookup;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class EmailBlockModelDaoImpl implements EmailBlockModelDao {
     
-    private static Logger logger = Logger.getLogger(EmailModelDaoImpl.class);
+    private static Logger logger = Logger.getLogger(EmailBlockModelDaoImpl.class);
     @Autowired
     private SessionFactory sessionFactory;
 

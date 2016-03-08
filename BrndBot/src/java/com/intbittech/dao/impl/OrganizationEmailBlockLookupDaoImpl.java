@@ -28,7 +28,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class OrganizationEmailBlockLookupDaoImpl implements OrganizationEmailBlockLookupDao {
     
-    private static Logger logger = Logger.getLogger(EmailModelDaoImpl.class);
+    private static Logger logger = Logger.getLogger(OrganizationEmailBlockLookupDaoImpl.class);
     @Autowired
     private SessionFactory sessionFactory;
 
