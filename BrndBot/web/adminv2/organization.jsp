@@ -43,7 +43,7 @@
                         <span class="listCol_Text fleft">{{organizations.organizationTypeName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href="organizationdetails.jsp?orgId={{organizations.organizationId}}&orgName={{organizations.organizationName}}&orgtype={{organizations.organizationTypeName}}"><div class="CTA_Button Button--Gray fright">Manage Org</div></a>
+                        <a href="organizationdetails.jsp?orgId={{organizations.organizationId}}"><div class="CTA_Button Button--Gray fright">Manage Org</div></a>
                     </div>
                 </li>                
             </ul>

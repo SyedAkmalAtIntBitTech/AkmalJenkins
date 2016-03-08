@@ -18,16 +18,14 @@
 </head>    
     <%
     String orgID=request.getParameter("orgId");
-    String orgName=request.getParameter("orgName");
-    String orgtype=request.getParameter("orgtype");
 %>
 <body class="body-normal">
-
+    <input id="orgidtag" type="text" hidden value="<%=orgID%>"/>
     <jsp:include page="adminheader.jsp"/>
     <div class="content-area" ng-app  ng-controller="organizationcontroller" >
         <div class="content-area_header" ng-init="organizationdetails()">
             <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="organization.jsp"> Organizations</a>  > </div>
-            <div class="header_title fleft"><%=orgName%></div>
+            <div class="header_title fleft" id="orgnamediv">{{organizationDetails.organizationName}}</div>
             <div class="CTA_Button Button--Delete fright" ng-click="deleteOrganization(<%=orgID%>)">Delete Organization</div>
         </div>
         <div class="inputSection col1of4" >
@@ -36,7 +34,7 @@
                     <option class="input_Field" value="2">organization</option>
                     <option class="input_Field" value="1">group</option>
                 </select>
-            <div class="CTA_Button Button--Gray fleft pushUp_10">Update</div>
+            <div id="updateorg" class="CTA_Button Button--Gray fleft pushUp_10" ng-click="updateOrganization()">Update</div>
         </div>
         <div class="slatSection">
             <div class="sectionHeader"> Email Categories </div>

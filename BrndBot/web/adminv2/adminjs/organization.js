@@ -14,7 +14,7 @@ function organizationcontroller($scope,$http) {
                         }).success(function(data, status, headers, config) {
                             $scope.organizationDetails = data.d.details;  
                         }).error(function(data, status, headers, config) {
-                                alert(nodataerror);
+                                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });
        
     };
@@ -34,13 +34,13 @@ function organizationcontroller($scope,$http) {
                             dataType: "json",
                             contentType: "application/json",
                             data: JSON.stringify(organization)
-                        }).success(function (data)
+                        }).success(function (data, status, headers, config)
                         {  
                             var messsage = eval(JSON.stringify(data.d.operationStatus.messages)); //eval() to get string without "" quotes
                             alert(messsage);
                             window.open(getHost() + 'adminv2/organization.jsp', "_self");
-                        }).error(function(e){
-                            alert(JSON.stringify(e));
+                        }).error(function(data, status, headers, config){
+                            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });                         
                     }
     };
@@ -50,6 +50,20 @@ function organizationcontroller($scope,$http) {
     
     
     $scope.organizationdetails= function (){
+        
+        
+        var orgid=$("#orgidtag").val();
+        $http({
+                method : 'GET',
+                url : getHost()+'/getOrganizationById.do?organizationId='+orgid
+            }).success(function(data, status, headers, config) {
+                var orgtypeid=JSON.stringify(data.d.details[0].organizationTypeId);
+                $("#orgdetailstype > [value=" +orgtypeid+ "]").attr("selected", "true");
+                $scope.organizationDetails = data.d.details[0];
+            }).error(function(data, status, headers, config) {
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            });    
+        
         
         $scope.deleteOrganization=function (orgId){
             var delorg=confirm("Do you want to delete this Organization?");
@@ -63,10 +77,37 @@ function organizationcontroller($scope,$http) {
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                     window.open(getHost() + 'adminv2/organization.jsp', "_self");
                 }).error(function(data, status, headers, config) {
-                        alert(nodataerror);
+                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });     
             }
         }
+        
+        
+        $scope.updateOrganization=function (){
+            var orgId=$("#orgidtag").val();
+            var orgname=$("#orgnamediv").text();
+            var orgtypeId=$("#orgdetailstype").val();
+            var updateorg = {
+                             "organizationId": orgId,"organizationName": orgname,"organizationTypeId": orgtypeId
+                            };
+             $http({
+                    method : 'POST',
+                    url : getHost()+'/updateOrganization.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: updateorg
+                }).success(function(data, status, headers, config) { 
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    window.open(getHost() + 'adminv2/organizationdetails.jsp?orgId='+orgId, "_self");
+                      
+                }).error(function(data, status, headers, config) {
+                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });   
+        }
+        
+        
+        
+        
     };
        
 }
