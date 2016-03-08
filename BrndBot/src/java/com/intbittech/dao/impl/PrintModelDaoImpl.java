@@ -14,6 +14,7 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * <code> {@link PrintModelDaoImpl} </code> is implementation of
@@ -22,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author ilyas
  */
+@Repository
 public class PrintModelDaoImpl implements PrintModelDao {
 
     private static Logger logger = Logger.getLogger(PrintModelDaoImpl.class);
