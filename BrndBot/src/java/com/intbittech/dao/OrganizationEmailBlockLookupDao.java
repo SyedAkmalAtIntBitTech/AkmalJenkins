@@ -30,11 +30,11 @@ public interface OrganizationEmailBlockLookupDao {
     /**
      * This method save {@link EmailBlock} into the database.
      *
-     * @param emailBlock the emailBlock
+     * @param organizationEmailBlockLookup the organizationEmailBlockLookup
      * @return the Integer
      * @throws ProcessFailed the process failed
      */
-    public Integer save(EmailBlock emailBlock) throws ProcessFailed;
+    public Integer save(OrganizationEmailBlockLookup organizationEmailBlockLookup) throws ProcessFailed;
     
     /**
      * This method pass id as input and get {@link OrganizationEmailBlockLookup}
