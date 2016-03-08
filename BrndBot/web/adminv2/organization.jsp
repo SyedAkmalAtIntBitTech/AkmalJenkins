@@ -35,7 +35,7 @@
                 </div>
             </div>
             <ul class="slatArea" >
-                <li class="listItem" ng-repeat="organizations in organizationDetails">
+                <li class="listItem" ng-repeat="organizations in organizationDetails.slice().reverse()">
                     <div class="listCol col1of2 fleft">
                         <span class="listCol_Text fleft">{{organizations.organizationName}}</span>
                     </div>
@@ -43,7 +43,7 @@
                         <span class="listCol_Text fleft">{{organizations.organizationTypeName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href="organizationdetails.jsp?orgId={{organizations.organizationId}}&orgName={{organizations.organizationName}}"><div class="CTA_Button Button--Gray fright">Manage Org</div></a>
+                        <a href="organizationdetails.jsp?orgId={{organizations.organizationId}}&orgName={{organizations.organizationName}}&orgtype={{organizations.organizationTypeName}}"><div class="CTA_Button Button--Gray fright">Manage Org</div></a>
                     </div>
                 </li>                
             </ul>

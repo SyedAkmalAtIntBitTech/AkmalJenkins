@@ -7,19 +7,19 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head> 
+<head>
+    <script src="../js/configurations.js" type="text/javascript"></script>
     <link rel="shortcut icon" href="../images/favicon.png"/>        
-    <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="adminjs/organization.js" type="text/javascript"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/angular.min.js"></script>
     <title>Organization-Details</title>   
     
 </head>    
     <%
     String orgID=request.getParameter("orgId");
     String orgName=request.getParameter("orgName");
+    String orgtype=request.getParameter("orgtype");
 %>
 <body class="body-normal">
 
@@ -30,9 +30,12 @@
             <div class="header_title fleft"><%=orgName%></div>
             <div class="CTA_Button Button--Delete fright" ng-click="deleteOrganization(<%=orgID%>)">Delete Organization</div>
         </div>
-        <div class="inputSection col1of4">
+        <div class="inputSection col1of4" >
             <div class="input_Label">Is this an organization or a group?</div>
-            <select class="input_Field"><option class="input_Field">Dropdown</option></select>
+                <select class="input_Field" id="orgdetailstype">
+                    <option class="input_Field" value="2">organization</option>
+                    <option class="input_Field" value="1">group</option>
+                </select>
             <div class="CTA_Button Button--Gray fleft pushUp_10">Update</div>
         </div>
         <div class="slatSection">
