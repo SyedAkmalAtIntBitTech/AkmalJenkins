@@ -55,7 +55,7 @@ public class ImageModelServiceImpl implements ImageModelService {
     public void delete(Integer imageModelId) throws ProcessFailed {
         ImageModel imageModel = imageModelDao.getByImageModelId(imageModelId);
         if (imageModel == null)
-            throw new ProcessFailed("No email template found.");
+            throw new ProcessFailed("No image template found.");
         imageModelDao.delete(imageModel);
     }
     

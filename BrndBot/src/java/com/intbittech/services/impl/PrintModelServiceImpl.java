@@ -55,7 +55,7 @@ public class PrintModelServiceImpl implements PrintModelService {
     public void delete(Integer printModelId) throws ProcessFailed {
         PrintModel printModel = printModelDao.getByPrintModelId(printModelId);
         if (printModel == null)
-            throw new ProcessFailed("No email template found.");
+            throw new ProcessFailed("No print template found.");
         printModelDao.delete(printModel);
     }
     
