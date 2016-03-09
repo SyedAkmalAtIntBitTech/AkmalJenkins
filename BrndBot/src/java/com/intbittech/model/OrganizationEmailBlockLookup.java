@@ -33,7 +33,7 @@ public class OrganizationEmailBlockLookup implements Serializable {
     private Integer organizationEmailBlockId;
     @JoinColumn(name = "fk_email_block_id", referencedColumnName = "email_model_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private EmailModel fkEmailBlockId;
+    private EmailBlock fkEmailBlockId;
     @JoinColumn(name = "fk_organization_id", referencedColumnName = "organization_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Organization fkOrganizationId;
@@ -53,11 +53,11 @@ public class OrganizationEmailBlockLookup implements Serializable {
         this.organizationEmailBlockId = organizationEmailBlockId;
     }
 
-    public EmailModel getFkEmailBlockId() {
+    public EmailBlock getFkEmailBlockId() {
         return fkEmailBlockId;
     }
 
-    public void setFkEmailBlockId(EmailModel fkEmailBlockId) {
+    public void setFkEmailBlockId(EmailBlock fkEmailBlockId) {
         this.fkEmailBlockId = fkEmailBlockId;
     }
 
