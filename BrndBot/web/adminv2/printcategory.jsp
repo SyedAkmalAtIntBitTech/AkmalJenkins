@@ -13,17 +13,17 @@
     </head>
     <body ng-app  ng-controller="organizationcontroller">
         <div id="addorgpopupdiv" class="popUp_backgroundlayer"></div>
-        <div id="addorganizationpopup" class="popUp_background">
+        <div id="addprintcatpopup" class="popUp_background">
         <div  class="popUp">
              <div class="content-area_header">
                 <div class="popUp_title fleft"> Add a new category </div>
             </div>
             <div class="inputSection col1of2">
                 
-                <input id="catname" class="input_Field" type="text" placeholder="Category Name" />
+                <input id="catprintname" class="input_Field" type="text" placeholder="Category Name" />
                
                 
-                <div id="addemailcategory"  class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addEmailCategory()">Create Category</div>
+                <div id='addprintcategory' class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addPrintCategory()">Create Category</div>
             </div>
         </div>
         </div> 

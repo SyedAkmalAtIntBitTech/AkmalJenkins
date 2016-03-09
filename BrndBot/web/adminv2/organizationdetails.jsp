@@ -26,6 +26,8 @@
 
     <jsp:include page="adminheader.jsp"/>
      <jsp:include page="emailcategory.jsp"/>
+     <jsp:include page="printcategory.jsp"/>
+     <input type="text" id='orgid' value="<%=orgID%>" hidden/>
     <div class="content-area" ng-app  ng-controller="organizationcontroller" >
         <div class="content-area_header" ng-init="organizationdetails()">
             <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="organization.jsp"> Organizations</a>  > </div>
@@ -45,7 +47,7 @@
                 </div>
             </div>
             <ul class="slatArea" >
-                <li class="listItem" ng-repeat="emails in emailDetails">
+                <li class="listItem" ng-repeat="emails in emailDetails.slice().reverse()">
                     <div class="listCol col1of2 fleft" >
                         <span class="listCol_Text fleft" >{{emails.categoryName}}</span>
                     </div>
@@ -130,7 +132,7 @@
                 </div>
             </div>
             <ul class="slatArea">
-                <li class="listItem" ng-repeat="print in printDetails">
+                <li class="listItem" ng-repeat="print in printDetails.slice().reverse()">
                     <div class="listCol col1of2 fleft">
                         <span class="listCol_Text fleft"> {{print.categoryName}}</span>
                     </div>
@@ -139,7 +141,7 @@
                     </div>
                 </li>
             </ul>
-            <div class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
+            <div id='addcatprint' class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
         </div>
         <div class="slatSection">
             <div class="sectionHeader"> Marketing Program Categories </div>

@@ -65,64 +65,81 @@ function organizationcontroller($scope,$http) {
     
     
     $scope.emailcategories= function (){
-                        $http({
-                            method : 'GET',
-                            url : getHost()+'/getAllOrganizationCategoryByOrganizationId.do?organizationId=1'
-                        }).success(function(data, status, headers, config) { 
-                            $scope.emailDetails1 = data.d.channelDetailsList.categoryDetailsList;
-                            for ( var i = 0; i < data.d.channelDetailsList.length; i++) {
-                                var obj = data.d.channelDetailsList[i];
-                                if(data.d.channelDetailsList[i].channelName === "email"){
-                                  alert(JSON.stringify(data.d.channelDetailsList[i].categoryDetailsList));
-                                     $scope.emailDetails =data.d.channelDetailsList[i].categoryDetailsList;
-                                }
-                                if(data.d.channelDetailsList[i].channelName === "print"){
-                                    // alert(JSON.stringify(data.d.channelDetailsList[i].categoryDetailsList));
-                                     $scope.printDetails =data.d.channelDetailsList[i].categoryDetailsList;
-                                }
-//                                $scope.emailDetails =obj;
-//                                alert(JSON.stringify(obj));
-                            
-                            }
-//                            $scope.emailDetails1=data.d.channelDetailsList[0].categoryDetailsList[0];
-////                            var emaildets=JSON.stringify(data.d.channelDetailsList[0].categoryDetailsList[0]);
-//                            alert(JSON.stringify(data.d.channelDetailsList[0].categoryDetailsList[0].categoryName));
-                            
-                        }).error(function(data, status, headers, config) {
-                                alert(JSON.stringify(data));
-                        });         
+        
+            var orgID=$("#orgid").val();
+
+            $http({
+                method : 'GET',
+                url : getHost()+'/getAllOrganizationCategoryByOrganizationId.do?organizationId='+orgID
+            }).success(function(data, status, headers, config) { 
+                $scope.emailDetails1 = data.d.channelDetailsList.categoryDetailsList;
+
+                for ( var i = 0; i <= data.d.channelDetailsList[1].categoryDetailsList.length; i++) {
+
+                    var obj = data.d.channelDetailsList[i];
+                    if(data.d.channelDetailsList[i].channelName === "email"){
+                        $scope.emailDetails =data.d.channelDetailsList[i].categoryDetailsList;
+                    }
+                    if(data.d.channelDetailsList[i].channelName === "print"){
+                         $scope.printDetails =data.d.channelDetailsList[i].categoryDetailsList;
+                    }
+                }     
+            }).error(function(data, status, headers, config) {
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            });         
     };      
     
     
       $scope.addEmailCategory = function () {
-          alert();
-                    
-                    var orgname = $("#catname").val();
-                    
-                    var organization = {"organizationName": catname,"organizationTypeId": orgtype};
-                   if(orgname===""){
-                       alert("Please Enter Category Name!");
-                       $("#catname").focus();
-                   }else{
-                    $.ajax({
-                            method: 'POST',
-                            url: getHost() + '/saveCategory.do',
-                            dataType: "json",
-                            contentType: "application/json",
-                            data: JSON.stringify(organization)
-                        }).success(function (data)
-                        { 
-                            alert("Category saved successfully.");
-                            window.open(getHost() + 'adminv2/organization.jsp', "_self");
+          
+            var orgID=$("#orgid").val();
+            var catname = $("#catname").val();
+            var category ={"categoryName" : catname,"channelId":2,"orgnizationId":orgID}
+            if(catname===""){
+                alert("Please enter category name.");
+                $("#catname").focus();
+            }else{
+            $.ajax({
+                    method: 'POST',
+                    url: getHost() + '/saveCategory.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(category)
+                }).success(function (data)
+                { 
+                    alert("Email\t"+eval(JSON.stringify(data.d.operationStatus.messages)));
+                    window.open(getHost() + 'adminv2/organizationdetails.jsp?orgId='+orgID, "_self");
 
-                        }).error(function(e){
-                            alert(JSON.stringify(e));
-                        });                         
-                    }
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });                         
+            }
     };
     
-    
-    
-    
+    $scope.addPrintCategory = function () {
+        
+            var orgID=$("#orgid").val();
+            var catprintname = $("#catprintname").val();
+            var category ={"categoryName" : catprintname,"channelId":3,"orgnizationId":orgID}
+            if(catprintname===""){
+                alert("Please enter category name.");
+                $("#catprintname").focus();
+            }else{
+            $.ajax({
+                    method: 'POST',
+                    url: getHost() + '/saveCategory.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(category)
+                }).success(function (data)
+                { 
+                    alert("Print\t"+eval(JSON.stringify(data.d.operationStatus.messages)));
+                    window.open(getHost() + 'adminv2/organizationdetails.jsp?orgId='+orgID, "_self");
+
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });                         
+            }
+    }; 
     
 }
