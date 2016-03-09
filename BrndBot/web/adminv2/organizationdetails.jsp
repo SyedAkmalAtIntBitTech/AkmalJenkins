@@ -8,12 +8,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head> 
-    <link rel="shortcut icon" href="../images/favicon.png"/>        
-    <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
+    <link rel="shortcut icon" href="../images/favicon.png"/>  
+    <script src="../js/configurations.js" type="text/javascript"></script>   
+<!--    <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>-->
     <script src="adminjs/organization.js" type="text/javascript"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/angular.min.js"></script>
+    <!--<script type="text/javascript" src="../js/angular.min.js"></script>-->
     <title>Organization-Details</title>   
     
 </head>    
@@ -24,6 +25,7 @@
 <body class="body-normal">
 
     <jsp:include page="adminheader.jsp"/>
+     <jsp:include page="emailcategory.jsp"/>
     <div class="content-area" ng-app  ng-controller="organizationcontroller" >
         <div class="content-area_header" ng-init="organizationdetails()">
             <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="organization.jsp"> Organizations</a>  > </div>
@@ -35,24 +37,24 @@
             <select class="input_Field"><option class="input_Field">Dropdown</option></select>
             <div class="CTA_Button Button--Gray fleft pushUp_10">Update</div>
         </div>
-        <div class="slatSection">
+        <div class="slatSection" ng-init="emailcategories()">
             <div class="sectionHeader"> Email Categories </div>
             <div class="slatHeaders">
                 <div class="listHeaderCol col1of2 fleft">
                     <span class="listCol_Header fleft"> Category Names </span>
                 </div>
             </div>
-            <ul class="slatArea">
-                <li class="listItem">
-                    <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft"> Category Name</span>
+            <ul class="slatArea" >
+                <li class="listItem" ng-repeat="emails in emailDetails">
+                    <div class="listCol col1of2 fleft" >
+                        <span class="listCol_Text fleft" >{{emails.categoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
                         <div class="CTA_Button Button--Gray fright">Manage Category</div>
                     </div>
                 </li>
             </ul>
-            <div class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
+            <div id="addorg" class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
         </div>
         <div class="slatSection">
             <div class="sectionHeader"> Email Blocks </div>
@@ -128,9 +130,9 @@
                 </div>
             </div>
             <ul class="slatArea">
-                <li class="listItem">
+                <li class="listItem" ng-repeat="print in printDetails">
                     <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft"> Category Name</span>
+                        <span class="listCol_Text fleft"> {{print.categoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
                         <div class="CTA_Button Button--Gray fright">Manage Category</div>

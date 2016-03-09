@@ -62,5 +62,67 @@ function organizationcontroller($scope,$http) {
             alert(orgId);
         }
     };
-       
+    
+    
+    $scope.emailcategories= function (){
+                        $http({
+                            method : 'GET',
+                            url : getHost()+'/getAllOrganizationCategoryByOrganizationId.do?organizationId=1'
+                        }).success(function(data, status, headers, config) { 
+                            $scope.emailDetails1 = data.d.channelDetailsList.categoryDetailsList;
+                            for ( var i = 0; i < data.d.channelDetailsList.length; i++) {
+                                var obj = data.d.channelDetailsList[i];
+                                if(data.d.channelDetailsList[i].channelName === "email"){
+                                  alert(JSON.stringify(data.d.channelDetailsList[i].categoryDetailsList));
+                                     $scope.emailDetails =data.d.channelDetailsList[i].categoryDetailsList;
+                                }
+                                if(data.d.channelDetailsList[i].channelName === "print"){
+                                    // alert(JSON.stringify(data.d.channelDetailsList[i].categoryDetailsList));
+                                     $scope.printDetails =data.d.channelDetailsList[i].categoryDetailsList;
+                                }
+//                                $scope.emailDetails =obj;
+//                                alert(JSON.stringify(obj));
+                            
+                            }
+//                            $scope.emailDetails1=data.d.channelDetailsList[0].categoryDetailsList[0];
+////                            var emaildets=JSON.stringify(data.d.channelDetailsList[0].categoryDetailsList[0]);
+//                            alert(JSON.stringify(data.d.channelDetailsList[0].categoryDetailsList[0].categoryName));
+                            
+                        }).error(function(data, status, headers, config) {
+                                alert(JSON.stringify(data));
+                        });         
+    };      
+    
+    
+      $scope.addEmailCategory = function () {
+          alert();
+                    
+                    var orgname = $("#catname").val();
+                    
+                    var organization = {"organizationName": catname,"organizationTypeId": orgtype};
+                   if(orgname===""){
+                       alert("Please Enter Category Name!");
+                       $("#catname").focus();
+                   }else{
+                    $.ajax({
+                            method: 'POST',
+                            url: getHost() + '/saveCategory.do',
+                            dataType: "json",
+                            contentType: "application/json",
+                            data: JSON.stringify(organization)
+                        }).success(function (data)
+                        { 
+                            alert("Category saved successfully.");
+                            window.open(getHost() + 'adminv2/organization.jsp', "_self");
+
+                        }).error(function(e){
+                            alert(JSON.stringify(e));
+                        });                         
+                    }
+    };
+    
+    
+    
+    
+    
 }
