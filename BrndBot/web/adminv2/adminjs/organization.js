@@ -88,7 +88,9 @@ function organizationcontroller($scope,$http) {
             var orgname=$("#orgnamediv").text();
             var orgtypeId=$("#orgdetailstype").val();
             var updateorg = {
-                             "organizationId": orgId,"organizationName": orgname,"organizationTypeId": orgtypeId
+                             "organizationId": orgId,
+                             "organizationName": orgname,
+                             "organizationTypeId": orgtypeId
                             };
              $http({
                     method : 'POST',

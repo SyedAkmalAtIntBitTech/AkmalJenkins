@@ -49,7 +49,7 @@
                         <span class="listCol_Text fleft"> Category Name</span>
                     </div>
                     <div class="listCol col1of2 fleft">
-                        <div class="CTA_Button Button--Gray fright">Manage Category</div>
+                        <a href="emailsubcategory.jsp?orgId=<%=orgID%>"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
