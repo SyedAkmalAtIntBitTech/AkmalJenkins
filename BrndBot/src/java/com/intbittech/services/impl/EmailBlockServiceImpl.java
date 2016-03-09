@@ -35,6 +35,8 @@ public class EmailBlockServiceImpl implements EmailBlockService {
     
     @Autowired
     private EmailBlockExternalSourceDao emailBlockExternalSourceDao;
+    
+    
 
     /**
      * {@inheritDoc}
@@ -124,6 +126,13 @@ public class EmailBlockServiceImpl implements EmailBlockService {
         if(organizationEmailBlockList == null)
             throw new ProcessFailed("No email blocks exist.");
         return organizationEmailBlockList;
+    }
+    
+    public List<EmailBlockExternalSource> getAllEmailBlockExternalSource(Integer emailBlockId) throws ProcessFailed {
+        List<EmailBlockExternalSource> emailBlockExternalSourceList = emailBlockExternalSourceDao.getAllEmailBlockExternalSource(emailBlockId);
+        if(emailBlockExternalSourceList == null)
+            throw new ProcessFailed("No email blocks exist.");
+        return emailBlockExternalSourceList;
     }
     
 }

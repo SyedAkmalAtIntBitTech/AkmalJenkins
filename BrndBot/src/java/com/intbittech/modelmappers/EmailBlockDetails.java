@@ -14,8 +14,27 @@ import java.io.Serializable;
 public class EmailBlockDetails implements Serializable  {
     private Integer emailBlockId;
     private String emailBlockName;
+
+    public String getExternalSourceName() {
+        return externalSourceName;
+    }
+
+    public void setExternalSourceName(String externalSourceName) {
+        this.externalSourceName = externalSourceName;
+    }
+
+    public String getExternalSourceKeywordName() {
+        return externalSourceKeywordName;
+    }
+
+    public void setExternalSourceKeywordName(String externalSourceKeywordName) {
+        this.externalSourceKeywordName = externalSourceKeywordName;
+    }
     private Integer organizationId;
     private Integer externalSourceKeywordLookupId;
+    private String externalSourceName;
+    private String externalSourceKeywordName;
+    
 
     public Integer getExternalSourceKeywordLookupId() {
         return externalSourceKeywordLookupId;

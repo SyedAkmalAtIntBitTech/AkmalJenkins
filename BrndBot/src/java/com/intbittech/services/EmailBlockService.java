@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlock;
+import com.intbittech.model.EmailBlockExternalSource;
 import com.intbittech.model.OrganizationEmailBlockLookup;
 import com.intbittech.modelmappers.EmailBlockDetails;
 import java.util.List;
@@ -74,5 +75,15 @@ public interface EmailBlockService {
      * @throws ProcessFailed the process failed
      */
     public List<OrganizationEmailBlockLookup> getAllOrganizationEmailBlock(Integer organizationId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailBlockExternalSource} from
+     * database via Dao.
+     *
+     * @param emailBlockId the emailBlockId
+     * @return list of {@link EmailBlockExternalSource}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailBlockExternalSource> getAllEmailBlockExternalSource(Integer emailBlockId) throws ProcessFailed;
     
 }
