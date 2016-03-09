@@ -7,6 +7,7 @@ package com.intbittech.services.impl;
 
 import com.intbittech.dao.ExternalSourceKeywordLookupDao;
 import com.intbittech.dao.SubCategoryDao;
+import com.intbittech.dao.SubCategoryExternalSourceDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Category;
 import com.intbittech.model.ExternalSource;
@@ -31,6 +32,9 @@ public class SubCategoryServiceImpl implements SubCategoryService {
     private SubCategoryDao subCategoryDao;
     @Autowired
     private ExternalSourceKeywordLookupDao externalSourceKeywordLookupDao;
+    
+    @Autowired
+    private SubCategoryExternalSourceDao subCategoryExternalSourceDao;
 
     /**
      * {@inheritDoc}
@@ -116,6 +120,22 @@ public class SubCategoryServiceImpl implements SubCategoryService {
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed("Database error while saving sub category");
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<SubCategoryExternalSource> getAllSubCategoriesByCategoryID(Integer categoryId) throws ProcessFailed {
+        try {
+            List<SubCategoryExternalSource> subCategoryExternalSourceList = subCategoryExternalSourceDao.getAllSubCategoriesByCategoryID(categoryId);
+        if (subCategoryExternalSourceList.isEmpty()) {
+            throw new ProcessFailed("No Sub Categories found.");
+        }
+        return subCategoryExternalSourceList;
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving sub categories");
         }
     }
 

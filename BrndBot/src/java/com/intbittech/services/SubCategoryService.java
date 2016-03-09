@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.SubCategory;
+import com.intbittech.model.SubCategoryExternalSource;
 import com.intbittech.modelmappers.SubCategoryDetails;
 import java.util.List;
 
@@ -76,5 +77,15 @@ public interface SubCategoryService {
      */
     
     public void SaveSubCategory(SubCategoryDetails subCategoryDetails) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link SubCategoryExternalSource} from DAO
+     * layer.
+     *
+     * @param categoryId the categoryId
+     * @return {@link SubCategoryExternalSource}
+     * @throws ProcessFailed the process failed
+     */
+    public List<SubCategoryExternalSource> getAllSubCategoriesByCategoryID(Integer categoryId) throws ProcessFailed;
     
 }

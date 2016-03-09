@@ -30,7 +30,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class SubCategoryExternalSourceDaoImpl implements SubCategoryExternalSourceDao {
 
-    private static Logger logger = Logger.getLogger(ExternalSourceDaoImpl.class);
+    private static Logger logger = Logger.getLogger(SubCategoryExternalSourceDaoImpl.class);
     @Autowired
     private SessionFactory sessionFactory;
     @Autowired
@@ -42,7 +42,7 @@ public class SubCategoryExternalSourceDaoImpl implements SubCategoryExternalSour
     public SubCategoryExternalSource getBySubCategoryExternalSourceId(Integer subCategoryExternalSourceId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(ExternalSource.class)
+                    .createCriteria(SubCategoryExternalSource.class)
                     .setFetchMode("fkSubCategoryId", FetchMode.JOIN)
                     .setFetchMode("fkExternalSourceKeywordLookupId", FetchMode.JOIN)
                     .add(Restrictions.eq("subCategoryExternalSourceId", subCategoryExternalSourceId));
@@ -64,7 +64,7 @@ public class SubCategoryExternalSourceDaoImpl implements SubCategoryExternalSour
     public List<SubCategoryExternalSource> getAllSubCategoryExternalSources() throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(ExternalSource.class)
+                    .createCriteria(SubCategoryExternalSource.class)
                     .setFetchMode("fkSubCategoryId", FetchMode.JOIN)
                     .setFetchMode("fkExternalSourceKeywordLookupId", FetchMode.JOIN);
             if (criteria.list().isEmpty()) {
@@ -111,6 +111,28 @@ public class SubCategoryExternalSourceDaoImpl implements SubCategoryExternalSour
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<SubCategoryExternalSource> getAllSubCategoriesByCategoryID(Integer categoryId) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(SubCategoryExternalSource.class)
+                    .setFetchMode("fkSubCategoryId", FetchMode.JOIN)
+                    .setFetchMode("fkExternalSourceKeywordLookupId", FetchMode.JOIN)
+                    .createAlias("fkSubCategoryId.fkCategoryId", "aliasSubCatCat")
+                    .add(Restrictions.eq("aliasSubCatCat.categoryId", categoryId));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message", new String[]{}, Locale.US));
         }
     }
 
