@@ -17,11 +17,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author ajit
  */
+@Repository
 public class ExternalSourceKeywordLookupDaoImpl implements ExternalSourceKeywordLookupDao {
 
     private static Logger logger = Logger.getLogger(ExternalSourceKeywordLookupDaoImpl.class);
@@ -55,7 +57,7 @@ public class ExternalSourceKeywordLookupDaoImpl implements ExternalSourceKeyword
     /**
      * {@inheritDoc}
      */
-    public List<ExternalSourceKeywordLookup> getALLExternalSourceKeywordLookups() throws ProcessFailed {
+    public List<ExternalSourceKeywordLookup> getAllExternalSourceKeywordLookups() throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(ExternalSourceKeywordLookup.class)

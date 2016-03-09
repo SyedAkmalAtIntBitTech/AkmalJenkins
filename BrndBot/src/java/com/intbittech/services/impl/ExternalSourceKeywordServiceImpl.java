@@ -43,8 +43,8 @@ public class ExternalSourceKeywordServiceImpl implements ExternalSourceKeywordSe
     /**
      * {@inheritDoc}
      */
-    public List<ExternalSourceKeyword> getALLExternalSourceKeywords() throws ProcessFailed {
-        List<ExternalSourceKeyword> externalSourceKeywordList = externalSourceKeywordDao.getALLExternalSourceKeywords();
+    public List<ExternalSourceKeyword> getAllExternalSourceKeywords() throws ProcessFailed {
+        List<ExternalSourceKeyword> externalSourceKeywordList = externalSourceKeywordDao.getAllExternalSourceKeywords();
         if (externalSourceKeywordList == null) {
             throw new ProcessFailed(messageSource.getMessage("externalSourceKeyword_not_found", new String[]{}, Locale.US));
         }

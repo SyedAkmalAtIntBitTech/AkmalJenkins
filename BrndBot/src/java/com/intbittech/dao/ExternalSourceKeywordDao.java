@@ -34,7 +34,7 @@ public interface ExternalSourceKeywordDao {
      * @return {@link ExternalSourceKeyword}
      * @throws ProcessFailed the process failed
      */
-    public List<ExternalSourceKeyword> getALLExternalSourceKeywords() throws ProcessFailed;
+    public List<ExternalSourceKeyword> getAllExternalSourceKeywords() throws ProcessFailed;
     
     /**
      * This method save {@link ExternalSourceKeyword} into the database.

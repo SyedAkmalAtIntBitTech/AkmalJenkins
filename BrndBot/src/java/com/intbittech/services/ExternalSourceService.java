@@ -34,7 +34,7 @@ public interface ExternalSourceService {
      * @return {@link ExternalSource}
      * @throws ProcessFailed the process failed
      */
-    public List<ExternalSource> getALLExternalSources() throws ProcessFailed;
+    public List<ExternalSource> getAllExternalSources() throws ProcessFailed;
     
     /**
      * This method save {@link ExternalSource} into the database.

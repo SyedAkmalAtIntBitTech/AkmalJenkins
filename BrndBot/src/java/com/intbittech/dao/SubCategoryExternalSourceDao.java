@@ -34,7 +34,7 @@ public interface SubCategoryExternalSourceDao {
      * @return {@link SubCategoryExternalSource}
      * @throws ProcessFailed the process failed
      */
-    public List<SubCategoryExternalSource> getALLSubCategoryExternalSources() throws ProcessFailed;
+    public List<SubCategoryExternalSource> getAllSubCategoryExternalSources() throws ProcessFailed;
     
     /**
      * This method save {@link SubCategoryExternalSource} into the database.

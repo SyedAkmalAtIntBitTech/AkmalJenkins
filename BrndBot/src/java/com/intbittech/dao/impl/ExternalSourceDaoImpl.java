@@ -57,7 +57,7 @@ public class ExternalSourceDaoImpl implements ExternalSourceDao {
     /**
      * {@inheritDoc}
      */
-    public List<ExternalSource> getALLExternalSources() throws ProcessFailed {
+    public List<ExternalSource> getAllExternalSources() throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(ExternalSource.class);

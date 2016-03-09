@@ -34,7 +34,7 @@ public interface ExternalSourceKeywordLookupService {
      * @return {@link ExternalSourceKeywordLookup}
      * @throws ProcessFailed the process failed
      */
-    public List<ExternalSourceKeywordLookup> getALLExternalSourceKeywordLookups() throws ProcessFailed;
+    public List<ExternalSourceKeywordLookup> getAllExternalSourceKeywordLookups() throws ProcessFailed;
     
     /**
      * This method save {@link ExternalSourceKeywordLookup} into the database.

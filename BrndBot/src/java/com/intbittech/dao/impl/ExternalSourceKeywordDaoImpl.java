@@ -58,7 +58,7 @@ public class ExternalSourceKeywordDaoImpl implements ExternalSourceKeywordDao{
     /**
      * {@inheritDoc}
      */
-    public List<ExternalSourceKeyword> getALLExternalSourceKeywords() throws ProcessFailed {
+    public List<ExternalSourceKeyword> getAllExternalSourceKeywords() throws ProcessFailed {
      try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(ExternalSourceKeyword.class);

@@ -61,7 +61,7 @@ public class SubCategoryExternalSourceDaoImpl implements SubCategoryExternalSour
     /**
      * {@inheritDoc}
      */
-    public List<SubCategoryExternalSource> getALLSubCategoryExternalSources() throws ProcessFailed {
+    public List<SubCategoryExternalSource> getAllSubCategoryExternalSources() throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(ExternalSource.class)

@@ -43,8 +43,8 @@ public class ExternalSourceKeywordLookupServiceImpl implements ExternalSourceKey
     /**
      * {@inheritDoc}
      */
-    public List<ExternalSourceKeywordLookup> getALLExternalSourceKeywordLookups() throws ProcessFailed {
-        List<ExternalSourceKeywordLookup> externalSourceKeywordLookupList = externalSourceKeywordLookupDao.getALLExternalSourceKeywordLookups();
+    public List<ExternalSourceKeywordLookup> getAllExternalSourceKeywordLookups() throws ProcessFailed {
+        List<ExternalSourceKeywordLookup> externalSourceKeywordLookupList = externalSourceKeywordLookupDao.getAllExternalSourceKeywordLookups();
         if (externalSourceKeywordLookupList == null) {
             throw new ProcessFailed(messageSource.getMessage("externalSourceKeywordLookup_not_found", new String[]{}, Locale.US));
         }

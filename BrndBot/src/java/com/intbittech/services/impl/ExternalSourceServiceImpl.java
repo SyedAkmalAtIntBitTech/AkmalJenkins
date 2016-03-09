@@ -43,8 +43,8 @@ public class ExternalSourceServiceImpl implements ExternalSourceService {
     /**
      * {@inheritDoc}
      */
-    public List<ExternalSource> getALLExternalSources() throws ProcessFailed {
-         List<ExternalSource> externalSourceList = externalSourceDao.getALLExternalSources();
+    public List<ExternalSource> getAllExternalSources() throws ProcessFailed {
+         List<ExternalSource> externalSourceList = externalSourceDao.getAllExternalSources();
         if (externalSourceList == null) {
             throw new ProcessFailed(messageSource.getMessage("externalSource_not_found",new String[]{}, Locale.US));
         }

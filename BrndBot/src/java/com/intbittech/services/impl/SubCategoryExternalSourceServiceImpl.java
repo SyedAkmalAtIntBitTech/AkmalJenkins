@@ -43,8 +43,8 @@ public class SubCategoryExternalSourceServiceImpl implements SubCategoryExternal
     /**
      * {@inheritDoc}
      */
-    public List<SubCategoryExternalSource> getALLSubCategoryExternalSources() throws ProcessFailed {
-         List<SubCategoryExternalSource> subCategoryExternalSourceList = subCategoryExternalSourceDao.getALLSubCategoryExternalSources();
+    public List<SubCategoryExternalSource> getAllSubCategoryExternalSources() throws ProcessFailed {
+         List<SubCategoryExternalSource> subCategoryExternalSourceList = subCategoryExternalSourceDao.getAllSubCategoryExternalSources();
         if (subCategoryExternalSourceList == null) {
             throw new ProcessFailed(messageSource.getMessage("subCategoryExternalSource_not_found", new String[]{}, Locale.US));
         }
