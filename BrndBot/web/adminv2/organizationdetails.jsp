@@ -27,6 +27,7 @@
     <jsp:include page="adminheader.jsp"/>
      <jsp:include page="emailcategory.jsp"/>
      <jsp:include page="printcategory.jsp"/>
+     <jsp:include page="addimagecategory.jsp"/>
      <input type="text" id='orgid' value="<%=orgID%>" hidden/>
     <div class="content-area" ng-app  ng-controller="organizationcontroller" >
         <div class="content-area_header" ng-init="organizationdetails()">
@@ -113,16 +114,16 @@
                 </div>
             </div>
             <ul class="slatArea">
-                <li class="listItem">
+                <li class="listItem" ng-repeat="image in imageDetails.slice().reverse()">
                     <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft"> Category Name</span>
+                        <span class="listCol_Text fleft"> {{image.categoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
                         <div class="CTA_Button Button--Gray fright">Manage Category</div>
                     </div>
                 </li>
             </ul>
-            <div class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
+            <div id="addcatimage" class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
         </div>
         <div class="slatSection">
             <div class="sectionHeader"> Print Template Categories </div>

@@ -351,3 +351,9 @@ font-size: 14px;
     width: 40px;
     margin: auto;
 }
+@media screen and (min-width:1400px) and (max-width:2500px){
+    .popUp{       
+       margin-top: 51%;
+       margin-left: 48%;
+    }
+}
