@@ -17,7 +17,7 @@
         <div class="content-area" >
         <div class="content-area_header">
             <div class="header_path fleft"> All Organizations </div>
-            <div class="CTA_Button Button--Blue fright" id="addorg">Add Organization</div>
+            <div class="CTA_Button Button--Blue fright" id="addorganization">Add Organization</div>
         </div>
         <div class="slatSection" ng-init="organization()">
             <div class="slatHeaders">
@@ -37,7 +37,7 @@
                         <span class="listCol_Text fleft">{{organizations.organizationTypeName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href="organizationdetails.jsp?orgId={{organizations.organizationId}}"><div class="CTA_Button Button--Gray fright">Manage Org</div></a>
+                        <a href="organizationdetails.jsp?organizationId={{organizations.organizationId}}"><div class="CTA_Button Button--Gray fright">Manage Org</div></a>
                     </div>
                 </li>                
             </ul>
