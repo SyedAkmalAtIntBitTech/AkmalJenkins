@@ -39,7 +39,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
     /**
      * {@inheritDoc}
      */
-    public Integer Save(SubCategory subCategory) throws ProcessFailed {
+    public Integer save(SubCategory subCategory) throws ProcessFailed {
         return subCategoryDao.Save(subCategory);
     }
 
@@ -86,7 +86,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
     /**
      * {@inheritDoc}
      */
-    public void SaveSubCategory(SubCategoryDetails subCategoryDetails) throws ProcessFailed {
+    public void saveSubCategory(SubCategoryDetails subCategoryDetails) throws ProcessFailed {
         try {
 
             /*  saving the sub category  */

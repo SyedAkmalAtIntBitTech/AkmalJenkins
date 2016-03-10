@@ -42,7 +42,7 @@ public class SubCategoryController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
 
-            subCategoryService.SaveSubCategory(subCategoryDetails);
+            subCategoryService.saveSubCategory(subCategoryDetails);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Sub category created successfully"));
         } catch (Throwable ex) {
             logger.error(ex);

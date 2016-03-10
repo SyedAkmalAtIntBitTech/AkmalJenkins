@@ -28,7 +28,7 @@ public interface SubCategoryService {
      * @throws ProcessFailed the process failed
      */
     
-    public Integer Save(SubCategory subCategory) throws ProcessFailed;
+    public Integer save(SubCategory subCategory) throws ProcessFailed;
 
     /**
      * This method updates the {@link SubCategory} from DAO
@@ -76,7 +76,7 @@ public interface SubCategoryService {
      * @throws ProcessFailed the process failed
      */
     
-    public void SaveSubCategory(SubCategoryDetails subCategoryDetails) throws ProcessFailed;
+    public void saveSubCategory(SubCategoryDetails subCategoryDetails) throws ProcessFailed;
     
     /**
      * This method pass id as input and get the {@link SubCategoryExternalSource} from DAO
