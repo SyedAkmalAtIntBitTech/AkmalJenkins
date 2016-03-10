@@ -4,15 +4,34 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
        $(document).ready(function () {
+           
            $("#addorg").click(function (){
               $("#addorganizationpopup").show();
               $("#addorgpopupdiv").show();
            });
            
-            $("#createorg").click(function (){
-              $("#addorganizationpopup").hide();
+           $("#addcatprint").click(function (){
+              $("#addprintcatpopup").show();
+              $("#addorgpopupdiv").show();
            });
+           
+            $("#addcatimage").click(function (){
+              $("#addimagecato").show();
+              $("#addorgpopupdiv").show();
+           });
+           
            $("#addorgpopupdiv").click(function (){
+               $("#addprintcatpopup").hide();
                $("#addorganizationpopup").hide();
+                $("#addorgpopupdiv").hide();
+                $("#addimagecato").hide();
            });
        });
+       var emailChannel="email";
+       var printChannel="print";
+       var imageChannel="image";
+       var emailChannelId =1;
+       var printChannelId=2;
+       var imageChannelId=3;
+       
+       
