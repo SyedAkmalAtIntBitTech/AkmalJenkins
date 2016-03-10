@@ -27,3 +27,11 @@
                 $("#addimagecato").hide();
            });
        });
+       var emailChannel="email";
+       var printChannel="print";
+       var imageChannel="image";
+       var emailChannelId =1;
+       var printChannelId=2;
+       var imageChannelId=3;
+       
+       

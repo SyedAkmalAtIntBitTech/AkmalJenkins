@@ -20,9 +20,9 @@
             </div>
             <div class="inputSection col1of2">
                 <div class="input_Label">Name this Organization?</div>
-                <input id="orgname" class="input_Field" type="text" placeholder="Organization Name" />
+                <input id="organizationName" class="input_Field" type="text" placeholder="Organization Name" />
                 <div class="input_Label pushUp_30">Is this an organization or a group?</div>
-                <select class="input_Field" id="orgtype">
+                <select class="input_Field" id="organizationType">
                     <option class="input_Field" value="2">organization</option>
                     <option class="input_Field" value="1">group</option>
                 </select>

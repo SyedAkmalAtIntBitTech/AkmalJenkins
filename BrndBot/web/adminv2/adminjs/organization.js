@@ -1,8 +1,5 @@
-/* 
- * Copyright 2015 Intbit Technologies. This software and documentation contains
- * confidential and proprietary information that is owned by Intbit
- * Technologies. Unauthorized use and distribution are strictly prohibited.
- */
+
+/* global emailChannel, printChannel, imageChannel */
 
 function organizationcontroller($scope,$http) {
     
@@ -21,12 +18,12 @@ function organizationcontroller($scope,$http) {
     
     $scope.addorganization = function () {
                     
-                    var orgname = $("#orgname").val();
-                    var orgtype = $("#orgtype").val();
-                    var organization = {"organizationName": orgname,"organizationTypeId": orgtype};
-                   if(orgname===""){
+                    var organizationName = $("#organizationName").val();
+                    var organizationType = $("#organizationType").val();
+                    var organization = {"organizationName": organizationName,"organizationTypeId": organizationType};
+                   if(organizationName===""){
                        alert("Please Enter Organization Name!");
-                       $("#orgname").focus();
+                       $("#organizationName").focus();
                    }else{
                     $.ajax({
                             method: 'POST',
@@ -50,7 +47,7 @@ function organizationcontroller($scope,$http) {
     
     
     $scope.organizationdetails= function (){
-        $scope.deleteOrganization=function (orgId){
+        $scope.deleteOrganization=function (organizationID){
             $http({
                             method : 'GET',
                             url : getHost()+'/deleteOrganization.do'
@@ -59,32 +56,32 @@ function organizationcontroller($scope,$http) {
                         }).error(function(data, status, headers, config) {
                                 alert(nodataerror);
                         });
-            alert(orgId);
+           
         }
     };
     
     
     $scope.emailcategories= function (){
         
-            var orgID=$("#orgid").val();
+            var organizationId=$("#organizationId").val();
 
             $http({
                 method : 'GET',
-                url : getHost()+'/getAllOrganizationCategoryByOrganizationId.do?organizationId='+orgID
+                url : getHost()+'/getAllOrganizationCategoryByOrganizationId.do?organizationId='+organizationId
             }).success(function(data, status, headers, config) {
                 $scope.emailDetails1 = data.d.channelDetailsList.categoryDetailsList;
 
                 for ( var i = 0; i <= data.d.channelDetailsList[1].categoryDetailsList.length; i++) {
 
                     var obj = data.d.channelDetailsList[i];
-                    if(data.d.channelDetailsList[i].channelName === "email"){
+                    if(data.d.channelDetailsList[i].channelName === emailChannel){
                         $scope.emailDetails =data.d.channelDetailsList[i].categoryDetailsList;
                       //  alert(JSON.stringify(data));
                     }
-                    if(data.d.channelDetailsList[i].channelName === "print"){
+                    if(data.d.channelDetailsList[i].channelName === printChannel){
                          $scope.printDetails =data.d.channelDetailsList[i].categoryDetailsList;
                     }
-                     if(data.d.channelDetailsList[i].channelName === "image"){
+                     if(data.d.channelDetailsList[i].channelName === imageChannel){
                          $scope.imageDetails =data.d.channelDetailsList[i].categoryDetailsList;
                          //alert(JSON.stringify(data));
                     }
@@ -97,12 +94,12 @@ function organizationcontroller($scope,$http) {
     
       $scope.addEmailCategory = function () {
           
-            var orgID=$("#orgid").val();
-            var catname = $("#catname").val();
-            var category ={"categoryName" : catname,"channelId":2,"orgnizationId":orgID}
-            if(catname===""){
+            var organizationId=$("#organizationId").val();
+            var categoryName = $("#categoryName").val();
+            var category ={"categoryName" : categoryName,"channelId":printChannelId,"orgnizationId":organizationId}
+            if(categoryName===""){
                 alert("Please enter category name.");
-                $("#catname").focus();
+                $("#categoryname").focus();
             }else{
             $.ajax({
                     method: 'POST',
@@ -113,7 +110,7 @@ function organizationcontroller($scope,$http) {
                 }).success(function (data)
                 { 
                     alert("Email\t"+eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/organizationdetails.jsp?orgId='+orgID, "_self");
+                    window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
 
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -123,12 +120,12 @@ function organizationcontroller($scope,$http) {
     
     $scope.addPrintCategory = function () {
         
-            var orgID=$("#orgid").val();
-            var catprintname = $("#catprintname").val();
-            var category ={"categoryName" : catprintname,"channelId":1,"orgnizationId":orgID}
-            if(catprintname===""){
+            var organizationId=$("#organizationId").val();
+            var printCategory = $("#printCategory").val();
+            var category ={"categoryName" : printCategory,"channelId":emailChannelId,"orgnizationId":organizationId}
+            if(printCategory===""){
                 alert("Please enter category name.");
-                $("#catprintname").focus();
+                $("#printCategory").focus();
             }else{
             $.ajax({
                     method: 'POST',
@@ -139,7 +136,7 @@ function organizationcontroller($scope,$http) {
                 }).success(function (data)
                 { 
                     alert("Print\t"+eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/organizationdetails.jsp?orgId='+orgID, "_self");
+                    window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
 
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -150,10 +147,10 @@ function organizationcontroller($scope,$http) {
 $scope.addImageCategory = function () {
     
         
-            var orgID=$("#orgid").val();
-            var catimagename = $("#imagecategory").val();
-            var imagecat ={"categoryName" : catimagename,"channelId":4,"orgnizationId":orgID}
-             if(catimagename===""){
+            var organizationId=$("#organizationId").val();
+            var imagecategory = $("#imagecategory").val();
+            var imagecat ={"categoryName" : imagecategory,"channelId":imageChannelId,"orgnizationId":organizationId}
+             if(imagecategory===""){
              alert("Please enter category name.");
              $("#imagecategory").focus();
             }else{
@@ -167,7 +164,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 { 
                     alert("Image\t"+eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/organizationdetails.jsp?orgId='+orgID, "_self");
+                    window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
 
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));

@@ -20,7 +20,7 @@
             </div>
             <div class="inputSection col1of2">
                 
-                <input id="catname" class="input_Field" type="text" placeholder="Category Name" />
+                <input id="categoryName" class="input_Field" type="text" placeholder="Category Name" />
                
                 
                 <div id="addemailcategory"  class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addEmailCategory()">Create Category</div>

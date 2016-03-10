@@ -20,7 +20,7 @@
             </div>
             <div class="inputSection col1of2">
                 
-                <input id="catprintname" class="input_Field" type="text" placeholder="Category Name" />
+                <input id="printCategory" class="input_Field" type="text" placeholder="Category Name" />
                
                 
                 <div id='addprintcategory' class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addPrintCategory()">Create Category</div>

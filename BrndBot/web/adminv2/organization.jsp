@@ -8,13 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-         <link rel="shortcut icon" href="../images/favicon.png"/>
-         <script type="text/javascript" src="../adminv2/adminjs/basejs.js"/>         
-        <script src="../js/alertmessage.js" type="text/javascript"></script>
-        <script src="../js/configurations.js" type="text/javascript"></script>
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="../adminv2/adminjs/organization.js" type="text/javascript"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link rel="shortcut icon" href="../images/favicon.png"/>
         <title>BrndBot-Admin Organization</title>
     </head>
     <body class="body-normal" ng-app  ng-controller="organizationcontroller" >        
@@ -43,7 +37,7 @@
                         <span class="listCol_Text fleft">{{organizations.organizationTypeName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href="organizationdetails.jsp?orgId={{organizations.organizationId}}&orgName={{organizations.organizationName}}"><div class="CTA_Button Button--Gray fright">Manage Org</div></a>
+                        <a href="organizationdetails.jsp?organizationId={{organizations.organizationId}}&organizationName={{organizations.organizationName}}"><div class="CTA_Button Button--Gray fright">Manage Org</div></a>
                     </div>
                 </li>                
             </ul>
