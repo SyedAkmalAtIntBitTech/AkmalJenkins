@@ -17,8 +17,7 @@ import com.intbittech.model.EmailModel;
 public interface EmailModelDao  {
     
     /**
-     * This method pass id as input and get the {@link EmailModel} from DAO
-     * layer.
+     * This method pass id as input and get the {@link EmailModel} from database.
      *
      * @param emailModelId the emailModelId
      * @return {@link EmailModel}

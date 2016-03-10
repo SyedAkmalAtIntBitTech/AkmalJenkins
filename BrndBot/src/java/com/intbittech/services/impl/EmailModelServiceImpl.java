@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author ajit
+ * @author ilyas
  */
 @Service
 @Transactional(rollbackFor = ProcessFailed.class)
@@ -30,7 +30,7 @@ public class EmailModelServiceImpl implements EmailModelService {
     public EmailModel getByEmailModelId(Integer emailModelId) throws ProcessFailed {
         EmailModel emailModel = emailModelDao.getByEmailModelId(emailModelId);
         if (emailModel == null) {
-            throw new ProcessFailed("No email template found with id " + emailModelId + ".");
+            throw new ProcessFailed("No email template found.");
         }
         return emailModel;
     }
@@ -55,7 +55,7 @@ public class EmailModelServiceImpl implements EmailModelService {
     public void delete(Integer emailModelId) throws ProcessFailed {
         EmailModel emailModel = emailModelDao.getByEmailModelId(emailModelId);
         if (emailModel == null)
-            throw new ProcessFailed("No email template found with id " + emailModelId + ".");
+            throw new ProcessFailed("No email template found.");
         emailModelDao.delete(emailModel);
         
     }

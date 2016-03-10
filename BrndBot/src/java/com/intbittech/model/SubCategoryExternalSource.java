@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,10 +32,10 @@ public class SubCategoryExternalSource implements Serializable {
     @Column(name = "sub_category_external_source_id")
     private Integer subCategoryExternalSourceId;
     @JoinColumn(name = "fk_external_source_keyword_lookup_id", referencedColumnName = "external_source_keyword_lookup_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ExternalSourceKeywordLookup fkExternalSourceKeywordLookupId;
     @JoinColumn(name = "fk_sub_category_id", referencedColumnName = "sub_category_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private SubCategory fkSubCategoryId;
 
     public SubCategoryExternalSource() {

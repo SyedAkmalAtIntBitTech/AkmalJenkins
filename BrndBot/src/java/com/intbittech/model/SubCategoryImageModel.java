@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,10 +32,10 @@ public class SubCategoryImageModel implements Serializable {
     @Column(name = "sub_category_image_model_id")
     private Integer subCategoryImageModelId;
     @JoinColumn(name = "fk_image_model_id", referencedColumnName = "image_model_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ImageModel fkImageModelId;
     @JoinColumn(name = "fk_sub_category_id", referencedColumnName = "sub_category_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private SubCategory fkSubCategoryId;
 
     public SubCategoryImageModel() {

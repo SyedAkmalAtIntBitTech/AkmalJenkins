@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
  * {@link EmailModelDao} and perform the database related operation for managing
  * {@link EmailModel}
  *
- * @author Ajit
+ * @author ilyas
  */
 @Repository
 public class EmailModelDaoImpl implements EmailModelDao {
@@ -38,8 +38,8 @@ public class EmailModelDaoImpl implements EmailModelDao {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(EmailModel.class)
                     .add(Restrictions.eq("emailModelId", emailModelId));
-            List<EmailModel> emailModel = criteria.list();
-            if (emailModel.isEmpty()) {
+            List<EmailModel> emailModelList = criteria.list();
+            if (emailModelList.isEmpty()) {
                 return null;
             }
             return (EmailModel) criteria.list().get(0);

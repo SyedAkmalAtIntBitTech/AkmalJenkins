@@ -76,10 +76,11 @@ public class CategoryController {
             for (Channel channel : channelList) {
                 ChannelDetails channelDetails = new ChannelDetails();
                 channelDetails.setChannelName(channel.getChannelName());
-
+                
                 List<OrganizationCategoryLookup> OrganizationCategoryList = organizationCategoryLookupService.getAllOrganizationCategoryLookup(organizationId, channel.getChannelId());
                  List<CategoryDetails> categoryDetailList = new ArrayList<>();
                 for (OrganizationCategoryLookup organizationCategoryLookup : OrganizationCategoryList) {
+                   
                     CategoryDetails categoryDetails = new CategoryDetails();
                     categoryDetails.setCategoryId(organizationCategoryLookup.getFkCategoryId().getCategoryId());
                     categoryDetails.setCategoryName(organizationCategoryLookup.getFkCategoryId().getCategoryName());
@@ -90,6 +91,7 @@ public class CategoryController {
                
             }
              channelCategoryReponse.setChannelDetailsList(channelDetailsList);
+
             channelCategoryReponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Category retrieved successfully"));
 
         } catch (Throwable ex) {

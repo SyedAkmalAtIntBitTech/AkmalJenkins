@@ -20,15 +20,16 @@ public class SubCategoryEmailModelServiceImpl implements SubCategoryEmailModelSe
 
     @Autowired
     private SubCategoryEmailModelDao subCategoryEmailModelDao;
-    
+
     /**
      * {@inheritDoc}
      */
     public List<SubCategoryEmailModel> getAllSubCategoryEmailModel(Integer subCategoryId) throws ProcessFailed {
-         List<SubCategoryEmailModel> subCategoryEmailModelList = subCategoryEmailModelDao.getAllSubCategoryEmailModel(subCategoryId);
-         if(subCategoryEmailModelList == null)
-             throw new ProcessFailed("No email templates exist.");
-         return subCategoryEmailModelList;
+        List<SubCategoryEmailModel> subCategoryEmailModelList = subCategoryEmailModelDao.getAllSubCategoryEmailModel(subCategoryId);
+        if (subCategoryEmailModelList == null) {
+            throw new ProcessFailed("No email templates exist.");
+        }
+        return subCategoryEmailModelList;
     }
 
     /**
@@ -50,9 +51,10 @@ public class SubCategoryEmailModelServiceImpl implements SubCategoryEmailModelSe
      */
     public void delete(Integer subCategoryEmailModelId) throws ProcessFailed {
         SubCategoryEmailModel subCategoryEmailModel = subCategoryEmailModelDao.getSubCategoryEmailModelById(subCategoryEmailModelId);
-        if(subCategoryEmailModel == null)
-            throw new ProcessFailed("Email Template could not be deleted.");
+        if (subCategoryEmailModel == null) {
+            throw new ProcessFailed("Email template could not be deleted.");
+        }
         subCategoryEmailModelDao.delete(subCategoryEmailModel);
     }
-    
+
 }

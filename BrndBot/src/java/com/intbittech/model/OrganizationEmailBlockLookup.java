@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,35 +29,35 @@ public class OrganizationEmailBlockLookup implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "organization_category_id")
-    private Integer organizationCategoryId;
+    @Column(name = "organization_email_block_id")
+    private Integer organizationEmailBlockId;
     @JoinColumn(name = "fk_email_block_id", referencedColumnName = "email_model_id")
-    @ManyToOne
-    private EmailModel fkEmailBlockId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private EmailBlock fkEmailBlockId;
     @JoinColumn(name = "fk_organization_id", referencedColumnName = "organization_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Organization fkOrganizationId;
 
     public OrganizationEmailBlockLookup() {
     }
 
     public OrganizationEmailBlockLookup(Integer organizationCategoryId) {
-        this.organizationCategoryId = organizationCategoryId;
+        this.organizationEmailBlockId = organizationCategoryId;
     }
 
-    public Integer getOrganizationCategoryId() {
-        return organizationCategoryId;
+    public Integer getOrganizationEmailBlockId() {
+        return organizationEmailBlockId;
     }
 
-    public void setOrganizationCategoryId(Integer organizationCategoryId) {
-        this.organizationCategoryId = organizationCategoryId;
+    public void setOrganizationEmailBlockId(Integer organizationEmailBlockId) {
+        this.organizationEmailBlockId = organizationEmailBlockId;
     }
 
-    public EmailModel getFkEmailBlockId() {
+    public EmailBlock getFkEmailBlockId() {
         return fkEmailBlockId;
     }
 
-    public void setFkEmailBlockId(EmailModel fkEmailBlockId) {
+    public void setFkEmailBlockId(EmailBlock fkEmailBlockId) {
         this.fkEmailBlockId = fkEmailBlockId;
     }
 

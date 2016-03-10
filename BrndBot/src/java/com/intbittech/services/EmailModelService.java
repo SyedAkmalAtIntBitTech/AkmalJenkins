@@ -12,7 +12,7 @@ import com.intbittech.model.EmailModel;
  * <code>{@link EmailModelService}</code> is service layer interface for
  * communicating between Controller and DAO classes
  *
- * @author Ajit
+ * @author ilyas
  */
 public interface EmailModelService {
 
