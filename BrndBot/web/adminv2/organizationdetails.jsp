@@ -13,15 +13,22 @@
 </head>    
     <%
     String organizationId=request.getParameter("organizationId");
+
 %>
 <body class="body-normal">
     <input id="organizationIdTag" type="text" hidden value="<%=organizationId%>"/>
     <jsp:include page="adminheader.jsp"/>
+     <jsp:include page="emailcategory.jsp"/>
+     <jsp:include page="printcategory.jsp"/>
+     <jsp:include page="addimagecategory.jsp"/>
+     <input type="text" id='organizationId' value="<%=organizationId%>" hidden/>
     <div class="content-area" ng-app  ng-controller="organizationcontroller" >
         <div class="content-area_header" ng-init="organizationdetails()">
             <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="organization.jsp"> Organizations</a>  > </div>
+
             <div class="header_title fleft" id="organizationNameDiv">{{organizationDetails.organizationName}}</div>
             <div id="deleteOrganization" class="CTA_Button Button--Delete fright" ng-click="deleteOrganization(<%=organizationId%>)">Delete Organization</div>
+
         </div>
         <div class="inputSection col1of4" >
             <div class="input_Label">Is this an organization or a group?</div>
@@ -31,24 +38,24 @@
                 </select>
             <div id="updateOrganization" class="CTA_Button Button--Gray fleft pushUp_10" ng-click="updateOrganization()">Update</div>
         </div>
-        <div class="slatSection">
+        <div class="slatSection" ng-init="emailcategories()">
             <div class="sectionHeader"> Email Categories </div>
             <div class="slatHeaders">
                 <div class="listHeaderCol col1of2 fleft">
                     <span class="listCol_Header fleft"> Category Names </span>
                 </div>
             </div>
-            <ul class="slatArea">
-                <li class="listItem">
-                    <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft"> Category Name</span>
+            <ul class="slatArea" >
+                <li class="listItem" ng-repeat="emails in emailDetails.slice().reverse()">
+                    <div class="listCol col1of2 fleft" >
+                        <span class="listCol_Text fleft" >{{emails.categoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
                         <a href="emailsubcategory.jsp?organizationId=<%=organizationId%>"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
-            <div class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
+            <div id="addorg" class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
         </div>
         <div class="slatSection">
             <div class="sectionHeader"> Email Blocks </div>
@@ -105,16 +112,16 @@
                 </div>
             </div>
             <ul class="slatArea">
-                <li class="listItem">
+                <li class="listItem" ng-repeat="image in imageDetails.slice().reverse()">
                     <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft"> Category Name</span>
+                        <span class="listCol_Text fleft"> {{image.categoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
                         <div class="CTA_Button Button--Gray fright">Manage Category</div>
                     </div>
                 </li>
             </ul>
-            <div class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
+            <div id="addcatimage" class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
         </div>
         <div class="slatSection">
             <div class="sectionHeader"> Print Template Categories </div>
@@ -124,16 +131,16 @@
                 </div>
             </div>
             <ul class="slatArea">
-                <li class="listItem">
+                <li class="listItem" ng-repeat="print in printDetails.slice().reverse()">
                     <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft"> Category Name</span>
+                        <span class="listCol_Text fleft"> {{print.categoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
                         <div class="CTA_Button Button--Gray fright">Manage Category</div>
                     </div>
                 </li>
             </ul>
-            <div class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
+            <div id='addcatprint' class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
         </div>
         <div class="slatSection">
             <div class="sectionHeader"> Marketing Program Categories </div>

@@ -24,6 +24,7 @@ public class ChannelCategoryReponse extends BaseResponse implements Serializable
     private OperationStatus operationStatus;
 
     private List<ChannelDetails> channelDetailsList;
+    
 
     public OperationStatus getOperationStatus() {
         return operationStatus;

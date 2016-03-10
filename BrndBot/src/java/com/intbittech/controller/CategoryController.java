@@ -69,16 +69,18 @@ public class CategoryController {
     @RequestMapping(value = "getAllOrganizationCategoryByOrganizationId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllOrganizationCategoryByOrganizationId(@RequestParam("organizationId") Integer organizationId) {
         ChannelCategoryReponse channelCategoryReponse = new ChannelCategoryReponse();
-        List<CategoryDetails> categoryDetailList = new ArrayList<>();
+       
         List<ChannelDetails> channelDetailsList = new ArrayList<>();
         try {
             List<Channel> channelList = channelService.getAllChannels();
             for (Channel channel : channelList) {
                 ChannelDetails channelDetails = new ChannelDetails();
                 channelDetails.setChannelName(channel.getChannelName());
-
+                
                 List<OrganizationCategoryLookup> OrganizationCategoryList = organizationCategoryLookupService.getAllOrganizationCategoryLookup(organizationId, channel.getChannelId());
+                 List<CategoryDetails> categoryDetailList = new ArrayList<>();
                 for (OrganizationCategoryLookup organizationCategoryLookup : OrganizationCategoryList) {
+                   
                     CategoryDetails categoryDetails = new CategoryDetails();
                     categoryDetails.setCategoryId(organizationCategoryLookup.getFkCategoryId().getCategoryId());
                     categoryDetails.setCategoryName(organizationCategoryLookup.getFkCategoryId().getCategoryName());
@@ -86,8 +88,9 @@ public class CategoryController {
                 }
                 channelDetails.setCategoryDetailsList(categoryDetailList);
                 channelDetailsList.add(channelDetails);
-                channelCategoryReponse.setChannelDetailsList(channelDetailsList);
+               
             }
+             channelCategoryReponse.setChannelDetailsList(channelDetailsList);
 
             channelCategoryReponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Category retrieved successfully"));
 

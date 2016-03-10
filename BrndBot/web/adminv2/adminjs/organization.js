@@ -4,19 +4,18 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
        $(document).ready(function () {
-           $("#addorganization").click(function (){
+           $("#addOrganization").click(function (){
               $("#addOrganizationPopup").show();
               $("#addOrganizationPopupDiv").show();
            });
            
-//            $("#createorg").click(function (){
-//              $("#addorganizationpopup").hide();
-//           });
+
            $("#addOrganizationPopupDiv").click(function (){
                $("#addOrganizationPopup").hide();
                 $("#addOrganizationPopupDiv").hide();
            });
        });
+       
 function organizationcontroller($scope,$http) {
     
     $scope.organization = function () {
@@ -38,6 +37,7 @@ function organizationcontroller($scope,$http) {
                     var organizationType = $("#organizationType").val();
                     var organization = {"organizationName": organizationName,"organizationTypeId": organizationType};
                    if(organizationName===""){
+
                        alert("Please enter Organization Name!");
                        $("#organizationName").focus();
                    }else{
@@ -62,7 +62,6 @@ function organizationcontroller($scope,$http) {
     
     
     $scope.organizationdetails= function (){
-        
         
         var organizationId=$("#organizationIdTag").val();
         $http({
@@ -123,5 +122,119 @@ function organizationcontroller($scope,$http) {
         
         
     };
-       
+    
+    
+    $scope.emailcategories= function (){
+        
+            var organizationId=$("#organizationId").val();
+
+            $http({
+                method : 'GET',
+                url : getHost()+'/getAllOrganizationCategoryByOrganizationId.do?organizationId='+organizationId
+            }).success(function(data, status, headers, config) {
+                $scope.emailDetails1 = data.d.channelDetailsList.categoryDetailsList;
+
+                for ( var i = 0; i <= data.d.channelDetailsList[1].categoryDetailsList.length; i++) {
+
+                    var obj = data.d.channelDetailsList[i];
+                    if(data.d.channelDetailsList[i].channelName === emailChannel){
+                        $scope.emailDetails =data.d.channelDetailsList[i].categoryDetailsList;
+                      //  alert(JSON.stringify(data));
+                    }
+                    if(data.d.channelDetailsList[i].channelName === printChannel){
+                         $scope.printDetails =data.d.channelDetailsList[i].categoryDetailsList;
+                    }
+                     if(data.d.channelDetailsList[i].channelName === imageChannel){
+                         $scope.imageDetails =data.d.channelDetailsList[i].categoryDetailsList;
+                         //alert(JSON.stringify(data));
+                    }
+                }     
+            }).error(function(data, status, headers, config) {
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            });         
+    };      
+    
+    
+      $scope.addEmailCategory = function () {
+          
+            var organizationId=$("#organizationId").val();
+            var categoryName = $("#categoryName").val();
+            var category ={"categoryName" : categoryName,"channelId":printChannelId,"orgnizationId":organizationId}
+            if(categoryName===""){
+                alert("Please enter category name.");
+                $("#categoryName").focus();
+            }else{
+            $.ajax({
+                    method: 'POST',
+                    url: getHost() + '/saveCategory.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(category)
+                }).success(function (data)
+                { 
+                    alert("Email\t"+eval(JSON.stringify(data.d.operationStatus.messages)));
+                    window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });                         
+            }
+    };
+    
+    $scope.addPrintCategory = function () {
+        
+            var organizationId=$("#organizationId").val();
+            var printCategory = $("#printCategory").val();
+            var category ={"categoryName" : printCategory,"channelId":emailChannelId,"orgnizationId":organizationId}
+            if(printCategory===""){
+                alert("Please enter category name.");
+                $("#printCategory").focus();
+            }else{
+            $.ajax({
+                    method: 'POST',
+                    url: getHost() + '/saveCategory.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(category)
+                }).success(function (data)
+                { 
+                    alert("Print\t"+eval(JSON.stringify(data.d.operationStatus.messages)));
+                    window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });                         
+            }
+    }; 
+   
+$scope.addImageCategory = function () {
+    
+        
+            var organizationId=$("#organizationId").val();
+            var imageCategory = $("#imageCategory").val();
+            var imageCategory ={"categoryName" : imageCategory,"channelId":imageChannelId,"orgnizationId":organizationId}
+             if(imageCategory===""){
+             alert("Please enter category name.");
+             $("#imagecategory").focus();
+            }else{
+               
+            $.ajax({
+                    method: 'POST',
+                    url: getHost() + '/saveCategory.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(imageCategory)
+                }).success(function (data)
+                { 
+                    alert("Image\t"+eval(JSON.stringify(data.d.operationStatus.messages)));
+                    window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });                         
+            }
+    };     
+    
+    
 }
+

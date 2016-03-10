@@ -49,7 +49,7 @@ public class SubCategoryEmailModelDaoImpl implements SubCategoryEmailModelDao {
 
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed("Database error while retrieving records");
         }
     }
 
@@ -100,14 +100,15 @@ public class SubCategoryEmailModelDaoImpl implements SubCategoryEmailModelDao {
                     .setFetchMode("fkSubCategoryId", FetchMode.JOIN)
                     .add(Restrictions.eq("subCategoryEmailModelId", subCategoryEmailModelId));
             List<SubCategoryEmailModel> subCategoryEmailModelList = criteria.list();
-            if(subCategoryEmailModelList.isEmpty())
+            if (subCategoryEmailModelList.isEmpty()) {
                 return null;
+            }
             return (SubCategoryEmailModel) criteria.list().get(0);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while deleting record.");
+            throw new ProcessFailed("Database error while retrieving record.");
         }
-        
+
     }
 
 }

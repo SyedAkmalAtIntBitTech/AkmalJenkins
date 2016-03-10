@@ -16,10 +16,10 @@ import java.util.List;
  * @author ilyas
  */
 public interface SubCategoryEmailModelDao {
-    
+
     /**
-     * This method pass id as input and get the
-     * {@link SubCategoryEmailModel} from database.
+     * This method pass id as input and get the {@link SubCategoryEmailModel}
+     * from database.
      *
      * @param subCategoryEmailModelId is the subCategoryEmailModelId
      * @return {@link SubCategoryEmailModel}
@@ -28,8 +28,8 @@ public interface SubCategoryEmailModelDao {
     public SubCategoryEmailModel getSubCategoryEmailModelById(Integer subCategoryEmailModelId) throws ProcessFailed;
 
     /**
-     * This method pass id as input and get the
-     * {@link SubCategoryEmailModel} from database.
+     * This method pass id as input and get the {@link SubCategoryEmailModel}
+     * from database.
      *
      * @param subCategoryId is the subCategoryId
      * @return list of {@link SubCategoryEmailModel}
@@ -47,22 +47,21 @@ public interface SubCategoryEmailModelDao {
     public Integer save(SubCategoryEmailModel subCategoryEmailModel) throws ProcessFailed;
 
     /**
-     * This method {@link SubCategoryEmailModel} updates existing
-     * data from the database.
+     * This method {@link SubCategoryEmailModel} updates existing data from the
+     * database.
      *
      * @param subCategoryEmailModel the subCategoryEmailModel
      * @throws ProcessFailed the process failed
      */
     public void update(SubCategoryEmailModel subCategoryEmailModel) throws ProcessFailed;
-    
+
     /**
-     * This method {@link SubCategoryEmailModel} deletes existing
-     * data from the database.
+     * This method {@link SubCategoryEmailModel} deletes existing data from the
+     * database.
      *
      * @param subCategoryEmailModel the subCategoryEmailModel
      * @throws ProcessFailed the process failed
      */
     public void delete(SubCategoryEmailModel subCategoryEmailModel) throws ProcessFailed;
-
 
 }
