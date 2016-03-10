@@ -102,7 +102,7 @@ public class OrganizationController {
     }
 
     @RequestMapping(value = "deleteOrganization", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> deleteOrganizaion(@RequestParam("organizationId") Integer organizationId) {
+    public ResponseEntity<ContainerResponse>deleteOrganizaion(@RequestParam("organizationId") Integer organizationId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             organizationService.delete(organizationId);
