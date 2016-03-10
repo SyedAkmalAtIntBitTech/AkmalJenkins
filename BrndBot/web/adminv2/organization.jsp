@@ -8,13 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-         <link rel="shortcut icon" href="../images/favicon.png"/>
-         <script type="text/javascript" src="../adminv2/adminjs/basejs.js"/>         
-        <script src="../js/alertmessage.js" type="text/javascript"></script>
-        <script src="../js/configurations.js" type="text/javascript"></script>
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="../adminv2/adminjs/organization.js" type="text/javascript"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link rel="shortcut icon" href="../images/favicon.png"/>
         <title>BrndBot-Admin Organization</title>
     </head>
     <body class="body-normal" ng-app  ng-controller="organizationcontroller" >        
