@@ -71,7 +71,7 @@ function organizationcontroller($scope,$http) {
             $http({
                 method : 'GET',
                 url : getHost()+'/getAllOrganizationCategoryByOrganizationId.do?organizationId='+orgID
-            }).success(function(data, status, headers, config) { 
+            }).success(function(data, status, headers, config) {
                 $scope.emailDetails1 = data.d.channelDetailsList.categoryDetailsList;
 
                 for ( var i = 0; i <= data.d.channelDetailsList[1].categoryDetailsList.length; i++) {
@@ -120,7 +120,7 @@ function organizationcontroller($scope,$http) {
         
             var orgID=$("#orgid").val();
             var catprintname = $("#catprintname").val();
-            var category ={"categoryName" : catprintname,"channelId":3,"orgnizationId":orgID}
+            var category ={"categoryName" : catprintname,"channelId":1,"orgnizationId":orgID}
             if(catprintname===""){
                 alert("Please enter category name.");
                 $("#catprintname").focus();
