@@ -79,9 +79,14 @@ function organizationcontroller($scope,$http) {
                     var obj = data.d.channelDetailsList[i];
                     if(data.d.channelDetailsList[i].channelName === "email"){
                         $scope.emailDetails =data.d.channelDetailsList[i].categoryDetailsList;
+                      //  alert(JSON.stringify(data));
                     }
                     if(data.d.channelDetailsList[i].channelName === "print"){
                          $scope.printDetails =data.d.channelDetailsList[i].categoryDetailsList;
+                    }
+                     if(data.d.channelDetailsList[i].channelName === "image"){
+                         $scope.imageDetails =data.d.channelDetailsList[i].categoryDetailsList;
+                         //alert(JSON.stringify(data));
                     }
                 }     
             }).error(function(data, status, headers, config) {
@@ -141,5 +146,35 @@ function organizationcontroller($scope,$http) {
                 });                         
             }
     }; 
+   
+$scope.addImageCategory = function () {
+    
+        
+            var orgID=$("#orgid").val();
+            var catimagename = $("#imagecategory").val();
+            var imagecat ={"categoryName" : catimagename,"channelId":4,"orgnizationId":orgID}
+             if(catimagename===""){
+             alert("Please enter category name.");
+             $("#imagecategory").focus();
+            }else{
+               
+            $.ajax({
+                    method: 'POST',
+                    url: getHost() + '/saveCategory.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(imagecat)
+                }).success(function (data)
+                { 
+                    alert("Image\t"+eval(JSON.stringify(data.d.operationStatus.messages)));
+                    window.open(getHost() + 'adminv2/organizationdetails.jsp?orgId='+orgID, "_self");
+
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });                         
+            }
+    };     
+    
     
 }
+

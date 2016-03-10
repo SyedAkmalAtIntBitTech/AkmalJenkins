@@ -15,9 +15,15 @@
               $("#addorgpopupdiv").show();
            });
            
+            $("#addcatimage").click(function (){
+              $("#addimagecato").show();
+              $("#addorgpopupdiv").show();
+           });
+           
            $("#addorgpopupdiv").click(function (){
                $("#addprintcatpopup").hide();
                $("#addorganizationpopup").hide();
                 $("#addorgpopupdiv").hide();
+                $("#addimagecato").hide();
            });
        });
