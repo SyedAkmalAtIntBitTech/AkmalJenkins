@@ -114,6 +114,8 @@ public class SubCategoryServiceImpl implements SubCategoryService {
             subCategoryExternalSource.setFkExternalSourceKeywordLookupId(externalSourceKeywordLookupObject);
             SubCategory subCategoryObject = new SubCategory();
             subCategoryObject.setSubCategoryId(subCategoryId);
+            subCategoryExternalSource.setFkSubCategoryId(subCategoryObject);
+            subCategoryExternalSourceDao.save(subCategoryExternalSource);
             
             
             
