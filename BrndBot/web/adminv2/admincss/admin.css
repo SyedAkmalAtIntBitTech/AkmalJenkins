@@ -176,7 +176,7 @@ width: 100%;
     box-sizing: border-box;
     background-color: #FBFBFB ;
     display: block;
-    overflow-y: scroll;
+    //overflow-y: scroll;
 }
 
 .groupArea{

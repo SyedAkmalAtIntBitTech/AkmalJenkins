@@ -5,26 +5,26 @@
  */
        $(document).ready(function () {
            
-           $("#addorg").click(function (){
-              $("#addorganizationpopup").show();
-              $("#addorgpopupdiv").show();
-           });
+//           $("#addorg").click(function (){
+//              $("#addorganizationpopup").show();
+//              $("#addorgpopupdiv").show();
+//           });
            
            $("#addcatprint").click(function (){
-              $("#addprintcatpopup").show();
-              $("#addorgpopupdiv").show();
+              $("#addPrintCategoryPopup").show();
+              $("#addOrganizationPopupDiv").show();
            });
            
-            $("#addcatimage").click(function (){
-              $("#addimagecato").show();
-              $("#addorgpopupdiv").show();
+            $("#addCategoryImage").click(function (){
+              $("#addImageCategory").show();
+              $("#addOrganizationPopupDiv").show();
            });
            
-           $("#addorgpopupdiv").click(function (){
-               $("#addprintcatpopup").hide();
-               $("#addorganizationpopup").hide();
-                $("#addorgpopupdiv").hide();
-                $("#addimagecato").hide();
+           $("#addOrganiationPopupDiv").click(function (){
+               $("#addPrintCategoryPopup").hide();
+               $("#addOrganizationPopup").hide();
+                $("#addOrganizationPopupDiv").hide();
+                $("#addImageCategory").hide();
            });
        });
        var emailChannel="email";
