@@ -110,7 +110,9 @@ public class EmailBlockServiceImpl implements EmailBlockService {
         organizationEmailBlockLookup.setFkEmailBlockId(emailBlockForId);
         organizationEmailBlockLookup.setFkOrganizationId(organization);
         
-        return organizationEmailBlockLookupDao.save(organizationEmailBlockLookup);
+        Integer organizationEmailBlockLookupId =  organizationEmailBlockLookupDao.save(organizationEmailBlockLookup);
+        
+        return organizationEmailBlockLookupId;
         
         
         } catch(Throwable throwable) {
