@@ -12,8 +12,8 @@
       <title>Add Organization</title>
     </head>
     <body>
-        <div id="addorgpopupdiv" class="popUp_backgroundlayer"></div>
-        <div id="addorganizationpopup" class="popUp_background">
+        <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer"></div>
+        <div id="addOrganizationPopup" class="popUp_background">
         <div  class="popUp">
              <div class="content-area_header">
                 <div class="popUp_title fleft"> Create an Organization </div>
@@ -26,7 +26,7 @@
                     <option class="input_Field" value="2">organization</option>
                     <option class="input_Field" value="1">group</option>
                 </select>
-                <div id="createorg" class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addorganization()">Create this Organization</div>
+                <div id="createOrganization" class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addorganization()">Create this Organization</div>
             </div>
         </div>
         </div> 

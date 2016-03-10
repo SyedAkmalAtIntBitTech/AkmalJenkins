@@ -1,6 +1,21 @@
+/* 
+ * Copyright 2015 Intbit Technologies. This software and documentation contains
+ * confidential and proprietary information that is owned by Intbit
+ * Technologies. Unauthorized use and distribution are strictly prohibited.
+ */
+       $(document).ready(function () {
+           $("#addOrganization").click(function (){
+              $("#addOrganizationPopup").show();
+              $("#addOrganizationPopupDiv").show();
+           });
+           
 
-/* global emailChannel, printChannel, imageChannel */
-
+           $("#addOrganizationPopupDiv").click(function (){
+               $("#addOrganizationPopup").hide();
+                $("#addOrganizationPopupDiv").hide();
+           });
+       });
+       
 function organizationcontroller($scope,$http) {
     
     $scope.organization = function () {
@@ -9,9 +24,9 @@ function organizationcontroller($scope,$http) {
                             method : 'GET',
                             url : getHost()+'/getAllOrganizations.do'
                         }).success(function(data, status, headers, config) {
-                            $scope.organizationDetails = data.d.details;    
+                            $scope.organizationDetails = data.d.details;  
                         }).error(function(data, status, headers, config) {
-                                alert(nodataerror);
+                                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });
        
     };
@@ -22,7 +37,8 @@ function organizationcontroller($scope,$http) {
                     var organizationType = $("#organizationType").val();
                     var organization = {"organizationName": organizationName,"organizationTypeId": organizationType};
                    if(organizationName===""){
-                       alert("Please Enter Organization Name!");
+
+                       alert("Please enter Organization Name!");
                        $("#organizationName").focus();
                    }else{
                     $.ajax({
@@ -31,13 +47,12 @@ function organizationcontroller($scope,$http) {
                             dataType: "json",
                             contentType: "application/json",
                             data: JSON.stringify(organization)
-                        }).success(function (data)
-                        { 
-                            alert("Organization saved successfully.");
+                        }).success(function (data, status, headers, config)
+                        {  
+                            alert(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
                             window.open(getHost() + 'adminv2/organization.jsp', "_self");
-
-                        }).error(function(e){
-                            alert(JSON.stringify(e));
+                        }).error(function(data, status, headers, config){
+                            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });                         
                     }
     };
@@ -47,17 +62,65 @@ function organizationcontroller($scope,$http) {
     
     
     $scope.organizationdetails= function (){
-        $scope.deleteOrganization=function (organizationID){
-            $http({
-                            method : 'GET',
-                            url : getHost()+'/deleteOrganization.do'
-                        }).success(function(data, status, headers, config) {
-                            $scope.organizationDetails = data.d.details;    
-                        }).error(function(data, status, headers, config) {
-                                alert(nodataerror);
-                        });
-           
+        
+        var organizationId=$("#organizationIdTag").val();
+        $http({
+                method : 'GET',
+                url : getHost()+'/getOrganizationById.do?organizationId='+organizationId
+            }).success(function(data, status, headers, config) {
+                var organizationTypeId=JSON.stringify(data.d.details[0].organizationTypeId);
+                $("#organizationDetailsTypeId > [value=" +organizationTypeId+ "]").attr("selected", "true");
+                $scope.organizationDetails = data.d.details[0];
+            }).error(function(data, status, headers, config) {
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            });    
+        
+        
+        $scope.deleteOrganization=function (organizationId){
+            var deleteOrganization=confirm("Do you want to delete this Organization?");
+            if(deleteOrganization===true)
+            {
+               $http({
+                    method : 'GET',
+                    url : getHost()+'/deleteOrganization.do?organizationId='+organizationId
+                }).success(function(data, status, headers, config) {
+                    $scope.organizationDetails = data.d.details;
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    window.open(getHost() + 'adminv2/organization.jsp', "_self");
+                }).error(function(data, status, headers, config) {
+                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });     
+            }
         }
+        
+        
+        $scope.updateOrganization=function (){
+            var organizationId=$("#organizationIdTag").val();
+            var organizationName=$("#organizationNameDiv").text();
+            var organizationTypeId=$("#organizationDetailsTypeId").val();
+            var updateorg = {
+                             "organizationId": organizationId,
+                             "organizationName": organizationName,
+                             "organizationTypeId": organizationTypeId
+                            };
+             $http({
+                    method : 'POST',
+                    url : getHost()+'/updateOrganization.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: updateorg
+                }).success(function(data, status, headers, config) { 
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                      
+                }).error(function(data, status, headers, config) {
+                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });   
+        }
+        
+        
+        
+        
     };
     
     
@@ -99,7 +162,7 @@ function organizationcontroller($scope,$http) {
             var category ={"categoryName" : categoryName,"channelId":printChannelId,"orgnizationId":organizationId}
             if(categoryName===""){
                 alert("Please enter category name.");
-                $("#categoryname").focus();
+                $("#categoryName").focus();
             }else{
             $.ajax({
                     method: 'POST',
@@ -148,9 +211,9 @@ $scope.addImageCategory = function () {
     
         
             var organizationId=$("#organizationId").val();
-            var imagecategory = $("#imagecategory").val();
-            var imagecat ={"categoryName" : imagecategory,"channelId":imageChannelId,"orgnizationId":organizationId}
-             if(imagecategory===""){
+            var imageCategory = $("#imageCategory").val();
+            var imageCategory ={"categoryName" : imageCategory,"channelId":imageChannelId,"orgnizationId":organizationId}
+             if(imageCategory===""){
              alert("Please enter category name.");
              $("#imagecategory").focus();
             }else{
@@ -160,7 +223,7 @@ $scope.addImageCategory = function () {
                     url: getHost() + '/saveCategory.do',
                     dataType: "json",
                     contentType: "application/json",
-                    data: JSON.stringify(imagecat)
+                    data: JSON.stringify(imageCategory)
                 }).success(function (data)
                 { 
                     alert("Image\t"+eval(JSON.stringify(data.d.operationStatus.messages)));

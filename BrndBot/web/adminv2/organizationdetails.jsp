@@ -7,17 +7,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head> 
-    <link rel="shortcut icon" href="../images/favicon.png"/>  
-   
-    
+<head>
+    <link rel="shortcut icon" href="../images/favicon.png"/>        
+    <title>Organization-Details</title>       
 </head>    
     <%
     String organizationId=request.getParameter("organizationId");
-    String organizationName=request.getParameter("organizationName");
+
 %>
 <body class="body-normal">
-
+    <input id="organizationIdTag" type="text" hidden value="<%=organizationId%>"/>
     <jsp:include page="adminheader.jsp"/>
      <jsp:include page="emailcategory.jsp"/>
      <jsp:include page="printcategory.jsp"/>
@@ -26,13 +25,18 @@
     <div class="content-area" ng-app  ng-controller="organizationcontroller" >
         <div class="content-area_header" ng-init="organizationdetails()">
             <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="organization.jsp"> Organizations</a>  > </div>
-            <div class="header_title fleft"><%=organizationName%></div>
-            <div class="CTA_Button Button--Delete fright" ng-click="deleteOrganization(<%=organizationId%>)">Delete Organization</div>
+
+            <div class="header_title fleft" id="organizationNameDiv">{{organizationDetails.organizationName}}</div>
+            <div id="deleteOrganization" class="CTA_Button Button--Delete fright" ng-click="deleteOrganization(<%=organizationId%>)">Delete Organization</div>
+
         </div>
-        <div class="inputSection col1of4">
+        <div class="inputSection col1of4" >
             <div class="input_Label">Is this an organization or a group?</div>
-            <select class="input_Field"><option class="input_Field">Dropdown</option></select>
-            <div class="CTA_Button Button--Gray fleft pushUp_10">Update</div>
+                <select class="input_Field" id="organizationDetailsTypeId">
+                    <option class="input_Field" value="2">organization</option>
+                    <option class="input_Field" value="1">group</option>
+                </select>
+            <div id="updateOrganization" class="CTA_Button Button--Gray fleft pushUp_10" ng-click="updateOrganization()">Update</div>
         </div>
         <div class="slatSection" ng-init="emailcategories()">
             <div class="sectionHeader"> Email Categories </div>
@@ -47,7 +51,7 @@
                         <span class="listCol_Text fleft" >{{emails.categoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
-                        <div class="CTA_Button Button--Gray fright">Manage Category</div>
+                        <a href="emailsubcategory.jsp?organizationId=<%=organizationId%>"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>

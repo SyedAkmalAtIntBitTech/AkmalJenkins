@@ -12,8 +12,8 @@
       <title>Add a new category</title>
     </head>
     <body ng-app  ng-controller="organizationcontroller">
-        <div id="addorgpopupdiv" class="popUp_backgroundlayer"></div>
-        <div id="addprintcatpopup" class="popUp_background">
+        <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer"></div>
+        <div id="addPrintCategoryPopup" class="popUp_background">
         <div  class="popUp">
              <div class="content-area_header">
                 <div class="popUp_title fleft"> Add a new category </div>
@@ -23,7 +23,7 @@
                 <input id="printCategory" class="input_Field" type="text" placeholder="Category Name" />
                
                 
-                <div id='addprintcategory' class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addPrintCategory()">Create Category</div>
+                <div id='addPrintCategory' class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addPrintCategory()">Create Category</div>
             </div>
         </div>
         </div> 
