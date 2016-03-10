@@ -32,7 +32,6 @@ public class SubCategoryServiceImpl implements SubCategoryService {
     private SubCategoryDao subCategoryDao;
     @Autowired
     private ExternalSourceKeywordLookupDao externalSourceKeywordLookupDao;
-    
     @Autowired
     private SubCategoryExternalSourceDao subCategoryExternalSourceDao;
 
@@ -98,19 +97,19 @@ public class SubCategoryServiceImpl implements SubCategoryService {
             Integer subCategoryId = subCategoryDao.Save(subCategory);
             
             /*saving externalSourceKeywordLookup using externalSourceId and externalSourceKeywordId */
-            ExternalSourceKeywordLookup externalSourceKeywordLookup = new ExternalSourceKeywordLookup();
-            ExternalSource externalSource = new ExternalSource();
-            externalSource.setExternalSourceId(subCategoryDetails.getExternalSourceId());
-            externalSourceKeywordLookup.setFkExternalSourceId(externalSource);
-            ExternalSourceKeyword externalSourceKeyword = new ExternalSourceKeyword();
-            externalSourceKeyword.setExternalSourceKeywordId(subCategoryDetails.getExternalSourceKeywordId());
-            externalSourceKeywordLookup.setFkExternalSourceKeywordId(externalSourceKeyword);
-            Integer externalSourceKeywordLookupId = externalSourceKeywordLookupDao.save(externalSourceKeywordLookup);
+//            ExternalSourceKeywordLookup externalSourceKeywordLookup = new ExternalSourceKeywordLookup();
+//            ExternalSource externalSource = new ExternalSource();
+//            externalSource.setExternalSourceId(subCategoryDetails.getExternalSourceId());
+//            externalSourceKeywordLookup.setFkExternalSourceId(externalSource);
+//            ExternalSourceKeyword externalSourceKeyword = new ExternalSourceKeyword();
+//            externalSourceKeyword.setExternalSourceKeywordId(subCategoryDetails.getExternalSourceKeywordId());
+//            externalSourceKeywordLookup.setFkExternalSourceKeywordId(externalSourceKeyword);
+//            Integer externalSourceKeywordLookupId = externalSourceKeywordLookupDao.save(externalSourceKeywordLookup);
 
             /*saving organizationCategoryLookup using categoryId and OrganizationId */
             SubCategoryExternalSource subCategoryExternalSource = new SubCategoryExternalSource();
             ExternalSourceKeywordLookup externalSourceKeywordLookupObject = new ExternalSourceKeywordLookup();
-            externalSourceKeywordLookupObject.setExternalSourceKeywordLookupId(externalSourceKeywordLookupId);
+            externalSourceKeywordLookupObject.setExternalSourceKeywordLookupId(subCategoryDetails.getExternalSourceKeywordLookupId());
             subCategoryExternalSource.setFkExternalSourceKeywordLookupId(externalSourceKeywordLookupObject);
             SubCategory subCategoryObject = new SubCategory();
             subCategoryObject.setSubCategoryId(subCategoryId);
@@ -129,16 +128,25 @@ public class SubCategoryServiceImpl implements SubCategoryService {
      * {@inheritDoc}
      */
     public List<SubCategoryExternalSource> getAllSubCategoriesByCategoryID(Integer categoryId) throws ProcessFailed {
-        try {
-            List<SubCategoryExternalSource> subCategoryExternalSourceList = subCategoryExternalSourceDao.getAllSubCategoriesByCategoryID(categoryId);
-        if (subCategoryExternalSourceList.isEmpty()) {
+        
+        List<SubCategoryExternalSource> subCategoryExternalSourceList = subCategoryExternalSourceDao.getAllSubCategoriesByCategoryID(categoryId);
+        if (subCategoryExternalSourceList == null) {
             throw new ProcessFailed("No Sub Categories found.");
         }
         return subCategoryExternalSourceList;
-        } catch (Throwable throwable) {
-            logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving sub categories");
+        
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<ExternalSourceKeywordLookup> getAllExternalSourceKeywordLookups() throws ProcessFailed {
+        List<ExternalSourceKeywordLookup> externalSourceKeywordLookupList = externalSourceKeywordLookupDao.getAllExternalSourceKeywordLookups();
+        if(externalSourceKeywordLookupList == null) {
+            throw new ProcessFailed("No external sources or keywords found.");
         }
+        return externalSourceKeywordLookupList;
+            
     }
 
 }

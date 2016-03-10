@@ -20,8 +20,16 @@ public class SubCategoryDetails implements Serializable{
     private Integer externalSourceKeywordId;
     private String externalSourceName;
     private String externalSourceKeywordName;
-    
+    private Integer externalSourceKeywordLookupId;
 
+    public Integer getExternalSourceKeywordLookupId() {
+        return externalSourceKeywordLookupId;
+    }
+
+    public void setExternalSourceKeywordLookupId(Integer externalSourceKeywordLookupId) {
+        this.externalSourceKeywordLookupId = externalSourceKeywordLookupId;
+    }
+    
     public Integer getSubCategoryId() {
         return subCategoryId;
     }

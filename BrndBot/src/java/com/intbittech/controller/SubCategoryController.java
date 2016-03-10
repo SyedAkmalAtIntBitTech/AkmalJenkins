@@ -5,6 +5,7 @@
  */
 package com.intbittech.controller;
 
+import com.intbittech.model.ExternalSourceKeywordLookup;
 import com.intbittech.model.SubCategory;
 import com.intbittech.model.SubCategoryExternalSource;
 import com.intbittech.modelmappers.SubCategoryDetails;
@@ -108,11 +109,40 @@ public class SubCategoryController {
                 subCategoryDetails.setExternalSourceName(subCategoryExternalSourceObject.getFkExternalSourceKeywordLookupId().getFkExternalSourceId().getExternalSourceName());
                 subCategoryDetails.setSubCategoryId(subCategoryExternalSourceObject.getFkSubCategoryId().getSubCategoryId());
                 subCategoryDetails.setSubCategoryName(subCategoryExternalSourceObject.getFkSubCategoryId().getSubCategoryName());
+                subCategoryDetails.setExternalSourceKeywordLookupId(subCategoryExternalSourceObject.getFkExternalSourceKeywordLookupId().getExternalSourceKeywordLookupId());
                 subCategoryDetailsList.add(subCategoryDetails);
             }
             
              genericResponse.setDetails(subCategoryDetailsList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Sub categories retrieved successfully."));
+            
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
+    
+    @RequestMapping(value = "getAllExternalSourceKeywordLookups", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllExternalSourceKeywordLookups() {
+        GenericResponse<SubCategoryDetails> genericResponse = new GenericResponse<>();
+        try {
+            List<ExternalSourceKeywordLookup> externalSourceKeywordLookupList = subCategoryService.getAllExternalSourceKeywordLookups();
+            List<SubCategoryDetails> subCategoryDetailsList = new ArrayList<>();
+            for (ExternalSourceKeywordLookup externalSourceKeywordLookupObject : externalSourceKeywordLookupList)
+            {
+                SubCategoryDetails subCategoryDetails = new SubCategoryDetails();
+                subCategoryDetails.setExternalSourceId(externalSourceKeywordLookupObject.getFkExternalSourceId().getExternalSourceId());
+                subCategoryDetails.setExternalSourceKeywordId(externalSourceKeywordLookupObject.getExternalSourceKeywordLookupId());
+                subCategoryDetails.setExternalSourceKeywordName(externalSourceKeywordLookupObject.getFkExternalSourceKeywordId().getExternalSourceKeywordName());
+                subCategoryDetails.setExternalSourceName(externalSourceKeywordLookupObject.getFkExternalSourceId().getExternalSourceName());
+                
+                subCategoryDetailsList.add(subCategoryDetails);
+            }
+            
+             genericResponse.setDetails(subCategoryDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("External Sources and Keywords retrieved successfully."));
             
         } catch (Throwable throwable) {
             logger.error(throwable);

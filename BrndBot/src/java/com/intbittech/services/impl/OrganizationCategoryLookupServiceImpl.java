@@ -30,9 +30,9 @@ public class OrganizationCategoryLookupServiceImpl implements OrganizationCatego
      */
     public List<OrganizationCategoryLookup> getAllOrganizationCategoryLookup(Integer organizationId, Integer channelId) throws ProcessFailed {
         List<OrganizationCategoryLookup> OrganizationCategoryList = organizationCategoryLookupDao.getAllOrganizationCategoryLookup(organizationId, channelId);
-        if (OrganizationCategoryList == null) {
-            throw new ProcessFailed("No category found .");
-        }
+//        if (OrganizationCategoryList == null) {
+//            throw new ProcessFailed("No category found .");
+//        }
         return OrganizationCategoryList;
     }
 

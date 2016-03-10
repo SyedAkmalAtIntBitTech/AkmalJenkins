@@ -6,6 +6,7 @@
 package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.ExternalSourceKeywordLookup;
 import com.intbittech.model.SubCategory;
 import com.intbittech.model.SubCategoryExternalSource;
 import com.intbittech.modelmappers.SubCategoryDetails;
@@ -87,5 +88,14 @@ public interface SubCategoryService {
      * @throws ProcessFailed the process failed
      */
     public List<SubCategoryExternalSource> getAllSubCategoriesByCategoryID(Integer categoryId) throws ProcessFailed;
+    
+    /**
+     * This method retrieves list of {@link ExternalSourceKeywordLookup} from DAO
+     * layer.
+     *
+     * @return {@link ExternalSourceKeywordLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public List<ExternalSourceKeywordLookup> getAllExternalSourceKeywordLookups() throws ProcessFailed;
     
 }
