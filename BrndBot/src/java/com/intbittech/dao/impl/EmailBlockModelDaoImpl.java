@@ -8,7 +8,6 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.EmailBlockModelDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlockModel;
-import com.intbittech.model.OrganizationEmailBlockLookup;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -36,7 +35,7 @@ public class EmailBlockModelDaoImpl implements EmailBlockModelDao {
     public EmailBlockModel getByEmailBlockModelId(Integer emailBlockModelId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(OrganizationEmailBlockLookup.class)
+                    .createCriteria(EmailBlockModel.class)
                     .add(Restrictions.eq("emailBlockModelId", emailBlockModelId));
             if (criteria.list().isEmpty()) {
                 return null;

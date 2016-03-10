@@ -31,7 +31,7 @@ public class OrganizationEmailBlockLookup implements Serializable {
     @Basic(optional = false)
     @Column(name = "organization_email_block_id")
     private Integer organizationEmailBlockId;
-    @JoinColumn(name = "fk_email_block_id", referencedColumnName = "email_model_id")
+    @JoinColumn(name = "fk_email_block_id", referencedColumnName = "email_block_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private EmailBlock fkEmailBlockId;
     @JoinColumn(name = "fk_organization_id", referencedColumnName = "organization_id")
