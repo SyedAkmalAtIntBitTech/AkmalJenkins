@@ -63,4 +63,13 @@ public interface SubCategoryExternalSourceDao {
      */
     public void delete(SubCategoryExternalSource subCategoryExternalSource) throws ProcessFailed;
     
+    /**
+     * This method pass id as input and get the {@link SubCategoryExternalSource} from the database.
+     *
+     * @param categoryId the categoryId
+     * @return {@link SubCategoryExternalSource}
+     * @throws ProcessFailed the process failed
+     */
+    public List<SubCategoryExternalSource> getAllSubCategoriesByCategoryID(Integer categoryId) throws ProcessFailed;
+    
 }
