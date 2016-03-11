@@ -55,7 +55,7 @@
                     </div>
                 </li>
             </ul>
-            <div id="addorg" class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
+            <div id="addOrganization" class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
         </div>
         <div class="slatSection">
             <div class="sectionHeader"> Email Blocks </div>
@@ -104,7 +104,7 @@
             </ul>
             <div class="Add_Button Button--Blue fleft pushUp_10">Add Block</div>
         </div>
-        <div class="slatSection">
+        <div class="slatSection" >
             <div class="sectionHeader"> Image Template Categories </div>
             <div class="slatHeaders">
                 <div class="listHeaderCol col1of2 fleft">
@@ -114,14 +114,14 @@
             <ul class="slatArea">
                 <li class="listItem" ng-repeat="image in imageDetails.slice().reverse()">
                     <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft"> {{image.categoryName}}</span>
+                        <span class="listCol_Text fleft">{{image.categoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
                         <div class="CTA_Button Button--Gray fright">Manage Category</div>
                     </div>
                 </li>
             </ul>
-            <div id="addcatimage" class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
+            <div id="addCategoryImage" class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
         </div>
         <div class="slatSection">
             <div class="sectionHeader"> Print Template Categories </div>
@@ -140,7 +140,7 @@
                     </div>
                 </li>
             </ul>
-            <div id='addcatprint' class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
+            <div id='addCategoryPrint' class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
         </div>
         <div class="slatSection">
             <div class="sectionHeader"> Marketing Program Categories </div>

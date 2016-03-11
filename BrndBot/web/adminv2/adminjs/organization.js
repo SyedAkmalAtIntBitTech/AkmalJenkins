@@ -132,12 +132,11 @@ function organizationcontroller($scope,$http) {
                 method : 'GET',
                 url : getHost()+'/getAllOrganizationCategoryByOrganizationId.do?organizationId='+organizationId
             }).success(function(data, status, headers, config) {
-                $scope.emailDetails1 = data.d.channelDetailsList.categoryDetailsList;
+                //$scope.emailDetails1 = data.d.channelDetailsList.categoryDetailsList;
+                for ( var i = 0; i <= data.d.channelDetailsList[2].categoryDetailsList.length; i++) {
 
-                for ( var i = 0; i <= data.d.channelDetailsList[1].categoryDetailsList.length; i++) {
-
-                    var obj = data.d.channelDetailsList[i];
-                    if(data.d.channelDetailsList[i].channelName === emailChannel){
+                    var obj = data.d.channelDetailsList[1];
+                    if(data.d.channelDetailsList[1].channelName === emailChannel){
                         $scope.emailDetails =data.d.channelDetailsList[i].categoryDetailsList;
                       //  alert(JSON.stringify(data));
                     }
@@ -146,9 +145,9 @@ function organizationcontroller($scope,$http) {
                     }
                      if(data.d.channelDetailsList[i].channelName === imageChannel){
                          $scope.imageDetails =data.d.channelDetailsList[i].categoryDetailsList;
-                         //alert(JSON.stringify(data));
+                         //alert(JSON.stringify(data.d.channelDetailsList[i].categoryDetailsList));
                     }
-                }     
+                }
             }).error(function(data, status, headers, config) {
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });         
@@ -159,7 +158,7 @@ function organizationcontroller($scope,$http) {
           
             var organizationId=$("#organizationId").val();
             var categoryName = $("#categoryName").val();
-            var category ={"categoryName" : categoryName,"channelId":printChannelId,"orgnizationId":organizationId}
+            var category ={"categoryName" : categoryName,"channelId":emailChannelId,"orgnizationId":organizationId}
             if(categoryName===""){
                 alert("Please enter category name.");
                 $("#categoryName").focus();
@@ -185,7 +184,7 @@ function organizationcontroller($scope,$http) {
         
             var organizationId=$("#organizationId").val();
             var printCategory = $("#printCategory").val();
-            var category ={"categoryName" : printCategory,"channelId":emailChannelId,"orgnizationId":organizationId}
+            var category ={"categoryName" : printCategory,"channelId":printChannelId,"orgnizationId":organizationId}
             if(printCategory===""){
                 alert("Please enter category name.");
                 $("#printCategory").focus();

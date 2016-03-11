@@ -10,7 +10,7 @@
 //              $("#addorgpopupdiv").show();
 //           });
            
-           $("#addcatprint").click(function (){
+           $("#addCategoryPrint").click(function (){
               $("#addPrintCategoryPopup").show();
               $("#addOrganizationPopupDiv").show();
            });
@@ -20,7 +20,7 @@
               $("#addOrganizationPopupDiv").show();
            });
            
-           $("#addOrganiationPopupDiv").click(function (){
+           $("#addOrganizationPopupDiv").click(function (){
                $("#addPrintCategoryPopup").hide();
                $("#addOrganizationPopup").hide();
                 $("#addOrganizationPopupDiv").hide();
@@ -30,8 +30,8 @@
        var emailChannel="email";
        var printChannel="print";
        var imageChannel="image";
-       var emailChannelId =1;
+       var emailChannelId =3;
        var printChannelId=2;
-       var imageChannelId=3;
+       var imageChannelId=1;
        
        

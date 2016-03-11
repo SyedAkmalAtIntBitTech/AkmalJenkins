@@ -23,7 +23,7 @@
                 <input id="imageCategory" class="input_Field" type="text" placeholder="Category Name" />
                
                 
-                <div id="addImageCategory"  class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addImageCategory()">Create Category</div>
+                <div id="addImageCategoryButton"  class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addImageCategory()">Create Category</div>
             </div>
         </div>
         </div> 
