@@ -25,12 +25,18 @@
               $("#addOrganizationPopupDiv").show();
            });
            
+            $("#addEmailBlock").click(function (){
+              $("#addEmailBlockPopUp").show();
+              $("#addOrganizationPopupDiv").show();
+           });
+           
            $("#addOrganizationPopupDiv").click(function (){
                $("#addSubCategoryPopup").hide();
                $("#addPrintCategoryPopup").hide();
                $("#addOrganizationPopup").hide();
                 $("#addOrganizationPopupDiv").hide();
                 $("#addImageCategory").hide();
+                 $("#addEmailBlockPopUp").hide();
            });
        });
        var emailChannel="email";

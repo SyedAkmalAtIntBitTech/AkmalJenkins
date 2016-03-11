@@ -21,6 +21,7 @@
      <jsp:include page="emailcategory.jsp"/>
      <jsp:include page="printcategory.jsp"/>
      <jsp:include page="addimagecategory.jsp"/>
+     <jsp:include page="addemailblock.jsp"/>
      <input type="text" id='organizationId' value="<%=organizationId%>" hidden/>
     <div class="content-area" ng-app  ng-controller="organizationcontroller" >
         <div class="content-area_header" ng-init="organizationdetails()">
@@ -57,7 +58,7 @@
             </ul>
             <div id="addOrganization" class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
         </div>
-        <div class="slatSection">
+        <div class="slatSection" ng-init="getEmailBlocks()">
             <div class="sectionHeader"> Email Blocks </div>
             <div class="slatHeaders">
                 <div class="listHeaderCol col1of2 fleft">
@@ -67,42 +68,22 @@
                     <span class="listCol_Header fleft"> External Value </span>
                 </div>
             </div>
-            <ul class="slatArea">
+            <ul class="slatArea" ng-repeat="blocks in emailBlocks.slice().reverse()">
                 <li class="listItem">
                     <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft"> Block Name</span>
+                        <span class="listCol_Text fleft"> {{blocks.emailBlockName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <span class="listCol_Text fleft"> None</span>
+                        <span class="listCol_Text fleft"> {{blocks.externalSourceName}}{{blocks.externalSourceKeywordName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
                         <div class="CTA_Button Button--Gray fright">Manage Block</div>
                     </div>
                 </li>
-                <li class="listItem">
-                    <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft"> Block Name</span>
-                    </div>
-                    <div class="listCol col1of4 fleft">
-                        <span class="listCol_Text fleft"> MINDBODY</span>
-                    </div>
-                    <div class="listCol col1of4 fleft">
-                        <div class="CTA_Button Button--Gray fright">Manage Block</div>
-                    </div>
-                </li>
-                <li class="listItem">
-                    <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft"> Block Name</span>
-                    </div>
-                    <div class="listCol col1of4 fleft">
-                        <span class="listCol_Text fleft"> None</span>
-                    </div>
-                    <div class="listCol col1of4 fleft">
-                        <div class="CTA_Button Button--Gray fright">Manage Block</div>
-                    </div>
-                </li>
+                
+                
             </ul>
-            <div class="Add_Button Button--Blue fleft pushUp_10">Add Block</div>
+            <div id="addEmailBlock" class="Add_Button Button--Blue fleft pushUp_10">Add Block</div>
         </div>
         <div class="slatSection" >
             <div class="sectionHeader"> Image Template Categories </div>

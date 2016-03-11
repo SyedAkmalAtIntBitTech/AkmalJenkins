@@ -7,12 +7,15 @@
            $("#addOrganization").click(function (){
               $("#addOrganizationPopup").show();
               $("#addOrganizationPopupDiv").show();
+              $("#addEmailPopupDiv").show();
            });
            
 
            $("#addOrganizationPopupDiv").click(function (){
                $("#addOrganizationPopup").hide();
                 $("#addOrganizationPopupDiv").hide();
+                
+                
            });
        });
        
@@ -31,7 +34,7 @@ function organizationcontroller($scope,$http) {
        
     };
     
-    $scope.addorganization = function () {
+    $scope.addOrganization = function () {
                     
                     var organizationName = $("#organizationName").val();
                     var organizationType = $("#organizationType").val();
@@ -310,6 +313,17 @@ $scope.addImageCategory = function () {
     }; 
    
     
-    
+      $scope.getEmailBlocks= function (){
+           var organizationId=$("#organizationId").val();
+  
+               $http({
+                    method : 'GET',
+                    url : getHost()+ '/getAllEmailBlocksByOrganizationId.do?organizationId='+organizationId,
+                }).success(function(data, status, headers, config) {
+                  $scope.emailBlocks= data.d.details;
+                }).error(function(data, status, headers, config) {
+               alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+    }
 }
 
