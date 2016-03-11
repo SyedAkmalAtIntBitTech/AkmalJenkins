@@ -51,7 +51,7 @@
                         <span class="listCol_Text fleft" >{{emails.categoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
-                        <a href="emailsubcategory.jsp?organizationId=<%=organizationId%>"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
+                        <a href="subcategory.jsp?organizationId=<%=organizationId%>&categoryId={{emails.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
@@ -117,7 +117,7 @@
                         <span class="listCol_Text fleft">{{image.categoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
-                        <div class="CTA_Button Button--Gray fright">Manage Category</div>
+                        <a href="subcategory.jsp?organizationId=<%=organizationId%>&categoryId={{image.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
@@ -136,7 +136,7 @@
                         <span class="listCol_Text fleft"> {{print.categoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
-                        <div class="CTA_Button Button--Gray fright">Manage Category</div>
+                        <a href="subcategory.jsp?organizationId=<%=organizationId%>&categoryId={{print.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>

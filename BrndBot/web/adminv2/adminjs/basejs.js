@@ -10,6 +10,11 @@
 //              $("#addorgpopupdiv").show();
 //           });
            
+           $("#addSubCategory").click(function (){
+              $("#addSubCategoryPopup").show();
+              $("#addOrganizationPopupDiv").show();
+           });
+           
            $("#addCategoryPrint").click(function (){
               $("#addPrintCategoryPopup").show();
               $("#addOrganizationPopupDiv").show();
@@ -21,6 +26,7 @@
            });
            
            $("#addOrganizationPopupDiv").click(function (){
+               $("#addSubCategoryPopup").hide();
                $("#addPrintCategoryPopup").hide();
                $("#addOrganizationPopup").hide();
                 $("#addOrganizationPopupDiv").hide();

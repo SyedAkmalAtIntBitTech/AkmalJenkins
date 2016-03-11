@@ -119,6 +119,7 @@ function organizationcontroller($scope,$http) {
         }
         
         
+       
         
         
     };
@@ -132,13 +133,10 @@ function organizationcontroller($scope,$http) {
                 method : 'GET',
                 url : getHost()+'/getAllOrganizationCategoryByOrganizationId.do?organizationId='+organizationId
             }).success(function(data, status, headers, config) {
-                //$scope.emailDetails1 = data.d.channelDetailsList.categoryDetailsList;
-                for ( var i = 0; i <= data.d.channelDetailsList[2].categoryDetailsList.length; i++) {
-
-                    var obj = data.d.channelDetailsList[1];
-                    if(data.d.channelDetailsList[1].channelName === emailChannel){
+               for ( var i = 0; i <= data.d.channelDetailsList.length; i++) {
+                    var obj = data.d.channelDetailsList[i];
+                    if(data.d.channelDetailsList[i].channelName === emailChannel){
                         $scope.emailDetails =data.d.channelDetailsList[i].categoryDetailsList;
-                      //  alert(JSON.stringify(data));
                     }
                     if(data.d.channelDetailsList[i].channelName === printChannel){
                          $scope.printDetails =data.d.channelDetailsList[i].categoryDetailsList;
@@ -232,7 +230,85 @@ $scope.addImageCategory = function () {
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });                         
             }
-    };     
+    };    
+    
+    
+    $scope.getAllCategoryDetails= function (){
+         var categoryId=$("#categoryIdTag").val();
+        $http({
+                    method: 'GET',
+                    url: getHost() + '/getCategoryByCategoryId.do?categoryId='+categoryId,
+                }).success(function (data)
+                { 
+                    $scope.categoryDetails= data.d.categoryDetails;
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+        
+    }
+    
+    $scope.deleteCategory= function (categoryId){
+        var organizationId=$("#organizationIdTag").val();
+        var deleteCategory=confirm("Do you want to delete this Category?");
+            if(deleteCategory===true)
+            {
+               $http({
+                    method : 'GET',
+                    url : getHost()+ '/deleteCategory.do?categoryId='+categoryId,
+                }).success(function(data, status, headers, config) {
+                    $scope.categoryDetails= data.d.categoryDetails;
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                     window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                }).error(function(data, status, headers, config) {
+                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });     
+            }
+    }
+    
+    
+    
+     $scope.getAllSubCategories= function (){
+        
+        var categoryId = $("#categoryIdTag").val();
+
+               $http({
+                    method : 'GET',
+                    url : getHost()+ '/getAllSubCategoriesByCategoryId.do?categoryId='+categoryId,
+                }).success(function(data, status, headers, config) {
+                    $scope.subCategoryDetails= data.d.details;
+                }).error(function(data, status, headers, config) {
+                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+    }
+    
+    $scope.addSubCategory = function () {
+            var organizationId=$("#organizationIdTag").val();
+            var subCategoryName=$("#subCategoryName").val();    
+            var categoryId = $("#categoryIdTag").val();
+            var externalSourceKeywordLookupId=$("#optionalExternalSource").val();
+            var subCategory ={ "subCategoryId" : 0, "subCategoryName" : subCategoryName, "categoryId" : categoryId, "externalSourceKeywordLookupId" : externalSourceKeywordLookupId }
+             if(subCategoryName===""){
+             alert("Please enter Sub Category name.");
+             $("#subCategoryName").focus();
+            }else{
+               
+            $.ajax({
+                    method: 'POST',
+                    url: getHost() + '/saveSubCategory.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(subCategory)
+                }).success(function (data)
+                { 
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    window.open(getHost() + 'adminv2/subcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });                         
+            }
+    }; 
+   
     
     
 }
