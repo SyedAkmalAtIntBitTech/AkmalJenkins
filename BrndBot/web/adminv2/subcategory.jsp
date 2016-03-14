@@ -25,7 +25,7 @@ String categoryID=request.getParameter("categoryId");
             <div class="header_title fleft" id="categoryNameDiv">{{categoryDetails.categoryName}}</div>
             <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteCategory(<%=categoryID%>)">Delete Category</div>
         </div>
-        <div class="slatSection" ng-init="getAllSubCategories()">
+        <div class="slatSection"  ng-init="getAllSubCategories()">
             <div class="sectionHeader"> SubCategory </div>
             <div class="slatHeaders">
                 <div class="listHeaderCol col1of2 fleft">
@@ -35,16 +35,16 @@ String categoryID=request.getParameter("categoryId");
                     <span class="listCol_Header fleft">  External Value</span>
                 </div>
             </div>
-            <ul class="slatArea">
+            <ul class="slatArea" >
                 <li class="listItem" ng-repeat="subcategory in subCategoryDetails">
-                    <div class="listCol col1of2 fleft">
+                    <div class="listCol col1of2 fleft" >
                         <span class="listCol_Text fleft">{{subcategory.subCategoryName}}</span>
                     </div>
-                     <div class="listCol col1of4 fleft">
-                        <span class="listCol_Text fleft">{{subcategory.externalSourceName}}</span>
+                     <div class="listCol col1of4 fleft"  ng-init="getAllExternalSourceKeywordLookups()">
+                        <span class="listCol_Text fleft">{{ExternalSourceKeywordLookups.externalSourceName}}-{{ExternalSourceKeywordLookups.externalSourceKeywordName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <div class="CTA_Button Button--Gray fright">Manage Category</div>
+                        <a href="subcategorydetails.jsp?organizationId={{organizationDetails.organizationId}}&categoryId={{categoryDetails.categoryId}}&subCategoryId={{subcategory.subCategoryId}}"><div class="CTA_Button Button--Gray fright">Manage Sub Category</div></a>
                     </div>
                 </li>
             </ul>

@@ -18,12 +18,12 @@
             <div class="content-area_header">
                 <div class="popUp_title fleft"> Add a new sub-category </div>
             </div>
-            <div class="inputSection col1of2">
+            <div class="inputSection col1of2" ng-init="getAllExternalSourceKeywordLookups()">
                 <div class="input_Label">Sub Category Name</div>
                 <input id="subCategoryName" class="input_Field" type="text"/>
                 <div class="input_Label">Optional External Source</div>
                 <select class="input_Field" id="optionalExternalSource">
-                    <option class="input_Field" value="4">4</option>
+                    <option class="input_Field" value="{{ExternalSourceKeywordLookups.externalSourceKeywordId}}">{{ExternalSourceKeywordLookups.externalSourceName}}-{{ExternalSourceKeywordLookups.externalSourceKeywordName}}</option>
                 </select>
                 
                 <div id="addSubCategoryButton"  class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addSubCategory()">Create Sub Category</div>

@@ -244,7 +244,7 @@ $scope.addImageCategory = function () {
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
-        
+        getAllSubCategories();
     }
     
     $scope.deleteCategory= function (categoryId){
@@ -270,16 +270,56 @@ $scope.addImageCategory = function () {
      $scope.getAllSubCategories= function (){
         
         var categoryId = $("#categoryIdTag").val();
-
+        var subCategoryId = $("#subCategoryIdTag").val();
                $http({
                     method : 'GET',
                     url : getHost()+ '/getAllSubCategoriesByCategoryId.do?categoryId='+categoryId,
                 }).success(function(data, status, headers, config) {
-                    $scope.subCategoryDetails= data.d.details;
+                    for(var i=0;i<data.d.details.length;i++){
+                        if(data.d.details[i].subCategoryId==subCategoryId)
+                        {
+                            $scope.subCategoryDetailsTitle= data.d.details[i];
+                        }   
+                    }
+                    $scope.subCategoryDetails= data.d.details;    
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
     }
+    
+    $scope.deleteSubCategory= function (subCategoryId){
+        var organizationId=$("#organizationIdTag").val();
+        var categoryId=$("#categoryIdTag").val();
+        var deleteSubCategory=confirm("Do you want to delete this Sub Category?");
+            if(deleteSubCategory===true)
+            {
+               $http({
+                    method : 'GET',
+                    url : getHost()+ '/deleteSubCategory.do?subCategoryId='+subCategoryId,
+                }).success(function(data, status, headers, config) {
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                     window.open(getHost() + 'adminv2/subcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                }).error(function(data, status, headers, config) {
+                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });     
+            }
+    }
+    
+    
+    $scope.getAllExternalSourceKeywordLookups= function (){
+        $http({
+                    method : 'GET',
+                    url : getHost()+ '/getAllExternalSourceKeywordLookups.do',
+                }).success(function(data, status, headers, config) {
+                    for(var i=0;i<data.d.details.length;i++)
+                    {
+                        $scope.ExternalSourceKeywordLookups= data.d.details[i];
+                    }
+                }).error(function(data, status, headers, config) {
+                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+    }
+    
     
     $scope.addSubCategory = function () {
             var organizationId=$("#organizationIdTag").val();
