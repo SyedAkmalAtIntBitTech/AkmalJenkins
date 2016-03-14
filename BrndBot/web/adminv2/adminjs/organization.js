@@ -366,7 +366,38 @@ $scope.addImageCategory = function () {
             }
     }; 
     
+     $scope.getEmailBlock= function (){
+         var emailBlockId=$("#emailBlockId").val();
+        $http({
+                    method: 'GET',
+                    url: getHost() + '/getAllEmailBlocksById.do?emailBlockId='+emailBlockId
+                }).success(function (data)
+                { 
+                    alert(JSON.stringify(data.d.details));
+                    $scope.emailBlockDetails= data.d.details;
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+        
+    }
     
-    
+     $scope.deleteEmailBlock= function (){
+         var emailBlockId=$("#emailBlockId").val();
+        var organizationId=$("#organizationIdTag").val();
+        var deleteEmailBlock=confirm("Do you want to delete this Block?");
+            if(deleteEmailBlock===true)
+            {
+               $http({
+                    method : 'GET',
+                    url : getHost()+ '/deleteEmailModel.do?emailBlockId='+emailBlockId,
+                }).success(function(data, status, headers, config) {
+                    $scope.getEmailBlock= data.d.details;
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                     window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                }).error(function(data, status, headers, config) {
+                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });     
+            }
+    }
 }
 

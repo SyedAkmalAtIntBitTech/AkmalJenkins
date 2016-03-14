@@ -77,7 +77,7 @@
                         <span class="listCol_Text fleft"> {{blocks.externalSourceName}}{{blocks.externalSourceKeywordName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <div class="CTA_Button Button--Gray fright">Manage Block</div>
+                       <a href="emailblock.jsp?organizationId=<%=organizationId%>&emailBlockId={{blocks.emailBlockId}}"><div class="CTA_Button Button--Gray fright">Manage Block </div></a>
                     </div>
                 </li>
                 
