@@ -18,11 +18,14 @@
              <div class="content-area_header">
                 <div class="popUp_title fleft"> Add a new Block </div>
             </div>
-            <div class="inputSection col1of2">
-                
-                <input id="EmailBlockName" class="input_Field" type="text" placeholder="Block Name" />
+            <div class="inputSection col1of2" ng-init="getAllExternalSourceKeywordLookups()">
+                <div class="input_Label">Block Name</div>
+                <input id="EmailBlockName" class="input_Field" type="text"/>
                
-                
+                <div class="input_Label">Optional External Source</div>
+                <select class="input_Field" id="optionalExternalSource" >
+                    <option class="input_Field" value="{{ExternalSourceKeywordLookups.externalSourceKeywordId}}">{{ExternalSourceKeywordLookups.externalSourceName}}-{{ExternalSourceKeywordLookups.externalSourceKeywordName}}</option>
+                </select>
                 <div id="addEmail"  class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addEmailBlock()">CreateBlock</div>
             </div>
         </div>
