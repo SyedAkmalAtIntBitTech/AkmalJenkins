@@ -157,6 +157,8 @@ public class ModelController {
                 EmailModelDetails emailModelDetails = new EmailModelDetails();
                 emailModelDetails.setEmailModelId(emailModelObject.getEmailModelId());
                 emailModelDetails.setEmailModelName(emailModelObject.getEmailModelName());
+                emailModelDetails.setImageFileName(emailModelObject.getImageFileName());
+                emailModelDetails.setHtmlData(emailModelObject.getHtmlData());
                 emailModelDetails.setSubCategoryEmailModelId(emailModelObject.getEmailModelId());
                 emailModelDetailsList.add(emailModelDetails);
             }
@@ -218,5 +220,25 @@ public class ModelController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
 
     }
+    
+    @RequestMapping(value = "saveEmailModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveEmailModel(@RequestBody EmailModelDetails emailModelDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            EmailModel emailModel = new EmailModel();
+            emailModel.setEmailModelName(emailModelDetails.getEmailModelName());
+            emailModel.setHtmlData(emailModelDetails.getHtmlData());
+            emailModel.setImageFileName(emailModelDetails.getImageFileName());
+            emailModelService.save(emailModel);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email Model created successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    
    
 }

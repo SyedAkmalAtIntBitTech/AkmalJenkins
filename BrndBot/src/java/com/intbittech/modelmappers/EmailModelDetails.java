@@ -15,7 +15,27 @@ public class EmailModelDetails implements Serializable{
     private Integer subCategoryEmailModelId;
     private Integer emailModelId;
     private String emailModelName;
+    private String imageFileName;
+    private String htmlData;    
 
+    public String getImageFileName() {
+        return imageFileName;
+    }
+
+    public void setImageFileName(String imageFileName) {
+        this.imageFileName = imageFileName;
+    }
+
+    public String getHtmlData() {
+        return htmlData;
+    }
+
+    public void setHtmlData(String htmlData) {
+        this.htmlData = htmlData;
+    }
+
+    
+    
     public Integer getSubCategoryEmailModelId() {
         return subCategoryEmailModelId;
     }
