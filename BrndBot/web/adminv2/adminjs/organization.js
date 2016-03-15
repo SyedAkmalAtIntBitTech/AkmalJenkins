@@ -7,12 +7,15 @@
            $("#addOrganization").click(function (){
               $("#addOrganizationPopup").show();
               $("#addOrganizationPopupDiv").show();
+              $("#addEmailPopupDiv").show();
            });
            
 
            $("#addOrganizationPopupDiv").click(function (){
                $("#addOrganizationPopup").hide();
                 $("#addOrganizationPopupDiv").hide();
+                
+                
            });
        });
        
@@ -31,7 +34,7 @@ function organizationcontroller($scope,$http) {
        
     };
     
-    $scope.addorganization = function () {
+    $scope.addOrganization = function () {
                     
                     var organizationName = $("#organizationName").val();
                     var organizationType = $("#organizationType").val();
@@ -349,7 +352,95 @@ $scope.addImageCategory = function () {
             }
     }; 
    
+    $scope.getAllExternalSourceKeywordLookups= function (){
+       $http({
+                   method : 'GET',
+                   url : getHost()+ '/getAllExternalSourceKeywordLookups.do',
+               }).success(function(data, status, headers, config) {
+                   for(var i=0;i<data.d.details.length;i++)
+                   {
+                       $scope.ExternalSourceKeywordLookups= data.d.details[i];
+                   }
+               }).error(function(data, status, headers, config) {
+                       alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+               });  
+   }
+      $scope.getAllEmailBlocks= function (){
+           var organizationId=$("#organizationId").val();
+  
+               $http({
+                    method : 'GET',
+                    url : getHost()+ '/getAllEmailBlocksByOrganizationId.do?organizationId='+organizationId,
+                }).success(function(data, status, headers, config) {                  
+                $scope.emailBlocks= data.d.details;
+                }).error(function(data, status, headers, config) {
+               alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+    }
     
     
+    $scope.addEmailBlock = function () {
+            var organizationId=$("#organizationIdTag").val();
+            var emailBlockName=$("#EmailBlockName").val(); 
+            var externalSourceKeywordLookupId=$("#optionalExternalSource").val();
+            var emailCategory ={ "emailBlockName" : emailBlockName,  "externalSourceKeywordLookupId" : externalSourceKeywordLookupId ,"organizationId":organizationId}
+             if(emailBlockName===""){
+             alert("Please enter Email Block Name.");
+             $("#EmailBlockName").focus();
+            }else{
+               
+            $.ajax({
+                    method: 'POST',
+                    url: getHost() + '/saveEmailBlock.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(emailCategory)
+                }).success(function (data)
+                { 
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });                         
+            }
+    }; 
+    
+     $scope.getEmailBlock= function (){
+         var emailBlockId=$("#emailBlockId").val();
+        $http({
+                    method: 'GET',
+                    url: getHost() + '/getAllEmailBlocksById.do?emailBlockId='+emailBlockId
+                }).success(function (data)
+                {
+                   for(var i=0;i<data.d.details.length;i++)
+                   {
+                    $scope.emailBlocksTitle= data.d.details[i];
+                   } 
+                    $scope.emailBlockDetails= data.d.details;
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+        
+    }
+    
+     $scope.deleteEmailBlock= function (){
+         var emailBlockId=$("#emailBlockId").val();
+        var organizationId=$("#organizationIdTag").val();
+        var deleteEmailBlock=confirm("Do you want to delete this Block?");
+            if(deleteEmailBlock===true)
+            {
+               $http({
+                    method : 'GET',
+                    url : getHost()+ '/deleteEmailModel.do?emailBlockId='+emailBlockId,
+                }).success(function(data, status, headers, config) {
+                    $scope.getEmailBlock= data.d.details;
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                     window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                }).error(function(data, status, headers, config) {
+                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });     
+            }
+    }
 }
 
