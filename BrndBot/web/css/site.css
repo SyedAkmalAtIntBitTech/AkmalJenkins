@@ -25,6 +25,16 @@ table{
 	font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
 	font-size: 100%;
 }
+.width50{
+    width:50px;
+}
+.stylenone:hover{
+    text-decoration: none;
+}
+.inlineflex
+{
+    display: inline-flex;
+}
 .filter:hover{
 cursor: pointer;
 }

@@ -8,9 +8,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="shortcut icon" href="../images/favicon.png"/>        
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script type="text/javascript" src="../js/angular.min.js"></script>
         <meta name="format-detection" content="telephone=no">
         <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
         <link rel="stylesheet" type="text/css" href="admincss/normalize.css">
@@ -20,7 +17,40 @@
         <script src="../adminv2/adminjs/organization.js" type="text/javascript"></script>
         <script src="../js/configurations.js" type="text/javascript"></script>   
         <script src="../adminv2/adminjs/basejs.js" type="text/javascript"></script>
-        <title>Admin Header</title>
+        <link rel="shortcut icon" href="../images/favicon.png"/>     
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> 
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <link href="../css/site.css" rel="stylesheet" type="text/css"/>
+
+        <script src="../js/jquery.blend.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-1.10.2.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui.js" type="text/javascript"></script>
+        <script src="../js/site.js" type="text/javascript"></script>
+        
+        <!-- For svg --> 
+        <script src="../js/svg.js" type="text/javascript"></script>
+        
+        <!-- For color picker --> 
+        <link href="../css/colorpicker.css" rel="stylesheet" type="text/css"/>
+        <script src="../js/colorpicker.js" type="text/javascript"></script>
+        <!-- For confirm dialog box -->
+
+        <script src="../js/jquery.easy-confirm-dialog.js" type="text/javascript"></script>
+
+        <!-- For image filter -->
+        <script src="../js/colorup_min.js" type="text/javascript"></script>
+        <!-- For better color picker --> 
+
+        <script src="../js/spectrum.js" type="text/javascript"></script>
+
+        <link href="../css/spectrum.css" rel="stylesheet" type="text/css"/>
+        <script src="../js/configurations.js" type="text/javascript"></script>
+<!--       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+       <script type="text/javascript" src="../js/angular.min.js"></script>-->
+       
+       <title>Admin Header</title>
    </head>
     <body>
        <div class="nav ">
