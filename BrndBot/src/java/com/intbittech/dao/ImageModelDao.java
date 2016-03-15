@@ -7,6 +7,8 @@ package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ImageModel;
+import com.intbittech.model.PrintModel;
+import java.util.List;
 
 /**
  * <code> {@link ImageModelDao} </code> Interface to get ImageModel details from
@@ -18,6 +20,16 @@ public interface ImageModelDao {
 
     /**
      * This method pass id as input and get the {@link ImageModel} from database
+     *
+     *  *  * @return {@link ImageModel}
+     * @return 
+     * @throws ProcessFailed the process failed
+     */
+    public List<ImageModel> getAllImageModel() throws ProcessFailed;
+
+    /**
+     * This method pass id as input and get the {@link ImageModel} from DAO
+     * layer.
      *
      * @param imageModelId the imageModelId
      * @return {@link ImageModel}

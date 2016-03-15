@@ -7,6 +7,8 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailModel;
+import com.intbittech.model.Organization;
+import java.util.List;
 
 /**
  * <code>{@link EmailModelService}</code> is service layer interface for
@@ -15,7 +17,15 @@ import com.intbittech.model.EmailModel;
  * @author ilyas
  */
 public interface EmailModelService {
-
+    
+    /**
+     * This method pass id as input and get the {@link EmailModel} from DAO
+     * layer.
+     *
+     * @return {@link EmailModel}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailModel> getAllEmailModel() throws ProcessFailed;
     /**
      * This method pass id as input and get the {@link EmailModel} from DAO
      * layer.

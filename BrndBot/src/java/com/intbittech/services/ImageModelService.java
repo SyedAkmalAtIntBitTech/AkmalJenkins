@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ImageModel;
+import java.util.List;
 
 /**
  * <code>{@link ImageModelService}</code> is service layer interface for
@@ -16,6 +17,15 @@ import com.intbittech.model.ImageModel;
  */
 public interface ImageModelService {
     
+    /**
+     * This method pass id as input and get the {@link ImageModel} from DAO
+     * layer.
+     *
+     * * @return {@link ImageModel}
+     * @return 
+     * @throws ProcessFailed the process failed
+     */
+    public List<ImageModel> getAllImageModel() throws ProcessFailed;
     /**
      * This method pass id as input and get the {@link ImageModel} from DAO
      * layer.

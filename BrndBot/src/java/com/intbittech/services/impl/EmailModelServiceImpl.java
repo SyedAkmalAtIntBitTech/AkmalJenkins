@@ -9,6 +9,7 @@ import com.intbittech.dao.EmailModelDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailModel;
 import com.intbittech.services.EmailModelService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,5 +59,16 @@ public class EmailModelServiceImpl implements EmailModelService {
             throw new ProcessFailed("No email template found.");
         emailModelDao.delete(emailModel);
         
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<EmailModel> getAllEmailModel() throws ProcessFailed {
+        List<EmailModel> emailModel = emailModelDao.getAllEmailModel();
+        if (emailModel == null) {
+            throw new ProcessFailed("No email template found.");
+        }
+        return emailModel;
     }
 }

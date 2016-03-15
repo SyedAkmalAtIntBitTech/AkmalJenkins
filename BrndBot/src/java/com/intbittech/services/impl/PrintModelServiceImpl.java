@@ -9,6 +9,7 @@ import com.intbittech.dao.PrintModelDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.PrintModel;
 import com.intbittech.services.PrintModelService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,5 +59,18 @@ public class PrintModelServiceImpl implements PrintModelService {
             throw new ProcessFailed("No print template found.");
         printModelDao.delete(printModel);
     }
+
+    /**
+     * {@inheritDoc}
+     * @return 
+     */
+    public List<PrintModel> getAllPrintModel() throws ProcessFailed {
+       List<PrintModel> printModel = printModelDao.getByAllPrintModel();
+        if (printModel == null) {
+            throw new ProcessFailed("No print template found.");
+        }
+        return printModel;
+    }
+
     
 }

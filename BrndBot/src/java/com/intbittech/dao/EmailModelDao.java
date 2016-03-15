@@ -7,6 +7,8 @@ package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailModel;
+import com.intbittech.model.ImageModel;
+import java.util.List;
 
 /**
  * <code> {@link EmailModelDao} </code> Interface to get Email Model details from
@@ -18,6 +20,16 @@ public interface EmailModelDao  {
     
     /**
      * This method pass id as input and get the {@link EmailModel} from database.
+     *
+     *  * @return {@link EmailModel}
+     * @return 
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailModel> getAllEmailModel() throws ProcessFailed;
+
+    /**
+     * This method pass id as input and get the {@link EmailModel} from DAO
+     * layer.
      *
      * @param emailModelId the emailModelId
      * @return {@link EmailModel}

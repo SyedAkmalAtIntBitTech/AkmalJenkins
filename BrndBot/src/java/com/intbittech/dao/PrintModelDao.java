@@ -7,6 +7,7 @@ package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.PrintModel;
+import java.util.List;
 
 /**
  * <code> {@link PrintModelDao} </code> Interface to get PrintModel details from
@@ -18,6 +19,16 @@ public interface PrintModelDao {
     
     /**
      * This method pass id as input and get the {@link PrintModel} from database
+     *
+     *   *  *  * @return {@link PrintModel}
+     * @return 
+     * @throws ProcessFailed the process failed
+     */
+    public List<PrintModel> getByAllPrintModel() throws ProcessFailed;
+
+    /**
+     * This method pass id as input and get the {@link PrintModel} from DAO
+     * layer.
      *
      * @param printModelId the printModelId
      * @return {@link PrintModel}

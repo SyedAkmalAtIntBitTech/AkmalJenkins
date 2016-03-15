@@ -8,6 +8,7 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.ImageModelDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ImageModel;
+import com.intbittech.model.PrintModel;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -33,6 +34,24 @@ public class ImageModelDaoImpl implements ImageModelDao {
     /**
      * {@inheritDoc}
      */
+    
+     public List<ImageModel> getAllImageModel() throws ProcessFailed{
+          try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(ImageModel.class);
+            List<ImageModel> imageModelList = criteria.list();
+            if (imageModelList.isEmpty()) {
+                return null;
+            }
+            return criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving records.");
+        }
+         
+         
+     }
     public ImageModel getByImageModelId(Integer imageModelId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
