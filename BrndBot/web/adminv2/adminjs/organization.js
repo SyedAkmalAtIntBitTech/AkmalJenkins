@@ -377,7 +377,6 @@ $scope.addImageCategory = function () {
                    {
                     $scope.emailBlocksTitle= data.d.details[i];
                    } 
-//                   alert(JSON.stringify(data.d.details));
                     $scope.emailBlockDetails= data.d.details;
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
