@@ -26,7 +26,7 @@
                     <option class="input_Field" value="2">organization</option>
                     <option class="input_Field" value="1">group</option>
                 </select>
-                <div id="createOrganization" class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addorganization()">Create this Organization</div>
+                <div id="createOrganization" class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addOrganization()">Create this Organization</div>
             </div>
         </div>
         </div> 
