@@ -20,7 +20,7 @@
             </div>
             <div class="inputSection col1of2" ng-init="getAllExternalSourceKeywordLookups()">
                 <div class="input_Label">Block Name</div>
-                <input id="EmailBlockName" class="input_Field" type="text"/>
+                <input id="emailBlockName" class="input_Field" type="text"/>
                
                 <div class="input_Label">Optional External Source</div>
                 <select class="input_Field" id="optionalExternalSource" >
