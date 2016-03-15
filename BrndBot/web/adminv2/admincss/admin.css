@@ -357,3 +357,83 @@ font-size: 14px;
        margin-left: 48%;
     }
 }
+.browse-button {
+    margin-top: 45px;
+    width: 180px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.gray-button {
+    text-align: center;
+    background-color: #d5dadf;
+    color: #767777;
+    cursor: pointer;
+}
+.md-button {
+    padding: 7px 16px 7px 16px;
+    border-radius: 3px;
+}
+.fileupld {
+    opacity: 0;
+    margin-top: -26px;
+    width: 100%;
+}
+.uploadwidth{
+    
+    width:10%
+}
+
+#main {
+    float: left;
+    height: 600px;
+    width: 100%;
+    background-color: white;
+}
+.fr-element,.fa-code{
+    background-color: #eee !important;
+}
+textarea.fr-code{
+    background-color: #eee !important;
+}
+
+div#editor {
+    width: 100%;
+    margin: auto;
+    text-align: left;
+}
+.fr-element-custom{
+    max-height:300px !important;
+    height:300px !important;
+}
+.fr-wrapperv2{
+    background-color: #EEEEEE !important;
+}
+#fr-alignment{
+    left:0px !important;
+}   
+.fileContainer {
+    overflow: hidden;
+    position: relative;
+}
+
+.fileContainer [type=file] {
+    cursor: inherit;
+    display: block;
+    filter: alpha(opacity=0);
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
+}
+.col10f9{
+    width:4%;
+    margin-top: 14px;
+    color: #fff;
+    font-size: 13px;
+}
+.saveEdit{
+    margin-top: 28px;
+}
