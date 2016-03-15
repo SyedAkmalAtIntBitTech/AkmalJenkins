@@ -381,12 +381,12 @@ $scope.addImageCategory = function () {
     
     $scope.addEmailBlock = function () {
             var organizationId=$("#organizationIdTag").val();
-            var emailBlockName=$("#EmailBlockName").val(); 
+            var emailBlockName=$("#emailBlockName").val(); 
             var externalSourceKeywordLookupId=$("#optionalExternalSource").val();
             var emailCategory ={ "emailBlockName" : emailBlockName,  "externalSourceKeywordLookupId" : externalSourceKeywordLookupId ,"organizationId":organizationId}
              if(emailBlockName===""){
              alert("Please enter Email Block Name.");
-             $("#EmailBlockName").focus();
+             $("#emailBlockName").focus();
             }else{
                
             $.ajax({
