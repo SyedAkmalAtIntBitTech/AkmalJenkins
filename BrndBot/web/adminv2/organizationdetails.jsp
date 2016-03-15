@@ -58,7 +58,7 @@
             </ul>
             <div id="addOrganization" class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
         </div>
-        <div class="slatSection" ng-init="getEmailBlocks()">
+        <div class="slatSection" ng-init="getAllEmailBlocks()">
             <div class="sectionHeader"> Email Blocks </div>
             <div class="slatHeaders">
                 <div class="listHeaderCol col1of2 fleft">

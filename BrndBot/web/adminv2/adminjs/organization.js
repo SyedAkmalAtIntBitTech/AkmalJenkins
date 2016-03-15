@@ -325,14 +325,14 @@ $scope.addImageCategory = function () {
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                });  
    }
-      $scope.getEmailBlocks= function (){
+      $scope.getAllEmailBlocks= function (){
            var organizationId=$("#organizationId").val();
   
                $http({
                     method : 'GET',
                     url : getHost()+ '/getAllEmailBlocksByOrganizationId.do?organizationId='+organizationId,
                 }).success(function(data, status, headers, config) {                  
-                  $scope.emailBlocks= data.d.details;
+                $scope.emailBlocks= data.d.details;
                 }).error(function(data, status, headers, config) {
                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
@@ -372,8 +372,12 @@ $scope.addImageCategory = function () {
                     method: 'GET',
                     url: getHost() + '/getAllEmailBlocksById.do?emailBlockId='+emailBlockId
                 }).success(function (data)
-                { 
-                    alert(JSON.stringify(data.d.details));
+                {
+                   for(var i=0;i<data.d.details.length;i++)
+                   {
+                    $scope.emailBlocksTitle= data.d.details[i];
+                   } 
+//                   alert(JSON.stringify(data.d.details));
                     $scope.emailBlockDetails= data.d.details;
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
