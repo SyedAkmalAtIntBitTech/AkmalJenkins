@@ -39,7 +39,7 @@
                 </div>
             </div>
             
-            
+             
         <div id="uploadOnEdit">
             <div class="inputSection col1of4">
                 <div class="input_Label">Please upload an image:</div>
