@@ -13,6 +13,10 @@ public class PrintModelDetails {
     private Integer subCategoryPrintModelId;
     private Integer printModelId;
     private String printModelName;
+    private String layoutFileName;
+    private String modelFileName;
+    private String imageFileName;
+
 
     private Integer subCategoryId;
 
@@ -22,6 +26,30 @@ public class PrintModelDetails {
 
     public void setSubCategoryId(Integer subCategoryId) {
         this.subCategoryId = subCategoryId;
+    }
+    
+    public String getLayoutFileName() {
+        return layoutFileName;
+    }
+
+    public void setLayoutFileName(String layoutFileName) {
+        this.layoutFileName = layoutFileName;
+    }
+
+    public String getModelFileName() {
+        return modelFileName;
+    }
+
+    public void setModelFileName(String modelFileName) {
+        this.modelFileName = modelFileName;
+    }
+
+    public String getImageFileName() {
+        return imageFileName;
+    }
+
+    public void setImageFileName(String imageFileName) {
+        this.imageFileName = imageFileName;
     }
     
     public Integer getSubCategoryPrintModelId() {
