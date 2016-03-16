@@ -31,6 +31,7 @@ public interface EmailModelService {
      * This method pass id as input and get the {@link EmailModel} from DAO
      * layer.
      *
+     * @param subCategoryId the subCategoryId
      * @return {@link EmailModel}
      * @throws ProcessFailed the process failed
      */
