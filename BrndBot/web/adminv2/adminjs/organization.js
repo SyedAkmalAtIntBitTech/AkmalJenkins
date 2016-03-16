@@ -451,10 +451,8 @@ $scope.addImageCategory = function () {
                     url: getHost() + '/getAllEmailModelBySubCategory.do?subCategoryId='+subCategoryId
                 }).success(function (data)
                 {
-                   for(var i=0;i<data.d.details.length;i++)
-                   {
-                    $scope.emailModels= data.d.details[i];
-                   } 
+                    $scope.emailModels= data.d.details;
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
