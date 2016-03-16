@@ -64,5 +64,15 @@ public interface EmailModelDao  {
      */
     public void delete(EmailModel emailModel) throws ProcessFailed;
     
+    /**
+     * This method delete particular {@link EmailModel} based on the
+     * EmailModel from the database.
+     *
+     * @return the list of EmailModel
+     * @param emailModelIds the emailModelIds
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailModel> getByEmailModelsByIds(Integer[] emailModelIds) throws ProcessFailed;
+    
     
 }

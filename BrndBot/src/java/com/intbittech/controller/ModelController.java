@@ -99,6 +99,29 @@ public class ModelController {
 
     }
     
+    @RequestMapping(value = "getAllNonAddedEmailModels", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllNonAddedEmailModels(@RequestParam("subCategoryId") Integer subCategoryId) {
+        GenericResponse<EmailModelDetails> genericResponse = new GenericResponse<>();
+        try {
+            List<EmailModel> emailModelList = emailModelService.getAllNonAddedEmailModels(subCategoryId);
+            List<EmailModelDetails> emailModelDetailsList = new ArrayList<>();
+            for (EmailModel emailModelsObject : emailModelList) {
+                EmailModelDetails emailModelDetails = new EmailModelDetails();
+                emailModelDetails.setEmailModelId(emailModelsObject.getEmailModelId());
+                emailModelDetails.setEmailModelName(emailModelsObject.getEmailModelName());
+                emailModelDetailsList.add(emailModelDetails);
+            }
+
+            genericResponse.setDetails(emailModelDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email models retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+    
     @RequestMapping(value = "getAllPrintModelBySubCategory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllPrintModelBySubCategory(@RequestParam("subCategoryId") Integer subCategoryId) {
         GenericResponse<PrintModelDetails> genericResponse = new GenericResponse<>();

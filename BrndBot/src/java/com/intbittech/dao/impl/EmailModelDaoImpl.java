@@ -100,5 +100,23 @@ public class EmailModelDaoImpl implements EmailModelDao {
             throw new ProcessFailed("Database error while deleting record.");
         }
     }
+    
+    public List<EmailModel> getByEmailModelsByIds(Integer[] emailModelIds) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(EmailModel.class);
+            for(int i =0 ; i<emailModelIds.length;i++)
+            criteria.add(Restrictions.ne("emailModelId", emailModelIds[i]));
+            List<EmailModel> emailModelList = criteria.list();
+            if (emailModelList.isEmpty()) {
+                return null;
+            }
+            return emailModelList;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
+    }
 
 }

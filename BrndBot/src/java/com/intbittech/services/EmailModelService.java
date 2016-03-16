@@ -26,6 +26,16 @@ public interface EmailModelService {
      * @throws ProcessFailed the process failed
      */
     public List<EmailModel> getAllEmailModel() throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailModel} from DAO
+     * layer.
+     *
+     * @return {@link EmailModel}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailModel> getAllNonAddedEmailModels(Integer subCategoryId) throws ProcessFailed;
+    
     /**
      * This method pass id as input and get the {@link EmailModel} from DAO
      * layer.

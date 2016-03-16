@@ -6,8 +6,10 @@
 package com.intbittech.services.impl;
 
 import com.intbittech.dao.EmailModelDao;
+import com.intbittech.dao.SubCategoryEmailModelDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailModel;
+import com.intbittech.model.SubCategoryEmailModel;
 import com.intbittech.services.EmailModelService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class EmailModelServiceImpl implements EmailModelService {
 
     @Autowired
     private EmailModelDao emailModelDao;
+    
+    @Autowired
+    private SubCategoryEmailModelDao subCategoryEmailModelDao;
 
     /**
      * {@inheritDoc}
@@ -70,5 +75,20 @@ public class EmailModelServiceImpl implements EmailModelService {
             throw new ProcessFailed("No email template found.");
         }
         return emailModel;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<EmailModel> getAllNonAddedEmailModels(Integer subCategoryId) throws ProcessFailed {
+        List<SubCategoryEmailModel> subCategoryEmailModelList = subCategoryEmailModelDao.getAllSubCategoryEmailModel(subCategoryId);
+        Integer[] emailModelIds = new Integer[subCategoryEmailModelList.size()];
+        Integer i =0;
+        for(SubCategoryEmailModel subCategoryEmailModelObject : subCategoryEmailModelList)
+        {
+            emailModelIds[i++] = subCategoryEmailModelObject.getFkEmailModelId().getEmailModelId();
+        }
+        List<EmailModel> emailModelList = emailModelDao.getByEmailModelsByIds(emailModelIds);
+        return emailModelList;
     }
 }
