@@ -356,6 +356,20 @@ font-size: 14px;
        margin-top: 51%;
        margin-left: 48%;
     }
+    .contentEdit{
+        overflow-y: inherit !important;
+    }
+}
+@media screen and (min-width:900px) and (max-width:1400px){
+    
+    .contentEdit{
+      
+    height: calc(100vh - -152px);
+    margin: 0px 30px;
+    position: absolute;
+    overflow-y: inherit;
+    z-index: -1;
+    }
 }
 .browse-button {
     margin-top: 45px;

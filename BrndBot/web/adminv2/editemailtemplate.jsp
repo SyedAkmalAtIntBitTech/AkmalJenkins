@@ -16,7 +16,7 @@
         <jsp:include page="adminheader.jsp"/>
         <jsp:include page="froalaeditor_styles.jsp"/>
         
-        <div class="content-area" >
+        <div class="content-area contentEdit" >
         <div class="content-area_header">
             <div class="header_path fleft" id="editTitle">Edit Email Template</div>
             <div class="header_path fleft" id="createTitle"> Create New Email Template</div>
