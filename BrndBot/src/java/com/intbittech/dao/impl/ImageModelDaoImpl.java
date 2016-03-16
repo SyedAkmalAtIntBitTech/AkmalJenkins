@@ -8,6 +8,7 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.ImageModelDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ImageModel;
+import com.intbittech.model.PrintModel;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -33,6 +34,24 @@ public class ImageModelDaoImpl implements ImageModelDao {
     /**
      * {@inheritDoc}
      */
+    
+     public List<ImageModel> getAllImageModel() throws ProcessFailed{
+          try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(ImageModel.class);
+            List<ImageModel> imageModelList = criteria.list();
+            if (imageModelList.isEmpty()) {
+                return null;
+            }
+            return criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving records.");
+        }
+         
+         
+     }
     public ImageModel getByImageModelId(Integer imageModelId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
@@ -83,6 +102,27 @@ public class ImageModelDaoImpl implements ImageModelDao {
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed("Database error while deleting record.");
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<ImageModel> getByImageModelsByIds(Integer[] imageModelIds) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(ImageModel.class);
+            for(int i =0 ; i<imageModelIds.length;i++)
+            criteria.add(Restrictions.ne("printModelId", imageModelIds[i]));
+            List<ImageModel> imageModelList = criteria.list();
+            if (imageModelList.isEmpty()) {
+                return null;
+            }
+            return imageModelList;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving records");
         }
     }
 

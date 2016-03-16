@@ -33,6 +33,22 @@ public class PrintModelDaoImpl implements PrintModelDao {
     /**
      * {@inheritDoc}
      */
+    
+    public List<PrintModel> getByAllPrintModel() throws ProcessFailed{
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(PrintModel.class);
+            List<PrintModel> printModelList = criteria.list();
+            if (printModelList.isEmpty()) {
+                return null;
+            }
+            return criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving records.");
+        }
+    }
     public PrintModel getByPrintModelId(Integer printModelId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
@@ -83,6 +99,27 @@ public class PrintModelDaoImpl implements PrintModelDao {
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed("Database error while deleting record.");
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<PrintModel> getByPrintModelsByIds(Integer[] printModelIds) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(PrintModel.class);
+            for(int i =0 ; i<printModelIds.length;i++)
+            criteria.add(Restrictions.ne("printModelId", printModelIds[i]));
+            List<PrintModel> printModelList = criteria.list();
+            if (printModelList.isEmpty()) {
+                return null;
+            }
+            return printModelList;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving records");
         }
     }
     

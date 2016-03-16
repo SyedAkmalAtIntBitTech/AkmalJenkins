@@ -30,32 +30,16 @@ String subCategoryID=request.getParameter("subCategoryId");
             <div class="CTA_Button Button--Blue fright">Add Template</div>
             <div class="CTA_Button Button--Delete fright" ng-click="deleteSubCategory(<%=subCategoryID%>)">Delete Sub Category</div>
         </div>
-        <div class="slatSection">
+        <div class="slatSection" ng-init="getEmailModelBySubCategoryId()">
             <div class="slatHeaders">
                 <div class="listHeaderCol col1of2 fleft">
                     <span class="listCol_Header fleft"> Template Names </span>
                 </div>
             </div>
             <ul class="slatArea">
-                <li class="listItem">
+                <li class="listItem" ng-repeat="emailModel in emailModels">
                     <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft"> Template Name</span>
-                    </div>
-                    <div class="listCol col1of4 fright">
-                        <div class="CTA_Button Button--Gray fright">Remove Template</div>
-                    </div>
-                </li>
-                <li class="listItem">
-                    <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft"> Template Name</span>
-                    </div>
-                    <div class="listCol col1of4 fright">
-                        <div class="CTA_Button Button--Gray fright">Remove Template</div>
-                    </div>
-                </li>
-                <li class="listItem">
-                    <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft"> Template Name</span>
+                        <span class="listCol_Text fleft">{{emailModel.emailModelName}} Template Name</span>
                     </div>
                     <div class="listCol col1of4 fright">
                         <div class="CTA_Button Button--Gray fright">Remove Template</div>
