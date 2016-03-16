@@ -442,5 +442,24 @@ $scope.addImageCategory = function () {
                 });     
             }
     }
+    
+    
+    $scope.getEmailModelBySubCategoryId= function (){
+         var subCategoryId=$("#subCategoryIdTag").val();
+        $http({
+                    method: 'GET',
+                    url: getHost() + '/getAllEmailModelBySubCategory.do?subCategoryId='+subCategoryId
+                }).success(function (data)
+                {
+                   for(var i=0;i<data.d.details.length;i++)
+                   {
+                    $scope.emailModels= data.d.details[i];
+                   } 
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+        
+    }
+    
 }
 
