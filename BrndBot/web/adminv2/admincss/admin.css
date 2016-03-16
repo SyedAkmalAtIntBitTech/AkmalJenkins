@@ -364,7 +364,7 @@ font-size: 14px;
     
     .contentEdit{
       
-    height: calc(100vh - -152px);
+    height: calc(100vh - -170px);
     margin: 0px 30px;
     position: absolute;
     overflow-y: inherit;
@@ -449,5 +449,8 @@ div#editor {
     font-size: 13px;
 }
 .saveEdit{
-    margin-top: 28px;
+     margin-top: 5%; 
+}
+.createTemplate{
+   margin-top: 5%; 
 }
