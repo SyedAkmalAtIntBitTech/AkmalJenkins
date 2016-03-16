@@ -1,5 +1,5 @@
 <%-- 
-    Document   : emailsubcategory
+    Document   : printsubcategory
     Created on : Mar 9, 2016, 3:24:23 PM
     Author     : development
 --%>
@@ -44,7 +44,7 @@ String categoryID=request.getParameter("categoryId");
                         <span class="listCol_Text fleft">{{ExternalSourceKeywordLookups.externalSourceName}}-{{ExternalSourceKeywordLookups.externalSourceKeywordName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href="subcategorydetails.jsp?organizationId={{organizationDetails.organizationId}}&categoryId={{categoryDetails.categoryId}}&subCategoryId={{subcategory.subCategoryId}}"><div class="CTA_Button Button--Gray fright">Manage Sub Category</div></a>
+                        <a href="printsubcategorydetails.jsp?organizationId={{organizationDetails.organizationId}}&categoryId={{categoryDetails.categoryId}}&subCategoryId={{subcategory.subCategoryId}}"><div class="CTA_Button Button--Gray fright">Manage Sub Category</div></a>
                     </div>
                 </li>
             </ul>

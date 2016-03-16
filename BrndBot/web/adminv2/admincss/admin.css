@@ -221,7 +221,12 @@ width: 60%;
     clear: both;
      box-sizing: border-box;
 }
-
+.cursorpointer{
+    cursor:pointer;
+}
+.active{
+    border:solid 3px #0f76a6;
+}
 .listHeaderCol{
 padding: 5px 15px;  
     box-sizing: border-box;
@@ -341,6 +346,21 @@ font-size: 14px;
     margin-top:100px;
     width: 600px;
     padding-bottom: 30px;
+}
+.popUpAllTemplate{
+    z-index: 1100;
+    background-color: #FFFFFF;
+    display: block;
+    border-radius: 3px;
+    border: 1px solid #D2D3D5;
+    padding: 0px 30px;
+    margin: auto;
+    position: relative;
+    left:12%;
+    margin-top:100px;
+    width: 991px;
+    padding-bottom: 30px;
+    height:474px;
 }
 
 .popUp_title{
