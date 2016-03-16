@@ -58,9 +58,19 @@ public interface PrintModelDao {
      * This method delete particular {@link PrintModel} based on the
      * PrintModel from the database.
      *
-     * @param PrintModel the printModel
+     * @param printModel the printModel
      * @throws ProcessFailed the process failed
      */
     public void delete(PrintModel printModel) throws ProcessFailed;
+    
+    /**
+     * This method delete particular {@link EmailModel} based on the
+     * EmailModel from the database.
+     *
+     * @return the list of EmailModel
+     * @param printModelIds the printModelIds
+     * @throws ProcessFailed the process failed
+     */
+    public List<PrintModel> getByPrintModelsByIds(Integer[] printModelIds) throws ProcessFailed;
     
 }

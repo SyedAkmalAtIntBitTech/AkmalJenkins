@@ -63,4 +63,14 @@ public interface PrintModelService {
      */
     public void delete(Integer printModelId) throws ProcessFailed;
     
+    /**
+     * This method pass id as input and get the {@link PrintModel} from DAO
+     * layer.
+     *
+     * @return List of {@link PrintModel}
+     * @param subCategoryId the subCategoryId
+     * @throws ProcessFailed the process failed
+     */
+    public List<PrintModel> getAllNonAddedPrintModels(Integer subCategoryId) throws ProcessFailed;
+    
 }

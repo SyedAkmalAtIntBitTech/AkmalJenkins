@@ -63,4 +63,14 @@ public interface ImageModelService {
      */
     public void delete(Integer imageModelId) throws ProcessFailed;
     
+    /**
+     * This method pass id as input and get the {@link ImageModel} from DAO
+     * layer.
+     *
+     * @param subCategoryId the subCategoryId
+     * @return list of {@link ImageModel}
+     * @throws ProcessFailed the process failed
+     */
+    public List<ImageModel> getAllNonAddedImageModels(Integer subCategoryId) throws ProcessFailed;
+    
 }

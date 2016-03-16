@@ -101,5 +101,26 @@ public class PrintModelDaoImpl implements PrintModelDao {
             throw new ProcessFailed("Database error while deleting record.");
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<PrintModel> getByPrintModelsByIds(Integer[] printModelIds) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(PrintModel.class);
+            for(int i =0 ; i<printModelIds.length;i++)
+            criteria.add(Restrictions.ne("printModelId", printModelIds[i]));
+            List<PrintModel> printModelList = criteria.list();
+            if (printModelList.isEmpty()) {
+                return null;
+            }
+            return printModelList;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving records");
+        }
+    }
     
 }

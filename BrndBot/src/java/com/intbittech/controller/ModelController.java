@@ -122,6 +122,52 @@ public class ModelController {
 
     }
     
+    @RequestMapping(value = "getAllNonAddedImageModels", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllNonAddedImageModels(@RequestParam("subCategoryId") Integer subCategoryId) {
+        GenericResponse<ImageModelDetails> genericResponse = new GenericResponse<>();
+        try {
+            List<ImageModel> imageModelList = imageModelService.getAllNonAddedImageModels(subCategoryId);
+            List<ImageModelDetails> imageModelDetailsList = new ArrayList<>();
+            for (ImageModel imageModelsObject : imageModelList) {
+                ImageModelDetails imageModelDetails = new ImageModelDetails();
+                imageModelDetails.setImageModelId(imageModelsObject.getImageModelId());
+                imageModelDetails.setImageModelName(imageModelsObject.getImageModelName());
+                imageModelDetailsList.add(imageModelDetails);
+            }
+
+            genericResponse.setDetails(imageModelDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Image models retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+    
+    @RequestMapping(value = "getAllNonAddedPrintModels", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllNonAddedPrintModels(@RequestParam("subCategoryId") Integer subCategoryId) {
+        GenericResponse<PrintModelDetails> genericResponse = new GenericResponse<>();
+        try {
+            List<PrintModel> printModelList = printModelService.getAllNonAddedPrintModels(subCategoryId);
+            List<PrintModelDetails> printModelDetailsList = new ArrayList<>();
+            for (PrintModel printModelsObject : printModelList) {
+                PrintModelDetails printModelDetails = new PrintModelDetails();
+                printModelDetails.setPrintModelId(printModelsObject.getPrintModelId());
+                printModelDetails.setPrintModelName(printModelsObject.getPrintModelName());
+                printModelDetailsList.add(printModelDetails);
+            }
+
+            genericResponse.setDetails(printModelDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Print models retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+    
     @RequestMapping(value = "getAllPrintModelBySubCategory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllPrintModelBySubCategory(@RequestParam("subCategoryId") Integer subCategoryId) {
         GenericResponse<PrintModelDetails> genericResponse = new GenericResponse<>();

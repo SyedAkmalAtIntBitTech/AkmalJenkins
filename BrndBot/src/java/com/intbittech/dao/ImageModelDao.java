@@ -63,5 +63,15 @@ public interface ImageModelDao {
      * @throws ProcessFailed the process failed
      */
     public void delete(ImageModel imageModel) throws ProcessFailed;
+    
+    /**
+     * This method delete particular {@link ImageModel} based on the ImageModel
+     * from the database.
+     *
+     * @return list of {@link ImageModel}
+     * @param imageModelIds the imageModelIds
+     * @throws ProcessFailed the process failed
+     */
+    public List<ImageModel> getByImageModelsByIds(Integer[] imageModelIds) throws ProcessFailed;
 
 }
