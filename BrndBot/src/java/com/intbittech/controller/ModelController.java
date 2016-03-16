@@ -6,6 +6,7 @@
 package com.intbittech.controller;
 
 
+import com.imagetopdf.image.Image;
 import com.intbittech.model.EmailBlock;
 import com.intbittech.model.EmailBlockExternalSource;
 import com.intbittech.model.EmailModel;
@@ -206,6 +207,9 @@ public class ModelController {
                 ImageModelDetails imageModelDetails = new ImageModelDetails();
                 imageModelDetails.setImageModelId(imageModelObject.getImageModelId());
                 imageModelDetails.setImageModelName(imageModelObject.getImageModelName());
+                imageModelDetails.setLayoutFileName(imageModelObject.getLayoutFileName());
+                imageModelDetails.setModelFileName(imageModelObject.getModelFileName());
+                imageModelDetails.setImageFileName(imageModelObject.getImageFileName());
                 imageModelDetails.setSubCategoryImageModelId(imageModelObject.getImageModelId());
                 imageModelDetailsList.add(imageModelDetails);
             }
@@ -230,6 +234,9 @@ public class ModelController {
                 PrintModelDetails PrintModelDetails = new PrintModelDetails();
                 PrintModelDetails.setPrintModelId(printModelObject.getPrintModelId());
                 PrintModelDetails.setPrintModelName(printModelObject.getPrintModelName());
+                PrintModelDetails.setLayoutFileName(printModelObject.getLayoutFileName());
+                PrintModelDetails.setModelFileName(printModelObject.getModelFileName());
+                PrintModelDetails.setImageFileName(printModelObject.getImageFileName());
                 PrintModelDetails.setSubCategoryPrintModelId(printModelObject.getPrintModelId());
                 printModelDetailsList.add(PrintModelDetails);
             }
@@ -262,6 +269,44 @@ public class ModelController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
+    
+    @RequestMapping(value = "savePrintModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> savePrintModel(@RequestBody PrintModelDetails printModelDetails)    {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            PrintModel printlModel = new PrintModel();
+            printlModel.setPrintModelName(printModelDetails.getPrintModelName());
+            printlModel.setModelFileName(printModelDetails.getModelFileName());
+            printlModel.setLayoutFileName(printModelDetails.getLayoutFileName());
+            printlModel.setImageFileName(printModelDetails.getImageFileName());
+            printModelService.save(printlModel);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Print Model created successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "saveImageModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveImageModel(@RequestBody ImageModelDetails imageModelDetails)    {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            ImageModel imageModel = new ImageModel();
+            imageModel.setImageModelName(imageModelDetails.getImageModelName());
+            imageModel.setLayoutFileName(imageModelDetails.getLayoutFileName());
+            imageModel.setModelFileName(imageModelDetails.getModelFileName());
+            imageModel.setImageFileName(imageModelDetails.getImageFileName());
+            imageModelService.save(imageModel);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Image Model created successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
     
    
 }
