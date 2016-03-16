@@ -36,7 +36,7 @@
             
             
         <label class="fileContainer">
-            <div id="triggerfile" class="md-button gray-button col10f9" >Upload</div>
+            <div id="triggerFile" class="md-button gray-button col10f9" >Upload</div>
             <input type="file"/>
         </label>
            
@@ -51,7 +51,7 @@
                 <div class="input_Label">Please upload an image:</div>
             </div>
             <label class="fileContainer">
-                <div id="triggerfile" class="md-button gray-button col10f9" >Upload</div>
+                <div id="triggerFile" class="md-button gray-button col10f9" >Upload</div>
                 <input type="file"/>
             </label>
         </div>
