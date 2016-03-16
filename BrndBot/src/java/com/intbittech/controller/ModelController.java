@@ -6,26 +6,19 @@
 package com.intbittech.controller;
 
 
-import com.imagetopdf.image.Image;
-import com.intbittech.model.EmailBlock;
-import com.intbittech.model.EmailBlockExternalSource;
 import com.intbittech.model.EmailModel;
 import com.intbittech.model.ImageModel;
-import com.intbittech.model.Organization;
-import com.intbittech.model.OrganizationEmailBlockLookup;
 import com.intbittech.model.PrintModel;
+import com.intbittech.model.SubCategory;
 import com.intbittech.model.SubCategoryEmailModel;
 import com.intbittech.model.SubCategoryImageModel;
 import com.intbittech.model.SubCategoryPrintModel;
-import com.intbittech.modelmappers.EmailBlockDetails;
 import com.intbittech.modelmappers.EmailModelDetails;
 import com.intbittech.modelmappers.ImageModelDetails;
-import com.intbittech.modelmappers.OrganizationDetails;
 import com.intbittech.modelmappers.PrintModelDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
-import com.intbittech.services.EmailBlockService;
 import com.intbittech.services.EmailModelService;
 import com.intbittech.services.ImageModelService;
 import com.intbittech.services.PrintModelService;
@@ -36,8 +29,6 @@ import com.intbittech.utility.ErrorHandlingUtil;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.apache.tomcat.dbcp.pool2.PoolUtils;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -71,7 +62,7 @@ public class ModelController {
     private SubCategoryPrintModelService subCategoryPrintModelService;
     
     @Autowired
-    private SubCategoryImageModelService SubCategoryImageModelService;
+    private SubCategoryImageModelService subCategoryImageModelService;
     
 
     
@@ -91,7 +82,7 @@ public class ModelController {
             }
 
             genericResponse.setDetails(emailModelDetailsList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email models retrieved successfully."));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email templates retrieved successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -114,7 +105,7 @@ public class ModelController {
             }
 
             genericResponse.setDetails(emailModelDetailsList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email models retrieved successfully."));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email templates retrieved successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -137,7 +128,7 @@ public class ModelController {
             }
 
             genericResponse.setDetails(imageModelDetailsList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Image models retrieved successfully."));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Image templates retrieved successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -160,7 +151,7 @@ public class ModelController {
             }
 
             genericResponse.setDetails(printModelDetailsList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Print models retrieved successfully."));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Print templates retrieved successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -184,7 +175,7 @@ public class ModelController {
             }
 
             genericResponse.setDetails(printModelDetailsList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Print models retrieved successfully."));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Print templates retrieved successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -197,7 +188,7 @@ public class ModelController {
     public ResponseEntity<ContainerResponse> getAllImageModelBySubCategory(@RequestParam("subCategoryId") Integer subCategoryId) {
         GenericResponse<ImageModelDetails> genericResponse = new GenericResponse<>();
         try {
-            List<SubCategoryImageModel> SubCategoryImageModelList = SubCategoryImageModelService.getAllSubCategoryImageModel(subCategoryId);
+            List<SubCategoryImageModel> SubCategoryImageModelList = subCategoryImageModelService.getAllSubCategoryImageModel(subCategoryId);
             List<ImageModelDetails> imageModelDetailsList = new ArrayList<>();
             for (SubCategoryImageModel imageModelsObject : SubCategoryImageModelList) {
                 ImageModelDetails imageModelDetails = new ImageModelDetails();
@@ -208,7 +199,7 @@ public class ModelController {
             }
 
             genericResponse.setDetails(imageModelDetailsList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Image models retrieved successfully."));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Image templates retrieved successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -234,7 +225,7 @@ public class ModelController {
             }
 
             genericResponse.setDetails(emailModelDetailsList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("All Email models retrieved successfully."));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("All email templates retrieved successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -261,7 +252,7 @@ public class ModelController {
             }
 
             genericResponse.setDetails(imageModelDetailsList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("All Image models retrieved successfully."));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("All image templates retrieved successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -288,7 +279,7 @@ public class ModelController {
             }
 
             genericResponse.setDetails(printModelDetailsList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("All Print models retrieved successfully."));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("All print templates retrieved successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -306,7 +297,72 @@ public class ModelController {
             emailModel.setHtmlData(emailModelDetails.getHtmlData());
             emailModel.setImageFileName(emailModelDetails.getImageFileName());
             emailModelService.save(emailModel);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email Model created successfully."));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template created successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "saveSubCategoryEmailModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveSubCategoryEmailModel(@RequestBody EmailModelDetails emailModelDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            SubCategoryEmailModel subCategoryEmailModel = new SubCategoryEmailModel();
+            EmailModel emailModel = new EmailModel();
+            emailModel.setEmailModelId(emailModelDetails.getEmailModelId());
+            
+            SubCategory subCategory = new SubCategory();
+            subCategory.setSubCategoryId(emailModelDetails.getSubCategoryId());
+            subCategoryEmailModel.setFkSubCategoryId(subCategory);
+            subCategoryEmailModel.setFkEmailModelId(emailModel);
+            
+            subCategoryEmailModelService.save(subCategoryEmailModel);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template related to subcategroy successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "saveSubCategoryPrintModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveSubCategoryPrintModel(@RequestBody PrintModelDetails printModelDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            SubCategoryPrintModel subCategoryPrintModel = new SubCategoryPrintModel();
+            PrintModel printModel = new PrintModel();
+            SubCategory subCategory = new SubCategory();
+            printModel.setPrintModelId(printModelDetails.getPrintModelId());
+            subCategory.setSubCategoryId(printModelDetails.getSubCategoryId());
+            subCategoryPrintModel.setFkPrintModelId(printModel);
+            subCategoryPrintModel.setFkSubCategoryId(subCategory);
+            subCategoryPrintModelService.save(subCategoryPrintModel);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Print template related to subcategory successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "saveSubCategoryImageModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveSubCategoryImageModel(@RequestBody ImageModelDetails imageModelDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            SubCategoryImageModel subCategoryImageModel = new SubCategoryImageModel();
+            ImageModel imageModel = new ImageModel();
+            SubCategory subCategory = new SubCategory();
+            imageModel.setImageModelId(imageModelDetails.getImageModelId());
+            subCategory.setSubCategoryId(imageModelDetails.getSubCategoryId());
+            subCategoryImageModel.setFkImageModelId(imageModel);
+            subCategoryImageModel.setFkSubCategoryId(subCategory);
+            subCategoryImageModelService.save(subCategoryImageModel);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Image template related to subcategory successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -326,7 +382,7 @@ public class ModelController {
             printlModel.setLayoutFileName(printModelDetails.getLayoutFileName());
             printlModel.setImageFileName(printModelDetails.getImageFileName());
             printModelService.save(printlModel);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Print Model created successfully."));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Print template created successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -345,7 +401,7 @@ public class ModelController {
             imageModel.setModelFileName(imageModelDetails.getModelFileName());
             imageModel.setImageFileName(imageModelDetails.getImageFileName());
             imageModelService.save(imageModel);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Image Model created successfully."));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Image template created successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));

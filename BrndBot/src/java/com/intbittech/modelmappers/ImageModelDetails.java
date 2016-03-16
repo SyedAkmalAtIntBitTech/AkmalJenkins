@@ -18,7 +18,16 @@ public class ImageModelDetails {
     private String modelFileName;
     private String imageFileName;
 
+    private Integer subCategoryId;
 
+    public Integer getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(Integer subCategoryId) {
+        this.subCategoryId = subCategoryId;
+    }
+        
     public String getLayoutFileName() {
         return layoutFileName;
     }
