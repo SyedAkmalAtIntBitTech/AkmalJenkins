@@ -15,6 +15,16 @@ public class ImageModelDetails {
     private Integer imageModelId;
     private String imageModelName;
 
+    private Integer subCategoryId;
+
+    public Integer getSubCategoryId() {
+        return subCategoryId;
+    }
+
+    public void setSubCategoryId(Integer subCategoryId) {
+        this.subCategoryId = subCategoryId;
+    }
+    
     public Integer getSubCategoryImageModelId() {
         return subCategoryImageModelId;
     }
