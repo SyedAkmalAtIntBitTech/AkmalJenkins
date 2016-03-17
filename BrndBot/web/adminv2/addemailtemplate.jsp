@@ -13,9 +13,11 @@
         <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer"></div>
         <div id="addEmailTemplatePopUp" class="popUp_background">
             <div  class="popUpAllTemplate" >
-            <div class="content-area_header">
+            <div class="content-area_header" >
                 <div class="popUp_title fleft"> Add a Template</div>
-                <div class="CTA_Button Button--Blue fright" ng-click="relatePrintTemplateSubCategory()">Add Template</div>
+                <div id="relateEmailTemplateAddButton"  class="CTA_Button Button--Blue fright"  ng-click="relateEmailTemplateSubCategory()">Add Template</div>
+                <div id="relatePrintTemplateAddButton"  class="CTA_Button Button--Blue fright"  ng-click="relatePrintTemplateSubCategory()">Add Template</div>
+                <div id="relateImageTemplateAddButton"  class="CTA_Button Button--Blue fright"  ng-click="relateImageTemplateSubCategory()">Add Template</div>
             </div>
             <div class="slatHeaders">
                 
@@ -28,16 +30,16 @@
                     </li>                
                 </ul>
                 <ul class="slatArea" ng-if="location.path() != '/imagesubcategorydetails.jsp'" >
-                    <li class="listItem" ng-repeat="nonAddedimageModelsBySubCategorys in nonAddedImageModelsBySubCategory" ng-click="select(nonAddedimageModelsBySubCategorys)" ng-class="{active: isActive(nonAddedimageModelsBySubCategorys)}">
+                    <li class="listItem cursorpointer" ng-repeat="nonAddedimageModelsBySubCategorys in nonAddedImageModelsBySubCategory" ng-click="select(nonAddedimageModelsBySubCategorys)" ng-class="{active: isActive(nonAddedimageModelsBySubCategorys)}">
                         <div class="listCol col1of2 fleft">
                             <span class="listCol_Text fleft">{{nonAddedimageModelsBySubCategorys.imageModelName}}</span>   
                         </div>
                     </li>                
                 </ul>
                 <ul class="slatArea" ng-if="location.path() != '/emailsubcategorydetails.jsp'" >
-                    <li class="listItem" ng-repeat="nonAddedemailModelsBySubCategorys in nonAddedEmailModelsBySubCategory" ng-click="select(nonAddedemailModelsBySubCategorys)" ng-class="{active: isActive(nonAddedemailModelsBySubCategorys)}">
+                    <li class="listItem cursorpointer" ng-repeat="nonAddedemailModelsBySubCategorys in nonAddedEmailModelsBySubCategory" ng-click="select(nonAddedemailModelsBySubCategorys)" ng-class="{active: isActive(nonAddedemailModelsBySubCategorys)}">
                         <div class="listCol col1of2 fleft">
-                            <span class="listCol_Text fleft">{{nonAddedemailModelsBySubCategorys.emailModelName}}</span>   
+                            <span class="listCol_Text fleft">{{nonAddedemailModelsBySubCategorys.emailModelName}}</span>
                         </div>
                     </li>                
                 </ul>

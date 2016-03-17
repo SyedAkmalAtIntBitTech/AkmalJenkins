@@ -509,7 +509,8 @@ $scope.addImageCategory = function () {
                     method: 'GET',
                     url: getHost() + '/getAllNonAddedEmailModels.do?subCategoryId='+subCategoryID
                 }).success(function (data)
-                {
+                {   
+                    $("#relateEmailTemplateAddButton").show();
                     $scope.nonAddedEmailModelsBySubCategory= data.d.details;
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 }).error(function(data){
@@ -522,7 +523,8 @@ $scope.addImageCategory = function () {
                     method: 'GET',
                     url: getHost() + '/getAllNonAddedImageModels.do?subCategoryId='+subCategoryID
                 }).success(function (data)
-                {
+                {   
+                    $("#relateImageTemplateAddButton").show();
                     $scope.nonAddedImageModelsBySubCategory= data.d.details;
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 }).error(function(data){
@@ -535,6 +537,7 @@ $scope.addImageCategory = function () {
                     url: getHost() + '/getAllNonAddedPrintModels.do?subCategoryId='+subCategoryID
                 }).success(function (data)
                 {
+                    $("#relatePrintTemplateAddButton").show();
                     $scope.nonAddedPrintModelsBySubCategory= data.d.details;
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 }).error(function(data){
@@ -552,14 +555,37 @@ $scope.addImageCategory = function () {
 	       return $scope.selected === item;
 	};
         
-    $scope.relatePrintTemplateSubCategory= function (){
+    $scope.relateEmailTemplateSubCategory= function (){
         var subCategoryId=$("#subCategoryIdTag").val();
-        var categoyId=$("#categoryIdTag").val();
+        var categoryId=$("#categoryIdTag").val();
+        var organizationId=$("#organizationIdTag").val();
+        var emailModelId=eval(JSON.stringify(selectedList.emailModelId));
+        var emailTemplateRelate ={ "emailModelId" : emailModelId,  "subCategoryId" : parseInt(subCategoryId)}
+            
+         $.ajax({
+                    method: 'POST',
+                    url: getHost() + '/saveSubCategoryEmailModel.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(emailTemplateRelate)
+                }).success(function (data)
+                {   
+                       alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                       window.open(getHost() + 'adminv2/emailsubcategorydetails.jsp?organizationId='+organizationId+'&categoryId='+categoryId+'&subCategoryId='+subCategoryId, "_self");
+                    
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });   
+        
+        
+    }
+    
+     $scope.relatePrintTemplateSubCategory= function (){
+        var subCategoryId=$("#subCategoryIdTag").val();
+        var categoryId=$("#categoryIdTag").val();
         var organizationId=$("#organizationIdTag").val();
         var printModelId=eval(JSON.stringify(selectedList.printModelId));
-        alert(JSON.stringify(printModelId));
-        alert(subCategoryId);
-        var printTemplateRelate ={ "printModelId" : printModelId,  "subCategoryPrintModelId" : subCategoryId}
+        var printTemplateRelate ={ "printModelId" : printModelId,  "subCategoryId" : parseInt(subCategoryId)}
             
          $.ajax({
                     method: 'POST',
@@ -568,15 +594,13 @@ $scope.addImageCategory = function () {
                     contentType: "application/json",
                     data: JSON.stringify(printTemplateRelate)
                 }).success(function (data)
-                { 
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/printsubcategorydetails.jsp?organizationId='+organizationId+'&categoryId='+categoyId+'&subCategoryId='+subCategoryId, "_self");
-
+                {   
+                       alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                       window.open(getHost() + 'adminv2/printsubcategorydetails.jsp?organizationId='+organizationId+'&categoryId='+categoryId+'&subCategoryId='+subCategoryId, "_self");
+                    
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                });   
-        
-        
+                });          
     }
 }
 
