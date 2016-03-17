@@ -36,7 +36,6 @@
                             method : 'GET',
                             url : getHost()+'/getAllEmailModel.do'
                         }).success(function(data, status, headers, config) {
-                            alert(JSON.stringify(data.d.details));
                         $scope.emailTemplates = data.d.details;  
                         }).error(function(data, status, headers, config) {
                                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -80,11 +79,10 @@
     $scope.editEmailTemplate = function () {
         
                     var emailModelId= $("#emailModelIdTag").val();
-                    var emailModelName = $("#emailModelName").val();
+                    var emailModelName = $("#emailModelNameTag").val();
                     var htmlData = $("#edit").froalaEditor('html.get');
                     var imageFileName = $("#imageFileName").val();
                     var editEmailTemplate = {"emailModelId":emailModelId, "emailModelName": emailModelName,"htmlData": htmlData,"imageFileName":imageFileName};
-                    
                     $.ajax({
                             method: 'POST',
                             url: getHost() + '/editEmailModel.do',
@@ -100,6 +98,19 @@
                         }); 
     };
      
+     
+     $scope.getEmailModelById = function () {
+                    var emailModelId= $("#emailModelIdTag").val();
+                    $http({
+                            method : 'GET',
+                            url : getHost()+'/getEmailModelById.do?emailModelId='+emailModelId
+                        }).success(function(data, status, headers, config) {
+                            $('.fr-element').html(eval(JSON.stringify(data.d.details[0].htmlData)));
+                        $scope.emailModelById = data.d.details[0];  
+                        }).error(function(data, status, headers, config) {
+                                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                        });      
+    };
      
  }
        
