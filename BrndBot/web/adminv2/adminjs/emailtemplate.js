@@ -36,6 +36,7 @@
                             method : 'GET',
                             url : getHost()+'/getAllEmailModel.do'
                         }).success(function(data, status, headers, config) {
+                            alert(JSON.stringify(data.d.details));
                         $scope.emailTemplates = data.d.details;  
                         }).error(function(data, status, headers, config) {
                                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -73,6 +74,30 @@
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });                         
                     }
+    };
+    
+    
+    $scope.editEmailTemplate = function () {
+        
+                    var emailModelId= $("#emailModelIdTag").val();
+                    var emailModelName = $("#emailModelName").val();
+                    var htmlData = $("#edit").froalaEditor('html.get');
+                    var imageFileName = $("#imageFileName").val();
+                    var editEmailTemplate = {"emailModelId":emailModelId, "emailModelName": emailModelName,"htmlData": htmlData,"imageFileName":imageFileName};
+                    
+                    $.ajax({
+                            method: 'POST',
+                            url: getHost() + '/editEmailModel.do',
+                            dataType: "json",
+                            contentType: "application/json",
+                            data: JSON.stringify(editEmailTemplate)
+                        }).success(function (data, status, headers, config)
+                        {  
+                            alert(eval(JSON.stringify(data.d.operationStatus.messages)));                       
+                            window.open(getHost() + 'adminv2/emailtemplates.jsp', "_self");
+                        }).error(function(data, status, headers, config){
+                            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                        }); 
     };
      
      

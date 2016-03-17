@@ -11,20 +11,23 @@
         <link rel="shortcut icon" href="../images/favicon.png"/>
         <title>BrndBot-Admin Create New Email Template</title>
     </head>
+    <%
+    String emailModelId=request.getParameter("emailModelId");
+    %>
        
     <body class="body-normal" ng-app ng-controller="emailTemplateController">        
         <jsp:include page="adminheader.jsp"/>
         <jsp:include page="froalaeditor_styles.jsp"/>
-        
-        <div class="content-area contentEdit"  >
+        <input id="emailModelIdTag" type="text" hidden value="<%=emailModelId%>"/>
+        <div class="content-area contentEdit"  ng-init="emailTemplateModel()">
         <div class="content-area_header">
             <div class="header_path fleft" id="editTitle">Edit Email Template</div>
             <div class="header_path fleft" id="createTitle"> Create New Email Template</div>
             
         </div>
-        <div class="inputSection col1of4" id="selectOrgranization">
+            <div class="inputSection col1of4" id="selectOrgranization" >
             <div class="input_Label">Please  select a organization</div>
-            <input id="organizationDetailsTypeId" class="input_Field" type="text"/>
+            <input  id="organizationDetailsTypeId" class="input_Field" type="text"/>
           
         </div>
         <div class="inputSection col1of4" id="nameThisTemplate">
