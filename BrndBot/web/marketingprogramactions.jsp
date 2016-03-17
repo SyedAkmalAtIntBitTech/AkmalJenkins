@@ -39,8 +39,7 @@
     <script>
         var program = "";
         program = <%= program_id %>;
-    </script>        
-    <script src="js/programactions.js"></script>
+    </script>      
 </head>    
 
 <body class="" ng-app ng-controller="programactions">
@@ -49,6 +48,7 @@
     <input type="hidden" name="program_id" id="program_id" value="<%= program_id %>"/>
     <input type="hidden" name="program_end_date" id="program_end_date" value="<%= program_date %>"/>
     <input type="hidden" name="change" id="change" value="0"/>
+    <script src="js/programactions.js"></script>
     <jsp:include page="facebookpreview_marketing.jsp"/> 
     <jsp:include page="twitterpreview_marketing.jsp"/> 
     <jsp:include page="emailpreviewpopup_marketing.jsp"/>

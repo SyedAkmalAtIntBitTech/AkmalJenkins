@@ -9,9 +9,10 @@ var sliderDialog = "";
 var prevSliderDialog = "";
 var create_button_title = "Edit";
 var program_status;
-
+var end_date="";
 $(document).ready(function ()
 {    
+    end_date=$("#program_end_date").val();
     $("#deleteonetimeact").hide();
     $("#removeactionbutton").hide();
     $("#deleterecurringemail").hide();
@@ -270,13 +271,11 @@ $(".close").click(function(){
     });
 });
 function validateaction() {
-    
     var marketing_program = $("#marketing_program").val();
     var title = $("#addactiontitle").val();
-    var days=$("#days").val();
+    var date=$("#jumptodatepicker").val();
     var actiontime = $("#timepicker1").val();
     var actiontype = $("#actiontype").val();
-    var description = $("#description").val();
     var actiondate = $("#datepicker").val();
     
     if (title === "") {
@@ -284,9 +283,9 @@ function validateaction() {
         $("#addactiontitle").focus();
         return false;
     }
-    if (days === "") {
-        alert(dayserror);
-        $("#days").focus();
+    if (date === "") {
+        alert(dateerror);
+        $("#jumptodatepicker").focus();
         return false;
     }
     if (actiontime === "") {
@@ -298,12 +297,7 @@ function validateaction() {
         alert(actiontypeerror);
         $("#actiontype").focus();
         return false;
-    }    
-    if (description === "") {
-        alert(descriptionerror);
-        $("#description").focus();
-        return false;
-    }
+    } 
     if (actiondate === "") {
     }
     return true;

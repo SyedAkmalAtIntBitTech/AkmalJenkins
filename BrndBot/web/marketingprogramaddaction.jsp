@@ -15,6 +15,8 @@
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="css/popup.css"></link>
+    <script src="js/pikaday.js"></script>
+    <script src="js/pikaday.js"></script>
     <script src="js/popup.js" type="text/javascript"></script>
         <%!
             String program_id = "";
@@ -56,12 +58,92 @@
                 <div class="cols-2">
                      <div class="input-field-container col-4of10 fleft pushright">
                         <div class="input-header"> Days from Event </div>
-                        <input type="number" name="days" id="days"  class="input-field-textfield input-placeholder" placeholder="Enter days"></input>
-                    </div>
+                        <input type="hidden" name="days" id="days"  class="input-field-textfield input-placeholder" placeholder="Enter days"></input>
+                        <input type="text"  name="datepicker" id="jumptodatepicker" readonly  class="input-field-textfield input-placeholder" placeholder="Enter Action Date"/>
+                        <script>
+                            var max="";
+                            var min="";
+                            $(document).ready(function ()
+                            {  
+                                $( ".target" ).change(function() {
+                                    alert( "Handler for .change() called." );
+                               });
+                                end_date=$("#program_end_date").val();
+                                var res = end_date.split(" ");
+                                var month="";
+                                var monthchar="";
+                                var date="";
+                                var year="";
+                                if(res.length==3){monthchar=res[0];date=res[1];year=res[2];}
+                                else{monthchar=res[1];date=res[2];year=res[3];}
+                                
+                                switch (monthchar) {
+                                    case 'Jan':
+                                        month = "01";
+                                        break;
+                                    case 'Feb':
+                                        month = "02";
+                                        break;
+                                    case 'Mar':
+                                        month = "03";
+                                        break;
+                                    case 'Apr':
+                                        month = "04";
+                                        break;
+                                    case 'May':
+                                        month = "05";
+                                        break;
+                                    case 'Jun':
+                                        month = "06";
+                                        break;
+                                    case 'Jul':
+                                        month = "07";
+                                        break;
+                                    case 'Aug':
+                                        month = "08";
+                                        break;
+                                    case 'Sep':
+                                        month = "09";
+                                        break;
+                                    case 'Oct':
+                                        month = "10";
+                                        break;
+                                    case 'Nov':
+                                        month = "11";
+                                        break;
+                                    case 'Dec':
+                                        month = "12";
+                                        break;                                    
+                                }                                
+                                max=year+"-"+month+"-"+date;
+                                var monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+                                var d = new Date();
+                                var monthnow1=d.getMonth()+1;
+                                var monthnow="";
+                                var datenow=d.getDate();
+                                var yearnow=d.getFullYear();
+                                if(monthnow1<10){monthnow="0"+monthnow1;}
+                                else{monthnow=monthnow1;}
+                                min=yearnow+"-"+monthnow+"-"+datenow;          
+                                var picker = new Pikaday(
+                                {
+                                    field: document.getElementById('jumptodatepicker'),
+                                    format: 'YYYY-MM-DD',
+                                    firstDay: 1,
+                                    minDate: new Date(min),
+                                    maxDate: new Date(max),
+                                    yearRange: [2000,2050],
+                                    onSelect: function() {
+                                        document.getElementById('selected').appendChild(curdat);
+                                    }
+                                });                            
+                            });
+                        </script>
+                     </div>
                      <div class="input-field-container col-4of10 fleft">
                         <div class="input-header"> Action Time </div>
-                         <input id="timepicker1" type="text" name="timepicker1"  class="input-field-textfield input-placeholder" placeholder="Enter Action Time"></input>
-                         <script src="js/timepicki.js" type="text/javascript"></script>
+                        <input id="timepicker1" type="text" name="timepicker1"  class="input-field-textfield input-placeholder" placeholder="Enter Action Time"></input>
+                        <script src="js/timepicki.js" type="text/javascript"></script>
                         <script>
                                     $('#timepicker1').timepicki({
                                                         show_meridian:true,
@@ -84,10 +166,8 @@
                                     <option class="input-field-textfield input-placeholder" value="Email">Email</option>
                                 </select>
                 </div>
-                <div class="input-field-container col-1of1">
-                    <div class="input-header"> Description </div>
-                    <textarea class="input-field-textfield input-placeholder mrktextarea" name="description" id="description" placeholder="Description here"></textarea>
-                </div>
+                <input type="hidden" name="description" id="description" value="" placeholder="Description here"></input>
+                
             </div>
             
         </div>
