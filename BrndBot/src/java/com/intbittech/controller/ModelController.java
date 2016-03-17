@@ -208,19 +208,18 @@ public class ModelController {
 
     }
     
-     @RequestMapping(value = "getAllEmailModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "getAllEmailModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllEmailModel() {
         GenericResponse<EmailModelDetails> genericResponse = new GenericResponse<>();
         try {
-            List<EmailModel> EmailModelList = emailModelService.getAllEmailModel();
+            List<EmailModel> emailModelList = emailModelService.getAllEmailModel();
             List<EmailModelDetails> emailModelDetailsList = new ArrayList<>();
-            for (EmailModel emailModelObject : EmailModelList) {
+            for (EmailModel emailModelObject : emailModelList) {
                 EmailModelDetails emailModelDetails = new EmailModelDetails();
                 emailModelDetails.setEmailModelId(emailModelObject.getEmailModelId());
                 emailModelDetails.setEmailModelName(emailModelObject.getEmailModelName());
                 emailModelDetails.setImageFileName(emailModelObject.getImageFileName());
                 emailModelDetails.setHtmlData(emailModelObject.getHtmlData());
-                emailModelDetails.setSubCategoryEmailModelId(emailModelObject.getEmailModelId());
                 emailModelDetailsList.add(emailModelDetails);
             }
 
@@ -234,20 +233,44 @@ public class ModelController {
 
     }
     
-     @RequestMapping(value = "getAllImageModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "getEmailModelById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getEmailModelById(@RequestParam("emailModelId") Integer emailModelId) {
+        GenericResponse<EmailModelDetails> genericResponse = new GenericResponse<>();
+        try {
+            EmailModel emailModel = emailModelService.getByEmailModelId(emailModelId);
+            List<EmailModelDetails> emailModelDetailsList = new ArrayList<>();
+            
+            EmailModelDetails emailModelDetails = new EmailModelDetails();
+            emailModelDetails.setEmailModelId(emailModel.getEmailModelId());
+            emailModelDetails.setEmailModelName(emailModel.getEmailModelName());
+            emailModelDetails.setImageFileName(emailModel.getImageFileName());
+            emailModelDetails.setHtmlData(emailModel.getHtmlData());
+            emailModelDetailsList.add(emailModelDetails);
+            
+
+            genericResponse.setDetails(emailModelDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+    
+    @RequestMapping(value = "getAllImageModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllImageModel() {
         GenericResponse<ImageModelDetails> genericResponse = new GenericResponse<>();
         try {
-            List<ImageModel> ImageModelList = imageModelService.getAllImageModel();
+            List<ImageModel> imageModelList = imageModelService.getAllImageModel();
             List<ImageModelDetails> imageModelDetailsList = new ArrayList<>();
-            for (ImageModel imageModelObject : ImageModelList) {
+            for (ImageModel imageModelObject : imageModelList) {
                 ImageModelDetails imageModelDetails = new ImageModelDetails();
                 imageModelDetails.setImageModelId(imageModelObject.getImageModelId());
                 imageModelDetails.setImageModelName(imageModelObject.getImageModelName());
                 imageModelDetails.setLayoutFileName(imageModelObject.getLayoutFileName());
                 imageModelDetails.setModelFileName(imageModelObject.getModelFileName());
                 imageModelDetails.setImageFileName(imageModelObject.getImageFileName());
-                imageModelDetails.setSubCategoryImageModelId(imageModelObject.getImageModelId());
                 imageModelDetailsList.add(imageModelDetails);
             }
 
@@ -261,13 +284,39 @@ public class ModelController {
 
     }
     
-     @RequestMapping(value = "getAllPrintModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "getImageModelById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getImageModelById(@RequestParam("imageModelId") Integer imageModelId) {
+        GenericResponse<ImageModelDetails> genericResponse = new GenericResponse<>();
+        try {
+            ImageModel imageModel = imageModelService.getByImageModelId(imageModelId);
+            List<ImageModelDetails> imageModelDetailsList = new ArrayList<>();
+            
+            ImageModelDetails imageModelDetails = new ImageModelDetails();
+            imageModelDetails.setImageModelId(imageModel.getImageModelId());
+            imageModelDetails.setImageModelName(imageModel.getImageModelName());
+            imageModelDetails.setLayoutFileName(imageModel.getLayoutFileName());
+            imageModelDetails.setModelFileName(imageModel.getModelFileName());
+            imageModelDetails.setImageFileName(imageModel.getImageFileName());
+            imageModelDetailsList.add(imageModelDetails);
+            
+
+            genericResponse.setDetails(imageModelDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Image template retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+    
+    @RequestMapping(value = "getAllPrintModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllPrintModel() {
         GenericResponse<PrintModelDetails> genericResponse = new GenericResponse<>();
         try {
-            List<PrintModel> PrintModelList = printModelService.getAllPrintModel();
+            List<PrintModel> printModelList = printModelService.getAllPrintModel();
             List<PrintModelDetails> printModelDetailsList = new ArrayList<>();
-            for (PrintModel printModelObject : PrintModelList) {
+            for (PrintModel printModelObject : printModelList) {
                 PrintModelDetails PrintModelDetails = new PrintModelDetails();
                 PrintModelDetails.setPrintModelId(printModelObject.getPrintModelId());
                 PrintModelDetails.setPrintModelName(printModelObject.getPrintModelName());
@@ -280,6 +329,31 @@ public class ModelController {
 
             genericResponse.setDetails(printModelDetailsList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("All print templates retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+    
+    @RequestMapping(value = "getPrintModelById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getPrintModelById(@RequestParam("printModelId") Integer printModelId) {
+        GenericResponse<PrintModelDetails> genericResponse = new GenericResponse<>();
+        try {
+            PrintModel printModel = printModelService.getByPrintModelId(printModelId);
+            List<PrintModelDetails> printModelDetailsList = new ArrayList<>();
+            
+            PrintModelDetails PrintModelDetails = new PrintModelDetails();
+            PrintModelDetails.setPrintModelId(printModel.getPrintModelId());
+            PrintModelDetails.setPrintModelName(printModel.getPrintModelName());
+            PrintModelDetails.setLayoutFileName(printModel.getLayoutFileName());
+            PrintModelDetails.setModelFileName(printModel.getModelFileName());
+            PrintModelDetails.setImageFileName(printModel.getImageFileName());
+            printModelDetailsList.add(PrintModelDetails);
+
+            genericResponse.setDetails(printModelDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Print template retrieved successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
