@@ -9,6 +9,7 @@ import com.intbittech.dao.EmailBlockModelDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlockModel;
 import com.intbittech.services.EmailBlockModelService;
+import java.util.List;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,6 +56,17 @@ public class EmailBlockModelServiceImpl implements EmailBlockModelService {
         if(emailBlockModel == null)
             throw new ProcessFailed("No email block template found to delete.");
         emailBlockModelDao.delete(emailBlockModel);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<EmailBlockModel> getAllEmailBlockModel() throws ProcessFailed {
+        List<EmailBlockModel> emailBlockModel = emailBlockModelDao.getAllEmailBlockModel();
+        if(emailBlockModel == null)
+            throw new ProcessFailed("No email block templates found.");
+        
+        return emailBlockModel;
     }
     
 }

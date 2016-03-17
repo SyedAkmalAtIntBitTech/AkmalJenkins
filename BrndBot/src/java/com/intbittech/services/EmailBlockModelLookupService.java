@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlockModelLookup;
+import java.util.List;
 
 /**
  * <code>{@link EmailBlockModelLookupService}</code> is service layer interface for
@@ -52,5 +53,15 @@ public interface EmailBlockModelLookupService {
      * @throws ProcessFailed the process failed
      */
     public void delete(Integer emailBlockModelLookupId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailBlockModelLookup} from
+     * database via Dao.
+     *
+     * @param emailBlockId the emailBlockId
+     * @return List of {@link EmailBlockModelLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailBlockModelLookup> getAllEmailBlockModel(Integer emailBlockId) throws ProcessFailed;
     
 }
