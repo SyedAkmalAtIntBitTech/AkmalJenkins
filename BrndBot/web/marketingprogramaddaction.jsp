@@ -65,9 +65,7 @@
                             var min="";
                             $(document).ready(function ()
                             {  
-                                $( ".target" ).change(function() {
-                                    alert( "Handler for .change() called." );
-                               });
+                                
                                 end_date=$("#program_end_date").val();
                                 var res = end_date.split(" ");
                                 var month="";
@@ -136,7 +134,15 @@
                                     onSelect: function() {
                                         document.getElementById('selected').appendChild(curdat);
                                     }
-                                });                            
+                                });
+                                $( "#jumptodatepicker" ).change(function() {
+                                    var date1_ms= new Date($("#jumptodatepicker").val()).getTime();
+                                    var date2_ms = new Date(end_date).getTime();
+                                    var difference_ms = date2_ms - date1_ms;
+                                    var one_day=1000*60*60*24;
+                                    var diffdays=Math.round(difference_ms/one_day);
+                                    $("#days").val(diffdays);
+                                });                                    
                             });
                         </script>
                      </div>
