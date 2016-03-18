@@ -11,20 +11,23 @@
         <link rel="shortcut icon" href="../images/favicon.png"/>
         <title>BrndBot-Admin Create New Email Template</title>
     </head>
+    <%
+    String emailModelId=request.getParameter("emailModelId");
+    %>
        
     <body class="body-normal" ng-app ng-controller="emailTemplateController">        
         <jsp:include page="adminheader.jsp"/>
         <jsp:include page="froalaeditor_styles.jsp"/>
-        
-        <div class="content-area contentEdit"  >
+        <input id="emailModelIdTag" type="text" hidden value="<%=emailModelId%>"/>
+        <div class="content-area contentEdit"  ng-init="getEmailModelById()">
         <div class="content-area_header">
             <div class="header_path fleft" id="editTitle">Edit Email Template</div>
             <div class="header_path fleft" id="createTitle"> Create New Email Template</div>
             
         </div>
-        <div class="inputSection col1of4" id="selectOrgranization">
-            <div class="input_Label">Please  select a organization</div>
-            <input id="organizationDetailsTypeId" class="input_Field" type="text"/>
+            <div class="inputSection col1of4" id="selectOrgranization" >
+            <div class="input_Label">Please  select a organization </div>
+            <input  id="emailModelNameTag" class="input_Field" type="text" value="{{emailModelById.emailModelName}}"/>
           
         </div>
         <div class="inputSection col1of4" id="nameThisTemplate">
@@ -46,12 +49,12 @@
             </div>
             <label class="fileContainer">
                 <div id="triggerFile" class="md-button gray-button col10f9" >Upload</div>
-                <input name="fileName" type="file" id="imageFileName"/>
+                <input name="fileName" type="file" id="imageFileName" value="{{emailModelById.imageFileName}}"/>
             </label>
         </div>
            
             <div class="input_Label fleft" > </div>
-            <a  id="saveTemplate" href="#"><div class="CTA_Button Button--Blue fleft pushUp_10 saveEdit" >Save</div></a>
+            <a  id="saveTemplate" href="#"><div class="CTA_Button Button--Blue fleft pushUp_10 saveEdit" ng-click="editEmailTemplate()">Save</div></a>
              <a  ng-click="addEmailTemplate()" id="createNewTemplate" href="#"><div class="CTA_Button Button--Blue fleft pushUp_10 createTemplate" >Create New Template</div></a>
               </div>
       

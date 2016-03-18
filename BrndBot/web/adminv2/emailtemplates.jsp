@@ -33,7 +33,7 @@
                     
                     
                     <div class="listCol col1of2 fleft">
-                        <a href="editemailtemplate.jsp?edit=yes"><div class="CTA_Button Button--Gray fright">VIEW/EDIT</div></a>
+                        <a href="editemailtemplate.jsp?edit=yes&emailModelId={{emailTemplate.emailModelId}}"><div class="CTA_Button Button--Gray fright">VIEW/EDIT</div></a>
 
                     </div>
                 </li>                
