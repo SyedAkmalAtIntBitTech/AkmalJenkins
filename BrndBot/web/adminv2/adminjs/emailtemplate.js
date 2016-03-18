@@ -25,6 +25,7 @@
          $("#createNewTemplate").show();
          $("#saveTemplate").hide();
          $("#updateTemplate").hide();
+         $("#deleteTemplate").hide();
        
     }
 });
@@ -111,6 +112,25 @@
                                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });      
     };
+    
+    
+    $scope.deleteEmailTemplate= function (emailModelId){
+       var emailModelId= $("#emailModelIdTag").val();
+        var deleteEmailTemplate=confirm("Do you want to delete this Template?");
+            if(deleteEmailTemplate===true)
+            {
+               $http({
+                    method : 'GET',
+                    url : getHost()+ '/deleteEmailModel.do?emailModelId='+emailModelId,
+                }).success(function(data, status, headers, config) {
+                    $scope.emailModelById= data.d.details;                     
+                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                     window.open(getHost() + 'adminv2/emailtemplates.jsp',"_self");
+                }).error(function(data, status, headers, config) {
+                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });     
+            }
+    }
      
  }
        

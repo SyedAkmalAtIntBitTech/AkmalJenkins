@@ -23,7 +23,7 @@
         <div class="content-area_header">
             <div class="header_path fleft" id="editTitle">Edit Email Template</div>
             <div class="header_path fleft" id="createTitle"> Create New Email Template</div>
-            
+             <div id="deleteTemplate" class="CTA_Button Button--Delete fright" ng-click="deleteEmailTemplate(<%=emailModelId%>)" >Delete Template</div>
         </div>
             <div class="inputSection col1of4" id="selectOrgranization" >
             <div class="input_Label">Please  select a organization </div>

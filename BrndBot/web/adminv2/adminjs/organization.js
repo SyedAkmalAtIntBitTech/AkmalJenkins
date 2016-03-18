@@ -449,7 +449,7 @@ $scope.addImageCategory = function () {
             {
                $http({
                     method : 'GET',
-                    url : getHost()+ '/deleteEmailModel.do?emailBlockId='+emailBlockId,
+                    url : getHost()+ '/deleteEmailBlock.do?emailBlockId='+emailBlockId,
                 }).success(function(data, status, headers, config) {
                     $scope.getEmailBlock= data.d.details;
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
