@@ -20,6 +20,7 @@
         <script src="../adminv2/adminjs/organization.js" type="text/javascript"></script>
         <script src="../js/configurations.js" type="text/javascript"></script>   
         <script src="../adminv2/adminjs/basejs.js" type="text/javascript"></script>
+         <script src="../adminv2/adminjs/socialtemplates.js" type="text/javascript"></script>
         <title>Admin Header</title>
    </head>
     <body>

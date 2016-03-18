@@ -4,14 +4,6 @@
     Author     : intbit
 --%>
 
-<%@page import="com.intbit.ConnectionManager"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="com.controller.SqlMethods"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%--<%@include file="checksession.jsp" %>--%>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -20,302 +12,6 @@
     </head>
     <body class="body-normal" ng-app  ng-controller="">
         <%@include file="socialeditortemplatehead.jsp" %>
-        <style>
-            .popuptable{
-                margin-left:70px;
-            }
-        </style>
-        <script language="javascript" type="text/javascript">
-            $(document).ready(function () {
-                var textSize = 5;
-
-                while (textSize < 155)
-                {
-
-                    $("#textSize").append(new Option(textSize + "px", textSize));
-                    textSize = textSize + 5;
-                }
-            });
-            var xmlHttp;
-            
-            function showSelected(str){
-                
-                if (str == 0){
-                   $("#selectedtype").val("non");
-                }else {
-                   $("#selectedtype").val("selected");
-                }
-        
-            }
-            
-            function usersChange() {
-
-                if (xmlHttp.readyState === 4 || xmlHttp.readyState === "complete") {
-
-                    var response = xmlHttp.responseText;
-
-                    var response1, response2, response3, response4, response5, response6;
-                    var len = response.length;
-                    var no1 = response.indexOf(",");
-                    response1 = response.substr(0, no1);
-                    response2 = response.substr(no1 + 1, len);
-
-                    document.getElementById("users").innerHTML = response1;
-                    document.getElementById("categories").innerHTML = response2;
-                }
-            }
-
-            function showUsers(str) {
-
-                if (typeof XMLHttpRequest !== "undefined") {
-
-                    xmlHttp = new XMLHttpRequest();
-
-                }
-                else if (window.ActiveXObject) {
-
-                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-
-                }
-                if (xmlHttp === null) {
-
-                    alert("Browser does not support XMLHTTP Request!");
-
-                    return;
-                }
-
-                var url = "users.jsp";
-
-                url += "?org_id=" + str;
-
-                xmlHttp.onreadystatechange = usersChange;
-
-                xmlHttp.open("GET", url, true);
-
-                xmlHttp.send(null);
-
-            }
-
-            function showSubCategories(str) {
-
-                if (typeof XMLHttpRequest !== "undefined") {
-
-                    xmlHttp = new XMLHttpRequest();
-
-                }
-                else if (window.ActiveXObject) {
-
-                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-
-                }
-                if (xmlHttp === null) {
-
-                    alert("Browser does not support XMLHTTP Request!");
-
-                    return;
-                }
-
-                var url = "displaysubcategories.jsp";
-
-                url += "?category_id=" + str;
-
-                xmlHttp.onreadystatechange = categoryChange;
-
-                xmlHttp.open("GET", url, true);
-
-                xmlHttp.send(null);
-
-            }
-
-            function categoryChange() {
-
-                if (xmlHttp.readyState === 4 || xmlHttp.readyState === "complete") {
-
-                    var response = xmlHttp.responseText;
-                    document.getElementById("subcategories").innerHTML = response;
-                }
-            }
-           function showbrand(Brand){
-                    if (typeof XMLHttpRequest !== "undefined") {
-
-                    xmlHttp = new XMLHttpRequest();
-
-                }
-                else if (window.ActiveXObject) {
-
-                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-
-                }
-                if (xmlHttp === null) {
-
-                    alert("Browser does not support XMLHTTP Request!");
-
-                    return;
-                }
-
-                var url = "getfonts.jsp";
-
-                url += "?Brand_id=" + Brand;
-
-                xmlHttp.onreadystatechange =fontChange;
-
-                xmlHttp.open("GET", url, true);
-
-                xmlHttp.send(null);
-             
-           }
-              function fontChange() {
-
-                if (xmlHttp.readyState === 4 || xmlHttp.readyState === "complete") {
-
-                    var response = xmlHttp.responseText;
-                    var len = response.length;
-                    var no1 = response.indexOf(",");
-                    response1 = response.substr(0, no1);
-                    response2 = response.substr(no1 + 1, len);
-                    document.getElementById("textFontFamily").innerHTML = response1;
-                }
-            }
-
-    
-      </script>          
-        <script>
-            $(document).ready(function () {
-    
-            $("#textFontFamily").change(function () {
-//            alert($(this).val());
-                var text = $("#textFontFamily").find('option:selected').text();
-                var font_family_name = $("#textFontFamily").val();
-                var font = font_family_name.split("|");
-                var google_key_word = font[0].split(' ').join('+')
-                
-                var ss = document.createElement("link");
-                ss.type = "text/css";
-                ss.rel = "stylesheet";
-                ss.href = "https://fonts.googleapis.com/css?family="+ google_key_word ;
-                document.getElementsByTagName("head")[0].appendChild(ss);
-
-                var font_path = global_host_address + "DownloadFonts?file_name="+ font[1];
-                var styles = "@font-face {"+
-                             "font-family:"+ text + ";"+
-                             "src: url("+font_path+");"
-                $('<style type="text/css">'+ styles +'</style>').appendTo(document.head);
-
-                $("#" + selectedTextID).css("font-family", font[0]);
-
-            });
-            
-            $("#hidepopup").click(function(){
-                        $('#popup').hide("slow");
-            });
-            });
-          
-          
-      </script>
-
-        <script>
-          
-    function validate(){
-      var model_name = $("#namexml").val();
-
-      if (model_name === ""){
-          alert("Model name not entered!");
-          $("#namexml").focus();
-          return false;
-      }else {
-        $.ajax({
-            url: global_host_address + 'ServletValidateModel',
-            method: 'post',
-            data: {
-                model_name : model_name
-            },
-            success: function (responseText) {
-        if (responseText === "yes"){
-            alert("Name already exist! Please give some other name.");
-            $("#namexml").focus();
-            return false;
-        }else if (responseText === "no") {
-            var file_name = $("#namexml").val();
-            var mapperxml = file_name + "_" + "mapper";
-            var layoutxml = file_name + "_" + "layout";
-
-            $("#mapper").val(mapperxml);
-            $("#layout").val(layoutxml);
-            $("#model_name").val($("#namexml").val());
-//                    $("#tabs *").attr("disabled", false);
-//                    $("#main *").attr("disabled", false);
-//                    $("#right *").attr("disabled", false);
-            $('#popup').hide("slow");
-
-            var organization = $("#organization").val();
-            var brand = $("#brand").val();
-            var users = $("#users").val();
-            var categories = $("#categories").val();
-            var subcategories = $("#subcategories").val();
-            var mindbodyquery = $("#mindbodyquery").val();
-            var containerstyle = $("#containerstyle").val();
-            var textstyle = $("#textstyle").val();
-            var element = $("#element").val();
-
-            var model_name = $("#namexml").val();
-            var mapperxml = model_name + "_" + "mapper";
-            var layoutxml = model_name + "_" + "layout";
-
-            var imagename = $("#imagename").val();
-            var social = $("#socialmedia").val();
-            var isSocial=$("#socialCheckbox").is(':checked');
-            var isPrint=$("#printCheckbox").is(':checked');
-            var isDownload=$("#downloadCheckbox").is(':checked');
-              $.ajax({
-                      url: global_host_address + 'Model',
-                      method: 'post',
-                      data: {
-                          organization : organization,
-                          brand : brand,
-                          users : users,
-                          categories : categories,
-                          subcategories : subcategories,
-                          mindbodyquery : mindbodyquery,
-                          containerstyle : containerstyle,
-                          textstyle : textstyle,
-                          element : element,
-                          mapper : mapperxml,
-                          layout : layoutxml,
-                          model_name : model_name,
-                          imagename : imagename,
-                          socialmedia : social,
-                          isSocial: isSocial,
-                          isPrint: isPrint,
-                          isDownload: isDownload
-                          
-                      },
-                      success: function (responseText) {
-                        alert("Model saved successfully.");
-                        window.open(getHost() + 'admin/sociallayoutmodel.jsp', "_self");
-                      }                    
-                   });    
-
-                }
-            }
-        });
-
-      }
-//      return true;          
-  }
-  
-  
-      </script>
-
-        <%! 
-            PreparedStatement ps;
-            ResultSet rs;
-            String Query = "";
-            Integer id = 0;
-            String org_name = "";
-            String brand_name = "";
-            String font_name = "";
-        %>
-
         <div class="content-area">
             <div class="content-area_header" ng-init="">
                 <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="printtemplates.jsp"> Print Templates</a>  &gt; </div>
@@ -340,7 +36,7 @@
                                 <span class="selectedElement">Selected Item: None</span>
                             </p>
                             <p>
-            <!--                    <span class="position">Co ordinates: X = 0, Y = 0 </span>-->
+        
                                 <span class="newposition">Co ordinates: X = <input type="text" maxlength="4" size="4" id="textX" value="0" /> Y = <input type="text" maxlength="4" size="4" id="textY" value="0" /></span>
                                 <input type="button" class="coordButton" value="done">
                             </p>
@@ -358,14 +54,7 @@
 
                             <p>
                                 Font Size: <select id="textSize">
-                                    <!--                                 <option value="8">8px</option>
-                                                                     <option value="12">12px</option>
-                                                                     <option value="14">14px</option>
-                                                                     <option value="18">18px</option>
-                                                                     <option value="22">22px</option>
-                                                                     <option value="26">26px</option>
-                                                                     <option value="30">30px</option>
-                                                                     <option value="34">34px</option>   -->
+                                  
                                 </select>
                             </p>
 
@@ -374,20 +63,17 @@
 
                                 </select>
 
-                                <!--Font Family: <select name="textFontFamily" id="textFontFamily" >
-                                                       <option value="0"></option>
-                                                   </select>-->
                             </p>
                             <p>
-                                <!--                    Font Color: <input type="text" class='basic' id="colorPick" value="black" />-->
-                                Font Color: <select id="fontColor">
-                                                <option value="#F27821">Font-Color-1</option>
-                                                <option value="#00A8BD">Font-Color-2</option>
-                                                <option value="#EE7766">Font-Color-3</option>
-                                                <option value="#EEEEEE">Font-Color-4</option>
-                                                <option value="#FFFFFF">Font-Color-5</option>
-                                                <option value="#353333">Font-Color-6</option>
-                                            </select>
+
+                                    Font Color: <select id="fontColor">
+                                                    <option value="#F27821">Font-Color-1</option>
+                                                    <option value="#00A8BD">Font-Color-2</option>
+                                                    <option value="#EE7766">Font-Color-3</option>
+                                                    <option value="#EEEEEE">Font-Color-4</option>
+                                                    <option value="#FFFFFF">Font-Color-5</option>
+                                                    <option value="#353333">Font-Color-6</option>
+                                                </select>
 
                             </p>
                             <hr>
@@ -422,7 +108,7 @@
                                 <span class="selectedElement">Selected Item: None</span>
                             </p>
                             <p>
-                                <!--<span class="position">Co ordinates: X = 0, Y = 0 </span>-->
+                       
                                 <span class="newposition">Co ordinates: X = <input type="text" maxlength="4" size="4" id="imageX" value="0" /> Y = <input type="text" maxlength="4" size="4" id="imageY" value="0" /></span>
                                 <input type="button" class="coordButton" value="done">
                             </p>
@@ -455,11 +141,7 @@
                                 <input type='text' class='basic' id='blendColorPick' value='black' />
                             </p>  
                             <hr>
-            <!--                <p>
-                                File Path:<br /><br />
-                                <input type="text" size="35" id="filePath" /> <br /><br />
-                                <input type="button" class="fileButton" id="fileButton" value="Submit" />
-                            </p>-->
+           
                             <p>
                                 <label id="selectImage" title="Please upload all your images using FTP client in the following folder: admin/AdminLayoutBackgroundImages">Please Select Image:</label><br /><br />
                                 <select id="adminBackgroundImage"  title="Please upload all your images using FTP client in the following folder: admin/AdminLayoutBackgroundImages"><option value="none">---select---</option></select>
@@ -498,7 +180,7 @@
                                 <span class="selectedElement">Selected Item: None</span>
                             </p>
                             <p>
-                                <!--<span class="position">Co ordinates: X = 0, Y = 0 </span>-->
+                   
                                 <span class="newposition">Co ordinates: X = <input type="text" maxlength="4" size="4" id="buttonX" value="0" /> Y = <input type="text" maxlength="4" size="4" id="buttonY" value="0" /></span>
                                 <input type="button" class="coordButton" value="done">
                             </p>
@@ -519,7 +201,7 @@
                                 <span class="selectedElement">Selected Item: None</span>
                             </p>
                             <p>
-                                <!--<span class="position">Co ordinates: X = 0, Y = 0 </span>-->
+                            
                                 <span class="newposition">Co ordinates: X = <input type="text" maxlength="4" size="4" id="blockX" value="0" /> Y = <input type="text" maxlength="4" size="4" id="blockY" value="0" /></span>
                                 <input type="button" class="coordButton" value="done">
                             </p>
@@ -579,122 +261,7 @@
                     </div>
         
                     <div id="main">
-<!--                        <h3>Social Layout Model</h3>
-                        <form>
-                            Organization : <select name="organization" id="organization" onchange="showUsers(this.value)">
-                                <option value="0">-Select-</option>
-                                <%
-                                    Connection conn = null;
-                                    try {
-                                        try {
-                                            conn = ConnectionManager.getInstance().getConnection();
-                                            Query = "Select * from tbl_organization";
-                                            ps = conn.prepareStatement(Query);
 
-                                            rs = ps.executeQuery();
-                                            while (rs.next()) {
-                                                id = rs.getInt("id");
-                                                org_name = rs.getString("organization_name");
-                                %>            
-                                <option value="<%=id%>"><%= org_name%></option>
-                                <%
-                                        }
-                                    } catch (Exception e) {
-                                        System.out.println(e.getCause());
-                                        System.out.println(e.getMessage());
-                                    } finally {
-                                        ps.close();
-                                        rs.close();
-                                    }
-
-                                %>
-
-                                            </select>
-
-                                    Brand : <select name="brand" id="brand" onchange="showbrand(this.value)">
-                                      <option value="0">-Select-</option>
-
-                                <%                        try {
-                                        Query = "Select * from tbl_brand_personality";
-                                        ps = conn.prepareStatement(Query);
-
-                                        rs = ps.executeQuery();
-                                        while (rs.next()) {
-                                            id = rs.getInt("id");
-                                            brand_name = rs.getString("brand_name");
-                                %>
-                                <option value="<%= id%>"><%= brand_name%></option>
-                                <%
-                                            }
-                                        } catch (Exception e) {
-                                            System.out.println(e.getCause());
-                                            System.out.println(e.getMessage());
-                                        } finally {
-                                            rs.close();
-                                            ps.close();
-                                        }
-                                    } finally {
-                                        ConnectionManager.getInstance().closeConnection(conn);
-                                    }
-
-                                %>
-                            </select><br><br>
-                            Users: <select id='users' name="users">
-
-                                        <option value="0">Select</option>
-                                   </select>
-                            Categories: <select id="categories" name="categories" onchange="showSubCategories(this.value)">
-                                                <option value="0">Select</option>
-                                        </select><br><br>
-                            Sub Categories: <select id="subcategories" name="subcategories" onchange="showSelected(this.value)">
-                                                    <option value="0">Select</option>
-                                            </select><br><br>
-
-                            Width: <input id="containerWidth" class="spinner" size="6" value="500"> px Height: <input id="containerHeight" size="6" class="spinner" value="300"> px
-
-                                        <input type="hidden" name="mindbodyquery" id="mindbodyquery">
-                                        <input type="hidden" name="containerstyle" id="containerstyle">
-                                        <input type="hidden" name="textstyle" id="textstyle">
-                                        <input type="hidden" name="element" id="element">
-                                        <input type="hidden" name="mapper" id="mapper">
-                                        <input type="hidden" name="layout" id="layout" >
-                                        <input type="hidden" name="model_name" id="model_name">
-                                        <input type="hidden" name="imagename" id="imagename">
-                                        <input type="hidden" name="selectedtype" id="selectedtype" value="non" >
-                                        <input type="button" value="save" onclick="passvaluetoinputfield();">
-
-                                        <div id="popup">
-                                            <div id="content">
-                                                Mapper file name<input type="text" id="mapperxml" required><br><br>
-                                                    Layout file name<input type="text" id="layoutxml" required><br>
-                                                Model Name: <input type="text" id="namexml" ><br>
-                                                <input type="hidden" name="socialmedia" id="socialmedia" value="socialmedia"/><br>
-                                                <table class="popuptable">
-                                                    <tr>
-                                                        <td><input type="checkbox" id="socialCheckbox" name="social" value="social" checked>social</td>
-                                                        <td><input type="checkbox" id="printCheckbox" name="image" value="image">print</td>
-                                                        <td><input type="checkbox" id="downloadCheckbox" name="pdf" value="pdf">download</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><input type="button" onclick="validate()" value="Done"/> </td>  
-                                                        <td><input type="button" id="hidepopup" value="Close"/> </td> 
-                                                    </tr>
-                                                </table>
-
-                                            </div>
-                                         </div>
-
-                                        <input type="submit" value="submit">
-                                    </form>-->
-            <!--             <div class='col-md-10'>
-                                    <ul id='list2' class='col-md-3' >
-                                        <li id="lab"></li>
-                                    </ul> 
-                         </div>-->
-
-
-                        <!-- Added by Syed Ilyas on 24/08/2015 -->
-                        <!-- This adds zoom functionality -->
                         <br />
                         <div id="slider" title="Please don`t slide after element is placed"></div>
 
@@ -739,11 +306,7 @@
                                 <input type="button" class="rightButton" id="deleteImageButton" value="Delete Image" />
                             </p>
 
-            <!--                <p>
-                                <input type="button" class="rightButton" id="addButton" value="Add Button" />
-                                <input type="button" class="rightButton" id="deleteButton" value="Delete Button" />
-                            </p>-->
-
+     
                             <p>
                                 <input type="button" class="rightButton" id="addBlockButton" value="Add Block" />
                                 <input type="button" class="rightButton" id="deleteBlockButton" value="Delete Block" />
