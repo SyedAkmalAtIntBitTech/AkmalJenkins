@@ -399,7 +399,7 @@ public class ModelController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "deleteEmailModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "deleteEmailModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteEmailModel(@RequestParam("emailModelId") Integer emailModelId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
@@ -436,7 +436,7 @@ public class ModelController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "deleteSubCategoryEmailModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "deleteSubCategoryEmailModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteSubCategoryEmailModel(@RequestParam("subCategoryEmailModelID") Integer subCategoryEmailModelID) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
@@ -472,7 +472,7 @@ public class ModelController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "deleteSubCategoryPrintModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "deleteSubCategoryPrintModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteSubCategoryPrintModel(@RequestParam("subCategoryPrintModelId") Integer subCategoryPrintModelId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
@@ -507,7 +507,7 @@ public class ModelController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "deleteSubCategoryImageModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "deleteSubCategoryImageModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteSubCategoryImageModel(@RequestParam("subCategoryImageModelId") Integer subCategoryImageModelId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
@@ -561,7 +561,7 @@ public class ModelController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "deletePrintModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "deletePrintModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deletePrintModel(@RequestParam("printModelId") Integer printModelId)    {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
@@ -614,7 +614,7 @@ public class ModelController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "deleteImageModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "deleteImageModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteImageModel(@RequestParam("imageModelId") Integer imageModelId)    {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
