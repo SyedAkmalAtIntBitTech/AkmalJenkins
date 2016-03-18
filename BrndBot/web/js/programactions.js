@@ -601,8 +601,7 @@ function programactions($scope, $http, $window){
     };
     
     $scope.getProgramActions = function(){
-        $scope.showfieldstab = function (){
-        };
+        $scope.showfieldstab = function (){};
         $scope.showactionstab = function (){
             $("#saveprogram").hide();
 //            $("#removeactionbutton").show();
@@ -619,7 +618,7 @@ function programactions($scope, $http, $window){
         $http({
             method: 'GET',
             url: 'alluserMarketingProgramForDisplay.do?program_id='+program
-        }).success(function (data, status, headers, config) {
+        }).success(function (data, status, headers, config){
             $("#progname").show();
             document.getElementById("instancehidden").style.display="block";
             if(JSON.stringify(data.emailautomation)==='[]'){
