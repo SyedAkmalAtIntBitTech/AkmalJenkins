@@ -3,6 +3,7 @@
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
+    
        $(document).ready(function () {
            $("#addOrganization").click(function (){
               $("#addOrganizationPopup").show();
@@ -16,11 +17,11 @@
                 $("#addOrganizationPopupDiv").hide();
                 
                 
-           });
+           });    
        });
        
 function organizationcontroller($scope,$http) {
-    
+           
     $scope.organization = function () {
         
                     $http({
@@ -301,7 +302,15 @@ $scope.addImageCategory = function () {
                     url : getHost()+ '/deleteSubCategory.do?subCategoryId='+subCategoryId,
                 }).success(function(data, status, headers, config) {
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                     window.open(getHost() + 'adminv2/subcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                    if (window.location.href.indexOf("emailsubcategorydetails.jsp") > -1) {
+                         window.open(getHost() + 'adminv2/emailsubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                    }
+                    if (window.location.href.indexOf("printsubcategorydetails.jsp") > -1) {
+                         window.open(getHost() + 'adminv2/printsubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                    }
+                    if (window.location.href.indexOf("imagesubcategorydetails.jsp") > -1) {
+                         window.open(getHost() + 'adminv2/imagesubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                    }
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });     
@@ -344,8 +353,16 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 { 
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/subcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
-
+                    if (window.location.href.indexOf("emailsubcategory.jsp") > -1) {
+                         window.open(getHost() + 'adminv2/emailsubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                    }
+                    if (window.location.href.indexOf("printsubcategory.jsp") > -1) {
+                         window.open(getHost() + 'adminv2/printsubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                    }
+                    if (window.location.href.indexOf("imagesubcategory.jsp") > -1) {
+                         window.open(getHost() + 'adminv2/imagesubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                    }
+                   
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });                         
@@ -432,7 +449,7 @@ $scope.addImageCategory = function () {
             {
                $http({
                     method : 'GET',
-                    url : getHost()+ '/deleteEmailModel.do?emailBlockId='+emailBlockId,
+                    url : getHost()+ '/deleteEmailBlock.do?emailBlockId='+emailBlockId,
                 }).success(function(data, status, headers, config) {
                     $scope.getEmailBlock= data.d.details;
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -441,6 +458,149 @@ $scope.addImageCategory = function () {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });     
             }
+    }
+    
+    
+    $scope.getEmailModelBySubCategoryId= function (){
+         var subCategoryId=$("#subCategoryIdTag").val();
+        $http({
+                    method: 'GET',
+                    url: getHost() + '/getAllEmailModelBySubCategory.do?subCategoryId='+subCategoryId
+                }).success(function (data)
+                {
+                    $scope.emailModels= data.d.details;
+//                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+        
+    }
+    $scope.getImageModelBySubCategoryId= function (){
+         var subCategoryId=$("#subCategoryIdTag").val();
+        $http({
+                    method: 'GET',
+                    url: getHost() + '/getAllImageModelBySubCategory.do?subCategoryId='+subCategoryId
+                }).success(function (data)
+                {
+                    $scope.imageModels= data.d.details;
+//                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+        
+    }
+    $scope.getPrintModelBySubCategoryId= function (){
+         var subCategoryId=$("#subCategoryIdTag").val();
+        $http({
+                    method: 'GET',
+                    url: getHost() + '/getAllPrintModelBySubCategory.do?subCategoryId='+subCategoryId
+                }).success(function (data)
+                {   
+                    $scope.printModels= data.d.details;
+//                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+        
+    }
+    
+    $scope.getAllNonAddedEmailModelsBySubCategoryId= function (subCategoryID){
+        $http({
+                    method: 'GET',
+                    url: getHost() + '/getAllNonAddedEmailModels.do?subCategoryId='+subCategoryID
+                }).success(function (data)
+                {   
+                    $("#relateEmailTemplateAddButton").show();
+                    $scope.nonAddedEmailModelsBySubCategory= data.d.details;
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+    }
+    
+    $scope.getAllNonAddedImageModelsBySubCategoryId= function (subCategoryID){
+        $http({
+                    method: 'GET',
+                    url: getHost() + '/getAllNonAddedImageModels.do?subCategoryId='+subCategoryID
+                }).success(function (data)
+                {   
+                    $("#relateImageTemplateAddButton").show();
+                    $scope.nonAddedImageModelsBySubCategory= data.d.details;
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+    }
+    $scope.getAllNonAddedPrintModelsBySubCategoryId= function (subCategoryID){
+        $http({
+                    method: 'GET',
+                    url: getHost() + '/getAllNonAddedPrintModels.do?subCategoryId='+subCategoryID
+                }).success(function (data)
+                {
+                    $("#relatePrintTemplateAddButton").show();
+                    $scope.nonAddedPrintModelsBySubCategory= data.d.details;
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+    }
+    var selectedList="";
+    $scope.select= function(item) {
+               var selectedItem="";
+	       $scope.selected = item; 
+               selectedItem=item;
+               selectedList=selectedItem;
+	};
+    $scope.isActive = function(item) {
+	       return $scope.selected === item;
+	};
+        
+    $scope.relateEmailTemplateSubCategory= function (){
+        var subCategoryId=$("#subCategoryIdTag").val();
+        var categoryId=$("#categoryIdTag").val();
+        var organizationId=$("#organizationIdTag").val();
+        var emailModelId=eval(JSON.stringify(selectedList.emailModelId));
+        var emailTemplateRelate ={ "emailModelId" : emailModelId,  "subCategoryId" : parseInt(subCategoryId)}
+            
+         $.ajax({
+                    method: 'POST',
+                    url: getHost() + '/saveSubCategoryEmailModel.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(emailTemplateRelate)
+                }).success(function (data)
+                {   
+                       alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                       window.open(getHost() + 'adminv2/emailsubcategorydetails.jsp?organizationId='+organizationId+'&categoryId='+categoryId+'&subCategoryId='+subCategoryId, "_self");
+                    
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });   
+        
+        
+    }
+    
+     $scope.relatePrintTemplateSubCategory= function (){
+        var subCategoryId=$("#subCategoryIdTag").val();
+        var categoryId=$("#categoryIdTag").val();
+        var organizationId=$("#organizationIdTag").val();
+        var printModelId=eval(JSON.stringify(selectedList.printModelId));
+        var printTemplateRelate ={ "printModelId" : printModelId,  "subCategoryId" : parseInt(subCategoryId)}
+            
+         $.ajax({
+                    method: 'POST',
+                    url: getHost() + '/saveSubCategoryPrintModel.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(printTemplateRelate)
+                }).success(function (data)
+                {   
+                       alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                       window.open(getHost() + 'adminv2/printsubcategorydetails.jsp?organizationId='+organizationId+'&categoryId='+categoryId+'&subCategoryId='+subCategoryId, "_self");
+                    
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });          
     }
 }
 

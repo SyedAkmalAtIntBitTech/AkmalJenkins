@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.PrintModel;
+import java.util.List;
 
 /**
  * <code>{@link PrintModelService}</code> is service layer interface for
@@ -18,6 +19,15 @@ public interface PrintModelService {
     
     /**
      * This method pass id as input and get the {@link PrintModel} from DAO
+     * layer.
+     *
+     *  * @return {@link EmailModel}
+     * @throws ProcessFailed the process failed
+     */
+    public List<PrintModel> getAllPrintModel() throws ProcessFailed;
+
+    /**
+     * This method pass id as input and get the {@link EmailModel} from DAO
      * layer.
      *
      * @param printModelId the printModelId
@@ -52,5 +62,15 @@ public interface PrintModelService {
      * @throws ProcessFailed the process failed
      */
     public void delete(Integer printModelId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link PrintModel} from DAO
+     * layer.
+     *
+     * @return List of {@link PrintModel}
+     * @param subCategoryId the subCategoryId
+     * @throws ProcessFailed the process failed
+     */
+    public List<PrintModel> getAllNonAddedPrintModels(Integer subCategoryId) throws ProcessFailed;
     
 }

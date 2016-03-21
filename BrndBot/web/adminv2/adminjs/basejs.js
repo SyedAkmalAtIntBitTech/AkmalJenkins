@@ -9,6 +9,10 @@
 //              $("#addorganizationpopup").show();
 //              $("#addorgpopupdiv").show();
 //           });
+           $("#addTemplateButton").click(function (){
+              $("#addEmailTemplatePopUp").show();
+              $("#addOrganizationPopupDiv").show();
+           });
            
            $("#addSubCategory").click(function (){
               $("#addSubCategoryPopup").show();
@@ -31,6 +35,7 @@
            });
            
            $("#addOrganizationPopupDiv").click(function (){
+               $("#addEmailTemplatePopUp").hide();
                $("#addSubCategoryPopup").hide();
                $("#addPrintCategoryPopup").hide();
                $("#addOrganizationPopup").hide();
