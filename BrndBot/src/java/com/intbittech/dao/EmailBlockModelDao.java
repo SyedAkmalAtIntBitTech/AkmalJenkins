@@ -7,6 +7,7 @@ package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlockModel;
+import java.util.List;
 
 /**
  * <code> {@link EmailBlockModelDao} </code> Interface to get EmailBlockModelDao
@@ -52,5 +53,24 @@ public interface EmailBlockModelDao {
      * @throws ProcessFailed the process failed
      */
     public void delete(EmailBlockModel emailBlockModel) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailBlockModel} from
+     * database.
+     *
+     * @return List of {@link EmailBlockModel}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailBlockModel> getAllEmailBlockModel() throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailBlockModel} from
+     * database.
+     *
+     * @param emailBlockModelIds the emailBlockModelIds
+     * @return List of {@link EmailBlockModel}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailBlockModel> getByEmailBlockModelsByIds(Integer[] emailBlockModelIds) throws ProcessFailed;
 
 }

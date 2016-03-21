@@ -8,6 +8,7 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.EmailBlockModelDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlockModel;
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -81,6 +82,45 @@ public class EmailBlockModelDaoImpl implements EmailBlockModelDao {
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed("Database error while deleting record.");
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<EmailBlockModel> getAllEmailBlockModel() throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(EmailBlockModel.class);
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return  criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving records.");
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<EmailBlockModel> getByEmailBlockModelsByIds(Integer[] emailBlockModelIds) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(EmailBlockModel.class);
+            for(int i =0 ; i<emailBlockModelIds.length;i++)
+            criteria.add(Restrictions.ne("emailBlockModelId", emailBlockModelIds[i]));
+            List<EmailBlockModel> emailBlockModelList = criteria.list();
+            if (emailBlockModelList.isEmpty()) {
+                return null;
+            }
+            return emailBlockModelList;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
         }
     }
 

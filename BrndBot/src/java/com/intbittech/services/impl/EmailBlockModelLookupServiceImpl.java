@@ -9,6 +9,7 @@ import com.intbittech.dao.EmailBlockModelLookupDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlockModelLookup;
 import com.intbittech.services.EmailBlockModelLookupService;
+import java.util.List;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,13 @@ public class EmailBlockModelLookupServiceImpl implements EmailBlockModelLookupSe
         if(emailBlockModelLookup == null)
             throw new ProcessFailed("No email block templete found to delete.");
         emailBlockModelLookupDao.delete(emailBlockModelLookup);
+    }
+    
+    public List<EmailBlockModelLookup> getAllEmailBlockModel(Integer emailBlockId) throws ProcessFailed {
+        List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupDao.getAllEmailBlockModel(emailBlockId);
+        if(emailBlockModelLookupList == null)
+            throw new ProcessFailed("No email block templete found.");
+        return emailBlockModelLookupList;
     }
     
 }

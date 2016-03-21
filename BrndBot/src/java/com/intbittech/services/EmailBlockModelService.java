@@ -26,6 +26,15 @@ public interface EmailBlockModelService {
      * @throws ProcessFailed the process failed
      */
     public EmailBlockModel getByEmailBlockModelId(Integer emailBlockModelId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link EmailBlockModel} from
+     * database via Dao.
+     *
+     * @return List of {@link EmailBlockModel}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailBlockModel> getAllEmailBlockModel() throws ProcessFailed;
 
     /**
      * This method save {@link EmailBlockModel} into the database via Dao.
@@ -54,6 +63,14 @@ public interface EmailBlockModelService {
      */
     public void delete(Integer emailBlockModelId) throws ProcessFailed;
     
-    
+    /**
+     * This method pass id as input and get the {@link EmailBlockModel} from
+     * database via Dao.
+     *
+     * @param emailBlockId
+     * @return List of {@link EmailBlockModel}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailBlockModel> getAllNonAddedEmailBlockModels(Integer emailBlockId) throws ProcessFailed;
     
 }

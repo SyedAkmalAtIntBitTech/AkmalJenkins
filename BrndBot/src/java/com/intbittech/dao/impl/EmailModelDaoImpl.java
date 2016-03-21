@@ -101,6 +101,9 @@ public class EmailModelDaoImpl implements EmailModelDao {
         }
     }
     
+    /**
+     * {@inheritDoc}
+     */
     public List<EmailModel> getByEmailModelsByIds(Integer[] emailModelIds) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
