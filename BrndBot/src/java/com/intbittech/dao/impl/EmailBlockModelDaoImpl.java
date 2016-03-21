@@ -102,5 +102,26 @@ public class EmailBlockModelDaoImpl implements EmailBlockModelDao {
             throw new ProcessFailed("Database error while retrieving records.");
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<EmailBlockModel> getByEmailBlockModelsByIds(Integer[] emailBlockModelIds) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(EmailBlockModel.class);
+            for(int i =0 ; i<emailBlockModelIds.length;i++)
+            criteria.add(Restrictions.ne("emailBlockModelId", emailBlockModelIds[i]));
+            List<EmailBlockModel> emailBlockModelList = criteria.list();
+            if (emailBlockModelList.isEmpty()) {
+                return null;
+            }
+            return emailBlockModelList;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
+    }
 
 }

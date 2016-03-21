@@ -6,8 +6,10 @@
 package com.intbittech.services.impl;
 
 import com.intbittech.dao.EmailBlockModelDao;
+import com.intbittech.dao.EmailBlockModelLookupDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlockModel;
+import com.intbittech.model.EmailBlockModelLookup;
 import com.intbittech.services.EmailBlockModelService;
 import java.util.List;
 import org.jboss.logging.Logger;
@@ -22,6 +24,9 @@ public class EmailBlockModelServiceImpl implements EmailBlockModelService {
     private static Logger logger = Logger.getLogger(EmailBlockModelServiceImpl.class);
     @Autowired
     private EmailBlockModelDao emailBlockModelDao;
+    
+    @Autowired
+    private EmailBlockModelLookupDao emailBlockModelLookupDao; 
     
     /**
      * {@inheritDoc}
@@ -67,6 +72,21 @@ public class EmailBlockModelServiceImpl implements EmailBlockModelService {
             throw new ProcessFailed("No email block templates found.");
         
         return emailBlockModel;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<EmailBlockModel> getAllNonAddedEmailBlockModels(Integer emailBlockId) throws ProcessFailed {
+        List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupDao.getAllEmailBlockModel(emailBlockId);
+        Integer[] emailBlockModelIds = new Integer[emailBlockModelLookupList.size()];
+        Integer i =0;
+        for(EmailBlockModelLookup emailBlockModelLookupObject : emailBlockModelLookupList)
+        {
+            emailBlockModelIds[i++] = emailBlockModelLookupObject.getFkEmailBlockModelId().getEmailBlockModelId();
+        }
+        List<EmailBlockModel> emailBlockModelList = emailBlockModelDao.getByEmailBlockModelsByIds(emailBlockModelIds);
+        return emailBlockModelList;
     }
     
 }

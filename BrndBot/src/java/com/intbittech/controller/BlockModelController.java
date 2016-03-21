@@ -5,6 +5,7 @@
  */
 package com.intbittech.controller;
 
+import com.intbittech.model.EmailBlock;
 import com.intbittech.model.EmailBlockModel;
 import com.intbittech.model.EmailBlockModelLookup;
 import com.intbittech.modelmappers.EmailBlockModelDetails;
@@ -89,8 +90,54 @@ public class BlockModelController {
 
     }
     
-    @RequestMapping(value = "saveEmailBlockModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> saveEmailBlockModel(@RequestBody EmailBlockModelDetails emailBlockModelDetails) {
+    @RequestMapping(value = "getEmailBlockModelById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getEmailBlockModelById(@RequestParam("emailBlockModelId") Integer emailBlockModelId) {
+        GenericResponse<EmailBlockModelDetails> genericResponse = new GenericResponse<>();
+        try {
+            EmailBlockModel emailBlockModel = emailBlockModelService.getByEmailBlockModelId(emailBlockModelId);
+            List<EmailBlockModelDetails> emailBlockModelDetailsList = new ArrayList<>();
+            EmailBlockModelDetails emailBlockModelDetails = new EmailBlockModelDetails();
+            emailBlockModelDetails.setEmailBlockModelId(emailBlockModel.getEmailBlockModelId());
+            emailBlockModelDetails.setEmailBlockModelName(emailBlockModel.getEmailBlockModelName());
+            emailBlockModelDetails.setHtmlData(emailBlockModel.getHtmlData());
+            emailBlockModelDetails.setImageFileName(emailBlockModel.getImageFileName());
+            emailBlockModelDetailsList.add(emailBlockModelDetails);
+            
+            genericResponse.setDetails(emailBlockModelDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email block template retrieved successfully."));
+            
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "getAllNonAddedEmailBlockModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllNonAddedEmailBlockModel(@RequestParam("emailBlockId") Integer emailBlockId) {
+        GenericResponse<EmailBlockModelDetails> genericResponse = new GenericResponse<>();
+        try {
+            List<EmailBlockModel> emailBlockModelList = emailBlockModelService.getAllNonAddedEmailBlockModels(emailBlockId);
+            List<EmailBlockModelDetails> emailBlockModelDetailsList = new ArrayList<>();
+            for (EmailBlockModel emailModelsObject : emailBlockModelList) {
+                EmailBlockModelDetails emailBlockModelDetails = new EmailBlockModelDetails();
+                emailBlockModelDetails.setEmailBlockModelId(emailModelsObject.getEmailBlockModelId());
+                emailBlockModelDetails.setEmailBlockModelName(emailModelsObject.getEmailBlockModelName());
+                emailBlockModelDetailsList.add(emailBlockModelDetails);
+            }
+
+            genericResponse.setDetails(emailBlockModelDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email block templates retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+    
+    @RequestMapping(value = "saveBlockModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveBlockModel(@RequestBody EmailBlockModelDetails emailBlockModelDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             EmailBlockModel emailBlockModel = new EmailBlockModel();
@@ -99,6 +146,28 @@ public class BlockModelController {
             emailBlockModel.setImageFileName(emailBlockModelDetails.getImageFileName());
             emailBlockModelService.save(emailBlockModel);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email block template saved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "saveEmailBlockModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveEmailBlockModel(@RequestBody EmailBlockModelDetails emailBlockModelDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            EmailBlockModelLookup emailBlockModelLookup = new EmailBlockModelLookup();
+            EmailBlock emailBlock = new EmailBlock();
+            emailBlock.setEmailBlockId(emailBlockModelDetails.getEmailBlockId());
+            
+            EmailBlockModel emailBlockModel = new EmailBlockModel();
+            emailBlockModel.setEmailBlockModelId(emailBlockModelDetails.getEmailBlockModelId());
+            emailBlockModelLookup.setFkEmailBlockId(emailBlock);
+            emailBlockModelLookup.setFkEmailBlockModelId(emailBlockModel);
+            emailBlockModelLookupService.save(emailBlockModelLookup);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email block template relation saved successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -126,8 +195,8 @@ public class BlockModelController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "deleteEmailBlockModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> deleteEmailBlockModel(@RequestParam("emailBlockModelId") Integer emailBlockModelId) {
+    @RequestMapping(value = "deleteBlockModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteBlockModel(@RequestParam("emailBlockModelId") Integer emailBlockModelId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             
@@ -140,5 +209,22 @@ public class BlockModelController {
 
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
+    
+    @RequestMapping(value = "deleteEmailBlockModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteEmailBlockModel(@RequestParam("emailBlockModelLookupId") Integer emailBlockModelLookupId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            
+            emailBlockModelLookupService.delete(emailBlockModelLookupId);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email block template relation deleted successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    
     
 }

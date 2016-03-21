@@ -63,6 +63,14 @@ public interface EmailBlockModelService {
      */
     public void delete(Integer emailBlockModelId) throws ProcessFailed;
     
-    
+    /**
+     * This method pass id as input and get the {@link EmailBlockModel} from
+     * database via Dao.
+     *
+     * @param emailBlockId
+     * @return List of {@link EmailBlockModel}
+     * @throws ProcessFailed the process failed
+     */
+    public List<EmailBlockModel> getAllNonAddedEmailBlockModels(Integer emailBlockId) throws ProcessFailed;
     
 }
