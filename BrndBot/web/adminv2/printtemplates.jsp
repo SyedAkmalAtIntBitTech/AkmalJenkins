@@ -16,7 +16,7 @@
         <div class="content-area" ng-init="printTemplateScope()">
         <div class="content-area_header">
             <div class="header_path fleft"> Print Templates </div>
-            <a class="CTA_Button Button--Blue fright stylenone" href="addprinttemplate.jsp">Add New Templates</a>
+            <a class="CTA_Button Button--Blue fright stylenone" href="addprinttemplate.jsp?edit=no">Add New Templates</a>
         </div>
         <div class="slatSection">
             <div class="slatHeaders">
@@ -29,7 +29,7 @@
                     </div>
                     <div class="listCol col1of4 fleft"></div>
                     <div class="listCol col1of4 fleft">
-                        <a href="#"><div class="CTA_Button Button--Gray fright">View/Edit</div></a>
+                        <a href="addprinttemplate.jsp?edit=yes&printModelId={{printDisplays.printModelId}}"><div class="CTA_Button Button--Gray fright">View/Edit</div></a>
                     </div>
                 </li>  
                

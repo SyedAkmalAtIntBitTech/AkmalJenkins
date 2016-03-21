@@ -3,7 +3,24 @@
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
+/* global printModelId */
 
+$(document).ready(function () {   
+    if(window.location.href.indexOf("edit=yes") > -1) 
+    {
+        $("#editTemplate").show();
+        $("#organizationNameDiv").hide();
+       $("#nameTemplate").show();
+       $("#viewTemplate").hide();
+       $("#createPrintTemplate").hide();
+    }
+    if(window.location.href.indexOf("edit=no") > -1) 
+    {
+        $("#editTemplate").hide();
+        $("#nameTemplate").hide();
+        $("#savePrintTemplate").hide();
+    }
+});
 function printTemplates($scope,$http) {
     $scope.printTemplateScope =function(){
         $http({
@@ -43,4 +60,19 @@ $scope.addPrintTemplate = function () {
                 });                         
             }
     }; 
+    
+    
+     $scope.getPrintModelById = function () {
+                    var printModelIdTag= $("#printModelIdTag").val();
+                    $http({
+                            method : 'GET',
+                            url : getHost()+'/getPrintModelById.do?printModelId='+printModelIdTag
+                        }).success(function(data, status, headers, config) {
+                        $scope.printModel = data.d.details[0];  
+                        }).error(function(data, status, headers, config) {
+                                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                        });      
+    };
+    
+    
 }

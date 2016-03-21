@@ -13,16 +13,24 @@
     </head>
     <body class="body-normal" ng-app  ng-controller="printTemplates">
         <%@include file="socialeditortemplatehead.jsp" %>
-        <div class="content-area">
+        <%
+        String printModelId=request.getParameter("printModelId");
+        %>
+     <input id="printModelIdTag" type="text" hidden value="<%=printModelId%>"/>
+        <div class="content-area" ng-init="getPrintModelById()">
             <div class="content-area_header">
                 <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="printtemplates.jsp"> Print Templates</a>  &gt; </div>
                 <div class="header_title fleft" id="organizationNameDiv">Add New Template</div>
+                <div class="header_title fleft" id="editTemplate">Edit Template</div>
             </div>
-            <div class="inputSection col1of4" >
+            <div class="inputSection col1of4" id="viewTemplate" >
                 <div class="input_Label">Name this template</div>
                <input id="printModelName" class="input_Field" type="text"/>
             </div>
-
+            <div class="inputSection col1of4" id="nameTemplate">
+                <div class="input_Label">Edit this template</div>
+               <input id="printModelName" class="input_Field" type="text" value="{{printModel.printModelName}}"/>
+            </div>
             <div id="">
                 <div id='printtemplateedit' style="margin-top: 30px;">
                     <div id="tabs">
@@ -337,7 +345,8 @@
                 <input  id="printImageName" type="file" class="upload fileupld" >
             </div>
             <div class="input_Label fleft"> </div>
-            <a ng-click="addPrintTemplate()"><div class="CTA_Button Button--Blue fleft pushUp_10" >Create New Template</div></a>
+            <a id="createPrintTemplate" ng-click="addPrintTemplate()"><div class="CTA_Button Button--Blue fleft pushUp_10" >Create New Template</div></a>
+            <a id="savePrintTemplate" ng-click="save()"><div class="CTA_Button Button--Blue fleft pushUp_10" >Save</div></a>
         </div>
      
 
