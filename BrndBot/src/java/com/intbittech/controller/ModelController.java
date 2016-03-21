@@ -25,6 +25,7 @@ import com.intbittech.services.PrintModelService;
 import com.intbittech.services.SubCategoryEmailModelService;
 import com.intbittech.services.SubCategoryImageModelService;
 import com.intbittech.services.SubCategoryPrintModelService;
+import com.intbittech.utility.EmailUploadPhoto;
 import com.intbittech.utility.ErrorHandlingUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,6 @@ public class ModelController {
     @Autowired
     private SubCategoryImageModelService subCategoryImageModelService;
     
-
     
     
   @RequestMapping(value = "getAllEmailModelBySubCategory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

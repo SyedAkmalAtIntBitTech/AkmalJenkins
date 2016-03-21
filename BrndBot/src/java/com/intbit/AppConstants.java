@@ -59,4 +59,6 @@ public class AppConstants {
     
     public static final String USER_LOGO = BASE_IMAGE_UPLOAD_PATH + File.separator + "Customers";
     
+    public static final String EMAIL_TEMPLATES = BASE_IMAGE_UPLOAD_PATH + File.separator + "TemplateImages";
+    
 }
