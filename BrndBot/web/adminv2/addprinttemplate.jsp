@@ -7,19 +7,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
          <link rel="shortcut icon" href="../images/favicon.png"/>
         <title>BrndBot - Social Layout Model</title>     
-    </head>
-    <body class="body-normal" ng-app  ng-controller="printTemplates">
-        <%@include file="socialeditortemplatehead.jsp" %>
-        <%
-        String printModelId=request.getParameter("printModelId");
-        %>
+        
+    <%@include file="socialeditortemplatehead.jsp" %> 
+    </head>   
+     <%
+         String printModelId=request.getParameter("printModelId");
+         String imageModelId=request.getParameter("imageModelId");
+     %>
+    <body class="body-normal" ng-app  ng-controller="socialTemplates">         
+        
+     <input id="imageModelIdTag" type="text" hidden value="<%=imageModelId%>"/>
      <input id="printModelIdTag" type="text" hidden value="<%=printModelId%>"/>
-        <div class="content-area" ng-init="getPrintModelById()">
+     <div id="printModelDiv" class="content-area" ng-init="getPrintModelById()">
             <div class="content-area_header">
-                <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="printtemplates.jsp"> Print Templates</a>  &gt; </div>
+                <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="socialtemplates.jsp?printTemplates=true"> Print Templates</a>  &gt; </div>
                 <div class="header_title fleft" id="organizationNameDiv">Add New Template</div>
                 <div class="header_title fleft" id="editTemplate">Edit Template</div>
             </div>
@@ -31,6 +34,7 @@
                 <div class="input_Label">Edit this template</div>
                <input id="printModelName" class="input_Field" type="text" value="{{printModel.printModelName}}"/>
             </div>
+            
             <div id="">
                 <div id='printtemplateedit' style="margin-top: 30px;">
                     <div id="tabs">

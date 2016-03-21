@@ -20,20 +20,44 @@ $(document).ready(function () {
         $("#nameTemplate").hide();
         $("#savePrintTemplate").hide();
     }
+    
+    if(window.location.href.indexOf("imageTemplates=true") > -1) 
+    {
+        $("#printTemplatesDiv").hide();
+        $("#imageTemplatesDiv").show();
+    }
+    if(window.location.href.indexOf("printTemplates=true") > -1) 
+    {
+        $("#imageTemplatesDiv").hide();
+        $("#printTemplatesDiv").show();
+    }
+    
+    
 });
-function printTemplates($scope,$http) {
+function socialTemplates($scope,$http) {
     $scope.printTemplateScope =function(){
         $http({
             method : 'GET',
             url    :getHost()+'/getAllPrintModel.do'
         }).success(function(data , status, headers, config){
-            $scope.printDisplay = data.d.details;         
+            $scope.printDisplay = data.d.details;  
+        }).error(function(data , status, headers, config){ 
+            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            
+        }); 
+    
+    };
+    $scope.imageTemplateScope =function(){
+        $http({
+            method : 'GET',
+            url    :getHost()+'/getAllImageModel.do'
+        }).success(function(data , status, headers, config){
+            $scope.imageDisplay = data.d.details;         
         }).error(function(data , status, headers, config){ 
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             
         });
-        
-    }
+    };
 
 $scope.addPrintTemplate = function () {
             var printModelName=$("#printModelName").val();    
@@ -53,7 +77,7 @@ $scope.addPrintTemplate = function () {
                 }).success(function (data)
                 { 
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/printtemplates.jsp?', "_self");
+                    window.open(getHost() + 'adminv2/socialtemplates.jsp?', "_self");
 
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));

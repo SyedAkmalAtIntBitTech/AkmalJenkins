@@ -34,8 +34,8 @@
             <a href="organization.jsp"><div class="nav_tab fleft"> Organizations </div></a>
             <a href="emailtemplates.jsp"><div class="nav_tab fleft"> Email Templates </div></a>
             <a href="#"><div class="nav_tab fleft"> Email Blocks</div></a>
-            <a href="printtemplates.jsp"><div class="nav_tab fleft"> Print Templates </div></a>
-            <a href="#"><div class="nav_tab fleft"> Image Templates </div></a>
+            <a href="socialtemplates.jsp?printTemplates=true"><div class="nav_tab fleft"> Print Templates </div></a>
+            <a href="socialtemplates.jsp?imageTemplates=true"><div class="nav_tab fleft"> Image Templates </div></a>
             <a href="#"><div class="nav_tab fleft"> Marketing Programs </div></a>
             <a href="#"><div class="nav_tab fleft"> Assets </div></a>
             <a href="#"><div class="nav_tab fleft"> Recurring Email</div></a>

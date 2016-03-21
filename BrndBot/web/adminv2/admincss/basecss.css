@@ -17,6 +17,8 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
 #addEmailTemplatePopUp,
 #relateEmailTemplateAddButton,
 #relateImageTemplateAddButton,
-#relatePrintTemplateAddButton{
+#relatePrintTemplateAddButton,
+#imageTemplatesDiv,
+#printTemplatesDiv{
     display:none;
 }

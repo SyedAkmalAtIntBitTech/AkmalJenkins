@@ -14,7 +14,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <link href="../css/site.css" rel="stylesheet" type="text/css"/>
-
+        <script src="../adminv2/adminjs/socialtemplates.js" type="text/javascript"></script>
         <script src="../js/jquery.blend.min.js" type="text/javascript"></script>
         <script src="../js/jquery-1.10.2.js" type="text/javascript"></script>
         <script src="../js/jquery-ui.js" type="text/javascript"></script>
@@ -321,27 +321,6 @@
   
   
       </script>
-<!--       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-       <script type="text/javascript" src="../js/angular.min.js"></script>-->
-       
        <title>Admin Header</title>
    </head>
-    <body>
-       <div class="nav ">
-        <div class="logodiv nav_logo fleft">
-            <img  src="../images/Icons/Logo_Reverse.svg" class="bb-logo" style="cursor:pointer;height:35px;">
-        </div>
-        <div class="headernav">
-            <a href="allcompanies.jsp"><div class="nav_tab fleft"> Users </div></a>
-            <a href="organization.jsp"><div class="nav_tab fleft"> Organizations </div></a>
-            <a href="#"><div class="nav_tab fleft"> Email Templates </div></a>
-            <a href="#"><div class="nav_tab fleft"> Email Blocks</div></a>
-            <a href="printtemplates.jsp"><div class="nav_tab fleft"> Print Templates </div></a>
-            <a href="#"><div class="nav_tab fleft"> Image Templates </div></a>
-            <a href="#"><div class="nav_tab fleft"> Marketing Programs </div></a>
-            <a href="#"><div class="nav_tab fleft"> Assets </div></a>
-            <a href="#"><div class="nav_tab fleft"> Recurring Email</div></a>
-        </div>
-       </div>
-    </body>
 </html>

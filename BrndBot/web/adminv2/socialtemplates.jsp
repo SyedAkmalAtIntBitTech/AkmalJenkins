@@ -11,9 +11,9 @@
         <link rel="shortcut icon" href="../images/favicon.png"/>
         <title>BrndBot-Admin Organization</title>
     </head>
-    <body class="body-normal" ng-app  ng-controller="printTemplates" >        
+    <body class="body-normal" ng-app  ng-controller="socialTemplates" >        
         <jsp:include page="adminheader.jsp"/>
-        <div class="content-area" ng-init="printTemplateScope()">
+        <div id='printTemplatesDiv' class="content-area" ng-init="printTemplateScope()">
         <div class="content-area_header">
             <div class="header_path fleft"> Print Templates </div>
             <a class="CTA_Button Button--Blue fright stylenone" href="addprinttemplate.jsp?edit=no">Add New Templates</a>
@@ -33,6 +33,29 @@
                     </div>
                 </li>  
                
+            </ul>
+        </div>
+    </div>
+        
+    <div id='imageTemplatesDiv' class="content-area" ng-init="imageTemplateScope()">
+        <div class="content-area_header">
+            <div class="header_path fleft"> Image Templates </div>
+            <a class="CTA_Button Button--Blue fright stylenone" href="addprinttemplate.jsp?edit=no">Add New Templates</a>
+        </div>
+        <div class="slatSection">
+            <div class="slatHeaders">
+                <div class="listHeaderCol col1of2 fleft"></div>
+            </div>
+            <ul class="slatArea" ng-repeat="imageDisplays in imageDisplay.slice().reverse()">
+                <li class="listItem" >
+                    <div class="listCol col1of2 fleft">
+                        <span class="listCol_Text fleft">{{imageDisplays.imageModelName}}</span>
+                    </div>
+                    <div class="listCol col1of4 fleft"></div>
+                    <div class="listCol col1of4 fleft">
+                        <a href="addprinttemplate.jsp?edit=yes&imageModelId={{imageDisplays.imageModelId}}"><div class="CTA_Button Button--Gray fright">View/Edit</div></a>
+                    </div>
+                </li>                 
             </ul>
         </div>
     </div>
