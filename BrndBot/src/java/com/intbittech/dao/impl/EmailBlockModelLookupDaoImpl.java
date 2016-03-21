@@ -9,12 +9,14 @@ import com.intbittech.dao.EmailBlockModelLookupDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlockModelLookup;
 import java.util.List;
+import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -31,6 +33,8 @@ public class EmailBlockModelLookupDaoImpl implements EmailBlockModelLookupDao {
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Autowired
+    private MessageSource messageSource;
     /**
      * {@inheritDoc}
      */
@@ -48,7 +52,7 @@ public class EmailBlockModelLookupDaoImpl implements EmailBlockModelLookupDao {
 
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record.");
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
 
@@ -69,7 +73,7 @@ public class EmailBlockModelLookupDaoImpl implements EmailBlockModelLookupDao {
 
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving records.");
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_list_message",new String[]{}, Locale.US));
         }
     }
 
@@ -81,7 +85,7 @@ public class EmailBlockModelLookupDaoImpl implements EmailBlockModelLookupDao {
             return ((Integer) sessionFactory.getCurrentSession().save(emailBlockModelLookup));
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while saving record.");
+            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
         }
     }
 
@@ -93,7 +97,7 @@ public class EmailBlockModelLookupDaoImpl implements EmailBlockModelLookupDao {
             sessionFactory.getCurrentSession().update(emailBlockModelLookup);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while updating record.");
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
         }
     }
 
@@ -105,7 +109,7 @@ public class EmailBlockModelLookupDaoImpl implements EmailBlockModelLookupDao {
             sessionFactory.getCurrentSession().delete(emailBlockModelLookup);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while deleting record.");
+            throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));
         }
     }
 
