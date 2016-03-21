@@ -12,8 +12,10 @@ import com.intbittech.model.EmailBlockModel;
 import com.intbittech.model.EmailBlockModelLookup;
 import com.intbittech.services.EmailBlockModelService;
 import java.util.List;
+import java.util.Locale;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,13 +30,15 @@ public class EmailBlockModelServiceImpl implements EmailBlockModelService {
     @Autowired
     private EmailBlockModelLookupDao emailBlockModelLookupDao; 
     
+    @Autowired
+    private MessageSource messageSource;
     /**
      * {@inheritDoc}
      */
     public EmailBlockModel getByEmailBlockModelId(Integer emailBlockModelId) throws ProcessFailed {
         EmailBlockModel emailBlockModel = emailBlockModelDao.getByEmailBlockModelId(emailBlockModelId);
         if(emailBlockModel == null)
-            throw new ProcessFailed("No email block template found.");
+            throw new ProcessFailed(messageSource.getMessage("emailBlockModel_not_found",new String[]{}, Locale.US));
         
         return emailBlockModel;
     }
@@ -59,7 +63,7 @@ public class EmailBlockModelServiceImpl implements EmailBlockModelService {
     public void delete(Integer emailBlockModelId) throws ProcessFailed {
         EmailBlockModel emailBlockModel = emailBlockModelDao.getByEmailBlockModelId(emailBlockModelId);
         if(emailBlockModel == null)
-            throw new ProcessFailed("No email block template found to delete.");
+            throw new ProcessFailed(messageSource.getMessage("emailBlockModel_not_found_delete",new String[]{}, Locale.US));
         emailBlockModelDao.delete(emailBlockModel);
     }
 
@@ -69,7 +73,7 @@ public class EmailBlockModelServiceImpl implements EmailBlockModelService {
     public List<EmailBlockModel> getAllEmailBlockModel() throws ProcessFailed {
         List<EmailBlockModel> emailBlockModel = emailBlockModelDao.getAllEmailBlockModel();
         if(emailBlockModel == null)
-            throw new ProcessFailed("No email block templates found.");
+            throw new ProcessFailed(messageSource.getMessage("emailBlockModel_not_found",new String[]{}, Locale.US));
         
         return emailBlockModel;
     }

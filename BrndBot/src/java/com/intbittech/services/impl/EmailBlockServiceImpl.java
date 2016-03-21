@@ -17,8 +17,10 @@ import com.intbittech.model.OrganizationEmailBlockLookup;
 import com.intbittech.modelmappers.EmailBlockDetails;
 import com.intbittech.services.EmailBlockService;
 import java.util.List;
+import java.util.Locale;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +38,8 @@ public class EmailBlockServiceImpl implements EmailBlockService {
     @Autowired
     private EmailBlockExternalSourceDao emailBlockExternalSourceDao;
     
-    
+    @Autowired
+    private MessageSource messageSource;
 
     /**
      * {@inheritDoc}
@@ -44,7 +47,7 @@ public class EmailBlockServiceImpl implements EmailBlockService {
     public EmailBlock getByEmailBlockId(Integer emailBlockId) throws ProcessFailed {
         EmailBlock emailBlock = emailBlockDao.getByEmailBlockId(emailBlockId);
         if(emailBlock == null)
-            throw new ProcessFailed("No email block found.");
+            throw new ProcessFailed(messageSource.getMessage("emailBlock_not_found",new String[]{}, Locale.US));
         return emailBlock;
     }
 
@@ -68,7 +71,7 @@ public class EmailBlockServiceImpl implements EmailBlockService {
     public void delete(Integer emailBlockId) throws ProcessFailed {
         EmailBlock emailBlock = emailBlockDao.getByEmailBlockId(emailBlockId);
         if(emailBlock == null)
-            throw new ProcessFailed("No email block found.");
+            throw new ProcessFailed(messageSource.getMessage("emailBlock_not_found",new String[]{}, Locale.US));
         emailBlockDao.delete(emailBlock);
     }
     
@@ -126,14 +129,14 @@ public class EmailBlockServiceImpl implements EmailBlockService {
     public List<OrganizationEmailBlockLookup> getAllOrganizationEmailBlock(Integer organizationId) throws ProcessFailed {
         List<OrganizationEmailBlockLookup> organizationEmailBlockList = organizationEmailBlockLookupDao.getAllOrganizationEmailBlock(organizationId);
         if(organizationEmailBlockList == null)
-            throw new ProcessFailed("No email blocks exist.");
+            throw new ProcessFailed(messageSource.getMessage("emailBlock_not_found",new String[]{}, Locale.US));
         return organizationEmailBlockList;
     }
     
     public List<EmailBlockExternalSource> getAllEmailBlockExternalSource(Integer emailBlockId) throws ProcessFailed {
         List<EmailBlockExternalSource> emailBlockExternalSourceList = emailBlockExternalSourceDao.getAllEmailBlockExternalSource(emailBlockId);
         if(emailBlockExternalSourceList == null)
-            throw new ProcessFailed("No email blocks exist.");
+            throw new ProcessFailed(messageSource.getMessage("emailBlock_not_found",new String[]{}, Locale.US));
         return emailBlockExternalSourceList;
     }
     
