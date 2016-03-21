@@ -54,8 +54,8 @@ public class EmailBlockController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse),HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "deleteEmailModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> deleteEmailModel(@RequestParam("emailBlockId") Integer emailBlockId) {
+    @RequestMapping(value = "deleteEmailBlock", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteEmailBlock(@RequestParam("emailBlockId") Integer emailBlockId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             emailBlockService.delete(emailBlockId);

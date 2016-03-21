@@ -21,13 +21,14 @@ String subCategoryID=request.getParameter("subCategoryId");
     <input id="organizationIdTag" type="text" hidden value="<%=organizationID%>"/>
     <input id="subCategoryIdTag" type="text" hidden value="<%=subCategoryID%>"/>
      <jsp:include page="adminheader.jsp"/>
+     <jsp:include page="addemailtemplate.jsp"/>
      <div  ng-init="organizationdetails()">
     <div class="content-area" ng-init="getAllCategoryDetails()">
         <div class="content-area_header" ng-init="getAllSubCategories()">
             <div class="header_path fleft"> <a style="text-decoration:none;color:#3E4551;" href="organizationdetails.jsp?organizationId=<%=organizationID%>">{{organizationDetails.organizationName}}</a>  > </div>
-            <div class="header_path fleft"> <a style="text-decoration:none;color:#3E4551;" href="subcategory.jsp?organizationId=<%=organizationID%>&categoryId=<%=categoryID%>">{{categoryDetails.categoryName}}</a>  > </div>
+            <div class="header_path fleft"> <a style="text-decoration:none;color:#3E4551;" href="emailsubcategory.jsp?organizationId=<%=organizationID%>&categoryId=<%=categoryID%>">{{categoryDetails.categoryName}}</a>  > </div>
             <div class="header_title fleft">{{subCategoryDetailsTitle.subCategoryName}}</div>
-            <div class="CTA_Button Button--Blue fright">Add Template</div>
+            <div class="CTA_Button Button--Blue fright" id="addTemplateButton" ng-click="getAllNonAddedEmailModelsBySubCategoryId(<%=subCategoryID%>)">Add Template</div>
             <div class="CTA_Button Button--Delete fright" ng-click="deleteSubCategory(<%=subCategoryID%>)">Delete Sub Category</div>
         </div>
         <div class="slatSection" ng-init="getEmailModelBySubCategoryId()">
@@ -39,10 +40,15 @@ String subCategoryID=request.getParameter("subCategoryId");
             <ul class="slatArea">
                 <li class="listItem" ng-repeat="emailModel in emailModels">
                     <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft">{{emailModel.emailModelName}} Template Name</span>
+                        <span class="listCol_Text fleft">{{emailModel.emailModelName}}</span>
                     </div>
                     <div class="listCol col1of4 fright">
                         <div class="CTA_Button Button--Gray fright">Remove Template</div>
+                    </div>
+                </li>
+                <li class="listItem" ng-show="emailModels==null">
+                    <div class="listCol col1of2 fleft">
+                        <span class="listCol_Text fleft">No Email Templates exist.</span>
                     </div>
                 </li>
             </ul>

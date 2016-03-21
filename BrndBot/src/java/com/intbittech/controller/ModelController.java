@@ -25,6 +25,7 @@ import com.intbittech.services.PrintModelService;
 import com.intbittech.services.SubCategoryEmailModelService;
 import com.intbittech.services.SubCategoryImageModelService;
 import com.intbittech.services.SubCategoryPrintModelService;
+import com.intbittech.utility.EmailUploadPhoto;
 import com.intbittech.utility.ErrorHandlingUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,6 @@ public class ModelController {
     @Autowired
     private SubCategoryImageModelService subCategoryImageModelService;
     
-
     
     
   @RequestMapping(value = "getAllEmailModelBySubCategory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -208,19 +208,18 @@ public class ModelController {
 
     }
     
-     @RequestMapping(value = "getAllEmailModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "getAllEmailModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllEmailModel() {
         GenericResponse<EmailModelDetails> genericResponse = new GenericResponse<>();
         try {
-            List<EmailModel> EmailModelList = emailModelService.getAllEmailModel();
+            List<EmailModel> emailModelList = emailModelService.getAllEmailModel();
             List<EmailModelDetails> emailModelDetailsList = new ArrayList<>();
-            for (EmailModel emailModelObject : EmailModelList) {
+            for (EmailModel emailModelObject : emailModelList) {
                 EmailModelDetails emailModelDetails = new EmailModelDetails();
                 emailModelDetails.setEmailModelId(emailModelObject.getEmailModelId());
                 emailModelDetails.setEmailModelName(emailModelObject.getEmailModelName());
                 emailModelDetails.setImageFileName(emailModelObject.getImageFileName());
                 emailModelDetails.setHtmlData(emailModelObject.getHtmlData());
-                emailModelDetails.setSubCategoryEmailModelId(emailModelObject.getEmailModelId());
                 emailModelDetailsList.add(emailModelDetails);
             }
 
@@ -234,20 +233,44 @@ public class ModelController {
 
     }
     
-     @RequestMapping(value = "getAllImageModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "getEmailModelById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getEmailModelById(@RequestParam("emailModelId") Integer emailModelId) {
+        GenericResponse<EmailModelDetails> genericResponse = new GenericResponse<>();
+        try {
+            EmailModel emailModel = emailModelService.getByEmailModelId(emailModelId);
+            List<EmailModelDetails> emailModelDetailsList = new ArrayList<>();
+            
+            EmailModelDetails emailModelDetails = new EmailModelDetails();
+            emailModelDetails.setEmailModelId(emailModel.getEmailModelId());
+            emailModelDetails.setEmailModelName(emailModel.getEmailModelName());
+            emailModelDetails.setImageFileName(emailModel.getImageFileName());
+            emailModelDetails.setHtmlData(emailModel.getHtmlData());
+            emailModelDetailsList.add(emailModelDetails);
+            
+
+            genericResponse.setDetails(emailModelDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+    
+    @RequestMapping(value = "getAllImageModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllImageModel() {
         GenericResponse<ImageModelDetails> genericResponse = new GenericResponse<>();
         try {
-            List<ImageModel> ImageModelList = imageModelService.getAllImageModel();
+            List<ImageModel> imageModelList = imageModelService.getAllImageModel();
             List<ImageModelDetails> imageModelDetailsList = new ArrayList<>();
-            for (ImageModel imageModelObject : ImageModelList) {
+            for (ImageModel imageModelObject : imageModelList) {
                 ImageModelDetails imageModelDetails = new ImageModelDetails();
                 imageModelDetails.setImageModelId(imageModelObject.getImageModelId());
                 imageModelDetails.setImageModelName(imageModelObject.getImageModelName());
                 imageModelDetails.setLayoutFileName(imageModelObject.getLayoutFileName());
                 imageModelDetails.setModelFileName(imageModelObject.getModelFileName());
                 imageModelDetails.setImageFileName(imageModelObject.getImageFileName());
-                imageModelDetails.setSubCategoryImageModelId(imageModelObject.getImageModelId());
                 imageModelDetailsList.add(imageModelDetails);
             }
 
@@ -261,13 +284,39 @@ public class ModelController {
 
     }
     
-     @RequestMapping(value = "getAllPrintModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "getImageModelById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getImageModelById(@RequestParam("imageModelId") Integer imageModelId) {
+        GenericResponse<ImageModelDetails> genericResponse = new GenericResponse<>();
+        try {
+            ImageModel imageModel = imageModelService.getByImageModelId(imageModelId);
+            List<ImageModelDetails> imageModelDetailsList = new ArrayList<>();
+            
+            ImageModelDetails imageModelDetails = new ImageModelDetails();
+            imageModelDetails.setImageModelId(imageModel.getImageModelId());
+            imageModelDetails.setImageModelName(imageModel.getImageModelName());
+            imageModelDetails.setLayoutFileName(imageModel.getLayoutFileName());
+            imageModelDetails.setModelFileName(imageModel.getModelFileName());
+            imageModelDetails.setImageFileName(imageModel.getImageFileName());
+            imageModelDetailsList.add(imageModelDetails);
+            
+
+            genericResponse.setDetails(imageModelDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Image template retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+    
+    @RequestMapping(value = "getAllPrintModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllPrintModel() {
         GenericResponse<PrintModelDetails> genericResponse = new GenericResponse<>();
         try {
-            List<PrintModel> PrintModelList = printModelService.getAllPrintModel();
+            List<PrintModel> printModelList = printModelService.getAllPrintModel();
             List<PrintModelDetails> printModelDetailsList = new ArrayList<>();
-            for (PrintModel printModelObject : PrintModelList) {
+            for (PrintModel printModelObject : printModelList) {
                 PrintModelDetails PrintModelDetails = new PrintModelDetails();
                 PrintModelDetails.setPrintModelId(printModelObject.getPrintModelId());
                 PrintModelDetails.setPrintModelName(printModelObject.getPrintModelName());
@@ -288,6 +337,31 @@ public class ModelController {
 
     }
     
+    @RequestMapping(value = "getPrintModelById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getPrintModelById(@RequestParam("printModelId") Integer printModelId) {
+        GenericResponse<PrintModelDetails> genericResponse = new GenericResponse<>();
+        try {
+            PrintModel printModel = printModelService.getByPrintModelId(printModelId);
+            List<PrintModelDetails> printModelDetailsList = new ArrayList<>();
+            
+            PrintModelDetails PrintModelDetails = new PrintModelDetails();
+            PrintModelDetails.setPrintModelId(printModel.getPrintModelId());
+            PrintModelDetails.setPrintModelName(printModel.getPrintModelName());
+            PrintModelDetails.setLayoutFileName(printModel.getLayoutFileName());
+            PrintModelDetails.setModelFileName(printModel.getModelFileName());
+            PrintModelDetails.setImageFileName(printModel.getImageFileName());
+            printModelDetailsList.add(PrintModelDetails);
+
+            genericResponse.setDetails(printModelDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Print template retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+    
     @RequestMapping(value = "saveEmailModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveEmailModel(@RequestBody EmailModelDetails emailModelDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
@@ -298,6 +372,39 @@ public class ModelController {
             emailModel.setImageFileName(emailModelDetails.getImageFileName());
             emailModelService.save(emailModel);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template created successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "editEmailModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> editEmailModel(@RequestBody EmailModelDetails emailModelDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            EmailModel emailModel = new EmailModel();
+            emailModel.setEmailModelId(emailModelDetails.getEmailModelId());
+            emailModel.setEmailModelName(emailModelDetails.getEmailModelName());
+            emailModel.setHtmlData(emailModelDetails.getHtmlData());
+            emailModel.setImageFileName(emailModelDetails.getImageFileName());
+            emailModelService.update(emailModel);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template updated successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "deleteEmailModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteEmailModel(@RequestParam("emailModelId") Integer emailModelId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            emailModelService.delete(emailModelId);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template deleted successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -329,6 +436,21 @@ public class ModelController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
+    @RequestMapping(value = "deleteSubCategoryEmailModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteSubCategoryEmailModel(@RequestParam("subCategoryEmailModelID") Integer subCategoryEmailModelID) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            
+            subCategoryEmailModelService.delete(subCategoryEmailModelID);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template relation to subcategroy deleted successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
     @RequestMapping(value = "saveSubCategoryPrintModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveSubCategoryPrintModel(@RequestBody PrintModelDetails printModelDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
@@ -342,6 +464,20 @@ public class ModelController {
             subCategoryPrintModel.setFkSubCategoryId(subCategory);
             subCategoryPrintModelService.save(subCategoryPrintModel);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Print template related to subcategory successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "deleteSubCategoryPrintModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteSubCategoryPrintModel(@RequestParam("subCategoryPrintModelId") Integer subCategoryPrintModelId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            subCategoryPrintModelService.delete(subCategoryPrintModelId);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Print template relation to subcategory deleted successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -371,6 +507,20 @@ public class ModelController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
+    @RequestMapping(value = "deleteSubCategoryImageModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteSubCategoryImageModel(@RequestParam("subCategoryImageModelId") Integer subCategoryImageModelId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            subCategoryImageModelService.delete(subCategoryImageModelId);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Image template relation to subcategory deleted successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
     
     @RequestMapping(value = "savePrintModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> savePrintModel(@RequestBody PrintModelDetails printModelDetails)    {
@@ -391,6 +541,40 @@ public class ModelController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
+    @RequestMapping(value = "editPrintModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> editPrintModel(@RequestBody PrintModelDetails printModelDetails)    {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            PrintModel printlModel = new PrintModel();
+            printlModel.setPrintModelId(printModelDetails.getPrintModelId());
+            printlModel.setPrintModelName(printModelDetails.getPrintModelName());
+            printlModel.setModelFileName(printModelDetails.getModelFileName());
+            printlModel.setLayoutFileName(printModelDetails.getLayoutFileName());
+            printlModel.setImageFileName(printModelDetails.getImageFileName());
+            printModelService.update(printlModel);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Print template updated successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "deletePrintModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deletePrintModel(@RequestParam("printModelId") Integer printModelId)    {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            printModelService.delete(printModelId);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Print template deleted successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
     @RequestMapping(value = "saveImageModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveImageModel(@RequestBody ImageModelDetails imageModelDetails)    {
         TransactionResponse transactionResponse = new TransactionResponse();
@@ -402,6 +586,40 @@ public class ModelController {
             imageModel.setImageFileName(imageModelDetails.getImageFileName());
             imageModelService.save(imageModel);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Image template created successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "updateImageModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> updateImageModel(@RequestBody ImageModelDetails imageModelDetails)    {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            ImageModel imageModel = new ImageModel();
+            imageModel.setImageModelId(imageModelDetails.getImageModelId());
+            imageModel.setImageModelName(imageModelDetails.getImageModelName());
+            imageModel.setLayoutFileName(imageModelDetails.getLayoutFileName());
+            imageModel.setModelFileName(imageModelDetails.getModelFileName());
+            imageModel.setImageFileName(imageModelDetails.getImageFileName());
+            imageModelService.update(imageModel);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Image template updated successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "deleteImageModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteImageModel(@RequestParam("imageModelId") Integer imageModelId)    {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            imageModelService.delete(imageModelId);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Image template deleted successfully."));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
