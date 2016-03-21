@@ -249,6 +249,36 @@ padding: 5px 15px;
 
 
 /** Buttons**/
+.browse-button {
+   margin-top: 45px;
+   width: 180px;
+   margin-left: auto;
+   margin-right: auto;
+}
+.gray-button {
+   text-align: center;
+   background-color: #d5dadf;
+   color: #767777;
+   cursor: pointer;
+}
+.md-button {
+   padding: 7px 16px 7px 16px;
+   border-radius: 3px;
+}
+.fileupld {
+    opacity: 0;
+    margin-top: -31px;
+    height: 31px;
+    width: 100%;
+}
+.uploadwidth{
+   
+   width:10%
+}
+
+.stylenone{
+    text-decoration: none;
+}
 
 .CTA_Button{
 padding: 5px 30px;
@@ -286,6 +316,12 @@ padding: 5px 45px;
 
 /** Forms **/
 
+.printtemplateeditor{
+    background-color: #efefef;
+    width: 100%;
+    min-height: 400px;
+    max-height: 500px;
+}
 
 .inputSection{
     margin-top:30px;
@@ -296,9 +332,10 @@ padding: 5px 45px;
 }
 
 .input_Label{
-font-size: 14px;
+    font-size: 14px;
     font-weight: 600px;
     color: #3E4551 ;
+    margin-top: 17px;
 }
 
 .input_Field{
@@ -370,6 +407,19 @@ font-size: 14px;
 .bb-logo{
     width: 40px;
     margin: auto;
+}
+.width50{
+    width:50px;
+}
+.stylenone:hover{
+    text-decoration: none;
+}
+.inlineflex
+{
+    display: inline-flex;
+}
+.filter:hover{
+cursor: pointer;
 }
 @media screen and (min-width:1400px) and (max-width:2500px){
     .popUp{       
