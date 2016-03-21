@@ -159,5 +159,6 @@ var enterOrganizationName="Please enter Organization Name!";
 var emailName="Email";
 var printName="Print";
 var imageName="Image";
-
+var enterBlockName="Please enter Block Name!";
+var uploadImageFile="Please Upload an Image!";
 /// ADMIN alerts Ends////

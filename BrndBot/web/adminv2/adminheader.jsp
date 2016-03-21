@@ -24,6 +24,7 @@
          <script src="../js/alertmessage.js" type="text/javascript"></script>
         <title>Admin Header</title>
          <script src="../adminv2/adminjs/emailtemplate.js" type="text/javascript"></script>
+         <script src="../adminv2/adminjs/emailblockmodels.js" type="text/javascript"></script>
    </head>
     <body>
        <div class="nav ">
@@ -34,7 +35,7 @@
             <a href="allcompanies.jsp"><div class="nav_tab fleft"> Users </div></a>
             <a href="organization.jsp"><div class="nav_tab fleft"> Organizations </div></a>
             <a href="emailtemplates.jsp"><div class="nav_tab fleft"> Email Templates </div></a>
-            <a href="#"><div class="nav_tab fleft"> Email Blocks</div></a>
+            <a href="emailblockmodels.jsp"><div class="nav_tab fleft"> Email Blocks</div></a>
             <a href="printtemplates.jsp"><div class="nav_tab fleft"> Print Templates </div></a>
             <a href="#"><div class="nav_tab fleft"> Image Templates </div></a>
             <a href="#"><div class="nav_tab fleft"> Marketing Programs </div></a>

@@ -26,11 +26,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author ilyas
  */
+@RestController
 public class BlockModelController {
     
     private Logger logger = Logger.getLogger(BlockModelController.class);
@@ -195,7 +197,7 @@ public class BlockModelController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "deleteBlockModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "deleteBlockModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteBlockModel(@RequestParam("emailBlockModelId") Integer emailBlockModelId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
