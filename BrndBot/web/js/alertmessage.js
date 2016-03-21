@@ -145,3 +145,19 @@ var emailsenderror="test";
 var emailsenderror="test";
 
 
+/// ADMIN alerts Starts////
+
+var deleteSubCategoryRelationPrompt="Do you want to delete this Email template relation to subcategroy?";
+var deleteEmailBlockPrompt="Do you want to delete this Email Block?";
+var deleteOrganizationPrompt="Do you want to delete this Organization?";
+var deleteCategoryPrompt="Do you want to delete this Category?";
+var deleteSubCategoryPrompt="Do you want to delete this Sub Category?";
+var enterCategoryName="Please enter category name!";
+var enterSubCategoryName="Please enter Sub Category name!";
+var enterEmailBlock="Please enter Email Block Name!";
+var enterOrganizationName="Please enter Organization Name!";
+var emailName="Email";
+var printName="Print";
+var imageName="Image";
+
+/// ADMIN alerts Ends////
