@@ -22,10 +22,10 @@
             <div class="slatHeaders">
                 <div class="listHeaderCol col1of2 fleft"></div>
             </div>
-            <ul class="slatArea" ng-repeat="printDisplay in printDisplay.slice.reverse()">
+            <ul class="slatArea" ng-repeat="printDisplays in printDisplay.slice().reverse()">
                 <li class="listItem" >
                     <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft">{{printDisplay}}</span>
+                        <span class="listCol_Text fleft">{{printDisplays.printModelName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft"></div>
                     <div class="listCol col1of4 fleft">
