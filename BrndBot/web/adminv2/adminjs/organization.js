@@ -510,7 +510,7 @@ $scope.addImageCategory = function () {
                     url: getHost() + '/getAllNonAddedEmailModels.do?subCategoryId='+subCategoryID
                 }).success(function (data)
                 {   
-                    $("#relateEmailTemplateAddButton").show();
+                    $("#relateEmailTemplateAddButton").show().css('pointer-events','none');
                     $scope.nonAddedEmailModelsBySubCategory= data.d.details;
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 }).error(function(data){
@@ -550,6 +550,7 @@ $scope.addImageCategory = function () {
 	       $scope.selected = item; 
                selectedItem=item;
                selectedList=selectedItem;
+               $("#relateEmailTemplateAddButton").css('pointer-events','auto');
 	};
     $scope.isActive = function(item) {
 	       return $scope.selected === item;
@@ -578,7 +579,7 @@ $scope.addImageCategory = function () {
                 });   
         
         
-    }
+    };
     
      $scope.relatePrintTemplateSubCategory= function (){
         var subCategoryId=$("#subCategoryIdTag").val();
@@ -601,6 +602,26 @@ $scope.addImageCategory = function () {
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });          
-    }
+    };
+    $scope.deleteSubCategoryEmailModel= function (subCategoryEmailModelId){ 
+            var subCategoryId=$("#subCategoryIdTag").val();
+            var categoryId=$("#categoryIdTag").val();
+            var organizationId=$("#organizationIdTag").val();
+            
+            var deleteEmailTemplate=confirm("Do you want to delete this Email template relation to subcategroy?");
+            if(deleteEmailTemplate===true)
+            {
+                $http({
+                    method: 'GET',
+                    url: getHost() + '/deleteSubCategoryEmailModel.do?subCategoryEmailModelID='+subCategoryEmailModelId
+                }).success(function (data)
+                {   
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    window.open(getHost() + 'adminv2/emailsubcategorydetails.jsp?organizationId='+organizationId+'&categoryId='+categoryId+'&subCategoryId='+subCategoryId, "_self");
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+            }
+    };
 }
 
