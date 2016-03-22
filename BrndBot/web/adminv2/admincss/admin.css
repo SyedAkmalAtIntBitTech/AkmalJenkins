@@ -524,3 +524,137 @@ div#editor {
 .createTemplate{
    margin-top: 5%; 
 }
+/*.popUp_background_colors{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(62,69,81,.64);
+    position: fixed;
+    top:0;
+    left: 0;
+    z-index: 1000;
+}*/
+.popUp_wide{
+    z-index: 1100;
+        background-color: #FFFFFF;
+    display: block;
+    border-radius: 3px;
+    border: 1px solid #D2D3D5;
+    padding: 0px 30px;
+    margin: auto;
+    width: 800px;
+    padding-bottom: 30px;
+        box-sizing: border-box;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    
+}
+
+.popUp_title{
+    font-size: 18px;
+    color: #3E4551; 
+}
+/** Slats **/
+
+.slatArea{
+width: 100%;
+    margin-top: 5px;
+    box-sizing: border-box;
+    background-color: #FFFFFF ;
+    display: block;
+    overflow-y: scroll;
+}
+
+.groupArea{
+width: 60%;
+    margin-top: 5px;
+    box-sizing: border-box;
+    background-color: #FBFBFB ;
+    display: block;
+    overflow-y: scroll;
+}
+
+
+.slatSection{
+    overflow: auto;
+    clear: both;
+    margin-top: 20px;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+.slatHeaders{
+    font-size: 14px;
+    font-weight: 600;
+    font-variant-caps: all-small-caps;
+    margin-top: 10px;
+    overflow: auto;
+    clear: both;   
+}
+
+.sectionHeader{
+    font-size: 20px;
+    color: #3E4551; 
+    margin-top: 30px;
+}
+
+.listItem{
+    width: 100%;
+    border: 1px solid #D2D3D5;
+    margin-top: 8px;
+    font-size: 14px;
+    overflow: auto;
+    clear: both;
+     box-sizing: border-box;
+    background-color: #fbfbfb;
+}
+
+.listHeaderCol{
+padding: 5px 15px;  
+    box-sizing: border-box;
+}
+
+.listCol{
+    padding: 10px 15px;
+    box-sizing: border-box;
+
+}
+
+.listCol_Text{
+    padding-top:4px;
+}
+
+.palette-wrap-admin{
+    padding: 10px 0px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.palette-swap-wrap{
+    margin-right: 15px;
+    box-sizing: border-box;
+    
+}
+
+.palette-admin{
+    width: 100px;
+    height: 60px;
+    border: solid 1px #D2D3D5;
+    box-sizing: border-box;
+    border-radius: 3px;
+    
+}
+
+.palette-beneath{
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    padding: 5px;
+    font-size: 14px;
+    border: solid 1px #D2D3D5;
+    margin-top: 10px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    
+    
+}

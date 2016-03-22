@@ -34,6 +34,13 @@
               $("#addOrganizationPopupDiv").show();
            });
            
+           $("#updateColorPalette").click(function (){
+               $("#createColorCode").show();
+               $("#addOrganizationPopupDiv").show();
+                           
+                
+           });  
+           
            $("#addOrganizationPopupDiv").click(function (){
                $("#addEmailTemplatePopUp").hide();
                $("#addSubCategoryPopup").hide();
@@ -42,7 +49,11 @@
                 $("#addOrganizationPopupDiv").hide();
                 $("#addImageCategory").hide();
                  $("#addEmailBlockPopUp").hide();
+                 $("#createColorCode").hide();
            });
+           
+           
+           
        });
        var emailChannel="email";
        var printChannel="print";

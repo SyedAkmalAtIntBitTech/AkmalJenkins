@@ -39,7 +39,7 @@
             <a href="printtemplates.jsp"><div class="nav_tab fleft"> Print Templates </div></a>
             <a href="#"><div class="nav_tab fleft"> Image Templates </div></a>
             <a href="#"><div class="nav_tab fleft"> Marketing Programs </div></a>
-            <a href="#"><div class="nav_tab fleft"> Assets </div></a>
+            <a href="assets.jsp"><div class="nav_tab fleft"> Assets </div></a>
             <a href="#"><div class="nav_tab fleft"> Recurring Email</div></a>
         </div>
        </div>
