@@ -39,8 +39,7 @@
     <script>
         var program = "";
         program = <%= program_id %>;
-    </script>        
-    <script src="js/programactions.js"></script>
+    </script>      
 </head>    
 
 <body class="" ng-app ng-controller="programactions">
@@ -49,6 +48,7 @@
     <input type="hidden" name="program_id" id="program_id" value="<%= program_id %>"/>
     <input type="hidden" name="program_end_date" id="program_end_date" value="<%= program_date %>"/>
     <input type="hidden" name="change" id="change" value="0"/>
+    <script src="js/programactions.js"></script>
     <jsp:include page="facebookpreview_marketing.jsp"/> 
     <jsp:include page="twitterpreview_marketing.jsp"/> 
     <jsp:include page="emailpreviewpopup_marketing.jsp"/>
@@ -172,7 +172,7 @@
                     </div>
                     <!--List Starts Here-->
                     <ul class="main-container fleft">
-                    <li class="slat-container fleft selfclear"  ng-repeat="programaction in programs.programactions">
+                    <li class="slat-container fleft selfclear"  ng-repeat="programaction in (filteredItems = (programs.programactions | orderBy: 'postDate':true))">
                             <div class="selection-container col-5p"> 
                                 <div class="selection-icon" ng-hide="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" onclick="selcheckboxonetimeact(this.id);setSelectedIds('{{programaction.scheduledEntityListId}}');"><input type="checkbox" id="entityid{{programaction.scheduledEntityListId}}"  value="{{programaction.scheduledEntityListId}}" name="entityname" hidden></input></div>
                                 <!--<div class="selection-icon">-->    
