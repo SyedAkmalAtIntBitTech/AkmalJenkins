@@ -57,7 +57,7 @@
                 <div class="line-divider"></div>
                 <div class="cols-2">
                      <div class="input-field-container col-4of10 fleft pushright">
-                        <div class="input-header"> Days from Event </div>
+                        <div class="input-header"> Action Date </div>
                         <input type="hidden" name="days" id="days"  class="input-field-textfield input-placeholder" placeholder="Enter days"></input>
                         <input type="text"  name="datepicker" id="jumptodatepicker" readonly  class="input-field-textfield input-placeholder" placeholder="Enter Action Date"/>
                         <script>
