@@ -1,5 +1,6 @@
 
 var maxLength = 140;
+var end_date="";
 var script = document.createElement('script');
 script.src = "js/alertmessage.js";
 document.getElementsByTagName('script')[0].parentNode.appendChild(script);
@@ -70,7 +71,6 @@ function getImageId(idname)
 $(document).ready(function ()
 {  
     $('#chars').text(length);
-    
     $("#emailpreview").click(function(){
         $("#deskpreview").css('background-image', 'url("' + global_host_address +'images/imac27.png'+ '")')
         $("#mobpreview").css('background-image', 'url("' + global_host_address +'images/Phone.svg'+ '")')
