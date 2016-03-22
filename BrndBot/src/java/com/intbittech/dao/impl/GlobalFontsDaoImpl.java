@@ -53,7 +53,7 @@ public class GlobalFontsDaoImpl implements GlobalFontsDao {
     /**
      * {@inheritDoc}
      */
-    public List<GlobalFonts> getAllGlobalColors() throws ProcessFailed {
+    public List<GlobalFonts> getAllGlobalFonts() throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(GlobalFonts.class);

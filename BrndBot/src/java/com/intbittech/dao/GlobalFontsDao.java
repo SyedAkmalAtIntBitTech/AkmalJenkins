@@ -32,7 +32,7 @@ public interface GlobalFontsDao {
      * @return {@link GlobalFonts}
      * @throws ProcessFailed the process failed
      */
-    public List<GlobalFonts> getAllGlobalColors() throws ProcessFailed;
+    public List<GlobalFonts> getAllGlobalFonts() throws ProcessFailed;
     
     /**
      * This method save {@link GlobalFonts} into the database.

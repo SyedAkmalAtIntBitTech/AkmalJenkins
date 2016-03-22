@@ -56,9 +56,9 @@ public interface GlobalColorsService {
      * This method delete particular {@link GlobalColors} based on the
      * organization from the database via Dao.
      *
-     * @param globalColors the globalColors
+     * @param globalColorsId the globalColorsId
      * @throws ProcessFailed the process failed
      */
-    public void delete(GlobalColors globalColors) throws ProcessFailed;
+    public void delete(Integer globalColorsId) throws ProcessFailed;
     
 }

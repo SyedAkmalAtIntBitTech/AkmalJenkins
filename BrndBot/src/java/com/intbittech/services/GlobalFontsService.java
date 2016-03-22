@@ -32,7 +32,7 @@ public interface GlobalFontsService {
      * @return {@link GlobalFonts}
      * @throws ProcessFailed the process failed
      */
-    public List<GlobalFonts> getAllGlobalColors() throws ProcessFailed;
+    public List<GlobalFonts> getAllGlobalFonts() throws ProcessFailed;
     
     /**
      * This method save {@link GlobalFonts} into the database via Dao.
@@ -56,9 +56,9 @@ public interface GlobalFontsService {
      * This method delete particular {@link GlobalFonts} based on the
      * organization from the database via Dao.
      *
-     * @param globalFonts the globalFonts
+     * @param globalFontsId the globalFontsId
      * @throws ProcessFailed the process failed
      */
-    public void delete(GlobalFonts globalFonts) throws ProcessFailed;
+    public void delete(Integer globalFontsId) throws ProcessFailed;
     
 }
