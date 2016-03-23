@@ -12,6 +12,7 @@ package com.intbittech.modelmappers;
 public class GlobalColorsDetails {
 
     private Integer globalColorsId;
+    private String colorName;
     private String color1;
     private String color2;
     private String color3;
@@ -25,6 +26,14 @@ public class GlobalColorsDetails {
         this.globalColorsId = globalColorsId;
     }
 
+    public String getColorName() {
+        return colorName;
+    }
+
+    public void setColorName(String colorName) {
+        this.colorName = colorName;
+    }
+    
     public String getColor1() {
         return color1;
     }

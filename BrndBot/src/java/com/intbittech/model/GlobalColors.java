@@ -28,6 +28,8 @@ public class GlobalColors implements Serializable {
     @Basic(optional = false)
     @Column(name = "global_colors_id")
     private Integer globalColorsId;
+    @Column(name = "color_name")
+    private String colorName;
     @Column(name = "color_1")
     private String color1;
     @Column(name = "color_2")
@@ -52,6 +54,14 @@ public class GlobalColors implements Serializable {
         this.globalColorsId = globalColorsId;
     }
 
+    public String getColorName() {
+        return colorName;
+    }
+
+    public void setColorName(String colorName) {
+        this.colorName = colorName;
+    }
+    
     public String getColor1() {
         return color1;
     }
