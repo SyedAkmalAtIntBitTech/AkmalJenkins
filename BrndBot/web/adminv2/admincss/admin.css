@@ -350,7 +350,14 @@ padding: 5px 45px;
     background-color: white;
 }
 
+.mindbodyList{
+    width:80% !important;
+    margin-left: 20px;
+}
 
+.elementProperty{
+    margin-left: 10px;
+}
 /** Pop Up **/
 .popUp_backgroundlayer{
     width: 100vw;

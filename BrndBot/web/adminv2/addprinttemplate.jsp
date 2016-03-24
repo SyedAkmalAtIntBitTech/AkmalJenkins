@@ -20,7 +20,7 @@
         
      <input id="imageModelIdTag" type="text" hidden value="<%=imageModelId%>"/>
      <input id="printModelIdTag" type="text" hidden value="<%=printModelId%>"/>
-     <div id="printModelDiv" class="content-area" ng-init="getPrintModelById()">
+     <div id="printModelDiv" class="content-area" ng-init="getAllSettings()">
             <div class="content-area_header">
                 <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="socialtemplates.jsp?printTemplates=true"> Print Templates</a>  &gt; </div>
                 <div class="header_title fleft" id="organizationNameDiv">Add New Template</div>
@@ -28,7 +28,7 @@
             </div>
             <div class="inputSection col1of4" id="viewTemplate" >
                 <div class="input_Label">Name this template</div>
-               <input id="printModelName" class="input_Field" type="text"/>
+               <input id="saveprintModelName" class="input_Field" type="text"/>
             </div>
             <div class="inputSection col1of4" id="nameTemplate">
                 <div class="input_Label">Edit this template</div>
@@ -303,8 +303,9 @@
 
                     </div>
                 
-                    <div id="right">
-                        <center>
+                        <div id="right">
+                         
+                        
                             <p>
                                 Select Element: <select id="elementText">
                                 </select>
@@ -332,13 +333,30 @@
                                 <input type="button" class="rightButton" id="addSVGButton" value="Add SVG" />
                                 <input type="button" class="rightButton" id="deleteSVGButton" value="Delete SVG" />
                             </p>
-                            <div class='col-md-10' style="position: absolute; left: 1050px; top:70px; width: 600px; ">
-                                <ul id='list2' class='col-md-10' >
-                                    <li id="lab"></li>
+                            <div class='col-md-10' style="position: absolute; left: 920px; top:70px; width: 300px; ">
+                                <select class="input_Field mindbodyList" id="externalSourceKeywordSelect">
+                                    <option class="input_Field" value="{{externalSourceKeyWord.externalSourceKeywordId}}">{{externalSourceKeyWord.externalSourceName}}-{{externalSourceKeyWord.externalSourceKeywordName}}</option>
+                                </select>
+                                <ul id='list2' class='col-md-10 elementProperty' >
+                                    <li id="lab">
+                                          <select id="Footer1dropdown" class="form-control"></select>
+                                          <p id="hidepara" class="col-md-3 "> Default Value <input id="inputfield" type="text" value="default"><br> 
+                                              Epoch Formatter<input id="inputfield1" type="text" value="default" >
+                                          <a href="epochexample.html" target="_blank">Epoch Example</a> </p>
+                                    </li>
                                 </ul> 
                             </div>
 
                     </div>
+                            <input type="hidden" name="mindbodyquery" id="mindbodyquery">
+                            <input type="hidden" name="containerstyle" id="containerstyle">
+                            <input type="hidden" name="textstyle" id="textstyle">
+                            <input type="hidden" name="element" id="element">
+                            <input type="hidden" name="mapper" id="mapper">
+                            <input type="hidden" name="layout" id="layout" >
+                            <input type="hidden" name="model_name" id="model_name">
+                            <input type="hidden" name="imagename" id="imagename">
+                            <input type="hidden" name="selectedtype" id="selectedtype" value="non" >
                 </div>
             </div>
             <div class="inputSection col1of4">

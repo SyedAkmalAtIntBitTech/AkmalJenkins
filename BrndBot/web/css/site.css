@@ -9,7 +9,7 @@
 .textAreas { border:0px; background-color:inherit; text-align:left; font-size:15px; font-family: "Arial"; color: "#000000"; line-height:100%; letter-spacing:100%; }
 
 #textArea { border:1px solid; height:60px;width:240px;}
-#right{ float:left; height:autopx;width:200px; background-color: white;}
+#right{    margin-top: 150px; float:left; height:autopx;width:200px; background-color: white;}
 .textButton{ background-color:inherit; }
 .alignButton{ background-color:inherit; }
 #minusButton{ background-color:inherit; }

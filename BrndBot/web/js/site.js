@@ -27,7 +27,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    
+    addDefault();
     $.ajax({
        type: 'GET',
        url: "/BrndBot/ServletListAdminBackgroundImages",
@@ -172,7 +172,7 @@ $(document).ready(function () {
     {
         addElementsArray[addElementCount++] = addText;
         //clear elementText dropdown code goes here
-        $("#elementText").find('option').remove();
+//        $("#elementText").find('option').remove();
 
         var checkAdded = false;
         for (var i = 0; i < allElementsTextArray.length; i++)
@@ -195,7 +195,7 @@ $(document).ready(function () {
 
     function addDeletedElement()
     {
-        $("#elementText").find('option').remove();
+//        $("#elementText").find('option').remove();
         var checkAdded = false;
         for (var i = 0; i < allElementsTextArray.length; i++)
         {
@@ -397,8 +397,8 @@ $(document).ready(function () {
 //confirmation plugin is used to show model dialogue box
     $("#deleteTextButton").easyconfirm();
     $("#deleteTextButton").click(function () {
-        $("#" + selectedTextID).parent().remove();
-        deleteElements(selectedTextID);
+//        $("#" + selectedTextID).parent().remove();
+//        deleteElements(selectedTextID);
     });
     $("#deleteImageButton").easyconfirm();
     $("#deleteImageButton").click(function () {
@@ -564,7 +564,7 @@ $(document).ready(function () {
         selectedTextID = $("#elementText").find('option:selected').text();
         addBlockCount++;
 
-        addElements($("#elementText").find('option:selected').text());
+//        addElements($("#elementText").find('option:selected').text());
         //$("#"+selectedTextID).css("background","url('http://www.hdwallpapersimages.com/wp-content/uploads/images/Child-Girl-with-Sunflowers-Images.jpg')");
         $("#" + selectedTextID).css("background-color", "#000000");
         $("#" + selectedTextID).css("width", "80px");
@@ -680,13 +680,13 @@ $(document).ready(function () {
         var selectedtype = $("#selectedtype").val();
 
         
-        if ((selectedtype == "selected")){
+        if ((selectedtype !== "selected")){
         //$(".container").append("<div class=\"draggable\"><img src=\"images/default.png\" height='100px' width='100px' name=" + $("#elementText").val() +" id=\"image" + addImageCount + "\"></div>");
         $(".container").append("<div class=\"draggableImage\"><div id=\"" + $("#elementText").find('option:selected').text() + "\"></div></div>");
         selectedTextID = $("#elementText").find('option:selected').text();
 
         addImageCount++;
-        addElements($("#elementText").find('option:selected').text());
+//        addElements($("#elementText").find('option:selected').text());
         $("#" + selectedTextID).css("background", "url(../images/default.png)").css("background-repeat", "no-repeat").css("background-position", "50% 50%").css("-webkit-background-size", "cover");                                    
         $("#" + selectedTextID).css("width", "100px");
         $("#" + selectedTextID).css("height", "100px").css("border","1px solid black");
@@ -834,9 +834,10 @@ $(document).ready(function () {
             $(".size").text("Height=" + $("#" + id).css("height") + ", Width=" + $("#" + id).css("width"));
             reloadTabs(1);
         });
-        }else if (selectedtype == "non"){
-            alert("No category selected! Please select any one category type.");
         }
+//        else if (selectedtype == "non"){
+//            alert("No category selected! Please select any one category type.");
+//        }
 
     });
     $("#addTextButton").click(function () {
@@ -1262,7 +1263,7 @@ function addDefault() {
     var sub_category_type = $("#subcategories").val();
     var sub_category_type_text = $("#subcategories").find('option:selected').text();
     var block_mindbody_query = $("#mindbodyquery").val();
-//   alert($("#mindbodyquery").val());
+   //alert($("#mindbodyquery").val());
 
 //Make change in site.js, MindBodyDataServlet, MindbodyDetailServlet and MindBodyConstants
     var mindbody_xml_url = "";
@@ -1294,10 +1295,10 @@ function addDefault() {
             url: getHost() + mindbody_xml_url,
             dataType: "xml",
             success: function (xml) {
-                $("#lab").append('<div class="col-md-5 " id="appenddiv' + addElementsArray[num1 - 1] + '" style="display:none"><p id="' + num1 + '"> ' + addElementsArray[num1 - 1] + '</p><select id="Footer1dropdown-' + num1 + '" class="form-control"></select>\
-                                          <p id="hidepara' + num1 + '" class="col-md-3 "> Default Value <input id="inputfield' + num1 + '" type="text" value="default"><br> \n\
-                                          Epoch Formatter<input id="inputfield1' + num1 + '" type="text" value="default" >\n\
-                                          <a href="epochexample.html" target="_blank">Epoch Example</a> </p><div>');
+//                $("#lab").append('<div class="col-md-5 " id="appenddiv' + addElementsArray[num1 - 1] + '" style="display:none"><p id="' + num1 + '"> ' + addElementsArray[num1 - 1] + '</p><select id="Footer1dropdown-' + num1 + '" class="form-control"></select>\
+//                                          <p id="hidepara' + num1 + '" class="col-md-3 "> Default Value <input id="inputfield' + num1 + '" type="text" value="default"><br> \n\
+//                                          Epoch Formatter<input id="inputfield1' + num1 + '" type="text" value="default" >\n\
+//                                          <a href="epochexample.html" target="_blank">Epoch Example</a> </p><div>');
                 $(xml).find('optionelement').each(function () {
                     fontnameis[num] = $(this).find('element').text();
 

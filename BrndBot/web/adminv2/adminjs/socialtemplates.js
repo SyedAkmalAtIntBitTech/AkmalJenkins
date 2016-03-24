@@ -60,9 +60,13 @@ function socialTemplates($scope,$http) {
     };
 
 $scope.addPrintTemplate = function () {
-            var printModelName=$("#printModelName").val();    
+            var printModelName=$("#saveprintModelName").val();    
             var printImageName =$("#printImageName").val();
-            var printModels ={ "printModelName" : printModelName ,"imageFileName":printImageName}
+//            var modelFileName = $().val();  ///Need to add these data.
+//            var layoutFileName= $().val();
+            var printModels ={ "printModelName" : printModelName ,"imageFileName":printImageName,
+//                                "modelFileName":modelFileName,"layoutFileName":layoutFileName
+                            }
              if(printModelName===""){
              alert("Please enter Print Model Name.");
              $("#printModelName").focus();
@@ -77,7 +81,7 @@ $scope.addPrintTemplate = function () {
                 }).success(function (data)
                 { 
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/socialtemplates.jsp?', "_self");
+                    window.open(getHost() + 'adminv2/addprinttemplate.jsp?edit=no', "_self");
 
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -85,7 +89,17 @@ $scope.addPrintTemplate = function () {
             }
     }; 
     
-    
+    $scope.getAllSettings= function (){
+        $http({
+                method : 'GET',
+                url : getHost()+'/getAllExternalSourceKeywordLookups.do'
+             }).success(function(data, status, headers, config) {
+            $scope.externalSourceKeyWord = data.d.details[0];  
+            }).error(function(data, status, headers, config) {
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+    });      
+
+    };
      $scope.getPrintModelById = function () {
                     var printModelIdTag= $("#printModelIdTag").val();
                     $http({
