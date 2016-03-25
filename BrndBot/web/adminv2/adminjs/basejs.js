@@ -34,12 +34,11 @@
               $("#addOrganizationPopupDiv").show();
            });
            
-           $("#updateColorPalette").click(function (){
-               $("#createColorCode").show();
-               $("#addOrganizationPopupDiv").show();
-                           
-                
-           });  
+           
+//           $("#updateColorPalette").click(function (){               
+//               $("#createColorCode").show();
+//               $("#addOrganizationPopupDiv").show();                                       
+//           });  
            
            $("#addOrganizationPopupDiv").click(function (){
                $("#addEmailTemplatePopUp").hide();

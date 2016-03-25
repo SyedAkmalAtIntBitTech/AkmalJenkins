@@ -1,54 +1,49 @@
 <%-- 
     Document   : colorpopup
     Created on : Mar 22, 2016, 6:09:40 PM
-    Author     : Sandeep Kumar at IntBit Technologies.
+    Author     : Rasim parvez at IntBit Technologies.
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="shortcut icon" href="../images/favicon.png"/>
-        <title>BrndBot-Admin Email-Templates</title>
-    </head>
-    <body class="body-normal">        
-      
+<input type="text" hidden id="globalColorsId">
     <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer" ></div>
-    <div class="popUp_background_colors" id="createColorCode">
-        <div class="popUp_wide">
+    <div class="popUp_background_colors" id="createColorCode" ng-app="colors"  ng-controller="globalColors">
+        <div class="popUp_wide"   > 
              <div class="content-area_header">
-                <div class="popUp_title fleft"> Create a Color Theme</div>
+                <div class="popUp_title fleft" id="updateTheme"> Update a Color Theme</div>
+                 
             </div>
             <div class="inputSection col1of2 pushUp_20">
                 <div class="input_Label">Name this color theme</div>
-                <div class="input_Field">Color Theme Name</div>
+                <input type="text" class="input_Field" id="colorNameInput"></input>
             </div>
             <div class="slatSection">
                 <div class="palette-wrap-admin clear col1of1">
                     <div class="palette-swap-wrap fleft"> 
-                        <div class="palette-admin col1of1"></div>
-                        <div class="palette-beneath col1of1">#FFFFFF</div>
+                        <div class="palette-admin col1of1" ng-style="{ backgroundColor: targetColorFirst }"></div>
+                        <input ng-model='targetColorFirst' class="palette-beneath col1of1" id="firstValue" ></input>
                     </div>
                      <div class="palette-swap-wrap fleft"> 
-                        <div class="palette-admin col1of1"></div>
-                        <div class="palette-beneath col1of1">#FFFFFF</div>
+                         <div class="palette-admin col1of1" ng-style="{ backgroundColor: targetColorSecond }"></div>
+                        <input ng-model='targetColorSecond' class="palette-beneath col1of1" id="secondValue" ></input>
                     </div>
                      <div class="palette-swap-wrap fleft"> 
-                        <div class="palette-admin col1of1"></div>
-                        <div class="palette-beneath col1of1">#FFFFFF</div>
+                         <div class="palette-admin col1of1" ng-style="{ backgroundColor: targetColorThird }"></div>
+                        <input ng-model='targetColorThird' class="palette-beneath col1of1" id="thirdValue" ></input>
                     </div>
                      <div class="palette-swap-wrap fleft"> 
-                        <div class="palette-admin col1of1"></div>
-                        <div class="palette-beneath col1of1">#FFFFFF</div>
+                          <div class="palette-admin col1of1" ng-style="{ backgroundColor: targetColorFourth }"></div>
+                        <input ng-model='targetColorFourth' class="palette-beneath col1of1"  id="fourthValue"></input>
                     </div>
                 </div>
             </div>
-            <div class="CTA_Button Button--Gray pushUp_30 fleft">Create Palette</div>
+            <div >
+  
+   
+</div>
+       
+            <div ng-click="updateGlobalColors()" class="CTA_Button Button--Gray pushUp_30 fleft">Update Palette</div>
             
         </div>
             
         </div>
   
   
-    </body>
-</html>
