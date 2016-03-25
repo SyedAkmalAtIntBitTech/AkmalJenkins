@@ -33,7 +33,7 @@ public interface MarketingActionDao {
      * @return {@link MarketingAction}
      * @throws ProcessFailed the process failed
      */
-    public MarketingAction getByMarketingProgramId(Integer marketingProgramId) throws ProcessFailed;
+    public MarketingAction getByMarketingActionById(Integer marketingActionId) throws ProcessFailed;
     
     /**
      * This method save {@link MarketingAction} into the database.

@@ -8,7 +8,6 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.MarketingActionDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.MarketingAction;
-import com.intbittech.model.MarketingProgram;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -58,7 +57,7 @@ public class MarketingActionDaoImpl implements MarketingActionDao {
     /**
      * {@inheritDoc}
      */
-    public MarketingAction getByMarketingProgramId(Integer marketingActionId) throws ProcessFailed {
+    public MarketingAction getByMarketingActionById(Integer marketingActionId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(MarketingAction.class)
