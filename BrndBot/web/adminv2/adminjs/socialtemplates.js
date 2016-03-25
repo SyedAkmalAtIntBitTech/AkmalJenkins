@@ -112,5 +112,15 @@ $scope.addPrintTemplate = function () {
                         });      
     };
     
+    $scope.getFonts = function () {
+                    $http({
+                            method : 'GET',
+                            url : getHost()+'/getFonts.do?'
+                        }).success(function(data, status, headers, config) {
+                        $scope.fonts = data.d.details[0];  
+                        }).error(function(data, status, headers, config) {
+                                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                        });      
+    };
     
 }
