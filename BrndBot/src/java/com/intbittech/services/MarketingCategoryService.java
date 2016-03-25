@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.MarketingCategory;
+import com.intbittech.model.OrganizationMarketingCategoryLookup;
 import java.util.List;
 
 /**
@@ -34,6 +35,16 @@ public interface MarketingCategoryService {
      * @throws ProcessFailed the process failed
      */
     public MarketingCategory getByMarketingCategoryId(Integer marketingCategoryId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link OrganizationMarketingCategoryLookup} from DAO
+     * layer.
+     *
+     * @param organizationId the organizationId
+     * @return list of {@link OrganizationMarketingCategoryLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public List<OrganizationMarketingCategoryLookup> getByMarketingCategoriesByOrganizationId(Integer organizationId) throws ProcessFailed;
     
     /**
      * This method save {@link MarketingCategory} into the database.

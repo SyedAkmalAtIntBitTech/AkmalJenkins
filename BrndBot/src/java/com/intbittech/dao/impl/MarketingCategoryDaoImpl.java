@@ -9,6 +9,7 @@ import com.intbittech.dao.MarketingCategoryDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailModel;
 import com.intbittech.model.MarketingCategory;
+import com.intbittech.model.OrganizationMarketingCategoryLookup;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -105,6 +106,49 @@ public class MarketingCategoryDaoImpl implements MarketingCategoryDao {
     public void delete(MarketingCategory marketingCategory) throws ProcessFailed {
         try {
             sessionFactory.getCurrentSession().delete(marketingCategory);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<OrganizationMarketingCategoryLookup> getByMarketingCategoriesByOrganizationId(Integer organizationId) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(OrganizationMarketingCategoryLookup.class);
+            List<OrganizationMarketingCategoryLookup> organizationMarketingCategoryList = criteria.list();
+            if (organizationMarketingCategoryList.isEmpty()) {
+                return null;
+            }
+            return criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_list_message",new String[]{}, Locale.US));
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Integer saveMarketingCategoryOrganization(OrganizationMarketingCategoryLookup organizationMarketingCategoryLookup) throws ProcessFailed {
+        try {
+            return (Integer) sessionFactory.getCurrentSession().save(organizationMarketingCategoryLookup);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void deleteMarketingCategoryOrganization(OrganizationMarketingCategoryLookup organizationMarketingCategoryLookup) throws ProcessFailed {
+        try {
+            sessionFactory.getCurrentSession().delete(organizationMarketingCategoryLookup);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));
