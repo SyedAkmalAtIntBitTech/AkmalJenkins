@@ -1,27 +1,32 @@
-/**
-* Copyright 2015 Intbit Technologies. This software and documentation contains
-* confidential and proprietary information that is owned by Intbit
-* Technologies. Unauthorized use and distribution are strictly prohibited.
-*/
+/*
+ * Copyright 2015 Intbit Technologies. This software and documentation contains
+ * confidential and proprietary information that is owned by Intbit
+ * Technologies. Unauthorized use and distribution are strictly prohibited.
+ */
 package com.intbittech.model;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author ajit
+ * @author ilyas
  */
 @Entity
 @Table(name = "marketing_program")
 public class MarketingProgram implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +37,8 @@ public class MarketingProgram implements Serializable {
     private String marketingProgramName;
     @Column(name = "html_data")
     private String htmlData;
+    @Column(name = "fk_marketing_category_id")
+    private Integer fkMarketingCategoryId;
 
     public MarketingProgram() {
     }
@@ -64,4 +71,12 @@ public class MarketingProgram implements Serializable {
         this.htmlData = htmlData;
     }
 
+    public Integer getFkMarketingCategoryId() {
+        return fkMarketingCategoryId;
+    }
+
+    public void setFkMarketingCategoryId(Integer fkMarketingCategoryId) {
+        this.fkMarketingCategoryId = fkMarketingCategoryId;
+    }
+    
 }

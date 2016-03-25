@@ -21,8 +21,7 @@ public interface EmailModelDao  {
     /**
      * This method pass id as input and get the {@link EmailModel} from database.
      *
-     *  * @return {@link EmailModel}
-     * @return 
+     * @return {@link EmailModel}
      * @throws ProcessFailed the process failed
      */
     public List<EmailModel> getAllEmailModel() throws ProcessFailed;
