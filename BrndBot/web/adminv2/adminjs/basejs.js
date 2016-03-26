@@ -9,6 +9,13 @@
 //              $("#addorganizationpopup").show();
 //              $("#addorgpopupdiv").show();
 //           });
+            
+            $("#addOneTimeActionsButton").click(function (){
+              $(".overflowhide").css("overflow","hidden").animate({scrollTop:0}, '10', 'swing');
+              $("#addOneTimeActionsPopup").show();
+              $("#addOrganizationPopupDiv").show();
+           });
+           
            $("#addTemplateButton").click(function (){
               $("#addEmailTemplatePopUp").show();
               $("#addOrganizationPopupDiv").show();
@@ -42,6 +49,8 @@
                 $("#addOrganizationPopupDiv").hide();
                 $("#addImageCategory").hide();
                  $("#addEmailBlockPopUp").hide();
+                 $("#addOneTimeActionsPopup").hide();
+                 $(".overflowhide").css("overflow","auto");
            });
        });
        var emailChannel="email";
