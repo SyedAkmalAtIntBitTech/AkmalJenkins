@@ -151,7 +151,157 @@ app.controller('globalColors', function($scope,$http) {
                         }).error(function(data, status, headers, config) {
                                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });      
-    };
+                  };
     
-});
+    
+                    $scope.addFontContent = function (){
+                     $("#fontPopup").show();
+                     $("#addOrganizationPopupDiv").show();  
+                     $("#editFont").hide();
+                     $("#addFont").show();
+                     $("#nameFont").show();
+                      $("#editFonts").hide();
+                      $("#fontFamilyCssName").show();
+                      $("#editFontFamilyCssName").hide();
+                      $("#uploadOnEdit").show();
+                      $("#uploadTTF").hide();
+                      $("#createFont").show();
+                      $("#editFontDetails").hide();
+                      $("#deleteGlobalFont").hide();
+                    }
+
+                    $scope.updateFontContent = function (fontName,fontFamilyName,globalFontsId,fileName){
+                       
+                     $("#globalFontsId").val(globalFontsId);
+                     $("#editFontName").val(fontName);   
+                     $("#editFontFamilyName").val(fontFamilyName);    
+                     $("#fontPopup").show();
+                     $("#addOrganizationPopupDiv").show();  
+                     $("#editFont").show();
+                     $("#addFont").hide();
+                    $("#nameFont").hide();
+                    $("#editFonts").show();
+                    $("#fontFamilyCssName").hide();
+                     $("#editFontFamilyCssName").show();
+                     $("#uploadOnEdit").hide();
+                      $("#uploadTTF").show();
+                      $("#createFont").hide();
+                      $("#editFontDetails").show();
+                      $("#deleteGlobalFont").show();
+                    }
+                    $scope.getGlobalFonts =function(){
+                        $http({
+                        method : 'GET',
+                        url : getHost()+'/getAllFonts.do'
+                    }).success(function(data, status, headers, config) {
+                    $scope.fontNames = data.d.details;  
+                    }).error(function(data, status, headers, config) {
+                            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    });     
+
+                    };
+    
+    
+                   $scope.createFont = function () {
+             
+                    var fontName= $("#fontName").val();
+                    var fontFamilyName= $("#fontFamilyName").val();
+                    var fileName= $("#fileName").val();
+                   if (fontName=="")
+                   {
+                       
+                    alert(fontContentName);
+                    $("#fontName").focus();
+                    return false;
+                   }
+                  if(fontFamilyName=="")
+                   {
+                       alert(fontFamily);
+                        $("#fontFamilyName").focus();
+                         return false;
+                   }
+                  if(fileName=="")
+                   {
+                       alert(fontFileName);
+                         $("#fileName").focus();
+                          return false;
+                   }
+                    var globalFonts = {"fontName":fontName,"fontFamilyName":fontFamilyName,"fileName": fileName}
+                                           
+                    $http({
+                    method : 'POST',
+                    url : getHost()+'/saveFont.do',
+                    contentType: "application/json",
+                    data: JSON.stringify(globalFonts)
+                        }).success(function(data, status, headers, config) {    
+                            alert(eval(JSON.stringify(data.d.operationStatus.messages)));                       
+                            window.open(getHost() + 'adminv2/globalfonts.jsp', "_self"); 
+                        }).error(function(data, status, headers, config) {
+                                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                        });      
+                    };
+                    
+                    
+                    
+                  $scope.updateFont = function () {
+               
+                  var editFontName= $("#editFontName").val();
+                  var editFontFamilyName= $("#editFontFamilyName").val();
+                  var globalFontsId= $("#globalFontsId").val();
+                  var uploadFileName= $("#uploadFileName").val();
+                  var updateGlobalFont = {"globalFontsId":globalFontsId,"fontName":editFontName,"fontFamilyName":editFontFamilyName,"fileName":uploadFileName}
+                    $http({
+                            method : 'POST',
+                            url : getHost()+'/updateFont.do',
+                            contentType: "application/json",
+                            data: JSON.stringify(updateGlobalFont)
+                        }).success(function(data, status, headers, config) {    
+                           
+                            alert(eval(JSON.stringify(data.d.operationStatus.messages)));                       
+                            window.open(getHost() + 'adminv2/globalfonts.jsp', "_self"); 
+                        }).error(function(data, status, headers, config) {
+                                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                        });      
+                  };
+
+                $scope.deleteFont=function (globalFontsId){
+               var deleteGlobalFont=confirm(deleteFont);
+               var globalFontsId =$("#globalFontsId").val();
+               if(deleteGlobalFont===true)
+               {
+                  $http({
+                       method : 'GET',
+                       url : getHost()+'/deleteFont.do?globalFontsId='+globalFontsId
+                   }).success(function(data, status, headers, config) {
+
+                       $scope.fontDisplay = data.d.details;
+                       alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                       window.open(getHost() + 'adminv2/globalfonts.jsp', "_self");
+                   }).error(function(data, status, headers, config) {
+                           alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                   });     
+               }
+           }
+           
+           
+           $scope.deleteColor=function (globalFontsId){
+               var deleteGlobalColor=confirm(deleteColorPalette);
+               var globalColorsId =$("#globalColorsId").val();
+               if(deleteGlobalColor===true)
+               {
+                  $http({
+                       method : 'GET',
+                       url : getHost()+'/deleteColorTheme.do?globalColorsId='+globalColorsId
+                   }).success(function(data, status, headers, config) {
+
+                       $scope.allColors = data.d.details;
+                       alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                       window.open(getHost() + 'adminv2/assets.jsp', "_self");
+                   }).error(function(data, status, headers, config) {
+                           alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                   });     
+               }
+           }
+
+           });
 

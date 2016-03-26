@@ -6,9 +6,10 @@
 <input type="text" hidden id="globalColorsId">
     <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer" ></div>
     <div class="popUp_background_colors " id="createColorCode" ng-app="colors"  ng-controller="globalColors">
-        <div class="popUp_wide"   > 
+        <div class="popUp_wide" ng-init="allColors"  > 
              <div class="content-area_header">
                 <div class="popUp_title fleft" id="updateTheme"> Update a Color Theme</div>
+                <div id="deleteGlobalColor" class="CTA_Button Button--Delete fright" ng-click="deleteColor()">Delete Color</div>
                 
             </div>
             <div class="inputSection col1of2 pushUp_20">

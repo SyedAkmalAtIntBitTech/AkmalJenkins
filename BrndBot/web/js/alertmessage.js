@@ -163,4 +163,9 @@ var enterBlockName="Please enter Block Name!";
 var uploadImageFile="Please Upload an Image!";
 var enterColorName="Please enter the color Name!";
 var enterColorCode="Please enter the color Code!";
+var fontContentName ="Please enter the font Name";
+var fontFamily ="Please give the font Family Name";
+var fontFileName = "Please upload the TTF file";
+var deleteColorPalette ="Do you want to delete this Color Theme?";
+var deleteFont ="Do you want to delete this font Theme?";
 /// ADMIN alerts Ends////

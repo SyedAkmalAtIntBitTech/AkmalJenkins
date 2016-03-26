@@ -50,6 +50,7 @@
                  $("#addEmailBlockPopUp").hide();
                  $("#createColorCode").hide();
                  $("#addcolorpalette").hide();
+                 $("#fontPopup").hide();
            });
            
            
