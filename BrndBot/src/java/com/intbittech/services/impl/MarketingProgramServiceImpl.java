@@ -114,10 +114,32 @@ public class MarketingProgramServiceImpl implements MarketingProgramService {
         }
 
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public void updateMarketingProgramActions(MarketingProgramActionsDetails marketingProgramActionsDetails) throws ProcessFailed {
+        try {
+            MarketingProgram marketingProgram = new MarketingProgram();
+            marketingProgram.setMarketingProgramId(marketingProgramActionsDetails.getMarketingProgramId());
+            marketingProgram.setMarketingProgramName(marketingProgramActionsDetails.getMarketingProgramName());
+            marketingProgram.setHtmlData(marketingProgramActionsDetails.getHtmlData());
+            marketingProgramDao.update(marketingProgram);
 
-    public MarketingProgramActionsDetails marketingProgramActionsById(Integer marketingProgramId) {
-        MarketingProgramActionsDetails marketingProgramActionsDetails = new MarketingProgramActionsDetails();
-        return marketingProgramActionsDetails;
+            MarketingAction marketingAction = new MarketingAction();
+            marketingAction.setMarketingActionId(marketingProgramActionsDetails.getMarketingActionId());
+            MarketingProgram marketingProgramObject = new MarketingProgram();
+            marketingProgramObject.setMarketingProgramId(marketingProgramActionsDetails.getMarketingProgramId());
+            marketingAction.setFkMarketingProgramId(marketingProgramObject);
+            String jsonString = StringUtility.objectListToJsonString(marketingProgramActionsDetails.getMarketingActions());
+            marketingAction.setJsonTemplate(jsonString);
+            marketingActionDao.update(marketingAction);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("marketingProgram_save_error", new String[]{}, Locale.US));
+        }
+
     }
 
 }

@@ -7,17 +7,20 @@ package com.intbittech.controller;
 
 import com.intbittech.model.MarketingAction;
 import com.intbittech.model.MarketingCategory;
+import com.intbittech.model.MarketingCategoryProgram;
 import com.intbittech.model.MarketingProgram;
 import com.intbittech.model.OrganizationMarketingCategoryLookup;
 import com.intbittech.modelmappers.EmailBlockModelDetails;
 import com.intbittech.modelmappers.MarketingActionDetails;
 import com.intbittech.modelmappers.MarketingCategoryDetails;
+import com.intbittech.modelmappers.MarketingCategoryProgramDetails;
 import com.intbittech.modelmappers.MarketingProgramActionsDetails;
 import com.intbittech.modelmappers.MarketingProgramDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.MarketingActionService;
+import com.intbittech.services.MarketingCategoryProgramService;
 import com.intbittech.services.MarketingCategoryService;
 import com.intbittech.services.MarketingProgramService;
 import com.intbittech.utility.ErrorHandlingUtil;
@@ -54,6 +57,9 @@ public class MarketingController {
     
     @Autowired
     private MarketingActionService marketingActionService;
+    
+    @Autowired
+    private MarketingCategoryProgramService marketingCategoryProgramService;
     
     @Autowired
     private MessageSource messageSource;
@@ -152,6 +158,58 @@ public class MarketingController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             marketingProgramService.saveMarketingProgramActions(marketingProgramActionsDetails);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingProgram_save",new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "updateMarketingProgramActions", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> updateMarketingProgramActions(@RequestBody MarketingProgramActionsDetails marketingProgramActionsDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            marketingProgramService.updateMarketingProgramActions(marketingProgramActionsDetails);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingProgram_save",new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "saveMarketingCategoryProgram", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveMarketingCategoryProgram(@RequestBody MarketingCategoryProgramDetails marketingCategoryProgramDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            MarketingCategoryProgram marketingCategoryProgram = new MarketingCategoryProgram();
+            MarketingCategory marketingCategory = new MarketingCategory();
+            marketingCategory.setMarketingCategoryId(marketingCategoryProgramDetails.getMarketingCategoryId());
+            
+            MarketingProgram marketingProgram = new MarketingProgram();
+            marketingProgram.setMarketingProgramId(marketingCategoryProgramDetails.getMarketingProgramId());
+            
+            marketingCategoryProgram.setFkMarketingCategory(marketingCategory);
+            marketingCategoryProgram.setFkMarketingProgram(marketingProgram);
+            
+            marketingCategoryProgramService.save(marketingCategoryProgram);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingProgram_save",new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "deleteMarketingCategoryProgram", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteMarketingCategoryProgram(@RequestParam("marketingCategoryProgramId") Integer marketingCategoryProgramId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            marketingCategoryProgramService.delete(marketingCategoryProgramId);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingProgram_save",new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
