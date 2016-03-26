@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,27 @@ public class MarketingActionDaoImpl implements MarketingActionDao {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(MarketingAction.class)
                     .add(Restrictions.eq("marketingActionId", marketingActionId));
+            List<MarketingAction> marketingActionList = criteria.list();
+            if (marketingActionList.isEmpty()) {
+                return null;
+            }
+            return (MarketingAction) criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public MarketingAction getByMarketingActionByProgramId(Integer marketingProgramId) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(MarketingAction.class)
+                    .setFetchMode("fkMarketingProgramId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkMarketingProgramId.marketingProgramId", marketingProgramId));
             List<MarketingAction> marketingActionList = criteria.list();
             if (marketingActionList.isEmpty()) {
                 return null;

@@ -36,6 +36,16 @@ public interface MarketingActionService {
     public MarketingAction getByMarketingActionById(Integer marketingActionId) throws ProcessFailed;
     
     /**
+     * This method pass id as input and get the {@link MarketingAction} from DAO
+     * layer.
+     *
+     * @param marketingProgramId the marketingProgramId
+     * @return {@link MarketingAction}
+     * @throws ProcessFailed the process failed
+     */
+    public MarketingAction getByMarketingActionByProgramId(Integer marketingProgramId) throws ProcessFailed;
+    
+    /**
      * This method save {@link MarketingAction} into the Dao Layer.
      *
      * @param marketingAction the marketingAction

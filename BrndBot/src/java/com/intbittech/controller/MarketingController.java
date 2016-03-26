@@ -5,19 +5,23 @@
  */
 package com.intbittech.controller;
 
+import com.intbittech.model.MarketingAction;
 import com.intbittech.model.MarketingCategory;
 import com.intbittech.model.MarketingProgram;
 import com.intbittech.model.OrganizationMarketingCategoryLookup;
 import com.intbittech.modelmappers.EmailBlockModelDetails;
+import com.intbittech.modelmappers.MarketingActionDetails;
 import com.intbittech.modelmappers.MarketingCategoryDetails;
 import com.intbittech.modelmappers.MarketingProgramActionsDetails;
 import com.intbittech.modelmappers.MarketingProgramDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.services.MarketingActionService;
 import com.intbittech.services.MarketingCategoryService;
 import com.intbittech.services.MarketingProgramService;
 import com.intbittech.utility.ErrorHandlingUtil;
+import com.intbittech.utility.StringUtility;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -47,6 +51,9 @@ public class MarketingController {
     
     @Autowired
     private MarketingProgramService marketingProgramService;
+    
+    @Autowired
+    private MarketingActionService marketingActionService;
     
     @Autowired
     private MessageSource messageSource;
@@ -152,5 +159,28 @@ public class MarketingController {
         }
 
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "getMarketingProgramActionsById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getMarketingProgramActionsById(@RequestParam("marketingProgramId") Integer marketingProgramId) {
+        GenericResponse<MarketingProgramActionsDetails> genericResponse = new GenericResponse<>();
+        try {
+            MarketingProgram marketingProgram = marketingProgramService.getByMarketingProgramId(marketingProgramId);
+            MarketingAction marketingAction = marketingActionService.getByMarketingActionByProgramId(marketingProgramId);
+            List<MarketingProgramActionsDetails> marketingProgramActionsDetailsList = new ArrayList<>();
+            MarketingProgramActionsDetails marketingProgramActionsDetails = new MarketingProgramActionsDetails();
+            marketingProgramActionsDetails.setMarketingProgramId(marketingProgram.getMarketingProgramId());
+            marketingProgramActionsDetails.setMarketingProgramName(marketingProgram.getMarketingProgramName());
+            marketingProgramActionsDetails.setHtmlData(marketingProgram.getHtmlData());
+            List<MarketingActionDetails> marketingActions = StringUtility.objectListToJsonString(marketingAction.getJsonTemplate());
+            marketingProgramActionsDetails.setMarketingActions(marketingActions);
+            marketingProgramActionsDetailsList.add(marketingProgramActionsDetails);
+            genericResponse.setDetails(marketingProgramActionsDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingProgram_get_all",new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 }

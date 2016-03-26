@@ -5,10 +5,16 @@
  */
 package com.intbittech.utility;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.intbittech.modelmappers.MarketingActionDetails;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Arrays;
 import java.util.List;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -31,6 +37,14 @@ public class StringUtility {
     mapper.writeValue(stringWriter, list);
     return stringWriter.toString();
         
+    }
+    
+    public static List objectListToJsonString(String jsonString) throws JSONException, IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonFactory jFactory = new JsonFactory();
+        JsonParser jsonParser= jFactory.createParser(jsonString);
+        List<MarketingActionDetails> myObjectList = mapper.readValue(jsonParser, mapper.getTypeFactory().constructCollectionType(List.class, MarketingActionDetails.class));
+        return myObjectList;
     }
 
 }

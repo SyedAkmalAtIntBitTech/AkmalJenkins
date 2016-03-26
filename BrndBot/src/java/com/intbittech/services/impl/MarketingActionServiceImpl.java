@@ -45,6 +45,16 @@ public class MarketingActionServiceImpl implements MarketingActionService {
             throw new ProcessFailed(messageSource.getMessage("marketingAction_not_found",new String[]{}, Locale.US));
         return marketingAction;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public MarketingAction getByMarketingActionByProgramId(Integer marketingProgramId) throws ProcessFailed {
+        MarketingAction marketingAction = marketingActionDao.getByMarketingActionByProgramId(marketingProgramId);
+        if(marketingAction == null)
+            throw new ProcessFailed(messageSource.getMessage("marketingAction_not_found",new String[]{}, Locale.US));
+        return marketingAction;
+    }
 
     /**
      * {@inheritDoc}
