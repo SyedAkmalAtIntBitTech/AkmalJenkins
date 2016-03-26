@@ -89,14 +89,14 @@ public class RecuringEmailTemplateServiceImp implements RecuringEmailTemplateSer
      * {@inheritDoc}
      */
 
-    public Integer saveRecuringEmailOrg(OrganizationRecuringEmailLookup organizationRecuringEmailLookup) throws ProcessFailed {
+    public Integer saveRecuringEmailOrganization(OrganizationRecuringEmailLookup organizationRecuringEmailLookup) throws ProcessFailed {
         return organizationRecurringEmailLookupDao.saveRecuringEmailOrg(organizationRecuringEmailLookup);
     }
 
     /**
      * {@inheritDoc}
      */
-    public void deleteRecuringEmailOrg(Integer organizationRecuringEmailLookupId) throws ProcessFailed {
+    public void deleteRecuringEmailOrganization(Integer organizationRecuringEmailLookupId) throws ProcessFailed {
         OrganizationRecuringEmailLookup organizationRecuringEmailLookup = organizationRecurringEmailLookupDao.getRecuringEmailById(organizationRecuringEmailLookupId);
         if (organizationRecuringEmailLookup == null) {
             throw new ProcessFailed(messageSource.getMessage("error_deleting_message", new String[]{}, Locale.US));

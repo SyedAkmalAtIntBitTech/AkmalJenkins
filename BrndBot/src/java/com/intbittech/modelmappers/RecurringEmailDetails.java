@@ -12,14 +12,15 @@ import com.intbittech.model.RecuringEmailTemplate;
  *
  * @author sandeep-kumar
  */
-public class RecuringEmailController
+public class RecurringEmailDetails
 {
+    
      private Integer recuringEmailTemplateId;
      private String htmlData;
      private String templateName;
      private Integer organizationRecuringEmailLookupId;
-     private Organization fkOrganizationId;
-     private RecuringEmailTemplate fkRecuringEmailTemplateId;
+     private Integer OrganizationId;
+    
 
     public Integer getRecuringEmailTemplateId() {
         return recuringEmailTemplateId;
@@ -53,23 +54,14 @@ public class RecuringEmailController
         this.organizationRecuringEmailLookupId = organizationRecuringEmailLookupId;
     }
 
-    public Organization getFkOrganizationId() {
-        return fkOrganizationId;
+    public Integer getOrganizationId() {
+        return OrganizationId;
     }
 
-    public void setFkOrganizationId(Organization fkOrganizationId) {
-        this.fkOrganizationId = fkOrganizationId;
-    }
-
-    public RecuringEmailTemplate getFkRecuringEmailTemplateId() {
-        return fkRecuringEmailTemplateId;
-    }
-
-    public void setFkRecuringEmailTemplateId(RecuringEmailTemplate fkRecuringEmailTemplateId) {
-        this.fkRecuringEmailTemplateId = fkRecuringEmailTemplateId;
+    public void setOrganizationId(Integer OrganizationId) {
+        this.OrganizationId = OrganizationId;
     }
 
    
-     
     
 }

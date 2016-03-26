@@ -93,7 +93,7 @@ public interface RecuringEmailTemplateService
     
     
     
-    public Integer saveRecuringEmailOrg(OrganizationRecuringEmailLookup organizationRecuringEmailLookup) throws ProcessFailed;
+    public Integer saveRecuringEmailOrganization(OrganizationRecuringEmailLookup organizationRecuringEmailLookup) throws ProcessFailed;
     
     
     
@@ -107,7 +107,7 @@ public interface RecuringEmailTemplateService
      */ 
     
     
-    public void deleteRecuringEmailOrg(Integer organizationRecuringEmailLookup)throws ProcessFailed;
+    public void deleteRecuringEmailOrganization(Integer organizationRecuringEmailLookup)throws ProcessFailed;
     
     
     /**
