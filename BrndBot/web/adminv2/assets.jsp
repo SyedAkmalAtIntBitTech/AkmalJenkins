@@ -15,13 +15,14 @@
        
      <jsp:include page="adminheader.jsp"/>
         <jsp:include page="colorpopup.jsp"/>
+         <jsp:include page="addcolorpalette.jsp"/>
         <body class="body-normal" ng-app="colors" ng-controller="globalColors"   >
       
         <div class="content-area">
         <div class="content-area_header">
             <div class="header_path fleft"> Color Themes</div>
             
-            <div id="addColorPalette" ng-click="addGlobalColors" class="CTA_Button Button--Blue fright">Add Color Theme</div>
+            <div id="" ng-click="addColorTheme()" class="CTA_Button Button--Blue fright">Add Color Theme</div>
         </div>
             <div class="slatSection"  ng-init="displayGlobalcolors()">
             <div class="slatHeaders">

@@ -161,4 +161,6 @@ var printName="Print";
 var imageName="Image";
 var enterBlockName="Please enter Block Name!";
 var uploadImageFile="Please Upload an Image!";
+var enterColorName="Please enter the color Name!";
+var enterColorCode="Please enter the color Code!";
 /// ADMIN alerts Ends////

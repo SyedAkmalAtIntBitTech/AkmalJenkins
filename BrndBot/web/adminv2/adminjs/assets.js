@@ -55,6 +55,17 @@ app.controller('globalColors', function($scope,$http) {
         $scope.targetColorSecond = colorCodeTwo;
         $scope.targetColorThird= colorCodeThree;
         $scope.targetColorFourth = colorCodeFour;
+        
+      
+    }
+   
+   
+    $scope.addColorTheme = function (){
+       
+     $("#addcolorpalette").show();
+     $("#addOrganizationPopupDiv").show();
+     
+    
     }
    
     $scope.displayGlobalcolors =function(){
@@ -94,20 +105,47 @@ app.controller('globalColors', function($scope,$http) {
     };
     
     $scope.addGlobalColors = function () {
-        
-                    var colorNameInput= $("#colorNameInput").val();
-                    var firstValue= $("#firstValue").val();
-                    var secondValue= $("#secondValue").val();
-                    var thirdValue= $("#thirdValue").val();
-                    var fourthValue= $("#fourthValue").val();
-                    var globalColorValues = {"colorName":colorNameInput,"color1": firstValue,
-                                           "color2":secondValue,"color3":thirdValue,"color4":fourthValue};
+      
+                    var colorName= $("#colorName").val();
+                    var firstColor= $("#firstColor").val();
+                    var secondColor= $("#secondColor").val();
+                    var thirdColor= $("#thirdColor").val();
+                    var fourthColor= $("#fourthColor").val();
+                    if(colorName==""){ 
+                    alert(enterColorName);
+                    $("#colorName").focus();
+                    return NULL;  
+                    }
+                    if(firstColor==""){ 
+                    alert(enterColorCode);
+                    $("#firstColor").focus();
+                    return NULL;  
+                    }
+                    if(secondColor==""){ 
+                    alert(enterColorCode);
+                    $("#secondColor").focus();
+                    return NULL;  
+                    }
+                    if(thirdColor==""){ 
+                    alert(enterColorCode);
+                    $("#thirdColor").focus();
+                    return NULL;  
+                    }
+                    if(fourthColor==""){ 
+                    alert(enterColorCode);
+                    $("#fourthColor").focus();
+                    return NULL;  
+                    }
+                    var globalColorValues = {"colorName":colorName,"color1": firstColor,
+                                           "color2":secondColor,"color3":thirdColor,"color4":fourthColor};
+                                      
                     $http({
                             method : 'POST',
                             url : getHost()+'/saveColorTheme.do',
                             contentType: "application/json",
                             data: JSON.stringify(globalColorValues)
                         }).success(function(data, status, headers, config) {    
+                            
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));                       
                             window.open(getHost() + 'adminv2/assets.jsp', "_self"); 
                         }).error(function(data, status, headers, config) {

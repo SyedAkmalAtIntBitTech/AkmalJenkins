@@ -49,6 +49,7 @@
                 $("#addImageCategory").hide();
                  $("#addEmailBlockPopUp").hide();
                  $("#createColorCode").hide();
+                 $("#addcolorpalette").hide();
            });
            
            

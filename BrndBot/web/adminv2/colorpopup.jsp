@@ -5,11 +5,11 @@
 --%>
 <input type="text" hidden id="globalColorsId">
     <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer" ></div>
-    <div class="popUp_background_colors" id="createColorCode" ng-app="colors"  ng-controller="globalColors">
+    <div class="popUp_background_colors " id="createColorCode" ng-app="colors"  ng-controller="globalColors">
         <div class="popUp_wide"   > 
              <div class="content-area_header">
                 <div class="popUp_title fleft" id="updateTheme"> Update a Color Theme</div>
-                 
+                
             </div>
             <div class="inputSection col1of2 pushUp_20">
                 <div class="input_Label">Name this color theme</div>
@@ -47,3 +47,5 @@
         </div>
   
   
+    
+    
