@@ -207,6 +207,7 @@ app.controller('globalColors', function($scope,$http) {
                     var fontName= $("#fontName").val();
                     var fontFamilyName= $("#fontFamilyName").val();
                     var fileName= $("#fileName").val();
+                   
                    if (fontName=="")
                    {
                        
@@ -222,10 +223,17 @@ app.controller('globalColors', function($scope,$http) {
                    }
                   if(fileName=="")
                    {
+                       
                        alert(fontFileName);
                          $("#fileName").focus();
                           return false;
+                          
                    }
+                    var ext = $('#fileName').val().split('.').pop().toLowerCase();
+                    if($.inArray(ext, ['ttf']) == -1) {
+                    alert(uploadTTF);
+                    return false;
+                     }
                     var globalFonts = {"fontName":fontName,"fontFamilyName":fontFamilyName,"fileName": fileName}
                                            
                     $http({
@@ -249,6 +257,15 @@ app.controller('globalColors', function($scope,$http) {
                   var editFontFamilyName= $("#editFontFamilyName").val();
                   var globalFontsId= $("#globalFontsId").val();
                   var uploadFileName= $("#uploadFileName").val();
+                  if(uploadFileName=="")
+                  {
+                   var ext = $('#uploadFileName').val().split('.').pop().toLowerCase();
+                    if($.inArray(ext, ['ttf']) == -1) {
+                    alert(uploadTTF);
+                    return false;
+                     }
+                 }
+                  
                   var updateGlobalFont = {"globalFontsId":globalFontsId,"fontName":editFontName,"fontFamilyName":editFontFamilyName,"fileName":uploadFileName}
                     $http({
                             method : 'POST',

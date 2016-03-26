@@ -168,4 +168,5 @@ var fontFamily ="Please give the font Family Name";
 var fontFileName = "Please upload the TTF file";
 var deleteColorPalette ="Do you want to delete this Color Theme?";
 var deleteFont ="Do you want to delete this font Theme?";
+var uploadTTF ="Please upload the TTF file";
 /// ADMIN alerts Ends////
