@@ -5,11 +5,18 @@
  */
 package com.intbittech.controller;
 
+import com.intbittech.model.MarketingCategory;
+import com.intbittech.model.MarketingProgram;
 import com.intbittech.model.OrganizationMarketingCategoryLookup;
+import com.intbittech.modelmappers.EmailBlockModelDetails;
 import com.intbittech.modelmappers.MarketingCategoryDetails;
+import com.intbittech.modelmappers.MarketingProgramActionsDetails;
+import com.intbittech.modelmappers.MarketingProgramDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
+import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.MarketingCategoryService;
+import com.intbittech.services.MarketingProgramService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +27,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +46,9 @@ public class MarketingController {
     private MarketingCategoryService marketingCategoryService;
     
     @Autowired
+    private MarketingProgramService marketingProgramService;
+    
+    @Autowired
     private MessageSource messageSource;
     
     @RequestMapping(value = "getAllMarketingCategoryByOrganizationId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,6 +64,74 @@ public class MarketingController {
                 marketingCategoryDetailsList.add(marketingCategoryDetails);
             }
             genericResponse.setDetails(marketingCategoryDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingCategory_get_all",new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "saveMarketingCategory", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveMarketingCategory(@RequestBody MarketingCategoryDetails marketingCategoryDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            marketingCategoryService.saveMarketingCategory(marketingCategoryDetails);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingCategory_save",new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "deleteMarketingCategory", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteMarketingCategory(@RequestParam("marketingCategoryId") Integer marketingCategoryId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            marketingCategoryService.delete(marketingCategoryId);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingCategory_delete",new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "getByMarketingCategoryId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getByMarketingCategoryId(@RequestParam("marketingCategoryId") Integer marketingCategoryId) {
+        GenericResponse<MarketingCategoryDetails> genericResponse = new GenericResponse<>();
+        try {
+            MarketingCategory marketingCategory = marketingCategoryService.getByMarketingCategoryId(marketingCategoryId);
+            List<MarketingCategoryDetails> marketingCategoryDetailsList = new ArrayList<>();
+            MarketingCategoryDetails marketingCategoryDetails = new MarketingCategoryDetails();
+            marketingCategoryDetails.setMarketingCategoryId(marketingCategory.getMarketingCategoryId());
+            marketingCategoryDetails.setMarketingCategoryName(marketingCategory.getMarketingCategoryName());
+            marketingCategoryDetailsList.add(marketingCategoryDetails);
+            genericResponse.setDetails(marketingCategoryDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingCategory_get",new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
+     @RequestMapping(value = "getAllMarketingPrograms", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllMarketingPrograms() {
+        GenericResponse<MarketingProgramDetails> genericResponse = new GenericResponse<>();
+        try {
+            List<MarketingProgram> marketingProgramList = marketingProgramService.getAllMarketingPrograms();
+            List<MarketingProgramDetails> marketingProgramDetailsList = new ArrayList<>();
+            for(MarketingProgram marketingProgramObject : marketingProgramList) {
+                MarketingProgramDetails marketingProgramDetails = new MarketingProgramDetails();
+                marketingProgramDetails.setMarketingProgramId(marketingProgramObject.getMarketingProgramId());
+                marketingProgramDetails.setMarketingProgramName(marketingProgramObject.getMarketingProgramName());
+                marketingProgramDetailsList.add(marketingProgramDetails);
+            }
+            genericResponse.setDetails(marketingProgramDetailsList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingProgram_get_all",new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -61,4 +140,17 @@ public class MarketingController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
     
+    @RequestMapping(value = "saveMarketingProgramActions", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveMarketingProgramActions(@RequestBody MarketingProgramActionsDetails marketingProgramActionsDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            marketingProgramService.saveMarketingProgramActions(marketingProgramActionsDetails);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingProgram_save",new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
 }

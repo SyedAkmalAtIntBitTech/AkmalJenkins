@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.MarketingProgram;
+import com.intbittech.modelmappers.MarketingProgramActionsDetails;
 import java.util.List;
 
 /**
@@ -43,6 +44,14 @@ public interface MarketingProgramService {
      * @throws ProcessFailed the process failed
      */
     public Integer save(MarketingProgram marketingProgram) throws ProcessFailed;
+    
+    /**
+     * This method save {@link MarketingProgram} into the database.
+     *
+     * @param marketingProgramActionsDetails the marketingProgramActionsDetails
+     * @throws ProcessFailed the process failed
+     */
+    public void saveMarketingProgramActions(MarketingProgramActionsDetails marketingProgramActionsDetails) throws ProcessFailed;
 
     /**
      * This method update {@link MarketingProgram} updates existing data from the

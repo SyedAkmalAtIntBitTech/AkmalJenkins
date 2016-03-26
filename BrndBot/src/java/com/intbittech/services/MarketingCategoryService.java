@@ -8,6 +8,7 @@ package com.intbittech.services;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.MarketingCategory;
 import com.intbittech.model.OrganizationMarketingCategoryLookup;
+import com.intbittech.modelmappers.MarketingCategoryDetails;
 import java.util.List;
 
 /**
@@ -72,5 +73,13 @@ public interface MarketingCategoryService {
      * @throws ProcessFailed the process failed
      */
     public void delete(Integer marketingCategoryId) throws ProcessFailed;
+    
+    /**
+     * This method save {@link MarketingCategory} into the database.
+     *
+     * @param marketingCategoryDetails the marketingCategoryDetails
+     * @throws ProcessFailed the process failed
+     */
+    public void saveMarketingCategory(MarketingCategoryDetails marketingCategoryDetails) throws ProcessFailed;
     
 }
