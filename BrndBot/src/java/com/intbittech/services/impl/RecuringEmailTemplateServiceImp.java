@@ -90,18 +90,18 @@ public class RecuringEmailTemplateServiceImp implements RecuringEmailTemplateSer
      */
 
     public Integer saveRecuringEmailOrganization(OrganizationRecuringEmailLookup organizationRecuringEmailLookup) throws ProcessFailed {
-        return organizationRecurringEmailLookupDao.saveRecuringEmailOrg(organizationRecuringEmailLookup);
+        return organizationRecurringEmailLookupDao.saveRecuringEmailOrganization(organizationRecuringEmailLookup);
     }
 
     /**
      * {@inheritDoc}
      */
     public void deleteRecuringEmailOrganization(Integer organizationRecuringEmailLookupId) throws ProcessFailed {
-        OrganizationRecuringEmailLookup organizationRecuringEmailLookup = organizationRecurringEmailLookupDao.getRecuringEmailById(organizationRecuringEmailLookupId);
+        OrganizationRecuringEmailLookup organizationRecuringEmailLookup = organizationRecurringEmailLookupDao.getOrganizationRecuringEmailById(organizationRecuringEmailLookupId);
         if (organizationRecuringEmailLookup == null) {
             throw new ProcessFailed(messageSource.getMessage("error_deleting_message", new String[]{}, Locale.US));
         }
-        organizationRecurringEmailLookupDao.deleteRecuringEmailOrg(organizationRecuringEmailLookup);
+        organizationRecurringEmailLookupDao.deleteRecuringEmailOrganization(organizationRecuringEmailLookup);
 
     }
 
@@ -110,6 +110,10 @@ public class RecuringEmailTemplateServiceImp implements RecuringEmailTemplateSer
      */
     public List<RecuringEmailTemplate> getAllNonRecuringEmail(Integer nonRecuringEmailId) throws ProcessFailed {
         List<OrganizationRecuringEmailLookup> organizationRecuringEmailList = organizationRecurringEmailLookupDao.getAllRecuringByOrganizationId(nonRecuringEmailId);
+         if (organizationRecuringEmailList == null) {
+            throw new ProcessFailed(messageSource.getMessage("error_retreving_message", new String[]{}, Locale.US));
+         }
+         
         Integer[] recuringEmailIds = new Integer[organizationRecuringEmailList.size()];
         Integer i = 0;
         for (OrganizationRecuringEmailLookup organizationRecuringEmailObject : organizationRecuringEmailList) {

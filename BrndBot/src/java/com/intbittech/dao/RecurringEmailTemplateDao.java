@@ -42,7 +42,7 @@ public interface RecurringEmailTemplateDao
      * This method delete particular {@link RecuringEmailTemplate} based on the
      * RecuringEmailTemplate from the database.
      *
-     * @param template the  recuringEmailTemplate
+     * @param template the recuringEmailTemplate
      * @throws ProcessFailed the process failed
      */
     

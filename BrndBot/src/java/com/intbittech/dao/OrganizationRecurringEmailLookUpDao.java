@@ -25,7 +25,7 @@ public interface OrganizationRecurringEmailLookUpDao
      * @throws ProcessFailed the process failed
      */
     
-     public Integer saveRecuringEmailOrg(OrganizationRecuringEmailLookup organizationRecuringEmailLookup) throws ProcessFailed;
+     public Integer saveRecuringEmailOrganization(OrganizationRecuringEmailLookup organizationRecuringEmailLookup) throws ProcessFailed;
      
      
      /**
@@ -36,7 +36,7 @@ public interface OrganizationRecurringEmailLookUpDao
      * @throws ProcessFailed the process failed
      */
     
-     public void deleteRecuringEmailOrg(OrganizationRecuringEmailLookup organizationRecuringEmailLookup)throws ProcessFailed;
+     public void deleteRecuringEmailOrganization(OrganizationRecuringEmailLookup organizationRecuringEmailLookup)throws ProcessFailed;
      
      
      /**
@@ -59,6 +59,6 @@ public interface OrganizationRecurringEmailLookUpDao
      * @throws ProcessFailed the process failed
      */
      
-     public OrganizationRecuringEmailLookup getRecuringEmailById(Integer organizationRecuringEmailLookupId) throws ProcessFailed;
+     public OrganizationRecuringEmailLookup getOrganizationRecuringEmailById(Integer organizationRecuringEmailLookupId) throws ProcessFailed;
     
 }

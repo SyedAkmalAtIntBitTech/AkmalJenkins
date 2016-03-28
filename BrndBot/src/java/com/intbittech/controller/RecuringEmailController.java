@@ -26,6 +26,8 @@ import com.intbittech.model.OrganizationRecuringEmailLookup;
 import com.intbittech.responsemappers.GenericResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import org.springframework.context.MessageSource;
 
         
 
@@ -39,8 +41,14 @@ import java.util.List;
 public class RecuringEmailController 
 {
       private Logger logger = Logger.getLogger(RecuringEmailController.class);
-    @Autowired
-    private RecuringEmailTemplateService recuringEmailTemplateService;
+  
+      
+      @Autowired
+      private RecuringEmailTemplateService recuringEmailTemplateService;
+    
+    
+      @Autowired
+      private MessageSource messageSource;
     
      @RequestMapping(value = "saveRecuringEmail", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveRecuringEmail(@RequestBody RecurringEmailDetails recuringEmailDetails) {
@@ -50,7 +58,7 @@ public class RecuringEmailController
             recuringEmailTemplate.setTemplateName(recuringEmailDetails.getTemplateName());
             recuringEmailTemplate.setHtmlData(recuringEmailDetails.getHtmlData());
             recuringEmailTemplateService.save(recuringEmailTemplate);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email block created successfully."));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recuring_email_created", new String[]{}, Locale.US)));
             
 
         } catch (Throwable throwable) {
@@ -61,8 +69,8 @@ public class RecuringEmailController
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
         
-        @RequestMapping(value = "saveRecuringEmailOrganization", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> saveRecuringEmailOrganization(@RequestBody RecurringEmailDetails recuringEmailDetailsOrg) {
+        @RequestMapping(value = "saveOrganizationRecuringEmail", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveOrganizationRecuringEmail(@RequestBody RecurringEmailDetails recuringEmailDetailsOrg) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
               
@@ -77,7 +85,7 @@ public class RecuringEmailController
              organizationRecuringEmailLookup.setOrganizationRecuringEmailLookupId(recuringEmailDetailsOrg.getOrganizationRecuringEmailLookupId());
              
              recuringEmailTemplateService.saveRecuringEmailOrganization(organizationRecuringEmailLookup);
-             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Recuring Organization Email created successfully."));
+             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recuring_organization_created", new String[]{}, Locale.US)));
             
 
         } catch (Throwable throwable) {
@@ -95,7 +103,7 @@ public class RecuringEmailController
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             recuringEmailTemplateService.delete(recuringEmailTemplateId);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Recuring Email Block deleted successfully."));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recuring_email_deleted", new String[]{}, Locale.US)));
             
         } catch(Throwable throwable) {
             logger.error(throwable);
@@ -106,12 +114,12 @@ public class RecuringEmailController
     
     
     
-     @RequestMapping(value = "deleteRecuringEmailOrganization", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> deleteRecuringEmailOrganization(@RequestParam("organizationRecuringEmailLookupId") Integer organizationRecuringEmailLookupId) {
+     @RequestMapping(value = "deleteOrganizationRecuringEmail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteOrganizationRecuringEmail(@RequestParam("organizationRecuringEmailLookupId") Integer organizationRecuringEmailLookupId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             recuringEmailTemplateService.delete(organizationRecuringEmailLookupId);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Recuring Email Block deleted successfully."));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recuring_organization_deleted", new String[]{}, Locale.US)));
             
         } catch(Throwable throwable) {
             logger.error(throwable);
@@ -126,12 +134,12 @@ public class RecuringEmailController
     public ResponseEntity<ContainerResponse> updateRecuringEmail(@RequestParam("recuringEmailTemplateId") Integer recuringEmailTemplateId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-              RecuringEmailTemplate recuringEmailTemplate =  new RecuringEmailTemplate();
+            RecuringEmailTemplate recuringEmailTemplate =  new RecuringEmailTemplate();
             recuringEmailTemplate.setRecuringEmailTemplateId(recuringEmailTemplate.getRecuringEmailTemplateId());
             recuringEmailTemplate.setTemplateName(recuringEmailTemplate.getTemplateName());
             recuringEmailTemplate.setHtmlData(recuringEmailTemplate.getHtmlData());
             recuringEmailTemplateService.update(recuringEmailTemplate);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Recuring Email Block updated successfully."));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recuring_email_updated", new String[]{}, Locale.US)));
             
         } catch(Throwable throwable) {
             logger.error(throwable);
@@ -153,7 +161,7 @@ public class RecuringEmailController
             recuringEmailDetails.setHtmlData(recuringEmailTemplate.getHtmlData());
             recuringEmailDetailsList.add(recuringEmailDetails);
             genericResponse.setDetails(recuringEmailDetailsList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Recuring Email  block retrieved successfully."));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recuring_email_retreived", new String[]{}, Locale.US)));
         } catch(Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -167,7 +175,7 @@ public class RecuringEmailController
         GenericResponse<RecurringEmailDetails> genericResponse = new GenericResponse<>();
         try
         {
-            List<RecurringEmailDetails> emailBlockDetailsList = new ArrayList<>();
+            List<RecurringEmailDetails> recuringEmailDetailsList = new ArrayList<>();
             List<OrganizationRecuringEmailLookup> organizationRecuringEmailList = recuringEmailTemplateService.getAllRecuringByOrganizationId(organizationRecuringEmailLookupId);
             for(OrganizationRecuringEmailLookup organizationRecuringEmailLookupObject : organizationRecuringEmailList) {
                 RecurringEmailDetails recuringEmailDetails = new RecurringEmailDetails();
@@ -175,11 +183,11 @@ public class RecuringEmailController
                 recuringEmailDetails.setOrganizationId(organizationRecuringEmailLookupObject.getFkOrganizationId().getOrganizationId());
                 recuringEmailDetails.setRecuringEmailTemplateId(organizationRecuringEmailLookupObject.getFkRecuringEmailTemplateId().getRecuringEmailTemplateId());
               
-               emailBlockDetailsList.add(recuringEmailDetails);
+               recuringEmailDetailsList.add(recuringEmailDetails);
             }
                
-            genericResponse.setDetails(emailBlockDetailsList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email blocks retrieved successfully."));
+            genericResponse.setDetails(recuringEmailDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recuring_organization_retrived", new String[]{}, Locale.US)));
         } catch(Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -187,7 +195,39 @@ public class RecuringEmailController
         return new ResponseEntity<>(new ContainerResponse(genericResponse),HttpStatus.ACCEPTED);
     }
     
-}
+    
+    
+    @RequestMapping(value = "getAllNonRecurringEmail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllNonRecurringEmail(@RequestParam("recuringEmailTemplateId") Integer recuringEmailTemplateId) {
+        GenericResponse<RecurringEmailDetails> genericResponse = new GenericResponse<>();
+        try
+        {
+             List<RecurringEmailDetails> recuringEmailDetailsList = new ArrayList<>();
+             List< RecuringEmailTemplate> recuringEmailTemplateList = recuringEmailTemplateService.getAllNonRecuringEmail(recuringEmailTemplateId);
+           
+             for(RecuringEmailTemplate recuringEmailTemplateObject: recuringEmailTemplateList)  
+             {
+                    RecurringEmailDetails recuringEmailDetails = new RecurringEmailDetails();
+                    recuringEmailDetails.setHtmlData(recuringEmailTemplateObject.getHtmlData());
+                    recuringEmailDetails.setRecuringEmailTemplateId(recuringEmailTemplateObject.getRecuringEmailTemplateId());
+                    recuringEmailDetailsList.add(recuringEmailDetails);
+             }
+              genericResponse.setDetails(recuringEmailDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recuring_organization_retrived", new String[]{}, Locale.US)));
+        } catch(Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse),HttpStatus.ACCEPTED);
+    }
+      
+    
+  }
+    
+     
+
+
+  
    
 
    

@@ -67,7 +67,7 @@ public class OrganizationRecuringEmailLookupDaoImpl implements OrganizationRecur
      * {@inheritDoc}
      */
      
-     public OrganizationRecuringEmailLookup getRecuringEmailById(Integer organizationRecuringEmailLookupId) throws ProcessFailed 
+     public OrganizationRecuringEmailLookup getOrganizationRecuringEmailById(Integer organizationRecuringEmailLookupId) throws ProcessFailed 
      {
                  try {
             Criteria criteria = sessionFactory.getCurrentSession()
@@ -87,7 +87,7 @@ public class OrganizationRecuringEmailLookupDaoImpl implements OrganizationRecur
      * {@inheritDoc}
      */
      
-       public Integer saveRecuringEmailOrg(OrganizationRecuringEmailLookup organizationRecuringEmailLookup) throws ProcessFailed {
+       public Integer saveRecuringEmailOrganization(OrganizationRecuringEmailLookup organizationRecuringEmailLookup) throws ProcessFailed {
         try {
             return ((Integer) sessionFactory.getCurrentSession().save(organizationRecuringEmailLookup));
         } catch (Throwable throwable) {
@@ -100,7 +100,7 @@ public class OrganizationRecuringEmailLookupDaoImpl implements OrganizationRecur
      * {@inheritDoc}
      */
 
-    public void deleteRecuringEmailOrg(OrganizationRecuringEmailLookup organizationRecuringEmailLookup) throws ProcessFailed {
+    public void deleteRecuringEmailOrganization(OrganizationRecuringEmailLookup organizationRecuringEmailLookup) throws ProcessFailed {
         try {
             sessionFactory.getCurrentSession().delete(organizationRecuringEmailLookup);
         } catch (Throwable throwable) {
