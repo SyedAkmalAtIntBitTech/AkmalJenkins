@@ -40,8 +40,14 @@
               $("#addEmailBlockPopUp").show();
               $("#addOrganizationPopupDiv").show();
            });
+           $("#addMarketingCategory").click(function (){
+              $("#addMarketingPopUp").show();
+              $("#addOrganizationPopupDiv").show();
+           });
+           
            
            $("#addOrganizationPopupDiv").click(function (){
+               $("#addMarketingPopUp").hide();
                $("#addEmailTemplatePopUp").hide();
                $("#addSubCategoryPopup").hide();
                $("#addPrintCategoryPopup").hide();
