@@ -659,6 +659,12 @@ $scope.addImageCategory = function () {
         var organizationId=$("#organizationIdTag").val();
         var categoryName=(eval(JSON.stringify(marketingCategoryName)));
         var organizationIdNew=(eval(JSON.stringify(organizationId)));
+        if(categoryName=="")
+        {
+            alert(enterCategoryName);
+            $("#marketingCategoryName").focus();
+            return false;
+        }
         var marketingCategory ={"marketingCategoryName" : categoryName,"organizationId":organizationIdNew}
          $.ajax({
                     method: 'POST',
@@ -694,5 +700,19 @@ $scope.addImageCategory = function () {
                 });  
     }
     }
+    
+    
+     $scope.gellAllMarketingProgramList= function (){
+        $http({
+                    method: 'GET',
+                    url: getHost() + '/getAllMarketingPrograms.do'
+                }).success(function (data)
+                {   
+                    $scope.marketingProgramLists= data.d.details;
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+    }
+    
 }
 
