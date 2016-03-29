@@ -10,7 +10,6 @@ import com.intbittech.model.MarketingCategory;
 import com.intbittech.model.MarketingCategoryProgram;
 import com.intbittech.model.MarketingProgram;
 import com.intbittech.model.OrganizationMarketingCategoryLookup;
-import com.intbittech.modelmappers.EmailBlockModelDetails;
 import com.intbittech.modelmappers.MarketingActionDetails;
 import com.intbittech.modelmappers.MarketingCategoryDetails;
 import com.intbittech.modelmappers.MarketingCategoryProgramDetails;
@@ -63,6 +62,48 @@ public class MarketingController {
     
     @Autowired
     private MessageSource messageSource;
+    
+    @RequestMapping(value = "getMarketingProgramsByCategoryId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getMarketingProgramsByCategoryId(@RequestParam("marketingCategoryId") Integer marketingCategoryId) {
+        GenericResponse<MarketingProgramDetails> genericResponse = new GenericResponse<>();
+        try {
+            List<MarketingCategoryProgram> marketingCategoryProgramList = marketingCategoryProgramService.getMarketingProgramsByCategoryId(marketingCategoryId);
+            List<MarketingProgramDetails> marketingProgramDetailsList = new ArrayList<>();
+            for(MarketingCategoryProgram marketingCategoryProgramObject : marketingCategoryProgramList) {
+                MarketingProgramDetails marketingProgramDetails = new MarketingProgramDetails();
+                marketingProgramDetails.setMarketingProgramId(marketingCategoryProgramObject.getFkMarketingProgram().getMarketingProgramId());
+                marketingProgramDetails.setMarketingProgramName(marketingCategoryProgramObject.getFkMarketingProgram().getMarketingProgramName());
+                marketingProgramDetailsList.add(marketingProgramDetails);
+            }
+            genericResponse.setDetails(marketingProgramDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingProgram_get_all",new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "getAllNonAddedMarketingPrograms", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllNonAddedMarketingPrograms(@RequestParam("marketingCategoryId") Integer marketingCategoryId) {
+        GenericResponse<MarketingProgramDetails> genericResponse = new GenericResponse<>();
+        try {
+            List<MarketingProgram> marketingProgramList = marketingCategoryProgramService.getAllNonAddedMarketingPrograms(marketingCategoryId);
+            List<MarketingProgramDetails> marketingProgramDetailsList = new ArrayList<>();
+            for(MarketingProgram marketingProgramObject : marketingProgramList) {
+                MarketingProgramDetails marketingProgramDetails = new MarketingProgramDetails();
+                marketingProgramDetails.setMarketingProgramId(marketingProgramObject.getMarketingProgramId());
+                marketingProgramDetails.setMarketingProgramName(marketingProgramObject.getMarketingProgramName());
+                marketingProgramDetailsList.add(marketingProgramDetails);
+            }
+            genericResponse.setDetails(marketingProgramDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingProgram_get_all",new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
     
     @RequestMapping(value = "getAllMarketingCategoryByOrganizationId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllMarketingCategoryByOrganizationId(@RequestParam("organizationId") Integer organizationId) {

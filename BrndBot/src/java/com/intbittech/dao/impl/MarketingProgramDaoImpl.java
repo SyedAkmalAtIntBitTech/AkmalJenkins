@@ -8,6 +8,7 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.MarketingProgramDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.MarketingProgram;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -107,6 +108,27 @@ public class MarketingProgramDaoImpl implements MarketingProgramDao {
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<MarketingProgram> getMarketingProgramsByIds(ArrayList<Integer> marketingProgramIds) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(MarketingProgram.class);
+            for(int i =0;i<marketingProgramIds.set(i, i);i++)
+                criteria.add(Restrictions.ne("marketingProgramId", marketingProgramIds.get(i)));
+            List<MarketingProgram> marketingProgramList = criteria.list();
+            if (marketingProgramList.isEmpty()) {
+                return null;
+            }
+            return marketingProgramList;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_list_message",new String[]{}, Locale.US));
         }
     }
     
