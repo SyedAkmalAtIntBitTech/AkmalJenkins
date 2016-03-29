@@ -17,21 +17,22 @@
 <jsp:include page="adminheader.jsp"/>
 <div  data-ng-controller="marketingProgramsController">
 <jsp:include page="addonetimeactions.jsp"/>
-    
-        <div class="content-area">
+<jsp:include page="addonetimeactionpopup.jsp"/>
+<div ng-init="getMarketingProgramActionsById()">
+    <div class="content-area" >
             <div class="content-area_header">
                 <!--<div class="header_path fleft"> Marketing Campaign Templates ></div>-->
                 <div class="header_path fleft"> Marketing Programs</div>
-                <div class="CTA_Button Button--Save fright">Save</div>
+                <div class="CTA_Button Button--Save fright" ng-click="saveMarketingProgramActions()">Save</div>
             </div>
             <div class="inputSection col1of1 pushUp_20">
                 <div class="col1of2 fleft col-padding">
                      <div class="input_Label">Marketing Program Name</div>
                       <div class="col1of2">
-                          <input class="input_Field" placeholder="Name"/>
+                          <input id="marketingProgramName" class="input_Field" placeholder="Name" value="{{getAllMarketingProgram.marketingProgramName}}"/>
                       </div>
                     <div class="input_Label pushUp_30">Marketing Program HTML</div>
-                    <textarea class="input_Field_xlg">HTML</textarea>
+                    <textarea id="marketingProgramHtml" class="input_Field_xlg">{{getAllMarketingProgram.htmlData}}</textarea>
                 </div>
 <!--                <div class="col1of4 fleft col-padding">
                     <div class="input_Label">Campaign Type</div>
@@ -44,7 +45,7 @@
         <div class="content-area pushUp_30">
                <div class="content-area_header">
                 <div class="header_path fleft">  Recurring Actions </div>
-                <div class="CTA_Button Button--Blue fright">Add Action</div>
+                <div id="addRecurringActionsButton"  class="CTA_Button Button--Blue fright" ng-click="addRecurringActions()" >Add Action</div>
             </div>
             <div class="slatSection">
                 <div class="slatHeaders">
@@ -55,16 +56,16 @@
                         <span class="listCol_Header fleft"> Send after # of days </span>
                     </div>
                 </div>
-                <ul class="slatArea">
-                    <li class="listItem">
+                <ul class="slatArea" ng-repeat="marketingAction in getAllMarketingProgramActions">
+                    <li class="listItem" ng-show="marketingAction.is_recuring==true">
                         <div class="listCol col1of2 fleft">
-                            <span class="listCol_Text fleft"> Action Name</span>
+                            <span class="listCol_Text fleft"> {{marketingAction.title}}</span>
                         </div>
                         <div class="listCol col1of4 fleft">
-                            <span class="listCol_Text fleft"> 7</span>
+                            <span class="listCol_Text fleft">{{marketingAction.days}}</span>
                         </div>
                         <div class="listCol col1of4 fleft">
-                            <div class="CTA_Button Button--Gray fright">Manage Action</div>
+                            <div class="CTA_Button Button--Gray fright" ng-click="getlistnum($index)">Manage Action</div>
                         </div>
                     </li>
                 </ul>
@@ -75,7 +76,7 @@
         <div class="content-area pushUp_30" >
                <div class="content-area_header">
                 <div class="header_path fleft">  One Time Actions </div>
-                <div id="addOneTimeActionsButton" class="CTA_Button Button--Blue fright" ng-click="getOneTimeActions()">Add Action</div>
+                <div id="addOneTimeActionsButton" class="CTA_Button Button--Blue fright" ng-click="addOneTimeActions()">Add Action</div>
             </div>
             <div class="slatSection">
                 <div class="slatHeaders">
@@ -89,17 +90,17 @@
                         <span class="listCol_Header fleft"> Action Type </span>
                     </div>
                 </div>
-                <ul class="slatArea">
-                    <li class="listItem" ng-repeat="oneTimeActionData in oneTimeActionsData">
+                <ul class="slatArea" ng-repeat="marketingOneTimeAction in marketingProgramActions">
+                    <li class="listItem" ng-show="marketingOneTimeAction.is_recuring==false">
                         <div class="listCol col1of4 fleft">
-                            <span class="listCol_Text fleft">{{oneTimeActionData.actionName}}</span>
+                            <span class="listCol_Text fleft">{{marketingOneTimeAction.title}}</span>
                         </div>
                          <div class="listCol col1of4 fleft">
-                            <span class="listCol_Text fleft">{{oneTimeActionData.noOfDays}} days after start</span>
+                            <span class="listCol_Text fleft">{{marketingOneTimeAction.days}} days after start</span>
                         </div>
                         
                         <div class="listCol col1of4 fleft">
-                            <span class="listCol_Text fleft">{{oneTimeActionData.actionType}}</span>
+                            <span class="listCol_Text fleft">{{marketingOneTimeAction.type}}</span>
                         </div>
                         <div class="listCol col1of4 fleft">
                             <div class="CTA_Button Button--Gray fright" ng-click="getlistnum($index)">Manage Action</div> 
@@ -109,6 +110,7 @@
             </div>
         </div>
     </div>
+</div>
 </body>
     
     
