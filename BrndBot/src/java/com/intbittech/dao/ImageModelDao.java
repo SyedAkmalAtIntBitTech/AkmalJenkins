@@ -8,6 +8,7 @@ package com.intbittech.dao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ImageModel;
 import com.intbittech.model.PrintModel;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,6 +73,6 @@ public interface ImageModelDao {
      * @param imageModelIds the imageModelIds
      * @throws ProcessFailed the process failed
      */
-    public List<ImageModel> getByImageModelsByIds(Integer[] imageModelIds) throws ProcessFailed;
+    public List<ImageModel> getByImageModelsByIds(ArrayList<Integer> imageModelIds) throws ProcessFailed;
 
 }

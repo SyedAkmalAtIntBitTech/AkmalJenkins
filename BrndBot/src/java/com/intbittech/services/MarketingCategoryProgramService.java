@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.MarketingCategoryProgram;
+import com.intbittech.model.MarketingProgram;
 import java.util.List;
 
 /**
@@ -26,14 +27,34 @@ public interface MarketingCategoryProgramService {
     public List<MarketingCategoryProgram> getAllMarketingCategoryPrograms() throws ProcessFailed;
 
     /**
-     * This method pass id as input and get the {@link MarketingAction} from DAO
+     * This method pass id as input and get the {@link MarketingCategoryProgram} from DAO
      * layer.
      *
      * @param marketingCategoryProgramId the marketingCategoryProgramId
-     * @return {@link MarketingAction}
+     * @return {@link MarketingCategoryProgram}
      * @throws ProcessFailed the process failed
      */
     public MarketingCategoryProgram getByMarketingCategoryProgramId(Integer marketingCategoryProgramId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link MarketingCategoryProgram} from DAO
+     * layer.
+     *
+     * @param marketingCategoryId the marketingCategoryId
+     * @return {@link MarketingCategoryProgram}
+     * @throws ProcessFailed the process failed
+     */
+    public List<MarketingCategoryProgram> getMarketingProgramsByCategoryId(Integer marketingCategoryId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link MarketingCategoryProgram} from DAO
+     * layer.
+     *
+     * @param marketingCategoryId the marketingCategoryId
+     * @return {@link MarketingCategoryProgram}
+     * @throws ProcessFailed the process failed
+     */
+    public List<MarketingProgram> getAllNonAddedMarketingPrograms(Integer marketingCategoryId) throws ProcessFailed;
     
     /**
      * This method save {@link MarketingCategoryProgram} into the database.

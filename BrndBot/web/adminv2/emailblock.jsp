@@ -24,25 +24,23 @@ String emailBlockId=request.getParameter("emailBlockId");
         <div class="content-area_header"  ng-init="getEmailBlock()">
             <div  class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="organizationdetails.jsp?organizationId=<%=organizationID%>">{{organizationDetails.organizationName}}</a>  > </div>
             <div class="header_title fleft">{{emailBlocksTitle.emailBlockName}}  </div>
+            <div class="CTA_Button Button--Blue fright" id="addTemplateButton" ng-click="">Add Template</div>
             <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteEmailBlock(<%=emailBlockId%>)">Delete Block</div>
+            
         </div>
         <div class="slatSection" >
-            <div class="sectionHeader"> Email Block </div>
             <div class="slatHeaders">
                 <div class="listHeaderCol col1of2 fleft">
-                    <span class="listCol_Header fleft">  Email Block Name</span>
-                </div>
-                <div class="listHeaderCol col1of2 fleft">
-                    <span class="listCol_Header fleft">  External Value</span>
+                    <span class="listCol_Header fleft">  Template Names</span>
                 </div>
             </div>
-            <ul class="slatArea">
-                <li class="listItem" ng-repeat="emailblocks in emailBlockDetails">
+            <ul class="slatArea" ng-init="getAllNonAddedEmailBlockModel()">
+                <li class="listItem" ng-repeat="nonAddedemailBlockDetail in nonAddedemailBlockDetails">
                     <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft">{{emailblocks.emailBlockName}}</span>
+                        <span class="listCol_Text fleft">{{nonAddedemailBlockDetail.emailBlockModelName}}</span>
                     </div>
-                     <div class="listCol col1of4 fleft">
-                        <span class="listCol_Text fleft">{{emailblocks.externalSourceName}}</span>
+                    <div class="listCol col1of4 fright">
+                        <div class="CTA_Button Button--Gray fright">Remove Template</div>
                     </div>
                     
                 </li>
