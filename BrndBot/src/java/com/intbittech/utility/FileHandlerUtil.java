@@ -20,7 +20,6 @@ import org.apache.log4j.Logger;
  */
 public class FileHandlerUtil {
 
- 
     public static String saveAdminEmailTemplatesImage(String fileNameWithExtension, String base64ImageString) throws Throwable {
         String base64ImageData = extractOnlyBase64ImageData(base64ImageString);
         BufferedImage imageData = DataConverterUtil.convertBase64ToBufferedImage(base64ImageData);
@@ -32,6 +31,20 @@ public class FileHandlerUtil {
             throw throwable;
         }
         return fileName;
+    }
+
+    public static void deleteAdminEmailTemplatesImage(String fileNameWithExtension) throws Throwable {
+        String filePath = getAdminEmailTemplatesImageFilePath();
+        File dir = new File(filePath);
+        File file = new File(dir, fileNameWithExtension);
+        try {
+            if (file.exists()) {
+                file.delete();
+            }
+        } catch (Exception e) {
+            throw new Throwable("Security Manager does not allow for delete permission.");
+        }
+
     }
 
     private static void writeImageFile(BufferedImage imageData, String fileNameWithExtension, String filePath) throws Throwable {

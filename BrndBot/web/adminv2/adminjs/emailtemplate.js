@@ -48,9 +48,9 @@ function emailTemplateController($scope, $http) {
         var emailModelName = $("#emailModelName").val();
         var htmlData = $("#edit").froalaEditor('html.get');
         var imgDataObj = getImageData();
-        var modelNames = {"emailModelName": emailModelName, "htmlData": htmlData, "imageFileName": imgDataObj.imageFileName, "imageFileData": imgDataObj.base64ImgString};
-        var validate = function () {
 
+        var emailModel = {"emailModelName": emailModelName, "htmlData": htmlData, "imageFileName": imgDataObj.imageFileName, "imageFileData": imgDataObj.base64ImgString};
+        var validate = function () {
             if (emailModelName === "") {
                 alert("Please enter Template Name!");
                 $("#emailModelName").focus();
@@ -66,7 +66,14 @@ function emailTemplateController($scope, $http) {
                 $("#imageFileName").focus();
                 return false;
             }
-            return true;
+            var fileType = imgDataObj.imageFileName.split(".")[1];
+            if ((fileType === "png") || (fileType === "gif") || (fileType === "jpg") || (fileType === "jpeg")) {
+                return true;
+            } else {
+                alert("Please Select only Image file!");
+                $("#imageFileName").focus();
+                return false;
+            }
         };
         if (validate()) {
             $.ajax({
@@ -74,7 +81,7 @@ function emailTemplateController($scope, $http) {
                 url: getHost() + '/saveEmailModel.do',
                 dataType: "json",
                 contentType: "application/json",
-                data: JSON.stringify(modelNames)
+                data: JSON.stringify(emailModel)
             }).success(function (data, status, headers, config)
             {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -87,26 +94,52 @@ function emailTemplateController($scope, $http) {
     };
 
     $scope.editEmailTemplate = function () {
-
         var emailModelId = $("#emailModelIdTag").val();
         var emailModelName = $("#emailModelNameTag").val();
         var htmlData = $("#edit").froalaEditor('html.get');
-        var imageFileName = $("#imageFileName").val();
-        alert(imageFileName);
-        var editEmailTemplate = {"emailModelId": emailModelId, "emailModelName": emailModelName, "htmlData": htmlData, "imageFileName": imageFileName};
-        $.ajax({
-            method: 'POST',
-            url: getHost() + '/editEmailModel.do',
-            dataType: "json",
-            contentType: "application/json",
-            data: JSON.stringify(editEmailTemplate)
-        }).success(function (data, status, headers, config)
-        {
-            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-            window.open(getHost() + 'adminv2/emailtemplates.jsp', "_self");
-        }).error(function (data, status, headers, config) {
-            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-        });
+        var imgDataObj = getImageData();
+//        alert("emailmodel : " + emailModelId + "," + emailModelName + htmlData + "," + imgDataObj.imageFileName);
+        var emailModel = {"emailModelId": emailModelId, "emailModelName": emailModelName, "htmlData": htmlData, "imageFileName": imgDataObj.imageFileName, "imageFileData": imgDataObj.base64ImgString};
+        var validate = function () {
+            if (emailModelName === "") {
+                alert("Please enter Template Name!");
+                $("#emailModelName").focus();
+                return false;
+            }
+            if (htmlData === "") {
+                alert("Please enter Html data!");
+                $("#edit").focus();
+                return false;
+            }
+            if (imgDataObj.imageFileName === "") {
+                return true;
+            } else {
+                var fileType = imgDataObj.imageFileName.split(".")[1];
+                if ((fileType === "png") || (fileType === "gif") || (fileType === "jpg") || (fileType === "jpeg")) {
+                    return true;
+                } else {
+                    alert("Please Select only Image file!");
+                    $("#imageFileName").focus();
+                    return false;
+                }
+            }
+
+        };
+        if (validate()) {
+            $.ajax({
+                method: 'POST',
+                url: getHost() + '/editEmailModel.do',
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(emailModel)
+            }).success(function (data, status, headers, config)
+            {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                window.open(getHost() + 'adminv2/emailtemplates.jsp', "_self");
+            }).error(function (data, status, headers, config) {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            });
+        }
     };
 
 

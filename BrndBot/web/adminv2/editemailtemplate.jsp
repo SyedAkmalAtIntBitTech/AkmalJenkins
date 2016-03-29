@@ -49,7 +49,7 @@
             </div>
             <label class="fileContainer">
                 <div id="triggerFile" class="md-button gray-button col10f9" >Upload</div>
-                <input name="fileName" type="file" onclick="addImgToBase64Converter('imageFileName')" id="imageFileName"  />
+                <input name="fileName" type="file" accept=".gif,.jpg,.jpeg,.png" onclick="addImgToBase64Converter('imageFileName')" id="imageFileName"  />
             </label>
         </div>
            

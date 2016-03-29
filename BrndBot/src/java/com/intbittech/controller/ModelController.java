@@ -379,11 +379,11 @@ public class ModelController {
                         emailModelDetails.getImageFileData());
             } catch (Throwable throwable) {
                 logger.error(throwable);
-                throw new ProcessFailed(messageSource.getMessage("image_not_save", null,Locale.getDefault()));
+                throw new ProcessFailed(messageSource.getMessage("image_not_save", null, Locale.getDefault()));
             }
             emailModel.setImageFileName(storedImageFileName);
             emailModelService.save(emailModel);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template created successfully."));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("emailTemplate_create_sucess", null, Locale.getDefault())));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -396,11 +396,27 @@ public class ModelController {
     public ResponseEntity<ContainerResponse> editEmailModel(@RequestBody EmailModelDetails emailModelDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            EmailModel emailModel = new EmailModel();
-            emailModel.setEmailModelId(emailModelDetails.getEmailModelId());
+            EmailModel emailModel = emailModelService.getByEmailModelId(emailModelDetails.getEmailModelId());
+            String oldImageFileName = emailModel.getImageFileName();
+            String newImageFileName = emailModelDetails.getImageFileName();
+            String storedImageFileName = null;
+            if (newImageFileName.length() == 0 || newImageFileName == null) {
+
+                newImageFileName = oldImageFileName;
+            } else {
+                try {
+                    FileHandlerUtil.deleteAdminEmailTemplatesImage(oldImageFileName);
+                    storedImageFileName = FileHandlerUtil.saveAdminEmailTemplatesImage(newImageFileName,
+                            emailModelDetails.getImageFileData());
+                    newImageFileName = storedImageFileName;
+                } catch (Throwable throwable) {
+                    logger.error(throwable);
+                    throw new ProcessFailed(messageSource.getMessage("image_not_update", null, Locale.getDefault()));
+                }
+            }
             emailModel.setEmailModelName(emailModelDetails.getEmailModelName());
             emailModel.setHtmlData(emailModelDetails.getHtmlData());
-            emailModel.setImageFileName(emailModelDetails.getImageFileName());
+            emailModel.setImageFileName(newImageFileName);
             emailModelService.update(emailModel);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template updated successfully."));
         } catch (Throwable throwable) {
@@ -415,8 +431,10 @@ public class ModelController {
     public ResponseEntity<ContainerResponse> deleteEmailModel(@RequestParam("emailModelId") Integer emailModelId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
+            EmailModel emailModel = emailModelService.getByEmailModelId(emailModelId);
             emailModelService.delete(emailModelId);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template deleted successfully."));
+            FileHandlerUtil.deleteAdminEmailTemplatesImage(emailModel.getImageFileName());
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("emailTemplate_delete_sucess", null, Locale.getDefault())));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
