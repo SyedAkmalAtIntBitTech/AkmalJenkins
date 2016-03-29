@@ -526,7 +526,13 @@ $scope.addImageCategory = function () {
                 {   
                     $("#relateEmailTemplateAddButton").show().css('pointer-events','none');
                     $scope.nonAddedEmailModelsBySubCategory= data.d.details;
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    if(JSON.stringify($scope.nonAddedEmailModelsBySubCategory)=="null"){
+                        $("#noTemplatesMessage").show();
+                        $("#noTemplatesMessageSpan").empty().append(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    }
+                    else{
+                         $("#noTemplatesMessage").hide();
+                    }
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  

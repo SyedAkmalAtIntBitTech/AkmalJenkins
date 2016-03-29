@@ -25,6 +25,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
 #createRecurringActionButton,
 #createOneTimeActionButton,
 #createOneTimeActionPopUpTitle,
-#createRecurringActionPopUpTitle{
+#createRecurringActionPopUpTitle,
+#noTemplatesMessage{
     display:none;
 }
