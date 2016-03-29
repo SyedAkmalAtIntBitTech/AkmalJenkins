@@ -16,7 +16,8 @@ public class CategoryDetails implements Serializable {
     private Integer categoryId;
     private String categoryName;
     private Integer channelId;
-    private Integer orgnizationId;
+    private Integer organizationId;
+    private String organizationName;
 
     public Integer getCategoryId() {
         return categoryId;
@@ -42,12 +43,22 @@ public class CategoryDetails implements Serializable {
         this.channelId = channelId;
     }
 
-    public Integer getOrgnizationId() {
-        return orgnizationId;
+    public Integer getOrganizationId() {
+        return organizationId;
     }
 
-    public void setOrgnizationId(Integer orgnizationId) {
-        this.orgnizationId = orgnizationId;
+    public void setOrganizationId(Integer organizationId) {
+        this.organizationId = organizationId;
     }
+
+    public String getOrganizationName() {
+        return organizationName;
+    }
+
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
+    }
+    
+    
 
 }

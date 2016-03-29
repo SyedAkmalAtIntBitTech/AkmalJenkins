@@ -5,13 +5,14 @@
  */
 package com.intbittech.modelmappers;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author ilyas
  */
-public class CompanyDetails {
+public class CompanyDetails implements Serializable {
     
     private Integer companyId;
     private String companyName;
