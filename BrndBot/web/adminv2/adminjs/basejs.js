@@ -10,10 +10,10 @@
 //              $("#addorgpopupdiv").show();
 //           });
             
-            $("#addOneTimeActionsButton").click(function (){
-              $(".overflowhide").css("overflow","hidden").animate({scrollTop:0}, '10', 'swing');
-              $("#addOneTimeActionsPopup").show();
+           $("#addOneTimeActionsButton").click(function (){               
               $("#addOrganizationPopupDiv").show();
+              $(".overflowhide").css("overflow","hidden").animate({scrollTop:0}, '10', 'swing');
+              $("#addMarketingProgramsPopup").show();
            });
            
            $("#addTemplateButton").click(function (){
@@ -40,12 +40,11 @@
               $("#addEmailBlockPopUp").show();
               $("#addOrganizationPopupDiv").show();
            });
-           $("#addMarketingCategory").click(function (){
-              $("#addMarketingPopUp").show();
-              $("#addOrganizationPopupDiv").show();
-           });
-           
-           
+           $("#addMarketingProgramsPopupDiv").click(function (){
+               $("#addMarketingProgramsPopup").hide();
+               $("#addMarketingProgramsPopupDiv").hide();
+               $(".overflowhide").css("overflow","auto");
+            });
            $("#addOrganizationPopupDiv").click(function (){
                $("#addMarketingPopUp").hide();
                $("#addEmailTemplatePopUp").hide();
@@ -55,7 +54,8 @@
                 $("#addOrganizationPopupDiv").hide();
                 $("#addImageCategory").hide();
                  $("#addEmailBlockPopUp").hide();
-                 $("#addOneTimeActionsPopup").hide();
+                 $("#editMarketingProgramsPopup").hide();
+                 $("#addMarketingProgramsPopup").hide();
                  $(".overflowhide").css("overflow","auto");
            });
        });
