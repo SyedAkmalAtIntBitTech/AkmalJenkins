@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,6 +110,28 @@ public class MarketingCategoryProgramDaoImpl implements MarketingCategoryProgram
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<MarketingCategoryProgram> getMarketingProgramsByCategoryId(Integer marketingCategoryId) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(MarketingCategoryProgram.class)
+                    .setFetchMode("fkMarketingCategory", FetchMode.JOIN)
+                    .setFetchMode("fkMarketingProgram", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkMarketingCategory.marketingCategoryId", marketingCategoryId));
+            List<MarketingCategoryProgram> marketingCategoryProgramList = criteria.list();
+            if (marketingCategoryProgramList.isEmpty()) {
+                return null;
+            }
+            return marketingCategoryProgramList;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
     

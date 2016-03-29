@@ -7,6 +7,7 @@ package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.MarketingProgram;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,6 +35,16 @@ public interface MarketingProgramDao {
      * @throws ProcessFailed the process failed
      */
     public MarketingProgram getByMarketingProgramId(Integer marketingProgramId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the {@link MarketingProgram} from DAO
+     * layer.
+     *
+     * @param marketingProgramIds the marketingProgramIds
+     * @return {@link MarketingProgram}
+     * @throws ProcessFailed the process failed
+     */
+    public List<MarketingProgram> getMarketingProgramsByIds(ArrayList<Integer> marketingProgramIds) throws ProcessFailed;
     
     /**
      * This method save {@link MarketingProgram} into the database.
