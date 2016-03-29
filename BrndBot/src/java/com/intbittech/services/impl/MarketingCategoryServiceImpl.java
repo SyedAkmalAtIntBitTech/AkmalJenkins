@@ -55,8 +55,8 @@ public class MarketingCategoryServiceImpl implements MarketingCategoryService {
     /**
      * {@inheritDoc}
      */
-    public List<OrganizationMarketingCategoryLookup> getByMarketingCategoriesByOrganizationId(Integer organizationId) throws ProcessFailed {
-        List<OrganizationMarketingCategoryLookup> organizationMarketingCategoryList = marketingCategoryDao.getByMarketingCategoriesByOrganizationId(organizationId);
+    public List<OrganizationMarketingCategoryLookup> getByOrganizationId(Integer organizationId) throws ProcessFailed {
+        List<OrganizationMarketingCategoryLookup> organizationMarketingCategoryList = marketingCategoryDao.getByOrganizationId(organizationId);
         if(organizationMarketingCategoryList == null)
             throw new ProcessFailed(messageSource.getMessage("marketingCategory_list_not_found",new String[]{}, Locale.US));
         return organizationMarketingCategoryList;
@@ -98,14 +98,14 @@ public class MarketingCategoryServiceImpl implements MarketingCategoryService {
         
         OrganizationMarketingCategoryLookup organizationMarketingCategoryLookup = new OrganizationMarketingCategoryLookup();
         Organization organization = new Organization();
-        organization.setOrganizationId(marketingCategoryDetails.getMarketingCategoryId());
+        organization.setOrganizationId(marketingCategoryDetails.getOrganizationId());
         MarketingCategory marketingCategoryObject = new MarketingCategory();
         marketingCategoryObject.setMarketingCategoryId(marketingCategoryId);
         
         organizationMarketingCategoryLookup.setFkMarketingCategoryId(marketingCategoryObject);
         organizationMarketingCategoryLookup.setFkOrganizationId(organization);
         
-        marketingCategoryDao.saveMarketingCategoryOrganization(organizationMarketingCategoryLookup);
+        Integer marketingCategoryOrganizationId = marketingCategoryDao.saveMarketingCategoryOrganization(organizationMarketingCategoryLookup);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("marketingCategory_save_error",new String[]{}, Locale.US));

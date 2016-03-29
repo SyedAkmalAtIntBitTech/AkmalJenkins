@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,10 +116,13 @@ public class MarketingCategoryDaoImpl implements MarketingCategoryDao {
     /**
      * {@inheritDoc}
      */
-    public List<OrganizationMarketingCategoryLookup> getByMarketingCategoriesByOrganizationId(Integer organizationId) throws ProcessFailed {
+    public List<OrganizationMarketingCategoryLookup> getByOrganizationId(Integer organizationId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(OrganizationMarketingCategoryLookup.class);
+                    .createCriteria(OrganizationMarketingCategoryLookup.class)
+                    .setFetchMode("fkOrganizationId", FetchMode.JOIN)
+                    .setFetchMode("fkMarketingCategoryId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkOrganizationId.organizationId", organizationId));
             List<OrganizationMarketingCategoryLookup> organizationMarketingCategoryList = criteria.list();
             if (organizationMarketingCategoryList.isEmpty()) {
                 return null;

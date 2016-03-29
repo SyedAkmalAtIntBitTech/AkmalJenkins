@@ -623,5 +623,96 @@ $scope.addImageCategory = function () {
                 });  
             }
     };
+    
+    $scope.getAllMarketingCategory= function (){
+         var organizationId=$("#organizationIdTag").val();
+        $http({
+                    method: 'GET',
+                    url: getHost() + '/getAllMarketingCategoryByOrganizationId.do?organizationId='+organizationId
+                }).success(function (data)
+                {   
+                    $scope.marketingCategories= data.d.details;
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+    }
+    $scope.getAllMarketingCategoryById= function (){
+         var organizationId=$("#organizationIdTag").val();
+         var marketingCategoryId=$("#marketingCategoryId").val();
+        $http({
+                    method: 'GET',
+                    url: getHost() + '/getByMarketingCategoryId.do?marketingCategoryId='+marketingCategoryId
+                }).success(function (data)
+                {   
+                    for(var i=0;i<data.d.details.length;i++)
+                   {
+                    $scope.marketingCategoryTitle= data.d.details[i];
+                   } 
+                    $scope.getMarketingCategories= data.d.details;
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+    }
+    
+    $scope.addMarketingCategory= function (){
+        var marketingCategoryName=$("#marketingCategoryName").val();
+        var organizationId=$("#organizationIdTag").val();
+        var categoryName=(eval(JSON.stringify(marketingCategoryName)));
+        var organizationIdNew=(eval(JSON.stringify(organizationId)));
+        if(categoryName=="")
+        {
+            alert(enterCategoryName);
+            $("#marketingCategoryName").focus();
+            return false;
+        }
+        var marketingCategory ={"marketingCategoryName" : categoryName,"organizationId":organizationIdNew}
+         $.ajax({
+                    method: 'POST',
+                    url: getHost() + '/saveMarketingCategory.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(marketingCategory)
+                }).success(function (data)
+                {   
+                       alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                       window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId,"_self");
+                    
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });          
+    };
+    
+    $scope.deleteMarketingCategory= function (){
+        var organizationId=$("#organizationIdTag").val();
+         var marketingCategoryId=$("#marketingCategoryId").val();
+         var deleteEmailTemplate=confirm(deleteCategoryPrompt);
+            if(deleteEmailTemplate===true)
+            {
+                   $http({
+                    method: 'GET',
+                    url: getHost() + '/deleteMarketingCategory.do?marketingCategoryId='+marketingCategoryId
+                }).success(function (data)
+                {   
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+    }
+    }
+    
+    
+     $scope.gellAllMarketingProgramList= function (){
+        $http({
+                    method: 'GET',
+                    url: getHost() + '/getAllMarketingPrograms.do'
+                }).success(function (data)
+                {   
+                    $scope.marketingProgramLists= data.d.details;
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+    }
+    
 }
 

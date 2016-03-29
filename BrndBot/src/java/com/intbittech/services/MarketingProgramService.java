@@ -71,4 +71,12 @@ public interface MarketingProgramService {
      */
     public void delete(Integer marketingProgramId) throws ProcessFailed;
     
+    /**
+     * This method save {@link MarketingProgram} into the database.
+     *
+     * @param marketingProgramActionsDetails the marketingProgramActionsDetails
+     * @throws ProcessFailed the process failed
+     */
+    public void updateMarketingProgramActions(MarketingProgramActionsDetails marketingProgramActionsDetails) throws ProcessFailed;
+    
 }

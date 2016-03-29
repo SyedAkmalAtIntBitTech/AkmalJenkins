@@ -44,8 +44,9 @@
                $("#addMarketingProgramsPopup").hide();
                $("#addMarketingProgramsPopupDiv").hide();
                $(".overflowhide").css("overflow","auto");
-           });
+            });
            $("#addOrganizationPopupDiv").click(function (){
+               $("#addMarketingPopUp").hide();
                $("#addEmailTemplatePopUp").hide();
                $("#addSubCategoryPopup").hide();
                $("#addPrintCategoryPopup").hide();
