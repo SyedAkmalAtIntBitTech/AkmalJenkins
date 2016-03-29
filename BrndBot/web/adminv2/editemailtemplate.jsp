@@ -49,13 +49,13 @@
             </div>
             <label class="fileContainer">
                 <div id="triggerFile" class="md-button gray-button col10f9" >Upload</div>
-                <input name="fileName" type="file" id="imageFileName" value="{{emailModelById.imageFileName}}"/>
+                <input name="fileName" type="file" onclick="addImgToBase64Converter('imageFileName')" id="imageFileName"  />
             </label>
         </div>
            
             <div class="input_Label fleft" > </div>
-            <a  id="saveTemplate" href="#"><div class="CTA_Button Button--Blue fleft pushUp_10 saveEdit" ng-click="editEmailTemplate()">Save</div></a>
-             <a  ng-click="addEmailTemplate()" id="createNewTemplate" href="#"><div class="CTA_Button Button--Blue fleft pushUp_10 createTemplate" >Create New Template</div></a>
+            <div id="saveTemplate" class="CTA_Button Button--Blue fleft pushUp_10 saveEdit" ng-click="editEmailTemplate()">Save</div>
+             <div id="createNewTemplate" class="CTA_Button Button--Blue fleft pushUp_10 createTemplate" ng-click="addEmailTemplate()">Create New Template</div>
               </div>
       
            
