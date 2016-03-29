@@ -441,6 +441,20 @@ $scope.addImageCategory = function () {
         
     }
     
+            $scope.getAllNonAddedEmailBlockModel= function (){
+            var emailBlockId=$("#emailBlockId").val();
+             $http({
+                    method: 'GET',
+                    url: getHost() + '/getAllNonAddedEmailBlockModel.do?emailBlockId='+emailBlockId
+                }).success(function (data)
+                {
+                    $scope.nonAddedemailBlockDetails= data.d.details;
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+        
+    }
+    
      $scope.deleteEmailBlock= function (){
          var emailBlockId=$("#emailBlockId").val();
         var organizationId=$("#organizationIdTag").val();
