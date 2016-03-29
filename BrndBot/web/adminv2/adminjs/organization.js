@@ -654,7 +654,7 @@ $scope.addImageCategory = function () {
                 });  
     }
     
-    $scope.addEmailCategory= function (){
+    $scope.addMarketingCategory= function (){
         var marketingCategoryName=$("#marketingCategoryName").val();
         var organizationId=$("#organizationIdTag").val();
         var categoryName=(eval(JSON.stringify(marketingCategoryName)));

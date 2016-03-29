@@ -45,7 +45,7 @@ public interface MarketingCategoryService {
      * @return list of {@link OrganizationMarketingCategoryLookup}
      * @throws ProcessFailed the process failed
      */
-    public List<OrganizationMarketingCategoryLookup> getByMarketingCategoriesByOrganizationId(Integer organizationId) throws ProcessFailed;
+    public List<OrganizationMarketingCategoryLookup> getByOrganizationId(Integer organizationId) throws ProcessFailed;
     
     /**
      * This method save {@link MarketingCategory} into the database.

@@ -21,7 +21,7 @@
             <div class="inputSection col1of2">
                 <div class="input_Label">Marketing Category Name</div>
                 <input id="marketingCategoryName" class="input_Field" type="text"/>
-                <div id="addcategory"  class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addEmailCategory()">Create Category</div>
+                <div id="addCategory"  class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addMarketingCategory()">Create Category</div>
             </div>
         </div>
         </div> 

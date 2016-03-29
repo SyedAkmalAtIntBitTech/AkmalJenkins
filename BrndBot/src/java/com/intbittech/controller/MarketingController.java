@@ -68,12 +68,13 @@ public class MarketingController {
     public ResponseEntity<ContainerResponse> getAllMarketingCategoryByOrganizationId(@RequestParam("organizationId") Integer organizationId) {
         GenericResponse<MarketingCategoryDetails> genericResponse = new GenericResponse<>();
         try {
-            List<OrganizationMarketingCategoryLookup> organizationMarketingCategoryList = marketingCategoryService.getByMarketingCategoriesByOrganizationId(organizationId);
+            List<OrganizationMarketingCategoryLookup> organizationMarketingCategoryList = marketingCategoryService.getByOrganizationId(organizationId);
             List<MarketingCategoryDetails> marketingCategoryDetailsList = new ArrayList<>();
             for (OrganizationMarketingCategoryLookup organizationMarketingCategoryObject : organizationMarketingCategoryList) {
                 MarketingCategoryDetails marketingCategoryDetails = new MarketingCategoryDetails();
                 marketingCategoryDetails.setMarketingCategoryId(organizationMarketingCategoryObject.getFkMarketingCategoryId().getMarketingCategoryId());
                 marketingCategoryDetails.setMarketingCategoryName(organizationMarketingCategoryObject.getFkMarketingCategoryId().getMarketingCategoryName());
+                marketingCategoryDetails.setOrganizationId(organizationMarketingCategoryObject.getFkOrganizationId().getOrganizationId());
                 marketingCategoryDetailsList.add(marketingCategoryDetails);
             }
             genericResponse.setDetails(marketingCategoryDetailsList);
