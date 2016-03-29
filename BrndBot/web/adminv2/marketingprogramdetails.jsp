@@ -11,9 +11,14 @@
 <head>
     <link rel="shortcut icon" href="../images/favicon.png"/>
         <title>BrndBot-Admin Marketing Program Details</title>
-</head>     
+</head>    
+<%
+    String marketingProgramId=request.getParameter("marketingProgramId");
+
+%>
 
 <body class="body-normal overflowhide" data-ng-app="marketingprogramota">
+    <input id="marketingProgramIdTag" type="text" hidden value="<%=marketingProgramId%>"/>
 <jsp:include page="adminheader.jsp"/>
 <div  data-ng-controller="marketingProgramsController">
 <jsp:include page="addonetimeactions.jsp"/>
@@ -56,7 +61,7 @@
                         <span class="listCol_Header fleft"> Send after # of days </span>
                     </div>
                 </div>
-                <ul class="slatArea" ng-repeat="marketingAction in getAllMarketingProgramActions">
+                <ul class="slatArea" ng-repeat="marketingAction in marketingProgramActions">
                     <li class="listItem" ng-show="marketingAction.is_recuring==true">
                         <div class="listCol col1of2 fleft">
                             <span class="listCol_Text fleft"> {{marketingAction.title}}</span>

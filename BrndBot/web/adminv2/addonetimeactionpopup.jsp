@@ -8,7 +8,8 @@
     <div id="addMarketingProgramsPopupDiv" class="popUp_backgroundlayer"></div>
     <div class="popUp" >
         <div class="content-area_header">
-            <div class="popUp_title fleft"> Create a One Time Action </div>
+            <div id="createOneTimeActionPopUpTitle" class="popUp_title fleft"> Create a One Time Action </div>
+            <div id="createRecurringActionPopUpTitle" class="popUp_title fleft"> Create a Recurring Action </div>
         </div>
         <div class="inputSection">
             <div class=" col1of2 pushUp_10 col-padding fleft" >
@@ -40,7 +41,8 @@
             </div>
         </div>
         <div class="inputSection">
-            <div id="createOneTimeAction" class="CTA_Button Button--Gray fleft pushUp_30" ng-click="createOneTimeAction()">Create this Action</div>
+            <div id="createRecurringActionButton" class="CTA_Button Button--Gray fleft pushUp_30" ng-click="createOneTimeAction(true)">Create this Action</div>
+            <div id="createOneTimeActionButton" class="CTA_Button Button--Gray fleft pushUp_30" ng-click="createOneTimeAction(false)">Create this Action</div>
         </div>
     </div>
 

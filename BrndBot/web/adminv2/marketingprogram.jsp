@@ -32,7 +32,7 @@
                     
                     
                     <div class="listCol col1of2 fleft">
-                        <a href="marketingprogramdetails.jsp?marketingprogramid={{marketingProgramList.marketingProgramId}}"><div class="CTA_Button Button--Gray fright">VIEW/EDIT</div></a>
+                        <a href="marketingprogramdetails.jsp?marketingProgramId={{marketingProgramList.marketingProgramId}}"><div class="CTA_Button Button--Gray fright">VIEW/EDIT</div></a>
 
                     </div>
                 </li>                
