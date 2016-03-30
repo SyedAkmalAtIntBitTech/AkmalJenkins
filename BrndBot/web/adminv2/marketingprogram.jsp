@@ -18,7 +18,7 @@
         <div class="content-area" ng-init="gellAllMarketingProgramList()">
         <div class="content-area_header">
             <div class="header_path fleft"> Marketing Program </div>
-            <a href="marketingprogramdetails.jsp"><div class="CTA_Button Button--Blue fright" id="addTemplate" >Add New Program</div></a>
+            <a href="marketingprogramdetails.jsp?add=yes"><div class="CTA_Button Button--Blue fright" id="addTemplate" >Add New Program</div></a>
         </div>
             <div class="slatSection">
             <div class="slatHeaders">
@@ -33,7 +33,6 @@
                     
                     <div class="listCol col1of2 fleft">
                         <a href="marketingprogramdetails.jsp?marketingProgramId={{marketingProgramList.marketingProgramId}}"><div class="CTA_Button Button--Gray fright">VIEW/EDIT</div></a>
-
                     </div>
                 </li>                
             </ul>

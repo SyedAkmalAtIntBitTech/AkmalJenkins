@@ -30,7 +30,10 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
 #addMarketingTemplatePopUp,
 #EmailBlockPopUp,
 #noEmailTemplatesMessage,
-#noMarketingTemplatesMessage
-{
+#noMarketingTemplatesMessage,
+#updateMarketingProgramSaveButton,
+#addMarketingProgramSaveButton,
+#addMarketingTemplatePopUp{
+
     display:none;
 }

@@ -89,7 +89,7 @@ public class CategoryserviceImpl implements CategoryService {
             categoryObject.setCategoryId(categoryId);
             organizationCategoryLookup.setFkCategoryId(categoryObject);
             Organization organization = new Organization();
-            organization.setOrganizationId(categoryDetails.getOrgnizationId());
+            organization.setOrganizationId(categoryDetails.getOrganizationId());
             organizationCategoryLookup.setFkOrganizationId(organization);
             organizationCategoryLookupDao.save(organizationCategoryLookup);
 

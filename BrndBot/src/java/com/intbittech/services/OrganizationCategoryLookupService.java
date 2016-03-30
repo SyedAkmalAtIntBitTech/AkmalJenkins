@@ -27,6 +27,17 @@ public interface OrganizationCategoryLookupService {
      * @throws ProcessFailed the process failed
      */
     public List<OrganizationCategoryLookup> getAllOrganizationCategoryLookup(Integer organizationId, Integer channelId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get the
+     * {@link OrganizationCategoryLookup} from DAO layer.
+     *
+     * @param organizationIds is the organizationIds
+     * @param channelId is the channelId
+     * @return {@link OrganizationCategoryLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public List<OrganizationCategoryLookup> getAllOrganizationCategoryLookupByIds(Integer[] organizationIds, Integer channelId) throws ProcessFailed;
 
     /**
      * This method save {@link OrganizationCategoryLookup} into the database.
