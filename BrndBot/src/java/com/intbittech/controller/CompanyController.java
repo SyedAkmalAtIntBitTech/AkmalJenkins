@@ -10,17 +10,20 @@ import com.intbittech.model.EmailBlockExternalSource;
 import com.intbittech.model.OrganizationCategoryLookup;
 import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.model.OrganizationEmailBlockLookup;
+import com.intbittech.model.OrganizationMarketingCategoryLookup;
 import com.intbittech.modelmappers.CategoryDetails;
 import com.intbittech.modelmappers.ChannelDetails;
 import com.intbittech.modelmappers.CompanyAllDetails;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.modelmappers.EmailBlockDetails;
+import com.intbittech.modelmappers.MarketingCategoryDetails;
 import com.intbittech.modelmappers.OrganizationDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.services.ChannelService;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.EmailBlockService;
+import com.intbittech.services.MarketingCategoryService;
 import com.intbittech.services.OrganizationCategoryLookupService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import java.util.ArrayList;
@@ -57,6 +60,9 @@ public class CompanyController {
     
     @Autowired
     private EmailBlockService emailBlockService;
+    
+    @Autowired
+    private MarketingCategoryService marketingCategoryService;
     
     @Autowired
     private MessageSource messageSource;
@@ -102,7 +108,10 @@ public class CompanyController {
             List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
             organizationCompanyDetail = companyService.getAllOrganizationCompanyById(companyId);
             List<OrganizationDetails> organizationDetailsList = new ArrayList<>();
-            Integer[] organizationIds = new Integer[organizationCompanyDetail.size()+1];
+            Integer organizationCompanySize = 1;
+            if(organizationCompanyDetail!=null)
+                organizationCompanySize = organizationCompanyDetail.size();
+            Integer[] organizationIds = new Integer[organizationCompanySize];
             Integer i =0;
             organizationIds[i++] = organizationCompany.getFkOrganizationId().getOrganizationId();
             if(organizationCompanyDetail!=null)
@@ -162,6 +171,18 @@ public class CompanyController {
             companyAllDetails.setEmailBlockDetailsList(emailBlockDetailsList);
             
             
+            List<OrganizationMarketingCategoryLookup> organizationMarketingCategoryList = marketingCategoryService.getByOrganizationIds(organizationIds);
+            List<MarketingCategoryDetails> marketingCategoryDetailsList = new ArrayList<>();
+            if (organizationMarketingCategoryList != null) {
+            for (OrganizationMarketingCategoryLookup organizationMarketingCategoryObject : organizationMarketingCategoryList) {
+                MarketingCategoryDetails marketingCategoryDetails = new MarketingCategoryDetails();
+                marketingCategoryDetails.setMarketingCategoryId(organizationMarketingCategoryObject.getFkMarketingCategoryId().getMarketingCategoryId());
+                marketingCategoryDetails.setMarketingCategoryName(organizationMarketingCategoryObject.getFkMarketingCategoryId().getMarketingCategoryName());
+                marketingCategoryDetails.setOrganizationId(organizationMarketingCategoryObject.getFkOrganizationId().getOrganizationId());
+                marketingCategoryDetailsList.add(marketingCategoryDetails);
+            }
+            }
+            companyAllDetails.setMarketingCategoryDetailsList(marketingCategoryDetailsList);
             
             
             

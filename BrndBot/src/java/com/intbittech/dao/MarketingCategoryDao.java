@@ -45,6 +45,15 @@ public interface MarketingCategoryDao {
     public List<OrganizationMarketingCategoryLookup> getByOrganizationId(Integer organizationId) throws ProcessFailed;
     
     /**
+     * This method pass id as input and get the {@link OrganizationMarketingCategoryLookup} from database
+     *
+     * @param organizationIds the organizationIds
+     * @return {@link OrganizationMarketingCategoryLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public List<OrganizationMarketingCategoryLookup> getByOrganizationIds(Integer[] organizationIds) throws ProcessFailed;
+    
+    /**
      * This method save {@link MarketingCategory} into the database.
      *
      * @param marketingCategory the marketingCategory

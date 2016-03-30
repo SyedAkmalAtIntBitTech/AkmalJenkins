@@ -151,8 +151,8 @@ public class EmailBlockServiceImpl implements EmailBlockService {
      */
     public List<OrganizationEmailBlockLookup> getAllEmailBlockByOrganizationIds(Integer[] organizationIds) throws ProcessFailed {
         List<OrganizationEmailBlockLookup> organizationEmailBlockList = organizationEmailBlockLookupDao.getAllEmailBlockByOrganizationIds(organizationIds);
-        if(organizationEmailBlockList == null)
-            throw new ProcessFailed(messageSource.getMessage("emailBlock_not_found",new String[]{}, Locale.US));
+//        if(organizationEmailBlockList == null)
+//            throw new ProcessFailed(messageSource.getMessage("emailBlock_not_found",new String[]{}, Locale.US));
         return organizationEmailBlockList;
     }
     

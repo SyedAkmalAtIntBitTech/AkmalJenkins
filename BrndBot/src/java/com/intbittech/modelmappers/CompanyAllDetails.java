@@ -17,6 +17,7 @@ public class CompanyAllDetails extends CompanyDetails  implements Serializable {
     List<OrganizationDetails> groupDetails;
     List<ChannelDetails> channelDetailsList;
     List<EmailBlockDetails> emailBlockDetailsList;
+    List<MarketingCategoryDetails> marketingCategoryDetailsList;
 
     public List<ChannelDetails> getChannelDetailsList() {
         return channelDetailsList;
@@ -40,6 +41,14 @@ public class CompanyAllDetails extends CompanyDetails  implements Serializable {
 
     public void setEmailBlockDetailsList(List<EmailBlockDetails> emailBlockDetailsList) {
         this.emailBlockDetailsList = emailBlockDetailsList;
+    }
+
+    public List<MarketingCategoryDetails> getMarketingCategoryDetailsList() {
+        return marketingCategoryDetailsList;
+    }
+
+    public void setMarketingCategoryDetailsList(List<MarketingCategoryDetails> marketingCategoryDetailsList) {
+        this.marketingCategoryDetailsList = marketingCategoryDetailsList;
     }
     
 }
