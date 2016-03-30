@@ -6,7 +6,10 @@
 package com.intbittech.controller;
 
 import com.intbittech.model.Channel;
+import com.intbittech.model.Company;
 import com.intbittech.model.EmailBlockExternalSource;
+import com.intbittech.model.MarketingCategoryProgram;
+import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCategoryLookup;
 import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.model.OrganizationEmailBlockLookup;
@@ -17,9 +20,11 @@ import com.intbittech.modelmappers.CompanyAllDetails;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.modelmappers.EmailBlockDetails;
 import com.intbittech.modelmappers.MarketingCategoryDetails;
+import com.intbittech.modelmappers.MarketingCategoryProgramDetails;
 import com.intbittech.modelmappers.OrganizationDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
+import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.ChannelService;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.EmailBlockService;
@@ -35,6 +40,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -196,6 +202,45 @@ public class CompanyController {
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "saveGroup",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveGroup(@RequestBody CompanyDetails companyDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try
+        {
+            OrganizationCompanyLookup organizationCompanyLookup = new OrganizationCompanyLookup();
+            Company company = new Company();
+            company.setCompanyId(companyDetails.getCompanyId());
+            Organization organization = new Organization();
+            organization.setOrganizationId(companyDetails.getOrganizationId());
+            organizationCompanyLookup.setFkCompanyId(company);
+            organizationCompanyLookup.setFkOrganizationId(organization);
+            companyService.save(organizationCompanyLookup);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("group_save",new String[]{}, Locale.US)));
+            
+        } catch(Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "deleteGroup",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteGroup(@RequestParam("organizationCompanyLookupId") Integer organizationCompanyLookupId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try
+        {
+            companyService.delete(organizationCompanyLookupId);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("group_delete",new String[]{}, Locale.US)));
+            
+        } catch(Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
 }

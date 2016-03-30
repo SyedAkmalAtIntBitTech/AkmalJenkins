@@ -43,5 +43,30 @@ public interface OrganizationCompanyDao {
      */
     public List<OrganizationCompanyLookup> getAllOrganizationCompanyById(Integer companyId) throws ProcessFailed;
     
+    /**
+     * This method retrieves the {@link OrganizationCompanyLookup} from database.
+     *
+     * @param organizationCompanyLookup
+     * @return {@link organizationCompanyLookupId}
+     * @throws ProcessFailed the process failed
+     */
+    public Integer save(OrganizationCompanyLookup organizationCompanyLookup) throws ProcessFailed;
+    
+    /**
+     * This method retrieves the {@link OrganizationCompanyLookup} from database.
+     *
+     * @param organizationCompanyLookupId
+     * @throws ProcessFailed the process failed
+     */
+    public void delete(OrganizationCompanyLookup organizationCompanyLookup) throws ProcessFailed;
+    
+    /**
+     * This method retrieves the {@link OrganizationCompanyLookup} from database.
+     *
+     * @param organizationCompanyLookupId
+     * @return {@link OrganizationCompanyLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public OrganizationCompanyLookup getById(Integer organizationCompanyLookupId) throws ProcessFailed;
     
 }

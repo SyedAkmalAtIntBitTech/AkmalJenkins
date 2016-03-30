@@ -9,6 +9,7 @@ import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.OrganizationCompanyDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
+import com.intbittech.model.MarketingCategoryProgram;
 import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.services.CompanyService;
 import java.util.List;
@@ -81,6 +82,27 @@ public class CompanyServiceImpl implements CompanyService{
 //             throw new ProcessFailed(messageSource.getMessage("company_not_found",new String[]{}, Locale.US));
 //        }
               return companyList;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Integer save(OrganizationCompanyLookup organizationCompanyLookup) throws ProcessFailed {
+        try {
+            return organizationCompanyDao.save(organizationCompanyLookup);
+        } catch (Throwable throwable) {
+            throw new ProcessFailed(messageSource.getMessage("group_save_error", new String[]{}, Locale.US));
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void delete(Integer organizationCompanyLookupId) throws ProcessFailed {
+        OrganizationCompanyLookup organizationCompanyLookup = organizationCompanyDao.getById(organizationCompanyLookupId);
+        if(organizationCompanyLookup == null)
+            throw new ProcessFailed(messageSource.getMessage("group_delete_error",new String[]{}, Locale.US));
+        organizationCompanyDao.delete(organizationCompanyLookup);
     }
     
 }

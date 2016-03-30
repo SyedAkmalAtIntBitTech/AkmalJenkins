@@ -96,4 +96,47 @@ public class OrganizationCompanyDaoImpl implements OrganizationCompanyDao {
         }
     }
     
+    /**
+     * {@inheritDoc}
+     */
+    public Integer save(OrganizationCompanyLookup organizationCompanyLookup) throws ProcessFailed {
+        try {
+            return ((Integer) sessionFactory.getCurrentSession().save(organizationCompanyLookup));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public void delete(OrganizationCompanyLookup organizationCompanyLookup) throws ProcessFailed {
+        try {
+            
+            sessionFactory.getCurrentSession().delete(organizationCompanyLookup);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
+        }
+    }
+    
+    public OrganizationCompanyLookup getById(Integer organizationCompanyLookupId) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(OrganizationCompanyLookup.class)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .setFetchMode("fkOrganizationId", FetchMode.JOIN)
+                    .add(Restrictions.eq("organizationCompanyLookupId", organizationCompanyLookupId));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return (OrganizationCompanyLookup)criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+        }
+    }
+    
 }
