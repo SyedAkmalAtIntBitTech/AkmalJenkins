@@ -60,7 +60,7 @@ function emailBlocksController($scope,$http){
             if(deleteEmailBlocks===true)
             {
                $http({
-                    method : 'POST',
+                    method : 'GET',
                     url : getHost()+ '/deleteBlockModel.do?emailBlockModelId='+emailBlockIdTag,
                 }).success(function(data, status, headers, config) {
                      $scope.getEmailModelById= data.d.details;                     
@@ -95,7 +95,6 @@ function emailBlocksController($scope,$http){
                     
                     var emailBlockModel = {"emailBlockModelId":emailBlockIdTag,"emailBlockModelName": emailBlockModelName,
                                            "htmlData":htmlData,"imageFileName":imageFileName};
-                    alert(JSON.stringify(emailBlockModel));
                     $http({
                             method : 'POST',
                             url : getHost()+'/updateEmailBlockModel.do',

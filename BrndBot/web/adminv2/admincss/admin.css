@@ -544,6 +544,16 @@ cursor: pointer;
     .contentEdit{
         overflow-y: inherit !important;
     }
+    #addMarketingTemplatePopUp{
+        left: 14%;
+        top: 14%;
+        
+    }
+    #EmailBlockPopUp{
+         left: 14%;
+        top: 14%;
+        
+    }
 }
 @media screen and (min-width:900px) and (max-width:1400px){
     
