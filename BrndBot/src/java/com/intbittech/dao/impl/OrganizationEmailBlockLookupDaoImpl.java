@@ -85,5 +85,27 @@ public class OrganizationEmailBlockLookupDaoImpl implements OrganizationEmailBlo
             throw new ProcessFailed("Database error while retrieving records");
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<OrganizationEmailBlockLookup> getAllEmailBlockByOrganizationIds(Integer[] organizationIds) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(OrganizationEmailBlockLookup.class)
+                    .setFetchMode("fkOrganizationId", FetchMode.JOIN)
+                    .setFetchMode("fkEmailBlockId", FetchMode.JOIN);
+            for(int i=0;i<organizationIds.length;i++)
+            criteria.add(Restrictions.eq("fkOrganizationId.organizationId", organizationIds[i]));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving records");
+        }
+    }
 
 }

@@ -54,6 +54,30 @@ public class OrganizationCategoryLookupDaoImpl implements OrganizationCategoryLo
             throw new ProcessFailed("Database error while retrieving record");
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<OrganizationCategoryLookup> getAllOrganizationCategoryLookupByIds(Integer[] organizationIds, Integer channelId) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(OrganizationCategoryLookup.class)
+                    .setFetchMode("fkOrganizationId", FetchMode.JOIN)
+                    .setFetchMode("fkCategoryId", FetchMode.JOIN)
+                    .createAlias("fkCategoryId.fkChannelId", "ccId")
+                    .add(Restrictions.eq("ccId.channelId", channelId));
+            for(int i=0;i<organizationIds.length;i++)
+            criteria.add(Restrictions.eq("fkOrganizationId.organizationId", organizationIds[i]));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
+    }
 
     /**
      * {@inheritDoc}

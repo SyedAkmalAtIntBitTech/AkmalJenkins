@@ -86,4 +86,14 @@ public interface EmailBlockService {
      */
     public List<EmailBlockExternalSource> getAllEmailBlockExternalSource(Integer emailBlockId) throws ProcessFailed;
     
+    /**
+     * This method pass id as input and get {@link OrganizationEmailBlockLookup}
+     * from database.
+     *
+     * @param organizationIds is the organizationIds
+     * @return list of {@link OrganizationEmailBlockLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public List<OrganizationEmailBlockLookup> getAllEmailBlockByOrganizationIds(Integer[] organizationIds) throws ProcessFailed;
+    
 }

@@ -1,33 +1,24 @@
-/**
+/*
  * Copyright 2015 Intbit Technologies. This software and documentation contains
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
-package com.intbittech.services;
+package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Company;
 import com.intbittech.model.OrganizationCompanyLookup;
 import java.util.List;
 
 /**
- * <code>{@link CompanyService}</code> is service layer interface for communicating
- * between Controller and DAO classes
+ * <code> {@link OrganizationCompanyDao} </code> Interface to get Company details
+ * from organization_company_lookup table
  *
- * @author Ajit
+ * @author ilyas
  */
-public interface CompanyService {
+public interface OrganizationCompanyDao {
     
     /**
-     * This method retrieves the list of {@link Company} from DAO layer.
-     *
-     * @return {@link Company}
-     * @throws ProcessFailed the process failed
-     */
-    public List<Company> getAllCompanies() throws ProcessFailed;
-    
-    /**
-     * This method retrieves the list of {@link OrganizationCompanyLookup} from DAO layer.
+     * This method retrieves the list of {@link OrganizationCompanyLookup} from database.
      *
      * @return list of {@link OrganizationCompanyLookup}
      * @throws ProcessFailed the process failed
@@ -35,7 +26,7 @@ public interface CompanyService {
     public List<OrganizationCompanyLookup> getAllOrganizationCompanies() throws ProcessFailed;
     
     /**
-     * This method retrieves the {@link OrganizationCompanyLookup} from DAO layer.
+     * This method retrieves the {@link OrganizationCompanyLookup} from database.
      *
      * @param companyId
      * @return {@link OrganizationCompanyLookup}
@@ -44,11 +35,13 @@ public interface CompanyService {
     public OrganizationCompanyLookup getOrganizationCompanyById(Integer companyId) throws ProcessFailed;
     
     /**
-     * This method retrieves the {@link OrganizationCompanyLookup} from DAO layer.
+     * This method retrieves the {@link OrganizationCompanyLookup} from database.
      *
      * @param companyId
      * @return list of {@link OrganizationCompanyLookup}
      * @throws ProcessFailed the process failed
      */
     public List<OrganizationCompanyLookup> getAllOrganizationCompanyById(Integer companyId) throws ProcessFailed;
+    
+    
 }

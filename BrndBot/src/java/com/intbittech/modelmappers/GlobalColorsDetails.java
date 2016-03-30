@@ -5,11 +5,13 @@
  */
 package com.intbittech.modelmappers;
 
+import java.io.Serializable;
+
 /**
  *
  * @author ilyas
  */
-public class GlobalColorsDetails {
+public class GlobalColorsDetails implements Serializable {
 
     private Integer globalColorsId;
     private String color1;
