@@ -25,6 +25,7 @@
         <title>Admin Header</title>
          <script src="../adminv2/adminjs/emailtemplate.js" type="text/javascript"></script>
          <script src="../adminv2/adminjs/emailblockmodels.js" type="text/javascript"></script>
+          <script src="../adminv2/adminjs/imageToBase64Converter.js" type="text/javascript"></script>
          <script src="../adminv2/adminjs/marketingprogramdetails.js" type="text/javascript"></script>
    </head>
     <body>
