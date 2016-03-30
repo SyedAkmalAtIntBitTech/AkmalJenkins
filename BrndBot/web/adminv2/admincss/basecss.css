@@ -17,6 +17,15 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
 #addEmailTemplatePopUp,
 #relateEmailTemplateAddButton,
 #relateImageTemplateAddButton,
-#relatePrintTemplateAddButton{
+#relatePrintTemplateAddButton,
+#editMarketingProgramsPopup,
+#addMarketingProgramsPopup,
+#addMarketingPopUp,
+#addOneTimeActionsPopup,
+#createRecurringActionButton,
+#createOneTimeActionButton,
+#createOneTimeActionPopUpTitle,
+#createRecurringActionPopUpTitle,
+#noTemplatesMessage{
     display:none;
 }

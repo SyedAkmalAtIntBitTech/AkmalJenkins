@@ -9,6 +9,13 @@
 //              $("#addorganizationpopup").show();
 //              $("#addorgpopupdiv").show();
 //           });
+            
+           $("#addOneTimeActionsButton").click(function (){               
+              $("#addOrganizationPopupDiv").show();
+              $(".overflowhide").css("overflow","hidden").animate({scrollTop:0}, '10', 'swing');
+              $("#addMarketingProgramsPopup").show();
+           });
+           
            $("#addTemplateButton").click(function (){
               $("#addEmailTemplatePopUp").show();
               $("#addOrganizationPopupDiv").show();
@@ -33,8 +40,13 @@
               $("#addEmailBlockPopUp").show();
               $("#addOrganizationPopupDiv").show();
            });
-           
+           $("#addMarketingProgramsPopupDiv").click(function (){
+               $("#addMarketingProgramsPopup").hide();
+               $("#addMarketingProgramsPopupDiv").hide();
+               $(".overflowhide").css("overflow","auto");
+            });
            $("#addOrganizationPopupDiv").click(function (){
+               $("#addMarketingPopUp").hide();
                $("#addEmailTemplatePopUp").hide();
                $("#addSubCategoryPopup").hide();
                $("#addPrintCategoryPopup").hide();
@@ -42,6 +54,9 @@
                 $("#addOrganizationPopupDiv").hide();
                 $("#addImageCategory").hide();
                  $("#addEmailBlockPopUp").hide();
+                 $("#editMarketingProgramsPopup").hide();
+                 $("#addMarketingProgramsPopup").hide();
+                 $(".overflowhide").css("overflow","auto");
            });
        });
        var emailChannel="email";

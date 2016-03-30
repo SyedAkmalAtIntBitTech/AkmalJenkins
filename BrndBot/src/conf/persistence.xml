@@ -10,6 +10,10 @@
     <class>com.intbittech.model.ExternalSource</class>
     <class>com.intbittech.model.EmailBlockExternalSource</class>
     <class>com.intbittech.model.SubCategoryExternalSource</class>
+    <class>com.intbittech.model.MarketingCategory</class>
+    <class>com.intbittech.model.MarketingProgram</class>
+    <class>com.intbittech.model.MarketingAction</class>
+    <class>com.intbittech.model.MarketingCategoryProgram</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/brnd"/>

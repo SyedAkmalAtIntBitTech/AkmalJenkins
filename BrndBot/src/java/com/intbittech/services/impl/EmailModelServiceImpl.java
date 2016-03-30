@@ -11,6 +11,7 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailModel;
 import com.intbittech.model.SubCategoryEmailModel;
 import com.intbittech.services.EmailModelService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,13 +83,20 @@ public class EmailModelServiceImpl implements EmailModelService {
      */
     public List<EmailModel> getAllNonAddedEmailModels(Integer subCategoryId) throws ProcessFailed {
         List<SubCategoryEmailModel> subCategoryEmailModelList = subCategoryEmailModelDao.getAllSubCategoryEmailModel(subCategoryId);
-        Integer[] emailModelIds = new Integer[subCategoryEmailModelList.size()];
-        Integer i =0;
-        for(SubCategoryEmailModel subCategoryEmailModelObject : subCategoryEmailModelList)
+        ArrayList<Integer> emailModelIds = new ArrayList<>();
+        
+        emailModelIds.add(0);
+        if (subCategoryEmailModelList != null)
         {
-            emailModelIds[i++] = subCategoryEmailModelObject.getFkEmailModelId().getEmailModelId();
+            for(SubCategoryEmailModel subCategoryEmailModelObject : subCategoryEmailModelList)
+            {
+                emailModelIds.add(subCategoryEmailModelObject.getFkEmailModelId().getEmailModelId());
+            }
         }
         List<EmailModel> emailModelList = emailModelDao.getByEmailModelsByIds(emailModelIds);
+        if (emailModelList == null) {
+            throw new ProcessFailed("No email templates exist.");
+        }
         return emailModelList;
     }
 }

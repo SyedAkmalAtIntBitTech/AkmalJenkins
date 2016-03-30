@@ -12,6 +12,7 @@ import com.intbittech.model.EmailModel;
 import com.intbittech.model.ImageModel;
 import com.intbittech.model.SubCategoryImageModel;
 import com.intbittech.services.ImageModelService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,13 +83,16 @@ public class ImageModelServiceImpl implements ImageModelService {
      */
     public List<ImageModel> getAllNonAddedImageModels(Integer subCategoryId) throws ProcessFailed {
         List<SubCategoryImageModel> subCategoryImageModelList = subCategoryImageModelDao.getAllSubCategoryImageModel(subCategoryId);
-        Integer[] imageModelIds = new Integer[subCategoryImageModelList.size()];
-        Integer i =0;
+        ArrayList<Integer> imageModelIds = new ArrayList<>();
+        imageModelIds.add(0);
         for(SubCategoryImageModel subCategoryImageModelObject : subCategoryImageModelList)
         {
-            imageModelIds[i++] = subCategoryImageModelObject.getFkImageModelId().getImageModelId();
+            imageModelIds.add(subCategoryImageModelObject.getFkImageModelId().getImageModelId());
         }
         List<ImageModel> imageModelList = imageModelDao.getByImageModelsByIds(imageModelIds);
+        if (imageModelList == null) {
+            throw new ProcessFailed("No image templates found.");
+        }
         return imageModelList;
     }
     
