@@ -65,14 +65,15 @@ public class MarketingController {
     
     @RequestMapping(value = "getMarketingProgramsByCategoryId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getMarketingProgramsByCategoryId(@RequestParam("marketingCategoryId") Integer marketingCategoryId) {
-        GenericResponse<MarketingProgramDetails> genericResponse = new GenericResponse<>();
+        GenericResponse<MarketingCategoryProgramDetails> genericResponse = new GenericResponse<>();
         try {
             List<MarketingCategoryProgram> marketingCategoryProgramList = marketingCategoryProgramService.getMarketingProgramsByCategoryId(marketingCategoryId);
-            List<MarketingProgramDetails> marketingProgramDetailsList = new ArrayList<>();
+            List<MarketingCategoryProgramDetails> marketingProgramDetailsList = new ArrayList<>();
             for(MarketingCategoryProgram marketingCategoryProgramObject : marketingCategoryProgramList) {
-                MarketingProgramDetails marketingProgramDetails = new MarketingProgramDetails();
+                MarketingCategoryProgramDetails marketingProgramDetails = new MarketingCategoryProgramDetails();
                 marketingProgramDetails.setMarketingProgramId(marketingCategoryProgramObject.getFkMarketingProgram().getMarketingProgramId());
                 marketingProgramDetails.setMarketingProgramName(marketingCategoryProgramObject.getFkMarketingProgram().getMarketingProgramName());
+                marketingProgramDetails.setMarketingCategoryProgramId(marketingCategoryProgramObject.getMarketingCategoryProgramId());
                 marketingProgramDetailsList.add(marketingProgramDetails);
             }
             genericResponse.setDetails(marketingProgramDetailsList);

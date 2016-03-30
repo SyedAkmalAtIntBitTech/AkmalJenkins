@@ -20,12 +20,13 @@ String marketingCategoryId=request.getParameter("marketingCategoryId");
     <input id="marketingCategoryId" type="text" hidden value="<%=marketingCategoryId%>"/>
     <input id="organizationIdTag" type="text" hidden value="<%=organizationID%>"/>
     <jsp:include page="adminheader.jsp"/>
+     <jsp:include page="addmarketingtemplate.jsp"/>
     <div class="content-area" ng-init="organizationdetails()">
         <div class="content-area_header"  ng-init="getAllMarketingCategoryById()">
             <div  class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="organizationdetails.jsp?organizationId=<%=organizationID%>">{{organizationDetails.organizationName}}</a>  > </div>
             <div class="header_title fleft">{{marketingCategoryTitle.marketingCategoryName}}  </div>
             <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteMarketingCategory(<%=marketingCategoryId%>)">Delete Category</div>
-            <div class="CTA_Button Button--Blue fright" id="addTemplateButton" ng-click="getAllNonAddedEmailModelsBySubCategoryId(7)">Add Template</div>
+            <div class="CTA_Button Button--Blue fright" id="addMarketingTemplate" ng-click="getAllNonAddedEmailModelsBySubCategoryId()">Add Template</div>
         </div>
         <div class="slatSection" >
             <div class="slatHeaders">

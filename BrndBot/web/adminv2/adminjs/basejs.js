@@ -45,6 +45,13 @@
               $("#addMarketingPopUp").show();
               $("#addOrganizationPopupDiv").show();
            });
+           
+           
+           $("#addMarketingTemplate").click(function (){
+              $("#addMarketingTemplatePopUp").show();
+              $("#addOrganizationPopupDiv").show();
+           });
+           
            $("#addMarketingProgramsPopupDiv").click(function (){
                $("#addMarketingProgramsPopup").hide();
                $("#addMarketingProgramsPopupDiv").hide();
@@ -62,6 +69,7 @@
                  $("#editMarketingProgramsPopup").hide();
                  $("#addMarketingProgramsPopup").hide();
                  $(".overflowhide").css("overflow","auto");
+                    $("#addMarketingTemplatePopUp").hide();
            });
        });
        var emailChannel="email";

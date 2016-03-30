@@ -785,9 +785,7 @@ $scope.addImageCategory = function () {
     }
     
     $scope.deleteMarketingCategoryProgram= function (marketingProgramId){
-        alert(marketingProgramId);
-      
-            var organizationId=$("#organizationIdTag").val();
+        var organizationId=$("#organizationIdTag").val();
             var deleteMarketingProgram=confirm(deleteTemplateRelationPrompt);
             if(deleteMarketingProgram===true)
             {
@@ -803,6 +801,34 @@ $scope.addImageCategory = function () {
                 });  
             }
     };
+    
+    $scope.getAllNonAddedMarketingProgram= function (){
+         var marketingCategoryId=$("#marketingCategoryId").val();
+        $http({
+                    method: 'GET',
+                    url: getHost() + '/getAllNonAddedMarketingPrograms.do?marketingCategoryId='+marketingCategoryId
+                }).success(function (data)
+                {
+                 
+                    $scope.getNonAddedMarketingPrograms= data.d.details;
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+    }
+    
+     var selectedListItem="";
+    $scope.selectedItems= function(item) {
+               var selectedItem="";
+	       $scope.selected = item; 
+               selectedItem=item;
+             var Itmes=  selectedListItme=selectedItem;
+             alert(JSON.stringify(Itmes));
+               $("#relateNonAddedMarketingPrograms").css('pointer-events','auto');
+	};
+    $scope.isActiveMode = function(item) {
+	       return $scope.selected === item;
+	};
     
 }
 
