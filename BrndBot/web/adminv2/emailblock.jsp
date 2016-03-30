@@ -34,13 +34,13 @@ String emailBlockId=request.getParameter("emailBlockId");
                     <span class="listCol_Header fleft">  Template Names</span>
                 </div>
             </div>
-            <ul class="slatArea" ng-init="getAllNonAddedEmailBlockModel()">
-                <li class="listItem" ng-repeat="nonAddedemailBlockDetail in nonAddedemailBlockDetails">
+            <ul class="slatArea" ng-init="getEmailBlocks()">
+                <li class="listItem" ng-repeat="getEmailBlockTemplates in getEmailBlockTemplate">
                     <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft">{{nonAddedemailBlockDetail.emailBlockModelName}}</span>
+                        <span class="listCol_Text fleft">{{getEmailBlockTemplates.emailBlockModelName}}</span>
                     </div>
                     <div class="listCol col1of4 fright">
-                        <div class="CTA_Button Button--Gray fright">Remove Template</div>
+                        <div ng-click="deleteEmailBlockModel(getEmailBlockTemplates.emailBlockModelLookupId)" class="CTA_Button Button--Gray fright">Remove Template</div>
                     </div>
                     
                 </li>

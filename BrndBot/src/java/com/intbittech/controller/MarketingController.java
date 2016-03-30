@@ -247,7 +247,7 @@ public class MarketingController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "deleteMarketingCategoryProgram", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "deleteMarketingCategoryProgram", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteMarketingCategoryProgram(@RequestParam("marketingCategoryProgramId") Integer marketingCategoryProgramId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {

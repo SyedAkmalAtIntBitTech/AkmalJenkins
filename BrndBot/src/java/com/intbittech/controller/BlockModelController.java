@@ -212,7 +212,7 @@ public class BlockModelController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "deleteEmailBlockModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "deleteEmailBlockModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteEmailBlockModel(@RequestParam("emailBlockModelLookupId") Integer emailBlockModelLookupId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {

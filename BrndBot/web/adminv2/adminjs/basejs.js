@@ -40,6 +40,11 @@
               $("#addEmailBlockPopUp").show();
               $("#addOrganizationPopupDiv").show();
            });
+           
+           $("#addMarketingCategory").click(function (){
+              $("#addMarketingPopUp").show();
+              $("#addOrganizationPopupDiv").show();
+           });
            $("#addMarketingProgramsPopupDiv").click(function (){
                $("#addMarketingProgramsPopup").hide();
                $("#addMarketingProgramsPopupDiv").hide();

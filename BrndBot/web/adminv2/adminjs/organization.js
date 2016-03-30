@@ -645,6 +645,7 @@ $scope.addImageCategory = function () {
     };
     
     $scope.getAllMarketingCategory= function (){
+        
          var organizationId=$("#organizationIdTag").val();
         $http({
                     method: 'GET',
@@ -675,6 +676,7 @@ $scope.addImageCategory = function () {
     }
     
     $scope.addMarketingCategory= function (){
+        
         var marketingCategoryName=$("#marketingCategoryName").val();
         var organizationId=$("#organizationIdTag").val();
         var categoryName=(eval(JSON.stringify(marketingCategoryName)));
@@ -733,6 +735,74 @@ $scope.addImageCategory = function () {
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
     }
+    
+     $scope.getEmailBlocks= function (){
+            var emailBlockId=$("#emailBlockId").val();
+             $http({
+                    method: 'GET',
+                    url: getHost() + '/getAllEmailBlockModelById.do?emailBlockId='+emailBlockId
+                }).success(function (data)
+                {
+                    $scope.getEmailBlockTemplate= data.d.details;
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+        
+    }
+    
+     $scope.deleteEmailBlockModel= function (emailBlockModelLookupId){
+      
+            var organizationId=$("#organizationIdTag").val();
+            var deleteEmailBlocks=confirm(deleteTemplateRelationPrompt);
+            if(deleteEmailBlocks===true)
+            {
+                $http({
+                    method: 'GET',
+                    url: getHost() + '/deleteEmailBlockModel.do?emailBlockModelLookupId='+emailBlockModelLookupId
+                }).success(function (data)
+                {   
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+            }
+    };
+    
+    
+     $scope.marketingProgramsById= function (){
+         var organizationId=$("#organizationIdTag").val();
+         var marketingCategoryId=$("#marketingCategoryId").val();
+        $http({
+                    method: 'GET',
+                    url: getHost() + '/getMarketingProgramsByCategoryId.do?marketingCategoryId='+marketingCategoryId
+                }).success(function (data)
+                {   
+                    $scope.getMarketingPrograms= data.d.details;
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+    }
+    
+    $scope.deleteMarketingCategoryProgram= function (marketingProgramId){
+        alert(marketingProgramId);
+      
+            var organizationId=$("#organizationIdTag").val();
+            var deleteMarketingProgram=confirm(deleteTemplateRelationPrompt);
+            if(deleteMarketingProgram===true)
+            {
+                $http({
+                    method: 'GET',
+                    url: getHost() + '/deleteMarketingCategoryProgram.do?marketingCategoryProgramId='+marketingProgramId
+                }).success(function (data)
+                {  
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    window.open(getHost() + 'adminv2/marketingcategory.jsp?organizationId='+organizationId, "_self");
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+            }
+    };
     
 }
 

@@ -25,20 +25,25 @@ String marketingCategoryId=request.getParameter("marketingCategoryId");
             <div  class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="organizationdetails.jsp?organizationId=<%=organizationID%>">{{organizationDetails.organizationName}}</a>  > </div>
             <div class="header_title fleft">{{marketingCategoryTitle.marketingCategoryName}}  </div>
             <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteMarketingCategory(<%=marketingCategoryId%>)">Delete Category</div>
+            <div class="CTA_Button Button--Blue fright" id="addTemplateButton" ng-click="getAllNonAddedEmailModelsBySubCategoryId(7)">Add Template</div>
         </div>
         <div class="slatSection" >
-            <div class="sectionHeader"> Marketing Category </div>
             <div class="slatHeaders">
                 <div class="listHeaderCol col1of2 fleft">
-                    <span class="listCol_Header fleft">  Marketing Category Name</span>
+                    <span class="listCol_Header fleft">Template Names</span>
                 </div>
             </div>
-            <ul class="slatArea">
-                <li class="listItem" ng-repeat="getmarketingCategory in getMarketingCategories">
+            <ul class="slatArea" ng-init="marketingProgramsById()">
+                <li class="listItem" ng-repeat="getMarketingProgram in getMarketingPrograms">
                     <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft">{{getmarketingCategory.marketingCategoryName}}</span>
+                        <span class="listCol_Text fleft">{{getMarketingProgram.marketingProgramName}}</span>
+                        
+                    </div>
+                    <div class="listCol col1of4 fright">
+                        <div ng-click="deleteMarketingCategoryProgram(getMarketingProgram.marketingProgramId)" class="CTA_Button Button--Gray fright">Remove Template</div>
                     </div>
                 </li>
+                
             </ul>
             
         </div>
