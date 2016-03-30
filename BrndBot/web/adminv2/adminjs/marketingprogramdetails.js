@@ -16,6 +16,11 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
         $("#addOrganizationPopupDiv").hide();
         $(".overflowhide").css("overflow","auto");
     };
+    $scope.closeEditActionPopUp=function (){
+        $("#editMarketingProgramsPopup").hide(); 
+        $("#addOrganizationPopupDiv").hide();
+        $(".overflowhide").css("overflow","auto");
+    };
     $scope.saveChangedOneTimeAction= function (){
         $("#editMarketingProgramsPopup").hide();
         $("#addOrganizationPopupDiv").hide();
@@ -56,9 +61,11 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
         var marketingProgramId=$("#marketingProgramIdTag").val();
         if(window.location.href.indexOf("marketingprogramdetails.jsp?marketingProgramId") > -1) {
             $("#updateMarketingProgramSaveButton").show();
+            $("#addMarketingProgramSaveButton").hide();
          }
          if(window.location.href.indexOf("marketingprogramdetails.jsp?add=yes") > -1) {
             $("#addMarketingProgramSaveButton").show();
+            $("#updateMarketingProgramSaveButton").hide();
          }
                      
         $http({
@@ -77,6 +84,17 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
                 });
                         
     };
+    
+    
+    $scope.deleteProgramAction = function (indexvalue){
+        alert(programActionDeleted);
+        delete globalActionsArray[indexvalue];
+        var delNullArray = globalActionsArray.filter(function(x){return x !== null});
+        globalActionsArray=delNullArray;
+        $scope.marketingProgramActions=globalActionsArray;
+        $scope.closeEditActionPopUp();
+    };
+    
     
     $scope.createOneTimeAction = function (is_recurring){
         var newOneTimeActionName = $("#newOneTimeActionName").val();

@@ -27,8 +27,13 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
 #createOneTimeActionPopUpTitle,
 #createRecurringActionPopUpTitle,
 #noTemplatesMessage,
+#addMarketingTemplatePopUp,
+#EmailBlockPopUp,
+#noEmailTemplatesMessage,
+#noMarketingTemplatesMessage,
 #updateMarketingProgramSaveButton,
-#addMarketingProgramSaveButton
+#addMarketingProgramSaveButton,
 #addMarketingTemplatePopUp{
+
     display:none;
 }

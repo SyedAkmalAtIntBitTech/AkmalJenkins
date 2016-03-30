@@ -26,7 +26,7 @@ String marketingCategoryId=request.getParameter("marketingCategoryId");
             <div  class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="organizationdetails.jsp?organizationId=<%=organizationID%>">{{organizationDetails.organizationName}}</a>  > </div>
             <div class="header_title fleft">{{marketingCategoryTitle.marketingCategoryName}}  </div>
             <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteMarketingCategory(<%=marketingCategoryId%>)">Delete Category</div>
-            <div class="CTA_Button Button--Blue fright" id="addMarketingTemplate" ng-click="getAllNonAddedEmailModelsBySubCategoryId()">Add Template</div>
+            <div class="CTA_Button Button--Blue fright" id="addMarketingTemplate" ng-click="getAllNonAddedMarketingProgram()">Add Template</div>
         </div>
         <div class="slatSection" >
             <div class="slatHeaders">
@@ -41,7 +41,7 @@ String marketingCategoryId=request.getParameter("marketingCategoryId");
                         
                     </div>
                     <div class="listCol col1of4 fright">
-                        <div ng-click="deleteMarketingCategoryProgram(getMarketingProgram.marketingProgramId)" class="CTA_Button Button--Gray fright">Remove Template</div>
+                        <div ng-click="deleteMarketingCategoryProgram(getMarketingProgram.marketingCategoryProgramId)" class="CTA_Button Button--Gray fright">Remove Template</div>
                     </div>
                 </li>
                 

@@ -441,14 +441,23 @@ $scope.addImageCategory = function () {
         
     }
     
-            $scope.getAllNonAddedEmailBlockModel= function (){
+            $scope.getAllNonAddedEmailBlock= function (){
+             
             var emailBlockId=$("#emailBlockId").val();
              $http({
                     method: 'GET',
                     url: getHost() + '/getAllNonAddedEmailBlockModel.do?emailBlockId='+emailBlockId
                 }).success(function (data)
                 {
-                    $scope.nonAddedemailBlockDetails= data.d.details;
+                    
+                    $scope.nonAddedEmailBlockDetails= data.d.details;
+                    if(JSON.stringify($scope.nonAddedEmailBlockDetails)=="null"){
+                        $("#noEmailTemplatesMessage").show();
+                        $("#noEmailMessage").empty().append(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    }
+                    else{
+                         $("#noEmailTemplatesMessage").hide();
+                    }
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
@@ -658,6 +667,7 @@ $scope.addImageCategory = function () {
                 });  
     }
     $scope.getAllMarketingCategoryById= function (){
+        
          var organizationId=$("#organizationIdTag").val();
          var marketingCategoryId=$("#marketingCategoryId").val();
         $http({
@@ -725,6 +735,7 @@ $scope.addImageCategory = function () {
     
     
      $scope.gellAllMarketingProgramList= function (){
+         
         $http({
                     method: 'GET',
                     url: getHost() + '/getAllMarketingPrograms.do'
@@ -737,6 +748,7 @@ $scope.addImageCategory = function () {
     }
     
      $scope.getEmailBlocks= function (){
+       
             var emailBlockId=$("#emailBlockId").val();
              $http({
                     method: 'GET',
@@ -771,8 +783,10 @@ $scope.addImageCategory = function () {
     
     
      $scope.marketingProgramsById= function (){
+         
          var organizationId=$("#organizationIdTag").val();
          var marketingCategoryId=$("#marketingCategoryId").val();
+         
         $http({
                     method: 'GET',
                     url: getHost() + '/getMarketingProgramsByCategoryId.do?marketingCategoryId='+marketingCategoryId
@@ -785,8 +799,9 @@ $scope.addImageCategory = function () {
     }
     
     $scope.deleteMarketingCategoryProgram= function (marketingProgramId){
+        var marketingCategoryId=$("#marketingCategoryId").val();
         var organizationId=$("#organizationIdTag").val();
-            var deleteMarketingProgram=confirm(deleteTemplateRelationPrompt);
+            var deleteMarketingProgram=confirm(marketingTemplateRelationPrompt);
             if(deleteMarketingProgram===true)
             {
                 $http({
@@ -795,7 +810,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {  
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/marketingcategory.jsp?organizationId='+organizationId, "_self");
+                    window.open(getHost() + 'adminv2/marketingcategory.jsp?organizationId='+organizationId+'&marketingCategoryId='+marketingCategoryId, "_self");
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
@@ -803,6 +818,7 @@ $scope.addImageCategory = function () {
     };
     
     $scope.getAllNonAddedMarketingProgram= function (){
+   
          var marketingCategoryId=$("#marketingCategoryId").val();
         $http({
                     method: 'GET',
@@ -811,24 +827,97 @@ $scope.addImageCategory = function () {
                 {
                  
                     $scope.getNonAddedMarketingPrograms= data.d.details;
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                     if(JSON.stringify($scope.getNonAddedMarketingPrograms)=="null"){
+                        $("#noMarketingTemplatesMessage").show();
+                        $("#noMarketingMessage").empty().append(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    }
+                    else{
+                         $("#noMarketingTemplatesMessage").hide();
+                    }
+                    
+                                        
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
     }
     
-     var selectedListItem="";
+    var selectedListItems="";
     $scope.selectedItems= function(item) {
-               var selectedItem="";
+               var selectedItemList="";
 	       $scope.selected = item; 
-               selectedItem=item;
-             var Itmes=  selectedListItme=selectedItem;
-             alert(JSON.stringify(Itmes));
+               selectedItemList=item;
+            selectedListItems=selectedItemList;
+           
                $("#relateNonAddedMarketingPrograms").css('pointer-events','auto');
 	};
     $scope.isActiveMode = function(item) {
 	       return $scope.selected === item;
 	};
+
+    
+    $scope.addMarketingtemplate= function (){
+         var organizationId=$("#organizationIdTag").val();
+        var marketingCategoryId=$("#marketingCategoryId").val();      
+        var marketingProgramId=eval(JSON.stringify(selectedListItems.marketingProgramId));
+        var marketingAddTemplate ={ "marketingProgramId" : marketingProgramId,  "marketingCategoryId" : marketingCategoryId}
+            
+         $.ajax({
+                    method: 'POST',
+                    url: getHost() + '/saveMarketingCategoryProgram.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(marketingAddTemplate)
+                }).success(function (data)
+                {   
+                       alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                       window.open(getHost() + 'adminv2/marketingcategory.jsp?organizationId='+organizationId+'&marketingCategoryId='+marketingCategoryId,"_self");
+                    
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });   
+        
+        
+    };
+    
+   var emailBlockModel="";
+    $scope.selectedBlockItems= function(item) {
+               var BlockselectedItemList="";
+	       $scope.selected = item; 
+               BlockselectedItemList=item;
+            emailBlockModel=BlockselectedItemList;
+           
+               $("#relateNonAddedMarketingPrograms").css('pointer-events','auto');
+	};
+    $scope.isActiveBlockMode = function(item) {
+	       return $scope.selected === item;
+	};
+    
+    
+    
+     $scope.addEmailBlocktemplate= function (){
+           var emailBlockId=$("#emailBlockId").val();
+         var organizationId=$("#organizationIdTag").val();
+        var marketingCategoryId=$("#marketingCategoryId").val();      
+        var emailBlockModelId=eval(JSON.stringify(emailBlockModel.emailBlockModelId));
+        var blockEmailTemplate ={ "emailBlockModelId" : emailBlockModelId,"emailBlockId":emailBlockId}
+            
+         $.ajax({
+                    method: 'POST',
+                    url: getHost() + '/saveEmailBlockModel.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(blockEmailTemplate)
+                }).success(function (data)
+                {   
+                       alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                       window.open(getHost() + 'adminv2/emailblock.jsp?organizationId='+organizationId+'&emailBlockId='+emailBlockId,"_self");
+                    
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });   
+        
+        
+    };
     
 }
 
