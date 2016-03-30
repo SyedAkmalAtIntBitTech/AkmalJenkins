@@ -60,7 +60,8 @@ public class OrganizationCompanyDaoImpl implements OrganizationCompanyDao {
                     .setFetchMode("fkCompanyId", FetchMode.JOIN)
                     .setFetchMode("fkOrganizationId", FetchMode.JOIN)
                     .add(Restrictions.eq("fkCompanyId.companyId", companyId))
-                    .add(Restrictions.eq("fkOrganizationId.fkOrganizationTypeId.organizationTypeName", "organization"));
+                    .createAlias("fkOrganizationId.fkOrganizationTypeId", "organizationType")
+                    .add(Restrictions.eq("organizationType.organizationTypeId", 2)); //Organization is 2
             if (criteria.list().isEmpty()) {
                 return null;
             }
@@ -82,7 +83,8 @@ public class OrganizationCompanyDaoImpl implements OrganizationCompanyDao {
                     .setFetchMode("fkCompanyId", FetchMode.JOIN)
                     .setFetchMode("fkOrganizationId", FetchMode.JOIN)
                     .add(Restrictions.eq("fkCompanyId.companyId", companyId))
-                    .add(Restrictions.eq("fkOrganizationId.fkOrganizationTypeId.organizationTypeName", "group"));
+                    .createAlias("fkOrganizationId.fkOrganizationTypeId", "organizationType")
+                    .add(Restrictions.eq("organizationType.organizationTypeId", 1)); //Group is 1
             if (criteria.list().isEmpty()) {
                 return null;
             }

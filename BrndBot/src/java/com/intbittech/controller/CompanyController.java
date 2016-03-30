@@ -7,7 +7,6 @@ package com.intbittech.controller;
 
 import com.intbittech.model.Channel;
 import com.intbittech.model.EmailBlockExternalSource;
-import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCategoryLookup;
 import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.model.OrganizationEmailBlockLookup;
@@ -100,17 +99,21 @@ public class CompanyController {
             companyAllDetails.setOrganizationId(organizationCompany.getFkOrganizationId().getOrganizationId());
             companyAllDetails.setOrganizationName(organizationCompany.getFkOrganizationId().getOrganizationName());
 
-            List<OrganizationCompanyLookup> organizationCompanyDetail = companyService.getAllOrganizationCompanyById(companyId);
+            List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
+            organizationCompanyDetail = companyService.getAllOrganizationCompanyById(companyId);
             List<OrganizationDetails> organizationDetailsList = new ArrayList<>();
             Integer[] organizationIds = new Integer[organizationCompanyDetail.size()+1];
             Integer i =0;
             organizationIds[i++] = organizationCompany.getFkOrganizationId().getOrganizationId();
+            if(organizationCompanyDetail!=null)
+            {
             for(OrganizationCompanyLookup organizationObject : organizationCompanyDetail) {
                 OrganizationDetails organizationDetailsObject = new OrganizationDetails();
                 organizationDetailsObject.setOrganizationId(organizationObject.getFkOrganizationId().getOrganizationId());
                 organizationDetailsObject.setOrganizationName(organizationObject.getFkOrganizationId().getOrganizationName());
                 organizationDetailsList.add(organizationDetailsObject);
                 organizationIds[i++] = organizationObject.getFkOrganizationId().getOrganizationId();
+            }
             }
             companyAllDetails.setGroupDetails(organizationDetailsList);
             
