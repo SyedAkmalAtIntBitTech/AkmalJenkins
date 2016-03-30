@@ -273,6 +273,7 @@ public class MarketingController {
             marketingProgramActionsDetails.setMarketingProgramId(marketingProgram.getMarketingProgramId());
             marketingProgramActionsDetails.setMarketingProgramName(marketingProgram.getMarketingProgramName());
             marketingProgramActionsDetails.setHtmlData(marketingProgram.getHtmlData());
+            marketingProgramActionsDetails.setMarketingActionId(marketingAction.getMarketingActionId());
             List<MarketingActionDetails> marketingActions = StringUtility.objectListToJsonString(marketingAction.getJsonTemplate());
             marketingProgramActionsDetails.setMarketingActions(marketingActions);
             marketingProgramActionsDetailsList.add(marketingProgramActionsDetails);

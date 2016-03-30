@@ -28,7 +28,8 @@
             <div class="content-area_header">
                 <!--<div class="header_path fleft"> Marketing Campaign Templates ></div>-->
                 <div class="header_path fleft"> Marketing Programs</div>
-                <div class="CTA_Button Button--Save fright" ng-click="saveMarketingProgramActions()">Save</div>
+                <div id="updateMarketingProgramSaveButton" class="CTA_Button Button--Save fright"  ng-click="updateMarketingProgramActions()">Save</div>
+                <div id="addMarketingProgramSaveButton" class="CTA_Button Button--Save fright"  ng-click="saveMarketingProgramActions()">Save</div>
             </div>
             <div class="inputSection col1of1 pushUp_20">
                 <div class="col1of2 fleft col-padding">
