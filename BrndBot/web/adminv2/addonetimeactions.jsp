@@ -41,7 +41,8 @@
             </div>
         </div>
         <div class="inputSection">
-            <div id="saveChangedOneTimeAction" class="CTA_Button Button--Gray fleft pushUp_30" ng-click="saveChangedOneTimeAction()">Save this Action</div>
+            <div id="deleteChangedOneTimeAction" class="CTA_Button Button--Gray fleft pushUp_30" ng-click="deleteProgramAction(indexvalue)">Delete this Action</div>
+            <div id="saveChangedOneTimeAction" class="CTA_Button Button--Gray fleft pushLeft_15 pushUp_30" ng-click="saveChangedOneTimeAction()">Save this Action</div>
         </div>
     </div>
 

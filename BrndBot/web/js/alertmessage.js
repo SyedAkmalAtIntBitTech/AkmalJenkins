@@ -162,4 +162,5 @@ var imageName="Image";
 var enterBlockName="Please enter Block Name!";
 var uploadImageFile="Please Upload an Image!";
 var deleteTemplateRelationPrompt="Do you want to delete this Email template relation to Email Blocks?";
+var programActionDeleted="Program Action deleted successfully.";
 /// ADMIN alerts Ends////
