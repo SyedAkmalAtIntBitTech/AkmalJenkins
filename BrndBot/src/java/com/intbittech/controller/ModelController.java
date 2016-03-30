@@ -379,11 +379,11 @@ public class ModelController {
                         emailModelDetails.getImageFileData());
             } catch (Throwable throwable) {
                 logger.error(throwable);
-                throw new ProcessFailed(messageSource.getMessage("image_not_save", null, Locale.getDefault()));
+                throw new ProcessFailed(messageSource.getMessage("image_not_save", null, Locale.US));
             }
             emailModel.setImageFileName(storedImageFileName);
             emailModelService.save(emailModel);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("emailTemplate_create_sucess", null, Locale.getDefault())));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("emailTemplate_create_sucess", null, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -411,14 +411,14 @@ public class ModelController {
                     newImageFileName = storedImageFileName;
                 } catch (Throwable throwable) {
                     logger.error(throwable);
-                    throw new ProcessFailed(messageSource.getMessage("image_not_update", null, Locale.getDefault()));
+                    throw new ProcessFailed(messageSource.getMessage("image_not_update", null, Locale.US));
                 }
             }
             emailModel.setEmailModelName(emailModelDetails.getEmailModelName());
             emailModel.setHtmlData(emailModelDetails.getHtmlData());
             emailModel.setImageFileName(newImageFileName);
             emailModelService.update(emailModel);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template updated successfully."));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("emailTemplate_update_sucess", null, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -434,7 +434,7 @@ public class ModelController {
             EmailModel emailModel = emailModelService.getByEmailModelId(emailModelId);
             emailModelService.delete(emailModelId);
             FileHandlerUtil.deleteAdminEmailTemplatesImage(emailModel.getImageFileName());
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("emailTemplate_delete_sucess", null, Locale.getDefault())));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("emailTemplate_delete_sucess", null, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
