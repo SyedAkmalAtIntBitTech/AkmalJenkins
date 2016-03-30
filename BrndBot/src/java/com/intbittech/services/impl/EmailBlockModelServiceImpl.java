@@ -94,7 +94,7 @@ public class EmailBlockModelServiceImpl implements EmailBlockModelService {
             }
         }
         List<EmailBlockModel> emailBlockModelList = emailBlockModelDao.getByEmailBlockModelsByIds(emailBlockModelIds);
-        if(emailBlockModelList != null)
+        if(emailBlockModelList == null)
             throw new ProcessFailed(messageSource.getMessage("emailBlockModel_list_not_found",new String[]{}, Locale.US));
         return emailBlockModelList;
     }

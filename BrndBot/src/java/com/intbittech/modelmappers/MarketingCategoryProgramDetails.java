@@ -9,10 +9,9 @@ package com.intbittech.modelmappers;
  *
  * @author intbit
  */
-public class MarketingCategoryProgramDetails {
+public class MarketingCategoryProgramDetails extends MarketingProgramDetails{
     private Integer marketingCategoryProgramId;
     private Integer marketingCategoryId;
-    private Integer marketingProgramId;
 
     public Integer getMarketingCategoryProgramId() {
         return marketingCategoryProgramId;
@@ -30,13 +29,4 @@ public class MarketingCategoryProgramDetails {
         this.marketingCategoryId = marketingCategoryId;
     }
 
-    public Integer getMarketingProgramId() {
-        return marketingProgramId;
-    }
-
-    public void setMarketingProgramId(Integer marketingProgramId) {
-        this.marketingProgramId = marketingProgramId;
-    }
-    
-    
 }
