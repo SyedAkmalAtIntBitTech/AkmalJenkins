@@ -17,6 +17,7 @@ public class EmailModelDetails implements Serializable{
     private String emailModelName;
     private String imageFileName;
     private String htmlData;  
+    private String imageFileData;
     private Integer subCategoryId;
 
     public Integer getSubCategoryId() {
@@ -67,6 +68,14 @@ public class EmailModelDetails implements Serializable{
 
     public void setEmailModelName(String emailModelName) {
         this.emailModelName = emailModelName;
+    }
+
+    public String getImageFileData() {
+        return imageFileData;
+    }
+
+    public void setImageFileData(String imageFileData) {
+        this.imageFileData = imageFileData;
     }
      
      

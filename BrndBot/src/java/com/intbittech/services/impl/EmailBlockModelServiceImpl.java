@@ -11,6 +11,7 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlockModel;
 import com.intbittech.model.EmailBlockModelLookup;
 import com.intbittech.services.EmailBlockModelService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import org.jboss.logging.Logger;
@@ -83,13 +84,18 @@ public class EmailBlockModelServiceImpl implements EmailBlockModelService {
      */
     public List<EmailBlockModel> getAllNonAddedEmailBlockModels(Integer emailBlockId) throws ProcessFailed {
         List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupDao.getAllEmailBlockModel(emailBlockId);
-        Integer[] emailBlockModelIds = new Integer[emailBlockModelLookupList.size()];
-        Integer i =0;
-        for(EmailBlockModelLookup emailBlockModelLookupObject : emailBlockModelLookupList)
+        ArrayList<Integer> emailBlockModelIds = new ArrayList<>();
+        emailBlockModelIds.add(0);
+        if(emailBlockModelLookupList!=null)
         {
-            emailBlockModelIds[i++] = emailBlockModelLookupObject.getFkEmailBlockModelId().getEmailBlockModelId();
+            for(EmailBlockModelLookup emailBlockModelLookupObject : emailBlockModelLookupList)
+            {
+                emailBlockModelIds.add(emailBlockModelLookupObject.getFkEmailBlockModelId().getEmailBlockModelId());
+            }
         }
         List<EmailBlockModel> emailBlockModelList = emailBlockModelDao.getByEmailBlockModelsByIds(emailBlockModelIds);
+        if(emailBlockModelList == null)
+            throw new ProcessFailed(messageSource.getMessage("emailBlockModel_list_not_found",new String[]{}, Locale.US));
         return emailBlockModelList;
     }
     
