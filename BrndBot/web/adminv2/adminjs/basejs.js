@@ -40,6 +40,25 @@
               $("#addEmailBlockPopUp").show();
               $("#addOrganizationPopupDiv").show();
            });
+           
+           $("#addMarketingCategory").click(function (){
+              $("#addMarketingPopUp").show();
+              $("#addOrganizationPopupDiv").show();
+           });
+           
+           
+           $("#addMarketingTemplate").click(function (){
+              $("#addMarketingTemplatePopUp").show();
+              $("#addOrganizationPopupDiv").show();
+           });
+           
+           $("#addEmailTemplate").click(function (){
+              $("#EmailBlockPopUp").show();
+              $("#addOrganizationPopupDiv").show();
+           });
+           
+           
+           
            $("#addMarketingProgramsPopupDiv").click(function (){
                $("#addMarketingProgramsPopup").hide();
                $("#addMarketingProgramsPopupDiv").hide();
@@ -57,6 +76,8 @@
                  $("#editMarketingProgramsPopup").hide();
                  $("#addMarketingProgramsPopup").hide();
                  $(".overflowhide").css("overflow","auto");
+                    $("#addMarketingTemplatePopUp").hide();
+                    $("#EmailBlockPopUp").hide();
            });
        });
        var emailChannel="email";

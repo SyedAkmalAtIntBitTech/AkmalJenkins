@@ -47,5 +47,15 @@ public interface OrganizationEmailBlockLookupDao {
      * @throws ProcessFailed the process failed
      */
     public List<OrganizationEmailBlockLookup> getAllOrganizationEmailBlock(Integer organizationId) throws ProcessFailed;
+    
+    /**
+     * This method pass id as input and get {@link OrganizationEmailBlockLookup}
+     * from database.
+     *
+     * @param organizationIds is the organizationIds
+     * @return list of {@link OrganizationEmailBlockLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public List<OrganizationEmailBlockLookup> getAllEmailBlockByOrganizationIds(Integer[] organizationIds) throws ProcessFailed;
 
 }

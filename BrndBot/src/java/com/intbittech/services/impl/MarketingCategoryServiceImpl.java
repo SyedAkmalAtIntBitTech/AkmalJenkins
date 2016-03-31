@@ -61,6 +61,16 @@ public class MarketingCategoryServiceImpl implements MarketingCategoryService {
             throw new ProcessFailed(messageSource.getMessage("marketingCategory_list_not_found",new String[]{}, Locale.US));
         return organizationMarketingCategoryList;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<OrganizationMarketingCategoryLookup> getByOrganizationIds(Integer[] organizationIds) throws ProcessFailed {
+        List<OrganizationMarketingCategoryLookup> organizationMarketingCategoryList = marketingCategoryDao.getByOrganizationIds(organizationIds);
+//        if(organizationMarketingCategoryList == null)
+//            throw new ProcessFailed(messageSource.getMessage("marketingCategory_list_not_found",new String[]{}, Locale.US));
+        return organizationMarketingCategoryList;
+    }
 
     /**
      * {@inheritDoc}

@@ -20,11 +20,12 @@ String emailBlockId=request.getParameter("emailBlockId");
     <input id="emailBlockId" type="text" hidden value="<%=emailBlockId%>"/>
     <input id="organizationIdTag" type="text" hidden value="<%=organizationID%>"/>
     <jsp:include page="adminheader.jsp"/>
+    <jsp:include page="emailblocktemplate.jsp"/>
     <div class="content-area" ng-init="organizationdetails()">
         <div class="content-area_header"  ng-init="getEmailBlock()">
             <div  class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="organizationdetails.jsp?organizationId=<%=organizationID%>">{{organizationDetails.organizationName}}</a>  > </div>
             <div class="header_title fleft">{{emailBlocksTitle.emailBlockName}}  </div>
-            <div class="CTA_Button Button--Blue fright" id="addTemplateButton" ng-click="">Add Template</div>
+            <div class="CTA_Button Button--Blue fright" id="addEmailTemplate" ng-click="getAllNonAddedEmailBlock()">Add Template</div>
             <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteEmailBlock(<%=emailBlockId%>)">Delete Block</div>
             
         </div>
@@ -34,13 +35,13 @@ String emailBlockId=request.getParameter("emailBlockId");
                     <span class="listCol_Header fleft">  Template Names</span>
                 </div>
             </div>
-            <ul class="slatArea" ng-init="getAllNonAddedEmailBlockModel()">
-                <li class="listItem" ng-repeat="nonAddedemailBlockDetail in nonAddedemailBlockDetails">
+            <ul class="slatArea" ng-init="getEmailBlocks()">
+                <li class="listItem" ng-repeat="getEmailBlockTemplates in getEmailBlockTemplate">
                     <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft">{{nonAddedemailBlockDetail.emailBlockModelName}}</span>
+                        <span class="listCol_Text fleft">{{getEmailBlockTemplates.emailBlockModelName}}</span>
                     </div>
                     <div class="listCol col1of4 fright">
-                        <div class="CTA_Button Button--Gray fright">Remove Template</div>
+                        <div ng-click="deleteEmailBlockModel(getEmailBlockTemplates.emailBlockModelLookupId)" class="CTA_Button Button--Gray fright">Remove Template</div>
                     </div>
                     
                 </li>

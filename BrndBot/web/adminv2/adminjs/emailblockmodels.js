@@ -82,40 +82,6 @@ function emailBlocksController($scope, $http) {
 
     };
 
-//
-//    $scope.addEmailBlock = function () {
-//
-//        var emailModelName = $("#emailModelName").val();
-//        var htmlData = $("#edit").froalaEditor('html.get');
-//        var imageFileName = $("#imageFileName").val();
-//
-//        var emaiModelNames = {"emailBlockModelName": emailModelName, "htmlData": htmlData, "imageFileName": imageFileName};
-//        if (emailModelName === "") {
-//            alert(enterBlockName);
-//            $("#emailBlockModelName").focus();
-//            return false;
-//        }
-//        if (imageFileName === "") {
-//            alert(uploadImageFile);
-//            $("#imageFileName").focus();
-//        } else {
-//            $http({
-//                method: 'POST',
-//                url: getHost() + '/saveBlockModel.do',
-//                dataType: "json",
-//                contentType: "application/json",
-//                data: JSON.stringify(emaiModelNames)
-//            }).success(function (data, status, headers, config)
-//            {
-//
-//                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-//                window.open(getHost() + 'adminv2/emailblockmodels.jsp', "_self");
-//            }).error(function (data, status, headers, config) {
-//                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-//            });
-//        }
-//    };
-
 
     $scope.deleteEmailBlockModel= function (emailBlockModelId) {
         var deleteEmailBlocks = confirm(deleteEmailBlockPrompt);
@@ -135,8 +101,6 @@ function emailBlocksController($scope, $http) {
     };
 
 
-   
-   
     $scope.updateEmailBlockModel = function () {
         var emailBlockModelId = $("#emailBlockIdTag").val();
         var emailBlockModelName = $("#emailModelNameTag").val();
@@ -182,31 +146,9 @@ function emailBlocksController($scope, $http) {
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
-        }
+        } 
     };
 
-//    $scope.updateEmailBlockModel = function () {
-//
-//        var emailBlockIdTag = $("#emailBlockIdTag").val();
-//        var emailBlockModelName = $("#emailModelNameTag").val();
-//        var htmlData = $("#edit").froalaEditor('html.get');
-//        var imageFileName = $("#imageFileName").val();
-//
-//        var emailBlockModel = {"emailBlockModelId": emailBlockIdTag, "emailBlockModelName": emailBlockModelName,
-//            "htmlData": htmlData, "imageFileName": imageFileName};
-//        alert(JSON.stringify(emailBlockModel));
-//        $http({
-//            method: 'POST',
-//            url: getHost() + '/updateEmailBlockModel.do',
-//            contentType: "application/json",
-//            data: JSON.stringify(emailBlockModel)
-//        }).success(function (data, status, headers, config) {
-//            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-//            window.open(getHost() + 'adminv2/emailblockmodels.jsp', "_self");
-//        }).error(function (data, status, headers, config) {
-//            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-//        });
-//    };
 
 }
 

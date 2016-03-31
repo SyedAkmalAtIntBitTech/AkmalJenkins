@@ -72,7 +72,9 @@ width:75%;}
 .pushRight_30{
     margin-right: 30px;
 }
-
+.pushLeft_15{
+    margin-left: 15px;
+}
 .input_Field_xlg{
    width: 100%;
     border: 1px solid #D2D3D5 ;
@@ -543,6 +545,16 @@ cursor: pointer;
     }
     .contentEdit{
         overflow-y: inherit !important;
+    }
+    #addMarketingTemplatePopUp{
+        left: 14%;
+        top: 14%;
+        
+    }
+    #EmailBlockPopUp{
+         left: 14%;
+        top: 14%;
+        
     }
 }
 @media screen and (min-width:900px) and (max-width:1400px){

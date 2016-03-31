@@ -65,14 +65,15 @@ public class MarketingController {
     
     @RequestMapping(value = "getMarketingProgramsByCategoryId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getMarketingProgramsByCategoryId(@RequestParam("marketingCategoryId") Integer marketingCategoryId) {
-        GenericResponse<MarketingProgramDetails> genericResponse = new GenericResponse<>();
+        GenericResponse<MarketingCategoryProgramDetails> genericResponse = new GenericResponse<>();
         try {
             List<MarketingCategoryProgram> marketingCategoryProgramList = marketingCategoryProgramService.getMarketingProgramsByCategoryId(marketingCategoryId);
-            List<MarketingProgramDetails> marketingProgramDetailsList = new ArrayList<>();
+            List<MarketingCategoryProgramDetails> marketingProgramDetailsList = new ArrayList<>();
             for(MarketingCategoryProgram marketingCategoryProgramObject : marketingCategoryProgramList) {
-                MarketingProgramDetails marketingProgramDetails = new MarketingProgramDetails();
+                MarketingCategoryProgramDetails marketingProgramDetails = new MarketingCategoryProgramDetails();
                 marketingProgramDetails.setMarketingProgramId(marketingCategoryProgramObject.getFkMarketingProgram().getMarketingProgramId());
                 marketingProgramDetails.setMarketingProgramName(marketingCategoryProgramObject.getFkMarketingProgram().getMarketingProgramName());
+                marketingProgramDetails.setMarketingCategoryProgramId(marketingCategoryProgramObject.getMarketingCategoryProgramId());
                 marketingProgramDetailsList.add(marketingProgramDetails);
             }
             genericResponse.setDetails(marketingProgramDetailsList);
@@ -214,7 +215,7 @@ public class MarketingController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             marketingProgramService.updateMarketingProgramActions(marketingProgramActionsDetails);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingProgram_save",new String[]{}, Locale.US)));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingProgram_update",new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -247,12 +248,12 @@ public class MarketingController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "deleteMarketingCategoryProgram", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "deleteMarketingCategoryProgram", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteMarketingCategoryProgram(@RequestParam("marketingCategoryProgramId") Integer marketingCategoryProgramId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             marketingCategoryProgramService.delete(marketingCategoryProgramId);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingProgram_save",new String[]{}, Locale.US)));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingProgram_delete",new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -272,6 +273,7 @@ public class MarketingController {
             marketingProgramActionsDetails.setMarketingProgramId(marketingProgram.getMarketingProgramId());
             marketingProgramActionsDetails.setMarketingProgramName(marketingProgram.getMarketingProgramName());
             marketingProgramActionsDetails.setHtmlData(marketingProgram.getHtmlData());
+            marketingProgramActionsDetails.setMarketingActionId(marketingAction.getMarketingActionId());
             List<MarketingActionDetails> marketingActions = StringUtility.objectListToJsonString(marketingAction.getJsonTemplate());
             marketingProgramActionsDetails.setMarketingActions(marketingActions);
             marketingProgramActionsDetailsList.add(marketingProgramActionsDetails);

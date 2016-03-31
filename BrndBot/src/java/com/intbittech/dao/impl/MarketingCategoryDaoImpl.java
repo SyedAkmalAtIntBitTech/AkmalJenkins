@@ -134,6 +134,29 @@ public class MarketingCategoryDaoImpl implements MarketingCategoryDao {
             throw new ProcessFailed(messageSource.getMessage("error_retrieving_list_message",new String[]{}, Locale.US));
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<OrganizationMarketingCategoryLookup> getByOrganizationIds(Integer[] organizationIds) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(OrganizationMarketingCategoryLookup.class)
+                    .setFetchMode("fkOrganizationId", FetchMode.JOIN)
+                    .setFetchMode("fkMarketingCategoryId", FetchMode.JOIN);
+            for(int i =0 ; i< organizationIds.length ; i++)
+                criteria.add(Restrictions.eq("fkOrganizationId.organizationId", organizationIds[i]));
+            List<OrganizationMarketingCategoryLookup> organizationMarketingCategoryList = criteria.list();
+            if (organizationMarketingCategoryList.isEmpty()) {
+                return null;
+            }
+            return criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_list_message",new String[]{}, Locale.US));
+        }
+    }
 
     /**
      * {@inheritDoc}
