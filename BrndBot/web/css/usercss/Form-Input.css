@@ -1,0 +1,229 @@
+/**************************FORMS********************/
+
+.selectButton-wrap{
+    padding: 5px;
+    width: 150px;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.selectButton-label{
+    font-weight: 600;
+    color: #3E4551 ;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+.inputSection{
+    overflow: auto;
+    clear: both;
+    box-sizing: border-box;
+    font-size: 13px;
+    margin-top: 20px;
+}
+
+.input-Wrap{
+    overflow: auto;
+    clear: both;
+    box-sizing: border-box;
+    font-size: 13px;
+}
+
+
+.input_Label{
+    font-size: 14px;
+    font-weight: 600px;
+    color: #444444 ;
+}
+
+.overlay-header{
+    font-size: 12px;
+    font-weight: 600px;
+    color: #777777 ;
+}
+
+.input_Label-lg{
+    font-size: 16px;
+    font-weight: 600px;
+    color: #3E4551 ;
+}
+
+
+.entered-Text{
+    color: #555;
+}
+.select_Field{
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   background: url(../../images/userimages/dropdown.svg) no-repeat right;
+}
+.input_Field{
+   width: 100%;
+    border: 1px solid #D2D3D5 ;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    font-size: 13px;
+    color: #D2D3D5;
+}
+
+.input_Field-light{
+    background-color: #FFF;
+}
+
+.input_Field_lg{
+   width: 100%;
+    border: 1px solid #D2D3D5 ;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    font-size: 13px;
+    color: #D2D3D5;
+    height: 75px;
+}
+
+.input_Field_Md{
+   width: 100%;
+    border: 1px solid #D2D3D5 ;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    font-size: 13px;
+    color: #D2D3D5;
+    height: 50px;
+}
+
+
+
+.input_Instructions{
+    font-size: 12px;
+    color: #999;
+    margin-top: 5px;
+    
+}
+
+.dropdown-svg{
+    width: 15px;
+    margin-top: 3px;
+
+}
+
+.form2col-left{
+    padding-right: 15px;
+    box-sizing: border-box;
+}
+
+.form2col-right{
+    padding-left: 15px;
+    box-sizing: border-box;
+}
+
+.image-upload-wrap{
+    margin-top: 15px;
+    display: block;
+}
+.image-upload-box-icon{
+    height: 70px;
+    margin-right: 20px;
+}
+
+.text_Field{
+    border: 1px solid #D2D3D5 ;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    font-size: 13px;
+    color: #D2D3D5;
+}
+
+.text_Field-withInput{
+    border: 1px solid #D2D3D5 ;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    font-size: 13px;
+    color: #444;
+}
+
+.date_Field{
+    border: 1px solid #D2D3D5 ;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    font-size: 13px;
+    color: #D2D3D5;
+    width: 150px;
+}
+
+.date_Field-icon{
+    height: 18px;
+}
+
+.text_Field-w600px{
+    width:600px;
+}
+
+.text_Field-w300px{
+    width: 300px;
+}
+
+.text_Field-h60px{
+    height: 60px;
+}
+
+.text_Field-h130px{
+    height: 130px;
+}
+
+
+
+
+.field-Wrap{
+    overflow: auto;
+    clear: both;
+    box-sizing: border-box;
+    font-size: 13px;
+    margin-top: 20px;
+}
+
+.divider{
+   background-color:  #DDD ;
+    height: 2px;
+    margin: 30px 0px 30px 0px;
+}
+
+.Img_Upload-Button{
+padding: 0px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+     box-sizing: border-box;
+    text-align: center;
+    line-height: 25px;
+    font-size: 13px;
+    margin-top: 20px;
+    margin-right: 15px;
+}
+
+.Img-Uploaded-FieldSystem{
+    max-width: 150px;
+     max-height: 70px;
+    margin-right: 20px;
+}
+    
+
+
+
