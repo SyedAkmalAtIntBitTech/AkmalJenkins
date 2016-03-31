@@ -103,7 +103,7 @@ function emailTemplateController($scope, $http) {
         var validate = function () {
             if (emailModelName === "") {
                 alert("Please enter Template Name!");
-                $("#emailModelName").focus();
+                $("#emailModelNameTag").focus();
                 return false;
             }
             if (htmlData === "") {

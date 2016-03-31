@@ -6,13 +6,10 @@
 package com.intbittech.utility;
 
 import com.intbittech.AppConstants;
-import com.intbittech.controller.ModelController;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.servlet.ServletContext;
-import org.apache.log4j.Logger;
 
 /**
  *
@@ -21,20 +18,39 @@ import org.apache.log4j.Logger;
 public class FileHandlerUtil {
 
     public static String saveAdminEmailTemplatesImage(String fileNameWithExtension, String base64ImageString) throws Throwable {
-        String base64ImageData = extractOnlyBase64ImageData(base64ImageString);
-        BufferedImage imageData = DataConverterUtil.convertBase64ToBufferedImage(base64ImageData);
-        String fileName = getStorableFileNameWithExtension(fileNameWithExtension);
+
         String filePath = getAdminEmailTemplatesImageFilePath();
-        try {
-            writeImageFile(imageData, fileName, filePath);
-        } catch (Throwable throwable) {
-            throw throwable;
-        }
+        String fileName = saveImage(fileNameWithExtension, base64ImageString, filePath);
         return fileName;
     }
 
+    public static String saveAdminEmailBlockModelImage(String fileNameWithExtension, String base64ImageString) throws Throwable {
+
+        String filePath = getAdminEmailBlockModelImageFilePath();
+        String fileName = saveImage(fileNameWithExtension, base64ImageString, filePath);
+        return fileName;
+    }
+
+    public static String saveImage(String fileNameWithExtension, String base64ImageString, String filePath) throws Throwable {
+        String base64ImageData = extractOnlyBase64ImageData(base64ImageString);
+        BufferedImage imageData = DataConverterUtil.convertBase64ToBufferedImage(base64ImageData);
+        String fileName = getStorableFileNameWithExtension(fileNameWithExtension);
+        writeImageFile(imageData, fileName, filePath);
+
+        return fileName;
+    }
+    
     public static void deleteAdminEmailTemplatesImage(String fileNameWithExtension) throws Throwable {
         String filePath = getAdminEmailTemplatesImageFilePath();
+        deleteImage(fileNameWithExtension, filePath);
+    }
+    
+     public static void deleteAdminEmailBlockModelImage(String fileNameWithExtension) throws Throwable {
+        String filePath = getAdminEmailBlockModelImageFilePath();
+        deleteImage(fileNameWithExtension, filePath);
+    }
+
+    public static void deleteImage(String fileNameWithExtension, String filePath) throws Throwable {
         File dir = new File(filePath);
         File file = new File(dir, fileNameWithExtension);
         try {
@@ -93,6 +109,12 @@ public class FileHandlerUtil {
     public static String getAdminEmailTemplatesImageFilePath() {
 
         return getBaseUploadAdminImageFilePath() + File.separator + "emailtemplates";
+
+    }
+
+    public static String getAdminEmailBlockModelImageFilePath() {
+
+        return getBaseUploadAdminImageFilePath() + File.separator + "emailblockmodels";
 
     }
 

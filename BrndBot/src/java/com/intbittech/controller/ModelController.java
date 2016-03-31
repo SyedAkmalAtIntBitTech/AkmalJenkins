@@ -373,16 +373,24 @@ public class ModelController {
             EmailModel emailModel = new EmailModel();
             emailModel.setEmailModelName(emailModelDetails.getEmailModelName());
             emailModel.setHtmlData(emailModelDetails.getHtmlData());
-            String storedImageFileName = null;
+            String storableImageFileName = null;
             try {
-                storedImageFileName = FileHandlerUtil.saveAdminEmailTemplatesImage(emailModelDetails.getImageFileName(),
+                storableImageFileName = FileHandlerUtil.saveAdminEmailTemplatesImage(emailModelDetails.getImageFileName(),
                         emailModelDetails.getImageFileData());
             } catch (Throwable throwable) {
                 logger.error(throwable);
                 throw new ProcessFailed(messageSource.getMessage("image_not_save", null, Locale.US));
             }
-            emailModel.setImageFileName(storedImageFileName);
-            emailModelService.save(emailModel);
+            emailModel.setImageFileName(storableImageFileName);
+            try {
+                emailModelService.save(emailModel);
+            } catch (Throwable throwable) {
+                //in case if file store into file system but did'nt store in DB.
+                if (storableImageFileName != null) {
+                    FileHandlerUtil.deleteAdminEmailTemplatesImage(storableImageFileName);
+                }
+                throw throwable;
+            }
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("emailTemplate_create_sucess", null, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -397,27 +405,37 @@ public class ModelController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             EmailModel emailModel = emailModelService.getByEmailModelId(emailModelDetails.getEmailModelId());
+            emailModel.setEmailModelName(emailModelDetails.getEmailModelName());
+            emailModel.setHtmlData(emailModelDetails.getHtmlData());
             String oldImageFileName = emailModel.getImageFileName();
             String newImageFileName = emailModelDetails.getImageFileName();
-            String storedImageFileName = null;
-            if (newImageFileName.length() == 0 || newImageFileName == null) {
-
-                newImageFileName = oldImageFileName;
-            } else {
+            String storableImageFileName = null;
+            if (newImageFileName.length() != 0 && newImageFileName != null) {
                 try {
-                    FileHandlerUtil.deleteAdminEmailTemplatesImage(oldImageFileName);
-                    storedImageFileName = FileHandlerUtil.saveAdminEmailTemplatesImage(newImageFileName,
+                    storableImageFileName = FileHandlerUtil.saveAdminEmailTemplatesImage(newImageFileName,
                             emailModelDetails.getImageFileData());
-                    newImageFileName = storedImageFileName;
+                    newImageFileName = storableImageFileName;
+                    emailModel.setImageFileName(newImageFileName);
                 } catch (Throwable throwable) {
                     logger.error(throwable);
                     throw new ProcessFailed(messageSource.getMessage("image_not_update", null, Locale.US));
                 }
             }
-            emailModel.setEmailModelName(emailModelDetails.getEmailModelName());
-            emailModel.setHtmlData(emailModelDetails.getHtmlData());
-            emailModel.setImageFileName(newImageFileName);
-            emailModelService.update(emailModel);
+            try {
+                emailModelService.update(emailModel);
+                if(storableImageFileName != null){
+                    FileHandlerUtil.deleteAdminEmailTemplatesImage(oldImageFileName);
+                }
+                
+            } catch (Throwable throwable) {
+                //in case if file store into file system but did'nt store in DB.
+                if (storableImageFileName != null) {
+                    //rollback operation for file system.
+                    FileHandlerUtil.deleteAdminEmailTemplatesImage(newImageFileName);
+                }
+                throw throwable;
+            }
+
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("emailTemplate_update_sucess", null, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
