@@ -40,10 +40,10 @@
         </div>
         
         <div class="input_Label pushUp_30">User Groups</div>
-        <ul class="groupArea">
-            <li class="listItem">
+        <ul class="groupArea" ng-init="userGroups()">
+            <li class="listItem" ng-repeat="groupNames in groupName.slice().reverse()">
                 <div class="listCol col1of2 fleft">
-                    <span class="listCol_Text fleft"> Category Name</span>
+                    <span class="listCol_Text fleft"> {{groupNames.organizationName}}</span>
                 </div>
                 <div class="listCol col1of2 fleft">
                     <div class="CTA_Button Button--Gray fright">View Group</div>

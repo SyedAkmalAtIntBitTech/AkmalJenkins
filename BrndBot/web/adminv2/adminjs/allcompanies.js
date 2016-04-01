@@ -188,6 +188,22 @@ function allCompaniesController($scope,$http){
         
     };
         
+         $scope.userGroups = function () {
+              var companyId=$("#companyId").val();
+        
+                    $http({
+                            method : 'GET',
+                            url : getHost()+'/getCompanyDetailsById.do?companyId='+companyId
+                        }).success(function(data, status, headers, config) {
+                            for ( var i = 0; i <= data.d.details.length; i++) {
+                 
+                            $scope.groupName = data.d.details;  
+                        }
+                        }).error(function(data, status, headers, config) {
+                                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                        });
+       
+    };
 
 }
 
