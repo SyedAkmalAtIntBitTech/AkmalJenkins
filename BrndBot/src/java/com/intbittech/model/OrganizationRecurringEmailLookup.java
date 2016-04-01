@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,10 +32,10 @@ public class OrganizationRecurringEmailLookup implements Serializable {
     @Column(name = "organization_recurring_email_lookup_id")
     private Integer organizationRecurringEmailLookupId;
     @JoinColumn(name = "fk_organization_id", referencedColumnName = "organization_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Organization fkOrganizationId;
     @JoinColumn(name = "fk_recurring_email_template_id", referencedColumnName = "recurring_email_template_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private RecurringEmailTemplate fkRecurringEmailTemplateId;
 
     public OrganizationRecurringEmailLookup() {

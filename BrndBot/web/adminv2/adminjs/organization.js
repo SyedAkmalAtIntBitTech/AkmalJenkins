@@ -623,5 +623,51 @@ $scope.addImageCategory = function () {
                 });  
             }
     };
+    
+    $scope.getAllRecurringByOrganizationId = function (){
+        
+            var organizationId=$("#organizationIdTag").val();
+        $http({
+                method: 'GET',
+                url: getHost() + '/getAllRecurringByOrganizationId.do?organizationId='+organizationId
+            }).success(function (data)
+            {   
+                $scope.allRecurringEmails=data.d.details;
+            }).error(function(data){
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            }); 
+    };
+    
+    $scope.getAllNonRecurringEmail=function (){
+        
+        $http({
+                method: 'GET',
+                url: getHost() + '/getAllNonRecurringEmail.do?recurringEmailTemplateId='+recurringEmailTemplateId
+            }).success(function (data)
+            {   
+                alert(JSON.stringify(data.d.details[1]));
+                $scope.nonrecurringEmails=data.d.details;
+            }).error(function(data){
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            }); 
+        
+    };
+    
+    $scope.deleteOrganizationRecurringEmail=function (organizationRecurringEmailLookupId){
+            alert(organizationRecurringEmailLookupId);
+            var  deleteconfirm=confirm("Yes");
+            if(deleteconfirm==true){
+            $http({
+                method: 'GET',
+                url: getHost() + '/deleteOrganizationRecurringEmail.do?organizationRecurringEmailLookupId='+organizationRecurringEmailLookupId
+            }).success(function (data)
+            {   
+                alert(JSON.stringify(data.d.details[0]));
+                $scope.deleteRecurringEmails=data.d.details;
+            }).error(function(data){
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            }); 
+        }
+    };
 }
 

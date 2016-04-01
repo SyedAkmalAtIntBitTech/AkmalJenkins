@@ -27,7 +27,7 @@ public interface RecurringEmailTemplateService
      * @return list of {@link OrganizationRecurringEmailLookup}
      * @throws ProcessFailed the process failed
      */
-     public List<OrganizationRecurringEmailLookup>  getAllRecurringByOrganizationId(Integer organizationRecurringEmailLookup)throws ProcessFailed;
+     public List<OrganizationRecurringEmailLookup>  getAllRecurringByOrganizationId(Integer organizationId)throws ProcessFailed;
      
      
     /**

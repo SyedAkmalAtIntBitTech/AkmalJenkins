@@ -42,7 +42,7 @@ public interface OrganizationRecurringEmailLookUpDao
      /**
      * This method retrieves the list of {@link OrganizationRecurringEmailLookup} from Database.
      *
-     * @param  organizationRecurringEmailLookup the OrganizationRecurringEmailLookup
+     * @param  organizationId the organizationId
      * @return {@link OrganizationRecurringEmailLookup}
      * @throws ProcessFailed the process failed
      */
@@ -54,7 +54,7 @@ public interface OrganizationRecurringEmailLookUpDao
      /**
      * This method retrieves particular {@link OrganizationRecurringEmailLookup} from the database.
      *
-     * @param organizationRecurringEmailLookup the OrganizationRecurringEmailLookup
+     * @param organizationRecurringEmailLookupId the organizationRecurringEmailLookupId
      * @return {@link OrganizationRecurringEmailLookup}
      * @throws ProcessFailed the process failed
      */

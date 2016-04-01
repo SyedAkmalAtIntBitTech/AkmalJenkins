@@ -38,9 +38,9 @@ public class RecurringEmailTemplateServiceImp implements RecurringEmailTemplateS
     /**
      * {@inheritDoc}
      */
-    public List<OrganizationRecurringEmailLookup> getAllRecurringByOrganizationId(Integer recurringEmailTemplateId) throws ProcessFailed {
+    public List<OrganizationRecurringEmailLookup> getAllRecurringByOrganizationId(Integer organizationId) throws ProcessFailed {
 
-        List<OrganizationRecurringEmailLookup> organizationRecurringLookup = organizationRecurringEmailLookupDao.getAllRecurringByOrganizationId(recurringEmailTemplateId);
+        List<OrganizationRecurringEmailLookup> organizationRecurringLookup = organizationRecurringEmailLookupDao.getAllRecurringByOrganizationId(organizationId);
         if (organizationRecurringLookup == null) {
             throw new ProcessFailed(messageSource.getMessage("error_retreving_message", new String[]{}, Locale.US));
         }

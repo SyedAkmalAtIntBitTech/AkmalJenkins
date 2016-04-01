@@ -171,18 +171,18 @@ public class RecurringEmailController
     
     
       @RequestMapping(value = "getAllRecurringByOrganizationId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getAllRecurringByOrganizationId(@RequestParam("organizationRecurringEmailLookupId") Integer organizationRecurringEmailLookupId) {
+    public ResponseEntity<ContainerResponse> getAllRecurringByOrganizationId(@RequestParam("organizationId") Integer organizationId) {
         GenericResponse<RecurringEmailDetails> genericResponse = new GenericResponse<>();
-        try
+        try 
         {
             List<RecurringEmailDetails> recurringEmailDetailsList = new ArrayList<>();
-            List<OrganizationRecurringEmailLookup> organizationRecurringEmailList = recurringEmailTemplateService.getAllRecurringByOrganizationId(organizationRecurringEmailLookupId);
+            List<OrganizationRecurringEmailLookup> organizationRecurringEmailList = recurringEmailTemplateService.getAllRecurringByOrganizationId(organizationId);
             for(OrganizationRecurringEmailLookup organizationRecurringEmailLookupObject : organizationRecurringEmailList) {
                 RecurringEmailDetails recurringEmailDetails = new RecurringEmailDetails();
                 recurringEmailDetails.setOrganizationRecurringEmailLookupId(organizationRecurringEmailLookupObject.getOrganizationRecurringEmailLookupId());
                 recurringEmailDetails.setOrganizationId(organizationRecurringEmailLookupObject.getFkOrganizationId().getOrganizationId());
                 recurringEmailDetails.setRecurringEmailTemplateId(organizationRecurringEmailLookupObject.getFkRecurringEmailTemplateId().getRecurringEmailTemplateId());
-              
+                recurringEmailDetails.setTemplateName(organizationRecurringEmailLookupObject.getFkRecurringEmailTemplateId().getTemplateName());
                recurringEmailDetailsList.add(recurringEmailDetails);
             }
                
@@ -210,6 +210,7 @@ public class RecurringEmailController
                     RecurringEmailDetails recurringEmailDetails = new RecurringEmailDetails();
                     recurringEmailDetails.setHtmlData(recurringEmailTemplateObject.getHtmlData());
                     recurringEmailDetails.setRecurringEmailTemplateId(recurringEmailTemplateObject.getRecurringEmailTemplateId());
+                    recurringEmailDetails.setTemplateName(recurringEmailTemplateObject.getTemplateName());
                     recurringEmailDetailsList.add(recurringEmailDetails);
              }
               genericResponse.setDetails(recurringEmailDetailsList);

@@ -52,9 +52,9 @@ public class RecurringEmailTemplateDaoImp implements RecurringEmailTemplateDao {
     /**
      * {@inheritDoc}
      */
-    public void delete(RecurringEmailTemplate template) throws ProcessFailed {
+    public void delete(RecurringEmailTemplate recurringEmailTemplate) throws ProcessFailed {
         try {
-            sessionFactory.getCurrentSession().delete(template);
+            sessionFactory.getCurrentSession().delete(recurringEmailTemplate);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_deleting_message", new String[]{}, Locale.US));
