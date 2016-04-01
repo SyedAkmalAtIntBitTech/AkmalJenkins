@@ -8,19 +8,16 @@
 <!DOCTYPE html>
 <html >
 <head>
-       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="../css/usercss/normalize.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/General-Utility.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/Navigation.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/Pane.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/Page-Structure.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/onboarding.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/Form-Input.css"></link>
-    <link rel="shortcut icon" href="../images/favicon.png">
+      <jsp:include page="hearderfiles.jsp"/>
 </head>    
-
+<script>
+         $(document).ready(function (){
+//             var compName= localStorage.getItem("companyName");
+//             var orgName=$("#industry").val();
+//             localStorage.setItem("industryName", orgName);
+            var industryName=localStorage.getItem("industryName");
+         });
+     </script>
 <body class="body-normal">
     
     <!--SideNav-->
@@ -50,7 +47,7 @@
                     <div class="h3 font--lightGray">BrndBot syncs with your other tools. If you are not using any of these services, just select 'none'!</div>
                     <div class="inputSection col-6of10 ">
                         <div class="input_Label">Please select a third party service</div>
-                        <select class="input_Field select_Field clear">
+                        <select class="input_Field select_Field clear" id="service">
                             <option class="input_Field">Service drop down</option>
                         </select> 
 <!--                        <div class="input_Field clear">

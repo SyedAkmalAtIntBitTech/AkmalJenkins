@@ -8,17 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="../css/usercss/normalize.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/General-Utility.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/Navigation.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/Pane.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/Page-Structure.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/onboarding.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/Form-Input.css"></link>
-    <link rel="shortcut icon" href="../images/favicon.png">
+    <jsp:include page="hearderfiles.jsp"/>
     </head>
  <body class="body-normal">
     

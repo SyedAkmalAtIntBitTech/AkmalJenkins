@@ -5,33 +5,37 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="../css/usercss/normalize.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/General-Utility.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/Navigation.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/Pane.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/Page-Structure.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/onboarding.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/Form-Input.css"></link>
-    <link rel="shortcut icon" href="../images/favicon.png">
+     <jsp:include page="hearderfiles.jsp"/>
+    
+
+ <script>
+     $(document).ready(function(){
+            // Check browser support
+       if (typeof(Storage) !== "undefined") {
+       // Store
+       localStorage.setItem("companyName", "Sunrise Studios");
+       // Retrieve
+       var comp= localStorage.getItem("companyName");
+       } else {
+       $("#welcome").empty().append("Sorry, your browser does not support Web Storage...");
+       }
+    });
+</script>   
 </head>    
 
 <body class="body-normal">
+    SideNav
     
-    <!--SideNav-->
-    
-    <!--Main Content Wrap-->
+    Main Content Wrap
     <div class="contentWrap--withNoSideNav">
         <div class="topNav clear">
-            <div class="topNav--TitleBar fleft">
+            <div class="topNav--TitleBar topNav--TitleBar1 fleft">
                 <span class="topNav--TitleBar--Title fleft h2">Welcome Sunrise Studios!</span>
                 <div class="topNav--TitleBar--CTABox fright">
-                    <div class="CTA_Button Button--Gray">Help!</div>
+                    <div class="CTA_Button Button--Gray" >Help!</div>
                 </div>
             </div>
         </div>

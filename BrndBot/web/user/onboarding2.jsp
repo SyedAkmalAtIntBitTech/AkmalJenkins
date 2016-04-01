@@ -8,17 +8,15 @@
 <!DOCTYPE html>
 <html >
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="../css/usercss/normalize.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/General-Utility.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/Navigation.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/Pane.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/Page-Structure.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/onboarding.css"></link>
-    <link rel="stylesheet" type="text/css" href="../css/usercss/Form-Input.css"></link>
-    <link rel="shortcut icon" href="../images/favicon.png">
+     <jsp:include page="hearderfiles.jsp"/>
+     <script>
+         $(document).ready(function (){
+             var compName= localStorage.getItem("companyName");
+             var orgName=$("#industry").val();
+             localStorage.setItem("industryName", orgName);
+             $("#companyName").val(compName);
+         });
+     </script>
 </head>    
 
 <body class="body-normal">
@@ -48,12 +46,12 @@
                     <div class="h3 font--lightGray">Welcome to BrndBot! First what is your company name?</div>
                     <div class="inputSection col-6of10">
                         <div class="input_Label">Please enter your company name:</div>
-                        <input class="input_Field" placeholder="Company Name"/>
+                        <input class="input_Field" id="companyName" placeholder="Company Name"/>
                     </div>
                      <div class="h3 font--lightGray pushUp_30">We have built BrndBot differently for different industries to give you the best experience possible.</div>
                     <div class="inputSection col-6of10 ">
                         <div class="input_Label">Please select an industry</div>
-                        <select class="input_Field select_Field">
+                        <select class="input_Field select_Field" id="industry">
                             <option class="input_Field">Please select an industry</option>
                         </select>
 <!--                        <div class="input_Field">
