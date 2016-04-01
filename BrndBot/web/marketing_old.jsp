@@ -126,8 +126,8 @@
                                     </div>
                                     <div class="col-md-3" style="width:300px;margin-left:-40px;">
                                         <a href = "javascript:void(0)" onclick = "overlay();" style="color:#333;text-decoration: none;">
-                                            <div ng-show="entitydetails.is_recuring" >
-                                                <p class="ypacttxt cur fontpnr" ng-click="getRecuringMailDetails(entitydetails.schedule_id,
+                                            <div ng-show="entitydetails.is_recurring" >
+                                                <p class="ypacttxt cur fontpnr" ng-click="getRecurringMailDetails(entitydetails.schedule_id,
                                                                 entitydetails.template_status,
                                                                 entitydetails.schedule_time,
                                                                 entitydetails.entity_type,
@@ -137,7 +137,7 @@
                                                                 entitydetails.marketingName,
                                                                 entitydetails.days)">{{entitydetails.schedule_title}}</p></a>
                                             </div>
-                                            <div ng-hide="entitydetails.is_recuring" >
+                                            <div ng-hide="entitydetails.is_recurring" >
                                                 <p class="ypacttxt cur fontpnr" ng-click="getScheduleDetails(entitydetails.schedule_id, entitydetails.template_status, entitydetails.schedule_time, entitydetails.entity_type, entitydetails.schedule_title, entitydetails.schedule_description,entitydetails.marketingName,entitydetails.user_marketing_program_id,entitydetails.days)">{{entitydetails.schedule_title}}</p></a>
                                             </div>
                                             <div ng-show="entitydetails.user_marketing_program_id > 0">
@@ -153,11 +153,11 @@
                                     <div class="col-md-2 MH1 socfnts" style="margin-left:20px;">{{entitydetails.template_status}}</div>
 
                                     <div class="col-md-2" style="margin-left:20px;">
-                                        <div ng-show="entitydetails.is_recuring" >
+                                        <div ng-show="entitydetails.is_recurring" >
                                             <a href = "javascript:void(0)" onclick = "overlay();">
                                                 <button type="button" 
                                                 class="edtbtn" 
-                                                ng-click="getRecuringMailDetails(entitydetails.schedule_id,
+                                                ng-click="getRecurringMailDetails(entitydetails.schedule_id,
                                                                 entitydetails.template_status,
                                                                 entitydetails.schedule_time,
                                                                 entitydetails.entity_type,
@@ -168,7 +168,7 @@
                                                                 entitydetails.days)">DETAILS</button>
                                             </a>
                                         </div>
-                                         <div ng-hide="entitydetails.is_recuring" >
+                                         <div ng-hide="entitydetails.is_recurring" >
                                             <a href = "javascript:void(0)" onclick = "overlay();">
                                                 <button type="button" 
                                                 class="edtbtn button--moema  
@@ -1670,9 +1670,9 @@
                            </div> 
             </div>
 
-            <div id="recuring_preview">
+            <div id="recurring_preview">
 
-                    <div id="recuring_preview_email">
+                    <div id="recurring_preview_email">
                         <div class="inlineFlex">
                             <div class="half">
                                 <div class="borderright">
@@ -1703,13 +1703,13 @@
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
                                                 <div class="inlineFlex">
-                                                    <div class="rightfive toptwo" id="recuringemailred">
+                                                    <div class="rightfive toptwo" id="recurringemailred">
                                                         <div class="redDot"></div>
                                                     </div>
-                                                    <div class="rightfive toptwo" id="recuringemailgreen">
+                                                    <div class="rightfive toptwo" id="recurringemailgreen">
                                                         <div class="greenDot"></div>
                                                     </div>
-                                                    <div class="containe tenpix fontpnr ">{{recuring_template_status}}</div>
+                                                    <div class="containe tenpix fontpnr ">{{recurring_template_status}}</div>
                                                 </div>
                                             </div>
                                             <div class="half containe fontpnr tenpix">
@@ -1727,21 +1727,21 @@
                                         </div>
                                         <div class="inlineFlex top120">
                                             <div class="rightthirty">
-                                                <input type="button" ng-click="addEditRecuringAction('edit',entitiesdetails.user_marketing_program_id, schedule_id)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
+                                                <input type="button" ng-click="addEditRecurringAction('edit',entitiesdetails.user_marketing_program_id, schedule_id)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
                                             </div>
                                             <div class="approve">
                                                 <input type="button" 
                                                        value="Approve to Send" 
-                                                       ng-show="recuring_action_status == true && recuring_template_status=='Template Saved'" 
-                                                       ng-click="recuringApproval(schedule_id, 'approved')" 
+                                                       ng-show="recurring_action_status == true && recurring_template_status=='Template Saved'" 
+                                                       ng-click="recurringApproval(schedule_id, 'approved')" 
                                                        class="button approvetosendbuttonwidthheightcolor 
                                                                 buttonmargin button--moema  
                                                                 button--text-thick  
                                                                 button--text-upper 
                                                                 fontpns" 
                                                                 id="mail_approve_button_post">
-                                                <button ng-click="SaveData();" ng-show="recuring_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;padding:0px;letter-spacing:1px !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
-                                                <button id="button1" ng-show="recuring_template_status == 'Approved'" ng-click="recuringApproval(schedule_id, 'template_saved')" style="background-color: #e25b5b !important;color: white !important;display:none;padding:0px;letter-spacing:0.5px !important;left:17px;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
+                                                <button ng-click="SaveData();" ng-show="recurring_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;padding:0px;letter-spacing:1px !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+                                                <button id="button1" ng-show="recurring_template_status == 'Approved'" ng-click="recurringApproval(schedule_id, 'template_saved')" style="background-color: #e25b5b !important;color: white !important;display:none;padding:0px;letter-spacing:0.5px !important;left:17px;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
                                             </div>
                                         </div>
                                     </div>
@@ -1762,7 +1762,7 @@
                                             <div class="circle"></div>
                                         </div>
                                         <div class="rightthirty">
-                                            <input type="button" value="Create Post" ng-click="addEditRecuringAction('template',entitiesdetails.user_marketing_program_id, schedule_id)"  class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                            <input type="button" value="Create Post" ng-click="addEditRecurringAction('template',entitiesdetails.user_marketing_program_id, schedule_id)"  class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                         </div>
                                     </div>
                                     <div id="mailpreviewdecond5">

@@ -6,8 +6,8 @@
 package com.intbittech.dao;
 import java.util.List;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.RecuringEmailTemplate;
-import com.intbittech.model.OrganizationRecuringEmailLookup;
+import com.intbittech.model.RecurringEmailTemplate;
+import com.intbittech.model.OrganizationRecurringEmailLookup;
 
 
 
@@ -26,62 +26,62 @@ public interface RecurringEmailTemplateDao
     /**
      * This method saves {@link RecurringEmailTemplate} into the database.
      *
-     * @param template the RecuringEmailTemplate
+     * @param template the RecurringEmailTemplate
      * @return the Integer
      * @throws ProcessFailed the process failed
      */
     
    
     
-    public Integer save(RecuringEmailTemplate template) throws ProcessFailed; 
+    public Integer save(RecurringEmailTemplate template) throws ProcessFailed; 
     
     
     
     
      /**
-     * This method delete particular {@link RecuringEmailTemplate} based on the
-     * RecuringEmailTemplate from the database.
+     * This method delete particular {@link RecurringEmailTemplate} based on the
+ RecurringEmailTemplate from the database.
      *
-     * @param template the recuringEmailTemplate
+     * @param template the recurringEmailTemplate
      * @throws ProcessFailed the process failed
      */
     
-    public void delete(RecuringEmailTemplate template) throws ProcessFailed;
+    public void delete(RecurringEmailTemplate template) throws ProcessFailed;
     
     /**
-     * This method update {@link RecuringEmailTemplate} updates existing data from the
+     * This method update {@link RecurringEmailTemplate} updates existing data from the
      * database.
      *
-     * @param template is  the RecuringEmailTemplate
+     * @param template is  the RecurringEmailTemplate
      * @throws ProcessFailed the process failed
      */
     
-    public void update(RecuringEmailTemplate template) throws ProcessFailed;
+    public void update(RecurringEmailTemplate template) throws ProcessFailed;
     
     
     
     
     
     /**
-     * This method retrieves the list of {@link RecuringEmailTemplate} from Database.
+     * This method retrieves the list of {@link RecurringEmailTemplate} from Database.
      *
-     * @param  template  is  the recuringEmailTemplate
+     * @param  template  is  the recurringEmailTemplate
      * @return {@link SubCategory}
      * @throws ProcessFailed the process failed
      */
     
-    public RecuringEmailTemplate getRecuringEmailTemplateById(Integer recuringEmailTemplateId) throws ProcessFailed;
+    public RecurringEmailTemplate getRecurringEmailTemplateById(Integer recurringEmailTemplateId) throws ProcessFailed;
     
     
     /**
-     * This method retrieves the list of {@link NonRecuringEmailTemplate} from Database.
+     * This method retrieves the list of {@link NonRecurringEmailTemplate} from Database.
      *
-     * @param  Integer array as the nonRecuringEmailIds
-     * @return {@link RecuringEmailTemplate}
+     * @param  Integer array as the nonRecurringEmailIds
+     * @return {@link RecurringEmailTemplate}
      * @throws ProcessFailed the process failed
      */
     
-    public List<RecuringEmailTemplate> getAllNonRecurringEmail(Integer[] nonRecuringEmailIds) throws ProcessFailed;
+    public List<RecurringEmailTemplate> getAllNonRecurringEmail(Integer[] nonRecurringEmailIds) throws ProcessFailed;
    
     
     

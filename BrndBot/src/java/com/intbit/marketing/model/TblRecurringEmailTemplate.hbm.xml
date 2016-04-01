@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Oct 28, 2015 12:01:09 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.intbit.marketing.model.TblRecuringEmailTemplate" table="tbl_recuring_email_template" schema="public" optimistic-lock="version">
+    <class name="com.intbit.marketing.model.TblRecurringEmailTemplate" table="tbl_recurring_email_template" schema="public" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
             <generator class="assigned" />

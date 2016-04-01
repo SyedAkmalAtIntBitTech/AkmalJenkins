@@ -27,13 +27,13 @@ import util.Utility;
  *
  * @author Ajit
  */
-public class ScheduleAnRecuringEmail implements Runnable {
+public class ScheduleAnRecurringEmail implements Runnable {
 
     public void terminateThread() {
         try {
             Thread.currentThread().interrupt();
         } catch (Exception ex) {
-            Logger.getLogger(ScheduleAnRecuringEmail.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ScheduleAnRecurringEmail.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -41,19 +41,19 @@ public class ScheduleAnRecuringEmail implements Runnable {
     public void run() {
 
         try {
-            List<TblScheduledEntityList> scheduledAnRecuringEmail = getLatestApprovedSendEmail();
-            for (TblScheduledEntityList currentScheduledRecuringEmail : scheduledAnRecuringEmail) {
-                if (scheduledAnRecuringEmail != null) {
-                    boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledRecuringEmail.getScheduleTime());
+            List<TblScheduledEntityList> scheduledAnRecurringEmail = getLatestApprovedSendEmail();
+            for (TblScheduledEntityList currentScheduledRecurringEmail : scheduledAnRecurringEmail) {
+                if (scheduledAnRecurringEmail != null) {
+                    boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledRecurringEmail.getScheduleTime());
 //                    boolean shouldPostNow = true;
 
                     if (shouldPostNow) {
-                        TblScheduledEmailList sendAnEmail = getSendEmail(currentScheduledRecuringEmail);
+                        TblScheduledEmailList sendAnEmail = getSendEmail(currentScheduledRecurringEmail);
                         String html_text = sendAnEmail.getBody();
                         String email_subject = sendAnEmail.getSubject();
 
                         String emaillist_name = sendAnEmail.getEmailListName();
-                        Integer user_id = currentScheduledRecuringEmail.getUserId();
+                        Integer user_id = currentScheduledRecurringEmail.getUserId();
                         String reply_to_address = "";
                         if (sendAnEmail.getReplyToEmailAddress() != null) {
                             reply_to_address = sendAnEmail.getReplyToEmailAddress();
@@ -69,7 +69,7 @@ public class ScheduleAnRecuringEmail implements Runnable {
                         String from_name = sendAnEmail.getFromName();
                         SendAnEmail anEmail = new SendAnEmail();
                         String message = "";
-                        Integer days = currentScheduledRecuringEmail.getDays();
+                        Integer days = currentScheduledRecurringEmail.getDays();
                         JSONArray jsonArray = anEmail.getAllEmailAddressesForEmailList(user_id, days, emaillist_name);
 
                         for (int i = 0; i < jsonArray.size(); i++) {
@@ -90,7 +90,7 @@ public class ScheduleAnRecuringEmail implements Runnable {
                         }
 //                      String message = "success";//TODO
                         if (message.equalsIgnoreCase("success")) {
-                            updateStatusScheduledEmail(currentScheduledRecuringEmail);
+                            updateStatusScheduledEmail(currentScheduledRecurringEmail);
                         }
                     }
                 }

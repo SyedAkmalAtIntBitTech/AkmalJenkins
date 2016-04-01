@@ -7,10 +7,7 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.RecurringEmailTemplateDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.OrganizationRecuringEmailLookup;
-import com.intbittech.model.RecuringEmailTemplate;
-import com.intbittech.model.SubCategory;
-import com.intbittech.model.SubCategoryEmailModel;
+import com.intbittech.model.RecurringEmailTemplate;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -23,14 +20,14 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 /**
- * <code> {@link RecuringEmailTemplateDaoImp} </code> is implementation of
+ * <code> {@link RecurringEmailTemplateDaoImp} </code> is implementation of
  * {@link RecurringEmailTemplateDao} and perform the database related operation for
- * managing {@link RecuringEmailTemplate}
+ * managing {@link RecurringEmailTemplate}
  *
  * @author Mohammed-Tameem
  */
 @Repository
-public class RecuringEmailTemplateDaoImp implements RecurringEmailTemplateDao {
+public class RecurringEmailTemplateDaoImp implements RecurringEmailTemplateDao {
 
     private static Logger logger = Logger.getLogger(SubCategoryEmailModelDaoImpl.class);
 
@@ -44,7 +41,7 @@ public class RecuringEmailTemplateDaoImp implements RecurringEmailTemplateDao {
      * {@inheritDoc}
      */
 
-    public Integer save(RecuringEmailTemplate template) throws ProcessFailed {
+    public Integer save(RecurringEmailTemplate template) throws ProcessFailed {
         try {
             return ((Integer) sessionFactory.getCurrentSession().save(template));
         } catch (Throwable throwable) {
@@ -55,7 +52,7 @@ public class RecuringEmailTemplateDaoImp implements RecurringEmailTemplateDao {
     /**
      * {@inheritDoc}
      */
-    public void delete(RecuringEmailTemplate template) throws ProcessFailed {
+    public void delete(RecurringEmailTemplate template) throws ProcessFailed {
         try {
             sessionFactory.getCurrentSession().delete(template);
         } catch (Throwable throwable) {
@@ -66,7 +63,7 @@ public class RecuringEmailTemplateDaoImp implements RecurringEmailTemplateDao {
     /**
      * {@inheritDoc}
      */
-    public void update(RecuringEmailTemplate template) throws ProcessFailed {
+    public void update(RecurringEmailTemplate template) throws ProcessFailed {
         try {
             sessionFactory.getCurrentSession().update(template);
         } catch (Throwable throwable) {
@@ -77,17 +74,17 @@ public class RecuringEmailTemplateDaoImp implements RecurringEmailTemplateDao {
     /**
      * {@inheritDoc}
      */
-    public RecuringEmailTemplate getRecuringEmailTemplateById(Integer recuringEmailTemplateId) throws ProcessFailed {
+    public RecurringEmailTemplate getRecurringEmailTemplateById(Integer recurringEmailTemplateId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(RecuringEmailTemplate.class)
-                    .setFetchMode("recuring_email_template_id", FetchMode.JOIN)
-                    .add(Restrictions.eq("recuring_email_template_id", recuringEmailTemplateId));
-            List<RecuringEmailTemplate> recuringEmailTemplate = criteria.list();
-            if (recuringEmailTemplate.isEmpty()) {
+                    .createCriteria(RecurringEmailTemplate.class)
+                    .setFetchMode("recurring_email_template_id", FetchMode.JOIN)
+                    .add(Restrictions.eq("recurring_email_template_id", recurringEmailTemplateId));
+            List<RecurringEmailTemplate> recurringEmailTemplate = criteria.list();
+            if (recurringEmailTemplate.isEmpty()) {
                 return null;
             }
-            return (RecuringEmailTemplate) criteria.list().get(0);
+            return (RecurringEmailTemplate) criteria.list().get(0);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_retreving_message", new String[]{}, Locale.US));
@@ -99,17 +96,17 @@ public class RecuringEmailTemplateDaoImp implements RecurringEmailTemplateDao {
     /**
      * {@inheritDoc}
      */
-       public List<RecuringEmailTemplate> getAllNonRecurringEmail(Integer[] nonRecuringEmailIds) throws ProcessFailed {
+       public List<RecurringEmailTemplate> getAllNonRecurringEmail(Integer[] nonRecurringEmailIds) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(RecuringEmailTemplate.class);
-            for(int i =0 ; i<nonRecuringEmailIds.length;i++)
-            criteria.add(Restrictions.ne("recuringEmailTemplateId", nonRecuringEmailIds[i]));
-            List<RecuringEmailTemplate> recuringEmailList = criteria.list();
-            if (recuringEmailList.isEmpty()) {
+                    .createCriteria(RecurringEmailTemplate.class);
+            for(int i =0 ; i<nonRecurringEmailIds.length;i++)
+            criteria.add(Restrictions.ne("recurringEmailTemplateId", nonRecurringEmailIds[i]));
+            List<RecurringEmailTemplate> recurringEmailList = criteria.list();
+            if (recurringEmailList.isEmpty()) {
                 return null;
             }
-            return recuringEmailList;
+            return recurringEmailList;
 
         } catch (Throwable throwable) {
             logger.error(throwable);

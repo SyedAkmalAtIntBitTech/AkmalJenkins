@@ -7,8 +7,8 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.OrganizationRecurringEmailLookUpDao;
 
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.OrganizationRecuringEmailLookup;
-import com.intbittech.model.RecuringEmailTemplate;
+import com.intbittech.model.OrganizationRecurringEmailLookup;
+import com.intbittech.model.RecurringEmailTemplate;
 
 import java.util.List;
 import java.util.Locale;
@@ -20,16 +20,17 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
-import com.intbittech.model.OrganizationRecuringEmailLookup;
+import com.intbittech.model.OrganizationRecurringEmailLookup;
 
 /**
- * <code> {@link OrganizationRecuringEmailLookupDaoImpl} </code> is implementation of
- * {@link OrganizationRecuringEmailLookupDao} and perform the database related operation for
- * managing {@link OrganizationRecuringEmailLookupDaoImpl}
+ * <code> {@link OrganizationRecurringEmailLookupDaoImpl} </code> is implementation of
+ * {@link OrganizationRecurringEmailLookupDao} and perform the database related operation for
+ * managing {@link OrganizationRecurringEmailLookupDaoImpl}
  *
  * @author Mohammed-Tameem
  */
-public class OrganizationRecuringEmailLookupDaoImpl implements OrganizationRecurringEmailLookUpDao
+@Repository
+public class OrganizationRecurringEmailLookupDaoImpl implements OrganizationRecurringEmailLookUpDao
 
 {
     private static Logger logger = Logger.getLogger(SubCategoryEmailModelDaoImpl.class);
@@ -45,12 +46,12 @@ public class OrganizationRecuringEmailLookupDaoImpl implements OrganizationRecur
      * {@inheritDoc}
      */
 
-     public List<OrganizationRecuringEmailLookup> getAllRecuringByOrganizationId(Integer organizationId) throws ProcessFailed 
+     public List<OrganizationRecurringEmailLookup> getAllRecurringByOrganizationId(Integer organizationId) throws ProcessFailed 
        {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(OrganizationRecuringEmailLookup.class)
-                    .setFetchMode("fkRecuringEmailTemplateId", FetchMode.JOIN)
+                    .createCriteria(OrganizationRecurringEmailLookup.class)
+                    .setFetchMode("fkRecurringEmailTemplateId", FetchMode.JOIN)
                     .setFetchMode("fkOrganizationId", FetchMode.JOIN)
                     .add(Restrictions.eq("fkOrganizationId.organizationId", organizationId));
             if (criteria.list().isEmpty()) {
@@ -67,16 +68,16 @@ public class OrganizationRecuringEmailLookupDaoImpl implements OrganizationRecur
      * {@inheritDoc}
      */
      
-     public OrganizationRecuringEmailLookup getOrganizationRecuringEmailById(Integer organizationRecuringEmailLookupId) throws ProcessFailed 
+     public OrganizationRecurringEmailLookup getOrganizationRecurringEmailById(Integer organizationRecurringEmailLookupId) throws ProcessFailed 
      {
                  try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(OrganizationRecuringEmailLookup.class)
-                    .add(Restrictions.eq("fkOrganizationId.organizationId", organizationRecuringEmailLookupId));
+                    .createCriteria(OrganizationRecurringEmailLookup.class)
+                    .add(Restrictions.eq("fkOrganizationId.organizationId", organizationRecurringEmailLookupId));
             if (criteria.list().isEmpty()) {
                 return null;
             }
-            return (OrganizationRecuringEmailLookup) criteria.list().get(0);
+            return (OrganizationRecurringEmailLookup) criteria.list().get(0);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_retreving_message", new String[]{}, Locale.US));
@@ -87,9 +88,9 @@ public class OrganizationRecuringEmailLookupDaoImpl implements OrganizationRecur
      * {@inheritDoc}
      */
      
-       public Integer saveRecuringEmailOrganization(OrganizationRecuringEmailLookup organizationRecuringEmailLookup) throws ProcessFailed {
+       public Integer saveRecurringEmailOrganization(OrganizationRecurringEmailLookup organizationRecurringEmailLookup) throws ProcessFailed {
         try {
-            return ((Integer) sessionFactory.getCurrentSession().save(organizationRecuringEmailLookup));
+            return ((Integer) sessionFactory.getCurrentSession().save(organizationRecurringEmailLookup));
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_saving_message", new String[]{}, Locale.US));
@@ -100,9 +101,9 @@ public class OrganizationRecuringEmailLookupDaoImpl implements OrganizationRecur
      * {@inheritDoc}
      */
 
-    public void deleteRecuringEmailOrganization(OrganizationRecuringEmailLookup organizationRecuringEmailLookup) throws ProcessFailed {
+    public void deleteRecurringEmailOrganization(OrganizationRecurringEmailLookup organizationRecurringEmailLookup) throws ProcessFailed {
         try {
-            sessionFactory.getCurrentSession().delete(organizationRecuringEmailLookup);
+            sessionFactory.getCurrentSession().delete(organizationRecurringEmailLookup);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_deleting_message", new String[]{}, Locale.US));

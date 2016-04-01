@@ -66,15 +66,15 @@ public interface ScheduledEntityListService {
     */
    public void delete(Integer id) throws Throwable;
    
-   public List<TblScheduledEntityList> getAllUserScheduledEmailList(Integer userMarketingId,Boolean isRecuring, String entityType) throws Throwable;
+   public List<TblScheduledEntityList> getAllUserScheduledEmailList(Integer userMarketingId,Boolean isRecurring, String entityType) throws Throwable;
     /**
 	 * This method retrieves {@link scheduledEntityList} by passing id
 	 * @param userMarketingProgramId
-         * @param isRecuring
+         * @param isRecurring
 	 * @return {@link scheduledEntityList}
         * @throws java.lang.Throwable 
     */
-   public List<TblScheduledEntityList> getScheduledEntityListIdForEmailType(Integer userMarketingProgramId,Boolean isRecuring) throws Throwable;
+   public List<TblScheduledEntityList> getScheduledEntityListIdForEmailType(Integer userMarketingProgramId,Boolean isRecurring) throws Throwable;
     /**
 	 * This method retrieves {@link scheduledEntityList} by passing id
 	 * @param userMarketingProgramId
@@ -95,11 +95,11 @@ public interface ScheduledEntityListService {
 	 * @param status
          * @param entityType 
          * @param programStatus
-         * @param isRecuring
+         * @param isRecurring
 	 * @return {@link scheduledEntityList}
         * @throws java.lang.Throwable 
     */
-    public TblScheduledEntityList getLatestApprovedSendEmail(String status,String entityType,String programStatus,Boolean isRecuring) throws Throwable;
+    public TblScheduledEntityList getLatestApprovedSendEmail(String status,String entityType,String programStatus,Boolean isRecurring) throws Throwable;
 
     /**
      * This method retrieves {@link scheduledEntityList} by passing id
@@ -125,9 +125,9 @@ public interface ScheduledEntityListService {
      * @param status
      * @param entityType
      * @param programStatus
-     * @param isRecuring 
+     * @param isRecurring 
      * @return {@link scheduledEntityList}
      * @throws java.lang.Throwable
      */
-    public String getLatestApprovedEmail(String status, String entityType, String programStatus,Boolean isRecuring) throws Throwable;
+    public String getLatestApprovedEmail(String status, String entityType, String programStatus,Boolean isRecurring) throws Throwable;
 }

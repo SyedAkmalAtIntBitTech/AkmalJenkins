@@ -5,9 +5,6 @@
  */
 package com.intbittech.modelmappers;
 
-import com.intbittech.model.Organization;
-import com.intbittech.model.RecuringEmailTemplate;
-
 /**
  *
  * @author sandeep-kumar
@@ -15,19 +12,19 @@ import com.intbittech.model.RecuringEmailTemplate;
 public class RecurringEmailDetails
 {
     
-     private Integer recuringEmailTemplateId;
+     private Integer recurringEmailTemplateId;
      private String htmlData;
      private String templateName;
-     private Integer organizationRecuringEmailLookupId;
+     private Integer organizationRecurringEmailLookupId;
      private Integer OrganizationId;
     
 
-    public Integer getRecuringEmailTemplateId() {
-        return recuringEmailTemplateId;
+    public Integer getRecurringEmailTemplateId() {
+        return recurringEmailTemplateId;
     }
 
-    public void setRecuringEmailTemplateId(Integer recuringEmailTemplateId) {
-        this.recuringEmailTemplateId = recuringEmailTemplateId;
+    public void setRecurringEmailTemplateId(Integer recurringEmailTemplateId) {
+        this.recurringEmailTemplateId = recurringEmailTemplateId;
     }
 
     public String getHtmlData() {
@@ -46,12 +43,12 @@ public class RecurringEmailDetails
         this.templateName = templateName;
     }
 
-    public Integer getOrganizationRecuringEmailLookupId() {
-        return organizationRecuringEmailLookupId;
+    public Integer getOrganizationRecurringEmailLookupId() {
+        return organizationRecurringEmailLookupId;
     }
 
-    public void setOrganizationRecuringEmailLookupId(Integer organizationRecuringEmailLookupId) {
-        this.organizationRecuringEmailLookupId = organizationRecuringEmailLookupId;
+    public void setOrganizationRecurringEmailLookupId(Integer organizationRecurringEmailLookupId) {
+        this.organizationRecurringEmailLookupId = organizationRecurringEmailLookupId;
     }
 
     public Integer getOrganizationId() {

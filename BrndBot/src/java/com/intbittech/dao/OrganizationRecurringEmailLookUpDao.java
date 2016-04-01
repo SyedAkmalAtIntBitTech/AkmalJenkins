@@ -6,7 +6,7 @@
 package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.OrganizationRecuringEmailLookup;
+import com.intbittech.model.OrganizationRecurringEmailLookup;
 import java.util.List;
 
 /**
@@ -18,47 +18,47 @@ public interface OrganizationRecurringEmailLookUpDao
       
 {
      /**
-     * This method saves {@link OrganizationRecuringEmailLookup} into the database.
+     * This method saves {@link OrganizationRecurringEmailLookup} into the database.
      *
-     * @param organizationRecuringEmailLookup the OrganizationRecuringEmailLookup
+     * @param organizationRecurringEmailLookup the OrganizationRecurringEmailLookup
      * @return the Integer
      * @throws ProcessFailed the process failed
      */
     
-     public Integer saveRecuringEmailOrganization(OrganizationRecuringEmailLookup organizationRecuringEmailLookup) throws ProcessFailed;
+     public Integer saveRecurringEmailOrganization(OrganizationRecurringEmailLookup organizationRecurringEmailLookup) throws ProcessFailed;
      
      
      /**
      * This method delete particular {@link OrganizationRecurringEmailLookUp} based on the
      * OrganizationRecurringEmailLookUp from the database.
      *
-     * @param organizationRecuringEmailLookup  the OrganizationRecuringEmailLookup
+     * @param organizationRecurringEmailLookup  the OrganizationRecurringEmailLookup
      * @throws ProcessFailed the process failed
      */
     
-     public void deleteRecuringEmailOrganization(OrganizationRecuringEmailLookup organizationRecuringEmailLookup)throws ProcessFailed;
+     public void deleteRecurringEmailOrganization(OrganizationRecurringEmailLookup organizationRecurringEmailLookup)throws ProcessFailed;
      
      
      /**
-     * This method retrieves the list of {@link OrganizationRecuringEmailLookup} from Database.
+     * This method retrieves the list of {@link OrganizationRecurringEmailLookup} from Database.
      *
-     * @param  organizationRecuringEmailLookup the OrganizationRecuringEmailLookup
-     * @return {@link OrganizationRecuringEmailLookup}
+     * @param  organizationRecurringEmailLookup the OrganizationRecurringEmailLookup
+     * @return {@link OrganizationRecurringEmailLookup}
      * @throws ProcessFailed the process failed
      */
      
     
-     public List<OrganizationRecuringEmailLookup>  getAllRecuringByOrganizationId(Integer organizationId)throws ProcessFailed;
+     public List<OrganizationRecurringEmailLookup>  getAllRecurringByOrganizationId(Integer organizationId)throws ProcessFailed;
      
      
      /**
-     * This method retrieves particular {@link OrganizationRecuringEmailLookup} from the database.
+     * This method retrieves particular {@link OrganizationRecurringEmailLookup} from the database.
      *
-     * @param organizationRecuringEmailLookup the OrganizationRecuringEmailLookup
-     * @return {@link OrganizationRecuringEmailLookup}
+     * @param organizationRecurringEmailLookup the OrganizationRecurringEmailLookup
+     * @return {@link OrganizationRecurringEmailLookup}
      * @throws ProcessFailed the process failed
      */
      
-     public OrganizationRecuringEmailLookup getOrganizationRecuringEmailById(Integer organizationRecuringEmailLookupId) throws ProcessFailed;
+     public OrganizationRecurringEmailLookup getOrganizationRecurringEmailById(Integer organizationRecurringEmailLookupId) throws ProcessFailed;
     
 }
