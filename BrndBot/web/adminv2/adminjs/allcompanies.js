@@ -1,0 +1,193 @@
+/* 
+ * Copyright 2015 Intbit Technologies. This software and documentation contains
+ * confidential and proprietary information that is owned by Intbit
+ * Technologies. Unauthorized use and distribution are strictly prohibited.
+ */
+
+
+function allCompaniesController($scope,$http){
+    
+  $scope.allCompanyDetails = function (){
+      
+        $http({
+             method: 'GET',
+             url : getHost()+'/getAllCompanies.do'            
+        }).success(function(data, status, headers, config){
+            $scope.company = data.d.details;            
+        }).error(function(data, status, headers, config){
+            alert(eval(JSON.stringify(data.d.operationStatus.messages)));          
+        });     
+      
+  };   
+  
+  $scope.companyEmailcategories= function (){       
+            var companyId=$("#companyId").val();
+            $http({
+                method : 'GET',
+                url : getHost()+'/getCompanyDetailsById.do?companyId='+companyId
+            }).success(function(data, status, headers, config) {
+                $scope.emailCategoryNameList=[];
+                $scope.printCategoryNameList=[];
+                $scope.imageCategoryNameList=[];
+                $scope.channelList=[];
+               for ( var i = 0; i <= data.d.details.length; i++) {
+                   
+                   for(var j=0;j<data.d.details[i].channelDetailsList.length;j++){
+                       $scope.channelList[j]=data.d.details[i].channelDetailsList[j];
+                    
+                      
+                        for(var k=0;k<data.d.details[i].channelDetailsList[j].categoryDetailsList.length;k++)
+                       {
+                         if($scope.channelList[j].channelName === emailChannel){
+           
+//                           alert(JSON.stringify(data.d.details[i].channelDetailsList[j].categoryDetailsList[k]));
+                           $scope.emailCategoryNameList[k]=data.d.details[i].channelDetailsList[j].categoryDetailsList[k];
+                       }
+                        if($scope.channelList[j].channelName === printChannel){
+                           
+                             $scope.printCategoryNameList[k]=data.d.details[i].channelDetailsList[j].categoryDetailsList[k];
+                        }
+                        
+                         if($scope.channelList[j].channelName === imageChannel){
+                             
+                             
+                              $scope.imageCategoryNameList[k]=data.d.details[i].channelDetailsList[j].categoryDetailsList[k];
+                       
+                        
+                       
+                       }
+                        
+      
+                       }
+                   }
+                   
+                }
+                
+            }).error(function(data, status, headers, config) {
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            });         
+    };      
+  
+  
+    
+    $scope.emailBlockList= function (){       
+            var companyId=$("#companyId").val();
+            $http({
+                method : 'GET',
+                url : getHost()+'/getCompanyDetailsById.do?companyId='+companyId
+            }).success(function(data, status, headers, config) {
+               for ( var i = 0; i <= data.d.details.length; i++) {
+                   for(var j=0;j<data.d.details[i].emailBlockDetailsList.length;j++){
+                       $scope.emailBlocks=data.d.details[i].emailBlockDetailsList;
+                       $scope.organizationNames=data.d.details[i];
+                        $scope.organizationId=data.d.details[i];
+                   }
+                   
+                }
+                
+            }).error(function(data, status, headers, config) {
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            });         
+    };      
+    
+    
+    $scope.marketingCategory= function (){       
+            var companyId=$("#companyId").val();
+            $http({
+                method : 'GET',
+                url : getHost()+'/getCompanyDetailsById.do?companyId='+companyId
+            }).success(function(data, status, headers, config) {
+               
+               for ( var i = 0; i <= data.d.details.length; i++) {
+                 
+                   for(var j=0;j<data.d.details[i].marketingCategoryDetailsList.length;j++){
+                       $scope.marketingCategoryLists=data.d.details[i].marketingCategoryDetailsList;
+                       $scope.organizationNames=data.d.details[i];
+                  
+                   }
+                   
+                }
+                
+            }).error(function(data, status, headers, config) {
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            });         
+    };   
+    
+    
+    $scope.updateCompanyOrganization=function (){
+            var organizationId=$("#organizationId").val();
+            var companyId=$("#companyId").val();
+            var organizationName=$("#organizationName").val();
+            var updateorg = {"organizationId":organizationId,"companyId": companyId};
+             $http({
+                    method : 'POST',
+                    url : getHost()+'/saveGroup.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: updateorg
+                }).success(function(data, status, headers, config) { 
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    window.open(getHost() + 'adminv2/companydetails.jsp?companyId='+companyId, "_self");
+                      
+                }).error(function(data, status, headers, config) {
+                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });   
+        }
+    
+     $scope.groupsDisplay = function () {
+        
+                    $http({
+                            method : 'GET',
+                            url : getHost()+'/getAllOrganizations.do'
+                        }).success(function(data, status, headers, config) {
+                            $scope.groupDetail = data.d.details;  
+                        }).error(function(data, status, headers, config) {
+                                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                        });
+       
+    };
+    
+    
+    var selectedListItems="";
+    $scope.selectedItemsList= function(item) {
+               var selectedItemList="";
+	       $scope.selected = item; 
+               selectedItemList=item;
+            selectedListItems=selectedItemList;
+            var sel =selectedListItems;
+            alert(JSON.stringify(sel));
+           
+               $("#addGroupDetails").css('pointer-events','auto');
+	};
+        $scope.isActiveMode = function(item) {
+	       return $scope.selected === item;
+	};
+        
+        
+        $scope.addGroupTemplate= function (){
+         var organizationId=$("#organizationIdTag").val();
+        var marketingCategoryId=$("#marketingCategoryId").val();      
+        var marketingProgramId=eval(JSON.stringify(selectedListItems.marketingProgramId));
+        var groupAddTemplate ={ "marketingProgramId" : marketingProgramId,  "marketingCategoryId" : marketingCategoryId}
+            
+         $.ajax({
+                    method: 'POST',
+                    url: getHost() + '/saveMarketingCategoryProgram.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(marketingAddTemplate)
+                }).success(function (data)
+                {   
+                       alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                       window.open(getHost() + 'adminv2/companydetails.jsp?companyId='+companyId+"_self");
+                    
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });   
+        
+        
+    };
+        
+
+}
+

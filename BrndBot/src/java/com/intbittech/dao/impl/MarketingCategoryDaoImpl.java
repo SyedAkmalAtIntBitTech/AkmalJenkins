@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -144,8 +145,13 @@ public class MarketingCategoryDaoImpl implements MarketingCategoryDao {
                     .createCriteria(OrganizationMarketingCategoryLookup.class)
                     .setFetchMode("fkOrganizationId", FetchMode.JOIN)
                     .setFetchMode("fkMarketingCategoryId", FetchMode.JOIN);
-            for(int i =0 ; i< organizationIds.length ; i++)
-                criteria.add(Restrictions.eq("fkOrganizationId.organizationId", organizationIds[i]));
+            
+            Criterion[] criterions = new Criterion[organizationIds.length];
+            for(int i=0;i<organizationIds.length;i++)
+              criterions[i] = (Restrictions.eq("fkOrganizationId.organizationId", organizationIds[i]));
+              
+            criteria.add(Restrictions.or(criterions));
+            
             List<OrganizationMarketingCategoryLookup> organizationMarketingCategoryList = criteria.list();
             if (organizationMarketingCategoryList.isEmpty()) {
                 return null;

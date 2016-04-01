@@ -116,7 +116,7 @@ public class CompanyController {
             List<OrganizationDetails> organizationDetailsList = new ArrayList<>();
             Integer organizationCompanySize = 1;
             if(organizationCompanyDetail!=null)
-                organizationCompanySize = organizationCompanyDetail.size();
+                organizationCompanySize = organizationCompanyDetail.size()+1;
             Integer[] organizationIds = new Integer[organizationCompanySize];
             Integer i =0;
             organizationIds[i++] = organizationCompany.getFkOrganizationId().getOrganizationId();
