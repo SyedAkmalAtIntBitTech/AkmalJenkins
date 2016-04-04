@@ -7,6 +7,7 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.OrganizationCompanyDao;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
 import java.util.List;
 import java.util.Locale;
@@ -14,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -85,6 +87,31 @@ public class OrganizationCompanyDaoImpl implements OrganizationCompanyDao {
                     .add(Restrictions.eq("fkCompanyId.companyId", companyId))
                     .createAlias("fkOrganizationId.fkOrganizationTypeId", "organizationType")
                     .add(Restrictions.eq("organizationType.organizationTypeId", 1)); //Group is 1
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<Organization> getNonAddedGroups(Integer[] organizationIds) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(Organization.class)
+                    .add(Restrictions.eq("fkOrganizationTypeId.organizationTypeId", 1)); //Group is 1
+            
+            Criterion[] criterions = new Criterion[organizationIds.length];
+            for(int i=0;i<organizationIds.length;i++)
+              criterions[i] = (Restrictions.eq("organizationId", organizationIds[i]));
+              
+            criteria.add(Restrictions.or(criterions));
             if (criteria.list().isEmpty()) {
                 return null;
             }

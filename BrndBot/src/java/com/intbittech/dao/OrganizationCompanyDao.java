@@ -6,6 +6,7 @@
 package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
 import java.util.List;
 
@@ -68,5 +69,14 @@ public interface OrganizationCompanyDao {
      * @throws ProcessFailed the process failed
      */
     public OrganizationCompanyLookup getById(Integer organizationCompanyLookupId) throws ProcessFailed;
+    
+    /**
+     * This method retrieves the {@link Organization} from database.
+     *
+     * @param organizationIds
+     * @return list of {@link Organization}
+     * @throws ProcessFailed the process failed
+     */
+    public List<Organization> getNonAddedGroups(Integer[] organizationIds) throws ProcessFailed;
     
 }

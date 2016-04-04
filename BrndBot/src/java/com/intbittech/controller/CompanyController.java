@@ -20,7 +20,6 @@ import com.intbittech.modelmappers.CompanyAllDetails;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.modelmappers.EmailBlockDetails;
 import com.intbittech.modelmappers.MarketingCategoryDetails;
-import com.intbittech.modelmappers.MarketingCategoryProgramDetails;
 import com.intbittech.modelmappers.OrganizationDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
@@ -90,6 +89,50 @@ public class CompanyController {
             genericResponse.setDetails(companyDetailsList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("company_get_all",new String[]{}, Locale.US)));
             
+            
+        } catch(Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "getNonAddedGroups",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getNonAddedGroups(@RequestParam("companyId") Integer companyId) {
+        GenericResponse<OrganizationDetails> genericResponse = new GenericResponse<OrganizationDetails>();
+        try {
+            List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
+            organizationCompanyDetail = companyService.getAllOrganizationCompanyById(companyId);
+            
+            Integer organizationCompanySize = 1;
+            if(organizationCompanyDetail!=null)
+                organizationCompanySize = organizationCompanyDetail.size()+1;
+            Integer[] organizationIds = new Integer[organizationCompanySize];
+            Integer i =0;
+            organizationIds[i++] = 0;
+            
+            if(organizationCompanyDetail!=null)
+            {
+                for(OrganizationCompanyLookup organizationObject : organizationCompanyDetail) {
+                    organizationIds[i++] = organizationObject.getFkOrganizationId().getOrganizationId();
+                }
+            }
+            
+            List<Organization> organizationList = companyService.getNonAddedGroups(organizationIds);
+            List<OrganizationDetails> organizationDetailsList = new ArrayList<>();
+            for(Organization organizationCompanyObject : organizationList) {
+                OrganizationDetails organizationDetails = new OrganizationDetails();
+                organizationDetails.setOrganizationId(organizationCompanyObject.getOrganizationId());
+                organizationDetails.setOrganizationName(organizationCompanyObject.getOrganizationName());
+                organizationDetailsList.add(organizationDetails);
+                
+            }
+            
+            genericResponse.setDetails(organizationDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("group_get_all",new String[]{}, Locale.US)));
+            
+            
+                        
             
         } catch(Throwable throwable) {
             logger.error(throwable);

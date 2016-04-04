@@ -10,6 +10,7 @@ import com.intbittech.dao.OrganizationCompanyDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.MarketingCategoryProgram;
+import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.services.CompanyService;
 import java.util.List;
@@ -103,6 +104,18 @@ public class CompanyServiceImpl implements CompanyService{
         if(organizationCompanyLookup == null)
             throw new ProcessFailed(messageSource.getMessage("group_delete_error",new String[]{}, Locale.US));
         organizationCompanyDao.delete(organizationCompanyLookup);
+    }
+
+    @Override
+    public List<Organization> getNonAddedGroups(Integer[] organizationIds) throws ProcessFailed {
+        List<Organization> organizationList = organizationCompanyDao.getNonAddedGroups(organizationIds);
+        if(organizationList == null)
+        {
+             throw new ProcessFailed(messageSource.getMessage("group_list_not_found",new String[]{}, Locale.US));
+        }
+              return organizationList;
+        
+        
     }
     
 }
