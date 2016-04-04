@@ -654,9 +654,8 @@ $scope.addImageCategory = function () {
     };
     
     $scope.deleteOrganizationRecurringEmail=function (organizationRecurringEmailLookupId){
-            alert(organizationRecurringEmailLookupId);
-            var  deleteconfirm=confirm("Yes");
-            if(deleteconfirm==true){
+            var  deleteRecurring=confirm(removeRecurringEmailPrompt);
+            if(deleteRecurring==true){
             $http({
                 method: 'GET',
                 url: getHost() + '/deleteOrganizationRecurringEmail.do?organizationRecurringEmailLookupId='+organizationRecurringEmailLookupId

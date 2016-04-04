@@ -161,4 +161,5 @@ var printName="Print";
 var imageName="Image";
 var enterBlockName="Please enter Block Name!";
 var uploadImageFile="Please Upload an Image!";
+var removeRecurringEmailPrompt="Do you want to remove this Recurring Email?";
 /// ADMIN alerts Ends////
