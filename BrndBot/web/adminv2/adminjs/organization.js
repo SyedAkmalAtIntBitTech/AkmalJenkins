@@ -160,7 +160,7 @@ function organizationcontroller($scope,$http) {
           
             var organizationId=$("#organizationId").val();
             var categoryName = $("#categoryName").val();
-            var category ={"categoryName" : categoryName,"channelId":emailChannelId,"orgnizationId":organizationId}
+            var emailCategory ={"categoryName" : categoryName,"channelId":parseInt(emailChannelId),"organizationId":parseInt(organizationId)}
             if(categoryName===""){
                 alert(enterCategoryName);
                 $("#categoryName").focus();
@@ -170,10 +170,11 @@ function organizationcontroller($scope,$http) {
                     url: getHost() + '/saveCategory.do',
                     dataType: "json",
                     contentType: "application/json",
-                    data: JSON.stringify(category)
+                    data: JSON.stringify(emailCategory)
                 }).success(function (data)
                 { 
-                    alert(emailName+"\t"+eval(JSON.stringify(data.d.operationStatus.messages)));
+                  alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    
                     window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
 
                 }).error(function(data){
@@ -186,7 +187,7 @@ function organizationcontroller($scope,$http) {
         
             var organizationId=$("#organizationId").val();
             var printCategory = $("#printCategory").val();
-            var category ={"categoryName" : printCategory,"channelId":printChannelId,"orgnizationId":organizationId}
+            var category ={"categoryName" : printCategory,"channelId":printChannelId,"organizationId":organizationId}
             if(printCategory===""){
                 alert(enterCategoryName);
                 $("#printCategory").focus();
@@ -213,7 +214,7 @@ $scope.addImageCategory = function () {
         
             var organizationId=$("#organizationId").val();
             var imageCategory = $("#imageCategory").val();
-            var imageCategory ={"categoryName" : imageCategory,"channelId":imageChannelId,"orgnizationId":organizationId}
+            var imageCategory ={"categoryName" : imageCategory,"channelId":imageChannelId,"organizationId":organizationId}
              if(imageCategory===""){
              alert(enterCategoryName);
              $("#imagecategory").focus();

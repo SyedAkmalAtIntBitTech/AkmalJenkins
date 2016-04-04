@@ -122,7 +122,12 @@ function allCompaniesController($scope,$http){
                             method : 'GET',
                             url : getHost()+'/getNonAddedGroups.do?companyId='+companyId
                         }).success(function(data, status, headers, config) {
+                            
                             $scope.groupDetail = data.d.details;  
+                             if(JSON.stringify($scope.groupDetail)=="null"){
+                        $("#noGroup").show();
+                        $("#noGroupMessage").empty().append(eval(JSON.stringify(data.d.operationStatus.messages)));
+                    }
                         }).error(function(data, status, headers, config) {
                                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });
@@ -167,7 +172,7 @@ function allCompaniesController($scope,$http){
         $scope.addGroupTemplate= function (){
         var companyId=$("#companyId").val();      
          var organizationName=$("#organizationName").val();     
-         var companyName=$("#companyName").val();     
+        var companyName=$("#companyName").text();       
         var organizationId=eval(JSON.stringify(selectedListItems.organizationId));
         var groupAddTemplate ={ "companyId" : companyId,  "organizationId" : organizationId}
             
@@ -180,7 +185,7 @@ function allCompaniesController($scope,$http){
                 }).success(function (data)
                 {   
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'adminv2/companydetails.jsp?companyId='+companyId+'&organizationName='+organizationName+'&organizationId='+organizationId,"_self");
+                       window.open(getHost() + 'adminv2/companydetails.jsp?companyId='+companyId+'&organizationName='+organizationName+'&companyName='+companyName,"_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -192,7 +197,7 @@ function allCompaniesController($scope,$http){
      $scope.deleteGroup= function (){  
         var companyId=$("#companyId").val();      
          var organizationName=$("#organizationName").val();     
-         var companyName=$("#companyName").val();     
+         var companyName=$("#companyName").text();    
          var organizationId=$("#organizationId").val();
          var organizationCompanyLookupId =$("#organizationCompanyLookupId").val();
         var deleteList=confirm(deleteCompanyGroup);
@@ -204,7 +209,7 @@ function allCompaniesController($scope,$http){
                 }).success(function(data, status, headers, config) {
                     $scope.groupDetails= data.d.details;
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                     window.open(getHost() + 'adminv2/companydetails.jsp?companyId='+companyId+'&organizationName='+organizationName+'&organizationId='+organizationId,"_self");
+                     window.open(getHost() + 'adminv2/companydetails.jsp?companyId='+companyId+'&organizationName='+organizationName+'&companyName='+companyName,"_self");
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });     

@@ -19,10 +19,10 @@
                 <div class="popUp_title fleft"> Add a Group</div>
                 <div class="CTA_Button Button--Blue fright" id="addTemplateButton" id="addGroupDetails" ng-click="addGroupTemplate()">Add Group</div>
             </div>
-                <ul class="slatArea" id="noMarketingTemplatesMessage" hidden="">
+                <ul class="slatArea" id="noGroup" hidden="">
                     <li class="listItem cursorpointer" >
                         <div class="listCol col1of2 fleft">
-                            <span class="listCol_Text fleft" id="noMarketingMessage">No</span>   
+                            <span class="listCol_Text fleft" id="noGroupMessage">No</span>   
                         </div>
                     </li>                
                 </ul>
