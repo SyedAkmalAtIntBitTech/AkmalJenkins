@@ -20,6 +20,7 @@ import com.intbittech.modelmappers.CompanyAllDetails;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.modelmappers.EmailBlockDetails;
 import com.intbittech.modelmappers.MarketingCategoryDetails;
+import com.intbittech.modelmappers.OrganizationCompanyDetails;
 import com.intbittech.modelmappers.OrganizationDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
@@ -156,7 +157,7 @@ public class CompanyController {
 
             List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
             organizationCompanyDetail = companyService.getAllOrganizationCompanyById(companyId);
-            List<OrganizationDetails> organizationDetailsList = new ArrayList<>();
+            List<OrganizationCompanyDetails> organizationCompanyDetailsList = new ArrayList<>();
             Integer organizationCompanySize = 1;
             if(organizationCompanyDetail!=null)
                 organizationCompanySize = organizationCompanyDetail.size()+1;
@@ -166,14 +167,15 @@ public class CompanyController {
             if(organizationCompanyDetail!=null)
             {
             for(OrganizationCompanyLookup organizationObject : organizationCompanyDetail) {
-                OrganizationDetails organizationDetailsObject = new OrganizationDetails();
-                organizationDetailsObject.setOrganizationId(organizationObject.getFkOrganizationId().getOrganizationId());
-                organizationDetailsObject.setOrganizationName(organizationObject.getFkOrganizationId().getOrganizationName());
-                organizationDetailsList.add(organizationDetailsObject);
+                OrganizationCompanyDetails organizationCompanyDetailsObject = new OrganizationCompanyDetails();
+                organizationCompanyDetailsObject.setOrganizationId(organizationObject.getFkOrganizationId().getOrganizationId());
+                organizationCompanyDetailsObject.setOrganizationName(organizationObject.getFkOrganizationId().getOrganizationName());
+                organizationCompanyDetailsObject.setOrganizationCompanyLookupId(organizationObject.getOrganizationCompanyLookupId());
+                organizationCompanyDetailsList.add(organizationCompanyDetailsObject);
                 organizationIds[i++] = organizationObject.getFkOrganizationId().getOrganizationId();
             }
             }
-            companyAllDetails.setGroupDetails(organizationDetailsList);
+            companyAllDetails.setGroupDetails(organizationCompanyDetailsList);
             
             List<ChannelDetails> channelDetailsList = new ArrayList<>();
         
