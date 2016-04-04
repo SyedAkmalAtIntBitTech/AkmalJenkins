@@ -44,6 +44,7 @@
             <li class="listItem" ng-repeat="groupNames in groupName.slice().reverse()">
                 <div class="listCol col1of2 fleft">
                     <span class="listCol_Text fleft"> {{groupNames.organizationName}}</span>
+                    <span id="organizationCompanyLookupId" hidden class="listCol_Text fleft"> {{groupNames.organizationCompanyLookupId}}</span>
                 </div>
                 <div class="listCol col1of2 fleft">
                     <div ng-click="deleteGroup()" class="CTA_Button Button--Gray--text fright">Remove Group</div>

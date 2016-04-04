@@ -109,9 +109,9 @@ public class OrganizationCompanyDaoImpl implements OrganizationCompanyDao {
             
             Criterion[] criterions = new Criterion[organizationIds.length];
             for(int i=0;i<organizationIds.length;i++)
-              criterions[i] = (Restrictions.eq("organizationId", organizationIds[i]));
+              criterions[i] = (Restrictions.ne("organizationId", organizationIds[i]));
               
-            criteria.add(Restrictions.or(criterions));
+            criteria.add(Restrictions.and(criterions));
             if (criteria.list().isEmpty()) {
                 return null;
             }

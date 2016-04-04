@@ -195,6 +195,7 @@ function allCompaniesController($scope,$http){
          var organizationName=$("#organizationName").val();     
          var companyName=$("#companyName").val();     
          var organizationId=$("#organizationId").val();
+         var organizationCompanyLookupId =$("#organizationCompanyLookupId").val();
         var deleteList=confirm(deleteCompanyGroup);
             if(deleteList===true)
             {
