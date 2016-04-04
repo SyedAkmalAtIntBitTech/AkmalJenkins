@@ -8,28 +8,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-     <jsp:include page="hearderfiles.jsp"/>
-    
-
- <script>
-     $(document).ready(function(){
-            // Check browser support
-       if (typeof(Storage) !== "undefined") {
-       // Store
-       localStorage.setItem("companyName", "Sunrise Studios");
-       // Retrieve
-       var comp= localStorage.getItem("companyName");
-       } else {
-       $("#welcome").empty().append("Sorry, your browser does not support Web Storage...");
-       }
-    });
-</script>   
+     <jsp:include page="hearderfiles.jsp"/>  
 </head>    
 
 <body class="body-normal">
-    SideNav
+<!--    SideNav
     
-    Main Content Wrap
+    Main Content Wrap-->
     <div class="contentWrap--withNoSideNav">
         <div class="topNav clear">
             <div class="topNav--TitleBar topNav--TitleBar1 fleft">

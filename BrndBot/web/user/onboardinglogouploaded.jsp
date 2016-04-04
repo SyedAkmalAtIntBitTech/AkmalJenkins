@@ -17,7 +17,7 @@
     <!--Main Content Wrap-->
     <div class="contentWrap--withNoSideNav">
         <div class="topNav clear">
-            <a href="onboarding4logo.jsp">
+            <a href="onboarding4.jsp">
                 <div class="topNav--BackButton fleft">
                 <img  src="../images/userimages/backbutton.svg" class="backButton-svg" style="cursor:pointer;"></img>
                 </div>

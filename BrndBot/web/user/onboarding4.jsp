@@ -10,7 +10,7 @@
     <head>
     <jsp:include page="hearderfiles.jsp"/>
     </head>
- <body class="body-normal">
+ <body class="body-normal" ng-app ng-controller="onboardingcontroller">
     
     <!--SideNav-->
     

@@ -8,23 +8,15 @@
 <!DOCTYPE html>
 <html >
 <head>
-     <jsp:include page="hearderfiles.jsp"/>
-     <script>
-         $(document).ready(function (){
-             var compName= localStorage.getItem("companyName");
-             var orgName=$("#industry").val();
-             localStorage.setItem("industryName", orgName);
-             $("#companyName").val(compName);
-         });
-     </script>
+    <jsp:include page="hearderfiles.jsp"/>   
 </head>    
 
-<body class="body-normal">
+<body class="body-normal" ng-app ng-controller="onboardingcontroller">
     
     <!--SideNav-->
     
     <!--Main Content Wrap-->
-    <div class="contentWrap--withNoSideNav">
+    <div class="contentWrap--withNoSideNav" >
         <div class="topNav clear">
             <a href="onboarding1.jsp"><div class="topNav--BackButton fleft">
                 <img  src="../images/userimages/backbutton.svg" class="backButton-svg" style="cursor:pointer;"></img>
@@ -37,7 +29,7 @@
             </div>
         </div>
         <div class="topNav--offset"></div>
-        <div class="contentWrapInner">
+        <div class="contentWrapInner" ng-init="getOrganizations()">
             <div class="pane pane-onboarding">
                 <div class="pane_header clear">
                     <div class="pane_title fleft h2">Set up a new company</div>
@@ -51,9 +43,13 @@
                      <div class="h3 font--lightGray pushUp_30">We have built BrndBot differently for different industries to give you the best experience possible.</div>
                     <div class="inputSection col-6of10 ">
                         <div class="input_Label">Please select an industry</div>
-                        <select class="input_Field select_Field" id="industry">
-                            <option class="input_Field">Please select an industry</option>
+                        <select  id="industryDropDown"  class="input_Field select_Field">
+                                <option class="input_Field" value="0">Please select an industry</option>
+                                <option class="input_Field" ng-repeat ="organization in organizations" value="{{organization.organizationId}}">{{organization.organizationName}}</option>
                         </select>
+<!--                        <select class="input_Field select_Field" id="industry">
+                            <option class="input_Field">Please select an industry</option>
+                        </select>-->
 <!--                        <div class="input_Field">
                             <span>Please select an industry</span>
                             <img  src="../images/userimages/dropdown.svg" class="dropdown-svg fright" style="cursor:pointer;"></img>
@@ -66,9 +62,7 @@
         </div>
     </div>
     <div class="bottomNav">
-        <a href="onboarding3.jsp">
-            <div class="bottom-ContinueButton fright">CONTINUE</div>
-        </a>
+        <div class="bottom-ContinueButton fright" ng-click="saveOrganization()">CONTINUE</div>
     </div>
     
     
