@@ -114,7 +114,38 @@ function allCompaniesController($scope,$http){
     };   
     
     
-    $scope.updateCompanyOrganization=function (){
+  
+    
+     $scope.groupsDisplay = function () {
+           var companyId=$("#companyId").val();
+        
+                    $http({
+                            method : 'GET',
+                            url : getHost()+'/getNonAddedGroups.do?companyId='+companyId
+                        }).success(function(data, status, headers, config) {
+                            $scope.groupDetail = data.d.details;  
+                        }).error(function(data, status, headers, config) {
+                                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                        });
+       
+    };
+    
+    
+    var selectedListItems="";
+    $scope.selectedItemsList= function(item) {
+               var selectedItemList="";
+	       $scope.selected = item; 
+               selectedItemList=item;
+            selectedListItems=selectedItemList;
+            var sel =selectedListItems;
+           
+               $("#addGroupDetails").css('pointer-events','auto');
+	};
+        $scope.isActiveMode = function(item) {
+	       return $scope.selected === item;
+	};
+        
+          $scope.updateCompanyOrganization=function (){
             var organizationId=$("#organizationId").val();
             var companyId=$("#companyId").val();
             var organizationName=$("#organizationName").val();
@@ -133,53 +164,24 @@ function allCompaniesController($scope,$http){
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });   
         }
-    
-     $scope.groupsDisplay = function () {
-        
-                    $http({
-                            method : 'GET',
-                            url : getHost()+'/getAllOrganizations.do'
-                        }).success(function(data, status, headers, config) {
-                            $scope.groupDetail = data.d.details;  
-                        }).error(function(data, status, headers, config) {
-                                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                        });
-       
-    };
-    
-    
-    var selectedListItems="";
-    $scope.selectedItemsList= function(item) {
-               var selectedItemList="";
-	       $scope.selected = item; 
-               selectedItemList=item;
-            selectedListItems=selectedItemList;
-            var sel =selectedListItems;
-            alert(JSON.stringify(sel));
-           
-               $("#addGroupDetails").css('pointer-events','auto');
-	};
-        $scope.isActiveMode = function(item) {
-	       return $scope.selected === item;
-	};
-        
         
         $scope.addGroupTemplate= function (){
-         var organizationId=$("#organizationIdTag").val();
-        var marketingCategoryId=$("#marketingCategoryId").val();      
-        var marketingProgramId=eval(JSON.stringify(selectedListItems.marketingProgramId));
-        var groupAddTemplate ={ "marketingProgramId" : marketingProgramId,  "marketingCategoryId" : marketingCategoryId}
+        var companyId=$("#companyId").val();      
+         var organizationName=$("#organizationName").val();     
+         var companyName=$("#companyName").val();     
+        var organizationId=eval(JSON.stringify(selectedListItems.organizationId));
+        var groupAddTemplate ={ "companyId" : companyId,  "organizationId" : organizationId}
             
          $.ajax({
                     method: 'POST',
-                    url: getHost() + '/saveMarketingCategoryProgram.do',
+                    url: getHost() + '/saveGroup.do',
                     dataType: "json",
                     contentType: "application/json",
-                    data: JSON.stringify(marketingAddTemplate)
+                    data: JSON.stringify(groupAddTemplate)
                 }).success(function (data)
                 {   
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'adminv2/companydetails.jsp?companyId='+companyId+"_self");
+                       window.open(getHost() + 'adminv2/companydetails.jsp?companyId='+companyId+'&organizationName='+organizationName+'&organizationId='+organizationId,"_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -187,6 +189,29 @@ function allCompaniesController($scope,$http){
         
         
     };
+    
+     $scope.deleteGroup= function (){  
+        var companyId=$("#companyId").val();      
+         var organizationName=$("#organizationName").val();     
+         var companyName=$("#companyName").val();     
+         var organizationId=$("#organizationId").val();
+        var deleteList=confirm(deleteCompanyGroup);
+            if(deleteList===true)
+            {
+               $http({
+                    method : 'GET',
+                    url : getHost()+ '/deleteGroup.do?organizationCompanyLookupId='+organizationCompanyLookupId,
+                }).success(function(data, status, headers, config) {
+                    $scope.groupDetails= data.d.details;
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                     window.open(getHost() + 'adminv2/companydetails.jsp?companyId='+companyId+'&organizationName='+organizationName+'&organizationId='+organizationId,"_self");
+                }).error(function(data, status, headers, config) {
+                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });     
+            }
+    }
+    
+    
         
          $scope.userGroups = function () {
               var companyId=$("#companyId").val();
@@ -197,7 +222,8 @@ function allCompaniesController($scope,$http){
                         }).success(function(data, status, headers, config) {
                             for ( var i = 0; i <= data.d.details.length; i++) {
                  
-                            $scope.groupName = data.d.details;  
+                            $scope.groupName = data.d.details[i].groupDetails;  
+                           
                         }
                         }).error(function(data, status, headers, config) {
                                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));

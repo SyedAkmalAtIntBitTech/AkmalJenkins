@@ -32,7 +32,7 @@
                 <ul class="slatArea"  ng-init="groupsDisplay()">
                     <li class="listItem cursorpointer" ng-repeat="groupDetails in groupDetail" ng-click="selectedItemsList(groupDetails)" ng-class="{active: isActiveMode(groupDetails)}">
                         <div class="listCol col1of2 fleft">
-                            <span class="listCol_Text fleft">{{groupDetails.organizationTypeName}}</span>   
+                            <span id ="organizationGroupName" class="listCol_Text fleft">{{groupDetails.organizationName}}</span>   
                                 
                         </div>
                     </li>                
