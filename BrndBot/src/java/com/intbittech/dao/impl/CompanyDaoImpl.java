@@ -39,10 +39,8 @@ public class CompanyDaoImpl implements CompanyDao{
     public List<Company> getAllCompanies() throws ProcessFailed {
          try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(OrganizationCompanyLookup.class)
-                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
-                    .setFetchMode("fkOrganizationId", FetchMode.JOIN)
-                    .add(Restrictions.eq("fkOrganizationTypeId.organizationTypeId", 1)); //Group is 1
+                    .createCriteria(Company.class);
+                    
             if (criteria.list().isEmpty()) {
                 return null;
             }

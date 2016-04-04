@@ -40,7 +40,9 @@ public class OrganizationCompanyDaoImpl implements OrganizationCompanyDao {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(OrganizationCompanyLookup.class)
                     .setFetchMode("fkCompanyId", FetchMode.JOIN)
-                    .setFetchMode("fkOrganizationId", FetchMode.JOIN);
+                    .setFetchMode("fkOrganizationId", FetchMode.JOIN)
+                    .createAlias("fkOrganizationId.fkOrganizationTypeId", "organizationType")
+                    .add(Restrictions.eq("organizationType.organizationTypeId", 2)); //Group is 1
             if (criteria.list().isEmpty()) {
                 return null;
             }
