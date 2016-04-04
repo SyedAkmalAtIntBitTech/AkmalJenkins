@@ -44,7 +44,8 @@
             <li class="listItem" ng-repeat="groupNames in groupName.slice().reverse()">
                 <div class="listCol col1of2 fleft">
                     <span class="listCol_Text fleft"> {{groupNames.organizationName}}</span>
-                    <span id="organizationCompanyLookupId" hidden class="listCol_Text fleft"> {{groupNames.organizationCompanyLookupId}}</span>
+                    <input id="organizationCompanyLookupId"  hidden value="{{groupNames.organizationCompanyLookupId}}">
+                    
                 </div>
                 <div class="listCol col1of2 fleft">
                     <div ng-click="deleteGroup()" class="CTA_Button Button--Gray--text fright">Remove Group</div>
@@ -71,7 +72,7 @@
                         <span class="listCol_Text fleft">{{channelDetails.organizationName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <div class="CTA_Button Button--Gray fright">Manage Category</div>
+                        <a href="emailsubcategory.jsp?organizationId={{channelDetails.organizationId}}&categoryId={{channelDetails.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
@@ -105,7 +106,7 @@
                     </div>
                     
                     <div class="listCol col1of4 fleft">
-                        <div class="CTA_Button Button--Gray fright">Manage Block</div>
+                        <a href="emailblock.jsp?organizationId={{emailBlock.organizationId}}&emailBlockId={{emailBlock.emailBlockId}}">  <div class="CTA_Button Button--Gray fright">Manage Block</div></a>
                     </div>
                 </li>
                 
@@ -132,7 +133,7 @@
                         <span class="listCol_Text fleft">{{channelDetails.organizationName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <div class="CTA_Button Button--Gray fright">Manage Category</div>
+                        <a href="emailsubcategory.jsp?organizationId={{channelDetails.organizationId}}&categoryId={{channelDetails.categoryId}}"> <div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
@@ -157,7 +158,7 @@
                         <span class="listCol_Text fleft">{{channelDetails.organizationName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <div class="CTA_Button Button--Gray fright">Manage Category</div>
+                        <a href="emailsubcategory.jsp?organizationId={{channelDetails.organizationId}}&categoryId={{channelDetails.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
@@ -184,13 +185,13 @@
                         <span class="listCol_Text fleft "> {{organizationNames.organizationName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <div class="CTA_Button Button--Gray fright">Manage Category</div>
+                        <a href="marketingcategory.jsp?organizationId={{marketingCategoryList.organizationId}}&marketingCategoryId={{marketingCategoryList.marketingCategoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
           
         </div>
-        <div class="slatSection">
+<!--        <div class="slatSection">
             <div class="sectionHeader"> Recurring Email Template Categories </div>
             <div class="slatHeaders">
                 <div class="listHeaderCol col1of2 fleft">
@@ -236,7 +237,7 @@
                 </li>
             </ul>
            
-        </div>
+        </div>-->
     </div>
     </body>
 </html>

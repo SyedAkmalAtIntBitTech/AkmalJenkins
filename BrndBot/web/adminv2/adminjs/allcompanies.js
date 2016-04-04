@@ -40,7 +40,6 @@ function allCompaniesController($scope,$http){
                        {
                          if($scope.channelList[j].channelName === emailChannel){
            
-//                           alert(JSON.stringify(data.d.details[i].channelDetailsList[j].categoryDetailsList[k]));
                            $scope.emailCategoryNameList[k]=data.d.details[i].channelDetailsList[j].categoryDetailsList[k];
                        }
                         if($scope.channelList[j].channelName === printChannel){
