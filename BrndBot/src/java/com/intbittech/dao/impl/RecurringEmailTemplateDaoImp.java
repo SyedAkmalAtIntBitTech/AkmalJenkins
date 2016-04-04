@@ -96,12 +96,12 @@ public class RecurringEmailTemplateDaoImp implements RecurringEmailTemplateDao {
     /**
      * {@inheritDoc}
      */
-       public List<RecurringEmailTemplate> getAllNonRecurringEmail(Integer[] nonRecurringEmailIds) throws ProcessFailed {
+       public List<RecurringEmailTemplate> getAllNonRecurringEmail(Integer[] recurringEmailTemplateIds) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(RecurringEmailTemplate.class);
-            for(int i =0 ; i<nonRecurringEmailIds.length;i++)
-            criteria.add(Restrictions.ne("recurringEmailTemplateId", nonRecurringEmailIds[i]));
+            for(int i =0 ; i<recurringEmailTemplateIds.length;i++)
+            criteria.add(Restrictions.ne("recurringEmailTemplateId", recurringEmailTemplateIds[i]));
             List<RecurringEmailTemplate> recurringEmailList = criteria.list();
             if (recurringEmailList.isEmpty()) {
                 return null;

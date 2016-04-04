@@ -15,19 +15,22 @@
             <div  class="popUpAllTemplate" >
             <div class="content-area_header" >
                 <div class="popUp_title fleft"> Add a Template</div>
-                <div id="relateEmailTemplateAddButton"  class="CTA_Button Button--Blue fright"  ng-click="relateEmailTemplateSubCategory()">Add Template</div>
-                <div id="relatePrintTemplateAddButton"  class="CTA_Button Button--Blue fright"  ng-click="relatePrintTemplateSubCategory()">Add Template</div>
-                <div id="relateImageTemplateAddButton"  class="CTA_Button Button--Blue fright"  ng-click="relateImageTemplateSubCategory()">Add Template</div>
+                <div id="relateRecurringEmailTemplateAddButton"  class="CTA_Button Button--Blue fright"  ng-click="saveOrganizationRecurringEmail()">Add Template</div>
             </div>
             <div class="slatHeaders">
                 
             </div>
-                <ul class="slatArea" >
-                    <li class="listItem cursorpointer" ng-repeat="nonAddedprintModelsBySubCategorys in nonAddedPrintModelsBySubCategory" ng-click="select(nonAddedprintModelsBySubCategorys)" ng-class="{active: isActive(nonAddedprintModelsBySubCategorys)}">
+                <ul class="slatArea" ng-init="getAllNonAddedRecurringEmail()">
+                    <li class="listItem cursorpointer" ng-repeat="nonAddedRecurringEmail in nonAddedRecurringEmails" ng-click="select(nonAddedRecurringEmail)" ng-class="{active: isActive(nonAddedRecurringEmail)}">
                         <div class="listCol col1of2 fleft">
-                            <span class="listCol_Text fleft">{{nonAddedprintModelsBySubCategorys.printModelName}}</span>   
+                            <span class="listCol_Text fleft">{{nonAddedRecurringEmail.templateName}}</span>   
                         </div>
-                    </li>                
+                    </li>    
+<!--                    <li class="listItem cursorpointer" ng-repeat="nonAddedRecurringEmail in nonAddedRecurringEmails">
+                        <div class="listCol col1of2 fleft">
+                            <div class="listCol_Text fleft">{{nonAddedRecurringEmail.recurringEmailTemplateId}}</div>   
+                        </div>
+                    </li>  -->
                 </ul>
             </div>
         </div> 

@@ -16,7 +16,7 @@ public class RecurringEmailDetails
      private String htmlData;
      private String templateName;
      private Integer organizationRecurringEmailLookupId;
-     private Integer OrganizationId;
+     private Integer organizationId;
     
 
     public Integer getRecurringEmailTemplateId() {
@@ -52,11 +52,11 @@ public class RecurringEmailDetails
     }
 
     public Integer getOrganizationId() {
-        return OrganizationId;
+        return organizationId;
     }
 
-    public void setOrganizationId(Integer OrganizationId) {
-        this.OrganizationId = OrganizationId;
+    public void setOrganizationId(Integer organizationId) {
+        this.organizationId = organizationId;
     }
 
    

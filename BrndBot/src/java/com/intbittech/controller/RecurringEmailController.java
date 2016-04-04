@@ -70,19 +70,18 @@ public class RecurringEmailController
     }
         
         @RequestMapping(value = "saveOrganizationRecurringEmail", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> saveOrganizationRecurringEmail(@RequestBody RecurringEmailDetails recurringEmailDetailsOrg) {
+    public ResponseEntity<ContainerResponse> saveOrganizationRecurringEmail(@RequestBody RecurringEmailDetails recurringEmailDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
               
              OrganizationRecurringEmailLookup organizationRecurringEmailLookup =new OrganizationRecurringEmailLookup();
              Organization organization = new Organization();
-            
+             organization.setOrganizationId(recurringEmailDetails.getOrganizationId());
              organizationRecurringEmailLookup.setFkOrganizationId(organization);
 
              RecurringEmailTemplate recurringEmailTemplate=new RecurringEmailTemplate();
-             recurringEmailTemplate.setRecurringEmailTemplateId(recurringEmailTemplate.getRecurringEmailTemplateId());
+             recurringEmailTemplate.setRecurringEmailTemplateId(recurringEmailDetails.getRecurringEmailTemplateId());
              organizationRecurringEmailLookup.setFkRecurringEmailTemplateId(recurringEmailTemplate);
-             organizationRecurringEmailLookup.setOrganizationRecurringEmailLookupId(recurringEmailDetailsOrg.getOrganizationRecurringEmailLookupId());
              
              recurringEmailTemplateService.saveRecurringEmailOrganization(organizationRecurringEmailLookup);
              transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurring_organization_created", new String[]{}, Locale.US)));
@@ -118,7 +117,7 @@ public class RecurringEmailController
     public ResponseEntity<ContainerResponse> deleteOrganizationRecurringEmail(@RequestParam("organizationRecurringEmailLookupId") Integer organizationRecurringEmailLookupId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            recurringEmailTemplateService.delete(organizationRecurringEmailLookupId);
+            recurringEmailTemplateService.deleteRecurringEmailOrganization(organizationRecurringEmailLookupId);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurring_organization_deleted", new String[]{}, Locale.US)));
             
         } catch(Throwable throwable) {
@@ -197,13 +196,13 @@ public class RecurringEmailController
     
     
     
-    @RequestMapping(value = "getAllNonRecurringEmail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getAllNonRecurringEmail(@RequestParam("recurringEmailTemplateId") Integer recurringEmailTemplateId) {
+    @RequestMapping(value = "getAllNonAddedRecurringEmail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllNonAddedRecurringEmail(@RequestParam("organizationId") Integer organizationId) {
         GenericResponse<RecurringEmailDetails> genericResponse = new GenericResponse<>();
         try
         {
              List<RecurringEmailDetails> recurringEmailDetailsList = new ArrayList<>();
-             List< RecurringEmailTemplate> recurringEmailTemplateList = recurringEmailTemplateService.getAllNonRecurringEmail(recurringEmailTemplateId);
+             List< RecurringEmailTemplate> recurringEmailTemplateList = recurringEmailTemplateService.getAllNonRecurringEmail(organizationId);
            
              for(RecurringEmailTemplate recurringEmailTemplateObject: recurringEmailTemplateList)  
              {

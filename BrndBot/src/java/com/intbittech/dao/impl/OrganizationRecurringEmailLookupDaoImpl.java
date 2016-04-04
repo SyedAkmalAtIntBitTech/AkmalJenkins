@@ -73,7 +73,7 @@ public class OrganizationRecurringEmailLookupDaoImpl implements OrganizationRecu
                  try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(OrganizationRecurringEmailLookup.class)
-                    .add(Restrictions.eq("fkOrganizationId.organizationId", organizationRecurringEmailLookupId));
+                    .add(Restrictions.eq("organizationRecurringEmailLookupId", organizationRecurringEmailLookupId));
             if (criteria.list().isEmpty()) {
                 return null;
             }

@@ -108,16 +108,21 @@ public class RecurringEmailTemplateServiceImp implements RecurringEmailTemplateS
     /**
      * {@inheritDoc}
      */
-    public List<RecurringEmailTemplate> getAllNonRecurringEmail(Integer nonRecurringEmailId) throws ProcessFailed {
-        List<OrganizationRecurringEmailLookup> organizationRecurringEmailList = organizationRecurringEmailLookupDao.getAllRecurringByOrganizationId(nonRecurringEmailId);
-         if (organizationRecurringEmailList == null) {
-            throw new ProcessFailed(messageSource.getMessage("error_retreving_message", new String[]{}, Locale.US));
-         }
-         
-        Integer[] recurringEmailIds = new Integer[organizationRecurringEmailList.size()];
+    public List<RecurringEmailTemplate> getAllNonRecurringEmail(Integer organizationId) throws ProcessFailed {
+        List<OrganizationRecurringEmailLookup> organizationRecurringEmailList = organizationRecurringEmailLookupDao.getAllRecurringByOrganizationId(organizationId);
+//         if (organizationRecurringEmailList == null) {
+//            throw new ProcessFailed(messageSource.getMessage("error_retreving_message", new String[]{}, Locale.US));
+//         }
+        Integer organizationRecurringSize = 1;
+        if (organizationRecurringEmailList != null)
+            organizationRecurringSize = organizationRecurringEmailList.size() +1;
+        Integer[] recurringEmailIds = new Integer[organizationRecurringSize];
         Integer i = 0;
+        recurringEmailIds[i++] = 0;
+        if (organizationRecurringEmailList != null) {
         for (OrganizationRecurringEmailLookup organizationRecurringEmailObject : organizationRecurringEmailList) {
             recurringEmailIds[i++] = organizationRecurringEmailObject.getFkRecurringEmailTemplateId().getRecurringEmailTemplateId();
+        }
         }
         List<RecurringEmailTemplate> recurringEmailTemplateList = recurringEmailTemplateDao.getAllNonRecurringEmail(recurringEmailIds);
         return recurringEmailTemplateList;

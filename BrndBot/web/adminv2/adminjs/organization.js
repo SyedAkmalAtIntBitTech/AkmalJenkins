@@ -551,6 +551,7 @@ $scope.addImageCategory = function () {
                selectedItem=item;
                selectedList=selectedItem;
                $("#relateEmailTemplateAddButton").css('pointer-events','auto');
+               $("#relateRecurringEmailTemplateAddButton").css('pointer-events','auto');
 	};
     $scope.isActive = function(item) {
 	       return $scope.selected === item;
@@ -638,22 +639,45 @@ $scope.addImageCategory = function () {
             }); 
     };
     
-    $scope.getAllNonRecurringEmail=function (){
-        
+    $scope.getAllNonAddedRecurringEmail=function (){
+         var organizationId=$("#organizationIdTag").val();
         $http({
                 method: 'GET',
-                url: getHost() + '/getAllNonRecurringEmail.do?recurringEmailTemplateId='+recurringEmailTemplateId
+                url: getHost() + '/getAllNonAddedRecurringEmail.do?organizationId='+organizationId
             }).success(function (data)
-            {   
-                alert(JSON.stringify(data.d.details[1]));
-                $scope.nonrecurringEmails=data.d.details;
+            {       
+                    $("#relateRecurringEmailTemplateAddButton").show().css('pointer-events','none');
+                    $scope.nonAddedRecurringEmails=data.d.details;
             }).error(function(data){
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             }); 
         
     };
     
+    
+    $scope.saveOrganizationRecurringEmail=function (){
+         var organizationId=$("#organizationIdTag").val();
+         var recurringEmailTemplateId=selectedList.recurringEmailTemplateId;
+         var saveOrganizationRecurringEmailById ={ "recurringEmailTemplateId" : recurringEmailTemplateId,  "organizationId" : organizationId};
+            
+         $.ajax({
+                    method: 'POST',
+                    url: getHost() + '/saveOrganizationRecurringEmail.do',
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(saveOrganizationRecurringEmailById)
+                }).success(function (data)
+                {   
+                       alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                       window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                    
+                }).error(function(data){
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });    
+    };
+    
     $scope.deleteOrganizationRecurringEmail=function (organizationRecurringEmailLookupId){
+            var organizationId=$("#organizationIdTag").val();
             var  deleteRecurring=confirm(removeRecurringEmailPrompt);
             if(deleteRecurring==true){
             $http({
@@ -661,8 +685,9 @@ $scope.addImageCategory = function () {
                 url: getHost() + '/deleteOrganizationRecurringEmail.do?organizationRecurringEmailLookupId='+organizationRecurringEmailLookupId
             }).success(function (data)
             {   
-                alert(JSON.stringify(data.d.details[0]));
-                $scope.deleteRecurringEmails=data.d.details;
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+//                $scope.deleteRecurringEmails=data.d.details;
+                window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
             }).error(function(data){
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             }); 
