@@ -33,7 +33,7 @@
                     </div>
                   
                     <div class="listCol col1of2 fleft">
-                        <a href="recurringemailtemplate.jsp?edit=yes"><div class="CTA_Button Button--Gray fright">View/Edit</div></a>
+                        <a href="recurringemailtemplate.jsp?recurringEmailTemplateId={{recurringEmailDetails.recurringEmailTemplateId}}&edit=yes"><div class="CTA_Button Button--Gray fright">View/Edit</div></a>
 
                     </div>
                 </li>                

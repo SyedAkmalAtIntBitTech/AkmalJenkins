@@ -130,10 +130,10 @@ public class RecurringEmailController
     
     
      @RequestMapping(value = "updateRecurringEmail", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> updateRecurringEmail(@RequestParam("recurringEmailTemplateId") Integer recurringEmailTemplateId) {
+    public ResponseEntity<ContainerResponse> updateRecurringEmail(@RequestBody RecurringEmailTemplate recurringEmailTemplate) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            RecurringEmailTemplate recurringEmailTemplate =  new RecurringEmailTemplate();
+           
             recurringEmailTemplate.setRecurringEmailTemplateId(recurringEmailTemplate.getRecurringEmailTemplateId());
             recurringEmailTemplate.setTemplateName(recurringEmailTemplate.getTemplateName());
             recurringEmailTemplate.setHtmlData(recurringEmailTemplate.getHtmlData());

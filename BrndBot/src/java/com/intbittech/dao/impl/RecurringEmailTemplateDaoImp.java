@@ -78,8 +78,7 @@ public class RecurringEmailTemplateDaoImp implements RecurringEmailTemplateDao {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(RecurringEmailTemplate.class)
-                    .setFetchMode("recurring_email_template_id", FetchMode.JOIN)
-                    .add(Restrictions.eq("recurring_email_template_id", recurringEmailTemplateId));
+                    .add(Restrictions.eq("recurringEmailTemplateId", recurringEmailTemplateId));
             List<RecurringEmailTemplate> recurringEmailTemplate = criteria.list();
             if (recurringEmailTemplate.isEmpty()) {
                 return null;

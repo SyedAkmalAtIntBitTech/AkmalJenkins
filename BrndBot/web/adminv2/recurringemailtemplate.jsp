@@ -11,17 +11,20 @@
         <link rel="shortcut icon" href="../images/favicon.png"/>
         <title>BrndBot-Admin Create New Email Recurring Template</title>
     </head>
-    
+    <%
+    String recurringEmailTemplateId=request.getParameter("recurringEmailTemplateId");
+    %>
        
     <body class="body-normal" ng-app ng-controller="recurringEmail">        
         <jsp:include page="adminheader.jsp"/>
-       
+        
         <div class="content-area contentEdit"  ng-init="getRecurringTemplate()">
+            <input hidden id="recurringEmailTemplateId" value="<%=recurringEmailTemplateId %>">
         <div class="content-area_header">
           
             <div class="header_path fleft" id="createEmailTemplate"> Create New  Recurring Email Template</div>
              <div class="header_path fleft" id="editEmailTemplate"> Edit Recurring Email Template</div>
-             <div id="deleteTemplate" class="CTA_Button Button--Delete fright" ng-click="" >Delete Template</div>
+             <div ng-click="deleteRecurringEmail()" id="deleteTemplate" class="CTA_Button Button--Delete fright" ng-click="" >Delete Template</div>
              
         </div>
             
@@ -32,14 +35,14 @@
             
             <div class="inputSection col1of4" id="editTemplate">
             <div class="input_Label">Edit this template</div>
-           <input id="emailTemplateName" class="input_Field" type="text"/>
+            <input id="editEmailTemplateName" class="input_Field" type="text" value="{{getRecurringTemplateDetails.templateName}}"/>
         </div>  
             
                       <div class="inputSection col1of7" id="addHtmlData">
                          <textarea id="htmlData" rows="25" cols="90"></textarea>
         </div>  
              <div class="inputSection col1of7" id="editHtmlData">
-                          <textarea id="htmlData" rows="25" cols="90"></textarea>
+                          <textarea id="htmlDataEdit" rows="25" cols="90">{{getRecurringTemplateDetails.htmlData}}</textarea>
         </div>  
            
            

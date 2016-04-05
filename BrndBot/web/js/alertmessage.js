@@ -162,5 +162,6 @@ var imageName="Image";
 var enterBlockName="Please enter Block Name!";
 var uploadImageFile="Please Upload an Image!";
 var removeRecurringEmailPrompt="Do you want to remove this Recurring Email?";
-var RecurringEmailName ="Please enter the Template Name";
+var recurringEmailName ="Please enter the Template Name";
+var deleteEmailTemplate ="Do you want to delete this Template"
 /// ADMIN alerts Ends////
