@@ -83,7 +83,14 @@ public interface RecurringEmailTemplateDao
     
     public List<RecurringEmailTemplate> getAllNonRecurringEmail(Integer[] nonRecurringEmailIds) throws ProcessFailed;
    
+    /**
+     * This method retrieves the list of {@link RecurringEmailTemplate} from Database.
+     *
+     * @return list of {@link RecurringEmailTemplate}
+     * @throws ProcessFailed the process failed
+     */
     
+    public List<RecurringEmailTemplate> getAllRecurringEmails() throws ProcessFailed;
     
     
     
