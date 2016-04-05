@@ -33,7 +33,9 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
 #noMarketingTemplatesMessage,
 #updateMarketingProgramSaveButton,
 #addMarketingProgramSaveButton,
-#addMarketingTemplatePopUp{
+#addMarketingTemplatePopUp,
+#noGroup,
+#addGroup{
 
     display:none;
 }

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class CompanyAllDetails extends CompanyDetails  implements Serializable {
     
-    List<OrganizationDetails> groupDetails;
+    List<OrganizationCompanyDetails> groupDetails;
     List<ChannelDetails> channelDetailsList;
     List<EmailBlockDetails> emailBlockDetailsList;
     List<MarketingCategoryDetails> marketingCategoryDetailsList;
@@ -27,11 +27,11 @@ public class CompanyAllDetails extends CompanyDetails  implements Serializable {
         this.channelDetailsList = channelDetailsList;
     }
 
-    public List<OrganizationDetails> getGroupDetails() {
+    public List<OrganizationCompanyDetails> getGroupDetails() {
         return groupDetails;
     }
 
-    public void setGroupDetails(List<OrganizationDetails> groupDetails) {
+    public void setGroupDetails(List<OrganizationCompanyDetails> groupDetails) {
         this.groupDetails = groupDetails;
     }
 

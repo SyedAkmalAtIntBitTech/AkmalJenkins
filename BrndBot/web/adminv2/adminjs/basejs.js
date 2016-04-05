@@ -58,6 +58,10 @@
            });
            
            
+            $("#addCompanyGroup").click(function (){
+              $("#addGroup").show();
+              $("#addOrganizationPopupDiv").show();
+           });
            
            $("#addMarketingProgramsPopupDiv").click(function (){
                $("#addMarketingProgramsPopup").hide();
@@ -78,6 +82,7 @@
                  $(".overflowhide").css("overflow","auto");
                     $("#addMarketingTemplatePopUp").hide();
                     $("#EmailBlockPopUp").hide();
+                     $("#addGroup").hide();
            });
        });
        var emailChannel="email";

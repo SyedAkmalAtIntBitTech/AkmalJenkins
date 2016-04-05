@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
+import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
 import java.util.List;
 
@@ -68,4 +69,13 @@ public interface CompanyService {
      * @throws ProcessFailed the process failed
      */
     public void delete(Integer organizationCompanyLookupId) throws ProcessFailed;
+    
+   /**
+     * This method retrieves the {@link Organization} from DAO layer.
+     *
+     * @param organizationIds
+     * @return list of {@link Organization}
+     * @throws ProcessFailed the process failed
+     */
+    public List<Organization> getNonAddedGroups(Integer[] organizationIds) throws ProcessFailed;
 }

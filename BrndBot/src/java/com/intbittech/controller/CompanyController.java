@@ -20,7 +20,7 @@ import com.intbittech.modelmappers.CompanyAllDetails;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.modelmappers.EmailBlockDetails;
 import com.intbittech.modelmappers.MarketingCategoryDetails;
-import com.intbittech.modelmappers.MarketingCategoryProgramDetails;
+import com.intbittech.modelmappers.OrganizationCompanyDetails;
 import com.intbittech.modelmappers.OrganizationDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
@@ -98,6 +98,50 @@ public class CompanyController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
     
+    @RequestMapping(value = "getNonAddedGroups",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getNonAddedGroups(@RequestParam("companyId") Integer companyId) {
+        GenericResponse<OrganizationDetails> genericResponse = new GenericResponse<OrganizationDetails>();
+        try {
+            List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
+            organizationCompanyDetail = companyService.getAllOrganizationCompanyById(companyId);
+            
+            Integer organizationCompanySize = 1;
+            if(organizationCompanyDetail!=null)
+                organizationCompanySize = organizationCompanyDetail.size()+1;
+            Integer[] organizationIds = new Integer[organizationCompanySize];
+            Integer i =0;
+            organizationIds[i++] = 0;
+            
+            if(organizationCompanyDetail!=null)
+            {
+                for(OrganizationCompanyLookup organizationObject : organizationCompanyDetail) {
+                    organizationIds[i++] = organizationObject.getFkOrganizationId().getOrganizationId();
+                }
+            }
+            
+            List<Organization> organizationList = companyService.getNonAddedGroups(organizationIds);
+            List<OrganizationDetails> organizationDetailsList = new ArrayList<>();
+            for(Organization organizationCompanyObject : organizationList) {
+                OrganizationDetails organizationDetails = new OrganizationDetails();
+                organizationDetails.setOrganizationId(organizationCompanyObject.getOrganizationId());
+                organizationDetails.setOrganizationName(organizationCompanyObject.getOrganizationName());
+                organizationDetailsList.add(organizationDetails);
+                
+            }
+            
+            genericResponse.setDetails(organizationDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("group_get_all",new String[]{}, Locale.US)));
+            
+            
+                        
+            
+        } catch(Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
     @RequestMapping(value = "getCompanyDetailsById",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getCompanyDetailsById(@RequestParam("companyId") Integer companyId) {
         GenericResponse<CompanyAllDetails> genericResponse = new GenericResponse<CompanyAllDetails>();
@@ -113,24 +157,25 @@ public class CompanyController {
 
             List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
             organizationCompanyDetail = companyService.getAllOrganizationCompanyById(companyId);
-            List<OrganizationDetails> organizationDetailsList = new ArrayList<>();
+            List<OrganizationCompanyDetails> organizationCompanyDetailsList = new ArrayList<>();
             Integer organizationCompanySize = 1;
             if(organizationCompanyDetail!=null)
-                organizationCompanySize = organizationCompanyDetail.size();
+                organizationCompanySize = organizationCompanyDetail.size()+1;
             Integer[] organizationIds = new Integer[organizationCompanySize];
             Integer i =0;
             organizationIds[i++] = organizationCompany.getFkOrganizationId().getOrganizationId();
             if(organizationCompanyDetail!=null)
             {
             for(OrganizationCompanyLookup organizationObject : organizationCompanyDetail) {
-                OrganizationDetails organizationDetailsObject = new OrganizationDetails();
-                organizationDetailsObject.setOrganizationId(organizationObject.getFkOrganizationId().getOrganizationId());
-                organizationDetailsObject.setOrganizationName(organizationObject.getFkOrganizationId().getOrganizationName());
-                organizationDetailsList.add(organizationDetailsObject);
+                OrganizationCompanyDetails organizationCompanyDetailsObject = new OrganizationCompanyDetails();
+                organizationCompanyDetailsObject.setOrganizationId(organizationObject.getFkOrganizationId().getOrganizationId());
+                organizationCompanyDetailsObject.setOrganizationName(organizationObject.getFkOrganizationId().getOrganizationName());
+                organizationCompanyDetailsObject.setOrganizationCompanyLookupId(organizationObject.getOrganizationCompanyLookupId());
+                organizationCompanyDetailsList.add(organizationCompanyDetailsObject);
                 organizationIds[i++] = organizationObject.getFkOrganizationId().getOrganizationId();
             }
             }
-            companyAllDetails.setGroupDetails(organizationDetailsList);
+            companyAllDetails.setGroupDetails(organizationCompanyDetailsList);
             
             List<ChannelDetails> channelDetailsList = new ArrayList<>();
         
