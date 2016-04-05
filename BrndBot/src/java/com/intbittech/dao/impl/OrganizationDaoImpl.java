@@ -71,6 +71,26 @@ public class OrganizationDaoImpl implements OrganizationDao {
             throw new ProcessFailed("Database error while retrieving record");
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<Organization> getAllOnlyOrganizations() throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(Organization.class)
+                    .setFetchMode("fkOrganizationTypeId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkOrganizationTypeId.organizationTypeId",2));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
+    }
 
     /**
      * {@inheritDoc}

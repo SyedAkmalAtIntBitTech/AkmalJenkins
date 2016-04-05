@@ -62,6 +62,31 @@ public class OrganizationController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
 
     }
+    
+    @RequestMapping(value = "getAllOnlyOrganizations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllOnlyOrganizations() {
+        GenericResponse<OrganizationDetails> genericResponse = new GenericResponse<>();
+        try {
+            List<Organization> organizationList = organizationService.getAllOnlyOrganizations();
+            List<OrganizationDetails> organizationDetailsList = new ArrayList<>();
+            for (Organization organizationObject : organizationList) {
+                OrganizationDetails organizationDetails = new OrganizationDetails();
+                organizationDetails.setOrganizationId(organizationObject.getOrganizationId());
+                organizationDetails.setOrganizationName(organizationObject.getOrganizationName());
+                organizationDetails.setOrganizationTypeId(organizationObject.getFkOrganizationTypeId().getOrganizationTypeId());
+                organizationDetails.setOrganizationTypeName(organizationObject.getFkOrganizationTypeId().getOrganizationTypeName());
+                organizationDetailsList.add(organizationDetails);
+            }
+
+            genericResponse.setDetails(organizationDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Organizations retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
 
     @RequestMapping(value = "saveOrganization", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveOrganization(@RequestBody OrganizationDetails organizationDetails) {
