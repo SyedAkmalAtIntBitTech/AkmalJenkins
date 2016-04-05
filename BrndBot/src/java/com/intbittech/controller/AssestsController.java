@@ -5,7 +5,6 @@
  */
 package com.intbittech.controller;
 
-import com.intbittech.model.EmailBlockModel;
 import com.intbittech.model.GlobalColors;
 import com.intbittech.model.GlobalFonts;
 import com.intbittech.modelmappers.GlobalColorsDetails;
@@ -57,6 +56,7 @@ public class AssestsController {
             List<GlobalColorsDetails> globalColorsDetailsList = new ArrayList<>();
                 GlobalColorsDetails globalColorsDetails = new GlobalColorsDetails();
                 globalColorsDetails.setGlobalColorsId(globalColors.getGlobalColorsId());
+                globalColorsDetails.setColorName(globalColors.getColorName());
                 globalColorsDetails.setColor1(globalColors.getColor1());
                 globalColorsDetails.setColor2(globalColors.getColor2());
                 globalColorsDetails.setColor3(globalColors.getColor3());
@@ -105,6 +105,7 @@ public class AssestsController {
             for (GlobalColors globalColorsObject : globalColorsList) {
                 GlobalColorsDetails globalColorsDetails = new GlobalColorsDetails();
                 globalColorsDetails.setGlobalColorsId(globalColorsObject.getGlobalColorsId());
+                globalColorsDetails.setColorName(globalColorsObject.getColorName());
                 globalColorsDetails.setColor1(globalColorsObject.getColor1());
                 globalColorsDetails.setColor2(globalColorsObject.getColor2());
                 globalColorsDetails.setColor3(globalColorsObject.getColor3());
@@ -168,6 +169,7 @@ public class AssestsController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             GlobalColors globalColors = new GlobalColors();
+            globalColors.setColorName(globalColorsDetails.getColorName());
             globalColors.setColor1(globalColorsDetails.getColor1());
             globalColors.setColor2(globalColorsDetails.getColor2());
             globalColors.setColor3(globalColorsDetails.getColor3());
@@ -207,6 +209,7 @@ public class AssestsController {
         try {
             GlobalColors globalColors = new GlobalColors();
             globalColors.setGlobalColorsId(globalColorsDetails.getGlobalColorsId());
+            globalColors.setColorName(globalColorsDetails.getColorName());
             globalColors.setColor1(globalColorsDetails.getColor1());
             globalColors.setColor2(globalColorsDetails.getColor2());
             globalColors.setColor3(globalColorsDetails.getColor3());

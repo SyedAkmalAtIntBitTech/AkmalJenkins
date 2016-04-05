@@ -25,6 +25,7 @@
         <title>Admin Header</title>
          <script src="../adminv2/adminjs/emailtemplate.js" type="text/javascript"></script>
          <script src="../adminv2/adminjs/emailblockmodels.js" type="text/javascript"></script>
+           <script src="../adminv2/adminjs/assets.js" type="text/javascript"></script>
           <script src="../adminv2/adminjs/recurringemail.js" type="text/javascript"></script>
           <script src="../adminv2/adminjs/imageToBase64Converter.js" type="text/javascript"></script>
          <script src="../adminv2/adminjs/marketingprogramdetails.js" type="text/javascript"></script>
@@ -43,7 +44,7 @@
             <a href="printtemplates.jsp"><div class="nav_tab fleft"> Print Templates </div></a>
             <a href="#"><div class="nav_tab fleft"> Image Templates </div></a>
             <a href="marketingprogram.jsp"><div class="nav_tab fleft"> Marketing Programs </div></a>
-            <a href="#"><div class="nav_tab fleft"> Assets </div></a>
+            <a href="assets.jsp"><div class="nav_tab fleft"> Assets </div></a>
             <a href="recurringemails.jsp"><div class="nav_tab fleft"> Recurring Email</div></a>
         </div>
        </div>

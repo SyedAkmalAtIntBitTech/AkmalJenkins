@@ -3,18 +3,49 @@
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
-$(document).ready(function () {
 
-    $("#addRecurringEmailTemplateButton").click(function () {
-        $("#addRecurringEmailTemplatePopUp").show();
-        $("#addOrganizationPopupDiv").show();
+$(document).ready(function () {
+    $("#addOrganizationPopupDiv").click(function () {
+
+        $("#addSubCategoryPopup").hide();
+        $("#addPrintCategoryPopup").hide();
+        $("#addOrganizationPopup").hide();
+        $("#addOrganizationPopupDiv").hide();
+        $("#addImageCategory").hide();
+        $("#addEmailBlockPopUp").hide();
+        $("#createColorCode").hide();
+        $("#addcolorpalette").hide();
+        $("#fontPopup").hide();
+        $("#addEmailTemplatePopUp").hide();
+        $("#addMarketingPopUp").hide();
+        $("#editMarketingProgramsPopup").hide();
+        $("#addMarketingProgramsPopup").hide();
+        $("#addRecurringEmailTemplatePopUp").hide();
+        $(".overflowhide").css("overflow", "auto");
+        $("#addRecurringPopUp").hide();
+        $("#addMarketingTemplatePopUp").hide();
+        $("#addGroup").hide();
     });
-    $("#addNewTemplate").click(function () {
-        $("#addRecurringPopUp").show();
-        $("#addOrganizationPopupDiv").show();
-    });
+
+
 
 });
+var emailChannel = "email";
+var printChannel = "print";
+var imageChannel = "image";
+var emailChannelId = 3;
+var printChannelId = 2;
+var imageChannelId = 1;
+
+$("#addRecurringEmailTemplateButton").click(function () {
+    $("#addRecurringEmailTemplatePopUp").show();
+    $("#addOrganizationPopupDiv").show();
+});
+$("#addNewTemplate").click(function () {
+    $("#addRecurringPopUp").show();
+    $("#addOrganizationPopupDiv").show();
+});
+
 var emailChannel = "email";
 var printChannel = "print";
 var imageChannel = "image";
@@ -100,3 +131,4 @@ $("#addOrganizationPopupDiv").click(function () {
     $("#EmailBlockPopUp").hide();
     $("#addGroup").hide();
 });
+
