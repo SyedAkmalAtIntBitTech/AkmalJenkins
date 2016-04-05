@@ -204,6 +204,7 @@ padding: 5px 30px;
 .Button--Gray{
     background-color: #E8E8E8;
     color: #888;
+    cursor: pointer;
 }
 
 .Add_Button{

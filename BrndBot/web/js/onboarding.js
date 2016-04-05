@@ -9,7 +9,7 @@ function onboardingcontroller($scope,$http) {
         
                     $http({
                             method : 'GET',
-                            url : getHost()+'/getAllOrganizations.do'
+                            url : getHost()+'/getAllOnlyOrganizations.do'
                         }).success(function(data, status, headers, config) {
                             $scope.organizations=data.d.details;
                         }).error(function(data, status, headers, config) {

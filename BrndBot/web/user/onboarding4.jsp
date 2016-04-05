@@ -38,11 +38,12 @@
                 <div class="pane_content">
                     <div class="h3 font--lightGray">Upload a hi-res version of your logo. A .PNG format works the best, but you may use a .JPEG as well.</div>
                     <div class="logoUpload-wrap">
-                           <img src="../images/userimages/Onboarding/uploadPhoto.svg" class="logoUpload-svg" style="cursor:pointer;"/>
+                        <img src="../images/userimages/Onboarding/uploadPhoto.svg" class="logoUpload-svg" style="cursor:pointer;"/>
                     </div>
-                    <a href="onboardinglogouploaded.jsp">
-                        <div class="Add_Button Button--Gray logoUpload--button">Upload Logo</div>
-                    </a>
+                    <!--<a href="onboardinglogouploaded.jsp">-->
+                    <div  class="Add_Button Button--Gray logoUpload--button "><label class=" Button--Gray" for="uploadLogo">Upload Logo</label></div>
+                    <input hidden="" type="file" class="Add_Button Button--Gray logoUpload--button" accept="image/png, image/jpeg, image/jpg" id="uploadLogo" value="">
+                    <!--</a>-->
                     </div>
                 </div>
             </div>   
