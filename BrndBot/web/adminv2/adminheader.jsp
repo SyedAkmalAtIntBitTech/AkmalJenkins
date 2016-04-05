@@ -26,11 +26,14 @@
          <script src="../adminv2/adminjs/emailtemplate.js" type="text/javascript"></script>
          <script src="../adminv2/adminjs/emailblockmodels.js" type="text/javascript"></script>
           <script src="../adminv2/adminjs/recurringemail.js" type="text/javascript"></script>
+          <script src="../adminv2/adminjs/imageToBase64Converter.js" type="text/javascript"></script>
+         <script src="../adminv2/adminjs/marketingprogramdetails.js" type="text/javascript"></script>
+           <script src="../adminv2/adminjs/allcompanies.js" type="text/javascript"></script>
    </head>
     <body>
        <div class="nav ">
         <div class="logodiv nav_logo fleft">
-            <img  src="../images/Icons/Logo_Reverse.svg" class="bb-logo" style="cursor:pointer;height:35px;">
+            <img  src="../images/adminImages/main-admin-logo.svg" class="bb-logo" >
         </div>
         <div class="headernav">
             <a href="allcompanies.jsp"><div class="nav_tab fleft"> Users </div></a>
@@ -39,10 +42,11 @@
             <a href="emailblockmodels.jsp"><div class="nav_tab fleft"> Email Blocks</div></a>
             <a href="printtemplates.jsp"><div class="nav_tab fleft"> Print Templates </div></a>
             <a href="#"><div class="nav_tab fleft"> Image Templates </div></a>
-            <a href="#"><div class="nav_tab fleft"> Marketing Programs </div></a>
+            <a href="marketingprogram.jsp"><div class="nav_tab fleft"> Marketing Programs </div></a>
             <a href="#"><div class="nav_tab fleft"> Assets </div></a>
             <a href="recurringemails.jsp"><div class="nav_tab fleft"> Recurring Email</div></a>
         </div>
        </div>
+        <div class="nav-offset"></div>
     </body>
 </html>

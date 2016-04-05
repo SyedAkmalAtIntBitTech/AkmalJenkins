@@ -5,11 +5,13 @@
  */
 package com.intbittech.modelmappers;
 
+import java.io.Serializable;
+
 /**
  *
  * @author development
  */
-public class ImageModelDetails {
+public class ImageModelDetails implements Serializable {
     
     private Integer subCategoryImageModelId;
     private Integer imageModelId;
