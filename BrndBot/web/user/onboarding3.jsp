@@ -41,7 +41,7 @@
                         <div class="input_Label">Please select a third party service</div>
                         <select class="input_Field select_Field clear" id="services">
                             <option class="input_Field">none</option>
-                            <option class="input_Field">Mindbody</option>
+                            <option class="input_Field" ng-repeat="service in services" value="{{service.externalSourceKeywordId}}">{{service.externalSourceName}}</option>
                         </select> 
 <!--                        <div class="input_Field clear">
                             <span class="fleft">Service drop down</span>

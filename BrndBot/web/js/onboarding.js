@@ -53,20 +53,96 @@ function onboardingcontroller($scope,$http) {
     };
     
     $scope.getServices = function (){
-        alert(localStorage.getItem("companyName")+"\n"+localStorage.getItem("industryName"));
+//        alert(localStorage.getItem("companyName")+"\n"+localStorage.getItem("industryName"));
+            $http({
+                            method : 'GET',
+                            url : getHost()+'/getAllExternalSourceKeywordLookups.do'
+                        }).success(function(data, status, headers, config) {
+                            $scope.services=data.d.details;
+                        }).error(function(data, status, headers, config) {
+                                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                        });            
     };
     
     $scope.saveServices = function (){
         var services= $("#services").val();
         localStorage.setItem("services",services);
-        alert(localStorage.getItem("services"));
         window.open(getHost() + 'user/onboarding4.jsp', "_self");
-        getAllLocalStorage(services);
     };
-    $scope.getAllLocalStorage =function (key){
-      localStorage.getItem("'"+key+"'");
-      alert();
-      return;
+    
+     function validateEmail(emailId) {
+        var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        if (filter.test(emailId)) {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    function validateSignUp()
+    {
+        var emailId = $('#emailId').val();
+        var password = $("#password").val();
+        var rePassword = $("#rePassword").val();
+
+        if ($.trim(emailId).length === 0) {
+            alert(emptyemail);
+            $("#emailId").focus();
+            return false;
+        }
+        if (!(validateEmail(emailId))) {
+            alert(wrongemail);
+            $("#emailId").focus();
+            return false;
+        }
+        if (password === "") {
+            alert(passworderror);
+            $("#password").focus();
+            return false;
+        }
+        if (rePassword === "") {
+            alert(repasswordempty);
+            $("#rePassword").focus();
+            return false;
+        }
+
+        if (password !== rePassword) {
+            alert(confirmpassworderror);
+            $("#rePassword").focus();
+            $("#rePassword").val('');
+            return false;
+        }
+        return true;
     };
+    
+    $scope.signupSuccess=function (){
+        if(validateSignUp()){
+            
+            window.open(getHost() + 'user/onboarding2.jsp', "_self");
+//            $http({
+//                method: 'POST',
+//                url: getHost() + 'ServletUserRegistration',
+//                headers: {'Content-Type': 'application/json'},
+//                data: $scope.user
+//            }).success(function (data)
+//            {
+//                $scope.status = data;
+//                if (data === "false") {
+//                    alert(userexits);
+//                    window.open(getHost() + 'signup.jsp', "_self");
+//                } else if (data === "true") {
+//                    window.open(getHost() + 'organization.jsp', "_self");
+//                } else if (data === error) {
+//                    alert(data);
+//                }
+//            })
+//            .error(function (data, status) {
+//                alert(requesterror);
+//            });
+        }
+    };
+    
 };
 

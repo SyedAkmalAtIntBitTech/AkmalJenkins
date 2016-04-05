@@ -18,7 +18,7 @@
     <!--Main Content Wrap-->
     <div class="contentWrap--withNoSideNav" >
         <div class="topNav clear">
-            <a href="onboarding1.jsp"><div class="topNav--BackButton fleft">
+            <a href="signup.jsp"><div class="topNav--BackButton fleft">
                 <img  src="../images/userimages/backbutton.svg" class="backButton-svg" style="cursor:pointer;"></img>
             </div></a>                
             <div class="topNav--TitleBar--withBackButton fleft">
@@ -54,7 +54,7 @@
                             <span>Please select an industry</span>
                             <img  src="../images/userimages/dropdown.svg" class="dropdown-svg fright" style="cursor:pointer;"></img>
                         </div>-->
-                        <div class="input_Instructions">Please select an industry</div>
+                        <!--<div class="input_Instructions">Please select an industry</div>-->
                     </div>
                     </div>
                 </div>
