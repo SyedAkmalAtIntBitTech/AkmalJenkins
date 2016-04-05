@@ -34,6 +34,14 @@ public interface OrganizationService {
      * @throws ProcessFailed the process failed
      */
     public List<Organization> getAllOrganizations() throws ProcessFailed;
+    
+    /**
+     * This method retrieves the list of {@link Organization} from DAO layer.
+     *
+     * @return {@link Organization}
+     * @throws ProcessFailed the process failed
+     */
+    public List<Organization> getAllOnlyOrganizations() throws ProcessFailed;
 
     /**
      * This method save {@link Organization} into the database.
@@ -46,7 +54,7 @@ public interface OrganizationService {
 
     /**
      * This method update {@link Organization} updates existing data from the
-     * database.
+     * DAO layer.
      *
      * @param organization the Organization
      * @throws ProcessFailed the process failed
@@ -55,7 +63,7 @@ public interface OrganizationService {
 
     /**
      * This method delete particular {@link Organization} based on the
-     * organization from the database.
+     * organization from the DAO layer.
      *
      * @param id the id
      * @throws ProcessFailed the process failed
