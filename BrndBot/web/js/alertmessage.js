@@ -177,4 +177,11 @@ var marketingTemplateRelationPrompt="Do you want to delete this marketing templa
 var programActionDeleted="Program Action deleted successfully.";
 var deleteCompanyGroup="Do you want to delete this group?";
 
+var emailChannel = "email";
+var printChannel = "print";
+var imageChannel = "image";
+var emailChannelId = 3;
+var printChannelId = 2;
+var imageChannelId = 1;
+
 /// ADMIN alerts Ends////

@@ -157,7 +157,6 @@ function organizationcontroller($scope,$http) {
     
     
       $scope.addEmailCategory = function () {
-          
             var organizationId=$("#organizationId").val();
             var categoryName = $("#categoryName").val();
             var emailCategory ={"categoryName" : categoryName,"channelId":parseInt(emailChannelId),"organizationId":parseInt(organizationId)}
@@ -184,10 +183,10 @@ function organizationcontroller($scope,$http) {
     };
     
     $scope.addPrintCategory = function () {
-        
+      
             var organizationId=$("#organizationId").val();
             var printCategory = $("#printCategory").val();
-            var category ={"categoryName" : printCategory,"channelId":printChannelId,"organizationId":organizationId}
+            var category ={"categoryName" : printCategory,"channelId":printChannelId,"organizationId":organizationId};
             if(printCategory===""){
                 alert(enterCategoryName);
                 $("#printCategory").focus();
