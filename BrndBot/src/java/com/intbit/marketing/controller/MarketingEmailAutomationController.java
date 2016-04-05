@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MarketingEmailAutomationController {
     String return_response = "false";
     
-    public @ResponseBody String getRecuringEmailTemplates(){
+    public @ResponseBody String getRecurringEmailTemplates(){
         return return_response;
     }
     

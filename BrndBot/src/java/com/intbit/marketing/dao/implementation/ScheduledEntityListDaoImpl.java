@@ -199,7 +199,7 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
 //    }
 //
 //    @Override
-//    public TblScheduledEntityList getLatestApprovedSendEmail(String status, String entityType, String programStatus, Boolean isRecuring) throws Throwable {
+//    public TblScheduledEntityList getLatestApprovedSendEmail(String status, String entityType, String programStatus, Boolean isRecurring) throws Throwable {
 //         try{
 //               Criteria criteria=sessionFactory.getCurrentSession()
 //                    .createCriteria(TblScheduledEntityList.class)                   
@@ -208,7 +208,7 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
 //                    .add(Restrictions.eq("status", status))
 //                    .add(Restrictions.eq("tump.status", programStatus))
 //                    .add(Restrictions.eq("entityType",entityType))
-//                    .add(Restrictions.eq("entityType",isRecuring));
+//                    .add(Restrictions.eq("entityType",isRecurring));
 //               return (TblScheduledEntityList) criteria.list().get(0);
 //               }catch (Throwable throwable) {
 //                    logger.log(Level.SEVERE, null, throwable);
@@ -255,7 +255,7 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
     }
 
     @Override
-    public TblScheduledEntityList getLatestApprovedSendEmail(String status, String entityType, String programStatus, Boolean isRecuring) throws Throwable {
+    public TblScheduledEntityList getLatestApprovedSendEmail(String status, String entityType, String programStatus, Boolean isRecurring) throws Throwable {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -274,13 +274,13 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
     }
 
     @Override
-    public List<TblScheduledEntityList> getScheduledEntityListIdForEmailType(Integer userMarketingProgramId, Boolean isRecuring) throws Throwable {
+    public List<TblScheduledEntityList> getScheduledEntityListIdForEmailType(Integer userMarketingProgramId, Boolean isRecurring) throws Throwable {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(TblScheduledEntityList.class)
                     .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
                     .add(Restrictions.eq("tblUserMarketingProgram.id", userMarketingProgramId))
-                    .add(Restrictions.eq("isRecuring", isRecuring))
+                    .add(Restrictions.eq("isRecurring", isRecurring))
                     .add(Restrictions.eq("entityType", "Email"));
             return criteria.list();
         } catch (Throwable throwable) {
@@ -309,18 +309,18 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
     /**
      * {@inheritDoc}
      */
-    public String getLatestApprovedEmail(String status, String entityType, String programStatus, Boolean isRecuring) throws Throwable {
+    public String getLatestApprovedEmail(String status, String entityType, String programStatus, Boolean isRecurring) throws Throwable {
         try {
             StringBuilder sbSql = new StringBuilder();
 
-            if (isRecuring) {
+            if (isRecurring) {
                 sbSql.append("select  entitytable.schedule_time\\:\\:time, entitytable.entity_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
                 sbSql.append(" where programtable.id = entitytable.user_marketing_program_id ");
                 sbSql.append("and lower(programtable.status)");
                 sbSql.append("like'").append(programStatus).append("'");
                 sbSql.append(" and lower(entitytable.status) like '").append(status).append("'");
                 sbSql.append(" and entitytable.days > 0 and entitytable.entity_type like'").append(entityType).append("'");
-                sbSql.append(" and lower(entitytable. is_recuring) like '").append(isRecuring).append("'");
+                sbSql.append(" and lower(entitytable. is_recurring) like '").append(isRecurring).append("'");
                 sbSql.append("time(entitytable.schedule_time\\:\\:time AT TIME ZONE 'US/Eastern') > current_time AT TIME ZONE 'US/Eastern' ");
                 sbSql.append("order by entitytable.schedule_time\\:\\:time");
                 sbSql.append(" limit 1");
@@ -333,7 +333,7 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
                 sbSql.append("like'").append(programStatus).append("'");
                 sbSql.append(" and lower(entitytable.status) like '").append(status).append("'");
                 sbSql.append(" and entitytable.days > 0 and entitytable.entity_type like'").append(entityType).append("'");
-                sbSql.append(" and lower(entitytable. is_recuring) like '").append(isRecuring).append("'");
+                sbSql.append(" and lower(entitytable. is_recurring) like '").append(isRecurring).append("'");
                 sbSql.append("date(programtable.date_event AT TIME ZONE 'US/Eastern') - entitytable.days  = current_date AT TIME ZONE 'US/Eastern' ");
                 sbSql.append("order by entitytable.schedule_time\\:\\:time");
                 sbSql.append(" limit 1");

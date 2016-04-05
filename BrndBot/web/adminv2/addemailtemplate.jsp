@@ -22,6 +22,13 @@
             <div class="slatHeaders">
                 
             </div>
+                <ul class="slatArea" id="noTemplatesMessage" hidden="">
+                    <li class="listItem cursorpointer" >
+                        <div class="listCol col1of2 fleft">
+                            <span class="listCol_Text fleft" id="noTemplatesMessageSpan">No</span>   
+                        </div>
+                    </li>                
+                </ul>
                 <ul class="slatArea" ng-if="location.path() != '/printsubcategorydetails.jsp'" >
                     <li class="listItem cursorpointer" ng-repeat="nonAddedprintModelsBySubCategorys in nonAddedPrintModelsBySubCategory" ng-click="select(nonAddedprintModelsBySubCategorys)" ng-class="{active: isActive(nonAddedprintModelsBySubCategorys)}">
                         <div class="listCol col1of2 fleft">

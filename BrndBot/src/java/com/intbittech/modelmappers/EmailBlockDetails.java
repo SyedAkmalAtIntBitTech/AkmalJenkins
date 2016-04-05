@@ -11,9 +11,14 @@ import java.io.Serializable;
  *
  * @author ilyas
  */
-public class EmailBlockDetails implements Serializable  {
+public class EmailBlockDetails implements Serializable {
+
     private Integer emailBlockId;
     private String emailBlockName;
+    private Integer organizationId;
+    private Integer externalSourceKeywordLookupId;
+    private String externalSourceName;
+    private String externalSourceKeywordName;
 
     public String getExternalSourceName() {
         return externalSourceName;
@@ -30,11 +35,6 @@ public class EmailBlockDetails implements Serializable  {
     public void setExternalSourceKeywordName(String externalSourceKeywordName) {
         this.externalSourceKeywordName = externalSourceKeywordName;
     }
-    private Integer organizationId;
-    private Integer externalSourceKeywordLookupId;
-    private String externalSourceName;
-    private String externalSourceKeywordName;
-    
 
     public Integer getExternalSourceKeywordLookupId() {
         return externalSourceKeywordLookupId;
@@ -43,7 +43,7 @@ public class EmailBlockDetails implements Serializable  {
     public void setExternalSourceKeywordLookupId(Integer externalSourceKeywordLookupId) {
         this.externalSourceKeywordLookupId = externalSourceKeywordLookupId;
     }
-    
+
     public Integer getEmailBlockId() {
         return emailBlockId;
     }
@@ -67,6 +67,5 @@ public class EmailBlockDetails implements Serializable  {
     public void setOrganizationId(Integer organizationId) {
         this.organizationId = organizationId;
     }
-    
-    
+
 }

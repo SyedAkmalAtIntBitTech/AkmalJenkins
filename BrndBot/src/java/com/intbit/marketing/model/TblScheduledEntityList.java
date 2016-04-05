@@ -34,10 +34,10 @@ public class TblScheduledEntityList  implements java.io.Serializable {
      private String status;
      private Integer userId;
      private String scheduleDesc;
-     private Boolean isRecuring;
+     private Boolean isRecurring;
      private Integer days;
      private Date tillDate;
-     private Integer recuringEmailId;
+     private Integer recurringEmailId;
      
     public TblScheduledEntityList() {
     }
@@ -45,7 +45,7 @@ public class TblScheduledEntityList  implements java.io.Serializable {
     public TblScheduledEntityList(int id) {
         this.id = id;
     }
-    public TblScheduledEntityList(int id, TblUserMarketingProgram tblUserMarketingProgram, Integer entityId, String scheduleTitle, Date scheduleTime, String entityType, String status, Integer userId, String scheduleDesc, Boolean isRecuring,TblScheduledEntityList tblScheduledEntityList,Integer days,Date tillDate,Integer recuringEmailId) {
+    public TblScheduledEntityList(int id, TblUserMarketingProgram tblUserMarketingProgram, Integer entityId, String scheduleTitle, Date scheduleTime, String entityType, String status, Integer userId, String scheduleDesc, Boolean isRecurring,TblScheduledEntityList tblScheduledEntityList,Integer days,Date tillDate,Integer recurringEmailId) {
        this.id = id;
        this.tblUserMarketingProgram = tblUserMarketingProgram;
        this.entityId = entityId;
@@ -55,9 +55,9 @@ public class TblScheduledEntityList  implements java.io.Serializable {
        this.status = status;
        this.userId = userId;
        this.scheduleDesc = scheduleDesc;
-       this.isRecuring = isRecuring;
+       this.isRecurring = isRecurring;
        this.days= days;
-       this.recuringEmailId= recuringEmailId;
+       this.recurringEmailId= recurringEmailId;
     }
    
      @Id 
@@ -152,13 +152,13 @@ public class TblScheduledEntityList  implements java.io.Serializable {
     }
 
     
-    @Column(name="is_recuring")
-    public Boolean getIsRecuring() {
-        return this.isRecuring;
+    @Column(name="is_recurring")
+    public Boolean getIsRecurring() {
+        return this.isRecurring;
     }
     
-    public void setIsRecuring(Boolean isRecuring) {
-        this.isRecuring = isRecuring;
+    public void setIsRecurring(Boolean isRecurring) {
+        this.isRecurring = isRecurring;
     }
 
     @Column(name="days")
@@ -179,13 +179,13 @@ public class TblScheduledEntityList  implements java.io.Serializable {
     public void setTillDate(Date tillDate) {
         this.tillDate = tillDate;
     }
-    @Column(name="recuring_email_id")
-    public Integer getRecuringEmailId() {
-        return this.recuringEmailId;
+    @Column(name="recurring_email_id")
+    public Integer getRecurringEmailId() {
+        return this.recurringEmailId;
     }
     
-    public void setRecuringEmailId(Integer recuringEmailId) {
-        this.recuringEmailId = recuringEmailId;
+    public void setRecurringEmailId(Integer recurringEmailId) {
+        this.recurringEmailId = recurringEmailId;
     }
 
 }

@@ -64,18 +64,18 @@ public class SchedulerUtilityMethods {
         }
     }
 
-    public static ArrayList<String> getLatestEmailApprovedPost(String status, String entityType, String programStatus, Boolean isRecuring) {
+    public static ArrayList<String> getLatestEmailApprovedPost(String status, String entityType, String programStatus, Boolean isRecurring) {
 
         StringBuilder sbSql = new StringBuilder();
 
-        if (isRecuring) {
+        if (isRecurring) {
             sbSql.append("select  entitytable.schedule_time::time, entitytable.entity_id as en_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable");
             sbSql.append(" where programtable.id = entitytable.user_marketing_program_id ");
             sbSql.append(" and lower(programtable.status)");
             sbSql.append("like'").append(programStatus).append("'");
             sbSql.append(" and lower(entitytable.status) like '").append(status).append("'");
             sbSql.append(" and entitytable.days > 0 and entitytable.entity_type like'").append(entityType).append("'");
-            sbSql.append(" and entitytable.is_recuring =  '").append(isRecuring).append("'");
+            sbSql.append(" and entitytable.is_recurring =  '").append(isRecurring).append("'");
             //Need to review this
             sbSql.append(" and date_trunc('minute', entitytable.schedule_time)::time AT TIME ZONE 'US/Eastern' >= date_trunc('minute', localtimestamp)::time AT TIME ZONE 'US/Eastern'");
 //            sbSql.append(" and entitytable.schedule_time::time AT TIME ZONE 'US/Eastern' >= current_time AT TIME ZONE 'US/Eastern' ");
@@ -90,7 +90,7 @@ public class SchedulerUtilityMethods {
             sbSql.append(" like'").append(programStatus).append("'");
             sbSql.append(" and lower(entitytable.status) like '").append(status).append("'");
             sbSql.append(" and entitytable.entity_type like'").append(entityType).append("'");
-            sbSql.append(" and entitytable.is_recuring = '").append(isRecuring).append("'");
+            sbSql.append(" and entitytable.is_recurring = '").append(isRecurring).append("'");
             sbSql.append(" and (date(programtable.date_event AT TIME ZONE 'US/Eastern') - entitytable.days  = current_date AT TIME ZONE 'US/Eastern' or (date(entitytable.schedule_time AT TIME ZONE 'US/Eastern'))= current_date AT TIME ZONE 'US/Eastern')");
             sbSql.append(" and date_trunc('minute', entitytable.schedule_time)::time AT TIME ZONE 'US/Eastern' = date_trunc('minute', localtimestamp)::time AT TIME ZONE 'US/Eastern'");
             sbSql.append(" order by entitytable.schedule_time::time");
@@ -133,8 +133,8 @@ public class SchedulerUtilityMethods {
                     result.setEntityId(resultSet.getInt("entity_id"));
                     TblUserMarketingProgram uPgm = new TblUserMarketingProgram(resultSet.getInt("user_marketing_program_id"));
                     result.setTblUserMarketingProgram(uPgm);
-                    result.setIsRecuring(resultSet.getBoolean("is_recuring"));
-                    if (result.getIsRecuring()) {
+                    result.setIsRecurring(resultSet.getBoolean("is_recurring"));
+                    if (result.getIsRecurring()) {
                         result.setScheduleTime(resultSet.getTimestamp("cal_rec_schedule_time"));
                     } else {
                         if (uPgm.getId() == 0) {//This is for general marketing program. Time is populated correctly.
@@ -152,7 +152,7 @@ public class SchedulerUtilityMethods {
 
                     result.setDays(resultSet.getInt("days"));
                     result.setTillDate(resultSet.getDate("till_date"));
-                    result.setRecuringEmailId(resultSet.getInt("recuring_email_id"));
+                    result.setRecurringEmailId(resultSet.getInt("recurring_email_id"));
                 }
             }
 

@@ -11,6 +11,7 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.PrintModel;
 import com.intbittech.model.SubCategoryPrintModel;
 import com.intbittech.services.PrintModelService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,13 +83,19 @@ public class PrintModelServiceImpl implements PrintModelService {
      */
     public List<PrintModel> getAllNonAddedPrintModels(Integer subCategoryId) throws ProcessFailed {
         List<SubCategoryPrintModel> subCategoryPrintModelList = subCategoryPrintModelDao.getAllSubCategoryPrintModel(subCategoryId);
-        Integer[] printModelIds = new Integer[subCategoryPrintModelList.size()];
-        Integer i =0;
-        for(SubCategoryPrintModel subCategoryPrintModelObject : subCategoryPrintModelList)
+        ArrayList<Integer> printModelIds = new ArrayList<>();
+        printModelIds.add(0);
+        if(subCategoryPrintModelList != null)
         {
-            printModelIds[i++] = subCategoryPrintModelObject.getFkPrintModelId().getPrintModelId();
+            for(SubCategoryPrintModel subCategoryPrintModelObject : subCategoryPrintModelList)
+            {
+                printModelIds.add(subCategoryPrintModelObject.getFkPrintModelId().getPrintModelId());
+            }
         }
         List<PrintModel> emailModelList = printModelDao.getByPrintModelsByIds(printModelIds);
+        if (emailModelList == null) {
+            throw new ProcessFailed("No print templates found.");
+        }
         return emailModelList;
     }
 

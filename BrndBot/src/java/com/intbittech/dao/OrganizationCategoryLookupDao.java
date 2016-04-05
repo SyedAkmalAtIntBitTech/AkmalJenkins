@@ -19,7 +19,7 @@ public interface OrganizationCategoryLookupDao {
 
     /**
      * This method pass id as input and get the
-     * {@link OrganizationCategoryLookup} from DAO layer.
+     * {@link OrganizationCategoryLookup} from database.
      *
      * @param organizationId is the organizationId
      * @param channelId is the channelId
@@ -28,6 +28,16 @@ public interface OrganizationCategoryLookupDao {
      */
     public List<OrganizationCategoryLookup> getAllOrganizationCategoryLookup(Integer organizationId, Integer channelId) throws ProcessFailed;
 
+    /**
+     * This method pass id as input and get the
+     * {@link OrganizationCategoryLookup} from database.
+     *
+     * @param organizationIds is the organizationIds
+     * @param channelId is the channelId
+     * @return {@link OrganizationCategoryLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public List<OrganizationCategoryLookup> getAllOrganizationCategoryLookupByIds(Integer[] organizationIds, Integer channelId) throws ProcessFailed;
     /**
      * This method save {@link OrganizationCategoryLookup} into the database.
      *

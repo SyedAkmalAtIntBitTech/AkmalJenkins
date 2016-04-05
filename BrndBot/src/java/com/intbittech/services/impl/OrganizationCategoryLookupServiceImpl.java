@@ -35,6 +35,14 @@ public class OrganizationCategoryLookupServiceImpl implements OrganizationCatego
 //        }
         return OrganizationCategoryList;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<OrganizationCategoryLookup> getAllOrganizationCategoryLookupByIds(Integer[] organizationIds, Integer channelId) throws ProcessFailed {
+        List<OrganizationCategoryLookup> OrganizationCategoryList = organizationCategoryLookupDao.getAllOrganizationCategoryLookupByIds(organizationIds, channelId);
+        return OrganizationCategoryList;
+    }
 
     /**
      * {@inheritDoc}

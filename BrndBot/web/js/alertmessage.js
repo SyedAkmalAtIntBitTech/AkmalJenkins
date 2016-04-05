@@ -100,8 +100,8 @@ var descriptionerror="Description not entered! Please enter the description.";
 var programdetailssaved="Program details has been changed successsfully";
 var multiemaildeleteconfirm="Are you sure you want to delete these Email(s)?";
 var emaildeletesuccess="Selected Email(s) were deleted successfully";
-var recuringdeleteconfirm="Are you sure! You want to delete this Recurring Email?";
-var recuringdeletesuccess="Selected Recurring Email was deleted successfully";
+var recurringdeleteconfirm="Are you sure! You want to delete this Recurring Email?";
+var recurringdeletesuccess="Selected Recurring Email was deleted successfully";
 var passwordemptyerror="Password not entered! Please enter the password.";
 var confirmpasswordemptyerror="Confirm password not entered! Please enter the confirm password.";
 var lockerror="Please select a look";
@@ -169,4 +169,12 @@ var fontFileName = "Please upload the TTF file";
 var deleteColorPalette ="Do you want to delete this Color Theme?";
 var deleteFont ="Do you want to delete this font Theme?";
 var uploadTTF ="Please upload the TTF file";
+var removeRecurringEmailPrompt="Do you want to remove this Recurring Email?";
+var recurringEmailName ="Please enter the Template Name";
+var deleteEmailTemplate ="Do you want to delete this Template"
+var deleteTemplateRelationPrompt="Do you want to delete this Email template relation to Email Blocks?";
+var marketingTemplateRelationPrompt="Do you want to delete this marketing template relation to Marketing Programs?";
+var programActionDeleted="Program Action deleted successfully.";
+var deleteCompanyGroup="Do you want to delete this group?";
+
 /// ADMIN alerts Ends////

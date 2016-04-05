@@ -25,6 +25,12 @@ list-style: none;
 .a{
     cursor: pointer}
 
+.col1of1{
+
+width:100%;
+}
+
+
 .col1of2{
 
 width:50%;
@@ -55,12 +61,33 @@ width:75%;}
     margin-top: 10px;
 }
 
+.pushUp_20{
+    margin-top: 20px;
+}
 
 .pushUp_30{
     margin-top: 30px;
 }
 
-
+.pushRight_30{
+    margin-right: 30px;
+}
+.pushLeft_15{
+    margin-left: 15px;
+}
+.input_Field_xlg{
+   width: 100%;
+    border: 1px solid #D2D3D5 ;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    font-size: 13px;
+    height: 175px;
+    /*color: #D2D3D5;*/
+    resize: none;
+}
 .body-normal{
     background-color: #ECF0F2 ;
     font-family: 'Open Sans';
@@ -68,6 +95,19 @@ width:75%;}
     color: #3E4551 ;
 }
 
+.content-wrap-with-CTA{
+height: calc(100vh - 110px);
+    width: 100vw;
+    position: relative;
+    top:60px;
+}
+
+.nav-offset{
+    box-sizing: border-box;
+    height:80px;
+    display: block;
+    width: 100%;
+}
 /**Nav**/ 
 
 .nav{
@@ -80,6 +120,14 @@ width:75%;}
     border-bottom: solid 1px #D2D3D5;
     display: block;
        line-height: 50px;
+    
+}
+
+.nav_tab-logout{
+padding: 0px 40px 0px 20px;
+    font-size: 13px;
+    vertical-align: middle;
+    box-sizing: border-box;
 }
 
 .nav_tab{
@@ -91,6 +139,62 @@ padding: 0px 20px;
     font-size: 12px;
     color: #3e4551;
 }
+.col-padding{
+    padding: 0px 30px 0px 0px;
+    box-sizing: border-box;
+}
+.subnav-tab-active{
+padding: 0px 20px;
+    font-size: 13px;
+    vertical-align: middle;
+    box-sizing: border-box;
+    color: #64B6EE;
+    font-weight: 600;
+}
+
+.company-number{
+    padding: 10px 0px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.palette-wrap-admin{
+    padding: 10px 0px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.palette-swap-wrap{
+    margin-right: 15px;
+    box-sizing: border-box;
+    
+}
+
+.palette-admin{
+    width: 100px;
+    height: 60px;
+    border: solid 1px #D2D3D5;
+    box-sizing: border-box;
+    border-radius: 3px;
+    
+}
+
+.palette-beneath{
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    padding: 5px;
+    font-size: 14px;
+    border: solid 1px #D2D3D5;
+    margin-top: 10px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    
+    
+}
+
+
+
 
 .nav_logo{
     padding: 5px 10px;
@@ -132,9 +236,10 @@ padding: 0px 20px;
     width: 95%;
     max-width: 1280px;
     height: calc(100vh - 90px);
-    margin: auto;
-    position: relative;
-    top: 70px;
+    margin-left: auto;
+    margin-right: auto;
+/*    position: relative;
+    top: 70px;*/
     background-color: #FFFFFF;
     display: block;
     border-radius: 3px;
@@ -142,9 +247,15 @@ padding: 0px 20px;
     padding: 0px 30px;
     box-sizing: border-box;
     min-width: 800px;
-    overflow-y: scroll;
+    overflow-y: auto;
     padding-bottom: 60px;
 
+}
+.nav-offset{
+    box-sizing: border-box;
+    height:80px;
+    display: block;
+    width: 100%;
 }
 
 .content-area_header{
@@ -153,7 +264,10 @@ padding:20px 0px 10px 0px;
     overflow: auto;
     clear: both;
 }
-
+.Button--Save{
+    background-color: #5CC2A5 ;
+    color: white;
+}
 .header_title{
     font-size: 20px;
     color: #3E4551; 
@@ -325,7 +439,8 @@ padding: 5px 45px;
 
 .inputSection{
     margin-top:30px;
-    overflow: auto;
+    overflow: hidden;
+    /*overflow: auto;*/
     clear: both;
     box-sizing: border-box;
     font-size: 13px;
@@ -405,8 +520,10 @@ padding: 5px 45px;
     color: #3E4551; 
 }
 .bb-logo{
-    width: 40px;
-    margin: auto;
+/*    width: 40px;*/
+    width:120px;
+    /*margin: auto;*/
+    margin-left:15px;
 }
 .width50{
     width:50px;
@@ -428,6 +545,21 @@ cursor: pointer;
     }
     .contentEdit{
         overflow-y: inherit !important;
+    }
+    #addMarketingTemplatePopUp{
+        left: 14%;
+        top: 14%;
+        
+    }
+    #EmailBlockPopUp{
+         left: 14%;
+        top: 14%;
+        
+    }
+    #addGroup{
+          left: 14%;
+        top: 14%;
+        
     }
 }
 @media screen and (min-width:900px) and (max-width:1400px){

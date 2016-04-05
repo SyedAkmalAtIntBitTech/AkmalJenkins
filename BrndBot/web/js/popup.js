@@ -408,63 +408,63 @@ $(document).ready(function ()
         var isTwitter=$("#isTwitter").val();
         window.open('socialimageselection.jsp?image='+id+'&isFacebook='+isFacebook+'&isTwitter='+isTwitter+'&mediatype='+social+'&selectedtype='+selectedtype+'&data='+data+'&gallery=gallery', "_self");
     });
-    /*.......................................... recuring popup navbar ................*/
-    $("#recuringtemplate").click(function(){        
-        $("#recuringactiondiv").hide();
-        $("#recuringnotediv").hide();
-        $("#recuringtemplatediv").show();
-        $("#recuringaction").removeClass("top-subnav-link-active-detail");
-        $("#recuringaction a").removeAttr("class");
-        $("#recuringnote").removeClass("top-subnav-link-active-detail");
-        $("#recuringnote a").removeAttr("class");
-        $("#recuringtemplate").removeClass("top-subnav-link-active-detail");
-        $("#recuringtemplate a").removeAttr("class");
+    /*.......................................... recurring popup navbar ................*/
+    $("#recurringtemplate").click(function(){        
+        $("#recurringactiondiv").hide();
+        $("#recurringnotediv").hide();
+        $("#recurringtemplatediv").show();
+        $("#recurringaction").removeClass("top-subnav-link-active-detail");
+        $("#recurringaction a").removeAttr("class");
+        $("#recurringnote").removeClass("top-subnav-link-active-detail");
+        $("#recurringnote a").removeAttr("class");
+        $("#recurringtemplate").removeClass("top-subnav-link-active-detail");
+        $("#recurringtemplate a").removeAttr("class");
         
-        $("#recuringtemplate").addClass("top-subnav-link-active-detail");
-        $("#recuringtemplate a").addClass("h3-subnav-subnav-active");
-        $("#recuringaction").addClass("top-subnav-links-detail");
-        $("#recuringaction a").addClass("h3-subnav");
-        $("#recuringnote").addClass("top-subnav-links-detail");
-        $("#recuringnote a").addClass("h3-subnav");
+        $("#recurringtemplate").addClass("top-subnav-link-active-detail");
+        $("#recurringtemplate a").addClass("h3-subnav-subnav-active");
+        $("#recurringaction").addClass("top-subnav-links-detail");
+        $("#recurringaction a").addClass("h3-subnav");
+        $("#recurringnote").addClass("top-subnav-links-detail");
+        $("#recurringnote a").addClass("h3-subnav");
     });
-    $("#recuringaction").click(function(){        
-        $("#recuringactiondiv").show();
-        $("#recuringnotediv").hide();
-        $("#recuringtemplatediv").hide();
+    $("#recurringaction").click(function(){        
+        $("#recurringactiondiv").show();
+        $("#recurringnotediv").hide();
+        $("#recurringtemplatediv").hide();
         
-        $("#recuringaction").removeClass("top-subnav-link-active-detail");
-        $("#recuringaction a").removeAttr("class");
-        $("#recuringnote").removeClass("top-subnav-link-active-detail");
-        $("#recuringnote a").removeAttr("class");
-        $("#recuringtemplate").removeClass("top-subnav-link-active-detail");
-        $("#recuringtemplate a").removeAttr("class");
+        $("#recurringaction").removeClass("top-subnav-link-active-detail");
+        $("#recurringaction a").removeAttr("class");
+        $("#recurringnote").removeClass("top-subnav-link-active-detail");
+        $("#recurringnote a").removeAttr("class");
+        $("#recurringtemplate").removeClass("top-subnav-link-active-detail");
+        $("#recurringtemplate a").removeAttr("class");
         
-        $("#recuringaction").addClass("top-subnav-link-active-detail");
-        $("#recuringaction a").addClass("h3-subnav-subnav-active");
-        $("#recuringtemplate").addClass("top-subnav-links-detail");
-        $("#recuringtemplate a").addClass("h3-subnav");
-        $("#recuringnote").addClass("top-subnav-links-detail");
-        $("#recuringnote a").addClass("h3-subnav");
+        $("#recurringaction").addClass("top-subnav-link-active-detail");
+        $("#recurringaction a").addClass("h3-subnav-subnav-active");
+        $("#recurringtemplate").addClass("top-subnav-links-detail");
+        $("#recurringtemplate a").addClass("h3-subnav");
+        $("#recurringnote").addClass("top-subnav-links-detail");
+        $("#recurringnote a").addClass("h3-subnav");
         
     });
-    $("#recuringnote").click(function(){
-        $("#recuringactiondiv").hide();
-        $("#recuringnotediv").show();
-        $("#recuringtemplatediv").hide();
+    $("#recurringnote").click(function(){
+        $("#recurringactiondiv").hide();
+        $("#recurringnotediv").show();
+        $("#recurringtemplatediv").hide();
         
-        $("#recuringaction").removeClass("top-subnav-link-active-detail");
-        $("#recuringaction a").removeAttr("class");
-        $("#recuringnote").removeClass("top-subnav-link-active-detail");
-        $("#recuringnote a").removeAttr("class");
-        $("#recuringtemplate").removeClass("top-subnav-link-active-detail");
-        $("#recuringtemplate a").removeAttr("class");
+        $("#recurringaction").removeClass("top-subnav-link-active-detail");
+        $("#recurringaction a").removeAttr("class");
+        $("#recurringnote").removeClass("top-subnav-link-active-detail");
+        $("#recurringnote a").removeAttr("class");
+        $("#recurringtemplate").removeClass("top-subnav-link-active-detail");
+        $("#recurringtemplate a").removeAttr("class");
         
-        $("#recuringnote").addClass("top-subnav-link-active-detail");
-        $("#recuringnote a").addClass("h3-subnav-subnav-active");
-        $("#recuringtemplate").addClass("top-subnav-links-detail");
-        $("#recuringtemplate a").addClass("h3-subnav");
-        $("#recuringaction").addClass("top-subnav-links-detail");
-        $("#recuringaction a").addClass("h3-subnav");
+        $("#recurringnote").addClass("top-subnav-link-active-detail");
+        $("#recurringnote a").addClass("h3-subnav-subnav-active");
+        $("#recurringtemplate").addClass("top-subnav-links-detail");
+        $("#recurringtemplate a").addClass("h3-subnav");
+        $("#recurringaction").addClass("top-subnav-links-detail");
+        $("#recurringaction a").addClass("h3-subnav");
         
     });
     /*.......................................... reminder popup navbar ................*/

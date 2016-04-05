@@ -46,8 +46,8 @@ public class ScheduledEntityList implements Serializable {
     private String status;
     @Column(name = "schedule_desc")
     private String scheduleDesc;
-    @Column(name = "is_recuring")
-    private Boolean isRecuring;
+    @Column(name = "is_recurring")
+    private Boolean isRecurring;
     @Column(name = "days")
     private Integer days;
     @Column(name = "till_date")
@@ -59,9 +59,9 @@ public class ScheduledEntityList implements Serializable {
     @JoinColumn(name = "fk_company_marketing_program_id", referencedColumnName = "company_marketing_program_id")
     @ManyToOne
     private CompanyMarketingProgram fkCompanyMarketingProgramId;
-    @JoinColumn(name = "fk_recuring_email_id", referencedColumnName = "recuring_email_template_id")
+    @JoinColumn(name = "fk_recurring_email_id", referencedColumnName = "recurring_email_template_id")
     @ManyToOne
-    private RecuringEmailTemplate fkRecuringEmailId;
+    private RecurringEmailTemplate fkRecurringEmailId;
 
     public ScheduledEntityList() {
     }
@@ -126,12 +126,12 @@ public class ScheduledEntityList implements Serializable {
         this.scheduleDesc = scheduleDesc;
     }
 
-    public Boolean getIsRecuring() {
-        return isRecuring;
+    public Boolean getIsRecurring() {
+        return isRecurring;
     }
 
-    public void setIsRecuring(Boolean isRecuring) {
-        this.isRecuring = isRecuring;
+    public void setIsRecurring(Boolean isRecurring) {
+        this.isRecurring = isRecurring;
     }
 
     public Integer getDays() {
@@ -166,12 +166,12 @@ public class ScheduledEntityList implements Serializable {
         this.fkCompanyMarketingProgramId = fkCompanyMarketingProgramId;
     }
 
-    public RecuringEmailTemplate getFkRecuringEmailId() {
-        return fkRecuringEmailId;
+    public RecurringEmailTemplate getFkRecurringEmailId() {
+        return fkRecurringEmailId;
     }
 
-    public void setFkRecuringEmailId(RecuringEmailTemplate fkRecuringEmailId) {
-        this.fkRecuringEmailId = fkRecuringEmailId;
+    public void setFkRecurringEmailId(RecurringEmailTemplate fkRecurringEmailId) {
+        this.fkRecurringEmailId = fkRecurringEmailId;
     }
 
 }

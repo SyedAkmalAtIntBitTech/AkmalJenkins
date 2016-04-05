@@ -22,20 +22,20 @@
 </head>    
     <body>
         <div id="fade" class="black_overlay" ></div>
-        <div class="content" id="recuringPopup">
+        <div class="content" id="recurringPopup">
         <!--MainContent-->
             <div class="detail-overlay-content">
                 <!--Top Nav Bar-->
                 <div class="top-nav-container-detail">
                     <div class=" top-navbar-detail">
-                        <a class=" exit-button-detail link svg" href="" id="closerecuringpopup">
+                        <a class=" exit-button-detail link svg" href="" id="closerecurringpopup">
                             <img type="image/svg+xml" src="images/Icons/close.svg" class="exit-button" style="cursor:pointer;"> </img>
                         </a>
                         <div  class="top-navbar-inner-bb-detail">
                             <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Recurring Email Automation Detail</span></div>
                             <div class="top-nav-cta-container">
-                                <div class="approve-button-detail md-button" id="emailapprove" ng-show="recuring_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_email)">Approve</div>
-                                <div class="approve-button-detail md-button" id="emailapprove" ng-show="recuring_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_email)">Disapprove</div>
+                                <div class="approve-button-detail md-button" id="emailapprove" ng-show="recurring_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_email)">Approve</div>
+                                <div class="approve-button-detail md-button" id="emailapprove" ng-show="recurring_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_email)">Disapprove</div>
                                 <div class="delete-button-detail md-button" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="deleteAutomationSchedule(schedule_id, 'delete', master_email, 'true')">Delete Recurring Email</div>
                             </div>    
                         </div>
@@ -43,16 +43,16 @@
                     <div class="top-subnav-detail">
                         <div class="top-subnav-tabs-detail">
                              <ul class="top-subnav-nav-elements-detail">
-                                <li class="top-subnav-links-detail top-subnav-link-active-detail" id="recuringaction"> <a class="h3-subnav-active">Automation Details</a></li>
-                                <li class="top-subnav-links-detail" id="recuringtemplate"> <a class="h3-subnav" >Saved Email</a></li>
-                                <!--<li class="top-subnav-links-detail  top-subnav-links-detail-last" id="recuringnote"> <a class="h3-subnav" >Notes</a></li>-->
+                                <li class="top-subnav-links-detail top-subnav-link-active-detail" id="recurringaction"> <a class="h3-subnav-active">Automation Details</a></li>
+                                <li class="top-subnav-links-detail" id="recurringtemplate"> <a class="h3-subnav" >Saved Email</a></li>
+                                <!--<li class="top-subnav-links-detail  top-subnav-links-detail-last" id="recurringnote"> <a class="h3-subnav" >Notes</a></li>-->
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <!--Below Nav-->
-                <div id="recuringactiondiv">
+                <div id="recurringactiondiv">
                     <div class="below-nav-container-saved-post-detail bgwhite">
                         <div class="inner-content-container-detail">
                             <div class="inner-content-detail">
@@ -66,7 +66,7 @@
                                 <div class="fleft input-field-textfield">
                                     {{schedule_title}}
                                 </div>
-                                <input type="hidden"  id="recuring_email_title" value="{{schedule_title}}" class="input-field-textfield" readonly/>
+                                <input type="hidden"  id="recurring_email_title" value="{{schedule_title}}" class="input-field-textfield" readonly/>
                                 <input class="inputbox SP1" type="hidden" name="fb_scheduletype" id="fb_scheduletype" value='{{schedule_type}}'/>
                                 <input class="inputbox SP1" type="hidden" name="fb_scheduleid" id="fb_scheduleid" value='{{schedule_id}}'/>
                             
@@ -76,7 +76,7 @@
                                 <div class="fleft input-field-textfield">
                                     {{schedule_desc}}
                                 </div>
-                                <!--<input id="recuring_email_description" class="input-field-textfield" type="text" readonly  value="{{schedule_desc}}"/>-->
+                                <!--<input id="recurring_email_description" class="input-field-textfield" type="text" readonly  value="{{schedule_desc}}"/>-->
                             </div>
                         <div class="fleft">
                         <div class="input-header-actionDetail pushUp-30" style="">
@@ -144,10 +144,10 @@
                         </div>
                     </div>
                 </div>
-                <div id="recuringtemplatediv">
+                <div id="recurringtemplatediv">
                     <div class="below-nav-container-saved-post-detail emailcontentbordertop" >
                     <div class="inner-content-container-detail">
-                        <div class="saved-post-preview-detail" id="noemailsdiv" ng-show="recuring_template_status === 'No Template'">
+                        <div class="saved-post-preview-detail" id="noemailsdiv" ng-show="recurring_template_status === 'No Template'">
                             <!--SAVED Email GOES HERE-->
                             <div class="overlay-emptystate-icon">
                                 <img type="image/svg+xml" src="images/Icons/Overlay_EmptyStates_Email-Empty-State.svg" class="overlay-emptystate-icon"/>
@@ -165,7 +165,7 @@
                                 <!--</a>-->
                             </div>
                         </div>
-                        <div class="below-nav-container-saved-post-detail fixingpos" id="savedemailsdiv" ng-show="recuring_template_status !== 'No Template'">
+                        <div class="below-nav-container-saved-post-detail fixingpos" id="savedemailsdiv" ng-show="recurring_template_status !== 'No Template'">
                             <div class="inner-content-container-detail fleft">
                                 <div class="saved-post-header-detail1">
 
@@ -179,7 +179,7 @@
                                 </div>
                                 <div class="inner-content-detail">
                                     <div class="saved-email-preview-detail ">
-                                        <iframe id="recuringemailcontentiframe" class="content  emailcontentiframetag"></iframe>
+                                        <iframe id="recurringemailcontentiframe" class="content  emailcontentiframetag"></iframe>
                                     </div>
                                 </div>
                             </div>
@@ -188,13 +188,13 @@
                             </div>-->
                         </div>
                     </div>
-                    <div class="bottom-cta-bar"  id="recuringremovediv" >
+                    <div class="bottom-cta-bar"  id="recurringremovediv" >
                         <div class=" fixtobotom">
                             <div class="remove-button-detail md-button button-text-1 fleft fixbotomremovebtn" ng-click="deleteAutomationSchedule(schedule_id, 'removetemplate', master_email, 'true')">Remove saved Template</div>
                         </div>
                     </div>
                 </div>
-                <div id="recuringnotediv">
+                <div id="recurringnotediv">
                     <div class="below-nav-container-saved-post-detail">
                     <div class="inner-content-container-detail">
 <!--                        <div class="saved-post-header-detail">

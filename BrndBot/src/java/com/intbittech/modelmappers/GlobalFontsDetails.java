@@ -5,11 +5,13 @@
  */
 package com.intbittech.modelmappers;
 
+import java.io.Serializable;
+
 /**
  *
  * @author ilyas
  */
-public class GlobalFontsDetails {
+public class GlobalFontsDetails implements Serializable {
     
     private Integer globalFontsId;
     private String fontName;
