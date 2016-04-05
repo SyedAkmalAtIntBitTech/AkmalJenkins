@@ -188,7 +188,7 @@
                                         button--text-upper 
                                         button--size-s 
                                         fontpnr"  
-                                        ng-click="addEditRecuringAction('add',<%=program_id%>, '0')">
+                                        ng-click="addEditRecurringAction('add',<%=program_id%>, '0')">
                                     Add Email Automation
                                 </button>
                             </div>
@@ -218,18 +218,18 @@
                                                           ng-disabled="checkProgramStatus()" 
                                                           id="{{emailautomation.scheduledEntityListId}}" 
                                                           class="chckbox" 
-                                                          onclick="setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}')" value="{{emailautomation.scheduledEntityListId}}" /></div>
+                                                          onclick="setSelectedRecurringIds('{{emailautomation.scheduledEntityListId}}')" value="{{emailautomation.scheduledEntityListId}}" /></div>
                         </div>
                         <div class="col-lg-5 col-md-5 col-sm-5">
                             <div class="listelem fontpnr">{{emailautomation.programTemplateName}}</div>
-                            <div class="sublst fontpnr">Started on {{emailautomation.dateTime| date:'  d/M/yy'+' At '+'hh:mm a'}}&nbsp;&nbsp;&nbsp;&nbsp;{{emailautomation.emailRecuringTemplateName}}</div>
+                            <div class="sublst fontpnr">Started on {{emailautomation.dateTime| date:'  d/M/yy'+' At '+'hh:mm a'}}&nbsp;&nbsp;&nbsp;&nbsp;{{emailautomation.emailRecurringTemplateName}}</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-lg-offset-1">
                             <div class="stslst fontpnr">{{emailautomation.status}}</div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2">
                             <button type="button" class="emledtbtn button button--moema button--text-thick button--text-upper button--size-s  fontpnr" 
-                                    ng-click="getRecuringMailDetails(emailautomation.scheduledEntityListId,
+                                    ng-click="getRecurringMailDetails(emailautomation.scheduledEntityListId,
                                                                 emailautomation.status,
                                                                 emailautomation.dateTime,
                                                                 emailautomation.actionType,
@@ -1357,9 +1357,9 @@
                     </div> 
                 </div>
 
-                <div id="recuring_preview">
+                <div id="recurring_preview">
 
-                    <div id="recuring_preview_email">
+                    <div id="recurring_preview_email">
                         <div class="inlineFlex">
                             <div class="half">
                                 <div class="borderright">
@@ -1390,10 +1390,10 @@
                                         <div class="inlineFlex toptnine">
                                             <div class="half containe fontpnr tenpix">
                                                 <div class="inlineFlex">
-                                                    <div class="rightfive toptwo" id="recuringemailred">
+                                                    <div class="rightfive toptwo" id="recurringemailred">
                                                         <div class="redDot"></div>
                                                     </div>
-                                                    <div class="rightfive toptwo" id="recuringemailgreen">
+                                                    <div class="rightfive toptwo" id="recurringemailgreen">
                                                         <div class="greenDot"></div>
                                                     </div>
                                                     <div class="containe tenpix fontpnr ">{{email_template_status}}</div>
@@ -1414,12 +1414,12 @@
                                         </div>
                                         <div class="inlineFlex top120">
                                             <div class="rightthirty left5">
-                                                <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="addEditRecuringAction('edit',<%=program_id%>, schedule_id)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
+                                                <input type="button" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="addEditRecurringAction('edit',<%=program_id%>, schedule_id)" value="Edit" class="button editbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_button_post">
                                             </div>
                                             <div class="approve">
-                                                <input type="button" value="Approve to Send" ng-show="recuring_action_status == true && recuring_template_status=='Template Saved'" ng-click="recuringApproval(schedule_id, 'approved')" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
-                                                <button ng-click="SaveData();" ng-show="recuring_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
-                                                <button id="button1" ng-show="recuring_template_status == 'Approved'" ng-click="recuringApproval(schedule_id, 'template_saved')" style="background-color: #e25b5b !important;color: white !important;display:none;margin-left:16px !important;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
+                                                <input type="button" value="Approve to Send" ng-show="recurring_action_status == true && recurring_template_status=='Template Saved'" ng-click="recurringApproval(schedule_id, 'approved')" class="button approvetopostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="mail_approve_button_post">
+                                                <button ng-click="SaveData();" ng-show="recurring_template_status == 'Approved'" style="background-color: #19587c !important;color: white !important;" class="button hide1 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Approved</button> 
+                                                <button id="button1" ng-show="recurring_template_status == 'Approved'" ng-click="recurringApproval(schedule_id, 'template_saved')" style="background-color: #e25b5b !important;color: white !important;display:none;margin-left:16px !important;" class="button hide2 approvebuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns">Disapprove</button> 
                                             </div>
                                         </div>
                                     </div>
@@ -1440,7 +1440,7 @@
                                             <div class="circle"></div>
                                         </div>
                                         <div class="rightthirty">
-                                            <input type="button" value="Create Post" ng-hide="programs.programdetails.program_status == 'Closed'"  ng-click="addEditRecuringAction('template',<%=program_id%>, schedule_id)"  class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
+                                            <input type="button" value="Create Post" ng-hide="programs.programdetails.program_status == 'Closed'"  ng-click="addEditRecurringAction('template',<%=program_id%>, schedule_id)"  class="button createPostbuttonwidthheightcolor buttonmargin button--moema  button--text-thick  button--text-upper fontpns" id="create_Post">
                                         </div>
                                     </div>
                                     <div id="mailpreviewdecond5">

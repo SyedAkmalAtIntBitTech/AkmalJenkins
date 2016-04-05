@@ -22,7 +22,9 @@
      <jsp:include page="printcategory.jsp"/>
      <jsp:include page="addimagecategory.jsp"/>
      <jsp:include page="addemailblock.jsp"/>
+     <jsp:include page="addrecurringtemplatepopup.jsp"/>
       <jsp:include page="marketingprogrampopup.jsp"/>
+      
      <input type="text" id='organizationId' value="<%=organizationId%>" hidden/>
     <div class="content-area" ng-app  ng-controller="organizationcontroller" >
         <div class="content-area_header" ng-init="organizationdetails()">
@@ -143,7 +145,7 @@
             </ul>
             <div Id="addMarketingCategory" class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
         </div>
-        <div class="slatSection">
+        <div class="slatSection" ng-init="getAllRecurringByOrganizationId()">
             <div class="sectionHeader"> Recurring Email Categories </div>
             <div class="slatHeaders">
                 <div class="listHeaderCol col1of2 fleft">
@@ -151,16 +153,16 @@
                 </div>
             </div>
             <ul class="slatArea">
-                <li class="listItem">
+                <li class="listItem" ng-repeat="recurringEmail in allRecurringEmails">
                     <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft"> Category Name</span>
+                        <span class="listCol_Text fleft">{{recurringEmail.templateName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
-                        <div class="CTA_Button Button--Gray fright">Manage Category</div>
+                        <div class="CTA_Button Button--Gray fright" ng-click="deleteOrganizationRecurringEmail(recurringEmail.organizationRecurringEmailLookupId)">Remove Template</div>
                     </div>
                 </li>
             </ul>
-            <div class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
+            <div id="addRecurringEmailTemplateButton" class="Add_Button Button--Blue fleft pushUp_10" ng-click="getAllNonAddedRecurringEmail()">Add Category</div>
         </div>
     </div>
   

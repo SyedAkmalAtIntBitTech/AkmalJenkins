@@ -558,14 +558,14 @@ function controllerMarketingCampaign($scope, $http) {
         return toUTCDate(new Date(millis));
     };
 
-    $scope.getRecuringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, action_status, marketingProgramName, days) {
+    $scope.getRecurringMailDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, action_status, marketingProgramName, days) {
           
             $slider=2;
-            sliderDialog = "#recuring_preview";
+            sliderDialog = "#recurring_preview";
             $('#slider-button').click();
-            prevSliderDialog = "#recuring_preview";
-            $("#recuring_preview_email").show();
-            $("#recuring_edit_email_action").hide();
+            prevSliderDialog = "#recurring_preview";
+            $("#recurring_preview_email").show();
+            $("#recurring_edit_email_action").hide();
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
@@ -588,13 +588,13 @@ function controllerMarketingCampaign($scope, $http) {
                 }
                 if(template_status=="complete")
                 {
-                    $("#recuringemailgreen").show();
-                    $("#recuringemailred").hide();
+                    $("#recurringemailgreen").show();
+                    $("#recurringemailred").hide();
                 }
                 else
                 {
-                    $("#recuringemailgreen").hide();
-                    $("#recuringemailred").show();
+                    $("#recurringemailgreen").hide();
+                    $("#recurringemailred").show();
                 }
                 var date = new Date(schedule_time);
                 $(".content").empty();
@@ -603,10 +603,10 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 $scope.schedule_desc = schedule_desc;
-                $scope.recuring_template_status = template_status;
+                $scope.recurring_template_status = template_status;
                 $scope.schedule_type = entity_type;
                 $scope.user_marketing_program_id = action_status;
-                $scope.recuring_action_status=action_status;
+                $scope.recurring_action_status=action_status;
                 $scope.marketingProgramName=marketingProgramName;
                 $scope.days=days;
             }).error(function (data) {
@@ -614,13 +614,13 @@ function controllerMarketingCampaign($scope, $http) {
             });
     };
     
-    $scope.recuringApproval = function(entity_id, template_status){
+    $scope.recurringApproval = function(entity_id, template_status){
         
         var approval_type = {"entity_id": entity_id, "template_status":template_status};
         
         $http({
             method: 'POST',
-            url: 'approveStatusRecuring.do',
+            url: 'approveStatusRecurring.do',
             headers: {'Content-Type':'application/json'},
             data: JSON.stringify(approval_type)
         }).success(function (data, status, headers, config) {
@@ -1434,7 +1434,7 @@ function controllerMarketingCampaign($scope, $http) {
         }
     };
 
-    $scope.addEditRecuringAction = function(type,program_id,entity_id){
+    $scope.addEditRecurringAction = function(type,program_id,entity_id){
             window.open(getHost() + 'emailautomation.jsp?type='+type+'&program_id='+program_id+'&entity_id='+entity_id, "_self");
       };
 
@@ -1453,7 +1453,7 @@ function controllerMarketingCampaign($scope, $http) {
         });
     };
 
-    $scope.deleteSchedule = function (schedules_to_delete, type, section, isRecuring) {
+    $scope.deleteSchedule = function (schedules_to_delete, type, section, isRecurring) {
         var message;
         var requestBody;
         var responseMessage;
@@ -1466,13 +1466,13 @@ function controllerMarketingCampaign($scope, $http) {
             message = singledeleteconfirm;
             requestBody = {"type": "delete",
                             "schedule_ids": schedules_to_delete, "entity_type": section, 
-                            "isRecuring": isRecuring};
+                            "isRecurring": isRecurring};
             responseMessage = singledeletesuccess;
         } else if (type == "remove") {
             message = removecnfirm;
             requestBody = {"type": "removetemplate", 
                            "schedule_ids": schedules_to_delete, "entity_type": section, 
-                           "isRecuring": isRecuring};
+                           "isRecurring": isRecurring};
             responseMessage = multideletesuccess;
         }
 

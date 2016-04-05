@@ -15,12 +15,12 @@ import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
 import com.intbit.marketing.model.TblMarketingAction;
 import com.intbit.marketing.model.TblMarketingProgram;
-import com.intbit.marketing.model.TblRecuringEmailTemplate;
+import com.intbit.marketing.model.TblRecurringEmailTemplate;
 import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblUserLoginDetails;
 import com.intbit.marketing.model.TblUserMarketingProgram;
 import com.intbit.marketing.service.MarketingActionService;
-import com.intbit.marketing.service.RecuringEmailTemplateService;
+import com.intbit.marketing.service.RecurringEmailTemplateService;
 import com.intbit.marketing.service.ScheduledEmailListService;
 import com.intbit.marketing.service.ScheduledEntityListService;
 import com.intbit.marketing.service.ScheduledSocialpostListService;
@@ -69,7 +69,7 @@ public class UserMarketingProgramController {
     @Autowired
     private ScheduledEntityListService scheduledEntityListService;
     @Autowired
-    private RecuringEmailTemplateService recuringEmailTemplateService;
+    private RecurringEmailTemplateService recurringEmailTemplateService;
 
     @Deprecated
     @RequestMapping(value = "/allmarketingProgram", method = RequestMethod.GET)
@@ -87,20 +87,20 @@ public class UserMarketingProgramController {
             List<TblScheduledEmailList> scheduledEmailList = scheduledEmailListService.getAllScheduledEmailListForUserMarketingProgram(userProgram_id, Boolean.TRUE);
             JSONArray scheduledEmailJsonArray = new JSONArray();
             for (TblScheduledEmailList scheduledEmailListObject : scheduledEmailList) {
-                TblRecuringEmailTemplate recuringEmailTemplate = recuringEmailTemplateService.getById(scheduledEmailListObject.getTblScheduledEntityList().getRecuringEmailId());
+                TblRecurringEmailTemplate recurringEmailTemplate = recurringEmailTemplateService.getById(scheduledEmailListObject.getTblScheduledEntityList().getRecurringEmailId());
                 JSONObject jSONObject = new JSONObject();
                 jSONObject.put("scheduledEntityListId", scheduledEmailListObject.getTblScheduledEntityList().getId());
                 jSONObject.put("emailAutomationName", scheduledEmailListObject.getEmailListName());
                 jSONObject.put("dateTime", "Started on " + scheduledEmailListObject.getTblScheduledEntityList().getTblUserMarketingProgram().getCreateDate());
                 jSONObject.put("programTemplateName", scheduledEmailListObject.getTblScheduledEntityList().getScheduleTitle());
                 jSONObject.put("status", scheduledEmailListObject.getTblScheduledEntityList().getStatus());
-                jSONObject.put("emailRecuringTemplateName", recuringEmailTemplate.getName());
+                jSONObject.put("emailRecurringTemplateName", recurringEmailTemplate.getName());
                 scheduledEmailJsonArray.put(jSONObject);
 
             }
-            List<TblScheduledEmailList> scheduledEmailListForRecuring = scheduledEmailListService.getAllScheduledEmailListForUserMarketingProgram(userProgram_id, Boolean.FALSE);
-            JSONArray scheduledEmailAndSocailPostJsonForRecuringArray = new JSONArray();
-            for (TblScheduledEmailList scheduledEmailListObject : scheduledEmailListForRecuring) {
+            List<TblScheduledEmailList> scheduledEmailListForRecurring = scheduledEmailListService.getAllScheduledEmailListForUserMarketingProgram(userProgram_id, Boolean.FALSE);
+            JSONArray scheduledEmailAndSocailPostJsonForRecurringArray = new JSONArray();
+            for (TblScheduledEmailList scheduledEmailListObject : scheduledEmailListForRecurring) {
                 TblScheduledEntityList scheduledEntityListObject = scheduledEntityListService.getById(scheduledEmailListObject.getTblScheduledEntityList().getId());
                 TblUserMarketingProgram userMarketingProgram = userMarketingProgramService.getById(scheduledEntityListObject.getTblUserMarketingProgram().getId());
                 Date eventDate = userMarketingProgram.getDateEvent();
@@ -128,8 +128,8 @@ public class UserMarketingProgramController {
                 jSONObject.put("postDate", postDate);
                 jSONObject.put("postTime", "Scheduled for " + postTime);
                 jSONObject.put("actionType", scheduledEmailListObject.getTblScheduledEntityList().getEntityType());
-                scheduledEmailAndSocailPostJsonForRecuringArray.put(jSONObject);
-                System.out.println(scheduledEmailAndSocailPostJsonForRecuringArray);
+                scheduledEmailAndSocailPostJsonForRecurringArray.put(jSONObject);
+                System.out.println(scheduledEmailAndSocailPostJsonForRecurringArray);
 
             }
 //            
@@ -147,7 +147,7 @@ public class UserMarketingProgramController {
             JSONObject jSONObject = new JSONObject();
             jSONObject.put("programdetails", userMarketinProgramObject);
             jSONObject.put("emailautomation", scheduledEmailJsonArray);
-            jSONObject.put("programactions", scheduledEmailAndSocailPostJsonForRecuringArray);
+            jSONObject.put("programactions", scheduledEmailAndSocailPostJsonForRecurringArray);
             System.out.println(jSONObject);
 
             return jSONObject.toString();
@@ -221,7 +221,7 @@ public class UserMarketingProgramController {
 
                     TblScheduledEntityList scheduledEntityList = new TblScheduledEntityList();
                     scheduledEntityList.setEntityType(jsonObject.get("type").toString());
-                    scheduledEntityList.setIsRecuring(Boolean.parseBoolean(jsonObject.get("is_recuring").toString()));
+                    scheduledEntityList.setIsRecurring(Boolean.parseBoolean(jsonObject.get("is_recurring").toString()));
                     scheduledEntityList.setScheduleDesc(jsonObject.get("description").toString());
                     scheduledEntityList.setEntityId(0);
                     scheduledEntityList.setScheduleTime(time);
@@ -311,11 +311,11 @@ public class UserMarketingProgramController {
 //                    postDateStatus = false;
 //                }
                 postDateStatus = true;
-                if (scheduledEntityListObject.getRecuringEmailId() != null) {
-                    TblRecuringEmailTemplate recuringEmailTemplate = recuringEmailTemplateService.getById(scheduledEntityListObject.getRecuringEmailId());
-                    jSONObject.put("emailRecuringTemplateName", recuringEmailTemplate.getName());
+                if (scheduledEntityListObject.getRecurringEmailId() != null) {
+                    TblRecurringEmailTemplate recurringEmailTemplate = recurringEmailTemplateService.getById(scheduledEntityListObject.getRecurringEmailId());
+                    jSONObject.put("emailRecurringTemplateName", recurringEmailTemplate.getName());
                 } else {
-                    jSONObject.put("emailRecuringTemplateName", "no recuring template");
+                    jSONObject.put("emailRecurringTemplateName", "no recurring template");
                 }
 
                 jSONObject.put("scheduledEntityListId", scheduledEntityListObject.getId());
@@ -329,9 +329,9 @@ public class UserMarketingProgramController {
                 jSONObject.put("status", TemplateStatus.valueOf(scheduledEntityListObject.getStatus()).getDisplayName());
                 scheduledEmailJsonArray.put(jSONObject);
             }
-            List<TblScheduledEntityList> scheduledEmailListForRecuring = scheduledEntityListService.getScheduledEntityListIdForEmailType(userProgram_id, Boolean.FALSE);
-            JSONArray scheduledEmailAndSocailPostJsonForRecuringArray = new JSONArray();
-            for (TblScheduledEntityList scheduledEntityListObject : scheduledEmailListForRecuring) {
+            List<TblScheduledEntityList> scheduledEmailListForRecurring = scheduledEntityListService.getScheduledEntityListIdForEmailType(userProgram_id, Boolean.FALSE);
+            JSONArray scheduledEmailAndSocailPostJsonForRecurringArray = new JSONArray();
+            for (TblScheduledEntityList scheduledEntityListObject : scheduledEmailListForRecurring) {
                 TblUserMarketingProgram userMarketingProgram = userMarketingProgramService.getById(scheduledEntityListObject.getTblUserMarketingProgram().getId());
                 Date eventDate = userMarketingProgram.getDateEvent();
                 String dateString = formatter.format(eventDate);
@@ -367,8 +367,8 @@ public class UserMarketingProgramController {
                 jSONObject.put("postDate", cal.getTimeInMillis());
                 jSONObject.put("postTime", scheduledEntityListObject.getScheduleTime().getTime());
                 jSONObject.put("actionType", scheduledEntityListObject.getEntityType());
-                scheduledEmailAndSocailPostJsonForRecuringArray.put(jSONObject);
-                System.out.println(scheduledEmailAndSocailPostJsonForRecuringArray);
+                scheduledEmailAndSocailPostJsonForRecurringArray.put(jSONObject);
+                System.out.println(scheduledEmailAndSocailPostJsonForRecurringArray);
 
             }
             List<TblScheduledEntityList> scheduledEntityListForSocialpost = scheduledEntityListService.getScheduledEntityListIdForSocialPostType(userProgram_id);
@@ -408,12 +408,12 @@ public class UserMarketingProgramController {
                 jSONObject.put("postDate", cal.getTimeInMillis());
                 jSONObject.put("postTime", scheduledSocialpostListObject.getScheduleTime().getTime());
                 jSONObject.put("actionType", scheduledSocialpostListObject.getEntityType());
-                scheduledEmailAndSocailPostJsonForRecuringArray.put(jSONObject);
+                scheduledEmailAndSocailPostJsonForRecurringArray.put(jSONObject);
 
             }
 
             Integer list1_size = scheduledEntityList.size();
-            Integer list2_size = scheduledEmailListForRecuring.size();
+            Integer list2_size = scheduledEmailListForRecurring.size();
             Integer list3_size = scheduledEntityListForSocialpost.size();
 
             TblUserMarketingProgram marketingProgram = userMarketingProgramService.getById(userProgram_id);
@@ -433,7 +433,7 @@ public class UserMarketingProgramController {
 
             jSONObject.put("programdetails", userMarketinProgramObject);
             jSONObject.put("emailautomation", scheduledEmailJsonArray);
-            jSONObject.put("programactions", scheduledEmailAndSocailPostJsonForRecuringArray);
+            jSONObject.put("programactions", scheduledEmailAndSocailPostJsonForRecurringArray);
             System.out.println(jSONObject);
 
             return jSONObject.toString();
@@ -570,9 +570,9 @@ public class UserMarketingProgramController {
         return "false";
     }
 
-    @RequestMapping(value = "/approveStatusRecuring", method = RequestMethod.POST)
+    @RequestMapping(value = "/approveStatusRecurring", method = RequestMethod.POST)
     public @ResponseBody
-    String approveStatusRecuring(HttpServletRequest request,
+    String approveStatusRecurring(HttpServletRequest request,
             HttpServletResponse response) throws IOException, Throwable {
         try {
 

@@ -107,7 +107,7 @@ public class ChangeScheduleServlet extends HttpServlet {
             } else if (type.equalsIgnoreCase("deleteSelected")) {
                 String schedule_ids = (String) requestBodyMap.get("schedule_ids");
                 String entity_type = (String) requestBodyMap.get("entity_type");
-                String is_recuring = (String) requestBodyMap.get("isRecuring");
+                String is_recurring = (String) requestBodyMap.get("isRecurring");
 
                 ScheduleDAO.deleteSchedules(userId, schedule_ids);
                 response.setStatus(HttpServletResponse.SC_OK);
@@ -116,7 +116,7 @@ public class ChangeScheduleServlet extends HttpServlet {
             } else if (type.equalsIgnoreCase("delete")) {
                 Double schedule_ids = (Double) requestBodyMap.get("schedule_ids");
                 String entity_type = (String) requestBodyMap.get("entity_type");
-                String is_recuring = (String) requestBodyMap.get("isRecuring");
+                String is_recurring = (String) requestBodyMap.get("isRecurring");
                 ScheduleDAO.deleteSchedule(userId, schedule_ids.intValue());
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.getWriter().write("true");
@@ -124,7 +124,7 @@ public class ChangeScheduleServlet extends HttpServlet {
             } else if (type.equalsIgnoreCase("removetemplate")) {
                 Double schedule_ids = (Double) requestBodyMap.get("schedule_ids");
                 String entity_type = (String) requestBodyMap.get("entity_type");
-                String is_recuring = (String) requestBodyMap.get("isRecuring");
+                String is_recurring = (String) requestBodyMap.get("isRecurring");
                 ScheduleDAO.removeSavedTemplate(userId, schedule_ids.intValue());
                 
                 response.setStatus(HttpServletResponse.SC_OK);

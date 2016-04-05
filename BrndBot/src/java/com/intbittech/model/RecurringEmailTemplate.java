@@ -19,33 +19,33 @@ import javax.persistence.Table;
  * @author ajit
  */
 @Entity
-@Table(name = "recuring_email_template")
-public class RecuringEmailTemplate implements Serializable {
+@Table(name = "recurring_email_template")
+public class RecurringEmailTemplate implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "recuring_email_template_id")
-    private Integer recuringEmailTemplateId;
+    @Column(name = "recurring_email_template_id")
+    private Integer recurringEmailTemplateId;
     @Column(name = "html_data")
     private String htmlData;
     @Column(name = "template_name")
     private String templateName;
 
-    public RecuringEmailTemplate() {
+    public RecurringEmailTemplate() {
     }
 
-    public RecuringEmailTemplate(Integer recuringEmailTemplateId) {
-        this.recuringEmailTemplateId = recuringEmailTemplateId;
+    public RecurringEmailTemplate(Integer recurringEmailTemplateId) {
+        this.recurringEmailTemplateId = recurringEmailTemplateId;
     }
 
-    public Integer getRecuringEmailTemplateId() {
-        return recuringEmailTemplateId;
+    public Integer getRecurringEmailTemplateId() {
+        return recurringEmailTemplateId;
     }
 
-    public void setRecuringEmailTemplateId(Integer recuringEmailTemplateId) {
-        this.recuringEmailTemplateId = recuringEmailTemplateId;
+    public void setRecurringEmailTemplateId(Integer recurringEmailTemplateId) {
+        this.recurringEmailTemplateId = recurringEmailTemplateId;
     }
 
     public String getHtmlData() {

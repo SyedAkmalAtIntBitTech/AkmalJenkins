@@ -7,8 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="shortcut icon" href="../images/favicon.png"/>        
+    <head>       
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script type="text/javascript" src="../js/angular.min.js"></script>
         <meta name="format-detection" content="telephone=no">
@@ -17,6 +16,7 @@
         <link rel="stylesheet" type="text/css" href="admincss/admin.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="admincss/basecss.css"/>
+        <link rel="shortcut icon" href="../images/favicon.png"/> 
         <script src="../adminv2/adminjs/organization.js" type="text/javascript"></script>
         <script src="../js/configurations.js" type="text/javascript"></script>   
         <script src="../adminv2/adminjs/basejs.js" type="text/javascript"></script>
@@ -25,6 +25,7 @@
         <title>Admin Header</title>
          <script src="../adminv2/adminjs/emailtemplate.js" type="text/javascript"></script>
          <script src="../adminv2/adminjs/emailblockmodels.js" type="text/javascript"></script>
+          <script src="../adminv2/adminjs/recurringemail.js" type="text/javascript"></script>
           <script src="../adminv2/adminjs/imageToBase64Converter.js" type="text/javascript"></script>
          <script src="../adminv2/adminjs/marketingprogramdetails.js" type="text/javascript"></script>
            <script src="../adminv2/adminjs/allcompanies.js" type="text/javascript"></script>
@@ -43,7 +44,7 @@
             <a href="#"><div class="nav_tab fleft"> Image Templates </div></a>
             <a href="marketingprogram.jsp"><div class="nav_tab fleft"> Marketing Programs </div></a>
             <a href="#"><div class="nav_tab fleft"> Assets </div></a>
-            <a href="#"><div class="nav_tab fleft"> Recurring Email</div></a>
+            <a href="recurringemails.jsp"><div class="nav_tab fleft"> Recurring Email</div></a>
         </div>
        </div>
         <div class="nav-offset"></div>

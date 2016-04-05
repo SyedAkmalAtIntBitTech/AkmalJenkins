@@ -50,7 +50,7 @@ public interface IConstants {
     final static String kMarketingProgramTemplateDays = "days";
     final static String kMarketingProgramTemplateDescription = "description";
     final static String kMarketingProgramTemplateTime = "time";
-    final static String kMarketingProgramTemplateIsRecuring = "isRecuring";
+    final static String kMarketingProgramTemplateIsRecurring = "isRecurring";
     final static String kMarketingProgramTemplateTitle = "title";
     final static String kMarketingProgramTemplateEntityType = "type";
     final static String kFacebookDescriptionKey = "description";
