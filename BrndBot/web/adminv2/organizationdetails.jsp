@@ -162,7 +162,7 @@
                     </div>
                 </li>
             </ul>
-            <div id="addRecurringEmailTemplateButton" class="Add_Button Button--Blue fleft pushUp_10" ng-click="getAllNonAddedRecurringEmail()">Add Category</div>
+            <div id="addRecurringEmailTemplateButton" class="Add_Button Button--Blue fleft pushUp_10" ng-click="getAllNonAddedRecurringEmail()">Add Recurring Email</div>
         </div>
     </div>
   
