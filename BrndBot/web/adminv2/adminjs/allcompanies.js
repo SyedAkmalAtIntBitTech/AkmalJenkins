@@ -153,13 +153,13 @@ function allCompaniesController($scope,$http){
             var organizationId=$("#organizationId").val();
             var companyId=$("#companyId").val();
             var organizationName=$("#organizationName").val();
-            var updateorg = {"organizationId":organizationId,"companyId": companyId};
+            var updateorganization = {"organizationId":organizationId,"companyId": companyId};
              $http({
                     method : 'POST',
                     url : getHost()+'/saveGroup.do',
                     dataType: "json",
                     contentType: "application/json",
-                    data: updateorg
+                    data: JSON.stringify(updateorganization)
                 }).success(function(data, status, headers, config) { 
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                     window.open(getHost() + 'adminv2/companydetails.jsp?companyId='+companyId, "_self");
