@@ -113,6 +113,25 @@ public class RecurringEmailTemplateDaoImp implements RecurringEmailTemplateDao {
             throw new ProcessFailed(messageSource.getMessage("error_retrieving_list_message",new String[]{}, Locale.US));
         }
     }
+       
+       /**
+     * {@inheritDoc}
+     */
+       public List<RecurringEmailTemplate> getAllRecurringEmails() throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(RecurringEmailTemplate.class);
+            List<RecurringEmailTemplate> recurringEmailList = criteria.list();
+            if (recurringEmailList.isEmpty()) {
+                return null;
+            }
+            return recurringEmailList;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_list_message",new String[]{}, Locale.US));
+        }
+    }
 
     
 }

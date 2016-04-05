@@ -58,7 +58,7 @@ public class RecurringEmailController
             recurringEmailTemplate.setTemplateName(recurringEmailDetails.getTemplateName());
             recurringEmailTemplate.setHtmlData(recurringEmailDetails.getHtmlData());
             recurringEmailTemplateService.save(recurringEmailTemplate);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurring_email_created", new String[]{}, Locale.US)));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurringEmail_save", new String[]{}, Locale.US)));
             
 
         } catch (Throwable throwable) {
@@ -84,7 +84,7 @@ public class RecurringEmailController
              organizationRecurringEmailLookup.setFkRecurringEmailTemplateId(recurringEmailTemplate);
              
              recurringEmailTemplateService.saveRecurringEmailOrganization(organizationRecurringEmailLookup);
-             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurring_organization_created", new String[]{}, Locale.US)));
+             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurringOrganization_save", new String[]{}, Locale.US)));
             
 
         } catch (Throwable throwable) {
@@ -102,7 +102,7 @@ public class RecurringEmailController
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             recurringEmailTemplateService.delete(recurringEmailTemplateId);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurring_email_deleted", new String[]{}, Locale.US)));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurringEmail_delete", new String[]{}, Locale.US)));
             
         } catch(Throwable throwable) {
             logger.error(throwable);
@@ -118,7 +118,7 @@ public class RecurringEmailController
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             recurringEmailTemplateService.deleteRecurringEmailOrganization(organizationRecurringEmailLookupId);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurring_organization_deleted", new String[]{}, Locale.US)));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurringOrganization_deleted", new String[]{}, Locale.US)));
             
         } catch(Throwable throwable) {
             logger.error(throwable);
@@ -138,7 +138,7 @@ public class RecurringEmailController
             recurringEmailTemplate.setTemplateName(recurringEmailTemplate.getTemplateName());
             recurringEmailTemplate.setHtmlData(recurringEmailTemplate.getHtmlData());
             recurringEmailTemplateService.update(recurringEmailTemplate);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurring_email_updated", new String[]{}, Locale.US)));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurringEmail_update", new String[]{}, Locale.US)));
             
         } catch(Throwable throwable) {
             logger.error(throwable);
@@ -160,7 +160,7 @@ public class RecurringEmailController
             recurringEmailDetails.setHtmlData(recurringEmailTemplate.getHtmlData());
             recurringEmailDetailsList.add(recurringEmailDetails);
             genericResponse.setDetails(recurringEmailDetailsList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurring_email_retreived", new String[]{}, Locale.US)));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurringEmail_get", new String[]{}, Locale.US)));
         } catch(Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -186,7 +186,7 @@ public class RecurringEmailController
             }
                
             genericResponse.setDetails(recurringEmailDetailsList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurring_organization_retrived", new String[]{}, Locale.US)));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurringEmail_get_all", new String[]{}, Locale.US)));
         } catch(Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -213,7 +213,32 @@ public class RecurringEmailController
                     recurringEmailDetailsList.add(recurringEmailDetails);
              }
               genericResponse.setDetails(recurringEmailDetailsList);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurring_organization_retrived", new String[]{}, Locale.US)));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurringEmail_get_all", new String[]{}, Locale.US)));
+        } catch(Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse),HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "getAllRecurringEmails", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllRecurringEmails() {
+        GenericResponse<RecurringEmailDetails> genericResponse = new GenericResponse<>();
+        try
+        {
+             List<RecurringEmailDetails> recurringEmailDetailsList = new ArrayList<>();
+             List< RecurringEmailTemplate> recurringEmailTemplateList = recurringEmailTemplateService.getAllRecurringEmails();
+           
+             for(RecurringEmailTemplate recurringEmailTemplateObject: recurringEmailTemplateList)  
+             {
+                    RecurringEmailDetails recurringEmailDetails = new RecurringEmailDetails();
+                    recurringEmailDetails.setHtmlData(recurringEmailTemplateObject.getHtmlData());
+                    recurringEmailDetails.setRecurringEmailTemplateId(recurringEmailTemplateObject.getRecurringEmailTemplateId());
+                    recurringEmailDetails.setTemplateName(recurringEmailTemplateObject.getTemplateName());
+                    recurringEmailDetailsList.add(recurringEmailDetails);
+             }
+              genericResponse.setDetails(recurringEmailDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("recurringEmail_get_all", new String[]{}, Locale.US)));
         } catch(Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
