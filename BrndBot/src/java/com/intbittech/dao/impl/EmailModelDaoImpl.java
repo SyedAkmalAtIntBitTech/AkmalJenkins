@@ -8,6 +8,7 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.EmailModelDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailModel;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -109,12 +110,12 @@ public class EmailModelDaoImpl implements EmailModelDao {
     /**
      * {@inheritDoc}
      */
-    public List<EmailModel> getByEmailModelsByIds(Integer[] emailModelIds) throws ProcessFailed {
+    public List<EmailModel> getByEmailModelsByIds(ArrayList<Integer> emailModelIds) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(EmailModel.class);
-            for(int i =0 ; i<emailModelIds.length;i++)
-            criteria.add(Restrictions.ne("emailModelId", emailModelIds[i]));
+            for(int i =0 ; i<emailModelIds.size();i++)
+            criteria.add(Restrictions.ne("emailModelId", emailModelIds.get(i)));
             List<EmailModel> emailModelList = criteria.list();
             if (emailModelList.isEmpty()) {
                 return null;

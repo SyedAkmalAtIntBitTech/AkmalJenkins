@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import social.controller.ScheduleAnEmail;
-import social.controller.ScheduleAnRecuringEmail;
+import social.controller.ScheduleAnRecurringEmail;
 import social.controller.ScheduleFacebookPost;
 import social.controller.ScheduleTwitterPost;
 
@@ -29,7 +29,7 @@ public class SocialPostScheduler {
     private ScheduleTwitterPost twitterPostCallable;
     private ScheduleFacebookPost facebookPostCallable;
     private ScheduleAnEmail scheduleEmailCallable;
-    private ScheduleAnRecuringEmail scheduleRecurringEmailCallable;
+    private ScheduleAnRecurringEmail scheduleRecurringEmailCallable;
 
     public void startTwitterScheduler() {
 
@@ -98,7 +98,7 @@ public class SocialPostScheduler {
             }
             logger.log(Level.INFO, "Started Recurring Email Scheduler");
 
-            scheduleRecurringEmailCallable = new ScheduleAnRecuringEmail();
+            scheduleRecurringEmailCallable = new ScheduleAnRecurringEmail();
             scheduler.scheduleAtFixedRate(scheduleRecurringEmailCallable, InitialDelayPollingInterval, DefaultPollingInterval, TimeUnit.SECONDS);
         } catch (Exception ex) {
             Logger.getLogger(SocialPostScheduler.class.getName()).log(Level.SEVERE, null, ex);

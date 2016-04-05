@@ -126,6 +126,9 @@ public class EmailBlockServiceImpl implements EmailBlockService {
         
     }
     
+    /**
+     * {@inheritDoc}
+     */
     public List<OrganizationEmailBlockLookup> getAllOrganizationEmailBlock(Integer organizationId) throws ProcessFailed {
         List<OrganizationEmailBlockLookup> organizationEmailBlockList = organizationEmailBlockLookupDao.getAllOrganizationEmailBlock(organizationId);
         if(organizationEmailBlockList == null)
@@ -133,11 +136,24 @@ public class EmailBlockServiceImpl implements EmailBlockService {
         return organizationEmailBlockList;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     public List<EmailBlockExternalSource> getAllEmailBlockExternalSource(Integer emailBlockId) throws ProcessFailed {
         List<EmailBlockExternalSource> emailBlockExternalSourceList = emailBlockExternalSourceDao.getAllEmailBlockExternalSource(emailBlockId);
         if(emailBlockExternalSourceList == null)
             throw new ProcessFailed(messageSource.getMessage("emailBlock_not_found",new String[]{}, Locale.US));
         return emailBlockExternalSourceList;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<OrganizationEmailBlockLookup> getAllEmailBlockByOrganizationIds(Integer[] organizationIds) throws ProcessFailed {
+        List<OrganizationEmailBlockLookup> organizationEmailBlockList = organizationEmailBlockLookupDao.getAllEmailBlockByOrganizationIds(organizationIds);
+//        if(organizationEmailBlockList == null)
+//            throw new ProcessFailed(messageSource.getMessage("emailBlock_not_found",new String[]{}, Locale.US));
+        return organizationEmailBlockList;
     }
     
 }

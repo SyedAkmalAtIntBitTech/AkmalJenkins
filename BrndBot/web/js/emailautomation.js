@@ -20,22 +20,22 @@
                 var entity_details = {"entity_id": entity_id};
                 $http({
                     method: 'POST',
-                    url: getHost() + 'getRecuringEntity.do',
+                    url: getHost() + 'getRecurringEntity.do',
                     headers: {'Content-Type':'application/json'},
                     data: JSON.stringify(entity_details)
                 }).success(function(data, status){
                     $scope.entity_details = data;
-                    if (data.recuring_email_template_id != null){
-                        template_id = data.recuring_email_template_id;
+                    if (data.recurring_email_template_id != null){
+                        template_id = data.recurring_email_template_id;
                     }else {
                         entity_no_email_template = "true";
                     }
-                    html_data = data.recuring_email_body;
+                    html_data = data.recurring_email_body;
                     $('#edit').froalaEditor('html.set',''+html_data+'');
 
                     $scope.showEmailList();
-                    showEmailListName(data.recuring_email_email_list_name);
-                    days = data.recuring_email_days;
+                    showEmailListName(data.recurring_email_email_list_name);
+                    days = data.recurring_email_days;
                 }).error(function(){
                     alert("Problem fetching the data!");
                 });
@@ -57,51 +57,51 @@
             });
         };
         /*
-         * Bring all the recuring email templates form the database
+         * Bring all the recurring email templates form the database
          */
          $scope.getEmailTemplates = function(){
                 $("#emailautomationcontent").hide();
                 $("#emlautomeditorcontainer").show();
                 $http({
                     method: 'GET',
-                    url: getHost() + 'getAllRecuringEmailTemplates.do'
+                    url: getHost() + 'getAllRecurringEmailTemplates.do'
                 }).success(function(data, status){
-                    $scope.recuring_email_templates = data;
+                    $scope.recurring_email_templates = data;
                 }).error(function(){
                     alert("Problem fetching the data!");
                 });
         };
-        $scope.addUpdateRecuringAction = function(){
+        $scope.addUpdateRecurringAction = function(){
             if (validate()){
                 var days = $("#days").val();
                 var emaillist = $("#emaillist").val();
                 var subject = $("#subject").val();
                 var from_name = $("#from_name").val();
                 var reply_to_address = $("#reply_to_address").val();
-                var recuring_email_title = $("#recuring_email_title").val();
-                var recuring_email_description = $("#recuring_email_description").val();
+                var recurring_email_title = $("#recurring_email_title").val();
+                var recurring_email_description = $("#recurring_email_description").val();
                 var till_date = $("#datepicker").val();
                 var schedule_time=$("#timepicker1").val().replace(/ /g,'');
                 var till_date_epoch = Date.parse(till_date);
                 var $iframe = $('.fr-iframe');
                 var html_data = $('#edit').froalaEditor('html.get');
                 if ( type == 'add'){
-                    var recuring_action = {
+                    var recurring_action = {
                         "days":days, "emaillist":emaillist, 
                         "to_email_addresses": emails,
                         "subject":subject, "from_name":from_name,
                         "reply_to_address":reply_to_address,
-                        "recuring_email_title":recuring_email_title,
-                        "recuring_email_description":recuring_email_description,
+                        "recurring_email_title":recurring_email_title,
+                        "recurring_email_description":recurring_email_description,
                         "till_date_epoch":till_date_epoch,
                         "schedule_time_epoch": schedule_time,
                         "program_id" :program_id 
                     };
                     $http({
                         method: 'POST',
-                        url: 'addRecuringAction.do',
+                        url: 'addRecurringAction.do',
                         headers: {'Content-Type':'application/json'},
-                        data: JSON.stringify(recuring_action)
+                        data: JSON.stringify(recurring_action)
                     }).success(function (data, status, headers, config) {
                         if (data === "true") {
                             alert("Details saved succesfully.");
@@ -114,23 +114,23 @@
                     });
 
                 }else if((type == 'template') && (entity_no_email_template == "true")){
-                    var recuring_action = {
+                    var recurring_action = {
                         "entity_id" : entity_id, 
                         "days":days, "emaillist":emaillist, 
                         "to_email_addresses": emails,
                         "subject":subject, "from_name":from_name,
                         "reply_to_address":reply_to_address,
-                        "recuring_email_title":recuring_email_title,
-                        "recuring_email_description":recuring_email_description,
+                        "recurring_email_title":recurring_email_title,
+                        "recurring_email_description":recurring_email_description,
                         "till_date_epoch":till_date_epoch,
                         "schedule_time_epoch": schedule_time,
                         "program_id" :program_id 
                     };
                     $http({
                         method: 'POST',
-                        url: 'addupdateRecuringAction.do',
+                        url: 'addupdateRecurringAction.do',
                         headers: {'Content-Type':'application/json'},
-                        data: JSON.stringify(recuring_action)
+                        data: JSON.stringify(recurring_action)
                     }).success(function (data, status, headers, config) {
                         if((data == "true") && (entity_no_email_template == "true")) {
                             alert("Details saved succesfully.");
@@ -144,23 +144,23 @@
                         alert("No data available! Problem fetching the data.");
                     });
                 }else if ((type == 'edit') && (entity_no_email_template == "true")){
-                    var recuring_action = {
+                    var recurring_action = {
                         "entity_id" : entity_id, 
                         "days":days, "emaillist":emaillist, 
                         "to_email_addresses": emails,
                         "subject":subject, "from_name":from_name,
                         "reply_to_address":reply_to_address,
-                        "recuring_email_title":recuring_email_title,
-                        "recuring_email_description":recuring_email_description,
+                        "recurring_email_title":recurring_email_title,
+                        "recurring_email_description":recurring_email_description,
                         "till_date_epoch":till_date_epoch,
                         "schedule_time_epoch": schedule_time,
                         "program_id" :program_id 
                     };
                     $http({
                         method: 'POST',
-                        url: 'addupdateRecuringAction.do',
+                        url: 'addupdateRecurringAction.do',
                         headers: {'Content-Type':'application/json'},
-                        data: JSON.stringify(recuring_action)
+                        data: JSON.stringify(recurring_action)
                     }).success(function (data, status, headers, config) {
                         if ((data === "true")) {
                             alert("Details saved succesfully.");
@@ -172,24 +172,24 @@
                         alert("No data available! Problem fetching the data.");
                     });
                 }else if((type == 'edit')||(type == 'template')){
-                    var recuring_action = {
+                    var recurring_action = {
                         "entity_id" : entity_id, 
                         "template_id" : template_id, "html_data": html_data,
                         "days":days, "emaillist":emaillist, 
                         "to_email_addresses": emails,
                         "subject":subject, "from_name":from_name,
                         "reply_to_address":reply_to_address,
-                        "recuring_email_title":recuring_email_title,
-                        "recuring_email_description":recuring_email_description,
+                        "recurring_email_title":recurring_email_title,
+                        "recurring_email_description":recurring_email_description,
                         "till_date_epoch":till_date_epoch,
                         "schedule_time_epoch": schedule_time,
                         "program_id" :program_id 
                     };
                     $http({
                         method: 'POST',
-                        url: 'updateRecuringAction.do',
+                        url: 'updateRecurringAction.do',
                         headers: {'Content-Type':'application/json'},
-                        data: JSON.stringify(recuring_action)
+                        data: JSON.stringify(recurring_action)
                     }).success(function (data, status, headers, config) {
                         if ((data === "true")) {
                             alert("Details saved succesfully.");
@@ -220,18 +220,18 @@
                 var subject = $("#subject").val();
                 var from_name = $("#from_name").val();
                 var reply_to_address = $("#reply_to_address").val();
-                var recuring_email_title = $("#recuring_email_title").val();
-                var recuring_email_description = $("#recuring_email_description").val();
+                var recurring_email_title = $("#recurring_email_title").val();
+                var recurring_email_description = $("#recurring_email_description").val();
                 var till_date = $("#datepicker").val();
                 var schedule_time=$("#timepicker1").val().replace(/ /g,'');
-                if (recuring_email_title === ""){
+                if (recurring_email_title === ""){
                     alert("Enter the title.");
-                    $("#recuring_email_title").focus();
+                    $("#recurring_email_title").focus();
                     return false;
                 }
-                if (recuring_email_description === ""){
+                if (recurring_email_description === ""){
                     alert("Enter the description.");
-                    $("#recuring_email_description").focus();
+                    $("#recurring_email_description").focus();
                     return false;
                 }
                 if (days === "0") {

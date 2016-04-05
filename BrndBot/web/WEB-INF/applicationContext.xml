@@ -29,8 +29,8 @@
     </mvc:interceptors>
     <tx:annotation-driven transaction-manager="transactionManager" />
     <bean id="transactionManager"
-              class="org.springframework.orm.hibernate4.HibernateTransactionManager"
-              p:sessionFactory-ref="sessionFactory" />
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+          p:sessionFactory-ref="sessionFactory" />
    
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="hibernateProperties">
@@ -59,5 +59,10 @@
             </props>
         </property>
         <property name="packagesToScan" value="com.intbittech"/>
+    </bean>
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource" 
+          p:basename="classpath:/com/intbittech/resources/messages">
+        <property name="defaultEncoding" value="UTF-8"/>
     </bean>
 </beans>

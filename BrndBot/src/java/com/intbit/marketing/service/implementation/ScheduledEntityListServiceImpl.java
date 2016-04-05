@@ -75,13 +75,13 @@ public class ScheduledEntityListServiceImpl  implements ScheduledEntityListServi
    /**
 	 * {@inheritDoc}
      */
-    public List<TblScheduledEntityList> getAllUserScheduledEmailList(Integer userMarketingId, Boolean isRecuring, String entityType) throws Throwable {
+    public List<TblScheduledEntityList> getAllUserScheduledEmailList(Integer userMarketingId, Boolean isRecurring, String entityType) throws Throwable {
         return  scheduledEntityListDao.getAllScheduledEmailList();
     }
 
     @Override
-    public List<TblScheduledEntityList> getScheduledEntityListIdForEmailType(Integer userMarketingProgramId, Boolean isRecuring) throws Throwable {
-        return scheduledEntityListDao.getScheduledEntityListIdForEmailType(userMarketingProgramId, isRecuring);
+    public List<TblScheduledEntityList> getScheduledEntityListIdForEmailType(Integer userMarketingProgramId, Boolean isRecurring) throws Throwable {
+        return scheduledEntityListDao.getScheduledEntityListIdForEmailType(userMarketingProgramId, isRecurring);
     }
 
     @Override
@@ -99,8 +99,8 @@ public class ScheduledEntityListServiceImpl  implements ScheduledEntityListServi
     /**
 	 * {@inheritDoc}
      */
-    public TblScheduledEntityList getLatestApprovedSendEmail(String status, String entityType, String programStatus, Boolean isRecuring) throws Throwable {
-        return scheduledEntityListDao.getLatestApprovedSendEmail(status, entityType, programStatus, isRecuring);
+    public TblScheduledEntityList getLatestApprovedSendEmail(String status, String entityType, String programStatus, Boolean isRecurring) throws Throwable {
+        return scheduledEntityListDao.getLatestApprovedSendEmail(status, entityType, programStatus, isRecurring);
           }
 
     /**
@@ -118,8 +118,8 @@ public class ScheduledEntityListServiceImpl  implements ScheduledEntityListServi
     }
 
     @Override
-    public String getLatestApprovedEmail(String status, String entityType, String programStatus, Boolean isRecuring) throws Throwable {
-        return scheduledEntityListDao.getLatestApprovedEmail(status, entityType, programStatus, isRecuring);
+    public String getLatestApprovedEmail(String status, String entityType, String programStatus, Boolean isRecurring) throws Throwable {
+        return scheduledEntityListDao.getLatestApprovedEmail(status, entityType, programStatus, isRecurring);
     }
     
 }

@@ -8,6 +8,7 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.EmailBlockModelDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlockModel;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -111,12 +112,12 @@ public class EmailBlockModelDaoImpl implements EmailBlockModelDao {
     /**
      * {@inheritDoc}
      */
-    public List<EmailBlockModel> getByEmailBlockModelsByIds(Integer[] emailBlockModelIds) throws ProcessFailed {
+    public List<EmailBlockModel> getByEmailBlockModelsByIds(ArrayList<Integer> emailBlockModelIds) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(EmailBlockModel.class);
-            for(int i =0 ; i<emailBlockModelIds.length;i++)
-            criteria.add(Restrictions.ne("emailBlockModelId", emailBlockModelIds[i]));
+            for(int i =0 ; i<emailBlockModelIds.size();i++)
+            criteria.add(Restrictions.ne("emailBlockModelId", emailBlockModelIds.get(i)));
             List<EmailBlockModel> emailBlockModelList = criteria.list();
             if (emailBlockModelList.isEmpty()) {
                 return null;

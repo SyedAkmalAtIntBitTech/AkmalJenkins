@@ -8,6 +8,7 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.PrintModelDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.PrintModel;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -105,12 +106,12 @@ public class PrintModelDaoImpl implements PrintModelDao {
     /**
      * {@inheritDoc}
      */
-    public List<PrintModel> getByPrintModelsByIds(Integer[] printModelIds) throws ProcessFailed {
+    public List<PrintModel> getByPrintModelsByIds(ArrayList<Integer> printModelIds) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(PrintModel.class);
-            for(int i =0 ; i<printModelIds.length;i++)
-            criteria.add(Restrictions.ne("printModelId", printModelIds[i]));
+            for(int i =0 ; i<printModelIds.size();i++)
+            criteria.add(Restrictions.ne("printModelId", printModelIds.get(i)));
             List<PrintModel> printModelList = criteria.list();
             if (printModelList.isEmpty()) {
                 return null;

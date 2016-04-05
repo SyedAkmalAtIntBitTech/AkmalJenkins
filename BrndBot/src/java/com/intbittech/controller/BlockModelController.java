@@ -5,6 +5,7 @@
  */
 package com.intbittech.controller;
 
+import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlock;
 import com.intbittech.model.EmailBlockModel;
 import com.intbittech.model.EmailBlockModelLookup;
@@ -15,10 +16,13 @@ import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.EmailBlockModelLookupService;
 import com.intbittech.services.EmailBlockModelService;
 import com.intbittech.utility.ErrorHandlingUtil;
+import com.intbittech.utility.FileHandlerUtil;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +48,9 @@ public class BlockModelController {
     
     @Autowired
     private EmailBlockModelLookupService emailBlockModelLookupService;
+    
+     @Autowired
+    private MessageSource messageSource;
     
     @RequestMapping(value = "getAllEmailBlockModelById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllEmailBlockModelById(@RequestParam("emailBlockId") Integer emailBlockId) {
@@ -145,9 +152,26 @@ public class BlockModelController {
             EmailBlockModel emailBlockModel = new EmailBlockModel();
             emailBlockModel.setEmailBlockModelName(emailBlockModelDetails.getEmailBlockModelName());
             emailBlockModel.setHtmlData(emailBlockModelDetails.getHtmlData());
-            emailBlockModel.setImageFileName(emailBlockModelDetails.getImageFileName());
-            emailBlockModelService.save(emailBlockModel);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email block template saved successfully."));
+            String storableImageFileName = null;
+            try {
+                storableImageFileName = FileHandlerUtil.saveAdminEmailBlockModelImage(emailBlockModelDetails.getImageFileName(),
+                        emailBlockModelDetails.getImageFileData());
+            } catch (Throwable throwable) {
+                logger.error(throwable);
+                throw new ProcessFailed(messageSource.getMessage("image_not_save", null, Locale.US));
+            }
+            emailBlockModel.setImageFileName(storableImageFileName);
+            try{
+                emailBlockModelService.save(emailBlockModel);
+            }
+            catch (Throwable throwable) {
+                //in case if file store into file system but did'nt store in DB.
+                if(storableImageFileName != null){
+                   FileHandlerUtil.deleteAdminEmailBlockModelImage(storableImageFileName);
+                }
+                throw throwable;
+            }
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("emailBlock_template_create_sucess", null, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -178,17 +202,44 @@ public class BlockModelController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "updateEmailBlockModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> updateEmailBlockModel(@RequestBody EmailBlockModelDetails emailBlockModelDetails) {
+    @RequestMapping(value = "updateBlockModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> updateBlockModel(@RequestBody EmailBlockModelDetails emailBlockModelDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            EmailBlockModel emailBlockModel = new EmailBlockModel();
-            emailBlockModel.setEmailBlockModelId(emailBlockModelDetails.getEmailBlockModelId());
+            EmailBlockModel emailBlockModel = emailBlockModelService.getByEmailBlockModelId(emailBlockModelDetails.getEmailBlockModelId());
+            
             emailBlockModel.setEmailBlockModelName(emailBlockModelDetails.getEmailBlockModelName());
             emailBlockModel.setHtmlData(emailBlockModelDetails.getHtmlData());
-            emailBlockModel.setImageFileName(emailBlockModelDetails.getImageFileName());
-            emailBlockModelService.update(emailBlockModel);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email block template updated successfully."));
+            String oldImageFileName = emailBlockModel.getImageFileName();
+            String newImageFileName = emailBlockModelDetails.getImageFileName();
+            String storableImageFileName = null;
+            if (newImageFileName.length() != 0 && newImageFileName != null) {
+                try {
+                    storableImageFileName = FileHandlerUtil.saveAdminEmailBlockModelImage(newImageFileName,
+                            emailBlockModelDetails.getImageFileData());
+                    newImageFileName = storableImageFileName;
+                    emailBlockModel.setImageFileName(newImageFileName);
+                } catch (Throwable throwable) {
+                    logger.error(throwable);
+                    throw new ProcessFailed(messageSource.getMessage("image_not_update", null, Locale.US));
+                }
+            }
+            try {
+                emailBlockModelService.update(emailBlockModel);
+                if(storableImageFileName != null){
+                    FileHandlerUtil.deleteAdminEmailBlockModelImage(oldImageFileName);
+                }
+                
+            } catch (Throwable throwable) {
+                //in case if file store into file system but did'nt store in DB.
+                if (storableImageFileName != null) {
+                    //rollback operation for file system.
+                    FileHandlerUtil.deleteAdminEmailBlockModelImage(newImageFileName);
+                }
+                throw throwable;
+            }
+            
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("emailBlock_template_update_sucess", null, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -201,9 +252,10 @@ public class BlockModelController {
     public ResponseEntity<ContainerResponse> deleteBlockModel(@RequestParam("emailBlockModelId") Integer emailBlockModelId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            
+             EmailBlockModel emailBlockModel = emailBlockModelService.getByEmailBlockModelId(emailBlockModelId);
             emailBlockModelService.delete(emailBlockModelId);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email block template deleted successfully."));
+            FileHandlerUtil.deleteAdminEmailBlockModelImage(emailBlockModel.getImageFileName());
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("emailBlock_template_update_sucess",null, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -212,7 +264,7 @@ public class BlockModelController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "deleteEmailBlockModel", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "deleteEmailBlockModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteEmailBlockModel(@RequestParam("emailBlockModelLookupId") Integer emailBlockModelLookupId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {

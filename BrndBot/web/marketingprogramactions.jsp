@@ -53,7 +53,7 @@
     <jsp:include page="twitterpreview_marketing.jsp"/> 
     <jsp:include page="emailpreviewpopup_marketing.jsp"/>
     <jsp:include page="marketingprogramaddaction.jsp"/>
-    <jsp:include page="recuringPopup.jsp"/>
+    <jsp:include page="recurringPopup.jsp"/>
     <%@include file="navbarv2.jsp" %>   
     <!--Top Nav-->   
     <div class="top-nav" >
@@ -98,7 +98,7 @@
                         <div class="action-cta-container">
                             <% if(past!=1){%>
                             <a href="" id="addrecemail" class="edit-button-detail fleft">
-                                <div class=" md-button" ng-click="addEditRecuringAction('add',<%=program_id%>, '0')">Add Recurring Email Automation</div>    
+                                <div class=" md-button" ng-click="addEditRecurringAction('add',<%=program_id%>, '0')">Add Recurring Email Automation</div>    
                             </a>
                             <a href="" id="deleterecurringemail" class="delete-button-detail fleft">
                                 <div class="md-button delrecemlbtn" ng-click="deleteSchedule('0', 'deleteMultiple','recurring')">Delete Selected Recurring Email(s)</div>    
@@ -110,7 +110,7 @@
                     <ul class="main-container fleft">
                   <li class="slat-container fleft selfclear" ng-repeat="emailautomation in programs.emailautomation">
                             <div class="selection-container col-5p"> 
-                                <div class="selection-icon" ng-hide="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}" onclick="selcheckboxrecemail(this.id);setSelectedRecuringIds('{{emailautomation.scheduledEntityListId}}');"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}"   value="{{emailautomation.scheduledEntityListId}}" hidden/></div>
+                                <div class="selection-icon" ng-hide="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}" onclick="selcheckboxrecemail(this.id);setSelectedRecurringIds('{{emailautomation.scheduledEntityListId}}');"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}"   value="{{emailautomation.scheduledEntityListId}}" hidden/></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div class="icon-container fleft hint--top" ng-show="emailautomation.status === 'Template Saved'"  data-hint="Template Saved" > 
@@ -142,7 +142,7 @@
                             <div class="col-1of4 fleft">
                                 <div class="slat-cta-container">
                                     <div class="small-button slat-button detail-button-font"
-                                         ng-click="getRecuringMailDetails(emailautomation.scheduledEntityListId,
+                                         ng-click="getRecurringMailDetails(emailautomation.scheduledEntityListId,
                                                                 emailautomation.status, emailautomation.tillDate,
                                                                 emailautomation.dateTime,
                                                                 emailautomation.actionType,

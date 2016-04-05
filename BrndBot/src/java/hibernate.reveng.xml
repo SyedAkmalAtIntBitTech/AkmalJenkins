@@ -21,7 +21,7 @@
   <table-filter match-name="tbl_emailsenthistory"/>
   <table-filter match-name="tbl_marketing_category_users_lookup"/>
   <table-filter match-name="tbl_scheduled_entity_type_color"/>
-  <table-filter match-name="tbl_recuring_email_template"/>
+  <table-filter match-name="tbl_recurring_email_template"/>
   <table-filter match-name="tbl_brand_font_family"/>
   <table-filter match-name="tbl_marketing_program_users_lookup"/>
   <table-filter match-name="tbl_font_family"/>

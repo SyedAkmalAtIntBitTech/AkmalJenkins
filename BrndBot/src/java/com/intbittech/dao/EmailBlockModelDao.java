@@ -7,6 +7,7 @@ package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlockModel;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -71,6 +72,6 @@ public interface EmailBlockModelDao {
      * @return List of {@link EmailBlockModel}
      * @throws ProcessFailed the process failed
      */
-    public List<EmailBlockModel> getByEmailBlockModelsByIds(Integer[] emailBlockModelIds) throws ProcessFailed;
+    public List<EmailBlockModel> getByEmailBlockModelsByIds(ArrayList<Integer> emailBlockModelIds) throws ProcessFailed;
 
 }

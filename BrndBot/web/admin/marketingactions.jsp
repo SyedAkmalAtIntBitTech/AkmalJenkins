@@ -80,12 +80,12 @@
             
             $(document).ready(function ()
             {
-                $("#is_recuring").click(function(){
-                   var is_recuring = document.getElementById("is_recuring").checked;
-                   if(is_recuring == true){
+                $("#is_recurring").click(function(){
+                   var is_recurring = document.getElementById("is_recurring").checked;
+                   if(is_recurring == true){
                        $("#marketingactiontilldate").val("");
                        $("#marketingactiontilldate").attr("disabled",false);
-                   }else if(is_recuring == false){
+                   }else if(is_recurring == false){
                        $("#marketingactiontilldate").val("");
                        $("#marketingactiontilldate").attr("disabled",true);
                    }
@@ -102,7 +102,7 @@
                 var marketingactiontitle = $("#marketingactiontitle").val();
                 var days = $("#days").val();
                 var marketingactiontime = $("#marketingactiontime").val();
-                var is_recuring = $("#is_recuring").val();
+                var is_recurring = $("#is_recurring").val();
                 var marketingactiontilldate = $("#marketingactiontilldate").val();
                 var description = $("#description").val();
                 var type = $("#type").val();
@@ -170,7 +170,7 @@
                     var marketingactiontitle = $("#marketingactiontitle").val();
                     var days = $("#days").val();
                     var marketingactiontime = $("#marketingactiontime").val();
-                    var is_recuring = $("#is_recuring").val();
+                    var is_recurring = $("#is_recurring").val();
                     var marketingactiontilldate = $("#marketingactiontilldate").val();
                     var description = $("#description").val();
                     var type = $("#type").val();
@@ -214,14 +214,14 @@
                         var marketingactiontitle = $("#marketingactiontitle").val();
                         var days = $("#days").val();
                         var marketingactiontime = $("#marketingactiontime").val();
-                        var is_recuring = document.getElementById("is_recuring").checked;
+                        var is_recurring = document.getElementById("is_recurring").checked;
                         var marketingactiontilldate = $("#marketingactiontilldate").val();
                         var description = $("#description").val();
                        type = $("#type").val();
                         
                         marketing_actions.actions.push(
                                 {"title":marketingactiontitle, "days": days,
-                                 "time":marketingactiontime, "is_recuring": is_recuring,
+                                 "time":marketingactiontime, "is_recurring": is_recurring,
                                  "tilldate": marketingactiontilldate,"type":type,
                                  "description":description });
                      }
@@ -229,7 +229,7 @@
                             $("#marketingactiontitle").val("");
                             $("#days").val("");
                             $("#marketingactiontime").val("");
-                            $("#is_recuring").val("");
+                            $("#is_recurring").val("");
                             $("#marketingactiontilldate").val("");
                             $("#description").val("");
                             $("#type").val(0);
@@ -341,7 +341,7 @@
                         Days:<input type="number" id="days" name="days" />
                         
                         Time:<input type="time" id="marketingactiontime" name="marketingactiontime"/><br>
-                        Recurring: <input type="checkbox" id="is_recuring" style="width:25px;"/>
+                        Recurring: <input type="checkbox" id="is_recurring" style="width:25px;"/>
                         Till Date: <input type="date" id="marketingactiontilldate" name="marketingactiontilldate"/><br>
                         Description: <textarea id="description" name="description" style="resize: none; height: 180px; width: 300px;"></textarea><br>
                        

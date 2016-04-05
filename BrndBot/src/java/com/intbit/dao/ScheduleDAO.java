@@ -273,8 +273,8 @@ public class ScheduleDAO {
             Connection connection) throws SQLException {
         String sql = "INSERT INTO tbl_scheduled_entity_list"
                 + " (entity_id, schedule_title,schedule_time,entity_type,"
-                + "status,user_id, schedule_desc,is_recuring,"
-                + "user_marketing_program_id,days,till_date,recuring_email_id"
+                + "status,user_id, schedule_desc,is_recurring,"
+                + "user_marketing_program_id,days,till_date,recurring_email_id"
                 + ") VALUES"
                 + " (?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id";
 
@@ -407,22 +407,22 @@ public class ScheduleDAO {
 //                + " WHERE slist.user_id = ? "
 //                + " AND (date(schedule_time) <= ? "
 //                + " AND date(schedule_time) >= ?) "
-//                + " OR ((slist.is_recuring = 'false' AND date(programtable.date_event) - slist.days <= ? "
+//                + " OR ((slist.is_recurring = 'false' AND date(programtable.date_event) - slist.days <= ? "
 //                + " AND date(programtable.date_event) - slist.days >= ?) "
-//                + " OR (slist.is_recuring = 'true' AND date(programtable.date_event) <= ? "
+//                + " OR (slist.is_recurring = 'true' AND date(programtable.date_event) <= ? "
 //                + " AND date(programtable.date_event) >= ?)) "
 //                + " AND slist.entity_type = tc.entity_type"
 //                + " AND slist.user_marketing_program_id = programtable.id"
 //                + " ORDER BY slist.id, schedule_time ";
-        String sql = "SELECT DISTINCT ON (id) slist.*, concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time, concat(date(programtable.date_event), ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time_recuring, date(schedule_time) schedule_date "
+        String sql = "SELECT DISTINCT ON (id) slist.*, concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time, concat(date(programtable.date_event), ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time_recurring, date(schedule_time) schedule_date "
                 + " FROM tbl_scheduled_entity_list slist, "
                 + " tbl_user_marketing_program programtable"
                 + " WHERE slist.user_id = ? "
                 + " AND ((date(schedule_time) <= ? "
                 + " AND date(schedule_time) >= ?) "
-                + " OR ((slist.is_recuring = 'false' AND date(programtable.date_event) - slist.days <= ? "
+                + " OR ((slist.is_recurring = 'false' AND date(programtable.date_event) - slist.days <= ? "
                 + " AND date(programtable.date_event) - slist.days >= ?) "
-                + " OR (slist.is_recuring = 'true' AND date(programtable.date_event) <= ? "
+                + " OR (slist.is_recurring = 'true' AND date(programtable.date_event) <= ? "
                 + " AND date(programtable.date_event) >= ?))) "
                 + " AND slist.user_marketing_program_id = programtable.id"
                 + " ORDER BY slist.id, schedule_time ";
@@ -446,9 +446,9 @@ public class ScheduleDAO {
                         scheduleDate = rs.getTimestamp("schedule_time").getTime();
                     } else {
                         Timestamp scheduleTimestamp1 = rs.getTimestamp("cal_schedule_time");
-                        if (rs.getBoolean("is_recuring")) {
+                        if (rs.getBoolean("is_recurring")) {
                             
-                            scheduleDate = rs.getTimestamp("cal_schedule_time_recuring").getTime();
+                            scheduleDate = rs.getTimestamp("cal_schedule_time_recurring").getTime();
                         } else {
                             scheduleDate = scheduleTimestamp1.getTime();
                         }
@@ -473,8 +473,8 @@ public class ScheduleDAO {
                     } else {
                         Timestamp scheduleTimestamp1 = rs.getTimestamp("cal_schedule_time");
                         long scheduleTime1;
-                        if (rs.getBoolean("is_recuring")) {
-                           scheduleTime1 = rs.getTimestamp("cal_schedule_time_recuring").getTime();
+                        if (rs.getBoolean("is_recurring")) {
+                           scheduleTime1 = rs.getTimestamp("cal_schedule_time_recurring").getTime();
                         } else {
                             scheduleTime1 = scheduleTimestamp1.getTime();
                         }
@@ -487,7 +487,7 @@ public class ScheduleDAO {
 //                            scheduleDetailJSONObject.put("is_today_active", "false");
 //                        }
                     }
-                    scheduleDetailJSONObject.put("is_recuring", rs.getBoolean("is_recuring"));
+                    scheduleDetailJSONObject.put("is_recurring", rs.getBoolean("is_recurring"));
                     scheduleDetailJSONObject.put("entity_type", rs.getString("entity_type"));
                     scheduleDetailJSONObject.put("status", rs.getString("status"));
                     scheduleDetailJSONObject.put("user_id", rs.getInt("user_id"));
@@ -760,7 +760,7 @@ public class ScheduleDAO {
                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
             }
             String query_string2 = "UPDATE tbl_scheduled_entity_list"
-                    + " SET entity_id = ?, status = ?, recuring_email_id = ? where id = ?";
+                    + " SET entity_id = ?, status = ?, recurring_email_id = ? where id = ?";
             try (PreparedStatement prepared_statement = connection.prepareStatement(query_string2)) {
                 prepared_statement.setInt(1, 0);
                 prepared_statement.setString(2, TemplateStatus.no_template.toString());

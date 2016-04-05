@@ -92,11 +92,11 @@ public interface ScheduledEntityListDao {
      * @param status
      * @param entityType
      * @param programStatus
-     * @param isRecuring
+     * @param isRecurring
      * @return {@link scheduledEntityList}
      * @throws java.lang.Throwable
      */
-    public TblScheduledEntityList getLatestApprovedSendEmail(String status, String entityType, String programStatus, Boolean isRecuring) throws Throwable;
+    public TblScheduledEntityList getLatestApprovedSendEmail(String status, String entityType, String programStatus, Boolean isRecurring) throws Throwable;
       /**
      * This method retrieves {@link scheduledEntityList} by passing id
      *
@@ -129,11 +129,11 @@ public interface ScheduledEntityListDao {
    /**
 	 * This method retrieves {@link scheduledEntityList} by passing id
 	 * @param userMarketingProgramId
-         * @param isRecuring
+         * @param isRecurring
 	 * @return {@link scheduledEntityList}
         * @throws java.lang.Throwable 
     */
-   public List<TblScheduledEntityList> getScheduledEntityListIdForEmailType(Integer userMarketingProgramId,Boolean isRecuring) throws Throwable;
+   public List<TblScheduledEntityList> getScheduledEntityListIdForEmailType(Integer userMarketingProgramId,Boolean isRecurring) throws Throwable;
     /**
 	 * This method retrieves {@link scheduledEntityList} by passing id
 	 * @param userMarketingProgramId
@@ -146,9 +146,9 @@ public interface ScheduledEntityListDao {
      * @param status
      * @param entityType
      * @param programStatus
-     * @param isRecuring 
+     * @param isRecurring 
      * @return {@link scheduledEntityList}
      * @throws java.lang.Throwable
      */
-    public String getLatestApprovedEmail(String status, String entityType, String programStatus,Boolean isRecuring) throws Throwable;
+    public String getLatestApprovedEmail(String status, String entityType, String programStatus,Boolean isRecurring) throws Throwable;
 }

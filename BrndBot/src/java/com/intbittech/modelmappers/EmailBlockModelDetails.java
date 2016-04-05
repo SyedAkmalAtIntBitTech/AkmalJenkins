@@ -19,6 +19,7 @@ public class EmailBlockModelDetails implements Serializable{
     private Integer emailBlockModelId;
     private String emailBlockModelName;
     private String imageFileName;
+    private String imageFileData;
     private String htmlData;
 
     public Integer getEmailBlockModelLookupId() {
@@ -75,6 +76,14 @@ public class EmailBlockModelDetails implements Serializable{
 
     public void setHtmlData(String htmlData) {
         this.htmlData = htmlData;
+    }
+
+    public String getImageFileData() {
+        return imageFileData;
+    }
+
+    public void setImageFileData(String imageFileData) {
+        this.imageFileData = imageFileData;
     }
     
     

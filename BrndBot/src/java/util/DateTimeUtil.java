@@ -85,7 +85,7 @@ public class DateTimeUtil {
         return differenceCurrentTime;
     }
     
-    public static long differenceCurrentTimeRecuring(Date nextPostDate) throws Exception {
+    public static long differenceCurrentTimeRecurring(Date nextPostDate) throws Exception {
         //Make sure time zone is the same when difference is taken. Return milliseconds.
 
         String dateFormat = "z";
