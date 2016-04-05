@@ -38,7 +38,10 @@ $(document).ready(function () {
         $("#addEmailBlockPopUp").show();
         $("#addOrganizationPopupDiv").show();
     });
-
+    $("#addNewTemplate").click(function () {
+        $("#addRecurringPopUp").show();
+        $("#addOrganizationPopupDiv").show();
+    });
     $("#addOrganizationPopupDiv").click(function () {
         $("#addEmailTemplatePopUp").hide();
         $("#addSubCategoryPopup").hide();
@@ -48,6 +51,7 @@ $(document).ready(function () {
         $("#addImageCategory").hide();
         $("#addEmailBlockPopUp").hide();
         $("#addRecurringEmailTemplatePopUp").hide();
+        $("#addRecurringPopUp").hide();
     });
 });
 var emailChannel = "email";
