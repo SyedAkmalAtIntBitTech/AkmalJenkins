@@ -50,9 +50,9 @@
         </div>
     </div>
     <div class="bottomNav">
-        <a href="onboardinglogouploaded.jsp">
-            <div class="bottom-ContinueButton fright">CONTINUE</div>
-        </a>
+        <!--<a href="onboardinglogouploaded.jsp">-->
+            <div class="bottom-ContinueButton fright" ng-click="imageValid()">CONTINUE</div>
+        <!--</a>-->
     </div>
     
     

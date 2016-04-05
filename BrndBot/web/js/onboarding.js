@@ -56,7 +56,7 @@ function onboardingcontroller($scope,$http) {
 //        alert(localStorage.getItem("companyName")+"\n"+localStorage.getItem("industryName"));
             $http({
                             method : 'GET',
-                            url : getHost()+'/getAllExternalSourceKeywordLookups.do'
+                            url : getHost()+'/getAllExternalSources.do'
                         }).success(function(data, status, headers, config) {
                             $scope.services=data.d.details;
                         }).error(function(data, status, headers, config) {
@@ -141,6 +141,22 @@ function onboardingcontroller($scope,$http) {
 //            .error(function (data, status) {
 //                alert(requesterror);
 //            });
+        }
+    };
+    $scope.imageValid=function (){
+        var logoImageFile=$("#uploadLogo").val();
+        if(logoImageFile===""){
+            alert("No Logo Uploaded!\t Please upload your Logo.");
+        }
+        else{
+            var logoExtension = logoImageFile.split('.').pop().toUpperCase();
+            if((logoExtension==="PNG")||(logoExtension==="JPG")||(logoExtension==="JPEG")){
+                alert("Success");
+                window.open(getHost() + 'user/onboardinglogouploaded.jsp', "_self");
+            }
+            else{
+                alert("Invalid File Type!\n Please choose valid Image format.");
+            }
         }
     };
     
