@@ -5,13 +5,16 @@
  */
 package com.intbittech.controller;
 
+import com.intbittech.model.ExternalSource;
 import com.intbittech.model.ExternalSourceKeywordLookup;
 import com.intbittech.model.SubCategory;
 import com.intbittech.model.SubCategoryExternalSource;
+import com.intbittech.modelmappers.ExternalSourceDetails;
 import com.intbittech.modelmappers.SubCategoryDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.services.ExternalSourceService;
 import com.intbittech.services.SubCategoryService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import java.util.ArrayList;
@@ -37,6 +40,9 @@ public class SubCategoryController {
     private static Logger logger = Logger.getLogger(SubCategoryController.class);
     @Autowired
     private SubCategoryService subCategoryService;
+    
+    @Autowired
+    private ExternalSourceService externalSourceService;
 
     @RequestMapping(value = "saveSubCategory", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveSubCategory(@RequestBody SubCategoryDetails subCategoryDetails) {
@@ -143,6 +149,31 @@ public class SubCategoryController {
             
              genericResponse.setDetails(subCategoryDetailsList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("External Sources and Keywords retrieved successfully."));
+            
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "getAllExternalSources", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllExternalSources() {
+        GenericResponse<ExternalSourceDetails> genericResponse = new GenericResponse<>();
+        try {
+            List<ExternalSource> externalSourceList = externalSourceService.getAllExternalSources();
+            List<ExternalSourceDetails> subCategoryDetailsList = new ArrayList<>();
+            for (ExternalSource externalSourceObject : externalSourceList)
+            {
+                ExternalSourceDetails externalSourceDetails = new ExternalSourceDetails();
+                externalSourceDetails.setExternalSourceId(externalSourceObject.getExternalSourceId());
+                externalSourceDetails.setExternalSourceName(externalSourceObject.getExternalSourceName());
+                
+                subCategoryDetailsList.add(externalSourceDetails);
+            }
+            
+             genericResponse.setDetails(subCategoryDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("External Sources retrieved successfully."));
             
         } catch (Throwable throwable) {
             logger.error(throwable);
