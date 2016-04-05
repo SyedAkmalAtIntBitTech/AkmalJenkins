@@ -68,7 +68,8 @@
     box-sizing: border-box;
     border-radius: 3px;
     font-size: 13px;
-    color: #D2D3D5;
+    /*color: #D2D3D5;*/
+    color:#808080;
 }
 
 .input_Field-light{
