@@ -3,6 +3,43 @@
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
+$(document).ready(function (){
+   
+    $("#logoColorsDiv").click(function (){
+        $("#picker").hide();
+        $("#logocolor").show();
+        $("#themeColors,#customColors").removeClass('colorOptions-tab-active').addClass('colorOptions-tab');
+        $("#logoColorsDiv").removeClass('colorOptions-tab').addClass('colorOptions-tab-active');
+    });
+    
+    $("#themeColors").click(function (){
+        $("#picker").hide();
+        $("#logocolor").hide();
+        $("#logoColorsDiv,#customColors").removeClass('colorOptions-tab-active').addClass('colorOptions-tab');
+        $("#themeColors").removeClass('colorOptions-tab').addClass('colorOptions-tab-active');
+    });
+    
+    $("#customColors").click(function (){
+        $("#picker").show();
+        $("#logocolor").hide();
+        $("#themeColors,#logoColorsDiv").removeClass('colorOptions-tab-active').addClass('colorOptions-tab');
+        $("#customColors").removeClass('colorOptions-tab').addClass('colorOptions-tab-active');
+    });
+    
+     $('#picker').colpick({
+        flat:true,
+                layout:'hex',
+                onSubmit:function(hsb, hex, rgb, el) {
+                //for haking hex value alert(hex);
+
+                $('#' + ElementID).css("background-color", "#" + hex);
+                }
+    });
+    
+});
+
+    
+            
 function onboardingcontroller($scope,$http) {
            
     $scope.getOrganizations = function () {
@@ -159,6 +196,21 @@ function onboardingcontroller($scope,$http) {
             }
         }
     };
+    
+    $scope.getLogoColors = function () {
+        $http({
+            method: 'GET',
+            url: '../GetColorsFromLogo'
+        }).success(function (data, status, headers, config) {
+            $scope.color = data.Colors;
+            if (data === error) {
+                alert(data);
+            }
+        }).error(function (data, status, headers, config) {
+            alert("No data available! Problem fetching the data.");
+        });
+    };
+            
     
 };
 

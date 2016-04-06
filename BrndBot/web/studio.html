@@ -31,7 +31,8 @@ and open the template in the editor.
                         data: studio
                     }).success(function (data)
                     {
-                        if (data == "true") {                            
+                        if (data == "true") {
+//                            alert("SetStudioID\nCreate Studio-"+JSON.stringify(data));                            
                             var look = {"type": "insert"};                            
                             $http({
                                 method: 'POST',
@@ -39,7 +40,8 @@ and open the template in the editor.
                                 headers: {'Content-Type': 'application/json'},
                                 data: look
                             }).success(function (data)
-                            {
+                            {   
+//                                alert("setLookID"+JSON.stringify(data));
                                 if (data != "") {
                                     var brand = {"type": "insert", "lookID": data};
 
@@ -49,7 +51,8 @@ and open the template in the editor.
                                         headers: {'Content-Type': 'application/json'},
                                         data: brand
                                     }).success(function (data)
-                                    {
+                                    {   
+//                                        alert("SubbrandPersonality\nBrand-"+JSON.stringify(data));
                                         if (data == "true") {
                                             window.open(getHost() + "uploadlogo.jsp", "_self");
                                         } else {
@@ -80,7 +83,8 @@ and open the template in the editor.
                             method: 'POST',
                             url: getHost() + 'MindBodyDataServlet?studioid='+siteid+'&query=activationlink',
                         }).success(function (data)
-                        {
+                        {   
+//                            alert(JSON.stringify(data));
                             var mindbody_data = JSON.stringify(data);
                             if (mindbody_data.activation_link !== "") {
                                 $scope.mindbodyactivation = mindbody_data.activation_link;

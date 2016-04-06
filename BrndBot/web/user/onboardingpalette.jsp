@@ -10,7 +10,7 @@
     <head>
      <jsp:include page="hearderfiles.jsp"/>
     </head>
-<body class="body-normal">
+<body class="body-normal" ng-app ng-controller="onboardingcontroller">
     
     <!--SideNav-->
     
@@ -48,11 +48,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="pane-palette_right fright">
+                    <div class="pane-palette_right fright" >
                         <div class="colorOptions-bar clear">
-                            <div class="colorOptions-tab col-1of3 fleft">Custom Colors</div>
-                            <div class="colorOptions-tab-active col-1of3 fleft">Choose from Theme</div>
-                            <div class="colorOptions-tab col-1of3 fleft">Choose from Logo</div>
+                            <div class="colorOptions-tab-active col-1of3 fleft" id="customColors">Custom Colors</div>
+                            <div class="colorOptions-tab col-1of3 fleft" id="themeColors">Choose from Theme</div>
+                            <div class="colorOptions-tab col-1of3 fleft" id="logoColorsDiv" ng-click="getLogoColors()">Choose from Logo</div>
+                        </div>
+                        <div  class="pane-palette_right fleft color-picker-space">
+                            <div id="picker"></div>
+                            <div  class="tab-pane" id="logocolor" >
+                                <div class="tab-pane active" id="picktheme">
+                                                                    <!--<div><button type="button" class="btn btn-primary" value="click to display colors" >click to display colors</button></div>-->
+                                    <div ng-repeat="col in color">
+                                        <div id="{{col.id}}" class="foo" style="background-color:{{col.colorHex}};" onclick="getIDNo('{{col.id}}')"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
