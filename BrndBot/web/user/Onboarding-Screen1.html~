@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+    <link rel="stylesheet" type="text/css" href="../CSS-Files/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../CSS-Files/General-Utility.css">
+    <link rel="stylesheet" type="text/css" href="../CSS-Files/Navigation.css">
+    <link rel="stylesheet" type="text/css" href="../CSS-Files/Pane.css">
+    <link rel="stylesheet" type="text/css" href="../CSS-Files/Page-Structure.css">
+    <link rel="stylesheet" type="text/css" href="../CSS-Files/onboarding.css">
+     <link rel="stylesheet" type="text/css" href="../CSS-Files/Form-Input.css">
+    <link rel="shortcut icon" href="favicon.png">
+</head>    
+
+<body class="body-normal">
+    
+    <!--SideNav-->
+    
+    <!--Main Content Wrap-->
+    <div class="contentWrap--withNoSideNav">
+        <div class="topNav clear">
+            <div class="topNav--TitleBar fleft">
+                <span class="topNav--TitleBar--Title fleft h2">Welcome Sunrise Studios!</span>
+                <div class="topNav--TitleBar--CTABox fright">
+                    <div class="CTA_Button Button--Gray">Help!</div>
+                </div>
+            </div>
+        </div>
+        <div class="topNav--offset"></div>
+        <div class="contentWrapInner">
+            <div class="pane pane-onboarding">
+                <div class="pane_header clear">
+                    <div class="pane_title fleft h2">What would you like to do today?</div>
+                </div>
+                <div class="pane_content">
+                    <div class="h3 font--lightGray">Lets get started! First, would you like to join an existing company, or set up a new one?</div>
+                    <div class="selectCompany-wrap clear">
+                        <div class="selectButton-wrap fleft pushRight_45">
+                            <img  src="../Final-Icons/onboarding/addCompany.svg" style="cursor:pointer;"> 
+                            <div class="selectButton-label">Set up a New Company</div>
+                        </div>
+                        <div class="selectButton-wrap fleft">
+                            <object type="image/svg+xml" data="/Final-Icons/onboarding/addUser.svg" class="" style="cursor:pointer;"> </object>
+                            <div class="selectButton-label">Join an Existing Company</div>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+        </div>
+    </div>
+    <div class="bottomNav">
+        <a href="Onboarding-Screen2.html">
+            <div class="bottom-ContinueButton fright">CONTINUE</div>
+        </a>
+    </div>
+    
+    
+    
+    
+</body>
+</html>
