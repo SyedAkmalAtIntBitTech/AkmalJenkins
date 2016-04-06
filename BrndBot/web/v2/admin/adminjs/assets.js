@@ -68,7 +68,7 @@ app.controller('globalColors', function($scope,$http) {
                             data: JSON.stringify(globalColorValues)
                         }).success(function(data, status, headers, config) {    
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));                       
-                            window.open(getHost() + 'adminv2/assets.jsp', "_self"); 
+                            window.open(getHost() + 'v2/admin/assets.jsp', "_self"); 
                         }).error(function(data, status, headers, config) {
                                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });      
@@ -117,7 +117,7 @@ app.controller('globalColors', function($scope,$http) {
                         }).success(function(data, status, headers, config) {    
                             
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));                       
-                            window.open(getHost() + 'adminv2/assets.jsp', "_self"); 
+                            window.open(getHost() + 'v2/admin/assets.jsp', "_self"); 
                         }).error(function(data, status, headers, config) {
                                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });      
@@ -213,7 +213,7 @@ app.controller('globalColors', function($scope,$http) {
                     data: JSON.stringify(globalFonts)
                         }).success(function(data, status, headers, config) {    
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));                       
-                            window.open(getHost() + 'adminv2/globalfonts.jsp', "_self"); 
+                            window.open(getHost() + 'v2/admin/globalfonts.jsp', "_self"); 
                         }).error(function(data, status, headers, config) {
                                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });      
@@ -245,7 +245,7 @@ app.controller('globalColors', function($scope,$http) {
                         }).success(function(data, status, headers, config) {    
                            
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));                       
-                            window.open(getHost() + 'adminv2/globalfonts.jsp', "_self"); 
+                            window.open(getHost() + 'v2/admin/globalfonts.jsp', "_self"); 
                         }).error(function(data, status, headers, config) {
                                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });      
@@ -263,7 +263,7 @@ app.controller('globalColors', function($scope,$http) {
 
                        $scope.fontDisplay = data.d.details;
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'adminv2/globalfonts.jsp', "_self");
+                       window.open(getHost() + 'v2/admin/globalfonts.jsp', "_self");
                    }).error(function(data, status, headers, config) {
                            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                    });     
@@ -283,7 +283,7 @@ app.controller('globalColors', function($scope,$http) {
 
                        $scope.allColors = data.d.details;
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'adminv2/assets.jsp', "_self");
+                       window.open(getHost() + 'v2/admin/assets.jsp', "_self");
                    }).error(function(data, status, headers, config) {
                            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                    });     

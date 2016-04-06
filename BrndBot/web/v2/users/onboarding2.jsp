@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html >
 <head>
-    <jsp:include page="hearderfiles.jsp"/>   
+   <jsp:include page="header.jsp"/>
 </head>    
 
 <body class="body-normal" ng-app ng-controller="onboardingcontroller">
@@ -19,7 +19,7 @@
     <div class="contentWrap--withNoSideNav" >
         <div class="topNav clear">
             <a href="signup.jsp"><div class="topNav--BackButton fleft">
-                <img  src="../images/userimages/backbutton.svg" class="backButton-svg" style="cursor:pointer;"></img>
+                    <img  src="images/backbutton.svg" class="backButton-svg" style="cursor:pointer;"></img>
             </div></a>                
             <div class="topNav--TitleBar--withBackButton fleft">
                 <span class="topNav--TitleBar--Title fleft h2">Step 2 of 4</span>

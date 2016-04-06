@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <jsp:include page="hearderfiles.jsp"/>  
+        <jsp:include page="header.jsp"/>
     </head>
     <body class="body-normal" ng-app ng-controller="onboardingcontroller">
     <div class="Login_left-pane fleft">
@@ -17,7 +17,7 @@
     </div>
     <div class="Login_right-pane fright">
         <div class="login-container">
-            <img src="../images/userimages/BB-Hello.svg" class="signUp-logo" style="cursor:pointer;">
+            <img src="../users/images/BB-Hello.svg" class="signUp-logo" style="cursor:pointer;">
             <div class="input_Label pushUp_30">Email</div>
             <input class="input_Field login-fields" id="emailId" placeholder="Email"/>
             <div class="input_Label">Password</div>

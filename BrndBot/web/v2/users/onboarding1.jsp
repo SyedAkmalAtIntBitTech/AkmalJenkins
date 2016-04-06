@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-     <jsp:include page="hearderfiles.jsp"/>  
+<jsp:include page="header.jsp"/>
 </head>    
 
 <body class="body-normal">

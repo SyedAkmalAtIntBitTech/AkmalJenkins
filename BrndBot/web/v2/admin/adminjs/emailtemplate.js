@@ -85,7 +85,7 @@ function emailTemplateController($scope, $http) {
             }).success(function (data, status, headers, config)
             {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                window.open(getHost() + 'adminv2/emailtemplates.jsp', "_self");
+                window.open(getHost() + 'v2/admin/emailtemplates.jsp', "_self");
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
@@ -135,7 +135,7 @@ function emailTemplateController($scope, $http) {
             }).success(function (data, status, headers, config)
             {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                window.open(getHost() + 'adminv2/emailtemplates.jsp', "_self");
+                window.open(getHost() + 'v2/admin/emailtemplates.jsp', "_self");
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
@@ -168,7 +168,7 @@ function emailTemplateController($scope, $http) {
             }).success(function (data, status, headers, config) {
                 $scope.emailModelById = data.d.details;
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                window.open(getHost() + 'adminv2/emailtemplates.jsp', "_self");
+                window.open(getHost() + 'v2/admin/emailtemplates.jsp', "_self");
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });

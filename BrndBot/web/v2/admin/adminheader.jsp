@@ -9,7 +9,7 @@
 <html>
     <head>       
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script type="text/javascript" src="../js/angular.min.js"></script>
+        <script type="text/javascript" src="../users/js/angular.min.js"></script>
         <meta name="format-detection" content="telephone=no">
         <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
         <link rel="stylesheet" type="text/css" href="admincss/normalize.css">
@@ -17,24 +17,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="admincss/basecss.css"/>
         <link rel="shortcut icon" href="../images/favicon.png"/> 
-        <script src="../adminv2/adminjs/organization.js" type="text/javascript"></script>
-        <script src="../js/configurations.js" type="text/javascript"></script>   
-        <script src="../adminv2/adminjs/basejs.js" type="text/javascript"></script>
-         <script src="../adminv2/adminjs/socialtemplates.js" type="text/javascript"></script>
-         <script src="../js/alertmessage.js" type="text/javascript"></script>
+        <script src="adminjs/organization.js" type="text/javascript"></script>
+        <script src="../users/js/configurations.js" type="text/javascript"></script>   
+        <script src="adminjs/basejs.js" type="text/javascript"></script>
+         <script src="adminjs/socialtemplates.js" type="text/javascript"></script>
+         <script src="../users/js/alertmessage.js" type="text/javascript"></script>
         <title>Admin Header</title>
-         <script src="../adminv2/adminjs/emailtemplate.js" type="text/javascript"></script>
-         <script src="../adminv2/adminjs/emailblockmodels.js" type="text/javascript"></script>
-           <script src="../adminv2/adminjs/assets.js" type="text/javascript"></script>
-          <script src="../adminv2/adminjs/recurringemail.js" type="text/javascript"></script>
-          <script src="../adminv2/adminjs/imageToBase64Converter.js" type="text/javascript"></script>
-         <script src="../adminv2/adminjs/marketingprogramdetails.js" type="text/javascript"></script>
-           <script src="../adminv2/adminjs/allcompanies.js" type="text/javascript"></script>
+         <script src="adminjs/emailtemplate.js" type="text/javascript"></script>
+         <script src="adminjs/emailblockmodels.js" type="text/javascript"></script>
+           <script src="adminjs/assets.js" type="text/javascript"></script>
+          <script src="adminjs/recurringemail.js" type="text/javascript"></script>
+          <script src="adminjs/imageToBase64Converter.js" type="text/javascript"></script>
+         <script src="adminjs/marketingprogramdetails.js" type="text/javascript"></script>
+           <script src="adminjs/allcompanies.js" type="text/javascript"></script>
    </head>
     <body>
        <div class="nav ">
         <div class="logodiv nav_logo fleft">
-            <img  src="../images/adminImages/main-admin-logo.svg" class="bb-logo" >
+            <img  src="images/main-admin-logo.svg" class="bb-logo" >
         </div>
         <div class="headernav">
             <a href="allcompanies.jsp"><div class="nav_tab fleft"> Users </div></a>

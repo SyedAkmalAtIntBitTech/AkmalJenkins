@@ -1,25 +1,25 @@
 <%-- 
-    Document   : onboarding4
-    Created on : Mar 31, 2016, 8:10:24 PM
+    Document   : onboardinglogouploaded
+    Created on : Mar 31, 2016, 8:21:35 PM
     Author     : development
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-    <jsp:include page="hearderfiles.jsp"/>
-</head>
-<body class="body-normal">
+   <head>
+  <jsp:include page="header.jsp"/>
+   </head>
+<body class="body-normal" ng-app ng-controller="onboardingcontroller">
     
     <!--SideNav-->
     
     <!--Main Content Wrap-->
     <div class="contentWrap--withNoSideNav">
         <div class="topNav clear">
-            <a href="onboarding3.jsp">
+            <a href="onboarding4.jsp">
                 <div class="topNav--BackButton fleft">
-                <img  src="../images/userimages/backbutton.svg" class="backButton-svg" style="cursor:pointer;"></img>
+                <img  src="images/backbutton.svg" class="backButton-svg" style="cursor:pointer;"></img>
                 </div>
             </a>
             <div class="topNav--TitleBar--withBackButton fleft">
@@ -36,18 +36,18 @@
                     <div class="pane_title fleft h2">Upload your logo</div>
                 </div>
                 <div class="pane_content">
-                    <div class="h3 font--lightGray">BrndBot syncs with your other tools. If you are not using any of these services, just select none!</div>
-                    <div class="logoUpload-wrap">
-                        <img src="../images/userimages/Onboarding/uploadPhoto.svg" class="logoUpload-svg" style="cursor:pointer;"/>
+                    <div class="h3 font--lightGray">Congratulations your logo has been successfully uploaded!  </div>
+                    <div class="logo-Uploaded-wrap clear">
+                          <img src="https://daks2k3a4ib2z.cloudfront.net/562feb3ef5fe5a8c1fd02272/56b8940985f55b8d6cc5f7d7_Deafult-Image_350x350.jpg" class="logo-Uploaded fleft">
+                          <img  src="images/Valid-Check.svg" class="logoUpload-Success-svg fleft" style="cursor:pointer;"/>
                     </div>
-                    <div class="Add_Button Button--Gray logoUpload--button">Upload Logo</div>
-                    </div>
+                    <div class="Add_Button Button--Gray logoUpload--button">Change Logo</div>
                 </div>
-            </div>   
-        </div>
+            </div>
+        </div>   
     </div>
     <div class="bottomNav">
-        <a href="onboarding4logo.jsp">
+        <a href="onboardingpalette.jsp">
             <div class="bottom-ContinueButton fright">CONTINUE</div>
         </a>
     </div>

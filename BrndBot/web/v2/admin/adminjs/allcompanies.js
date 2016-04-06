@@ -162,7 +162,7 @@ function allCompaniesController($scope,$http){
                     data: JSON.stringify(updateorganization)
                 }).success(function(data, status, headers, config) { 
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/companydetails.jsp?companyId='+companyId, "_self");
+                    window.open(getHost() + 'v2/admin/companydetails.jsp?companyId='+companyId, "_self");
                       
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -185,7 +185,7 @@ function allCompaniesController($scope,$http){
                 }).success(function (data)
                 {   
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'adminv2/companydetails.jsp?companyId='+companyId+'&organizationName='+organizationName+'&companyName='+companyName,"_self");
+                       window.open(getHost() + 'v2/admin/companydetails.jsp?companyId='+companyId+'&organizationName='+organizationName+'&companyName='+companyName,"_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -209,7 +209,7 @@ function allCompaniesController($scope,$http){
                 }).success(function(data, status, headers, config) {
                     $scope.groupDetails= data.d.details;
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                     window.open(getHost() + 'adminv2/companydetails.jsp?companyId='+companyId+'&organizationName='+organizationName+'&companyName='+companyName,"_self");
+                     window.open(getHost() + 'v2/admin/companydetails.jsp?companyId='+companyId+'&organizationName='+organizationName+'&companyName='+companyName,"_self");
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });     

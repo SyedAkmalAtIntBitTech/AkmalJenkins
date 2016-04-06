@@ -54,7 +54,7 @@ function organizationcontroller($scope,$http) {
                         }).success(function (data, status, headers, config)
                         {  
                             alert(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
-                            window.open(getHost() + 'adminv2/organization.jsp', "_self");
+                            window.open(getHost() + 'v2/admin/organization.jsp', "_self");
                         }).error(function(data, status, headers, config){
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });                         
@@ -90,7 +90,7 @@ function organizationcontroller($scope,$http) {
                 }).success(function(data, status, headers, config) {
                     $scope.organizationDetails = data.d.details;
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/organization.jsp', "_self");
+                    window.open(getHost() + 'v2/admin/organization.jsp', "_self");
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });     
@@ -115,7 +115,7 @@ function organizationcontroller($scope,$http) {
                     data: updateorg
                 }).success(function(data, status, headers, config) { 
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                    window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
                       
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -174,7 +174,7 @@ function organizationcontroller($scope,$http) {
                 { 
                   alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                     
-                    window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                    window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
 
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -200,7 +200,7 @@ function organizationcontroller($scope,$http) {
                 }).success(function (data)
                 { 
                     alert(printName+"\t"+eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                    window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
 
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -228,7 +228,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 { 
                     alert(imageName+"\t"+eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                    window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
 
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -262,7 +262,7 @@ $scope.addImageCategory = function () {
                 }).success(function(data, status, headers, config) {
                     $scope.categoryDetails= data.d.categoryDetails;
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                     window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                     window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });     
@@ -303,13 +303,13 @@ $scope.addImageCategory = function () {
                 }).success(function(data, status, headers, config) {
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                     if (window.location.href.indexOf("emailsubcategorydetails.jsp") > -1) {
-                         window.open(getHost() + 'adminv2/emailsubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                         window.open(getHost() + 'v2/admin/emailsubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
                     }
                     if (window.location.href.indexOf("printsubcategorydetails.jsp") > -1) {
-                         window.open(getHost() + 'adminv2/printsubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                         window.open(getHost() + 'v2/admin/printsubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
                     }
                     if (window.location.href.indexOf("imagesubcategorydetails.jsp") > -1) {
-                         window.open(getHost() + 'adminv2/imagesubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                         window.open(getHost() + 'v2/admin/imagesubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
                     }
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -354,13 +354,13 @@ $scope.addImageCategory = function () {
                 { 
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                     if (window.location.href.indexOf("emailsubcategory.jsp") > -1) {
-                         window.open(getHost() + 'adminv2/emailsubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                         window.open(getHost() + 'v2/admin/emailsubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
                     }
                     if (window.location.href.indexOf("printsubcategory.jsp") > -1) {
-                         window.open(getHost() + 'adminv2/printsubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                         window.open(getHost() + 'v2/admin/printsubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
                     }
                     if (window.location.href.indexOf("imagesubcategory.jsp") > -1) {
-                         window.open(getHost() + 'adminv2/imagesubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                         window.open(getHost() + 'v2/admin/imagesubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
                     }
                    
                 }).error(function(data){
@@ -415,7 +415,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 { 
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                    window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
 
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -476,7 +476,7 @@ $scope.addImageCategory = function () {
                 }).success(function(data, status, headers, config) {
                     $scope.getEmailBlock= data.d.details;
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                     window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                     window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });     
@@ -602,7 +602,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'adminv2/emailsubcategorydetails.jsp?organizationId='+organizationId+'&categoryId='+categoryId+'&subCategoryId='+subCategoryId, "_self");
+                       window.open(getHost() + 'v2/admin/emailsubcategorydetails.jsp?organizationId='+organizationId+'&categoryId='+categoryId+'&subCategoryId='+subCategoryId, "_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -627,7 +627,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'adminv2/printsubcategorydetails.jsp?organizationId='+organizationId+'&categoryId='+categoryId+'&subCategoryId='+subCategoryId, "_self");
+                       window.open(getHost() + 'v2/admin/printsubcategorydetails.jsp?organizationId='+organizationId+'&categoryId='+categoryId+'&subCategoryId='+subCategoryId, "_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -647,7 +647,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/emailsubcategorydetails.jsp?organizationId='+organizationId+'&categoryId='+categoryId+'&subCategoryId='+subCategoryId, "_self");
+                    window.open(getHost() + 'v2/admin/emailsubcategorydetails.jsp?organizationId='+organizationId+'&categoryId='+categoryId+'&subCategoryId='+subCategoryId, "_self");
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
@@ -699,7 +699,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                       window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -717,7 +717,7 @@ $scope.addImageCategory = function () {
             {   
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
 //                $scope.deleteRecurringEmails=data.d.details;
-                window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
             }).error(function(data){
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             }); 
@@ -778,7 +778,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId,"_self");
+                       window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId,"_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -797,7 +797,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                    window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
@@ -845,7 +845,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                    window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
@@ -881,7 +881,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {  
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'adminv2/marketingcategory.jsp?organizationId='+organizationId+'&marketingCategoryId='+marketingCategoryId, "_self");
+                    window.open(getHost() + 'v2/admin/marketingcategory.jsp?organizationId='+organizationId+'&marketingCategoryId='+marketingCategoryId, "_self");
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
@@ -941,7 +941,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'adminv2/marketingcategory.jsp?organizationId='+organizationId+'&marketingCategoryId='+marketingCategoryId,"_self");
+                       window.open(getHost() + 'v2/admin/marketingcategory.jsp?organizationId='+organizationId+'&marketingCategoryId='+marketingCategoryId,"_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -981,7 +981,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'adminv2/emailblock.jsp?organizationId='+organizationId+'&emailBlockId='+emailBlockId,"_self");
+                       window.open(getHost() + 'v2/admin/emailblock.jsp?organizationId='+organizationId+'&emailBlockId='+emailBlockId,"_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));

@@ -140,7 +140,7 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
                         }).success(function (data, status, headers, config)
                         {  
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));                       
-                            window.open(getHost() + 'adminv2/marketingprogram.jsp', "_self");
+                            window.open(getHost() + 'v2/admin/marketingprogram.jsp', "_self");
                         }).error(function(data, status, headers, config){
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });                         
@@ -175,7 +175,7 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
                         }).success(function (data, status, headers, config)
                         {  
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));                       
-                            window.open(getHost() + 'adminv2/marketingprogramdetails.jsp?marketingProgramId='+marketingProgramId, "_self");
+                            window.open(getHost() + 'v2/admin/marketingprogramdetails.jsp?marketingProgramId='+marketingProgramId, "_self");
                         }).error(function(data, status, headers, config){
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });                         

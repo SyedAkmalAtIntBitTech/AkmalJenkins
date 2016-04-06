@@ -72,7 +72,7 @@ function onboardingcontroller($scope,$http) {
         {            
             localStorage.setItem("companyName",companyName);
             localStorage.setItem("industryName",industryName);
-            window.open(getHost() + 'user/onboarding3.jsp', "_self");
+            window.open(getHost() + 'v2/users/onboarding3.jsp', "_self");
 //            $.ajax({
 //                    method: 'POST',
 //                    url: getHost() + '/saveUserOrganization.do',
@@ -104,7 +104,7 @@ function onboardingcontroller($scope,$http) {
     $scope.saveServices = function (){
         var services= $("#services").val();
         localStorage.setItem("services",services);
-        window.open(getHost() + 'user/onboarding4.jsp', "_self");
+        window.open(getHost() + 'v2/users/onboarding4.jsp', "_self");
     };
     
      function validateEmail(emailId) {
@@ -119,11 +119,11 @@ function onboardingcontroller($scope,$http) {
     }
     
     function validateSignUp()
-    {
+    {  
         var emailId = $('#emailId').val();
         var password = $("#password").val();
         var rePassword = $("#rePassword").val();
-
+        
         if ($.trim(emailId).length === 0) {
             alert(emptyemail);
             $("#emailId").focus();
@@ -157,7 +157,7 @@ function onboardingcontroller($scope,$http) {
     $scope.signupSuccess=function (){
         if(validateSignUp()){
             
-            window.open(getHost() + 'user/onboarding2.jsp', "_self");
+            window.open(getHost() + 'v2/users/onboarding2.jsp', "_self");
 //            $http({
 //                method: 'POST',
 //                url: getHost() + 'ServletUserRegistration',
@@ -189,7 +189,7 @@ function onboardingcontroller($scope,$http) {
             var logoExtension = logoImageFile.split('.').pop().toUpperCase();
             if((logoExtension==="PNG")||(logoExtension==="JPG")||(logoExtension==="JPEG")){
                 alert("Success");
-                window.open(getHost() + 'user/onboardinglogouploaded.jsp', "_self");
+                window.open(getHost() + 'v2/users/onboardinglogouploaded.jsp', "_self");
             }
             else{
                 alert("Invalid File Type!\n Please choose valid Image format.");

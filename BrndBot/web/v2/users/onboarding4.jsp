@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <jsp:include page="hearderfiles.jsp"/>
+    <jsp:include page="header.jsp"/>
     </head>
  <body class="body-normal" ng-app ng-controller="onboardingcontroller">
     
@@ -19,7 +19,7 @@
         <div class="topNav clear">
             <a href="onboarding3.jsp">
                 <div class="topNav--BackButton fleft">
-                <img  src="../images/userimages/backbutton.svg" class="backButton-svg" style="cursor:pointer;"></img>
+                <img  src="images/backbutton.svg" class="backButton-svg" style="cursor:pointer;"></img>
                 </div>
             </a>
             <div class="topNav--TitleBar--withBackButton fleft">
@@ -38,7 +38,7 @@
                 <div class="pane_content">
                     <div class="h3 font--lightGray">Upload a hi-res version of your logo. A .PNG format works the best, but you may use a .JPEG as well.</div>
                     <div class="logoUpload-wrap">
-                        <img src="../images/userimages/Onboarding/uploadPhoto.svg" class="logoUpload-svg" style="cursor:pointer;"/>
+                        <img src="images/uploadPhoto.svg" class="logoUpload-svg" style="cursor:pointer;"/>
                     </div>
                     <!--<a href="onboardinglogouploaded.jsp">-->
                     <div  class="Add_Button Button--Gray logoUpload--button "><label class=" Button--Gray" for="uploadLogo">Upload Logo</label></div>
