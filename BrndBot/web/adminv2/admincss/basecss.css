@@ -14,7 +14,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
 #addRecurringPopUp,#editMarketingProgramsPopup,#addMarketingProgramsPopup,#addMarketingPopUp,#addOneTimeActionsPopup,#createRecurringActionButton,
 #createOneTimeActionButton,#createOneTimeActionPopUpTitle,#createRecurringActionPopUpTitle,#noTemplatesMessage,#addMarketingTemplatePopUp,
 #EmailBlockPopUp,#noEmailTemplatesMessage,#noMarketingTemplatesMessage,#updateMarketingProgramSaveButton,#addMarketingProgramSaveButton,
-#addMarketingTemplatePopUp,#noGroup,#addGroup,#fontPopup,.popUp_background_colors
+#addMarketingTemplatePopUp,#noGroup,#addGroup,#fontPopup,.popUp_background_colors,#globalImageId
 {
 
     display:none;

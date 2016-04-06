@@ -25,6 +25,7 @@ $(document).ready(function () {
         $("#addRecurringPopUp").hide();
         $("#addMarketingTemplatePopUp").hide();
         $("#addGroup").hide();
+        $("#globalImageId").hide();
         
     
     });
@@ -39,7 +40,10 @@ $("#addNewTemplate").click(function () {
     $("#addOrganizationPopupDiv").show();
 });
 
-
+$("#addGlobalImage").click(function () {
+    $("#globalImageId").show();
+    $("#addOrganizationPopupDiv").show();
+});
 
 $("#addOneTimeActionsButton").click(function () {
     $("#addOrganizationPopupDiv").show();
