@@ -8,11 +8,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="shortcut icon" href="../images/favicon.png"/>
+        <link rel="shortcut icon" href="images/favicon.png"/>
         <title>BrndBot-Admin Organization</title>
     </head>
     <body class="body-normal" ng-app  ng-controller="organizationcontroller" >        
-        <jsp:include page="adminheader.jsp"/>
+        <jsp:include page="header.jsp"/>
         <jsp:include page="addorganization.jsp"/>
         <div class="content-area" >
         <div class="content-area_header">

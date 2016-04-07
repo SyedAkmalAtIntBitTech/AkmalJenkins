@@ -9,7 +9,7 @@
 
 <html >
 <head>
-    <link rel="shortcut icon" href="../images/favicon.png"/>
+    <link rel="shortcut icon" href="images/favicon.png"/>
         <title>BrndBot-Admin Marketing Program Details</title>
 </head>    
 <%
@@ -19,7 +19,7 @@
 
 <body class="body-normal overflowhide" data-ng-app="marketingprogramota">
     <input id="marketingProgramIdTag" type="text" hidden value="<%=marketingProgramId%>"/>
-<jsp:include page="adminheader.jsp"/>
+<jsp:include page="header.jsp"/>
 <div  data-ng-controller="marketingProgramsController">
 <jsp:include page="addonetimeactions.jsp"/>
 <jsp:include page="addonetimeactionpopup.jsp"/>

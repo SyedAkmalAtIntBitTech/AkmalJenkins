@@ -7,7 +7,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-     <link rel="shortcut icon" href="../images/favicon.png"/>       
+     <link rel="shortcut icon" href="images/favicon.png"/>       
     <title>Sub Category</title>  
 </head>    
 <%
@@ -17,7 +17,7 @@ String categoryID=request.getParameter("categoryId");
 <body class="body-normal" ng-app  ng-controller="organizationcontroller" >
     <input id="categoryIdTag" type="text" hidden value="<%=categoryID%>"/>
     <input id="organizationIdTag" type="text" hidden value="<%=organizationID%>"/>
-    <jsp:include page="adminheader.jsp"/>
+    <jsp:include page="header.jsp"/>
     <jsp:include page="addsubcategory.jsp"/>
     <div class="content-area" ng-init="organizationdetails()">
         <div class="content-area_header" ng-init="getAllCategoryDetails()">

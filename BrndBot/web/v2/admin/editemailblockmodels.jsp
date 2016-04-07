@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="shortcut icon" href="../images/favicon.png"/>
+        <link rel="shortcut icon" href="images/favicon.png"/>
         <title>BrndBot-Admin Create New Email Template</title>
     </head>
     <%
@@ -16,7 +16,7 @@
     %>
 
     <body class="body-normal" ng-app ng-controller="emailBlocksController">        
-        <jsp:include page="adminheader.jsp"/>
+        <jsp:include page="header.jsp"/>
         <jsp:include page="froalaeditor_styles.jsp"/>
         <input id="emailBlockIdTag" type="text" hidden value="<%=emailBlockModelId%>"/>
         <div class="content-area contentEdit"  ng-init="getEmailModelById()">

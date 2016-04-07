@@ -9,11 +9,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="shortcut icon" href="../images/favicon.png"/>
+        <link rel="shortcut icon" href="images/favicon.png"/>
         <title>BrndBot-Admin Email-Templates</title>
     </head>
    
-      <jsp:include page="adminheader.jsp"/>
+      <jsp:include page="header.jsp"/>
     <body class="body-normal" ng-app  ng-controller="emailTemplateController" >        
       
         <div class="content-area" ng-init="emailTemplateModel()" >

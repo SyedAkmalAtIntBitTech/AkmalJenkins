@@ -9,7 +9,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-     <link rel="shortcut icon" href="../images/favicon.png"/>       
+     <link rel="shortcut icon" href="images/favicon.png"/>       
     <title>Email Block</title>  
 </head>    
 <%
@@ -19,7 +19,7 @@ String emailBlockId=request.getParameter("emailBlockId");
 <body class="body-normal" ng-app  ng-controller="organizationcontroller" >
     <input id="emailBlockId" type="text" hidden value="<%=emailBlockId%>"/>
     <input id="organizationIdTag" type="text" hidden value="<%=organizationID%>"/>
-    <jsp:include page="adminheader.jsp"/>
+    <jsp:include page="header.jsp"/>
     <jsp:include page="emailblocktemplate.jsp"/>
     <div class="content-area" ng-init="organizationdetails()">
         <div class="content-area_header"  ng-init="getEmailBlock()">

@@ -8,11 +8,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="shortcut icon" href="../images/favicon.png"/> 
+        <link rel="shortcut icon" href="images/favicon.png"/> 
         <title>BrndBot-Admin Recurring Emails</title>
     </head>
     <body class="body-normal" ng-app  ng-controller="recurringEmail">
-        <jsp:include page="adminheader.jsp"/>
+        <jsp:include page="header.jsp"/>
         
         
         <div class="content-area" >

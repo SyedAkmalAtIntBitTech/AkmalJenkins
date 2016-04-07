@@ -8,7 +8,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <link rel="shortcut icon" href="../images/favicon.png"/>        
+    <link rel="shortcut icon" href="images/favicon.png"/>        
     <title>Organization-Details</title>       
 </head>    
     <%
@@ -17,7 +17,7 @@
 %>
 <body class="body-normal">
     <input id="organizationIdTag" type="text" hidden value="<%=organizationId%>"/>
-    <jsp:include page="adminheader.jsp"/>
+    <jsp:include page="header.jsp"/>
      <jsp:include page="emailcategory.jsp"/>
      <jsp:include page="printcategory.jsp"/>
      <jsp:include page="addimagecategory.jsp"/>

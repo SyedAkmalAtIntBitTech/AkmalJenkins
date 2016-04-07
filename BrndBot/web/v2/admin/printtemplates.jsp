@@ -8,11 +8,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="shortcut icon" href="../images/favicon.png"/>
+        <link rel="shortcut icon" href="images/favicon.png"/>
         <title>BrndBot-Admin Organization</title>
     </head>
     <body class="body-normal" ng-app  ng-controller="printTemplates" >        
-        <jsp:include page="adminheader.jsp"/>
+        <jsp:include page="header.jsp"/>
         <div class="content-area" ng-init="printTemplateScope()">
         <div class="content-area_header">
             <div class="header_path fleft"> Print Templates </div>

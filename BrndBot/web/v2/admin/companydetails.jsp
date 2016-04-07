@@ -8,12 +8,12 @@
 <!DOCTYPE html>
 <html>
     <head> 
-        <link rel="shortcut icon" href="../images/favicon.png"/>       
+        <link rel="shortcut icon" href="images/favicon.png"/>       
         <title>Company details</title>
     </head>
     <body class="body-normal">
      
-         <jsp:include page="adminheader.jsp"/>
+         <jsp:include page="header.jsp"/>
           <jsp:include page="addgroup.jsp"/>
          <% String companyName= request.getParameter("companyName"); %>
           <% String companyId= request.getParameter("companyId"); %>

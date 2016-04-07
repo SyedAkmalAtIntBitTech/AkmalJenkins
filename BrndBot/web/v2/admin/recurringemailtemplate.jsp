@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="shortcut icon" href="../images/favicon.png"/>
+        <link rel="shortcut icon" href="images/favicon.png"/>
         <title>BrndBot-Admin Create New Email Recurring Template</title>
     </head>
     <%
@@ -16,7 +16,7 @@
     %>
        
     <body class="body-normal" ng-app ng-controller="recurringEmail">        
-        <jsp:include page="adminheader.jsp"/>
+        <jsp:include page="header.jsp"/>
         
         <div class="content-area contentEdit"  ng-init="getRecurringTemplate()">
             <input hidden id="recurringEmailTemplateId" value="<%=recurringEmailTemplateId %>">

@@ -8,11 +8,11 @@
 <!DOCTYPE html>
 <html>
     <head>        
-       <link rel="shortcut icon" href="../images/favicon.png"/>       
+       <link rel="shortcut icon" href="images/favicon.png"/>       
         <title>All Companies</title>
     </head>
     <body  class="body-normal" >
-        <jsp:include page="adminheader.jsp"/>
+        <jsp:include page="header.jsp"/>
       <div class="content-area" ng-app ng-controller="allCompaniesController">
         <div class="content-area_header">
             <div class="header_path fleft">All Companies</div>

@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Marketing Program category</title>
-        <link rel="shortcut icon" href="../images/favicon.png"/>        
+        <link rel="shortcut icon" href="images/favicon.png"/>        
     </head>
   <%
 String organizationID=request.getParameter("organizationId");
@@ -19,7 +19,7 @@ String marketingCategoryId=request.getParameter("marketingCategoryId");
 <body class="body-normal" ng-app  ng-controller="organizationcontroller" >
     <input id="marketingCategoryId" type="text" hidden value="<%=marketingCategoryId%>"/>
     <input id="organizationIdTag" type="text" hidden value="<%=organizationID%>"/>
-    <jsp:include page="adminheader.jsp"/>
+    <jsp:include page="header.jsp"/>
      <jsp:include page="addmarketingtemplate.jsp"/>
     <div class="content-area" ng-init="organizationdetails()">
         <div class="content-area_header"  ng-init="getAllMarketingCategoryById()">
