@@ -10,7 +10,7 @@ import com.intbittech.model.GlobalFonts;
 import com.intbittech.model.GlobalImages;
 import com.intbittech.modelmappers.GlobalColorsDetails;
 import com.intbittech.modelmappers.GlobalFontsDetails;
-import com.intbittech.modelmappers.GlobalImageDetail;
+import com.intbittech.modelmappers.GlobalImageDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
@@ -104,6 +104,8 @@ public class AssestsController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
 
     }
+    
+
 
     @RequestMapping(value = "getAllColorThemes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllColorThemes() {
@@ -194,35 +196,66 @@ public class AssestsController {
     }
 
     @RequestMapping(value = "saveGlobalImage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> saveGlobalImage(@RequestBody GlobalImageDetail globalImageDetail) {
+    public ResponseEntity<ContainerResponse> saveGlobalImage(@RequestBody GlobalImageDetails globalImageDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            globalImageDetail.setCreatedDate(DateTimeUtil.getCurrentGMTDate());
+            globalImageDetails.setCreatedDate(DateTimeUtil.getCurrentGMTDate());
             GlobalImages globalImages = new GlobalImages();
-            globalImages.setCreateDate(globalImageDetail.getCreatedDate());
+            globalImages.setCreateDate(globalImageDetails.getCreatedDate());
             String storableFileName = null;
             try {
-                storableFileName = FileHandlerUtil.saveAdminGlobalImage(globalImageDetail.getImageName(),
-                        globalImageDetail.getImageType(), globalImageDetail.getImageData());
-            }
-            catch(Throwable throwable){
+                storableFileName = FileHandlerUtil.saveAdminGlobalImage(globalImageDetails.getImageName(),
+                        globalImageDetails.getImageType(), globalImageDetails.getImageData());
+            } catch (Throwable throwable) {
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_not_save", null, Locale.US)));
                 throw throwable;
             }
 
             globalImages.setImageName(storableFileName);
-            try{
+            try {
                 globalImagesService.save(globalImages);
-            }
-            catch(Throwable throwable){
-                if(storableFileName != null){
+            } catch (Throwable throwable) {
+                if (storableFileName != null) {
                     FileHandlerUtil.deleteAdminGlobalImage(storableFileName);
                 }
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_not_save", null, Locale.US)));
                 throw throwable;
             }
-            
+
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_save", null, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "updateGlobalImage", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> updateGlobalImage(@RequestBody GlobalImageDetails globalImageDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+
+            GlobalImages globalImages = globalImagesService.getGlobalImagesById(globalImageDetails.getGlobalImageId());
+            String storableFileName = null;
+
+            try {
+                storableFileName = FileHandlerUtil.upadteAdminGlobalImage(globalImages.getImageName(), globalImageDetails.getImageName(),
+                        globalImageDetails.getImageType(), globalImageDetails.getImageData());
+            } catch (Throwable throwable) {
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_not_update", null, Locale.US)));
+                throw throwable;
+            }
+            if (storableFileName != null) {
+                globalImages.setImageName(storableFileName);
+                try {
+                    globalImagesService.update(globalImages);
+                } catch (Throwable throwable) {
+                    transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_not_update", null, Locale.US)));
+                    throw throwable;
+                }
+            }
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_update", null, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -284,13 +317,28 @@ public class AssestsController {
 
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
-     @RequestMapping(value = "deleteGlobalImage", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> deleteGLobalImage(@RequestParam("globalFontsId") Integer globalFontsId) {
+
+    @RequestMapping(value = "deleteGlobalImage", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteGLobalImage(@RequestParam("globalImageId") Integer globalImageId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            globalFontsService.delete(globalFontsId);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalFonts_delete", new String[]{}, Locale.US)));
+            globalImagesService.delete(globalImageId);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_delete", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    
+    @RequestMapping(value = "checkGlobalImageUniqueness", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> deleteGLobalImage(@RequestParam("globalImageName") String globalImageName) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            globalImagesService.checkForUniqueness(globalImageName);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_delete", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));

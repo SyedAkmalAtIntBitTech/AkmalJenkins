@@ -58,4 +58,12 @@ public interface GlobalImagesDao {
      * @throws ProcessFailed the process failed
      */
     public void delete(GlobalImages globalImages) throws ProcessFailed;
+    
+    /**
+     * 
+     * @param globalImageName
+     * @throws ProcessFailed 
+     */
+    
+    public Boolean checkForUniqueness(String globalImageName) throws ProcessFailed;
 }

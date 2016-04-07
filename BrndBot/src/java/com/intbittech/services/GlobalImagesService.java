@@ -59,4 +59,10 @@ public interface GlobalImagesService {
      */
     public void delete(Integer globalImagesId) throws ProcessFailed;
     
+    /**
+     * 
+     * @param globalImageName
+     * @throws ProcessFailed 
+     */
+    public Boolean checkForUniqueness(String globalImageName) throws ProcessFailed;
 }

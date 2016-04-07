@@ -44,6 +44,13 @@ public class GloblaImagesServiceImpl implements GlobalImagesService {
         return globalImages;
     }
 
+    @Override
+    public Boolean checkForUniqueness(String globalImageName) throws ProcessFailed {
+        return globalImagesDao.checkForUniqueness(globalImageName);
+    }
+    
+    
+
     /**
      * {@inheritDoc}
      */
