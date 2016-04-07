@@ -17,35 +17,96 @@ import javax.imageio.ImageIO;
  */
 public class FileHandlerUtil {
 
+    // CRUD operation for Admin Global image with File System.
+    /**
+     * 
+     * @param imageFileName
+     * @param imageFileType
+     * @param base64ImageString
+     * @return Stored File Name with extension i.e File name together with file type.
+     * @throws Throwable 
+     */
+    public static String saveAdminGlobalImage(String imageFileName, String imageFileType, String base64ImageString) throws Throwable {
+        String filePath = getAdminGlobalImageFilePath();
+        String fileNameWithExtension = imageFileName + "." + imageFileType;
+        saveImageWithOrignalName(fileNameWithExtension, base64ImageString, filePath);
+        return fileNameWithExtension;
+    }
+    /**
+     * 
+     * @param oldFileNameWithExtension
+     * @param imageFileName
+     * @param imageFileType
+     * @param base64ImageString
+     * @return Updated File Name with extension i.e File name together with file type. Otherwise null if no file supplied for update. 
+     * @throws Throwable 
+     */
+    public static String upadteAdminGlobalImage(String oldFileNameWithExtension, String imageFileName, String imageFileType, String base64ImageString) throws Throwable {
+        String fileNameWithExtension = null;
+        if( imageFileType != null && base64ImageString != null){
+            deleteAdminGlobalImage(oldFileNameWithExtension);
+            fileNameWithExtension = saveAdminGlobalImage(imageFileName,imageFileType,base64ImageString);
+        }
+        else{
+            // In case if user not uploaded any file but rename it.
+           if( imageFileType == null || base64ImageString == null ){
+               if(!getFileNameOnly(oldFileNameWithExtension).equals(imageFileName)){
+                   fileNameWithExtension = imageFileName + getFileType(oldFileNameWithExtension);
+                   if(!renameFile(oldFileNameWithExtension, fileNameWithExtension, getAdminGlobalImageFilePath())){
+                       throw new Throwable();
+                   }
+               }
+           }
+        }
+        return fileNameWithExtension;
+    }
+    
+     public static void deleteAdminGlobalImage(String imageFileNameWithextension) throws Throwable {
+       String filePath = getAdminGlobalImageFilePath();
+       deleteImage(imageFileNameWithextension, filePath);
+    }
+
+    //.....................................        End       ................................................................
+  
+    /**
+     *
+     * @param fileNameWithExtension
+     * @param base64ImageString
+     * @return
+     * @throws Throwable
+     */
     public static String saveAdminEmailTemplatesImage(String fileNameWithExtension, String base64ImageString) throws Throwable {
 
         String filePath = getAdminEmailTemplatesImageFilePath();
-        String fileName = saveImage(fileNameWithExtension, base64ImageString, filePath);
+        String fileName = saveImageWithGeneratedName(fileNameWithExtension, base64ImageString, filePath);
         return fileName;
     }
 
     public static String saveAdminEmailBlockModelImage(String fileNameWithExtension, String base64ImageString) throws Throwable {
 
         String filePath = getAdminEmailBlockModelImageFilePath();
-        String fileName = saveImage(fileNameWithExtension, base64ImageString, filePath);
+        String fileName = saveImageWithGeneratedName(fileNameWithExtension, base64ImageString, filePath);
         return fileName;
     }
 
-    public static String saveImage(String fileNameWithExtension, String base64ImageString, String filePath) throws Throwable {
-        String base64ImageData = extractOnlyBase64ImageData(base64ImageString);
-        BufferedImage imageData = DataConverterUtil.convertBase64ToBufferedImage(base64ImageData);
-        String fileName = getStorableFileNameWithExtension(fileNameWithExtension);
-        writeImageFile(imageData, fileName, filePath);
-
-        return fileName;
+    public static String saveImageWithGeneratedName(String fileNameWithExtension, String base64ImageString, String filePath) throws Throwable {
+        String targetFileNameWithExtension = getStorableFileNameWithExtension(fileNameWithExtension);
+        saveImageWithOrignalName(targetFileNameWithExtension, base64ImageString, filePath);
+        return targetFileNameWithExtension;
     }
     
+     public static void saveImageWithOrignalName(String fileNameWithExtension, String base64ImageString, String filePath) throws Throwable {
+        String base64ImageData = extractOnlyBase64ImageData(base64ImageString);
+        BufferedImage imageData = DataConverterUtil.convertBase64ToBufferedImage(base64ImageData);
+        writeImageFile(imageData, fileNameWithExtension, filePath);
+    }
+
     public static void deleteAdminEmailTemplatesImage(String fileNameWithExtension) throws Throwable {
         String filePath = getAdminEmailTemplatesImageFilePath();
         deleteImage(fileNameWithExtension, filePath);
     }
-    
-     public static void deleteAdminEmailBlockModelImage(String fileNameWithExtension) throws Throwable {
+
+    public static void deleteAdminEmailBlockModelImage(String fileNameWithExtension) throws Throwable {
         String filePath = getAdminEmailBlockModelImageFilePath();
         deleteImage(fileNameWithExtension, filePath);
     }
@@ -106,6 +167,12 @@ public class FileHandlerUtil {
 
     }
 
+    public static String getAdminGlobalImageFilePath() {
+
+        return getBaseUploadAdminImageFilePath() + File.separator + "globalimages";
+
+    }
+
     public static String getAdminEmailTemplatesImageFilePath() {
 
         return getBaseUploadAdminImageFilePath() + File.separator + "emailtemplates";
@@ -143,10 +210,31 @@ public class FileHandlerUtil {
 
         return fileType;
     }
+    
+      private static String getFileNameOnly(String fileNameWithExtension) {
+        String arr[] = fileNameWithExtension.split("\\.");
+        String fileName = "";
+        if (arr.length == 2) {
+            fileName = arr[0];
+        }
+
+        return fileName;
+    }
 
     private static String extractOnlyBase64ImageData(String base64ImageString) {
         String finaldata = base64ImageString.split(",")[1];
         return finaldata;
     }
-
+    
+    
+     private static boolean renameFile(String oldFileNameWithExtension, String newFileNameWithExtension, String filePath) throws Throwable{
+        boolean sucess = false;
+        File dir = new File(filePath);
+        File oldFile = new File(dir, oldFileNameWithExtension);
+        File newFile = new File(dir, newFileNameWithExtension);
+        sucess = oldFile.renameTo(newFile);
+        return sucess;
+    }
+    
+    
 }
