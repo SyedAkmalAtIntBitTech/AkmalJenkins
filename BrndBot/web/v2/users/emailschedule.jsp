@@ -72,11 +72,11 @@
                     <div class="h3 font--lightGray ">It looks like you are exiting a page that you have work that has not been saved. Are you sure you want to continue?</div>
                     <div class="bigSelectButton-wrap clear">
                         <div class="selectButton-wrap fleft pushRight_45">
-                            <object type="image/svg+xml" data="/Final-Icons/Schedule_PostNow_Inactive.svg" class="" style="cursor:pointer;"> </object>
+                            <object type="image/svg+xml" data="images/Schedule_PostNow_Inactive.svg" class="" style="cursor:pointer;"> </object>
                             <div class="selectButton-label">Post Now</div>
                         </div>
                         <a href="SocialSequence-ScheduleChoice.html"><div class="selectButton-wrap fleft">
-                            <object type="image/svg+xml" data="/Final-Icons/Schedule_Schedule_Inactive.svg" class="" style="cursor:pointer;"> </object>
+                            <object type="image/svg+xml" data="images/Schedule_Schedule_Inactive.svg" class="" style="cursor:pointer;"> </object>
                             <div class="selectButton-label">Schedule for Later</div>
                         </div></a>
                     </div>

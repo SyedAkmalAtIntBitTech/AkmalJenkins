@@ -8,7 +8,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
     Author     : Rasim Parvez at IntBit Technologies.
 */
 
-#emailSchedulePopUp,#addOrganizationPopupDiv{
+#emailSchedulePopUp,#addOrganizationPopupDiv,#emailPreviewPopUp{
     display:none;
     
 }

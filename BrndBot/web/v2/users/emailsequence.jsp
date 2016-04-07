@@ -12,9 +12,11 @@
         <title>emailsequence</title>
     </head>
     <body class="body-normal">
+       
          <%@include file="header.jsp" %>       
       <%@include file="navbar.jsp" %> 
       <jsp:include page="froalaeditor_styles.jsp"/>
+      <jsp:include page="emailpreviewpopup.jsp"/>
       
         <div class="contentWrap--withNoSideNav noScroll">
         <div class="topNav clear menuWidth">
@@ -32,7 +34,7 @@
                     <a href="/Marketing_Hubs/Email_Hub/MarketingHubs-EmailHub-Drafts.html"><div class="CTA_Button Button--Gray">Save as a Draft</div></a>
                 </div>
                 <div class="topNav--TitleBar--CTABox fright pushRight_30">
-                    <a href="emailpreviewpopup.jsp"><div class="CTA_Button Button--Gray">Preview Email</div></a>
+                    <div id="previewEmailsPopUp" class="CTA_Button Button--Gray">Preview Email</div>
                 </div>
             </div>
            
