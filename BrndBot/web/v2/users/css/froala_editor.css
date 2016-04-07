@@ -971,3 +971,20 @@ iframe.fr-iframe {
 .fr-sticky-on + .fr-sticky-dummy {
   display: block;
 }
+.fr-element-custom {
+    max-height: 300px !important;
+    height: 300px !important;
+}
+.fr-element, .fa-code {
+    background-color: #eee !important;
+}
+.frolaeditor{
+    width: calc(100vw - 376px) !important;
+    padding-left: 93px !important;
+    
+}
+.fr-wrapperv2{
+    background-color: #EEEEEE !important;
+    height: calc(63vw - 392px) !important;
+    
+}

@@ -8,6 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="shortcut icon" href="images/favicon.png">
+        <title>Dashboard</title>
 </head>    
 
 <body class="body-normal">
@@ -31,7 +32,7 @@
                     <div class="dashboard-MainCTA-col fleft">
                         <div class="dashboard-MainCTA "> 
                             <div class="dash-icon">
-                                 <object type="image/svg+xml" data="/Final-Icons/dash-icon-01.svg" class="dash-svg" style="cursor:pointer;"></object>
+                                 <object type="image/svg+xml" data="images/dashIcons-01.svg" class="dash-svg" style="cursor:pointer;"></object>
                                 </div>
                             <div class="dashboard-mainCTA-subtext">Content to be provided here</div>
                             <div class=" dashboard-mainCTA-button "><div class="Button--Blue Dash_Button">Create a Social Post</div></div>
@@ -41,7 +42,7 @@
                     <div class="dashboard-MainCTA-col fleft">
                         <div class="dashboard-MainCTA "> 
                             <div class="dash-icon">
-                                 <object type="image/svg+xml" data="/Final-Icons/dash-icon-02.svg" class="dash-svg" style="cursor:pointer;"></object>
+                                 <object type="image/svg+xml" data="images/dashIcons-02.svg" class="dash-svg" style="cursor:pointer;"></object>
                                 </div>
                             <div class="dashboard-mainCTA-subtext">Content to be provided here</div>
                             <div class=" dashboard-mainCTA-button "><a href="emailcategory.jsp"><div class="Button--Blue Dash_Button">Create an Email</div></a></div>
@@ -51,7 +52,7 @@
                     <div class="dashboard-MainCTA-col fleft">
                         <div class="dashboard-MainCTA "> 
                             <div class="dash-icon">
-                                 <object type="image/svg+xml" data="/Final-Icons/dash-icon-03.svg" class="dash-svg" style="cursor:pointer;"></object>
+                                 <object type="image/svg+xml" data="images/dashIcons-01.svg" class="dash-svg" style="cursor:pointer;"></object>
                                 </div>
                             <div class="dashboard-mainCTA-subtext">Content to be provided here</div>
                             <div class=" dashboard-mainCTA-button "><div class="Button--Blue Dash_Button">Create a Campaign</div></div>

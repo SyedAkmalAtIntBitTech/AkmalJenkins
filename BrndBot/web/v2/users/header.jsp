@@ -23,6 +23,8 @@
 <link rel="stylesheet" type="text/css" href="css/onboarding.css">
 <link rel="stylesheet" type="text/css" href="css/login-onboarding.css"></link>
 <link rel="stylesheet" type="text/css" href="css/admin.css"></link>
+<link rel="stylesheet" type="text/css" href="css/base.css"></link>
+<script src="js/base.js" type="text/javascript"></script> 
 <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script src="js/alertmessage.js" type="text/javascript"></script>

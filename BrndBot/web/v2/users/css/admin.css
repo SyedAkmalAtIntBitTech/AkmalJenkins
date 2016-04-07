@@ -553,4 +553,20 @@ color:#2D4355 ;
     width: 150px;
     margin: auto;
 }
+.menuWidth{
+    margin-left: 70px !important;
+    
+}
 
+.topNavigation{
+width: calc(100% - 129px);
+}
+  .popUp_backgroundlayer{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(62,69,81,.64);
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 1000;
+  }

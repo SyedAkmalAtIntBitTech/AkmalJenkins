@@ -14,12 +14,18 @@
     <body class="body-normal">
          <%@include file="header.jsp" %>       
       <%@include file="navbar.jsp" %>    
+      <%@include file="emailschedule.jsp" %>    
+    
         <div class="contentWrap--withNoSideNav">
-        <div class="topNav clear">
+             <a class="exit-button-icon" href="sendemail.jsp">
+        <div class="topNav clear menuWidth">
+             
             <div class="topNav--BackButton fleft">
-                <object type="image/svg+xml" data="/Final-Icons/BackButton.svg" class="backButton-svg" style="cursor:pointer;"> </object>
+              
+               <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
+                </a>
             </div>
-            <div class="topNav--TitleBar--withBackButton fleft">
+            <div class="topNav--TitleBar--withBackButton fleft topNavigation">
                 <span class="topNav--TitleBar--Title fleft h2">Create an Email</span>
                 <div class="topNav--TitleBar--CTABox fright">
                     <div class="CTA_Button Button--Gray">Help!</div>
@@ -65,9 +71,9 @@
     </div>
     
     <div class="bottomNav">
-        <a href="emailschedule.jsp">
-            <div class="bottom-ContinueButton fright">CONTINUE</div>
-        </a>
+        
+            <div id="emailschedule" class="bottom-ContinueButton fright">CONTINUE</div>
+      
     </div>
     </body>
 </html>
