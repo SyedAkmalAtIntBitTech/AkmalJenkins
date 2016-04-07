@@ -78,4 +78,13 @@ public interface CompanyService {
      * @throws ProcessFailed the process failed
      */
     public List<Organization> getNonAddedGroups(Integer[] organizationIds) throws ProcessFailed;
+    
+    /**
+     * This method saves {@link Company} to DAO layer.
+     *
+     * @param company
+     * @return {@link Integer}
+     * @throws ProcessFailed the process failed
+     */
+    public Integer saveCompany(Company company) throws ProcessFailed;
 }

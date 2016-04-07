@@ -10,12 +10,14 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.OrganizationCompanyLookup;
 import java.util.List;
+import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -28,10 +30,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CompanyDaoImpl implements CompanyDao{
     
-      private static Logger logger = Logger.getLogger(CompanyDaoImpl.class);
+    private static Logger logger = Logger.getLogger(CompanyDaoImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;
+    
+    @Autowired
+    private MessageSource messageSource;
 
     /**
      * {@inheritDoc}
@@ -49,6 +54,18 @@ public class CompanyDaoImpl implements CompanyDao{
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed("Database error while retrieving record");
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Integer save(Company company) throws ProcessFailed {
+        try {
+            return (Integer) sessionFactory.getCurrentSession().save(company);
+        } catch(Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
         }
     }
     

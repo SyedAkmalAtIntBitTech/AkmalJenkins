@@ -105,7 +105,10 @@ public class CompanyServiceImpl implements CompanyService{
             throw new ProcessFailed(messageSource.getMessage("group_delete_error",new String[]{}, Locale.US));
         organizationCompanyDao.delete(organizationCompanyLookup);
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Organization> getNonAddedGroups(Integer[] organizationIds) throws ProcessFailed {
         List<Organization> organizationList = organizationCompanyDao.getNonAddedGroups(organizationIds);
@@ -115,6 +118,15 @@ public class CompanyServiceImpl implements CompanyService{
         }
               return organizationList;
         
+        
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer saveCompany(Company company) throws ProcessFailed {
+        return companyDao.save(company);
         
     }
     
