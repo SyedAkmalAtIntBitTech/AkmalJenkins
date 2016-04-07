@@ -88,7 +88,7 @@ app.directive("ngFileSelect",function(){
 });
   
 
-var globalImageController = function ($scope, fileReader) {
+var globalImageController = function ($scope, fileReader, $http) {
      console.log(fileReader);
     $scope.getFile = function () {
         $scope.progress = 0;
@@ -97,4 +97,77 @@ var globalImageController = function ($scope, fileReader) {
                           $scope.imageSrc = result;
                       });
     };
+    
+    $scope.saveGlobalImage = function () {
+        
+                    var imageName = $("#imageName").val();
+                    
+                    var imageData = $("#imageData").val();
+                    
+                     var imgDataObj = getImageData();
+                    var globalImage = {"imageName": imageName,"imageType":imgDataObj.imagesType,"imageData": imgDataObj.base64ImgString};
+                    alert(JSON.stringify(globalImage));
+                   if(imageName===""){
+
+                       alert("Please enter the image Name");
+                       $("#imageName").focus();
+                   }else{
+                    $.ajax({
+                            method: 'POST',
+                            url: getHost() + '/saveGlobalImage.do',
+                            dataType: "json",
+                            contentType: "application/json",
+                            data: JSON.stringify(globalImage)
+                        }).success(function (data, status, headers, config)
+                        {  
+                            alert(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
+                           // window.open(getHost() + 'adminv2/organization.jsp', "_self");
+                        }).error(function(data, status, headers, config){
+                            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                        });                         
+                    }
+    };
+    
+    
+    var base64ImgString = "";
+    var imageFileName = "";
+    var imagesType="";
+
+
+
 };
+function imageConverter(id) {
+    var obj =  document.getElementById(id);
+   
+    obj.addEventListener("change", readFile, false);
+}
+
+function readFile() {
+    if (this.files.length === 1) {
+        var reader = new FileReader();
+        var file = this.files[0];
+        var imageFileName = file.name;
+      
+        reader.addEventListener("load", function () {
+            var data = reader.result;
+             
+          var base64ImgString1=  base64ImgString = data;
+          var imageType = imageFileName.split(".").pop().toLowerCase();
+         var  imagesTypess =imagesType=data;
+                    alert(imagesTypess);
+         // alert(JSON.stringify(base64ImgString1));
+          
+        }, false);
+        reader.readAsDataURL(file);
+    }
+
+}
+
+function getImageData(){
+ 
+    return {
+        "imageFileName" : imageFileName,
+        "base64ImgString" : base64ImgString,
+        "imagesType" : imagesType
+    };
+}
