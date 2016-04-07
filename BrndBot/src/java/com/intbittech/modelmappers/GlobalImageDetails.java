@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author Haider Khan @ Intbit
  */
-public class GlobalImageDetail implements Serializable{
+public class GlobalImageDetails implements Serializable{
     
     private Integer globalImageId;
     private String imageName;

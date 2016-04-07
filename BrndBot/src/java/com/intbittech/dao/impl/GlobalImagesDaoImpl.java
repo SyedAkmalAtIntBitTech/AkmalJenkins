@@ -55,6 +55,26 @@ public class GlobalImagesDaoImpl implements GlobalImagesDao {
         }
     }
 
+    @Override
+    public Boolean checkForUniqueness(String globalImageName) throws ProcessFailed {
+          try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(GlobalImages.class)
+                    .add(Restrictions.eq("globalImageName", globalImageName));
+            List<GlobalImages> globalImagesList = criteria.list();
+            if (globalImagesList.isEmpty()) {
+                return true;
+            }
+            return false;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message", new String[]{}, Locale.US));
+        }
+    }
+    
+    
+
     /**
      * {@inheritDoc}
      */
