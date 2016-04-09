@@ -122,7 +122,9 @@ Light Gray Outlines: #D2D3D5
 .p{ 
     font-size: 12px
 }
-
+.pointer{
+    cursor: pointer;
+}
 .font--lightGray{
     color: #666666}
 
