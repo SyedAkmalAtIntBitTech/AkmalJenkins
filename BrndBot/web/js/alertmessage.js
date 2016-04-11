@@ -176,6 +176,7 @@ var deleteTemplateRelationPrompt="Do you want to delete this Email template rela
 var marketingTemplateRelationPrompt="Do you want to delete this marketing template relation to Marketing Programs?";
 var programActionDeleted="Program Action deleted successfully.";
 var deleteCompanyGroup="Do you want to delete this group?";
+var deleteGlobalImage="Do you want to delete this Global Image?";
 
 var emailChannel = "email";
 var printChannel = "print";
