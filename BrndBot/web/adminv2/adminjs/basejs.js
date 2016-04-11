@@ -99,10 +99,7 @@ $("#addCompanyGroup").click(function () {
     $("#addOrganizationPopupDiv").show();
 });
 
-$("#editImagePopUp").click(function () {
-    $("#editImage").show();
-    $("#addOrganizationPopupDiv").show();
-});
+
 
 $("#addMarketingProgramsPopupDiv").click(function () {
     $("#addMarketingProgramsPopup").hide();

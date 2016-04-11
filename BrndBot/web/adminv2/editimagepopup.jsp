@@ -18,11 +18,11 @@
         <div class="popUp" ng-controller="globalImageController">
              <div class="content-area_header">
                 <div class="popUp_title fleft"> Image Detail</div>
-                <div id="deleteGlobalColor" class="CTA_Button Button--Delete fright" ng-click="deleteImage()">Delete Image</div>
+                <div id="deleteGlobalColor" class="CTA_Button Button--Delete fright" ng-click="delete()">Delete Image</div>
             </div>
               <div class="inputSection col1of2 pushUp_20">
                 <div class="input_Label">Edit this Image</div>
-                <input id="imageName" class="input_Field"/> 
+                <input id="EditImageName" class="input_Field" value="{{getGlobalImages.imageName}}"/> 
                  <div >
                 <img class="imagePreview" ng-src="{{imageSrc}}"  />
                </div>

@@ -97,7 +97,23 @@ var globalImageController = function ($scope, fileReader, $http) {
                           $scope.imageSrc = result;
                       });
     };
+   
+   $scope.editImagePopUp = function (getAllGlobalImage) {
+    $("#editImage").show();
+    $("#addOrganizationPopupDiv").show();
+  
+               $http({
+                    method : 'GET',
+                    url : getHost()+ '/getGlobalImageById.do?globalImageId='+getAllGlobalImage,
+                }).success(function(data, status, headers, config) {      
+                $scope.getGlobalImages= data.d.details;
+                alert(JSON.stringify(data.d.details));
+                }).error(function(data, status, headers, config) {
+               alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
     
+};
+   
     $scope.saveGlobalImage = function () {
         
         var imageName = $("#imageName").val();
@@ -144,14 +160,17 @@ var globalImageController = function ($scope, fileReader, $http) {
             }
         }
     
-    $scope.getImageById= function (){
-           var globalImageId=$("#globalImageId").val();
-  
+    $scope.getImageById= function (getAllGlobalImage){
+        
+           
+    }
+    
+    $scope.getGlobalImage= function (){
                $http({
                     method : 'GET',
-                    url : getHost()+ '/getAllEmailBlocksByOrganizationId.do?globalImageId='+globalImageId,
+                    url : getHost()+ '/getAllGlobalImages.do'
                 }).success(function(data, status, headers, config) {                  
-                $scope.emailBlocks= data.d.details;
+                $scope.getAllGlobalImages= data.d.details;
                 }).error(function(data, status, headers, config) {
                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
