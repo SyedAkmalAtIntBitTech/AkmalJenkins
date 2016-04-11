@@ -100,40 +100,65 @@ var globalImageController = function ($scope, fileReader, $http) {
     
     $scope.saveGlobalImage = function () {
         
-                    var imageName = $("#imageName").val();
-                    
-                    var imageData = $("#imageData").val();
-                    
-                     var imgDataObj = getImageData();
-                    var globalImage = {"imageName": imageName,"imageType":imgDataObj.imagesType,"imageData": imgDataObj.base64ImgString};
-                    alert(JSON.stringify(globalImage));
-                   if(imageName===""){
-
-                       alert("Please enter the image Name");
-                       $("#imageName").focus();
-                   }else{
-                    $.ajax({
-                            method: 'POST',
-                            url: getHost() + '/saveGlobalImage.do',
-                            dataType: "json",
-                            contentType: "application/json",
-                            data: JSON.stringify(globalImage)
-                        }).success(function (data, status, headers, config)
-                        {  
-                            alert(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
-                           // window.open(getHost() + 'adminv2/organization.jsp', "_self");
-                        }).error(function(data, status, headers, config){
-                            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                        });                         
-                    }
+        var imageName = $("#imageName").val();
+        var imageData = $("#imageData").val();
+        var imageFIleNameData = $("#imageFileName").val();
+        var imageTypeData = imageFIleNameData.split(".").pop().toLowerCase();
+        var imgDataObj = getImageData();
+        var globalImage = {"imageName": imageName, "imageType": imageTypeData, "imageData": imgDataObj.base64ImgString};
+        if (imageName === "") {
+            alert("Please enter the image Name");
+            $("#imageName").focus();
+        } else {
+            $.ajax({
+                method: 'POST',
+                url: getHost() + '/saveGlobalImage.do',
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(globalImage)
+            }).success(function (data, status, headers, config)
+            {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
+                window.open(getHost() + 'adminv2/globalimage.jsp', "_self");
+            }).error(function (data, status, headers, config) {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            });
+        }
     };
     
     
+     $scope.deleteImage=function (){
+            var deleteImageData=confirm(deleteGlobalImage);
+            if(deleteImageData===true)
+            {
+               $http({
+                    method : 'GET',
+                    url : getHost()+'/deleteGlobalImage.do?globalImageId='+2
+                }).success(function(data, status, headers, config) {
+                    
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                   
+                }).error(function(data, status, headers, config) {
+                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });     
+            }
+        }
+    
+    $scope.getImageById= function (){
+           var globalImageId=$("#globalImageId").val();
+  
+               $http({
+                    method : 'GET',
+                    url : getHost()+ '/getAllEmailBlocksByOrganizationId.do?globalImageId='+globalImageId,
+                }).success(function(data, status, headers, config) {                  
+                $scope.emailBlocks= data.d.details;
+                }).error(function(data, status, headers, config) {
+               alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });  
+    }
+    
     var base64ImgString = "";
     var imageFileName = "";
-    var imagesType="";
-
-
 
 };
 function imageConverter(id) {
@@ -146,16 +171,10 @@ function readFile() {
     if (this.files.length === 1) {
         var reader = new FileReader();
         var file = this.files[0];
-        var imageFileName = file.name;
-      
+        var imageFileName = file.name;     
         reader.addEventListener("load", function () {
             var data = reader.result;
-             
           var base64ImgString1=  base64ImgString = data;
-          var imageType = imageFileName.split(".").pop().toLowerCase();
-         var  imagesTypess =imagesType=data;
-                    alert(imagesTypess);
-         // alert(JSON.stringify(base64ImgString1));
           
         }, false);
         reader.readAsDataURL(file);
@@ -168,6 +187,6 @@ function getImageData(){
     return {
         "imageFileName" : imageFileName,
         "base64ImgString" : base64ImgString,
-        "imagesType" : imagesType
+       
     };
 }

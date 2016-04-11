@@ -15,6 +15,7 @@
     <body class="body-normal">
         <jsp:include page="adminheader.jsp"/>
         <jsp:include page="popupimage.jsp"/>
+        <jsp:include page="editimagepopup.jsp"/>
          <div class="content-area">
         <div class="content-area_header">
             <div class="header_path fleft"> Global Images</div>
@@ -39,7 +40,7 @@
                 </div>
                     <div class="listCol col1of4 fleft">
                         <a>
-                            <div class="CTA_Button Button--Gray fright">View / Edit</div>
+                            <div id="editImagePopUp" class="CTA_Button Button--Gray fright">View / Edit</div>
                         </a>
                     </div>
                 </li>

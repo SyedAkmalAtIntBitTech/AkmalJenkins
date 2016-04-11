@@ -26,6 +26,7 @@ $(document).ready(function () {
         $("#addMarketingTemplatePopUp").hide();
         $("#addGroup").hide();
         $("#globalImageId").hide();
+        $("#editImage").hide();
         
     
     });
@@ -95,6 +96,11 @@ $("#addEmailTemplate").click(function () {
 
 $("#addCompanyGroup").click(function () {
     $("#addGroup").show();
+    $("#addOrganizationPopupDiv").show();
+});
+
+$("#editImagePopUp").click(function () {
+    $("#editImage").show();
     $("#addOrganizationPopupDiv").show();
 });
 
