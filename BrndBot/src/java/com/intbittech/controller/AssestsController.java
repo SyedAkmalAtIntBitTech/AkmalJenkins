@@ -82,6 +82,27 @@ public class AssestsController {
 
     }
 
+    @RequestMapping(value = "getGlobalImageById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getGlobalImageById(@RequestParam("globalImageId") Integer globalImageId) {
+        GenericResponse<GlobalImageDetails> genericResponse = new GenericResponse<>();
+        try {
+            GlobalImages globalImages = globalImagesService.getGlobalImagesById(globalImageId);
+            List<GlobalImageDetails> globalImagesDetailsList = new ArrayList<>();
+            GlobalImageDetails globalImageDetails = new GlobalImageDetails();
+            globalImageDetails.setCreatedDate(globalImages.getCreateDate());
+            globalImageDetails.setGlobalImageId(globalImages.getGlobalImagesId());
+            globalImageDetails.setImageName(globalImages.getImageName());
+            globalImagesDetailsList.add(globalImageDetails);
+            genericResponse.setDetails(globalImagesDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_get_id", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+
     @RequestMapping(value = "getFontById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getFontById(@RequestParam("globalFontsId") Integer globalFontsId) {
         GenericResponse<GlobalFontsDetails> genericResponse = new GenericResponse<>();
@@ -104,8 +125,6 @@ public class AssestsController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
 
     }
-    
-
 
     @RequestMapping(value = "getAllColorThemes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllColorThemes() {
@@ -125,6 +144,30 @@ public class AssestsController {
             }
             genericResponse.setDetails(globalColorsDetailsList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalColors_get_all", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+
+    @RequestMapping(value = "getAllGlobalImages", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getGlobalImages() {
+        GenericResponse<GlobalImageDetails> genericResponse = new GenericResponse<>();
+        try {
+            List<GlobalImages> globalImagesList = globalImagesService.getAllGlobalImages();
+            List<GlobalImageDetails> globalImagesDetailsList = new ArrayList<>();
+            GlobalImageDetails globalImageDetails = null;
+            for (GlobalImages globalImagesObject : globalImagesList) {
+                globalImageDetails = new GlobalImageDetails();
+                globalImageDetails.setCreatedDate(globalImagesObject.getCreateDate());
+                globalImageDetails.setGlobalImageId(globalImagesObject.getGlobalImagesId());
+                globalImageDetails.setImageName(globalImagesObject.getImageName());
+                globalImagesDetailsList.add(globalImageDetails);
+            }
+            genericResponse.setDetails(globalImagesDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_get_all", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -331,14 +374,19 @@ public class AssestsController {
 
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
-    
+
     @RequestMapping(value = "checkGlobalImageUniqueness", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> deleteGLobalImage(@RequestParam("globalImageName") String globalImageName) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            globalImagesService.checkForUniqueness(globalImageName);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_delete", new String[]{}, Locale.US)));
+            boolean unique = globalImagesService.checkForUniqueness(globalImageName);
+            if(unique){
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_name_avialable", null, Locale.US)));
+            }
+            else{
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_name_not_avialable", null, Locale.US)));
+            }
+            
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
