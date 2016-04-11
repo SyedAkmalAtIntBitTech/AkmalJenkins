@@ -98,16 +98,18 @@ var globalImageController = function ($scope, fileReader, $http) {
                       });
     };
    
-   $scope.editImagePopUp = function (getAllGlobalImage) {
+   $scope.editImagePopUp = function (globalImageId) {
     $("#editImage").show();
     $("#addOrganizationPopupDiv").show();
   
                $http({
                     method : 'GET',
-                    url : getHost()+ '/getGlobalImageById.do?globalImageId='+getAllGlobalImage,
-                }).success(function(data, status, headers, config) {      
-                $scope.getGlobalImages= data.d.details;
-                alert(JSON.stringify(data.d.details));
+                    url : getHost()+ '/getGlobalImageById.do?globalImageId='+globalImageId,
+                }).success(function(data, status, headers, config) {     
+                 $scope.getGlobalImageDetails= data.d.details[0];
+                 $("#editImageName").val(data.d.details[0].imageName);
+                  $scope.getDeleteId= data.d.details[0].globalImageId;
+                   $("#getDeleteId").val(data.d.details[0].globalImageId);
                 }).error(function(data, status, headers, config) {
                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
@@ -143,28 +145,50 @@ var globalImageController = function ($scope, fileReader, $http) {
     };
     
     
+     $scope.updateGlobalImage = function () {
+        var globalImageId=  $("#getDeleteId").val();
+        var imageName = $("#editImageName").val();
+        var imageFileData = $("#editImageFileName").val();
+        var imageTypeData = imageFileData.split(".").pop().toLowerCase();
+        var imgDataObj = getImageData();
+        var globalImageUpdate = {"globalImageId":globalImageId,"imageName": imageName, "imageType": imageTypeData, "imageData": imgDataObj.base64ImgString};
+         alert(JSON.stringify(globalImageUpdate));   
+         $.ajax({
+                method: 'POST',
+                url: getHost() + '/updateGlobalImage.do',
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(globalImageUpdate)
+            }).success(function (data, status, headers, config)
+            {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
+                window.open(getHost() + 'adminv2/globalimage.jsp', "_self");
+            }).error(function (data, status, headers, config) {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            });
+       
+    };
+    
+    
      $scope.deleteImage=function (){
+         var deleteGLobalImageId=  $("#getDeleteId").val();
             var deleteImageData=confirm(deleteGlobalImage);
             if(deleteImageData===true)
             {
                $http({
                     method : 'GET',
-                    url : getHost()+'/deleteGlobalImage.do?globalImageId='+2
+                    url : getHost()+'/deleteGlobalImage.do?globalImageId='+deleteGLobalImageId
                 }).success(function(data, status, headers, config) {
                     
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                   
+                    window.open(getHost() + 'adminv2/globalimage.jsp', "_self");
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });     
             }
         }
     
-    $scope.getImageById= function (getAllGlobalImage){
-        
-           
-    }
-    
+   
     $scope.getGlobalImage= function (){
                $http({
                     method : 'GET',
@@ -182,7 +206,6 @@ var globalImageController = function ($scope, fileReader, $http) {
 };
 function imageConverter(id) {
     var obj =  document.getElementById(id);
-   
     obj.addEventListener("change", readFile, false);
 }
 
@@ -193,7 +216,7 @@ function readFile() {
         var imageFileName = file.name;     
         reader.addEventListener("load", function () {
             var data = reader.result;
-          var base64ImgString1=  base64ImgString = data;
+          base64ImgString = data;
           
         }, false);
         reader.readAsDataURL(file);
