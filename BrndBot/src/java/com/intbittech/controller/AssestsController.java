@@ -92,6 +92,7 @@ public class AssestsController {
             globalImageDetails.setCreatedDate(globalImages.getCreateDate());
             globalImageDetails.setGlobalImageId(globalImages.getGlobalImagesId());
             globalImageDetails.setImageName(globalImages.getImageName());
+            globalImageDetails.setImageData(FileHandlerUtil.getAdminGlobalImageBase64(globalImages.getImageName()));
             globalImagesDetailsList.add(globalImageDetails);
             genericResponse.setDetails(globalImagesDetailsList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_get_id", new String[]{}, Locale.US)));

@@ -235,6 +235,17 @@ public class FileHandlerUtil {
         sucess = oldFile.renameTo(newFile);
         return sucess;
     }
+     
+    public static String getAdminGlobalImageBase64(String imageFileNameWithExtension) throws Throwable{
+        String filePath = getAdminGlobalImageFilePath();
+        return getBase64ImageData(imageFileNameWithExtension,filePath);
+    } 
+     
+     private static String getBase64ImageData(String fileNameWithExtension, String filePath) throws Throwable{
+        File dir = new File(filePath);
+        File imageFile = new File(dir, fileNameWithExtension);
+        return DataConverterUtil.convertImageToBase64(imageFile);
+    } 
     
     
 }
