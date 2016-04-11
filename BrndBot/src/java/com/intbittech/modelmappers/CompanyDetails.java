@@ -18,6 +18,7 @@ public class CompanyDetails implements Serializable {
     private String companyName;
     private Integer organizationId;
     private String organizationName;
+    private Integer userId;
 
     public Integer getCompanyId() {
         return companyId;
@@ -50,7 +51,13 @@ public class CompanyDetails implements Serializable {
     public void setOrganizationName(String organizationName) {
         this.organizationName = organizationName;
     }
-    
-    
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
     
 }

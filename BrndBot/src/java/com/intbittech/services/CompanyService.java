@@ -9,6 +9,7 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
+import com.intbittech.modelmappers.CompanyDetails;
 import java.util.List;
 
 /**
@@ -82,9 +83,8 @@ public interface CompanyService {
     /**
      * This method saves {@link Company} to DAO layer.
      *
-     * @param company
-     * @return {@link Integer}
+     * @param companyDetails
      * @throws ProcessFailed the process failed
      */
-    public Integer saveCompany(Company company) throws ProcessFailed;
+    public void saveCompany(CompanyDetails companyDetails) throws ProcessFailed;
 }

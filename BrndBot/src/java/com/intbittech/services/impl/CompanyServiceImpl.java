@@ -7,14 +7,19 @@ package com.intbittech.services.impl;
 
 import com.intbittech.dao.CompanyDao;
 import com.intbittech.dao.OrganizationCompanyDao;
+import com.intbittech.dao.UsersDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.MarketingCategoryProgram;
 import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
+import com.intbittech.model.Users;
+import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.services.CompanyService;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -35,8 +40,11 @@ public class CompanyServiceImpl implements CompanyService{
     private OrganizationCompanyDao organizationCompanyDao;
     
     @Autowired
+    private UsersDao usersDao;
+    
+    @Autowired
     private MessageSource messageSource;
-
+    
     /**
      * {@inheritDoc}
      */
@@ -125,9 +133,37 @@ public class CompanyServiceImpl implements CompanyService{
      * {@inheritDoc}
      */
     @Override
-    public Integer saveCompany(Company company) throws ProcessFailed {
-        return companyDao.save(company);
-        
+    public void saveCompany(CompanyDetails companyDetails) throws ProcessFailed {
+        try {
+            //Save company
+            Company company = new Company();
+            company.setCompanyName(companyDetails.getCompanyName());
+            company.setCreatedDate(new Date());
+            company.setInviteCode(RandomStringUtils.random(10));
+            Integer companyId = companyDao.save(company);
+
+            //Update user table with companyId
+            Company companyObject = new Company();
+            companyObject.setCompanyId(companyId);
+
+            Users user = new Users();
+            user.setUserId(companyDetails.getUserId());
+            user.setFkCompanyId(companyObject);
+            usersDao.update(user);
+
+            //Relate company and organization
+            OrganizationCompanyLookup organizationCompanyLookup = new OrganizationCompanyLookup();
+
+            Organization organization = new Organization();
+            organization.setOrganizationId(companyDetails.getOrganizationId());
+
+            organizationCompanyLookup.setFkOrganizationId(organization);
+            organizationCompanyLookup.setFkCompanyId(companyObject);
+
+            organizationCompanyDao.save(organizationCompanyLookup);
+        } catch(Throwable throwable) {
+            throw new ProcessFailed(messageSource.getMessage("company_save_error", new String[]{}, Locale.US));
+        }        
     }
     
 }

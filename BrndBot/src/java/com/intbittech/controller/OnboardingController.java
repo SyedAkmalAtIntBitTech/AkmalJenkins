@@ -5,7 +5,9 @@
  */
 package com.intbittech.controller;
 
+import com.intbittech.model.Company;
 import com.intbittech.model.Users;
+import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.TransactionResponse;
@@ -14,6 +16,7 @@ import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import java.util.Date;
 import java.util.Locale;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -71,6 +74,20 @@ public class OnboardingController {
             Integer returnMessage = usersService.save(user);
             transactionResponse.setMessage(returnMessage.toString());
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("user_save",new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "saveCompany",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveCompany(@RequestBody CompanyDetails companyDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+           companyService.saveCompany(companyDetails);
+           transactionResponse.setMessage(messageSource.getMessage("company_save", new String[]{}, Locale.US));
+           transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("user_save",new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
