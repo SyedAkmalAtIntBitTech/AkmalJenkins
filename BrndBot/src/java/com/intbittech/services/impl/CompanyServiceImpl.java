@@ -140,15 +140,19 @@ public class CompanyServiceImpl implements CompanyService{
             Company company = new Company();
             company.setCompanyName(companyDetails.getCompanyName());
             company.setCreatedDate(new Date());
-            company.setInviteCode(RandomStringUtils.random(10));
+            company.setInviteCode(RandomStringUtils.randomAlphanumeric(10));
             Integer companyId = companyDao.save(company);
 
             //Update user table with companyId
             Company companyObject = new Company();
             companyObject.setCompanyId(companyId);
 
-            Users user = new Users();
-            user.setUserId(companyDetails.getUserId());
+            
+            Users user = usersDao.getUserById(companyDetails.getUserId());
+            if(user == null)
+            {
+                 throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
+            }
             user.setFkCompanyId(companyObject);
             usersDao.update(user);
 

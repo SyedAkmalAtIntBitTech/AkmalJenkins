@@ -9,7 +9,9 @@ import com.intbittech.dao.UsersDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Users;
 import com.intbittech.services.UsersService;
+import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +22,9 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     private UsersDao usersDao;
 
+    @Autowired
+    private MessageSource messageSource;
+    
     /**
      * {@inheritDoc}
      */
@@ -43,5 +48,20 @@ public class UsersServiceImpl implements UsersService {
     public void update(Users user) throws ProcessFailed {
         usersDao.update(user);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Users getUserById(Integer userId) throws ProcessFailed {
+        Users user = usersDao.getUserById(userId);
+        if(user == null)
+        {
+             throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
+        }
+        return user;
+    }
+    
+    
     
 }

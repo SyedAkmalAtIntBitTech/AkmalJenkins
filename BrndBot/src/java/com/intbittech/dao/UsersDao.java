@@ -42,4 +42,13 @@ public interface UsersDao {
      */
     public void update(Users user) throws ProcessFailed;
     
+    /**
+     * This method pass user as input and get the {@link Users} from database
+     *
+     * @param userId
+     * @return {@link Users}
+     * @throws ProcessFailed the process failed
+     */
+    public Users getUserById(Integer userId) throws ProcessFailed;
+    
 }
