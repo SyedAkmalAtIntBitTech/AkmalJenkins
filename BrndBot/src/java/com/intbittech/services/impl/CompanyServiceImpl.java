@@ -133,7 +133,7 @@ public class CompanyServiceImpl implements CompanyService{
      * {@inheritDoc}
      */
     @Override
-    public void saveCompany(CompanyDetails companyDetails) throws ProcessFailed {
+    public Integer saveCompany(CompanyDetails companyDetails) throws ProcessFailed {
         try {
             //Save company
             Company company = new Company();
@@ -161,6 +161,8 @@ public class CompanyServiceImpl implements CompanyService{
             organizationCompanyLookup.setFkCompanyId(companyObject);
 
             organizationCompanyDao.save(organizationCompanyLookup);
+            
+            return companyId;
         } catch(Throwable throwable) {
             throw new ProcessFailed(messageSource.getMessage("company_save_error", new String[]{}, Locale.US));
         }        

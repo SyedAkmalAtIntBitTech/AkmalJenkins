@@ -94,8 +94,8 @@ public class OnboardingController {
     public ResponseEntity<ContainerResponse> saveCompany(@RequestBody CompanyDetails companyDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-           companyService.saveCompany(companyDetails);
-           transactionResponse.setMessage(messageSource.getMessage("company_save", new String[]{}, Locale.US));
+           Integer companyId = companyService.saveCompany(companyDetails);
+           transactionResponse.setMessage(companyId.toString());
            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("user_save",new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -132,12 +132,12 @@ public class OnboardingController {
     }
     
     @RequestMapping(value = "getActivationLink",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getActivationLink(@RequestParam("studioid") String studioidRequest) {
+    public ResponseEntity<ContainerResponse> getActivationLink(@RequestParam("studioId") String studioIdRequest) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
             MindBodyClass mind_body_class = null;
             
-            String studioId = studioidRequest;
+            String studioId = studioIdRequest;
                     int[] siteIds = new int[]{Integer.parseInt(studioId)};
                     mind_body_class = new MindBodyClass(siteIds);
 

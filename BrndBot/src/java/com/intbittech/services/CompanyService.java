@@ -86,5 +86,5 @@ public interface CompanyService {
      * @param companyDetails
      * @throws ProcessFailed the process failed
      */
-    public void saveCompany(CompanyDetails companyDetails) throws ProcessFailed;
+    public Integer saveCompany(CompanyDetails companyDetails) throws ProcessFailed;
 }
