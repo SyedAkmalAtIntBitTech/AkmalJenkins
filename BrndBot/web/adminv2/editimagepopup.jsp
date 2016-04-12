@@ -16,18 +16,18 @@
         <div class="popUp_background" id="editImage">
             
         <div class="popUp" ng-controller="globalImageController">
-            <div class="content-area_header" ng-init="getDeleteId()">
+            <div class="content-area_header">
                 <div id ="getDeleteId">{{getDeleteId}}</div>
                  
                 <div class="popUp_title fleft"> Image Detail </div>
                 <div id="deleteGlobalImage" class="CTA_Button Button--Delete fright" ng-click="deleteImage(getGlobalImageDetails.globalImageId)">Delete Image</div>
             </div>
-            <div ng-init="getimageData()"> 
+            
               <div class="inputSection col1of2 pushUp_20">
                 <div class="input_Label">Edit this Image</div>  
                 <input id="editImageName" class="input_Field"/> 
                  <div>
-                <img id="imageData" class="imagePreview" ng-src="{{imageData}}"  />
+                <img id="imageData" class="imagePreview" ng-src="{{imageSrc}}"  />
                </div>
                
                 <label class="fileContainer">

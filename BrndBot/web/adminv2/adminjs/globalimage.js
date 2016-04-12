@@ -94,28 +94,30 @@ var globalImageController = function ($scope, fileReader, $http) {
         $scope.progress = 0;
         fileReader.readAsDataUrl($scope.file, $scope)
                       .then(function(result) {
-                          $scope.imageSrc = result;
+                       var resultScope=  $scope.imageSrc = result;
+                  
                       });
     };
-   
+   var editImageTypeGlobal = "";
    $scope.editImagePopUp = function (globalImageId) {
+       var editImageName="";
     $("#editImage").show();
     $("#addOrganizationPopupDiv").show();
-  
+       
                $http({
                     method : 'GET',
                     url : getHost()+ '/getGlobalImageById.do?globalImageId='+globalImageId,
                 }).success(function(data, status, headers, config) {     
                  $scope.getGlobalImageDetails= data.d.details[0];
                  $("#editImageName").val(data.d.details[0].imageName);
+                 var imageTypeData = (eval(JSON.stringify(data.d.details[0].imageName.split('.')[0]))); 
+                 var imageType = (eval(JSON.stringify(data.d.details[0].imageName.split('.')[1]))); 
+                 editImageName= $("#editImageName").val(imageTypeData);
+                 editImageNameGlobal =editImageName;
                   $scope.getDeleteId= data.d.details[0].globalImageId;
                    $("#getDeleteId").val(data.d.details[0].globalImageId);
-                   $scope.getimageData= data.d.details[0].imageData;
-                   $("#imageData").val(data.d.details[0].imageData);
-                   var imageData= $("#imageData").val()
-       
-                   alert(imageData);
-                  
+                  $scope.getimageData= data.d.details[0].imageData;                
+                 $("#imageData").attr('src','data:image;base64,'+data.d.details[0].imageData);
                 }).error(function(data, status, headers, config) {
                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
@@ -128,9 +130,9 @@ var globalImageController = function ($scope, fileReader, $http) {
         var imageData = $("#imageData").val();
         var imageFIleNameData = $("#imageFileName").val();
         var imageTypeData = imageFIleNameData.split(".").pop().toLowerCase();
+        
         var imgDataObj = getImageData();
         var globalImage = {"imageName": imageName, "imageType": imageTypeData, "imageData": imgDataObj.base64ImgString};
-        alert(JSON.stringify(globalImage));
         if (imageName === "") {
             alert("Please enter the image Name");
             $("#imageName").focus();
@@ -143,7 +145,7 @@ var globalImageController = function ($scope, fileReader, $http) {
                 data: JSON.stringify(globalImage)
             }).success(function (data, status, headers, config)
             {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));                           
                 window.open(getHost() + 'adminv2/globalimage.jsp', "_self");
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -157,9 +159,9 @@ var globalImageController = function ($scope, fileReader, $http) {
         var imageName = $("#editImageName").val();
         var imageFileData = $("#editImageFileName").val();
         var imageTypeData = imageFileData.split(".").pop().toLowerCase();
-        var imgDataObj = getImageData();
-        var globalImageUpdate = {"globalImageId":globalImageId,"imageName": imageName, "imageType": imageTypeData, "imageData": imgDataObj.base64ImgString};
-         alert(JSON.stringify(globalImageUpdate));   
+        var imageData =   $("#imageData").attr('src');
+        var globalImageUpdate = {"globalImageId":globalImageId,"imageName": imageName, "imageType": "png" , "imageData": imageData};
+        
          $.ajax({
                 method: 'POST',
                 url: getHost() + '/updateGlobalImage.do',
@@ -168,7 +170,7 @@ var globalImageController = function ($scope, fileReader, $http) {
                 data: JSON.stringify(globalImageUpdate)
             }).success(function (data, status, headers, config)
             {
-                alert(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));                      
                 window.open(getHost() + 'adminv2/globalimage.jsp', "_self");
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
