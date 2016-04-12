@@ -13,6 +13,7 @@ import com.intbittech.model.Users;
 import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.modelmappers.GlobalColorsDetails;
+import com.intbittech.modelmappers.LogoImageUpload;
 import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
@@ -182,5 +183,20 @@ public class OnboardingController {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+//    
+//    @RequestMapping(value = "saveLogo",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<ContainerResponse> saveLogo(@RequestBody UserDetails userDetails, @RequestParam("userId") Integer userId) {
+//     TransactionResponse transactionResponse = new TransactionResponse();
+//        String storableFileName = null;
+//           try {
+//               
+////               storableFileName = FileHandlerUtil.saveAdminGlobalImage(globalImageDetails.getImageName(),
+////                       globalImageDetails.getImageType(), globalImageDetails.getImageData());
+////           } catch (Throwable throwable) {
+////               transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_not_save", null, Locale.US)));
+////               throw throwable;
+////           }
+////
+////           globalImages.setImageName(storableFileName);
+////
 }
