@@ -13,6 +13,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import org.apache.commons.codec.binary.Base64;
 import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 /**
  *
@@ -37,7 +38,8 @@ public class DataConverterUtil {
         FileInputStream fis = new FileInputStream(imageFile);
         byte imageData[] = new byte[(int) imageFile.length()];
         fis.read(imageData);
-        base64String = Base64.encodeBase64URLSafeString(imageData);
+        BASE64Encoder encoder = new BASE64Encoder();
+        base64String = encoder.encode(imageData);
         return base64String;
     }
 }
