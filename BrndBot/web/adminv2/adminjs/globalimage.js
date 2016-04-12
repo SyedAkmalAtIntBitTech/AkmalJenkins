@@ -110,6 +110,12 @@ var globalImageController = function ($scope, fileReader, $http) {
                  $("#editImageName").val(data.d.details[0].imageName);
                   $scope.getDeleteId= data.d.details[0].globalImageId;
                    $("#getDeleteId").val(data.d.details[0].globalImageId);
+                   $scope.getimageData= data.d.details[0].imageData;
+                   $("#imageData").val(data.d.details[0].imageData);
+                   var imageData= $("#imageData").val()
+       
+                   alert(imageData);
+                  
                 }).error(function(data, status, headers, config) {
                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
@@ -124,6 +130,7 @@ var globalImageController = function ($scope, fileReader, $http) {
         var imageTypeData = imageFIleNameData.split(".").pop().toLowerCase();
         var imgDataObj = getImageData();
         var globalImage = {"imageName": imageName, "imageType": imageTypeData, "imageData": imgDataObj.base64ImgString};
+        alert(JSON.stringify(globalImage));
         if (imageName === "") {
             alert("Please enter the image Name");
             $("#imageName").focus();
