@@ -199,4 +199,4 @@
     width: calc(45% - 50px);
 }
 
-#logocolor,#themeColorsDiv{display:none}
+#logocolor,#themeColorsDiv,#mindbodyStudioDiv,#uploadedLogoDiv{display:none}

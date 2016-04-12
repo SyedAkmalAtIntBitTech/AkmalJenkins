@@ -39,7 +39,7 @@
                     <div class="h3 font--lightGray">BrndBot syncs with your other tools. If you are not using any of these services, just select 'none'!</div>
                     <div class="inputSection col-6of10 ">
                         <div class="input_Label">Please select a third party service</div>
-                        <select class="input_Field select_Field clear" id="services">
+                        <select class="input_Field select_Field clear" id="services" ng-model="service" ng-change="getMindbodyText()">
                             <option class="input_Field" value="0">none</option>
                             <option class="input_Field" ng-repeat="service in services" value="{{service.externalSourceId}}">{{service.externalSourceName}}</option>
                         </select> 
@@ -47,6 +47,15 @@
                             <span class="fleft">Service drop down</span>
                              <object type="image/svg+xml" data="/Final-Icons/dropdown.svg" class="dropdown-svg fright" style="cursor:pointer;"> </object>
                         </div>-->
+                        
+                    </div>
+                    <div class="inputSection col-1of1 " id="mindbodyStudioDiv">
+                        <div class="input_Label">Please enter Mindbody Studio Id</div>
+                        <div class="col-6of10">
+                            <input class="input_Field " type="text" id="mindbodyStudioId">
+                        </div>
+                        <a href="" id="actiovationLink" target="_blank"><div class="input_Label" id="activationLinkDiv"></div></a>
+                        <div class="CTA_Button Button--Gray clear-colors" ng-click="getActivationLink()">Activation</div>
                     </div>
                     </div>
                 </div>
@@ -55,7 +64,7 @@
     </div>
     <div class="bottomNav">
         <!--<a href="onboarding3activation.jsp">-->
-        <div class="bottom-ContinueButton fright" ng-click="saveServices()">CONTINUE</div>
+        <div id="serviceContinueButton" class="bottom-ContinueButton fright" ng-click="saveServices()">CONTINUE</div>
         <!--</a>-->
     </div>
     

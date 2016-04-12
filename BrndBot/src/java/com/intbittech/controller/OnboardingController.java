@@ -63,7 +63,7 @@ public class OnboardingController {
             user.setUserName(usersDetails.getUserName());
             Boolean returnMessage = usersService.checkUniqueUser(user);
             transactionResponse.setMessage(returnMessage.toString());
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("user_is_unique",new String[]{}, Locale.US)));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("check_user_is_unique",new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -116,7 +116,7 @@ public class OnboardingController {
             Integer userId = userIdRequest;
             uploadPath = uploadPath + File.separator + userId + File.separator + "logo";
             //TODO set correct file name 
-            String FileName = "logo.png_1";
+            String FileName = "android.png_45";
             String FilePath = uploadPath + File.separator + FileName;
             ArrayList<String> logoColorList = new ArrayList<String>();
             logoColorList = getcolorsfromimages.getColors(FilePath);

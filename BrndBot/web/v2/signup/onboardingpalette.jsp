@@ -16,7 +16,7 @@
         <!--SideNav-->
 
         <!--Main Content Wrap-->
-        <div class="contentWrap--withNoSideNav">
+        <div class="contentWrap--withNoSideNav" ng-init="getLogoColors()">
             <div class="topNav clear">
                 <a href="onboardinglogouploaded.jsp">
                     <div class="topNav--BackButton fleft">
@@ -54,7 +54,7 @@
                             <div class="colorOptions-bar clear">
                                 <div class="colorOptions-tab-active col-1of3 fleft" id="customColors">Custom Colors</div>
                                 <div class="colorOptions-tab col-1of3 fleft" id="themeColors" ng-click="showThemeColors()">Choose from Theme</div>
-                                <div class="colorOptions-tab col-1of3 fleft" id="logoColorsDiv" ng-click="getLogoColors()">Choose from Logo</div>
+                                <div class="colorOptions-tab col-1of3 fleft" id="logoColorsDiv" >Choose from Logo</div>
                             </div>
                             <div  class="pane-palette_right fleft">
 
@@ -64,7 +64,7 @@
                                     <div class="palette clear" id="picktheme">
                                         <!--<div><button type="button" class="btn btn-primary" value="click to display colors" >click to display colors</button></div>-->
                                         <div ng-repeat="col in color">
-                                            <div id="{{col.id}}" class="logo-palette-colorswab fleft" style="background-color:{{col.colorHex}};" onclick="getColorID('{{col.id}}','{{col.colorHex}}')"></div>
+                                            <div  class="logo-palette-colorswab fleft" style="background-color:{{col}};" onclick="getColorID('{{col.id}}','{{col}}')"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -87,8 +87,8 @@
             </div>   
         </div>
         <div class="bottomNav">
-            <a href="dashboard.jsp">
-                <div class="bottom-ContinueButton fright">CONTINUE</div>
+            <a href="#">
+                <div class="bottom-ContinueButton fright" ng-click="saveColorPalette()">CONTINUE</div>
             </a>
         </div>
 

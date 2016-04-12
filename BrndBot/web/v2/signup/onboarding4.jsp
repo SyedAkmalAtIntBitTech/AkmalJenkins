@@ -19,7 +19,7 @@
         <div class="topNav clear">
             <a href="onboarding3.jsp">
                 <div class="topNav--BackButton fleft">
-                <img  src="images/backbutton.svg" class="backButton-svg" style="cursor:pointer;"></img>
+                <img  src="images/backbutton.svg" class="backButton-svg" style="cursor:pointer;">
                 </div>
             </a>
             <div class="topNav--TitleBar--withBackButton fleft">
@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="topNav--offset"></div>
-        <div class="contentWrapInner">
+        <div class="contentWrapInner" id="uploadLogoDiv">
             <div class="pane pane-onboarding">
                 <div class="pane_header clear">
                     <div class="pane_title fleft h2">Upload your logo</div>
@@ -46,7 +46,22 @@
                     <!--</a>-->
                     </div>
                 </div>
-            </div>   
+            </div> 
+        <div class="contentWrapInner"  id="uploadedLogoDiv">
+            <div class="pane pane-onboarding">
+                <div class="pane_header clear">
+                    <div class="pane_title fleft h2">Upload your logo</div>
+                </div>
+                <div class="pane_content">
+                    <div class="h3 font--lightGray">Congratulations your logo has been successfully uploaded!  </div>
+                    <div class="logo-Uploaded-wrap clear">
+                        <img id="uploadedLogo" src="https://daks2k3a4ib2z.cloudfront.net/562feb3ef5fe5a8c1fd02272/56b8940985f55b8d6cc5f7d7_Deafult-Image_350x350.jpg" class="logo-Uploaded fleft">
+                          <img  src="images/Valid-Check.svg" class="logoUpload-Success-svg fleft" style="cursor:pointer;"/>
+                    </div>
+                    <div class="Add_Button Button--Gray logoUpload--button">Change Logo</div>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
     <div class="bottomNav">

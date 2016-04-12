@@ -62,7 +62,7 @@
         </div>
     </div>
     <div class="bottomNav">
-        <div class="bottom-ContinueButton fright" ng-click="saveOrganization()">CONTINUE</div>
+        <div class="bottom-ContinueButton fright" ng-click="saveCompany()">CONTINUE</div>
     </div>
     
     
