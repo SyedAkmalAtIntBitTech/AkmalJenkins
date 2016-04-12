@@ -45,9 +45,6 @@ public class CompanyPreferences implements Serializable {
     @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
     @ManyToOne
     private Company fkCompanyId;
-    @JoinColumn(name = "fk_color_id", referencedColumnName = "global_colors_id")
-    @ManyToOne
-    private GlobalColors fkColorId;
 
     public CompanyPreferences() {
     }
@@ -86,14 +83,6 @@ public class CompanyPreferences implements Serializable {
 
     public void setFkCompanyId(Company fkCompanyId) {
         this.fkCompanyId = fkCompanyId;
-    }
-
-    public GlobalColors getFkColorId() {
-        return fkColorId;
-    }
-
-    public void setFkColorId(GlobalColors fkColorId) {
-        this.fkColorId = fkColorId;
     }
 
 }

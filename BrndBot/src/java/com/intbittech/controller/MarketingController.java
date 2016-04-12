@@ -274,7 +274,7 @@ public class MarketingController {
             marketingProgramActionsDetails.setMarketingProgramName(marketingProgram.getMarketingProgramName());
             marketingProgramActionsDetails.setHtmlData(marketingProgram.getHtmlData());
             marketingProgramActionsDetails.setMarketingActionId(marketingAction.getMarketingActionId());
-            List<MarketingActionDetails> marketingActions = StringUtility.objectListToJsonString(marketingAction.getJsonTemplate());
+            List<MarketingActionDetails> marketingActions = StringUtility.jsonStringToObjectList(marketingAction.getJsonTemplate());
             marketingProgramActionsDetails.setMarketingActions(marketingActions);
             marketingProgramActionsDetailsList.add(marketingProgramActionsDetails);
             genericResponse.setDetails(marketingProgramActionsDetailsList);

@@ -10,6 +10,7 @@ import com.intbittech.dao.OrganizationCompanyDao;
 import com.intbittech.dao.UsersDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
+import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.MarketingCategoryProgram;
 import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
@@ -166,6 +167,18 @@ public class CompanyServiceImpl implements CompanyService{
         } catch(Throwable throwable) {
             throw new ProcessFailed(messageSource.getMessage("company_save_error", new String[]{}, Locale.US));
         }        
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer saveCompanyPreferences(CompanyPreferences companyPreferences) throws ProcessFailed {
+        try {
+            return companyDao.saveCompanyPreferences(companyPreferences);
+        } catch (Throwable throwable) {
+            throw new ProcessFailed(messageSource.getMessage("company_preferences_save_error", new String[]{}, Locale.US));
+        }
     }
     
 }
