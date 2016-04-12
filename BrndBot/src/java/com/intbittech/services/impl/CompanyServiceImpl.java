@@ -10,6 +10,7 @@ import com.intbittech.dao.OrganizationCompanyDao;
 import com.intbittech.dao.UsersDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
+import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.MarketingCategoryProgram;
 import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
@@ -133,21 +134,25 @@ public class CompanyServiceImpl implements CompanyService{
      * {@inheritDoc}
      */
     @Override
-    public void saveCompany(CompanyDetails companyDetails) throws ProcessFailed {
+    public Integer saveCompany(CompanyDetails companyDetails) throws ProcessFailed {
         try {
             //Save company
             Company company = new Company();
             company.setCompanyName(companyDetails.getCompanyName());
             company.setCreatedDate(new Date());
-            company.setInviteCode(RandomStringUtils.random(10));
+            company.setInviteCode(RandomStringUtils.randomAlphanumeric(10));
             Integer companyId = companyDao.save(company);
 
             //Update user table with companyId
             Company companyObject = new Company();
             companyObject.setCompanyId(companyId);
 
-            Users user = new Users();
-            user.setUserId(companyDetails.getUserId());
+            
+            Users user = usersDao.getUserById(companyDetails.getUserId());
+            if(user == null)
+            {
+                 throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
+            }
             user.setFkCompanyId(companyObject);
             usersDao.update(user);
 
@@ -161,9 +166,23 @@ public class CompanyServiceImpl implements CompanyService{
             organizationCompanyLookup.setFkCompanyId(companyObject);
 
             organizationCompanyDao.save(organizationCompanyLookup);
+            
+            return companyId;
         } catch(Throwable throwable) {
             throw new ProcessFailed(messageSource.getMessage("company_save_error", new String[]{}, Locale.US));
         }        
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer saveCompanyPreferences(CompanyPreferences companyPreferences) throws ProcessFailed {
+        try {
+            return companyDao.saveCompanyPreferences(companyPreferences);
+        } catch (Throwable throwable) {
+            throw new ProcessFailed(messageSource.getMessage("company_preferences_save_error", new String[]{}, Locale.US));
+        }
     }
     
 }

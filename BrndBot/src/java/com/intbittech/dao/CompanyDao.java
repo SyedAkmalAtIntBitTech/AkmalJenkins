@@ -7,6 +7,7 @@ package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
+import com.intbittech.model.CompanyPreferences;
 import java.util.List;
 
 /**
@@ -33,5 +34,13 @@ public interface CompanyDao {
      * @throws ProcessFailed the process failed
      */
     public Integer save(Company company) throws ProcessFailed;
+    
+    /**
+     * This method saves {@link CompanyPreferences} to database.
+     *
+     * @param companyPreferences
+     * @throws ProcessFailed the process failed
+     */
+    public Integer saveCompanyPreferences(CompanyPreferences companyPreferences) throws ProcessFailed;
     
 }

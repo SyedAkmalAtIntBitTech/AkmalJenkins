@@ -37,6 +37,19 @@ public class UsersDaoImpl implements UsersDao{
     /**
      * {@inheritDoc}
      */
+    public Users getUserById(Integer userId) {
+        Users user = new Users();
+        Criteria criteria = sessionFactory.getCurrentSession()
+                .createCriteria(Users.class)
+                .add(Restrictions.eq("userId", userId));
+        if(criteria.list().isEmpty())
+            return null;
+        return (Users) criteria.list().get(0);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
     public Boolean checkUniqueUser(Users user) {
         Boolean isUserUnique=  true;
         List<Users> usersList = new ArrayList<>();

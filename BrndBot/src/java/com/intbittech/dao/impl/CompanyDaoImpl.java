@@ -8,6 +8,7 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.CompanyDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
+import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.OrganizationCompanyLookup;
 import java.util.List;
 import java.util.Locale;
@@ -63,6 +64,19 @@ public class CompanyDaoImpl implements CompanyDao{
     public Integer save(Company company) throws ProcessFailed {
         try {
             return (Integer) sessionFactory.getCurrentSession().save(company);
+        } catch(Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer saveCompanyPreferences(CompanyPreferences companyPreferences) throws ProcessFailed {
+        try {
+            return (Integer) sessionFactory.getCurrentSession().save(companyPreferences);
         } catch(Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));

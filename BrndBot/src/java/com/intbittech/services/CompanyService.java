@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
+import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.modelmappers.CompanyDetails;
@@ -86,5 +87,13 @@ public interface CompanyService {
      * @param companyDetails
      * @throws ProcessFailed the process failed
      */
-    public void saveCompany(CompanyDetails companyDetails) throws ProcessFailed;
+    public Integer saveCompany(CompanyDetails companyDetails) throws ProcessFailed;
+    
+    /**
+     * This method saves {@link CompanyPreferences} to DAO layer.
+     *
+     * @param companyPreferences
+     * @throws ProcessFailed the process failed
+     */
+    public Integer saveCompanyPreferences(CompanyPreferences companyPreferences) throws ProcessFailed;
 }
