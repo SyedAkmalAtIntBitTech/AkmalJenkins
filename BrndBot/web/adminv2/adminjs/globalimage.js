@@ -113,10 +113,9 @@ var globalImageController = function ($scope, fileReader, $http) {
                    $scope.getimageData= data.d.details[0].imageData;
                    $("#imageData").val(data.d.details[0].imageData);
                    var imageData= $("#imageData").val()
-                   var imagess= 'data:image/png;base64,' + imageData;
-                 $scope.getImage = $("#imageData1").val(imagess);
-                   alert(imagess);
-                   console.log(imagess);
+       
+                   alert(imageData);
+                  
                 }).error(function(data, status, headers, config) {
                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  

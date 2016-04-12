@@ -27,7 +27,7 @@
                 <div class="input_Label">Edit this Image</div>  
                 <input id="editImageName" class="input_Field"/> 
                  <div>
-                <img id="imageData1" class="imagePreview" ng-src="{{getImage}}"  />
+                <img id="imageData" class="imagePreview" ng-src="{{imageData}}"  />
                </div>
                
                 <label class="fileContainer">
