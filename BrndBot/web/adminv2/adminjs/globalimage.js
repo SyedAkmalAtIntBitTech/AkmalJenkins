@@ -160,7 +160,7 @@ var globalImageController = function ($scope, fileReader, $http) {
         var imageFileData = $("#editImageFileName").val();
         var imageTypeData = imageFileData.split(".").pop().toLowerCase();
         var imageData =   $("#imageData").attr('src');
-        var globalImageUpdate = {"globalImageId":globalImageId,"imageName": imageName, "imageType": "png" , "imageData": imageData};
+        var globalImageUpdate = {"globalImageId":globalImageId,"imageName": imageName, "imageType": "png" || "jpg" || "gif", "imageData": imageData};
         
          $.ajax({
                 method: 'POST',
