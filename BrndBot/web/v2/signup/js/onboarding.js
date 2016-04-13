@@ -279,20 +279,26 @@ function onboardingcontroller($scope,$http) {
             });
         }
     };
+    
+    $("#uploadLogo").change(function (){
+        $("#uploadLogoLabel").empty().append('Change Logo');
+    });
+    
     $scope.imageValid=function (){
         var logoImageFile=$("#uploadLogo").val();
         globalLogoImageSrc=logoImageFile;
         if(logoImageFile===""){
-            alert("No Logo Uploaded!\t Please upload your Logo.");
+            alert("No logo uploaded, Please upload your Logo.");
         }
         else{
             var logoExtension = logoImageFile.split('.').pop().toUpperCase();
             if((logoExtension==="PNG")||(logoExtension==="JPG")||(logoExtension==="JPEG")){
 //                alert("Success");
-                $("#uploadLogoDiv,#uploadLogoContinueButton").hide();
-                $("#uploadedLogoDiv,#uploadedLogoContinueButton").show();
+//                $("#uploadLogoDiv,#uploadLogoContinueButton").hide();
+//                $("#uploadedLogoDiv,#uploadedLogoContinueButton").show();
+                
                 $("#uploadedLogo").attr('src',globalLogoImageSrc);
-//                window.open(getHost() + 'v2/signup/onboardinglogouploaded.jsp', "_self");
+                window.open(getHost() + 'v2/signup/onboardingpalette.jsp', "_self");
             }
             else{
                 alert("Invalid File Type!\n Please choose valid Image format.");
@@ -300,10 +306,6 @@ function onboardingcontroller($scope,$http) {
         }
     };
     
-    $("#changeLogoButton").click(function (){
-         $("#uploadLogoDiv,#uploadLogoContinueButton").show();
-         $("#uploadedLogoDiv,#uploadedLogoContinueButton").hide();
-    });
     
     $("#uploadLogo").change(function (){
         var logoImageSrc=$("#uploadLogo").val();
@@ -314,8 +316,7 @@ function onboardingcontroller($scope,$http) {
     
             var base64ImgString = "";
             var imageFileName = "";
-
-//        
+ 
         function imageConverter(id) {alert(id);
             var obj = document.getElementById(id);
             obj.addEventListener("change", readFile, false);

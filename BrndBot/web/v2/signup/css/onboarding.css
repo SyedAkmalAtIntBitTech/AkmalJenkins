@@ -199,5 +199,5 @@
     width: calc(45% - 50px);
 }
 
-#logocolor,#themeColorsDiv,#mindbodyStudioDiv,#uploadedLogoDiv,#uploadedLogoContinueButton
+#logocolor,#themeColorsDiv,#mindbodyStudioDiv
 {display:none}

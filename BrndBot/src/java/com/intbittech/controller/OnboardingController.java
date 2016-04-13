@@ -172,8 +172,8 @@ public class OnboardingController {
             companyPreferences.setFkCompanyId(company);
 
             companyService.saveCompanyPreferences(companyPreferences);
-            transactionResponse.setMessage(messageSource.getMessage("signup_success", new String[]{}, Locale.US));
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("user_save", new String[]{}, Locale.US)));
+            transactionResponse.setMessage("true");
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_success", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));

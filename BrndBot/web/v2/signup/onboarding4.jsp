@@ -41,13 +41,13 @@
                         <img src="images/uploadPhoto.svg" class="logoUpload-svg" style="cursor:pointer;"/>
                     </div>
                     <!--<a href="onboardinglogouploaded.jsp">-->
-                    <div  class="Add_Button Button--Gray logoUpload--button "><label class=" Button--Gray" for="uploadLogo">Upload Logo</label></div>
+                    <div  class="Add_Button Button--Gray logoUpload--button "><label id="uploadLogoLabel" class=" Button--Gray" for="uploadLogo">Upload Logo</label></div>
                     <input hidden="" type="file" class="Add_Button Button--Gray logoUpload--button" accept="image/png, image/jpeg, image/jpg" id="uploadLogo" value="">
                     <!--</a>-->
                     </div>
                 </div>
             </div> 
-        <div class="contentWrapInner"  id="uploadedLogoDiv">
+<!--        <div class="contentWrapInner"  id="uploadedLogoDiv">
             <div class="pane pane-onboarding">
                 <div class="pane_header clear">
                     <div class="pane_title fleft h2">Upload your logo</div>
@@ -61,12 +61,11 @@
                     <div class="Add_Button Button--Gray logoUpload--button" id="changeLogoButton">Change Logo</div>
                 </div>
             </div>
-        </div>
+        </div>-->
         </div>
     <div class="bottomNav">
         <!--<a href="onboardinglogouploaded.jsp">-->
         <div id="uploadLogoContinueButton" class="bottom-ContinueButton fright" ng-click="imageValid()">CONTINUE</div>
-        <a href="onboardingpalette.jsp"><div id="uploadedLogoContinueButton" class="bottom-ContinueButton fright" ng-click="">CONTINUE</div></a>
         <!--</a>-->
     </div>
     
