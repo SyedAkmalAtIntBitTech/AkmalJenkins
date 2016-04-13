@@ -16,6 +16,12 @@ import javax.imageio.ImageIO;
  * @author Haider Khan @ Intbit
  */
 public class FileHandlerUtil {
+    
+    public static String saveCompanyLogo(String filePath, String imageFileName, String imageFileType, String base64ImageString) throws Throwable {
+        String fileNameWithExtension = imageFileName + "." + imageFileType;
+        saveImageWithOrignalName(fileNameWithExtension, base64ImageString, filePath);
+        return fileNameWithExtension;
+    }
 
     // CRUD operation for Admin Global image with File System.
     /**

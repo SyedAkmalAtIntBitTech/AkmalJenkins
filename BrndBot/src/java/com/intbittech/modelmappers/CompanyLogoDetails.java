@@ -10,9 +10,10 @@ import java.io.Serializable;
  *
  * @author Syed Akmal
  */
-public class LogoImageUpload implements Serializable{
+public class CompanyLogoDetails implements Serializable{
     private String imageType;
     private String imageData;
+    private Integer companyId;
 
     public String getImageType() {
         return imageType;
@@ -28,6 +29,14 @@ public class LogoImageUpload implements Serializable{
 
     public void setImageData(String imageData) {
         this.imageData = imageData;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
     
 }
