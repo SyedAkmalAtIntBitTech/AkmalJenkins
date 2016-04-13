@@ -130,13 +130,20 @@ var globalImageController = function ($scope, fileReader, $http) {
         var imageData = $("#imageData").val();
         var imageFIleNameData = $("#imageFileName").val();
         var imageTypeData = imageFIleNameData.split(".").pop().toLowerCase();
-        
-        var imgDataObj = getImageData();
-        var globalImage = {"imageName": imageName, "imageType": imageTypeData, "imageData": imgDataObj.base64ImgString};
-        if (imageName === "") {
+         if (imageName === "") {
             alert("Please enter the image Name");
             $("#imageName").focus();
-        } else {
+            return false;
+        }
+        if(imageTypeData=="")
+        {
+            alert("No logo uploaded, Please upload your Logo.");
+        }
+        else{
+         if((imageTypeData==="png")||(imageTypeData==="jpg")||(imageTypeData==="jpeg")){
+        var imgDataObj = getImageData();
+        var globalImage = {"imageName": imageName, "imageType": imageTypeData, "imageData": imgDataObj.base64ImgString};
+       
             $.ajax({
                 method: 'POST',
                 url: getHost() + '/saveGlobalImage.do',
@@ -150,6 +157,11 @@ var globalImageController = function ($scope, fileReader, $http) {
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
+     
+    }
+    else{
+                alert("Invalid File Type!\n Please choose valid Image format.");
+            }
         }
     };
     
