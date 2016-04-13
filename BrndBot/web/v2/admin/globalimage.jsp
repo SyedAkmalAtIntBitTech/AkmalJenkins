@@ -13,7 +13,7 @@
          <link rel="shortcut icon" href="../images/favicon.png"/>  
     </head>
     <body class="body-normal">
-        <jsp:include page="adminheader.jsp"/>
+        <jsp:include page="header.jsp"/>
         <jsp:include page="popupimage.jsp"/>
         <jsp:include page="editimagepopup.jsp"/>
         <div class="content-area" ng-app="uploadImage" ng-controller="globalImageController">

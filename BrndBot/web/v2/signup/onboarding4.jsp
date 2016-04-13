@@ -17,7 +17,7 @@
     <!--Main Content Wrap-->
     <div class="contentWrap--withNoSideNav">
         <div class="topNav clear">
-            <a href="onboarding3.jsp">
+            <a href="#">
                 <div class="topNav--BackButton fleft">
                 <img  src="images/backbutton.svg" class="backButton-svg" style="cursor:pointer;">
                 </div>
@@ -58,7 +58,7 @@
                         <img id="uploadedLogo" src="https://daks2k3a4ib2z.cloudfront.net/562feb3ef5fe5a8c1fd02272/56b8940985f55b8d6cc5f7d7_Deafult-Image_350x350.jpg" class="logo-Uploaded fleft">
                           <img  src="images/Valid-Check.svg" class="logoUpload-Success-svg fleft" style="cursor:pointer;"/>
                     </div>
-                    <div class="Add_Button Button--Gray logoUpload--button">Change Logo</div>
+                    <div class="Add_Button Button--Gray logoUpload--button" id="changeLogoButton">Change Logo</div>
                 </div>
             </div>
         </div>

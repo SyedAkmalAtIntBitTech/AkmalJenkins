@@ -192,13 +192,13 @@ function onboardingcontroller($scope,$http) {
         }else{
          $http({
             method: 'GET',
-            url: getHost() +'/getActivationLink.do?studioid='+studioId
+            url: getHost() +'/getActivationLink.do?studioId='+studioId
         }).success(function (data, status, headers, config) {
             var actiovationLink=eval(JSON.stringify(data.d.details[0]));
             $("#actiovationLink").attr('href',actiovationLink);
             $("#activationLinkDiv").empty().append(actiovationLink);
             $("#serviceContinueButton").css("pointer-events","auto");
-            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+//            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
         }).error(function (data, status, headers, config) {
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
         });
@@ -300,6 +300,11 @@ function onboardingcontroller($scope,$http) {
         }
     };
     
+    $("#changeLogoButton").click(function (){
+         $("#uploadLogoDiv,#uploadLogoContinueButton").show();
+         $("#uploadedLogoDiv,#uploadedLogoContinueButton").hide();
+    });
+    
     $("#uploadLogo").change(function (){
         var logoImageSrc=$("#uploadLogo").val();
         var logoImage=$("#uploadLogo").val().split(/[\\\/]/).pop();
@@ -381,7 +386,6 @@ function onboardingcontroller($scope,$http) {
          var color2=$("#color2").css("backgroundColor");
          var color3=$("#color3").css("backgroundColor");
          var color4=$("#color4").css("backgroundColor");
-         alert(getBgColorHex(color1));
          var companyColors={"color1":color1,"color2":color2,"color3":color3,"color4":color2};
          
         if((color1=="rgba(0, 0, 0, 0)")||(color2=="rgba(0, 0, 0, 0)")||(color3=="rgba(0, 0, 0, 0)")||(color4=="rgba(0, 0, 0, 0)")){
@@ -397,7 +401,7 @@ function onboardingcontroller($scope,$http) {
             {
                 
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-//                window.open(getHost() + 'v2/signup/onboarding2.jsp', "_self");
+                window.open(getHost() + 'v2/signup/login.jsp', "_self");
             })
             .error(function (data, status) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
