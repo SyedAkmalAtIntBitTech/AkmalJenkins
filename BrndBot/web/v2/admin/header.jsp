@@ -16,6 +16,9 @@
         <link rel="stylesheet" type="text/css" href="css/normalize.css">
         <link rel="stylesheet" type="text/css" href="css/admin.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="admincss/basecss.css"/>
+        <link rel="shortcut icon" href="../images/favicon.png"/> 
+        <script src="js/globalimage.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="css/basecss.css"/>
         <script src="js/organization.js" type="text/javascript"></script>
         <script src="js/configurations.js" type="text/javascript"></script>   
@@ -29,6 +32,7 @@
           <script src="js/imageToBase64Converter.js" type="text/javascript"></script>
          <script src="js/marketingprogramdetails.js" type="text/javascript"></script>
            <script src="js/allcompanies.js" type="text/javascript"></script>
+
    </head>
     <body>
        <div class="nav ">
