@@ -101,7 +101,7 @@ public class OnboardingController {
         try {
            Integer companyId = companyService.saveCompany(companyDetails);
            transactionResponse.setMessage(companyId.toString());
-           transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("user_save",new String[]{}, Locale.US)));
+           transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("company_save",new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
