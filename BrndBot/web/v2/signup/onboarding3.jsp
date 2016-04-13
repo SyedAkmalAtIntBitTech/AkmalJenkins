@@ -17,7 +17,7 @@
     <!--Main Content Wrap-->
     <div class="contentWrap--withNoSideNav" ng-init="getServices()">
         <div class="topNav clear">
-            <a href="onboarding2.jsp">
+            <a href="#">
                 <div class="topNav--BackButton fleft">
                 <img  src="images/backbutton.svg" class="backButton-svg" style="cursor:pointer;"></img>
                 </div>
