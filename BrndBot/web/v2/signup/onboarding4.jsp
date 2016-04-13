@@ -63,10 +63,10 @@
             </div>
         </div>
         </div>
-    </div>
     <div class="bottomNav">
         <!--<a href="onboardinglogouploaded.jsp">-->
-            <div class="bottom-ContinueButton fright" ng-click="imageValid()">CONTINUE</div>
+        <div id="uploadLogoContinueButton" class="bottom-ContinueButton fright" ng-click="imageValid()">CONTINUE</div>
+        <a href="onboardingpalette.jsp"><div id="uploadedLogoContinueButton" class="bottom-ContinueButton fright" ng-click="">CONTINUE</div></a>
         <!--</a>-->
     </div>
     

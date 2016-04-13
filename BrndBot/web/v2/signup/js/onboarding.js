@@ -149,6 +149,9 @@ function onboardingcontroller($scope,$http) {
                     data: JSON.stringify(saveCompanyDetails)
                 }).success(function (data, status, headers, config)
                 {  
+                    
+                     var companyId=eval(JSON.stringify(data.d.message));
+                    localStorage.setItem("companyId",companyId);
                     alert(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
                     window.open(getHost() + 'v2/signup/onboarding3.jsp', "_self");
                 }).error(function(data, status, headers, config){
@@ -286,8 +289,8 @@ function onboardingcontroller($scope,$http) {
             var logoExtension = logoImageFile.split('.').pop().toUpperCase();
             if((logoExtension==="PNG")||(logoExtension==="JPG")||(logoExtension==="JPEG")){
 //                alert("Success");
-                $("#uploadLogoDiv").hide();
-                $("#uploadedLogoDiv").show();
+                $("#uploadLogoDiv,#uploadLogoContinueButton").hide();
+                $("#uploadedLogoDiv,#uploadedLogoContinueButton").show();
                 $("#uploadedLogo").attr('src',globalLogoImageSrc);
 //                window.open(getHost() + 'v2/signup/onboardinglogouploaded.jsp', "_self");
             }
@@ -373,8 +376,32 @@ function onboardingcontroller($scope,$http) {
     };
     
     $scope.saveColorPalette = function (){
-        if(($("#color1").css("background-color")=="rgba(0, 0, 0, 0)")||($("#color2").css("background-color")=="rgba(0, 0, 0, 0)")||($("#color3").css("background-color")=="rgba(0, 0, 0, 0)")||($("#color4").css("background-color")=="rgba(0, 0, 0, 0)")){
-        alert("No colors");   
+         var companyId=localStorage.getItem("companyId");
+         var color1=$("#color1").css("backgroundColor");
+         var color2=$("#color2").css("backgroundColor");
+         var color3=$("#color3").css("backgroundColor");
+         var color4=$("#color4").css("backgroundColor");
+         alert(getBgColorHex(color1));
+         var companyColors={"color1":color1,"color2":color2,"color3":color3,"color4":color2};
+         
+        if((color1=="rgba(0, 0, 0, 0)")||(color2=="rgba(0, 0, 0, 0)")||(color3=="rgba(0, 0, 0, 0)")||(color4=="rgba(0, 0, 0, 0)")){
+        alert("Please choose all 4 colors.");   
+        }
+        else{
+             $.ajax({
+                method: 'POST',
+                url: getHost() + 'saveCompanyColors.do?companyId='+companyId,
+                headers: {'Content-Type': 'application/json'},
+                data: JSON.stringify(companyColors)
+            }).success(function (data)
+            {
+                
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+//                window.open(getHost() + 'v2/signup/onboarding2.jsp', "_self");
+            })
+            .error(function (data, status) {
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            });
         }
     };
 };
