@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html >
 <head>
+     <title>BrndBot-On Boarding</title>
       <jsp:include page="header.jsp"/>
 </head>    
 <body class="body-normal" ng-app ng-controller="onboardingcontroller">
@@ -23,7 +24,7 @@
                 </div>
             </a>
             <div class="topNav--TitleBar--withBackButton fleft">
-                <span class="topNav--TitleBar--Title fleft h2">Step 3 of 4</span>
+                <span class="topNav--TitleBar--Title fleft h2">Step 3 of 5</span>
                 <div class="topNav--TitleBar--CTABox fright">
                     <div class="CTA_Button Button--Gray">Help!</div>
                 </div>

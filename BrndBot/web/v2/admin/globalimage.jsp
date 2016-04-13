@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Global Image</title>
-         <link rel="shortcut icon" href="../images/favicon.png"/>  
+         <link rel="shortcut icon" href="images/favicon.png"/>  
     </head>
     <body class="body-normal">
         <jsp:include page="header.jsp"/>

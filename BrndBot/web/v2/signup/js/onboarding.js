@@ -152,7 +152,7 @@ function onboardingcontroller($scope,$http) {
                     
                      var companyId=eval(JSON.stringify(data.d.message));
                     localStorage.setItem("companyId",companyId);
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
+                              
                     window.open(getHost() + 'v2/signup/onboarding3.jsp', "_self");
                 }).error(function(data, status, headers, config){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));

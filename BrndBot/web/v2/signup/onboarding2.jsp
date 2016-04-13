@@ -6,8 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html >
+<html>
 <head>
+     <title>BrndBot-On Boarding</title>
    <jsp:include page="header.jsp"/>
 </head>    
 
@@ -22,7 +23,7 @@
                     <img  src="images/backbutton.svg" class="backButton-svg" style="cursor:pointer;"></img>
             </div></a>                
             <div class="topNav--TitleBar--withBackButton fleft">
-                <span class="topNav--TitleBar--Title fleft h2">Step 2 of 4</span>
+                <span class="topNav--TitleBar--Title fleft h2">Step 2 of 5</span>
                 <div class="topNav--TitleBar--CTABox fright">
                     <div class="CTA_Button Button--Gray">Help!</div>
                 </div>

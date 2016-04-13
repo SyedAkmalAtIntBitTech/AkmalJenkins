@@ -6,11 +6,12 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html ng-app="uploadImage">
     <head>
+        <title>BrndBot-On Boarding</title>
     <jsp:include page="header.jsp"/>
     </head>
- <body class="body-normal" ng-app ng-controller="onboardingcontroller">
+ <body class="body-normal" ng-controller="userImageConversion">
     
     <!--SideNav-->
     
@@ -23,7 +24,7 @@
                 </div>
             </a>
             <div class="topNav--TitleBar--withBackButton fleft">
-                <span class="topNav--TitleBar--Title fleft h2">Step 3 of 4</span>
+                <span class="topNav--TitleBar--Title fleft h2">Step 4 of 5</span>
                 <div class="topNav--TitleBar--CTABox fright">
                     <div class="CTA_Button Button--Gray">Help!</div>
                 </div>
@@ -37,12 +38,17 @@
                 </div>
                 <div class="pane_content">
                     <div class="h3 font--lightGray">Upload a hi-res version of your logo. A .PNG format works the best, but you may use a .JPEG as well.</div>
-                    <div class="logoUpload-wrap">
-                        <img src="images/uploadPhoto.svg" class="logoUpload-svg" style="cursor:pointer;"/>
+                    <div class="logoUpload-wrap imageLogo">
+                        <img id="imageUpload" src="{{imageSrc}}" class="imagePreview" style="cursor:pointer;" />
                     </div>
+<!--                    images/uploadPhoto.svg-->
                     <!--<a href="onboardinglogouploaded.jsp">-->
-                    <div  class="Add_Button Button--Gray logoUpload--button "><label id="uploadLogoLabel" class=" Button--Gray" for="uploadLogo">Upload Logo</label></div>
-                    <input hidden="" type="file" class="Add_Button Button--Gray logoUpload--button" accept="image/png, image/jpeg, image/jpg" id="uploadLogo" value="">
+<!--                    <div  class="Add_Button Button--Gray logoUpload--button "><label id="uploadLogoLabel" class=" Button--Gray" for="uploadLogo">Upload Logo</label></div>-->
+                   <label class="fileContainer">
+                <div id="triggerFile" class="Add_Button Button--Gray logoUpload--button ">Upload Logo</div>
+                <input  onclick="imageConverter('imageFileName')" name="fileName" type="file" id="imageFileName" ng-file-select="onFileSelect($files)" > 
+           
+            </label>
                     <!--</a>-->
                     </div>
                 </div>
@@ -65,7 +71,7 @@
         </div>
     <div class="bottomNav">
         <!--<a href="onboardinglogouploaded.jsp">-->
-        <div id="uploadLogoContinueButton" class="bottom-ContinueButton fright" ng-click="imageValid()">CONTINUE</div>
+        <div id="uploadLogoContinueButton" class="bottom-ContinueButton fright" ng-click="saveUserImage()">CONTINUE</div>
         <!--</a>-->
     </div>
     

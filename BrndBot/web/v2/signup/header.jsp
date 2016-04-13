@@ -28,6 +28,7 @@
 <script src="js/alertmessage.js" type="text/javascript"></script>
 <script src="js/onboarding.js" type="text/javascript"></script> 
 <script src="js/configurations.js"></script>   
+<script src="js/userbase64conversion.js"></script>   
 <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
 <script src="js/colpick.js" type="text/javascript"></script>
 <link rel="shortcut icon" href="images/favicon.png"/> 
