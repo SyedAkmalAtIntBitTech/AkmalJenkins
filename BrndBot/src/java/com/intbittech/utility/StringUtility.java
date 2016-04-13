@@ -39,7 +39,7 @@ public class StringUtility {
         
     }
     
-    public static List objectListToJsonString(String jsonString) throws JSONException, IOException {
+    public static List jsonStringToObjectList(String jsonString) throws JSONException, IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonFactory jFactory = new JsonFactory();
         JsonParser jsonParser= jFactory.createParser(jsonString);

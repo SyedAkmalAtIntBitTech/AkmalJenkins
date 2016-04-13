@@ -18,8 +18,7 @@ import java.util.List;
 public interface OrganizationDao {
 
     /**
-     * This method pass id as input and get the {@link Organization} from DAO
-     * layer.
+     * This method pass id as input and get the {@link Organization} database
      *
      * @param id the id
      * @return {@link Organization}
@@ -28,12 +27,20 @@ public interface OrganizationDao {
     public Organization getById(Integer id) throws ProcessFailed;
 
     /**
-     * This method retrieves the list of {@link Organization} from DAO layer.
+     * This method retrieves the list of {@link Organization} from database.
      *
      * @return {@link Organization}
      * @throws ProcessFailed the process failed
      */
     public List<Organization> getAllOrganizations() throws ProcessFailed;
+    
+    /**
+     * This method retrieves the list of {@link Organization} from database.
+     *
+     * @return {@link Organization}
+     * @throws ProcessFailed the process failed
+     */
+    public List<Organization> getAllOnlyOrganizations() throws ProcessFailed;
 
     /**
      * This method save {@link Organization} into the database.

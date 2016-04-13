@@ -72,4 +72,13 @@ public class OrganizationServiceImpl implements OrganizationService {
          organizationDao.delete(organization); 
     }
 
+    @Override
+    public List<Organization> getAllOnlyOrganizations() throws ProcessFailed {
+        List<Organization> organizationList= organizationDao.getAllOnlyOrganizations();
+        if(organizationList == null){
+            throw new ProcessFailed("No organization found.");
+        }
+        return organizationList;
+    }
+
 }

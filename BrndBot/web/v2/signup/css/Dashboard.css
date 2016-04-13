@@ -1,0 +1,54 @@
+.dashboard-MainCTA-wrap{
+    width: 100%;
+}
+
+.dashboard-MainCTA-col{
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    min-width: 260px;
+    margin-right: 20px;
+}
+
+.dashboard-MainCTA{
+    border: 1px solid #D2D3D5;
+    padding: 30px 20px;
+    height: 300px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    width: 230px;
+}
+
+.dash-icon{
+    width: 90px;
+    margin: auto;
+
+    
+}
+
+.dash-svg{
+    width: 100%;
+    margin: auto;
+
+    
+}
+
+.dashboard-mainCTA-subtext{
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    margin-top: 30px;
+    line-height: 150%;
+}
+
+.dashboard-mainCTA-button{
+    width: 100%;
+    padding: 30px 10px 0px 10px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.h-dash-header{
+    font-size: 22px;
+}
