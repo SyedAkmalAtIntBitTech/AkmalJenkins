@@ -300,6 +300,11 @@ function onboardingcontroller($scope,$http) {
         }
     };
     
+    $("#changeLogoButton").click(function (){
+         $("#uploadLogoDiv,#uploadLogoContinueButton").show();
+         $("#uploadedLogoDiv,#uploadedLogoContinueButton").hide();
+    });
+    
     $("#uploadLogo").change(function (){
         var logoImageSrc=$("#uploadLogo").val();
         var logoImage=$("#uploadLogo").val().split(/[\\\/]/).pop();
