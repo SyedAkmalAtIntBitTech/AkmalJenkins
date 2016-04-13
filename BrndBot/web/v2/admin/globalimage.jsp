@@ -33,7 +33,7 @@
             <ul class="slatArea">
                 <li class="listItem" ng-repeat="getAllGlobalImage in getAllGlobalImages.slice().reverse()" >
                     <div class="listCol col1of2 fleft">
-                        <span class="listCol_Text fleft">{{getAllGlobalImage.imageName}}</span>
+                        <span class="listCol_Text fleft">{{getAllGlobalImage.imageName.split('.')[0]}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
                     <span class="listCol_Text fleft">{{getAllGlobalImage.createdDate | date : format : timezone}} </span>

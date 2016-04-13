@@ -172,17 +172,17 @@ function onboardingcontroller($scope,$http) {
                         });            
     };
     
-    $scope.getMindbodyText = function (){
-        var serviceValue=$("#services").val();
-        if(serviceValue !== '0'){
-            $("#serviceContinueButton").css("pointer-events","none");
-            $("#mindbodyStudioDiv").show();
-        }
-        if(serviceValue === '0'){
-            $("#mindbodyStudioDiv").hide();
-            $("#serviceContinueButton").css("pointer-events","auto");
-        }        
-    };
+//    $scope.getMindbodyText = function (){
+//        var serviceValue=$("#services").val();
+//        if(serviceValue !== '0'){
+//            $("#serviceContinueButton").css("pointer-events","none");
+//            $("#mindbodyStudioDiv").show();
+//        }
+//        if(serviceValue === '0'){
+//            $("#mindbodyStudioDiv").hide();
+//            $("#serviceContinueButton").css("pointer-events","auto");
+//        }        
+//    };
     
     $scope.getActivationLink = function (){
         var studioId=$("#mindbodyStudioId").val();
@@ -283,7 +283,18 @@ function onboardingcontroller($scope,$http) {
     $("#uploadLogo").change(function (){
         $("#uploadLogoLabel").empty().append('Change Logo');
     });
-    
+    $("#services").change(function (){
+       var serviceValue=$("#services").val();
+        if(serviceValue !== '0'){
+            $("#serviceContinueButton").css("pointer-events","none");
+            $("#mindbodyStudioDiv").show();
+        }
+        if(serviceValue === '0'){
+            $("#mindbodyStudioDiv").hide();
+            $("#serviceContinueButton").css("pointer-events","auto");
+        }       
+        
+    });
     $scope.imageValid=function (){
         var logoImageFile=$("#uploadLogo").val();
         globalLogoImageSrc=logoImageFile;

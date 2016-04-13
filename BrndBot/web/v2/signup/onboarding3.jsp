@@ -40,7 +40,8 @@
                     <div class="h3 font--lightGray">BrndBot syncs with your other tools. If you are not using any of these services, just select 'none'!</div>
                     <div class="inputSection col-6of10 ">
                         <div class="input_Label">Please select a third party service</div>
-                        <select class="input_Field select_Field clear" id="services" ng-model="service" ng-change="getMindbodyText()">
+                    
+                        <select class="input_Field select_Field clear" id="services" >
                             <option class="input_Field" value="0">none</option>
                             <option class="input_Field" ng-repeat="service in services" value="{{service.externalSourceId}}">{{service.externalSourceName}}</option>
                         </select> 
