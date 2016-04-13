@@ -348,10 +348,10 @@ function onboardingcontroller($scope,$http) {
         
     
     $scope.getLogoColors = function () {
-         var userId=localStorage.getItem("userId");
+         var companyId=localStorage.getItem("companyId");
         $http({
             method: 'GET',
-            url: getHost() +'/getColorsForLogo.do?userId=45'
+            url: getHost() +'/getColorsForLogo.do?companyId='+companyId
         }).success(function (data, status, headers, config) {
             $scope.color =data.d.details;
         }).error(function (data, status, headers, config) {
