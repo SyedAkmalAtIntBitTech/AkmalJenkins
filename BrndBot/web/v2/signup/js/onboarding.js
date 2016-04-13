@@ -192,7 +192,7 @@ function onboardingcontroller($scope,$http) {
         }else{
          $http({
             method: 'GET',
-            url: getHost() +'/getActivationLink.do?studioid='+studioId
+            url: getHost() +'/getActivationLink.do?studioId='+studioId
         }).success(function (data, status, headers, config) {
             var actiovationLink=eval(JSON.stringify(data.d.details[0]));
             $("#actiovationLink").attr('href',actiovationLink);
@@ -381,7 +381,6 @@ function onboardingcontroller($scope,$http) {
          var color2=$("#color2").css("backgroundColor");
          var color3=$("#color3").css("backgroundColor");
          var color4=$("#color4").css("backgroundColor");
-         alert(getBgColorHex(color1));
          var companyColors={"color1":color1,"color2":color2,"color3":color3,"color4":color2};
          
         if((color1=="rgba(0, 0, 0, 0)")||(color2=="rgba(0, 0, 0, 0)")||(color3=="rgba(0, 0, 0, 0)")||(color4=="rgba(0, 0, 0, 0)")){
