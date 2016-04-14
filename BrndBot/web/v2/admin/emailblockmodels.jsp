@@ -13,7 +13,7 @@
     </head>
    
       <jsp:include page="header.jsp"/>
-    <body class="body-normal" ng-app  ng-controller="emailBlocksController" >        
+    <body class="body-normal" ng-app="uploadImage"  ng-controller="emailBlocksController" >        
       
         <div class="content-area" ng-init="emailBlocksModel()" >
         <div class="content-area_header">

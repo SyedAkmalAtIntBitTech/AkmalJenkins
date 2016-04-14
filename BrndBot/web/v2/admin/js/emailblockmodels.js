@@ -3,8 +3,96 @@
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
+var app = angular.module('uploadImage', []); 
+ 
+       (function (module) {
+     
+    var fileReader = function ($q, $log) {
+ 
+        var onLoad = function(reader, deferred, scope) {
+            return function () {
+                scope.$apply(function () {
+                    deferred.resolve(reader.result);
+                });
+            };
+        };
+ 
+        var onError = function (reader, deferred, scope) {
+            return function () {
+                scope.$apply(function () {
+                    deferred.reject(reader.result);
+                });
+            };
+        };
+ 
+        var onProgress = function(reader, scope) {
+            return function (event) {
+                scope.$broadcast("fileProgress",
+                    {
+                        total: event.total,
+                        loaded: event.loaded
+                    });
+            };
+        };
+ 
+        var getReader = function(deferred, scope) {
+            var reader = new FileReader();
+            reader.onload = onLoad(reader, deferred, scope);
+            reader.onerror = onError(reader, deferred, scope);
+            reader.onprogress = onProgress(reader, scope);
+            return reader;
+        };
+ 
+        var readAsDataURL = function (file, scope) {
+            var deferred = $q.defer();
+             
+            var reader = getReader(deferred, scope);         
+            reader.readAsDataURL(file);
+             
+            return deferred.promise;
+        };
+ 
+        return {
+            readAsDataUrl: readAsDataURL  
+        };
+    };
+ 
+    module.factory("fileReader",
+                   ["$q", "$log", fileReader]);
+ 
+}
 
-function emailBlocksController($scope, $http) {
+(angular.module("uploadImage")));
+     
+    
+
+app.directive("ngFileSelect",function(){
+
+  return {
+    link: function($scope,el){
+      
+      el.bind("change", function(e){
+      
+        $scope.file = (e.srcElement || e.target).files[0];
+        $scope.getFile();
+      });
+      
+    }
+    
+  };
+  
+  
+});
+function emailBlocksController($scope, $http, fileReader) {
+     $scope.imageSrc ="images/uploadPhoto.svg";
+      $scope.getFile = function () {
+        $scope.progress = 0;
+        fileReader.readAsDataUrl($scope.file, $scope)
+                      .then(function(result) {
+                       var resultScope=  $scope.imageSrc = result;            
+                  
+                      });
+    };
     $scope.emailBlocksModel = function () {
 
         $http({
@@ -26,6 +114,7 @@ function emailBlocksController($scope, $http) {
             url: getHost() + '/getEmailBlockModelById.do?emailBlockModelId=' + emailBlockIdTag
         }).success(function (data, status, headers, config) {
             $('.fr-element').html(eval(JSON.stringify(data.d.details[0].htmlData)));
+            $('#showFIleName').text(eval(JSON.stringify(data.d.details[0].imageFileName)));
             $scope.getEmailModels = data.d.details[0];
         }).error(function (data, status, headers, config) {
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));

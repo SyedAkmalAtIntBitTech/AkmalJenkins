@@ -3,16 +3,19 @@
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
+
 $(document).ready(function () {
     if (window.location.href.indexOf("edit=yes") > -1)
     {
-        $("#uploadOnEdit").show();
+       
         $("#nameThisTemplate").hide();
         $("#selectOrgranization").show();
         $("#editTitle").show();
         $("#createTitle").hide();
         $("#createNewTemplate").hide();
         $("#saveTemplate").show();
+        $("#uploadOnCreate").show();
+        $("#uploadOnEdit").hide();
 
     }
     if (window.location.href.indexOf("edit=no") > -1)
@@ -26,11 +29,101 @@ $(document).ready(function () {
         $("#saveTemplate").hide();
         $("#updateTemplate").hide();
         $("#deleteTemplate").hide();
+         $("#uploadOnCreate").hide();
 
     }
 });
+var app = angular.module('uploadImage', []); 
+ 
+       (function (module) {
+     
+    var fileReader = function ($q, $log) {
+ 
+        var onLoad = function(reader, deferred, scope) {
+            return function () {
+                scope.$apply(function () {
+                    deferred.resolve(reader.result);
+                });
+            };
+        };
+ 
+        var onError = function (reader, deferred, scope) {
+            return function () {
+                scope.$apply(function () {
+                    deferred.reject(reader.result);
+                });
+            };
+        };
+ 
+        var onProgress = function(reader, scope) {
+            return function (event) {
+                scope.$broadcast("fileProgress",
+                    {
+                        total: event.total,
+                        loaded: event.loaded
+                    });
+            };
+        };
+ 
+        var getReader = function(deferred, scope) {
+            var reader = new FileReader();
+            reader.onload = onLoad(reader, deferred, scope);
+            reader.onerror = onError(reader, deferred, scope);
+            reader.onprogress = onProgress(reader, scope);
+            return reader;
+        };
+ 
+        var readAsDataURL = function (file, scope) {
+            var deferred = $q.defer();
+             
+            var reader = getReader(deferred, scope);         
+            reader.readAsDataURL(file);
+             
+            return deferred.promise;
+        };
+ 
+        return {
+            readAsDataUrl: readAsDataURL  
+        };
+    };
+ 
+    module.factory("fileReader",
+                   ["$q", "$log", fileReader]);
+ 
+}
 
-function emailTemplateController($scope, $http) {
+(angular.module("uploadImage")));
+     
+    
+
+app.directive("ngFileSelect",function(){
+
+  return {
+    link: function($scope,el){
+      
+      el.bind("change", function(e){
+      
+        $scope.file = (e.srcElement || e.target).files[0];
+        $scope.getFile();
+      });
+      
+    }
+    
+  };
+  
+  
+});
+function emailTemplateController($scope, $http ,fileReader) {
+     $scope.imageSrc ="images/uploadPhoto.svg";
+      $scope.getFile = function () {
+        $scope.progress = 0;
+        fileReader.readAsDataUrl($scope.file, $scope)
+                      .then(function(result) {
+                       var resultScope=  $scope.imageSrc = result;
+              
+                  
+                      });
+    };
     $scope.emailTemplateModel = function () {
 
         $http({
@@ -98,8 +191,9 @@ function emailTemplateController($scope, $http) {
         var emailModelName = $("#emailModelNameTag").val();
         var htmlData = $("#edit").froalaEditor('html.get');
         var imgDataObj = getImageData();
-//        alert("emailmodel : " + emailModelId + "," + emailModelName + htmlData + "," + imgDataObj.imageFileName);
+     
         var emailModel = {"emailModelId": emailModelId, "emailModelName": emailModelName, "htmlData": htmlData, "imageFileName": imgDataObj.imageFileName, "imageFileData": imgDataObj.base64ImgString};
+        
         var validate = function () {
             if (emailModelName === "") {
                 alert("Please enter Template Name!");
@@ -145,11 +239,14 @@ function emailTemplateController($scope, $http) {
 
     $scope.getEmailModelById = function () {
         var emailModelId = $("#emailModelIdTag").val();
+        
         $http({
             method: 'GET',
             url: getHost() + '/getEmailModelById.do?emailModelId=' + emailModelId
         }).success(function (data, status, headers, config) {
             $('.fr-element').html(eval(JSON.stringify(data.d.details[0].htmlData)));
+            $('#showFIleName').text(eval(JSON.stringify(data.d.details[0].imageFileName)));
+           
             $scope.emailModelById = data.d.details[0];
         }).error(function (data, status, headers, config) {
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));

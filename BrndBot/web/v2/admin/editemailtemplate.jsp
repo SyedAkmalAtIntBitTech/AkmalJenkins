@@ -15,7 +15,7 @@
     String emailModelId=request.getParameter("emailModelId");
     %>
        
-    <body class="body-normal" ng-app ng-controller="emailTemplateController">        
+    <body class="body-normal" ng-app="uploadImage" ng-controller="emailTemplateController">        
         <jsp:include page="header.jsp"/>
         <jsp:include page="froalaeditor_styles.jsp"/>
         <input id="emailModelIdTag" type="text" hidden value="<%=emailModelId%>"/>
@@ -26,7 +26,7 @@
              <div id="deleteTemplate" class="CTA_Button Button--Delete fright" ng-click="deleteEmailTemplate(<%=emailModelId%>)" >Delete Template</div>
         </div>
             <div class="inputSection col1of4" id="selectOrgranization" >
-            <div class="input_Label">Please  select a organization </div>
+            <div class="input_Label">Email Template Name </div>
             <input  id="emailModelNameTag" class="input_Field" type="text" value="{{emailModelById.emailModelName}}"/>
           
         </div>
@@ -41,17 +41,32 @@
                 <div id='edit' style="margin-top: 30px;">
                 </div>
             </div>
-            
-             
-        <div id="uploadOnEdit">
+            <div id="uploadOnCreate">
+          
             <div class="inputSection col1of4">
-                <div class="input_Label">Please upload an image:</div>
+              
+                <img id="imageEditSrc" class="imagePreview" ng-src="{{imageSrc}}"  />
             </div>
+                <div id="showFIleName"></div>
             <label class="fileContainer">
-                <div id="triggerFile" class="md-button gray-button col10f9" >Upload</div>
-                <input name="fileName" type="file" accept=".gif,.jpg,.jpeg,.png" onclick="addImgToBase64Converter('imageFileName')" id="imageFileName"  />
+                <div id="triggerFile" class="md-button gray-button col10f9" style="width: 8%;" >Change Image</div>
+                <input ng-file-select="onFileSelect($files)" name="fileName" type="file" accept=".gif,.jpg,.jpeg,.png" onclick="addImgToBase64Converter('imageFileName')" id="imageFileNames"  />
             </label>
         </div>
+               
+        <div id="uploadOnEdit">
+            <div class="input_Label">Please upload an image:</div>
+            <div class="inputSection col1of4">
+              
+                <img id="imageId" class="imagePreview" ng-src="{{imageSrc}}"  />
+            </div>
+            
+            <label class="fileContainer">
+                <div id="triggerFile" class="md-button gray-button col10f9" >Upload</div>
+                <input ng-file-select="onFileSelect($files)" name="fileName" type="file" accept=".gif,.jpg,.jpeg,.png" onclick="addImgToBase64Converter('imageFileName')" id="imageFileName"  />
+            </label>
+        </div>
+            
            
             <div class="input_Label fleft" > </div>
             <div id="saveTemplate" class="CTA_Button Button--Blue fleft pushUp_10 saveEdit" ng-click="editEmailTemplate()">Save</div>
