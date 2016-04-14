@@ -109,6 +109,7 @@ public class BlockModelController {
             emailBlockModelDetails.setEmailBlockModelId(emailBlockModel.getEmailBlockModelId());
             emailBlockModelDetails.setEmailBlockModelName(emailBlockModel.getEmailBlockModelName());
             emailBlockModelDetails.setHtmlData(emailBlockModel.getHtmlData());
+            emailBlockModelDetails.setImageFileData(FileHandlerUtil.getAdminEmailBlockModelImageBase64(emailBlockModel.getImageFileName()));
             emailBlockModelDetails.setImageFileName(emailBlockModel.getImageFileName());
             emailBlockModelDetailsList.add(emailBlockModelDetails);
             

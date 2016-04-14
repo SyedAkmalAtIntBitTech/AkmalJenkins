@@ -47,7 +47,7 @@ public class FileHandlerUtil {
      * @return Updated File Name with extension i.e File name together with file type. Otherwise null if no file supplied for update. 
      * @throws Throwable 
      */
-    public static String upadteAdminGlobalImage(String oldFileNameWithExtension, String imageFileName, String imageFileType, String base64ImageString) throws Throwable {
+    public static String updateAdminGlobalImage(String oldFileNameWithExtension, String imageFileName, String imageFileType, String base64ImageString) throws Throwable {
         String fileNameWithExtension = null;
         if( imageFileType != null && base64ImageString != null){
             deleteAdminGlobalImage(oldFileNameWithExtension);
@@ -244,6 +244,16 @@ public class FileHandlerUtil {
      
     public static String getAdminGlobalImageBase64(String imageFileNameWithExtension) throws Throwable{
         String filePath = getAdminGlobalImageFilePath();
+        return getBase64ImageData(imageFileNameWithExtension,filePath);
+    } 
+    
+     public static String getAdminEmailTemplateImageBase64(String imageFileNameWithExtension) throws Throwable{
+        String filePath = getAdminEmailTemplatesImageFilePath();
+        return getBase64ImageData(imageFileNameWithExtension,filePath);
+    } 
+     
+     public static String getAdminEmailBlockModelImageBase64(String imageFileNameWithExtension) throws Throwable{
+        String filePath = getAdminEmailBlockModelImageFilePath();
         return getBase64ImageData(imageFileNameWithExtension,filePath);
     } 
      
