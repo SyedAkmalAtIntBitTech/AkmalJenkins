@@ -170,7 +170,7 @@ public class CategoryController {
             //TODO Haider remove this and add companyId from session
             Integer companyId = 1;
             List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
-            organizationCompanyDetail = companyService.getAllOrganizationCompanyById(companyId);
+            organizationCompanyDetail = companyService.getAllOrganizationsByCompanyId(companyId);
             List<OrganizationCompanyDetails> organizationCompanyDetailsList = new ArrayList<>();
             Integer organizationCompanySize = 1;
             if(organizationCompanyDetail!=null)
