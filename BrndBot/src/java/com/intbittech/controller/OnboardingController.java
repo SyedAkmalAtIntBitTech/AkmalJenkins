@@ -41,6 +41,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  *
@@ -59,6 +60,9 @@ public class OnboardingController {
 
     @Autowired
     private MessageSource messageSource;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @RequestMapping(value = "isUserUnique", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getUserUnique(@RequestBody UserDetails usersDetails) {
@@ -82,7 +86,7 @@ public class OnboardingController {
         try {
             Users user = new Users();
             user.setUserName(usersDetails.getUserName());
-            user.setUserPassword(usersDetails.getUserPassword());
+            user.setUserPassword(passwordEncoder.encode(usersDetails.getUserPassword()));
             user.setCreatedDate(new Date());
 
             Integer returnMessage = usersService.save(user);
