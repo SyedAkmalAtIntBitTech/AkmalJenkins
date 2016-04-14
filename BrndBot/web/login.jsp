@@ -3,13 +3,14 @@
     Created on : May 20, 2015, 4:08:23 PM
     Author     : intbit
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html ng-app>
     <head>
          <%@ include file="fonttypekit.jsp"%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="js/alertmessage.js"></script>
+        <script src="js/alertmessage.j"></script>
         <script src="js/configurations.js"></script>
         <script src="js/form.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>

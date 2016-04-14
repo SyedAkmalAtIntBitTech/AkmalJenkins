@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    <listener>
+<!--    <listener>
         <description>ServletContextListener</description>
         <listener-class>com.controller.ApplicationContextListener</listener-class>
     </listener>
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml</param-value>
-    </context-param>
+    </context-param>-->
     <!-- .................. Spring MVC Configuration .............................. -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -41,7 +41,7 @@
     
     <!-- .............................. End ............................................ -->
     
-    <servlet>
+<!--    <servlet>
         <servlet-name>BrndBotBaseServlet</servlet-name>
         <servlet-class>com.controller.BrndBotBaseServlet</servlet-class>
     </servlet>
@@ -892,7 +892,7 @@
     <servlet-mapping>
         <servlet-name>ServletUserBrand</servlet-name>
         <url-pattern>/ServletUserBrand</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
     <session-config>
         <session-timeout>
             30
@@ -901,8 +901,6 @@
 <!--    <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>-->
-
-</servlet-mapping>
     <resource-ref>
         <description>BrndBot DB</description>
         <res-ref-name>jdbc/postgres</res-ref-name>
