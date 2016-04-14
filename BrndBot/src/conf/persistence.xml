@@ -14,6 +14,7 @@
     <class>com.intbittech.model.MarketingProgram</class>
     <class>com.intbittech.model.MarketingAction</class>
     <class>com.intbittech.model.MarketingCategoryProgram</class>
+    <class>com.intbittech.model.GlobalImages</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/brnd"/>

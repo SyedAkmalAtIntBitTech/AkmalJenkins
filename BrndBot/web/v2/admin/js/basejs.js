@@ -25,6 +25,8 @@ $(document).ready(function () {
         $("#addRecurringPopUp").hide();
         $("#addMarketingTemplatePopUp").hide();
         $("#addGroup").hide();
+        $("#globalImageId").hide();
+        $("#editImage").hide();
         
     
     });
@@ -39,7 +41,10 @@ $("#addNewTemplate").click(function () {
     $("#addOrganizationPopupDiv").show();
 });
 
-
+$("#addGlobalImage").click(function () {
+    $("#globalImageId").show();
+    $("#addOrganizationPopupDiv").show();
+});
 
 $("#addOneTimeActionsButton").click(function () {
     $("#addOrganizationPopupDiv").show();
@@ -93,6 +98,8 @@ $("#addCompanyGroup").click(function () {
     $("#addGroup").show();
     $("#addOrganizationPopupDiv").show();
 });
+
+
 
 $("#addMarketingProgramsPopupDiv").click(function () {
     $("#addMarketingProgramsPopup").hide();

@@ -30,7 +30,7 @@
     width: 100%;
     padding-top: 2%;
     padding-bottom: 4%;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/    
     padding-bottom: 45px;
 }
 
