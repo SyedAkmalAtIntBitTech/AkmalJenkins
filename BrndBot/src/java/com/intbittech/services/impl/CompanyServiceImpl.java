@@ -93,6 +93,18 @@ public class CompanyServiceImpl implements CompanyService{
 //        }
               return companyList;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<OrganizationCompanyLookup> getAllOrganizationsByCompanyId(Integer companyId) throws ProcessFailed {
+        List<OrganizationCompanyLookup> companyList = organizationCompanyDao.getAllOrganizationsByCompanyId(companyId);
+//        if(companyList == null)
+//        {
+//             throw new ProcessFailed(messageSource.getMessage("company_not_found",new String[]{}, Locale.US));
+//        }
+              return companyList;
+    }
 
     /**
      * {@inheritDoc}

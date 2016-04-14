@@ -3,50 +3,48 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit.marketing.dao;
+package com.intbittech.marketing.service;
 
-import com.intbit.marketing.model.TblEmailDraft;
-import com.intbit.marketing.model.TblMarketingAction;
+import com.intbittech.model.EmailDraft;
 import java.util.List;
 
 /**
  *
  * @author development
  */
-public interface EmailDraftDao {
-    
+public interface EmailDraftService {
    /**
-	 * This method retrieves {@link TblMarketingAction} by passing id
+	 * This method retrieves {@link EmailDraft} by passing id
 	 * @param id
-	 * @return {@link TblMarketingAction}
+	 * @return {@link EmailDraft}
         * @throws java.lang.Throwable 
     */
-   public TblEmailDraft getById(Integer id) throws Throwable; 
+   public EmailDraft getById(Integer id) throws Throwable; 
    
    /**
 	 * This method retrieves all {@link EmailDraft}
-	 * @return {@link EmailDraft}
+	 * @return {@link MarketingProgram}
 	 * @throws java.lang.Throwable 
     */
-   public List<TblEmailDraft> getAllEmailDrafts(Integer user_id) throws Throwable;
-
+   public List<EmailDraft> getAllEmailDrafts(Integer user_id) throws Throwable;
+   
+   /**
+	 * This method save {@link EmailDraft} by passing EmailDraft
+	 * @param emailDraft
+	 * @throws java.lang.Throwable 
+    */
+   public Integer save(EmailDraft emailDraft) throws Throwable;
    /**
 	 * This method save {@link emailDraft} by passing emailDraft
 	 * @param emailDraft
 	 * @throws java.lang.Throwable 
     */
-   public Integer save(TblEmailDraft emailDraft) throws Throwable;
-   /**
-	 * This method save {@link emailDraft} by passing emailDraft
-	 * @param emailDraft
-	 * @throws java.lang.Throwable 
-    */
-   public void update(TblEmailDraft emailDraft) throws Throwable;
+   public void update(EmailDraft emailDraft) throws Throwable;
    
    /**
 	 * This method delete {@link emailDraft} by passing id
 	 * @param id
 	 * @throws java.lang.Throwable 
     */
-   public void delete(Integer id) throws Throwable;
+   public void delete(Integer id) throws Throwable;    
 }

@@ -47,6 +47,15 @@ public interface OrganizationCompanyDao {
     /**
      * This method retrieves the {@link OrganizationCompanyLookup} from database.
      *
+     * @param companyId
+     * @return list of {@link OrganizationCompanyLookup}
+     * @throws ProcessFailed the process failed
+     */
+    public List<OrganizationCompanyLookup> getAllOrganizationsByCompanyId(Integer companyId) throws ProcessFailed;
+    
+    /**
+     * This method retrieves the {@link OrganizationCompanyLookup} from database.
+     *
      * @param organizationCompanyLookup
      * @return {@link organizationCompanyLookupId}
      * @throws ProcessFailed the process failed
