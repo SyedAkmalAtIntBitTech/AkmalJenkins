@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit.marketing.controller;
+package com.intbittech.marketing.controller;
 
 import com.controller.SqlMethods;
 import com.intbit.AppConstants;
 import com.intbit.marketing.model.EmailDraftModel;
-import com.intbit.marketing.model.TblEmailDraft;
-import com.intbit.marketing.service.EmailDraftService;
+import com.intbittech.marketing.service.EmailDraftService;
+import com.intbittech.model.Company;
+import com.intbittech.model.EmailDraft;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Date;
@@ -25,12 +26,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import social.controller.ScheduleFacebookPost;
 
 /**
  *
@@ -52,15 +51,15 @@ public class EmailDraftController {
         try {
 
             sqlmethods.session = request.getSession(true);
-            Integer user_id = (Integer) sqlmethods.session.getAttribute("UID");
+            //Todo Haider - replace with SS companyId
+            Integer companyId = (Integer) sqlmethods.session.getAttribute("companyId");
 
             String emailSubject = (String) sqlmethods.session.getAttribute("email_subject");
             String subCategoryName = (String) sqlmethods.session.getAttribute("sub_category_name");
             String subCategoryId = (String) sqlmethods.session.getAttribute("sub_category_id");
             String categoryId = (String) sqlmethods.session.getAttribute("category_id");
 
-            TblEmailDraft email_draft = new TblEmailDraft();
-            email_draft.setId(0);
+            EmailDraft email_draft = new EmailDraft();
             Date current_date = new Date();
 
             email_draft.setDraftDate(current_date);
@@ -77,7 +76,9 @@ public class EmailDraftController {
             String str_model = (String) AppConstants.GSON.toJson(emaildraftmodel);
             JSONParser json_parser = new JSONParser();
             JSONObject json_object = (JSONObject) json_parser.parse(str_model);
-            email_draft.setUserId(user_id);
+            Company company = new Company();
+            company.setCompanyId(companyId);
+            email_draft.setFkCompanyId(company);
             email_draft.setDraftJson(json_object.toString());
             Integer draftID = emaildraftservice.save(email_draft);
             return draftID.toString();
@@ -90,20 +91,20 @@ public class EmailDraftController {
 
     @RequestMapping(value = "/updateEmailDraft", method = RequestMethod.POST)
     public @ResponseBody
-    String updateEmailDraft(@RequestParam("draftid") Integer draftid,
+    String updateEmailDraft(@RequestParam("draftid") Integer draftId,
             @RequestParam("bodyString") String bodyString, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, Throwable {
         JSONObject json_object_email_draft = new JSONObject();
         try {
 
             sqlmethods.session = request.getSession(true);
-            Integer user_id = (Integer) sqlmethods.session.getAttribute("UID");
+            Integer companyId = (Integer) sqlmethods.session.getAttribute("companyId");
 
             String emailSubject = (String) sqlmethods.session.getAttribute("email_subject");
             String subCategoryName = (String) sqlmethods.session.getAttribute("sub_category_name");
             Double subCategoryId = (Double) sqlmethods.session.getAttribute("sub_category_id");
             Double categoryId = (Double) sqlmethods.session.getAttribute("category_id");
 
-            TblEmailDraft emaildraft = emaildraftservice.getById(draftid);
+            EmailDraft emaildraft = emaildraftservice.getById(draftId);
 
             EmailDraftModel emaildraftmodel = new EmailDraftModel();
 
@@ -140,17 +141,17 @@ public class EmailDraftController {
             sqlmethods.session = request.getSession(true);
             Integer user_id = (Integer) sqlmethods.session.getAttribute("UID");
 
-            List<TblEmailDraft> emaildraftlist = emaildraftservice.getAllEmailDrafts(user_id);
+            List<EmailDraft> emaildraftlist = emaildraftservice.getAllEmailDrafts(user_id);
 
             JSONArray json_array_email_draft = new JSONArray();
             
             if (emaildraftlist.size() != 0){
-                for (TblEmailDraft emaildraft : emaildraftlist) {
+                for (EmailDraft emaildraft : emaildraftlist) {
                     JSONObject json_email_draft = new JSONObject();
 
-                    json_email_draft.put("id", emaildraft.getId());
+                    json_email_draft.put("id", emaildraft.getEmailDraftId());
                     json_email_draft.put("draftdate", emaildraft.getDraftDate().getTime());
-                    json_email_draft.put("editdate", emaildraft.getDraftDate().getTime());
+                    json_email_draft.put("editdate", emaildraft.getEditDate().getTime());
                     String json_string_data = (String) emaildraft.getDraftJson();
                     JSONParser json_parser = new JSONParser();
                     JSONObject json_draft_data = (JSONObject) json_parser.parse(json_string_data);
@@ -202,9 +203,9 @@ public class EmailDraftController {
 
         try {
 
-            TblEmailDraft emaildraft = emaildraftservice.getById(draftid);
+            EmailDraft emaildraft = emaildraftservice.getById(draftid);
 
-            json_object.put("id", emaildraft.getId());
+            json_object.put("id", emaildraft.getEmailDraftId());
             json_object.put("draftdate", emaildraft.getDraftDate().getTime());
             json_object.put("editdate", emaildraft.getEditDate().getTime());
 
@@ -243,9 +244,9 @@ public class EmailDraftController {
     
     @RequestMapping(value = "/deleteEmailDraft", method = RequestMethod.POST)
     public @ResponseBody
-    String deleteEmailDraft(@RequestParam("draftid") Integer draftid) throws IOException, Throwable {
+    String deleteEmailDraft(@RequestParam("draftid") Integer draftId) throws IOException, Throwable {
         try {
-            emaildraftservice.delete(draftid);
+            emaildraftservice.delete(draftId);
             return "true";
         } catch (Exception e) {
             Logger.getLogger(EmailDraftController.class.getName()).log(Level.SEVERE, null, e);

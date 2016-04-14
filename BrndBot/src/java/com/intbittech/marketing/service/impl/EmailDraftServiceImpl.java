@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit.marketing.service.implementation;
+package com.intbittech.marketing.service.impl;
 
-import com.intbit.marketing.dao.EmailDraftDao;
-import com.intbit.marketing.model.TblEmailDraft;
-import com.intbit.marketing.service.EmailDraftService;
+import com.intbittech.marketing.dao.EmailDraftDao;
+import com.intbittech.marketing.service.EmailDraftService;
+import com.intbittech.model.EmailDraft;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,22 +25,22 @@ public class EmailDraftServiceImpl implements EmailDraftService {
     public EmailDraftDao emaildraftdao;
     
     @Override
-    public TblEmailDraft getById(Integer id) throws Throwable {
+    public EmailDraft getById(Integer id) throws Throwable {
         return emaildraftdao.getById(id);
     }
 
     @Override
-    public List<TblEmailDraft> getAllEmailDrafts(Integer user_id) throws Throwable {
+    public List<EmailDraft> getAllEmailDrafts(Integer user_id) throws Throwable {
         return emaildraftdao.getAllEmailDrafts(user_id);
     }
 
     @Override
-    public Integer save(TblEmailDraft emailDraft) throws Throwable {
+    public Integer save(EmailDraft emailDraft) throws Throwable {
         return emaildraftdao.save(emailDraft);
     }
 
     @Override
-    public void update(TblEmailDraft emailDraft) throws Throwable {
+    public void update(EmailDraft emailDraft) throws Throwable {
         emaildraftdao.update(emailDraft);
     }
 
