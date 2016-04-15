@@ -34,22 +34,23 @@
             </div>
         </div>
         <div class="topNav--offset"></div>
-        <div class="contentWrapInner" ng-init="displayCategory()">
+        <div class="contentWrapInner" ng-init="displayMarketingProgram()">
             <div class="pane pane--600px">
                 <div class="pane_header clear">
-                    <div class="pane_title fleft h2">Please select a category of email</div>
+                    <div class="pane_title fleft h2">Please select a marketing program type</div>
                 </div>
                 <div class="pane_content">
-                    <div class="cat-list" ng-repeat="displayAllCategory in displayAllCategories">
+                    <div class="cat-list" ng-repeat="displayAllMarketingProgram in displayAllMarketingPrograms">
                         <div class="cat-slat">
-                            <a id="categoryId" href="emailsubcategory.jsp" ng-click="setCategoryID(displayAllCategory.categoryId)">
-                                <div class="cat-slat-title">{{displayAllCategory.categoryName}}</div>
+                            <a id="marketingCategoryId" href="marketingprogram.jsp" ng-click="marketingProgramCategory(displayAllMarketingProgram.marketingCategoryId)">
+                                <div class="cat-slat-title">{{displayAllMarketingProgram.marketingCategoryName}}</div>
                             </a>
                         </div>
                         
                     </div>
                 </div>
             </div>   
+        </div>
         </div>
     </div>
     
