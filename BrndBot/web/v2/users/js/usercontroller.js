@@ -19,6 +19,18 @@ function userController($scope, $http) {
 
     };
 
+$scope.displaySubCategory = function () {
+   var categoryId= $("#categoryId").val();
+        $http({
+            method: 'GET',
+            url: getHost() + '/getAllSubCategoriesByCategoryId.do?categoryId='+categoryId
+        }).success(function (data, status, headers, config) {
+            $scope.displayAllSubCategories = data.d.details;
+        }).error(function (data, status, headers, config) {
+            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
 
+        });
+
+    };
 
 }

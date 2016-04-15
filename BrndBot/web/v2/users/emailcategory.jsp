@@ -42,8 +42,8 @@
                 <div class="pane_content">
                     <div class="cat-list" ng-repeat="displayAllCategory in displayAllCategories">
                         <div class="cat-slat">
-                            <a href="emailsubcategory.jsp">
-                                <div class="cat-slat-title">{{displayAllCategory}}</div>
+                            <a id="categoryId" href="emailsubcategory.jsp?categoryId={{displayAllCategory.categoryId}}">
+                                <div class="cat-slat-title">{{displayAllCategory.categoryName}}</div>
                             </a>
                         </div>
                         
