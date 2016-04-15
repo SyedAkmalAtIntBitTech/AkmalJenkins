@@ -9,15 +9,18 @@ import com.intbittech.model.MarketingAction;
 import com.intbittech.model.MarketingCategory;
 import com.intbittech.model.MarketingCategoryProgram;
 import com.intbittech.model.MarketingProgram;
+import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.model.OrganizationMarketingCategoryLookup;
 import com.intbittech.modelmappers.MarketingActionDetails;
 import com.intbittech.modelmappers.MarketingCategoryDetails;
 import com.intbittech.modelmappers.MarketingCategoryProgramDetails;
 import com.intbittech.modelmappers.MarketingProgramActionsDetails;
 import com.intbittech.modelmappers.MarketingProgramDetails;
+import com.intbittech.modelmappers.OrganizationCompanyDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.services.CompanyService;
 import com.intbittech.services.MarketingActionService;
 import com.intbittech.services.MarketingCategoryProgramService;
 import com.intbittech.services.MarketingCategoryService;
@@ -59,6 +62,9 @@ public class MarketingController {
     
     @Autowired
     private MarketingCategoryProgramService marketingCategoryProgramService;
+    
+    @Autowired
+    private CompanyService companyService;
     
     @Autowired
     private MessageSource messageSource;
@@ -280,6 +286,50 @@ public class MarketingController {
             genericResponse.setDetails(marketingProgramActionsDetailsList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingProgram_get_all",new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "getCompanyMarketingCategories", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getCompanyMarketingCategories() {
+        GenericResponse<MarketingCategoryDetails> genericResponse = new GenericResponse<>();
+        try {
+            //TODO Haider remove this and add companyId from session
+            Integer companyId = 1;
+            List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
+            organizationCompanyDetail = companyService.getAllOrganizationsByCompanyId(companyId);
+            List<OrganizationCompanyDetails> organizationCompanyDetailsList = new ArrayList<>();
+            Integer organizationCompanySize = 1;
+            if(organizationCompanyDetail!=null)
+                organizationCompanySize = organizationCompanyDetail.size()+1;
+            Integer[] organizationIds = new Integer[organizationCompanySize];
+            Integer i =0;
+            organizationIds[i++] = 0;
+            if(organizationCompanyDetail!=null)
+            {
+                for(OrganizationCompanyLookup organizationObject : organizationCompanyDetail) {
+                    organizationIds[i++] = organizationObject.getFkOrganizationId().getOrganizationId();
+                }
+            }
+            
+            List<OrganizationMarketingCategoryLookup> organizationMarketingCategoryList = marketingCategoryService.getByOrganizationIds(organizationIds);
+            List<MarketingCategoryDetails> marketingCategoryDetailsList = new ArrayList<>();
+            if (organizationMarketingCategoryList != null) {
+            for (OrganizationMarketingCategoryLookup organizationMarketingCategoryObject : organizationMarketingCategoryList) {
+                MarketingCategoryDetails marketingCategoryDetails = new MarketingCategoryDetails();
+                marketingCategoryDetails.setMarketingCategoryId(organizationMarketingCategoryObject.getFkMarketingCategoryId().getMarketingCategoryId());
+                marketingCategoryDetails.setMarketingCategoryName(organizationMarketingCategoryObject.getFkMarketingCategoryId().getMarketingCategoryName());
+                marketingCategoryDetails.setOrganizationId(organizationMarketingCategoryObject.getFkOrganizationId().getOrganizationId());
+                marketingCategoryDetailsList.add(marketingCategoryDetails);
+            }
+            }
+            
+            genericResponse.setDetails(marketingCategoryDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("marketingCategory_get_all",new String[]{}, Locale.US)));
+            
+            } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
