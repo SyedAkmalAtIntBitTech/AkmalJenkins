@@ -47,10 +47,10 @@
               
                 <img id="imageEditSrc" class="imagePreview" ng-src="{{imageSrc}}"  />
             </div>
-                <div id="showFIleName"></div>
+              
             <label class="fileContainer">
                 <div id="triggerFile" class="md-button gray-button col10f9" style="width: 8%;" >Change Image</div>
-                <input ng-file-select="onFileSelect($files)" name="fileName" type="file" accept=".gif,.jpg,.jpeg,.png" onclick="addImgToBase64Converter('imageFileName')" id="imageFileNames"  />
+                <input ng-file-select="onFileSelect($files)" name="fileName" type="file" accept=".gif,.jpg,.jpeg,.png" onclick="addImgToBase64Converter('imageFileName')" id="imageFileName"  />
             </label>
         </div>
                
@@ -63,10 +63,9 @@
             
             <label class="fileContainer">
                 <div id="triggerFile" class="md-button gray-button col10f9" >Upload</div>
-                <input ng-file-select="onFileSelect($files)" name="fileName" type="file" accept=".gif,.jpg,.jpeg,.png" onclick="addImgToBase64Converter('imageFileName')" id="imageFileName"  />
+                <input ng-file-select="onFileSelect($files)" name="fileName" type="file" accept=".gif,.jpg,.jpeg,.png" onclick="addImgToBase64Converter('addImageFileName')" id="addImageFileName"  />
             </label>
         </div>
-            
            
             <div class="input_Label fleft" > </div>
             <div id="saveTemplate" class="CTA_Button Button--Blue fleft pushUp_10 saveEdit" ng-click="editEmailTemplate()">Save</div>

@@ -5,7 +5,7 @@
  */
 var base64ImgString = "";
 var imageFileName = "";
-
+var addImageFileName ="";
 
 
 function addImgToBase64Converter(id) {
@@ -18,6 +18,7 @@ function readFile() {
         var reader = new FileReader();
         var file = this.files[0];
         imageFileName = file.name;
+         addImageFileName = file.name;
         reader.addEventListener("load", function () {
             var data = reader.result;
             base64ImgString = data;
@@ -31,7 +32,8 @@ function getImageData(){
  
     return {
         "imageFileName" : imageFileName,
-        "base64ImgString" : base64ImgString
+        "base64ImgString" : base64ImgString,
+         "addImageFileName" : addImageFileName,
     };
 }
        

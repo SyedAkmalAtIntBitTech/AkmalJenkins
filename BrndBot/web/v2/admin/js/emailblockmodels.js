@@ -115,6 +115,7 @@ function emailBlocksController($scope, $http, fileReader) {
         }).success(function (data, status, headers, config) {
             $('.fr-element').html(eval(JSON.stringify(data.d.details[0].htmlData)));
             $('#showFIleName').text(eval(JSON.stringify(data.d.details[0].imageFileName)));
+              $('#imageEditSrc').attr('src','data:image;base64,'+(data.d.details[0].imageFileData));
             $scope.getEmailModels = data.d.details[0];
         }).error(function (data, status, headers, config) {
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -195,7 +196,8 @@ function emailBlocksController($scope, $http, fileReader) {
         var emailBlockModelName = $("#emailModelNameTag").val();
         var htmlData = $("#edit").froalaEditor('html.get');
         var imgDataObj = getImageData();
-        var emailBlockModel = {"emailBlockModelId":emailBlockModelId, "emailBlockModelName": emailBlockModelName, "htmlData": htmlData, "imageFileName": imgDataObj.imageFileName, "imageFileData": imgDataObj.base64ImgString};
+         var imageDataMethod= $("#imageEditSrc").attr('src');
+        var emailBlockModel = {"emailBlockModelId":emailBlockModelId, "emailBlockModelName": emailBlockModelName, "htmlData": htmlData, "imageFileName": imgDataObj.imageFileName, "imageFileData": imageDataMethod};
         var validate = function () {
             if (emailBlockModelName === "") {
                 alert("Please enter Template Name!");
