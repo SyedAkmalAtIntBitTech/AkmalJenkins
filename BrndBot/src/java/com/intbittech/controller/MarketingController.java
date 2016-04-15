@@ -80,6 +80,7 @@ public class MarketingController {
                 marketingProgramDetails.setMarketingProgramId(marketingCategoryProgramObject.getFkMarketingProgram().getMarketingProgramId());
                 marketingProgramDetails.setMarketingProgramName(marketingCategoryProgramObject.getFkMarketingProgram().getMarketingProgramName());
                 marketingProgramDetails.setMarketingCategoryProgramId(marketingCategoryProgramObject.getMarketingCategoryProgramId());
+                marketingProgramDetails.setHtmlData(marketingCategoryProgramObject.getFkMarketingProgram().getHtmlData());
                 marketingProgramDetailsList.add(marketingProgramDetails);
             }
             genericResponse.setDetails(marketingProgramDetailsList);
