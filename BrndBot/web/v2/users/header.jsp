@@ -30,3 +30,4 @@
 <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
 <script src="js/colpick.js" type="text/javascript"></script>
 <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
+<script src="js/usercontroller.js" type="text/javascript"></script> 
