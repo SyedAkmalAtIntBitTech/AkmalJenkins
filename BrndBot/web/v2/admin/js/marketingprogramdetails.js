@@ -44,6 +44,10 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
               $("#editMarketingProgramsPopup").hide();
               $("#addMarketingProgramsPopupDiv").show();
               $("#addMarketingProgramsPopup").show();
+               $("#recurringActionSelect").show();
+               $("#oneTimeAction").hide();
+               $("#recurringActionDays").show();
+               $("#oneTimeActionActionDays").hide();
     };
     $scope.addOneTimeActions = function () {
               $("#createRecurringActionPopUpTitle").hide();
@@ -54,6 +58,10 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
               $("#editMarketingProgramsPopup").hide();
               $("#addMarketingProgramsPopupDiv").show();
               $("#addMarketingProgramsPopup").show();
+              $("#recurringActionSelect").hide();
+              $("#oneTimeAction").show();
+              $("#recurringActionDays").hide();
+               $("#oneTimeActionActionDays").show();
     };
        
     

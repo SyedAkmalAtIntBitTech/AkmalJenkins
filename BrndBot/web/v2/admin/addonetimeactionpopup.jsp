@@ -15,8 +15,15 @@
             <div class=" col1of2 pushUp_10 col-padding fleft" >
                 <div class="input_Label">Action Name</div>
                 <input class="input_Field" type="text" id="newOneTimeActionName">            
-            </div>		
-            <div class=" col1of2 pushUp_10 col-padding fright">
+            </div>	
+            <div id="recurringActionSelect" class=" col1of2 pushUp_10 col-padding fright">
+                <div class="input_Label">Action Type</div>
+                <select disabled class="input_Field" id="newActionTypeOneTimeActions">
+                    <option class="input_Field">Email</option>
+                    
+                </select>
+            </div>
+            <div id="oneTimeAction" class=" col1of2 pushUp_10 col-padding fright">
                 <div class="input_Label">Action Type</div>
                 <select class="input_Field" id="newActionTypeOneTimeActions">
                     <option class="input_Field">Facebook</option>
@@ -25,6 +32,7 @@
                     <option class="input_Field">Reminder</option>
                 </select>
             </div>
+             
         </div>
         <div class="inputSection">
             <div class=" col1of2 pushUp_10 col-padding fleft" >
@@ -32,7 +40,8 @@
                                      <select class="input_Field">
                                         <option class="input_Field">DROPDOWN</option>
                                     </select>-->
-                <div class="input_Label">Days</div>
+                <div id="recurringActionDays" class="input_Label">Days after added to email list</div>
+                <div id="oneTimeActionActionDays" class="input_Label">Number of days relative to event</div>
                 <input class="input_Field" placeholder="# of Days" type="number" id="newActionsNoOfDays">
             </div>
             <div class=" col1of2 pushUp_10 col-padding fright">
