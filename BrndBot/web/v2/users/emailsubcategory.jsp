@@ -9,13 +9,15 @@
 <html>
     <head>
         <link rel="shortcut icon" href="images/favicon.png">
-        <title>Subcategory</title>
+        <title>Sub-category</title>
     </head>
     <body class="body-normal">
          <%@include file="header.jsp" %>       
       <%@include file="navbar.jsp" %>       
     <!--Main Content Wrap-->
-    <div class="contentWrap--withSideNav noScroll">
+    <% String categoryId =request.getParameter("categoryId"); %>
+    <div class="contentWrap--withSideNav noScroll" ng-app ng-controller="userController">
+        <input id="categoryId" value="<%=categoryId%>"/>
         <div class="topNav topNav-withSubnav clear">
              <div class="topNav--BackButton fleft">
                 <a class="exit-button-icon" href="emailcategory.jsp">
@@ -36,33 +38,16 @@
            <!-- <div class="pane pane--catSelected pane--600px">
                 <div class="cat-slat-title-selected">Category Name Here</div>  
             </div>-->
-            <div class="pane pane--600px">
+            <div class="pane pane--600px" >
                 <div class="pane_header clear">
                     <div class="pane_title fleft h2">Please select a subcategory</div>
-                </div>
-                <div class="pane_content">
+                </div> 
+                <div class="pane_content" ng-init="displaySubCategory()">
                     <div class="subcat-list">
-                        <div class="cat-slat">
+                        <div class="cat-slat" ng-repeat="displayAllSubCategory in displayAllSubCategories.slice().reverse()">
                             <a href="emailexternalsource.jsp">
-                                <div class="cat-slat-title">Sub-Category Name Here</div>
+                                <div class="cat-slat-title">{{displayAllSubCategory.subCategoryName}}</div>
                             </a>
-                        </div>
-                        <div class="cat-slat">
-                            <a href="emailEditor.html">
-                                <div class="cat-slat-title">Sub-Category Name Here</div>
-                            </a>
-                        </div>
-                        <div class="cat-slat">
-                            <div class="cat-slat-title">Sub-Category Name Here</div>
-                        </div>
-                        <div class="cat-slat">
-                            <div class="cat-slat-title">Sub-Category Name Here</div>
-                        </div>
-                         <div class="cat-slat">
-                            <div class="cat-slat-title">Sub-Category Name Here</div>
-                        </div>
-                         <div class="cat-slat">
-                            <div class="cat-slat-title">Sub-Category Name Here</div>
                         </div>
                     </div>
                 </div>
