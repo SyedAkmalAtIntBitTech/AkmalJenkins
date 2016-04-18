@@ -43,6 +43,8 @@ public class MarketingProgramActionsController {
 
     @Autowired
     MarketingActionService marketing_action_service;
+    
+    //TODO Ilyas remove only admin
     @RequestMapping(value = "/setMarketingProgramActions", method = RequestMethod.POST)
     public @ResponseBody String setMarketingProgramActions(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException, Throwable {
@@ -110,6 +112,7 @@ public class MarketingProgramActionsController {
         return "true";
     }
     
+    //TODO Ilyas remove admin
     @RequestMapping(value = "/getAllMarketingProgramActions", method = RequestMethod.GET)
     public @ResponseBody String getAllMarketingProgramActions() 
             throws ServletException, IOException, Throwable {
@@ -141,6 +144,7 @@ public class MarketingProgramActionsController {
         return json_array_marketing_actions.toString();
     }
     
+    //TODO Ilyas remove admin
     @RequestMapping(value = "/deleteMarketingProgramAction", method = RequestMethod.POST)
     public @ResponseBody String deleteMarketingProgramAction(HttpServletRequest request,
             HttpServletResponse response)throws ServletException, IOException, Throwable{
@@ -158,6 +162,7 @@ public class MarketingProgramActionsController {
         
     }
     
+    //TODO mostly remove its not used any were - check again
     @RequestMapping(value = "/approveTwitterAction", method = RequestMethod.POST)
     public @ResponseBody String approveTwitterAction(HttpServletRequest request,
             HttpServletResponse response)throws ServletException, IOException, Throwable{

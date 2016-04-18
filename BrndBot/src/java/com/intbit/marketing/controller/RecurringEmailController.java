@@ -58,6 +58,8 @@ public class RecurringEmailController {
         this method is used to get all of the recurring email templates from the database
         table tbl_recurring_email_template
     */
+    
+    //TODO Ilyas refactor to new DB
     @RequestMapping (value = "/getAllRecurringEmailTemplates", method = RequestMethod.GET)
     public @ResponseBody String getAllRecurringEmailTemplates(){
          JSONArray json_array_recurring_email_template = new JSONArray();
@@ -87,6 +89,7 @@ public class RecurringEmailController {
         @template_id
     */
     
+    //TODO Ilyas refactor to new DB
     @RequestMapping (value = "/getRecurringEmailTemplate", method = RequestMethod.POST)
     public @ResponseBody String getRecurringEmailTemplate(HttpServletRequest request,
             HttpServletResponse response){
@@ -110,6 +113,8 @@ public class RecurringEmailController {
     /*
         saves a new recurring email template into the database table tbl_recurring_email_template
     */
+    
+    //TODO Ilyas refactor to new DB
     @RequestMapping (value = "/setRecurringEmailTemplate", method = RequestMethod.POST)
     public @ResponseBody String setRecurringEmailTemplate(HttpServletRequest request,
             HttpServletResponse response){
@@ -135,6 +140,7 @@ public class RecurringEmailController {
         return return_response;
     }
     
+    //TODO Ilyas refactor to new DB
     @RequestMapping (value = "/deleteRecurringEmailTemplate", method = RequestMethod.POST)
     public @ResponseBody String deleteRecurringEmailTemplate(HttpServletRequest request,
             HttpServletResponse response){
@@ -153,6 +159,7 @@ public class RecurringEmailController {
         return return_response;
     }
 
+    //TODO Ilyas refactor to new DB
     @RequestMapping (value = "/updateRecurringEmailTemplate", method = RequestMethod.POST)
     public @ResponseBody String updateRecurringEmailTemplate(HttpServletRequest request,
             HttpServletResponse response){
@@ -178,6 +185,7 @@ public class RecurringEmailController {
         return return_response;
     }
     
+    //TODO Ilyas unused check again
     @RequestMapping (value = "/setEmailTemplateToRecurringAction", method = RequestMethod.POST)
     public @ResponseBody String setEmailTemplateToRecurringAction(HttpServletRequest request,
             HttpServletResponse response){
@@ -232,6 +240,7 @@ public class RecurringEmailController {
         return "false";
     }
     
+    //TODO Ilyas unused check again
     @RequestMapping (value = "/addRecurringAction", method = RequestMethod.POST)
     public @ResponseBody String addRecurringAction(HttpServletRequest request,
             HttpServletResponse response)throws IOException, ParseException{
@@ -317,6 +326,7 @@ public class RecurringEmailController {
         return "false";
     }
     
+    //TODO Ilyas unused check again
     @RequestMapping (value = "/addupdateRecurringAction", method = RequestMethod.POST)
     public @ResponseBody String addupdateRecurringAction(HttpServletRequest request,
             HttpServletResponse response)throws IOException, ParseException{
@@ -405,6 +415,7 @@ public class RecurringEmailController {
         return "false";
     }
     
+    //TODO Ilyas unused check again
     @RequestMapping (value = "/updateRecurringAction", method = RequestMethod.POST)
     public @ResponseBody String updateRecurringAction(HttpServletRequest request,
             HttpServletResponse response)throws IOException, ParseException{
@@ -504,6 +515,7 @@ public class RecurringEmailController {
         return "true";
     }
     
+    //TODO Ilyas unused check again
     public org.json.simple.JSONObject getFromAddress(Integer user_id){
         try{
 
@@ -522,6 +534,7 @@ public class RecurringEmailController {
         return null;
     }
     
+    //TODO Ilyas check this again
     @RequestMapping (value = "/getUserPreferences", method = RequestMethod.GET)
     public @ResponseBody String getUserPreferences(HttpServletRequest request,
             HttpServletResponse response)throws IOException{
@@ -537,6 +550,7 @@ public class RecurringEmailController {
         
     }
     
+    //TODO Ilyas refactor to new db
     @RequestMapping (value = "/getRecurringEntity", method = RequestMethod.POST)
     public @ResponseBody String getRecurringEntity(HttpServletRequest request,
             HttpServletResponse response)throws IOException{

@@ -5,10 +5,8 @@
  */
 package com.intbit.marketing.controller;
 
-import com.controller.ApplicationContextListener;
 import com.controller.IConstants;
 import com.intbit.marketing.model.TblScheduledEmailList;
-import com.intbit.marketing.model.TblScheduledSocialpostList;
 import com.controller.SqlMethods;
 import com.intbit.AppConstants;
 import com.intbit.ScheduledEntityType;
@@ -37,7 +35,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static oracle.jrockit.jfr.events.Bits.intValue;
 import org.json.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -47,7 +44,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import util.DateTimeUtil;
 
 /**
  *
@@ -159,12 +155,14 @@ public class UserMarketingProgramController {
 
     }
 
+    //TODO Haider remove this and add spring security session
     public Integer getCurrentUser(HttpServletRequest request) {
         sql_methods.session = request.getSession(true);
         Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
         return user_id;
     }
 
+    //TODO Ilyas this is the main one - need to redo the service and dao to new model
     @RequestMapping(value = "/setMarketingProgram", method = RequestMethod.POST)
     public @ResponseBody
     String setUserMarketingProgram(HttpServletRequest request,
@@ -243,6 +241,7 @@ public class UserMarketingProgramController {
         return "false";
     }
 
+    //TODO ilyas redo to new this is used to show current and past marketing programs
     @RequestMapping(value = "/listAllMarketingProgram", method = RequestMethod.GET)
     public @ResponseBody
     String listAllUserMarketingProgram(HttpServletRequest request,
@@ -274,6 +273,7 @@ public class UserMarketingProgramController {
         return jsonObject.toString();
     }
 
+    //TODO Ilyas refactor is used to show marketing actions(marketingprogramactions.jsp) after marketing program(marketingprogramlist) is clicks
     @RequestMapping(value = "/alluserMarketingProgramForDisplay", method = RequestMethod.GET)
     public @ResponseBody
     String getAllUserMarketingProgramDetails(HttpServletRequest request,
@@ -445,12 +445,14 @@ public class UserMarketingProgramController {
 
     }
 
+    //TODO ilyas refactor to point to new model and db
     @RequestMapping(value = "/getAllUserMarketingPrograms", method = RequestMethod.GET)
     public @ResponseBody
     String getAllUserMarketingPrograms(HttpServletRequest request,
             HttpServletResponse response) {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
+            //TODO Haider need companyId from session 
             int user_id = getCurrentUser(request);
 
             List<TblUserMarketingProgram> UserMarketingPrograms = userMarketingProgramService.getAllUserMarketingOpenPrograms("Open", user_id);
@@ -471,12 +473,14 @@ public class UserMarketingProgramController {
         return json_array_marketing_program.toString();
     }
 
+    //TODO Ilyas only used in social refactory to companyId
     @RequestMapping(value = "/getAllUserMarketingProgramsByUserId", method = RequestMethod.GET)
     public @ResponseBody
     String getAllUserMarketingProgramsByUserId(HttpServletRequest request,
             HttpServletResponse response) {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
+            //TODo Haider change to companyId from session
             int user_id = getCurrentUser(request);
 
             List<TblUserMarketingProgram> UserMarketingPrograms = userMarketingProgramService.getAllUserMarketingProgramByUserId(user_id);
@@ -499,12 +503,14 @@ public class UserMarketingProgramController {
         return json_array_marketing_program.toString();
     }
 
+    //TODO Ilyas refactory to new db
     @RequestMapping(value = "/getAllUserMarketingProgramsBySessionUserId", method = RequestMethod.GET)
     public @ResponseBody
     String getAllUserMarketingProgramBySessionUserId(HttpServletRequest request,
             HttpServletResponse response) {
         JSONArray json_array_marketing_program = new JSONArray();
         try {
+            //TODo Haider change to companyId from session
             int user_id = getCurrentUser(request);
 
             List<TblUserMarketingProgram> UserMarketingPrograms = userMarketingProgramService.getAllUserMarketingProgramByUserId(user_id);
@@ -524,6 +530,7 @@ public class UserMarketingProgramController {
         return json_array_marketing_program.toString();
     }
 
+    //TODO Ilyas refactor to new db
     @RequestMapping(value = "/updateUserProgram", method = RequestMethod.POST)
     public @ResponseBody
     String updateUserProgram(HttpServletRequest request,
@@ -556,6 +563,7 @@ public class UserMarketingProgramController {
         return "false";
     }
 
+    //TODO Ilyas refactor to new db - not sure where this is used
     @RequestMapping(value = "/getEntityDetails", method = RequestMethod.POST)
     public @ResponseBody
     String getEntityDetails(HttpServletRequest request,
@@ -570,6 +578,7 @@ public class UserMarketingProgramController {
         return "false";
     }
 
+    //TODO Ilyas refactor to new db
     @RequestMapping(value = "/approveStatusRecurring", method = RequestMethod.POST)
     public @ResponseBody
     String approveStatusRecurring(HttpServletRequest request,
@@ -598,6 +607,7 @@ public class UserMarketingProgramController {
         return "false";
     }
 
+    //TODO Ilyas refactor to new db
     @RequestMapping(value = "/approveStatus", method = RequestMethod.POST)
     public @ResponseBody
     String approveStatus(HttpServletRequest request,
@@ -629,6 +639,7 @@ public class UserMarketingProgramController {
         return "false";
     }
 
+    //TODO Ilyas refactor to new db
     @RequestMapping(value = "/endMarketingProgram", method = RequestMethod.POST)
     public @ResponseBody
     String endMarketingProgram(HttpServletRequest request,
@@ -650,6 +661,7 @@ public class UserMarketingProgramController {
         return "false";
     }
 
+    //TODO Ilyas refactor to new db
     @RequestMapping(value = "/forFacebook", method = RequestMethod.GET)
     public @ResponseBody
     String Facebook(HttpServletRequest request,

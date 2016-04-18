@@ -48,7 +48,7 @@ public class MarketingProgramController {
     private MarketingProgramService marketingprogramservice;
     @Autowired
     private MarketingProgramUsersService marketingprogramusers;
-
+    //Used only in admin can be removed
     @RequestMapping(value = "/getMarketingPrograms", method = RequestMethod.GET)
     public @ResponseBody String getMarketingPrograms(HttpServletRequest request,
             HttpServletResponse response, @RequestParam("marketingCategoryId") Integer marketingCategoryId) {
@@ -76,6 +76,7 @@ public class MarketingProgramController {
         return json_array_marketing_program.toString();
     }
 
+    //Can be removed only in admin
     @RequestMapping(value = "/getAllMarketingPrograms", method = RequestMethod.GET)
     public @ResponseBody String getAllMarketingPrograms(HttpServletRequest request,
             HttpServletResponse response) {
@@ -103,6 +104,7 @@ public class MarketingProgramController {
         return json_array_marketing_program.toString();
     }
     
+    //admin remove
     @RequestMapping(value = "/setMarketingPrograms", method = RequestMethod.POST)
     public @ResponseBody String setMarketingPrograms(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException, Throwable {
@@ -149,6 +151,7 @@ public class MarketingProgramController {
         return return_response;
     }
 
+    //admin remove
     @RequestMapping(value = "/deleteMarketingPrograms", method = RequestMethod.POST)
     public @ResponseBody
     String deleteMarketingPrograms(HttpServletRequest request,
@@ -168,6 +171,7 @@ public class MarketingProgramController {
         return return_response;
     }
 
+    //user but have rewritten can be removed
     @RequestMapping(value = "/displaymarketingProgram", method = RequestMethod.GET)
     public @ResponseBody
     String getMarketingProgramForCategoryUser(HttpServletRequest request,

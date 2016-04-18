@@ -47,6 +47,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  * @author intbit-6
  */
+
+//delete whole controller
 @Controller
 public class MarketingCategoryController {
     private static final Logger logger = Logger.getLogger(MarketingCategoryController.class.getName());
@@ -55,6 +57,8 @@ public class MarketingCategoryController {
     private MarketingCategoryService marketingCategoryService;
     @Autowired
     private MarketingCategoryUsersService marketingCategoryUsersService;
+    
+    //admin remove
    @RequestMapping(value="/allmarketingCategory", method = RequestMethod.GET)
    public @ResponseBody String getAllMarketingCategories()throws ServletException, IOException, Throwable {
 //       List<TblMarketingCategory> marketingCategorysList = null;
@@ -89,6 +93,7 @@ public class MarketingCategoryController {
        return jsonObject.toJSONString();
    }
    
+   //user - Replaced with getCompanyMarketingCategories.do
    @RequestMapping(value="/displaymarketingCategory", method = RequestMethod.GET)
    public @ResponseBody String getMarketingCategoriesForUser(HttpServletRequest request, 
                 HttpServletResponse response)throws ServletException, IOException, Throwable {
@@ -128,6 +133,7 @@ public class MarketingCategoryController {
        return jsonObject.toJSONString();
    }
    
+   //admin delete
    @RequestMapping(value="/deleteMarketingCategory", method = RequestMethod.POST)
    public @ResponseBody String deleteMarketingCategories(HttpServletRequest request, 
                 HttpServletResponse response)throws ServletException, IOException, Throwable {
@@ -145,6 +151,8 @@ public class MarketingCategoryController {
        }
        return status;
    }   
+   
+   //admin delete
 @RequestMapping(value="/setMarketingCategory", method = RequestMethod.POST)
 public @ResponseBody void setMarketingCategory(HttpServletRequest request, 
             HttpServletResponse response)throws ServletException, IOException, Throwable {
