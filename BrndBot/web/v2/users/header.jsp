@@ -23,6 +23,7 @@
 <link rel="stylesheet" type="text/css" href="css/sequence-Pages.css">
 <link rel="stylesheet" type="text/css" href="css/slats.css">
 <link rel="stylesheet" type="text/css" href="css/admin.css"></link>
+<link rel="stylesheet" type="text/css" href="css/hint.css"></link>
 <script src="js/base.js" type="text/javascript"></script> 
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script src="js/alertmessage.js" type="text/javascript"></script>

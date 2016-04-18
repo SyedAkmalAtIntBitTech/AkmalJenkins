@@ -17,7 +17,7 @@
       <div class="contentWrap--withSideNav noScroll">
         <div class="topNav topNav-withSubnav clear">
              <div class="topNav--BackButton fleft">
-                <object type="image/svg+xml" data="/Final-Icons/BackButton.svg" class="backButton-svg" style="cursor:pointer;"> </object>
+                  <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
             </div>
             <div class="topNav--TitleBar--withBackButton fleft">
                 <span class="topNav--TitleBar--Title fleft h2">Create an Email</span>
