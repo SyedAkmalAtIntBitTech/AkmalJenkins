@@ -8,20 +8,27 @@ package com.intbittech.controller;
 import com.intbittech.model.Category;
 import com.intbittech.model.Channel;
 import com.intbittech.model.OrganizationCategoryLookup;
+import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.modelmappers.CategoryDetails;
 import com.intbittech.modelmappers.ChannelDetails;
+import com.intbittech.modelmappers.OrganizationCompanyDetails;
+import com.intbittech.modelmappers.SubCategoryDetails;
 import com.intbittech.responsemappers.CategoryResponse;
 import com.intbittech.responsemappers.ChannelCategoryReponse;
 import com.intbittech.responsemappers.ContainerResponse;
+import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.CategoryService;
 import com.intbittech.services.ChannelService;
+import com.intbittech.services.CompanyService;
 import com.intbittech.services.OrganizationCategoryLookupService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +51,10 @@ public class CategoryController {
     private CategoryService categoryService;
     @Autowired
     private ChannelService channelService;
+    @Autowired
+    private CompanyService companyService;
+    @Autowired
+    private MessageSource messageSource;
     @Autowired
     private OrganizationCategoryLookupService organizationCategoryLookupService;
 
@@ -150,6 +161,51 @@ public class CategoryController {
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(ex.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "getAllCompanyCategories",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllCompanyCategories(@RequestParam("channelId") Integer channelId) {
+        GenericResponse<CategoryDetails> genericResponse = new GenericResponse<CategoryDetails>();
+        try {
+            //TODO Haider remove this and add companyId from session
+            Integer companyId = 1;
+            List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
+            organizationCompanyDetail = companyService.getAllOrganizationsByCompanyId(companyId);
+            List<OrganizationCompanyDetails> organizationCompanyDetailsList = new ArrayList<>();
+            Integer organizationCompanySize = 1;
+            if(organizationCompanyDetail!=null)
+                organizationCompanySize = organizationCompanyDetail.size()+1;
+            Integer[] organizationIds = new Integer[organizationCompanySize];
+            Integer i =0;
+            organizationIds[i++] = 0;
+            if(organizationCompanyDetail!=null)
+            {
+                for(OrganizationCompanyLookup organizationObject : organizationCompanyDetail) {
+                    organizationIds[i++] = organizationObject.getFkOrganizationId().getOrganizationId();
+                }
+            }
+            List<OrganizationCategoryLookup> OrganizationCategoryList = organizationCategoryLookupService.getAllOrganizationCategoryLookupByIds(organizationIds, channelId);
+                List<CategoryDetails> categoryDetailList = new ArrayList<>();
+                if (OrganizationCategoryList != null) {
+                    for (OrganizationCategoryLookup organizationCategoryLookup : OrganizationCategoryList) {
+
+                        CategoryDetails categoryDetails = new CategoryDetails();
+                        categoryDetails.setCategoryId(organizationCategoryLookup.getFkCategoryId().getCategoryId());
+                        categoryDetails.setCategoryName(organizationCategoryLookup.getFkCategoryId().getCategoryName());
+                        categoryDetails.setChannelId(organizationCategoryLookup.getFkCategoryId().getFkChannelId().getChannelId());
+                        categoryDetails.setOrganizationId(organizationCategoryLookup.getFkOrganizationId().getOrganizationId());
+                        categoryDetails.setOrganizationName(organizationCategoryLookup.getFkOrganizationId().getOrganizationName());
+                        categoryDetailList.add(categoryDetails);
+                    }
+                }
+            genericResponse.setDetails(categoryDetailList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyCategories_get",new String[]{}, Locale.US)));   
+            
+        } catch(Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
 }

@@ -96,6 +96,33 @@ public class ModelController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
 
     }
+    
+    @RequestMapping(value = "getAllEmailModelsBySubCategoryId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllEmailModelsBySubCategoryId(@RequestParam("subCategoryId") Integer subCategoryId) {
+        GenericResponse<EmailModelDetails> genericResponse = new GenericResponse<>();
+        try {
+            List<SubCategoryEmailModel> subCategoryEmailModelList = subCategoryEmailModelService.getAllSubCategoryEmailModel(subCategoryId);
+            List<EmailModelDetails> emailModelDetailsList = new ArrayList<>();
+            for (SubCategoryEmailModel emailModelsObject : subCategoryEmailModelList) {
+                EmailModelDetails emailModelDetails = new EmailModelDetails();
+                emailModelDetails.setEmailModelId(emailModelsObject.getFkEmailModelId().getEmailModelId());
+                emailModelDetails.setEmailModelName(emailModelsObject.getFkEmailModelId().getEmailModelName());
+                emailModelDetails.setHtmlData(emailModelsObject.getFkEmailModelId().getHtmlData());
+                //TODO Ilyas send image data
+                emailModelDetails.setImageFileName(emailModelsObject.getFkEmailModelId().getImageFileName());
+                emailModelDetails.setSubCategoryEmailModelId(emailModelsObject.getSubCategoryEmailModelId());
+                emailModelDetailsList.add(emailModelDetails);
+            }
+
+            genericResponse.setDetails(emailModelDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email templates retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
 
     @RequestMapping(value = "getAllNonAddedEmailModels", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllNonAddedEmailModels(@RequestParam("subCategoryId") Integer subCategoryId) {

@@ -15,11 +15,16 @@
            <%@include file="header.jsp" %>       
       <%@include file="navbar.jsp" %>    
         <div class="contentWrap--withNoSideNav">
-        <div class="topNav clear">
+        <div class="topNav clear menuWidth">
             <a href="EmailSequence-Editor.html"><div class="topNav--BackButton fleft">
-                <object type="image/svg+xml" data="/Final-Icons/BackButton.svg" class="backButton-svg" style="cursor:pointer;"> </object>
+                    
+             <a class="exit-button-icon" href="emailsequence.jsp">
+          
+                    <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
+            
+            </a>
                 </div></a>
-            <div class="topNav--TitleBar--withBackButton fleft">
+            <div class="topNav--TitleBar--withBackButton fleft topNavigation">
                 <span class="topNav--TitleBar--Title fleft h2">Create an Email</span>
                 <div class="topNav--TitleBar--CTABox fright">
                     <div class="CTA_Button Button--Gray">Help!</div>

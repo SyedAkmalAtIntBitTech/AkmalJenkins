@@ -13,8 +13,24 @@
     </head>
     <body class="body-normal">
          <%@include file="header.jsp" %>       
-      <%@include file="navbar.jsp" %>    
-       <div class="contentWrapInner">
+      <%@include file="navbar.jsp" %>   
+      <div class="contentWrap--withNoSideNav noScroll">
+          <div class="topNav clear menuWidth">
+              
+            <div class="topNav--BackButton fleft">
+               <a class="exit-button-icon" href="emailexternalsource.jsp">
+          
+                    <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
+            
+            </a>
+            </div>
+            <div class="topNav--TitleBar--withBackButton fleft topNavigation">
+                <span class="topNav--TitleBar--Title fleft h2">Create an Email</span>
+                
+            </div>
+           
+        </div>
+       <div class="contentWrapInner" style="padding-top:calc(12vh - -10px);">
             <div class="pane pane-onboarding">
                 <div class="pane_header clear">
                     <div class="pane_title fleft h2">Choose who to send this email to:</div>
@@ -45,6 +61,7 @@
                 </div>
             </div>
         </div>   
+    </div>
     </div>
     <div class="bottomNav">
         <a href="emaildetails.jsp">

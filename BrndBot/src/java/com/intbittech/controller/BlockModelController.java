@@ -76,6 +76,33 @@ public class BlockModelController {
 
     }
     
+    @RequestMapping(value = "getAllEmailBlockModelsByBlockId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllEmailBlockModelsByBlockId(@RequestParam("emailBlockId") Integer emailBlockId) {
+        GenericResponse<EmailBlockModelDetails> genericResponse = new GenericResponse<>();
+        try {
+            List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupService.getAllEmailBlockModel(emailBlockId);
+            List<EmailBlockModelDetails> emailModelDetailsList = new ArrayList<>();
+            for (EmailBlockModelLookup emailBlockModelLookupObject : emailBlockModelLookupList) {
+                EmailBlockModelDetails emailBlockModelDetails = new EmailBlockModelDetails();
+                emailBlockModelDetails.setEmailBlockId(emailBlockModelLookupObject.getFkEmailBlockId().getEmailBlockId());
+                emailBlockModelDetails.setEmailBlockModelName(emailBlockModelLookupObject.getFkEmailBlockModelId().getEmailBlockModelName());
+                emailBlockModelDetails.setHtmlData(emailBlockModelLookupObject.getFkEmailBlockModelId().getHtmlData());
+                emailBlockModelDetails.setImageFileName(emailBlockModelLookupObject.getFkEmailBlockModelId().getImageFileName());
+                //TODO Ilyas send image data
+                emailBlockModelDetails.setEmailBlockModelLookupId(emailBlockModelLookupObject.getEmailBlockModelLookupId());
+                emailModelDetailsList.add(emailBlockModelDetails);
+            }
+
+            genericResponse.setDetails(emailModelDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email block templates retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+    
     @RequestMapping(value = "getAllEmailBlockModel", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllEmailBlockModel() {
         GenericResponse<EmailBlockModelDetails> genericResponse = new GenericResponse<>();

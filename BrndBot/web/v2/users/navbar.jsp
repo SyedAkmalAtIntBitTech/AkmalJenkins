@@ -1,25 +1,26 @@
 
-<div class="mainNav">   
+<div class="mainNav" >   
         <a href="Dashboard.html"><div class="bb-logo-wrap">
-            <object type="image/svg+xml" data="/Final-Icons/Logo_Reverse.svg" class="bb-logo" style="cursor:pointer;"> </object>
+            <object type="image/svg+xml" data="images/Logo_Reverse.svg" class="bb-logo" style="cursor:pointer;"> </object>
             </div></a>
         <a href="YourPlan.html"><div class="nav-tabs">
-            <object type="image/svg+xml" data="/Final-Icons/Nav-Icons/yourPlan.svg" class="nav-elements-icon" style="cursor:pointer;"> </object>
+            <object type="image/svg+xml" data="images/yourPlan.svg" class="nav-elements-icon" style="cursor:pointer;"> </object>
             </div></a>
-        <a href="MarketingProgram-CurrentList.html"><div class="nav-tabs">
-             <object type="image/svg+xml" data="/Final-Icons/Nav-Icons/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;"></object>
+    <a class="hint--right" href="marketingcategory.jsp" data-hint="MARKETING PROGRAM"><div class="nav-tabs ">
+                <img type="image/svg+xml" src="images/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;">
+            
             </div></a>
         <a href="MarketingHubs-EmailHub.html"><div class="nav-tabs">
-             <object type="image/svg+xml" data="/Final-Icons/Nav-Icons/yourHubs.svg" class="nav-elements-icon" style="cursor:pointer;"></object>
+             <object type="image/svg+xml" data="images/yourHubs.svg" class="nav-elements-icon" style="cursor:pointer;"></object>
             </div></a>
         <a href="Media.html"><div class="nav-tabs">
-             <object type="image/svg+xml" data="/Final-Icons/Nav-Icons/media.svg" class="nav-elements-icon" style="cursor:pointer;"></object>
+             <object type="image/svg+xml" data="images/media.svg" class="nav-elements-icon" style="cursor:pointer;"></object>
             </div></a>
         <a href="UserHub.html"><div class="nav-tabs">
-             <object type="image/svg+xml" data="/Final-Icons/Nav-Icons/user.svg" class="nav-elements-icon" style="cursor:pointer;"></object>
+             <object type="image/svg+xml" data="images/user.svg" class="nav-elements-icon" style="cursor:pointer;"></object>
             </div></a>
         <div class="nav-elements-icon-container-bottom">
-             <object type="image/svg+xml" data="/Final-Icons/Nav-Icons/logout.svg" class="nav-elements-icon" style="cursor:pointer;"></object>
+             <object type="image/svg+xml" data="images/logout.svg" class="nav-elements-icon" style="cursor:pointer;"></object>
         </div>
     </div>
     

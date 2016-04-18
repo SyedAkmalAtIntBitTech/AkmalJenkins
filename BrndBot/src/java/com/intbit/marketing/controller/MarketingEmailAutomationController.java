@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  * @author development
  */
+
+//TODO remove this is unused
 @Controller
 public class MarketingEmailAutomationController {
     String return_response = "false";
