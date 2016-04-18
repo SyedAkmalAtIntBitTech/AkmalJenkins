@@ -111,7 +111,8 @@ $("#addMarketingProgramsPopupDiv").click(function () {
 });
 
 
-                 /* When the user clicks on the button, 
+                 /* NavBar Menu DropDown
+                    When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
 function showDropDown(id) {
     document.getElementById(id).classList.toggle("show");
