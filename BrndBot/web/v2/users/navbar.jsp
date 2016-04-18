@@ -6,8 +6,9 @@
         <a href="YourPlan.html"><div class="nav-tabs">
             <object type="image/svg+xml" data="images/yourPlan.svg" class="nav-elements-icon" style="cursor:pointer;"> </object>
             </div></a>
-        <a href="MarketingProgram-CurrentList.html"><div class="nav-tabs">
-             <object type="image/svg+xml" data="images/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;"></object>
+    <a class="hint--right" href="marketingcategory.jsp" data-hint="MARKETING PROGRAM"><div class="nav-tabs ">
+                <img type="image/svg+xml" src="images/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;">
+            
             </div></a>
         <a href="MarketingHubs-EmailHub.html"><div class="nav-tabs">
              <object type="image/svg+xml" data="images/yourHubs.svg" class="nav-elements-icon" style="cursor:pointer;"></object>
