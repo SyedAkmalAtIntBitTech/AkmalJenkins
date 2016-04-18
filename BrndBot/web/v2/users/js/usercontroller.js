@@ -57,21 +57,36 @@ $scope.displaySubCategory = function () {
     
     $scope.displayMarketingProgramByCategoryId = function () {
         var marketingCategoryId=  localStorage.getItem("marketingCategoryId");
+         
         $http({
             method: 'GET',
             url: getHost() + '/getMarketingProgramsByCategoryId.do?marketingCategoryId='+marketingCategoryId
         }).success(function (data, status, headers, config) {
+           
             $scope.displayMarketingPrograms = data.d.details;
-            $("#htmlData").text(data.d.details[0].htmlData);           
+            var marketingProgramId= JSON.stringify(data.d.details[0].marketingProgramId);
+            setTimeout(function () {
+                $("#"+marketingProgramId).click();
+              
+            }, 0);
+           for(var i=0;i<=data.d.details.length;i++)
+           {
+              $("#htmlData").text(data.d.details[i].htmlData); 
+           }
         }).error(function (data, status, headers, config) {
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
 
         });
 
     };
+    
+    
     $scope.showhtmldata = function(id,htmlData){
+         $("#htmlData").text(htmlData);
+   
       $(".programList").css("background-color", "#fff").css("color","#3f3f42");
-      $(".nameList"+id).css("background-color","#5cc1a3").css("color","#f6f7f7");      
+      $(".nameList"+id).css("background-color","#5cc1a3").css("color","#f6f7f7");  
+       
     };
 
 }

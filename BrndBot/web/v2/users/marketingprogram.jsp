@@ -30,7 +30,12 @@
             <div class="topNav--TitleBar--withBackButton fleft">
                 <span class="topNav--TitleBar--Title fleft h2">Create an Email</span>
                 <div class="topNav--TitleBar--CTABox fright">
-                    <div class="CTA_Button Button--Gray">Help!</div>
+                   <div class="page-cta-container">
+                <a id="cont" href="" class=" fleft">
+                    <div class=" add-button md-button">Continue</div>    
+                </a>
+            </div>
+                    
                 </div>
             </div>
        
@@ -40,12 +45,15 @@
                 <div class="pane_header clear">
                     <div class="pane_title fleft h2">Marketing Programs</div>
                 </div>
+                
                 <div class="pane_content">
+                    
                     <div class="cat-list" ng-repeat="displayAllMarketingProgram in displayMarketingPrograms">
-                        <div class="cat-slat nameList{{displayAllMarketingProgram.marketingProgramId}}">
+                        
+                        <div  class="{{displayAllMarketingProgram.marketingProgramId}}">
                             <ul>
                                 <li class="programList nameList{{displayAllMarketingProgram.marketingProgramId}}" ng-click="showhtmldata(displayAllMarketingProgram.marketingProgramId,displayAllMarketingProgram.htmlData)">
-                                <div class="cat-slat-title ">{{displayAllMarketingProgram.marketingProgramName}}</div>
+                                    <div id="{{displayAllMarketingProgram.marketingProgramId}}" class="cat-slat-titles">{{displayAllMarketingProgram.marketingProgramName}}</div>
                                 </li>
                             </ul>
                         </div>
@@ -59,14 +67,14 @@
                 </div>
                 <div class="pane_content ">
                    <div class="main-container main-container50widthright col-1of1  pushUp fright lftpad" >
-                         <div class="htmldatacontainer" id="htmlData">
+                         <div class="htmldatacontainer cat-slat-titles" id="htmlData">
                         </div>
                     </div>
                 </div>
             </div>   
         </div>
         </div>
-    </div>
+    
     
     
     

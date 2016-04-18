@@ -581,3 +581,12 @@ width: calc(100% - 129px);
     overflow-y: auto !important;
     overflow-x: hidden !important;
 }
+.add-button {
+    background-color: #5cc1a4;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.md-button {
+    padding: 7px 16px 7px 16px;
+    border-radius: 3px;
+}
