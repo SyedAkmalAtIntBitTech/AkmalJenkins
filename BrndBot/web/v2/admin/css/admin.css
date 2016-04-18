@@ -545,6 +545,7 @@ cursor: pointer;
     }
     .contentEdit{
         overflow-y: inherit !important;
+        height: calc(100vh - -70px);
     }
     #addMarketingTemplatePopUp{
         left: 14%;
@@ -566,7 +567,7 @@ cursor: pointer;
     
     .contentEdit{
       
-    height: calc(100vh - -170px);
+    height: calc(100vh - -380px);
     margin: 0px 30px;
     position: absolute;
     overflow-y: inherit;
@@ -694,7 +695,8 @@ width: 100%;
     box-sizing: border-box;
     background-color: #FFFFFF ;
     display: block;
-    overflow-y: scroll;
+    /* scroll;*/
+    overflow-y:auto;
 }
 
 .groupArea{
@@ -730,16 +732,7 @@ width: 60%;
     margin-top: 30px;
 }
 
-.listItem{
-    width: 100%;
-    border: 1px solid #D2D3D5;
-    margin-top: 8px;
-    font-size: 14px;
-    overflow: auto;
-    clear: both;
-     box-sizing: border-box;
-    background-color: #fbfbfb;
-}
+
 
 .listHeaderCol{
 padding: 5px 15px;  

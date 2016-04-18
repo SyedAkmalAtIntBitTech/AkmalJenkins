@@ -284,7 +284,7 @@ public class AssestsController {
             String storableFileName = null;
 
             try {
-                storableFileName = FileHandlerUtil.upadteAdminGlobalImage(globalImages.getImageName(), globalImageDetails.getImageName(),
+                storableFileName = FileHandlerUtil.updateAdminGlobalImage(globalImages.getImageName(), globalImageDetails.getImageName(),
                         globalImageDetails.getImageType(), globalImageDetails.getImageData());
             } catch (Throwable throwable) {
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_not_update", null, Locale.US)));

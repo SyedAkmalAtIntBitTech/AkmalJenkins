@@ -278,6 +278,7 @@ public class ModelController {
             emailModelDetails.setEmailModelName(emailModel.getEmailModelName());
             emailModelDetails.setImageFileName(emailModel.getImageFileName());
             emailModelDetails.setHtmlData(emailModel.getHtmlData());
+            emailModelDetails.setImageFileData(FileHandlerUtil.getAdminEmailTemplateImageBase64(emailModel.getImageFileName()));
             emailModelDetailsList.add(emailModelDetails);
 
             genericResponse.setDetails(emailModelDetailsList);

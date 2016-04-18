@@ -14,7 +14,7 @@
     </head>
    
       <jsp:include page="header.jsp"/>
-    <body class="body-normal" ng-app  ng-controller="emailTemplateController" >        
+    <body class="body-normal" ng-app="uploadImage" ng-controller="emailTemplateController" >        
       
         <div class="content-area" ng-init="emailTemplateModel()" >
         <div class="content-area_header">
