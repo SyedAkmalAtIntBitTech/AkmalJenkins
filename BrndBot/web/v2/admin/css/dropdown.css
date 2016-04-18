@@ -3,7 +3,8 @@
 .dropdown-content{}
 
 .dropbtn{
-    color: #666;
+    /*color: #666;*/
+    color:#3E4551;
     background-color: #FFF;
   line-height: 45px;
     font-size: 13px;

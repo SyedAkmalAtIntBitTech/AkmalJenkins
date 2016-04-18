@@ -17,6 +17,7 @@
         <link rel="stylesheet" type="text/css" href="css/admin.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="admincss/basecss.css"/>
+        <link rel="stylesheet" type="text/css" href="css/dropdown.css"/>
         <link rel="shortcut icon" href="../images/favicon.png"/> 
         <script src="js/globalimage.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="css/basecss.css"/>
@@ -32,7 +33,28 @@
           <script src="js/imageToBase64Converter.js" type="text/javascript"></script>
          <script src="js/marketingprogramdetails.js" type="text/javascript"></script>
            <script src="js/allcompanies.js" type="text/javascript"></script>
+           <script>
+                 /* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function showDropDown(id) {
+    document.getElementById(id).classList.toggle("show");
+}
 
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+    </script>
    </head>
     <body>
        <div class="nav ">
@@ -41,14 +63,34 @@
         </div>
         <div class="headernav">
             <a href="allcompanies.jsp"><div class="nav_tab fleft"> Users </div></a>
-            <a href="organization.jsp"><div class="nav_tab fleft"> Organizations </div></a>
-            <a href="emailtemplates.jsp"><div class="nav_tab fleft"> Email Templates </div></a>
+            <a href="organization.jsp"><div class="nav_tab fleft"> Organizations and Groups </div></a>
+            <div class="nav_tab fleft">
+                <button onclick="showDropDown('templateDropdown')" class="dropbtn">Templates</button>
+                <div id="templateDropdown" class="dropdown-content">
+                    <a href="emailtemplates.jsp">Email Templates</a>
+                    <a href="emailblockmodels.jsp">Email Block Templates</a>
+                    <a href="recurringemails.jsp">Email Automation Templates</a>
+                    <a href="#">Image Templates</a>
+                    <a href="printtemplates.jsp">Print Templates</a>
+                </div>
+            </div>
+            <div class="nav_tab fleft">
+                <button onclick="showDropDown('mpDropdown')" class="dropbtn">Marketing Campaigns</button>
+                <div id="mpDropdown" class="dropdown-content">
+                    <a href="marketingprogram.jsp">Campaigns</a>
+                    <a href="#">Field Templates COMING SOON</a>
+                </div>
+            </div>
+            <div class="nav_tab fleft"> 
+                <button onclick="showDropDown('assetDropdown')" class="dropbtn">Assets</button>
+                <div id="assetDropdown" class="dropdown-content">
+                    <a href="globalimage.jsp">Images</a>
+                    <a href="assets.jsp">Color Themes</a>
+                    <a href="globalfonts.jsp">Fonts</a>
+                </div>
+            </div>
+            <div class="nav_tab-logout fright cursorpointer"> Logout </div>
             <a href="emailblockmodels.jsp"><div class="nav_tab fleft"> Email Blocks</div></a>
-            <a href="printtemplates.jsp"><div class="nav_tab fleft"> Print Templates </div></a>
-            <a href="#"><div class="nav_tab fleft"> Image Templates </div></a>
-            <a href="marketingprogram.jsp"><div class="nav_tab fleft"> Marketing Programs </div></a>
-            <a href="assets.jsp"><div class="nav_tab fleft"> Assets </div></a>
-            <a href="recurringemails.jsp"><div class="nav_tab fleft"> Recurring Email</div></a>
         </div>
        </div>
         <div class="nav-offset"></div>
