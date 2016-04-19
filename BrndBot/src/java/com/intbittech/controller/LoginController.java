@@ -39,7 +39,7 @@ public class LoginController {
     public String adminPage(ModelMap model) {
         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
         model.addAttribute("user", userProfile.getUsername());
-        return "admin/welcome";
+        return "admin/organization";
     }
    
     @RequestMapping(value = "/user", method = RequestMethod.GET)
