@@ -10,6 +10,7 @@ import com.controller.GetColorFromImage;
 import com.intbittech.AppConstants;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
+import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.modelmappers.CompanyDetails;
@@ -87,6 +88,9 @@ public class OnboardingController {
             Users user = new Users();
             user.setUserName(usersDetails.getUserName());
             user.setUserPassword(passwordEncoder.encode(usersDetails.getUserPassword()));
+            UserRole userRole = new UserRole();
+            userRole.setUserRoleId(2);
+            user.setFkUserRoleId(userRole);
             user.setCreatedDate(new Date());
 
             Integer returnMessage = usersService.save(user);
