@@ -12,6 +12,7 @@ package com.intbittech.modelmappers;
 public class MarketingProgramDetails {
     private Integer marketingProgramId;
     private String marketingProgramName;
+    private String htmlData;
 
     public Integer getMarketingProgramId() {
         return marketingProgramId;
@@ -28,6 +29,13 @@ public class MarketingProgramDetails {
     public void setMarketingProgramName(String marketingProgramName) {
         this.marketingProgramName = marketingProgramName;
     }
-    
+
+    public String getHtmlData() {
+        return htmlData;
+    }
+
+    public void setHtmlData(String htmlData) {
+        this.htmlData = htmlData;
+    }
     
 }

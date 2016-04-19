@@ -12,10 +12,9 @@
         <title>Email Preview Popup</title>
     </head>
     <body class="body-normal">
-          <%@include file="header.jsp" %>       
-      <%@include file="navbar.jsp" %>    
-      
-       <div class="contentWrap--withNoSideNav">
+        
+        
+<!--       <div class="contentWrap--withNoSideNav">
         <div class="topNav clear">
             <div class="topNav--BackButton fleft">
                 <object type="image/svg+xml" data="/Final-Icons/BackButton.svg" class="backButton-svg" style="cursor:pointer;"> </object>
@@ -52,16 +51,17 @@
                 </div>
             </div>   
         </div>
-    </div>
-    <div class="bottomNav">
+    </div>-->
+<!--    <div class="bottomNav">
         <a href="">
             <div class="bottom-ContinueButton fright">CONTINUE</div>
         </a>
-    </div>
+    </div>-->
+    <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer"></div>
     
-    
-    <div class="popUp_background-dark">
-        <div class="popUp_fullWidth popUp_topMargin_3">
+    <div class="popUp_background-dark" id="emailPreviewPopUp">
+        <div class="popUp_fullWidth popUp_topMargin_3"  >
+          <div class="popUp popUp_CenterVert">
             <div class="popUp_header clear">
                 <div class="pane_title fleft h2 col1of2">Email Preview</div>
                 <a href=""><div class="popUp_close fright">
@@ -79,6 +79,7 @@
                 </div>
             </div>
         </div>  
+    </div>
     </div>
     
     </body>

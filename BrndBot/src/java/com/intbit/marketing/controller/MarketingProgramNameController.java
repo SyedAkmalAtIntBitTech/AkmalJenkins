@@ -56,6 +56,7 @@ public class MarketingProgramNameController {
      @Autowired
      private UserMarketingProgramService userMarketingProgramService;
      
+     //TODO Ilyas refactor to new db
      @RequestMapping(value="/getMarketingProgramName", method = RequestMethod.GET)
    public @ResponseBody String getMarketingProgramName()throws ServletException, IOException, Throwable {
 //       List<TblMarketingCategory> marketingCategorysList = null;

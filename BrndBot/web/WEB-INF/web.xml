@@ -122,92 +122,8 @@
         <servlet-class>com.controller.ResetUserPassword</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletAddLooks</servlet-name>
-        <servlet-class>admin.controller.ServletAddLooks</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletDeleteLooks</servlet-name>
-        <servlet-class>admin.controller.ServletDeleteLooks</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletChangeLooks</servlet-name>
-        <servlet-class>admin.controller.ServletChangeLooks</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletAddFonts</servlet-name>
-        <servlet-class>admin.controller.ServletAddFonts</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletOrganization</servlet-name>
-        <servlet-class>admin.controller.ServletOrganization</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletFontsSizes</servlet-name>
-        <servlet-class>admin.controller.ServletFontsSizes</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletFontStyles</servlet-name>
-        <servlet-class>admin.controller.ServletFontStyles</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletColors</servlet-name>
-        <servlet-class>admin.controller.ServletColors</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletAddPersonality</servlet-name>
-        <servlet-class>admin.controller.ServletAddPersonality</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletDeleteBrands</servlet-name>
-        <servlet-class>admin.controller.ServletDeleteBrands</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletEditPersonality</servlet-name>
-        <servlet-class>admin.controller.ServletEditPersonality</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletColorTheme</servlet-name>
-        <servlet-class>admin.controller.ServletColorTheme</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletFontTheme</servlet-name>
-        <servlet-class>admin.controller.ServletFontTheme</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletAddCategories</servlet-name>
-        <servlet-class>admin.controller.ServletAddCategories</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletDeleteCategories</servlet-name>
-        <servlet-class>admin.controller.ServletDeleteCategories</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletEditCategories</servlet-name>
-        <servlet-class>admin.controller.ServletEditCategories</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletSubCategory</servlet-name>
-        <servlet-class>admin.controller.ServletSubCategory</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ServletUploadFonts</servlet-name>
         <servlet-class>admin.controller.ServletUploadFonts</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletDeleteFonts</servlet-name>
-        <servlet-class>admin.controller.ServletDeleteFonts</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletUpdateFonts</servlet-name>
-        <servlet-class>admin.controller.ServletUpdateFonts</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletLogin</servlet-name>
-        <servlet-class>admin.controller.ServletLogin</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletModel</servlet-name>
-        <servlet-class>com.intbit.ServletModel</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ServletGetStyles</servlet-name>
@@ -290,10 +206,6 @@
         <servlet-class>social.controller.EmailTextDataServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletBlock</servlet-name>
-        <servlet-class>admin.controller.ServletBlock</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GetBlocks</servlet-name>
         <servlet-class>com.controller.GetBlocks</servlet-class>
     </servlet>
@@ -333,10 +245,7 @@
         <servlet-name>ServletValidateModel</servlet-name>
         <servlet-class>admin.controller.ServletValidateModel</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ServletAddHtmlTemplate</servlet-name>
-        <servlet-class>admin.controller.ServletAddHtmlTemplate</servlet-class>
-    </servlet>
+    
     <servlet>
         <servlet-name>DownloadFontsServlet</servlet-name>
         <servlet-class>com.controller.DownloadFontsServlet</servlet-class>
@@ -350,10 +259,6 @@
         <servlet-class>com.controller.email.GetEmailHistoryDetailServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletListAdminBackgroundImages</servlet-name>
-        <servlet-class>admin.controller.ServletListAdminBackgroundImages</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GetEmailTagsServlet</servlet-name>
         <servlet-class>com.controller.email.GetEmailTagsServlet</servlet-class>
     </servlet>
@@ -365,10 +270,7 @@
         <servlet-name>EmailSettingsServlet</servlet-name>
         <servlet-class>com.controller.email.EmailSettingsServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ServletDisplayLayoutHTML</servlet-name>
-        <servlet-class>admin.controller.ServletDisplayLayoutHTML</servlet-class>
-    </servlet>
+    
     <servlet>
         <servlet-name>GetScheduledEmailDetailServlet</servlet-name>
         <servlet-class>com.controller.schedule.GetScheduledEmailDetailServlet</servlet-class>
@@ -393,10 +295,7 @@
         <servlet-name>AddNoteServlet</servlet-name>
         <servlet-class>com.controller.schedule.AddNoteServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ServletDuplicateLayout</servlet-name>
-        <servlet-class>admin.controller.ServletDuplicateLayout</servlet-class>
-    </servlet>
+    
     <servlet>
         <servlet-name>DownloadHtmlServlet</servlet-name>
         <servlet-class>com.controller.DownloadHtmlServlet</servlet-class>
@@ -429,10 +328,7 @@
         <servlet-name>DownloadSVGServlet</servlet-name>
         <servlet-class>com.controller.DownloadSVGServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>SaveSVGServlet</servlet-name>
-        <servlet-class>admin.controller.SaveSVGServlet</servlet-class>
-    </servlet>
+    
     <servlet>
         <servlet-name>GetTemplates</servlet-name>
         <servlet-class>com.controller.GetTemplates</servlet-class>
@@ -456,10 +352,6 @@
     <servlet>
         <servlet-name>GetEmaiLayoutHtmlServlet</servlet-name>
         <servlet-class>com.controller.GetEmaiLayoutHtmlServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletUserBrand</servlet-name>
-        <servlet-class>admin.controller.ServletUserBrand</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Authentication</servlet-name>
@@ -554,92 +446,8 @@
         <url-pattern>/SendEmail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletAddLooks</servlet-name>
-        <url-pattern>/ServletAddLooks</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletDeleteLooks</servlet-name>
-        <url-pattern>/ServletDeleteLooks</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletChangeLooks</servlet-name>
-        <url-pattern>/ServletChangeLooks</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletAddFonts</servlet-name>
-        <url-pattern>/ServletAddFonts</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletOrganization</servlet-name>
-        <url-pattern>/ServletOrganization</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletFontsSizes</servlet-name>
-        <url-pattern>/ServletFontsSizes</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletFontStyles</servlet-name>
-        <url-pattern>/ServletFontStyles</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletColors</servlet-name>
-        <url-pattern>/ServletColors</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletAddPersonality</servlet-name>
-        <url-pattern>/ServletAddPersonality</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletDeleteBrands</servlet-name>
-        <url-pattern>/ServletDeleteBrands</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletEditPersonality</servlet-name>
-        <url-pattern>/ServletEditPersonality</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletColorTheme</servlet-name>
-        <url-pattern>/ServletColorTheme</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletFontTheme</servlet-name>
-        <url-pattern>/ServletFontTheme</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletAddCategories</servlet-name>
-        <url-pattern>/ServletAddCategories</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletDeleteCategories</servlet-name>
-        <url-pattern>/ServletDeleteCategories</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletEditCategories</servlet-name>
-        <url-pattern>/ServletEditCategories</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletSubCategory</servlet-name>
-        <url-pattern>/ServletSubCategory</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ServletUploadFonts</servlet-name>
         <url-pattern>/ServletUploadFonts</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletDeleteFonts</servlet-name>
-        <url-pattern>/ServletDeleteFonts</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletUpdateFonts</servlet-name>
-        <url-pattern>/ServletUpdateFonts</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletLogin</servlet-name>
-        <url-pattern>/ServletLogin</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletModel</servlet-name>
-        <url-pattern>/ServletModel</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletGetStyles</servlet-name>
@@ -722,10 +530,6 @@
         <url-pattern>/EmailTextDataServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletBlock</servlet-name>
-        <url-pattern>/ServletBlock</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>GetBlocks</servlet-name>
         <url-pattern>/GetBlocks</url-pattern>
     </servlet-mapping>
@@ -765,10 +569,7 @@
         <servlet-name>ServletValidateModel</servlet-name>
         <url-pattern>/ServletValidateModel</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletAddHtmlTemplate</servlet-name>
-        <url-pattern>/ServletAddHtmlTemplate</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>DownloadFontsServlet</servlet-name>
         <url-pattern>/DownloadFonts</url-pattern>
@@ -782,10 +583,6 @@
         <url-pattern>/GetEmailHistoryDetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletListAdminBackgroundImages</servlet-name>
-        <url-pattern>/ServletListAdminBackgroundImages</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>GetEmailTagsServlet</servlet-name>
         <url-pattern>/GetEmailTagsServlet</url-pattern>
     </servlet-mapping>
@@ -796,10 +593,6 @@
     <servlet-mapping>
         <servlet-name>EmailSettingsServlet</servlet-name>
         <url-pattern>/EmailSettingsServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletDisplayLayoutHTML</servlet-name>
-        <url-pattern>/ServletDisplayLayoutHTML</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetScheduledEntitiesServlet</servlet-name>
@@ -825,10 +618,7 @@
         <servlet-name>AddNoteServlet</servlet-name>
         <url-pattern>/AddNote</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletDuplicateLayout</servlet-name>
-        <url-pattern>/ServletDuplicateLayout</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>DownloadHtmlServlet</servlet-name>
         <url-pattern>/DownloadHtmlServlet</url-pattern>
@@ -861,10 +651,7 @@
         <servlet-name>DownloadSVGServlet</servlet-name>
         <url-pattern>/DownloadSVGServlet</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SaveSVGServlet</servlet-name>
-        <url-pattern>/SaveSVGServlet</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>GetTemplates</servlet-name>
         <url-pattern>/GetTemplates</url-pattern>
@@ -893,6 +680,7 @@
         <servlet-name>ServletUserBrand</servlet-name>
         <url-pattern>/ServletUserBrand</url-pattern>
     </servlet-mapping>-->
+
     <session-config>
         <session-timeout>
             30

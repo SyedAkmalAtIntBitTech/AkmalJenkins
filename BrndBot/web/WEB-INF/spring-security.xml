@@ -39,12 +39,12 @@
     <!--    DB Configuration -->   
     <authentication-manager >
         <authentication-provider user-service-ref="springSecurityUserDetailsServiceImpl">
-            <password-encoder ref="bcryptEncoder"/>
+            <password-encoder ref="passwordEncoder"/>
         </authentication-provider>
     </authentication-manager>
     
    
     <beans:bean id="springSecurityUserDetailsServiceImpl" class="com.intbittech.services.impl.SpringSecurityUsersDetailServiceImpl" />  
     <beans:bean id="brndbotUserLoginSuccessHandler" class="com.intbittech.component.BrndbotUserLoginSuccessHandler" />
-    <beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" /> 
+    <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" /> 
 </beans:beans>

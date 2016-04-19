@@ -103,6 +103,27 @@ public class OrganizationCompanyDaoImpl implements OrganizationCompanyDao {
     /**
      * {@inheritDoc}
      */
+    public List<OrganizationCompanyLookup> getAllOrganizationsByCompanyId(Integer companyId) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(OrganizationCompanyLookup.class)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                    .setFetchMode("fkOrganizationId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkCompanyId.companyId", companyId));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
     public List<Organization> getNonAddedGroups(Integer[] organizationIds) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()

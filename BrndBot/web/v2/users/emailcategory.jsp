@@ -16,10 +16,15 @@
       <%@include file="navbar.jsp" %>       
    
     <!--Main Content Wrap-->
-    <div class="contentWrap--withSideNav noScroll">
+    <div class="contentWrap--withSideNav noScroll" ng-app ng-controller="userController">
         <div class="topNav topNav-withSubnav clear">
              <div class="topNav--BackButton fleft">
-                <object type="image/svg+xml" data="/Final-Icons/BackButton.svg" class="backButton-svg" style="cursor:pointer;"> </object>
+                 <a class="exit-button-icon" href="dashboard.jsp">
+          
+                    <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
+            
+            </a>
+                
             </div>
             <div class="topNav--TitleBar--withBackButton fleft">
                 <span class="topNav--TitleBar--Title fleft h2">Create an Email</span>
@@ -29,33 +34,19 @@
             </div>
         </div>
         <div class="topNav--offset"></div>
-        <div class="contentWrapInner">
+        <div class="contentWrapInner" ng-init="displayCategory()">
             <div class="pane pane--600px">
                 <div class="pane_header clear">
                     <div class="pane_title fleft h2">Please select a category of email</div>
                 </div>
                 <div class="pane_content">
-                    <div class="cat-list">
+                    <div class="cat-list" ng-repeat="displayAllCategory in displayAllCategories">
                         <div class="cat-slat">
-                            <a href="emailsubcategory.jsp">
-                                <div class="cat-slat-title">Category Name Here</div>
+                            <a id="categoryId" href="emailsubcategory.jsp" ng-click="setCategoryID(displayAllCategory.categoryId)">
+                                <div class="cat-slat-title">{{displayAllCategory.categoryName}}</div>
                             </a>
                         </div>
-                        <div class="cat-slat">
-                            <div class="cat-slat-title">Category Name Here</div>
-                        </div>
-                        <div class="cat-slat">
-                            <div class="cat-slat-title">Category Name Here</div>
-                        </div>
-                        <div class="cat-slat">
-                            <div class="cat-slat-title">Category Name Here</div>
-                        </div>
-                         <div class="cat-slat">
-                            <div class="cat-slat-title">Category Name Here</div>
-                        </div>
-                         <div class="cat-slat">
-                            <div class="cat-slat-title">Category Name Here</div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>   

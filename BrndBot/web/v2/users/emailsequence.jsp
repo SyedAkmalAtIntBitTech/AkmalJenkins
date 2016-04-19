@@ -12,63 +12,72 @@
         <title>emailsequence</title>
     </head>
     <body class="body-normal">
+       
          <%@include file="header.jsp" %>       
       <%@include file="navbar.jsp" %> 
       <jsp:include page="froalaeditor_styles.jsp"/>
+      <jsp:include page="emailpreviewpopup.jsp"/>
       
         <div class="contentWrap--withNoSideNav noScroll">
-        <div class="topNav clear">
+        <div class="topNav clear menuWidth">
+              
             <div class="topNav--BackButton fleft">
-                <object type="image/svg+xml" data="/Final-Icons/BackButton.svg" class="backButton-svg" style="cursor:pointer;"> </object>
+               <a class="exit-button-icon" href="emailexternalsource.jsp">
+          
+                    <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
+            
+            </a>
             </div>
-            <div class="topNav--TitleBar--withBackButton fleft">
+            <div class="topNav--TitleBar--withBackButton fleft topNavigation">
                 <span class="topNav--TitleBar--Title fleft h2">Create an Email</span>
                 <div class="topNav--TitleBar--CTABox fright">
                     <a href="/Marketing_Hubs/Email_Hub/MarketingHubs-EmailHub-Drafts.html"><div class="CTA_Button Button--Gray">Save as a Draft</div></a>
                 </div>
                 <div class="topNav--TitleBar--CTABox fright pushRight_30">
-                    <a href="emailpreviewpopup.jsp"><div class="CTA_Button Button--Gray">Preview Email</div></a>
+                    <div id="previewEmailsPopUp" class="CTA_Button Button--Gray">Preview Email</div>
                 </div>
             </div>
+           
         </div>
+             
         <div class="topNav--offset"></div>
-        <div class="email-LeftCol fleft">
-            <div class="email col-1of1">
-                <div class="emailBlock col-1of1">
-                    <table cellpadding="0" cellspacing="0" border="0" height="100%" width="100%" bgcolor="#EEEEEE" style="border-collapse:collapse;"><tr><td valign="top">
+       
+        <div class="email-LeftCol fleft" >
+            
+            <div class="email col-1of1 frolaeditor">
+              
+                <div id="editor" style="margin-top: 1%">
+                <div id='edit'>
+                                        <table cellpadding="0" cellspacing="0" border="0" height="100%" width="100%" bgcolor="#EEEEEE" style="border-collapse:collapse;"><tr><td valign="top">
     <center style="width: 100%;">
-        
+       
          <div style="max-width: 680px; margin:auto;">
-             <div id="editor">
-                <div id='edit' style="margin-top: 30px;">
-                </div>
-            </div>
+             
             <table cellspacing="0" cellpadding="0" border="0" align="left" bgcolor="#ffffff" width="100%" style="max-width: 680px;">
-                <!--Date Block:BEGIN-->
+                
                 <tr>
                     <td id="date1" userbackgroundcolor="color1" externalvalue="mindbody.enrollment.enrollmentstartdatetime"  userdateepoch="d 'at' h:m a" valign="middle" style="text-align: left; padding: 10px 55px; font-family: sans-serif; font-size: 25px; mso-height-rule: exactly; line-height: 110%; color: #FFFFFF ; background-color:#2BAADF;" class="mobile-padding">
                         FRIDAY AT 9:30 AM
                     </td>
                 </tr>
-                <!--Date BLock:END-->
+              
                 
-                 <!-- IMAGE: BEGIN -->
+                 
                 <tr>
                     <td>
                         <img id="image12" src="https://daks2k3a4ib2z.cloudfront.net/562feb3ef5fe5a8c1fd02272/56b8940906817e9a2bbb57ca_Deafult-Image_680x330.jpg" width="" height="" alt="alt_text" border="0" align="center" style=" max-width: 680px;" class="fluid"/>
                     </td>
                 </tr>
-                <!-- IMAGE : END -->
+                 
                 
                 
-                <!--WORKSHOP NAME: BEGIN-->
+               
                 <tr>
                     <td id="text1" userfontcolor="color1" externalvalue="mindbody.enrollment.enrollmentname" style="padding: 30px 55px 0px 55px; text-align: left; font-family: arial; font-size: 30px; mso-height-rule: exactly; line-height: 120%; color: #2BAADF; font-weight: bold; background-color:#FFFFFF" class="mobile-padding  h-adj-25px">
                         Workshop Name Goes Here
                     </td>
 	            </tr>
-                <!--WORKSHOP NAME: END--> 
-                <!--Teacher Image and Name-->
+               
                 <tr>
                     <td style="padding:20px 55px 0px 55px; " class="mobile-padding">
                         <table align="left">
@@ -82,16 +91,13 @@
                             </tr>
                      </table>
                 </tr>
-                
-                <!--DESCRIPTION: BEGIN-->
+              
                 <tr>
                     <td style="padding: 20px 55px 0px 55px; text-align: left; font-family: arial; font-size: 14px; mso-height-rule: exactly; line-height: 150%; color: #757677; font-weight: normal; background-color:#FFFFFF" class="mobile-padding">
                         This workshop is going to be great for all ages and skill levels. It is taught by one of our favorite instructors, make sure you don't miss out on all the great benefits of this workshop. 
                     </td>
 	            </tr>
-                <!--DESCRIPTION: END-->
-                
-                <!--BUTTON ROW: BEGIN-->
+             
 				<tr>
                     <td style="padding: 30px 55px 40px 55px;background-color:#FFFFFF; text-align: left; mso-height-rule: exactly; color: #ffffff;">
                        <table cellspacing="0" cellpadding="0" border="0" align="left" style="">
@@ -106,13 +112,16 @@
                 <tr>
                     <td style="height:100px;"></td>
                 </tr>
-                <!--BUTTON ROW: END-->
+               
     
             </table>
         </div>
     </center>
 </table>
                 </div>
+            </div>
+
+               
             </div>
         </div>
         <div class="email-RightCol fright"> 
@@ -131,7 +140,7 @@
             <div class="bottom-ContinueButton fright">CONTINUE TO SEND LIST</div>
         </a>
     </div>
-    
+        </div>
     
     </body>
 </html>
