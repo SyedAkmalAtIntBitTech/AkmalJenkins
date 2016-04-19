@@ -12,6 +12,7 @@
     <title>User welcome page</title>
 </head>
 <body>
-    Dear <strong>${user}</strong>, welcome to our site.
+    Dear <strong>${user}</strong>, welcome to our site.</br></br></br>
+    <a href="${pageContext.request.contextPath}/logout">Logout</a>
 </body>
 </html>

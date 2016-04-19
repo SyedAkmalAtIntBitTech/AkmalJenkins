@@ -5,11 +5,12 @@
  */
 package com.intbittech.controller;
 
+import com.intbittech.model.UserProfile;
+import com.intbittech.utility.UserSessionUtil;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -36,19 +37,20 @@ public class LoginController {
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(ModelMap model) {
-        model.addAttribute("user", getLogedInUser());
+        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+        model.addAttribute("user", userProfile.getUsername());
         return "admin/welcome";
     }
-
+   
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String userPage(ModelMap model) {
-        model.addAttribute("user", getLogedInUser());
+        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+        model.addAttribute("user", userProfile.getUsername());
         return "user/welcome";
     }
-
+    
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String signupPage(ModelMap model) {
-        model.addAttribute("user", getLogedInUser());
         return "signup/signup";
     }
 
@@ -60,22 +62,12 @@ public class LoginController {
         }
         return "redirect:/login?logout";
     }
-
     @RequestMapping(value = "/Access_Denied", method = RequestMethod.GET)
     public String accessDeniedPage(ModelMap model) {
-        model.addAttribute("user", getLogedInUser());
+        
+        model.addAttribute("user", UserSessionUtil.getLogedInUser());
         return "securityError";
     }
 
-    private Object getLogedInUser() {
-        String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            userName = ((UserDetails) principal).getUsername();
-        } else {
-            userName = principal.toString();
-        }
-        return userName;
-    }
 
 }

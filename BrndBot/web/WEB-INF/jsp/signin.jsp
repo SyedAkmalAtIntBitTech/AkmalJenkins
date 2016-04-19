@@ -14,11 +14,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="js/tempalert.js"></script>
+        <link rel="stylesheet" href="css/tempcss.css">
         <title>User Login</title>
     </head>
     <body>
         <center>
-            <img src="static/images/logo.png"  width="100" height="150"/>
+            <img src="images/logo.png"  width="100" height="150"/>
             </br>
             </br>
             </br>

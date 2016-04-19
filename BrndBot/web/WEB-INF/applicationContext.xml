@@ -21,14 +21,14 @@
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
           p:location="/WEB-INF/jdbc.properties" />
-    <mvc:interceptors>
+<!--    <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**" />
             <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
                 <property name="paramName" value="lang" />
             </bean>
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors>-->
     <tx:annotation-driven transaction-manager="transactionManager" />
     <bean id="transactionManager"
           class="org.springframework.orm.hibernate4.HibernateTransactionManager"
@@ -62,6 +62,7 @@
         </property>
         <property name="packagesToScan" value="com.intbittech"/>
     </bean>
+    
     <bean id="messageSource"
           class="org.springframework.context.support.ReloadableResourceBundleMessageSource" 
           p:basename="classpath:/com/intbittech/resources/messages">

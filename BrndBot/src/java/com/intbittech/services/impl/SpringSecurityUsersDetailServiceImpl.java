@@ -5,6 +5,7 @@
  */
 package com.intbittech.services.impl;
 
+import com.intbittech.model.UserProfile;
 import com.intbittech.model.Users;
 import com.intbittech.services.UsersService;
 import java.util.ArrayList;
@@ -36,24 +37,20 @@ public class SpringSecurityUsersDetailServiceImpl implements UserDetailsService 
      */
     @Transactional(readOnly = true)
     @Override
-     public UserDetails loadUserByUsername(String username)
+    public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
         Users user = usersService.findByUserName(username);
-        if(user==null){
+        if (user == null) {
             throw new UsernameNotFoundException("Username not found");
         }
-            return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getUserPassword(), 
-                 true, true, true, true, getGrantedAuthorities(user));
+        UserProfile userProfile = new UserProfile(user, getGrantedAuthorities(user));
+        return userProfile;
     }
-     
-     
-      private List<GrantedAuthority> getGrantedAuthorities(Users user){
+
+    private List<GrantedAuthority> getGrantedAuthorities(Users user) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-         authorities.add(new SimpleGrantedAuthority(user.getFkUserRoleId().getRoleName()));
+        authorities.add(new SimpleGrantedAuthority(user.getFkUserRoleId().getRoleName()));
         return authorities;
     }
-    
-    
-    
 
 }
