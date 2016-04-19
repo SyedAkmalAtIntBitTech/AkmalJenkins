@@ -29,6 +29,18 @@ public class UsersServiceImpl implements UsersService {
      * {@inheritDoc}
      */
     @Override
+    public Users findByUserName(String userName) throws ProcessFailed {
+          Users users = usersDao.findByUserName(userName);
+        if (users == null) {
+            throw new ProcessFailed("No user found.");
+        }
+        return users;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Boolean checkUniqueUser(Users user) throws ProcessFailed {
         return usersDao.checkUniqueUser(user);
     }

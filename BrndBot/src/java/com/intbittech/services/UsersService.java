@@ -15,6 +15,15 @@ import com.intbittech.model.Users;
 public interface UsersService {
     
     /**
+     * 
+     * @param userName
+     * @return
+     * @throws com.intbittech.exception.ProcessFailed
+     * @throws ProcessFailed 
+     */
+    Users findByUserName(String userName) throws ProcessFailed;
+    
+    /**
      * This method pass user as input and get the {@link Boolean} from DAO layer.
      *
      * @param user

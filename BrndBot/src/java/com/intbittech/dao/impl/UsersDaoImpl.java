@@ -37,6 +37,27 @@ public class UsersDaoImpl implements UsersDao{
     /**
      * {@inheritDoc}
      */
+    @Override
+    public Users findByUserName(String userName) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(Users.class)
+                    .add(Restrictions.eq("userName", userName));
+            List<Users> userList = criteria.list();
+            if (userList.isEmpty()) {
+                return null;
+            }
+            return  userList.get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
     public Users getUserById(Integer userId) {
         Users user = new Users();
         Criteria criteria = sessionFactory.getCurrentSession()

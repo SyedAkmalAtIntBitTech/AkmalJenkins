@@ -17,6 +17,16 @@ import com.intbittech.model.Users;
 public interface UsersDao {
     
     /**
+     * This method get user detail  {@link Category} based on the
+     * organization from the database.
+     * 
+     * @param userName
+     * @return user detail from users table
+     * @throws ProcessFailed the process failed
+     */
+    Users findByUserName(String userName) throws ProcessFailed;
+    
+    /**
      * This method pass user as input and get the {@link Boolean} from database
      *
      * @param user
