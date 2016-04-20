@@ -1,30 +1,17 @@
 <%-- 
-    Document   : UserRegistration
-    Created on : May 20, 2015, 4:08:23 PM
-    Author     : intbit
+    Document   : login
+    Created on : Apr 6, 2016, 5:49:40 PM
+    Author     : development
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html ng-app>
+<html>
     <head>
-         <%@ include file="fonttypekit.jsp"%>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="js/alertmessage.j"></script>
-        <script src="js/configurations.js"></script>
-        <script src="js/form.js"></script>
-        <script type="text/javascript" src="js/angular.min.js"></script>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> 
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery-1.11.3.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
-        <link rel="stylesheet" href="css/main1.css">
-        <link rel="stylesheet" href="css/popup.css">
-        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-        <title>BrndBot - User Login</title>
-        <script>
+       <jsp:include page="header.jsp"/>
+        <title>User Login</title>
+    </head>
+    <script>
          $("document").ready(function() {
              if(window.location.href.indexOf("signout.jsp") > -1) {
                 window.location = getHost() +"login.jsp";
@@ -33,39 +20,26 @@
              }
         setTimeout(function(){ $("#inputemail").focus();},10);});  
         </script>
-        <jsp:include page="basejsp.jsp" />
-    </head>
-    <body class="container" >
-        <div id="signupdiv">
-            <img id="logo" src="images/logo.svg" class="img-responsive" width="100" height="150"> <br>
-            <form class="form-horizontal" id="signform" ng-controller="loginController" ng-submit="checkUser()" >
-                <div class="group">
-                    <div class="col-md-3 col-md-offset-5">                            
-                        <p class="MH2">Login</p>
-                    </div>
-                </div>
-                <div class="group">
-                    <div class="col-md-3 col-md-offset-5">                            
-                        <input id="inputemail" class="form-control simplebox " type="email" required ng-model="user.emailid" >
-                        <label>EMAIL</label><br>
-                    </div>
-                </div>
-                <div class="group">
-                    <div class="col-md-3 col-md-offset-5">
-                        <input id="inputpassword" class="form-control simplebox" type="password" required ng-model="user.password">
-                        <label>PASSWORD</label><br>
-                    </div>
-                </div>
-                <div  class="form-group">
-                    <div class="col-md-5 col-md-offset-5">
-                        <button style="left:-10px;" type="submit"  class="button button--moema button--text-thick button--text-upper button--size-s">Login</button></div>
-                    <div class="col-md-5 col-md-offset-5"><br><br>
-                        <p><a href="<%= application.getContextPath()%>/resetpassword.jsp">Forgot password</a></p>
-                        <p class="sgnup"><a href="signup.jsp">Sign up</a></p>
-                    </div>
-                </div>
-            </form>
-        </div>                        
-    </body>
+    <body class="body-normal" ng-app >
+        <form class="form-horizontal" id="signform" ng-controller="loginController" ng-submit="checkUser()" >
+    <div class="Login_left-pane fleft">
+        <div class="Login_left-pane_vert-split"></div>
+        <div class="Login_left-pane_vert-split"></div>
+    </div>
+    <div class="Login_right-pane fright">
+        <div class="login-container">
+            <img src="images/BB_regular.svg" class="login-logo" style="cursor:pointer;"> 
+            <div class="input_Label pushUp_30">Email</div>
+            <input id="emailIdLogin" class="input_Field login-fields" type="email" required ng-model="user.emailid" >
+            <div class="input_Label">Password</div>
+            <input id="loginPassword" class="input_Field login-fields" type="password" required ng-model="user.password">
+            <div class="forgot_password">
+                <span>Forgot Password</span>
+            </div>
+            <button style="left:-10px;" type="submit"  class="CTA_Button Button--Blue fleft pushUp_30">Login</button>
+            <div class="sign-up_container"></div>
+        </div>
+    </div>
+             </form>
+</body>
 </html>
-    

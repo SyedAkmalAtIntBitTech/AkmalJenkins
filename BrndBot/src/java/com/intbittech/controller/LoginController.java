@@ -41,14 +41,17 @@ public class LoginController {
         model.addAttribute("user", userProfile.getUsername());
         return "admin/organization";
     }
-   
+    
+    
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String userPage(ModelMap model) {
         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
         model.addAttribute("user", userProfile.getUsername());
-        return "user/welcome";
+        return "user/dashboard";
     }
     
+    
+   
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String signupPage(ModelMap model) {
         return "signup/signup";

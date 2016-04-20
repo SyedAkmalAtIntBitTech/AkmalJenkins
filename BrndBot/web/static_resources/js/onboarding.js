@@ -184,7 +184,7 @@ function onboardingcontroller($scope,$http) {
 //        }        
 //    };
     
-    $scope. getActivationLink = function (){
+    $scope.getActivationLink = function (){
         var studioId=$("#mindbodyStudioId").val();
         if(studioId===""){
             alert("Please Enter Studio Id.");
