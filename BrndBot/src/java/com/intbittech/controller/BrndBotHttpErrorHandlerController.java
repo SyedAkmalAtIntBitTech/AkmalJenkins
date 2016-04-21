@@ -6,8 +6,13 @@
 package com.intbittech.controller;
 
 import com.intbittech.exception.ResourceNotFoundException;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -15,10 +20,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  */
 @Controller
 public class BrndBotHttpErrorHandlerController {
-    
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public String handleResourceNotFoundException() {
+         
+   
+    @RequestMapping(value = "/error404", method = RequestMethod.GET)
+    public String erorr404Page(ModelMap model) {
         return "error404";
-    }
+    } 
     
 }

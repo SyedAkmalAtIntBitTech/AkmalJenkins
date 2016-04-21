@@ -157,7 +157,7 @@ public class SubCategoryController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
     
-    @RequestMapping(value = "getAllExternalSources", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/onboarding/getAllExternalSources", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllExternalSources() {
         GenericResponse<ExternalSourceDetails> genericResponse = new GenericResponse<>();
         try {

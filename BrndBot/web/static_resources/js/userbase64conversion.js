@@ -140,14 +140,14 @@ var userImageConversion = function ($scope, fileReader, $http) {
         var globalImage = {"companyId": companyId, "imageType": imageTypeData, "imageData": imgDataObj.base64ImgString};
             $.ajax({
                 method: 'POST',
-                url: getHost() + '/saveCompanyLogo.do',
+                url: getHost() + '/onboarding/saveCompanyLogo.do',
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(globalImage)
             }).success(function (data, status, headers, config)
             {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));                           
-                window.open(getHost() + 'v2/signup/onboardingpalette.jsp', "_self");
+                window.open(getHost() + 'signup/onboardingpalette', "_self");
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });

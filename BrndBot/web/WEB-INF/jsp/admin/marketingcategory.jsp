@@ -23,7 +23,7 @@ String marketingCategoryId=request.getParameter("marketingCategoryId");
      <jsp:include page="addmarketingtemplate.jsp"/>
     <div class="content-area" ng-init="organizationdetails()">
         <div class="content-area_header"  ng-init="getAllMarketingCategoryById()">
-            <div  class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="organizationdetails.jsp?organizationId=<%=organizationID%>">{{organizationDetails.organizationName}}</a>  > </div>
+            <div  class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/organizationdetails?organizationId=<%=organizationID%>">{{organizationDetails.organizationName}}</a>  > </div>
             <div class="header_title fleft">{{marketingCategoryTitle.marketingCategoryName}}  </div>
             <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteMarketingCategory(<%=marketingCategoryId%>)">Delete Category</div>
             <div class="CTA_Button Button--Blue fright" id="addMarketingTemplate" ng-click="getAllNonAddedMarketingProgram()">Add Template</div>
