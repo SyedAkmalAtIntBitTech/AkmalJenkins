@@ -63,7 +63,7 @@ public class OrganizationController {
 
     }
     
-    @RequestMapping(value = "getAllOnlyOrganizations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/onboarding/getAllOnlyOrganizations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllOnlyOrganizations() {
         GenericResponse<OrganizationDetails> genericResponse = new GenericResponse<>();
         try {

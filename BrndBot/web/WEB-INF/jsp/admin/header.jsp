@@ -39,35 +39,35 @@
                <img  src="images/main-admin-logo.svg" class="bb-logo" >
            </div>
            <div class="headernav">
-               <a href="allcompanies.jsp"><div class="nav_tab fleft"> Users </div></a>
-               <a href="organization.jsp"><div class="nav_tab fleft"> Organizations and Groups </div></a>
+               <a href="${pageContext.request.contextPath}/admin/allcompanies"><div class="nav_tab fleft"> Users </div></a>
+               <a href="${pageContext.request.contextPath}/admin/organization"><div class="nav_tab fleft"> Organizations and Groups </div></a>
                <div class="nav_tab fleft">
                    <button onclick="showDropDown('templateDropdown')" class="dropbtn">Templates</button>
                    <div id="templateDropdown" class="dropdown-content">
-                       <a href="emailtemplates.jsp">Email Templates</a>
-                       <a href="emailblockmodels.jsp">Email Block Templates</a>
-                       <a href="recurringemails.jsp">Email Automation Templates</a>
+                       <a href="${pageContext.request.contextPath}/admin/emailtemplates">Email Templates</a>
+                       <a href="${pageContext.request.contextPath}/admin/emailblockmodels">Email Block Templates</a>
+                       <a href="${pageContext.request.contextPath}/admin/recurringemails">Email Automation Templates</a>
                        <a href="#">Image Templates</a>
-                       <a href="printtemplates.jsp">Print Templates</a>
+                       <a href="${pageContext.request.contextPath}/admin/printtemplates">Print Templates</a>
                    </div>
                </div>
                <div class="nav_tab fleft">
                    <button onclick="showDropDown('mpDropdown')" class="dropbtn">Marketing Campaigns</button>
                    <div id="mpDropdown" class="dropdown-content">
-                       <a href="marketingprogram.jsp">Campaigns</a>
+                       <a href="${pageContext.request.contextPath}/admin/marketingprogram">Campaigns</a>
                        <a href="#">Field Templates COMING SOON</a>
                    </div>
                </div>
                <div class="nav_tab fleft"> 
                    <button onclick="showDropDown('assetDropdown')" class="dropbtn">Assets</button>
                    <div id="assetDropdown" class="dropdown-content">
-                       <a href="globalimage.jsp">Images</a>
-                       <a href="assets.jsp">Color Themes</a>
-                       <a href="globalfonts.jsp">Fonts</a>
+                       <a href="${pageContext.request.contextPath}/admin/globalimage">Images</a>
+                       <a href="${pageContext.request.contextPath}/admin/assets">Color Themes</a>
+                       <a href="${pageContext.request.contextPath}/admin/globalfonts">Fonts</a>
                    </div>
                </div>
-               <div class="nav_tab-logout fright cursorpointer"> Logout </div>
-               <a href="emailblockmodels.jsp"><div class="nav_tab fleft"> Email Blocks</div></a>
+               <a href="${pageContext.request.contextPath}/logout"><div class="nav_tab-logout fright cursorpointer"> Logout</div></a>
+               <a href="${pageContext.request.contextPath}/admin/emailblockmodels"><div class="nav_tab fleft"> Email Blocks</div></a>
            </div>
        </div>
        <div class="nav-offset"></div>
