@@ -680,13 +680,18 @@
         <servlet-name>ServletUserBrand</servlet-name>
         <url-pattern>/ServletUserBrand</url-pattern>
     </servlet-mapping>-->
-
+    
+    
+<!--    <error-page>
+        <error-code>404</error-code>
+        <location>/404</location>
+    </error-page>-->
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-<!--    <welcome-file-list>
+    <!--    <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>-->
     <resource-ref>

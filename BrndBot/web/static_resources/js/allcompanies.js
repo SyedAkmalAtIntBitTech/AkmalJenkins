@@ -9,6 +9,18 @@ function allCompaniesController($scope,$http){
     
   $scope.allCompanyDetails = function (){
       
+      $scope.setLocalStorageItem3 = function (item1,item2,item3){
+          localStorage.setItem(""+item1+"",item1);
+          localStorage.setItem(""+item2+"",item2);
+          localStorage.setItem(""+item3+"",item3);
+          alert(item1);
+      };
+      
+      $scope.getLocalStorageItem = function (item){
+          return localStorage.getItem(""+item+"");  
+      };
+      
+      $("#companyName").text($scope.getLocalStorageItem(companyName));
         $http({
              method: 'GET',
              url : getHost()+'/getAllCompanies.do'            

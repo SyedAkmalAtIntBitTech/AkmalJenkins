@@ -28,7 +28,7 @@
      <input type="text" id='organizationId' value="<%=organizationId%>" hidden/>
     <div class="content-area" ng-app  ng-controller="organizationcontroller" >
         <div class="content-area_header" ng-init="organizationdetails()">
-            <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="organization.jsp"> Organizations</a>  > </div>
+            <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/organization"> Organizations</a>  > </div>
 
             <div class="header_title fleft" id="organizationNameDiv">{{organizationDetails.organizationName}}</div>
             <div id="deleteOrganization" class="CTA_Button Button--Delete fright" ng-click="deleteOrganization(<%=organizationId%>)">Delete Organization</div>
@@ -55,7 +55,7 @@
                         <span class="listCol_Text fleft" >{{emails.categoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
-                        <a href="emailsubcategory.jsp?organizationId=<%=organizationId%>&categoryId={{emails.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
+                        <a href="${pageContext.request.contextPath}/admin/emailsubcategory?organizationId=<%=organizationId%>&categoryId={{emails.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
@@ -80,7 +80,7 @@
                         <span class="listCol_Text fleft"> {{blocks.externalSourceName}}{{blocks.externalSourceKeywordName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                       <a href="emailblock.jsp?organizationId=<%=organizationId%>&emailBlockId={{blocks.emailBlockId}}"><div class="CTA_Button Button--Gray fright">Manage Block </div></a>
+                       <a href="${pageContext.request.contextPath}/admin/emailblock?organizationId=<%=organizationId%>&emailBlockId={{blocks.emailBlockId}}"><div class="CTA_Button Button--Gray fright">Manage Block </div></a>
                     </div>
                 </li>
                 
@@ -101,7 +101,7 @@
                         <span class="listCol_Text fleft">{{image.categoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
-                        <a href="imagesubcategory.jsp?organizationId=<%=organizationId%>&categoryId={{image.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
+                        <a href="${pageContext.request.contextPath}/admin/imagesubcategory?organizationId=<%=organizationId%>&categoryId={{image.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
@@ -120,7 +120,7 @@
                         <span class="listCol_Text fleft"> {{print.categoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
-                        <a href="printsubcategory.jsp?organizationId=<%=organizationId%>&categoryId={{print.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
+                        <a href="${pageContext.request.contextPath}/admin/printsubcategory?organizationId=<%=organizationId%>&categoryId={{print.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
@@ -139,7 +139,7 @@
                         <span class="listCol_Text fleft"> {{marketingCategory.marketingCategoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
-                        <a href="marketingcategory.jsp?organizationId=<%=organizationId%>&marketingCategoryId={{marketingCategory.marketingCategoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
+                        <a href="${pageContext.request.contextPath}/admin/marketingcategory?organizationId=<%=organizationId%>&marketingCategoryId={{marketingCategory.marketingCategoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>

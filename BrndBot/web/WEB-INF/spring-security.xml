@@ -25,7 +25,6 @@
                     authentication-failure-url="/Access_Denied" 
                     authentication-success-handler-ref="brndbotUserLoginSuccessHandler"/>
        <csrf disabled="true"/>
-       
     </http>
 <!--    In-memory configuration-->
 <!--     <authentication-manager >

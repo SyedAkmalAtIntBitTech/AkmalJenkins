@@ -18,7 +18,7 @@
         <div class="content-area" >
         <div class="content-area_header">
             <div class="header_path fleft">Recurring Email Template Global List</div>
-            <a href="recurringemailtemplate.jsp?edit=no"><div class="CTA_Button Button--Blue fright">Add New Template</div></a>
+            <a href="${pageContext.request.contextPath}/admin/recurringemailtemplate?edit=no"><div class="CTA_Button Button--Blue fright">Add New Template</div></a>
         </div>
         <div class="slatSection" ng-init="recurring()">
             <div class="slatHeaders">
@@ -33,7 +33,7 @@
                     </div>
                   
                     <div class="listCol col1of2 fleft">
-                        <a href="recurringemailtemplate.jsp?recurringEmailTemplateId={{recurringEmailDetails.recurringEmailTemplateId}}&edit=yes"><div class="CTA_Button Button--Gray fright">View/Edit</div></a>
+                        <a href="${pageContext.request.contextPath}/admin/recurringemailtemplate?recurringEmailTemplateId={{recurringEmailDetails.recurringEmailTemplateId}}&edit=yes"><div class="CTA_Button Button--Gray fright">View/Edit</div></a>
 
                     </div>
                 </li>                
