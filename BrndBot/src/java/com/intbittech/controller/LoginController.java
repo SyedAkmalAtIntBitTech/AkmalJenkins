@@ -34,29 +34,8 @@ public class LoginController {
     public String loginPage(ModelMap model) {
         return "signin";
     }
-
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String adminPage(ModelMap model) {
-        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        model.addAttribute("user", userProfile.getUsername());
-        return "admin/organization";
-    }
-    
-    
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String userPage(ModelMap model) {
-        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        model.addAttribute("user", userProfile.getUsername());
-        return "user/dashboard";
-    }
-    
-    
    
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
-    public String signupPage(ModelMap model) {
-        return "signup/signup";
-    }
-
+    
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
