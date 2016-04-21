@@ -14,7 +14,7 @@
         <%@include file="socialeditortemplatehead.jsp" %>
         <div class="content-area">
             <div class="content-area_header" ng-init="">
-                <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="printtemplates.jsp"> Print Templates</a>  &gt; </div>
+                <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/printtemplates.jsp"> Print Templates</a>  &gt; </div>
                 <div class="header_title fleft" id="organizationNameDiv">Add New Template</div>
             </div>
             <div class="inputSection col1of4" >
