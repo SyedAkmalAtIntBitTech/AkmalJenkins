@@ -69,6 +69,7 @@
     <mvc:resources mapping="/user/images/**" location="/static_resources/images/"/>
     <mvc:resources mapping="/user/js/**" location="/static_resources/js/"/>
     <mvc:resources mapping="/user/fonts/**" location="/static_resources/fonts/"/>
+    <mvc:resources mapping="/signup/css/**" location="/static_resources/css/"/>
     <mvc:resources mapping="/signup/images/**" location="/static_resources/images/"/>
     <mvc:resources mapping="/signup/js/**" location="/static_resources/js/"/>
     <mvc:resources mapping="/signup/fonts/**" location="/static_resources/fonts/"/>
