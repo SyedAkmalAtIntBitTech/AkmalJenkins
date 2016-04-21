@@ -21,6 +21,10 @@
        });
        
 function organizationcontroller($scope,$http) {
+    
+      $scope.getLocalStorageItem = function (item){
+          return localStorage.getItem(""+item+"");  
+      };
            
     $scope.organization = function () {
         
@@ -67,7 +71,7 @@ function organizationcontroller($scope,$http) {
     
     $scope.organizationdetails= function (){
         
-        var organizationId=$("#organizationIdTag").val();
+        var organizationId=$scope.getLocalStorageItem('organizationId');
         $http({
                 method : 'GET',
                 url : getHost()+'/getOrganizationById.do?organizationId='+organizationId
@@ -238,7 +242,7 @@ $scope.addImageCategory = function () {
     
     
     $scope.getAllCategoryDetails= function (){
-         var categoryId=$("#categoryIdTag").val();
+         var categoryId=$scope.getLocalStorageItem('categoryId');
         $http({
                     method: 'GET',
                     url: getHost() + '/getCategoryByCategoryId.do?categoryId='+categoryId,
@@ -251,8 +255,9 @@ $scope.addImageCategory = function () {
         getAllSubCategories();
     }
     
-    $scope.deleteCategory= function (categoryId){
-        var organizationId=$("#organizationIdTag").val();
+    $scope.deleteCategory= function (){
+        var categoryId=$scope.getLocalStorageItem("categoryId");
+        var organizationId=$scope.getLocalStorageItem("organizationId");
         var deleteCategory=confirm(deleteCategoryPrompt);
             if(deleteCategory===true)
             {
@@ -273,7 +278,7 @@ $scope.addImageCategory = function () {
     
      $scope.getAllSubCategories= function (){
         
-        var categoryId = $("#categoryIdTag").val();
+        var categoryId = $scope.getLocalStorageItem('categoryId');
         var subCategoryId = $("#subCategoryIdTag").val();
                $http({
                     method : 'GET',
@@ -424,7 +429,7 @@ $scope.addImageCategory = function () {
     }; 
     
      $scope.getEmailBlock= function (){
-         var emailBlockId=$("#emailBlockId").val();
+         var emailBlockId=$scope.getLocalStorageItem('emailBlockId');
         $http({
                     method: 'GET',
                     url: getHost() + '/getAllEmailBlocksById.do?emailBlockId='+emailBlockId
@@ -443,7 +448,7 @@ $scope.addImageCategory = function () {
     
             $scope.getAllNonAddedEmailBlock= function (){
              
-            var emailBlockId=$("#emailBlockId").val();
+            var emailBlockId=$scope.getLocalStorageItem('emailBlockId');
              $http({
                     method: 'GET',
                     url: getHost() + '/getAllNonAddedEmailBlockModel.do?emailBlockId='+emailBlockId
@@ -465,8 +470,8 @@ $scope.addImageCategory = function () {
     }
     
      $scope.deleteEmailBlock= function (){
-         var emailBlockId=$("#emailBlockId").val();
-        var organizationId=$("#organizationIdTag").val();
+         var emailBlockId=$scope.getLocalStorageItem('emailBlockId');
+        var organizationId=$scope.getLocalStorageItem('organizationId');
         var deleteEmailBlock=confirm(deleteEmailBlockPrompt);
             if(deleteEmailBlock===true)
             {
@@ -739,8 +744,8 @@ $scope.addImageCategory = function () {
     }
     $scope.getAllMarketingCategoryById= function (){
         
-         var organizationId=$("#organizationIdTag").val();
-         var marketingCategoryId=$("#marketingCategoryId").val();
+         var organizationId=$scope.getLocalStorageItem('organizationId');
+         var marketingCategoryId=$scope.getLocalStorageItem('marketingCategoryId');
         $http({
                     method: 'GET',
                     url: getHost() + '/getByMarketingCategoryId.do?marketingCategoryId='+marketingCategoryId
@@ -759,7 +764,7 @@ $scope.addImageCategory = function () {
     $scope.addMarketingCategory= function (){
         
         var marketingCategoryName=$("#marketingCategoryName").val();
-        var organizationId=$("#organizationIdTag").val();
+        var organizationId=$scope.getLocalStorageItem('organizationId');
         var categoryName=(eval(JSON.stringify(marketingCategoryName)));
         var organizationIdNew=(eval(JSON.stringify(organizationId)));
         if(categoryName=="")
@@ -786,7 +791,7 @@ $scope.addImageCategory = function () {
     };
     
     $scope.deleteMarketingCategory= function (){
-        var organizationId=$("#organizationIdTag").val();
+        var organizationId=$scope.getLocalStorageItem('organizationId');
          var marketingCategoryId=$("#marketingCategoryId").val();
          var deleteEmailTemplate=confirm(deleteCategoryPrompt);
             if(deleteEmailTemplate===true)
@@ -820,7 +825,7 @@ $scope.addImageCategory = function () {
     
      $scope.getEmailBlocks= function (){
        
-            var emailBlockId=$("#emailBlockId").val();
+            var emailBlockId=$scope.getLocalStorageItem('emailBlockId');
              $http({
                     method: 'GET',
                     url: getHost() + '/getAllEmailBlockModelById.do?emailBlockId='+emailBlockId
@@ -835,7 +840,7 @@ $scope.addImageCategory = function () {
     
      $scope.deleteEmailBlockModel= function (emailBlockModelLookupId){
       
-            var organizationId=$("#organizationIdTag").val();
+            var organizationId=$scope.getLocalStorageItem('organizationId');
             var deleteEmailBlocks=confirm(deleteTemplateRelationPrompt);
             if(deleteEmailBlocks===true)
             {
@@ -855,7 +860,7 @@ $scope.addImageCategory = function () {
     
      $scope.marketingProgramsById= function (){
          
-         var organizationId=$("#organizationIdTag").val();
+         var organizationId=$scope.getLocalStorageItem('organizationId');
          var marketingCategoryId=$("#marketingCategoryId").val();
          
         $http({
@@ -871,7 +876,7 @@ $scope.addImageCategory = function () {
     
     $scope.deleteMarketingCategoryProgram= function (marketingProgramId){
         var marketingCategoryId=$("#marketingCategoryId").val();
-        var organizationId=$("#organizationIdTag").val();
+        var organizationId=$scope.getLocalStorageItem('organizationId');
             var deleteMarketingProgram=confirm(marketingTemplateRelationPrompt);
             if(deleteMarketingProgram===true)
             {
@@ -890,7 +895,7 @@ $scope.addImageCategory = function () {
     
     $scope.getAllNonAddedMarketingProgram= function (){
    
-         var marketingCategoryId=$("#marketingCategoryId").val();
+         var marketingCategoryId=$scope.getLocalStorageItem('marketingCategoryId');
         $http({
                     method: 'GET',
                     url: getHost() + '/getAllNonAddedMarketingPrograms.do?marketingCategoryId='+marketingCategoryId
@@ -927,8 +932,8 @@ $scope.addImageCategory = function () {
 
     
     $scope.addMarketingtemplate= function (){
-         var organizationId=$("#organizationIdTag").val();
-        var marketingCategoryId=$("#marketingCategoryId").val();      
+         var organizationId=$scope.getLocalStorageItem('organizationId');
+        var marketingCategoryId=$scope.getLocalStorageItem('marketingCategoryId');
         var marketingProgramId=eval(JSON.stringify(selectedListItems.marketingProgramId));
         var marketingAddTemplate ={ "marketingProgramId" : marketingProgramId,  "marketingCategoryId" : marketingCategoryId}
             
@@ -966,9 +971,9 @@ $scope.addImageCategory = function () {
     
     
      $scope.addEmailBlocktemplate= function (){
-           var emailBlockId=$("#emailBlockId").val();
-         var organizationId=$("#organizationIdTag").val();
-        var marketingCategoryId=$("#marketingCategoryId").val();      
+           var emailBlockId=$scope.getLocalStorageItem('emailBlockId');
+         var organizationId=$scope.getLocalStorageItem('organizationId');
+        var marketingCategoryId=$scope.getLocalStorageItem('marketingCategoryId');
         var emailBlockModelId=eval(JSON.stringify(emailBlockModel.emailBlockModelId));
         var blockEmailTemplate ={ "emailBlockModelId" : emailBlockModelId,"emailBlockId":emailBlockId}
             
