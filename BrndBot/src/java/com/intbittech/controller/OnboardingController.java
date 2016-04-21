@@ -65,7 +65,7 @@ public class OnboardingController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @RequestMapping(value = "isUserUnique", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/onboarding/isUserUnique", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getUserUnique(@RequestBody UserDetails usersDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
@@ -81,7 +81,7 @@ public class OnboardingController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "saveUser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/onboarding/saveUser", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveUser(@RequestBody UserDetails usersDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
@@ -103,7 +103,7 @@ public class OnboardingController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "saveCompany", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/onboarding/saveCompany", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveCompany(@RequestBody CompanyDetails companyDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
@@ -117,7 +117,7 @@ public class OnboardingController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "getColorsForLogo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/onboarding/getColorsForLogo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getColorsForLogo(@RequestParam("companyId") Integer companyId) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
@@ -142,7 +142,7 @@ public class OnboardingController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "getActivationLink", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/onboarding/getActivationLink", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getActivationLink(@RequestParam("studioId") String studioIdRequest) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
@@ -166,7 +166,7 @@ public class OnboardingController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "saveCompanyColors", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/onboarding/saveCompanyColors", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveCompanyColors(@RequestBody CompanyColorsDetails companyColorsDetails, @RequestParam("companyId") Integer companyId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
@@ -189,7 +189,7 @@ public class OnboardingController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "saveCompanyLogo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/onboarding/saveCompanyLogo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveCompanyLogo(@RequestBody CompanyLogoDetails companyLogoDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {

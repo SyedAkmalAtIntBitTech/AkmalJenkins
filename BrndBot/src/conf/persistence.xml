@@ -14,12 +14,9 @@
     <class>com.intbittech.model.MarketingProgram</class>
     <class>com.intbittech.model.MarketingAction</class>
     <class>com.intbittech.model.MarketingCategoryProgram</class>
-<<<<<<< HEAD
     <class>com.intbittech.model.UserRole</class>
     <class>com.intbittech.model.Users</class>
-=======
     <class>com.intbittech.model.GlobalImages</class>
->>>>>>> refactorbrndbotv2
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/brnd"/>

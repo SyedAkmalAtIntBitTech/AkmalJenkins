@@ -13,6 +13,7 @@
         <intercept-url pattern="/js/**" access="permitAll" />
         <intercept-url pattern="/fonts/**" access="permitAll" />
         <intercept-url pattern="/signup**" access="permitAll" />
+        <intercept-url pattern="/onboarding/**" access="permitAll" />
         <intercept-url pattern="/Access_Denied**" access="permitAll" />
         <intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
         <intercept-url pattern="/user**" access="hasRole('USER')" />
@@ -23,7 +24,7 @@
                     password-parameter="password"
                     authentication-failure-url="/Access_Denied" 
                     authentication-success-handler-ref="brndbotUserLoginSuccessHandler"/>
-         <csrf disabled="true"/>
+       <csrf disabled="true"/>
     </http>
 <!--    In-memory configuration-->
 <!--     <authentication-manager >

@@ -264,7 +264,7 @@ function onboardingcontroller($scope,$http) {
             var userDetails={"userName":emailId,"userPassword":userPassword};
             $.ajax({
                 method: 'POST',
-                url: getHost() + 'saveUser.do',
+                url: getHost() + '/onboarding/saveUser.do',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(userDetails)
             }).success(function (data)
