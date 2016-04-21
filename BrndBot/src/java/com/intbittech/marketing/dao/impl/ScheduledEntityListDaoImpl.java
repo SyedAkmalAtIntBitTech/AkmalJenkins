@@ -3,27 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit.marketing.dao.implementation;
+package com.intbittech.marketing.dao.impl;
 
-import com.intbit.TemplateStatus;
-import com.intbit.marketing.dao.ScheduledEntityListDao;
-import com.intbit.marketing.model.TblScheduledEmailList;
-import com.intbit.marketing.model.TblScheduledEntityList;
-import java.util.Calendar;
-import java.util.Date;
+import com.intbittech.marketing.dao.ScheduledEntityListDao;
+import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.ScheduledEntityList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.OrderBy;
 import org.hibernate.Query;
 
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
-import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -42,133 +36,135 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
     /**
      * {@inheritDoc}
      */
-    public TblScheduledEntityList getById(Integer id) throws Throwable {
+    public ScheduledEntityList getById(Integer id) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(TblScheduledEntityList.class)
-                    .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
-                    .add(Restrictions.eq("id", id));
-            return (TblScheduledEntityList) criteria.list().get(0);
-        } catch (Throwable throwable) {
+                    .createCriteria(ScheduledEntityList.class)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                     .setFetchMode("fkCompanyMarketingProgramId", FetchMode.JOIN)
+                     .setFetchMode("fkRecurringEmailId", FetchMode.JOIN)
+                    .add(Restrictions.eq("scheduledEntityListId", id));
+            return (ScheduledEntityList) criteria.list().get(0);
+        } catch (ProcessFailed throwable) {
             logger.log(Level.SEVERE, null, throwable);
-            throw new Throwable("Database error while retrieving record");
+            throw new ProcessFailed("Database error while retrieving record");
         }
     }
 
-    public TblScheduledEntityList getEntityById(Integer id) throws Throwable {
+    public ScheduledEntityList getEntityById(Integer id) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(TblScheduledEntityList.class)
-                    .add(Restrictions.eq("id", id));
-            return (TblScheduledEntityList) criteria.list().get(0);
-        } catch (Throwable throwable) {
+                    .createCriteria(ScheduledEntityList.class)
+                    .add(Restrictions.eq("entityId", id));
+            return (ScheduledEntityList) criteria.list().get(0);
+        } catch (ProcessFailed throwable) {
             logger.log(Level.SEVERE, null, throwable);
-            throw new Throwable("Database error while retrieving record");
+            throw new ProcessFailed("Database error while retrieving record");
         }
     }
     
-    public Integer getCurrentRecords(Integer program_id) throws Throwable {
+    public Integer getCurrentRecords(Integer program_id) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(TblScheduledEntityList.class)
+                    .createCriteria(ScheduledEntityList.class)
                     .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
                     .add(Restrictions.eq("tblUserMarketingProgram.id", program_id));
-            List<TblScheduledEntityList> entity_list = criteria.list();
+            List<ScheduledEntityList> entity_list = criteria.list();
 //            criteria = sessionFactory.getCurrentSession()
-//                    .createCriteria(TblScheduledEntityList.class)
+//                    .createCriteria(ScheduledEntityList.class)
 //                    .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
 //                    .add(Restrictions.eq("tblUserMarketingProgram.id", program_id))
 //                    .add(Restrictions.eq("status", TemplateStatus.template_saved.toString()));
-//            List<TblScheduledEntityList> entity_list1 = criteria.list();
+//            List<ScheduledEntityList> entity_list1 = criteria.list();
 //            criteria = sessionFactory.getCurrentSession()
-//                    .createCriteria(TblScheduledEntityList.class)
+//                    .createCriteria(ScheduledEntityList.class)
 //                    .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
 //                    .add(Restrictions.eq("tblUserMarketingProgram.id", program_id))
 //                    .add(Restrictions.eq("status", TemplateStatus.approved.toString()));
-//            List<TblScheduledEntityList> entity_list2 = criteria.list();
+//            List<ScheduledEntityList> entity_list2 = criteria.list();
 
             return (Integer) entity_list.size();
-        } catch (Throwable throwable) {
+        } catch (ProcessFailed throwable) {
             logger.log(Level.SEVERE, null, throwable);
-            throw new Throwable("Database error while retrieving record");
+            throw new ProcessFailed("Database error while retrieving record");
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    public List<TblScheduledEntityList> getAllScheduledEmailList() throws Throwable {
+    public List<ScheduledEntityList> getAllScheduledEmailList() throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(TblScheduledEntityList.class);
+                    .createCriteria(ScheduledEntityList.class);
             return criteria.list();
-        } catch (Throwable throwable) {
+        } catch (ProcessFailed throwable) {
             logger.log(Level.SEVERE, null, throwable);
-            throw new Throwable("Database error while retrieving record(s).");
+            throw new ProcessFailed("Database error while retrieving record(s).");
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    public Integer save(TblScheduledEntityList scheduledEntityList) throws Throwable {
+    public Integer save(ScheduledEntityList scheduledEntityList) throws ProcessFailed {
         try {
             return ((Integer) sessionFactory.getCurrentSession().save(scheduledEntityList));
-        } catch (Throwable throwable) {
+        } catch (ProcessFailed throwable) {
             logger.log(Level.SEVERE, null, throwable);
-            throw new Throwable("Database error while saving record.");
+            throw new ProcessFailed("Database error while saving record.");
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    public void update(TblScheduledEntityList scheduledEntityList) throws Throwable {
+    public void update(ScheduledEntityList scheduledEntityList) throws ProcessFailed {
         try {
             sessionFactory.getCurrentSession().update(scheduledEntityList);
-        } catch (Throwable throwable) {
+        } catch (ProcessFailed throwable) {
             logger.log(Level.SEVERE, null, throwable);
-            throw new Throwable("Database error while saving record.");
+            throw new ProcessFailed("Database error while saving record.");
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    public void delete(Integer id) throws Throwable {
+    public void delete(Integer id) throws ProcessFailed {
         try {
-            TblScheduledEntityList scheduledEntityList = getById(id);
+            ScheduledEntityList scheduledEntityList = getById(id);
             sessionFactory.getCurrentSession().delete(scheduledEntityList);
-        } catch (Throwable throwable) {
+        } catch (ProcessFailed throwable) {
             logger.log(Level.SEVERE, null, throwable);
-            throw new Throwable("Database error while retrieving record.");
+            throw new ProcessFailed("Database error while retrieving record.");
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    public List<TblScheduledEntityList> getScheduledEntityLisId(Integer userMarketingProgramId) throws Throwable {
+    public List<ScheduledEntityList> getScheduledEntityLisId(Integer userMarketingProgramId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(TblScheduledEntityList.class)
+                    .createCriteria(ScheduledEntityList.class)
                     .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
                     .add(Restrictions.eq("tblUserMarketingProgram.id", userMarketingProgramId));
             return criteria.list();
-        } catch (Throwable throwable) {
+        } catch (ProcessFailed throwable) {
             logger.log(Level.SEVERE, null, throwable);
-            throw new Throwable("Database error while retrieving record");
+            throw new ProcessFailed("Database error while retrieving record");
         }
     }
 
     /**
      * {@inheritDoc}
      */
-//    public TblScheduledEntityList getLatestApprovedFacebookPost(String status, String entityType,String programStatus) throws Throwable {
+//    public ScheduledEntityList getLatestApprovedFacebookPost(String status, String entityType,String programStatus) throws ProcessFailed {
 //        try {
 //                   
 ////               Criteria criteria=sessionFactory.getCurrentSession()
-////                       .createCriteria(TblScheduledEntityList.class)                   
+////                       .createCriteria(ScheduledEntityList.class)                   
 ////                        .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
 ////                        .createAlias("tblUserMarketingProgram", "tump")
 ////                       .add(Restrictions.eq("status", status))
@@ -176,7 +172,7 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
 ////                       .add(Restrictions.eq("entityType",entityType));
 //////                       .setProjection(Projections.min("tump.dateEvent"));
 ////                       
-////               return (TblScheduledEntityList) criteria.list().get(0);
+////               return (ScheduledEntityList) criteria.list().get(0);
 ////              Query query = (Query) sessionFactory.getCurrentSession()
 ////                    .createSQLQuery("select entitytable.entity_id from tbl_scheduled_entity_list as entitytable, tbl_user_marketing_program as programtable where programtable.id = entitytable.user_marketing_program_id and lower(programtable.status) like 'open' and lower(entitytable.status) like 'approved' and entitytable.days > 0 and entitytable.entity_type like 'facebook' order by entitytable.schedule_time");
 ////                    
@@ -190,33 +186,33 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
 //            sbSql1.append(" and entitytable.days > 0 and entitytable.entity_type like'").append(entityType).append("'");
 //             sbSql1.append(" ;");
 ////            Query query =  sessionFactory.getCurrentSession().createSQLQuery(sbSql1.toString());
-////            return (TblScheduledEntityList) query;                
+////            return (ScheduledEntityList) query;                
 //
-//               } catch (Throwable throwable) {
+//               } catch (ProcessFailed throwable) {
 //                       logger.log(Level.SEVERE, null, throwable);
-//                       throw new Throwable("Database error while retrieving record");
+//                       throw new ProcessFailed("Database error while retrieving record");
 //           } 
 //    }
 //
 //    @Override
-//    public TblScheduledEntityList getLatestApprovedSendEmail(String status, String entityType, String programStatus, Boolean isRecurring) throws Throwable {
+//    public ScheduledEntityList getLatestApprovedSendEmail(String status, String entityType, String programStatus, Boolean isRecurring) throws ProcessFailed {
 //         try{
 //               Criteria criteria=sessionFactory.getCurrentSession()
-//                    .createCriteria(TblScheduledEntityList.class)                   
+//                    .createCriteria(ScheduledEntityList.class)                   
 //                     .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
 //                     .createAlias("tblUserMarketingProgram", "tump")
 //                    .add(Restrictions.eq("status", status))
 //                    .add(Restrictions.eq("tump.status", programStatus))
 //                    .add(Restrictions.eq("entityType",entityType))
 //                    .add(Restrictions.eq("entityType",isRecurring));
-//               return (TblScheduledEntityList) criteria.list().get(0);
-//               }catch (Throwable throwable) {
+//               return (ScheduledEntityList) criteria.list().get(0);
+//               }catch (ProcessFailed throwable) {
 //                    logger.log(Level.SEVERE, null, throwable);
-//                    throw new Throwable("Database error while retrieving record");
+//                    throw new ProcessFailed("Database error while retrieving record");
 //           } 
 //    }
     @Override
-    public String getLatestApprovedPost(String status, String entityType, String programStatus) throws Throwable {
+    public String getLatestApprovedPost(String status, String entityType, String programStatus) throws ProcessFailed {
 
         try {
 
@@ -243,73 +239,73 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
             }
             return entityId;
 
-        } catch (Throwable throwable) {
+        } catch (ProcessFailed throwable) {
             logger.log(Level.SEVERE, null, throwable);
-            throw new Throwable("Database error while retrieving record");
+            throw new ProcessFailed("Database error while retrieving record");
         }
     }
 
     @Override
-    public TblScheduledEntityList getLatestApprovedFacebookPost(String status, String entityType, String programStatus) throws Throwable {
+    public ScheduledEntityList getLatestApprovedFacebookPost(String status, String entityType, String programStatus) throws ProcessFailed {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public TblScheduledEntityList getLatestApprovedSendEmail(String status, String entityType, String programStatus, Boolean isRecurring) throws Throwable {
+    public ScheduledEntityList getLatestApprovedSendEmail(String status, String entityType, String programStatus, Boolean isRecurring) throws ProcessFailed {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public TblScheduledEntityList getScheduledEntityListByEntityId(Integer entityId) throws Throwable {
+    public ScheduledEntityList getScheduledEntityListByEntityId(Integer entityId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(TblScheduledEntityList.class)
+                    .createCriteria(ScheduledEntityList.class)
                     .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
                     .add(Restrictions.eq("entityId", entityId));
-            return (TblScheduledEntityList) criteria.list().get(0);
-        } catch (Throwable throwable) {
+            return (ScheduledEntityList) criteria.list().get(0);
+        } catch (ProcessFailed throwable) {
             logger.log(Level.SEVERE, null, throwable);
-            throw new Throwable("Database error while retrieving record");
+            throw new ProcessFailed("Database error while retrieving record");
         }
     }
 
     @Override
-    public List<TblScheduledEntityList> getScheduledEntityListIdForEmailType(Integer userMarketingProgramId, Boolean isRecurring) throws Throwable {
+    public List<ScheduledEntityList> getScheduledEntityListIdForEmailType(Integer userMarketingProgramId, Boolean isRecurring) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(TblScheduledEntityList.class)
+                    .createCriteria(ScheduledEntityList.class)
                     .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
                     .add(Restrictions.eq("tblUserMarketingProgram.id", userMarketingProgramId))
                     .add(Restrictions.eq("isRecurring", isRecurring))
                     .add(Restrictions.eq("entityType", "Email"));
             return criteria.list();
-        } catch (Throwable throwable) {
+        } catch (ProcessFailed throwable) {
             logger.log(Level.SEVERE, null, throwable);
-            throw new Throwable("Database error while retrieving record(s).");
+            throw new ProcessFailed("Database error while retrieving record(s).");
         }
     }
 
     @Override
-    public List<TblScheduledEntityList> getScheduledEntityListIdForSocialPostType(Integer userMarketingProgramId) throws Throwable {
+    public List<ScheduledEntityList> getScheduledEntityListIdForSocialPostType(Integer userMarketingProgramId) throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(TblScheduledEntityList.class)
+                    .createCriteria(ScheduledEntityList.class)
                     .setFetchMode("tblUserMarketingProgram", FetchMode.JOIN)
                     .add(Restrictions.eq("tblUserMarketingProgram.id", userMarketingProgramId));
             Criterion rest1 = Restrictions.and(Restrictions.eq("entityType", "Twitter"));
             Criterion rest2 = Restrictions.and(Restrictions.eq("entityType", "Facebook"));
             criteria.add(Restrictions.or(rest1, rest2));
             return criteria.list();
-        } catch (Throwable throwable) {
+        } catch (ProcessFailed throwable) {
             logger.log(Level.SEVERE, null, throwable);
-            throw new Throwable("Database error while retrieving record(s).");
+            throw new ProcessFailed("Database error while retrieving record(s).");
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getLatestApprovedEmail(String status, String entityType, String programStatus, Boolean isRecurring) throws Throwable {
+    public String getLatestApprovedEmail(String status, String entityType, String programStatus, Boolean isRecurring) throws ProcessFailed {
         try {
             StringBuilder sbSql = new StringBuilder();
 
@@ -351,10 +347,14 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
             }
             return entityId;
 
-        } catch (Throwable throwable) {
+        } catch (ProcessFailed throwable) {
             logger.log(Level.SEVERE, null, throwable);
-            throw new Throwable("Database error while retrieving record");
+            throw new ProcessFailed("Database error while retrieving record");
         }
     }
+
+  
+
+   
 
 }

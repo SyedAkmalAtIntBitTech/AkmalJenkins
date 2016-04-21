@@ -20,7 +20,7 @@ import com.intbit.marketing.model.TblUserMarketingProgram;
 import com.intbit.marketing.service.MarketingActionService;
 import com.intbit.marketing.service.RecurringEmailTemplateService;
 import com.intbit.marketing.service.ScheduledEmailListService;
-import com.intbit.marketing.service.ScheduledEntityListService;
+import com.intbittech.marketing.service.ScheduledEntityListService;
 import com.intbit.marketing.service.ScheduledSocialpostListService;
 import com.intbit.marketing.service.UserMarketingProgramService;
 import java.io.BufferedReader;
@@ -199,8 +199,9 @@ public class UserMarketingProgramController {
             Integer userMarketingProgramId = userMarketingProgramService.save(addUserMarketingProgram);
             String link = userMarketingProgramId.toString();
 
-            TblMarketingAction marketingAction = marketingActionService.getMarketingActionByMCategoryIdAndMProgramId(marketingCategoryId.intValue(), marketingProgramId.intValue());
-            if (marketingAction != null){
+           // TblMarketingAction marketingAction = marketingActionService.getMarketingActionByMCategoryIdAndMProgramId(marketingCategoryId.intValue(), marketingProgramId.intValue());
+         TblMarketingAction  marketingAction = null;
+           if (marketingAction != null){
                 String jsonString = marketingAction.getJsonTemplate();
                 JSONObject json = (JSONObject) new JSONParser().parse(jsonString);
                 org.json.simple.JSONArray jSONArray = (org.json.simple.JSONArray) json.get(IConstants.kMarketingActionsKey);

@@ -6,7 +6,7 @@
 package social.controller;
 
 import com.intbit.ConnectionManager;
-import com.intbit.marketing.dao.implementation.ScheduledEntityListDaoImpl;
+import com.intbittech.marketing.dao.impl.ScheduledEntityListDaoImpl;
 import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;

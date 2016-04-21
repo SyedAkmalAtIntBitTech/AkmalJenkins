@@ -17,7 +17,7 @@ import com.intbit.marketing.model.TblUserLoginDetails;
 import com.intbit.marketing.model.TblUserMarketingProgram;
 import com.intbit.marketing.service.RecurringEmailTemplateService;
 import com.intbit.marketing.service.ScheduledEmailListService;
-import com.intbit.marketing.service.ScheduledEntityListService;
+import com.intbittech.marketing.service.ScheduledEntityListService;
 import com.intbit.util.ServletUtil;
 import java.io.BufferedReader;
 import java.io.IOException;

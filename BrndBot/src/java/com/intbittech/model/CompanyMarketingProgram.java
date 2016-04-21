@@ -1,8 +1,8 @@
-/**
-* Copyright 2015 Intbit Technologies. This software and documentation contains
-* confidential and proprietary information that is owned by Intbit
-* Technologies. Unauthorized use and distribution are strictly prohibited.
-*/
+/*
+ * Copyright 2015 Intbit Technologies. This software and documentation contains
+ * confidential and proprietary information that is owned by Intbit
+ * Technologies. Unauthorized use and distribution are strictly prohibited.
+ */
 package com.intbittech.model;
 
 import java.io.Serializable;
@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -45,6 +47,11 @@ public class CompanyMarketingProgram implements Serializable {
     private String url;
     @Column(name = "link_name")
     private String linkName;
+    @Column(name = "fk_marketing_program_id")
+    private Integer fkMarketingProgramId;
+    @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
+    @ManyToOne
+    private Company fkCompanyId;
 
     public CompanyMarketingProgram() {
     }
@@ -108,5 +115,22 @@ public class CompanyMarketingProgram implements Serializable {
     public void setLinkName(String linkName) {
         this.linkName = linkName;
     }
-   
+
+    public Integer getFkMarketingProgramId() {
+        return fkMarketingProgramId;
+    }
+
+    public void setFkMarketingProgramId(Integer fkMarketingProgramId) {
+        this.fkMarketingProgramId = fkMarketingProgramId;
+    }
+
+    public Company getFkCompanyId() {
+        return fkCompanyId;
+    }
+
+    public void setFkCompanyId(Company fkCompanyId) {
+        this.fkCompanyId = fkCompanyId;
+    }
+
+    
 }

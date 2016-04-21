@@ -28,6 +28,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "company")
 public class Company implements Serializable {
 
+    @OneToMany(mappedBy = "fkCompanyId")
+    private Set<CompanyMarketingProgram> companyMarketingProgramSet;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -79,6 +82,15 @@ public class Company implements Serializable {
 
     public void setInviteCode(String inviteCode) {
         this.inviteCode = inviteCode;
+    }
+
+    @XmlTransient
+    public Set<CompanyMarketingProgram> getCompanyMarketingProgramSet() {
+        return companyMarketingProgramSet;
+    }
+
+    public void setCompanyMarketingProgramSet(Set<CompanyMarketingProgram> companyMarketingProgramSet) {
+        this.companyMarketingProgramSet = companyMarketingProgramSet;
     }
     
 }
