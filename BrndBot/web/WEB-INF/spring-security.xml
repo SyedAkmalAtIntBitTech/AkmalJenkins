@@ -12,7 +12,7 @@
         <intercept-url pattern="/css/**" access="permitAll" />
         <intercept-url pattern="/js/**" access="permitAll" />
         <intercept-url pattern="/fonts/**" access="permitAll" />
-        <intercept-url pattern="/signup**" access="permitAll" />
+        <intercept-url pattern="/signup/**" access="permitAll" />
         <intercept-url pattern="/onboarding/**" access="permitAll" />
         <intercept-url pattern="/Access_Denied**" access="permitAll" />
         <intercept-url pattern="/admin**" access="hasRole('ADMIN')" />

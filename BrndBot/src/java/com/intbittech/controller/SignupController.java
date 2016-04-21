@@ -23,8 +23,6 @@ public class SignupController {
 
     @RequestMapping(value = "/{jspFileName}", method = RequestMethod.GET)
     public String signUpJspPages(ModelMap model,@PathVariable(value = "jspFileName") String jspFileName) {
-        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        model.addAttribute("user", userProfile);
         return "signup/" + jspFileName;
     }
 }
