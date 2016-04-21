@@ -35,7 +35,7 @@
                         <span class="listCol_Text fleft">{{companies.organizationName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href="companydetails.jsp?companyId={{companies.companyId}}&companyName={{companies.companyName}}&organizationName={{companies.organizationName}}"><div class="CTA_Button Button--Gray fright">Manage Company</div></a>
+                        <a href="${pageContext.request.contextPath}/admin/companydetails" ng-click="setLocalStorageItem3(companies.companyId,companies.companyName,companies.orgranizationName)"><div class="CTA_Button Button--Gray fright">Manage Company</div></a>
                     </div>
                 </li>
             </ul>

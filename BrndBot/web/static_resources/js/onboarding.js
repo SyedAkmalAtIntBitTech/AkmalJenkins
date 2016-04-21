@@ -108,7 +108,7 @@ $(document).ready(function (){
     
             
 function onboardingcontroller($scope,$http) {
-        var globalLogoImageSrc="";
+        var globalLogoImageSrc="";    
     $scope.getOrganizations = function () {
         
                     $http({
