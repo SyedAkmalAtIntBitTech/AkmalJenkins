@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>404 : Oopes requested resource is not found</h1>
+        <h1>404 : Oops requested resource is not found</h1>
     </body>
 </html>

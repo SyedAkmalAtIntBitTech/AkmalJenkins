@@ -75,7 +75,7 @@ padding: 5px 30px;
 
 .cat-list{
     width: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
     max-height: calc(100vh - 260px);
 }
 
@@ -118,4 +118,16 @@ padding: 5px 30px;
     margin-top: 10px;
     margin-left: 15px;
     height: 35px;
+}
+.cat-slat-titles {
+    line-height: 55px;
+    padding: 0px 20px;
+    box-sizing: border-box;
+    font-weight: 600;
+    cursor: pointer;
+}
+.add-button {
+    background-color: #5cc1a4;
+    color: #FFFFFF;
+    cursor: pointer;
 }

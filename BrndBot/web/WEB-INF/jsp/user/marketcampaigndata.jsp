@@ -29,18 +29,18 @@
                 <div class="pane_header clear">
                     <div class="pane_title fleft h2">Please select a workshop</div>
                     <div class="pane_header_CTABOX fright">
-                        <a href="emailsequence.jsp"><div class="CTA_Button Button--Gray">Use Default</div></a>
+                        <a href="emailsequence"><div class="CTA_Button Button--Gray">Use Default</div></a>
                     </div>
                 </div>
                 
                 <div class="pane_subheader clear">
-                    <a href="emailexternalsource.jsp" class="pane_subheader-tabs fleft">From MINDBODY</a>
-                    <a href="marketcampaigndata.jsp" class="pane_subheader-tabs-active fleft">From Marketing Campaigns</a>
+                    <a href="emailexternalsource" class="pane_subheader-tabs fleft">From MINDBODY</a>
+                    <a href="marketcampaigndata" class="pane_subheader-tabs-active fleft">From Marketing Campaigns</a>
                 </div>
                 
                 <div class="pane_content">
                     <div class="subcat-list">
-                       <a href="emailsequence.jsp"><div class="cat-slat clear">
+                       <a href="emailsequence"><div class="cat-slat clear">
                             <div class="cat-slat-title col-3of10 fleft">Marketing Campaign</div>
                             <div class="cat-slat-description col-2of10 fleft">Date</div>
                              <div class="cat-slat-description col-2of10 fleft"></div>

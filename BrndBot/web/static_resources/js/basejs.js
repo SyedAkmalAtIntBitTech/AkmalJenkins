@@ -27,11 +27,25 @@ $(document).ready(function () {
         $("#addGroup").hide();
         $("#globalImageId").hide();
         $("#editImage").hide();
+        $("#emailSchedulePopUp").hide();
+        $("#emailPreviewPopUp").hide();
         
     
     });
 
-
+  $("#emailschedule").click(function () {
+    alert();
+    $("#emailSchedulePopUp").show();
+    $("#addOrganizationPopupDiv").show();
+    
+    });
+    
+    $("#previewEmailsPopUp").click(function () {
+        $("#emailPreviewPopUp").show();
+         $("#addOrganizationPopupDiv").show();
+        
+    });
+    
 $("#addRecurringEmailTemplateButton").click(function () {
     $("#addRecurringEmailTemplatePopUp").show();
     $("#addOrganizationPopupDiv").show();

@@ -17,7 +17,7 @@
       <%@include file="emailschedule.jsp" %>    
     
         <div class="contentWrap--withNoSideNav">
-             <a class="exit-button-icon" href="sendemail.jsp">
+             <a class="exit-button-icon" href="sendemail">
         <div class="topNav clear menuWidth">
              
             <div class="topNav--BackButton fleft">
