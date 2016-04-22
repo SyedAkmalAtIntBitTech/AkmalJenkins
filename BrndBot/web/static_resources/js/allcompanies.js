@@ -6,21 +6,36 @@
 
 
 function allCompaniesController($scope,$http){
-    
-  $scope.allCompanyDetails = function (){
-      
-      $scope.setLocalStorageItem3 = function (item1,item2,item3){
-          localStorage.setItem(""+item1+"",item1);
-          localStorage.setItem(""+item2+"",item2);
-          localStorage.setItem(""+item3+"",item3);
-          alert(item1);
+   
+      $scope.setTemplateCategories = function (item1,item2){
+          $scope.setLocalStorageItem("organizationId",item1);
+          $scope.setLocalStorageItem("categoryId",item2);
+      };    
+      $scope.setEmailBlockDetails = function (item1,item2){
+          $scope.setLocalStorageItem("organizationId",item1);
+          $scope.setLocalStorageItem("emailBlockId",item2);
+      };
+      $scope.setMarketingCategories = function (item1,item2){
+          $scope.setLocalStorageItem("organizationId",item1);
+          $scope.setLocalStorageItem("marketingCategoryId",item2);
+      }; 
+      $scope.setAllCompanyDetails = function (item1,item2,item3){
+          $scope.setLocalStorageItem("companyId",item1);
+          $scope.setLocalStorageItem("companyName",item2);
+          $scope.setLocalStorageItem("organizationName",item3);
       };
       
+      $scope.setLocalStorageItem = function (key,item){
+          localStorage.setItem(key,item);
+      };
       $scope.getLocalStorageItem = function (item){
           return localStorage.getItem(""+item+"");  
       };
       
-      $("#companyName").text($scope.getLocalStorageItem(companyName));
+      $("#companyName").text($scope.getLocalStorageItem("companyName"));
+      
+  $scope.allCompanyDetails = function (){
+      
         $http({
              method: 'GET',
              url : getHost()+'/getAllCompanies.do'            
@@ -32,8 +47,9 @@ function allCompaniesController($scope,$http){
       
   };   
   
-  $scope.companyEmailcategories= function (){       
-            var companyId=$("#companyId").val();
+  $scope.companyEmailcategories= function (){    
+            
+            var companyId=$scope.getLocalStorageItem("companyId");
             $http({
                 method : 'GET',
                 url : getHost()+'/getCompanyDetailsById.do?companyId='+companyId
@@ -82,7 +98,7 @@ function allCompaniesController($scope,$http){
   
     
     $scope.emailBlockList= function (){       
-            var companyId=$("#companyId").val();
+            var companyId=$scope.getLocalStorageItem("companyId");
             $http({
                 method : 'GET',
                 url : getHost()+'/getCompanyDetailsById.do?companyId='+companyId
@@ -103,7 +119,7 @@ function allCompaniesController($scope,$http){
     
     
     $scope.marketingCategory= function (){       
-            var companyId=$("#companyId").val();
+            var companyId=$scope.getLocalStorageItem("companyId");
             $http({
                 method : 'GET',
                 url : getHost()+'/getCompanyDetailsById.do?companyId='+companyId
@@ -128,7 +144,7 @@ function allCompaniesController($scope,$http){
   
     
      $scope.groupsDisplay = function () {
-           var companyId=$("#companyId").val();
+           var companyId=$scope.getLocalStorageItem("companyId");
         
                     $http({
                             method : 'GET',
@@ -207,9 +223,9 @@ function allCompaniesController($scope,$http){
     };
     
      $scope.deleteGroup= function (){  
-        var companyId=$("#companyId").val();      
-         var organizationName=$("#organizationName").val();     
-         var companyName=$("#companyName").text();    
+        var companyId=$scope.getLocalStorageItem("companyId");    
+         var organizationName=$scope.getLocalStorageItem("organizationName");
+         var companyName=$scope.getLocalStorageItem("companyName");    
          var organizationId=$("#organizationId").val();
          var organizationCompanyLookupId =$("#organizationCompanyLookupId").val();
         var deleteList=confirm(deleteCompanyGroup);

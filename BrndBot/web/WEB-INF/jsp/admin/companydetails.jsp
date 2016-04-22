@@ -15,16 +15,11 @@
      
          <jsp:include page="header.jsp"/>
           <jsp:include page="addgroup.jsp"/>
-           <% String companyName= request.getParameter("companyName"); %>
-           <% String companyId= request.getParameter("companyId"); %>
-           <% String organizationName= request.getParameter("organizationName"); %>
-        <input id="companyId" hidden value="<%=companyId %>"/>
-        <input id="organizationName" hidden value="<%=organizationName %>"/>
         <div class="content-area" ng-app  ng-controller="allCompaniesController">         
         <div class="content-area_header">
                <input hidden id="organizationId" value="{{organizationId.organizationId}}"></input>
             <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/allcompanies">  All Companies > </a></div>
-            <div id="companyName" class="header_title fleft"><%=companyName %> </div>
+            <div id="companyName" class="header_title fleft"></div>
         </div>
         <div class="subnav">
             <div class="subnav-tab fleft">Overview and Brand</div>
@@ -72,7 +67,7 @@
                         <span class="listCol_Text fleft">{{channelDetails.organizationName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href="${pageContext.request.contextPath}/admin/emailsubcategory?organizationId={{channelDetails.organizationId}}&categoryId={{channelDetails.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
+                        <a href="${pageContext.request.contextPath}/admin/emailsubcategory" ng-click="setTemplateCategories(channelDetails.organizationId,channelDetails.categoryId)"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
@@ -106,7 +101,7 @@
                     </div>
                     
                     <div class="listCol col1of4 fleft">
-                        <a href="${pageContext.request.contextPath}/admin/emailblock?organizationId={{emailBlock.organizationId}}&emailBlockId={{emailBlock.emailBlockId}}">  <div class="CTA_Button Button--Gray fright">Manage Block</div></a>
+                        <a href="${pageContext.request.contextPath}/admin/emailblock"  ng-click="setEmailBlockDetails(emailBlock.organizationId,emailBlock.emailBlockId)">  <div class="CTA_Button Button--Gray fright">Manage Block</div></a>
                     </div>
                 </li>
                 
@@ -133,7 +128,7 @@
                         <span class="listCol_Text fleft">{{channelDetails.organizationName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href="${pageContext.request.contextPath}/admin/emailsubcategory?organizationId={{channelDetails.organizationId}}&categoryId={{channelDetails.categoryId}}"> <div class="CTA_Button Button--Gray fright">Manage Category</div></a>
+                        <a href="${pageContext.request.contextPath}/admin/emailsubcategory" ng-click="setTemplateCategories(channelDetails.organizationId,channelDetails.categoryId)"> <div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
@@ -158,7 +153,7 @@
                         <span class="listCol_Text fleft">{{channelDetails.organizationName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href="${pageContext.request.contextPath}/admin/emailsubcategory?organizationId={{channelDetails.organizationId}}&categoryId={{channelDetails.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
+                        <a href="${pageContext.request.contextPath}/admin/emailsubcategory" ng-click="setTemplateCategories(channelDetails.organizationId,channelDetails.categoryId)"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
@@ -185,7 +180,7 @@
                         <span class="listCol_Text fleft "> {{organizationNames.organizationName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href="${pageContext.request.contextPath}/admin/marketingcategory?organizationId={{marketingCategoryList.organizationId}}&marketingCategoryId={{marketingCategoryList.marketingCategoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
+                        <a href="${pageContext.request.contextPath}/admin/marketingcategory" ng-click="setMarketingCategories(marketingCategoryList.organizationId,marketingCategoryList.marketingCategoryId)"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
