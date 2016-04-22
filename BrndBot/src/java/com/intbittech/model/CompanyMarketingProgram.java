@@ -47,8 +47,9 @@ public class CompanyMarketingProgram implements Serializable {
     private String url;
     @Column(name = "link_name")
     private String linkName;
-    @Column(name = "fk_marketing_program_id")
-    private Integer fkMarketingProgramId;
+    @JoinColumn(name = "fk_marketing_program_id")
+    @ManyToOne
+    private MarketingProgram fkMarketingProgramId;
     @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
     @ManyToOne
     private Company fkCompanyId;
@@ -116,13 +117,15 @@ public class CompanyMarketingProgram implements Serializable {
         this.linkName = linkName;
     }
 
-    public Integer getFkMarketingProgramId() {
+    public MarketingProgram getFkMarketingProgramId() {
         return fkMarketingProgramId;
     }
 
-    public void setFkMarketingProgramId(Integer fkMarketingProgramId) {
+    public void setFkMarketingProgramId(MarketingProgram fkMarketingProgramId) {
         this.fkMarketingProgramId = fkMarketingProgramId;
     }
+
+  
 
     public Company getFkCompanyId() {
         return fkCompanyId;
@@ -132,5 +135,4 @@ public class CompanyMarketingProgram implements Serializable {
         this.fkCompanyId = fkCompanyId;
     }
 
-    
 }
