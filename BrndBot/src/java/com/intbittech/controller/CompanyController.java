@@ -14,6 +14,7 @@ import com.intbittech.model.OrganizationCategoryLookup;
 import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.model.OrganizationEmailBlockLookup;
 import com.intbittech.model.OrganizationMarketingCategoryLookup;
+import com.intbittech.model.UserProfile;
 import com.intbittech.modelmappers.CategoryDetails;
 import com.intbittech.modelmappers.ChannelDetails;
 import com.intbittech.modelmappers.CompanyAllDetails;
@@ -31,6 +32,7 @@ import com.intbittech.services.EmailBlockService;
 import com.intbittech.services.MarketingCategoryService;
 import com.intbittech.services.OrganizationCategoryLookupService;
 import com.intbittech.utility.ErrorHandlingUtil;
+import com.intbittech.utility.UserSessionUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -253,8 +255,8 @@ public class CompanyController {
     public ResponseEntity<ContainerResponse> getAllBlocksForCompany() {
         GenericResponse<EmailBlockDetails> genericResponse = new GenericResponse<EmailBlockDetails>();
         try {
-            //TODO Haider remove this and add companyId from session
-            Integer companyId = 1;
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
             organizationCompanyDetail = companyService.getAllOrganizationsByCompanyId(companyId);
             List<OrganizationCompanyDetails> organizationCompanyDetailsList = new ArrayList<>();
