@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
          <link rel="shortcut icon" href="images/favicon.png">
         <title>Category</title>
     </head>
@@ -20,7 +21,7 @@
         <input id="marketingCategoryId" type="hidden" value="<%= marketingCategoryId %>"
         <div class="topNav topNav-withSubnav clear">
              <div class="topNav--BackButton fleft">
-                 <a class="exit-button-icon" href="dashboard.jsp">
+                 <a class="exit-button-icon" href="dashboard">
           
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
             

@@ -47,7 +47,7 @@
                                  
                                 </div>
                             <div class="dashboard-mainCTA-subtext">Content to be provided here</div>
-                            <div class=" dashboard-mainCTA-button "><a href="emailcategory.jsp"><div class="Button--Blue Dash_Button">Create an Email</div></a></div>
+                            <div class=" dashboard-mainCTA-button "><a href="emailcategory"><div class="Button--Blue Dash_Button">Create an Email</div></a></div>
                         </div>
                     </div>
                     

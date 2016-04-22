@@ -8,7 +8,7 @@
                 <img type="image/svg+xml" src="images/yourPlan.svg" class="nav-elements-icon" style="cursor:pointer;">
           
             </div></a>
-    <a class="hint--right" href="marketingcategory.jsp" data-hint="MARKETING PROGRAM"><div class="nav-tabs ">
+    <a class="hint--right" href="marketingcategory" data-hint="MARKETING PROGRAM"><div class="nav-tabs ">
                 <img type="image/svg+xml" src="images/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;">
             
             </div></a>

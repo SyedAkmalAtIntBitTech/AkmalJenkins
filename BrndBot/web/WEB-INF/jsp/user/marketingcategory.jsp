@@ -19,7 +19,7 @@
     <div class="contentWrap--withSideNav noScroll" ng-app ng-controller="userController">
         <div class="topNav topNav-withSubnav clear">
              <div class="topNav--BackButton fleft">
-                 <a class="exit-button-icon" href="dashboard.jsp">
+                 <a class="exit-button-icon" href="dashboard">
           
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
             
@@ -42,7 +42,7 @@
                 <div class="pane_content">
                     <div class="cat-list" ng-repeat="displayAllMarketingProgram in displayAllMarketingPrograms">
                         <div class="cat-slat">
-                            <a id="marketingCategoryId" href="marketingprogram.jsp" ng-click="marketingProgramCategory(displayAllMarketingProgram.marketingCategoryId)">
+                            <a id="marketingCategoryId" href="marketingprogram" ng-click="marketingProgramCategory(displayAllMarketingProgram.marketingCategoryId)">
                                 <div class="cat-slat-title">{{displayAllMarketingProgram.marketingCategoryName}}</div>
                             </a>
                         </div>

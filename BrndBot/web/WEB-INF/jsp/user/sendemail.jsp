@@ -18,7 +18,7 @@
         <div class="topNav clear menuWidth">
             <a href="EmailSequence-Editor.html"><div class="topNav--BackButton fleft">
                     
-             <a class="exit-button-icon" href="emailsequence.jsp">
+             <a class="exit-button-icon" href="emailsequence">
           
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
             
@@ -46,7 +46,7 @@
                             </div>
                     </div>
                     <div class="inputSection col-1of1 ">
-                        <a href="contactsaddmanually.jsp"><div class="CTA_Button Button--Gray fleft">Add Contacts Manually</div></a>
+                        <a href="contactsaddmanually"><div class="CTA_Button Button--Gray fleft">Add Contacts Manually</div></a>
                     </div>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
     </div>
     
     <div class="bottomNav">
-        <a href="emaildetails.jsp">
+        <a href="emaildetails">
             <div class="bottom-ContinueButton fright">CONTINUE TO DETAILS</div>
         </a>
     </div>
