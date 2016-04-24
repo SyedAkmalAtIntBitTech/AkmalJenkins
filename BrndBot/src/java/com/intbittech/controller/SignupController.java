@@ -100,6 +100,7 @@ public class SignupController {
             } else if (type.equalsIgnoreCase("change")) {
                 ForgotPassword forgotPassword = forgotPasswordService.getByRandomHash(hashURL);
                 forgotPasswordService.updatePassword(forgotPassword.getFkUserId().getUserId(), hashPassword);
+                forgotPasswordService.delete(forgotPassword);
             }
 
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_passwordchangesuccessfully", new String[]{}, Locale.US)));

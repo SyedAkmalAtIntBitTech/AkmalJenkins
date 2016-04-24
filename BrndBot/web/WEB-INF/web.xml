@@ -58,10 +58,6 @@
         <servlet-class>com.controller.ServletUserRegistration</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SendEmail</servlet-name>
-        <servlet-class>com.controller.ForgotSendEmail</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GetUserCategories</servlet-name>
         <servlet-class>com.controller.GetUserCategories</servlet-class>
     </servlet>
@@ -116,10 +112,6 @@
     <servlet>
         <servlet-name>CheckAvailability</servlet-name>
         <servlet-class>com.controller.CheckAvailability</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ResetUserPassword</servlet-name>
-        <servlet-class>com.controller.ResetUserPassword</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ServletUploadFonts</servlet-name>
