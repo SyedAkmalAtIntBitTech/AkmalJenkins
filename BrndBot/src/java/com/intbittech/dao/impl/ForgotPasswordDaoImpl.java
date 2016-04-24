@@ -8,9 +8,12 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.ForgotPasswordDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ForgotPassword;
+import com.intbittech.model.Users;
 import java.util.Locale;
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Repository;
@@ -57,6 +60,22 @@ public class ForgotPasswordDaoImpl implements ForgotPasswordDao {
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_deleting_message", new String[]{}, Locale.US));
+        }
+    }
+
+    @Override
+    public ForgotPassword getByRandomHash(String hashURL) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(ForgotPassword.class)
+                    .add(Restrictions.eq("random_link", hashURL));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return (ForgotPassword) criteria.list().get(0);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
         }
     }
 

@@ -6,11 +6,15 @@
 package com.intbittech.controller;
 
 import com.controller.ApplicationContextListener;
+import com.controller.GenerateHashPassword;
 import com.intbit.AppConstants;
+import com.intbittech.model.ForgotPassword;
+import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.ForgotPasswordService;
 import com.intbittech.utility.ErrorHandlingUtil;
+import com.intbittech.utility.UserSessionUtil;
 import java.io.BufferedReader;
 import java.util.Locale;
 import java.util.Map;
@@ -50,7 +54,7 @@ public class SignupController {
         return "signup/" + jspFileName;
     }
 
-    @RequestMapping(value = "/forgotSendEMail", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/forgotPassword", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> forgotSendEMail(HttpServletRequest request,
             HttpServletResponse response) {
         TransactionResponse transactionResponse = new TransactionResponse();
@@ -67,6 +71,38 @@ public class SignupController {
 
             forgotPasswordService.sendMail(email_id, contextPath);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "/resetPassword", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> resetPassword(HttpServletRequest request,
+            HttpServletResponse response) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+
+            String type = (String) requestBodyMap.get("type");
+            String password = (String) requestBodyMap.get("password");
+            String hashURL = (String) requestBodyMap.get("hashURL");
+            Integer userId;
+            GenerateHashPassword generate_hash_password = new GenerateHashPassword();
+            String hashPassword = generate_hash_password.hashPass(password);
+            if (type.equalsIgnoreCase("update")) {
+                UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+                userId = userProfile.getUser().getUserId();
+                forgotPasswordService.updatePassword(userId, hashPassword);
+            } else if (type.equalsIgnoreCase("change")) {
+                ForgotPassword forgotPassword = forgotPasswordService.getByRandomHash(hashURL);
+                forgotPasswordService.updatePassword(forgotPassword.getFkUserId().getUserId(), hashPassword);
+            }
+
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_passwordchangesuccessfully", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
             logger.error(throwable);

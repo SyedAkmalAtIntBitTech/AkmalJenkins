@@ -28,7 +28,9 @@ public interface ForgotPasswordDao {
      */
     public void update(ForgotPassword forgotPassword) throws ProcessFailed;
 
-    public void delete(ForgotPassword forgotPassword);
+    public void delete(ForgotPassword forgotPassword)  throws ProcessFailed;
+
+    public ForgotPassword getByRandomHash(String hashURL) throws ProcessFailed;
     
     
     

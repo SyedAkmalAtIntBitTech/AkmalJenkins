@@ -46,6 +46,10 @@ public interface ForgotPasswordService {
     public void delete(ForgotPassword forgotPassword) throws ProcessFailed;
 
     public void sendMail(String email_id, String imageContextPath);
+
+    public void updatePassword(Integer userId, String hashPassword);
+
+    public ForgotPassword getByRandomHash(String hashURL);
     
   
 }

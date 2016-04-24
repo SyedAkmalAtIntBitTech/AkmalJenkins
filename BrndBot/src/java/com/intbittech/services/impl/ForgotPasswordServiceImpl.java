@@ -39,6 +39,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 
     @Autowired
     UsersService usersService;
+    
 
     @Override
     public Integer save(ForgotPassword forgotPassword) throws ProcessFailed {
@@ -99,6 +100,20 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 
         message.setRecipient_metadata(metadataList);
         send_email.sendMail(message);
+    }
+
+    @Override
+    public void updatePassword(Integer userId, String hashPassword) throws ProcessFailed {
+        Users user = usersService.getUserById(userId);
+        if(user != null) {
+            user.setUserPassword(hashPassword);
+            usersService.update(user);
+        }
+    }
+
+    @Override
+    public ForgotPassword getByRandomHash(String hashURL) throws ProcessFailed {
+        return forgotPasswordDAO.getByRandomHash(hashURL);
     }
 
 }
