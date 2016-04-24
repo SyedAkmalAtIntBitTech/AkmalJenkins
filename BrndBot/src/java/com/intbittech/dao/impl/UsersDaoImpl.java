@@ -24,16 +24,16 @@ import org.springframework.stereotype.Repository;
  * @author ilyas
  */
 @Repository
-public class UsersDaoImpl implements UsersDao{
-    
+public class UsersDaoImpl implements UsersDao {
+
     private Logger logger = Logger.getLogger(UsersDaoImpl.class);
-    
+
     @Autowired
     private SessionFactory sessionFactory;
-    
+
     @Autowired
     private MessageSource messageSource;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -47,14 +47,14 @@ public class UsersDaoImpl implements UsersDao{
             if (userList.isEmpty()) {
                 return null;
             }
-            return  userList.get(0);
+            return userList.get(0);
 
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed("Database error while retrieving record");
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -63,51 +63,64 @@ public class UsersDaoImpl implements UsersDao{
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(Users.class)
                 .add(Restrictions.eq("userId", userId));
-        if(criteria.list().isEmpty())
+        if (criteria.list().isEmpty()) {
             return null;
+        }
         return (Users) criteria.list().get(0);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public Boolean checkUniqueUser(Users user) {
-        Boolean isUserUnique=  true;
+        Boolean isUserUnique = true;
         List<Users> usersList = new ArrayList<>();
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(Users.class)
                 .add(Restrictions.eq("userName", user.getUserName()));
         usersList = criteria.list();
-        if(criteria.list().isEmpty())
+        if (criteria.list().isEmpty()) {
             isUserUnique = true;
-        else
+        } else {
             isUserUnique = false;
+        }
         return isUserUnique;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public Integer save(Users user) {
         try {
-        return (Integer) sessionFactory.getCurrentSession().save(user);
-        } catch(Throwable throwable) {
+            return (Integer) sessionFactory.getCurrentSession().save(user);
+        } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_saving_message", new String[]{}, Locale.US));
         }
-        
+
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public void update(Users user) {
         try {
             sessionFactory.getCurrentSession().update(user);
-        } catch(Throwable throwable) {
+        } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message", new String[]{}, Locale.US));
         }
     }
-    
+
+    @Override
+    public Users getUserByEmailId(String emailId) throws ProcessFailed {
+        Criteria criteria = sessionFactory.getCurrentSession()
+                .createCriteria(Users.class)
+                .add(Restrictions.eq("email", emailId));
+        if (criteria.list().isEmpty()) {
+            return null;
+        }
+        return (Users) criteria.list().get(0);
+    }
+
 }

@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.annotation.WebServlet;
 import org.apache.commons.io.FileUtils;
+import static social.controller.SendAnEmail.MANDRILL_KEY;
 
 /**
  *
@@ -85,7 +86,7 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             }
             Message message = new Message();
 
-            message.setKey(ForgotSendEmail.MANDRILL_KEY);
+            message.setKey(MANDRILL_KEY);
 
             message.setHtml(html_text);
             message.setSubject(email_subject);
