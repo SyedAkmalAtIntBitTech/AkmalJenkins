@@ -37,7 +37,7 @@
                         <span class="listCol_Text fleft">{{organizations.organizationTypeName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href="${pageContext.request.contextPath}/admin/organizationdetails" ng-click="setOrganizationDetails(organizations.organizationId)"><div class="CTA_Button Button--Gray fright">Manage Org</div></a>
+                        <a href="${pageContext.request.contextPath}/admin/organizationdetails?organizationId={{organizations.organizationId}}"><div class="CTA_Button Button--Gray fright">Manage Org</div></a>
 
                     </div>
                 </li>                
