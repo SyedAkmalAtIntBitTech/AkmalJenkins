@@ -15,7 +15,7 @@
     <jsp:include page="addsubcategory.jsp"/>
     <div class="content-area" ng-init="organizationdetails()">
         <div class="content-area_header" ng-init="getAllCategoryDetails()">
-            <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/companydetails">{{organizationDetails.organizationName}}</a>  > </div>
+            <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/organizationdetails">{{organizationDetails.organizationName}}</a>  > </div>
             <div class="header_title fleft" id="categoryNameDiv">{{categoryDetails.categoryName}}</div>
             <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteCategory()">Delete Category</div>
         </div>
@@ -38,7 +38,7 @@
                         <span class="listCol_Text fleft">{{ExternalSourceKeywordLookups.externalSourceName}}-{{ExternalSourceKeywordLookups.externalSourceKeywordName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href="${pageContext.request.contextPath}/admin/emailsubcategorydetails?organizationId={{organizationDetails.organizationId}}&categoryId={{categoryDetails.categoryId}}&subCategoryId={{subcategory.subCategoryId}}"><div class="CTA_Button Button--Gray fright">Manage Sub Category</div></a>
+                        <a href="${pageContext.request.contextPath}/admin/emailsubcategorydetails" ng-click="setSubCategoryDetails(organizationDetails.organizationId,categoryDetails.categoryId,subcategory.subCategoryId)"><div class="CTA_Button Button--Gray fright">Manage Sub Category</div></a>
                     </div>
                 </li>
             </ul>

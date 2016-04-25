@@ -12,18 +12,12 @@
      <link rel="shortcut icon" href="images/favicon.png"/>       
     <title>Email Block</title>  
 </head>    
-<%
-String organizationID=request.getParameter("organizationId");
-String emailBlockId=request.getParameter("emailBlockId");
-%>
 <body class="body-normal" ng-app  ng-controller="organizationcontroller" >
-    <input id="emailBlockId" type="text" hidden value="<%=emailBlockId%>"/>
-    <input id="organizationIdTag" type="text" hidden value="<%=organizationID%>"/>
     <jsp:include page="header.jsp"/>
     <jsp:include page="emailblocktemplate.jsp"/>
     <div class="content-area" ng-init="organizationdetails()">
         <div class="content-area_header"  ng-init="getEmailBlock()">
-            <div  class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/companydetails">{{organizationDetails.organizationName}}</a>  > </div>
+            <div  class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/organizationdetails">{{organizationDetails.organizationName}}</a>  > </div>
             <div class="header_title fleft">{{emailBlocksTitle.emailBlockName}}  </div>
             <div class="CTA_Button Button--Blue fright" id="addEmailTemplate" ng-click="getAllNonAddedEmailBlock()">Add Template</div>
             <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteEmailBlock()">Delete Block</div>
