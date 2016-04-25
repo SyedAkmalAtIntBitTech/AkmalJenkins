@@ -8,6 +8,7 @@ package com.intbittech.controller;
 import com.intbit.AppConstants;
 import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.ContainerResponse;
+import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.SendEmailService;
 import com.intbittech.utility.ErrorHandlingUtil;
@@ -64,11 +65,12 @@ public class EmailController {
     @RequestMapping(value = "/tags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> get(HttpServletRequest request,
             HttpServletResponse response) {
-        TransactionResponse transactionResponse = new TransactionResponse();
+        GenericResponse<String> transactionResponse = new GenericResponse();
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Integer userId = userProfile.getUser().getUserId();
-            transactionResponse.setMessage(sendEmailService.getTags(userId));
+            String data = sendEmailService.getTags(userId);
+            transactionResponse.addDetail(data);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {

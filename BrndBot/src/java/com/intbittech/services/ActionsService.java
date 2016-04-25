@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface ActionsService {
 
-    public String getActions(Map<String, Object> requestBodyMap, Integer userId) throws Exception;
+    public String getActions(Map<String, Object> requestBodyMap, Integer companyId) throws Exception;
     
    
 }

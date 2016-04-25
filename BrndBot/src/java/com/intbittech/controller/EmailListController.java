@@ -8,6 +8,7 @@ package com.intbittech.controller;
 import com.intbit.AppConstants;
 import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.ContainerResponse;
+import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.EmailListService;
 import com.intbittech.utility.ErrorHandlingUtil;
@@ -34,33 +35,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping(value = "/emaillist")
 public class EmailListController {
-
+    
     private final Logger logger = Logger.getLogger(EmailListController.class);
-
+    
     @Autowired
     EmailListService emailListService;
     @Autowired
     private MessageSource messageSource;
-
+    
     @RequestMapping(value = "/get", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getEmailList(HttpServletRequest request,
             HttpServletResponse response) {
-        TransactionResponse transactionResponse = new TransactionResponse();
+        GenericResponse<String> transactionResponse = new GenericResponse();
+        
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Integer userId = userProfile.getUser().getUserId();
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-            transactionResponse.setMessage(emailListService.getEmailList(requestBodyMap, userId));
+            String data = emailListService.getEmailList(requestBodyMap, userId);
+            transactionResponse.addDetail(data);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("success", new String[]{}, Locale.US)));
-
+            
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-
+    
     @RequestMapping(value = "/save", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> setEmailList(HttpServletRequest request,
             HttpServletResponse response) {
@@ -77,12 +80,12 @@ public class EmailListController {
                 logger.debug("Unable to set email list");
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(messageSource.getMessage("fail", new String[]{}, Locale.US)));
             }
-
+            
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-
+    
 }

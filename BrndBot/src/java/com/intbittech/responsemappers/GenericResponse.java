@@ -6,6 +6,7 @@
 package com.intbittech.responsemappers;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +18,7 @@ public class GenericResponse<T>  extends BaseResponse implements Serializable {
      public GenericResponse() {
         super();
         operationStatus = new OperationStatus();
+        details = new ArrayList<>();
     }
 
     private List<T> details;
@@ -36,6 +38,10 @@ public class GenericResponse<T>  extends BaseResponse implements Serializable {
 
     public void setOperationStatus(OperationStatus operationStatus) {
         this.operationStatus = operationStatus;
+    }
+    
+    public void addDetail(T detail) {
+        details.add(detail);
     }
     
 }
