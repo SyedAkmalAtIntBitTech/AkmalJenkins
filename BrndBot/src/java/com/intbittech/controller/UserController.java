@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/user")
 public class UserController {
 
-    private Logger logger = Logger.getLogger(UserController.class);
+    private final static Logger logger = Logger.getLogger(UserController.class);
     @Autowired
     ForgotPasswordService forgotPasswordService;
     @Autowired

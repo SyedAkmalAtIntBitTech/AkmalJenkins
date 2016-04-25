@@ -287,10 +287,6 @@
         <servlet-class>com.controller.schedule.ChangeScheduleServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetScheduledActions</servlet-name>
-        <servlet-class>com.controller.schedule.GetScheduledActions</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ScheduleSocialPostActionsServlet</servlet-name>
         <servlet-class>com.controller.schedule.ScheduleSocialPostActionsServlet</servlet-class>
     </servlet>
@@ -594,10 +590,6 @@
     <servlet-mapping>
         <servlet-name>ChangeScheduleServlet</servlet-name>
         <url-pattern>/ChangeScheduleServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetScheduledActions</servlet-name>
-        <url-pattern>/GetScheduledActions</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ScheduleSocialPostActionsServlet</servlet-name>

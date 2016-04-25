@@ -42,7 +42,7 @@ import util.Utility;
 @RequestMapping(value = "/signup")
 public class SignupController {
 
-    private Logger logger = Logger.getLogger(SignupController.class);
+    private final static Logger logger = Logger.getLogger(SignupController.class);
 
     @Autowired
     ForgotPasswordService forgotPasswordService;
