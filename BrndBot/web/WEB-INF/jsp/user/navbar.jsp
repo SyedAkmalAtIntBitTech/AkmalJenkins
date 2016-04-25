@@ -20,7 +20,7 @@
                  <img type="image/svg+xml" src="images/media.svg" class="nav-elements-icon" style="cursor:pointer;">
             
             </div></a>
-        <a href="UserHub.html"><div class="nav-tabs">
+        <a href="settings"><div class="nav-tabs">
                  <img type="image/svg+xml" src="images/user.svg" class="nav-elements-icon" style="cursor:pointer;">
             </div></a>
         <div class="nav-elements-icon-container-bottom">
