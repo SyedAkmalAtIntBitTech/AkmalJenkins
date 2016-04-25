@@ -1,0 +1,378 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 11, 2015, 5:24:12 PM
+    Author     : Sandeep Kumar at IntBit Technologies.
+*/
+.fontpns{
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 600 !important;
+}
+.fontpnr{
+     font-family: "proxima-nova",sans-serif;
+     font-style: normal;
+     font-weight: 400 !important;
+}
+.navicon {
+    position:relative;
+    height:25px;
+    top:-2px;
+    left:0px;
+}
+.navicons img{
+         height:5em;
+         left: 0em;
+         position:relative;
+         width:50px;
+}
+.navicons:hover{ color:#2D4355;
+}
+
+
+.navgap{
+    margin-top:0px;
+}
+body{
+    overflow-x:  hidden;
+}
+#leftnav{    
+    position:fixed;
+    z-index:888;
+    text-align:center;
+    width:120px;
+    line-height:100%;  
+    max-height: 80%;
+    
+    
+}
+#submenu{
+    position:fixed;
+    left:60px;
+    z-index:10000;
+    text-align:left;
+    width:120px;
+    line-height:100%;  
+    height:100%;
+    background-color: #e5e5e5;
+}
+
+.bgcol{
+    background-color: #e5e5e5;
+    position: relative;
+    margin-top: 10%;
+    margin-left: 4%;
+    width:900px;
+    height: 300px;
+    text-align: center;
+}
+.bgcols{
+
+    position: relative;
+    margin-top: 8%;
+
+    width:900px;
+    height: 500px;
+    text-align: center;
+}
+.bgcolh{
+    background-color: #e5e5e5;
+    position: relative;
+    margin-top: 1%;
+    margin-left: 0%;
+    width:900px;
+    height: 80px;
+    text-align: center;
+}
+.bgcol p{
+    font-size: 55px;
+    font-family:"proxima-nova-soft",sans-serif;
+   font-weight: 500;
+   margin-top: 100px;
+}
+.ba p{
+    font-size: 25px;
+    font-family:"proxima-nova-soft",sans-serif;
+   font-weight: 500;
+   margin-top: 50px;
+}
+#hyshead{
+    width:850px;
+    font-family:"proxima-nova-soft",sans-serif;
+   font-weight: 500;
+   position: relative;
+   
+    padding-top: 20%;
+   padding-bottom: 1%;
+}
+/*#leftnav{
+    
+    position: relative;
+    margin-left: -10px;
+    
+}*/
+
+/*#text1{
+   font-size: x-small;
+}*/
+.t1{
+    color: #7b7b7c;
+    font-size: 11px;
+    font-family: "proxima-nova";
+    font-weight: 500;
+    position: relative;
+    margin-top: 0.8px;
+    left: -.5em;
+    font-style: normal;
+    text-align: center;
+    line-height: 1.1em;
+    letter-spacing: 0em;
+    opacity: 1;
+}
+ul.t1 li a p{
+   color:#7b7b7c;
+   font-size:11px;
+   padding: 0em 0.5em 0.1em 0em;
+   font-family:"proxima-nova";
+   font-weight: 500;
+   position: relative;
+   margin-top:0.8px;
+   left:-1em;
+   font-style:normal;
+   text-align:center;
+   line-height:1.1em;
+   letter-spacing:0em;
+   opacity:1;
+}
+.t1 li:hover{
+    
+    color:#2D4355;
+}
+
+#t2:hover{     
+    color:#2D4355;
+}
+#t2{
+   color:#7b7b7c;
+   font-size:11px;
+   font-family:"proxima-nova";
+   width: 55px;
+   position: relative;
+   font-style:normal;
+   text-align:center;
+   line-height:10px;   
+   opacity:1;
+   left:-1em;
+}
+/*#text2{
+    font-size:small;
+    font-weight: bold;
+}*/
+
+.hidhov img:hover,p:hover,li:hover{
+    background-color:transparent ;
+}
+
+#t3 {
+    position:relative;
+    padding-bottom: 9%; 
+    padding-top:14%;   
+/*    font-family: "proxima-nova",sans-serif;
+    font-weight: 600;*/
+    color:#454141;
+    font-style: normal;
+    text-align:left;
+    line-height: 1.3em;
+    letter-spacing: 0em;
+    width:600px;
+}
+#t3-1{
+    position:relative;
+    left: 120px;
+    top: 22%;  
+    font-family: "proxima-nova";
+    font-weight: 600;
+    font-size:34.2px;
+    color:#454141;
+    font-style: normal;
+    text-align:left;
+    line-height: 41px;
+    letter-spacing: 0em;
+    width:600px;
+}
+#t3-2 {
+    position:fixed;
+    left: 120px;
+    top: 26%;   
+    font-family: "proxima-nova";
+    font-weight: 600;
+    font-size:34.2px;
+    color:#454141;
+    font-style: normal;
+    text-align:left;
+    line-height: 41px;
+    letter-spacing: 0em;
+    width:600px;
+}
+/*
+#text3{
+    position: relative;
+    left:80px;
+    top: 120px;
+    
+    font-size: 28px;
+}*/
+#promtext{
+    position:relative;
+    top:81px;
+    left:120px;
+/*    font-family: "proxima-nova";
+    font-style: normal;
+    font-weight: 600;*/
+    font-size: 32px;
+    color: #454141;
+    text-align: left;
+    line-height: 38.3 px;
+    letter-spacing: 0 em;   
+}
+#t5{ 
+    position:relative;
+    left:45%;
+    top:50%;
+    font-family: "proxima-nova";
+    font-weight: 600;
+    font-size:250%;
+    Color: #454141;
+    font-style: normal;
+    padding-top: 25%;
+    padding-right: 30%;   
+    float:left;   
+    
+}
+
+#t6{ 
+    position:relative;
+    left:35%;
+    top:50%;
+    font-family: "proxima-nova";
+    font-style: normal;
+    font-weight: 600;
+    font-size:250%;
+    Color: #454141;
+    padding-top: 25%;
+    padding-right: 30%;   
+    float:left;   
+    
+}
+/*#text4{
+    position: relative;
+    left: 18px;
+    font-size: x-small;
+}*/
+#soceml{
+    position: relative;
+    left: 3.5em;
+    font-family: "proxima-nova";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 13px;
+    color: #6b6564;
+    text-align:left;
+    line-height:18.6px;
+    letter-spacing: 0em;
+}
+#t4{
+    padding-top: 0px;
+    position: relative;
+    left: 0em;
+/*    font-family: "proxima-nova";
+    font-style: normal;
+    font-weight: 400;*/
+    color: #6b6564;
+    text-align:center;
+    line-height:18.6px;
+    letter-spacing: 0em;
+}
+
+#promotelist{
+  position:relative;
+/*    padding-top:9%;  
+    padding-bottom: 2%;
+    padding-right: 3%;*/
+        padding: 0px;
+        
+}
+
+
+#promotelist li{
+    display: inline-block;
+    position:relative;
+/*    font-family: "proxima-nova";
+    font-weight: 400;
+    font-size:13px;*/
+    color:#6b6564;
+    margin-right:15px;
+
+/*    font-style:normal;*/
+    text-align:center;
+    line-height:15.6px;
+    letter-spacing:0em;
+}
+/*
+#promotelist li{
+    display: inline-block;
+    position: relative;
+    left: 25px;
+    top: 180px;
+/*    margin-top: 160px;*/
+/*    margin-left:  12px;*/
+   
+#promotebuttonlist img{
+    width:110px;
+    height:110px;
+    cursor: pointer;
+}
+#promotebuttonlist li{
+        display: inline-block;
+        left:-100px;
+        position: relative;
+        padding-top: -100px;
+        width: 150px;
+        margin-left: 50px;
+       }
+
+
+
+
+#promoteimage{
+    margin: 15px;
+    margin-bottom: 5px;
+}
+
+#promotelist a:hover img{
+background-image: url("images/promoteclass1.svg");
+}
+
+ #subpromotelist li
+            {   
+                cursor: pointer;
+                width: 200px;
+                list-style-type: none;
+                font-weight: bold;
+                font-family: "proxima-nova",sans-serif;
+                font-weight: 600;
+                font-size: 1.13em;
+                color: #2d4355;
+                text-align: center;
+                font-style: normal;
+                line-height: 1em;
+                letter-spacing: 0em;
+                cursor: pointer;
+            }
+            .subcatlist{
+                margin-top:24%;
+                margin-left: 1.5%;
+            }
