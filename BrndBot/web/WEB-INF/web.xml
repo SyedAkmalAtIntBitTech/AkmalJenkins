@@ -185,14 +185,8 @@
         <servlet-name>ChangeImageServlet</servlet-name>
         <servlet-class>com.controller.ChangeImageServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>SetEmailLists</servlet-name>
-        <servlet-class>com.controller.SetEmailLists</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetEmailLists</servlet-name>
-        <servlet-class>com.controller.GetEmailLists</servlet-class>
-    </servlet>
+   
+    
     <servlet>
         <servlet-name>EmailTextDataServlet</servlet-name>
         <servlet-class>social.controller.EmailTextDataServlet</servlet-class>
@@ -505,14 +499,8 @@
         <servlet-name>ChangeImageServlet</servlet-name>
         <url-pattern>/ChangeImageServlet</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SetEmailLists</servlet-name>
-        <url-pattern>/SetEmailLists</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetEmailLists</servlet-name>
-        <url-pattern>/GetEmailLists</url-pattern>
-    </servlet-mapping>
+   
+    
     <servlet-mapping>
         <servlet-name>EmailTextDataServlet</servlet-name>
         <url-pattern>/EmailTextDataServlet</url-pattern>
