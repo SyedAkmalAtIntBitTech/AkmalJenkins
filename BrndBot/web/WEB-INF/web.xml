@@ -166,10 +166,6 @@
         <servlet-class>com.controller.GetUserPreferences</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SendEmailServlet</servlet-name>
-        <servlet-class>com.controller.SendEmailServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ServletUserPreferencesFacebook</servlet-name>
         <servlet-class>social.controller.ServletUserPreferencesFacebook</servlet-class>
     </servlet>
@@ -478,10 +474,6 @@
     <servlet-mapping>
         <servlet-name>GetUserPreferences</servlet-name>
         <url-pattern>/GetUserPreferences</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SendEmailServlet</servlet-name>
-        <url-pattern>/SendEmailServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletUserPreferencesFacebook</servlet-name>
