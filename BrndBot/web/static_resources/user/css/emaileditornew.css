@@ -1,0 +1,354 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 22, 2015, 5:52:53 PM
+    Author     : Syed Akmal at IntBit Technologies.
+*/
+@media screen and ( max-height: 720px )
+{
+    .bgcolor
+    {
+        //min-height: 650px !important;
+        //height: auto !important;
+       // height: 650px;
+    }
+/*    .fr-wrapper{
+        min-height: 515px !important;
+        height: auto !important;
+
+    }*/
+}
+.show-placeholder{
+    min-height: 819px !important;
+    height: auto !important;
+}
+.halfcol{
+    width:4% !important;
+}
+.padlft{
+    margin-left:-15px !important;
+}
+.emailedtrsavetodraft {
+    font-size: 12px;
+    padding: 0px 38px 0px 13px;
+    width: 148px;
+    height: 25px;
+    margin-top: 7px !important;
+}
+.bgcolor{
+/*    width: 746px;
+    background-color: #f6f4f5;
+  min-height: 920px;
+    height: auto !important;
+    min-height: 100% !important;
+    height: 100% !important;
+    padding-bottom: 185px !important;*/
+        width: 746px;
+    background-color: #f6f4f5;
+    min-height: 100% !important;
+    height: 100% !important;
+    position: fixed;
+
+}
+
+.emleditorhead{
+    margin-left:51px;             
+    margin-top: 37px;
+    width:624px;
+    height:41px;
+    background-color:#5c5c66; 
+    padding:9px 257px 8px 255px ;
+    color:#f6f7f7;
+    font-size:20px;
+}
+.editcol{
+    background-color: #f6f4f5;
+    width:746px;
+    height:597px;
+    margin-left: -56px;
+}
+.framediv{
+    width:624px;
+    height:519px;
+    background-color: #f6f7f7;
+    border: #e3e3e3 1px;
+    margin-left:51px;
+}
+.frm{
+    width:623px;
+    height:519px;                 
+}
+.btmdiv {
+    background-color: #e2e3e7;
+    width: 728px;
+    height: 38px;
+    margin-left: 2px;
+    position: fixed;
+    bottom: 0%;
+}
+.editemail{
+    margin-left:20px; 
+    padding-top:8px;
+    width:115px;
+    height:22px;
+    color:#3f3f42;
+    font-size:18px;
+}
+.mobileprev{
+    margin-left:0px; 
+    padding-top:11px;
+    width:89px;
+    height:16px;
+    color:#3f3f42;
+    font-size:13px;
+    cursor:pointer;
+
+}
+.emailedtrsave{
+    font-size:12px;
+    padding:0px 38px 0px 13px;                 
+    width:103px;
+    height:25px;
+    margin-top: 7px !important;         
+}
+.emledtrsavebtn{
+    margin-left:-20px !important;
+
+}
+.blockselection{
+    margin-left:28px;
+    width:314px;
+    height:635px;
+    border:#979797 1px;
+    background-color:#FFFFFF;
+}
+.blockstyletab{
+    //right:0px;
+    //position:fixed;
+    //width:61px;
+    //height:635px;
+    //background-color:#f4f4f4;
+    right: 0px;
+    position: fixed;
+    width: 61px;
+    height: 635px;
+    background-color: #f4f4f4;
+    min-height:960px;
+    height: 100% !important;  /* for IE as it does not support min-height */
+
+
+
+}
+.selblock{
+    margin-left:30px; 
+    margin-top:47px;
+    width:127px;
+    height:24px;
+    color:#68686c;
+    font-size:20px;
+}
+.addblkbtn{
+    font-size:12px;
+    padding:5px 23px 5px 8px;          
+    margin: 0px !important;
+    width:103px;
+    height:25px;
+    background-color: #e3e3e3;
+    color:#9c9da1;
+    border-radius: 5px;
+    border:#e3e3e3 1px;
+} 
+.addblkdiv{
+    margin-left:26px;
+    margin-top: 49px !important; 
+}
+.selblklinediv1
+{
+/*    margin-left: 25.9px;
+    margin-top:16px;*/
+    margin-left: 11% !important;
+    margin-top: 28% !important;
+}
+
+.selblkline{
+    width:258.1px;
+    height:1.1px;
+    border:#979797 1px;
+    background-color: #979797;
+}
+.selblklinediv{
+/*    margin-left: 25.9px;
+    margin-top:16px;*/
+    margin-left: 11% !important;
+    margin-top: 28% !important;
+}
+.stylelist{
+    margin-left: -15px;
+    margin-top:10px;
+    height:440px !important;
+    overflow-y:scroll;
+    position:fixed;
+    /*overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;*/
+}     
+.stylelist li{
+    margin-top: 7px;
+    width:280px;
+    height: 80px;
+    display: inline-block;
+    /*    color:#3f3f42;
+        font-size:16px;
+        padding:5px 8px 5px 8px;*/
+}
+.stylelist li img{
+    max-height:100% !important;
+    width:90%;
+}
+.stylelist li a:hover,ul.stylelist li:hover,ul.stylelist div:hover{
+    /*    background-color: #0f76a6 !important;
+        text-decoration: none;
+        color:#f6f7f7 !important;*/
+    cursor: pointer;
+}
+
+/*.stylelist::-webkit-scrollbar { width: 0 !important }*/
+.blocklist {
+    margin-left: -15px;
+    margin-top:2.5px;
+    height:480px;
+    /*overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;*/
+}
+/*.blocklist::-webkit-scrollbar { width: 0 !important }*/
+.blocklist li{
+    margin-top: 7px;
+    width:280px;
+    height: 30px;
+    display: inline-block;
+    color:#3f3f42;
+    font-size:16px;
+    padding:5px 8px 5px 8px;
+}
+.blocklist li a:hover,ul.blocklist li:hover,ul.blocklist div:hover{
+    background-color: #0f76a6 !important;
+    text-decoration: none;
+    color:#f6f7f7 !important;
+    cursor: pointer;
+}
+
+
+.styleimg{
+    padding-left:0px;
+    padding-right:10px;
+    width:50px;
+    height:63px;
+}
+.blockimg{
+    padding-right:10px;
+    width:50px;
+    height:63px;
+}
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+.righttabs{
+    margin-left: -28px;
+    padding-top:145.1px;
+}
+.righttabs li{
+    display:inline-block; 
+    padding:5px 15px 5px 0px;
+    width:70px;
+    height: 85px;
+    font-size: 12px;
+    margin-left: -15px;
+    cursor:pointer;
+}
+.righttabs li p{
+    font-size:10px;
+    color:#3f3f42;
+    margin-left:17px;
+}
+.righttabs li img{
+    width:55px;
+    height: 63px;
+    margin-left: 12px;
+
+}
+.boxclose img{
+    width:25px !important;
+}
+.selclasstopromote{
+    width: 500px;
+    color:#000 !important;
+    margin-top: 0px !important;
+    margin-left: 45px !important;
+    font-size: 21px !important;
+}     
+div.mindbodyHeaderData li{
+    font-size:17px !important;
+    width: 208px;
+    margin-left:5px;
+    height:40px !important;
+}
+.teach{
+    margin-left: 70px!important;
+}
+div.mindbodyOneRowData {
+    margin-left:20px;
+    height: 5px !important;
+    padding-bottom: 39px !important;
+}
+div.mindbodyOneRowData li{
+    font-size: 13px;
+    width: 191px;
+}
+/*.datafromindbody div:hover{
+    background-color: black;
+}*/
+.frstcol{
+    width:285px !important;
+    max-width: 100% !important;
+}
+.mindbodydatacontainer{
+    width: 700px;
+    height: 530px;
+    overflow-x:hidden;
+    overflow-y: scroll;
+    margin-left: 10px;
+}
+#mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9000;
+    background-color: #ffffff;
+    display: none;
+}
+
+#boxes .window {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0px;
+    height: 0px;
+    display: none;
+    z-index: 9999;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+#boxes #dialog {
+    position: fixed;
+    width: 250px;
+    height: 300px;
+    padding: 10px;
+    background-color: #ffffff;
+    font-family: 'Segoe UI Light', sans-serif;
+    font-size: 15pt;
+}
+#loadingGifformindbody{margin-left: 40%;margin-top: 25%;}
