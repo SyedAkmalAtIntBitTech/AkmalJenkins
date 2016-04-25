@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Haider Khan @ Intbit
  */
 @Controller
-@RequestMapping(value = "/sendEmail")
+@RequestMapping(value = "/email")
 public class EmailController {
 
     private final static Logger logger = Logger.getLogger(EmailController.class);
@@ -42,7 +42,7 @@ public class EmailController {
     @Autowired
     private MessageSource messageSource;
 
-    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/send", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> sendEMail(HttpServletRequest request,
             HttpServletResponse response) {
         TransactionResponse transactionResponse = new TransactionResponse();
@@ -52,6 +52,23 @@ public class EmailController {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Integer userId = userProfile.getUser().getUserId();
             sendEmailService.sendMail(requestBodyMap, userId);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "/tags", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> get(HttpServletRequest request,
+            HttpServletResponse response) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer userId = userProfile.getUser().getUserId();
+            transactionResponse.setMessage(sendEmailService.getTags(userId));
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {

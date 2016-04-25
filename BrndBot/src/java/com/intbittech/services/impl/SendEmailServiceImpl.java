@@ -5,10 +5,12 @@
  */
 package com.intbittech.services.impl;
 
+import com.google.gson.Gson;
 import com.intbit.AppConstants;
 import com.intbit.dao.EmailHistoryDAO;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.services.SendEmailService;
+import email.mandrill.MandrillApiHandler;
 import email.mandrill.Message;
 import email.mandrill.MessageResponses;
 import email.mandrill.Recipient;
@@ -16,8 +18,14 @@ import email.mandrill.RecipientMetadata;
 import email.mandrill.SendMail;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -105,5 +113,21 @@ public class SendEmailServiceImpl implements SendEmailService {
         if (mandrillResponse != null && lastUpdateId != -1) {
             EmailHistoryDAO.insertMandrillEmailId(mandrillResponse, lastUpdateId);
         }
+    }
+
+    @Override
+    public String getTags(Integer userId) throws Exception {
+        List<Map<String, Object>> tagsFromMandrill = MandrillApiHandler.getTags();
+        List<Map<String, Object>> tagsFromMandrillForUser = new ArrayList<>();
+        
+        Set<String> tagsForUser = EmailHistoryDAO.getTagsForUser(userId);
+        for(Map<String,Object> mTag : tagsFromMandrill){
+            if ( mTag.get("tag") != null){
+                if(tagsForUser.contains(mTag.get("tag").toString())){
+                    tagsFromMandrillForUser.add(mTag);
+                }
+            }
+        }
+        return new Gson().toJson(tagsFromMandrillForUser);
     }
 }
