@@ -75,6 +75,36 @@ a.svg:after {
     height: 70px;
     padding-top: 10px;
 }
+
+.nav-tabs{ 
+    display: block;
+    height: 54px;
+    line-height: 53px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    
+}
+
+.nav-elements-selected{ 
+    
+}
+
+.nav-elements-icon{ 
+    border-top: 1px solid #203c4f ;
+    display: block;
+    line-height: 53px;
+    list-style: none;
+    margin: 0;
+    width: 100%;
+    padding: 10px;
+     width: 35px;
+    height: 35px;
+    margin: auto;
+    
+}
+
 .nav-elements-icon-container-bottom{ 
  position: fixed;
     bottom:0;
@@ -101,9 +131,11 @@ a.svg:after {
     padding: 15px;
 }
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^TOP NAV^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+
+
+
 .top-nav{
-    position:fixed;
-    z-index: 0;
+      position:fixed;
     top:0;
     width:100%;
     max-width:100%; 
@@ -1317,15 +1349,17 @@ Facebook-preview-name{
 }
 
 .inner-content-container-title{
-    float: left;    
+    float: left;
 }
 
 .inner-content-container-button{
-    float: right;   
+    float: right;
+    
+    
 }
 
 .inner-content-detail{ 
-    margin-top:0px;
+    margin-top:20px;
     width:100%;
     float:left;
    
@@ -1334,6 +1368,38 @@ Facebook-preview-name{
 input-field-container{
     margin-top: 20px;
 }
+
+.input-field-textfield{
+    height: 30px;
+    border-radius: 3px;
+    border: 1px solid #d5dadf;
+    padding: 6px 10px 3px 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+     color: #cccccc;
+}
+
+.input-field-textfield-noChange{
+    height: 30px;
+    border-radius: 3px;
+    border: 1px solid #d5dadf;
+    padding: 6px 10px 3px 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+     color: #cccccc;
+}
+
+.input-field-textfield:hover{
+    height: 30px;
+    border-radius: 3px;
+    border: 1px solid rgb(145, 151, 163);
+    padding: 6px 10px 3px 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+     color: #cccccc;
+    cursor: pointer;
+}
+
 .input-field-textfield:focused{
     height: 30px;
     border-radius: 3px;
@@ -1344,6 +1410,10 @@ input-field-container{
      color: #cccccc;
     cursor: pointer;
 }
+
+
+
+
 .input-field-textfield-lg{
     height: 30px;
     background-color: #F9F9F9;
@@ -1509,7 +1579,11 @@ input-field-container{
 
 
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^BOTTOM CTA BAR^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
-
+#bottomdiv{
+        width: 100% !important;
+        padding-top: 0px !important;
+        padding-right: 0px !important;
+}
 .bottom-cta-bar{
     position:fixed;
     bottom:0;
@@ -1557,7 +1631,7 @@ input-field-container{
     box-sizing: border-box;
     padding-right: 60px;
 }
-.centerbtn{float: none !important;margin-left: 27%;}
+
 .bottom-continue-button{
     float: left;
     height: 100%;
@@ -1595,6 +1669,19 @@ input-field-container{
     cursor: pointer;
 }
 
+.add-action-button{
+    float: left;
+    text-align: center;
+    background-color:#5CC2A5 ;
+    color:white  ;
+}
+
+.add-action-button:hover{
+    background-color:#2BC18F   ;
+    color:#FFFFFF  ;
+    cursor: pointer;
+}
+
 .save-mp-button{
     float: left;
     text-align: center;
@@ -1625,6 +1712,18 @@ input-field-container{
     
 
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^BUTTON^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+
+
+
+    
+.md-button {
+    padding: 7px 16px 7px 16px;
+    border-radius: 3px;
+    
+    
+}
+
+
 
 
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^SLAT CSS^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
@@ -1659,9 +1758,17 @@ input-field-container{
 }*/
 
 
+
 .slat-unit{
     padding-right:0px;
     padding-left:0px;
+}
+
+
+
+.col-1of10{
+    width:10%;
+    box-sizing: border-box;
 }
 
 .col-analytic-attribute{
@@ -1673,6 +1780,8 @@ input-field-container{
     width:16%;
     box-sizing: border-box;
 }
+
+
 
 .col-2of10{
     width:20%;
@@ -1719,8 +1828,20 @@ input-field-container{
     box-sizing: border-box;
 }
 
+.col-1of1{
+    width:100%;
+    box-sizing: border-box;
+}
+
 .col-5p{
     width: 5%;
+}
+
+
+.fleft{
+    float:left;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .cols-2{
@@ -1753,7 +1874,7 @@ selfclear:before{
     display: table;
 }
 
-selfclear:after{
+.selfclear{
     clear:both;
 }
 .main-container{
@@ -1866,6 +1987,12 @@ ul{
     margin: 0;
 }
 
+.md-button {
+    padding: 7px 16px 7px 16px;
+    border-radius: 5px;
+    
+    
+}
 
 .details-button {
     background-color: #CCCCCC;
@@ -2246,7 +2373,7 @@ margin-top: 30px;
     border: 1px solid #F9FAFC;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 0px;
+    /*margin-top: 45px;*/
     box-sizing: border-box;
 
 
@@ -2757,7 +2884,7 @@ width:100%;
     margin: 0px 0px 0px 12px;
     font-size: 14px;
     font-weight: 500;
-    color: rgb(63,63,66);
+    color: rgb(85,85,85);
     line-height: 30px;
 
 
@@ -2769,7 +2896,7 @@ width:100%;
     margin: 0px 0px 0px 12px;
     font-size: 14px;
     font-weight: 600;
-    color: #0F76A6;
+    color: rgb(43,43,43);
     line-height: 30px;
   
  
@@ -2787,7 +2914,7 @@ width:100%;
 .emailEditor-page-background {
     padding-top: 60px;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: #EEEEEE;
     
 }
@@ -2797,17 +2924,17 @@ width:100%;
 .emailEditor-rightCol{
     width: 400px;
     border-left: 1px solid #E3E3E3;
-    height:100vh;
-    padding-bottom: 60px;
-    background-color: #FFFFFF;
-    
-    
+    height:auto;
+    padding-bottom: 0px;
+    background-color: #FFFFFF;   
 }
 
 .emailSideBar-Header{
     height: 40px;
     border-bottom: 1px solid #E3E3E3;
-    width: 100%;
+    width: 420px;
+    position: fixed;
+    background-color: #fff;
 }
 
 .emailSideBar-tab-active{
@@ -2848,7 +2975,9 @@ width:100%;
 
 
 .email-Block-Selection{
-    overflow-y: scroll
+    overflow-y: scroll;
+    margin-top: 31px;
+    background-color: #f9f9f9;
 }
 
 .email-Block-Header{
@@ -2856,33 +2985,77 @@ width:100%;
       font-size: 16px;
     color: rgb(43,43,43);
     font-weight: 400;
+    position: fixed;
+    background-color: #fff;
+    width: 100%;
+    margin-top: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
 .block-selection-divider{}
 
-.block-list{}
+.block-list{
+    background: #f9f9f9;
+    padding: 0px 20px;
+    height: 456px;
+    margin-top: 18%;
+    padding-top: 2px;
+    cursor: pointer;
+}
+
+.hide{
+    display: none;
+}
 
 .block-slat{
-      padding: 15px 30px;
-      font-size: 16px;
+    padding: 15px 30px;
+    font-size: 16px;
     color: #5C627A;
     font-weight: 400;
     clear: right;
     overflow-x: auto;
+    background: #FFFFFF;
+    margin-top: 4px;
+    margin-bottom: 6px;
 }
 
 .block-slat-active{
-      padding: 15px 30px;
-      font-size: 16px;
+    padding: 15px 30px;
+    font-size: 16px;
     color: #5C627A;
     font-weight: 400;
     clear: right;
     overflow-x: auto;
-    border-top: 1px solid #F9F9F9;
-     border-bottom: 1px solid #F9F9F9;
-    background-color: #f2F2F2;
+    border: 2px solid #0F76A6;
+    background-color: #FFFFFF;
+    margin-top: 4px;
+    margin-bottom: 6px;
 }
 
+.style-slat{
+    padding: 15px 30px;
+    font-size: 16px;
+    color: #5C627A;
+    font-weight: 400;
+    clear: right;
+    overflow-x: auto;
+    background: #FFFFFF;
+    margin-top: 4px;
+    margin-bottom: 6px;
+}
+
+.style-slat-active{
+    border: 2px solid #0F76A6;
+     padding: 15px 30px;
+    font-size: 16px;
+    color: #5C627A;
+    font-weight: 400;
+    clear: right;
+    overflow-x: auto;
+    background: #FFFFFF;
+    margin-top: 4px;
+    margin-bottom: 6px;
+}
 
 .block-slat:hover{
      padding: 15px 30px;
@@ -2902,16 +3075,20 @@ width:100%;
 
 
 .block-button{
-    background-color: #D7D9E2;
-    width: 80px;
-    color:#9AA1AD;
+    background-color: #0F76A6;
+    width: 100px;
+    color:#FFFFFF;
     cursor: pointer;
     clear: right;
+    margin-top: 10px;
+    padding:5px 10px;
+    text-align: center;
+    border-radius: 2px;
 }
 
 .block-button:hover{
     background-color: #B3B6BF ;
-    width: 80px;
+    width: 100px;
     color:#FFFFFF;
     cursor: pointer;
     clear: right;

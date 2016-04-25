@@ -6,7 +6,7 @@
     position: fixed;
     top: 0px;
     left: 0px;
-    height: 100vh;
+    height: 100vh; 
     z-index: 1;
 }
 
@@ -35,7 +35,7 @@
 .nav-elements-icon-container-bottom{ 
  position: fixed;
     bottom:0;
-    width: 100%;
+    /*width: 100%;*/
     padding:0px 17px 10px 17px ;
     
 }

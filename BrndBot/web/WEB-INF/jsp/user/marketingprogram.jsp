@@ -21,7 +21,7 @@
         <input id="marketingCategoryId" type="hidden" value="<%= marketingCategoryId %>"
         <div class="topNav topNav-withSubnav clear">
              <div class="topNav--BackButton fleft">
-                 <a class="exit-button-icon" href="dashboard">
+                 <a class="exit-button-icon" href="createmarketingprogram">
           
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
             
@@ -29,13 +29,13 @@
                 
             </div>
             <div class="topNav--TitleBar--withBackButton fleft">
-                <span class="topNav--TitleBar--Title fleft h2">Create an Email</span>
+                <span class="topNav--TitleBar--Title fleft h2">Select a category marketing program:</span>
                 <div class="topNav--TitleBar--CTABox fright">
                    <div class="page-cta-container">
-                <a id="cont" href="" class=" fleft">
-                    <div class=" add-button md-button">Continue</div>    
-                </a>
-            </div>
+                       <a id="cont" class=" fleft" href="usermarketingprogram">
+                        <div class=" add-button md-button">Continue</div>    
+                    </a>
+                    </div>
                     
                 </div>
             </div>
