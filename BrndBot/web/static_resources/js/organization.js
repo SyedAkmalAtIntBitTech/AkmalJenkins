@@ -6,7 +6,7 @@
 
 $(document).ready(function () {
     
-    location.href = URL_add_parameter(location.href, 'param', 'value');
+//    location.href = URL_add_parameter(location.href, 'param', 'value');
 //    alert(location.href);
     
     $("#addOrganization").click(function () {
