@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author AR
  */
 public class BrndBotBaseHttpServlet extends HttpServlet {
+    
 
     public static final Logger logger = Logger.getLogger(util.Utility.getClassName(BrndBotBaseHttpServlet.class));
 

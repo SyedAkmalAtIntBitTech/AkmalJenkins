@@ -59,20 +59,20 @@ public class EmailSettingsServlet extends BrndBotBaseHttpServlet {
             
             Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
 
-            JSONObject json_user_preferences = getSqlMethodsInstance().getJSONUserPreferences(user_id);
+//            JSONObject json_user_preferences = getSqlMethodsInstance().getJSONUserPreferences(user_id);
             if (queryParameter.equalsIgnoreCase("add")){
                 String from_address = (String) json_email_settings_update.get("from_address");
                 String reply_email_address = (String) json_email_settings_update.get("reply_email_address");
                 JSONObject json_object = new JSONObject();
                 json_object.put(IConstants.kEmailFromAddress, from_address);
                 json_object.put(IConstants.kEmailReplyAddress, reply_email_address);
-                json_user_preferences.put(IConstants.kEmailSettings, json_object);
-                getSqlMethodsInstance().updateJSONUserPreference(user_id, json_user_preferences);
+//                json_user_preferences.put(IConstants.kEmailSettings, json_object);
+//                getSqlMethodsInstance().updateJSONUserPreference(user_id, json_user_preferences);
                 dataresponse = "true";
                 response.getWriter().write(dataresponse);
             }else if (queryParameter.equalsIgnoreCase("get")){
-                JSONObject json_object = (JSONObject)json_user_preferences.get(IConstants.kEmailSettings);
-                response.getWriter().write(new Gson().toJson(json_object));
+//                JSONObject json_object = (JSONObject)json_user_preferences.get(IConstants.kEmailSettings);
+//                response.getWriter().write(new Gson().toJson(json_object));
             }
             
         }catch(Exception e){

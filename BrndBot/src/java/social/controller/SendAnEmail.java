@@ -98,7 +98,7 @@ public class SendAnEmail {
 
     public JSONArray getAllEmailAddressesForEmailList(Integer userId, Integer days, String emailListName) throws Throwable {
         
-        JSONObject userPreferences = (JSONObject)sqlMethods.getJSONUserPreferences(userId);
+        JSONObject userPreferences = null; //(JSONObject)sqlMethods.getJSONUserPreferences(userId);
         JSONArray userPreferencesJson = (JSONArray)userPreferences.get(IConstants.kEmailAddressUserPreferenceKey);
         org.json.simple.JSONArray jSONArray = null;
         JSONObject jsonObject = new JSONObject();
