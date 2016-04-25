@@ -166,10 +166,6 @@
         <servlet-class>social.controller.GetTwitterToken</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PostToSocial</servlet-name>
-        <servlet-class>social.controller.PostToSocial</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GetUserPreferences</servlet-name>
         <servlet-class>com.controller.GetUserPreferences</servlet-class>
     </servlet>
@@ -272,14 +268,6 @@
     </servlet>
     
     <servlet>
-        <servlet-name>GetScheduledEmailDetailServlet</servlet-name>
-        <servlet-class>com.controller.schedule.GetScheduledEmailDetailServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetScheduledEntitiesServlet</servlet-name>
-        <servlet-class>com.controller.schedule.GetScheduledEntitiesServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ScheduleEmailServlet</servlet-name>
         <servlet-class>com.controller.schedule.ScheduleEmailServlet</servlet-class>
     </servlet>
@@ -287,10 +275,7 @@
         <servlet-name>ScheduleSocialPostServlet</servlet-name>
         <servlet-class>com.controller.schedule.ScheduleSocialPostServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>AddActionServlet</servlet-name>
-        <servlet-class>com.controller.schedule.AddActionServlet</servlet-class>
-    </servlet>
+   </servlet>
     <servlet>
         <servlet-name>AddNoteServlet</servlet-name>
         <servlet-class>com.controller.schedule.AddNoteServlet</servlet-class>
@@ -299,14 +284,6 @@
     <servlet>
         <servlet-name>DownloadHtmlServlet</servlet-name>
         <servlet-class>com.controller.DownloadHtmlServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetScheduledSocialPostDetailServlet</servlet-name>
-        <servlet-class>com.controller.schedule.GetScheduledSocialPostDetailServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ChangeScheduleServlet</servlet-name>
-        <servlet-class>com.controller.schedule.ChangeScheduleServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetScheduledActions</servlet-name>
@@ -490,10 +467,6 @@
         <url-pattern>/GetTwitterToken</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PostToSocial</servlet-name>
-        <url-pattern>/PostToSocial</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>GetUserPreferences</servlet-name>
         <url-pattern>/GetUserPreferences</url-pattern>
     </servlet-mapping>
@@ -595,24 +568,12 @@
         <url-pattern>/EmailSettingsServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GetScheduledEntitiesServlet</servlet-name>
-        <url-pattern>/GetScheduledEntities</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ScheduleEmailServlet</servlet-name>
         <url-pattern>/ScheduleEmail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GetScheduledEmailDetailServlet</servlet-name>
-        <url-pattern>/GetScheduledEmailDetail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ScheduleSocialPostServlet</servlet-name>
         <url-pattern>/ScheduleSocialPost</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddActionServlet</servlet-name>
-        <url-pattern>/AddAction</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddNoteServlet</servlet-name>
@@ -623,15 +584,7 @@
         <servlet-name>DownloadHtmlServlet</servlet-name>
         <url-pattern>/DownloadHtmlServlet</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetScheduledSocialPostDetailServlet</servlet-name>
-        <url-pattern>/GetScheduledSocialPostDetail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ChangeScheduleServlet</servlet-name>
-        <url-pattern>/ChangeScheduleServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+   <servlet-mapping>
         <servlet-name>GetScheduledActions</servlet-name>
         <url-pattern>/GetScheduledActions</url-pattern>
     </servlet-mapping>

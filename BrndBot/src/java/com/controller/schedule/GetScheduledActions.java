@@ -7,8 +7,8 @@ package com.controller.schedule;
 
 import com.intbit.AppConstants;
 import com.intbit.ScheduledEntityType;
-import com.intbit.dao.ScheduleDAO;
-import com.intbit.dao.ScheduleSocialPostDAO;
+import com.intbittech.dao.impl.ScheduleDAO;
+import com.intbittech.dao.impl.ScheduleSocialPostDAO;
 import com.intbit.util.AuthenticationUtil;
 import java.io.IOException;
 import java.io.PrintWriter;

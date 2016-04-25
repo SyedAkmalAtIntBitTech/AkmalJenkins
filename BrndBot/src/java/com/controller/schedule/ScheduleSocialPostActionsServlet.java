@@ -9,7 +9,7 @@ import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
-import com.intbit.dao.ScheduleSocialPostDAO;
+import com.intbittech.dao.impl.ScheduleSocialPostDAO;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -105,7 +105,7 @@ public class ScheduleSocialPostActionsServlet extends HttpServlet {
             conn.setAutoCommit(false);
             try {
                 for (Map<String, Object> requestBodyMap : requestBodyList) {
-                    String tokenDataString = requestBodyMap.get("token_data").toString();
+//                    String tokenDataString = requestBodyMap.get("token_data").toString();
                     String metadataString = requestBodyMap.get("metadata").toString();
                     String schedule_id = (String)requestBodyMap.get("schedule_id");
                     String image_type = (String)requestBodyMap.get("image_type");
@@ -113,7 +113,6 @@ public class ScheduleSocialPostActionsServlet extends HttpServlet {
                             userId,
                             Integer.parseInt(schedule_id),
                             requestBodyMap.get("image_name").toString(),
-                            AppConstants.GSON.fromJson(tokenDataString, Map.class),
                             AppConstants.GSON.fromJson(metadataString, Map.class),
                             requestBodyMap.get("type").toString(),
                             TemplateStatus.template_saved.toString(),

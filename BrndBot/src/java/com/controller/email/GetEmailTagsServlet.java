@@ -6,7 +6,7 @@
 package com.controller.email;
 
 import com.google.gson.Gson;
-import com.intbit.dao.EmailHistoryDAO;
+import com.intbittech.dao.impl.EmailHistoryDAO;
 import email.mandrill.MandrillApiHandler;
 import java.io.IOException;
 import java.io.PrintWriter;

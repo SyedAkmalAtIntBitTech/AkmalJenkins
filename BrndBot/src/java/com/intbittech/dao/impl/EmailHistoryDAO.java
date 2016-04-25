@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit.dao;
+package com.intbittech.dao.impl;
 
 import com.controller.IConstants;
 import com.intbit.ConnectionManager;
@@ -31,8 +31,8 @@ public class EmailHistoryDAO {
 
     public static void insertMandrillEmailId(MessageResponses mandrillResponse,
             int emailHistoryId){
-        String insertSql = "INSERT INTO tbl_email_mandrill_history "
-                + " (email_history_id, to_email, mandrill_email_id, status, reject_reason) VALUES "
+        String insertSql = "INSERT INTO email_mandrill_history "
+                + " (email_mandrill_history_id, to_email, mandrill_email_id, status, reject_reason) VALUES "
                 + " (?, ?, ?, ?, ?) ";
         try(Connection conn = connectionManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(insertSql)){
@@ -55,18 +55,18 @@ public class EmailHistoryDAO {
     /**
      * Fetches the email tags created for this user.
      * 
-     * @param userId
+     * @param companyId
      * @return 
      */
-    public static Set<String> getTagsForUser(int userId){
+    public static Set<String> getTagsForUser(Integer companyId){
         Set<String> tagSet = new HashSet<>();
         String sql = "SELECT DISTINCT email_tag "
-                + " FROM tbl_emailsenthistory "
-                + " WHERE user_id = ? AND"
+                + " FROM email_sent_history "
+                + " WHERE fk_company_id = ? AND"
                 + " email_tag IS NOT NULL";
         try(Connection conn = connectionManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql)){
-            ps.setInt(1, userId);
+            ps.setInt(1, companyId);
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
                     tagSet.add(rs.getString("email_tag"));
@@ -79,7 +79,7 @@ public class EmailHistoryDAO {
     }
     
     public static int addToEmailHistory(
-            Integer userid, 
+            Integer companyId, 
             String contenthtml,
             String emailaddress, 
             String emaillistname,
@@ -94,11 +94,11 @@ public class EmailHistoryDAO {
         try (Connection connection = connectionManager.getConnection()) {
             connection.setAutoCommit(false);
             try {
-                String query_string = "INSERT INTO tbl_emailsenthistory "
-                        + " (user_id, timesent, contenthtml, emailaddress, emaillistname, email_tag, subject, toemailaddresses) VALUES "
-                        + " (?,CURRENT_TIMESTAMP,?,?,?,?,?,?) RETURNING id";
+                String query_string = "INSERT INTO email_sent_history "
+                        + " (fk_company_id, time_sent, content_html, email_address, email_list_name, email_tag, subject, to_email_addresses) VALUES "
+                        + " (?,CURRENT_TIMESTAMP,?,?,?,?,?,?) RETURNING email_sent_history_id";
                 try (PreparedStatement prepared_statement = connection.prepareStatement(query_string)) {
-                    prepared_statement.setInt(1, userid);
+                    prepared_statement.setInt(1, companyId);
                     prepared_statement.setString(2, contenthtml);
                     prepared_statement.setString(3, emailaddress);
                     prepared_statement.setString(4, emaillistname);
