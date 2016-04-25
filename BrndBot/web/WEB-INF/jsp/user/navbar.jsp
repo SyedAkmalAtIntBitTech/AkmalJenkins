@@ -1,14 +1,14 @@
 
 <div class="mainNav" >   
-        <a href="Dashboard.html"><div class="bb-logo-wrap">
+        <a href="dashboard"><div class="bb-logo-wrap">
                  <img type="image/svg+xml" src="images/Logo_Reverse.svg" class="nav-elements-icon" style="cursor:pointer;">
             
             </div></a>
-        <a href="YourPlan.html"><div class="nav-tabs">
+        <a href="marketing"><div class="nav-tabs">
                 <img type="image/svg+xml" src="images/yourPlan.svg" class="nav-elements-icon" style="cursor:pointer;">
           
             </div></a>
-    <a class="hint--right" href="marketingcategory" data-hint="MARKETING PROGRAM"><div class="nav-tabs ">
+    <a class="hint--right" href="marketingprogramlists" data-hint="MARKETING PROGRAM"><div class="nav-tabs ">
                 <img type="image/svg+xml" src="images/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;">
             
             </div></a>

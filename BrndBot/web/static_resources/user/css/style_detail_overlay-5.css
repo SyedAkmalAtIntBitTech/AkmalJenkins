@@ -75,36 +75,6 @@ a.svg:after {
     height: 70px;
     padding-top: 10px;
 }
-
-.nav-tabs{ 
-    display: block;
-    height: 54px;
-    line-height: 53px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    
-}
-
-.nav-elements-selected{ 
-    
-}
-
-.nav-elements-icon{ 
-    border-top: 1px solid #203c4f ;
-    display: block;
-    line-height: 53px;
-    list-style: none;
-    margin: 0;
-    width: 100%;
-    padding: 10px;
-     width: 35px;
-    height: 35px;
-    margin: auto;
-    
-}
-
 .nav-elements-icon-container-bottom{ 
  position: fixed;
     bottom:0;
