@@ -334,7 +334,119 @@ public class SqlMethods {
         
     }
 
-   
+    public Boolean updateJSONUserPreference(Integer user_id, JSONObject userPreferenceJSON) throws SQLException {
+        String query_string = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+
+        PGobject pg_object = new PGobject();
+        Boolean returnResult = false;
+        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+            query_string = "Update company_preferences SET company_preferences=? where fk_company_id=?";
+            prepared_statement = connection.prepareStatement(query_string);
+
+            pg_object.setType("json");
+            pg_object.setValue(userPreferenceJSON.toString());
+            prepared_statement.setObject(1, pg_object, Types.OTHER);
+            prepared_statement.setInt(2, user_id);
+            if (prepared_statement.executeUpdate() == 1) {
+                returnResult = true;
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null), e);
+
+        } finally {
+            close(result_set, prepared_statement);
+        }
+        return returnResult;
+    }
+
+    public int getFontthemeid(String brndid) throws SQLException {
+        String query_string = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+
+        Integer IDNO = 0;
+        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+            query_string = "Select id from tbl_brand_font_family where brand_id='" + brndid + "'";
+            prepared_statement = connection.prepareStatement(query_string);
+            result_set = prepared_statement.executeQuery();
+
+            if (result_set.next()) {
+                IDNO = result_set.getInt(1);
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
+        } finally {
+            close(result_set, prepared_statement);
+        }
+        return IDNO;
+    }
+
+    public void addUsers(String User_id, String password) throws SQLException {
+        String query_string = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+
+        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+            query_string = "Insert Into tbl_user_login_details(user_name,password,organizationid,logo_name,company_name) Values(?,?,?,?,?)";
+            prepared_statement = connection.prepareStatement(query_string);
+
+            prepared_statement.setString(1, User_id);
+            prepared_statement.setString(2, password);
+            prepared_statement.setInt(3, 0);
+            prepared_statement.setString(4, "");
+            prepared_statement.setString(5, "");
+
+            prepared_statement.executeUpdate();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
+        } finally {
+            close(result_set, prepared_statement);
+        }
+    }
+
+    public void updateUsers(int idno, String fileName) throws SQLException {
+        String query_string = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+
+        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+            query_string = "UPDATE tbl_user_login_details"
+                    + "   SET logo_name='" + fileName + "'  WHERE id='" + idno + "'";
+
+            prepared_statement = connection.prepareStatement(query_string);
+            prepared_statement.executeUpdate();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
+        } finally {
+            close(result_set, prepared_statement);
+        }
+    }
+
+    
+    public void updateUsersOrg(int idno, int Org_id, String Company_name) throws SQLException {
+        String query_string = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+
+        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+            query_string = "UPDATE tbl_user_login_details"
+                    + "   SET organizationid ='" + Org_id + "', company_name='" + Company_name + "' WHERE id='" + idno + "'";
+
+            prepared_statement = connection.prepareStatement(query_string);
+            prepared_statement.executeUpdate();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+
+        } finally {
+            close(result_set, prepared_statement);
+        }
+    }
+
     public void setUserDetails(Integer userid, String randvalue, Date expdate, Date exptime) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
@@ -504,7 +616,38 @@ public class SqlMethods {
         return mapper_file_name;
     }
 
-   
+    public JSONObject getJSONUserPreferences(Integer user_id) {
+        String query_string = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+
+        PGobject pgobject = new PGobject();
+        JSONParser parser = new JSONParser();
+        org.json.simple.JSONObject userPreferencesJSONObject = new org.json.simple.JSONObject();
+
+        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+            query_string = "Select * from company_preferences where fk_company_id=" + user_id + "";
+            logger.info(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
+
+            result_set = prepared_statement.executeQuery();
+
+            if (result_set.next()) {
+                pgobject = (PGobject) result_set.getObject(IConstants.kUserPreferencesTableKey);
+            }
+            pgobject.setType("json");
+            String obj = pgobject.getValue();
+            userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
+
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null), e);
+
+        } finally {
+            close(result_set, prepared_statement);
+        }
+        return userPreferencesJSONObject;
+    }
+
     public org.json.simple.JSONArray getEmailListsPreferences(Integer user_id, String type) {
         String query_string = "";
         PreparedStatement prepared_statement = null;
@@ -783,36 +926,4 @@ public class SqlMethods {
         return newList;
     }
     
-    public JSONObject getJSONUserPreferences(Integer user_id) {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-
-        PGobject pgobject = new PGobject();
-        JSONParser parser = new JSONParser();
-        org.json.simple.JSONObject userPreferencesJSONObject = new org.json.simple.JSONObject();
-
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
-            logger.info(query_string);
-            prepared_statement = connection.prepareStatement(query_string);
-
-            result_set = prepared_statement.executeQuery();
-
-            if (result_set.next()) {
-                pgobject = (PGobject) result_set.getObject(IConstants.kUserPreferencesTableKey);
-            }
-            pgobject.setType("json");
-            String obj = pgobject.getValue();
-            userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
-
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null), e);
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return userPreferencesJSONObject;
-    }
-
 }

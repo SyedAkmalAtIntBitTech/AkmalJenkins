@@ -53,19 +53,9 @@
         <servlet-name>GetOrganizations</servlet-name>
         <servlet-class>com.controller.GetOrganizations</servlet-class>
     </servlet>
-    
-    <servlet>
-        <servlet-name>SendEmail</servlet-name>
-        <servlet-class>com.controller.ForgotSendEmail</servlet-class>
-    </servlet>
-   
     <servlet>
         <servlet-name>CheckAvailability</servlet-name>
         <servlet-class>com.controller.CheckAvailability</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ResetUserPassword</servlet-name>
-        <servlet-class>com.controller.ResetUserPassword</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ServletUploadFonts</servlet-name>
@@ -116,10 +106,6 @@
         <servlet-class>com.controller.GetUserPreferences</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SendEmailServlet</servlet-name>
-        <servlet-class>com.controller.SendEmailServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ServletUserPreferencesFacebook</servlet-name>
         <servlet-class>social.controller.ServletUserPreferencesFacebook</servlet-class>
     </servlet>
@@ -135,14 +121,8 @@
         <servlet-name>ChangeImageServlet</servlet-name>
         <servlet-class>com.controller.ChangeImageServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>SetEmailLists</servlet-name>
-        <servlet-class>com.controller.SetEmailLists</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetEmailLists</servlet-name>
-        <servlet-class>com.controller.GetEmailLists</servlet-class>
-    </servlet>
+   
+    
     <servlet>
         <servlet-name>EmailTextDataServlet</servlet-name>
         <servlet-class>social.controller.EmailTextDataServlet</servlet-class>
@@ -201,10 +181,6 @@
         <servlet-class>com.controller.email.GetEmailHistoryDetailServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetEmailTagsServlet</servlet-name>
-        <servlet-class>com.controller.email.GetEmailTagsServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GenericAnnouncementServlet</servlet-name>
         <servlet-class>com.controller.GenericAnnouncementServlet</servlet-class>
     </servlet>
@@ -226,14 +202,14 @@
         <servlet-name>AddNoteServlet</servlet-name>
         <servlet-class>com.controller.schedule.AddNoteServlet</servlet-class>
     </servlet>
-    
+   
     <servlet>
-        <servlet-name>DownloadHtmlServlet</servlet-name>
-        <servlet-class>com.controller.DownloadHtmlServlet</servlet-class>
+        <servlet-name>GetScheduledSocialPostDetailServlet</servlet-name>
+        <servlet-class>com.controller.schedule.GetScheduledSocialPostDetailServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetScheduledActions</servlet-name>
-        <servlet-class>com.controller.schedule.GetScheduledActions</servlet-class>
+        <servlet-name>ChangeScheduleServlet</servlet-name>
+        <servlet-class>com.controller.schedule.ChangeScheduleServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ScheduleSocialPostActionsServlet</servlet-name>
@@ -365,10 +341,6 @@
         <url-pattern>/GetUserPreferences</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SendEmailServlet</servlet-name>
-        <url-pattern>/SendEmailServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ServletUserPreferencesFacebook</servlet-name>
         <url-pattern>/ServletUserPreferencesFacebook</url-pattern>
     </servlet-mapping>
@@ -384,14 +356,8 @@
         <servlet-name>ChangeImageServlet</servlet-name>
         <url-pattern>/ChangeImageServlet</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SetEmailLists</servlet-name>
-        <url-pattern>/SetEmailLists</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetEmailLists</servlet-name>
-        <url-pattern>/GetEmailLists</url-pattern>
-    </servlet-mapping>
+   
+    
     <servlet-mapping>
         <servlet-name>EmailTextDataServlet</servlet-name>
         <url-pattern>/EmailTextDataServlet</url-pattern>
@@ -450,10 +416,6 @@
         <url-pattern>/GetEmailHistoryDetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GetEmailTagsServlet</servlet-name>
-        <url-pattern>/GetEmailTagsServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>GenericAnnouncementServlet</servlet-name>
         <url-pattern>/GenericAnnouncementServlet</url-pattern>
     </servlet-mapping>
@@ -473,14 +435,9 @@
         <servlet-name>AddNoteServlet</servlet-name>
         <url-pattern>/AddNote</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>DownloadHtmlServlet</servlet-name>
         <url-pattern>/DownloadHtmlServlet</url-pattern>
-    </servlet-mapping>
-   <servlet-mapping>
-        <servlet-name>GetScheduledActions</servlet-name>
-        <url-pattern>/GetScheduledActions</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ScheduleSocialPostActionsServlet</servlet-name>
