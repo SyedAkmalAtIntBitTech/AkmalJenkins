@@ -5,6 +5,8 @@
  */
 package com.intbittech.controller;
 
+import com.intbit.AppConstants;
+import com.intbit.util.ServletUtil;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailModel;
 import com.intbittech.model.ImageModel;
@@ -13,6 +15,7 @@ import com.intbittech.model.SubCategory;
 import com.intbittech.model.SubCategoryEmailModel;
 import com.intbittech.model.SubCategoryImageModel;
 import com.intbittech.model.SubCategoryPrintModel;
+import com.intbittech.model.UserProfile;
 import com.intbittech.modelmappers.EmailModelDetails;
 import com.intbittech.modelmappers.ImageModelDetails;
 import com.intbittech.modelmappers.PrintModelDetails;
@@ -27,10 +30,16 @@ import com.intbittech.services.SubCategoryImageModelService;
 import com.intbittech.services.SubCategoryPrintModelService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.FileHandlerUtil;
+import com.intbittech.utility.UserSessionUtil;
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -41,7 +50,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import sun.misc.MessageUtils;
 
 /**
  *
@@ -50,7 +58,7 @@ import sun.misc.MessageUtils;
 @RestController
 public class ModelController {
 
-    private Logger logger = Logger.getLogger(ModelController.class);
+    private final static Logger logger = Logger.getLogger(ModelController.class);
 
     @Autowired
     private EmailModelService emailModelService;
@@ -96,7 +104,7 @@ public class ModelController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
 
     }
-    
+
     @RequestMapping(value = "getAllEmailModelsBySubCategoryId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllEmailModelsBySubCategoryId(@RequestParam("subCategoryId") Integer subCategoryId) {
         GenericResponse<EmailModelDetails> genericResponse = new GenericResponse<>();
@@ -451,10 +459,10 @@ public class ModelController {
             }
             try {
                 emailModelService.update(emailModel);
-                if(storableImageFileName != null){
+                if (storableImageFileName != null) {
                     FileHandlerUtil.deleteAdminEmailTemplatesImage(oldImageFileName);
                 }
-                
+
             } catch (Throwable throwable) {
                 //in case if file store into file system but did'nt store in DB.
                 if (storableImageFileName != null) {
@@ -703,4 +711,23 @@ public class ModelController {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
+    @RequestMapping(value = "getLayoutEmailModelById", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getLayoutEmailModelById(@RequestParam("emailModelId") Integer emailModelId,
+            @RequestParam("imageFileName") String imageFileName, HttpServletRequest request, HttpServletResponse response) {
+        GenericResponse<String> genericResponse = new GenericResponse<>();
+        try {
+            Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            String hostURL = ServletUtil.getServerName(request.getServletContext());
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            String html = emailModelService.getLayoutEmail(emailModelId, imageFileName, hostURL, companyId, requestBodyMap);
+            genericResponse.addDetail(html);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
 }
