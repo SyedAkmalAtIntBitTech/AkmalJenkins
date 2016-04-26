@@ -47,7 +47,7 @@
         <div class="top-nav-container-detail" id="fbtopnav">
             <div class=" top-navbar-detail" id="fbtopnavdetails">
                 <a class=" exit-button-detail link svg close" href="">
-                    <img type="image/svg+xml" src="images/Icons/Close.svg" class="exit-button" style="cursor:pointer;"> </img>
+                    <img type="image/svg+xml" src="images/Close.svg" class="exit-button" style="cursor:pointer;"> </img>
                 </a>
                 <div class="top-navbar-inner-bb-detail">
                     <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Facebook Post Action Detail</span></div>
@@ -192,13 +192,13 @@
                             <!--SAVED Email GOES HERE-->
 
                             <div class="overlay-emptystate-icon">
-                                <img type="image/svg+xml" src="images/Icons/Overlay_EmptyStates_Social-Empty-State.svg" class="overlay-emptystate-icon"/>
+                                <img type="image/svg+xml" src="images/Overlay_EmptyStates_Social-Empty-State.svg" class="overlay-emptystate-icon"/>
                             </div>
                             <div class="empty-state-container">
                                 <div class="h2new textCenter textColor-Graynew">
                                     No post saved to this action.
                                 </div>
-                                 <a class="link" href="dashboard.jsp"><div class="md-button empty-state-cta">
+                                 <a class="link" href="dashboard"><div class="md-button empty-state-cta">
                                    
                                         Go to Dashboard 
                                     
