@@ -14,7 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css">
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
-    <link rel="stylesheet" href="css/version2/hint.css"/>
+    <link rel="stylesheet" href="css/hint.css"/>
     </head>
     <body>
        <div class="navigation">
@@ -41,7 +41,7 @@
                 </a>
             </li>
             <li class="nav-elements-icon-container hint--right" data-hint="MARKETING HUB">
-                <a  href="emaillists.jsp" >
+                <a  href="emaillists" >
 
                     <img type="image/svg+xml" src="images/yourHubs.svg" class="nav-elements-icon " style="cursor:pointer;"/>
 

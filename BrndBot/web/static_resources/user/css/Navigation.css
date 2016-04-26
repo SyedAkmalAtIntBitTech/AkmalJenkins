@@ -234,3 +234,7 @@
     width: 100%;
     display: block;
 }
+.pop-up-background{
+    width: calc(96vw - 853px);
+    margin-top: 10vw;
+}

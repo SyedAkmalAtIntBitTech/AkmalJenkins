@@ -132,7 +132,7 @@ a.svg:after {
 }
 
 .nav-elements-icon{ 
-    /*border-top: 1px solid #203c4f;*/
+   // border-top: 1px solid #203c4f;
     display: block;
     line-height: 53px;
     list-style: none;
