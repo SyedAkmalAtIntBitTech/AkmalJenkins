@@ -6,13 +6,9 @@
 package com.intbittech.controller;
 
 import com.controller.GetColorFromImage;
-//import com.intbit.AppConstants;
 import com.intbittech.AppConstants;
-import com.intbittech.model.Company;
-import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
-import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.modelmappers.CompanyLogoDetails;
 import com.intbittech.modelmappers.UserDetails;
@@ -23,14 +19,10 @@ import com.intbittech.services.CompanyService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.FileHandlerUtil;
-import com.intbittech.utility.StringUtility;
-import com.mindbodyonline.clients.api._0_5.GetActivationCodeResult;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
-import mindbody.controller.MindBodyClass;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -140,53 +132,6 @@ public class OnboardingController {
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
-    }
-
-    @RequestMapping(value = "/onboarding/getActivationLink", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getActivationLink(@RequestParam("studioId") String studioIdRequest) {
-        GenericResponse<String> genericResponse = new GenericResponse<>();
-        try {
-            MindBodyClass mind_body_class = null;
-
-            String studioId = studioIdRequest;
-            int[] siteIds = new int[]{Integer.parseInt(studioId)};
-            mind_body_class = new MindBodyClass(siteIds);
-
-            GetActivationCodeResult result = mind_body_class.getActivationCode();
-
-            ArrayList<String> activationLink = new ArrayList<String>();
-            activationLink.add(result.getActivationLink());
-            genericResponse.setDetails(activationLink);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("activation_link", new String[]{}, Locale.US)));
-
-        } catch (Throwable throwable) {
-            logger.error(throwable);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
-        }
-        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
-    }
-
-    @RequestMapping(value = "/onboarding/saveCompanyColors", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> saveCompanyColors(@RequestBody CompanyColorsDetails companyColorsDetails, @RequestParam("companyId") Integer companyId) {
-        TransactionResponse transactionResponse = new TransactionResponse();
-        try {
-            List<CompanyColorsDetails> companyColorsDetailsList = new ArrayList<>();
-            companyColorsDetailsList.add(companyColorsDetails);
-            String jsonString = StringUtility.objectListToJsonString(companyColorsDetailsList);
-            CompanyPreferences companyPreferences = new CompanyPreferences();
-            companyPreferences.setCompanyPreferences(jsonString);
-            Company company = new Company();
-            company.setCompanyId(companyId);
-            companyPreferences.setFkCompanyId(company);
-
-            companyService.saveCompanyPreferences(companyPreferences);
-            transactionResponse.setMessage("true");
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_success", new String[]{}, Locale.US)));
-        } catch (Throwable throwable) {
-            logger.error(throwable);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
-        }
-        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "/onboarding/saveCompanyLogo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
