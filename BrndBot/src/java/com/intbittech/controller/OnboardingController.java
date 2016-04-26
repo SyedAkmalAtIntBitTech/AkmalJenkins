@@ -142,30 +142,6 @@ public class OnboardingController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "/onboarding/getActivationLink", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getActivationLink(@RequestParam("studioId") String studioIdRequest) {
-        GenericResponse<String> genericResponse = new GenericResponse<>();
-        try {
-            MindBodyClass mind_body_class = null;
-
-            String studioId = studioIdRequest;
-            int[] siteIds = new int[]{Integer.parseInt(studioId)};
-            mind_body_class = new MindBodyClass(siteIds);
-
-            GetActivationCodeResult result = mind_body_class.getActivationCode();
-
-            ArrayList<String> activationLink = new ArrayList<String>();
-            activationLink.add(result.getActivationLink());
-            genericResponse.setDetails(activationLink);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("activation_link", new String[]{}, Locale.US)));
-
-        } catch (Throwable throwable) {
-            logger.error(throwable);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
-        }
-        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
-    }
-
     @RequestMapping(value = "/onboarding/saveCompanyColors", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveCompanyColors(@RequestBody CompanyColorsDetails companyColorsDetails, @RequestParam("companyId") Integer companyId) {
         TransactionResponse transactionResponse = new TransactionResponse();

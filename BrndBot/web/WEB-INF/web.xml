@@ -146,10 +146,6 @@
         <servlet-class>com.controller.GetLayoutStyles</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MindBodyDataServlet</servlet-name>
-        <servlet-class>com.controller.MindBodyDataServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>MindBodyDetailServlet</servlet-name>
         <servlet-class>com.controller.MindBodyDetailServlet</servlet-class>
     </servlet>
@@ -450,10 +446,6 @@
     <servlet-mapping>
         <servlet-name>MindBodyDetailServlet</servlet-name>
         <url-pattern>/MindBodyDetailServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>MindBodyDataServlet</servlet-name>
-        <url-pattern>/MindBodyDataServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetTwitterToken</servlet-name>
