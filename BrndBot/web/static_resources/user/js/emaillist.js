@@ -770,9 +770,9 @@ $edit=0;
                     $.ajax({
                         method: 'GET',
 //                        url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts'
-                         url: getHost() + '/emaillist/get.do'
+                         url: getHost() + '/emaillist/get.do?update=allEmailListWithNoOfContacts'
                     }).success(function (data, status, headers, config) {  
-                        alert(JSON.stringify(data));
+                        alert(JSON.stringify(data)+"...............");
                         $scope.emailLists = data.allEmailListWithNoOfContacts.user;                        
                         $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
                         if (data === "true") {
@@ -780,7 +780,7 @@ $edit=0;
                             alert(data);
                         }
                     }).error(function(error){
-                        alert(JSON.stringify(error));
+                        alert("error");
                     });
                 };
                 $scope.clearfields = function () {
