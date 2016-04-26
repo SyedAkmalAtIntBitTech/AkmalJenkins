@@ -8,16 +8,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay.css">
-    <link rel="stylesheet" type="text/css" href="css/normalize.css">
-    <link rel="stylesheet" type="text/css" href="css/popup.css">
-    <link rel="shortcut icon" href="favicon.png">
-    <script src="js/popup.js" type="text/javascript"></script>
-    <script src="js/pikaday.js"></script>
-    
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+   <meta name="format-detection" content="telephone=no">
+   <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+   <link rel="stylesheet" type="text/css" href="css/style_detail_overlay.css">
+   <link rel="stylesheet" type="text/css" href="css/normalize.css">
+   <link rel="stylesheet" type="text/css" href="css/popup.css">
+    <link rel="stylesheet" type="text/css" href="css/Navigation.css">
+   <link rel="shortcut icon" href="favicon.png">
+   <script src="js/popup.js" type="text/javascript"></script>
+   <script src="js/pikaday.js"></script>
+   <script src="js/timepicki.js" type="text/javascript"></script>
+   <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>    
+    <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
 </head>    
     <body>
         <div id="fade" class="black_overlay" ></div>

@@ -44,11 +44,11 @@
     <input type="hidden" name="program_end_date" id="program_end_date" value="<%= program_date %>"/>
     <input type="hidden" name="change" id="change" value="0"/>
     <script src="js/programactions.js"></script>
-    <%--<jsp:include page="facebookpreview_marketing.jsp"/>--%> 
-    <%--<jsp:include page="twitterpreview_marketing.jsp"/>--%> 
-    <%--<jsp:include page="emailpreviewpopup_marketing.jsp"/>--%>
-    <%--<jsp:include page="marketingprogramaddaction.jsp"/>--%>
-    <%--<jsp:include page="recurringPopup.jsp"/>--%>
+    <jsp:include page="facebookpreview_marketing.jsp"/> 
+    <jsp:include page="twitterpreview_marketing.jsp"/> 
+    <jsp:include page="emailpreviewpopup_marketing.jsp"/>
+    <jsp:include page="marketingprogramaddaction.jsp"/>
+    <jsp:include page="recurringPopup.jsp"/>
     <%@include file="header.jsp" %>      
     <%@include file="navbar.jsp" %>   
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
@@ -77,9 +77,9 @@
         <div class="page-subnav-bar-regular"> 
             <div class="top-subnav-tabs-container-with-button">
                 <ul class="top-subnav-nav-elements">
-                    <li class="top-subnav-links" id="ovrviewli" ng-hide="checkProgramStatus()"> <a href="" id="overview" class="h3" id="overview" >Overview</a></li>
+                    <li class="top-subnav-links" id="ovrviewli" ng-hide="checkProgramStatus()"> <a  id="overview" class="h3" id="overview" >Overview</a></li>
 <!--                    <li class="top-subnav-links" id="fieldsli"> <a href="" id="fields" class="h3" ng-click="showfieldstab()">Fields</a></li>-->
-                    <li class="top-subnav-link-active" id="actionsli"> <a href="" id="actions" class="h3-active-subnav" ng-click="showactionstab()">Actions</a></li>
+                    <li class="top-subnav-link-active" id="actionsli"> <a  id="actions" class="h3-active-subnav" ng-click="showactionstab()">Actions</a></li>
 <!--                        <li class="top-subnav-links"> <a class="h3" href="/Newest_Files/MarketingProgram_Notes.html">Notes</a></li>
                     <li class="top-subnav-links"> <a class="h3">Website Integration</a></li>
                     <li class="top-subnav-links"> <a class="h3">Assets</a></li>-->

@@ -18,8 +18,8 @@
     line-height: 53px;
     list-style: none;
     margin: 0;
-    padding: 0px 17px 10px 17px;
-    width: 100%;
+    padding: 15px 17px 10px 18px;
+    /*width: 100%;*/
     box-sizing: border-box;
     height: 68px;
 }
@@ -233,4 +233,11 @@
     height: 40px;
     width: 100%;
     display: block;
+}
+.pop-up-background{
+    width: calc(96vw - 853px);
+    margin-top: 10vw;
+}
+.pop-up-background-gallery{
+    margin-top: 4vw;
 }
