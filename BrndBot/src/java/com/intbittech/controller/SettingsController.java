@@ -9,6 +9,7 @@ import com.controller.BrndBotBaseHttpServlet;
 import com.controller.IConstants;
 import com.google.gson.Gson;
 import com.intbit.AppConstants;
+import com.intbit.util.CustomStyles;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.UserProfile;
@@ -26,6 +27,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -127,7 +129,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/getAllPreferences", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllPreferences() {
         GenericResponse<String> genericResponse = new GenericResponse<>();
@@ -144,22 +146,29 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "/getColorsFromLogo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getColorsFromLogo() {
+    @RequestMapping(value = "/getGlobalAndUserColors", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getGlobalAndUserColors(HttpServletRequest request,
+            HttpServletResponse response) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Company company = userProfile.getUser().getFkCompanyId();
-            CompanyPreferences companyPreferences = companyPreferencesService.getByCompany(company);
-            if(companyPreferences == null) {
-                companyPreferences.setFkCompanyId(company);
-            }
-            genericResponse.addDetail(companyPreferences.getCompanyPreferences());
+            List<String> colorArray = companyPreferencesService.getColors(company);
+            JSONArray adminColors = getCustomColorFromFile(request);
+            adminColors.stream().forEach((adminColor) -> {
+                colorArray.add(adminColor.toString());
+            });
+            genericResponse.setDetails(colorArray);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
         } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+
+    private JSONArray getCustomColorFromFile(HttpServletRequest request) {
+        JSONObject colorFromFile = CustomStyles.getCustomColorsJson(request);
+        return (JSONArray) colorFromFile.get("admincustomcolors");
     }
 }
