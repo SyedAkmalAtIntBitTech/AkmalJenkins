@@ -6,24 +6,24 @@
 package com.intbittech.services.impl;
 
 import com.divtohtml.ProcessHTML;
-import com.intbit.util.GetUserColors;
 import com.intbittech.controller.ModelController;
 import com.intbittech.dao.EmailModelDao;
 import com.intbittech.dao.SubCategoryEmailModelDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.CompanyPreferences;
+import com.intbittech.model.Company;
 import com.intbittech.model.EmailModel;
 import com.intbittech.model.SubCategoryEmailModel;
+import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.EmailModelService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import util.Utility;
 
 /**
  *
@@ -40,7 +40,10 @@ public class EmailModelServiceImpl implements EmailModelService {
 
     @Autowired
     private SubCategoryEmailModelDao subCategoryEmailModelDao;
-    
+
+    @Autowired
+    private CompanyPreferencesService companyPreferencesService;
+
     /**
      * {@inheritDoc}
      */
@@ -117,13 +120,16 @@ public class EmailModelServiceImpl implements EmailModelService {
             EmailModel emailModel = getByEmailModelId(emailModelId);
             String logo_url = hostURL + "DownloadImage?image_type=USER_LOGO&company_id=" + companyId + "&image_name=" + imageFileName;
             HashMap<String, String> colorHashmap = new HashMap();
-            JSONArray userColors = GetUserColors.getColorUserPreferences(companyId);
+            Company company = new Company(companyId);
+
+            List<String> colorArray = companyPreferencesService.getColors(company);
+            int i = 0;
+            for (String color : colorArray) {
+                colorHashmap.put("color" + (i++), Utility.rgbToHex(color));
+            }
+
             String html = "";
             JSONObject htmljson = new JSONObject();
-            for (int i = 0; i < userColors.size(); i++) {
-                String userColor = (String) userColors.get(i);
-                colorHashmap.put("color" + (i + 1), userColor);
-            }
             ProcessHTML mindbodyHtmlData = new ProcessHTML(emailModel.getHtmlData(), colorHashmap, requestBodyMap, logo_url);
             html = mindbodyHtmlData.processHTML();
 
@@ -133,7 +139,6 @@ public class EmailModelServiceImpl implements EmailModelService {
             logger.error(throwable);
         }
         return responseHTML;
-
     }
 
 }
