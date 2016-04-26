@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Email Sent</title>
+        <title>BrndBot - Email Sent</title>
         <meta charset="UTF-8">
          <%@ include file="fonttypekit.jsp"%>
          <%@ include file="checksession.jsp" %>

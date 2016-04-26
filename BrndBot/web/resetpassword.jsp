@@ -12,6 +12,7 @@
 
         <script src="js/configurations.js"></script>
         <script src="js/form.js"></script>
+        <script src="js/alertmessage.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scaleu=1.0">
@@ -24,7 +25,7 @@
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
      
         <link rel="stylesheet" href="css/main1.css">
-        <title>change password</title>
+        <title>BrndBot - Change Password</title>
         <jsp:include page="basejsp.jsp" />
     </head>
     <body class="container">
@@ -46,7 +47,7 @@
                 </div>
                 <div  class="form-group">
                        <div class="col-md-5 col-md-offset-5">
-                           <button type="submit" class="button button--moema button--text-thick button--text-upper button--size-s">Enter</button><br><br>
+                           <button type="submit" id="enter" class="button button--moema button--text-thick button--text-upper button--size-s">Enter</button><br><br>
                        </div>
                 </div>
                 </form>

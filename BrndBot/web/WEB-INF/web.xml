@@ -1,17 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    <listener>
+<!--    <listener>
         <description>ServletContextListener</description>
         <listener-class>com.controller.ApplicationContextListener</listener-class>
     </listener>
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml</param-value>
-    </context-param>
+    </context-param>-->
+    <!-- .................. Spring MVC Configuration .............................. -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    
     <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    
+    <!-- .............................. End .................................... -->
+    
+    
+    
+    <!-- .................. Spring Security Configuration .............................. -->
+    
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <!-- .............................. End ............................................ -->
+    
+<!--    <servlet>
         <servlet-name>BrndBotBaseServlet</servlet-name>
         <servlet-class>com.controller.BrndBotBaseServlet</servlet-class>
     </servlet>
@@ -24,160 +54,12 @@
         <servlet-class>com.controller.GetOrganizations</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletUserRegistration</servlet-name>
-        <servlet-class>com.controller.ServletUserRegistration</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SendEmail</servlet-name>
-        <servlet-class>com.controller.ForgotSendEmail</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetUserCategories</servlet-name>
-        <servlet-class>com.controller.GetUserCategories</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetSubCategories</servlet-name>
-        <servlet-class>com.controller.GetSubCategories</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Authentication</servlet-name>
-        <servlet-class>com.controller.Authentication</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UploadLogo</servlet-name>
-        <servlet-class>com.controller.UploadLogo</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SubbrandPersonality</servlet-name>
-        <servlet-class>com.controller.SubBrandPersonality</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AddUpdateOrganization</servlet-name>
-        <servlet-class>com.controller.AddUpdateOrganization</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetLooks</servlet-name>
-        <servlet-class>com.controller.GetLooks</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetBrandPersonality</servlet-name>
-        <servlet-class>com.controller.GetBrandPersonality</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SetLookID</servlet-name>
-        <servlet-class>com.controller.SetLookid</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SetStudioID</servlet-name>
-        <servlet-class>com.controller.SetStudioid</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetColorPalettes</servlet-name>
-        <servlet-class>com.controller.GetColorPalettes</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetColorsFromLogo</servlet-name>
-        <servlet-class>com.controller.GetColorsFromLogo</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SetUserPreferences</servlet-name>
-        <servlet-class>com.controller.SetUserPreferences</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CheckAvailability</servlet-name>
         <servlet-class>com.controller.CheckAvailability</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ResetUserPassword</servlet-name>
-        <servlet-class>com.controller.ResetUserPassword</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletAddLooks</servlet-name>
-        <servlet-class>admin.controller.ServletAddLooks</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletDeleteLooks</servlet-name>
-        <servlet-class>admin.controller.ServletDeleteLooks</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletChangeLooks</servlet-name>
-        <servlet-class>admin.controller.ServletChangeLooks</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletAddFonts</servlet-name>
-        <servlet-class>admin.controller.ServletAddFonts</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletOrganization</servlet-name>
-        <servlet-class>admin.controller.ServletOrganization</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletFontsSizes</servlet-name>
-        <servlet-class>admin.controller.ServletFontsSizes</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletFontStyles</servlet-name>
-        <servlet-class>admin.controller.ServletFontStyles</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletColors</servlet-name>
-        <servlet-class>admin.controller.ServletColors</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletAddPersonality</servlet-name>
-        <servlet-class>admin.controller.ServletAddPersonality</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletDeleteBrands</servlet-name>
-        <servlet-class>admin.controller.ServletDeleteBrands</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletEditPersonality</servlet-name>
-        <servlet-class>admin.controller.ServletEditPersonality</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletColorTheme</servlet-name>
-        <servlet-class>admin.controller.ServletColorTheme</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletFontTheme</servlet-name>
-        <servlet-class>admin.controller.ServletFontTheme</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletAddCategories</servlet-name>
-        <servlet-class>admin.controller.ServletAddCategories</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletDeleteCategories</servlet-name>
-        <servlet-class>admin.controller.ServletDeleteCategories</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletEditCategories</servlet-name>
-        <servlet-class>admin.controller.ServletEditCategories</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletSubCategory</servlet-name>
-        <servlet-class>admin.controller.ServletSubCategory</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ServletUploadFonts</servlet-name>
         <servlet-class>admin.controller.ServletUploadFonts</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletDeleteFonts</servlet-name>
-        <servlet-class>admin.controller.ServletDeleteFonts</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletUpdateFonts</servlet-name>
-        <servlet-class>admin.controller.ServletUpdateFonts</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletLogin</servlet-name>
-        <servlet-class>admin.controller.ServletLogin</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletModel</servlet-name>
-        <servlet-class>com.intbit.ServletModel</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ServletGetStyles</servlet-name>
@@ -220,16 +102,8 @@
         <servlet-class>social.controller.GetTwitterToken</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PostToSocial</servlet-name>
-        <servlet-class>social.controller.PostToSocial</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GetUserPreferences</servlet-name>
         <servlet-class>com.controller.GetUserPreferences</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SendEmailServlet</servlet-name>
-        <servlet-class>com.controller.SendEmailServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ServletUserPreferencesFacebook</servlet-name>
@@ -247,21 +121,11 @@
         <servlet-name>ChangeImageServlet</servlet-name>
         <servlet-class>com.controller.ChangeImageServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>SetEmailLists</servlet-name>
-        <servlet-class>com.controller.SetEmailLists</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetEmailLists</servlet-name>
-        <servlet-class>com.controller.GetEmailLists</servlet-class>
-    </servlet>
+   
+    
     <servlet>
         <servlet-name>EmailTextDataServlet</servlet-name>
         <servlet-class>social.controller.EmailTextDataServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ServletBlock</servlet-name>
-        <servlet-class>admin.controller.ServletBlock</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetBlocks</servlet-name>
@@ -303,10 +167,7 @@
         <servlet-name>ServletValidateModel</servlet-name>
         <servlet-class>admin.controller.ServletValidateModel</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ServletAddHtmlTemplate</servlet-name>
-        <servlet-class>admin.controller.ServletAddHtmlTemplate</servlet-class>
-    </servlet>
+    
     <servlet>
         <servlet-name>DownloadFontsServlet</servlet-name>
         <servlet-class>com.controller.DownloadFontsServlet</servlet-class>
@@ -320,14 +181,6 @@
         <servlet-class>com.controller.email.GetEmailHistoryDetailServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServletListAdminBackgroundImages</servlet-name>
-        <servlet-class>admin.controller.ServletListAdminBackgroundImages</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetEmailTagsServlet</servlet-name>
-        <servlet-class>com.controller.email.GetEmailTagsServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GenericAnnouncementServlet</servlet-name>
         <servlet-class>com.controller.GenericAnnouncementServlet</servlet-class>
     </servlet>
@@ -335,42 +188,12 @@
         <servlet-name>EmailSettingsServlet</servlet-name>
         <servlet-class>com.controller.email.EmailSettingsServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ServletDisplayLayoutHTML</servlet-name>
-        <servlet-class>admin.controller.ServletDisplayLayoutHTML</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetScheduledEmailDetailServlet</servlet-name>
-        <servlet-class>com.controller.schedule.GetScheduledEmailDetailServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetScheduledEntitiesServlet</servlet-name>
-        <servlet-class>com.controller.schedule.GetScheduledEntitiesServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ScheduleEmailServlet</servlet-name>
-        <servlet-class>com.controller.schedule.ScheduleEmailServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ScheduleSocialPostServlet</servlet-name>
-        <servlet-class>com.controller.schedule.ScheduleSocialPostServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AddActionServlet</servlet-name>
-        <servlet-class>com.controller.schedule.AddActionServlet</servlet-class>
-    </servlet>
+   </servlet>
     <servlet>
         <servlet-name>AddNoteServlet</servlet-name>
         <servlet-class>com.controller.schedule.AddNoteServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ServletDuplicateLayout</servlet-name>
-        <servlet-class>admin.controller.ServletDuplicateLayout</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DownloadHtmlServlet</servlet-name>
-        <servlet-class>com.controller.DownloadHtmlServlet</servlet-class>
-    </servlet>
+   
     <servlet>
         <servlet-name>GetScheduledSocialPostDetailServlet</servlet-name>
         <servlet-class>com.controller.schedule.GetScheduledSocialPostDetailServlet</servlet-class>
@@ -380,18 +203,6 @@
         <servlet-class>com.controller.schedule.ChangeScheduleServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetScheduledActions</servlet-name>
-        <servlet-class>com.controller.schedule.GetScheduledActions</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ScheduleSocialPostActionsServlet</servlet-name>
-        <servlet-class>com.controller.schedule.ScheduleSocialPostActionsServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ScheduleEmailActionsServlet</servlet-name>
-        <servlet-class>com.controller.schedule.ScheduleEmailActionsServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ServletListAdminSVG</servlet-name>
         <servlet-class>admin.controller.ServletListAdminSVG</servlet-class>
     </servlet>
@@ -399,18 +210,10 @@
         <servlet-name>DownloadSVGServlet</servlet-name>
         <servlet-class>com.controller.DownloadSVGServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>SaveSVGServlet</servlet-name>
-        <servlet-class>admin.controller.SaveSVGServlet</servlet-class>
-    </servlet>
+    
     <servlet>
         <servlet-name>GetTemplates</servlet-name>
         <servlet-class>com.controller.GetTemplates</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>dispatcher</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <load-on-startup>2</load-on-startup>
     </servlet>
     <servlet>
         <servlet-name>GetFilesListServlet</servlet-name>
@@ -432,14 +235,7 @@
         <servlet-name>GetEmaiLayoutHtmlServlet</servlet-name>
         <servlet-class>com.controller.GetEmaiLayoutHtmlServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ServletUserBrand</servlet-name>
-        <servlet-class>admin.controller.ServletUserBrand</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Authentication</servlet-name>
-        <url-pattern>/Authentication</url-pattern>
-    </servlet-mapping>
+    
     <servlet>
         <servlet-name>Fblogin</servlet-name>
         <servlet-class>com.intbit.Fblogin</servlet-class>
@@ -456,58 +252,12 @@
         <servlet-name>Model</servlet-name>
         <url-pattern>/Model</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetUserCategories</servlet-name>
-        <url-pattern>/GetUserCategories</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetSubCategories</servlet-name>
-        <url-pattern>/GetSubCategories</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UploadLogo</servlet-name>
-        <url-pattern>/UploadLogo</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SubbrandPersonality</servlet-name>
-        <url-pattern>/SubbrandPersonality</url-pattern>
-    </servlet-mapping>
+   
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/User</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddUpdateOrganization</servlet-name>
-        <url-pattern>/AddUpdateOrganization</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetLooks</servlet-name>
-        <url-pattern>/GetLooks</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetBrandPersonality</servlet-name>
-        <url-pattern>/GetBrandPersonality</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SetLookID</servlet-name>
-        <url-pattern>/SetLookID</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SetStudioID</servlet-name>
-        <url-pattern>/SetStudioID</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetColorPalettes</servlet-name>
-        <url-pattern>/GetColorPalettes</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetColorsFromLogo</servlet-name>
-        <url-pattern>/GetColorsFromLogo</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SetUserPreferences</servlet-name>
-        <url-pattern>/SetUserPreferences</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>CheckAvailability</servlet-name>
         <url-pattern>/CheckAvailability</url-pattern>
@@ -520,101 +270,14 @@
         <servlet-name>GetOrganizations</servlet-name>
         <url-pattern>/GetOrganizations</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletUserRegistration</servlet-name>
-        <url-pattern>/ServletUserRegistration</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>SendEmail</servlet-name>
         <url-pattern>/SendEmail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletAddLooks</servlet-name>
-        <url-pattern>/ServletAddLooks</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletDeleteLooks</servlet-name>
-        <url-pattern>/ServletDeleteLooks</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletChangeLooks</servlet-name>
-        <url-pattern>/ServletChangeLooks</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletAddFonts</servlet-name>
-        <url-pattern>/ServletAddFonts</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletOrganization</servlet-name>
-        <url-pattern>/ServletOrganization</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletFontsSizes</servlet-name>
-        <url-pattern>/ServletFontsSizes</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletFontStyles</servlet-name>
-        <url-pattern>/ServletFontStyles</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletColors</servlet-name>
-        <url-pattern>/ServletColors</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletAddPersonality</servlet-name>
-        <url-pattern>/ServletAddPersonality</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletDeleteBrands</servlet-name>
-        <url-pattern>/ServletDeleteBrands</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletEditPersonality</servlet-name>
-        <url-pattern>/ServletEditPersonality</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletColorTheme</servlet-name>
-        <url-pattern>/ServletColorTheme</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletFontTheme</servlet-name>
-        <url-pattern>/ServletFontTheme</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletAddCategories</servlet-name>
-        <url-pattern>/ServletAddCategories</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletDeleteCategories</servlet-name>
-        <url-pattern>/ServletDeleteCategories</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletEditCategories</servlet-name>
-        <url-pattern>/ServletEditCategories</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletSubCategory</servlet-name>
-        <url-pattern>/ServletSubCategory</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ServletUploadFonts</servlet-name>
         <url-pattern>/ServletUploadFonts</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletDeleteFonts</servlet-name>
-        <url-pattern>/ServletDeleteFonts</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletUpdateFonts</servlet-name>
-        <url-pattern>/ServletUpdateFonts</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletLogin</servlet-name>
-        <url-pattern>/ServletLogin</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletModel</servlet-name>
-        <url-pattern>/ServletModel</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletGetStyles</servlet-name>
@@ -657,16 +320,8 @@
         <url-pattern>/GetTwitterToken</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PostToSocial</servlet-name>
-        <url-pattern>/PostToSocial</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>GetUserPreferences</servlet-name>
         <url-pattern>/GetUserPreferences</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SendEmailServlet</servlet-name>
-        <url-pattern>/SendEmailServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletUserPreferencesFacebook</servlet-name>
@@ -684,21 +339,11 @@
         <servlet-name>ChangeImageServlet</servlet-name>
         <url-pattern>/ChangeImageServlet</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SetEmailLists</servlet-name>
-        <url-pattern>/SetEmailLists</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetEmailLists</servlet-name>
-        <url-pattern>/GetEmailLists</url-pattern>
-    </servlet-mapping>
+   
+    
     <servlet-mapping>
         <servlet-name>EmailTextDataServlet</servlet-name>
         <url-pattern>/EmailTextDataServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletBlock</servlet-name>
-        <url-pattern>/ServletBlock</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetBlocks</servlet-name>
@@ -740,10 +385,7 @@
         <servlet-name>ServletValidateModel</servlet-name>
         <url-pattern>/ServletValidateModel</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletAddHtmlTemplate</servlet-name>
-        <url-pattern>/ServletAddHtmlTemplate</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>DownloadFontsServlet</servlet-name>
         <url-pattern>/DownloadFonts</url-pattern>
@@ -757,14 +399,6 @@
         <url-pattern>/GetEmailHistoryDetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletListAdminBackgroundImages</servlet-name>
-        <url-pattern>/ServletListAdminBackgroundImages</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetEmailTagsServlet</servlet-name>
-        <url-pattern>/GetEmailTagsServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>GenericAnnouncementServlet</servlet-name>
         <url-pattern>/GenericAnnouncementServlet</url-pattern>
     </servlet-mapping>
@@ -773,60 +407,12 @@
         <url-pattern>/EmailSettingsServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletDisplayLayoutHTML</servlet-name>
-        <url-pattern>/ServletDisplayLayoutHTML</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetScheduledEntitiesServlet</servlet-name>
-        <url-pattern>/GetScheduledEntities</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ScheduleEmailServlet</servlet-name>
-        <url-pattern>/ScheduleEmail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetScheduledEmailDetailServlet</servlet-name>
-        <url-pattern>/GetScheduledEmailDetail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ScheduleSocialPostServlet</servlet-name>
-        <url-pattern>/ScheduleSocialPost</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddActionServlet</servlet-name>
-        <url-pattern>/AddAction</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AddNoteServlet</servlet-name>
         <url-pattern>/AddNote</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletDuplicateLayout</servlet-name>
-        <url-pattern>/ServletDuplicateLayout</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>DownloadHtmlServlet</servlet-name>
         <url-pattern>/DownloadHtmlServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetScheduledSocialPostDetailServlet</servlet-name>
-        <url-pattern>/GetScheduledSocialPostDetail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ChangeScheduleServlet</servlet-name>
-        <url-pattern>/ChangeScheduleServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetScheduledActions</servlet-name>
-        <url-pattern>/GetScheduledActions</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ScheduleSocialPostActionsServlet</servlet-name>
-        <url-pattern>/ScheduleSocialPostActions</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ScheduleEmailActionsServlet</servlet-name>
-        <url-pattern>/ScheduleEmailActions</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletListAdminSVG</servlet-name>
@@ -836,10 +422,7 @@
         <servlet-name>DownloadSVGServlet</servlet-name>
         <url-pattern>/DownloadSVGServlet</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SaveSVGServlet</servlet-name>
-        <url-pattern>/SaveSVGServlet</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>GetTemplates</servlet-name>
         <url-pattern>/GetTemplates</url-pattern>
@@ -865,21 +448,27 @@
         <url-pattern>/GetEmaiLayoutHtmlServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>dispatcher</servlet-name>
-        <url-pattern>*.do</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ServletUserBrand</servlet-name>
         <url-pattern>/ServletUserBrand</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
+    
+    
+<!--    <error-page>
+        <error-code>404</error-code>
+        <location>/404</location>
+    </error-page>-->
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    <welcome-file-list>
+    <!--    <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
-    </welcome-file-list>
+    </welcome-file-list>-->
+ <error-page>
+  <error-code>404</error-code>
+  <location>/error404</location>
+ </error-page>
     <resource-ref>
         <description>BrndBot DB</description>
         <res-ref-name>jdbc/postgres</res-ref-name>

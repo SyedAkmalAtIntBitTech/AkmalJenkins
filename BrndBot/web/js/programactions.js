@@ -9,9 +9,10 @@ var sliderDialog = "";
 var prevSliderDialog = "";
 var create_button_title = "Edit";
 var program_status;
-
+var end_date="";
 $(document).ready(function ()
 {    
+    end_date=$("#program_end_date").val();
     $("#deleteonetimeact").hide();
     $("#removeactionbutton").hide();
     $("#deleterecurringemail").hide();
@@ -202,13 +203,13 @@ var count=0;
             
             var selected_schedule_id=id;
             if(htm.contains('class="check-icon"')){
-                selected_schedules_to_delete_recuring = selected_schedules_to_delete_recuring.replace(selected_schedule_id + ",", "");
+                selected_schedules_to_delete_recurring = selected_schedules_to_delete_recurring.replace(selected_schedule_id + ",", "");
                 count-=1;
                 $("#"+id).html(content);
             }
             else
             {
-                selected_schedules_to_delete_recuring = selected_schedule_id + "," + selected_schedules_to_delete_recuring;
+                selected_schedules_to_delete_recurring = selected_schedule_id + "," + selected_schedules_to_delete_recurring;
                 count+=1;
                 $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
@@ -246,10 +247,10 @@ function validateEmail(sEmail) {
 }
 $(document).ready(function ()
 {
-    $("#closerecuringpopup").click(function(){
+    $("#closerecurringpopup").click(function(){
         $slider=2;
-        sliderDialog = "#recuringPopup";
-        prevSliderDialog = "#recuringPopup";
+        sliderDialog = "#recurringPopup";
+        prevSliderDialog = "#recurringPopup";
         $('#slider-button').click();
     });
 $(".close").click(function(){
@@ -270,13 +271,11 @@ $(".close").click(function(){
     });
 });
 function validateaction() {
-    
     var marketing_program = $("#marketing_program").val();
     var title = $("#addactiontitle").val();
-    var days=$("#days").val();
+    var date=$("#jumptodatepicker").val();
     var actiontime = $("#timepicker1").val();
     var actiontype = $("#actiontype").val();
-    var description = $("#description").val();
     var actiondate = $("#datepicker").val();
     
     if (title === "") {
@@ -284,9 +283,9 @@ function validateaction() {
         $("#addactiontitle").focus();
         return false;
     }
-    if (days === "") {
-        alert(dayserror);
-        $("#days").focus();
+    if (date === "") {
+        alert(dateerror);
+        $("#jumptodatepicker").focus();
         return false;
     }
     if (actiontime === "") {
@@ -298,12 +297,7 @@ function validateaction() {
         alert(actiontypeerror);
         $("#actiontype").focus();
         return false;
-    }    
-    if (description === "") {
-        alert(descriptionerror);
-        $("#description").focus();
-        return false;
-    }
+    } 
     if (actiondate === "") {
     }
     return true;
@@ -411,23 +405,23 @@ function validatetwitteraction() {
 }
     
 var selected_schedules_to_delete = "";
-var selected_schedules_to_delete_recuring = "";
+var selected_schedules_to_delete_recurring = "";
 
-function setSelectedRecuringIds(selectedid) {
+function setSelectedRecurringIds(selectedid) {
     var checked = document.getElementById(selectedid).checked;
     var a = $("input:checked.chckbox").length;
     if (checked && a!=0) {
           $("#addemlactbtn").hide();
         $("#delemlactbtn").show();
         var selected_schedule_id = $("#" + selectedid).val();
-        selected_schedules_to_delete_recuring = selected_schedule_id + "," + selected_schedules_to_delete_recuring;
-        console.log(selected_schedules_to_delete_recuring);
+        selected_schedules_to_delete_recurring = selected_schedule_id + "," + selected_schedules_to_delete_recurring;
+        console.log(selected_schedules_to_delete_recurring);
     }
     else if(!checked && a==0)
     {
         var selected_schedule_id = $("#" + selectedid).val();
-        selected_schedules_to_delete_recuring = selected_schedules_to_delete_recuring.replace(selected_schedule_id + ",", "");
-        console.log(selected_schedules_to_delete_recuring);
+        selected_schedules_to_delete_recurring = selected_schedules_to_delete_recurring.replace(selected_schedule_id + ",", "");
+        console.log(selected_schedules_to_delete_recurring);
         $("#delemlactbtn").hide();
         $("#addemlactbtn").show();
     }
@@ -531,13 +525,13 @@ function programactions($scope, $http, $window){
             alert(nodataerror);
         });              
     };
-    $scope.recuringApproval = function(entity_id, template_status){
+    $scope.recurringApproval = function(entity_id, template_status){
         var program=$("#program_id").val();
         var approval_type = {"entity_id": entity_id, "template_status":template_status};
         
         $http({
             method: 'POST',
-            url: 'approveStatusRecuring.do',
+            url: 'approveStatusRecurring.do',
             headers: {'Content-Type':'application/json'},
             data: JSON.stringify(approval_type)
         }).success(function (data, status, headers, config) {
@@ -607,8 +601,7 @@ function programactions($scope, $http, $window){
     };
     
     $scope.getProgramActions = function(){
-        $scope.showfieldstab = function (){
-        };
+        $scope.showfieldstab = function (){};
         $scope.showactionstab = function (){
             $("#saveprogram").hide();
 //            $("#removeactionbutton").show();
@@ -625,7 +618,8 @@ function programactions($scope, $http, $window){
         $http({
             method: 'GET',
             url: 'alluserMarketingProgramForDisplay.do?program_id='+program
-        }).success(function (data, status, headers, config) {
+        }).success(function (data, status, headers, config){
+            $("#progname").show();
             document.getElementById("instancehidden").style.display="block";
             if(JSON.stringify(data.emailautomation)==='[]'){
             $("#noemailautomation").empty().append('No Recurring Emails');
@@ -659,13 +653,21 @@ function programactions($scope, $http, $window){
        var status;
        if(program_status === "Closed"){
            status=true;
+           $('.detail-overlay-content').find('input, textarea, button, select').attr('disabled','disabled');
+           $('#facebooksection').find('input, textarea, button, select').attr('disabled','disabled');
+           $('.savebutton').hide();
+           $('.removebutton').hide();
+           $('.delete-button-detail').hide();
+           $('.edit-button-detail').hide();
+           $('.remove-button-detail').hide();
+           $('.approve-button-detail').hide();
        }
        else{
            status=false;
        }
       return  status;
    }; 
-    $scope.addRecuringAction = function(program_id){
+    $scope.addRecurringAction = function(program_id){
         window.open(getHost() + 'emailautomation.jsp?type=add&program_id='+program_id+'&entity_id=0', "_self");
     };    
     $scope.setEntityId = function(entity_list_Id, days){
@@ -706,7 +708,7 @@ function programactions($scope, $http, $window){
     var millisToUTCDate = function (millis) {
         return toUTCDate(new Date(millis));
     };    
-    $scope.addEditRecuringAction = function(type,program_id,entity_id){
+    $scope.addEditRecurringAction = function(type,program_id,entity_id){
         var program_end_date=$("#program_end_date").val();
         window.open(getHost() + 'emailautomation.jsp?type='+type+'&program_id='+program_id+'&entity_id='+entity_id+'&program_date='+program_end_date, "_self");
     };    
@@ -983,10 +985,10 @@ function programactions($scope, $http, $window){
             });
     };
     
-    $scope.getRecuringMailDetails = function (schedule_id, template_status, till_date, schedule_time, entity_type, schedule_title, schedule_desc, date_status,days) {
+    $scope.getRecurringMailDetails = function (schedule_id, template_status, till_date, schedule_time, entity_type, schedule_title, schedule_desc, date_status,days) {
             $slider=2;
-            sliderDialog = "#recuringPopup";
-            prevSliderDialog = "#recuringPopup";
+            sliderDialog = "#recurringPopup";
+            prevSliderDialog = "#recurringPopup";
             var program_name=$("#program_name2").val();
             var program_id=$("#program_id").val();
             $http({
@@ -995,30 +997,30 @@ function programactions($scope, $http, $window){
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.body == undefined) {
-                      $("#recuringremovediv").hide();
+                      $("#recurringremovediv").hide();
                       $("#savedemailsdiv").hide();
                       $("#noemailsdiv").show();
                 } else {
-                      $("#recuringremovediv").show();
+                      $("#recurringremovediv").show();
                       $("#savedemailsdiv").show();
                       $("#noemailsdiv").hide();
                 }
-                $("#recuringactiondiv").hide();
-                $("#recuringnotediv").hide();
-                $("#recuringtemplatediv").show();
-                $("#recuringaction").removeClass("top-subnav-link-active-detail");
-                $("#recuringaction a").removeAttr("class");
-                $("#recuringnote").removeClass("top-subnav-link-active-detail");
-                $("#recuringnote a").removeAttr("class");
-                $("#recuringtemplate").removeClass("top-subnav-link-active-detail");
-                $("#recuringtemplate a").removeAttr("class");
+                $("#recurringactiondiv").hide();
+                $("#recurringnotediv").hide();
+                $("#recurringtemplatediv").show();
+                $("#recurringaction").removeClass("top-subnav-link-active-detail");
+                $("#recurringaction a").removeAttr("class");
+                $("#recurringnote").removeClass("top-subnav-link-active-detail");
+                $("#recurringnote a").removeAttr("class");
+                $("#recurringtemplate").removeClass("top-subnav-link-active-detail");
+                $("#recurringtemplate a").removeAttr("class");
 
-                $("#recuringtemplate").addClass("top-subnav-link-active-detail");
-                $("#recuringtemplate a").addClass("h3-subnav-subnav-active");
-                $("#recuringaction").addClass("top-subnav-links-detail");
-                $("#recuringaction a").addClass("h3-subnav");
-                $("#recuringnote").addClass("top-subnav-links-detail");
-                $("#recuringnote a").addClass("h3-subnav");
+                $("#recurringtemplate").addClass("top-subnav-link-active-detail");
+                $("#recurringtemplate a").addClass("h3-subnav-subnav-active");
+                $("#recurringaction").addClass("top-subnav-links-detail");
+                $("#recurringaction a").addClass("h3-subnav");
+                $("#recurringnote").addClass("top-subnav-links-detail");
+                $("#recurringnote a").addClass("h3-subnav");
                 $scope.entities_subject = data.subject;
                 $scope.entities_from_name = data.from_name;
                 $scope.entities_reply_to_email_address = data.reply_to_email_address;
@@ -1029,13 +1031,13 @@ function programactions($scope, $http, $window){
                 $scope.schedule_id = schedule_id;
                 console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
-                $scope.recuring_template_status = template_status;
+                $scope.recurring_template_status = template_status;
                 $scope.schedule_type = entity_type;
-                $scope.recuring_date_status=date_status;
+                $scope.recurring_date_status=date_status;
                 $scope.program_name=program_name;
                 $scope.program_id=program_id;
                 $scope.days=days;
-                $('#recuringemailcontentiframe').contents().find('html').html(data.body);
+                $('#recurringemailcontentiframe').contents().find('html').html(data.body);
             }).error(function (data) {
                 alert(requesterror);
             });
@@ -1245,6 +1247,7 @@ function programactions($scope, $http, $window){
     
     $scope.AddAction = function () {
         var program=$("#program_id").val();
+        var program_end_date=$("#program_end_date").val();
         var title = $("#addactiontitle").val();
         var actiontype = $("#actiontype").val();
         var marketingProgramType=$("#marketing_program").val();
@@ -1275,14 +1278,14 @@ function programactions($scope, $http, $window){
                 $scope.status = data;
                 if (data != "") {
                     alert("Action saved successfully.");
-                   window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
+                   window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0&program_date='+program_end_date, "_self");
                 }
             }).error(function (data, status) {
                 alert(requesterror);
             });
         }
     };
-    function validaterecuringemailDescription(schedule_id)
+    function validaterecurringemailDescription(schedule_id)
     {
         var description = $("#email_description"+schedule_id).val();
          if (description === "") {
@@ -1335,7 +1338,7 @@ function programactions($scope, $http, $window){
     $scope.updateActionEmailNote = function (schedule_id) {
         var actiontype = getemail();
         var description = $("#email_description"+schedule_id).val();
-        if (validaterecuringemailDescription(schedule_id)) {
+        if (validaterecurringemailDescription(schedule_id)) {
             var action = {
                 "schedule_id": schedule_id, "type": "updatenotes","actiontype": actiontype,
                 "description": description
@@ -1501,7 +1504,7 @@ function programactions($scope, $http, $window){
             }
         });
     };    
-    $scope.deleteAutomationSchedule = function (schedules_to_delete, type, section, isRecuring){
+    $scope.deleteAutomationSchedule = function (schedules_to_delete, type, section, isRecurring){
         var program=$("#program_id").val();
         var message;
         var requestBody;
@@ -1509,19 +1512,19 @@ function programactions($scope, $http, $window){
         if (type == "deleteMultiple") {
             message = multideleteconfirm;
             requestBody = {"type": "deleteSelected",
-                           "schedule_ids": selected_schedules_to_delete_recuring, "entity_type": "null"};
+                           "schedule_ids": selected_schedules_to_delete_recurring, "entity_type": "null"};
             responseMessage = multideletesuccess;
         } else if (type == "delete") {
             message = singledeleteconfirm;
             requestBody = {"type": "delete",
                             "schedule_ids": schedules_to_delete, "entity_type": section, 
-                            "isRecuring": isRecuring};
+                            "isRecurring": isRecurring};
             responseMessage = singledeletesuccess;
         } else if (type == "removetemplate") {
             message = removecnfirm;
             requestBody = {"type": "removetemplate",
                             "schedule_ids": schedules_to_delete, "entity_type": section, 
-                            "isRecuring": isRecuring};
+                            "isRecurring": isRecurring};
             responseMessage = actiondelete;
         }
         if (confirm(message)) {
@@ -1557,12 +1560,12 @@ function programactions($scope, $http, $window){
         }
     };
         
-    $scope.deleteSchedule = function (schedules_to_delete, type, section, isRecuring){
+    $scope.deleteSchedule = function (schedules_to_delete, type, section, isRecurring){
         var data="";
         var program_end_date=$("#program_end_date").val();
         if(section==='recurring')
         {
-            data=selected_schedules_to_delete_recuring;
+            data=selected_schedules_to_delete_recurring;
         }
         if(section==='nonrecurring')
         {
@@ -1589,23 +1592,23 @@ function programactions($scope, $http, $window){
                responseMessage = actiondelete;
             }
         } else if (type == "delete") {
-            if(isRecuring === "true"){
-                message = recuringdeleteconfirm;
+            if(isRecurring === "true"){
+                message = recurringdeleteconfirm;
                 requestBody = {"type": "delete",
                             "schedule_ids": schedules_to_delete, "entity_type": section, 
-                            "isRecuring": isRecuring};
-            responseMessage = recuringdeletesuccess;
+                            "isRecurring": isRecurring};
+            responseMessage = recurringdeletesuccess;
             }
             message = multideleteconfirm;
             requestBody = {"type": "delete",
                             "schedule_ids": schedules_to_delete, "entity_type": section, 
-                            "isRecuring": isRecuring};
+                            "isRecurring": isRecurring};
             responseMessage = actiondelete;
         } else if (type == "remove") {
             message = removecnfirm;
             requestBody = {"type": "removetemplate",
                             "schedule_ids": schedules_to_delete, "entity_type": section, 
-                            "isRecuring": isRecuring};
+                            "isRecurring": isRecurring};
             responseMessage = actiondelete;
         }
         if (confirm(message)) {

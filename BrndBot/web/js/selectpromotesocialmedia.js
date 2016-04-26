@@ -218,7 +218,7 @@ var sub_category_name=$("#sub_category_name").val();
                 $('#twitter').prop('checked', false); 
             });
            function imgchng(){
-               document.getElementById("fb").src="images/fb_icon.png";
+               document.getElementById("fb").src="images/Icons/check.svg";
                
            }
     

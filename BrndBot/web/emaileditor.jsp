@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Email Editor</title>
+    <title>BrndBot - Email Editor</title>
     <%@ include file="fonttypekit.jsp"%>
     <%@ include file="checksession.jsp" %>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -27,28 +27,28 @@
     <link href="css/froala_editor.css" rel="stylesheet" type="text/css"/>
     <link href="css/popup.css" rel="stylesheet" type="text/css"/>
     <link href="css/froala_style.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="css/plugins/code_view.css">
-    <link rel="stylesheet" href="css/plugins/colors.css">
-    <link rel="stylesheet" href="css/plugins/emoticons.css">
-    <link rel="stylesheet" href="css/plugins/image_manager.css">
-    <link rel="stylesheet" href="css/plugins/image.css">
-    <link rel="stylesheet" href="css/plugins/line_breaker.css">
-    <link rel="stylesheet" href="css/plugins/table.css">
-    <link rel="stylesheet" href="css/plugins/char_counter.css">
+    <link rel="stylesheet" href="css/plugins/code_view.css"/>
+    <link rel="stylesheet" href="css/plugins/colors.css"/>
+    <link rel="stylesheet" href="css/plugins/emoticons.css"/>
+    <link rel="stylesheet" href="css/plugins/image_manager.css"/>
+    <link rel="stylesheet" href="css/plugins/image.css"/>
+    <link rel="stylesheet" href="css/plugins/line_breaker.css"/>
+    <link rel="stylesheet" href="css/plugins/table.css"/>
+    <link rel="stylesheet" href="css/plugins/char_counter.css"/>
     <link rel="stylesheet" href="css/plugins/video.css">
-    <link rel="stylesheet" href="css/plugins/fullscreen.css">
+    <link rel="stylesheet" href="css/plugins/fullscreen.css"/>
     <link rel="stylesheet" href="css/plugins/file.css">
     <link rel="shortcut icon" href="images/favicon.png"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css"> 
     <link rel="stylesheet" href="css/plugins/image_manager.css">
     <script src="js/froala_editor.min_editor.js" type="text/javascript"></script>
-    <!--        <script src="js/plugins/code_view.min.js" type="text/javascript"></script>-->
-    <script type="text/javascript" src="js/emaileditor_new.js"></script>
+<!--<script src="js/plugins/code_view.min.js" type="text/javascript"></script>-->
+    <!--<script type="text/javascript" src="js/emaileditor_new.js"></script>-->
     <script type="text/javascript" src="js/plugins/align.min.js"></script>
     <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
     <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
     <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
-    <script src="js/plugins/image.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/plugins/image.min.js"></script>
     <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
     <script type="text/javascript" src="js/plugins/file.min.js"></script>
     <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
@@ -114,10 +114,16 @@
         var sliderDialog="#emaileditorexternalpopup";
         
         $(document).ready(function(){    
+            $("#closePrev").click(function(){
+                $("#email_previewdiv").hide();
+                $('#fade').hide();                
+            });
+                    
             $("#mindbodyclose").click(function(){
                 $("#fade").hide();
                 $('#slider-button').click();                
-            });
+            });            
+            
 //            $slider=2;
             $a=0;
             $edit=0;
@@ -224,15 +230,6 @@
                     }
 
                     };
-                    
-//                    $scope.addBlockActive = function(divid,id){
-//                         $(".block-button").addClass("hide");
-//                         $("#blockdiv li").removeClass("block-slat-active");
-//                         $("#blockdiv li").addClass("block-slat");
-//                         $("#"+divid).removeClass("block-slat");
-//                         $("#"+divid).addClass("block-slat-active");
-//                         $("#div2"+id).removeClass("hide");
-//                    };
                     
                     $scope.addActive = function(id){
                         $("#stylediv li").removeClass("style-slat-active");
@@ -618,7 +615,8 @@
 
 </head>    
 <div id="fade" class="black_overlay"></div>
-<body ng-app="myapp">
+<%--<jsp:include page="emailpreview.jsp" />--%>  
+<body ng-app="myapp"> 
     <div id="boxes" >
         <div id="dialog" class="window" >
         </div>
@@ -629,19 +627,20 @@
     <input type="hidden" value="<%=email_subject%>" id="email_subject"/>
     <!--SideNav-->
     <div class="content-main" ng-controller="MyController">   
-    <jsp:include page="emaileditormindbodypopup.jsp"/>
+    <jsp:include page="emaileditormindbodypopup.jsp"/>    
     <!--Top Nav-->   
     <div class="top-nav-full">
         <div class="page-title-bar col-1of1"> 
             <a class=" exit-button-icon" href="emailsubjects.jsp?id=<%= mindbody_data_id %>&mediatype=email">    
                 <div class="exit-button-detail">
-                    <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
+                    <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                 </div>
             </a>
             <div class="page-title-with-back page-title-font">Email Editor</div>
             <div class="page-cta-container">
                 <a href="" class="gray-button fleft pushright">
-                    <div class="nounderline md-button" onclick="show('iphone');">  Mobile Preview</div>    
+                    <!--<div class="nounderline md-button" onclick="show('iphone');">  Mobile Preview</div>-->  
+                    <div class="nounderline md-button" id="emailpreview">  Preview Email</div>  
                 </a>
                 <a href="" class="gray-button fleft ">
                     <div class=" md-button" id="saveToDraft">  Save as Draft</div>    
@@ -653,6 +652,25 @@
         <div class="emailEditor-page-background fleft">
             <div class="emailEditor-leftCol ">
                  <script>
+                    $("#emailpreview").click(function(){                        
+                        $("#email_previewdiv").show();
+                        $.ajax({
+                                url: getHost() + "PreviewServlet",
+                                method: "post",
+                                data: {
+                                htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                                        iframeName: rendomIframeFilename
+                                },
+                                success: function (responseText) {
+                                    $("#dynamictable5").empty();
+                                    $("#dynamictable6").empty();
+                                    $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='/BrndBot/DownloadHtmlServlet?file_name=" + rendomIframeFilename + ".html'></iframe>");
+                                    $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='/BrndBot/DownloadHtmlServlet?file_name=" + rendomIframeFilename + ".html'></iframe>");
+                                }
+                        });
+                        $("#fade").show();
+                    });
+                    
                     $("#addblkbtn").click(function (){
                     $("#tabs-4").css("display", "none");
                             $("#clsbtn").css("display", "none");
@@ -757,75 +775,7 @@
                             });
                             };
                 $(document).ready(function(){
-                                                    
-    $("#saveButton").click(function (){
-        var email_subject = $("#email_subject").val();
-        $.ajax({
-            url: getHost() + "PreviewServlet",
-            method: "post",
-            data:{
-            htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-            iframeName: rendomIframeFilename
-            },
-            success: function (responseText) {
-            $("#previewcontent").empty();
-                $("#previewcontent").append(responseText);
-                $.ajax({
-                    url: getHost() + "SaveKeyValueSessionServlet",
-                    method: "post",
-                    data:{
-                        process:"save",
-                        sessionKey:"htmldata",
-                        sessionValue: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                        sessionIframeKey:"iframeName",
-                        sessionIframevalue:"" + rendomIframeFilename
-                    },
-                    success: function (responseText) {
-                    // added by Syed Ilyas 16 dec 2015 - saves draft
-                        if (draft_id == "0")
-                        {
-                            $.ajax({
-                            url: getHost() + "saveEmailDrafts.do",
-                            method: "post",
-                            data:{
-                            bodyString : $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                            },
-                            success: function (responseText) {
-                                if (responseText != "0"){
-                                document.location.href = "emaillistselection.jsp?draftid=" + responseText + "&subject=" + email_subject;
-                                } else 
-                                {
-                                    alert("There was a problem while saving the draft! Please try again later.");
-                                }
-                            }
-                            });
-                        } 
-                        else 
-                        {
-                        $.ajax({
-                            url: getHost() + "updateEmailDraft.do",
-                            method: "post",
-                            data:{
-                            draftid: draft_id,
-                                    bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                            },
-                            success: function (responseText) {
-                                if (responseText == "true")
-                                {
-                                    document.location.href = "emaillistselection.jsp?draftid=" + draft_id + "&subject=" + email_subject;
-                                } else
-                                {
-                                    alert("There was a problem while saving the draft! Please try again later.");
-                                }
-                            }
-                        });
-                    }
-                    }
-                });
-            }
-        });
-    });
-                    
+                                                                        
     $("#styletab").click(function (){
         $("#blockdivheader").hide();
         $("#styledivheader").show();
@@ -853,7 +803,7 @@
                     </div>
                 </div>
             </div>
-            <div class="emailEditor-rightCol fright">
+            <div class="emailEditor-rightCol fright rightcoloumn">
                 <div class="emailSideBar-Header">
                     <div class="col-1of2 fleft">
                         <div class="emailSideBar-tab-active" id="blocktab" ng-init="showBlocks()" ng-click="showBlocks()">
@@ -866,7 +816,7 @@
                         </div>
                     </div> 
                 </div>
-                <div class="email-Block-Selection">
+                <div class="email-Block-Selection right-email-select">
                     <div class="email-Block-Header" id="blockdivheader">Select a block to add:</div>
                     <div class="email-Block-Header" id="styledivheader">Select a style for this block:</div>
                     <div class="block-selection-divider"></div>
@@ -884,7 +834,7 @@
                     <ul class="block-list" id="stylediv">
                         <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.id}}" ng-click="addActive('stylelistid'+styles.id)">
                             <div class="block-name">
-                                <img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="{{styles.image_url}}" onclick="showText('{{styles.id}}')" width="100%" style="height:175px;"/>
+                                <img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="{{styles.image_url}}" onclick="showText('{{styles.id}}')" width="100%" />
                             </div>
                         </li>
                     </ul>
@@ -892,6 +842,50 @@
             </div>
         </div>
     </div>  
+    
+    <div id="fade" class="black_overlay" ></div>
+    <!--Top Nav-->  
+    <div id="email_previewdiv">
+        <div class="pop-up-background">
+            <div class="pop-up-container-emailPreview"> 
+                <a class=" exit-button-detail-ep link svg" href="" id="closePrev">
+                    <img type="image/svg+xml" src="images/close.svg" class="closeemailpreview" style="cursor:pointer;"> </img>
+                </a>
+                <div class="pop-up-title-emailpreview "> 
+                    <div class="emailPreview-header fleft">Email Preview</div>
+                </div>
+                <!--inner-->
+                <div class="pop-up-inner-ep height400">
+                    <div class="emailPreviews col-1of1 fleft"> 
+                        <div class="emailPreview-desktop-col  fleft">
+                            <div class="emailPreview-headers">Desktop Preview</div>
+                            <!--<div class="iphoneshow img-responsive" id="deskpreview" style="display: block; height: 300px; width: 295px; margin-left: 215px; margin-top: 50px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">-->
+                                <div class="content">  
+                                    <div id="dynamictable5" style="position: relative; width: 100%; border: none; overflow: scroll; height: 400px;background-color: rgb(255, 255, 255);" src="">
+                                    
+                                    </div>                   
+                                </div>
+                            <!--</div>-->
+                            <div class="desktopshow" style="display:none;">
+                                <iframe id='dynamictable' class="desktoppreview" src=''></iframe> 
+                            </div>                        
+                        </div>
+                        <div class="emailPreview-mobile-col fleft">
+                            <div class="emailPreview-headers">Mobile Preview</div>
+                            <div class="iphoneshow img-responsive" id="mobpreview" style="display: block; height: 370px; width: 100%; margin-left: 6px; margin-top: 0px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">
+                                <div class="content">  
+                                    <div  id="dynamictable6" style="position: relative; width: 100%; height: 400px; overflow: scroll; border: none; background-color: rgb(255, 255, 255);">
+                                    
+                                    </div>                
+                                </div>
+                            <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>           
     <!--CTA Bar-->
     <div class="bottom-cta-bar" id="bottomdiv">
         <div class="bottom-cta-button-container-lg">
@@ -901,7 +895,7 @@
     <div id="light" class="white_content closepopup">
         <a href = "javascript:void(0)" style="text-decoration:none;">
             <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
-                <p style="margin-top:-7px;"><img src="images/Icons/yourPlan.svg" height="25" width="25" /></p>
+                <p style="margin-top:-7px;"><img src="images/yourPlan.svg" height="25" width="25" /></p>
             </div>
         </a>
     </div>

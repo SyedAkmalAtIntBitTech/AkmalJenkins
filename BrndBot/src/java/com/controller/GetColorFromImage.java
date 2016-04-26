@@ -127,7 +127,7 @@ public class GetColorFromImage extends Component {
             logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
         }
     }
-
+//Todo Ilyas move to intbittech
     public ArrayList getColors(String path) {
         ArrayList<String> list = new ArrayList<String>();
         try {

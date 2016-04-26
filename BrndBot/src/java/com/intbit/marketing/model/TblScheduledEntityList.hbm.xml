@@ -32,8 +32,8 @@
         <property name="scheduleDesc" type="string">
             <column name="schedule_desc" length="2048" />
         </property>
-        <property name="isRecuring" type="java.lang.Boolean">
-            <column name="is_recuring" />
+        <property name="isRecurring" type="java.lang.Boolean">
+            <column name="is_recurring" />
         </property>
     </class>
 </hibernate-mapping>

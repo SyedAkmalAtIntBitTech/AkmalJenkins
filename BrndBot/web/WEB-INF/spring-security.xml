@@ -1,0 +1,52 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:sec="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+      
+     <http auto-config="true" use-expressions="true">
+        <intercept-url pattern="/" access="permitAll" />
+        <intercept-url pattern="/resetpassword**" access="permitAll" />
+        <intercept-url pattern="/login**" access="permitAll" />
+        <intercept-url pattern="/images/**" access="permitAll" />
+        <intercept-url pattern="/css/**" access="permitAll" />
+        <intercept-url pattern="/js/**" access="permitAll" />
+        <intercept-url pattern="/fonts/**" access="permitAll" />
+        <intercept-url pattern="/signup/**" access="permitAll" />
+        <intercept-url pattern="/onboarding/**" access="permitAll" />
+        <intercept-url pattern="/Access_Denied**" access="permitAll" />
+        <intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
+        <intercept-url pattern="/user**" access="hasRole('USER')" />
+        <intercept-url pattern="*.do**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
+        <intercept-url pattern="/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
+        <form-login login-page="/login" 
+                    username-parameter="username"
+                    password-parameter="password"
+                    authentication-failure-url="/Access_Denied" 
+                    authentication-success-handler-ref="brndbotUserLoginSuccessHandler"/>
+       <csrf disabled="true"/>
+    </http>
+<!--    In-memory configuration-->
+<!--     <authentication-manager >
+        <authentication-provider>
+            <user-service>
+                <user name="haider"  password="shk123"  authorities="ROLE_USER" />
+                <user name="admin" password="root123" authorities="ROLE_ADMIN" />
+               
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>  -->
+    
+    <!--    DB Configuration -->   
+    <authentication-manager >
+        <authentication-provider user-service-ref="springSecurityUserDetailsServiceImpl">
+            <password-encoder ref="passwordEncoder"/>
+        </authentication-provider>
+    </authentication-manager>
+    
+   
+    <beans:bean id="springSecurityUserDetailsServiceImpl" class="com.intbittech.services.impl.SpringSecurityUsersDetailServiceImpl" />  
+    <beans:bean id="brndbotUserLoginSuccessHandler" class="com.intbittech.component.BrndbotUserLoginSuccessHandler" />
+    <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" /> 
+</beans:beans>

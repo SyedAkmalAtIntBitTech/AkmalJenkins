@@ -11,7 +11,7 @@
     <%@ include file="fonttypekit.jsp"%>
     <%@ include file="checksession.jsp" %>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <script src="js/alert_message.js" type="text/javascript"></script>
+    <script src="js/alertmessage.js" type="text/javascript"></script>
     <script src="js/angular.min.js" type="text/javascript"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -81,7 +81,7 @@
     <div class="content-main" >
     <%@include file="navbarv2.jsp" %>
     <%@include file="emaillistselectionpopup.jsp" %>    
-        <%@include file="emailpreview.jsp" %>
+    <%@include file="emailpreview.jsp" %>
     <input type="hidden" value="<%= draft_id %>" name="draft_id" id="draft_id"></input>  
     <input type="hidden" value="<%= iframeName %>" name="iframeName" id="iframeName1"></input>  
     <input type="hidden" value="<%= emailSubject %>" name="iframeName" id="email_subject"></input> 
@@ -170,7 +170,7 @@
                         </div>
                         <div class="input-field-container col-1of8 fleft pushUp-50">
                         
-                        <div class="h2 curpointer" id="emailpreview">Preview</div>                       
+                        <div class="curpointer gray-button font20px fleft nounderline md-button width200px" id="emailpreview">Preview Email</div>                       
                         </div>
                     <!--Inner Content Conatiner GENERIC-->
                 </div>
@@ -184,7 +184,7 @@
         <div class="bottom-cta-bar">
             <div class="bottom-cta-button-container-lg">
                 <div class="bottom-continue-button button-text-1" id="emaildetailscontbtn" onclick="validate();">Continue</div>
-                <div class="bottom-continue-button button-text-1" id="emailIdContinueButton">Continue</div>
+                <div class="bottom-continue-button button-text-1" id="emailIdContinueButton" >Continue</div>
             </div>
         </div>
         </div>

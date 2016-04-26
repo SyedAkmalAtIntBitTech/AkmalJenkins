@@ -17,13 +17,14 @@
     <link rel="stylesheet" href="css/bootstrap.css"></link>
     <script type="text/javascript" src="js/angular.min.js"></script>  
     <script src="js/configurations.js" type="text/javascript"></script>
-    <script src="js/alert_message.js" type="text/javascript"></script>
+    <script src="js/alertmessage.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/resources/demos/style.css"/>
     <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
     <link href="css/popup.css" rel="stylesheet" type="text/css"/>
     <script src="js/popup.js" type="text/javascript"></script>
+    <script src="js/reuseablefunctions.js"></script>
     <script src="js/colpick.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/main1.css">
     <script src="js/prettify.js"></script>
@@ -84,14 +85,14 @@
                             <input type="text" placeholder="Enter New Password" id="inputpassword1" class="input-field-textfield5 width33 hideornot"></input>
                             <input type="password" placeholder="Enter Confirm Password" id="inputreenter" class="input-field-textfield5 width33 showornot"></input>
                             <input type="text" placeholder="Enter Confirm Password" id="inputreenter1" class="input-field-textfield5 width33 hideornot"></input>
-                            <div class="inlineblock">
+                            <div class="inlineblock margin-top-10">
                                 <input type="checkbox" name="showpassword" value="" id="showpassword"><p class="posi"> Show Password</p></input>
                             </div>
                        </div>
                     </div>
                 </div>                    
                 <div class="" id="savePassword">
-                    <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="changePassword()">Save Password</div>
+                    <div class="edit-button-detail md-button button-text-1 fleft savebutton savebuttonsettingspage" ng-click="changePassword()">Save Password</div>
                 </div>
             </div>
             

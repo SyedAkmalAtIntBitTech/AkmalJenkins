@@ -42,9 +42,9 @@ public class ForgotSendEmail extends BrndBotBaseHttpServlet {
     ResultSet result_set = null;
     StringBuffer string_buffer;
 
-//    public final static String MANDRILL_KEY = "RP6AOa3QZA8qMJYC1lBXRg";//Prod key
+ //   public final static String MANDRILL_KEY = "WWrKm3opZGJqATjad-YoTg";//Prod key
 //    public final static String MANDRILL_KEY = "UTyvdEzohDOZf3F95ZK6zg";//Test key
-    public final static String MANDRILL_KEY = "o-QeQQHbtCk4i6rCphfCcg";//Test key
+   public final static String MANDRILL_KEY = "o-QeQQHbtCk4i6rCphfCcg";//Test key
     SendMail send_email = new SendMail();
 
     /**
@@ -83,7 +83,7 @@ public class ForgotSendEmail extends BrndBotBaseHttpServlet {
             String email_id = (String) joUser.get("emailid");
 
             check = getSqlMethodsInstance().checkEmailAvailability(email_id);
-            Integer user_id = getSqlMethodsInstance().getUserID(email_id);
+            Integer user_id = 1;//getSqlMethodsInstance().getUserID(email_id);
             Date expdate = new Date();
             java.sql.Date sdat = new java.sql.Date(expdate.getYear(), expdate.getMonth(), expdate.getDate());
             java.sql.Time tdat = new java.sql.Time(expdate.getHours(), expdate.getMinutes(), expdate.getSeconds());

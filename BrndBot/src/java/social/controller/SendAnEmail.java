@@ -7,9 +7,8 @@ package social.controller;
 
 import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.controller.IConstants;
-import com.controller.ForgotSendEmail;
 import com.controller.SqlMethods;
-import com.intbit.dao.EmailHistoryDAO;
+import com.intbittech.dao.impl.EmailHistoryDAO;
 import com.intbit.marketing.model.TblUserPreferences;
 import com.intbit.marketing.service.UserPreferencesService;
 import email.mandrill.Message;
@@ -36,6 +35,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Ajit
  */
 public class SendAnEmail {
+    public final static String MANDRILL_KEY = "o-QeQQHbtCk4i6rCphfCcg";//Test key
+
     SqlMethods sqlMethods = new SqlMethods();
     
     public static String sendEmail(String html_text, String email_subject, String to_email_addresses, String emaillist_name, Integer user_id, String reply_to_address, String from_email_address, String from_name, String to_name) {
@@ -43,7 +44,7 @@ public class SendAnEmail {
         try {
             SendMail send_email = new SendMail();
             Message message = new Message();
-            message.setKey(ForgotSendEmail.MANDRILL_KEY);
+            message.setKey(MANDRILL_KEY);
             message.setHtml(html_text);
             message.setSubject(email_subject);
             message.setFrom_email(from_email_address);
@@ -98,7 +99,7 @@ public class SendAnEmail {
 
     public JSONArray getAllEmailAddressesForEmailList(Integer userId, Integer days, String emailListName) throws Throwable {
         
-        JSONObject userPreferences = (JSONObject)sqlMethods.getJSONUserPreferences(userId);
+        JSONObject userPreferences = null; //(JSONObject)sqlMethods.getJSONUserPreferences(userId);
         JSONArray userPreferencesJson = (JSONArray)userPreferences.get(IConstants.kEmailAddressUserPreferenceKey);
         org.json.simple.JSONArray jSONArray = null;
         JSONObject jsonObject = new JSONObject();

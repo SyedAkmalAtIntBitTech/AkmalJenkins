@@ -24,7 +24,7 @@
 <!--        <script src="js/jquery.js" type="text/javascript"></script>-->
 <!--        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>-->
 <!--        <script src="js/jquery.min.js" type="text/javascript"></script>-->
-        <title>Email Settings</title>
+        <title>BrndBot - Email Settings</title>
 
         <style type='text/css'>
             div.selectBox

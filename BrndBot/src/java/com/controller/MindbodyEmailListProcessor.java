@@ -54,7 +54,7 @@ public class MindbodyEmailListProcessor implements Runnable {
 
     @Override
     public void run() {
-        while (running) {
+        if (running) {
             try {
                 logger.log(Level.INFO, "Scheduler at " + new Date());
                 logger.log(Level.INFO, "Started the automation");

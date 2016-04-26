@@ -36,7 +36,7 @@
     <mapping resource="com/intbit/marketing/model/TblSocialposthistory.hbm.xml"/>
     <mapping resource="com/intbit/marketing/model/TblForgotPassword.hbm.xml"/>
     <mapping resource="com/intbit/marketing/model/TblFontStyle.hbm.xml"/>
-    <mapping resource="com/intbit/marketing/model/TblRecuringEmailTemplate.hbm.xml"/>
+    <mapping resource="com/intbit/marketing/model/TblRecurringEmailTemplate.hbm.xml"/>
     <mapping resource="com/intbit/marketing/model/TblBrandFontFamily.hbm.xml"/>
     <mapping resource="com/intbit/marketing/model/TblUserLoginDetails.hbm.xml"/>
     <mapping resource="com/intbit/marketing/model/TblScheduledEmailRecipients.hbm.xml"/>

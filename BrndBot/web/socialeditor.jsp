@@ -1215,29 +1215,26 @@ var mindbodydataId = $("#mindbodydata").val();
         var isFacebook=$("#isFacebook").val();
         var selectedType=$("#selectedType").val();
         var mediaType=$("#mediaType").val();
-        var data=$("#data").val();
-        
-//            alert($(".preview").children());
-            $.ajax({
-               type: "POST",
-               url: "ConvertHtmlToImageServlet",                                   
-               data:{
-                   htmlString:$(".preview").html(),
-                   containerWidth: PreviewWidth,
-                   containerHeight: PreviewhHeight,
-                   mediatype:"continue"
-               },
-               success: function (responseText) {
-                       $('#loadingGif').remove();
-                       var image=responseText;
-//                       alert(image);
-                       document.location.href = "socialimageselection.jsp?image="+image+"&isTwitter="+isTwitter+"&isFacebook="+isFacebook+"&mediaType="+mediaType+"&selectedType="+selectedType+"&data="+data+'&gallery=layout';
-                                    $('#mask').hide();
-                                    $('.window').hide();
-               }
-
-               });
-
+        var data=$("#data").val();        
+//      alert($(".preview").children());
+        $.ajax({
+           type: "POST",
+           url: "ConvertHtmlToImageServlet",                                   
+           data:{
+               htmlString:$(".preview").html(),
+               containerWidth: PreviewWidth,
+               containerHeight: PreviewhHeight,
+               mediatype:"continue"
+           },
+           success: function (responseText) {
+                $('#loadingGif').remove();
+                var image=responseText;
+//              alert(image);
+                document.location.href = "socialimageselection.jsp?image="+image+"&isTwitter="+isTwitter+"&isFacebook="+isFacebook+"&mediaType="+mediaType+"&selectedType="+selectedType+"&data="+data+'&gallery=layout';
+                $('#mask').hide();
+                $('.window').hide();
+           }
+        });
               // document.location.href = "selectpromotesocialmedia.jsp";
    });
    $("#downloadpdf").click(function (){

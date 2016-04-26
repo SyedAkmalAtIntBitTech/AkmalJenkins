@@ -353,12 +353,12 @@
             }
  function emailHistory($scope, $http) {
                 $scope.displayemailhistory = function (){
-                $http({
+                    $http({
                         method : 'GET',
                         url : 'GetEmailTagsServlet'
-                }).success(function(data, status, headers, config) {
+                    }).success(function(data, status, headers, config) { 
                     if (data == ""){
-                        $scope.email_history = noemailhistory;
+                        $scope.email_history = data;
                         $("#nohistorydiv").empty().text(noemailhistory);
                         $(".nohiswid").css("width","250px");
                         $("#historydiv").hide();
@@ -375,6 +375,26 @@
                 }
             }
             function EmailListController($scope, $http) {
+                $("#addemlstbtn").show();
+                
+                $scope.getEmailSettings = function(){                
+                var email_settings = {"type": "get"};                
+                $http({
+                        method : 'POST',
+                        url : 'EmailSettingsServlet',
+                        headers: {'Content-Type': 'application/json'},
+                        data: email_settings
+                    }).success(function (data, status, headers, config) {
+                        $scope.email_settings = data;
+                        if (data === error) {
+                            alert(data);
+                        }
+                    }).error(function (data, status, headers, config) {
+                        alert("No data available, problem fetching the data");
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                    });
+                };
                 
                 $scope.setEmailSettings = function () {
                     var from_address = $("#from_address").val();
@@ -388,6 +408,7 @@
                             data: email_settings
                         }).success(function (data)
                         {
+                            
                             $scope.status = data;
                             if (data === "false") {
                                 alert(sessionexpire);

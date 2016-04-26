@@ -16,17 +16,19 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
     <link rel="shortcut icon" href="favicon.png"/>
     <script src="js/popup.js"></script>
-    <title>facebook preview</title>
+    <title>BrndBot - Facebook Preview</title>
 </head>    
 <%!
     SqlMethods sql_methods = new SqlMethods();
     int number;
     Integer user_id = 0;
-%>
+    String logoImageName = null;
+%>  
 <%
     try {
         sql_methods.session = request.getSession();
         user_id = (Integer) sql_methods.session.getAttribute("UID");
+        logoImageName = (String) sql_methods.session.getAttribute("ImageFileName");
     } catch (Exception e) {
         System.out.println(e.getCause());
         System.out.println(e.getMessage());
@@ -209,7 +211,7 @@
 
                             <div class="Facebook-preview">
                                 <div class="Facebook-preview-header">
-                                    <div class="Facebook-preview-profpic"><img id="fb_preview_profpic" src="http://www.woomee.net/img/profile-blank.png"/></div>
+                                    <div class="Facebook-preview-profpic"><img id="fb_preview_profpic" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>"/></div>
                                     <div class="Facebook-preview-name-container">
                                         <div class="Facebook-preview-name">{{schedule_title}}</div>
                                     </div>

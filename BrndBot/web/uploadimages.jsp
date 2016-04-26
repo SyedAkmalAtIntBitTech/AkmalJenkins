@@ -25,7 +25,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css/main1.css">
         
-        <title>upload logo</title>
+        <title>BrndBot - Upload Logo</title>
         <style>
             .fileUpload {
                 position: relative;

@@ -34,7 +34,7 @@ public class ApplicationContextListener implements ServletContextListener {
     public static void refreshAllSchedulers() {
         logger.log(Level.INFO, "Refresh All Schedulers");
         refreshTwitterScheduler();
-        refreshEmailRecuringScheduler();
+        refreshEmailRecurringScheduler();
         refreshEmailScheduler();
         refreshFacebookScheduler();
     }
@@ -54,7 +54,7 @@ public class ApplicationContextListener implements ServletContextListener {
 //        getApplicationContextListener().getSocialPostScheduler().startEmailScheduler();
     }
 
-    public static void refreshEmailRecuringScheduler() {
+    public static void refreshEmailRecurringScheduler() {
         logger.log(Level.INFO, "Refresh Recurring EMAIL Scheduler");
 //        getApplicationContextListener().getSocialPostScheduler().startRecurringEmailScheduler();
     }
@@ -81,17 +81,20 @@ public class ApplicationContextListener implements ServletContextListener {
         logger.log(Level.INFO, "Started Schedulers");
 
         socialPostScheduler = new SocialPostScheduler();
-        socialPostScheduler.startTwitterScheduler();
-        socialPostScheduler.startFacebookScheduler();
-        socialPostScheduler.startEmailScheduler();
-        socialPostScheduler.startRecurringEmailScheduler();
+//        socialPostScheduler.startTwitterScheduler();
+//        socialPostScheduler.startFacebookScheduler();
+//        socialPostScheduler.startEmailScheduler();
+//        socialPostScheduler.startRecurringEmailScheduler();
+        
+        //Checks if default user program exists else adds general program which is used for your plan
+//        UserProgramUtility.generalProgramChecker();
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         logger.log(Level.INFO, "Application Un Deployed");
 //        mindbodyEmailListScheduler.stopScheduler();
-        socialPostScheduler.stopScheduler();
+//        socialPostScheduler.stopScheduler();
         applicationContextListener = null;
         servletContextEvent = null;
     }

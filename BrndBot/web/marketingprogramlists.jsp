@@ -15,16 +15,16 @@
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
-    <title>Marketing Programs lists</title>
+    <title>BrndBot - Marketing Programs lists</title>
     <script src="js/configurations.js"></script>
-    <script src="js/alert_message.js"></script>
+    <script src="js/alertmessage.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/popup.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/marketinglist.js"></script>
     <jsp:include page="basejsp.jsp"/>
     <style>
-        #pastprogs{display: none;}
+        #pastprogs,#delmarkprog{display: none;}
     </style>
     
 </head>    
@@ -80,7 +80,7 @@
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft" id="program_end_date{{program.id}}">{{program.end_date | date: "MMM dd yyyy"}}</div>
-                                    <div class="action-list-slat-description col-1of1 sh3-contact">End Date</div>
+                                    <div class="action-list-slat-description padtop25 col-1of1 sh3-contact">End Date</div>
                                     <input type="hidden" value="{{program.end_date| date: "MMM dd yyyy"}}" ></input>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
@@ -112,9 +112,9 @@
                                     <div class="list-column-description col-1of1 sh3-contact fleft">End Date</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
-                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft" ng-hide="program.noofpostleft=='0'">{{program.noofpostleft}}</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft"ng-show="program.noofpostleft=='0'">Actions Left</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft" ng-show="program.noofpostleft!='0'">No Actions Left</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" ng-hide="program.noofpostleft=='0'">{{program.noofpostleft}}</div>
+                                    <div class="list-column-description col-1of1 sh3-contact fleft"ng-show="program.noofpostleft!='0'">Actions Left</div>
+                                    <div class="list-column-description col-1of1 sh3-contact fleft" ng-show="program.noofpostleft=='0'">No Actions Left</div>
 <!--                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{program.noofpostleft}}</div>
                                     <div class="list-column-description col-1of1 sh3-contact fleft">Actions Left</div>-->
                                 </div>

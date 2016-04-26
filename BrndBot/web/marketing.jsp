@@ -17,8 +17,8 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
     <link rel="stylesheet" type="text/css" href="css/popup.css"/>    
     <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>    
-	<script src="js/moment.js" type="text/javascript"></script>
-    <script src="js/alert_message.js" type="text/javascript"></script>
+    <script src="js/moment.js" type="text/javascript"></script>
+    <script src="js/alertmessage.js" type="text/javascript"></script>
     <script src="js/pikaday.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
@@ -124,7 +124,7 @@
                                 </div>
                                 
                                 <div  class="slat-title-container col-1of2 fleft">                                    
-                                    <!--<div class="slat-title email-list-slat-title col-1of1 sh1" ng-hide="entitydetails.is_recuring">{{entitydetails.schedule_title}}</div>-->
+                                    <!--<div class="slat-title email-list-slat-title col-1of1 sh1" ng-hide="entitydetails.is_recurring">{{entitydetails.schedule_title}}</div>-->
                                     <div class="slat-title email-list-slat-title col-1of1 sh1" >{{entitydetails.schedule_title}}</div>
                                     <div class="action-list-slat-description col-1of1 sh3" ng-show="entitydetails.user_marketing_program_id > 0">{{entitydetails.marketingName}}</div>
                                     <div class="action-list-slat-description col-1of1 sh3" ng-show="entitydetails.user_marketing_program_id == 0">No Program</div>

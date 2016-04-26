@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="css/popup.css">
     <link rel="shortcut icon" href="favicon.png">
     <script src="js/popup.js" type="text/javascript"></script>
+    <script src="js/pikaday.js"></script>
     
 </head>    
     <body>

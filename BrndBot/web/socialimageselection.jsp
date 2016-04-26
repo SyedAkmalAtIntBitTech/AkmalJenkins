@@ -16,16 +16,18 @@
     <link rel="stylesheet" type="text/css" href="css/slat.css"/>
     <link rel="stylesheet" type="text/css" href="css/popup.css"/>
     <link rel="shortcut icon" href="favicon.png"/>
-    <script src="js/alert_message.js" type="text/javascript"></script>
+    <script src="js/alertmessage.js" type="text/javascript"></script>
     <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/popup.js" type="text/javascript"></script>
+    <script src="js/reuseablefunctions.js"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
     <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
     <script src="js/imageeditor.js" type="text/javascript"></script>
     <script src="js/socialimageselection.js" type="text/javascript"></script>
     <link rel="shortcut icon" href="images/favicon.png"/>            
-    <title>socialimageselection</title>
+    <style>#link{opacity: 0;}#charlimit,#charlimits,#charlimitswithlink{display:none;}</style>
+    <title>BrndBot - Social Image Selection</title>
 </head>
 <%@page import="com.controller.SqlMethods"%>
 <%@include file="checksession.jsp" %>
@@ -167,7 +169,7 @@
                             </div>
                         </div>
                         <div class="">
-                            <textarea type="text" id="posttext" class="width100 noborder" placeholder="Demo content goes right here"></textarea>
+                            <textarea type="text" id="posttext" class="width100 noborder" placeholder="Facebook Demo content goes right here"></textarea>
                         </div>
                         <div class="Facebook-link-container">
 
@@ -191,12 +193,14 @@
                                     <img class="imgsize" id="facebookpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>"/>
                                     <%}%>
                                 </div> 
+<!--                                <div id="facebookimg" class="feditImage">Edit Image</div>
+                                <div class="fchangeImage1" onclick="fun('facebook','null');">Change Image</div>-->
                                 <%}%>
                             <div class="Facebook-preview-link-container">
                                 <div class="Facebook-preview-link-title">
-                                <textarea type="text" id="link_title" class="width100 noborder noresize" placeholder="Input in Admin-- This Weekend Workshop"></textarea></div>
+                                <textarea type="text" id="link_title" class="width100 noborder noresize" placeholder="Enter Link Title"></textarea></div>
                                 <div class="Facebook-preview-link-description">
-                                <textarea type="text" id="link_description" class="width100 noborder noresize" placeholder="This workshop is going to be so awesoem for the new season and get you in really good shape!"></textarea></div>
+                                <textarea type="text" id="link_description" class="full98 noborder noresize" placeholder="Enter the Link Description"></textarea></div>
                                 <div class="Facebook-preview-link-url">
                                 <input type="text" readonly id="Linkurl" class="full99 noborder" placeholder="This should equal the marketing program link"></input></div>
                             </div>
@@ -233,8 +237,9 @@
                             <div class="col-1of1 Twitter-preview-name-container fleft">
                                 <div class="Twitter-preview-name fleft"><span><%=companyName%></span></div>
                                 <div class="Twitter-handle fleft">@<%=companyName%></div>
-                                <textarea id="twittertext" maxlength="140" style="resize: none;  margin-bottom: 5px;" class="noborder" placeholder="Demo content goes right here for twitter"></textarea>
-                                <div id="charlimit" class="fright"><span id="chars">140</span> characters remaining</div>
+                                <textarea id="twittertext" maxlength="140" style="resize: none;  margin-bottom: 5px;" class="noborder" placeholder="Twitter Demo content goes right here"></textarea>
+                                 <div id="charlimits" class="fright font12">Sorry! Twitter Accepts only 140 Characters to Tweet.</div>
+                                 <div id="charlimitswithlink" class="fright font12">Sorry! Twitter Accepts only 117 Characters with Link to Tweet.</div>
                             </div>
 
                                 <%if 
@@ -249,12 +254,12 @@
                                 <div class="Twitter-preview-image1 fleft">
                                     <% if(gallery.equalsIgnoreCase("gallery")) {%>
                                     <div class="changeImage1" onclick="fun('twitter','<%=mindbodydata%>');"> Change Image </div>
-                                    <div id="twitterimg" class="feditImage" > Edit Image </div>
+                                    <div id="twitterimg" class="feditImage editbtnalgnment" > Edit Image </div>
                                     <img class="imgsize img-responsive" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>&user_id=<%=user_id%>">
                                     </img>
                                     <%} else{%>
                                     <div class="changeImage1" onclick="fun('twitter','<%=mindbodydata%>');"> Change Image </div>
-                                    <div id="twitterimg" class="teditImage"> Edit Image </div>
+                                    <div id="twitterimg" class="feditImage"> Edit Image </div>
                                     <img class="imgsize .img-responsive" id="twitterpreviewimage" value="/BrndBot/DownloadImage?image_type=GALLERY&amp;image_name=<%=imageid%>" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&amp;image_name=<%=imageid%>">
                                     </img>
                                     <%}%>

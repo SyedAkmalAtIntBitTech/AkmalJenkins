@@ -13,24 +13,26 @@
       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
     <context:annotation-config />
-    <context:component-scan base-package="com.intbit.marketing" />
+    <context:component-scan base-package="com.intbittech" />
     <mvc:annotation-driven />
-
+    
+    <import resource = "spring-security.xml" /> 
+    
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
           p:location="/WEB-INF/jdbc.properties" />
-    <mvc:interceptors>
+<!--    <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**" />
             <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
                 <property name="paramName" value="lang" />
             </bean>
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors>-->
     <tx:annotation-driven transaction-manager="transactionManager" />
     <bean id="transactionManager"
-              class="org.springframework.orm.hibernate4.HibernateTransactionManager"
-              p:sessionFactory-ref="sessionFactory" />
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+          p:sessionFactory-ref="sessionFactory" />
    
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="hibernateProperties">
@@ -58,6 +60,14 @@
            
             </props>
         </property>
-        <property name="packagesToScan" value="com.intbit.marketing"/>
+        <property name="packagesToScan" value="com.intbittech"/>
     </bean>
+    
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource" 
+          p:basename="classpath:/com/intbittech/resources/messages">
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+    
+    
 </beans>
