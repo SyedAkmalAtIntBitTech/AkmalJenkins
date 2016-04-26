@@ -33,7 +33,9 @@
          function pastprograms(){
              document.getElementById("currprogs").style.display = "none";
              document.getElementById("pastprogs").style.display = "block";
+             document.getElementById("pstmarprogli").classList.remove("top-subnav-links");
              document.getElementById("pstmarprogli").classList.add("top-subnav-link-active");
+             document.getElementById("pstmarprog").classList.remove("h3");
              document.getElementById("pstmarprog").classList.add("h3-active-subnav");
              document.getElementById("curmarprogli").classList.remove("top-subnav-link-active");
              document.getElementById("curmarprog").classList.remove("h3-active-subnav");
@@ -43,8 +45,10 @@
         function currprograms(){
              document.getElementById("pastprogs").style.display = "none";
              document.getElementById("currprogs").style.display = "block";
+             document.getElementById("curmarprogli").classList.remove("top-subnav-links");
              document.getElementById("curmarprogli").classList.add("top-subnav-link-active");
              document.getElementById("curmarprog").classList.add("h3-active-subnav");
+             document.getElementById("curmarprog").classList.remove("h3");
              document.getElementById("pstmarprogli").classList.remove("top-subnav-link-active");
              document.getElementById("pstmarprog").classList.remove("h3-active-subnav");
              document.getElementById("pstmarprogli").classList.add("top-subnav-links");     

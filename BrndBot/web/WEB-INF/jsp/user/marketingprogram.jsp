@@ -30,7 +30,7 @@
             </div>
             <div class="topNav--TitleBar--withBackButton fleft">
                 <span class="topNav--TitleBar--Title fleft h2">Select a category marketing program:</span>
-                <div class="topNav--TitleBar--CTABox fright">
+                <div class=" fright">
                    <div class="page-cta-container">
                        <a id="cont" class=" fleft" href="usermarketingprogram">
                         <div class=" add-button md-button">Continue</div>    
