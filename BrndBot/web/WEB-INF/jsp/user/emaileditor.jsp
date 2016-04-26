@@ -71,7 +71,9 @@
         String email_subject = "";
         String user_id="";
     %>
-    <% email_subject = request.getParameter("subject"); %>
+    <% 
+         String subCategoryId= request.getParameter("subCategoryId");
+        email_subject = request.getParameter("subject"); %>
     <%
 //        try {
 //            sql_methods.session = request.getSession(true);          
@@ -181,12 +183,14 @@
             var current = $("#" + addblockid);
                     current.next().after(current);
             });
-            
+            var subCategoryId=$("#subCategoryIdTag").val();
             $.ajax({
-                type: 'POST',
-                url: "GetLayoutStyles?editorType=email",
+                type: 'GET',
+//                url: "GetLayoutStyles?editorType=email",
+                  url: getHost()+"/getAllEmailModelsBySubCategoryId.do?subCategoryId="+subCategoryId,
                 dataType: 'json',
                 success: function (data) {
+//                    alert(JSON.stringify(data.d.details));
                 var jsondataDefault = data;
                     var allLayoutFilename = [];
                     $(jsondataDefault).each(function (i, val) {
@@ -201,6 +205,8 @@
                 angular.element(document.getElementById('MyController')).scope().getEmailDrafts();
 //                $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
 //                $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
+                },error: function (data){
+                    alert(JSON.stringify(data));
                 }
             });
             });
@@ -256,7 +262,7 @@
                     };
                     
                     $scope.showStyles = function(){
-                            //alert("..");
+                            var subCategoryId=$("#subCategoryIdTag").val();
                             var queryurl;
                             $scope.curPage = 0;
                             $scope.pageSize = 2;
@@ -266,14 +272,15 @@
                             }
                             else
                             {
-                            queryurl = 'GetLayoutStyles?editorType=email';
+                            queryurl = getHost() +'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId;
                             }
 //                            alert(queryurl);
                             $http({
                             method : 'GET',
-                                    url : queryurl
+                                    url :  queryurl
                             }).success(function(data, status, headers, config) {
-                            $scope.datalistsstyles = data;
+//                            alert(JSON.stringify(data.d.details));
+                            $scope.datalistsstyles = data.d.details;
                             $scope.numberOfPages = function() {
                                 return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
                             };
@@ -331,9 +338,9 @@
                         $scope.pageSize = 2;
                         $http({
                         method : 'GET',
-                                url : 'GetBlocks'
+                                url :getHost()+'getAllBlocksForCompany.do'
                         }).success(function(data, status, headers, config) {
-                        $scope.datalists = data;
+                        $scope.datalists = data.d.details;
                             //alert(JSON.stringtify(data));
 //                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
 //                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton_blue_new.svg";
@@ -364,10 +371,11 @@
                         $scope.pageSize = 2;
                         $http({
                         method : 'GET',
-                                url : 'GetBlocks'
+                                url : getHost()+'getAllBlocksForCompany.do'
                         }).success(function(data, status, headers, config) {
-                        $scope.datalists = data;
-                            alert(JSON.stringtify(data));
+//                            alert(JSON.stringify(data.d.details));
+                            $scope.datalists = data.d.details;
+//                            alert(JSON.stringtify(data));
 //                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
 //                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton_blue_new.svg";
 //                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
@@ -632,7 +640,8 @@
         <div id="dialog" class="window" >
         </div>
         <div id="mask"></div>
-    </div>
+    </div> 
+    <input type="hidden" id='subCategoryIdTag' value="<%=subCategoryId%>"/>
     <input type="hidden" id='userid' value="<%= user_id%>"/>
     <input type="hidden" id='draftid' value="<%= draft_id%>"/>
     <input type="hidden" value="<%=email_subject%>" id="email_subject"/>
@@ -904,16 +913,16 @@
                             <div class="block-name">Header Block</div>
                             <div class="block-button" ng-click="showDataTemp()">Add Block</div>                            
                         </li>-->
-                        <li class="block-slat" ng-repeat="blocks in datalists" id="{{blocks.block_id}}" ng-click="showImageOfBlock(blocks.block_id, blocks.mindbody_query)">
-                            <div class="block-name" id="blklist----{{blocks.block_id}}" >{{blocks.block_name}}</div>                            
-                            <div class="block-button hide" ng-click="showDataTemp()" id="div2{{blocks.block_id}}">Add Block</div>
+                        <li class="block-slat" ng-repeat="blocks in datalists" id="{{blocks.emailBlockId}}" ng-click="showImageOfBlock(blocks.emailBlockId, blocks.mindbody_query)">
+                            <div class="block-name" id="blklist----{{blocks.emailBlockId}}" >{{blocks.emailBlockName}}</div>                            
+                            <div class="block-button hide" ng-click="showDataTemp()" id="div2{{blocks.emailBlockId}}">Add Block</div>
                         </li>
                     </ul>
                     
                     <ul class="block-list" id="stylediv">
-                        <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.id}}" ng-click="addActive('stylelistid'+styles.id)">
+                        <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.emailModelId}}" ng-click="addActive('stylelistid'+styles.emailModelId)">
                             <div class="block-name">
-                                <img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="{{styles.image_url}}" onclick="showText('{{styles.id}}')" width="100%" />
+                                <img id="{{styles.emailModelId}}" class="img-responsive lookchooser5 ptr" src="{{styles.imgFileName}}" onclick="showText('{{styles.emailModelId}}')" width="100%" />
                             </div>
                         </li>
                     </ul>
@@ -928,7 +937,7 @@
         <div class="pop-up-background">
             <div class="pop-up-container-emailPreview"> 
                 <a class=" exit-button-detail-ep link svg" href="" id="closePrev">
-                    <img type="image/svg+xml" src="images/Icons/close.svg" class="closeemailpreview" style="cursor:pointer;"> </img>
+                    <img type="image/svg+xml" src="images/close.svg" class="closeemailpreview" style="cursor:pointer;"> </img>
                 </a>
                 <div class="pop-up-title-emailpreview "> 
                     <div class="emailPreview-header fleft">Email Preview</div>
