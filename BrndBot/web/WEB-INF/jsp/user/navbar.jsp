@@ -23,9 +23,11 @@
         <a href="settings"><div class="nav-tabs">
                  <img type="image/svg+xml" src="images/user.svg" class="nav-elements-icon" style="cursor:pointer;">
             </div></a>
+     <a href="${pageContext.request.contextPath}/logout">
         <div class="nav-elements-icon-container-bottom">
              <img type="image/svg+xml" src="images/logout.svg" class="nav-elements-icon" style="cursor:pointer;">
             
         </div>
+        </a>
     </div>
     
