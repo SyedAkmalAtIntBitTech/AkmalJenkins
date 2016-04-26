@@ -51,8 +51,8 @@ public class EmailController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer userId = userProfile.getUser().getUserId();
-            sendEmailService.sendMail(requestBodyMap, userId);
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            sendEmailService.sendMail(requestBodyMap, companyId);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
@@ -68,8 +68,8 @@ public class EmailController {
         GenericResponse<String> transactionResponse = new GenericResponse();
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer userId = userProfile.getUser().getUserId();
-            String data = sendEmailService.getTags(userId);
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            String data = sendEmailService.getTags(companyId);
             transactionResponse.addDetail(data);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 

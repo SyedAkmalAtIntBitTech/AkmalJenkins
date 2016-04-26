@@ -50,10 +50,10 @@ public class EmailListController {
         
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer userId = userProfile.getUser().getUserId();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-            String data = emailListService.getEmailList(requestBodyMap, userId);
+            String data = emailListService.getEmailList(requestBodyMap, companyId);
             transactionResponse.addDetail(data);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("success", new String[]{}, Locale.US)));
             
@@ -70,10 +70,10 @@ public class EmailListController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer userId = userProfile.getUser().getUserId();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-            Boolean result = emailListService.setEmailList(requestBodyMap, userId);
+            Boolean result = emailListService.setEmailList(requestBodyMap, companyId);
             if (result) {
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("success", new String[]{}, Locale.US)));
             } else {
