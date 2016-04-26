@@ -15,7 +15,7 @@
         <jsp:include page="header.jsp"/>
       <div class="content-area" ng-app ng-controller="allCompaniesController">
         <div class="content-area_header">
-            <div class="header_path fleft">All Companies</div>
+            <div class="header_path fleft">All Companies </div>
         </div>
         <div class="slatSection">
             <div class="slatHeaders">
@@ -35,7 +35,7 @@
                         <span class="listCol_Text fleft">{{companies.organizationName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href="${pageContext.request.contextPath}/admin/companydetails" ng-click="setAllCompanyDetails(companies.companyId,companies.companyName,companies.organizationName)"><div class="CTA_Button Button--Gray fright">Manage Company</div></a>
+                        <a href="${pageContext.request.contextPath}/admin/companydetails?companyId={{companies.companyId}}&companyName={{companies.companyName}}&organizationName={{companies.organizationName}}"><div class="CTA_Button Button--Gray fright">Manage Company</div></a>
                     </div>
                 </li>
             </ul>

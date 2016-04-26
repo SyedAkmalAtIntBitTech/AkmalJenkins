@@ -32,6 +32,7 @@
         <script src="js/imageToBase64Converter.js" type="text/javascript"></script>
         <script src="js/marketingprogramdetails.js" type="text/javascript"></script>
         <script src="js/allcompanies.js" type="text/javascript"></script>
+        <!--<script src="js/freshurl.js" type="text/javascript"></script>-->
    </head>
    <body>
        <div class="nav ">

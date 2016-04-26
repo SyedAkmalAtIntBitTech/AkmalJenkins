@@ -67,11 +67,11 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
     
     $scope.getMarketingProgramActionsById = function (){
         var marketingProgramId=$("#marketingProgramIdTag").val();
-        if(window.location.href.indexOf("marketingprogramdetails.jsp?marketingProgramId") > -1) {
+        if(window.location.href.indexOf("marketingprogramdetails?marketingProgramId") > -1) {
             $("#updateMarketingProgramSaveButton").show();
             $("#addMarketingProgramSaveButton").hide();
          }
-         if(window.location.href.indexOf("marketingprogramdetails.jsp?add=yes") > -1) {
+         if(window.location.href.indexOf("marketingprogramdetails?add=yes") > -1) {
             $("#addMarketingProgramSaveButton").show();
             $("#updateMarketingProgramSaveButton").hide();
          }
@@ -148,7 +148,7 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
                         }).success(function (data, status, headers, config)
                         {  
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));                       
-                            window.open(getHost() + 'v2/admin/marketingprogram.jsp', "_self");
+                            window.open(getHost() + 'admin/marketingprogram', "_self");
                         }).error(function(data, status, headers, config){
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });                         
@@ -183,7 +183,7 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
                         }).success(function (data, status, headers, config)
                         {  
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));                       
-                            window.open(getHost() + 'v2/admin/marketingprogramdetails.jsp?marketingProgramId='+marketingProgramId, "_self");
+                            window.open(getHost() + 'admin/marketingprogramdetails?marketingProgramId='+marketingProgramId, "_self");
                         }).error(function(data, status, headers, config){
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });                         
