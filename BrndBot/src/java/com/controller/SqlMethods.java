@@ -190,24 +190,6 @@ public class SqlMethods {
         }
     }
 
-    public void deleteImages(Integer image_id) throws SQLException {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Delete From tbl_user_images"
-                    + " WHERE id='" + image_id + "'";
-
-            prepared_statement = connection.prepareStatement(query_string);
-            prepared_statement.executeUpdate();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-        } finally {
-            close(result_set, prepared_statement);
-        }
-    }
-
     public Integer getOrganizationID(Integer userId) throws ClassNotFoundException, SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;

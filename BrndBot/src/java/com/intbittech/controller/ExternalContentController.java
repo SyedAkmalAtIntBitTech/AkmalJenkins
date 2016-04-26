@@ -6,7 +6,6 @@
 package com.intbittech.controller;
 
 import com.google.gson.Gson;
-import com.intbit.AppConstants;
 import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.externalcontent.ExternalContentSession;
 import com.intbittech.externalcontent.ExternalSourceProcessedData;
@@ -18,12 +17,8 @@ import com.intbittech.services.ExternalSourceKeywordLookupService;
 import com.intbittech.services.ExternalSourceService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.UserSessionUtil;
-import java.io.BufferedReader;
 import java.sql.SQLException;
 import java.util.Locale;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

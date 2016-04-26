@@ -125,14 +125,7 @@
         <servlet-name>CropImage</servlet-name>
         <servlet-class>com.intbit.CropImage</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>DeleteGalleryImages</servlet-name>
-        <servlet-class>com.controller.DeleteGalleryImages</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetImageGallery</servlet-name>
-        <servlet-class>com.controller.GetImageGallery</servlet-class>
-    </servlet>
+   
     <servlet>
         <servlet-name>UploadImages</servlet-name>
         <servlet-class>com.controller.UploadImages</servlet-class>
@@ -422,14 +415,6 @@
     <servlet-mapping>
         <servlet-name>CropImage</servlet-name>
         <url-pattern>/CropImage</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteGalleryImages</servlet-name>
-        <url-pattern>/DeleteGalleryImages</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetImageGallery</servlet-name>
-        <url-pattern>/GetImageGallery</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UploadImages</servlet-name>
