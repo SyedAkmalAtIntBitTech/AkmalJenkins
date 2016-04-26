@@ -7,8 +7,8 @@ package com.intbittech.services.impl;
 
 import com.intbit.AppConstants;
 import com.intbit.ScheduledEntityType;
-import com.intbit.dao.ScheduleDAO;
-import com.intbit.dao.ScheduleSocialPostDAO;
+import com.intbittech.dao.impl.ScheduleDAO;
+import com.intbittech.dao.impl.ScheduleSocialPostDAO;
 import com.intbittech.services.ActionsService;
 import java.util.Map;
 import org.json.simple.JSONArray;

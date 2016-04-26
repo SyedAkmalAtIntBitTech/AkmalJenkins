@@ -7,7 +7,7 @@ package com.intbittech.services.impl;
 
 import com.google.gson.Gson;
 import com.intbit.AppConstants;
-import com.intbit.dao.EmailHistoryDAO;
+import com.intbittech.dao.impl.EmailHistoryDAO;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.services.SendEmailService;
 import email.mandrill.MandrillApiHandler;
