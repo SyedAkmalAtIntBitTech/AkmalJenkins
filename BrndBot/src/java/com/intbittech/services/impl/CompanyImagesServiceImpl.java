@@ -8,11 +8,13 @@ package com.intbittech.services.impl;
 import com.intbittech.AppConstants;
 import com.intbittech.dao.CompanyImagesDao;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.Company;
 import com.intbittech.model.CompanyImages;
 import com.intbittech.services.CompanyImagesService;
 import java.io.File;
 import java.util.List;
 import java.util.Locale;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -54,6 +56,21 @@ public class CompanyImagesServiceImpl implements CompanyImagesService {
         File deleteFile = new File(deletePath);
         deleteFile.delete();
         companyImagesDao.delete(companyImages);
+    }
+
+    @Override
+    public void save(HttpServletRequest request) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getPath(Integer companyId) {
+        return AppConstants.BASE_IMAGE_COMPANY + File.separator + companyId;
+    }
+
+    @Override
+    public String getLink(String fileName, Company company, String imageURL) {
+        return ""+imageURL+"DownloadImage?image_type=GALLERY&company_id=" + company.getCompanyId() + "&image_name=" + fileName;
     }
 
 }

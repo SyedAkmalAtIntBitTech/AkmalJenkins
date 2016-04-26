@@ -13,6 +13,7 @@ import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.modelmappers.CompanyDetails;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <code>{@link CompanyService}</code> is service layer interface for communicating
@@ -47,5 +48,11 @@ public interface CompanyImagesService {
      * @throws ProcessFailed the process failed
      */
     public void delete(Integer companyImagesId) throws ProcessFailed;
+
+    public void save(HttpServletRequest request);
+
+    public String getPath(Integer companyId);
+
+    public String getLink(String fileName, Company company, String imageURL);
   
 }
