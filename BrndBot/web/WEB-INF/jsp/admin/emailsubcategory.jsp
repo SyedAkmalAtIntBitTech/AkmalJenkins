@@ -10,20 +10,14 @@
      <link rel="shortcut icon" href="images/favicon.png"/>       
     <title>Sub Category</title>  
 </head>    
-<%
-String organizationID=request.getParameter("organizationId");
-String categoryID=request.getParameter("categoryId");
-%>
 <body class="body-normal" ng-app  ng-controller="organizationcontroller" >
-    <input id="categoryIdTag" type="text" hidden value="<%=categoryID%>"/>
-    <input id="organizationIdTag" type="text" hidden value="<%=organizationID%>"/>
     <jsp:include page="header.jsp"/>
     <jsp:include page="addsubcategory.jsp"/>
     <div class="content-area" ng-init="organizationdetails()">
         <div class="content-area_header" ng-init="getAllCategoryDetails()">
-            <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="organizationdetails.jsp?organizationId=<%=organizationID%>">{{organizationDetails.organizationName}}</a>  > </div>
+            <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/organizationdetails">{{organizationDetails.organizationName}}</a>  > </div>
             <div class="header_title fleft" id="categoryNameDiv">{{categoryDetails.categoryName}}</div>
-            <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteCategory(<%=categoryID%>)">Delete Category</div>
+            <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteCategory()">Delete Category</div>
         </div>
         <div class="slatSection"  ng-init="getAllSubCategories()">
             <div class="sectionHeader"> SubCategory </div>
@@ -44,7 +38,7 @@ String categoryID=request.getParameter("categoryId");
                         <span class="listCol_Text fleft">{{ExternalSourceKeywordLookups.externalSourceName}}-{{ExternalSourceKeywordLookups.externalSourceKeywordName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href="emailsubcategorydetails.jsp?organizationId={{organizationDetails.organizationId}}&categoryId={{categoryDetails.categoryId}}&subCategoryId={{subcategory.subCategoryId}}"><div class="CTA_Button Button--Gray fright">Manage Sub Category</div></a>
+                        <a href="${pageContext.request.contextPath}/admin/emailsubcategorydetails" ng-click="setSubCategoryDetails(organizationDetails.organizationId,categoryDetails.categoryId,subcategory.subCategoryId)"><div class="CTA_Button Button--Gray fright">Manage Sub Category</div></a>
                     </div>
                 </li>
             </ul>

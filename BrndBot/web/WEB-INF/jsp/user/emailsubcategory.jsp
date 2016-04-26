@@ -20,7 +20,7 @@
         <input id="categoryId" value="<%=categoryId%>"/>
         <div class="topNav topNav-withSubnav clear">
              <div class="topNav--BackButton fleft">
-                <a class="exit-button-icon" href="emailcategory.jsp">
+                <a class="exit-button-icon" href="emailcategory">
           
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
             
@@ -45,7 +45,7 @@
                 <div class="pane_content" ng-init="displaySubCategory()">
                     <div class="subcat-list">
                         <div class="cat-slat" ng-repeat="displayAllSubCategory in displayAllSubCategories.slice().reverse()">
-                            <a href="emailexternalsource.jsp">
+                            <a href="emailexternalsource">
                                 <div class="cat-slat-title">{{displayAllSubCategory.subCategoryName}}</div>
                             </a>
                         </div>

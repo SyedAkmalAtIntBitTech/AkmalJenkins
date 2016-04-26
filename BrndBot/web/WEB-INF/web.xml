@@ -53,66 +53,12 @@
         <servlet-name>GetOrganizations</servlet-name>
         <servlet-class>com.controller.GetOrganizations</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ServletUserRegistration</servlet-name>
-        <servlet-class>com.controller.ServletUserRegistration</servlet-class>
-    </servlet>
+    
     <servlet>
         <servlet-name>SendEmail</servlet-name>
         <servlet-class>com.controller.ForgotSendEmail</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>GetUserCategories</servlet-name>
-        <servlet-class>com.controller.GetUserCategories</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetSubCategories</servlet-name>
-        <servlet-class>com.controller.GetSubCategories</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Authentication</servlet-name>
-        <servlet-class>com.controller.Authentication</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UploadLogo</servlet-name>
-        <servlet-class>com.controller.UploadLogo</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SubbrandPersonality</servlet-name>
-        <servlet-class>com.controller.SubBrandPersonality</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AddUpdateOrganization</servlet-name>
-        <servlet-class>com.controller.AddUpdateOrganization</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetLooks</servlet-name>
-        <servlet-class>com.controller.GetLooks</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetBrandPersonality</servlet-name>
-        <servlet-class>com.controller.GetBrandPersonality</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SetLookID</servlet-name>
-        <servlet-class>com.controller.SetLookid</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SetStudioID</servlet-name>
-        <servlet-class>com.controller.SetStudioid</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetColorPalettes</servlet-name>
-        <servlet-class>com.controller.GetColorPalettes</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetColorsFromLogo</servlet-name>
-        <servlet-class>com.controller.GetColorsFromLogo</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>SetUserPreferences</servlet-name>
-        <servlet-class>com.controller.SetUserPreferences</servlet-class>
-    </servlet>
+   
     <servlet>
         <servlet-name>CheckAvailability</servlet-name>
         <servlet-class>com.controller.CheckAvailability</servlet-class>
@@ -353,10 +299,7 @@
         <servlet-name>GetEmaiLayoutHtmlServlet</servlet-name>
         <servlet-class>com.controller.GetEmaiLayoutHtmlServlet</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>Authentication</servlet-name>
-        <url-pattern>/Authentication</url-pattern>
-    </servlet-mapping>
+    
     <servlet>
         <servlet-name>Fblogin</servlet-name>
         <servlet-class>com.intbit.Fblogin</servlet-class>
@@ -373,58 +316,12 @@
         <servlet-name>Model</servlet-name>
         <url-pattern>/Model</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetUserCategories</servlet-name>
-        <url-pattern>/GetUserCategories</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetSubCategories</servlet-name>
-        <url-pattern>/GetSubCategories</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UploadLogo</servlet-name>
-        <url-pattern>/UploadLogo</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SubbrandPersonality</servlet-name>
-        <url-pattern>/SubbrandPersonality</url-pattern>
-    </servlet-mapping>
+   
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
         <url-pattern>/User</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddUpdateOrganization</servlet-name>
-        <url-pattern>/AddUpdateOrganization</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetLooks</servlet-name>
-        <url-pattern>/GetLooks</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetBrandPersonality</servlet-name>
-        <url-pattern>/GetBrandPersonality</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SetLookID</servlet-name>
-        <url-pattern>/SetLookID</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SetStudioID</servlet-name>
-        <url-pattern>/SetStudioID</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetColorPalettes</servlet-name>
-        <url-pattern>/GetColorPalettes</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetColorsFromLogo</servlet-name>
-        <url-pattern>/GetColorsFromLogo</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SetUserPreferences</servlet-name>
-        <url-pattern>/SetUserPreferences</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>CheckAvailability</servlet-name>
         <url-pattern>/CheckAvailability</url-pattern>
@@ -437,10 +334,7 @@
         <servlet-name>GetOrganizations</servlet-name>
         <url-pattern>/GetOrganizations</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletUserRegistration</servlet-name>
-        <url-pattern>/ServletUserRegistration</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>SendEmail</servlet-name>
         <url-pattern>/SendEmail</url-pattern>
@@ -680,15 +574,24 @@
         <servlet-name>ServletUserBrand</servlet-name>
         <url-pattern>/ServletUserBrand</url-pattern>
     </servlet-mapping>-->
-
+    
+    
+<!--    <error-page>
+        <error-code>404</error-code>
+        <location>/404</location>
+    </error-page>-->
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-<!--    <welcome-file-list>
+    <!--    <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>-->
+ <error-page>
+  <error-code>404</error-code>
+  <location>/error404</location>
+ </error-page>
     <resource-ref>
         <description>BrndBot DB</description>
         <res-ref-name>jdbc/postgres</res-ref-name>

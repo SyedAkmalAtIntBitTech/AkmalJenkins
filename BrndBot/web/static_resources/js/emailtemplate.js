@@ -5,7 +5,8 @@
  */
 
 $(document).ready(function () {
-    if (window.location.href.indexOf("edit=yes") > -1)
+    var emailEdit=localStorage.getItem('emailEdit');
+    if (emailEdit === 'true')
     {
        
         $("#nameThisTemplate").hide();
@@ -18,7 +19,7 @@ $(document).ready(function () {
         $("#uploadOnEdit").hide();
 
     }
-    if (window.location.href.indexOf("edit=no") > -1)
+    if (emailEdit === 'false')
     {
         $("#uploadOnEdit").show();
         $("#nameThisTemplate").show();
@@ -29,7 +30,7 @@ $(document).ready(function () {
         $("#saveTemplate").hide();
         $("#updateTemplate").hide();
         $("#deleteTemplate").hide();
-         $("#uploadOnCreate").hide();
+        $("#uploadOnCreate").hide();
 
     }
 });
@@ -114,6 +115,22 @@ app.directive("ngFileSelect",function(){
   
 });
 function emailTemplateController($scope, $http ,fileReader) {
+    
+    $scope.setNewEmailTemplate = function (item1){
+          $scope.setLocalStorageItem("emailEdit",item1);
+      };  
+    $scope.setEmailModelDetails = function (item1,item2){
+          $scope.setLocalStorageItem("emailEdit",item1);
+          $scope.setLocalStorageItem("emailModelId",item2);
+      };  
+      
+      $scope.setLocalStorageItem = function (key,item){
+          localStorage.setItem(key,item);
+      };
+      $scope.getLocalStorageItem = function (item){
+          return localStorage.getItem(""+item+"");  
+      };
+      
      $scope.imageSrc ="images/uploadPhoto.svg";
       $scope.getFile = function () {
         $scope.progress = 0;
@@ -179,7 +196,7 @@ function emailTemplateController($scope, $http ,fileReader) {
             }).success(function (data, status, headers, config)
             {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                window.open(getHost() + 'v2/admin/emailtemplates.jsp', "_self");
+                window.open(getHost() + 'admin/emailtemplates', "_self");
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
@@ -188,7 +205,7 @@ function emailTemplateController($scope, $http ,fileReader) {
     };
 
     $scope.editEmailTemplate = function () {
-        var emailModelId = $("#emailModelIdTag").val();
+        var emailModelId = $scope.getLocalStorageItem('emailModelId');
         var emailModelName = $("#emailModelNameTag").val();
         var htmlData = $("#edit").froalaEditor('html.get');
         var imgDataObj = getImageData();
@@ -238,7 +255,7 @@ function emailTemplateController($scope, $http ,fileReader) {
 
 
     $scope.getEmailModelById = function () {
-        var emailModelId = $("#emailModelIdTag").val();
+        var emailModelId =$scope.getLocalStorageItem("emailModelId");
         
         $http({
             method: 'GET',

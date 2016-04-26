@@ -18,7 +18,7 @@
           <div class="topNav clear menuWidth">
               
             <div class="topNav--BackButton fleft">
-               <a class="exit-button-icon" href="emailexternalsource.jsp">
+               <a class="exit-button-icon" href="emailexternalsource">
           
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
             
@@ -64,7 +64,7 @@
     </div>
     </div>
     <div class="bottomNav">
-        <a href="emaildetails.jsp">
+        <a href="emaildetails">
             <div class="bottom-ContinueButton fright">CONTINUE</div>
         </a>
     </div>

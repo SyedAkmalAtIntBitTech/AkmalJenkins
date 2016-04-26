@@ -515,7 +515,7 @@ public class RecurringEmailController {
         }
         return "true";
     }
-    
+
     //TODO Ilyas unused check again
     public org.json.simple.JSONObject getFromAddress(Integer user_id){
         try{

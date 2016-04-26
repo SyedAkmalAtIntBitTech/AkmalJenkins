@@ -83,7 +83,7 @@ public class ForgotSendEmail extends BrndBotBaseHttpServlet {
             String email_id = (String) joUser.get("emailid");
 
             check = getSqlMethodsInstance().checkEmailAvailability(email_id);
-            Integer user_id = getSqlMethodsInstance().getUserID(email_id);
+            Integer user_id = 1;//getSqlMethodsInstance().getUserID(email_id);
             Date expdate = new Date();
             java.sql.Date sdat = new java.sql.Date(expdate.getYear(), expdate.getMonth(), expdate.getDate());
             java.sql.Time tdat = new java.sql.Time(expdate.getHours(), expdate.getMinutes(), expdate.getSeconds());

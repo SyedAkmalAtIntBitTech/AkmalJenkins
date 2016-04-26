@@ -22,7 +22,7 @@
         <div class="topNav clear menuWidth">
               
             <div class="topNav--BackButton fleft">
-               <a class="exit-button-icon" href="emailexternalsource.jsp">
+               <a class="exit-button-icon" href="emailexternalsource">
           
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
             
@@ -136,7 +136,7 @@
         </div>
             
     <div class="bottomNav">
-        <a href="sendemail.jsp">
+        <a href="sendemail">
             <div class="bottom-ContinueButton fright">CONTINUE TO SEND LIST</div>
         </a>
     </div>

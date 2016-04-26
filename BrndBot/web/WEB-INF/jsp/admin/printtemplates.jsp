@@ -16,7 +16,7 @@
         <div class="content-area" ng-init="printTemplateScope()">
         <div class="content-area_header">
             <div class="header_path fleft"> Print Templates </div>
-            <a class="CTA_Button Button--Blue fright stylenone" href="addprinttemplate.jsp">Add New Templates</a>
+            <a class="CTA_Button Button--Blue fright stylenone" href="${pageContext.request.contextPath}/admin/addprinttemplate">Add New Templates</a>
         </div>
         <div class="slatSection">
             <div class="slatHeaders">

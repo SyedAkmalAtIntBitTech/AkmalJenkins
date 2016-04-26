@@ -18,7 +18,7 @@
         <div class="topNav topNav-withSubnav clear">
              <div class="topNav--BackButton fleft">
                  
-                 <a class="exit-button-icon" href="emailsubcategory.jsp">
+                 <a class="exit-button-icon" href="emailsubcategory">
           
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
             
@@ -45,7 +45,7 @@
                 
                 <div class="pane_content">
                     <div class="subcat-list">
-                       <a href="emailsequence.jsp"><div class="cat-slat clear">
+                       <a href="emailsequence"><div class="cat-slat clear">
                             <div class="cat-slat-title col-3of10 fleft">External Data Name</div>
                             <div class="cat-slat-description col-2of10 fleft">Date</div>
                              <div class="cat-slat-description col-2of10 fleft">Time</div>

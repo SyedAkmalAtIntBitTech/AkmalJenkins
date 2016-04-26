@@ -25,9 +25,11 @@
             <input class="input_Field login-fields" id="password" type="password" placeholder="Password"/>
              <div class="input_Label">Confirm Password</div>
             <input class="input_Field login-fields" id="rePassword" type="password" placeholder="Confirm Password"/>
-           
+            
             <div class="CTA_Button Button--Blue fleft pushUp_30" ng-click="saveUser()">Sign Up</div>
             <div class="sign-up_container"></div>
+            
+             
         </div>
     </div>
 </body>

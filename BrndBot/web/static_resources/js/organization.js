@@ -21,6 +21,36 @@
        });
        
 function organizationcontroller($scope,$http) {
+        
+      $scope.setOrganizationEmailCategoryDetails = function (item){
+          $scope.setLocalStorageItem("categoryId",item);
+      };
+      $scope.setOrganizationEmailBlockDetails = function (item){
+          $scope.setLocalStorageItem("emailBlockId",item);
+      };  
+      $scope.setOrganizationTemplateCategories = function (item){
+          $scope.setLocalStorageItem("categoryId",item);
+      };  
+      $scope.setOrganizationMarketingCategories = function (item){
+          $scope.setLocalStorageItem("marketingCategoryId",item);
+      };  
+    
+      $scope.setOrganizationDetails = function (item){
+          $scope.setLocalStorageItem("organizationId",item);
+      };  
+      
+      $scope.setSubCategoryDetails = function (item1,item2,item3){
+          $scope.setLocalStorageItem("organizationId",item1);
+          $scope.setLocalStorageItem("categoryId",item2);
+          $scope.setLocalStorageItem("subCategoryId",item3);
+      };  
+      
+      $scope.setLocalStorageItem = function (key,item){
+          localStorage.setItem(key,item);
+      };
+      $scope.getLocalStorageItem = function (item){
+          return localStorage.getItem(""+item+"");  
+      };
            
     $scope.organization = function () {
         
@@ -54,7 +84,7 @@ function organizationcontroller($scope,$http) {
                         }).success(function (data, status, headers, config)
                         {  
                             alert(eval(JSON.stringify(data.d.operationStatus.messages))); //eval() is to get string without "" quotes                            
-                            window.open(getHost() + 'v2/admin/organization.jsp', "_self");
+                            window.open(getHost() + 'admin/organization', "_self");
                         }).error(function(data, status, headers, config){
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });                         
@@ -67,7 +97,7 @@ function organizationcontroller($scope,$http) {
     
     $scope.organizationdetails= function (){
         
-        var organizationId=$("#organizationIdTag").val();
+        var organizationId=$scope.getLocalStorageItem('organizationId');
         $http({
                 method : 'GET',
                 url : getHost()+'/getOrganizationById.do?organizationId='+organizationId
@@ -80,7 +110,8 @@ function organizationcontroller($scope,$http) {
             });    
         
         
-        $scope.deleteOrganization=function (organizationId){
+        $scope.deleteOrganization=function (){
+            var organizationId=$scope.getLocalStorageItem('organizationId');
             var deleteOrganization=confirm(deleteOrganizationPrompt);
             if(deleteOrganization===true)
             {
@@ -90,7 +121,7 @@ function organizationcontroller($scope,$http) {
                 }).success(function(data, status, headers, config) {
                     $scope.organizationDetails = data.d.details;
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'v2/admin/organization.jsp', "_self");
+                    window.open(getHost() + 'admin/organization', "_self");
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });     
@@ -99,7 +130,7 @@ function organizationcontroller($scope,$http) {
         
         
         $scope.updateOrganization=function (){
-            var organizationId=$("#organizationIdTag").val();
+            var organizationId=$scope.getLocalStorageItem("organizationId");
             var organizationName=$("#organizationNameDiv").text();
             var organizationTypeId=$("#organizationDetailsTypeId").val();
             var updateorg = {
@@ -115,7 +146,7 @@ function organizationcontroller($scope,$http) {
                     data: updateorg
                 }).success(function(data, status, headers, config) { 
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                    window.open(getHost() + 'admin/organizationdetails', "_self");
                       
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -131,7 +162,7 @@ function organizationcontroller($scope,$http) {
     
     $scope.emailcategories= function (){
         
-            var organizationId=$("#organizationId").val();
+            var organizationId=$scope.getLocalStorageItem("organizationId");
 
             $http({
                 method : 'GET',
@@ -157,7 +188,7 @@ function organizationcontroller($scope,$http) {
     
     
       $scope.addEmailCategory = function () {
-            var organizationId=$("#organizationId").val();
+            var organizationId=$scope.getLocalStorageItem("organizationId");
             var categoryName = $("#categoryName").val();
             var emailCategory ={"categoryName" : categoryName,"channelId":parseInt(emailChannelId),"organizationId":parseInt(organizationId)}
             if(categoryName===""){
@@ -174,7 +205,7 @@ function organizationcontroller($scope,$http) {
                 { 
                   alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                     
-                    window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                    window.open(getHost() + 'admin/organizationdetails', "_self");
 
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -184,7 +215,7 @@ function organizationcontroller($scope,$http) {
     
     $scope.addPrintCategory = function () {
       
-            var organizationId=$("#organizationId").val();
+            var organizationId=$scope.getLocalStorageItem("organizationId");
             var printCategory = $("#printCategory").val();
             var category ={"categoryName" : printCategory,"channelId":printChannelId,"organizationId":organizationId};
             if(printCategory===""){
@@ -200,7 +231,7 @@ function organizationcontroller($scope,$http) {
                 }).success(function (data)
                 { 
                     alert(printName+"\t"+eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                    window.open(getHost() + 'admin/organizationdetails', "_self");
 
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -211,7 +242,7 @@ function organizationcontroller($scope,$http) {
 $scope.addImageCategory = function () {
     
         
-            var organizationId=$("#organizationId").val();
+            var organizationId=$scope.getLocalStorageItem("organizationId");
             var imageCategory = $("#imageCategory").val();
             var imageCategory ={"categoryName" : imageCategory,"channelId":imageChannelId,"organizationId":organizationId}
              if(imageCategory===""){
@@ -228,7 +259,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 { 
                     alert(imageName+"\t"+eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                    window.open(getHost() + 'admin/organizationdetails', "_self");
 
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -238,7 +269,7 @@ $scope.addImageCategory = function () {
     
     
     $scope.getAllCategoryDetails= function (){
-         var categoryId=$("#categoryIdTag").val();
+         var categoryId=$scope.getLocalStorageItem('categoryId');
         $http({
                     method: 'GET',
                     url: getHost() + '/getCategoryByCategoryId.do?categoryId='+categoryId,
@@ -251,8 +282,9 @@ $scope.addImageCategory = function () {
         getAllSubCategories();
     }
     
-    $scope.deleteCategory= function (categoryId){
-        var organizationId=$("#organizationIdTag").val();
+    $scope.deleteCategory= function (){
+        var categoryId=$scope.getLocalStorageItem("categoryId");
+        var organizationId=$scope.getLocalStorageItem("organizationId");
         var deleteCategory=confirm(deleteCategoryPrompt);
             if(deleteCategory===true)
             {
@@ -262,7 +294,7 @@ $scope.addImageCategory = function () {
                 }).success(function(data, status, headers, config) {
                     $scope.categoryDetails= data.d.categoryDetails;
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                     window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                     window.open(getHost() + 'admin/organizationdetails', "_self");
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });     
@@ -273,8 +305,8 @@ $scope.addImageCategory = function () {
     
      $scope.getAllSubCategories= function (){
         
-        var categoryId = $("#categoryIdTag").val();
-        var subCategoryId = $("#subCategoryIdTag").val();
+        var categoryId = $scope.getLocalStorageItem('categoryId');
+        var subCategoryId = $scope.getLocalStorageItem('subCategoryId');
                $http({
                     method : 'GET',
                     url : getHost()+ '/getAllSubCategoriesByCategoryId.do?categoryId='+categoryId,
@@ -291,9 +323,8 @@ $scope.addImageCategory = function () {
                 });  
     }
     
-    $scope.deleteSubCategory= function (subCategoryId){
-        var organizationId=$("#organizationIdTag").val();
-        var categoryId=$("#categoryIdTag").val();
+    $scope.deleteSubCategory= function (){
+        var subCategoryId=$scope.getLocalStorageItem("subCategoryId");
         var deleteSubCategory=confirm(deleteSubCategoryPrompt);
             if(deleteSubCategory===true)
             {
@@ -302,14 +333,14 @@ $scope.addImageCategory = function () {
                     url : getHost()+ '/deleteSubCategory.do?subCategoryId='+subCategoryId,
                 }).success(function(data, status, headers, config) {
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    if (window.location.href.indexOf("emailsubcategorydetails.jsp") > -1) {
-                         window.open(getHost() + 'v2/admin/emailsubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                    if (window.location.href.indexOf("emailsubcategorydetails") > -1) {
+                         window.open(getHost() + 'admin/emailsubcategory', "_self");
                     }
-                    if (window.location.href.indexOf("printsubcategorydetails.jsp") > -1) {
-                         window.open(getHost() + 'v2/admin/printsubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                    if (window.location.href.indexOf("printsubcategorydetails") > -1) {
+                         window.open(getHost() + 'admin/printsubcategory',"_self");
                     }
-                    if (window.location.href.indexOf("imagesubcategorydetails.jsp") > -1) {
-                         window.open(getHost() + 'v2/admin/imagesubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                    if (window.location.href.indexOf("imagesubcategorydetails") > -1) {
+                         window.open(getHost() + 'admin/imagesubcategory', "_self");
                     }
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -334,9 +365,9 @@ $scope.addImageCategory = function () {
     
     
     $scope.addSubCategory = function () {
-            var organizationId=$("#organizationIdTag").val();
+            var organizationId=$scope.getLocalStorageItem("organizationId");
             var subCategoryName=$("#subCategoryName").val();    
-            var categoryId = $("#categoryIdTag").val();
+            var categoryId = $scope.getLocalStorageItem("categoryId");
             var externalSourceKeywordLookupId=$("#optionalExternalSource").val();
             var subCategory ={ "subCategoryId" : 0, "subCategoryName" : subCategoryName, "categoryId" : categoryId, "externalSourceKeywordLookupId" : externalSourceKeywordLookupId }
              if(subCategoryName===""){
@@ -353,14 +384,14 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 { 
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    if (window.location.href.indexOf("emailsubcategory.jsp") > -1) {
-                         window.open(getHost() + 'v2/admin/emailsubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                    if (window.location.href.indexOf("emailsubcategory") > -1) {
+                         window.open(getHost() + 'admin/emailsubcategory', "_self");
                     }
-                    if (window.location.href.indexOf("printsubcategory.jsp") > -1) {
-                         window.open(getHost() + 'v2/admin/printsubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                    if (window.location.href.indexOf("printsubcategory") > -1) {
+                         window.open(getHost() + 'admin/printsubcategory',"_self");
                     }
-                    if (window.location.href.indexOf("imagesubcategory.jsp") > -1) {
-                         window.open(getHost() + 'v2/admin/imagesubcategory.jsp?organizationId='+organizationId+'&categoryId='+categoryId, "_self");
+                    if (window.location.href.indexOf("imagesubcategory") > -1) {
+                         window.open(getHost() + 'admin/imagesubcategory',"_self");
                     }
                    
                 }).error(function(data){
@@ -383,7 +414,7 @@ $scope.addImageCategory = function () {
                });  
    }
       $scope.getAllEmailBlocks= function (){
-           var organizationId=$("#organizationId").val();
+           var organizationId=$scope.getLocalStorageItem("organizationId");
   
                $http({
                     method : 'GET',
@@ -397,7 +428,7 @@ $scope.addImageCategory = function () {
     
     
     $scope.addEmailBlock = function () {
-            var organizationId=$("#organizationIdTag").val();
+            var organizationId=$scope.getLocalStorageItem("organizationId");
             var emailBlockName=$("#emailBlockName").val(); 
             var externalSourceKeywordLookupId=$("#optionalExternalSource").val();
             var emailCategory ={ "emailBlockName" : emailBlockName,  "externalSourceKeywordLookupId" : externalSourceKeywordLookupId ,"organizationId":organizationId}
@@ -415,7 +446,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 { 
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                    window.open(getHost() + 'admin/organizationdetails', "_self");
 
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -424,7 +455,7 @@ $scope.addImageCategory = function () {
     }; 
     
      $scope.getEmailBlock= function (){
-         var emailBlockId=$("#emailBlockId").val();
+         var emailBlockId=$scope.getLocalStorageItem('emailBlockId');
         $http({
                     method: 'GET',
                     url: getHost() + '/getAllEmailBlocksById.do?emailBlockId='+emailBlockId
@@ -443,7 +474,7 @@ $scope.addImageCategory = function () {
     
             $scope.getAllNonAddedEmailBlock= function (){
              
-            var emailBlockId=$("#emailBlockId").val();
+            var emailBlockId=$scope.getLocalStorageItem('emailBlockId');
              $http({
                     method: 'GET',
                     url: getHost() + '/getAllNonAddedEmailBlockModel.do?emailBlockId='+emailBlockId
@@ -465,8 +496,8 @@ $scope.addImageCategory = function () {
     }
     
      $scope.deleteEmailBlock= function (){
-         var emailBlockId=$("#emailBlockId").val();
-        var organizationId=$("#organizationIdTag").val();
+         var emailBlockId=$scope.getLocalStorageItem('emailBlockId');
+        var organizationId=$scope.getLocalStorageItem('organizationId');
         var deleteEmailBlock=confirm(deleteEmailBlockPrompt);
             if(deleteEmailBlock===true)
             {
@@ -476,7 +507,7 @@ $scope.addImageCategory = function () {
                 }).success(function(data, status, headers, config) {
                     $scope.getEmailBlock= data.d.details;
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                     window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                     window.open(getHost() + 'admin/organizationdetails',"_self");
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });     
@@ -485,7 +516,7 @@ $scope.addImageCategory = function () {
     
     
     $scope.getEmailModelBySubCategoryId= function (){
-         var subCategoryId=$("#subCategoryIdTag").val();
+         var subCategoryId=$scope.getLocalStorageItem('subCategoryID');
         $http({
                     method: 'GET',
                     url: getHost() + '/getAllEmailModelBySubCategory.do?subCategoryId='+subCategoryId
@@ -499,7 +530,7 @@ $scope.addImageCategory = function () {
         
     }
     $scope.getImageModelBySubCategoryId= function (){
-         var subCategoryId=$("#subCategoryIdTag").val();
+         var subCategoryId=$scope.getLocalStorageItem('subCategoryID');
         $http({
                     method: 'GET',
                     url: getHost() + '/getAllImageModelBySubCategory.do?subCategoryId='+subCategoryId
@@ -513,7 +544,7 @@ $scope.addImageCategory = function () {
         
     }
     $scope.getPrintModelBySubCategoryId= function (){
-         var subCategoryId=$("#subCategoryIdTag").val();
+         var subCategoryId=$scope.getLocalStorageItem('subCategoryID');
         $http({
                     method: 'GET',
                     url: getHost() + '/getAllPrintModelBySubCategory.do?subCategoryId='+subCategoryId
@@ -527,7 +558,8 @@ $scope.addImageCategory = function () {
         
     }
     
-    $scope.getAllNonAddedEmailModelsBySubCategoryId= function (subCategoryID){
+    $scope.getAllNonAddedEmailModelsBySubCategoryId= function (){
+        var subCategoryID= $scope.getLocalStorageItem('subCategoryID');
         $http({
                     method: 'GET',
                     url: getHost() + '/getAllNonAddedEmailModels.do?subCategoryId='+subCategoryID
@@ -547,7 +579,8 @@ $scope.addImageCategory = function () {
                 });  
     }
     
-    $scope.getAllNonAddedImageModelsBySubCategoryId= function (subCategoryID){
+    $scope.getAllNonAddedImageModelsBySubCategoryId= function (){
+         var subCategoryID= $scope.getLocalStorageItem('subCategoryID');
         $http({
                     method: 'GET',
                     url: getHost() + '/getAllNonAddedImageModels.do?subCategoryId='+subCategoryID
@@ -560,7 +593,8 @@ $scope.addImageCategory = function () {
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
     }
-    $scope.getAllNonAddedPrintModelsBySubCategoryId= function (subCategoryID){
+    $scope.getAllNonAddedPrintModelsBySubCategoryId= function (){
+         var subCategoryID= $scope.getLocalStorageItem('subCategoryID');
         $http({
                     method: 'GET',
                     url: getHost() + '/getAllNonAddedPrintModels.do?subCategoryId='+subCategoryID
@@ -587,9 +621,9 @@ $scope.addImageCategory = function () {
 	};
         
     $scope.relateEmailTemplateSubCategory= function (){
-        var subCategoryId=$("#subCategoryIdTag").val();
-        var categoryId=$("#categoryIdTag").val();
-        var organizationId=$("#organizationIdTag").val();
+        var subCategoryId=$scope.getLocalStorageItem('subCategoryID');
+        var categoryId=$scope.getLocalStorageItem('categoryId');
+        var organizationId=$scope.getLocalStorageItem('organizationId');
         var emailModelId=eval(JSON.stringify(selectedList.emailModelId));
         var emailTemplateRelate ={ "emailModelId" : emailModelId,  "subCategoryId" : parseInt(subCategoryId)}
             
@@ -602,7 +636,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'v2/admin/emailsubcategorydetails.jsp?organizationId='+organizationId+'&categoryId='+categoryId+'&subCategoryId='+subCategoryId, "_self");
+                       window.open(getHost() + 'admin/emailsubcategorydetails', "_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -612,9 +646,9 @@ $scope.addImageCategory = function () {
     };
     
      $scope.relatePrintTemplateSubCategory= function (){
-        var subCategoryId=$("#subCategoryIdTag").val();
-        var categoryId=$("#categoryIdTag").val();
-        var organizationId=$("#organizationIdTag").val();
+        var subCategoryId=$scope.getLocalStorageItem('subCategoryID');
+        var categoryId=$scope.getLocalStorageItem('categoryId');
+        var organizationId=$scope.getLocalStorageItem('organizationId');
         var printModelId=eval(JSON.stringify(selectedList.printModelId));
         var printTemplateRelate ={ "printModelId" : printModelId,  "subCategoryId" : parseInt(subCategoryId)}
             
@@ -627,16 +661,16 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'v2/admin/printsubcategorydetails.jsp?organizationId='+organizationId+'&categoryId='+categoryId+'&subCategoryId='+subCategoryId, "_self");
+                       window.open(getHost() + 'admin/printsubcategorydetails',"_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });          
     };
     $scope.deleteSubCategoryEmailModel= function (subCategoryEmailModelId){ 
-            var subCategoryId=$("#subCategoryIdTag").val();
-            var categoryId=$("#categoryIdTag").val();
-            var organizationId=$("#organizationIdTag").val();
+            var subCategoryId=$scope.getLocalStorageItem('subCategoryID');
+            var categoryId=$scope.getLocalStorageItem('categoryId');
+            var organizationId=$scope.getLocalStorageItem('organizationId');
             
             var deleteEmailTemplate=confirm(deleteSubCategoryRelationPrompt);
             if(deleteEmailTemplate===true)
@@ -647,7 +681,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'v2/admin/emailsubcategorydetails.jsp?organizationId='+organizationId+'&categoryId='+categoryId+'&subCategoryId='+subCategoryId, "_self");
+                    window.open(getHost() + 'admin/emailsubcategorydetails', "_self");
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
@@ -657,7 +691,7 @@ $scope.addImageCategory = function () {
 
     $scope.getAllRecurringByOrganizationId = function (){
         
-            var organizationId=$("#organizationIdTag").val();
+            var organizationId=$scope.getLocalStorageItem('organizationId');
         $http({
                 method: 'GET',
                 url: getHost() + '/getAllRecurringByOrganizationId.do?organizationId='+organizationId
@@ -670,7 +704,7 @@ $scope.addImageCategory = function () {
     };
     
     $scope.getAllNonAddedRecurringEmail=function (){
-         var organizationId=$("#organizationIdTag").val();
+         var organizationId=$scope.getLocalStorageItem("organizationId");
         $http({
                 method: 'GET',
                 url: getHost() + '/getAllNonAddedRecurringEmail.do?organizationId='+organizationId
@@ -686,7 +720,7 @@ $scope.addImageCategory = function () {
     
     
     $scope.saveOrganizationRecurringEmail=function (){
-         var organizationId=$("#organizationIdTag").val();
+         var organizationId=$scope.getLocalStorageItem("organizationId");
          var recurringEmailTemplateId=selectedList.recurringEmailTemplateId;
          var saveOrganizationRecurringEmailById ={ "recurringEmailTemplateId" : recurringEmailTemplateId,  "organizationId" : organizationId};
             
@@ -699,7 +733,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                       window.open(getHost() + 'admin/organizationdetails', "_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -707,7 +741,7 @@ $scope.addImageCategory = function () {
     };
     
     $scope.deleteOrganizationRecurringEmail=function (organizationRecurringEmailLookupId){
-            var organizationId=$("#organizationIdTag").val();
+            var organizationId=$scope.getLocalStorageItem("organizationId");
             var  deleteRecurring=confirm(removeRecurringEmailPrompt);
             if(deleteRecurring==true){
             $http({
@@ -717,7 +751,7 @@ $scope.addImageCategory = function () {
             {   
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
 //                $scope.deleteRecurringEmails=data.d.details;
-                window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                window.open(getHost() + 'admin/organizationdetails', "_self");
             }).error(function(data){
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             }); 
@@ -726,7 +760,7 @@ $scope.addImageCategory = function () {
 
     $scope.getAllMarketingCategory= function (){
         
-         var organizationId=$("#organizationIdTag").val();
+         var organizationId=$scope.getLocalStorageItem("organizationId");
         $http({
                     method: 'GET',
                     url: getHost() + '/getAllMarketingCategoryByOrganizationId.do?organizationId='+organizationId
@@ -739,8 +773,8 @@ $scope.addImageCategory = function () {
     }
     $scope.getAllMarketingCategoryById= function (){
         
-         var organizationId=$("#organizationIdTag").val();
-         var marketingCategoryId=$("#marketingCategoryId").val();
+         var organizationId=$scope.getLocalStorageItem('organizationId');
+         var marketingCategoryId=$scope.getLocalStorageItem('marketingCategoryId');
         $http({
                     method: 'GET',
                     url: getHost() + '/getByMarketingCategoryId.do?marketingCategoryId='+marketingCategoryId
@@ -759,7 +793,7 @@ $scope.addImageCategory = function () {
     $scope.addMarketingCategory= function (){
         
         var marketingCategoryName=$("#marketingCategoryName").val();
-        var organizationId=$("#organizationIdTag").val();
+        var organizationId=$scope.getLocalStorageItem('organizationId');
         var categoryName=(eval(JSON.stringify(marketingCategoryName)));
         var organizationIdNew=(eval(JSON.stringify(organizationId)));
         if(categoryName=="")
@@ -778,7 +812,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId,"_self");
+                       window.open(getHost() + 'admin/organizationdetails',"_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -786,8 +820,8 @@ $scope.addImageCategory = function () {
     };
     
     $scope.deleteMarketingCategory= function (){
-        var organizationId=$("#organizationIdTag").val();
-         var marketingCategoryId=$("#marketingCategoryId").val();
+        var organizationId=$scope.getLocalStorageItem('organizationId');
+         var marketingCategoryId=$scope.getLocalStorageItem('marketingCategoryId');
          var deleteEmailTemplate=confirm(deleteCategoryPrompt);
             if(deleteEmailTemplate===true)
             {
@@ -797,7 +831,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                    window.open(getHost() + 'admin/organizationdetails', "_self");
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
@@ -820,7 +854,7 @@ $scope.addImageCategory = function () {
     
      $scope.getEmailBlocks= function (){
        
-            var emailBlockId=$("#emailBlockId").val();
+            var emailBlockId=$scope.getLocalStorageItem('emailBlockId');
              $http({
                     method: 'GET',
                     url: getHost() + '/getAllEmailBlockModelById.do?emailBlockId='+emailBlockId
@@ -835,7 +869,7 @@ $scope.addImageCategory = function () {
     
      $scope.deleteEmailBlockModel= function (emailBlockModelLookupId){
       
-            var organizationId=$("#organizationIdTag").val();
+            var organizationId=$scope.getLocalStorageItem('organizationId');
             var deleteEmailBlocks=confirm(deleteTemplateRelationPrompt);
             if(deleteEmailBlocks===true)
             {
@@ -845,7 +879,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'v2/admin/organizationdetails.jsp?organizationId='+organizationId, "_self");
+                    window.open(getHost() + 'admin/organizationdetails', "_self");
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
@@ -855,8 +889,8 @@ $scope.addImageCategory = function () {
     
      $scope.marketingProgramsById= function (){
          
-         var organizationId=$("#organizationIdTag").val();
-         var marketingCategoryId=$("#marketingCategoryId").val();
+         var organizationId=$scope.getLocalStorageItem('organizationId');
+         var marketingCategoryId=$scope.getLocalStorageItem('marketingCategoryId');
          
         $http({
                     method: 'GET',
@@ -870,8 +904,8 @@ $scope.addImageCategory = function () {
     }
     
     $scope.deleteMarketingCategoryProgram= function (marketingProgramId){
-        var marketingCategoryId=$("#marketingCategoryId").val();
-        var organizationId=$("#organizationIdTag").val();
+        var marketingCategoryId=$scope.getLocalStorageItem('marketingCategoryId');
+        var organizationId=$scope.getLocalStorageItem('organizationId');
             var deleteMarketingProgram=confirm(marketingTemplateRelationPrompt);
             if(deleteMarketingProgram===true)
             {
@@ -881,7 +915,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {  
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'v2/admin/marketingcategory.jsp?organizationId='+organizationId+'&marketingCategoryId='+marketingCategoryId, "_self");
+                    window.open(getHost() + 'admin/marketingcategory', "_self");
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  
@@ -890,7 +924,7 @@ $scope.addImageCategory = function () {
     
     $scope.getAllNonAddedMarketingProgram= function (){
    
-         var marketingCategoryId=$("#marketingCategoryId").val();
+         var marketingCategoryId=$scope.getLocalStorageItem('marketingCategoryId');
         $http({
                     method: 'GET',
                     url: getHost() + '/getAllNonAddedMarketingPrograms.do?marketingCategoryId='+marketingCategoryId
@@ -927,8 +961,8 @@ $scope.addImageCategory = function () {
 
     
     $scope.addMarketingtemplate= function (){
-         var organizationId=$("#organizationIdTag").val();
-        var marketingCategoryId=$("#marketingCategoryId").val();      
+         var organizationId=$scope.getLocalStorageItem('organizationId');
+        var marketingCategoryId=$scope.getLocalStorageItem('marketingCategoryId');
         var marketingProgramId=eval(JSON.stringify(selectedListItems.marketingProgramId));
         var marketingAddTemplate ={ "marketingProgramId" : marketingProgramId,  "marketingCategoryId" : marketingCategoryId}
             
@@ -941,7 +975,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'v2/admin/marketingcategory.jsp?organizationId='+organizationId+'&marketingCategoryId='+marketingCategoryId,"_self");
+                       window.open(getHost() + 'admin/marketingcategory',"_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -966,9 +1000,9 @@ $scope.addImageCategory = function () {
     
     
      $scope.addEmailBlocktemplate= function (){
-           var emailBlockId=$("#emailBlockId").val();
-         var organizationId=$("#organizationIdTag").val();
-        var marketingCategoryId=$("#marketingCategoryId").val();      
+           var emailBlockId=$scope.getLocalStorageItem('emailBlockId');
+         var organizationId=$scope.getLocalStorageItem('organizationId');
+        var marketingCategoryId=$scope.getLocalStorageItem('marketingCategoryId');
         var emailBlockModelId=eval(JSON.stringify(emailBlockModel.emailBlockModelId));
         var blockEmailTemplate ={ "emailBlockModelId" : emailBlockModelId,"emailBlockId":emailBlockId}
             
@@ -981,7 +1015,7 @@ $scope.addImageCategory = function () {
                 }).success(function (data)
                 {   
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'v2/admin/emailblock.jsp?organizationId='+organizationId+'&emailBlockId='+emailBlockId,"_self");
+                       window.open(getHost() + 'admin/emailblock',"_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));

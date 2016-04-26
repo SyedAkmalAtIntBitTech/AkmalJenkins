@@ -14,6 +14,7 @@ import com.intbittech.model.OrganizationCategoryLookup;
 import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.model.OrganizationEmailBlockLookup;
 import com.intbittech.model.OrganizationMarketingCategoryLookup;
+import com.intbittech.model.UserProfile;
 import com.intbittech.modelmappers.CategoryDetails;
 import com.intbittech.modelmappers.ChannelDetails;
 import com.intbittech.modelmappers.CompanyAllDetails;
@@ -31,6 +32,7 @@ import com.intbittech.services.EmailBlockService;
 import com.intbittech.services.MarketingCategoryService;
 import com.intbittech.services.OrganizationCategoryLookupService;
 import com.intbittech.utility.ErrorHandlingUtil;
+import com.intbittech.utility.UserSessionUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -241,6 +243,54 @@ public class CompanyController {
             genericResponse.setDetails(companyDetailsList);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyDetails_get",new String[]{}, Locale.US)));
             
+            
+        } catch(Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "getAllBlocksForCompany",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getAllBlocksForCompany() {
+        GenericResponse<EmailBlockDetails> genericResponse = new GenericResponse<EmailBlockDetails>();
+        try {
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
+            organizationCompanyDetail = companyService.getAllOrganizationsByCompanyId(companyId);
+            List<OrganizationCompanyDetails> organizationCompanyDetailsList = new ArrayList<>();
+            Integer organizationCompanySize = 1;
+            if(organizationCompanyDetail!=null)
+                organizationCompanySize = organizationCompanyDetail.size()+1;
+            Integer[] organizationIds = new Integer[organizationCompanySize];
+            Integer i =0;
+            organizationIds[i++] = 0;
+            if(organizationCompanyDetail!=null)
+            {
+                for(OrganizationCompanyLookup organizationObject : organizationCompanyDetail) {
+                    organizationIds[i++] = organizationObject.getFkOrganizationId().getOrganizationId();
+                }
+            }
+            List<EmailBlockDetails> emailBlockDetailsList = new ArrayList<>();
+            List<OrganizationEmailBlockLookup> organizationEmailBlockList = emailBlockService.getAllEmailBlockByOrganizationIds(organizationIds);
+            for(OrganizationEmailBlockLookup organizationEmailBlockObject : organizationEmailBlockList) {
+                EmailBlockDetails emailBlockDetails = new EmailBlockDetails();
+                emailBlockDetails.setEmailBlockId(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId());
+                emailBlockDetails.setEmailBlockName(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockName());
+                emailBlockDetails.setOrganizationId(organizationEmailBlockObject.getFkOrganizationId().getOrganizationId());
+                List<EmailBlockExternalSource> emailBlockExternalSourceList = emailBlockService.getAllEmailBlockExternalSource(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId());
+                if(emailBlockExternalSourceList != null){
+                    EmailBlockExternalSource emailBlockExternalSourceObject = emailBlockExternalSourceList.get(0);
+                    emailBlockDetails.setExternalSourceName(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getFkExternalSourceId().getExternalSourceName());
+                    emailBlockDetails.setExternalSourceKeywordName(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getFkExternalSourceKeywordId().getExternalSourceKeywordName());
+                }
+                emailBlockDetailsList.add(emailBlockDetails);
+            }    
+                
+                
+            genericResponse.setDetails(emailBlockDetailsList);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyCategories_get",new String[]{}, Locale.US)));   
             
         } catch(Throwable throwable) {
             logger.error(throwable);

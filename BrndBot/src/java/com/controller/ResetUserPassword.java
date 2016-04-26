@@ -21,7 +21,7 @@ import org.json.simple.parser.JSONParser;
  */
 public class ResetUserPassword extends BrndBotBaseHttpServlet {
 
-    GenerateHashPassword generate_hash_password = new GenerateHashPassword();
+    //GenerateHashPassword generate_hash_password = new GenerateHashPassword();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -73,7 +73,7 @@ public class ResetUserPassword extends BrndBotBaseHttpServlet {
                 userid = getSqlMethodsInstance().checkResetStatus(hashURL);
             }
 
-            String hashPass = generate_hash_password.hashPass(password);
+            String hashPass = "";//generate_hash_password.hashPass(password);
             
             if (userid.equals("false")) {
                 out.write("false");
