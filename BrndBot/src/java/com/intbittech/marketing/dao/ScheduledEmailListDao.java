@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit.marketing.dao;
+package com.intbittech.marketing.dao;
 
-import com.intbit.marketing.model.TblScheduledEmailList;
+import com.intbittech.model.ScheduledEmailList;
 import java.util.List;
 
 /**
  *
- * @author intbit-6
+ * @author ajit
  */
 public interface ScheduledEmailListDao {
      /**
@@ -19,27 +19,27 @@ public interface ScheduledEmailListDao {
 	 * @return {@link ScheduledEmailList}
         * @throws java.lang.Throwable 
     */
-   public TblScheduledEmailList getById(Integer id) throws Throwable; 
+   public ScheduledEmailList getById(Integer id) throws Throwable; 
    
    /**
 	 * This method retrieves all {@link ScheduledEmailList}
 	 * @return {@link scheduledEmailList}
 	 * @throws java.lang.Throwable 
     */
-   public List<TblScheduledEmailList> getAllScheduledEmailList() throws Throwable;
+   public List<ScheduledEmailList> getAllScheduledEmailList() throws Throwable;
    
    /**
 	 * This method save {@link scheduledEmailList} by passing scheduledEmailList
 	 * @param scheduledEmailList
 	 * @throws java.lang.Throwable 
     */
-   public Integer save(TblScheduledEmailList scheduledEmailList) throws Throwable;
+   public Integer save(ScheduledEmailList scheduledEmailList) throws Throwable;
    /**
 	 * This method save {@link scheduledEmailList} by passing scheduledEmailList
 	 * @param scheduledEmailList
 	 * @throws java.lang.Throwable 
     */
-   public void update(TblScheduledEmailList scheduledEmailList) throws Throwable;
+   public void update(ScheduledEmailList scheduledEmailList) throws Throwable;
    
    /**
 	 * This method delete {@link scheduledEmailList} by passing id
@@ -49,11 +49,11 @@ public interface ScheduledEmailListDao {
    public void delete(Integer id) throws Throwable;
     /**
 	 * This method retrieves all {@link ScheduledEmailList}
-         * @param  UserMarketingId
+         * @param  comapanyMarketingProgramId
          * @param  isRecurring
 	 * @return {@link scheduledEmailList}
 	 * @throws java.lang.Throwable 
     */
-   public List<TblScheduledEmailList> getAllScheduledEmailListForUserMarketingProgram(Integer UserMarketingId,Boolean isRecurring) throws Throwable;
+   public List<ScheduledEmailList> getAllScheduledEmailListForCompanyMarketingProgram(Integer comapanyMarketingProgramId,Boolean isRecurring) throws Throwable;
     
 }
