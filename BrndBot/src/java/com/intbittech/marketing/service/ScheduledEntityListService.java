@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit.marketing.service;
+package com.intbittech.marketing.service;
 
-import com.intbit.marketing.model.TblScheduledEntityList;
+import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.ScheduledEntityList;
 import java.util.List;
 
 /**
@@ -18,78 +19,78 @@ public interface ScheduledEntityListService {
 	 * This method retrieves {@link scheduledEntityList} by passing id
 	 * @param id
 	 * @return {@link scheduledEntityList}
-        * @throws java.lang.Throwable 
+        * @throws ProcessFailed the process failed
     */
-   public TblScheduledEntityList getById(Integer id) throws Throwable; 
+   public ScheduledEntityList getById(Integer id) throws ProcessFailed; 
     /**
      * This method retrieves {@link scheduledEntityList} by passing id
      *
      * @param id
      * @return {@link scheduledEntityList}
-     * @throws java.lang.Throwable
+     * @throws ProcessFailed the process failed
      */
-    public TblScheduledEntityList getEntityById(Integer id) throws Throwable;
+    public ScheduledEntityList getEntityById(Integer id) throws ProcessFailed;
 
    /**
 	 * This method retrieves all {@link scheduledEntityList}
          * @param program_id
          * @param status
 	 * @return {@link scheduledEntityList}
-	 * @throws java.lang.Throwable 
+	 * @throws ProcessFailed the process failed
     */
-   public Integer getCurrentRecords(Integer program_id)throws Throwable;
+   public Integer getCurrentRecords(Integer program_id)throws ProcessFailed;
    
    /**
 	 * This method retrieves all {@link scheduledEntityList}
 	 * @return {@link scheduledEntityList}
-	 * @throws java.lang.Throwable 
+	 * @throws ProcessFailed the process failed
     */
-   public List<TblScheduledEntityList> getAllScheduledEmailList() throws Throwable;
+   public List<ScheduledEntityList> getAllScheduledEmailList() throws ProcessFailed;
    
    /**
 	 * This method save {@link scheduledEntityList} by passing scheduledEntityList
 	 * @param scheduledEntityList
-	 * @throws java.lang.Throwable 
+	 * @throws ProcessFailed the process failed
     */
-   public Integer save(TblScheduledEntityList scheduledEntityList) throws Throwable;
+   public Integer save(ScheduledEntityList scheduledEntityList) throws ProcessFailed;
    /**
 	 * This method save {@link scheduledEntityList} by passing scheduledEntityList
 	 * @param scheduledEntityList
-	 * @throws java.lang.Throwable 
+	 * @throws ProcessFailed the process failed
     */
-   public void update(TblScheduledEntityList scheduledEntityList) throws Throwable;
+   public void update(ScheduledEntityList scheduledEntityList) throws ProcessFailed;
    
    /**
 	 * This method delete {@link scheduledEntityList} by passing id
 	 * @param id
-	 * @throws java.lang.Throwable 
+	 * @throws ProcessFailed the process failed
     */
-   public void delete(Integer id) throws Throwable;
+   public void delete(Integer id) throws ProcessFailed;
    
-   public List<TblScheduledEntityList> getAllUserScheduledEmailList(Integer userMarketingId,Boolean isRecurring, String entityType) throws Throwable;
+   public List<ScheduledEntityList> getAllUserScheduledEmailList(Integer userMarketingId,Boolean isRecurring, String entityType) throws ProcessFailed;
     /**
 	 * This method retrieves {@link scheduledEntityList} by passing id
 	 * @param userMarketingProgramId
          * @param isRecurring
 	 * @return {@link scheduledEntityList}
-        * @throws java.lang.Throwable 
+        * @throws ProcessFailed the process failed
     */
-   public List<TblScheduledEntityList> getScheduledEntityListIdForEmailType(Integer userMarketingProgramId,Boolean isRecurring) throws Throwable;
+   public List<ScheduledEntityList> getScheduledEntityListIdForEmailType(Integer userMarketingProgramId,Boolean isRecurring) throws ProcessFailed;
     /**
 	 * This method retrieves {@link scheduledEntityList} by passing id
 	 * @param userMarketingProgramId
 	 * @return {@link scheduledEntityList}
-        * @throws java.lang.Throwable 
+        * @throws ProcessFailed the process failed
     */
-   public List<TblScheduledEntityList> getScheduledEntityListIdForSocialPostType(Integer userMarketingProgramId) throws Throwable;
+   public List<ScheduledEntityList> getScheduledEntityListIdForSocialPostType(Integer userMarketingProgramId) throws ProcessFailed;
     /**
          * @param status
          * @param entityType 
          * @param programStatus
 	 * @return {@link scheduledEntityList}
-        * @throws java.lang.Throwable 
+        * @throws ProcessFailed the process failed
     */
-    public TblScheduledEntityList getLatestApprovedSocialPost(String status,String entityType,String programStatus) throws Throwable;
+    public ScheduledEntityList getLatestApprovedSocialPost(String status,String entityType,String programStatus) throws ProcessFailed;
       /**
 	 * This method retrieves {@link scheduledEntityList} by passing id
 	 * @param status
@@ -97,9 +98,9 @@ public interface ScheduledEntityListService {
          * @param programStatus
          * @param isRecurring
 	 * @return {@link scheduledEntityList}
-        * @throws java.lang.Throwable 
+        * @throws ProcessFailed the process failed
     */
-    public TblScheduledEntityList getLatestApprovedSendEmail(String status,String entityType,String programStatus,Boolean isRecurring) throws Throwable;
+    public ScheduledEntityList getLatestApprovedSendEmail(String status,String entityType,String programStatus,Boolean isRecurring) throws ProcessFailed;
 
     /**
      * This method retrieves {@link scheduledEntityList} by passing id
@@ -108,17 +109,17 @@ public interface ScheduledEntityListService {
      * @param entityType
      * @param programStatus
      * @return {@link scheduledEntityList}
-     * @throws java.lang.Throwable
+     *@throws ProcessFailed the process failed
      */
-    public String getLatestApprovedPost(String status, String entityType, String programStatus) throws Throwable;
+    public String getLatestApprovedPost(String status, String entityType, String programStatus) throws ProcessFailed;
      /**
      * This method retrieves {@link scheduledEntityList} by passing id
      *
      * @param entityId
      * @return {@link scheduledEntityList}
-     * @throws java.lang.Throwable
+     * @throws ProcessFailed the process failed
      */
-    public TblScheduledEntityList getScheduledEntityListByEntityId(Integer entityId) throws Throwable;
+    public ScheduledEntityList getScheduledEntityListByEntityId(Integer entityId) throws ProcessFailed;
      /**
      * This method retrieves {@link scheduledEntityList} by passing id
      *
@@ -127,7 +128,7 @@ public interface ScheduledEntityListService {
      * @param programStatus
      * @param isRecurring 
      * @return {@link scheduledEntityList}
-     * @throws java.lang.Throwable
+     * @throws ProcessFailed the process failed
      */
-    public String getLatestApprovedEmail(String status, String entityType, String programStatus,Boolean isRecurring) throws Throwable;
+    public String getLatestApprovedEmail(String status, String entityType, String programStatus,Boolean isRecurring) throws ProcessFailed;
 }

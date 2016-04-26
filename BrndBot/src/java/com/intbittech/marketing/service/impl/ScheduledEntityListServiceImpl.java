@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit.marketing.service.implementation;
+package com.intbittech.marketing.service.impl;
 
-import com.intbit.marketing.dao.ScheduledEntityListDao;
 import com.intbit.marketing.model.TblScheduledEntityList;
-import com.intbit.marketing.service.ScheduledEntityListService;
+import com.intbittech.exception.ProcessFailed;
+import com.intbittech.marketing.dao.ScheduledEntityListDao;
+import com.intbittech.model.ScheduledEntityList;
+import com.intbittech.marketing.service.ScheduledEntityListService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author intbit-6
  */
 @Service
-@Transactional(rollbackFor = Throwable.class)
+@Transactional(rollbackFor = ProcessFailed.class)
 public class ScheduledEntityListServiceImpl  implements ScheduledEntityListService{
     
    @Autowired
@@ -27,99 +29,101 @@ public class ScheduledEntityListServiceImpl  implements ScheduledEntityListServi
     /**
 	 * {@inheritDoc}
      */
-    public TblScheduledEntityList getById(Integer id) throws Throwable {
+    public ScheduledEntityList getById(Integer id) throws ProcessFailed {
         return  scheduledEntityListDao.getById(id);
     }
 
     /**
 	 * {@inheritDoc}
      */
-    public TblScheduledEntityList getEntityById(Integer id) throws Throwable {
+    public ScheduledEntityList getEntityById(Integer id) throws ProcessFailed {
         return  scheduledEntityListDao.getEntityById(id);
     }
    /**
 	 * {@inheritDoc}
     */
-   public Integer getCurrentRecords(Integer program_id)throws Throwable{
+   public Integer getCurrentRecords(Integer program_id)throws ProcessFailed{
        return scheduledEntityListDao.getCurrentRecords(program_id);
    }
     
    /**
 	 * {@inheritDoc}
      */
-    public List<TblScheduledEntityList> getAllScheduledEmailList() throws Throwable {
+    public List<ScheduledEntityList> getAllScheduledEmailList() throws ProcessFailed {
         return  scheduledEntityListDao.getAllScheduledEmailList();
     }
 
     /**
 	 * {@inheritDoc}
      */
-    public Integer save(TblScheduledEntityList scheduledEntityList) throws Throwable {
+    public Integer save(ScheduledEntityList scheduledEntityList) throws ProcessFailed {
         return  scheduledEntityListDao.save(scheduledEntityList);
     }
 
     /**
 	 * {@inheritDoc}
      */
-    public void update(TblScheduledEntityList scheduledEntityList) throws Throwable {
+    public void update(ScheduledEntityList scheduledEntityList) throws ProcessFailed {
         scheduledEntityListDao.update(scheduledEntityList);
     }
 
     /**
 	 * {@inheritDoc}
      */
-    public void delete(Integer id) throws Throwable {
+    public void delete(Integer id) throws ProcessFailed {
         scheduledEntityListDao.delete(id);
     }
 
    /**
 	 * {@inheritDoc}
      */
-    public List<TblScheduledEntityList> getAllUserScheduledEmailList(Integer userMarketingId, Boolean isRecurring, String entityType) throws Throwable {
+    public List<ScheduledEntityList> getAllUserScheduledEmailList(Integer userMarketingId, Boolean isRecurring, String entityType) throws ProcessFailed {
         return  scheduledEntityListDao.getAllScheduledEmailList();
     }
 
     @Override
-    public List<TblScheduledEntityList> getScheduledEntityListIdForEmailType(Integer userMarketingProgramId, Boolean isRecurring) throws Throwable {
+    public List<ScheduledEntityList> getScheduledEntityListIdForEmailType(Integer userMarketingProgramId, Boolean isRecurring) throws ProcessFailed {
         return scheduledEntityListDao.getScheduledEntityListIdForEmailType(userMarketingProgramId, isRecurring);
     }
 
     @Override
-    public List<TblScheduledEntityList> getScheduledEntityListIdForSocialPostType(Integer userMarketingProgramId) throws Throwable {
+    public List<ScheduledEntityList> getScheduledEntityListIdForSocialPostType(Integer userMarketingProgramId) throws ProcessFailed {
         return scheduledEntityListDao.getScheduledEntityListIdForSocialPostType(userMarketingProgramId);
     }
 
     /**
 	 * {@inheritDoc}
      */
-    public TblScheduledEntityList getLatestApprovedSocialPost(String status, String entityType,String programStatus) throws Throwable {
+    public ScheduledEntityList getLatestApprovedSocialPost(String status, String entityType,String programStatus) throws ProcessFailed {
        return scheduledEntityListDao.getLatestApprovedFacebookPost(status, entityType,programStatus);
     }
 
     /**
 	 * {@inheritDoc}
      */
-    public TblScheduledEntityList getLatestApprovedSendEmail(String status, String entityType, String programStatus, Boolean isRecurring) throws Throwable {
+    public ScheduledEntityList getLatestApprovedSendEmail(String status, String entityType, String programStatus, Boolean isRecurring) throws ProcessFailed {
         return scheduledEntityListDao.getLatestApprovedSendEmail(status, entityType, programStatus, isRecurring);
           }
 
     /**
 	 * {@inheritDoc}
      */
-    public String getLatestApprovedPost(String status, String entityType, String programStatus) throws Throwable {
+    public String getLatestApprovedPost(String status, String entityType, String programStatus) throws ProcessFailed {
         return  scheduledEntityListDao.getLatestApprovedPost(status, entityType, programStatus);
     }
 
     /**
 	 * {@inheritDoc}
      */
-    public TblScheduledEntityList getScheduledEntityListByEntityId(Integer entityId) throws Throwable {
+    public ScheduledEntityList getScheduledEntityListByEntityId(Integer entityId) throws ProcessFailed {
         return scheduledEntityListDao.getScheduledEntityListByEntityId(entityId);
     }
 
     @Override
-    public String getLatestApprovedEmail(String status, String entityType, String programStatus, Boolean isRecurring) throws Throwable {
+    public String getLatestApprovedEmail(String status, String entityType, String programStatus, Boolean isRecurring) throws ProcessFailed {
         return scheduledEntityListDao.getLatestApprovedEmail(status, entityType, programStatus, isRecurring);
     }
+
+   
     
 }

@@ -782,5 +782,37 @@ public class SqlMethods {
         }
         return newList;
     }
+    
+    public JSONObject getJSONUserPreferences(Integer user_id) {
+        String query_string = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+
+        PGobject pgobject = new PGobject();
+        JSONParser parser = new JSONParser();
+        org.json.simple.JSONObject userPreferencesJSONObject = new org.json.simple.JSONObject();
+
+        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+            query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
+            logger.info(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
+
+            result_set = prepared_statement.executeQuery();
+
+            if (result_set.next()) {
+                pgobject = (PGobject) result_set.getObject(IConstants.kUserPreferencesTableKey);
+            }
+            pgobject.setType("json");
+            String obj = pgobject.getValue();
+            userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
+
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null), e);
+
+        } finally {
+            close(result_set, prepared_statement);
+        }
+        return userPreferencesJSONObject;
+    }
 
 }

@@ -5,6 +5,7 @@
  */
 package com.intbit.marketing.dao.implementation;
 
+import com.intbittech.marketing.dao.impl.ScheduledEntityListDaoImpl;
 import com.intbit.marketing.dao.UserPreferencesDao;
 import com.intbit.marketing.model.TblMarketingAction;
 import com.intbit.marketing.model.TblUserPreferences;

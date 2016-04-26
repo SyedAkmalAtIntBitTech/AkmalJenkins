@@ -5,7 +5,7 @@
  */
 package com.intbit.marketing.service;
 
-import com.intbit.marketing.model.TblMarketingAction;
+import com.intbittech.model.MarketingAction;
 import java.util.List;
 
 /**
@@ -14,32 +14,32 @@ import java.util.List;
  */
 public interface MarketingActionService {
     /**
-	 * This method retrieves {@link TblMarketingAction} by passing id
+	 * This method retrieves {@link MarketingAction} by passing id
 	 * @param id
-	 * @return {@link TblMarketingAction}
+	 * @return {@link MarketingAction}
         * @throws java.lang.Throwable 
     */
-   public TblMarketingAction getById(Integer id) throws Throwable; 
+   public MarketingAction getById(Integer id) throws Throwable; 
    
    /**
 	 * This method retrieves all {@link MarketingAction}
 	 * @return {@link MarketingProgram}
 	 * @throws java.lang.Throwable 
     */
-   public List<TblMarketingAction> getAllMarketingAction() throws Throwable;
+   public List<MarketingAction> getAllMarketingAction() throws Throwable;
    
    /**
 	 * This method save {@link MarketingAction} by passing marketingAction
 	 * @param marketingAction
 	 * @throws java.lang.Throwable 
     */
-   public Integer save(TblMarketingAction marketingAction) throws Throwable;
+   public Integer save(MarketingAction marketingAction) throws Throwable;
    /**
 	 * This method save {@link marketingAction} by passing marketingAction
 	 * @param marketingAction
 	 * @throws java.lang.Throwable 
     */
-   public void update(TblMarketingAction marketingAction) throws Throwable;
+   public void update(MarketingAction marketingAction) throws Throwable;
    
    /**
 	 * This method delete {@link marketingAction} by passing id
@@ -48,13 +48,13 @@ public interface MarketingActionService {
     */
    public void delete(Integer id) throws Throwable;
    /**
-	 * This method retrieves {@link TblMarketingAction} by passing id
+	 * This method retrieves {@link MarketingAction} by passing id
 	 * @param mCategoryId
          * @param mProgramId
-	 * @return {@link TblMarketingAction}
+	 * @return {@link MarketingAction}
         * @throws java.lang.Throwable 
     */
-   public TblMarketingAction getMarketingActionByMCategoryIdAndMProgramId(Integer mCategoryId,Integer mProgramId) throws Throwable; 
+   public MarketingAction getMarketingActionByMCategoryIdAndMProgramId(Integer mCategoryId,Integer mProgramId) throws Throwable; 
     
     
 }
