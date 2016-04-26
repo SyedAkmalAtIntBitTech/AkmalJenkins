@@ -539,13 +539,13 @@ function controllerMarketingCampaign($scope, $http) {
                     method: 'GET',
                     url: getHost() + 'GetScheduledEntities.do?from=' + curr_date + '&to=' + new_date
                 }).success(function (data) { 
-                    alert(JSON.stringify(data));
+                    var parseJSON=JSON.parse(data.d.details);
                     var entitySet = {};
-                    $scope.entityS = JSON.stringify(data);
+                    $scope.entityS = JSON.parse(JSON.stringify(parseJSON));
                     $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
                     $scope.tomorrow_date = moment(addDays(new Date(), 1)).format('YYYY-MM-DD');
-                    $scope.entitySet = data.entitydata;
-                    $scope.nodata = data.noactionsmessage;
+                    $scope.entitySet = parseJSON.entitydata;
+                    $scope.nodata = parseJSON.noactionsmessage;
                     $("#default").css("display", "block");
                     $('.page-background').animate({ scrollTop: 0 },500);
                     

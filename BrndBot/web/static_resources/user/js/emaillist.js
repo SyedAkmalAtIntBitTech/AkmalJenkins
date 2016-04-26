@@ -767,16 +767,20 @@ $edit=0;
                     $(".emaillist").show();
                     $("#email_list_name").hide();
                     var emailids = {"update": "allEmailListNames"};
-                    $http({
+                    $.ajax({
                         method: 'GET',
-                        url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts',
-                    }).success(function (data, status, headers, config) {              
+//                        url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts'
+                         url: getHost() + '/emaillist/get.do'
+                    }).success(function (data, status, headers, config) {  
+                        alert(JSON.stringify(data));
                         $scope.emailLists = data.allEmailListWithNoOfContacts.user;                        
                         $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
                         if (data === "true") {
                         } else if (data === error) {
                             alert(data);
                         }
+                    }).error(function(error){
+                        alert(JSON.stringify(error));
                     });
                 };
                 $scope.clearfields = function () {
