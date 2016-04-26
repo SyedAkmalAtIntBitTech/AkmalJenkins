@@ -6,6 +6,7 @@
 package com.intbittech.services.impl;
 
 import com.intbit.AppConstants;
+import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
 import com.intbittech.dao.impl.ScheduleDAO;
@@ -13,7 +14,11 @@ import com.intbittech.dao.impl.ScheduleSocialPostDAO;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.services.ScheduleActionsService;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -118,7 +123,7 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
     @Override
     public Map<String, Integer> scheduleEmailActions(Map<String, Object> requestBodyMap, Integer companyId) {
 
-                //TODO Ilyas needs to check the path and stuff.
+        //TODO Ilyas needs to check the path and stuff.
         try {
             String schedule_id = (String) requestBodyMap.get("schedule_id");
             String scheduleDesc = requestBodyMap.containsKey("schedule_desc")
@@ -157,5 +162,81 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
             logger.error(throwable);
             throw new ProcessFailed("Error while inserting record");
         }
+    }
+
+    @Override
+    public List<Map<String, Integer>> scheduleSocialPostActions(List<Map<String, Object>> requestBodyList, Integer companyId) {
+        List<Map<String, Integer>> daoResponseList = new ArrayList<>();
+        try (Connection conn = ConnectionManager.getInstance().getConnection()) {
+            conn.setAutoCommit(false);
+            try {
+                for (Map<String, Object> requestBodyMap : requestBodyList) {
+                    String metadataString = requestBodyMap.get("metadata").toString();
+                    String schedule_id = (String) requestBodyMap.get("schedule_id");
+                    String image_type = (String) requestBodyMap.get("image_type");
+                    Map<String, Integer> daoResponse = ScheduleSocialPostDAO.updateActionsToScheduleSocialPost(
+                            companyId,
+                            Integer.parseInt(schedule_id),
+                            requestBodyMap.get("image_name").toString(),
+                            AppConstants.GSON.fromJson(metadataString, Map.class),
+                            requestBodyMap.get("type").toString(),
+                            TemplateStatus.template_saved.toString(),
+                            image_type,
+                            conn);
+                    daoResponseList.add(daoResponse);
+                }
+                conn.commit();
+            } catch (SQLException ex) {
+                conn.rollback();
+                throw ex;
+            }
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Unable to insert records");
+        }
+        return daoResponseList;
+    }
+
+    @Override
+    public List<Map<String, Integer>> scheduleSocialPost(List<Map<String, Object>> requestBodyList, Integer companyId) {
+        List<Map<String, Integer>> daoResponseList = new ArrayList<>();
+        try (Connection conn = ConnectionManager.getInstance().getConnection()) {
+            conn.setAutoCommit(false);
+            try {
+                for (Map<String, Object> requestBodyMap : requestBodyList) {
+                    Double schedule = (Double) requestBodyMap.get("schedule_time");
+
+                    Timestamp scheduleTimeStamp = new Timestamp(schedule.longValue());
+                    String metadataString = requestBodyMap.get("metadata").toString();
+                    String marketing_program_id = (String) requestBodyMap.get("program_id");
+                    //As of now schedule description is not yet mandatory.
+                    String scheduleDesc = requestBodyMap.containsKey("schedule_desc")
+                            ? String.valueOf(requestBodyMap.get("schedule_desc")) : null;
+                    String marketingType = "0";
+                    String imageType = requestBodyMap.get("image_type").toString();
+                    Map<String, Integer> daoResponse = ScheduleSocialPostDAO.addToScheduleSocialPost(
+                            companyId,
+                            requestBodyMap.get("image_name").toString(),
+                            Integer.parseInt(marketing_program_id),
+                            AppConstants.GSON.fromJson(metadataString, Map.class),
+                            requestBodyMap.get("type").toString(),
+                            requestBodyMap.get("schedule_title").toString(),
+                            scheduleDesc,
+                            scheduleTimeStamp,
+                            TemplateStatus.template_saved.toString(),
+                            imageType,
+                            conn);
+                    daoResponseList.add(daoResponse);
+                }
+                conn.commit();
+            } catch (SQLException ex) {
+                conn.rollback();
+                throw ex;
+            }
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Unable to insert records");
+        }
+        return daoResponseList;
     }
 }
