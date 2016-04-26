@@ -8,6 +8,7 @@ package com.intbittech.controller;
 import com.intbit.AppConstants;
 import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.ContainerResponse;
+import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.ActionsService;
 import com.intbittech.utility.ErrorHandlingUtil;
@@ -45,14 +46,15 @@ public class ActionsController {
     @RequestMapping(value = "/getActions", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getActions(HttpServletRequest request,
             HttpServletResponse response) {
-        TransactionResponse transactionResponse = new TransactionResponse();
+        GenericResponse<String> transactionResponse = new GenericResponse();
         try {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer userId = userProfile.getUser().getUserId();
-            transactionResponse.setMessage(actionsService.getActions(requestBodyMap, userId));
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            String data = actionsService.getActions(requestBodyMap, companyId);
+            transactionResponse.addDetail(data);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
