@@ -3,42 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit.dao;
+package com.intbittech.dao.impl;
 
 import com.controller.IConstants;
 import com.divtohtml.StringUtil;
-import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
-import static com.intbit.dao.ScheduleSocialPostDAO.getjsonmetadata;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLType;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javassist.bytecode.analysis.Type;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -55,7 +46,7 @@ public class ScheduleDAO {
     private static final Logger logger = Logger.getLogger(ScheduleDAO.class.getName());
     private static final ConnectionManager connectionManager = ConnectionManager.getInstance();
 
-    public static Map<String, Integer> addToScheduledEmailList(int userId,
+    public static Map<String, Integer> addToScheduledEmailList(int companyId,
             String subject,
             Integer marketing_program_id,
             String body,
@@ -80,11 +71,11 @@ public class ScheduleDAO {
         try (Connection connection = connectionManager.getConnection()) {
             connection.setAutoCommit(false);
             try {
-                String sql = "INSERT INTO tbl_scheduled_email_list "
-                        + " (user_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address) VALUES "
-                        + " (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
+                String sql = "INSERT INTO scheduled_email_list "
+                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address) VALUES "
+                        + " (?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
                 try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                    ps.setInt(1, userId);
+                    ps.setInt(1, companyId);
                     ps.setString(2, subject);
                     ps.setString(3, body);
                     ps.setString(4, fromAddress);
@@ -116,7 +107,7 @@ public class ScheduleDAO {
                         ScheduledEntityType.Email.toString(),
                         "0",
                         templateStatus,
-                        userId, 
+                        companyId, 
                         connection);
 
                 connection.commit();
@@ -136,7 +127,7 @@ public class ScheduleDAO {
     }
 
     public static Map<String, Integer> updatetoScheduledEmailList(
-            int userId,
+            int companyId,
             int scheduleid,
             String subject,
             String body,
@@ -159,11 +150,11 @@ public class ScheduleDAO {
         try (Connection connection = connectionManager.getConnection()) {
             connection.setAutoCommit(false);
             try {
-                String sql = "INSERT INTO tbl_scheduled_email_list "
-                        + " (user_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address) VALUES "
+                String sql = "INSERT INTO scheduled_email_list "
+                        + " (fk_company_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address) VALUES "
                         + " (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
                 try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                    ps.setInt(1, userId);
+                    ps.setInt(1, companyId);
                     ps.setString(2, subject);
                     ps.setString(3, body);
                     ps.setString(4, fromAddress);
@@ -207,45 +198,11 @@ public class ScheduleDAO {
         return returnMap;
     }
 
-    /**
-     * Add the array of to email addresses against the schedule email id.
-     *
-     * Connection has to be passed to this API and the caller of the API should
-     * take care of committing the db operation.
-     *
-     * @param scheduledEmailId
-     * @param toEmailAddress
-     * @param connection
-     */
-    public static void addToScheduleEmailRecipient(int scheduledEmailId,
-            String[] toEmailAddress,
-            Connection connection) throws SQLException {
-        if (toEmailAddress == null) {
-            throw new IllegalArgumentException("Email Ids array is null");
-        }
-
-        final String sql = "INSERT INTO tbl_scheduled_email_recipients"
-                + "(scheduled_email_id, to_email_address) "
-                + " VALUES (?,?)";
-
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            for (String emailId : toEmailAddress) {
-                ps.setInt(1, scheduledEmailId);
-                ps.setString(2, emailId);
-                ps.addBatch();
-            }
-            ps.executeBatch();
-        } catch (SQLException ex) {
-            Logger.getLogger(EmailHistoryDAO.class.getName()).log(Level.SEVERE, null, ex);
-            throw ex;
-        }
-    }
-
     public static int updateScheduleEntityList(int entityID, int schedule_id,
             String templateStatus, Connection connection) throws SQLException {
-        String query = "Update tbl_scheduled_entity_list"
+        String query = "Update scheduled_entity_list"
                 + " SET entity_id = ?, status = ?"
-                + " Where id = ?";
+                + " Where scheduled_entity_list_id = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, entityID);
@@ -269,12 +226,12 @@ public class ScheduleDAO {
             String entityType,
             String days,
             String status,
-            int userId,
+            int companyId,
             Connection connection) throws SQLException {
-        String sql = "INSERT INTO tbl_scheduled_entity_list"
+        String sql = "INSERT INTO scheduled_entity_list"
                 + " (entity_id, schedule_title,schedule_time,entity_type,"
-                + "status,user_id, schedule_desc,is_recurring,"
-                + "user_marketing_program_id,days,till_date,recurring_email_id"
+                + "status,fk_company_id, schedule_desc,is_recurring,"
+                + "fk_company_marketing_program_id,days,till_date,recurring_email_id"
                 + ") VALUES"
                 + " (?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id";
 
@@ -290,7 +247,7 @@ public class ScheduleDAO {
             ps.setTimestamp(3, scheduleTime, Calendar.getInstance(TimeZone.getTimeZone(ZoneId.systemDefault())));
             ps.setString(4, entityType);
             ps.setString(5, status);
-            ps.setInt(6, userId);
+            ps.setInt(6, companyId);
             ps.setString(7, scheduleDesc);
             ps.setBoolean(8, false);
             ps.setInt(9, marketing_program_id);
@@ -312,9 +269,9 @@ public class ScheduleDAO {
       public static int updateDescriptionScheduledEntity(Integer scheduleId,
             String scheduleDesc,
             Connection connection) throws SQLException {
-        String query_string = "Update tbl_scheduled_entity_list"
+        String query_string = "Update scheduled_entity_list"
                 + " SET schedule_desc = ?"
-                + " Where id = ?";
+                + " Where scheduled_entity_list_id = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query_string)) {
 
@@ -334,13 +291,13 @@ public class ScheduleDAO {
             String scheduleDesc,
             Timestamp scheduleTime,
             String entityType,
-            int userId,
+            int companyId,
             int days,
             Connection connection) throws SQLException {
-        String query_string = "Update tbl_scheduled_entity_list"
+        String query_string = "Update scheduled_entity_list"
                 + " SET schedule_title = ?, schedule_time = ?,"
                 + " entity_type = ?, days= ?"
-                + " Where id = ?";
+                + " Where scheduled_entity_list_id = ?";
 
         try (PreparedStatement ps = connection.prepareStatement(query_string)) {
 
@@ -358,23 +315,23 @@ public class ScheduleDAO {
         return scheduleId;
     }
 
-    public static JSONArray getScheduledActions(int userid, Integer user_marketing_program_id) throws SQLException {
+    public static JSONArray getScheduledActions(int companyId, Integer company_marketing_program_id) throws SQLException {
         JSONObject json_action_facebook = new JSONObject();
         JSONArray json_array_email = new JSONArray();
-        String query = "Select * from tbl_scheduled_entity_list"
+        String query = "Select * from scheduled_entity_list"
                 + " where entity_id=?"
                 + " and entity_type =?"
                 + " and status = ?"
-                + " and user_marketing_program_id =?"
-                + " and user_id = ?";
+                + " and fk_company_marketing_program_id =?"
+                + " and fk_company_id = ?";
 
         try (Connection conn = connectionManager.getConnection();
                 PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, 0);
             ps.setString(2, ScheduledEntityType.Email.toString());
             ps.setString(3, TemplateStatus.no_template.toString());
-            ps.setInt(4, user_marketing_program_id);
-            ps.setInt(5, userid);
+            ps.setInt(4, company_marketing_program_id);
+            ps.setInt(5, companyId);
             try (ResultSet result_set = ps.executeQuery()) {
                 while (result_set.next()) {
 
@@ -397,7 +354,7 @@ public class ScheduleDAO {
         return json_array_email;
     }
 
-    public static JSONObject getScheduledEntities(int userId,
+    public static JSONObject getScheduledEntities(Integer companyId,
             LocalDate fromDate, LocalDate toDate) throws SQLException {
 
         Map<String, JSONArray> result = new LinkedHashMap<>();
@@ -414,21 +371,21 @@ public class ScheduleDAO {
 //                + " AND slist.entity_type = tc.entity_type"
 //                + " AND slist.user_marketing_program_id = programtable.id"
 //                + " ORDER BY slist.id, schedule_time ";
-        String sql = "SELECT DISTINCT ON (id) slist.*, concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time, concat(date(programtable.date_event), ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time_recurring, date(schedule_time) schedule_date "
-                + " FROM tbl_scheduled_entity_list slist, "
-                + " tbl_user_marketing_program programtable"
-                + " WHERE slist.user_id = ? "
+        String sql = "SELECT DISTINCT ON (scheduled_entity_list_id) slist.*, concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time, concat(date(programtable.date_event), ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time_recurring, date(schedule_time) schedule_date "
+                + " FROM scheduled_entity_list slist, "
+                + " company_marketing_program programtable"
+                + " WHERE slist.fk_company_id = ? "
                 + " AND ((date(schedule_time) <= ? "
                 + " AND date(schedule_time) >= ?) "
                 + " OR ((slist.is_recurring = 'false' AND date(programtable.date_event) - slist.days <= ? "
                 + " AND date(programtable.date_event) - slist.days >= ?) "
                 + " OR (slist.is_recurring = 'true' AND date(programtable.date_event) <= ? "
                 + " AND date(programtable.date_event) >= ?))) "
-                + " AND slist.user_marketing_program_id = programtable.id"
-                + " ORDER BY slist.id, schedule_time ";
+                + " AND slist.fk_company_marketing_program_id = programtable.company_marketing_program_id"
+                + " ORDER BY slist.scheduled_entity_list_id, schedule_time ";
         try (Connection connection = connectionManager.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setInt(1, userId);
+            ps.setInt(1, companyId);
             ps.setDate(2, Date.valueOf(toDate));
             ps.setDate(3, Date.valueOf(fromDate));
             ps.setDate(4, Date.valueOf(toDate));
@@ -441,7 +398,7 @@ public class ScheduleDAO {
                     long scheduleTime = scheduleTimestamp.getTime();
                     JSONObject scheduleDetailJSONObject = new JSONObject();
                     long scheduleDate;
-                    if (rs.getInt("user_marketing_program_id") == 0) {
+                    if (rs.getInt("fk_company_marketing_program_id") == 0) {
                         /* changed from getDate to getTimeStamp */
                         scheduleDate = rs.getTimestamp("schedule_time").getTime();
                     } else {
@@ -455,15 +412,15 @@ public class ScheduleDAO {
                     }
                     //String scheduleDateStr = new Date(scheduleDate).toString();
                     scheduleDetailJSONObject.put("days", rs.getInt("days"));
-                    scheduleDetailJSONObject.put("schedule_id", rs.getInt("id"));
+                    scheduleDetailJSONObject.put("schedule_id", rs.getInt("scheduled_entity_list_id"));
                     scheduleDetailJSONObject.put("entity_id", rs.getInt("entity_id"));
-                    int marketingId = rs.getInt("user_marketing_program_id");
+                    int marketingId = rs.getInt("fk_company_marketing_program_id");
                     String marketingName = getMarketingProgramName(marketingId, connection);
                     scheduleDetailJSONObject.put("marketingName", marketingName);
-                    scheduleDetailJSONObject.put("user_marketing_program_id", rs.getInt("user_marketing_program_id"));
+                    scheduleDetailJSONObject.put("user_marketing_program_id", rs.getInt("fk_company_marketing_program_id"));
                     scheduleDetailJSONObject.put("schedule_title", rs.getString("schedule_title"));
                     scheduleDetailJSONObject.put("schedule_description", rs.getString("schedule_desc"));
-                    if (rs.getInt("user_marketing_program_id") == 0) {
+                    if (rs.getInt("fk_company_marketing_program_id") == 0) {
                         scheduleDetailJSONObject.put("schedule_time", scheduleTime);
                         if (DateTimeUtil.dateEqualsCurrentDate(new Date(scheduleTime))) {
                             scheduleDetailJSONObject.put("is_today_active", "true");
@@ -490,7 +447,7 @@ public class ScheduleDAO {
                     scheduleDetailJSONObject.put("is_recurring", rs.getBoolean("is_recurring"));
                     scheduleDetailJSONObject.put("entity_type", rs.getString("entity_type"));
                     scheduleDetailJSONObject.put("status", rs.getString("status"));
-                    scheduleDetailJSONObject.put("user_id", rs.getInt("user_id"));
+                    scheduleDetailJSONObject.put("user_id", rs.getInt("fk_company_id"));
                     //scheduleDetailJSONObject.put("color", rs.getString("color"));
                     scheduleDetailJSONObject.put("template_status",
                             TemplateStatus.valueOf(rs.getString("status")).getDisplayName());
@@ -588,12 +545,12 @@ public class ScheduleDAO {
 
     public static String getMarketingProgramName(int marketingId, Connection connection) {
         String marketingProgram = "";
-        String sql1 = "SELECT name FROM tbl_user_marketing_program WHERE id = ? ";
+        String sql1 = "SELECT name FROM company_marketing_program WHERE company_marketing_program_id = ? ";
         try (PreparedStatement ps1 = connection.prepareStatement(sql1)) {
             ps1.setInt(1, marketingId);
             try (ResultSet rs1 = ps1.executeQuery()) {
                 if (rs1.next()) {
-                    marketingProgram = rs1.getString("name");
+                    marketingProgram = rs1.getString("company_marketing_program_name");
                 }
             } catch (Exception e) {
                 System.out.println(e);
@@ -605,30 +562,30 @@ public class ScheduleDAO {
         return marketingProgram;
     }
 
-    public static Map<String, Object> getScheduleEmailDetails(int userId, int scheduleId) throws SQLException, ParseException {
+    public static Map<String, Object> getScheduleEmailDetails(int companyId, int scheduleId) throws SQLException, ParseException {
         PGobject pgobject = new PGobject();
         JSONParser parser = new JSONParser();
         org.json.simple.JSONObject emailJSONObject = new org.json.simple.JSONObject();
         JSONArray emailids_json_array = new JSONArray();
         String email_ids = "";
         String sql = "SELECT elist.* FROM "
-                + " tbl_scheduled_email_list elist, "
-                + " tbl_scheduled_entity_list enlist "
-                + " WHERE elist.id = enlist.entity_id "
-                + " AND enlist.user_id = ? "
-                + " AND enlist.id = ?"
+                + " scheduled_email_list elist, "
+                + " scheduled_entity_list enlist "
+                + " WHERE elist.scheduled_email_list_id = enlist.entity_id "
+                + " AND enlist.fk_company_id = ? "
+                + " AND enlist.scheduled_entity_list_id = ?"
                 + " AND enlist.entity_type = ? ";
 
         Map<String, Object> scheduleEmailDetails = new HashMap<>();
         int scheduleEmailId = -1;
         try (Connection connection = connectionManager.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                ps.setInt(1, userId);
+                ps.setInt(1, companyId);
                 ps.setInt(2, scheduleId);
                 ps.setString(3, ScheduledEntityType.Email.toString());
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
-                        scheduleEmailId = rs.getInt("id");
+                        scheduleEmailId = rs.getInt("scheduled_email_list_id");
                         pgobject = (PGobject) rs.getObject("to_email_addresses");
                         pgobject.setType("json");
                         String obj = pgobject.getValue();
@@ -639,8 +596,8 @@ public class ScheduleDAO {
                             email_ids = emailids_json_array.get(i) + "," + email_ids;
                         }
 
-                        scheduleEmailDetails.put("schedule_email_id", rs.getInt("id"));
-                        scheduleEmailDetails.put("user_id", rs.getInt("user_id"));
+                        scheduleEmailDetails.put("schedule_email_id", rs.getInt("scheduled_email_list_id"));
+                        scheduleEmailDetails.put("user_id", rs.getInt("fk_company_id"));
                         scheduleEmailDetails.put("subject", rs.getString("subject"));
                         scheduleEmailDetails.put("body", rs.getString("body"));
                         scheduleEmailDetails.put("from_address", rs.getString("from_address"));
@@ -658,26 +615,26 @@ public class ScheduleDAO {
         return scheduleEmailDetails;
     }
 
-    public static void deleteSchedules(int user_id, String schedule_id) throws SQLException, ParseException {
+    public static void deleteSchedules(int companyId, String schedule_id) throws SQLException, ParseException {
 
         String schedule_ids[] = schedule_id.split(",");
 
         for (int i = 0; i < schedule_ids.length; i++) {
-            String query_String = "Select * from tbl_scheduled_entity_list"
-                    + " Where id=?"
-                    + " and user_id=?";
+            String query_String = "Select * from scheduled_entity_list"
+                    + " Where scheduled_entity_list_id=?"
+                    + " and fk_company_id=?";
 
             try (Connection connection = connectionManager.getConnection()) {
                 try (PreparedStatement prepared_statement = connection.prepareStatement(query_String)) {
                     prepared_statement.setInt(1, Integer.parseInt(schedule_ids[i]));
-                    prepared_statement.setInt(2, user_id);
+                    prepared_statement.setInt(2, companyId);
                     try (ResultSet result_set = prepared_statement.executeQuery()) {
                         if (result_set.next()) {
                             Integer entity_id = result_set.getInt("entity_id");
                             String entity_type = result_set.getString("entity_type");
                             if (entity_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
-                                String query_string1 = "Delete from tbl_scheduled_email_list"
-                                        + " where id = ?";
+                                String query_string1 = "Delete from scheduled_email_list"
+                                        + " where scheduled_email_list_id = ?";
                                 try (PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)) {
                                     prepared_statement1.setInt(1, entity_id);
                                     prepared_statement1.execute();
@@ -687,8 +644,8 @@ public class ScheduleDAO {
                                 }
                             } else if ((entity_type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString()))
                                     || (entity_type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString()))) {
-                                String query_string1 = "Delete from tbl_scheduled_socialpost_list"
-                                        + " where id = ?";
+                                String query_string1 = "Delete from scheduled_socialpost_list"
+                                        + " where scheduled_socialpost_list_id = ?";
                                 try (PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)) {
                                     prepared_statement1.setInt(1, entity_id);
                                     prepared_statement1.execute();
@@ -704,8 +661,8 @@ public class ScheduleDAO {
                 } catch (Exception e) {
                     logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
                 }
-                String query_string2 = "Delete from tbl_scheduled_entity_list"
-                        + " where id = ?";
+                String query_string2 = "Delete from scheduled_entity_list"
+                        + " where scheduled_entity_list_id = ?";
                 try (PreparedStatement prepared_statement2 = connection.prepareStatement(query_string2)) {
                     prepared_statement2.setInt(1, Integer.parseInt(schedule_ids[i]));
                     prepared_statement2.execute();
@@ -717,23 +674,23 @@ public class ScheduleDAO {
         }
     }
 
-    public static void removeSavedTemplate(int user_id, Integer schedule_id) throws SQLException, ParseException {
+    public static void removeSavedTemplate(int companyId, Integer schedule_id) throws SQLException, ParseException {
 
-        String query_String = "Select * from tbl_scheduled_entity_list"
-                + " Where id=?"
-                + " and user_id=?";
+        String query_String = "Select * from scheduled_entity_list"
+                + " Where scheduled_entity_list_id=?"
+                + " and fk_company_id=?";
 
         try (Connection connection = connectionManager.getConnection()) {
             try (PreparedStatement prepared_statement = connection.prepareStatement(query_String)) {
                 prepared_statement.setInt(1, schedule_id);
-                prepared_statement.setInt(2, user_id);
+                prepared_statement.setInt(2, companyId);
                 try (ResultSet result_set = prepared_statement.executeQuery()) {
                     if (result_set.next()) {
                         Integer entity_id = result_set.getInt("entity_id");
                         String entity_type = result_set.getString("entity_type");
                         if (entity_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
-                            String query_string1 = "Delete from tbl_scheduled_email_list"
-                                    + " where id = ?";
+                            String query_string1 = "Delete from scheduled_email_list"
+                                    + " where scheduled_email_list_id = ?";
                             try (PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)) {
                                 prepared_statement1.setInt(1, entity_id);
                                 prepared_statement1.execute();
@@ -743,8 +700,8 @@ public class ScheduleDAO {
                             }
                         } else if ((entity_type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString()))
                                 || (entity_type.equalsIgnoreCase(ScheduledEntityType.Twitter.toString()))) {
-                            String query_string1 = "Delete from tbl_scheduled_socialpost_list"
-                                    + " where id = ?";
+                            String query_string1 = "Delete from scheduled_socialpost_list"
+                                    + " where scheduled_socialpost_list_id = ?";
                             try (PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)) {
                                 prepared_statement1.setInt(1, entity_id);
                                 prepared_statement1.execute();
@@ -759,8 +716,8 @@ public class ScheduleDAO {
             } catch (Exception e) {
                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
             }
-            String query_string2 = "UPDATE tbl_scheduled_entity_list"
-                    + " SET entity_id = ?, status = ?, recurring_email_id = ? where id = ?";
+            String query_string2 = "UPDATE scheduled_entity_list"
+                    + " SET entity_id = ?, status = ?, recurring_email_id = ? where scheduled_entity_list_id = ?";
             try (PreparedStatement prepared_statement = connection.prepareStatement(query_string2)) {
                 prepared_statement.setInt(1, 0);
                 prepared_statement.setString(2, TemplateStatus.no_template.toString());
@@ -773,22 +730,22 @@ public class ScheduleDAO {
         }
     }
 
-    public static void deleteSchedule(int user_id, Integer schedule_id) throws SQLException, ParseException {
+    public static void deleteSchedule(int companyId, Integer schedule_id) throws SQLException, ParseException {
 
-        String query_String = "Select * from tbl_scheduled_entity_list"
-                + " Where id=?"
-                + " and user_id=?";
+        String query_String = "Select * from scheduled_entity_list"
+                + " Where scheduled_entity_list_id=?"
+                + " and fk_company_id=?";
 
         try (Connection connection = connectionManager.getConnection()) {
             try (PreparedStatement prepared_statement = connection.prepareStatement(query_String)) {
                 prepared_statement.setInt(1, schedule_id);
-                prepared_statement.setInt(2, user_id);
+                prepared_statement.setInt(2, companyId);
 //                 prepared_statement.setString(3, ScheduledEntityType.email.toString());
                 try (ResultSet result_set = prepared_statement.executeQuery()) {
                     if (result_set.next()) {
                         Integer entity_id = result_set.getInt("entity_id");
-                        String query_string1 = "Delete from tbl_scheduled_email_list"
-                                + " where id = ?";
+                        String query_string1 = "Delete from scheduled_email_list"
+                                + " where scheduled_email_list_id = ?";
                         try (PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)) {
                             prepared_statement1.setInt(1, entity_id);
                             prepared_statement1.executeUpdate();
@@ -798,8 +755,8 @@ public class ScheduleDAO {
             } catch (Exception e) {
                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
             }
-            String query_string2 = "Delete from tbl_scheduled_entity_list"
-                    + " where id = ?";
+            String query_string2 = "Delete from scheduled_entity_list"
+                    + " where scheduled_entity_list_id = ?";
             try (PreparedStatement prepared_statement = connection.prepareStatement(query_string2)) {
                 prepared_statement.setInt(1, schedule_id);
                 prepared_statement.executeUpdate();
@@ -810,17 +767,17 @@ public class ScheduleDAO {
 
     }
 
-    public static void updateNoteDetails(Integer userid,
+    public static void updateNoteDetails(Integer companyId,
             Integer scheduleID,
             String scheduleTitle,
             String scheduleDesc,
             String status,
             Timestamp scheduleTime) throws SQLException {
 
-        String query_string = "Update tbl_scheduled_entity_list"
+        String query_string = "Update scheduled_entity_list"
                 + " SET schedule_title = ?, schedule_time = ?,"
                 + " status = ?"
-                + " Where id = ?";
+                + " Where scheduled_entity_list_id = ?";
         try (Connection connection = connectionManager.getConnection()) {
             try (PreparedStatement prepared_statement = connection.prepareStatement(query_string)) {
                 prepared_statement.setString(1, scheduleTitle);
@@ -836,7 +793,7 @@ public class ScheduleDAO {
         }
     }
 
-    public static void updateScheduleEmailDetails(Integer userid,
+    public static void updateScheduleEmailDetails(Integer companyId,
             Integer ScheduleID,
             Integer entityID,
             String subject,
@@ -850,9 +807,9 @@ public class ScheduleDAO {
         JSONObject json_email_addresses = new JSONObject();
         JSONArray json_array_email_address = new JSONArray();
         PGobject pg_object = new PGobject();
-        String query_string = "Update tbl_scheduled_entity_list"
+        String query_string = "Update scheduled_entity_list"
                 + " SET schedule_title = ?, schedule_time = ?"
-                + " Where id = ?";
+                + " Where scheduled_entity_list_id = ?";
 
         try (Connection conn = connectionManager.getConnection()) {
             try (PreparedStatement prepared_statement = conn.prepareStatement(query_string)) {
@@ -865,10 +822,10 @@ public class ScheduleDAO {
 
             json_email_addresses = getjsontoemailaddresses(entityID, conn);
 
-            query_string = "Update tbl_scheduled_email_list"
+            query_string = "Update scheduled_email_list"
                     + " SET subject = ?, from_address = ?, email_list_name = ?,"
                     + " to_email_addresses = ?, reply_to_email_address = ?"
-                    + " Where id = ?";
+                    + " Where scheduled_email_list_id = ?";
 
             for (int i = 0; i < toAddress.length; i++) {
                 json_array_email_address.add(toAddress[i].trim());
@@ -896,8 +853,8 @@ public class ScheduleDAO {
         JSONObject json_email_addresses = new JSONObject();
         PGobject pgobject = new PGobject();
         JSONParser parser = new JSONParser();
-        String query_string = "Select to_email_addresses from tbl_scheduled_email_list"
-                + " where id=?";
+        String query_string = "Select to_email_addresses from scheduled_email_list"
+                + " where scheduled_email_list_id=?";
 
         try (PreparedStatement prepared_statement = connection.prepareStatement(query_string)) {
             prepared_statement.setInt(1, entityid);

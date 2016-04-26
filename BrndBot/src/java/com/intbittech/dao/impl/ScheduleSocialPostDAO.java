@@ -3,21 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit.dao;
+package com.intbittech.dao.impl;
 
-import com.controller.IConstants;
+import com.intbittech.dao.impl.ScheduleDAO;
 import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
-import static com.intbit.dao.ScheduleDAO.updateScheduleEntityList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -40,10 +38,9 @@ public class ScheduleSocialPostDAO {
 
     private static final ConnectionManager connectionManager = ConnectionManager.getInstance();
 
-    public static Map<String, Integer> addToScheduleSocialPost(int userId,
+    public static Map<String, Integer> addToScheduleSocialPost(int companyId,
             String imageName,
             Integer marketing_program_id,
-            Map<String, Object> tokenDataMap,
             Map<String, Object> metadataMap,
             String type,
             String scheduleTitle,
@@ -52,28 +49,23 @@ public class ScheduleSocialPostDAO {
             String templateStatus,
             String imageType,
             Connection conn) throws SQLException {
-        String sql = "INSERT INTO tbl_scheduled_socialpost_list "
-                + " (user_id, image_name, token_data, metadata, type, image_type) VALUES"
-                + " (?, ?, ?, ?, ?, ?) RETURNING id";
+        String sql = "INSERT INTO scheduled_socialpost_list "
+                + " (fk_company_id, image_name, metadata, type, image_type) VALUES"
+                + " (?, ?, ?, ?, ?) RETURNING scheduled_socialpost_list_id";
         Map<String, Integer> methodResponse = new HashMap<>();
         int scheduleSocialPostId = -1;
         try {
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setInt(1, userId);
+                ps.setInt(1, companyId);
                 ps.setString(2, imageName);
-
-                PGobject tokenData = new PGobject();
-                tokenData.setType("json");
-                tokenData.setValue(AppConstants.GSON.toJson(tokenDataMap));
-                ps.setObject(3, tokenData);
 
                 PGobject metadata = new PGobject();
                 metadata.setType("json");
                 metadata.setValue(AppConstants.GSON.toJson(metadataMap));
-                ps.setObject(4, metadata);
+                ps.setObject(3, metadata);
 
-                ps.setString(5, type);
-                ps.setString(6, imageType);
+                ps.setString(4, type);
+                ps.setString(5, imageType);
                 ps.execute();
                 try (ResultSet rs = ps.getResultSet()) {
                     if (rs.next()) {
@@ -92,7 +84,7 @@ public class ScheduleSocialPostDAO {
                     type,
                     "0",
                     templateStatus,
-                    userId,
+                    companyId,
                     conn);
             methodResponse.put("schedule_entity_id", scheduleId);
         } catch (SQLException ex) {
@@ -103,36 +95,30 @@ public class ScheduleSocialPostDAO {
         return methodResponse;
     }
 
-    public static Map<String, Integer> updateActionsToScheduleSocialPost(int userId,
+    public static Map<String, Integer> updateActionsToScheduleSocialPost(int companyId,
             int scheduleid,
             String imageName,
-            Map<String, Object> tokenDataMap,
             Map<String, Object> metadataMap,
             String type,
             String templateStatus, String imageType,
             Connection conn) throws SQLException {
-        String sql = "INSERT INTO tbl_scheduled_socialpost_list "
-                + " (user_id, image_name, token_data, metadata, type, image_type) VALUES"
-                + " (?, ?, ?, ?, ?, ?) RETURNING id";
+        String sql = "INSERT INTO scheduled_socialpost_list "
+                + " (fk_company_id, image_name, metadata, type, image_type) VALUES"
+                + " (?, ?, ?, ?, ?) RETURNING id";
         Map<String, Integer> methodResponse = new HashMap<>();
         int scheduleSocialPostId = -1;
         try {
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                ps.setInt(1, userId);
+                ps.setInt(1, companyId);
                 ps.setString(2, imageName);
-
-                PGobject tokenData = new PGobject();
-                tokenData.setType("json");
-                tokenData.setValue(AppConstants.GSON.toJson(tokenDataMap));
-                ps.setObject(3, tokenData);
 
                 PGobject metadata = new PGobject();
                 metadata.setType("json");
                 metadata.setValue(AppConstants.GSON.toJson(metadataMap));
-                ps.setObject(4, metadata);
+                ps.setObject(3, metadata);
 
-                ps.setString(5, type);
-                ps.setString(6, imageType);
+                ps.setString(4, type);
+                ps.setString(5, imageType);
                 ps.execute();
                 try (ResultSet rs = ps.getResultSet()) {
                     if (rs.next()) {
@@ -156,37 +142,35 @@ public class ScheduleSocialPostDAO {
         return methodResponse;
     }
     
-    public static Map<String, Object> getScheduleSocialPostDetails(int userId, int scheduleId) throws SQLException{
+    public static Map<String, Object> getScheduleSocialPostDetails(Integer companyId, int scheduleId) throws SQLException{
         Map<String, Object> socialPostDetails = new HashMap<>();
         String[] socialEntities = {"'"+ ScheduledEntityType.Facebook+"'", "'"+ ScheduledEntityType.Twitter+"'"};
         String SQL = "SELECT spList.* "
-                + " FROM tbl_scheduled_socialpost_list spList, "
-                + "  tbl_scheduled_entity_list seList "
-                + " WHERE seList.id = ? AND "
-                + " seList.entity_id = spList.id AND"
-                + " seList.user_id = ? AND"
+                + " FROM scheduled_socialpost_list spList, "
+                + "  scheduled_entity_list seList "
+                + " WHERE seList.scheduled_entity_list_id = ? AND "
+                + " seList.entity_id = spList.scheduled_socialpost_list_id AND"
+                + " seList.fk_company_id = ? AND"
                 + " seList.entity_type IN ("+ StringUtils.join(socialEntities, ",")+")";
         logger.info(SQL);
         try(Connection conn = connectionManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(SQL)){
             ps.setInt(1, scheduleId);
-            ps.setInt(2, userId);
+            ps.setInt(2, companyId);
             try(ResultSet rs = ps.executeQuery()){
                 if (rs.next()){
-                    int entityId = rs.getInt("id");
+                    int entityId = rs.getInt("scheduled_socialpost_list_id");
                     String imageName = rs.getString("image_name");
-                    String tokenData = rs.getString("token_data");
+                    
                     String metadata = rs.getString("metadata");
                     String type = rs.getString("type");
                     String image_type = rs.getString("image_type");
-                    Map<String, Object> tokenDataMap = 
-                            AppConstants.GSON.fromJson(tokenData, Map.class);
+                   
                     Map<String, Object> metadataMap = 
                             AppConstants.GSON.fromJson(metadata, Map.class);
                     
                     socialPostDetails.put("id", entityId);
                     socialPostDetails.put("image_name", imageName);
-                    socialPostDetails.put("token_data", tokenDataMap);
                     socialPostDetails.put("metadata", metadataMap);
                     socialPostDetails.put("type", type);
                     socialPostDetails.put("image_type", image_type);
@@ -197,28 +181,28 @@ public class ScheduleSocialPostDAO {
         return socialPostDetails;
     }
     
-    public static JSONArray getScheduledActionsfacebook(int userid, Integer user_marketing_program_id)throws SQLException{
+    public static JSONArray getScheduledActionsfacebook(int companyId, Integer company_marketing_program_id)throws SQLException{
         JSONObject json_action_facebook = new JSONObject();
         JSONArray json_array_facebook = new JSONArray();
-        String query = "Select * from tbl_scheduled_entity_list"
+        String query = "Select * from scheduled_entity_list"
                 + " where entity_id=?"
                 + " and entity_type =?"
                 + " and status = ?"
-                + " and user_marketing_program_id =?"
-                + " and user_id = ?";
+                + " and fk_company_marketing_program_id =?"
+                + " and fk_company_id = ?";
         
         try(Connection conn = connectionManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(query)){
             ps.setInt(1, 0);
             ps.setString(2, ScheduledEntityType.Facebook.toString());
             ps.setString(3, TemplateStatus.no_template.toString());
-            ps.setInt(4, user_marketing_program_id);
-            ps.setInt(5, userid);
+            ps.setInt(4, company_marketing_program_id);
+            ps.setInt(5, companyId);
             try(ResultSet result_set = ps.executeQuery()){
                 while (result_set.next()){
                     
                     JSONObject json_object = new JSONObject();
-                    Integer id = result_set.getInt("id");
+                    Integer id = result_set.getInt("scheduled_entity_list_id");
                     String schedule_title = result_set.getString("schedule_title");
                     String schedule_desc = result_set.getString("schedule_desc");
                     Timestamp scheduleTimestamp = result_set.getTimestamp("schedule_time");
@@ -235,29 +219,29 @@ public class ScheduleSocialPostDAO {
         return json_array_facebook;
     }
 
-    public static JSONArray getScheduledActionstwitter(int userid, Integer user_marketing_program_id)throws SQLException{
+    public static JSONArray getScheduledActionstwitter(int companyId, Integer company_marketing_program_id)throws SQLException{
         JSONObject json_action_facebook = new JSONObject();
         JSONArray json_array_twitter = new JSONArray();
-        String query = "Select * from tbl_scheduled_entity_list"
+        String query = "Select * from scheduled_entity_list"
                 + " where entity_id=?"
                 + " and entity_type =?"
                 + " and status = ?"
-                + " and user_marketing_program_id =?"
-                + " and user_id = ?";
+                + " and fk_company_marketing_program_id =?"
+                + " and fk_company_id = ?";
         
         try(Connection conn = connectionManager.getConnection();
             PreparedStatement ps = conn.prepareStatement(query)){
             ps.setInt(1, 0);
             ps.setString(2, ScheduledEntityType.Twitter.toString());
             ps.setString(3, TemplateStatus.no_template.toString());
-            ps.setInt(4, user_marketing_program_id);
-            ps.setInt(5, userid);
+            ps.setInt(4, company_marketing_program_id);
+            ps.setInt(5, companyId);
             
             try(ResultSet result_set = ps.executeQuery()){
                 while (result_set.next()){
                     
                     JSONObject json_object = new JSONObject();
-                    Integer id = result_set.getInt("id");
+                    Integer id = result_set.getInt("scheduled_entity_list_id");
                     String schedule_title = result_set.getString("schedule_title");
                     String schedule_desc = result_set.getString("schedule_desc");
                     Timestamp scheduleTimestamp = result_set.getTimestamp("schedule_time");
@@ -275,7 +259,7 @@ public class ScheduleSocialPostDAO {
         return json_array_twitter;
     }
     
-    public static void updateScheduleSocialPostDetails(Integer userid, 
+    public static void updateScheduleSocialPostDetails(Integer companyId, 
             Integer Scheduleid,
             Integer entity_id,
             String schedule_title,
@@ -285,10 +269,10 @@ public class ScheduleSocialPostDAO {
             )throws SQLException, ParseException{
         JSONObject json_metadata = new JSONObject();
         PGobject pg_object = new PGobject();
-        String query_string = "Update tbl_scheduled_entity_list"
+        String query_string = "Update scheduled_entity_list"
                 + " SET schedule_title = ?, schedule_time = ?,"
                 + " schedule_desc = ?" 
-                + " Where id = ?";
+                + " Where scheduled_entity_list_id = ?";
         
         try(Connection conn = connectionManager.getConnection()){
             try(PreparedStatement prepared_statement = conn.prepareStatement(query_string)){
@@ -301,9 +285,9 @@ public class ScheduleSocialPostDAO {
             }
             json_metadata = getjsonmetadata(entity_id, conn);
             
-        query_string = "Update tbl_scheduled_socialpost_list"
+        query_string = "Update scheduled_socialpost_list"
                 + " SET metadata = ?"
-                + " Where id = ?";
+                + " Where scheduled_socialpost_list_id = ?";
             
             pg_object.setType("json");
             pg_object.setValue(AppConstants.GSON.toJson(metadataMap));
@@ -319,8 +303,8 @@ public class ScheduleSocialPostDAO {
         JSONObject json_metadata = new JSONObject();
         PGobject pgobject = new PGobject();
         JSONParser parser = new JSONParser();        
-        String query_string = "Select metadata from tbl_scheduled_socialpost_list"
-                + "where id=?";
+        String query_string = "Select metadata from scheduled_socialpost_list"
+                + "where scheduled_socialpost_list_id=?";
         
         try(PreparedStatement prepared_statement = connection.prepareStatement(query_string)){
             try(ResultSet result_set = prepared_statement.executeQuery()){

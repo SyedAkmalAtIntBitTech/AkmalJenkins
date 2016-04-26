@@ -9,7 +9,7 @@ package com.controller;
 import com.intbit.AppConstants;
 import static com.intbit.AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH;
 //import com.intbit.ScheduledEntityStatus;
-import com.intbit.dao.EmailHistoryDAO;
+import com.intbittech.dao.impl.EmailHistoryDAO;
 import email.mandrill.Message;
 import email.mandrill.MessageResponses;
 import email.mandrill.Recipient;

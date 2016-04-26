@@ -9,7 +9,7 @@ import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.controller.IConstants;
 import com.controller.ForgotSendEmail;
 import com.controller.SqlMethods;
-import com.intbit.dao.EmailHistoryDAO;
+import com.intbittech.dao.impl.EmailHistoryDAO;
 import com.intbit.marketing.model.TblUserPreferences;
 import com.intbit.marketing.service.UserPreferencesService;
 import email.mandrill.Message;
