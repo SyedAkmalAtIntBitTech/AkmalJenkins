@@ -19,7 +19,7 @@
     <body>
        <div class="navigation">
         <div class="main-nav-logo hint--right" data-hint="DASHBOARD" >
-         <a class=" bb-logo-nav" href="dashboard.jsp" >
+         <a class=" bb-logo-nav" href="dashboard" >
 
             <img  type="image/svg+xml" src="images/Logo_Reverse.svg" class="bb-logo " style="cursor:pointer;" />
 
@@ -27,14 +27,14 @@
         </div>
         <ul class="nav-tabs1">
             <li class="nav-elements-icon-container hint--right"  data-hint="YOUR PLAN">
-                <a href="marketing.jsp"> 
+                <a href="marketing"> 
 
                     <img type="image/svg+xml" src="images/yourPlan.svg" class="nav-elements-icon" style="cursor:pointer;"/>
 
                 </a>
             </li>
             <li class="nav-elements-icon-container hint--right"  data-hint="MARKETING PROGRAM">
-                 <a class="" href="marketingprogramlists.jsp">
+                 <a class="" href="marketingprogramlists">
 
                     <img type="image/svg+xml" src="images/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;"/>
 
@@ -48,14 +48,14 @@
                 </a>
             </li>
             <li class="nav-elements-icon-container hint--right" data-hint="MEDIA">
-                <a  href="imagegallery.jsp" >
+                <a  href="imagegallery" >
 
                     <img type="image/svg+xml" src="images/media.svg" class="nav-elements-icon " style="cursor:pointer;"/>
 
                 </a>
             </li>
             <li class="nav-elements-icon-container hint--right" data-hint="USER">
-                <a  href="settings.jsp?change=0" >
+                <a  href="settings?change=0" >
 
                     <img type="image/svg+xml" src="images/user.svg" class="nav-elements-icon " style="cursor:pointer;"/>
 
@@ -63,7 +63,7 @@
             </li>
              <li class="nav-elements-icon-container hint--right" id="logoutid" data-hint="LOGOUT" style="position: absolute;bottom: 0%;left: 13%;">
 
-                 <a  href="signout.jsp" >
+                 <a  href="signout" >
 
                     <img type="image/svg+xml" src="images/logout.svg" class="nav-elements-icon " style="cursor:pointer;"/>
 

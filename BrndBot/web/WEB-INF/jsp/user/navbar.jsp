@@ -12,19 +12,19 @@
                 <img type="image/svg+xml" src="images/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;">
             
             </div></a>
-        <a href="emaillists"><div class="nav-tabs">
+        <a href="emaillists" class="hint--right" data-hint="MARKETING HUB"><div class="nav-tabs" >
                   <img type="image/svg+xml" src="images/yourHubs.svg" class="nav-elements-icon" style="cursor:pointer;">
            
             </div></a>
-        <a href="Media.html"><div class="nav-tabs">
+        <a href="imagegallery"   class="hint--right" data-hint="GALLERY"><div class="nav-tabs">
                  <img type="image/svg+xml" src="images/media.svg" class="nav-elements-icon" style="cursor:pointer;">
             
             </div></a>
-        <a href="settings"><div class="nav-tabs">
+        <a href="settings"   class="hint--right" data-hint="SETTINGS"><div class="nav-tabs">
                  <img type="image/svg+xml" src="images/user.svg" class="nav-elements-icon" style="cursor:pointer;">
             </div></a>
-     <a href="${pageContext.request.contextPath}/logout">
-        <div class="nav-elements-icon-container-bottom nav-tabs">
+     <a href="${pageContext.request.contextPath}/logout" >
+        <div class="nav-elements-icon-container-bottom nav-tabs" >
              <img type="image/svg+xml" src="images/logout.svg" class="nav-elements-icon" style="cursor:pointer;">
             
         </div>
