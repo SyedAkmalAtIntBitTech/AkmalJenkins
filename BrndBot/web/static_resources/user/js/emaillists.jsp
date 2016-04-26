@@ -7,6 +7,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <%@ include file="fonttypekit.jsp"%>
+    <%--<%@ include file="checksession.jsp" %>--%>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
@@ -15,13 +17,14 @@
     <link rel="stylesheet" type="text/css" href="css/slat.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <link rel="stylesheet" href="css/popup.css"/>
-    <script src="js/alertmessage.js"></script>    
-    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/alertmessage.js"></script>
     <script src="js/angular.min.js" type="text/javascript"></script>    
     <script src="js/bootstrap.min.js"></script>
     <script src="js/form.js"></script>
+    <script src="js/jquery-1.11.3.min.js"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
-    <script src="js/emaillist.js"></script>    
+    <script src="js/emaillist.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script src="js/popup.js" type="text/javascript"></script> 
     <link rel="stylesheet" href="css/popup.css"/>
     <style>#deleteEmaildraft,#addemlstbtn,#savesetbtn{display:none;}</style>
@@ -92,7 +95,7 @@
         <!--Main Content GENERIC--> 
         <div class="page-background">
             <div class="page-content-container email-list-contact-page" id="emaillistsdiv" ng-controller="EmailListController">
-             <jsp:include page="createemaillist.jsp"/> 
+             <jsp:include page="createemaillist"/> 
             <!--Inner Content Conatiner GENERIC-->
             <div class="page-inner-content-container ">
                 <div class="fleft content">

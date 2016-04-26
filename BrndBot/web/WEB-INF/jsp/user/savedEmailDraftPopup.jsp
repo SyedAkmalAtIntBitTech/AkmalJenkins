@@ -37,7 +37,6 @@
                 </div>
             </div>
         </div>
-        
         <!--Below Nav-->
         <div class="below-nav-container-saved-draft-detail">
             <div class="inner-content-container-detail">
@@ -47,19 +46,12 @@
                 </div>
                     <div class="inner-content-detail">
                         <div class="saved-draftemail-preview-detail">
-
                             <!--SAVED Email GOES HERE-->
-
-                         <div id="draftshow"></div>
-                            
-                         
+                         <div id="draftshow"></div>   
                         </div>
                     </div>
                 </div>
             </div>
-          
-        
-
         <!--CTA Bar-->
         <div class="bottom-cta-bar">
             

@@ -48,7 +48,8 @@
 <body ng-app>
     <!--SideNav-->
     <div class="content-main"> 
-        <%@include file="navbarv2.jsp" %>
+        <%@include file="header.jsp" %>
+        <%@include file="navbar.jsp" %>
 
         <!--Top Nav-->   
         <div class="top-nav">

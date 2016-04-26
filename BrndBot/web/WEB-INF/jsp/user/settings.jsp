@@ -5,8 +5,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-7.css">
-    <link rel="stylesheet" type="text/css" href="css/normalize5.css">
     <link rel="shortcut icon" href="favicon.png">
     <title>BrndBot - Account Settings</title>
     <meta charset="UTF-8" >
@@ -55,7 +53,9 @@
     <div class="content-main" ng-controller="controllerUserChanges">
         <input type="hidden" value="<%=change%>" id="change"></input>
         <!--SideNav-->
+        <%--<%@ include file="header.jsp"%>--%>  
         <%@ include file="navbarv2.jsp"%>  
+        
         <!--Top Nav-->   
         <div class="top-nav">
             <div class="page-title-bar col-1of1"> 
