@@ -73,6 +73,16 @@ public class UsersServiceImpl implements UsersService {
         }
         return user;
     }
+
+    @Override
+    public Users getUserByEmailId(String emailId) throws ProcessFailed {
+        Users user = usersDao.getUserByEmailId(emailId);
+        if(user == null)
+        {
+             throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
+        }
+        return user;
+    }
     
     
     

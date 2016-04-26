@@ -38,10 +38,10 @@
                         <div class="pane_title fleft h2">Please select a category of email</div>
                     </div>
                     <div class="pane_content">
-                        <div class="cat-list" ng-repeat="displayAllCategory in displayAllCategories">
+                        <div class="cat-list" ng-repeat="category in displayAllCategories">
                             <div class="cat-slat">
-                                <a id="categoryId" href="emailsubcategory" ng-click="setCategoryID(displayAllCategory.categoryId)">
-                                    <div class="cat-slat-title">{{displayAllCategory.categoryName}}</div>
+                                <a id="categoryId" href="emailsubcategory?categoryId={{category.categoryId}}" ng-click="setCategoryID(category.categoryId)">
+                                    <div class="cat-slat-title">{{category.categoryName}}</div>
                                 </a>
                             </div>
 

@@ -61,4 +61,13 @@ public interface UsersDao {
      */
     public Users getUserById(Integer userId) throws ProcessFailed;
     
+        /**
+     * This method pass user as input and get the {@link Users} from database
+     *
+     * @param emailId
+     * @return {@link Users}
+     * @throws ProcessFailed the process failed
+     */
+    public Users getUserByEmailId(String emailId) throws ProcessFailed;
+    
 }
