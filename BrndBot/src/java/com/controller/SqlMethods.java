@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.sql.SQLType;
 import java.sql.Statement;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
@@ -144,19 +145,20 @@ public class SqlMethods {
     }
 
    
-
-    public void AddImages(Integer user_id, String image_name) throws SQLException {
+    //TODO Ilyas datetime needs testing
+    public void AddImages(Integer companyId, String image_name) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
 
-            query_string = "Insert Into tbl_user_images (user_id, image_name) values (?,?)";
+            query_string = "Insert Into company_images (fk_company_id, image_name,created_date) values (?,?,?)";
             prepared_statement = connection.prepareStatement(query_string);
 
-            prepared_statement.setInt(1, user_id);
+            prepared_statement.setInt(1, companyId);
             prepared_statement.setString(2, image_name);
+            prepared_statement.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
 
             prepared_statement.executeUpdate();
         } catch (Exception e) {
@@ -173,8 +175,8 @@ public class SqlMethods {
         ResultSet result_set = null;
 
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Delete From tbl_user_images"
-                    + " WHERE id='" + image_id + "'";
+            query_string = "Delete From company_images"
+                    + " WHERE company_images_id='" + image_id + "'";
 
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
@@ -184,7 +186,7 @@ public class SqlMethods {
             close(result_set, prepared_statement);
         }
     }
-//TODO ilyas Check this used in many places
+//TODO ilyas Check - this is used in many places(used in mindbody servlets)
     public Integer getOrganizationID(Integer userId) throws ClassNotFoundException, SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
@@ -209,51 +211,53 @@ public class SqlMethods {
         return org_id;
     }
 
-    public String getOrganizationName(Integer orgID) throws ClassNotFoundException, SQLException {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
+    //TODO Ilyas - not used any where - check again and delete
+//    public String getOrganizationName(Integer orgID) throws ClassNotFoundException, SQLException {
+//        String query_string = "";
+//        PreparedStatement prepared_statement = null;
+//        ResultSet result_set = null;
+//
+//        String org_name = "";
+//        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+//            query_string = "Select * from tbl_organization where id=" + orgID + "";
+//            prepared_statement = connection.prepareStatement(query_string);
+//            result_set = prepared_statement.executeQuery();
+//
+//            if (result_set.next()) {
+//                org_name = result_set.getString("organization_name");
+//            }
+//        } catch (Exception e) {
+//            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+//
+//        } finally {
+//            close(result_set, prepared_statement);
+//        }
+//        return org_name;
+//    }
 
-        String org_name = "";
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Select * from tbl_organization where id=" + orgID + "";
-            prepared_statement = connection.prepareStatement(query_string);
-            result_set = prepared_statement.executeQuery();
-
-            if (result_set.next()) {
-                org_name = result_set.getString("organization_name");
-            }
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return org_name;
-    }
-
-    public List getOrganization() throws ClassNotFoundException, SQLException {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-
-        List AL = new ArrayList();
-
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Select * from tbl_organization";
-            prepared_statement = connection.prepareStatement(query_string);
-            result_set = prepared_statement.executeQuery();
-
-            while (result_set.next()) {
-                AL.add(result_set.getString("organization_name"));
-            }
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return AL;
-    }
+    //TODO Ilyas - not used any where - check again and delete
+//    public List getOrganization() throws ClassNotFoundException, SQLException {
+//        String query_string = "";
+//        PreparedStatement prepared_statement = null;
+//        ResultSet result_set = null;
+//
+//        List AL = new ArrayList();
+//
+//        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+//            query_string = "Select * from tbl_organization";
+//            prepared_statement = connection.prepareStatement(query_string);
+//            result_set = prepared_statement.executeQuery();
+//
+//            while (result_set.next()) {
+//                AL.add(result_set.getString("organization_name"));
+//            }
+//        } catch (Exception e) {
+//            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+//        } finally {
+//            close(result_set, prepared_statement);
+//        }
+//        return AL;
+//    }
  
 
     
@@ -266,7 +270,7 @@ public class SqlMethods {
         boolean checked = false;
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
 
-            query_string = "Select * from tbl_user_login_details where user_name='" + UserName + "'";
+            query_string = "Select * from users where user_name='" + UserName + "'";
             prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();
 
@@ -282,59 +286,176 @@ public class SqlMethods {
         return checked;
     }
 
-    public void addUserPreferences(Integer user_id, Integer brand_id, Integer font_theme_id, 
-                                   String location, Integer look_id, Integer organization, 
-                                   JSONObject json_object, String user_email_id, String brand_name) throws SQLException {
+    //TODO Ilyas - not used any where - check again and delete
+//    public void addUserPreferences(Integer user_id, Integer brand_id, Integer font_theme_id, 
+//                                   String location, Integer look_id, Integer organization, 
+//                                   JSONObject json_object, String user_email_id, String brand_name) throws SQLException {
+//        String query_string = "";
+//        PreparedStatement prepared_statement = null;
+//        ResultSet result_set = null;
+//
+//        PGobject pg_object = new PGobject();
+//
+//        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+//            query_string = "Insert Into tbl_user_preferences(user_id,brand_id,font_theme_id,location,look_id, user_preferences) Values(?,?,?,?,?,?)";
+//            prepared_statement = connection.prepareStatement(query_string);
+//
+//            prepared_statement.setInt(1, user_id);
+//            prepared_statement.setInt(2, brand_id);
+//            prepared_statement.setInt(3, font_theme_id);
+//            prepared_statement.setString(4, location);
+//            prepared_statement.setInt(5, look_id);
+//
+//            pg_object.setType("json");
+//            pg_object.setValue(json_object.toJSONString());
+//            prepared_statement.setObject(6, pg_object);
+//
+//            prepared_statement.executeUpdate();
+//        } catch (Exception e) {
+//            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+//
+//        } finally {
+//            close(result_set, prepared_statement);
+//        }
+//        
+//        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+//            query_string = "Insert Into tbl_user_brands(user_id, brand_id, organization, "
+//                    + "     user_email_id, brand_name) Values(?,?,?,?,?)";
+//            prepared_statement = connection.prepareStatement(query_string);
+//
+//            prepared_statement.setInt(1, user_id);
+//            prepared_statement.setInt(2, brand_id);
+//            prepared_statement.setInt(3, organization);
+//            prepared_statement.setString(4, user_email_id);
+//            prepared_statement.setString(5, brand_name);
+//
+//            prepared_statement.executeUpdate();
+//        } catch (Exception e) {
+//            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+//        } finally {
+//            close(result_set, prepared_statement);
+//        }
+//        
+//        
+//    }
+
+    public Boolean updateJSONUserPreference(Integer companyId, JSONObject userPreferenceJSON) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
 
         PGobject pg_object = new PGobject();
-
+        Boolean returnResult = false;
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Insert Into tbl_user_preferences(user_id,brand_id,font_theme_id,location,look_id, user_preferences) Values(?,?,?,?,?,?)";
+            query_string = "Update company_preferences SET company_preferences=? where fk_company_id=?";
             prepared_statement = connection.prepareStatement(query_string);
-
-            prepared_statement.setInt(1, user_id);
-            prepared_statement.setInt(2, brand_id);
-            prepared_statement.setInt(3, font_theme_id);
-            prepared_statement.setString(4, location);
-            prepared_statement.setInt(5, look_id);
 
             pg_object.setType("json");
-            pg_object.setValue(json_object.toJSONString());
-            prepared_statement.setObject(6, pg_object);
-
-            prepared_statement.executeUpdate();
+            pg_object.setValue(userPreferenceJSON.toString());
+            prepared_statement.setObject(1, pg_object, Types.OTHER);
+            prepared_statement.setInt(2, companyId);
+            if (prepared_statement.executeUpdate() == 1) {
+                returnResult = true;
+            }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null), e);
 
         } finally {
             close(result_set, prepared_statement);
         }
-        
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Insert Into tbl_user_brands(user_id, brand_id, organization, "
-                    + "     user_email_id, brand_name) Values(?,?,?,?,?)";
-            prepared_statement = connection.prepareStatement(query_string);
-
-            prepared_statement.setInt(1, user_id);
-            prepared_statement.setInt(2, brand_id);
-            prepared_statement.setInt(3, organization);
-            prepared_statement.setString(4, user_email_id);
-            prepared_statement.setString(5, brand_name);
-
-            prepared_statement.executeUpdate();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        
-        
+        return returnResult;
     }
 
-   
+    //TODO Ilyas - not used any where - check again and delete
+//    public int getFontthemeid(String brndid) throws SQLException {
+//        String query_string = "";
+//        PreparedStatement prepared_statement = null;
+//        ResultSet result_set = null;
+//
+//        Integer IDNO = 0;
+//        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+//            query_string = "Select id from tbl_brand_font_family where brand_id='" + brndid + "'";
+//            prepared_statement = connection.prepareStatement(query_string);
+//            result_set = prepared_statement.executeQuery();
+//
+//            if (result_set.next()) {
+//                IDNO = result_set.getInt(1);
+//            }
+//        } catch (Exception e) {
+//            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+//
+//        } finally {
+//            close(result_set, prepared_statement);
+//        }
+//        return IDNO;
+//    }
+
+    //TODO Ilyas - not used any where - check again and delete
+//    public void addUsers(String User_id, String password) throws SQLException {
+//        String query_string = "";
+//        PreparedStatement prepared_statement = null;
+//        ResultSet result_set = null;
+//
+//        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+//            query_string = "Insert Into tbl_user_login_details(user_name,password,organizationid,logo_name,company_name) Values(?,?,?,?,?)";
+//            prepared_statement = connection.prepareStatement(query_string);
+//
+//            prepared_statement.setString(1, User_id);
+//            prepared_statement.setString(2, password);
+//            prepared_statement.setInt(3, 0);
+//            prepared_statement.setString(4, "");
+//            prepared_statement.setString(5, "");
+//
+//            prepared_statement.executeUpdate();
+//        } catch (Exception e) {
+//            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+//
+//        } finally {
+//            close(result_set, prepared_statement);
+//        }
+//    }
+
+    //TODO Ilyas - not used any where - check again and delete - used in changeLOGO need to refactor it completely
+//    public void updateUsers(int idno, String fileName) throws SQLException {
+//        String query_string = "";
+//        PreparedStatement prepared_statement = null;
+//        ResultSet result_set = null;
+//
+//        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+//            query_string = "UPDATE tbl_user_login_details"
+//                    + "   SET logo_name='" + fileName + "'  WHERE id='" + idno + "'";
+//
+//            prepared_statement = connection.prepareStatement(query_string);
+//            prepared_statement.executeUpdate();
+//        } catch (Exception e) {
+//            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+//
+//        } finally {
+//            close(result_set, prepared_statement);
+//        }
+//    }
+
+    //TODO Ilyas - not used any where - check again and delete
+//    public void updateUsersOrg(int idno, int Org_id, String Company_name) throws SQLException {
+//        String query_string = "";
+//        PreparedStatement prepared_statement = null;
+//        ResultSet result_set = null;
+//
+//        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+//            query_string = "UPDATE tbl_user_login_details"
+//                    + "   SET organizationid ='" + Org_id + "', company_name='" + Company_name + "' WHERE id='" + idno + "'";
+//
+//            prepared_statement = connection.prepareStatement(query_string);
+//            prepared_statement.executeUpdate();
+//        } catch (Exception e) {
+//            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+//
+//        } finally {
+//            close(result_set, prepared_statement);
+//        }
+//    }
+
+    //TODO Ilyas - not used any where - check again and delete - AR re did the servlet associated with this - ForgotSendEmail
     public void setUserDetails(Integer userid, String randvalue, Date expdate, Date exptime) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
@@ -366,6 +487,7 @@ public class SqlMethods {
 
     }
 
+    //TODO Ilyas - not used any where - check again and delete - AR re did the servlet associated with this - ResetUserPassword
     public void resetPassword(String id, String password) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
@@ -391,6 +513,7 @@ public class SqlMethods {
         }
     }
 
+    //TODO Ilyas - not used any where - check again and delete - AR re did the servlet associated with this - ResetUserPassword
     public String checkResetStatus(String hash) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
@@ -426,35 +549,37 @@ public class SqlMethods {
         return userid;
     }
 
-    public String getUserIdbyHash(String hash) throws SQLException {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-
-        String userid = "";
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Select * from tbl_forgot_password where randomlink='" + hash + "'";
-            prepared_statement = connection.prepareStatement(query_string);
-            result_set = prepared_statement.executeQuery();
-            if (result_set.next()) {
-                userid = result_set.getString("userid");
-            }
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return userid;
-    }
+    //TODO Ilyas - not used any where - check again and delete
+//    public String getUserIdbyHash(String hash) throws SQLException {
+//        String query_string = "";
+//        PreparedStatement prepared_statement = null;
+//        ResultSet result_set = null;
+//
+//        String userid = "";
+//        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+//            query_string = "Select * from tbl_forgot_password where randomlink='" + hash + "'";
+//            prepared_statement = connection.prepareStatement(query_string);
+//            result_set = prepared_statement.executeQuery();
+//            if (result_set.next()) {
+//                userid = result_set.getString("userid");
+//            }
+//        } catch (Exception e) {
+//            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+//
+//        } finally {
+//            close(result_set, prepared_statement);
+//        }
+//        return userid;
+//    }
 
 
    
+//TODO Ilyas - not used any where - check again and delete
+//    public void setLookID() throws IOException {
+//        logger.log(Level.INFO, "LookID" + ":" + "LookID");
+//    }
 
-    public void setLookID() throws IOException {
-        logger.log(Level.INFO, "LookID" + ":" + "LookID");
-    }
-
+    //TODO Ilyas/AR - used in mindbody refactor when needed
     public String getMapperFile(Integer user_id, Integer organization_id, Integer category_id, Integer sub_category_id, Integer model_mapper_id, Integer block_id, String editorType) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
@@ -504,8 +629,39 @@ public class SqlMethods {
         return mapper_file_name;
     }
 
-   
-    public org.json.simple.JSONArray getEmailListsPreferences(Integer user_id, String type) {
+    public JSONObject getJSONUserPreferences(Integer companyId) {
+        String query_string = "";
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+
+        PGobject pgobject = new PGobject();
+        JSONParser parser = new JSONParser();
+        org.json.simple.JSONObject userPreferencesJSONObject = new org.json.simple.JSONObject();
+
+        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
+            query_string = "Select * from company_preferences where fk_company_id=" + companyId + "";
+            logger.info(query_string);
+            prepared_statement = connection.prepareStatement(query_string);
+
+            result_set = prepared_statement.executeQuery();
+
+            if (result_set.next()) {
+                pgobject = (PGobject) result_set.getObject(IConstants.kUserPreferencesTableKey);
+            }
+            pgobject.setType("json");
+            String obj = pgobject.getValue();
+            userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
+
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null), e);
+
+        } finally {
+            close(result_set, prepared_statement);
+        }
+        return userPreferencesJSONObject;
+    }
+
+    public org.json.simple.JSONArray getEmailListsPreferences(Integer companyId, String type) {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
@@ -517,7 +673,7 @@ public class SqlMethods {
 
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
             if (type.equalsIgnoreCase(IConstants.kEmailListUserKey)) {
-                query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
+                query_string = "Select * from company_preferences where fk_company_id=" + companyId + "";
 
                 logger.log(Level.INFO, query_string);
                 prepared_statement = connection.prepareStatement(query_string);
@@ -542,7 +698,7 @@ public class SqlMethods {
                 }
 
             } else if (type.equalsIgnoreCase(IConstants.kEmailListMindbodyKey)) {
-                query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
+                query_string = "Select * from company_preferences where company_preferences=" + companyId + "";
 
                 logger.log(Level.INFO, query_string);
                 prepared_statement = connection.prepareStatement(query_string);
@@ -783,36 +939,4 @@ public class SqlMethods {
         return newList;
     }
     
-    public JSONObject getJSONUserPreferences(Integer user_id) {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-
-        PGobject pgobject = new PGobject();
-        JSONParser parser = new JSONParser();
-        org.json.simple.JSONObject userPreferencesJSONObject = new org.json.simple.JSONObject();
-
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
-            logger.info(query_string);
-            prepared_statement = connection.prepareStatement(query_string);
-
-            result_set = prepared_statement.executeQuery();
-
-            if (result_set.next()) {
-                pgobject = (PGobject) result_set.getObject(IConstants.kUserPreferencesTableKey);
-            }
-            pgobject.setType("json");
-            String obj = pgobject.getValue();
-            userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
-
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null), e);
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return userPreferencesJSONObject;
-    }
-
 }
