@@ -233,7 +233,7 @@ public class ScheduleDAO {
                 + "status,fk_company_id, schedule_desc,is_recurring,"
                 + "fk_company_marketing_program_id,days,till_date,recurring_email_id"
                 + ") VALUES"
-                + " (?,?,?,?,?,?,?,?,?,?,?,?) RETURNING id";
+                + " (?,?,?,?,?,?,?,?,?,?,?,?) RETURNING scheduled_entity_list_id";
 
         int scheduleId = -1;
                
