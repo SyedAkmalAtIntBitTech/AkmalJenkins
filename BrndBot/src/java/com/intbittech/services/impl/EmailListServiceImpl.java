@@ -47,7 +47,7 @@ public class EmailListServiceImpl implements EmailListService {
     SqlMethods sql_methods = new SqlMethods();
 
     @Override
-    public String getEmailList(Map<String, Object> requestBodyMap, Integer userId) throws Exception {
+    public String getEmailList(Map<String, Object> requestBodyMap, Integer companyId) throws Exception {
 
         JSONObject responseObject = new JSONObject();
         org.json.simple.JSONArray emailListNames = new org.json.simple.JSONArray();
@@ -56,30 +56,30 @@ public class EmailListServiceImpl implements EmailListService {
         String queryParameter = (String) requestBodyMap.get("update");
 
         if (queryParameter.equalsIgnoreCase("allEmailListNames")) {
-            emailListNames = getEmailListNames(userId);
-            emailListNames_mindbody = getEmailListNames_mindbody(userId);
+            emailListNames = getEmailListNames(companyId);
+            emailListNames_mindbody = getEmailListNames_mindbody(companyId);
             responseObject.put(IConstants.kEmailListUserKey, emailListNames);
             responseObject.put(IConstants.kEmailListMindbodyKey, emailListNames_mindbody);
 
         } else if (queryParameter.equalsIgnoreCase("emailsForEmailList")) {
             String emailListName = (String) requestBodyMap.get("list_name");
-            org.json.simple.JSONArray json_email_ids = getEmailIds(userId, emailListName);
-            org.json.simple.JSONArray json_email_ids_mindbody = getEmailIds_mindbody(userId, emailListName);
+            org.json.simple.JSONArray json_email_ids = getEmailIds(companyId, emailListName);
+            org.json.simple.JSONArray json_email_ids_mindbody = getEmailIds_mindbody(companyId, emailListName);
             responseObject.put(IConstants.kEmailListNameKey, emailListName);
 
             responseObject.put(IConstants.kEmailListMindbodyKey + "_" + IConstants.kEmailAddressesKey, json_email_ids_mindbody);
             responseObject.put(IConstants.kEmailListUserKey + "_" + IConstants.kEmailAddressesKey, json_email_ids);
 
         } else if (queryParameter.equalsIgnoreCase("allEmailListWithAddresses")) {
-            org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(userId, IConstants.kEmailListUserKey);
-            org.json.simple.JSONArray emailListArrayJSONMindbody = sql_methods.getEmailListsPreferences(userId, IConstants.kEmailListMindbodyKey);
+            org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(companyId, IConstants.kEmailListUserKey);
+            org.json.simple.JSONArray emailListArrayJSONMindbody = sql_methods.getEmailListsPreferences(companyId, IConstants.kEmailListMindbodyKey);
             JSONObject emailList_jsonobject = new JSONObject();
             emailList_jsonobject.put(IConstants.kEmailListUserKey, emailListArrayJSON);
             emailList_jsonobject.put(IConstants.kEmailListMindbodyKey, emailListArrayJSONMindbody);
             responseObject.put(queryParameter, emailList_jsonobject);
         } else if (queryParameter.equalsIgnoreCase("allEmailListWithNoOfContacts")) {
-            org.json.simple.JSONArray emailListArrayFromUsers = (org.json.simple.JSONArray) sql_methods.getEmailListsPreferences(userId, IConstants.kEmailListUserKey);
-            org.json.simple.JSONArray emailListArrayJSONMindbody = (org.json.simple.JSONArray) sql_methods.getEmailListsPreferences(userId, IConstants.kEmailListMindbodyKey);
+            org.json.simple.JSONArray emailListArrayFromUsers = (org.json.simple.JSONArray) sql_methods.getEmailListsPreferences(companyId, IConstants.kEmailListUserKey);
+            org.json.simple.JSONArray emailListArrayJSONMindbody = (org.json.simple.JSONArray) sql_methods.getEmailListsPreferences(companyId, IConstants.kEmailListMindbodyKey);
             org.json.simple.JSONArray emailListArrayToUI = new org.json.simple.JSONArray();
             org.json.simple.JSONArray emailListArrayToUIMindbody = new org.json.simple.JSONArray();
 
@@ -125,7 +125,7 @@ public class EmailListServiceImpl implements EmailListService {
     }
 
     @Override
-    public Boolean setEmailList(Map<String, Object> requestBodyMap, Integer userId) throws JSONException, SQLException, ParseException {
+    public Boolean setEmailList(Map<String, Object> requestBodyMap, Integer companyId) throws JSONException, SQLException, ParseException {
         Boolean dataresponse = false;
 
         String queryParameter = (String) requestBodyMap.get("update");
@@ -275,8 +275,8 @@ public class EmailListServiceImpl implements EmailListService {
         return emailListNamesjson;
     }
 
-    private boolean addEmailListPreference(Integer user_id, String emailListName, String defaultName, String listDescription) throws SQLException {
-        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
+    private boolean addEmailListPreference(Integer companyId, String emailListName, String defaultName, String listDescription) throws SQLException {
+        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(companyId, IConstants.kEmailListUserKey);
         UUID uniqueKey = UUID.randomUUID();
 
         if (emailListArrayJSON.size() != 0) {
@@ -290,7 +290,7 @@ public class EmailListServiceImpl implements EmailListService {
             json_user_preferences_email.put(IConstants.kEmailListAddedDate, dateFormat.format(new Date()));
 
             emailListArrayJSON.add(json_user_preferences_email);
-            return AddEmailListUserPreference(user_id, emailListArrayJSON);
+            return AddEmailListUserPreference(companyId, emailListArrayJSON);
         } else {
             JSONObject json_user_preferences_email = new JSONObject();
 
@@ -305,13 +305,13 @@ public class EmailListServiceImpl implements EmailListService {
 
             org.json.simple.JSONArray emailListArray = new org.json.simple.JSONArray();
             emailListArray.add(json_user_preferences_email);
-            return AddEmailListUserPreference(user_id, emailListArray);
+            return AddEmailListUserPreference(companyId, emailListArray);
         }
     }
 
-    private boolean updateEmailListPreference(Integer user_id, String emailListName, String emailAddresses) throws JSONException, SQLException {
+    private boolean updateEmailListPreference(Integer companyId, String emailListName, String emailAddresses) throws JSONException, SQLException {
 
-        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
+        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(companyId, IConstants.kEmailListUserKey);
         JSONObject emailListJSONObject = new JSONObject();
 
         for (int i = 0; i < emailListArrayJSON.size(); i++) {
@@ -355,13 +355,13 @@ public class EmailListServiceImpl implements EmailListService {
             }
         }
 
-        return updateEmailListUserPreference(user_id, emailListArrayJSON);
+        return updateEmailListUserPreference(companyId, emailListArrayJSON);
 
     }
 
-    private boolean addEmailIDToEmailList(Integer user_id, String emailListName, EmailInfo email_info) throws JSONException, SQLException, ParseException {
+    private boolean addEmailIDToEmailList(Integer companyId, String emailListName, EmailInfo email_info) throws JSONException, SQLException, ParseException {
 
-        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
+        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(companyId, IConstants.kEmailListUserKey);
         JSONObject emailListJSONObject = new JSONObject();
 
         for (int i = 0; i < emailListArrayJSON.size(); i++) {
@@ -381,13 +381,13 @@ public class EmailListServiceImpl implements EmailListService {
             }
         }
 
-        return updateEmailListUserPreference(user_id, emailListArrayJSON);
+        return updateEmailListUserPreference(companyId, emailListArrayJSON);
 
     }
 
-    private boolean addUpdateEmailListPreferenceForEmailID(Integer user_id, String emailListName, EmailInfo email_info) throws JSONException, SQLException, ParseException {
+    private boolean addUpdateEmailListPreferenceForEmailID(Integer companyId, String emailListName, EmailInfo email_info) throws JSONException, SQLException, ParseException {
 
-        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
+        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(companyId, IConstants.kEmailListUserKey);
         JSONObject emailListJSONObject = new JSONObject();
 
         for (int i = 0; i < emailListArrayJSON.size(); i++) {
@@ -420,12 +420,12 @@ public class EmailListServiceImpl implements EmailListService {
             }
         }
 
-        return updateEmailListUserPreference(user_id, emailListArrayJSON);
+        return updateEmailListUserPreference(companyId, emailListArrayJSON);
 
     }
 
-    private boolean deleteAllEmailsFromEmailList(Integer user_id, String emailListName) throws JSONException, SQLException {
-        org.json.simple.JSONArray emailListArrayJSON = (org.json.simple.JSONArray) sql_methods.getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
+    private boolean deleteAllEmailsFromEmailList(Integer companyId, String emailListName) throws JSONException, SQLException {
+        org.json.simple.JSONArray emailListArrayJSON = (org.json.simple.JSONArray) sql_methods.getEmailListsPreferences(companyId, IConstants.kEmailListUserKey);
 
         for (int i = 0; i < emailListArrayJSON.size(); i++) {
             JSONObject emailListJSONObject = (JSONObject) emailListArrayJSON.get(i);
@@ -439,11 +439,11 @@ public class EmailListServiceImpl implements EmailListService {
                 }
             }
         }
-        return updateEmailListUserPreference(user_id, emailListArrayJSON);
+        return updateEmailListUserPreference(companyId, emailListArrayJSON);
     }
 
-    private boolean deleteEmailFromEmailList(Integer user_id, String emailListName, String emailid) throws JSONException, SQLException {
-        org.json.simple.JSONArray emailListArrayJSON = (org.json.simple.JSONArray) sql_methods.getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
+    private boolean deleteEmailFromEmailList(Integer companyId, String emailListName, String emailid) throws JSONException, SQLException {
+        org.json.simple.JSONArray emailListArrayJSON = (org.json.simple.JSONArray) sql_methods.getEmailListsPreferences(companyId, IConstants.kEmailListUserKey);
 
         for (int i = 0; i < emailListArrayJSON.size(); i++) {
             JSONObject emailListJSONObject = (JSONObject) emailListArrayJSON.get(i);
@@ -468,11 +468,11 @@ public class EmailListServiceImpl implements EmailListService {
                 }
             }
         }
-        return updateEmailListUserPreference(user_id, emailListArrayJSON);
+        return updateEmailListUserPreference(companyId, emailListArrayJSON);
     }
 
-    private Boolean deleteAllEmailList(Integer user_id, String emailListName) throws JSONException, SQLException {
-        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
+    private Boolean deleteAllEmailList(Integer companyId, String emailListName) throws JSONException, SQLException {
+        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(companyId, IConstants.kEmailListUserKey);
 
         String emailAddressesSplit[] = emailListName.split(",");
 
@@ -492,11 +492,11 @@ public class EmailListServiceImpl implements EmailListService {
                 }
             }
         }
-        return updateEmailListUserPreference(user_id, emailListArrayJSON);
+        return updateEmailListUserPreference(companyId, emailListArrayJSON);
     }
 
-    private Boolean deleteEmailList(Integer user_id, String emailListName) throws JSONException, SQLException {
-        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
+    private Boolean deleteEmailList(Integer companyId, String emailListName) throws JSONException, SQLException {
+        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(companyId, IConstants.kEmailListUserKey);
         for (int i = 0; i < emailListArrayJSON.size(); i++) {
             JSONObject emailListJSONObject = (JSONObject) emailListArrayJSON.get(i);
             String emailAddressesSplit[] = emailListName.split(",");
@@ -508,24 +508,24 @@ public class EmailListServiceImpl implements EmailListService {
                 }
             }
         }
-        return updateEmailListUserPreference(user_id, emailListArrayJSON);
+        return updateEmailListUserPreference(companyId, emailListArrayJSON);
     }
 
-    private Boolean AddEmailListUserPreference(Integer user_id, org.json.simple.JSONArray json_user_preferences_emails) throws SQLException {
-        org.json.simple.JSONObject userPreferences = sql_methods.getJSONUserPreferences(user_id);
+    private Boolean AddEmailListUserPreference(Integer companyId, org.json.simple.JSONArray json_user_preferences_emails) throws SQLException {
+        org.json.simple.JSONObject userPreferences = sql_methods.getJSONUserPreferences(companyId);
         userPreferences.put(IConstants.kEmailAddressUserPreferenceKey, json_user_preferences_emails);
-        return sql_methods.updateJSONUserPreference(user_id, userPreferences);
+        return sql_methods.updateJSONUserPreference(companyId, userPreferences);
     }
 
-    private Boolean updateEmailListUserPreference(Integer user_id, org.json.simple.JSONArray json_user_preferences_emails) throws SQLException {
-        org.json.simple.JSONObject userPreferences = sql_methods.getJSONUserPreferences(user_id);
+    private Boolean updateEmailListUserPreference(Integer companyId, org.json.simple.JSONArray json_user_preferences_emails) throws SQLException {
+        org.json.simple.JSONObject userPreferences = sql_methods.getJSONUserPreferences(companyId);
         userPreferences.put(IConstants.kEmailAddressUserPreferenceKey, json_user_preferences_emails);
-        return sql_methods.updateJSONUserPreference(user_id, userPreferences);
+        return sql_methods.updateJSONUserPreference(companyId, userPreferences);
     }
 
-    private boolean checkAvailability(Integer user_id, String emailListName, EmailInfo email_info) {
+    private boolean checkAvailability(Integer companyId, String emailListName, EmailInfo email_info) {
 
-        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
+        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(companyId, IConstants.kEmailListUserKey);
         JSONObject emailListJSONObject = new JSONObject();
 
         for (int i = 0; i < emailListArrayJSON.size(); i++) {

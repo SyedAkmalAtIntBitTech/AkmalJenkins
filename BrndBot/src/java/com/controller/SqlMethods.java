@@ -436,7 +436,7 @@ public class SqlMethods {
         PGobject pg_object = new PGobject();
         Boolean returnResult = false;
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Update tbl_user_preferences SET user_preferences=? where user_id=?";
+            query_string = "Update company_preferences SET company_preferences=? where fk_company_id=?";
             prepared_statement = connection.prepareStatement(query_string);
 
             pg_object.setType("json");
@@ -741,7 +741,7 @@ public class SqlMethods {
         org.json.simple.JSONObject userPreferencesJSONObject = new org.json.simple.JSONObject();
 
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Select * from tbl_user_preferences where user_id=" + user_id + "";
+            query_string = "Select * from company_preferences where fk_company_id=" + user_id + "";
             logger.info(query_string);
             prepared_statement = connection.prepareStatement(query_string);
 

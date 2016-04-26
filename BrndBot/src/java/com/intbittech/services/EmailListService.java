@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public interface EmailListService {
 
-    public String getEmailList(Map<String, Object> requestBodyMap, Integer userId) throws Exception;
+    public String getEmailList(Map<String, Object> requestBodyMap, Integer companyId) throws Exception;
 
-    public Boolean setEmailList(Map<String, Object> requestBodyMap, Integer userId) throws Exception;
+    public Boolean setEmailList(Map<String, Object> requestBodyMap, Integer companyId) throws Exception;
 }

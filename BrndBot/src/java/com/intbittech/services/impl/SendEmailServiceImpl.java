@@ -42,7 +42,7 @@ public class SendEmailServiceImpl implements SendEmailService {
     private final static Logger logger = Logger.getLogger(SendEmailServiceImpl.class);
 
     @Override
-    public void sendMail(Map<String, Object> requestBodyMap, Integer user_id) throws Exception {
+    public void sendMail(Map<String, Object> requestBodyMap, Integer companyId) throws Exception {
         SendMail send_email = new SendMail();
         String html_text = "";
         String email_subject = (String) requestBodyMap.get("email_subject");
@@ -107,7 +107,7 @@ public class SendEmailServiceImpl implements SendEmailService {
             IframeDelete.delete();
         }
 
-        int lastUpdateId = EmailHistoryDAO.addToEmailHistory(user_id,
+        int lastUpdateId = EmailHistoryDAO.addToEmailHistory(companyId,
                 html_text, from_email_address, emaillist_name,
                 to_email_addresses, email_subject, SendMail.getTag(email_subject));
         if (mandrillResponse != null && lastUpdateId != -1) {

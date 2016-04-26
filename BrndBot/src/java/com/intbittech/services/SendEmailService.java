@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface SendEmailService {
 
-    public void sendMail(Map<String, Object> requestBodyMap, Integer user_id) throws Exception;
+    public void sendMail(Map<String, Object> requestBodyMap, Integer companyId) throws Exception;
 
-    public String getTags(Integer userId) throws Exception;
+    public String getTags(Integer companyId) throws Exception;
 }
