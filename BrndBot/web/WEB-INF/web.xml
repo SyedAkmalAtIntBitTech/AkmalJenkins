@@ -185,11 +185,6 @@
         <servlet-class>com.controller.GenericAnnouncementServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EmailSettingsServlet</servlet-name>
-        <servlet-class>com.controller.email.EmailSettingsServlet</servlet-class>
-    </servlet>
-   </servlet>
-    <servlet>
         <servlet-name>AddNoteServlet</servlet-name>
         <servlet-class>com.controller.schedule.AddNoteServlet</servlet-class>
     </servlet>
@@ -402,10 +397,7 @@
         <servlet-name>GenericAnnouncementServlet</servlet-name>
         <url-pattern>/GenericAnnouncementServlet</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EmailSettingsServlet</servlet-name>
-        <url-pattern>/EmailSettingsServlet</url-pattern>
-    </servlet-mapping>
+    
     <servlet-mapping>
         <servlet-name>AddNoteServlet</servlet-name>
         <url-pattern>/AddNote</url-pattern>
