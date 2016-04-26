@@ -12,7 +12,7 @@
                 <img type="image/svg+xml" src="images/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;">
             
             </div></a>
-        <a href="MarketingHubs-EmailHub.html"><div class="nav-tabs">
+        <a href="emaillists"><div class="nav-tabs">
                   <img type="image/svg+xml" src="images/yourHubs.svg" class="nav-elements-icon" style="cursor:pointer;">
            
             </div></a>
