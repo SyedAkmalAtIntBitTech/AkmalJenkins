@@ -11,9 +11,13 @@ import java.util.Map;
  *
  * @author ilyas
  */
-public interface ActionsService {
+public interface ScheduleActionsService {
 
     public String getActions(Map<String, Object> requestBodyMap, Integer companyId) throws Exception;
+
+    public Map<String, Integer> scheduleEmail(Map<String, Object> requestBodyMap, Integer companyId);
+
+    public Map<String, Integer> scheduleEmailActions(Map<String, Object> requestBodyMap, Integer companyId);
     
    
 }

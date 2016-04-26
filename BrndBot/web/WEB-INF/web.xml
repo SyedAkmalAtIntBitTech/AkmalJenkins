@@ -188,11 +188,6 @@
         <servlet-name>EmailSettingsServlet</servlet-name>
         <servlet-class>com.controller.email.EmailSettingsServlet</servlet-class>
     </servlet>
-    
-    <servlet>
-        <servlet-name>ScheduleEmailServlet</servlet-name>
-        <servlet-class>com.controller.schedule.ScheduleEmailServlet</servlet-class>
-    </servlet>
     <servlet>
         <servlet-name>ScheduleSocialPostServlet</servlet-name>
         <servlet-class>com.controller.schedule.ScheduleSocialPostServlet</servlet-class>
@@ -214,10 +209,6 @@
     <servlet>
         <servlet-name>ScheduleSocialPostActionsServlet</servlet-name>
         <servlet-class>com.controller.schedule.ScheduleSocialPostActionsServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>ScheduleEmailActionsServlet</servlet-name>
-        <servlet-class>com.controller.schedule.ScheduleEmailActionsServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ServletListAdminSVG</servlet-name>
@@ -424,10 +415,6 @@
         <url-pattern>/EmailSettingsServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ScheduleEmailServlet</servlet-name>
-        <url-pattern>/ScheduleEmail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ScheduleSocialPostServlet</servlet-name>
         <url-pattern>/ScheduleSocialPost</url-pattern>
     </servlet-mapping>
@@ -442,10 +429,6 @@
     <servlet-mapping>
         <servlet-name>ScheduleSocialPostActionsServlet</servlet-name>
         <url-pattern>/ScheduleSocialPostActions</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ScheduleEmailActionsServlet</servlet-name>
-        <url-pattern>/ScheduleEmailActions</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletListAdminSVG</servlet-name>
