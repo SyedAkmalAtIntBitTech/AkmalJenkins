@@ -79,7 +79,8 @@
 <body ng-app>
     <!--SideNav-->
     <div class="content-main" >
-    <%@include file="navbarv2.jsp" %>
+         <%@include file="header.jsp" %>
+    <%@include file="navbar.jsp" %>
     <%@include file="emaillistselectionpopup.jsp" %>    
     <%@include file="emailpreview.jsp" %>
     <input type="hidden" value="<%= draft_id %>" name="draft_id" id="draft_id"></input>  
