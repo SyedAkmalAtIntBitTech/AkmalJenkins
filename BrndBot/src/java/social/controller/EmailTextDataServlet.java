@@ -6,7 +6,6 @@
 package social.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
-import com.controller.GetEmailLists;
 import com.controller.IConstants;
 import com.controller.SqlMethods;
 import java.io.IOException;
@@ -62,8 +61,8 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
              out.print("true");
              //response.getWriter().write("true");
         }catch (Exception e){
-            Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, e.getCause());
-            Logger.getLogger(GetEmailLists.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(EmailTextDataServlet.class.getName()).log(Level.SEVERE, null, e.getCause());
+            Logger.getLogger(EmailTextDataServlet.class.getName()).log(Level.SEVERE, null, e.getMessage());
             logger.log(Level.SEVERE, "", e);
         }
     }

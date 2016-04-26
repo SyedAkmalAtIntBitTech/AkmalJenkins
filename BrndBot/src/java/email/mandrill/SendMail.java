@@ -5,7 +5,6 @@
  */
 package email.mandrill;
 
-import com.controller.ForgotSendEmail;
 import com.controller.SqlMethods;
 import java.io.InputStream;
 import java.io.StringWriter;
@@ -21,6 +20,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.json.JSONObject;
+import static social.controller.SendAnEmail.MANDRILL_KEY;
 
 /**
  *
@@ -71,7 +71,7 @@ public class SendMail {
             HttpPost httppost = new HttpPost("https://mandrillapp.com/api/1.0/users/ping.json");
 
             JSONObject obj = new JSONObject();
-            obj.put("key", ForgotSendEmail.MANDRILL_KEY);
+            obj.put("key", MANDRILL_KEY);
             String request = obj.toString();
             HttpEntity entity = new ByteArrayEntity(request.getBytes("UTF-8"));
             httppost.setEntity(entity);
