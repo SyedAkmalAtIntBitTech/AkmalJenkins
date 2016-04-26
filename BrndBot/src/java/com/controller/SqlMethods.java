@@ -32,7 +32,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.postgresql.util.PGobject;
 import pojos.TblBrandColorTheme;
-import pojos.TblColors;
 
 /**
  *
@@ -144,29 +143,7 @@ public class SqlMethods {
         this.upper_limit = limit;
     }
 
-    public String getCompanyName(Integer userId) throws ClassNotFoundException, SQLException {
-        String company_name = "";
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "select * from tbl_user_login_details where id=" + userId + "";
-
-            prepared_statement = connection.prepareStatement(query_string);
-
-            result_set = prepared_statement.executeQuery();
-            if (result_set.next()) {
-                company_name = result_set.getString("company_name");
-            }
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return company_name;
-    }
+   
 
     public void AddImages(Integer user_id, String image_name) throws SQLException {
         String query_string = "";
@@ -207,7 +184,7 @@ public class SqlMethods {
             close(result_set, prepared_statement);
         }
     }
-
+//TODO ilyas Check this used in many places
     public Integer getOrganizationID(Integer userId) throws ClassNotFoundException, SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
@@ -277,80 +254,9 @@ public class SqlMethods {
         }
         return AL;
     }
+ 
 
-    public TblColors getColors(String id, Integer number) throws ClassNotFoundException, SQLException {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-
-        TblColors TC = new TblColors();
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Select * from tbl_colors where id=" + id + "";
-            prepared_statement = connection.prepareStatement(query_string);
-
-            result_set = prepared_statement.executeQuery();
-            if (result_set.next()) {
-                TC.setId("color" + number);
-                TC.setColorName(result_set.getString("color_name"));
-                TC.setColorHex(result_set.getString("color_hex"));
-            }
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return TC;
-    }
-
-    public boolean checkForDuplicateUser(String UserName) throws ClassNotFoundException, SQLException {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-
-        boolean checked = false;
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-
-            query_string = "Select * from tbl_user_login_details where user_name='" + UserName + "'";
-            prepared_statement = connection.prepareStatement(query_string);
-            result_set = prepared_statement.executeQuery();
-
-            if (result_set.next()) {
-                checked = true;
-                Integer UID = result_set.getInt("id");
-            }
-
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return checked;
-    }
-
-    public boolean checkAvailability(String UserName, String Password) throws ClassNotFoundException, SQLException {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-
-        boolean checked = false;
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-
-            query_string = "Select * from tbl_user_login_details where user_name='" + UserName + "' and password='" + Password + "'";
-            prepared_statement = connection.prepareStatement(query_string);
-            result_set = prepared_statement.executeQuery();
-
-            if (result_set.next()) {
-                checked = true;
-            }
-
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return checked;
-    }
+    
 
     public boolean checkEmailAvailability(String UserName) throws ClassNotFoundException, SQLException {
         String query_string = "";
@@ -654,29 +560,8 @@ public class SqlMethods {
         return userid;
     }
 
-    public int getUserID(String email) throws SQLException {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
 
-        int ID = 0;
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Select id from tbl_user_login_details where user_name ='" + email + "'";
-            prepared_statement = connection.prepareStatement(query_string);
-
-            result_set = prepared_statement.executeQuery();
-
-            if (result_set.next()) {
-                ID = result_set.getInt(1);
-            }
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return ID;
-    }
+   
 
     public void setLookID() throws IOException {
         logger.log(Level.INFO, "LookID" + ":" + "LookID");
@@ -866,72 +751,7 @@ public class SqlMethods {
         return studio_id;
     }
 
-    public org.json.simple.JSONArray getColorsAndThemeName() throws SQLException, ClassNotFoundException {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-        org.json.simple.JSONArray jsonarray = new org.json.simple.JSONArray();
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Select color1, color2, color3, color4, color5, color6, theme_name from tbl_brand_color_theme order by id Asc";
-            prepared_statement = connection.prepareStatement(query_string);
-            result_set = prepared_statement.executeQuery();
-            JSONObject json1 = new JSONObject();
 
-            Integer num = 1;
-            Integer num1 = 0;
-            num1 = num;
-            Integer themeNum = 1;
-            String theme = "";
-            while (result_set.next()) {
-                TblBrandColorTheme color_theme = new TblBrandColorTheme();
-                TblColors colors = new TblColors();
-                org.json.simple.JSONArray jarr = new org.json.simple.JSONArray();
-
-                colors = getColors(String.valueOf(result_set.getInt(1)), num1);
-                jarr.add(colors);
-
-//                if (themeNum == 5) {
-//                    themeNum = 1;
-//                }
-                num1 = num1 + 1;
-                colors = getColors(String.valueOf(result_set.getInt(2)), num1);
-                jarr.add(colors);
-
-                num1 = num1 + 1;
-                colors = getColors(String.valueOf(result_set.getInt(3)), num1);
-                jarr.add(colors);
-
-                num1 = num1 + 1;
-                colors = getColors(String.valueOf(result_set.getInt(4)), num1);
-                jarr.add(colors);
-                num1 = num1 + 1;
-
-                colors = getColors(String.valueOf(result_set.getInt(5)), num1);
-                jarr.add(colors);
-                num1 = num1 + 1;
-
-                colors = getColors(String.valueOf(result_set.getInt(6)), num1);
-                jarr.add(colors);
-//                if (num1 == 24) {
-//                    num1 = 0;
-//                }
-                num1 = num1 + 1;
-                theme = "theme" + themeNum;
-
-                color_theme.setId(theme);
-                //color_theme.setTheme_name(result_set.getString(7));
-                color_theme.setTheme_name("Choose");
-                jarr.add(color_theme);
-                json1.put(result_set.getString(7), jarr);
-                jsonarray.add(jarr);
-                themeNum++;
-            }
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return jsonarray;
-
-    }
 
     public Integer getBrandID(Integer user_id) {
         Integer brand_id = 0;
@@ -986,84 +806,6 @@ public class SqlMethods {
         return json_array_brand_id;
     }
     
-    public Integer getLookIDFromLooks(){
-        String query_string = "";
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        Integer look_id = 0;
-        
-        try(Connection connection = ConnectionManager.getInstance().getConnection()){
-            
-            query_string = "Select id from tbl_look";
-            
-            preparedStatement = connection.prepareStatement(query_string);
-            resultSet = preparedStatement.executeQuery();
-            
-            if (resultSet.next()){
-                look_id = Integer.parseInt(resultSet.getString(1));
-            }
-        }catch (Exception e){
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while getting the look id", null));
-        }finally{
-            close(resultSet, preparedStatement);
-        }
-        return look_id;
-    }
-    
-    public List getBrandIDFromBrands(Integer lookid){
-        String query_string = "";
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        Integer brand_id = 0;
-        JSONObject json_object = new JSONObject();
-        String brand_name = "";
-        List list_brand = new ArrayList();
-        
-        try(Connection connection = ConnectionManager.getInstance().getConnection()){
-            
-            query_string = "Select id, brand_name from tbl_brand_personality where look_id="+ lookid;
-            
-            preparedStatement = connection.prepareStatement(query_string);
-            resultSet = preparedStatement.executeQuery();
-            
-            if (resultSet.next()){
-                brand_id = Integer.parseInt(resultSet.getString(1));
-                brand_name = resultSet.getString(2);
-                list_brand.add(brand_id);
-                list_brand.add(brand_name);
-            }
-        }catch (Exception e){
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while geting the brand id", null));
-        }finally{
-            close(resultSet, preparedStatement);
-        }
-        return list_brand;
-    }
-    
-    public Integer getLookID(Integer user_id) {
-        Integer look_id = 0;
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-
-            query_string = "Select look_id from tbl_user_preferences where user_id=" + user_id;
-
-            prepared_statement = connection.prepareStatement(query_string);
-            result_set = prepared_statement.executeQuery();
-
-            if (result_set.next()) {
-                look_id = Integer.parseInt(result_set.getString(1));
-            }
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return look_id;
-    }
 
     private static java.sql.Timestamp getCurrentTimeStamp() {
 
@@ -1139,164 +881,6 @@ public class SqlMethods {
 
     }
 
-    public JSONObject getUserPreferencesBrand(Integer user_id) {
-        String query_string = "", brand_name = "", image = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-        Integer brand_id = 0;
-        JSONObject json_brand = new JSONObject();
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-
-            query_string = "Select brand_id from tbl_user_preferences where user_id=" + user_id + "";
-
-            prepared_statement = connection.prepareStatement(query_string);
-
-            result_set = prepared_statement.executeQuery();
-
-            if (result_set.next()) {
-                brand_id = result_set.getInt(1);
-            }
-
-            result_set.close();
-            prepared_statement.close();
-
-            query_string = "Select brand_name,image from tbl_brand_personality where id=" + brand_id + "";
-
-            prepared_statement = connection.prepareStatement(query_string);
-
-            result_set = prepared_statement.executeQuery();
-
-            if (result_set.next()) {
-                brand_name = result_set.getString(1);
-                image = result_set.getString(2);
-                json_brand.put("brand_name", brand_name);
-                json_brand.put("image_name", image);
-
-            }
-
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return json_brand;
-    }
-
-    public JSONObject getUserPreferencesLook(Integer user_id) {
-        String query_string = "", look_name = "", image = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-        Integer look_id = 0;
-        JSONObject json_look = new JSONObject();
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-
-            query_string = "Select look_id from tbl_user_preferences where user_id=" + user_id + "";
-
-            prepared_statement = connection.prepareStatement(query_string);
-
-            result_set = prepared_statement.executeQuery();
-
-            if (result_set.next()) {
-                look_id = result_set.getInt(1);
-            }
-
-            result_set.close();
-            prepared_statement.close();
-
-            query_string = "Select look_name, file_name from tbl_look where id=" + look_id + "";
-
-            prepared_statement = connection.prepareStatement(query_string);
-
-            result_set = prepared_statement.executeQuery();
-
-            if (result_set.next()) {
-                look_name = result_set.getString(1);
-                image = result_set.getString(2);
-                json_look.put("look_name", look_name);
-                json_look.put("image_name", image);
-
-            }
-
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return json_look;
-    }
-
-    public void updateBrandPersonality(Integer user_id, Integer brand_id) {
-        String query_string = "", brand_name = "", image = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-        JSONObject json_brand = new JSONObject();
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-
-            query_string = "UPDATE tbl_user_preferences"
-                    + " SET brand_id ='" + brand_id + "' WHERE user_id=" + user_id + "";
-
-            prepared_statement = connection.prepareStatement(query_string);
-            prepared_statement.executeUpdate();
-            prepared_statement.close();
-
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-    }
-
-    public void updateLooks(Integer user_id, Integer look_id) {
-        String query_string = "", brand_name = "", image = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-        JSONObject json_brand = new JSONObject();
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-
-            query_string = "UPDATE tbl_user_preferences"
-                    + " SET look_id ='" + look_id + "' WHERE user_id=" + user_id + "";
-
-            prepared_statement = connection.prepareStatement(query_string);
-            prepared_statement.executeUpdate();
-            prepared_statement.close();
-
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-    }
-
-    public String getLogofileName(int UID) {
-        String query_string = "", brand_name = "", image = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-        JSONObject json_brand = new JSONObject();
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-
-            query_string = "Select logo_name from tbl_user_login_details where id=" + UID;
-
-            prepared_statement = connection.prepareStatement(query_string);
-
-            result_set = prepared_statement.executeQuery();
-
-            if (result_set.next()) {
-                image = result_set.getString(1);
-            }
-
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return image;
-    }
-
     public ArrayList<DivHTMLModel> getHTMLforDivHTMLModelList(ArrayList<DivHTMLModel> list) {
         ArrayList<DivHTMLModel> newList = new ArrayList<>(list.size());
         String query_string = "";
@@ -1341,5 +925,5 @@ public class SqlMethods {
         }
         return newList;
     }
-
+    
 }

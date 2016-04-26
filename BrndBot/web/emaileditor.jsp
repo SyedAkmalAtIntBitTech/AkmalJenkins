@@ -43,7 +43,7 @@
     <link rel="stylesheet" href="css/plugins/image_manager.css">
     <script src="js/froala_editor.min_editor.js" type="text/javascript"></script>
 <!--<script src="js/plugins/code_view.min.js" type="text/javascript"></script>-->
-    <script type="text/javascript" src="js/emaileditor_new.js"></script>
+    <!--<script type="text/javascript" src="js/emaileditor_new.js"></script>-->
     <script type="text/javascript" src="js/plugins/align.min.js"></script>
     <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
     <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
@@ -230,15 +230,6 @@
                     }
 
                     };
-                    
-//                    $scope.addBlockActive = function(divid,id){
-//                         $(".block-button").addClass("hide");
-//                         $("#blockdiv li").removeClass("block-slat-active");
-//                         $("#blockdiv li").addClass("block-slat");
-//                         $("#"+divid).removeClass("block-slat");
-//                         $("#"+divid).addClass("block-slat-active");
-//                         $("#div2"+id).removeClass("hide");
-//                    };
                     
                     $scope.addActive = function(id){
                         $("#stylediv li").removeClass("style-slat-active");
@@ -642,7 +633,7 @@
         <div class="page-title-bar col-1of1"> 
             <a class=" exit-button-icon" href="emailsubjects.jsp?id=<%= mindbody_data_id %>&mediatype=email">    
                 <div class="exit-button-detail">
-                    <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
+                    <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                 </div>
             </a>
             <div class="page-title-with-back page-title-font">Email Editor</div>
@@ -784,75 +775,7 @@
                             });
                             };
                 $(document).ready(function(){
-                                                    
-//    $("#saveButton").click(function (){
-//        var email_subject = $("#email_subject").val();
-//        $.ajax({
-//            url: getHost() + "PreviewServlet",
-//            method: "post",
-//            data:{
-//            htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-//            iframeName: rendomIframeFilename
-//            },
-//            success: function (responseText) {
-//            $("#previewcontent").empty();
-//                $("#previewcontent").append(responseText);
-//                $.ajax({
-//                    url: getHost() + "SaveKeyValueSessionServlet",
-//                    method: "post",
-//                    data:{
-//                        process:"save",
-//                        sessionKey:"htmldata",
-//                        sessionValue: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-//                        sessionIframeKey:"iframeName",
-//                        sessionIframevalue:"" + rendomIframeFilename
-//                    },
-//                    success: function (responseText) {
-//                    // added by Syed Ilyas 16 dec 2015 - saves draft
-//                        if (draft_id == "0")
-//                        {
-//                            $.ajax({
-//                            url: getHost() + "saveEmailDrafts.do",
-//                            method: "post",
-//                            data:{
-//                            bodyString : $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-//                            },
-//                            success: function (responseText) {
-//                                if (responseText != "0"){
-//                                document.location.href = "emaillistselection.jsp?draftid=" + responseText + "&subject=" + email_subject;
-//                                } else 
-//                                {
-//                                    alert("There was a problem while saving the draft! Please try again later.");
-//                                }
-//                            }
-//                            });
-//                        } 
-//                        else 
-//                        {
-//                        $.ajax({
-//                            url: getHost() + "updateEmailDraft.do",
-//                            method: "post",
-//                            data:{
-//                            draftid: draft_id,
-//                                    bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-//                            },
-//                            success: function (responseText) {
-//                                if (responseText == "true")
-//                                {
-//                                    document.location.href = "emaillistselection.jsp?draftid=" + draft_id + "&subject=" + email_subject;
-//                                } else
-//                                {
-//                                    alert("There was a problem while saving the draft! Please try again later.");
-//                                }
-//                            }
-//                        });
-//                    }
-//                    }
-//                });
-//            }
-//        });
-//    });
-                    
+                                                                        
     $("#styletab").click(function (){
         $("#blockdivheader").hide();
         $("#styledivheader").show();
@@ -926,7 +849,7 @@
         <div class="pop-up-background">
             <div class="pop-up-container-emailPreview"> 
                 <a class=" exit-button-detail-ep link svg" href="" id="closePrev">
-                    <img type="image/svg+xml" src="images/Icons/close.svg" class="closeemailpreview" style="cursor:pointer;"> </img>
+                    <img type="image/svg+xml" src="images/close.svg" class="closeemailpreview" style="cursor:pointer;"> </img>
                 </a>
                 <div class="pop-up-title-emailpreview "> 
                     <div class="emailPreview-header fleft">Email Preview</div>
@@ -972,7 +895,7 @@
     <div id="light" class="white_content closepopup">
         <a href = "javascript:void(0)" style="text-decoration:none;">
             <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
-                <p style="margin-top:-7px;"><img src="images/Icons/yourPlan.svg" height="25" width="25" /></p>
+                <p style="margin-top:-7px;"><img src="images/yourPlan.svg" height="25" width="25" /></p>
             </div>
         </a>
     </div>

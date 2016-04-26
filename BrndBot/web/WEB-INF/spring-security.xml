@@ -7,6 +7,7 @@
       
      <http auto-config="true" use-expressions="true">
         <intercept-url pattern="/" access="permitAll" />
+        <intercept-url pattern="/resetpassword**" access="permitAll" />
         <intercept-url pattern="/login**" access="permitAll" />
         <intercept-url pattern="/images/**" access="permitAll" />
         <intercept-url pattern="/css/**" access="permitAll" />

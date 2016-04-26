@@ -14,7 +14,7 @@
         <%@include file="socialeditortemplatehead.jsp" %>
         <div class="content-area">
             <div class="content-area_header" ng-init="">
-                <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/printtemplates.jsp"> Print Templates</a>  &gt; </div>
+                <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/printtemplates"> Print Templates</a>  &gt; </div>
                 <div class="header_title fleft" id="organizationNameDiv">Add New Template</div>
             </div>
             <div class="inputSection col1of4" >
@@ -336,7 +336,7 @@
                 <input type="file" name="filesToUpload[]" id="filesToUpload" class="upload fileupld" onchange="changeimagetext()" file-model="myFile">
             </div>
             <div class="input_Label fleft"> </div>
-            <a href="addemailtemplate.jsp"><div class="CTA_Button Button--Blue fleft pushUp_10" >Create New Template</div></a>
+            <a href="${pageContext.request.contextPath}/admin/addemailtemplate"><div class="CTA_Button Button--Blue fleft pushUp_10" >Create New Template</div></a>
         </div>
      
 

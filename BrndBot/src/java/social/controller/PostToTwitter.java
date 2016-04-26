@@ -71,21 +71,21 @@ public class PostToTwitter {
                 SqlMethods sql_methods = new SqlMethods();
                 sql_methods.setSocialPostHistory(userId, htmlString, false, true,image_type, getImageFile, null);
             } catch (Exception ex) {
-                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getCause());
-                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+                Logger.getLogger(PostToTwitter.class.getName()).log(Level.SEVERE, null, ex.getCause());
+                Logger.getLogger(PostToTwitter.class.getName()).log(Level.SEVERE, null, ex.getMessage());
             }
             returnMessage = "success";
 
         } catch (TwitterException te) {
 
             returnMessage = "Twitter Exception: " + te.getMessage();
-            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, te.getCause());
-            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, te.getMessage());
+            Logger.getLogger(PostToTwitter.class.getName()).log(Level.SEVERE, null, te.getCause());
+            Logger.getLogger(PostToTwitter.class.getName()).log(Level.SEVERE, null, te.getMessage());
 
         } catch (Exception e) {
             returnMessage = "Twitter Exception: " + e.getMessage();
-            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e);
-            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            Logger.getLogger(PostToTwitter.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(PostToTwitter.class.getName()).log(Level.SEVERE, null, e.getMessage());
         }
         return returnMessage;
     }

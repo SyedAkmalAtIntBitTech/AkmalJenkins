@@ -29,21 +29,21 @@
                         </div>
                     </li>                
                 </ul>
-                <ul class="slatArea" ng-if="location.path() != '/printsubcategorydetails.jsp'" >
+                <ul class="slatArea" ng-if="location.path() != '/printsubcategorydetails'" >
                     <li class="listItem cursorpointer" ng-repeat="nonAddedprintModelsBySubCategorys in nonAddedPrintModelsBySubCategory" ng-click="select(nonAddedprintModelsBySubCategorys)" ng-class="{active: isActive(nonAddedprintModelsBySubCategorys)}">
                         <div class="listCol col1of2 fleft">
                             <span class="listCol_Text fleft">{{nonAddedprintModelsBySubCategorys.printModelName}}</span>   
                         </div>
                     </li>                
                 </ul>
-                <ul class="slatArea" ng-if="location.path() != '/imagesubcategorydetails.jsp'" >
+                <ul class="slatArea" ng-if="location.path() != '/imagesubcategorydetails'" >
                     <li class="listItem cursorpointer" ng-repeat="nonAddedimageModelsBySubCategorys in nonAddedImageModelsBySubCategory" ng-click="select(nonAddedimageModelsBySubCategorys)" ng-class="{active: isActive(nonAddedimageModelsBySubCategorys)}">
                         <div class="listCol col1of2 fleft">
                             <span class="listCol_Text fleft">{{nonAddedimageModelsBySubCategorys.imageModelName}}</span>   
                         </div>
                     </li>                
                 </ul>
-                <ul class="slatArea" ng-if="location.path() != '/emailsubcategorydetails.jsp'" >
+                <ul class="slatArea" ng-if="location.path() != '/emailsubcategorydetails'" >
                     <li class="listItem cursorpointer" ng-repeat="nonAddedemailModelsBySubCategorys in nonAddedEmailModelsBySubCategory" ng-click="select(nonAddedemailModelsBySubCategorys)" ng-class="{active: isActive(nonAddedemailModelsBySubCategorys)}">
                         <div class="listCol col1of2 fleft">
                             <span class="listCol_Text fleft">{{nonAddedemailModelsBySubCategorys.emailModelName}}</span>

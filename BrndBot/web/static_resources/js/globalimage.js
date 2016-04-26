@@ -153,7 +153,7 @@ var globalImageController = function ($scope, fileReader, $http) {
             }).success(function (data, status, headers, config)
             {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));                           
-                window.open(getHost() + 'v2/admin/globalimage.jsp', "_self");
+                window.open(getHost() + 'admin/globalimage', "_self");
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
@@ -183,7 +183,7 @@ var globalImageController = function ($scope, fileReader, $http) {
             }).success(function (data, status, headers, config)
             {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));                      
-                window.open(getHost() + 'v2/admin/globalimage.jsp', "_self");
+                window.open(getHost() + 'admin/globalimage', "_self");
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
@@ -202,7 +202,7 @@ var globalImageController = function ($scope, fileReader, $http) {
                 }).success(function(data, status, headers, config) {
                     
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'v2/admin/globalimage.jsp', "_self");
+                    window.open(getHost() + 'admin/globalimage', "_self");
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });     

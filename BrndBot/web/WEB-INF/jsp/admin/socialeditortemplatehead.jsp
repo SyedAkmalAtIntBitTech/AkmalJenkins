@@ -332,8 +332,8 @@
             <img  src="../images/Icons/Logo_Reverse.svg" class="bb-logo" style="cursor:pointer;height:35px;">
         </div>
         <div class="headernav">
-            <a href="allcompanies"><div class="nav_tab fleft"> Users </div></a>
-            <a href="organization"><div class="nav_tab fleft"> Organizations </div></a>
+            <a href="${pageContext.request.contextPath}/admin/allcompanies"><div class="nav_tab fleft"> Users </div></a>
+            <a href="${pageContext.request.contextPath}/admin/organization"><div class="nav_tab fleft"> Organizations </div></a>
             <a href="#"><div class="nav_tab fleft"> Email Templates </div></a>
             <a href="#"><div class="nav_tab fleft"> Email Blocks</div></a>
             <a href="${pageContext.request.contextPath}/admin/printtemplates"><div class="nav_tab fleft"> Print Templates </div></a>

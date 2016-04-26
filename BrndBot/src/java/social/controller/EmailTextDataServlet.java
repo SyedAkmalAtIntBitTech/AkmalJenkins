@@ -90,15 +90,15 @@ public class EmailTextDataServlet extends BrndBotBaseHttpServlet {
     }
  
     private Boolean AddEmailListUserPreference(Integer user_id, org.json.simple.JSONArray json_user_preferences_emails) throws SQLException {
-        org.json.simple.JSONObject userPreferences = getSqlMethodsInstance().getJSONUserPreferences(user_id);
-        userPreferences.put(IConstants.kEmailAddressUserPreferenceKey, json_user_preferences_emails);
-        return getSqlMethodsInstance().updateJSONUserPreference(user_id, userPreferences);
+//        org.json.simple.JSONObject userPreferences = getSqlMethodsInstance().getJSONUserPreferences(user_id);
+//        userPreferences.put(IConstants.kEmailAddressUserPreferenceKey, json_user_preferences_emails);
+        return false; //getSqlMethodsInstance().updateJSONUserPreference(user_id, userPreferences);
     }
 
     private Boolean updateEmailListUserPreference(Integer user_id, org.json.simple.JSONArray json_user_preferences_emails) throws SQLException {
-        org.json.simple.JSONObject userPreferences = getSqlMethodsInstance().getJSONUserPreferences(user_id);
-        userPreferences.put(IConstants.kEmailAddressUserPreferenceKey, json_user_preferences_emails);
-        return getSqlMethodsInstance().updateJSONUserPreference(user_id, userPreferences);
+//        org.json.simple.JSONObject userPreferences = getSqlMethodsInstance().getJSONUserPreferences(user_id);
+//        userPreferences.put(IConstants.kEmailAddressUserPreferenceKey, json_user_preferences_emails);
+        return false; //getSqlMethodsInstance().updateJSONUserPreference(user_id, userPreferences);
     }
  
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

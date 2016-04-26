@@ -31,7 +31,7 @@ import util.Utility;
  *
  * @author AR
  */
-class PostToFacebook {
+public class PostToFacebook {
     public static String path = "";
 
     public static String postStatus(String accessToken, String title, 
@@ -52,7 +52,7 @@ class PostToFacebook {
             ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
             String context_real_path = servletContext.getRealPath("");
             String imageContextPath = Utility.getServerName(context_real_path);
-            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "message while facebook post:"+imageContextPath);
+            Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, "message while facebook post:"+imageContextPath);
             
             if (title.equals("")) {
 
@@ -95,13 +95,13 @@ class PostToFacebook {
                     status = returnMessage;
                 }
             }
-            Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, "message while facebook post:"+status);
+            Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, "message while facebook post:"+status);
             try {
                 SqlMethods sqlMethods = new SqlMethods();
                 sqlMethods.setSocialPostHistory(user_id, htmlString, false, true,imageType, getImageFile, null);
             } catch (Exception ex) {
-                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getCause());
-                Logger.getLogger(PostToSocial.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+                Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, null, ex.getCause());
+                Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, null, ex.getMessage());
             }
 
         } catch (FacebookException e) {

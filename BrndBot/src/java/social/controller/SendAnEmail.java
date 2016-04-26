@@ -8,7 +8,7 @@ package social.controller;
 import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.controller.IConstants;
 import com.controller.SqlMethods;
-import com.intbit.dao.EmailHistoryDAO;
+import com.intbittech.dao.impl.EmailHistoryDAO;
 import com.intbit.marketing.model.TblUserPreferences;
 import com.intbit.marketing.service.UserPreferencesService;
 import email.mandrill.Message;
@@ -99,7 +99,7 @@ public class SendAnEmail {
 
     public JSONArray getAllEmailAddressesForEmailList(Integer userId, Integer days, String emailListName) throws Throwable {
         
-        JSONObject userPreferences = (JSONObject)sqlMethods.getJSONUserPreferences(userId);
+        JSONObject userPreferences = null; //(JSONObject)sqlMethods.getJSONUserPreferences(userId);
         JSONArray userPreferencesJson = (JSONArray)userPreferences.get(IConstants.kEmailAddressUserPreferenceKey);
         org.json.simple.JSONArray jSONArray = null;
         JSONObject jsonObject = new JSONObject();

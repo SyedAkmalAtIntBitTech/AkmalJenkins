@@ -19,7 +19,7 @@
         <div class="content-area" ng-init="emailTemplateModel()" >
         <div class="content-area_header">
             <div class="header_path fleft"> Email Templates </div>
-            <a href="${pageContext.request.contextPath}/admin/editemailtemplate" ng-click="setNewEmailTemplate(false)"><div class="CTA_Button Button--Blue fright" id="addTemplate" >Add New Template</div></a>
+            <a href="${pageContext.request.contextPath}/admin/editemailtemplate?edit=no"><div class="CTA_Button Button--Blue fright" id="addTemplate" >Add New Template</div></a>
         </div>
             <div class="slatSection">
             <div class="slatHeaders">
@@ -33,7 +33,7 @@
                     
                     
                     <div class="listCol col1of2 fleft">
-                        <a href="${pageContext.request.contextPath}/admin/editemailtemplate" ng-click="setEmailModelDetails(true,emailTemplate.emailModelId)"><div class="CTA_Button Button--Gray fright">VIEW/EDIT</div></a>
+                        <a href="${pageContext.request.contextPath}/admin/editemailtemplate?edit=yes&emailModelId={{emailTemplate.emailModelId}}"><div class="CTA_Button Button--Gray fright">VIEW/EDIT</div></a>
 
                     </div>
                 </li>                

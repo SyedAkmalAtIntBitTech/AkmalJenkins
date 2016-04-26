@@ -6,34 +6,7 @@
 
 
 function allCompaniesController($scope,$http){
-   
-      $scope.setTemplateCategories = function (item1,item2){
-          $scope.setLocalStorageItem("organizationId",item1);
-          $scope.setLocalStorageItem("categoryId",item2);
-      };    
-      $scope.setEmailBlockDetails = function (item1,item2){
-          $scope.setLocalStorageItem("organizationId",item1);
-          $scope.setLocalStorageItem("emailBlockId",item2);
-      };
-      $scope.setMarketingCategories = function (item1,item2){
-          $scope.setLocalStorageItem("organizationId",item1);
-          $scope.setLocalStorageItem("marketingCategoryId",item2);
-      }; 
-      $scope.setAllCompanyDetails = function (item1,item2,item3){
-          $scope.setLocalStorageItem("companyId",item1);
-          $scope.setLocalStorageItem("companyName",item2);
-          $scope.setLocalStorageItem("organizationName",item3);
-      };
-      
-      $scope.setLocalStorageItem = function (key,item){
-          localStorage.setItem(key,item);
-      };
-      $scope.getLocalStorageItem = function (item){
-          return localStorage.getItem(""+item+"");  
-      };
-      
-      $("#companyName").text($scope.getLocalStorageItem("companyName"));
-      
+    
   $scope.allCompanyDetails = function (){
       
         $http({
@@ -47,9 +20,9 @@ function allCompaniesController($scope,$http){
       
   };   
   
-  $scope.companyEmailcategories= function (){    
-            
-            var companyId=$scope.getLocalStorageItem("companyId");
+  $scope.companyEmailcategories= function (){
+      
+            var companyId=$("#companyId").val();
             $http({
                 method : 'GET',
                 url : getHost()+'/getCompanyDetailsById.do?companyId='+companyId
@@ -98,7 +71,7 @@ function allCompaniesController($scope,$http){
   
     
     $scope.emailBlockList= function (){       
-            var companyId=$scope.getLocalStorageItem("companyId");
+            var companyId=$("#companyId").val();
             $http({
                 method : 'GET',
                 url : getHost()+'/getCompanyDetailsById.do?companyId='+companyId
@@ -119,7 +92,7 @@ function allCompaniesController($scope,$http){
     
     
     $scope.marketingCategory= function (){       
-            var companyId=$scope.getLocalStorageItem("companyId");
+            var companyId=$("#companyId").val();
             $http({
                 method : 'GET',
                 url : getHost()+'/getCompanyDetailsById.do?companyId='+companyId
@@ -144,7 +117,7 @@ function allCompaniesController($scope,$http){
   
     
      $scope.groupsDisplay = function () {
-           var companyId=$scope.getLocalStorageItem("companyId");
+           var companyId=$("#companyId").val();
         
                     $http({
                             method : 'GET',
@@ -190,7 +163,7 @@ function allCompaniesController($scope,$http){
                     data: JSON.stringify(updateorganization)
                 }).success(function(data, status, headers, config) { 
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                    window.open(getHost() + 'v2/admin/companydetails.jsp?companyId='+companyId, "_self");
+                    window.open(getHost() + 'admin/companydetails?companyId='+companyId, "_self");
                       
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -213,7 +186,7 @@ function allCompaniesController($scope,$http){
                 }).success(function (data)
                 {   
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'v2/admin/companydetails.jsp?companyId='+companyId+'&organizationName='+organizationName+'&companyName='+companyName,"_self");
+                       window.open(getHost() + 'admin/companydetails?companyId='+companyId+'&organizationName='+organizationName+'&companyName='+companyName,"_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -223,9 +196,9 @@ function allCompaniesController($scope,$http){
     };
     
      $scope.deleteGroup= function (){  
-        var companyId=$scope.getLocalStorageItem("companyId");    
-         var organizationName=$scope.getLocalStorageItem("organizationName");
-         var companyName=$scope.getLocalStorageItem("companyName");    
+        var companyId=$("#companyId").val();      
+         var organizationName=$("#organizationName").val();     
+         var companyName=$("#companyName").text();    
          var organizationId=$("#organizationId").val();
          var organizationCompanyLookupId =$("#organizationCompanyLookupId").val();
         var deleteList=confirm(deleteCompanyGroup);
@@ -237,7 +210,7 @@ function allCompaniesController($scope,$http){
                 }).success(function(data, status, headers, config) {
                     $scope.groupDetails= data.d.details;
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                     window.open(getHost() + 'v2/admin/companydetails.jsp?companyId='+companyId+'&organizationName='+organizationName+'&companyName='+companyName,"_self");
+                     window.open(getHost() + 'admin/companydetails?companyId='+companyId+'&organizationName='+organizationName+'&companyName='+companyName,"_self");
                 }).error(function(data, status, headers, config) {
                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });     
@@ -265,4 +238,3 @@ function allCompaniesController($scope,$http){
     };
 
 }
-

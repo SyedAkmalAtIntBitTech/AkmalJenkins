@@ -164,7 +164,7 @@ function emailBlocksController($scope, $http, fileReader) {
             {
 
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                window.open(getHost() + 'v2/admin/emailblockmodels.jsp', "_self");
+                window.open(getHost() + 'admin/emailblockmodels', "_self");
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
@@ -183,7 +183,7 @@ function emailBlocksController($scope, $http, fileReader) {
             }).success(function (data, status, headers, config) {
                 $scope.getEmailModelById = data.d.details;
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                window.open(getHost() + 'v2/admin/emailblockmodels.jsp', "_self");
+                window.open(getHost() + 'admin/emailblockmodels', "_self");
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
@@ -233,7 +233,7 @@ function emailBlocksController($scope, $http, fileReader) {
             }).success(function (data, status, headers, config)
             {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                window.open(getHost() + 'v2/admin/emailblockmodels.jsp', "_self");
+                window.open(getHost() + 'admin/emailblockmodels', "_self");
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });

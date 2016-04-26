@@ -9,7 +9,7 @@ import com.controller.ApplicationContextListener;
 import com.google.gson.Gson;
 import com.intbit.AppConstants;
 import com.intbit.TemplateStatus;
-import com.intbit.dao.ScheduleDAO;
+import com.intbittech.dao.impl.ScheduleDAO;
 import com.intbit.util.AuthenticationUtil;
 import java.io.BufferedReader;
 import java.io.File;

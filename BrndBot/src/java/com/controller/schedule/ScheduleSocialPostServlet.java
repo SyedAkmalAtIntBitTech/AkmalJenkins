@@ -10,7 +10,7 @@ import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
-import com.intbit.dao.ScheduleSocialPostDAO;
+import com.intbittech.dao.impl.ScheduleSocialPostDAO;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -116,7 +116,7 @@ public class ScheduleSocialPostServlet extends HttpServlet {
                     Double schedule = (Double) requestBodyMap.get("schedule_time");
 
                     Timestamp scheduleTimeStamp = new Timestamp(schedule.longValue());
-                    String tokenDataString = requestBodyMap.get("token_data").toString();
+//                    String tokenDataString = requestBodyMap.get("token_data").toString();
                     String metadataString = requestBodyMap.get("metadata").toString();
                     String marketing_program_id = (String) requestBodyMap.get("program_id");
                     //As of now schedule description is not yet mandatory.
@@ -128,7 +128,6 @@ public class ScheduleSocialPostServlet extends HttpServlet {
                             userId,
                             requestBodyMap.get("image_name").toString(),
                             Integer.parseInt(marketing_program_id),
-                            AppConstants.GSON.fromJson(tokenDataString, Map.class),
                             AppConstants.GSON.fromJson(metadataString, Map.class),
                             requestBodyMap.get("type").toString(),
                             requestBodyMap.get("schedule_title").toString(),

@@ -112,18 +112,18 @@ public class changeLogo extends BrndBotBaseHttpServlet {
                                 long sizeInBytes = fi.getSize();
                                 
                                 if (uploadType.equals("update")){
-                                    String file_name_to_delete = getSqlMethodsInstance().getLogofileName(UID);
-                                    String filePath_to_delete = uploadPath + File.separator + file_name_to_delete;
+//                                    String file_name_to_delete = getSqlMethodsInstance().getLogofileName(UID);
+//                                    String filePath_to_delete = uploadPath + File.separator + file_name_to_delete;
 
-                                    File deletefile = new File(filePath_to_delete);
-                                    deletefile.delete();
+//                                    File deletefile = new File(filePath_to_delete);
+//                                    deletefile.delete();
                                 }
                                 
                                 filePath = uploadPath + File.separator + fileName;
                                 File storeFile = new File(filePath);
                                 fi.write(storeFile);
 
-                                getSqlMethodsInstance().updateUsers(UID, fileName);
+//                                getSqlMethodsInstance().updateUsers(UID, fileName);
                                 out.println("Uploaded Filename: " + filePath + "<br>");
                             
                                 response.sendRedirect(request.getContextPath() + "/settings.jsp?change=1");

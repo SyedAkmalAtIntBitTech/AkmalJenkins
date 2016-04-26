@@ -65,7 +65,7 @@ function recurringEmail($scope,$http) {
                 }).success(function (data)
                 {  
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'v2/admin/recurringemails.jsp', "_self");
+                       window.open(getHost() + 'admin/recurringemails', "_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -102,7 +102,7 @@ function recurringEmail($scope,$http) {
                 {  
                     //alert(JSON.stringify(data));
                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                       window.open(getHost() + 'v2/admin/recurringemails.jsp', "_self");
+                       window.open(getHost() + 'admin/recurringemails', "_self");
                     
                 }).error(function(data){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -120,7 +120,7 @@ function recurringEmail($scope,$http) {
                         }).success(function(data, status, headers, config) {
                             $scope.getRecurringTemplateDetails = data.d.details;  
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                            window.open(getHost() + 'v2/admin/recurringemails.jsp', "_self");
+                            window.open(getHost() + 'admin/recurringemails', "_self");
                         }).error(function(data, status, headers, config) {
                                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });
