@@ -24,6 +24,7 @@ import org.apache.commons.fileupload.*;
  *
  * @author intbit
  */
+//TODO - need to refactor completely
 public class changeLogo extends BrndBotBaseHttpServlet {
 
 
