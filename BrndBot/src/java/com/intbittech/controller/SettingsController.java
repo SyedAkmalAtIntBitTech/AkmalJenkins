@@ -8,6 +8,7 @@ package com.intbittech.controller;
 import com.controller.BrndBotBaseHttpServlet;
 import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.controller.IConstants;
+import com.controller.SqlMethods;
 import com.google.gson.Gson;
 import com.intbit.ConnectionManager;
 import com.intbittech.model.UserProfile;
@@ -104,15 +105,15 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             String str = string_builder.toString();
             String str_new = str.replace("&quot;", "\"");
             json_user_preferences = (JSONObject) parser.parse(str_new);
-
-            JSONObject json_user_preferences_from_database = getSqlMethodsInstance().getJSONUserPreferences(companyId);
+            SqlMethods sql_methods = new SqlMethods();
+            JSONObject json_user_preferences_from_database = sql_methods.getJSONUserPreferences(companyId);
 
             json_user_preferences_from_database.put(IConstants.kColor1, json_user_preferences.get(IConstants.kColor1));
             json_user_preferences_from_database.put(IConstants.kColor2, json_user_preferences.get(IConstants.kColor2));
             json_user_preferences_from_database.put(IConstants.kColor3, json_user_preferences.get(IConstants.kColor3));
             json_user_preferences_from_database.put(IConstants.kColor4, json_user_preferences.get(IConstants.kColor4));
 
-            getSqlMethodsInstance().updateJSONUserPreference(companyId, json_user_preferences_from_database);
+            sql_methods.updateJSONUserPreference(companyId, json_user_preferences_from_database);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyCategories_color_update",new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
               genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
