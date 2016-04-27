@@ -14,6 +14,7 @@ import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.MarketingCategoryProgram;
 import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCompanyLookup;
+import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.services.CompanyService;
@@ -155,6 +156,16 @@ public class CompanyServiceImpl implements CompanyService{
             company.setCreatedDate(new Date());
             company.setInviteCode(RandomStringUtils.randomAlphanumeric(10));
             companyDao.update(company);
+            
+            Users user = usersDao.getUserById(companyDetails.getUserId());
+            if(user == null)
+            {
+                throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
+            }
+            UserRole userRole = new UserRole();
+            userRole.setUserRoleId(2);
+            user.setFkUserRoleId(userRole);
+            usersDao.update(user);
 
             //Relate company and organization
             OrganizationCompanyLookup organizationCompanyLookup = new OrganizationCompanyLookup();
