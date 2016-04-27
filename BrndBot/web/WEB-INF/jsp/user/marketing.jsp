@@ -75,8 +75,8 @@
                 <div class="fleft content" ng-repeat="entity in entitySet">
                     <div class="page-content-title-bar">
                         <!--<div class="page-content-title h2" ng-show='entity.date==tomorrow_date'>Tomorrow's Actions</div>-->
-                        <div class="page-content-title h2" ng-show="entity.date === today_date">Today's Actions</div>
-                        <div class="page-content-title h2" ng-show="(entity.date !== today_date)">{{entity.date| date: "MMM dd yyyy"}}</div>
+                        <div class="page-content-title h2" ng-show="entity.date == today_date">Today's Actions</div>
+                        <div class="page-content-title h2" ng-show="(entity.date != today_date)">{{entity.date| date: "MMM dd yyyy"}}</div>
                     </div>
                     <!--List Starts Here-->
                     <ul class="main-container fleft" >
