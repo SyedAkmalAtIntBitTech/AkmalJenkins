@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit.marketing.dao.impl;
+package com.intbittech.marketing.dao.impl;
 
+import com.intbit.marketing.dao.impl.*;
 import com.intbit.ScheduledEntityType;
 import com.intbittech.marketing.dao.ScheduledEmailListDao;
 import com.intbittech.model.ScheduledEmailList;

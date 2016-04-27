@@ -24,9 +24,9 @@ import org.springframework.context.MessageSource;
  */
 @Service
 @Transactional(rollbackFor = ProcessFailed.class)
-public abstract class GloblaImagesServiceImpl implements GlobalImagesService {
+public class GlobalImagesServiceImpl implements GlobalImagesService {
 
-    private static org.jboss.logging.Logger logger = org.jboss.logging.Logger.getLogger(GloblaImagesServiceImpl.class);
+    private static org.jboss.logging.Logger logger = org.jboss.logging.Logger.getLogger(GlobalImagesServiceImpl.class);
 
     @Autowired
     private GlobalImagesDao globalImagesDao;

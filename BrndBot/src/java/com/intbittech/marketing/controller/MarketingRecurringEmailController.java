@@ -47,8 +47,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author development
  */
 @Controller
-public class RecurringEmailController {
-    static final Logger logger = Logger.getLogger(RecurringEmailController.class.getName());
+public class MarketingRecurringEmailController {
+    static final Logger logger = Logger.getLogger(MarketingRecurringEmailController.class.getName());
     @Autowired
     private RecurringEmailTemplateService recurringEmailTemplateService;
     @Autowired

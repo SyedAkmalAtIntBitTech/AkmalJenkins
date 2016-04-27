@@ -8,6 +8,7 @@ package com.intbittech.externalcontent;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,10 +16,10 @@ import org.springframework.stereotype.Component;
  * @author AR
  */
 @Component
-@Scope("session") 
+@Scope(value="session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ExternalContentSession {
     
-    private Map<String, Object> map = new HashMap<>();
+    private final Map<String, Object> map = new HashMap<>();
     
     public void addSessionKeyValue(String key, Object value) {
         map.put(key, value);

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit.marketing.service.implementation;
+package com.intbit.marketing.service.impl;
 
 import com.intbit.marketing.dao.RecurringEmailTemplateDao;
 import com.intbit.marketing.model.TblRecurringEmailTemplate;
