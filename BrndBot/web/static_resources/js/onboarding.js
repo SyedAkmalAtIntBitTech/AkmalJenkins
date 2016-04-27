@@ -401,7 +401,7 @@ function onboardingcontroller($scope,$http) {
          var color2=$("#color2").css("backgroundColor");
          var color3=$("#color3").css("backgroundColor");
          var color4=$("#color4").css("backgroundColor");
-         var companyColors={"color1":color1,"color2":color2,"color3":color3,"color4":color2};
+         var companyColors={"color1":color1,"color2":color2,"color3":color3,"color4":color4};
          
         if((color1=="rgba(0, 0, 0, 0)")||(color2=="rgba(0, 0, 0, 0)")||(color3=="rgba(0, 0, 0, 0)")||(color4=="rgba(0, 0, 0, 0)")){
         alert("Please choose all 4 colors.");   

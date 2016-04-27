@@ -26,7 +26,7 @@
         <!--Top Nav Bar-->
         <div class="top-nav-container-detail" id="emailtopnav">
             <div class=" top-navbar-detail" id="emailtopnavdetails">
-                <a class=" exit-button-detail link svg close" href="">
+                <a class=" exit-button-detail link svg close">
                     <img type="image/svg+xml" src="images/Close.svg" class="exit-button" style="cursor:pointer;"> </img>
                 </a>
                 <div  class="top-navbar-inner-bb-detail">
