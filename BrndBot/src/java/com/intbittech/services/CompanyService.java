@@ -96,7 +96,7 @@ public interface CompanyService {
      * @param companyDetails
      * @throws ProcessFailed the process failed
      */
-    public Integer saveCompany(CompanyDetails companyDetails) throws ProcessFailed;
+    public String updateCompany(CompanyDetails companyDetails) throws ProcessFailed;
     
     /**
      * This method saves {@link CompanyPreferences} to DAO layer.

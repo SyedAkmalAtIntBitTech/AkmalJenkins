@@ -15,7 +15,8 @@ import java.io.File;
 public class AppConstants {
 
     public static final Gson GSON = new Gson();
-
+    
+    public static final String COMPANY_LOGO_FILENAME = "companylogo.png";
     public static final String BASE_UPLOAD_PATH = "/home/tomcat/BrndBot";
     public static final String BASE_ADMIN_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "admin";
     public static final String BASE_IMAGE_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "images";
