@@ -134,8 +134,6 @@
                                     <div id="elementToPutStyleInto2" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color2}}"  onclick="getElementID('elementToPutStyleInto2')"></div>
                                     <div id="elementToPutStyleInto3" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color3}}"  onclick="getElementID('elementToPutStyleInto3')"></div>
                                     <div id="elementToPutStyleInto4" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color4}}"  onclick="getElementID('elementToPutStyleInto4')"></div>
-                                    <div id="elementToPutStyleInto5" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color5}}"  onclick="getElementID('elementToPutStyleInto5')"></div>   
-                                    <div id="elementToPutStyleInto6" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color6}}"  onclick="getElementID('elementToPutStyleInto6')"></div>
                                     <div class="resetpalette ptr"> <p id="resetpalette">RESET ORIGINAL PALETTE</p></div>
                                 </div>
                             </div>
