@@ -770,7 +770,8 @@ $edit=0;
                     $.ajax({
                         method: 'GET',
 //                        url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts'
-                         url: getHost() + '/emaillist/get.do?update=allEmailListWithNoOfContacts'
+                         url: getHost() + '/emaillist/get.do?update=allEmailListWithNoOfContacts',
+                         data: emailids
                     }).success(function (data, status, headers, config) {  
                         alert(JSON.stringify(data)+"...............");
                         $scope.emailLists = data.allEmailListWithNoOfContacts.user;                        
