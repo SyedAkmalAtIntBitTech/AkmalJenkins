@@ -45,11 +45,11 @@
                     <div class="pane_content" ng-init="displaySubCategory()">
                         <div class="subcat-list">
                             <div class="cat-slat" ng-repeat="displayAllSubCategory in displayAllSubCategories.slice().reverse()">
-                                <a href="emailexternalsource">
+                                <a href="emailexternalsource?subCategoryId={{displayAllSubCategory.subCategoryId}}">
                                     <div class="cat-slat-title">{{displayAllSubCategory.subCategoryName}}</div>
                                 </a>
                             </div>
-                             <div class="cat-slat" ng-repeat="displayAllSubCategory in displayAllSubCategories.slice().reverse()">
+                            <div class="cat-slat" ng-repeat="displayAllSubCategory in displayAllSubCategories.slice().reverse()">
                                 <a href="emailsubjects">
                                     <div class="cat-slat-title">Non MindBody Data</div>
                                 </a>

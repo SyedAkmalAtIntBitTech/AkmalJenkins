@@ -988,7 +988,7 @@ function controllerMarketingCampaign($scope, $http) {
              $("#emailpost").click();
             $http({
                 method: 'GET',
-                url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
+                url: getHost() + 'GetScheduledEmailDetail.do?schedule_id=' + schedule_id
             }).success(function (data) {
                 $scope.entitiesdetails = data;
                 if (data.body == undefined) {
@@ -1211,7 +1211,7 @@ function controllerMarketingCampaign($scope, $http) {
             };
             $http({
                 method: 'POST',
-                url: getHost() + 'AddAction',
+                url: getHost() + 'AddAction.do',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(action)
             }).success(function (data)
@@ -1219,7 +1219,7 @@ function controllerMarketingCampaign($scope, $http) {
                 $scope.status = data;
                 if (data != "") {
                     alert(actionsaved);
-                    window.open(getHost() + 'marketing.jsp', "_self");
+                    window.open(getHost() + 'user/marketing', "_self");
                 }
             }).error(function (data, status) {
                 alert(requesterror);
@@ -1480,7 +1480,7 @@ function controllerMarketingCampaign($scope, $http) {
         if (confirm(message)) {
             $http({
                 method: 'POST',
-                url: getHost() + 'ChangeScheduleServlet',
+                url: getHost() + 'ChangeSchedule.do',
                 headers: {'Content-Type': 'application/json'},
                 data: requestBody
             }).success(function (data)
@@ -1509,7 +1509,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $("#savedemailsdiv").hide();
                     $("#noemailsdiv").show();
                     $("#change").val("1");                    
-                    window.open(getHost() + 'marketing.jsp', "_self");
+                    window.open(getHost() + 'user/marketing', "_self");
                 }
             }).error(function (data, status) {
                 alert(requesterror);
@@ -1542,7 +1542,7 @@ function controllerMarketingCampaign($scope, $http) {
        
         $http({
             method: 'POST',
-            url: getHost() + 'ChangeScheduleServlet',
+            url: getHost() + 'ChangeSchedule',
             headers: {'Content-Type': 'application/json'},
             data: JSON.stringify(schedule_details)
         }).success(function (data)
@@ -1567,7 +1567,7 @@ function controllerMarketingCampaign($scope, $http) {
             };
             $http({
                 method: 'POST',
-                url: getHost() + 'AddAction',
+                url: getHost() + 'AddAction.do',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(action)
             }).success(function (data)
@@ -1612,7 +1612,7 @@ function controllerMarketingCampaign($scope, $http) {
         };
         $http({
             method: 'POST',
-            url: getHost() + 'ChangeScheduleServlet',
+            url: getHost() + 'ChangeSchedule',
             headers: {'Content-Type': 'application/json'},
             data: JSON.stringify(schedule_details)
         }).success(function (data)
@@ -1620,7 +1620,7 @@ function controllerMarketingCampaign($scope, $http) {
             $scope.status = data;
             if (data != "") {
                 alert(detailssaved);
-                window.open(getHost() + 'marketing.jsp', "_self");
+                window.open(getHost() + 'user/marketing', "_self");
             }
         }).error(function (data, status) {
             alert(requesterror);
@@ -1659,7 +1659,7 @@ function controllerMarketingCampaign($scope, $http) {
                 };
                 $http({
                     method: 'POST',
-                    url: getHost() + 'ChangeScheduleServlet',
+                    url: getHost() + 'ChangeSchedule',
                     headers: {'Content-Type': 'application/json'},
                     data: JSON.stringify(schedule_details)
                 }).success(function (data)
@@ -1667,7 +1667,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $scope.status = data;
                     if (data != "") {
                         alert(detailssaved);
-                        window.open(getHost() + 'marketing.jsp', "_self");
+                        window.open(getHost() + 'user/marketing', "_self");
                     }
                 }).error(function (data, status) {
                     alert(requesterror);
@@ -1703,7 +1703,7 @@ function controllerMarketingCampaign($scope, $http) {
                 };
                 $http({
                     method: 'POST',
-                    url: getHost() + 'ChangeScheduleServlet',
+                    url: getHost() + 'ChangeSchedule',
                     headers: {'Content-Type': 'application/json'},
                     data: JSON.stringify(schedule_details)
                 }).success(function (data)
@@ -1711,7 +1711,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $scope.status = data;
                     if (data != "") {
                         alert(detailssaved);
-                        window.open(getHost() + 'marketing.jsp', "_self");
+                        window.open(getHost() + 'user/marketing', "_self");
                     }
                 }).error(function (data, status) {
                     alert(requesterror);
@@ -1835,7 +1835,7 @@ function sendEmail() {
                                             entityid: entityid
                                             }
                         $.ajax({
-                           url:'ChangeScheduleServlet',
+                           url:'ChangeSchedule',
                            method:'Post',
                            dataType: 'json',
                            contentType: 'application/json',
@@ -1848,7 +1848,7 @@ function sendEmail() {
                                }
                             }
                         });
-                        document.location.href = "marketing.jsp";
+                        document.location.href = "user/marketing";
             },
             error: function () {
                 alert(error_message);
@@ -1856,7 +1856,7 @@ function sendEmail() {
         });
 
     } else if (checkifcreatebutton($("#email_button_send").val())) {
-        document.location.href = "dashboard.jsp";
+        document.location.href = "dashboard";
     }
 }
 
@@ -1893,7 +1893,7 @@ function postSocial() {
             {
                 var bit_url = v.data.url;
                 $.ajax({
-                    url: 'PostToSocial',
+                    url: 'PostToSocial.do',
                     method: 'post',
                     data: {
                         imageToPost: image_name,
@@ -1917,7 +1917,7 @@ function postSocial() {
                                             entityid: entityid
                                             }
                         $.ajax({
-                           url:'ChangeScheduleServlet',
+                           url:'ChangeSchedule',
                            method:'Post',
                            dataType: 'json',
                            contentType: 'application/json',
@@ -1925,13 +1925,13 @@ function postSocial() {
                            data:JSON.stringify(schedule_data),
                            success: function (responseText) {
                                alert(postsuccess);
-                               document.location.href = "marketing.jsp";
+                               document.location.href = "user/marketing";
                             },
                             error: function () {
                                 alert(error_message);
                             }
                         });
-                        document.location.href = "marketing.jsp";
+                        document.location.href = "user/marketing";
                     },
                     error: function () {
                         alert(error_message);
@@ -1941,7 +1941,7 @@ function postSocial() {
         });
 
     } else if (checkifcreatebutton($("#fb_button_post").val()) || (checkifcreatebutton($("#twitter_button_post").val()))) {
-        document.location.href = "dashboard.jsp";
+        document.location.href = "dashboard";
     }
     function checkifcreatebutton(value) {
         if (value == create_button_title) {
