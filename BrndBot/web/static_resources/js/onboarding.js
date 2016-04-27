@@ -416,7 +416,7 @@ function onboardingcontroller($scope,$http) {
             {
                 
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                window.open(getHost() + 'login', "_self");
+                window.open(getHost() + 'user/dashboard', "_self");
             })
             .error(function (data, status) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));

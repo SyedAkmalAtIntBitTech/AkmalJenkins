@@ -33,7 +33,8 @@
             <div class="forgot_password">
                 <span>Forgot Password</span>
             </div>
-            <button style="left:-10px;" type="submit"  class="CTA_Button Button--Blue fleft pushUp_30">Login</button>
+           
+            <button style="left:-10px;" type="submit"  class="button button--moema button--text-thick button--text-upper button--size-s pushUp_30">Login</button>
             <div class="sign-up_container"></div>
         </div>
     </div>

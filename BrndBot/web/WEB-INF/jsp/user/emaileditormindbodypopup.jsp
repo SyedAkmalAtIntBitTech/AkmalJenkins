@@ -27,7 +27,7 @@
         <div class="top-nav-container-detail">
             <div class=" top-navbar-detail topnav-exdata">
                 <a class=" exit-button-detail link svg close" href="" id="mindbodyclose">
-                    <img src="images/Icons/close.svg" class="exit-button" style="cursor:pointer;"></img>
+                    <img src="images/close.svg" class="exit-button" style="cursor:pointer;"></img>
                 </a>
                 <div  class="top-navbar-inner-bb-detail">
                     <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Please select which program to use:</span></div>

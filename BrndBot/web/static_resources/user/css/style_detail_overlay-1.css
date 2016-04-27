@@ -131,6 +131,7 @@ a.svg:after {
     overflow-x: hidden;
     padding-left: 70px;
      background-color: white;
+     z-index: 3;
    
 }
 

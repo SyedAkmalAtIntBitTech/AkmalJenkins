@@ -16,4 +16,6 @@ public interface SendEmailService {
     public void sendMail(Map<String, Object> requestBodyMap, Integer companyId) throws Exception;
 
     public String getTags(Integer companyId) throws Exception;
+
+    public String previewEmail(Integer companyId, Map<String, Object> requestBodyMap);
 }
