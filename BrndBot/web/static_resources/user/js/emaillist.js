@@ -355,8 +355,9 @@
                 $scope.displayemailhistory = function (){
                     $http({
                         method : 'GET',
-                        url : 'GetEmailTagsServlet'
-                    }).success(function(data, status, headers, config) { 
+                        url : '/email/tags'
+                    }).success(function(data, status, headers, config) {
+                        alert(JSON.stringify(data)+" displayemailhistory");
                     if (data == ""){
                         $scope.email_history = data;
                         $("#nohistorydiv").empty().text(noemailhistory);
@@ -381,10 +382,11 @@
                 var email_settings = {"type": "get"};                
                 $http({
                         method : 'POST',
-                        url : 'EmailSettingsServlet',
+                        url : '/settings/getEmailSettings',
                         headers: {'Content-Type': 'application/json'},
                         data: email_settings
                     }).success(function (data, status, headers, config) {
+                        alert(JSON.stringify(data)+" getEmailSettings");
                         $scope.email_settings = data;
                         if (data === error) {
                             alert(data);
@@ -773,7 +775,7 @@ $edit=0;
                          url: getHost() + '/emaillist/get.do?update=allEmailListWithNoOfContacts',
                          data: emailids
                     }).success(function (data, status, headers, config) {  
-                        alert(JSON.stringify(data)+"...............");
+                        alert(JSON.stringify(data)+" taking allEmailListWithNoOfContacts ");
                         $scope.emailLists = data.allEmailListWithNoOfContacts.user;                        
                         $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
                         if (data === "true") {
@@ -805,8 +807,10 @@ $edit=0;
                     $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","560px");
                     $http({
                         method: 'GET',
-                        url: getHost() + 'GetEmailLists?update=emailsForEmailList&list_name='+list_name
+//                        url: getHost() + 'GetEmailLists?update=emailsForEmailList&list_name='+list_name
+                        url: getHost() + '/emaillist/get.do?update=emailsForEmailList&list_name='+list_name
                     }).success(function (data, status, headers, config) {
+                        alert(JSON.stringify(data)+"taking list name");
                         $(".page-background").css("overflow","scroll");
                         $('#loadingGif').remove();
                         $(".page-background").css("background-color","#EFF2F6");
@@ -1055,6 +1059,7 @@ $edit=0;
                 method : 'GET',
                 url : getHost() + 'displayAllEmailDrafts.do'
             }).success(function(data, status) {
+                alert(JSON.stringify(data)+" get all draft")
                 if (data.nodrafts == "yes"){
                     $scope.emaildraftnumber = '0';
                     $scope.emaildraftsstatus = "No email drafts present";
