@@ -311,7 +311,7 @@
 }
 .time_pick {
     left: 1px;
-    width:200%;
+    width:200% !important;
 }
 .claro1{
     overflow: none !important;

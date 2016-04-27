@@ -198,7 +198,7 @@ function reSet()
         if( change !== "0")
         {
             setTimeout(function (){
-            window.open(getHost() + 'marketing.jsp', "_self");
+            window.open(getHost() + 'user/marketing', "_self");
                },430);
             $("#change").val("0");
             closeoverlay();
@@ -495,7 +495,7 @@ var count=0;
             {
                 selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
                 count+=1;
-                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#"+id).html(content+'<img src="images/check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#"+id).toggleClass('selection-icon');
             $("#"+id).toggleClass('selection-icon-selected');
@@ -651,7 +651,7 @@ function controllerMarketingCampaign($scope, $http) {
         }).success(function (data, status, headers, config) {
           if (data == "true"){
             alert(templetestatussaved);
-            window.open(getHost() + 'marketing.jsp', "_self");
+            window.open(getHost() + 'user/marketing', "_self");
           }else {
               alert(savingrecordproblem);
           }
@@ -948,7 +948,7 @@ function controllerMarketingCampaign($scope, $http) {
         if(change === "1")
         {
             $("#change").val("0");
-            window.open(getHost() + 'marketing.jsp', "_self");
+            window.open(getHost() + 'user/marketing', "_self");
         }
         $slider=2;
         sliderDialog = "#notediv";

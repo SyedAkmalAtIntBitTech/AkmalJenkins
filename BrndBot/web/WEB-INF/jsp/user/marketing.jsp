@@ -10,7 +10,7 @@
    
     <title>BrndBot - Your Plan</title>
 </head>    
-
+<link rel="shortcut icon" href="images/favicon.png">
 <body ng-app class="claro1">
     <div id="fade"></div>
     <!--SideNav-->
@@ -23,7 +23,7 @@
     <%@include file="header.jsp" %>       
     <%@include file="navbar.jsp" %>     
     
-  <link rel="shortcut icon" href="images/favicon.png">
+  
     <input type="hidden" name="change" id="change" value="0"/>
     <!--Top Nav-->   
     <div class="top-nav">
@@ -46,7 +46,7 @@
              <div class="subnav-date-dropdown-text ">
                  <label class="calendar-dropdown-text " for="jumptodatepicker">Jump to Date</label>
                  <input type="text"  name="datepicker" id="jumptodatepicker" readonly class="hideinput"/>
-                 <script>
+<!--                 <script>
                             var picker = new Pikaday(
                             {
                                 field: document.getElementById('jumptodatepicker'),
@@ -59,7 +59,7 @@
 //                                    document.getElementById('selected').appendChild(curdat);
                                 }
                             });
-                 </script>
+                 </script>-->
             </div>
              
                 <div class="top-subnav-tabs-container-with-drop">      
