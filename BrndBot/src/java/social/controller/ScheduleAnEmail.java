@@ -5,16 +5,12 @@
  */
 package social.controller;
 
-import com.controller.ApplicationContextListener;
 import com.controller.IConstants;
-import com.controller.SocialPostScheduler;
-import com.divtohtml.StringUtil;
-import com.intbit.marketing.model.TblScheduledEmailList;
-import com.intbit.marketing.model.TblScheduledEntityList;
+import com.intbittech.model.ScheduledEmailList;
+import com.intbittech.model.ScheduledEntityList;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONObject;
@@ -43,10 +39,10 @@ public class ScheduleAnEmail implements Runnable {
         logger.log(Level.INFO, "In Email Schedule CallBlock");
 
         try {
-            List<TblScheduledEntityList> scheduledAnEmail = getLatestApprovedSendEmail();
+            List<ScheduledEntityList> scheduledAnEmail = getLatestApprovedSendEmail();
 
             //The below table should be reused or needs a new table specifically for FB.
-            for (TblScheduledEntityList currentScheduledEmail:scheduledAnEmail) {
+            for (ScheduledEntityList currentScheduledEmail:scheduledAnEmail) {
                 if (scheduledAnEmail != null) {
                 //The time zone of the saved date should be extracted.
                     //This time zone should be applied to the current time and then this comparison needs to be made.
@@ -57,14 +53,14 @@ public class ScheduleAnEmail implements Runnable {
                     if (shouldPostNow) {
                         logger.log(Level.SEVERE, "Should post now is true: Sending Mail");
 
-                        TblScheduledEmailList sendAnEmail = getSendEmail(currentScheduledEmail);
+                        ScheduledEmailList sendAnEmail = getSendEmail(currentScheduledEmail);
                         String html_text = sendAnEmail.getBody();
                         String email_subject = sendAnEmail.getSubject();
                         String jsonString = sendAnEmail.getToEmailAddresses();
                         JSONObject json = (JSONObject) new JSONParser().parse(jsonString);
                         String to_email_addresses = "";
                         String emaillist_name = sendAnEmail.getEmailListName();
-                        Integer user_id = currentScheduledEmail.getUserId();
+                        Integer companyId = currentScheduledEmail.getFkCompanyId().getCompanyId();
                         String reply_to_address = sendAnEmail.getReplyToEmailAddress();
                         String from_email_address = sendAnEmail.getFromAddress();
                         String message = "";
@@ -72,7 +68,7 @@ public class ScheduleAnEmail implements Runnable {
                         org.json.simple.JSONArray jSONArray = (org.json.simple.JSONArray) json.get("emailAddresses");
                         for (Integer i = 0; i < jSONArray.size(); i++) {
                             to_email_addresses = jSONArray.get(i).toString();
-                            message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, user_id, reply_to_address, from_email_address, from_name, "");
+                            message = SendAnEmail.sendEmail(html_text, email_subject, to_email_addresses, emaillist_name, companyId, reply_to_address, from_email_address, from_name, "");
                         }
 //                    String message = "success";//TODO
 
@@ -95,25 +91,25 @@ public class ScheduleAnEmail implements Runnable {
 
     }
 
-    private void updateStatusScheduledEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
-        logger.log(Level.INFO, "Email post:" + scheduledAnEmail.getScheduleTitle() + "Id:" + scheduledAnEmail.getId() + " time:" + scheduledAnEmail.getScheduleTime().toString());
+    private void updateStatusScheduledEmail(ScheduledEntityList scheduledAnEmail) throws Throwable {
+        logger.log(Level.INFO, "Email post:" + scheduledAnEmail.getScheduleTitle() + "Id:" + scheduledAnEmail.getScheduledEntityListId() + " time:" + scheduledAnEmail.getScheduleTime().toString());
         //Call the DAO here
         scheduledAnEmail.setStatus(IConstants.kSocialPostCommpleteStatus);
         SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledAnEmail);
 //        ApplicationContextListener.refreshEmailScheduler();
     }
 
-    private TblScheduledEmailList getSendEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
-        TblScheduledEmailList scheduledEmailList = SchedulerUtilityMethods.getEmailEntityById(scheduledAnEmail.getEntityId());
+    private ScheduledEmailList getSendEmail(ScheduledEntityList scheduledAnEmail) throws Throwable {
+        ScheduledEmailList scheduledEmailList = SchedulerUtilityMethods.getEmailEntityById(scheduledAnEmail.getEntityId());
         return scheduledEmailList;
     }
 
-    private List<TblScheduledEntityList> getLatestApprovedSendEmail() throws Throwable {
+    private List<ScheduledEntityList> getLatestApprovedSendEmail() throws Throwable {
         ArrayList<String> entityId = SchedulerUtilityMethods.getLatestEmailApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.FALSE);
-        List<TblScheduledEntityList> scheduledEntityList = new ArrayList<TblScheduledEntityList>();
+        List<ScheduledEntityList> scheduledEntityList = new ArrayList<ScheduledEntityList>();
         if (entityId.size() > 0) {
             for (String currentEntityId : entityId) {
-                TblScheduledEntityList tblScheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(currentEntityId), IConstants.kEmailKey);
+                ScheduledEntityList tblScheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(currentEntityId), IConstants.kEmailKey);
                 scheduledEntityList.add(tblScheduledEntityList);
             }
         }
