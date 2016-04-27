@@ -146,43 +146,36 @@ public class CompanyServiceImpl implements CompanyService{
      * {@inheritDoc}
      */
     @Override
-    public Integer saveCompany(CompanyDetails companyDetails) throws ProcessFailed {
+    public String updateCompany(CompanyDetails companyDetails) throws ProcessFailed {
+        String returnMessage = "false";
         try {
-            //Save company
-            Company company = new Company();
+            //update company
+            Company company = companyDao.getCompanyById(companyDetails.getCompanyId());
             company.setCompanyName(companyDetails.getCompanyName());
             company.setCreatedDate(new Date());
             company.setInviteCode(RandomStringUtils.randomAlphanumeric(10));
-            Integer companyId = companyDao.save(company);
-
-            //Update user table with companyId
-            Company companyObject = new Company();
-            companyObject.setCompanyId(companyId);
-
-            
-            Users user = usersDao.getUserById(companyDetails.getUserId());
-            if(user == null)
-            {
-                 throw new ProcessFailed(messageSource.getMessage("user_not_found",new String[]{}, Locale.US));
-            }
-            user.setFkCompanyId(companyObject);
-            usersDao.update(user);
+            companyDao.update(company);
 
             //Relate company and organization
             OrganizationCompanyLookup organizationCompanyLookup = new OrganizationCompanyLookup();
 
             Organization organization = new Organization();
             organization.setOrganizationId(companyDetails.getOrganizationId());
+            
+            Company companyObject = new Company();
+            companyObject.setCompanyId(companyDetails.getCompanyId());
 
             organizationCompanyLookup.setFkOrganizationId(organization);
             organizationCompanyLookup.setFkCompanyId(companyObject);
 
             organizationCompanyDao.save(organizationCompanyLookup);
             
-            return companyId;
+            returnMessage = "true";
         } catch(Throwable throwable) {
+            returnMessage = "false";
             throw new ProcessFailed(messageSource.getMessage("company_save_error", new String[]{}, Locale.US));
-        }        
+        }
+        return returnMessage;
     }
 
     /**

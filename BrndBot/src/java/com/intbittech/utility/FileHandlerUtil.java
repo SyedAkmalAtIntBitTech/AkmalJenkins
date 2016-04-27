@@ -17,8 +17,8 @@ import javax.imageio.ImageIO;
  */
 public class FileHandlerUtil {
     
-    public static String saveCompanyLogo(String filePath, String imageFileName, String imageFileType, String base64ImageString) throws Throwable {
-        String fileNameWithExtension = imageFileName + "." + imageFileType;
+    public static String saveCompanyLogo(String filePath, String imageFile, String base64ImageString) throws Throwable {
+        String fileNameWithExtension = imageFile;
         saveImageWithOrignalName(fileNameWithExtension, base64ImageString, filePath);
         return fileNameWithExtension;
     }
