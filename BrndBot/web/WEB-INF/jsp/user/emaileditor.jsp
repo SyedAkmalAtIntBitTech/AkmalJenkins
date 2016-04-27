@@ -72,8 +72,10 @@
         String user_id="";
     %>
     <% 
+         String categoryId= request.getParameter("categoryId");
          String subCategoryId= request.getParameter("subCategoryId");
-        email_subject = request.getParameter("subject"); %>
+         String emailSubject= request.getParameter("emailSubject");
+//        email_subject = request.getParameter("subject"); %>
     <%
 //        try {
 //            sql_methods.session = request.getSession(true);          
@@ -268,7 +270,8 @@
                             $scope.pageSize = 2;
                             if (block_clicked == "true" || blockIdSelected != "defaultblock1")
                             {
-                            queryurl = 'GetLayoutStyles?editorType=email&query=block&block_id=' + block_id;
+//                            queryurl = 'GetLayoutStyles?editorType=email&query=block&block_id=' + block_id;
+                            queryurl = getHost() +'getAllEmailBlockModelsByBlockId?emailBlockId='+ block_id;
                             }
                             else
                             {
@@ -433,7 +436,7 @@
                         $("#addblkbtn").prop("disabled", true);
                      };
                     
-                    $scope.showDataTemp = function(){
+                    $scope.showDataTemp = function(id){
                         $scope.showData(temp_block_id, temp_mind_body_query);
                         $("#blockdivheader").hide();
                         $("#styledivheader").show();
@@ -475,7 +478,7 @@
                             method : 'GET',
                                     url : 'MindBodyDataServlet?mindbody_query=' + mind_body_query
                             }).success(function(data, status, headers, config)
-                            {
+                            {   
 //                                $("#loadingGifformindbody").show();
 //                                alert(JSON.stringify(data));
                                 $scope.datalists2 = data;
@@ -645,13 +648,14 @@
     <input type="hidden" id='userid' value="<%= user_id%>"/>
     <input type="hidden" id='draftid' value="<%= draft_id%>"/>
     <input type="hidden" value="<%=email_subject%>" id="email_subject"/>
+    <input type="hidden" value="<%=emailSubject%>" id="emailSubjectTag"/>
     <!--SideNav-->
     <div class="content-main" ng-controller="MyController">   
     <jsp:include page="emaileditormindbodypopup.jsp"/>    
     <!--Top Nav-->   
     <div class="top-nav-full">
         <div class="page-title-bar col-1of1"> 
-            <a class=" exit-button-icon" href="emailsubjects?id=<%= mindbody_data_id %>&mediatype=email">    
+            <a class=" exit-button-icon" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=categoryId%>">    
                 <div class="exit-button-detail">
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                 </div>
@@ -672,14 +676,26 @@
         <div class="emailEditor-page-background fleft">
             <div class="emailEditor-leftCol ">
                  <script>
-                    $("#emailpreview").click(function(){                        
+//                     $("#saveToDraft").click(function (){
+//                         var draftId=1;
+//                         $.ajax({
+//                                url: getHost() + "/getEmailDraft.do?draftid="+ draft_id,
+//                                method: "GET",
+//                                success: function (data) {
+//                                alert(data);    
+//                                }
+//                        }).error(function (error){alert(JSON.stringify(error));});
+//                    });                   
+                     
+                     
+                    $("#emailpreview").click(function(){              
                         $("#email_previewdiv").show();
                         $.ajax({
-                                url: getHost() + "PreviewServlet",
-                                method: "post",
+                                url: getHost() + "/email/previewServlet",
+                                method: "POST",
                                 data: {
-                                htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                                        iframeName: rendomIframeFilename
+                                    htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                                    iframeName: rendomIframeFilename
                                 },
                                 success: function (responseText) {
                                     $("#dynamictable5").empty();
@@ -687,7 +703,7 @@
                                     $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='/BrndBot/DownloadHtmlServlet?file_name=" + rendomIframeFilename + ".html'></iframe>");
                                     $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='/BrndBot/DownloadHtmlServlet?file_name=" + rendomIframeFilename + ".html'></iframe>");
                                 }
-                        });
+                        }).error(function (error){alert(JSON.stringify(error));});
                         $("#fade").show();
                     });
                     
@@ -796,73 +812,74 @@
                             };
                 $(document).ready(function(){
                                                     
-//    $("#saveButton").click(function (){
-//        var email_subject = $("#email_subject").val();
-//        $.ajax({
-//            url: getHost() + "PreviewServlet",
-//            method: "post",
-//            data:{
-//            htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-//            iframeName: rendomIframeFilename
-//            },
-//            success: function (responseText) {
-//            $("#previewcontent").empty();
-//                $("#previewcontent").append(responseText);
-//                $.ajax({
-//                    url: getHost() + "SaveKeyValueSessionServlet",
-//                    method: "post",
-//                    data:{
-//                        process:"save",
-//                        sessionKey:"htmldata",
-//                        sessionValue: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-//                        sessionIframeKey:"iframeName",
-//                        sessionIframevalue:"" + rendomIframeFilename
-//                    },
-//                    success: function (responseText) {
-//                    // added by Syed Ilyas 16 dec 2015 - saves draft
-//                        if (draft_id == "0")
-//                        {
-//                            $.ajax({
-//                            url: getHost() + "saveEmailDrafts.do",
-//                            method: "post",
-//                            data:{
-//                            bodyString : $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-//                            },
-//                            success: function (responseText) {
-//                                if (responseText != "0"){
-//                                document.location.href = "emaillistselection.jsp?draftid=" + responseText + "&subject=" + email_subject;
-//                                } else 
-//                                {
-//                                    alert("There was a problem while saving the draft! Please try again later.");
-//                                }
-//                            }
-//                            });
-//                        } 
-//                        else 
-//                        {
-//                        $.ajax({
-//                            url: getHost() + "updateEmailDraft.do",
-//                            method: "post",
-//                            data:{
-//                            draftid: draft_id,
-//                                    bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-//                            },
-//                            success: function (responseText) {
-//                                if (responseText == "true")
-//                                {
-//                                    document.location.href = "emaillistselection.jsp?draftid=" + draft_id + "&subject=" + email_subject;
-//                                } else
-//                                {
-//                                    alert("There was a problem while saving the draft! Please try again later.");
-//                                }
-//                            }
-//                        });
-//                    }
-//                    }
-//                });
-//            }
-//        });
-//    });
+    $("#saveButton").click(function (){
+//        alert($("#emailSubjectTag").val());
+        var email_subject = $("#emailSubjectTag").val();
+        $.ajax({
+            url: getHost() + "PreviewServlet",
+            method: "post",
+            data:{
+            htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+            iframeName: rendomIframeFilename
+            },
+            success: function (responseText) {
+            $("#previewcontent").empty();
+                $("#previewcontent").append(responseText);
+                $.ajax({
+                    url: getHost() + "SaveKeyValueSessionServlet",
+                    method: "post",
+                    data:{
+                        process:"save",
+                        sessionKey:"htmldata",
+                        sessionValue: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                        sessionIframeKey:"iframeName",
+                        sessionIframevalue:"" + rendomIframeFilename
+                    },
+                    success: function (responseText) {
+                    // added by Syed Ilyas 16 dec 2015 - saves draft
+                        if (draft_id == "0")
+                        {
+                            $.ajax({
+                            url: getHost() + "saveEmailDrafts.do",
+                            method: "post",
+                            data:{
+                            bodyString : $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                            },
+                            success: function (responseText) {
+                                if (responseText != "0"){
+                                document.location.href = "emaillistselection.jsp?draftid=" + responseText + "&subject=" + email_subject;
+                                } else 
+                                {
+                                    alert("There was a problem while saving the draft! Please try again later.");
+                                }
+                            }
+                            });
+                        } 
+                        else 
+                        {
+                        $.ajax({
+                            url: getHost() + "updateEmailDraft.do",
+                            method: "post",
+                            data:{
+                            draftid: draft_id,
+                                    bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                            },
+                            success: function (responseText) {
+                                if (responseText == "true")
+                                {
+                                    document.location.href = "emaillistselection.jsp?draftid=" + draft_id + "&subject=" + email_subject;
+                                } else
+                                {
+                                    alert("There was a problem while saving the draft! Please try again later.");
+                                }
+                            }
+                        });
+                    }
+                    }
+                });
+            }
+        });
+    });
                     
     $("#styletab").click(function (){
         $("#blockdivheader").hide();
@@ -915,7 +932,7 @@
                         </li>-->
                         <li class="block-slat" ng-repeat="blocks in datalists" id="{{blocks.emailBlockId}}" ng-click="showImageOfBlock(blocks.emailBlockId, blocks.mindbody_query)">
                             <div class="block-name" id="blklist----{{blocks.emailBlockId}}" >{{blocks.emailBlockName}}</div>                            
-                            <div class="block-button hide" ng-click="showDataTemp()" id="div2{{blocks.emailBlockId}}">Add Block</div>
+                            <div class="block-button hide" ng-click="showDataTemp(blocks.emailBlockId)" id="div2{{blocks.emailBlockId}}">Add Block</div>
                         </li>
                     </ul>
                     
@@ -977,7 +994,7 @@
     <!--CTA Bar-->
     <div class="bottom-cta-bar" id="bottomdiv">
         <div class="bottom-cta-button-container-lg">
-            <a href="emaillistselection">
+            <a href=""><!--emaillistselection-->
                 <div class="bottom-continue-button button-text-1" id="saveButton">Continue</div>
             </a>
         </div>

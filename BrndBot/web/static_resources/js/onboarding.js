@@ -409,14 +409,14 @@ function onboardingcontroller($scope,$http) {
         else{
              $.ajax({
                 method: 'POST',
-                url: getHost() + 'saveCompanyColors.do?companyId='+companyId,
+                url: getHost() + '/onboarding/saveCompanyColors.do?companyId='+companyId,
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(companyColors)
             }).success(function (data)
             {
                 
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                window.open(getHost() + 'signup/login', "_self");
+                window.open(getHost() + 'login', "_self");
             })
             .error(function (data, status) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));

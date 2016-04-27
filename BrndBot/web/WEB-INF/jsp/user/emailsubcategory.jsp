@@ -17,7 +17,7 @@
         <!--Main Content Wrap-->
         <% String categoryId = request.getParameter("categoryId");%>
         <div class="contentWrap--withSideNav noScroll" ng-app ng-controller="userController">
-            <input id="categoryId" value="<%=categoryId%>"/>
+            <input id="categoryId" value="<%=categoryId%>" type="hidden"/>
             <div class="topNav topNav-withSubnav clear">
                 <div class="topNav--BackButton fleft">
                     <a class="exit-button-icon" href="emailcategory">
@@ -45,12 +45,12 @@
                     <div class="pane_content" ng-init="displaySubCategory()">
                         <div class="subcat-list">
                             <div class="cat-slat" ng-repeat="displayAllSubCategory in displayAllSubCategories.slice().reverse()">
-                                <a href="emailexternalsource?subCategoryId={{displayAllSubCategory.subCategoryId}}">
+                                <a href="emailexternalsource?categoryId=<%=categoryId%>&subCategoryId={{displayAllSubCategory.subCategoryId}}">
                                     <div class="cat-slat-title">{{displayAllSubCategory.subCategoryName}}</div>
                                 </a>
                             </div>
                             <div class="cat-slat" ng-repeat="displayAllSubCategory in displayAllSubCategories.slice().reverse()">
-                                <a href="emailsubjects">
+                                <a href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId={{displayAllSubCategory.subCategoryId}}">
                                     <div class="cat-slat-title">Non MindBody Data</div>
                                 </a>
                             </div>
