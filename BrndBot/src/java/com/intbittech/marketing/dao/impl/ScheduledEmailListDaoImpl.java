@@ -5,7 +5,6 @@
  */
 package com.intbittech.marketing.dao.impl;
 
-import com.intbit.marketing.dao.impl.*;
 import com.intbit.ScheduledEntityType;
 import com.intbittech.marketing.dao.ScheduledEmailListDao;
 import com.intbittech.model.ScheduledEmailList;
