@@ -9,10 +9,13 @@ import com.google.gson.Gson;
 import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.externalcontent.ExternalContentSession;
 import com.intbittech.externalcontent.ExternalSourceProcessedData;
+import com.intbittech.model.Company;
+import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.ExternalSourceKeywordLookup;
 import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
+import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.ExternalSourceKeywordLookupService;
 import com.intbittech.services.ExternalSourceService;
 import com.intbittech.utility.ErrorHandlingUtil;
@@ -29,6 +32,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -49,6 +53,8 @@ public class ExternalContentController {
     private ExternalSourceService externalSourceService;
     @Autowired
     private ExternalSourceKeywordLookupService externalSourceKeywordLookupService;
+    @Autowired
+    private CompanyPreferencesService companyPreferencesService;
     
     @RequestMapping(value = "/isActivated", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> isActivated() throws SQLException {
@@ -61,12 +67,23 @@ public class ExternalContentController {
     }
 
     @RequestMapping(value = "/getActivationLink", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getActivationLink() throws SQLException {
+    public ResponseEntity<ContainerResponse> getActivationLink(@RequestParam("studioId") String studioId) throws SQLException {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
         Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
+        
+        //save studioId
+        Company company = new Company();
+        company.setCompanyId(companyID);
+        CompanyPreferences companyPreferences = new CompanyPreferences();
+        companyPreferences.setCompanyLocation(studioId);
+        companyPreferences.setFkCompanyId(company);
+        companyPreferencesService.setStudioId(companyPreferences);
+                
         externalContentProcessor = new ExternalContentProcessor(companyID);
         genericResponse.addDetail(externalContentProcessor.getActivationLink());
+        
+        
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
