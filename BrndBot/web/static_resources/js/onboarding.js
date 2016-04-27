@@ -272,7 +272,9 @@ function onboardingcontroller($scope,$http) {
                 data: JSON.stringify(userDetails)
             }).success(function (data)
             {
+                alert(JSON.stringify(userDetails));
                 var userId=eval(JSON.stringify(data.d.message));
+                alert(userId);
                 localStorage.setItem("userId",userId);
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 window.open(getHost() + 'signup/onboarding2', "_self");
