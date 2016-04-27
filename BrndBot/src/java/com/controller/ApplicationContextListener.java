@@ -14,7 +14,7 @@ import javax.servlet.ServletContextListener;
 /**
  * Web application lifecycle listener.
  *
- * @author AR
+ * @author AR - Testing
  */
 public class ApplicationContextListener implements ServletContextListener {
 
