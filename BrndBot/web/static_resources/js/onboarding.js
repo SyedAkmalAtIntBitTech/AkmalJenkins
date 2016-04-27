@@ -272,12 +272,29 @@ function onboardingcontroller($scope,$http) {
                 data: JSON.stringify(userDetails)
             }).success(function (data)
             {
-                alert(JSON.stringify(userDetails));
+                
+                var userDetails1={"username":emailId,"password":userPassword};
+               var message= (data.d.message);
+                if(message==="true")
+                {
+//                    $.ajax({
+//                method: 'POST',
+//                url: getHost() + '/login',
+//                headers: {'Content-Type': 'application/json'},
+//                data: JSON.stringify(userDetails)
+//            }).success(function (data)
+//            {
+//               alert("test"); 
+//            }).error(function (data, status) {
+//                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+//            });
+           $("#username").val(emailId);
+                   $("#password").val(userPassword);
+                   $("#submitButton").click();
+        }
                 var userId=eval(JSON.stringify(data.d.message));
-                alert(userId);
                 localStorage.setItem("userId",userId);
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                window.open(getHost() + 'signup/onboarding2', "_self");
             })
             .error(function (data, status) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
