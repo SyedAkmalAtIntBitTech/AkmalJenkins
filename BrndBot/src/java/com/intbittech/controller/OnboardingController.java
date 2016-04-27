@@ -111,7 +111,7 @@ public class OnboardingController {
 
             GetColorFromImage getcolorsfromimages = new GetColorFromImage();
             //Change to new AppConstants
-            String uploadPath = AppConstants.BASE_IMAGE_COMPANY;
+            String uploadPath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH;
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             uploadPath = uploadPath + File.separator + companyId + File.separator + "logo";
@@ -136,7 +136,7 @@ public class OnboardingController {
             String storableFileName = null;
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            String filePath = AppConstants.BASE_IMAGE_COMPANY + File.separator + companyId + File.separator + "logo";
+            String filePath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + "logo";
             storableFileName = FileHandlerUtil.saveCompanyLogo(filePath, AppConstants.COMPANY_LOGO_FILENAME,companyLogoDetails.getImageData());
             transactionResponse.setMessage(storableFileName);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyLogo_save", new String[]{}, Locale.US)));

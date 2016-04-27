@@ -19,6 +19,12 @@ public class AppConstants {
     public static final String COMPANY_LOGO_FILENAME = "companylogo.png";
     public static final String BASE_UPLOAD_PATH = "/home/tomcat/BrndBot";
     public static final String BASE_ADMIN_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "admin";
-    public static final String BASE_IMAGE_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "images";
-    public static final String BASE_IMAGE_COMPANY = BASE_IMAGE_UPLOAD_PATH + File.separator + "companies";
+    public static final String BASE_USERS_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "users";
+    public static final String BASE_USERS_IMAGE_UPLOAD_PATH = BASE_USERS_UPLOAD_PATH + File.separator + "images";
+    public static final String BASE_ADMIN_IMAGE_UPLOAD_PATH = BASE_ADMIN_UPLOAD_PATH + File.separator + "images";
+    public static final String BASE_IMAGE_COMPANY_UPLOAD_PATH = BASE_USERS_IMAGE_UPLOAD_PATH + File.separator + "companies";
+    public static final String BASE_ADMIN_GLOBAL_IMAGE_UPLOAD_PATH = BASE_ADMIN_IMAGE_UPLOAD_PATH + File.separator + "globalimages";
+    public static final String BASE_ADMIN_EMAIL_TEMPLATE_IMAGE_UPLOAD_PATH = BASE_ADMIN_IMAGE_UPLOAD_PATH + File.separator + "emailtemplates";
+    public static final String BASE_ADMIN_EMAIL_BLOCK_TEMPLATE_IMAGE_UPLOAD_PATH = BASE_ADMIN_IMAGE_UPLOAD_PATH + File.separator + "emailblocktemplates";
+    
 }
