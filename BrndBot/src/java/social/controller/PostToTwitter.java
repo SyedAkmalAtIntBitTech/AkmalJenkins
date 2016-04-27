@@ -6,16 +6,11 @@
 package social.controller;
 
 import com.controller.SqlMethods;
-import com.intbit.marketing.model.TblUserPreferences;
-import com.intbit.marketing.service.UserPreferencesService;
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.springframework.beans.factory.annotation.Autowired;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -90,21 +85,21 @@ public class PostToTwitter {
         return returnMessage;
     }
 
-    public HashMap<String, String> getTwitterUserPreferences(Integer userId) throws Throwable {
-        UserPreferencesTwitter userPreferencesTwitter = new UserPreferencesTwitter();
-        return userPreferencesTwitter.getUserPreferenceForAccessToken(userId);
+    public HashMap<String, String> getTwitterCompanyPreferences(Integer companyId) throws Throwable {
+        CompanyPreferencesTwitter companyPreferencesTwitter = new CompanyPreferencesTwitter();
+        return companyPreferencesTwitter.getCompanyPreferenceForAccessToken(companyId);
     }
 
-    public String getTwitterAccessToken(Integer userId) throws Throwable {
-        HashMap<String, String> hashMap = getTwitterUserPreferences(userId);
+    public String getTwitterAccessToken(Integer companyId) throws Throwable {
+        HashMap<String, String> hashMap = getTwitterCompanyPreferences(companyId);
         if (hashMap != null) {
             return hashMap.get("twitter_access_token");
         }
         return "";
     }
 
-    public String getTwitterAccessTokenSecret(Integer userId) throws Throwable {
-        HashMap<String, String> hashMap = getTwitterUserPreferences(userId);
+    public String getTwitterAccessTokenSecret(Integer companyId) throws Throwable {
+        HashMap<String, String> hashMap = getTwitterCompanyPreferences(companyId);
         if (hashMap != null) {
             return hashMap.get("twitter_access_token_secret");
         }

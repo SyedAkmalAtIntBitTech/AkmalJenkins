@@ -16,7 +16,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.postgresql.util.PGobject;
@@ -25,26 +24,26 @@ import org.postgresql.util.PGobject;
  *
  * @author intbit
  */
-public class UserPreferencesTwitter {
+public class CompanyPreferencesTwitter {
     
-    private static final Logger logger = Logger.getLogger(UserPreferencesTwitter.class.getName());
+    private static final Logger logger = Logger.getLogger(CompanyPreferencesTwitter.class.getName());
     
     SqlMethods sql_methods;
     PreparedStatement prepared_statement;
     ResultSet result_set;
 
-    public UserPreferencesTwitter() throws NamingException {
+    public CompanyPreferencesTwitter() throws NamingException {
         this.sql_methods = new SqlMethods();
     }
 
-    public void updatePreference(Integer user_id, String twitter_access_token, String twitter_access_token_secret, String user_name) throws SQLException {
+    public void updatePreference(Integer companyId, String twitter_access_token, String twitter_access_token_secret, String user_name) throws SQLException {
 
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             PGobject pgobject = new PGobject();
             JSONObject json_objectFromTable = new JSONObject();
             JSONParser parser = new JSONParser();
             JSONObject json_twitter = new JSONObject();
-            String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
+            String query = "Select company_preferences from company_preferences where fk_company_id=" + companyId + "";
 
             prepared_statement = connection.prepareStatement(query);
 
@@ -69,9 +68,9 @@ public class UserPreferencesTwitter {
             result_set.close();
             prepared_statement.close();
 
-            query = "UPDATE tbl_user_preferences"
-                    + " SET user_preferences=?"
-                    + " WHERE user_id=" + user_id + "";
+            query = "UPDATE company_preferences"
+                    + " SET company_preferences=?"
+                    + " WHERE fk_company_id=" + companyId + "";
 
             PGobject jsonObject = new PGobject();
 
@@ -91,7 +90,7 @@ public class UserPreferencesTwitter {
         }
     }
 
-    public JSONObject getUserPreferenceForAccessToken(Integer user_id) throws SQLException {
+    public JSONObject getCompanyPreferenceForAccessToken(Integer companyId) throws SQLException {
         String twitter_data="";
         String twitter_access_token = "";
         String twitter_access_token_secret = "", twitter_user_name = "";
@@ -102,7 +101,7 @@ public class UserPreferencesTwitter {
             JSONObject json_objectFromTable = new JSONObject();
             JSONParser parser = new JSONParser();
 
-            String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
+            String query = "Select company_preferences from company_preferences where fk_company_id=" + companyId + "";
 
             prepared_statement = connection.prepareStatement(query);
 
@@ -131,7 +130,7 @@ public class UserPreferencesTwitter {
         return json_fb_to_read;
     }
 
-    public void deletePreferences(Integer user_id)throws SQLException {
+    public void deletePreferences(Integer companyId)throws SQLException {
         String access_token = "";
         String user_profile_name = "", default_page_name = "";
         JSONObject json_fb_to_read = new JSONObject();
@@ -142,7 +141,7 @@ public class UserPreferencesTwitter {
             JSONObject json_objectFromTable = new JSONObject();
             JSONParser parser = new JSONParser();
 
-            String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
+            String query = "Select company_preferences from company_preferences where fk_company_id=" + companyId + "";
 
             prepared_statement = connection.prepareStatement(query);
 
@@ -163,9 +162,9 @@ public class UserPreferencesTwitter {
             result_set.close();
             prepared_statement.close();
 
-            query = "UPDATE tbl_user_preferences"
-                    + " SET user_preferences=?"
-                    + " WHERE user_id=" + user_id + "";
+            query = "UPDATE company_preferences"
+                    + " SET company_preferences=?"
+                    + " WHERE fk_company_id=" + companyId + "";
 
             PGobject jsonObject = new PGobject();
 

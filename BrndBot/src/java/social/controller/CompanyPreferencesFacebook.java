@@ -85,7 +85,7 @@ public class CompanyPreferencesFacebook {
         }
     }
 
-    public JSONObject getUserPreferenceForAccessToken(Integer companyId) throws SQLException {
+    public JSONObject getCompanyPreferenceForAccessToken(Integer companyId) throws SQLException {
         String access_token = "";
         String user_profile_name = "", default_page_name = "";
         JSONObject json_fb_to_read = new JSONObject();

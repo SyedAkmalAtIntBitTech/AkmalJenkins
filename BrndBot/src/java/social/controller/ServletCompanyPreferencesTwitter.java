@@ -8,6 +8,8 @@ package social.controller;
 import com.controller.BrndBotBaseHttpServlet;
 import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.google.gson.Gson;
+import com.intbittech.model.UserProfile;
+import com.intbittech.utility.UserSessionUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -20,9 +22,9 @@ import org.json.simple.JSONObject;
  *
  * @author intbit
  */
-public class ServletUserPreferencesTwitter extends BrndBotBaseHttpServlet {
+public class ServletCompanyPreferencesTwitter extends BrndBotBaseHttpServlet {
 
-    UserPreferencesTwitter user_preferences;
+    CompanyPreferencesTwitter companyPreferencesTwitter;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,9 +49,9 @@ public class ServletUserPreferencesTwitter extends BrndBotBaseHttpServlet {
         String twitter_access_token_secret = "", twitter_user_name = "";
 
         try {
-            user_preferences = new UserPreferencesTwitter();
-            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
-
+            companyPreferencesTwitter = new CompanyPreferencesTwitter();
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             if (request.getParameter("twitter_access_tokens") != null) {
                 access_token = request.getParameter("twitter_access_tokens");
 
@@ -65,10 +67,10 @@ public class ServletUserPreferencesTwitter extends BrndBotBaseHttpServlet {
 
             switch (method_type) {
                 case "setAccessToken":
-                    user_preferences.updatePreference(user_id, access_token, access_token_secret, user_name);
+                    companyPreferencesTwitter.updatePreference(companyId, access_token, access_token_secret, user_name);
                     break;
                 case "getAccessToken":
-                    json_twitter = user_preferences.getUserPreferenceForAccessToken(user_id);
+                    json_twitter = companyPreferencesTwitter.getCompanyPreferenceForAccessToken(companyId);
                     if (json_twitter.size() != 0){
                         twitter_access_token = (String) json_twitter.get("twitter_access_token");
                         twitter_access_token_secret = (String) json_twitter.get("twitter_access_token_secret");
@@ -93,7 +95,7 @@ public class ServletUserPreferencesTwitter extends BrndBotBaseHttpServlet {
                         out.write(twitter_data);
                 }   break;
                 case "clearTwitterDetails":
-                    user_preferences.deletePreferences(user_id);
+                    companyPreferencesTwitter.deletePreferences(companyId);
                     break;
             }
 

@@ -8,8 +8,6 @@ package social.controller;
 import com.controller.ApplicationContextListener;
 import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.controller.SqlMethods;
-import com.intbit.AppConstants;
-import com.intbit.PhantomImageConverter;
 import facebook4j.Facebook;
 import facebook4j.FacebookException;
 import facebook4j.FacebookFactory;
@@ -118,12 +116,12 @@ class PostToFacebook {
         }
         return returnMessage;
     }
-    public  HashMap<String,String> getFacebookUserPreferences(Integer userId) throws Throwable{
-        CompanyPreferencesFacebook userPreferencesFacebook = new CompanyPreferencesFacebook();
-        return userPreferencesFacebook.getUserPreferenceForAccessToken(userId);
+    public  HashMap<String,String> getFacebookCompanyPreferences(Integer companyId) throws Throwable{
+        CompanyPreferencesFacebook companyPreferencesFacebook = new CompanyPreferencesFacebook();
+        return companyPreferencesFacebook.getCompanyPreferenceForAccessToken(companyId);
     }
-    public  String getFacebookAccessToken(Integer userId) throws Throwable{
-        HashMap<String , String> hashMap = getFacebookUserPreferences(userId);
+    public  String getFacebookAccessToken(Integer companyId) throws Throwable{
+        HashMap<String , String> hashMap = getFacebookCompanyPreferences(companyId);
         if(hashMap != null){
             return hashMap.get("fb_default_page_access_token");
         }
