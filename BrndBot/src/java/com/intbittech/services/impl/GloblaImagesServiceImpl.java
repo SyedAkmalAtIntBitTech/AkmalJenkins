@@ -5,6 +5,7 @@
  */
 package com.intbittech.services.impl;
 
+import com.intbittech.AppConstants;
 import com.intbittech.dao.GlobalImagesDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.GlobalImages;
@@ -12,6 +13,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.intbittech.services.GlobalImagesService;
+import java.io.File;
 import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -22,7 +24,7 @@ import org.springframework.context.MessageSource;
  */
 @Service
 @Transactional(rollbackFor = ProcessFailed.class)
-public class GloblaImagesServiceImpl implements GlobalImagesService {
+public abstract class GloblaImagesServiceImpl implements GlobalImagesService {
 
     private static org.jboss.logging.Logger logger = org.jboss.logging.Logger.getLogger(GloblaImagesServiceImpl.class);
 
@@ -88,6 +90,15 @@ public class GloblaImagesServiceImpl implements GlobalImagesService {
         if(globalImages == null)
             throw new ProcessFailed(messageSource.getMessage("globalColors_not_found_delete",null, Locale.US));
         globalImagesDao.delete(globalImages);
+    }
+    
+    @Override
+    public String getLink(String fileName, String imageURL) {
+        return ""+imageURL+"DownloadImage?image_type=ADMIN_LAYOUT_BACKGROUNDIMAGES&company_id=null&image_name=" + fileName;   
+    }
+    @Override
+    public String getPath() {
+        return AppConstants.BASE_ADMIN_UPLOAD_PATH + File.separator;
     }
 
 }

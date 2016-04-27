@@ -69,14 +69,7 @@
         <servlet-name>CropImage</servlet-name>
         <servlet-class>com.intbit.CropImage</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>DeleteGalleryImages</servlet-name>
-        <servlet-class>com.controller.DeleteGalleryImages</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetImageGallery</servlet-name>
-        <servlet-class>com.controller.GetImageGallery</servlet-class>
-    </servlet>
+   
     <servlet>
         <servlet-name>UploadImages</servlet-name>
         <servlet-class>com.controller.UploadImages</servlet-class>
@@ -88,10 +81,6 @@
     <servlet>
         <servlet-name>GetLayoutStyles</servlet-name>
         <servlet-class>com.controller.GetLayoutStyles</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>MindBodyDataServlet</servlet-name>
-        <servlet-class>com.controller.MindBodyDataServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MindBodyDetailServlet</servlet-name>
@@ -280,14 +269,6 @@
         <url-pattern>/CropImage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteGalleryImages</servlet-name>
-        <url-pattern>/DeleteGalleryImages</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetImageGallery</servlet-name>
-        <url-pattern>/GetImageGallery</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>UploadImages</servlet-name>
         <url-pattern>/UploadImages</url-pattern>
     </servlet-mapping>
@@ -302,10 +283,6 @@
     <servlet-mapping>
         <servlet-name>MindBodyDetailServlet</servlet-name>
         <url-pattern>/MindBodyDetailServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>MindBodyDataServlet</servlet-name>
-        <url-pattern>/MindBodyDataServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetTwitterToken</servlet-name>
