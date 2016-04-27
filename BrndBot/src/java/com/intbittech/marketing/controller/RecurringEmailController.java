@@ -3,26 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit.marketing.controller;
+package com.intbittech.marketing.controller;
 
 import com.controller.IConstants;
 import com.controller.SqlMethods;
 import com.intbit.AppConstants;
 import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
-import com.intbit.marketing.model.TblRecurringEmailTemplate;
-import com.intbit.marketing.model.TblScheduledEmailList;
-import com.intbit.marketing.model.TblScheduledEntityList;
-import com.intbit.marketing.model.TblUserLoginDetails;
-import com.intbit.marketing.model.TblUserMarketingProgram;
-import com.intbit.marketing.service.ScheduledEmailListService;
+import com.intbittech.marketing.service.ScheduledEmailListService;
 import com.intbit.util.ServletUtil;
 import com.intbittech.marketing.service.ScheduledEntityListService;
+import com.intbittech.model.Company;
 import com.intbittech.model.CompanyMarketingProgram;
 import com.intbittech.model.RecurringEmailTemplate;
 import com.intbittech.model.ScheduledEmailList;
 import com.intbittech.model.ScheduledEntityList;
+import com.intbittech.model.UserProfile;
 import com.intbittech.services.RecurringEmailTemplateService;
+import com.intbittech.utility.UserSessionUtil;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -90,8 +88,6 @@ public class RecurringEmailController {
         table recurring_email_template with the query parameter
         @template_id
     */
-    
-    //TODO Ilyas refactor to new DB
     @RequestMapping (value = "/getRecurringEmailTemplate", method = RequestMethod.POST)
     public @ResponseBody String getRecurringEmailTemplate(HttpServletRequest request,
             HttpServletResponse response){
@@ -115,8 +111,6 @@ public class RecurringEmailController {
     /*
         saves a new recurring email template into the database table recurring_email_template
     */
-    
-    //TODO Ilyas refactor to new DB
     @RequestMapping (value = "/setRecurringEmailTemplate", method = RequestMethod.POST)
     public @ResponseBody String setRecurringEmailTemplate(HttpServletRequest request,
             HttpServletResponse response){
@@ -160,7 +154,6 @@ public class RecurringEmailController {
         return return_response;
     }
 
-    //TODO Ilyas refactor to new DB
     @RequestMapping (value = "/updateRecurringEmailTemplate", method = RequestMethod.POST)
     public @ResponseBody String updateRecurringEmailTemplate(HttpServletRequest request,
             HttpServletResponse response){
@@ -186,11 +179,11 @@ public class RecurringEmailController {
         return return_response;
     }
     
-    //TODO Ilyas unused check again
     @RequestMapping (value = "/setEmailTemplateToRecurringAction", method = RequestMethod.POST)
     public @ResponseBody String setEmailTemplateToRecurringAction(HttpServletRequest request,
             HttpServletResponse response){
         try{
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             SqlMethods sql_methods = new SqlMethods();
@@ -211,11 +204,11 @@ public class RecurringEmailController {
             String reply_to_address = requestBodyMap.get("reply_to_address").toString();
             String html_data = requestBodyMap.get("html_data").toString();
             
-            TblScheduledEmailList scheduled_email_list = new TblScheduledEmailList();
-            scheduled_email_list.setId(0);
-            TblUserLoginDetails user_login = new TblUserLoginDetails();
-            user_login.setId(user_id);
-            scheduled_email_list.setTblUserLoginDetails(user_login);
+            ScheduledEmailList scheduled_email_list = new ScheduledEmailList();
+            scheduled_email_list.setScheduledEmailListId(0);
+            Company company = new Company();
+            company.setCompanyId(userProfile.getUser().getFkCompanyId().getCompanyId());
+            scheduled_email_list.setFkCompanyId(company);
             scheduled_email_list.setSubject(subject);
             scheduled_email_list.setBody(html_data);
             String from_address = (String)json_object_email_settings.get(IConstants.kEmailFromAddress);
@@ -231,7 +224,9 @@ public class RecurringEmailController {
             scheduled_entity_list.setEntityId(email_list_id);
             scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
             scheduled_entity_list.setDays(Integer.parseInt(days));
-           // scheduled_entity_list.setRecurringEmailId(template_id.intValue());
+            RecurringEmailTemplate recurringEmailTemplate =  new RecurringEmailTemplate();
+            recurringEmailTemplate.setRecurringEmailTemplateId(template_id.intValue());
+            scheduled_entity_list.setFkRecurringEmailId(recurringEmailTemplate);
             scheduledEntityListService.update(scheduled_entity_list);
             return "true";
             
@@ -241,11 +236,11 @@ public class RecurringEmailController {
         return "false";
     }
     
-    //TODO Ilyas unused check again
     @RequestMapping (value = "/addRecurringAction", method = RequestMethod.POST)
     public @ResponseBody String addRecurringAction(HttpServletRequest request,
             HttpServletResponse response)throws IOException, ParseException{
         try {
+         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
         Map<String, Object> requestBodyMap
                 = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
         SqlMethods sql_methods = new SqlMethods();
@@ -277,13 +272,12 @@ public class RecurringEmailController {
 
         String program_id = (String)requestBodyMap.get("program_id");
         
-        TblScheduledEmailList schedule_email_list = new TblScheduledEmailList();
+        ScheduledEmailList schedule_email_list = new ScheduledEmailList();
         
-        schedule_email_list.setId(0);
-        TblUserLoginDetails user_login = new TblUserLoginDetails();
-        user_login.setId(user_id);
-        
-        schedule_email_list.setTblUserLoginDetails(user_login);
+        schedule_email_list.setScheduledEmailListId(0);
+        Company company = new Company();
+        company.setCompanyId(userProfile.getUser().getFkCompanyId().getCompanyId());
+        schedule_email_list.setFkCompanyId(company);
         schedule_email_list.setEmailListName(emaillist);
         org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(user_id);
         
@@ -295,30 +289,29 @@ public class RecurringEmailController {
         schedule_email_list.setReplyToEmailAddress(reply_to_address);
         schedule_email_list.setSubject(subject);
         schedule_email_list.setToEmailAddresses(json_object.toString());
-        schedule_email_list.setTblScheduledEntityList(null);
+        schedule_email_list.setFkScheduledEntityListId(null);
         
         Integer email_list_id = schedule_email_list_service.save(schedule_email_list);
 
-        TblScheduledEntityList schedule_entity_list = new TblScheduledEntityList();
+        ScheduledEntityList schedule_entity_list = new ScheduledEntityList();
         
-        schedule_entity_list.setId(0);
+        schedule_entity_list.setScheduledEntityListId(0);
         schedule_entity_list.setEntityId(email_list_id);
         schedule_entity_list.setEntityType(ScheduledEntityType.Email.toString());
         schedule_entity_list.setIsRecurring(Boolean.TRUE);
-        schedule_entity_list.setRecurringEmailId(null);
+        schedule_entity_list.setFkRecurringEmailId(null);
         schedule_entity_list.setScheduleDesc(recurring_email_description);
         schedule_entity_list.setScheduleTime(time);
         schedule_entity_list.setScheduleTitle(recurring_email_title);
         schedule_entity_list.setStatus(TemplateStatus.no_template.toString());
-        TblUserMarketingProgram user_marketing_program = new TblUserMarketingProgram();
-        user_marketing_program.setId(Integer.parseInt(program_id));
-        
-        schedule_entity_list.setTblUserMarketingProgram(user_marketing_program);
+        CompanyMarketingProgram companyMarketingProgram = new CompanyMarketingProgram();
+        companyMarketingProgram.setCompanyMarketingProgramId(Integer.parseInt(program_id));
+        schedule_entity_list.setFkCompanyMarketingProgramId(companyMarketingProgram);
         schedule_entity_list.setDays(Integer.parseInt(days));
         schedule_entity_list.setTillDate(till_date);
-        schedule_entity_list.setUserId(user_id);
+        schedule_entity_list.setFkCompanyId(company);
         
-       // scheduledEntityListService.save(schedule_entity_list);
+       scheduledEntityListService.save(schedule_entity_list);
         
         return "true";
         }catch (Throwable throwable){
@@ -327,12 +320,11 @@ public class RecurringEmailController {
         return "false";
     }
     
-    //TODO Ilyas unused check again
     @RequestMapping (value = "/addupdateRecurringAction", method = RequestMethod.POST)
     public @ResponseBody String addupdateRecurringAction(HttpServletRequest request,
             HttpServletResponse response)throws IOException, ParseException{
         try{
-            
+         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser(); 
         Map<String, Object> requestBodyMap
                 = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
         SqlMethods sql_methods = new SqlMethods();
@@ -365,13 +357,11 @@ public class RecurringEmailController {
 
         String program_id = (String)requestBodyMap.get("program_id");
         
-        TblScheduledEmailList schedule_email_list = new TblScheduledEmailList();
+        ScheduledEmailList schedule_email_list = new ScheduledEmailList();
         
-        schedule_email_list.setId(0);
-        TblUserLoginDetails user_login = new TblUserLoginDetails();
-        user_login.setId(user_id);
-        
-        schedule_email_list.setTblUserLoginDetails(user_login);
+        schedule_email_list.setScheduledEmailListId(0);
+    
+        schedule_email_list.setFkCompanyId(userProfile.getUser().getFkCompanyId());
         schedule_email_list.setEmailListName(emaillist);
         org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(user_id);
         
@@ -383,7 +373,7 @@ public class RecurringEmailController {
         schedule_email_list.setReplyToEmailAddress(reply_to_address);
         schedule_email_list.setSubject(subject);
         schedule_email_list.setToEmailAddresses(json_object.toString());
-        schedule_email_list.setTblScheduledEntityList(null);
+        schedule_email_list.setFkScheduledEntityListId(null);
         
         Integer email_list_id = schedule_email_list_service.save(schedule_email_list);
         
@@ -404,7 +394,7 @@ public class RecurringEmailController {
         schedule_entity_list.setFkCompanyMarketingProgramId(companyMarketingProgram);
         schedule_entity_list.setDays(Integer.parseInt(days));
         schedule_entity_list.setTillDate(till_date);
-        //schedule_entity_list.setUserId(user_id);
+        schedule_entity_list.setFkCompanyId(userProfile.getUser().getFkCompanyId());
         
         scheduledEntityListService.update(schedule_entity_list);
         return "true";
@@ -416,11 +406,11 @@ public class RecurringEmailController {
         return "false";
     }
     
-    //TODO Ilyas unused check again
     @RequestMapping (value = "/updateRecurringAction", method = RequestMethod.POST)
     public @ResponseBody String updateRecurringAction(HttpServletRequest request,
             HttpServletResponse response)throws IOException, ParseException{
         try {
+             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser(); 
         Map<String, Object> requestBodyMap
                 = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
         SqlMethods sql_methods = new SqlMethods();
@@ -461,11 +451,10 @@ public class RecurringEmailController {
 
         String program_id = (String)requestBodyMap.get("program_id");
         
-      //  TblScheduledEntityList schedule_entity_list = scheduledEntityListService.getById(Integer.parseInt(entity_id));
-        TblScheduledEntityList schedule_entity_list = null;
+       ScheduledEntityList schedule_entity_list = scheduledEntityListService.getById(Integer.parseInt(entity_id));
         Integer email_list_id = (Integer)schedule_entity_list.getEntityId();
 
-        schedule_entity_list.setId(Integer.parseInt(entity_id));
+        schedule_entity_list.setScheduledEntityListId(Integer.parseInt(entity_id));
         schedule_entity_list.setEntityType(ScheduledEntityType.Email.toString());
         schedule_entity_list.setIsRecurring(Boolean.TRUE);
         schedule_entity_list.setScheduleDesc(recurring_email_description);
@@ -473,25 +462,24 @@ public class RecurringEmailController {
         schedule_entity_list.setScheduleTitle(recurring_email_title);
         if (template_id.intValue() == 0){
             schedule_entity_list.setStatus(TemplateStatus.no_template.toString());
-            schedule_entity_list.setRecurringEmailId(null);
+            schedule_entity_list.setFkRecurringEmailId(null);
         }else {
             schedule_entity_list.setStatus(TemplateStatus.template_saved.toString());
-            schedule_entity_list.setRecurringEmailId(template_id.intValue());
+            RecurringEmailTemplate recurringEmailTemplate = new RecurringEmailTemplate();
+            recurringEmailTemplate.setRecurringEmailTemplateId(template_id.intValue());
+             schedule_entity_list.setFkRecurringEmailId(recurringEmailTemplate);
         }
-        TblUserMarketingProgram user_marketing_program = new TblUserMarketingProgram();
-        user_marketing_program.setId(Integer.parseInt(program_id));
+        CompanyMarketingProgram companyMarketingProgram = new CompanyMarketingProgram();
+        companyMarketingProgram.setCompanyMarketingProgramId(Integer.parseInt(program_id));
         
-        schedule_entity_list.setTblUserMarketingProgram(user_marketing_program);
+        schedule_entity_list.setFkCompanyMarketingProgramId(companyMarketingProgram);
         schedule_entity_list.setDays(Integer.parseInt(days));
         schedule_entity_list.setTillDate(till_date);
-        schedule_entity_list.setUserId(user_id);
+        schedule_entity_list.setFkCompanyId(userProfile.getUser().getFkCompanyId());
         
-        TblScheduledEmailList schedule_email_list = schedule_email_list_service.getById(email_list_id);
-        
-        TblUserLoginDetails user_login = new TblUserLoginDetails();
-        user_login.setId(user_id);
-        
-        schedule_email_list.setTblUserLoginDetails(user_login);
+        ScheduledEmailList schedule_email_list = schedule_email_list_service.getById(email_list_id);
+        schedule_email_list.setFkCompanyId(userProfile.getUser().getFkCompanyId());
+      
         schedule_email_list.setEmailListName(emaillist);
         schedule_email_list.setBody(html_data);
         org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(user_id);
@@ -503,11 +491,11 @@ public class RecurringEmailController {
         schedule_email_list.setReplyToEmailAddress(reply_to_address);
         schedule_email_list.setSubject(subject);
         schedule_email_list.setToEmailAddresses(json_object.toString());
-        schedule_email_list.setTblScheduledEntityList(null);
+        schedule_email_list.setFkScheduledEntityListId(null);
         
         schedule_email_list_service.update(schedule_email_list);
         
-        //scheduledEntityListService.update(schedule_entity_list);
+        scheduledEntityListService.update(schedule_entity_list);
         
         return "true";
         }catch (Throwable throwable){
@@ -516,7 +504,6 @@ public class RecurringEmailController {
         return "true";
     }
 
-    //TODO Ilyas unused check again
     public org.json.simple.JSONObject getFromAddress(Integer user_id){
         try{
 
@@ -551,7 +538,6 @@ public class RecurringEmailController {
         
     }
     
-    //TODO Ilyas refactor to new db
     @RequestMapping (value = "/getRecurringEntity", method = RequestMethod.POST)
     public @ResponseBody String getRecurringEntity(HttpServletRequest request,
             HttpServletResponse response)throws IOException{
@@ -580,8 +566,7 @@ public class RecurringEmailController {
             json_entity_list.put("recurring_email_till_date", schedule_entity_list.getTillDate().getTime());
             
         if (schedule_entity_list.getEntityId().intValue() != 0){
-           // ScheduledEmailList schedule_email_list = schedule_email_list_service.getById(schedule_entity_list.getEntityId().intValue());
-            ScheduledEmailList schedule_email_list = null;
+            ScheduledEmailList schedule_email_list = schedule_email_list_service.getById(schedule_entity_list.getEntityId().intValue());
             json_entity_list.put("recurring_email_body", schedule_email_list.getBody());
             json_entity_list.put("recurring_email_email_list_name", schedule_email_list.getEmailListName());
             json_entity_list.put("recurring_email_from_address", schedule_email_list.getFromAddress());

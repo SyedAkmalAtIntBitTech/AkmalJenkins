@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit.marketing.dao.implementation;
+package com.intbit.marketing.dao.impl;
 
 import com.intbit.ScheduledEntityType;
-import com.intbit.marketing.dao.ScheduledEmailListDao;
-import com.intbit.marketing.model.TblScheduledEmailList;
+import com.intbittech.marketing.dao.ScheduledEmailListDao;
+import com.intbittech.model.ScheduledEmailList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,13 +32,18 @@ public class ScheduledEmailListDaoImpl  implements ScheduledEmailListDao{
      /**
 	 * {@inheritDoc}
      */
-    public TblScheduledEmailList getById(Integer id) throws Throwable {
+    public ScheduledEmailList getById(Integer scheduledEmailListId) throws Throwable {
         try {
                 Criteria criteria=sessionFactory.getCurrentSession()
-                        .createCriteria(TblScheduledEmailList.class)
-                        .setFetchMode("tblUserLoginDetails", FetchMode.JOIN)
-                        .add(Restrictions.eq("id", id));
-                return (TblScheduledEmailList)criteria.list().get(0);
+                        .createCriteria(ScheduledEmailList.class)
+                        .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                          .setFetchMode("fkScheduledEntityListId", FetchMode.JOIN)
+                        .add(Restrictions.eq("scheduledEmailListId", scheduledEmailListId));
+                List<ScheduledEmailList> scheduledEmailList = criteria.list();
+                if(scheduledEmailList.isEmpty()){
+                    return  null;
+                }
+                return (ScheduledEmailList)criteria.list().get(0);
 		} catch (Throwable throwable) {
 			logger.log(Level.SEVERE, null, throwable);
 			throw new Throwable("Database error while retrieving record");
@@ -48,10 +53,10 @@ public class ScheduledEmailListDaoImpl  implements ScheduledEmailListDao{
     /**
 	 * {@inheritDoc}
      */
-    public List<TblScheduledEmailList> getAllScheduledEmailList() throws Throwable {
+    public List<ScheduledEmailList> getAllScheduledEmailList() throws Throwable {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(TblScheduledEmailList.class);
+                    .createCriteria(ScheduledEmailList.class);
                    return criteria.list();
 		} catch (Throwable throwable) {
                    logger.log(Level.SEVERE, null, throwable);
@@ -62,7 +67,7 @@ public class ScheduledEmailListDaoImpl  implements ScheduledEmailListDao{
     /**
 	 * {@inheritDoc}
      */
-    public Integer save(TblScheduledEmailList scheduledEmailList) throws Throwable {
+    public Integer save(ScheduledEmailList scheduledEmailList) throws Throwable {
        try {			
 		 return ((Integer) sessionFactory.getCurrentSession().save(scheduledEmailList));
 		} catch (Throwable throwable) {
@@ -74,7 +79,7 @@ public class ScheduledEmailListDaoImpl  implements ScheduledEmailListDao{
     /**
 	 * {@inheritDoc}
      */
-    public void update(TblScheduledEmailList scheduledEmailList) throws Throwable {
+    public void update(ScheduledEmailList scheduledEmailList) throws Throwable {
          try {			
 		  sessionFactory.getCurrentSession().update(scheduledEmailList);
 		} catch (Throwable throwable) {
@@ -88,7 +93,7 @@ public class ScheduledEmailListDaoImpl  implements ScheduledEmailListDao{
      */
     public void delete(Integer id) throws Throwable {
         try {
-                TblScheduledEmailList scheduledEmailList = getById(id);
+                ScheduledEmailList scheduledEmailList = getById(id);
                 sessionFactory.getCurrentSession().delete(scheduledEmailList);
 		} catch (Throwable throwable) {
                     logger.log(Level.SEVERE, null, throwable);
@@ -97,16 +102,16 @@ public class ScheduledEmailListDaoImpl  implements ScheduledEmailListDao{
     }
 
     @Override
-    public List<TblScheduledEmailList> getAllScheduledEmailListForUserMarketingProgram(Integer UserMarketingId, Boolean isRecurring) throws Throwable {
+    public List<ScheduledEmailList> getAllScheduledEmailListForCompanyMarketingProgram(Integer comapanyMarketingProgramId, Boolean isRecurring) throws Throwable {
       try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(TblScheduledEmailList.class)
-                    .setFetchMode("tblUserLoginDetails", FetchMode.JOIN)
-                    .setFetchMode("tblScheduledEntityList", FetchMode.JOIN)
-                     .setFetchMode("tblScheduledEntityList.tblUserMarketingProgram", FetchMode.JOIN)
-                      .createAlias("tblScheduledEntityList.tblUserMarketingProgram", "umId")
-                     .add(Restrictions.eq("umId.id", UserMarketingId))
-                     .createAlias("tblScheduledEntityList", "sl")
+                    .createCriteria(ScheduledEmailList.class)
+                    .setFetchMode("fkCompanyId", FetchMode.JOIN)
+                     .setFetchMode("fkScheduledEntityListId", FetchMode.JOIN)
+                     .setFetchMode("fkScheduledEntityListId.fkCompanyMarketingProgramId", FetchMode.JOIN)
+                      .createAlias("fkScheduledEntityListId.fkCompanyMarketingProgramId", "cmId")
+                     .add(Restrictions.eq("cmId.id", comapanyMarketingProgramId))
+                     .createAlias("fkScheduledEntityListId", "sl")
                      .add(Restrictions.eq("sl.isRecurring", isRecurring))
                      .add(Restrictions.eq("sl.entityType", ScheduledEntityType.Email.toString()));		
                    return criteria.list();
@@ -115,5 +120,7 @@ public class ScheduledEmailListDaoImpl  implements ScheduledEmailListDao{
                    throw new Throwable("Database error while retrieving record(s).");
 		}  
     }
+
+  
     
 }
