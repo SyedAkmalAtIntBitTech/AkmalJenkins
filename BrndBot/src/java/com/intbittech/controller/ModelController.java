@@ -710,24 +710,4 @@ public class ModelController {
 
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-
-    @RequestMapping(value = "getLayoutEmailModelById", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getLayoutEmailModelById(@RequestParam("emailModelId") Integer emailModelId,
-            @RequestParam("imageFileName") String imageFileName, HttpServletRequest request, HttpServletResponse response) {
-        GenericResponse<String> genericResponse = new GenericResponse<>();
-        try {
-            Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-            String hostURL = ServletUtil.getServerName(request.getServletContext());
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            String html = emailModelService.getLayoutEmail(emailModelId, imageFileName, hostURL, companyId, requestBodyMap);
-            genericResponse.addDetail(html);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template retrieved successfully."));
-        } catch (Throwable throwable) {
-            logger.error(throwable);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
-        }
-        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
-
-    }
 }
