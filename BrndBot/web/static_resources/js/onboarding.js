@@ -185,6 +185,7 @@ function onboardingcontroller($scope,$http) {
 //    };
     
     $scope.getActivationLink = function (){
+        alert();
         var studioId=$("#mindbodyStudioId").val();
         if(studioId===""){
             alert("Please Enter Studio Id.");
@@ -192,7 +193,7 @@ function onboardingcontroller($scope,$http) {
         }else{
          $http({
             method: 'GET',
-            url: getHost() +'/onboarding/getActivationLink.do?studioId='+studioId
+            url: getHost() +'/externalContent/getActivationLink.do?studioId='+studioId
         }).success(function (data, status, headers, config) {
             var actiovationLink=eval(JSON.stringify(data.d.details[0]));
             $("#actiovationLink").attr('href',actiovationLink);
@@ -207,7 +208,7 @@ function onboardingcontroller($scope,$http) {
     $scope.saveServices = function (){
         var services= $("#services").val();
         localStorage.setItem("services",services);
-        window.open(getHost() + 'signup/onboarding4', "_self");
+        window.open(getHost() + 'signup/uploadlogo', "_self");
     };
     
      function validateEmail(emailId) {
@@ -313,7 +314,7 @@ function onboardingcontroller($scope,$http) {
 //                $("#uploadedLogoDiv,#uploadedLogoContinueButton").show();
                 
                 $("#uploadedLogo").attr('src',globalLogoImageSrc);
-                window.open(getHost() + 'signup/onboardingpalette', "_self");
+                window.open(getHost() + 'signup/choosepalette', "_self");
             }
             else{
                 alert("Invalid File Type!\n Please choose valid Image format.");
@@ -410,7 +411,7 @@ function onboardingcontroller($scope,$http) {
         else{
              $.ajax({
                 method: 'POST',
-                url: getHost() + '/onboarding/saveCompanyColors.do',
+                url: getHost() + 'settings/setColors.do',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(companyColors)
             }).success(function (data)
