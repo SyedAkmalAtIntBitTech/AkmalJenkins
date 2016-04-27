@@ -114,11 +114,11 @@ public class EmailModelServiceImpl implements EmailModelService {
 
     //TODO Ilyas needs to check path.
     @Override
-    public String getLayoutEmail(Integer emailModelId, String imageFileName, String hostURL, Integer companyId, Map<String, String> requestBodyMap) {
+    public String getLayoutEmail(Integer emailModelId, String hostURL, Integer companyId, Map<String, String> requestBodyMap) {
         String responseHTML = "";
         try {
             EmailModel emailModel = getByEmailModelId(emailModelId);
-            String logo_url = hostURL + "DownloadImage?image_type=USER_LOGO&company_id=" + companyId + "&image_name=" + imageFileName;
+            String logo_url = hostURL + "DownloadImage?image_type=USER_LOGO&company_id=" + companyId + "&image_name=" + "logo.jpeg";
             HashMap<String, String> colorHashmap = new HashMap();
             Company company = new Company(companyId);
 
