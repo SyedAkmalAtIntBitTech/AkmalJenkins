@@ -61,30 +61,34 @@
                 var programStatus = { "programType": "Open" };                
                 $http({
                     method: 'GET',
-                    url: 'listAllMarketingProgram.do?programType=Open',
+                    url: getHost()+ 'listAllMarketingProgram.do?programType=Open',
                     data: programStatus 
                 }).success(function (data, status, headers, config) {
+//                    alert(JSON.stringify(data));
                     $scope.current_programs = data.programs;
                 }).error(function (data, status, headers, config) {
-                    alert(nodataerror);
+                    alert(data);
+//                    alert(nodataerror);
                 });                
             };
             $scope.sendProgramId = function(program_id,past){
                 var program_end_date=$("#program_end_date"+program_id).html();
-                window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id+'&past='+past+'&program_date='+program_end_date, "_self");
+                window.open(getHost() + 'user/marketingprogramactions?program_id='+program_id+'&past='+past+'&program_date='+program_end_date, "_self");
             };
             
             $scope.getUserMarketingProgramsClosed = function(){
                 var programStatus = { "programType": "Closed" };
                 $http({
                     method: 'GET',
-                    url: 'listAllMarketingProgram.do?programType=Closed',
+                    url: getHost()+ 'listAllMarketingProgram.do?programType=Closed',
                     data: programStatus 
                 }).success(function (data, status, headers, config) {
+//                    alert(JSON.stringify(data));
                     $scope.past_programs = data.programs;
                     $(".row").css("display","block");
                 }).error(function (data, status, headers, config) {
-                    alert(nodataerror);
+                    alert(data);
+//                    alert(nodataerror);
                     $(".row").css("display","block");
                 });                
             };          

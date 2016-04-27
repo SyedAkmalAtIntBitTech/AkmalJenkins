@@ -15,41 +15,42 @@
     <meta name="format-detection" content="telephone=no"></meta>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <link rel="shortcut icon" href="images/favicon.png"></link>
+    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <script src="js/angular.min.js"></script>
     <script src="js/marketingprogram.js" type="text/javascript"></script>
     <%--<jsp:include page="basejsp.jsp"/>--%>
 
 </head>    
 
-<body ng-app>
-    <!--SideNav-->
-    <div class="content-main" ng-controller="controllerMarketingCategories">
+<body ng-app class="body-normal">
         <%@include file="header.jsp" %>  
     <%@include file="navbar.jsp" %>
-    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
-    <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
+    <!--SideNav-->
+    <div class="contentWrap--withSideNav noScroll" ng-controller="controllerMarketingCategories">
     
     <!--Top Nav--> 
         <!--Main Content GENERIC--> 
-        <div class="dashboard-background" ng-init="getMarketingCategories()" >
-            <div class="dashboard-content">
-                <div class="h1">Please choose a marketing program type.</div>
-                <div class="button-row col-1of1" >
-                    <div class="button-column fleft col-1of10 pushright hint--bottom" ng-repeat="category in categories" data-hint="{{category.name}}">
-                        <a href="marketingprogramlists?categoryid={{category.category_id}}" class="fleft" >
-                            <img type="image/svg+xml" src="{{category.image}}" class="{{category.order}} big-selection-button" style="cursor:pointer;height:100px; width:100%;" ng-click="showMarketingPrograms(category.category_id)"></img>
-                        </a>
-                    </div>                 
-                </div>
-                <div class="button-row col-1of1" >
-                    <div class="button-column fleft col-1of10 pushright hint--bottom" data-hint="{{category.name}}">
-                        <a href="marketingprogram?categoryid={{category.category_id}}" class="fleft" >
-                            <img type="image/svg+xml" src="{{category.image}}" class="{{category.order}} big-selection-button" style="cursor:pointer;height:100px; width:100%;" ng-click="showMarketingPrograms(category.category_id)"></img>
-                        </a>
-                    </div>                 
-                </div>
+        
+            <div class="topNav--offset"></div>
+            <div class="contentWrapInner" ng-init="getMarketingCategories()">
+                <div class="pane pane--600px">
+                    <div class="pane_header clear">
+                        <div class="pane_title fleft h2">Please choose a marketing program type.</div>
+                    </div>
+                    <div class="pane_content">
+                        <div class="cat-list"  ng-repeat="category in categories" data-hint="{{category.marketingCategoryName}}">
+                            <div class="cat-slat">
+                                <a id="categoryId" href="marketingprogram?marketingCategoryId={{category.marketingCategoryId}}" >
+                                    <div class="cat-slat-title">{{category.marketingCategoryName}}</div>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>   
             </div>
-        </div>
+<!--       
     </div>
   
         <!--CTA Bar

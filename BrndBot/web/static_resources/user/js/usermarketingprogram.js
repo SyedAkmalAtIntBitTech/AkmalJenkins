@@ -82,7 +82,6 @@
 //                  alert("enter");
                     var program_name = $("#program_name").val();
                     var program_date_time = $("#programdatetime").val();
-                    
                     var ss = program_date_time.split(" ");
                     var count=0;
                     var month="";
@@ -154,18 +153,18 @@
                     }
                     var schedule_time = Date.parse(program_date_time);
                     
-                    if (program_name === "") {
-                        alert("Please enter the Program Name!");
-                        $("#program_name").focus();
-                        return false;
-                    }
+//                    if (program_name === "") {
+//                        alert("Please enter the Program Name!");
+//                        $("#program_name").focus();
+//                        return false;
+//                    }
                     //alert("program date time ...."+program_date_time);
                     //alert("date... "+d);
-                    if (program_date_time === "") {
-                        alert("Please select the date!");
-                        $("#programdatetime").focus();
-                        return false;
-                    }
+//                    if (program_date_time === "") {
+//                        alert("Please select the date!");
+//                        $("#programdatetime").focus();
+//                        return false;
+//                    }
                     
                     console.log("Epoch: " + schedule_time);
 
@@ -178,21 +177,22 @@
 //                    alert("cat.."+marketing_category_id);
 //                    alert("mar.."+marketing_program_id);
                     var program_details = {"program_name": program_name, 
-                                           "program_date_time": d,
+                                           "program_date_time": program_date_time,
                                            "program_url":program_url,
                                            "program_url_name":program_url_name,
                                            "marketing_category_id":marketing_category_id,
                                            "marketing_program_id":marketing_program_id
                                           };
+                                          alert(JSON.stringify(program_details));
                     $http({
                         method: 'POST',
                         url: getHost() + 'setMarketingProgram.do',
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(program_details)
-                    }).success(function (data, status, headers, config) {
+                    }).success(function (data, status, headers, config) {alert(JSON.stringify(data));
                         if (data !== null){
                             alert("Details saved successfully.");
-                            var redirect="marketingprogramactions.jsp?past=0&program_id="+data+"&program_date="+program_date_time;
+                            var redirect="user/marketingprogramactions?past=0&program_id="+data+"&program_date="+program_date_time;
                             window.open(getHost() + redirect, "_self");
                         }else {
                             alert("Problem saving the record!");
