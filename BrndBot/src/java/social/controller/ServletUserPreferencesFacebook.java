@@ -21,7 +21,7 @@ import org.json.simple.JSONObject;
  */
 public class ServletUserPreferencesFacebook extends BrndBotBaseHttpServlet {
 
-    UserPreferencesFacebook user_preferences;
+    CompanyPreferencesFacebook user_preferences;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,7 +45,7 @@ public class ServletUserPreferencesFacebook extends BrndBotBaseHttpServlet {
         String default_page_name = "";
 
         try {
-            user_preferences = new UserPreferencesFacebook();
+            user_preferences = new CompanyPreferencesFacebook();
             Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
             if (request.getParameter("access_token") != null) {
                 default_access_token = request.getParameter("access_token");

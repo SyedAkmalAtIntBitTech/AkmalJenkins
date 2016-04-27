@@ -119,7 +119,7 @@ class PostToFacebook {
         return returnMessage;
     }
     public  HashMap<String,String> getFacebookUserPreferences(Integer userId) throws Throwable{
-        UserPreferencesFacebook userPreferencesFacebook = new UserPreferencesFacebook();
+        CompanyPreferencesFacebook userPreferencesFacebook = new CompanyPreferencesFacebook();
         return userPreferencesFacebook.getUserPreferenceForAccessToken(userId);
     }
     public  String getFacebookAccessToken(Integer userId) throws Throwable{

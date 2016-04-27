@@ -5,7 +5,6 @@
  */
 package social.controller;
 
-import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.controller.IConstants;
 import com.controller.SqlMethods;
 import com.intbit.ConnectionManager;
@@ -15,7 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.naming.NamingException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.postgresql.util.PGobject;
@@ -24,13 +22,13 @@ import org.postgresql.util.PGobject;
  *
  * @author intbit
  */
-public class UserPreferencesFacebook {
+public class CompanyPreferencesFacebook {
 
-    private static Logger logger = Logger.getLogger(UserPreferencesFacebook.class.getName());
+    private static Logger logger = Logger.getLogger(CompanyPreferencesFacebook.class.getName());
     
     private SqlMethods sqlMethods = new SqlMethods();
 
-    public void updatePreference(Integer user_id, String default_page_access_token, String fb_user_profile_name, String default_page_name ) throws SQLException {
+    public void updatePreference(Integer companyId, String default_page_access_token, String fb_user_profile_name, String default_page_name ) throws SQLException {
             PreparedStatement prepared_statement = null;
             ResultSet result_set = null;
         
@@ -40,7 +38,7 @@ public class UserPreferencesFacebook {
             JSONObject json_facebook = new JSONObject();
             JSONParser parser = new JSONParser();
 
-            String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
+            String query = "Select company_preferences from company_preferences where fk_company_id=" + companyId + "";
 
             prepared_statement = connection.prepareStatement(query);
 
@@ -65,9 +63,9 @@ public class UserPreferencesFacebook {
             result_set.close();
             prepared_statement.close();
 
-            query = "UPDATE tbl_user_preferences"
-                    + " SET user_preferences=?"
-                    + " WHERE user_id=" + user_id + "";
+            query = "UPDATE company_preferences"
+                    + " SET company_preferences=?"
+                    + " WHERE fk_company_id=" + companyId + "";
 
             PGobject jsonObject = new PGobject();
 
@@ -87,7 +85,7 @@ public class UserPreferencesFacebook {
         }
     }
 
-    public JSONObject getUserPreferenceForAccessToken(Integer user_id) throws SQLException {
+    public JSONObject getUserPreferenceForAccessToken(Integer companyId) throws SQLException {
         String access_token = "";
         String user_profile_name = "", default_page_name = "";
         JSONObject json_fb_to_read = new JSONObject();
@@ -100,7 +98,7 @@ public class UserPreferencesFacebook {
             JSONObject json_objectFromTable = new JSONObject();
             JSONParser parser = new JSONParser();
 
-            String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
+            String query = "Select company_preferences from company_preferences where fk_company_id=" + companyId + "";
 
             prepared_statement = connection.prepareStatement(query);
 
@@ -138,7 +136,7 @@ public class UserPreferencesFacebook {
 
     }
 
-    public void deletePreferences(Integer user_id)throws SQLException {
+    public void deletePreferences(Integer companyId)throws SQLException {
         String access_token = "";
         String user_profile_name = "", default_page_name = "";
         JSONObject json_fb_to_read = new JSONObject();
@@ -151,7 +149,7 @@ public class UserPreferencesFacebook {
             JSONObject json_objectFromTable = new JSONObject();
             JSONParser parser = new JSONParser();
 
-            String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
+            String query = "Select company_preferences from company_preferences where fk_company_id=" + companyId + "";
 
             prepared_statement = connection.prepareStatement(query);
 
@@ -172,9 +170,9 @@ public class UserPreferencesFacebook {
             result_set.close();
             prepared_statement.close();
 
-            query = "UPDATE tbl_user_preferences"
-                    + " SET user_preferences=?"
-                    + " WHERE user_id=" + user_id + "";
+            query = "UPDATE company_preferences"
+                    + " SET company_preferences=?"
+                    + " WHERE fk_company_id=" + companyId + "";
 
             PGobject jsonObject = new PGobject();
 
