@@ -126,7 +126,6 @@ function onboardingcontroller($scope,$http) {
         
         var companyName= $("#companyName").val();
         var organizationId= $("#industryDropDown").val();      
-        var userId=localStorage.getItem("userId");
         if(companyName ===""){
             alert(companyNameEmpty);
             $("#companyName").focus();
@@ -137,9 +136,7 @@ function onboardingcontroller($scope,$http) {
         }
         else
         {            
-            localStorage.setItem("companyName",companyName);
-            localStorage.setItem("industryName",organizationId);
-            var saveCompanyDetails={"companyName":companyName,"organizationId":organizationId,"userId":userId};
+            var saveCompanyDetails={"companyName":companyName,"organizationId":organizationId};
 //            window.open(getHost() + 'v2/signup/onboarding3.jsp', "_self");
             $.ajax({
                     method: 'POST',
@@ -149,11 +146,11 @@ function onboardingcontroller($scope,$http) {
                     data: JSON.stringify(saveCompanyDetails)
                 }).success(function (data, status, headers, config)
                 {  
-                    
-                     var companyId=eval(JSON.stringify(data.d.message));
-                    localStorage.setItem("companyId",companyId);
-                              
-                    window.open(getHost() + 'signup/onboarding3', "_self");
+                    var message= data.d.message;
+                    if(message==="true")
+                    {             
+                        window.open(getHost() + 'signup/datasource', "_self");
+                    }
                 }).error(function(data, status, headers, config){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });                         
@@ -273,28 +270,13 @@ function onboardingcontroller($scope,$http) {
             }).success(function (data)
             {
                 
-                var userDetails1={"username":emailId,"password":userPassword};
-               var message= (data.d.message);
+               var message= data.d.message;
                 if(message==="true")
                 {
-//                    $.ajax({
-//                method: 'POST',
-//                url: getHost() + '/login',
-//                headers: {'Content-Type': 'application/json'},
-//                data: JSON.stringify(userDetails)
-//            }).success(function (data)
-//            {
-//               alert("test"); 
-//            }).error(function (data, status) {
-//                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-//            });
-           $("#username").val(emailId);
-                   $("#password").val(userPassword);
-                   $("#submitButton").click();
-        }
-                var userId=eval(JSON.stringify(data.d.message));
-                localStorage.setItem("userId",userId);
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                   $("#username").val(emailId);
+                   $("#userpassword").val(userPassword);
+                   $("#signform").submit();
+                }
             })
             .error(function (data, status) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -385,7 +367,7 @@ function onboardingcontroller($scope,$http) {
          var companyId=localStorage.getItem("companyId");
         $http({
             method: 'GET',
-            url: getHost() +'/onboarding/getColorsForLogo.do?companyId='+companyId
+            url: getHost() +'/onboarding/getColorsForLogo.do'
         }).success(function (data, status, headers, config) {
             $scope.color =data.d.details;
         }).error(function (data, status, headers, config) {
@@ -428,7 +410,7 @@ function onboardingcontroller($scope,$http) {
         else{
              $.ajax({
                 method: 'POST',
-                url: getHost() + '/onboarding/saveCompanyColors.do?companyId='+companyId,
+                url: getHost() + '/onboarding/saveCompanyColors.do',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(companyColors)
             }).success(function (data)

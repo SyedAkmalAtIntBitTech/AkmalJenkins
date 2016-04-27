@@ -41,9 +41,9 @@
         <div class="login-container">
             <img src="images/BB_regular.svg" class="login-logo" style="cursor:pointer;"> 
             <div class="input_Label pushUp_30">Email</div>
-            <input name="username"  id="username" class="input_Field login-fields" type="email" required>
+            <input name="username"  id="username" class="input_Field login-fields" type="text" required>
             <div class="input_Label">Password</div>
-            <input  class="input_Field login-fields" id="password" name="password" type="password" required>
+            <input  class="input_Field login-fields" id="userpassword" name="password" type="text" required>
             <div class="forgot_password" style="float:left">
                 <span>Forgot Password</span>
             </div>
