@@ -7,10 +7,10 @@
 <!DOCTYPE html">
 <html>
 <head>    
-    <link rel="shortcut icon" href="images/favicon.png"/>
+   
     <title>BrndBot - Your Plan</title>
 </head>    
-
+<link rel="shortcut icon" href="images/favicon.png">
 <body ng-app class="claro1">
     <div id="fade"></div>
     <!--SideNav-->
@@ -18,12 +18,12 @@
     <jsp:include page="AddAction.jsp"/> 
     <jsp:include page="facebookpreview.jsp"/> 
     <jsp:include page="twitterpreview.jsp"/> 
-    <jsp:include page="emailpreviewpopup.jsp"/>
+    <jsp:include page="emailpreviewslider.jsp"/>
     <jsp:include page="notepreview.jsp"/> 
     <%@include file="header.jsp" %>       
     <%@include file="navbar.jsp" %>     
     
- 
+  
     <input type="hidden" name="change" id="change" value="0"/>
     <!--Top Nav-->   
     <div class="top-nav">
@@ -46,7 +46,7 @@
              <div class="subnav-date-dropdown-text ">
                  <label class="calendar-dropdown-text " for="jumptodatepicker">Jump to Date</label>
                  <input type="text"  name="datepicker" id="jumptodatepicker" readonly class="hideinput"/>
-                 <script>
+<!--                 <script>
                             var picker = new Pikaday(
                             {
                                 field: document.getElementById('jumptodatepicker'),
@@ -59,7 +59,7 @@
 //                                    document.getElementById('selected').appendChild(curdat);
                                 }
                             });
-                 </script>
+                 </script>-->
             </div>
              
                 <div class="top-subnav-tabs-container-with-drop">      
@@ -86,20 +86,20 @@
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div ng-show="entitydetails.entity_type !== master_note">
-                                    <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status === 'Template Saved'"  data-hint="Template Saved" > 
+                                    <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'Template Saved'"  data-hint="Template Saved" > 
                                         <img src="images/templateSaved.svg" class="status-button" />
                                     </div>
-                                    <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status === 'No Template'"  data-hint="No Template" > 
+                                    <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'No Template'"  data-hint="No Template" >
                                         <img src="images/needTemplate.svg" class="status-button"/>
                                     </div>
-                                    <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status === 'Complete'"  data-hint="Complete" > 
+                                    <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'Complete'"  data-hint="Complete" > 
                                         <img src="images/ActionComplete.svg" class="status-button"/>
                                     </div>
-                                    <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status === 'Approved'"  data-hint="Approved" > 
+                                    <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'Approved'"  data-hint="Approved" > 
                                         <img src="images/ActionApproved.svg" class="status-button"/>
                                     </div>
                                 </div>
-                                <div ng-show="entitydetails.entity_type === master_note">
+                                <div ng-show="entitydetails.entity_type == master_note">
                                     <div class="icon-container fleft hint--top" data-hint="Reminder" > 
                                         <img src="images/Reminder.svg" class="status-button"/>
                                     </div>

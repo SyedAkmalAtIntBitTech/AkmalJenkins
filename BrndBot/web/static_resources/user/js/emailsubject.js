@@ -6,8 +6,9 @@
                 $("#emailSubjectContinueButton").click(function () {
 
         ///////////////////////////// Added by Satyajit Roy on 30th nov 2015 ///////////////////////////
-
-                    var mindbodyid = $("#mindbodyid").val();
+                    var categoryId = $("#categoryIdTag").val();
+                    var subCategoryId = $("#subCategoryIdTag").val();
+//                    var mindbodyid = $("#mindbodyid").val();
                     var email_subject = $("#emailsubject").val();
                     if(email_subject==="")
                     {
@@ -34,7 +35,7 @@
 //                            }
 //                        }
 //                    });
-                    document.location.href = "emaileditor?id="+mindbodyid+"&subject="+email_subject;
+                    document.location.href = "emaileditor?categoryId="+categoryId+"&subCategoryId="+subCategoryId+"&emailSubject="+email_subject;
 
         ////////////////////////////////////////// END ////////////////////////////////////////////////
 

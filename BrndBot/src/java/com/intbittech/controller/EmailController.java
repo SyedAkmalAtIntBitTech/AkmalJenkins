@@ -79,5 +79,25 @@ public class EmailController {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
+    
+    @RequestMapping(value = "/previewServlet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> previewEmail(HttpServletRequest request,
+            HttpServletResponse response) {
+        GenericResponse<String> transactionResponse = new GenericResponse();
+        try {
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            String data = sendEmailService.previewEmail(companyId, requestBodyMap);
+            transactionResponse.addDetail(data);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
 
 }

@@ -37,7 +37,7 @@ public class ErrorHandlingUtil {
 		return operationStatus;
 	}
 
-	public static OperationStatus dataErrorValidation(ArrayList<String> messages) {
+	public static OperationStatus dataErrorValidation(List<String> messages) {
 		OperationStatus operationStatus = new OperationStatus();
 		if (messages != null && messages.size() > 0) {
 			operationStatus.setStatusCode(OperationStatusType.DataError);
