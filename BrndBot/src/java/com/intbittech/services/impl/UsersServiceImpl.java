@@ -73,7 +73,7 @@ public class UsersServiceImpl implements UsersService {
         user.setUserName(usersDetails.getUserName());
         user.setUserPassword(passwordEncoder.encode(usersDetails.getUserPassword()));
         UserRole userRole = new UserRole();
-        userRole.setUserRoleId(2);
+        userRole.setUserRoleId(3);
         user.setFkUserRoleId(userRole);
         user.setCreatedDate(new Date());
         Company companyObject = new Company();

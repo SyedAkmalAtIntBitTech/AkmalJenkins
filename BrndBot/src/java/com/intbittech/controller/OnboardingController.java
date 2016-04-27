@@ -94,6 +94,7 @@ public class OnboardingController {
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             companyDetails.setCompanyId(userProfile.getUser().getFkCompanyId().getCompanyId());
+            companyDetails.setUserId(userProfile.getUser().getUserId());
             String returnMessage = companyService.updateCompany(companyDetails);
             transactionResponse.setMessage(returnMessage);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("company_save", new String[]{}, Locale.US)));
