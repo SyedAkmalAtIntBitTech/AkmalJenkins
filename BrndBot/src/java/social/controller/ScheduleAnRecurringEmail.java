@@ -6,19 +6,14 @@
 package social.controller;
 
 import com.controller.IConstants;
-import com.controller.SocialPostScheduler;
-import com.divtohtml.StringUtil;
-import com.intbit.marketing.model.TblScheduledEmailList;
-import com.intbit.marketing.model.TblScheduledEntityList;
+import com.intbittech.model.ScheduledEmailList;
+import com.intbittech.model.ScheduledEntityList;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.EmailInfo;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import static social.controller.ScheduleTwitterPost.logger;
 import util.DateTimeUtil;
 import util.Utility;
@@ -41,19 +36,19 @@ public class ScheduleAnRecurringEmail implements Runnable {
     public void run() {
 
         try {
-            List<TblScheduledEntityList> scheduledAnRecurringEmail = getLatestApprovedSendEmail();
-            for (TblScheduledEntityList currentScheduledRecurringEmail : scheduledAnRecurringEmail) {
+            List<ScheduledEntityList> scheduledAnRecurringEmail = getLatestApprovedSendEmail();
+            for (ScheduledEntityList currentScheduledRecurringEmail : scheduledAnRecurringEmail) {
                 if (scheduledAnRecurringEmail != null) {
                     boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledRecurringEmail.getScheduleTime());
 //                    boolean shouldPostNow = true;
 
                     if (shouldPostNow) {
-                        TblScheduledEmailList sendAnEmail = getSendEmail(currentScheduledRecurringEmail);
+                        ScheduledEmailList sendAnEmail = getSendEmail(currentScheduledRecurringEmail);
                         String html_text = sendAnEmail.getBody();
                         String email_subject = sendAnEmail.getSubject();
 
                         String emaillist_name = sendAnEmail.getEmailListName();
-                        Integer user_id = currentScheduledRecurringEmail.getUserId();
+                        Integer companyId = currentScheduledRecurringEmail.getFkCompanyId().getCompanyId();
                         String reply_to_address = "";
                         if (sendAnEmail.getReplyToEmailAddress() != null) {
                             reply_to_address = sendAnEmail.getReplyToEmailAddress();
@@ -70,7 +65,7 @@ public class ScheduleAnRecurringEmail implements Runnable {
                         SendAnEmail anEmail = new SendAnEmail();
                         String message = "";
                         Integer days = currentScheduledRecurringEmail.getDays();
-                        JSONArray jsonArray = anEmail.getAllEmailAddressesForEmailList(user_id, days, emaillist_name);
+                        JSONArray jsonArray = anEmail.getAllEmailAddressesForEmailList(companyId, days, emaillist_name);
 
                         for (int i = 0; i < jsonArray.size(); i++) {
 
@@ -86,7 +81,7 @@ public class ScheduleAnRecurringEmail implements Runnable {
                             html_text = html_text.replace(IConstants.kEmailClientFullName.toLowerCase(), Utility.getFullName(emailInfo));
 
                             message = SendAnEmail.sendEmail(html_text, email_subject,
-                                    emailInfo.getEmailAddress(), emaillist_name, user_id, reply_to_address, from_email_address, from_name, Utility.getFullName(emailInfo));
+                                    emailInfo.getEmailAddress(), emaillist_name, companyId, reply_to_address, from_email_address, from_name, Utility.getFullName(emailInfo));
                         }
 //                      String message = "success";//TODO
                         if (message.equalsIgnoreCase("success")) {
@@ -100,24 +95,24 @@ public class ScheduleAnRecurringEmail implements Runnable {
         }
     }
 
-    private void updateStatusScheduledEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
-        logger.log(Level.INFO, "RecurringEmail post:" + scheduledAnEmail.getScheduleTitle() + "Id:" + scheduledAnEmail.getId() + " time:" + scheduledAnEmail.getScheduleTime().toString());
+    private void updateStatusScheduledEmail(ScheduledEntityList scheduledAnEmail) throws Throwable {
+        logger.log(Level.INFO, "RecurringEmail post:" + scheduledAnEmail.getScheduleTitle() + "Id:" + scheduledAnEmail.getScheduledEntityListId() + " time:" + scheduledAnEmail.getScheduleTime().toString());
         //Call the DAO here
         scheduledAnEmail.setStatus(IConstants.kSocialPostapprovedStatus);
         SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledAnEmail);
     }
 
-    private TblScheduledEmailList getSendEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
-        TblScheduledEmailList scheduledEmailList = SchedulerUtilityMethods.getEmailEntityById(scheduledAnEmail.getEntityId());
+    private ScheduledEmailList getSendEmail(ScheduledEntityList scheduledAnEmail) throws Throwable {
+        ScheduledEmailList scheduledEmailList = SchedulerUtilityMethods.getEmailEntityById(scheduledAnEmail.getEntityId());
         return scheduledEmailList;
     }
 
-    private List<TblScheduledEntityList> getLatestApprovedSendEmail() throws Throwable {
+    private List<ScheduledEntityList> getLatestApprovedSendEmail() throws Throwable {
         ArrayList<String> entityId = SchedulerUtilityMethods.getLatestEmailApprovedPost(IConstants.kSocialPostapprovedStatus, IConstants.kEmailKey, IConstants.kUserMarketingProgramOpenStatus, Boolean.TRUE);
-        List<TblScheduledEntityList> scheduledEntityList = new ArrayList<TblScheduledEntityList>();
+        List<ScheduledEntityList> scheduledEntityList = new ArrayList<ScheduledEntityList>();
         if (entityId.size() > 0) {
             for (String currentEntityId : entityId) {
-                TblScheduledEntityList tblScheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(currentEntityId), IConstants.kEmailKey);
+                ScheduledEntityList tblScheduledEntityList = SchedulerUtilityMethods.getEntityById(Integer.parseInt(currentEntityId), IConstants.kEmailKey);
                 scheduledEntityList.add(tblScheduledEntityList);
             }
         }
