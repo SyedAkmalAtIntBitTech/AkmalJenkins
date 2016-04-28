@@ -7,6 +7,7 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Users;
+import com.intbittech.modelmappers.UserDetails;
 
 /**
  *
@@ -39,7 +40,7 @@ public interface UsersService {
      * @return {@link Integer}
      * @throws ProcessFailed the process failed
      */
-    public Integer save(Users user) throws ProcessFailed;
+    public String save(UserDetails usersDetails) throws ProcessFailed;
     
     /**
      * This method pass user as input and updates the {@link Users} from DAO layer.

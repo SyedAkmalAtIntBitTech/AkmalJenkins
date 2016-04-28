@@ -55,6 +55,8 @@ public class BrndbotUserLoginSuccessHandler extends SimpleUrlAuthenticationSucce
             url = "/admin";
         } else if (isUser(roles)) {
             url = "/user";
+        } else if (isTempUser(roles)) {
+            url = "/signup/company";
         } else {
             url = "/Access_Denied";
         }
@@ -71,6 +73,13 @@ public class BrndbotUserLoginSuccessHandler extends SimpleUrlAuthenticationSucce
  
     private boolean isAdmin(List<String> roles) {
         if (roles.contains("ROLE_ADMIN")) {
+            return true;
+        }
+        return false;
+    }
+    
+    private boolean isTempUser(List<String> roles) {
+        if (roles.contains("ROLE_TEMP_USER")) {
             return true;
         }
         return false;
