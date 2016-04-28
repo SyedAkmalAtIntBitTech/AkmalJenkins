@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional(rollbackFor = Throwable.class)
-public class ScheduledSocialpostListServiceImpl  implements ScheduledSocialpostListService{
+public class ScheduledSociitalpostListServiceImpl  implements ScheduledSocialpostListService{
       @Autowired
    public ScheduledSocialpostListDao scheduledSocialpostListDao;
 
