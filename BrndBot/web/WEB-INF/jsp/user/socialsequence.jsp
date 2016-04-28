@@ -37,7 +37,7 @@
                     </div>
                     <div class="pane_content">
                         <div class="cat-list">
-                            <a href="facebookpostnolink"> <div class="cat-slat clear">
+                            <a href="facebookpost"> <div class="cat-slat clear">
                                     <div class="fleft col-1of10">
                                         <img type="image/svg+xml" src="images/F_icon.svg" class="social-channel-icon" style="cursor:pointer;"> </object>
                                     </div>

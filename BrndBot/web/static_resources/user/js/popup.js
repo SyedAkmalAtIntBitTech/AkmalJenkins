@@ -1054,4 +1054,24 @@ $(document).ready(function ()
     $("#fade").hide();
     $("#addActionemllist").hide();
     });
+    ////// social flow ///
+   $("#addImageToPostButton").click(function(){
+    $("#addImageDiv").show();
+    $("#addImageToPostButton").hide();
+    });
 });
+function changePostType(){
+   var postType = $("#linkPostFields").css("display");
+    if(postType === "none"){
+    $("#linkPostFields").show();
+    $("#postType").text("Change To Normal Post");
+    }
+  if(postType === "inline"){
+    $("#linkPostFields").hide();
+    $("#postType").text("Change To Link Post");
+    }
+}
+
+
+ 
+

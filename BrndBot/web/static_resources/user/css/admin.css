@@ -596,3 +596,10 @@ width: calc(100% - 129px);
 .removeBorder{
     border: none;
 }
+.displayNone{
+    display: none;
+}
+.gallery-image {
+    height: 100px;
+    width: 222px;
+}
