@@ -36,7 +36,7 @@
                                  
                                 </div>
                             <div class="dashboard-mainCTA-subtext">Content to be provided here</div>
-                            <div class=" dashboard-mainCTA-button "><div class="Button--Blue Dash_Button">Create a Social Post</div></div>
+                            <div class=" dashboard-mainCTA-button "><a href="socialsequence"><div class="Button--Blue Dash_Button">Create a Social Post</div></a></div>
                         </div>
                     </div>
                     

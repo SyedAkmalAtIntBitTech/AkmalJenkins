@@ -396,26 +396,29 @@ function onboardingcontroller($scope,$http) {
     };
     
     $scope.saveColorPalette = function (){
-         var companyId=localStorage.getItem("companyId");
+        alert();
+//         var companyId=localStorage.getItem("companyId");
          var color1=$("#color1").css("backgroundColor");
          var color2=$("#color2").css("backgroundColor");
          var color3=$("#color3").css("backgroundColor");
          var color4=$("#color4").css("backgroundColor");
-         var companyColors={"color1":color1,"color2":color2,"color3":color3,"color4":color4};
+         var companyColors='{"color1":'+color1+',"color2":'+color2+',"color3":'+color3+',"color4":'+color4+'}';
          
         if((color1=="rgba(0, 0, 0, 0)")||(color2=="rgba(0, 0, 0, 0)")||(color3=="rgba(0, 0, 0, 0)")||(color4=="rgba(0, 0, 0, 0)")){
         alert("Please choose all 4 colors.");   
         }
         else{
+            var s= getHost();
+            var colorObject = '{"color1":"rgb(23,323,33)"}';
              $.ajax({
                 method: 'POST',
-                url: getHost() + 'onboarding/saveCompanyColors.do?companyId='+companyId,
+                url: getHost() + 'settings/setColors',
                 headers: {'Content-Type': 'application/json'},
-                data: JSON.stringify(companyColors)
+                data: colorObject
             }).success(function (data)
             {
-                
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                alert("sa"+ JSON.stringify(data));
+//                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 window.open(getHost() + 'user/dashboard', "_self");
             })
             .error(function (data, status) {
