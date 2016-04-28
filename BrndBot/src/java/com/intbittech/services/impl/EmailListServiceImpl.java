@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
+import javax.servlet.http.HttpServletRequest;
 import model.EmailInfo;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -47,13 +48,13 @@ public class EmailListServiceImpl implements EmailListService {
     SqlMethods sql_methods = new SqlMethods();
 
     @Override
-    public String getEmailList(Map<String, Object> requestBodyMap, Integer companyId) throws Exception {
+    public String getEmailList(HttpServletRequest request, Integer companyId) throws Exception {
 
         JSONObject responseObject = new JSONObject();
         org.json.simple.JSONArray emailListNames = new org.json.simple.JSONArray();
         org.json.simple.JSONArray emailListNames_mindbody = new org.json.simple.JSONArray();
 
-        String queryParameter = (String) requestBodyMap.get("update");
+        String queryParameter = (String) request.getParameter("update");
 
         if (queryParameter.equalsIgnoreCase("allEmailListNames")) {
             emailListNames = getEmailListNames(companyId);
@@ -62,7 +63,7 @@ public class EmailListServiceImpl implements EmailListService {
             responseObject.put(IConstants.kEmailListMindbodyKey, emailListNames_mindbody);
 
         } else if (queryParameter.equalsIgnoreCase("emailsForEmailList")) {
-            String emailListName = (String) requestBodyMap.get("list_name");
+            String emailListName = (String) request.getParameter("list_name");
             org.json.simple.JSONArray json_email_ids = getEmailIds(companyId, emailListName);
             org.json.simple.JSONArray json_email_ids_mindbody = getEmailIds_mindbody(companyId, emailListName);
             responseObject.put(IConstants.kEmailListNameKey, emailListName);
@@ -130,37 +131,35 @@ public class EmailListServiceImpl implements EmailListService {
 
         String queryParameter = (String) requestBodyMap.get("update");
 
-        Integer user_id = 0;
-
         if (queryParameter.equalsIgnoreCase("addEmailList")) {
             String emailListName = (String) requestBodyMap.get(IConstants.kEmailListNameKey);
             String emailDefaultName = (String) requestBodyMap.get(IConstants.kEmailListDefaultFromName);
             String emailListDescription = (String) requestBodyMap.get(IConstants.kEmailListListDescription);
 
-            dataresponse = addEmailListPreference(user_id, emailListName, emailDefaultName, emailListDescription);
+            dataresponse = addEmailListPreference(companyId, emailListName, emailDefaultName, emailListDescription);
         } else if (queryParameter.equalsIgnoreCase("UpdateEmailList")) {
             String emailListName = (String) requestBodyMap.get(IConstants.kEmailListNameKey);
             String emailAddresses = (String) requestBodyMap.get(IConstants.kEmailAddressesKey);
 
-            dataresponse = updateEmailListPreference(user_id, emailListName, emailAddresses);
+            dataresponse = updateEmailListPreference(companyId, emailListName, emailAddresses);
         } else if (queryParameter.equalsIgnoreCase("deleteEmailInEmailList")) {
             String emailListName = (String) requestBodyMap.get(IConstants.kEmailListNameKey);
             String emailAddress = (String) requestBodyMap.get(IConstants.kEmailAddressesKey);
             String emails[] = emailAddress.split(",");
             Boolean result = false;
             for (int i = 0; i < emails.length; i++) {
-                result = deleteEmailFromEmailList(user_id, emailListName, emails[i]);
+                result = deleteEmailFromEmailList(companyId, emailListName, emails[i]);
             }
             if (result) {
                 dataresponse = true;
             }
         } else if (queryParameter.equalsIgnoreCase("deleteEmailList")) {
             String emailListName = (String) requestBodyMap.get(IConstants.kEmailListNameKey);
-            dataresponse = deleteEmailList(user_id, emailListName);
+            dataresponse = deleteEmailList(companyId, emailListName);
         } else if (queryParameter.equalsIgnoreCase("deleteAllEmailsFromList")) {
             String emailListName = (String) requestBodyMap.get(IConstants.kEmailListNameKey);
 
-            dataresponse = deleteAllEmailsFromEmailList(user_id, emailListName);
+            dataresponse = deleteAllEmailsFromEmailList(companyId, emailListName);
         } else if (queryParameter.equalsIgnoreCase("updateEmailID")) {
 
             String emailListName = (String) requestBodyMap.get(IConstants.kEmailListNameKey);
@@ -172,7 +171,7 @@ public class EmailListServiceImpl implements EmailListService {
             EmailInfo email_info = new EmailInfo(emailAddress, firstName, lastName);
             email_info.setId(emailUID);
 
-            dataresponse = addUpdateEmailListPreferenceForEmailID(user_id, emailListName, email_info);
+            dataresponse = addUpdateEmailListPreferenceForEmailID(companyId, emailListName, email_info);
         } else if (queryParameter.equalsIgnoreCase("addEmailID")) {
             String emailListName = (String) requestBodyMap.get(IConstants.kEmailListNameKey);
             String emailAddress = (String) requestBodyMap.get(IConstants.kEmailAddressKey);
@@ -181,7 +180,7 @@ public class EmailListServiceImpl implements EmailListService {
 
             EmailInfo email_info = new EmailInfo(emailAddress, firstName, lastName, dateFormat.format(new Date()));
 
-            dataresponse = addEmailIDToEmailList(user_id, emailListName, email_info);
+            dataresponse = addEmailIDToEmailList(companyId, emailListName, email_info);
         } else if (queryParameter.equalsIgnoreCase("checkAvailability")) {
             String emailListName = (String) requestBodyMap.get(IConstants.kEmailListNameKey);
             String emailAddress = (String) requestBodyMap.get(IConstants.kEmailAddressKey);
@@ -190,23 +189,23 @@ public class EmailListServiceImpl implements EmailListService {
 
             EmailInfo email_info = new EmailInfo(emailAddress, firstName, lastName);
 
-            dataresponse = checkAvailability(user_id, emailListName, email_info);
+            dataresponse = checkAvailability(companyId, emailListName, email_info);
         } else if (queryParameter.equalsIgnoreCase("deleteAllEmailLists")) {
             String emailListName = (String) requestBodyMap.get(IConstants.kEmailListNameKey);
-            dataresponse = deleteAllEmailList(user_id, emailListName);
+            dataresponse = deleteAllEmailList(companyId, emailListName);
         } else if (queryParameter.equalsIgnoreCase("deleteEmailLists")) {
             String emailListName = (String) requestBodyMap.get(IConstants.kEmailListNameKey);
-            dataresponse = deleteEmailList(user_id, emailListName);
+            dataresponse = deleteEmailList(companyId, emailListName);
             
         }
         return dataresponse;
     }
 
-    private org.json.simple.JSONArray getEmailIds(Integer user_id, String emailListName) throws JSONException, ClassNotFoundException, SQLException {
+    private org.json.simple.JSONArray getEmailIds(Integer companyId, String emailListName) throws JSONException, ClassNotFoundException, SQLException {
         org.json.simple.JSONArray emailIDSJSONArray = new org.json.simple.JSONArray();
         org.json.simple.JSONArray json_email_address = new org.json.simple.JSONArray();
         try {
-            org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
+            org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(companyId, IConstants.kEmailListUserKey);
             for (int i = 0; i < emailListArrayJSON.size(); i++) {
                 JSONObject emailListJSONObject = (JSONObject) emailListArrayJSON.get(i);
                 String currentListName = (String) emailListJSONObject.get(IConstants.kEmailListNameKey);
@@ -229,11 +228,11 @@ public class EmailListServiceImpl implements EmailListService {
         return json_email_address;
     }
 
-    private org.json.simple.JSONArray getEmailIds_mindbody(Integer user_id, String emailListName) throws JSONException, ClassNotFoundException, SQLException {
+    private org.json.simple.JSONArray getEmailIds_mindbody(Integer companyId, String emailListName) throws JSONException, ClassNotFoundException, SQLException {
         org.json.simple.JSONArray json_email_address = new org.json.simple.JSONArray();
         try {
 
-            org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id, IConstants.kEmailListMindbodyKey);
+            org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(companyId, IConstants.kEmailListMindbodyKey);
             for (int i = 0; i < emailListArrayJSON.size(); i++) {
                 JSONObject emailListJSONObject = (JSONObject) emailListArrayJSON.get(i);
                 String currentListName = (String) emailListJSONObject.get(IConstants.kEmailListNameKey);
@@ -249,10 +248,10 @@ public class EmailListServiceImpl implements EmailListService {
         return json_email_address;
     }
 
-    private org.json.simple.JSONArray getEmailListNames(Integer user_id) throws JSONException, ClassNotFoundException, SQLException {
+    private org.json.simple.JSONArray getEmailListNames(Integer companyId) throws JSONException, ClassNotFoundException, SQLException {
         JSONArray emailListNamesJSON = new JSONArray();
         org.json.simple.JSONArray emailListNamesjson = new org.json.simple.JSONArray();
-        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id, IConstants.kEmailListUserKey);
+        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(companyId, IConstants.kEmailListUserKey);
 
         for (int i = 0; i < emailListArrayJSON.size(); i++) {
             JSONObject emailListJSONObject = (JSONObject) emailListArrayJSON.get(i);
@@ -262,10 +261,10 @@ public class EmailListServiceImpl implements EmailListService {
         return emailListNamesjson;
     }
 
-    private org.json.simple.JSONArray getEmailListNames_mindbody(Integer user_id) throws JSONException, ClassNotFoundException, SQLException {
+    private org.json.simple.JSONArray getEmailListNames_mindbody(Integer companyId) throws JSONException, ClassNotFoundException, SQLException {
         JSONArray emailListNamesJSON = new JSONArray();
         org.json.simple.JSONArray emailListNamesjson = new org.json.simple.JSONArray();
-        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(user_id, IConstants.kEmailListMindbodyKey);
+        org.json.simple.JSONArray emailListArrayJSON = sql_methods.getEmailListsPreferences(companyId, IConstants.kEmailListMindbodyKey);
 
         for (int i = 0; i < emailListArrayJSON.size(); i++) {
             JSONObject emailListJSONObject = (JSONObject) emailListArrayJSON.get(i);

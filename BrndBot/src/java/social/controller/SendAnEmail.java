@@ -35,7 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Ajit
  */
 public class SendAnEmail {
-    public final static String MANDRILL_KEY = "o-QeQQHbtCk4i6rCphfCcg";//Test key
+    public final static String MANDRILL_KEY = "lymaWyyktPr4YFkyZAzcQQ";//Test key
 
     SqlMethods sqlMethods = new SqlMethods();
     

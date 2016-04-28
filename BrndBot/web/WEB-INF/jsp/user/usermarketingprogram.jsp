@@ -17,7 +17,7 @@
         <!--<link href="css/dashboard.css" rel="stylesheet" type="text/css"/>-->
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js"></script>
-        <script src="js/angular.min.js"></script>
+       
         <script src="js/marketing.js"></script>
         <script src="js/usermarketingprogram.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>

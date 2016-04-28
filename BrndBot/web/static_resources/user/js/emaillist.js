@@ -22,7 +22,7 @@
             {
                 selected_emaildrafts_to_delete = selected_schedule_id + "," + selected_emaildrafts_to_delete;
                 count+=1;
-                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#"+id).html(content+'<img src="images/check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#"+id).toggleClass('selection-icon');
             $("#"+id).toggleClass('selection-icon-selected');
@@ -48,7 +48,7 @@
             }else{
                 selectedemailids = id + "," + selectedemailids;
                 count+=1;
-                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#"+id).html(content+'<img src="images/check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#"+id).toggleClass('selection-icon');
             $("#"+id).toggleClass('selection-icon-selected');
@@ -355,7 +355,7 @@
                 $scope.displayemailhistory = function (){
                     $http({
                         method : 'GET',
-                        url : 'GetEmailTagsServlet'
+                        url :getHost() + '/email/tags.do'
                     }).success(function(data, status, headers, config) { 
                     if (data == ""){
                         $scope.email_history = data;
@@ -367,7 +367,7 @@
                         $scope.email_history = data;
                     }
                     if (data === error){
-                        alert(data);
+//                        alert(data);
                     }
                 }).error(function(data, status, headers, config) {
                     alert(nodataerror);
@@ -380,12 +380,13 @@
                 $scope.getEmailSettings = function(){                
                 var email_settings = {"type": "get"};                
                 $http({
-                        method : 'POST',
-                        url : 'EmailSettingsServlet',
-                        headers: {'Content-Type': 'application/json'},
-                        data: email_settings
+                        method : 'GET',
+                        url :getHost() + '/settings/getEmailSettings.do',
+                        headers: {'Content-Type': 'application/json'}
+//                        data: email_settings
                     }).success(function (data, status, headers, config) {
-                        $scope.email_settings = data;
+                        var parseData=JSON.parse(data.d.details);
+                        $scope.email_settings = parseData;
                         if (data === error) {
                             alert(data);
                         }
@@ -583,17 +584,13 @@ $edit=0;
                         var Emails = {"emailListName": emailListName, "defaultFromName": defaultFromName, "listDescription":listDescription, "update": "addEmailList"};
                         $http({
                             method: 'POST',
-                            url: getHost() + 'SetEmailLists',
+                            url: getHost() + '/emaillist/save.do',
                             headers: {'Content-Type': 'application/json'},
                             data: Emails
                         }).success(function (data)
                         {
-                            if (data === "true") {
-                                alert(datasaved);
-                                window.open(getHost() + 'emaillists.jsp', "_self");
-                            } else if (data === error) {
-                                alert(data);
-                            }
+                            alert(datasaved);
+                            window.open(getHost() + '/user/emaillists', "_self");
                         });                        
                     }                    
                 };
@@ -772,8 +769,8 @@ $edit=0;
 //                        url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts'
                          url: getHost() + '/emaillist/get.do?update=allEmailListWithNoOfContacts'
                     }).success(function (data, status, headers, config) {  
-                        alert(JSON.stringify(data)+"...............");
-                        $scope.emailLists = data.allEmailListWithNoOfContacts.user;                        
+                        var parseData=JSON.parse(data.d.details);
+                        $scope.emailLists = parseData.allEmailListWithNoOfContacts.user;                        
                         $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
                         if (data === "true") {
                         } else if (data === error) {
@@ -1102,7 +1099,7 @@ $edit=0;
             else
             { 
                 count+=1;
-                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#"+id).html(content+'<img src="images/check.svg" class="check-icon" style="cursor:pointer;"/>');
                 selected_draft = id+ "," + selected_draft;
             }
             $("#"+id).toggleClass('selection-icon');
