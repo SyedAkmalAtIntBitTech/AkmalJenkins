@@ -16,7 +16,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.postgresql.util.PGobject;
@@ -25,15 +24,15 @@ import org.postgresql.util.PGobject;
  *
  * @author intbit
  */
-public class UserPreferencesTwitter {
+public class CompanyPreferencesTwitter {
     
-    private static final Logger logger = Logger.getLogger(UserPreferencesTwitter.class.getName());
+    private static final Logger logger = Logger.getLogger(CompanyPreferencesTwitter.class.getName());
     
     SqlMethods sql_methods;
     PreparedStatement prepared_statement;
     ResultSet result_set;
 
-    public UserPreferencesTwitter() throws NamingException {
+    public CompanyPreferencesTwitter() throws NamingException {
         this.sql_methods = new SqlMethods();
     }
 
@@ -91,7 +90,7 @@ public class UserPreferencesTwitter {
         }
     }
 
-    public JSONObject getUserPreferenceForAccessToken(Integer user_id) throws SQLException {
+    public JSONObject getCompanyPreferenceForAccessToken(Integer user_id) throws SQLException {
         String twitter_data="";
         String twitter_access_token = "";
         String twitter_access_token_secret = "", twitter_user_name = "";

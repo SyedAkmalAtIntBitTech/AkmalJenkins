@@ -6,16 +6,12 @@
 package social.controller;
 
 import com.controller.SqlMethods;
-import com.intbit.marketing.model.TblUserPreferences;
-import com.intbit.marketing.service.UserPreferencesService;
+import com.intbittech.controller.SignupController;
+import com.intbittech.exception.ProcessFailed;
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -26,9 +22,12 @@ import twitter4j.conf.ConfigurationBuilder;
  *
  * @author AR
  */
+@Service
 public class PostToTwitter {
 
-    public static String postStatus(String twitterAccessToken, String twitterTokenSecret,String image_type, String text, String shortURL, String fileImagePath, Integer userId, String htmlString, String getImageFile) {
+    private final static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(SignupController.class);
+
+    public static String postStatus(String image_type, String text, String shortURL, String fileImagePath, Integer companyId, String htmlString, String getImageFile) throws Throwable {
         String returnMessage = "";
         try {
 
@@ -37,8 +36,8 @@ public class PostToTwitter {
             twitterConfigBuilder.setDebugEnabled(true);
             twitterConfigBuilder.setOAuthConsumerKey("K7TJ3va8cyAeh6oN3Hia91S2o");
             twitterConfigBuilder.setOAuthConsumerSecret("IWUt2aDVTHgUc8N0qI0cF1Z1dTAEQ7CSgnBymZNr3BPSmtkNHL");
-            twitterConfigBuilder.setOAuthAccessToken(twitterAccessToken);
-            twitterConfigBuilder.setOAuthAccessTokenSecret(twitterTokenSecret);
+            twitterConfigBuilder.setOAuthAccessToken(getTwitterAccessToken(companyId));
+            twitterConfigBuilder.setOAuthAccessTokenSecret(getTwitterAccessTokenSecret(companyId));
 
             Twitter twitter = new TwitterFactory(twitterConfigBuilder.build()).getInstance();
             String statusMessage = text.replace("bit.ly/1XOkJo", "");
@@ -55,56 +54,50 @@ public class PostToTwitter {
                 }
             }
             StatusUpdate status = new StatusUpdate(statusMessage);
-             if (image_type.equals("url")){
+            if (image_type.equals("url")) {
                 status.setMedia("xyz", new URL(fileImagePath).openStream());
-             }
-             else
-             {
+            } else {
                 File file = new File(fileImagePath);
-                 
+
                 // set the image to be uploaded here.
                 status.setMedia(file);
-             }
+            }
             twitter.updateStatus(status);
-            
+
             try {
                 SqlMethods sql_methods = new SqlMethods();
-                sql_methods.setSocialPostHistory(userId, htmlString, false, true,image_type, getImageFile, null);
+                sql_methods.setSocialPostHistory(companyId, htmlString, false, true, image_type, getImageFile, null);
             } catch (Exception ex) {
-                Logger.getLogger(PostToTwitter.class.getName()).log(Level.SEVERE, null, ex.getCause());
-                Logger.getLogger(PostToTwitter.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+                logger.error(ex.getMessage());
+                throw new ProcessFailed("Could not insert record for a twitter post");
             }
             returnMessage = "success";
 
         } catch (TwitterException te) {
-
-            returnMessage = "Twitter Exception: " + te.getMessage();
-            Logger.getLogger(PostToTwitter.class.getName()).log(Level.SEVERE, null, te.getCause());
-            Logger.getLogger(PostToTwitter.class.getName()).log(Level.SEVERE, null, te.getMessage());
-
+            logger.error(te.getMessage());
+            throw new ProcessFailed("Could post on twitter");
         } catch (Exception e) {
-            returnMessage = "Twitter Exception: " + e.getMessage();
-            Logger.getLogger(PostToTwitter.class.getName()).log(Level.SEVERE, null, e);
-            Logger.getLogger(PostToTwitter.class.getName()).log(Level.SEVERE, null, e.getMessage());
+            logger.error(e.getMessage());
+            throw new ProcessFailed("Could post on twitter");
         }
         return returnMessage;
     }
 
-    public HashMap<String, String> getTwitterUserPreferences(Integer userId) throws Throwable {
-        UserPreferencesTwitter userPreferencesTwitter = new UserPreferencesTwitter();
-        return userPreferencesTwitter.getUserPreferenceForAccessToken(userId);
+    public static HashMap<String, String> getTwitterCompanyPreferences(Integer companyId) throws Throwable {
+        CompanyPreferencesTwitter companyPreferencesTwitter = new CompanyPreferencesTwitter();
+        return companyPreferencesTwitter.getCompanyPreferenceForAccessToken(companyId);
     }
 
-    public String getTwitterAccessToken(Integer userId) throws Throwable {
-        HashMap<String, String> hashMap = getTwitterUserPreferences(userId);
+    public static String getTwitterAccessToken(Integer userId) throws Throwable {
+        HashMap<String, String> hashMap = getTwitterCompanyPreferences(userId);
         if (hashMap != null) {
             return hashMap.get("twitter_access_token");
         }
         return "";
     }
 
-    public String getTwitterAccessTokenSecret(Integer userId) throws Throwable {
-        HashMap<String, String> hashMap = getTwitterUserPreferences(userId);
+    public static String getTwitterAccessTokenSecret(Integer userId) throws Throwable {
+        HashMap<String, String> hashMap = getTwitterCompanyPreferences(userId);
         if (hashMap != null) {
             return hashMap.get("twitter_access_token_secret");
         }

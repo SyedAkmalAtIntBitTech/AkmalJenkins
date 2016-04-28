@@ -5,7 +5,6 @@
  */
 package social.controller;
 
-import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.controller.IConstants;
 import com.controller.SqlMethods;
 import com.intbit.ConnectionManager;
@@ -15,7 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.naming.NamingException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.postgresql.util.PGobject;
@@ -24,9 +22,9 @@ import org.postgresql.util.PGobject;
  *
  * @author intbit
  */
-public class UserPreferencesFacebook {
+public class CompanyPreferencesFacebook {
 
-    private static Logger logger = Logger.getLogger(UserPreferencesFacebook.class.getName());
+    private static Logger logger = Logger.getLogger(CompanyPreferencesFacebook.class.getName());
     
     private SqlMethods sqlMethods = new SqlMethods();
 
@@ -87,7 +85,7 @@ public class UserPreferencesFacebook {
         }
     }
 
-    public JSONObject getUserPreferenceForAccessToken(Integer user_id) throws SQLException {
+    public JSONObject getCompanyPreferenceForAccessToken(Integer user_id) throws SQLException {
         String access_token = "";
         String user_profile_name = "", default_page_name = "";
         JSONObject json_fb_to_read = new JSONObject();

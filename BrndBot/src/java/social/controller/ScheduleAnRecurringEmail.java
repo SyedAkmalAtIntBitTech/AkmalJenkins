@@ -6,20 +6,13 @@
 package social.controller;
 
 import com.controller.IConstants;
-import com.controller.SocialPostScheduler;
-import com.divtohtml.StringUtil;
 import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledEntityList;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.EmailInfo;
+import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import static social.controller.ScheduleTwitterPost.logger;
 import util.DateTimeUtil;
 import util.Utility;
 
@@ -29,11 +22,13 @@ import util.Utility;
  */
 public class ScheduleAnRecurringEmail implements Runnable {
 
+    private Logger logger = Logger.getLogger(ScheduleAnRecurringEmail.class);
+
     public void terminateThread() {
         try {
             Thread.currentThread().interrupt();
         } catch (Exception ex) {
-            Logger.getLogger(ScheduleAnRecurringEmail.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(ex);
         }
     }
 
@@ -96,12 +91,12 @@ public class ScheduleAnRecurringEmail implements Runnable {
                 }
             }
         } catch (Throwable ex) {
-            Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(ex);
         }
     }
 
     private void updateStatusScheduledEmail(TblScheduledEntityList scheduledAnEmail) throws Throwable {
-        logger.log(Level.INFO, "RecurringEmail post:" + scheduledAnEmail.getScheduleTitle() + "Id:" + scheduledAnEmail.getId() + " time:" + scheduledAnEmail.getScheduleTime().toString());
+        logger.info("RecurringEmail post:" + scheduledAnEmail.getScheduleTitle() + "Id:" + scheduledAnEmail.getId() + " time:" + scheduledAnEmail.getScheduleTime().toString());
         //Call the DAO here
         scheduledAnEmail.setStatus(IConstants.kSocialPostapprovedStatus);
         SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledAnEmail);

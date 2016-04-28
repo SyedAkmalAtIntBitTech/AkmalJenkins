@@ -6,10 +6,8 @@
 package social.controller;
 
 import com.controller.ApplicationContextListener;
-import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.controller.SqlMethods;
-import com.intbit.AppConstants;
-import com.intbit.PhantomImageConverter;
+import com.intbittech.exception.ProcessFailed;
 import facebook4j.Facebook;
 import facebook4j.FacebookException;
 import facebook4j.FacebookFactory;
@@ -22,112 +20,107 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletContext;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 import util.Utility;
 
 /**
  *
  * @author AR
  */
+@Service
 public class PostToFacebook {
-    public static String path = "";
 
-    public static String postStatus(String accessToken, String title, 
-            String file_image_path, String posttext, 
-            String imagePostURL, String getImageFile, 
+    private final static Logger logger = Logger.getLogger(PostToFacebook.class);
+
+    public static String postStatus(String title,
+            String file_image_path, String posttext,
+            String imagePostURL, String getImageFile,
             String url, String description, String imageType,
-            Integer user_id, String htmlString) throws MalformedURLException, IOException {
+            Integer companyID, String htmlString) throws MalformedURLException, IOException, Throwable {
 
         String returnMessage = "success";
-        ServletContext context = null;
         String status = "";
         try {
             Facebook facebook = new FacebookFactory().getInstance();
             facebook.setOAuthAppId("592852577521569", "a87cc0c30d792fa5dd0aaef6b43994ef");
             facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
-            facebook.setOAuthAccessToken(new AccessToken(accessToken));
+            facebook.setOAuthAccessToken(new AccessToken(getFacebookAccessToken(companyID)));
             /* change the context path while uploading the war file */
             ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
             String context_real_path = servletContext.getRealPath("");
             String imageContextPath = Utility.getServerName(context_real_path);
-            Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, "message while facebook post:"+imageContextPath);
-            
+            logger.info("message while facebook post:" + imageContextPath);
+
             if (title.equals("")) {
 
                 Media media;
-                if (imageType.equals("url")){
-                    media = new Media("xyz",new URL(file_image_path).openStream());
-                }
-                else{
+                if (imageType.equals("url")) {
+                    media = new Media("xyz", new URL(file_image_path).openStream());
+                } else {
                     media = new Media(new File(file_image_path));
                 }
                 PhotoUpdate update = new PhotoUpdate(media);
                 update.message(posttext);
                 status = facebook.postPhoto(update);
             } else {
-                logger.info("title:"+title);
-                if (imageType.equals("layout")){
+                logger.info("title:" + title);
+                if (imageType.equals("layout")) {
                     PostUpdate post = new PostUpdate(posttext)
-                            .picture(new URL(imageContextPath + "DownloadImage?image_type=LAYOUT_IMAGES&image_name="+getImageFile))
+                            .picture(new URL(imageContextPath + "DownloadImage?image_type=LAYOUT_IMAGES&image_name=" + getImageFile))
                             .name(title)
                             .link(new URL(url))
                             .description(description);
-                status = facebook.postFeed(post);
-                    
-                }else if (imageType.equals("gallery")){
+                    status = facebook.postFeed(post);
+
+                } else if (imageType.equals("gallery")) {
                     PostUpdate post = new PostUpdate(posttext)
-                            .picture(new URL(imageContextPath + "DownloadImage?image_type=GALLERY&image_name="+getImageFile+"&user_id="+user_id))
+                            .picture(new URL(imageContextPath + "DownloadImage?image_type=GALLERY&image_name=" + getImageFile + "&user_id=" + companyID))
                             .name(title)
                             .link(new URL(url))
                             .description(description);
-                status = facebook.postFeed(post);
-                }else if (imageType.equals("url")){
+                    status = facebook.postFeed(post);
+                } else if (imageType.equals("url")) {
                     PostUpdate post = new PostUpdate(posttext)
                             .picture(new URL(getImageFile))
                             .name(title)
                             .link(new URL(url))
                             .description(description);
-                status = facebook.postFeed(post);
+                    status = facebook.postFeed(post);
                 }
-                if (!(status.equals(""))){
+                if (!(status.equals(""))) {
                     status = returnMessage;
                 }
             }
-            Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, "message while facebook post:"+status);
+            logger.info("message while facebook post:" + status);
             try {
                 SqlMethods sqlMethods = new SqlMethods();
-                sqlMethods.setSocialPostHistory(user_id, htmlString, false, true,imageType, getImageFile, null);
+                sqlMethods.setSocialPostHistory(companyID, htmlString, false, true, imageType, getImageFile, null);
             } catch (Exception ex) {
-                Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, null, ex.getCause());
-                Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+                logger.error(ex);
             }
 
-        } catch (FacebookException e) {
-            returnMessage = "FB Exception:" + e.getMessage();
-            Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, null, e.getCause());
-            Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, null, e.getMessage());
-        } catch (Exception ex){
-            returnMessage = "Exception:" + ex.getMessage();
-            System.out.println(ex);
-            System.out.println(ex.getCause());
-            System.out.println(ex.getMessage());
-            Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, null, ex.getStackTrace());
-            Logger.getLogger(PostToFacebook.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+        } catch (FacebookException te) {
+            logger.error(te.getMessage());
+            throw new ProcessFailed("Could post on facebook");
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw new ProcessFailed("Could post on facebook");
         }
         return returnMessage;
     }
-    public  HashMap<String,String> getFacebookUserPreferences(Integer userId) throws Throwable{
-        UserPreferencesFacebook userPreferencesFacebook = new UserPreferencesFacebook();
-        return userPreferencesFacebook.getUserPreferenceForAccessToken(userId);
+
+    private static HashMap<String, String> getFacebookCompanyPreferences(Integer companyId) throws Throwable {
+        CompanyPreferencesFacebook companyPreferencesFacebook = new CompanyPreferencesFacebook();
+        return companyPreferencesFacebook.getCompanyPreferenceForAccessToken(companyId);
     }
-    public  String getFacebookAccessToken(Integer userId) throws Throwable{
-        HashMap<String , String> hashMap = getFacebookUserPreferences(userId);
-        if(hashMap != null){
+
+    private  static String getFacebookAccessToken(Integer companyId) throws Throwable {
+        HashMap<String, String> hashMap = getFacebookCompanyPreferences(companyId);
+        if (hashMap != null) {
             return hashMap.get("fb_default_page_access_token");
         }
         return "";
     }
-   
 }

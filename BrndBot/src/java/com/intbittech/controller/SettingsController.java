@@ -8,8 +8,8 @@ package com.intbittech.controller;
 import com.controller.BrndBotBaseHttpServlet;
 import com.controller.IConstants;
 import com.google.gson.Gson;
-import com.intbit.AppConstants;
 import com.intbit.util.CustomStyles;
+import com.intbittech.AppConstants;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.UserProfile;
@@ -17,12 +17,14 @@ import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
-import com.intbittech.services.CompanyPreferencesFacebookService;
 import com.intbittech.services.CompanyPreferencesService;
-import com.intbittech.services.CompanyPreferencesTwitterService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.StringUtility;
 import com.intbittech.utility.UserSessionUtil;
+import facebook4j.Account;
+import facebook4j.Facebook;
+import facebook4j.FacebookFactory;
+import facebook4j.ResponseList;
 import java.io.BufferedReader;
 import java.io.File;
 import java.util.Iterator;
@@ -39,13 +41,22 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.NoSuchMessageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import social.controller.CompanyPreferencesFacebook;
+import social.controller.CompanyPreferencesTwitter;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
 
 /**
  *
@@ -59,15 +70,12 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
     @Autowired
     private MessageSource messageSource;
+    private Twitter twitter;
+    private RequestToken requestToken;
+    private Facebook facebook;
 
     @Autowired
     private CompanyPreferencesService companyPreferencesService;
-
-    @Autowired
-    private CompanyPreferencesFacebookService companyPreferencesFacebookService;
-    
-    @Autowired
-    private CompanyPreferencesTwitterService companyPreferencesTwitterService;
 
     @RequestMapping(value = "/getColors", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getColors(HttpServletRequest request,
@@ -199,7 +207,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
             int maxFileSize = 5000 * 1024;
             int maxMemSize = 5000 * 1024;
-            String uploadPath = AppConstants.USER_LOGO;
+            //TODO Ilyas - Check path here.
+
+            String uploadPath = AppConstants.BASE_IMAGE_COMPANY;
 
             // Verify the content type
             String contentType = request.getContentType();
@@ -210,7 +220,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
                 // maximum size that will be stored in memory
                 factory.setSizeThreshold(maxMemSize);
                 // Location to save data that is larger than maxMemSize.
-                factory.setRepository(new File(AppConstants.TMP_FOLDER));
+                //TODO Ilyas - Check path here.
+                //factory.setRepository(new File(AppConstants.TMP_FOLDER));
+                factory.setRepository(new File("/home"));
 
                 // Create a new file upload handler
                 ServletFileUpload upload = new ServletFileUpload(factory);
@@ -282,6 +294,8 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             Company company = userProfile.getUser().getFkCompanyId();
             Integer companyId = company.getCompanyId();
             String outputJson = "Success";
+            CompanyPreferencesFacebook companyPreferencesFacebookService = new CompanyPreferencesFacebook();
+
             if (!StringUtility.isEmpty(method_type) && method_type.equals("getAccessToken")) {
                 JSONObject fb_details = companyPreferencesFacebookService.getCompanyPreferenceForAccessToken(companyId);
 
@@ -334,7 +348,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             String twitter_access_token_secret = "", twitter_user_name = "";
             String access_token_secret = "";
             String user_name = "";
-            
+
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Company company = userProfile.getUser().getFkCompanyId();
             Integer companyId = company.getCompanyId();
@@ -346,7 +360,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
                 access_token_secret = access[1];
                 user_name = access[2];
             }
-
+            CompanyPreferencesTwitter companyPreferencesTwitterService = new CompanyPreferencesTwitter();
             if (!StringUtility.isEmpty(method_type) && method_type.equalsIgnoreCase("setAccessToken")) {
                 companyPreferencesTwitterService.updatePreference(companyId, access_token, access_token_secret, user_name);
             } else if (!StringUtility.isEmpty(method_type) && method_type.equalsIgnoreCase("getAccessToken")) {
@@ -377,5 +391,110 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "/fbAuthURL", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> fbLogin() {
+        GenericResponse<String> genericResponse = new GenericResponse<>();
+        try {
+            facebook = new FacebookFactory().getInstance();
+            facebook.setOAuthAppId(AppConstants.facebookString1, AppConstants.facebookString2);
+            facebook.setOAuthPermissions(AppConstants.facebookPermissions);
+            //TODO need to check the URL with Sandeep here
+            genericResponse.addDetail(facebook.getOAuthAuthorizationURL("/home"));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("Success", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "/fbGetToken", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> fbGetToken(@PathVariable(value = "code") String code) {
+        GenericResponse<JSONObject> genericResponse = new GenericResponse<>();
+        try {
+//             String first_name = facebook.getMe().getFirstName();
+//                    String last_name = facebook.getMe().getLastName();
+
+            String user_name = facebook.getName();
+
+            ResponseList<Account> accounts = facebook.getAccounts();
+
+            logger.info("FB Accounts:" + accounts.size());
+
+            JSONArray jsonarray = new JSONArray();
+            for (int i = 0; i < accounts.size(); i++) {
+                Account yourPageAccount = accounts.get(i);  // if index 0 is your page account.
+                String pageAccessToken = yourPageAccount.getAccessToken();
+                String pageId = yourPageAccount.getId();
+                String profilepicture = facebook.getPagePictureURL(pageId).toString();
+                logger.info(yourPageAccount.getName() + " - " + pageAccessToken);
+                facebook.setOAuthAccessToken(new facebook4j.auth.AccessToken(pageAccessToken));
+
+                jsonarray.add(yourPageAccount.getName());
+                jsonarray.add(pageAccessToken);
+                jsonarray.add(profilepicture);
+            }
+            JSONObject responseJSONObject = new JSONObject();
+            responseJSONObject.put("objkey", jsonarray);
+            responseJSONObject.put("user_profile_name", user_name);
+
+            genericResponse.addDetail(responseJSONObject);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("Success", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "/twitterAuthURL", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> twitterLogin() {
+        GenericResponse<String> genericResponse = new GenericResponse<>();
+
+        try {
+            twitter = new TwitterFactory().getInstance();
+            twitter.setOAuthConsumer(AppConstants.twitterString1, AppConstants.twitterString2);
+            //twitter.setOAuthConsumer("G6fPQU023izaVT8RtAurlHmUW", "d6jMSiwI9XqVbNDMQ4XJmIzD9XrKwZC5mKjrbujepTOqgrnMEW");
+            requestToken = twitter.getOAuthRequestToken();
+            genericResponse.addDetail(requestToken.getAuthenticationURL());
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("Success", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "/twitterGetToken", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> twitterGetToken(@PathVariable(value = "pin") String pin) {
+        GenericResponse<String> genericResponse = new GenericResponse<>();
+
+        try {
+            AccessToken accessToken = null;
+
+            if (pin.length() > 0) {
+                accessToken = twitter.getOAuthAccessToken(requestToken, pin);
+            } else {
+                accessToken = twitter.getOAuthAccessToken();
+            }
+            twitter4j.User user = twitter.showUser(twitter.getScreenName());
+            String user_name = user.getName();
+            String token = accessToken.getToken();
+            String tokenSecret = accessToken.getTokenSecret();
+            String response = token + "," + tokenSecret + "," + user_name;
+            genericResponse.addDetail(response);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("Success", new String[]{}, Locale.US)));
+        } catch (TwitterException | IllegalStateException | NoSuchMessageException throwable) {
+            logger.error(throwable);
+            logger.debug("Unable to get twitter token.");
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 }

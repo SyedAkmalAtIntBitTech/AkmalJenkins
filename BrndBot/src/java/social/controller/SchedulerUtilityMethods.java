@@ -6,17 +6,16 @@
 package social.controller;
 
 import com.intbit.ConnectionManager;
-import com.intbittech.marketing.dao.impl.ScheduledEntityListDaoImpl;
 import com.intbit.marketing.model.TblScheduledEmailList;
 import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbit.marketing.model.TblScheduledSocialpostList;
 import com.intbit.marketing.model.TblUserLoginDetails;
 import com.intbit.marketing.model.TblUserMarketingProgram;
+import com.intbittech.marketing.dao.impl.ScheduledEntityListDaoImpl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
