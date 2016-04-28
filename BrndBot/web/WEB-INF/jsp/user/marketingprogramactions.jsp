@@ -16,7 +16,6 @@
     <title>BrndBot - Marketing Program Actions</title>
     <script src="js/jquery.min.js"></script>
     <script src="js/configurations.js"></script>
-    <script data-require="angular.js@*" data-semver="1.2.12" src="http://code.angularjs.org/1.2.12/angular.js"></script>
     <script src="js/popup.js" type="text/javascript"></script>      
     <script src="js/timepicki.js" type="text/javascript"></script>  
     <style>#progname,#instancehidden,#fbpostremove{display:none;}</style>
@@ -28,7 +27,7 @@
     %>
     <%
         program_id = request.getParameter("program_id");
-//        past = Integer.parseInt(request.getParameter("past"));
+        past = Integer.parseInt(request.getParameter("past"));
         program_date = request.getParameter("program_date");
     %>
     <script>
@@ -111,20 +110,20 @@
                     <ul class="main-container fleft">
                   <li class="slat-container fleft selfclear" ng-repeat="emailautomation in programs.emailautomation">
                             <div class="selection-container col-5p"> 
-                                <div class="selection-icon" ng-hide="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}" onclick="selcheckboxrecemail(this.id);setSelectedRecurringIds('{{emailautomation.scheduledEntityListId}}');"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}"   value="{{emailautomation.scheduledEntityListId}}" hidden/></div>
+                                <div class="selection-icon" ng-hide="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}" onclick="selcheckboxrecemail(this.id);" ng-click="setSelectedRecurringIds(emailautomation.scheduledEntityListId);"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}"   value="{{emailautomation.scheduledEntityListId}}" hidden/></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft hint--top" ng-show="emailautomation.status === 'Template Saved'"  data-hint="Template Saved" > 
-                                    <img src="images/Icons/templateSaved.svg" class="status-button" />
+                                <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'Template Saved'"  data-hint="Template Saved" > 
+                                    <img src="images/templateSaved.svg" class="status-button" />
                                 </div>
-                                <div class="icon-container fleft hint--top" ng-show="emailautomation.status === 'No Template'"  data-hint="No Template" > 
-                                    <img src="images/Icons/needTemplate.svg" class="status-button"/>
+                                <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'No Template'"  data-hint="No Template" > 
+                                    <img src="images/needTemplate.svg" class="status-button"/>
                                 </div>
-                                <div class="icon-container fleft hint--top" ng-show="emailautomation.status === 'Approved'"  data-hint="Approved" > 
-                                    <img src="images/Icons/ActionApproved.svg" class="status-button"/>
+                                <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'Approved'"  data-hint="Approved" > 
+                                    <img src="images/ActionApproved.svg" class="status-button"/>
                                 </div>
-                                <div class="icon-container fleft hint--top" ng-show="emailautomation.status === 'Complete'"  data-hint="Complete" > 
-                                    <img src="images/Icons/ActionComplete.svg" class="status-button"/>
+                                <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'Complete'"  data-hint="Complete" > 
+                                    <img src="images/ActionComplete.svg" class="status-button"/>
                                 </div>
                                 <div class="slat-title-container col-1of2  fleft">
                                     <div  class="slat-title email-list-slat-title col-1of1 sh1"></div>
@@ -175,23 +174,23 @@
                     <ul class="main-container fleft">
                     <li class="slat-container fleft selfclear"  ng-repeat="programaction in (filteredItems = (programs.programactions | orderBy: 'postDate':true))">
                             <div class="selection-container col-5p"> 
-                                <div class="selection-icon" ng-hide="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" onclick="selcheckboxonetimeact(this.id);setSelectedIds('{{programaction.scheduledEntityListId}}');"><input type="checkbox" id="entityid{{programaction.scheduledEntityListId}}"  value="{{programaction.scheduledEntityListId}}" name="entityname" hidden></input></div>
+                                <div class="selection-icon" ng-hide="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" onclick="selcheckboxonetimeact(this.id);" ng-click="setSelectedIds(programaction.scheduledEntityListId);"><input type="checkbox" id="entityid{{programaction.scheduledEntityListId}}"  value="{{programaction.scheduledEntityListId}}" name="entityname" hidden></input></div>
                                 <!--<div class="selection-icon">-->    
                                     <!--<input type="checkbox" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="{{programaction.scheduledEntityListId}}" hidden />-->
                                 <!--</div>-->
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft hint--top" ng-show="programaction.status === 'Template Saved'"  data-hint="Template Saved" > 
-                                    <img src="images/Icons/templateSaved.svg" class="status-button" />
+                                <div class="icon-container fleft hint--top" ng-show="programaction.status == 'Template Saved'"  data-hint="Template Saved" > 
+                                    <img src="images/templateSaved.svg" class="status-button" />
                                 </div>
-                                <div class="icon-container fleft hint--top" ng-show="programaction.status === 'No Template'"  data-hint="No Template" > 
-                                    <img src="images/Icons/needTemplate.svg" class="status-button"/>
+                                <div class="icon-container fleft hint--top" ng-show="programaction.status == 'No Template'"  data-hint="No Template" > 
+                                    <img src="images/needTemplate.svg" class="status-button"/>
                                 </div>
-                                <div class="icon-container fleft hint--top" ng-show="programaction.status === 'Approved'"  data-hint="Approved" > 
-                                    <img src="images/Icons/ActionApproved.svg" class="status-button"/>
+                                <div class="icon-container fleft hint--top" ng-show="programaction.status == 'Approved'"  data-hint="Approved" > 
+                                    <img src="images/ActionApproved.svg" class="status-button"/>
                                 </div>
-                                <div class="icon-container fleft hint--top" ng-show="programaction.status === 'Complete'"  data-hint="Complete" > 
-                                    <img src="images/Icons/ActionComplete.svg" class="status-button"/>
+                                <div class="icon-container fleft hint--top" ng-show="programaction.status == 'Complete'"  data-hint="Complete" > 
+                                    <img src="images/ActionComplete.svg" class="status-button"/>
                                 </div>
                                 <div class="slat-title-container  col-1of2 fleft">
                                     <div class="slat-title email-list-slat-title col-1of1 sh1">{{programaction.programTemplateName}}</div>

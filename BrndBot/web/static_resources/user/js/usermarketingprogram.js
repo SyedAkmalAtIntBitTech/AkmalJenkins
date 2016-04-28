@@ -30,12 +30,12 @@
                 var program_date_time = $("#programdatetime").val();
                 var program_url = $("#program_url").val();
                 var program_urlname = $("#program_url_name").val();
-                if (program_name.length === 0){
+                if (program_name === ""){
                     alert("Enter the program name!");
                     $("#program_name").focus();
                     return false;
                 }
-                if (program_date_time.length === 0){
+                if (program_date_time === ""){
                     alert("Enter the Program Date!");
                     $("#programdatetime").focus();
                     return false;
@@ -171,7 +171,7 @@
                     var myEpoch = schedule_time;
 
                     console.log("New Epoch: " + myEpoch);
-        
+                        
                     var marketing_category_id =$("#marketing_category_id").val();
                     var marketing_program_id =$("#marketing_program_id").val();
 //                    alert("cat.."+marketing_category_id);
@@ -183,16 +183,15 @@
                                            "marketing_category_id":marketing_category_id,
                                            "marketing_program_id":marketing_program_id
                                           };
-                                          alert(JSON.stringify(program_details));
                     $http({
                         method: 'POST',
                         url: getHost() + 'setMarketingProgram.do',
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(program_details)
-                    }).success(function (data, status, headers, config) {alert(JSON.stringify(data));
+                    }).success(function (data, status, headers, config) {
                         if (data !== null){
                             alert("Details saved successfully.");
-                            var redirect="user/marketingprogramactions?past=0&program_id="+data+"&program_date="+program_date_time;
+                            var redirect="user/marketingprogramactions?past=0&program_id="+marketing_program_id+"&program_date="+program_date_time;
                             window.open(getHost() + redirect, "_self");
                         }else {
                             alert("Problem saving the record!");

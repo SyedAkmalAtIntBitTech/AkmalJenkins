@@ -138,7 +138,7 @@ public class CompanyMarketingProgramDaoImpl implements CompanyMarketingProgramDa
                     .createCriteria(CompanyMarketingProgram.class)
                     .setFetchMode("fkCompanyId", FetchMode.JOIN)
                     .add(Restrictions.eq("companyMarketingProgramId", id))
-                    .add(Restrictions.eq("fkMarketingProgramId", marketingProgramId));
+                    .add(Restrictions.eq("fkMarketingProgramId.marketingProgramId", marketingProgramId));
             List<CompanyMarketingProgram> companyMarketingProgramList = criteria.list();
             if (companyMarketingProgramList.isEmpty()) {
                 return null;

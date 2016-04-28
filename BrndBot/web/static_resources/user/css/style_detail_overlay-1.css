@@ -1691,7 +1691,8 @@ input-field-container{
 }
 
 .col-2of10{
-    width: 21%;
+    /*width: 21%;*/
+    width: 20%;
     box-sizing: border-box;
     margin-right: 10px;
 }
