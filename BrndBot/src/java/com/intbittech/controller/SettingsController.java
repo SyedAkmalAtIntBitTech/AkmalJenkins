@@ -19,7 +19,6 @@ import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.CompanyPreferencesFacebookService;
 import com.intbittech.services.CompanyPreferencesService;
-import com.intbittech.services.CompanyPreferencesTwitterService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.StringUtility;
 import com.intbittech.utility.UserSessionUtil;
@@ -66,8 +65,8 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     @Autowired
     private CompanyPreferencesFacebookService companyPreferencesFacebookService;
     
-    @Autowired
-    private CompanyPreferencesTwitterService companyPreferencesTwitterService;
+//    @Autowired
+//    private CompanyPreferencesTwitterService companyPreferencesTwitterService;
 
     @RequestMapping(value = "/getColors", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getColors(HttpServletRequest request,
@@ -317,65 +316,65 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "/twitterDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> twitterDetails(HttpServletRequest request,
-            HttpServletResponse response) {
-
-        TransactionResponse transactionResponse = new TransactionResponse();
-        try {
-            Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-
-            String method_type = (String) requestBodyMap.get("access_token_method");
-            String access_token = (String) requestBodyMap.get("twitter_access_tokens");
-            String settings = (String) requestBodyMap.get("settings");
-            String twitter_data = "";
-            JSONObject json_twitter = new JSONObject();
-            String twitter_access_token = "";
-            String twitter_access_token_secret = "", twitter_user_name = "";
-            String access_token_secret = "";
-            String user_name = "";
-            
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            Company company = userProfile.getUser().getFkCompanyId();
-            Integer companyId = company.getCompanyId();
-            String outputJson = "Success";
-
-            if (!StringUtility.isEmpty(access_token)) {
-                String access[] = access_token.split(",");
-                access_token = access[0];
-                access_token_secret = access[1];
-                user_name = access[2];
-            }
-
-            if (!StringUtility.isEmpty(method_type) && method_type.equalsIgnoreCase("setAccessToken")) {
-                companyPreferencesTwitterService.updatePreference(companyId, access_token, access_token_secret, user_name);
-            } else if (!StringUtility.isEmpty(method_type) && method_type.equalsIgnoreCase("getAccessToken")) {
-                json_twitter = companyPreferencesTwitterService.getCompanyPreferenceForAccessToken(companyId);
-                if (json_twitter.size() != 0) {
-                    twitter_access_token = (String) json_twitter.get("twitter_access_token");
-                    twitter_access_token_secret = (String) json_twitter.get("twitter_access_token_secret");
-                    twitter_user_name = (String) json_twitter.get("twitter_user_name");
-                    twitter_data = twitter_access_token + "," + twitter_access_token_secret + "," + twitter_user_name;
-                }
-
-                if (!StringUtility.isEmpty(settings)) {
-                    if (json_twitter.get("TwitterLoggedIn") == null) {
-                        json_twitter.put("TwitterLoggedIn", "false");
-                        json_twitter.put("twitter_user_name", "twitter not configured");
-                    }
-                    outputJson = new Gson().toJson(json_twitter);
-                } else {
-                    outputJson = twitter_data;
-                }
-            } else if (!StringUtility.isEmpty(method_type) && method_type.equalsIgnoreCase("clearTwitterDetails")) {
-                companyPreferencesTwitterService.deletePreferences(companyId);
-            }
-            transactionResponse.setMessage(outputJson);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
-        } catch (Throwable throwable) {
-            logger.error(throwable);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
-        }
-        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
-    }
+//    @RequestMapping(value = "/twitterDetails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<ContainerResponse> twitterDetails(HttpServletRequest request,
+//            HttpServletResponse response) {
+//
+//        TransactionResponse transactionResponse = new TransactionResponse();
+//        try {
+//            Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+//
+//            String method_type = (String) requestBodyMap.get("access_token_method");
+//            String access_token = (String) requestBodyMap.get("twitter_access_tokens");
+//            String settings = (String) requestBodyMap.get("settings");
+//            String twitter_data = "";
+//            JSONObject json_twitter = new JSONObject();
+//            String twitter_access_token = "";
+//            String twitter_access_token_secret = "", twitter_user_name = "";
+//            String access_token_secret = "";
+//            String user_name = "";
+//            
+//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//            Company company = userProfile.getUser().getFkCompanyId();
+//            Integer companyId = company.getCompanyId();
+//            String outputJson = "Success";
+//
+//            if (!StringUtility.isEmpty(access_token)) {
+//                String access[] = access_token.split(",");
+//                access_token = access[0];
+//                access_token_secret = access[1];
+//                user_name = access[2];
+//            }
+//
+//            if (!StringUtility.isEmpty(method_type) && method_type.equalsIgnoreCase("setAccessToken")) {
+//                companyPreferencesTwitterService.updatePreference(companyId, access_token, access_token_secret, user_name);
+//            } else if (!StringUtility.isEmpty(method_type) && method_type.equalsIgnoreCase("getAccessToken")) {
+//                json_twitter = companyPreferencesTwitterService.getCompanyPreferenceForAccessToken(companyId);
+//                if (json_twitter.size() != 0) {
+//                    twitter_access_token = (String) json_twitter.get("twitter_access_token");
+//                    twitter_access_token_secret = (String) json_twitter.get("twitter_access_token_secret");
+//                    twitter_user_name = (String) json_twitter.get("twitter_user_name");
+//                    twitter_data = twitter_access_token + "," + twitter_access_token_secret + "," + twitter_user_name;
+//                }
+//
+//                if (!StringUtility.isEmpty(settings)) {
+//                    if (json_twitter.get("TwitterLoggedIn") == null) {
+//                        json_twitter.put("TwitterLoggedIn", "false");
+//                        json_twitter.put("twitter_user_name", "twitter not configured");
+//                    }
+//                    outputJson = new Gson().toJson(json_twitter);
+//                } else {
+//                    outputJson = twitter_data;
+//                }
+//            } else if (!StringUtility.isEmpty(method_type) && method_type.equalsIgnoreCase("clearTwitterDetails")) {
+//                companyPreferencesTwitterService.deletePreferences(companyId);
+//            }
+//            transactionResponse.setMessage(outputJson);
+//            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
+//        } catch (Throwable throwable) {
+//            logger.error(throwable);
+//            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+//        }
+//        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+//    }
 }
