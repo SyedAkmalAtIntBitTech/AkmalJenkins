@@ -396,8 +396,6 @@ function onboardingcontroller($scope,$http) {
     };
     
     $scope.saveColorPalette = function (){
-        alert();
-//         var companyId=localStorage.getItem("companyId");
          var color1=$("#color1").css("backgroundColor");
          var color2=$("#color2").css("backgroundColor");
          var color3=$("#color3").css("backgroundColor");
@@ -417,7 +415,7 @@ function onboardingcontroller($scope,$http) {
                 data: colorObject
             }).success(function (data)
             {
-                alert("sa"+ JSON.stringify(data));
+                alert(JSON.stringify(data));
 //                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 window.open(getHost() + 'user/dashboard', "_self");
             })

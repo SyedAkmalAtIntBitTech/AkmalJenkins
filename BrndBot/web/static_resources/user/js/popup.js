@@ -1065,7 +1065,18 @@ $(document).ready(function ()
    $("#hidepopup").click(function(){
      $("#imagePopUp").hide();
     });
-    
+   $("#shoeUploadimage").click(function(){
+       $("#gallerySpan").hide();
+       $("#showGallery").removeClass("popUp_subheader-tabs-active fleft").addClass("popUp_subheader-tabs fleft");
+       $("#shoeUploadimage").removeClass("popUp_subheader-tabs fleft").addClass("popUp_subheader-tabs-active fleft");
+       $("#uploadImageSpan").show();
+   });
+   $("#showGallery").click(function(){
+       $("#gallerySpan").show();
+       $("#showGallery").removeClass("popUp_subheader-tabs fleft").addClass("popUp_subheader-tabs-active fleft");
+       $("#shoeUploadimage").removeClass("popUp_subheader-tabs-active fleft").addClass("popUp_subheader-tabs fleft");
+       $("#uploadImageSpan").hide();
+   }); 
 });
 function changePostType(){
    var postType = $("#linkPostFields").css("display");
@@ -1115,7 +1126,6 @@ function twitterPost(){
         }
     });
 }
-
 function displayUserImages($scope,$http){
     $scope.getUserImaages = function(){
         $http({

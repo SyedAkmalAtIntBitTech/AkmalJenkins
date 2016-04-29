@@ -603,3 +603,6 @@ width: calc(100% - 129px);
     height: 100px;
     width: 222px;
 }
+.cursor-shape{
+    cursor: pointer;
+}
