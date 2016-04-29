@@ -191,19 +191,30 @@ function onboardingcontroller($scope,$http) {
             alert("Please Enter Studio Id.");
             $("#mindbodyStudioId").focus();
         }else{
-         $http({
-            method: 'GET',
-            url: getHost() +'/externalContent/getActivationLink.do?studioId='+studioId
-        }).success(function (data, status, headers, config) {
-            var actiovationLink=eval(JSON.stringify(data.d.details[0]));
-            $("#actiovationLink").attr('href',actiovationLink);
-            $("#activationLinkDiv").empty().append(actiovationLink);
-            $("#serviceContinueButton").css("pointer-events","auto");
-//            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            $http({
+                method: 'POST',
+                url: getHost() +'/onboarding/saveStudioId.do?studioId='+studioId
+            }).success(function (data, status, headers, config) {
+            var studioIdSaved = eval(JSON.stringify(data.d.details[0]));
+            alert(studioIdSaved);
+            if(studioIdSaved === "true") {
+                $http({
+                    method: 'GET',
+                    url: getHost() +'/externalContent/getActivationLink.do?studioId='+studioId
+                }).success(function (data, status, headers, config) {
+                    var actiovationLink=eval(JSON.stringify(data.d.details[0]));
+                    $("#actiovationLink").attr('href',actiovationLink);
+                    $("#activationLinkDiv").empty().append(actiovationLink);
+                    $("#serviceContinueButton").css("pointer-events","auto");
+        //            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                }).error(function (data, status, headers, config) {
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });
+            }
         }).error(function (data, status, headers, config) {
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
         });
-    }
+        }
     };
     $scope.saveServices = function (){
         var services= $("#services").val();

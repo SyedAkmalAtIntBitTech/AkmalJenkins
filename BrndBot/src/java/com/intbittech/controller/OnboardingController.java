@@ -96,15 +96,16 @@ public class OnboardingController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-        Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
-        
-        //save studioId
-        Company company = new Company();
-        company.setCompanyId(companyID);
-        CompanyPreferences companyPreferences = new CompanyPreferences();
-        companyPreferences.setCompanyLocation(studioId);
-        companyPreferences.setFkCompanyId(company);
-        companyPreferencesService.setStudioId(companyPreferences);
+            Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
+
+            //save studioId
+            Company company = new Company();
+            company.setCompanyId(companyID);
+            CompanyPreferences companyPreferences = new CompanyPreferences();
+            companyPreferences.setCompanyLocation(studioId);
+            companyPreferences.setFkCompanyId(company);
+            companyPreferencesService.setStudioId(companyPreferences);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("true"));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
