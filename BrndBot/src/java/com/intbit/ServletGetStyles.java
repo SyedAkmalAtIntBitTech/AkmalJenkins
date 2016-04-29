@@ -22,6 +22,7 @@ import org.json.simple.JSONArray;
  *
  * @author intbit
  */
+//To-Do Ilyas/AR refactor or remove ??
 public class ServletGetStyles extends BrndBotBaseHttpServlet {
 
     String query = "", query1 = "";
