@@ -53,8 +53,6 @@ public class ExternalContentController {
     private ExternalSourceService externalSourceService;
     @Autowired
     private ExternalSourceKeywordLookupService externalSourceKeywordLookupService;
-    @Autowired
-    private CompanyPreferencesService companyPreferencesService;
     
     @RequestMapping(value = "/isActivated", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> isActivated() throws SQLException {
@@ -67,19 +65,10 @@ public class ExternalContentController {
     }
 
     @RequestMapping(value = "/getActivationLink", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getActivationLink(@RequestParam("studioId") String studioId) throws SQLException {
+    public ResponseEntity<ContainerResponse> getActivationLink() throws SQLException {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
         Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
-        
-        //save studioId
-        Company company = new Company();
-        company.setCompanyId(companyID);
-        CompanyPreferences companyPreferences = new CompanyPreferences();
-        companyPreferences.setCompanyLocation(studioId);
-        companyPreferences.setFkCompanyId(company);
-        companyPreferencesService.setStudioId(companyPreferences);
-                
         externalContentProcessor = new ExternalContentProcessor(companyID);
         genericResponse.addDetail(externalContentProcessor.getActivationLink());
         
