@@ -1077,6 +1077,11 @@ $(document).ready(function ()
        $("#shoeUploadimage").removeClass("popUp_subheader-tabs-active fleft").addClass("popUp_subheader-tabs fleft");
        $("#uploadImageSpan").hide();
    }); 
+  $("#addImageToTwitterPost").click(function(){
+    $("#addImageDivToTwitterPost").show();
+    $("#addImageToTwitterPost").hide();
+    });
+   
 });
 function changePostType(){
    var postType = $("#linkPostFields").css("display");
@@ -1114,6 +1119,7 @@ function fbPost(){
 function twitterPost(){
     var shareText = $("#twitterShareText").val();
     var dataObject="";
+    alert(shareText);
    $.ajax({
             url: "",
            method: 'post',

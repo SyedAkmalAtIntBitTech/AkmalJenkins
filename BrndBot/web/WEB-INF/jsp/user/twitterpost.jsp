@@ -45,13 +45,24 @@
                             <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="twitterShareText"></textarea>
                         </div>  
                     </div>
-                    <div class="Social-Add-Image-Wrap clear">
-                        <a href="SocialSequence-AddImage.html" class="clickable-area">
-                            <object type="image/svg+xml" data="/Final-Icons/add-image.svg" class="add-image-icon fleft" style="cursor:pointer;"> </object>
+                    <div class="Social-Add-Image-Wrap clear" id="addImageToTwitterPost">
+                        <span class="clickable-area">
+                            <img type="image/svg+xml" src="../static_resources/user/images/add-Image.svg" class="add-image-icon fleft" style="cursor:pointer;">
                             <div class="Add-Image-Button fleft">
                                 Add Image to Post
                             </div>
-                        </a>
+                        </span>
+                    </div>
+                    <div class="Social-Add-Image-Wrap clear displayNone" id="addImageDivToTwitterPost">
+                        <img src="https://daks2k3a4ib2z.cloudfront.net/562feb3ef5fe5a8c1fd02272/56b8940906817e9a2bbb57ca_Deafult-Image_680x330.jpg" alt="alt_text" border="0" align="center" class="imageAdded pushUp_10 fleft">
+                        <div class="col-1of1 clear">
+                            <div class="edit-Image-Button fleft" id="changeImage">
+                                Change Image
+                            </div>
+                            <div class="edit-Image-Button fleft">
+                                Edit Image
+                            </div>
+                        </div>
                     </div>
                 </div>   
             </div>
@@ -59,5 +70,6 @@
         <div class="bottomNav">
             <div class="bottom-ContinueButton fright" onclick="twitterPost()">CONTINUE</div>
         </div>
+        <%@include file="imagegallerypopup.jsp" %>  
     </body>
 </html>
