@@ -648,12 +648,13 @@ $edit=0;
                                             "emailLastName":email_last_name}
                         $http({
                             method: 'POST',
-                            url: getHost() + 'SetEmailLists',
+                            url: getHost() + '/emaillist/save.do',
                             headers: {'Content-Type': 'application/json'},
                             data: emaildetails
                         }).success(function (data)
                         {
-                            if (data === "false") {
+                            var parseData=JSON.stringify(data.d.operationStatus.messages);
+                            if (parseData === '["Email list could not be saved, please try again in sometime."]') {
                                 emaildetails = {"update":"addEmailID", "emailListName":email_list_name, 
                                             "emailAddress":email_address, "emailFirstName":email_first_name, 
                                             "emailLastName":email_last_name}
@@ -664,12 +665,10 @@ $edit=0;
                                     data: emaildetails
                                 }).success(function (data)
                                 {
-                                    if (data === "true") {
-                                        alert(datasaved);
-                                        window.open(getHost() + 'emaillistsdetails.jsp?list_name='+email_list_name+'&type='+type, "_self");
-                                    }
+                                    alert(datasaved);
+                                    window.open(getHost() + 'user/emaillistsdetails.jsp?list_name='+email_list_name+'&type='+type, "_self");
                                 });
-                            }else if (data === "true"){
+                            }else if (parseData === '["Email list saved successfully."]'){
                                 alert(emailexist);
                             }
                         });                    
@@ -680,17 +679,13 @@ $edit=0;
                                                 "emailLastName":email_last_name}
                             $http({
                                 method: 'POST',
-                                url: getHost() + 'SetEmailLists',
+                                url: getHost() + '/emaillist/save.do',
                                 headers: {'Content-Type': 'application/json'},
                                 data: emaildetails
                             }).success(function (data)
                             {
-                                if (data === "true") {
-                                    alert(datasaved);
-                                    window.open(getHost() + 'emaillistsdetails.jsp?list_name='+email_list_name+'&type='+type, "_self");
-                                } else if (data === error) {
-                                    alert(data);
-                                }
+                                alert(datasaved);
+                                window.open(getHost() + 'user/emaillistsdetails?list_name='+email_list_name+'&type='+type, "_self");
                             });
                         }
                     }            
@@ -787,7 +782,7 @@ $edit=0;
                     $("#chooseEmailList").val("");
                 };
                 
-                $scope.updateList = function (list_name, type) {
+                $scope.updateList = function () {
                     $("#showList").show();
                     $("#importListli").removeClass("top-subnav-link-active");
                     $("#importList").removeClass("h3-active-subnav");
@@ -801,13 +796,14 @@ $edit=0;
                     $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","560px");
                     $http({
                         method: 'GET',
-                        url: getHost() + 'GetEmailLists?update=emailsForEmailList&list_name='+list_name
+                        url: getHost() + '/emaillist/get.do?update=emailsForEmailList&list_name='+list_name
                     }).success(function (data, status, headers, config) {
+                        var parseData=JSON.parse(data.d.details);
                         $(".page-background").css("overflow","scroll");
                         $('#loadingGif').remove();
                         $(".page-background").css("background-color","#EFF2F6");
-                        $scope.user_emailAddresses = data.user_emailAddresses;
-                        $scope.mindbody_emailAddresses = data.mindbody_emailAddresses;
+                        $scope.user_emailAddresses = parseData.user_emailAddresses;
+                        $scope.mindbody_emailAddresses = parseData.mindbody_emailAddresses;
                         $scope.selected_email_listname = list_name;
                         $scope.type = type;
                         if (type == 'user'){
@@ -839,6 +835,8 @@ $edit=0;
                         if (data === error) {
                             alert(data);
                         }
+                    }).error(function(error){
+                        alert(JSON.stringify(error));
                     });
                 };
                 
