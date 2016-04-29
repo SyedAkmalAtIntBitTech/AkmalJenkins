@@ -139,7 +139,7 @@
                     headers: {'Content-Type':'application/json'},
                     data: JSON.stringify(entity_details)
                 }).success(function(data, status){
-                    alert("getEntityDetails===\n"+JSON.stringify(data));
+//                    alert("getEntityDetails===\n"+JSON.stringify(data));
                     $scope.entity_details = data;
                     days = data.recurring_email_days;
                     $("#emaillist").val(email_list_name);
@@ -186,15 +186,15 @@
             
 
             var emailids = {"update": "allEmailListNames"};
-            $http({
+             $.ajax({
                 method: 'GET',
-                url: getHost() + '/emaillist/get?update=allEmailListNames',
-                data: JSON.stringify(emailids)
-//                ?update=allEmailListNames
-            }).success(function(data, status, headers, config) {
-                alert("-====showEmailList====\n"+JSON.stringify(data));
-                $scope.emailLists_user = data.user;
-                $scope.emailLists_mindbody = data.mindbody;
+//                        url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts'
+                 url: getHost() + '/emaillist/get.do?update=allEmailListWithNoOfContacts'
+            }).success(function (data, status, headers, config) { 
+                var parseData=JSON.parse(data.d.details);
+//                alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user));
+                $scope.emailLists_user = parseData.allEmailListWithNoOfContacts.user;
+                $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
             }).error(function(error){
                 alert("showEmailList==Error\n"+JSON.stringify(error));
 //                alert("Problem fetching the data!");
@@ -212,10 +212,10 @@
                     method: 'GET',
                     url: getHost() + '/getAllRecurringEmailTemplates.do'
                 }).success(function(data, status){
-                    alert("EmailTemplates===\n"+JSON.stringify(data));
+//                    alert("EmailTemplates===\n"+JSON.stringify(data));
                     $scope.recurring_email_templates = data;
                 }).error(function(error){
-                    alert("EmailTemplates Error===\n"+JSON.stringify(error));
+//                    alert("EmailTemplates Error===\n"+JSON.stringify(error));
 //                    alert("Problem fetching the data!");
                 });
 
@@ -821,8 +821,8 @@
                         <div class="col-3of10 fleft">
                               <select id="emaillist" name="emaillist" class="input-field-textfield">
                                    <option value="0">-- Select --</option>
-                                   <option ng-repeat ="Lists in emailLists_user" value="{{Lists}}">{{Lists}}</option>
-                                   <option ng-repeat ="Lists in emailLists_mindbody" value="{{Lists}}">{{Lists}}</option>
+                                   <option ng-repeat ="Lists in emailLists_user" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
+                                   <option ng-repeat ="Lists in emailLists_mindbody" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
                               </select>
                         </div>
                         <div class="col-4of10 fleft pushUp-30">
