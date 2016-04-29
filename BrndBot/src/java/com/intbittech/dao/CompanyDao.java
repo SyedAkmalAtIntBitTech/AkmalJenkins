@@ -27,6 +27,15 @@ public interface CompanyDao {
     public List<Company> getAllCompanies() throws ProcessFailed;
     
     /**
+     * This method retrieves the list of {@link Company} from database.
+     *
+     * @param companyId
+     * @return {@link Company}
+     * @throws ProcessFailed the process failed
+     */
+    public Company getCompanyById(Integer companyId) throws ProcessFailed;
+    
+    /**
      * This method saves {@link Company} to database.
      *
      * @param company
@@ -34,6 +43,14 @@ public interface CompanyDao {
      * @throws ProcessFailed the process failed
      */
     public Integer save(Company company) throws ProcessFailed;
+    
+    /**
+     * This method saves {@link Company} to database.
+     *
+     * @param company
+     * @throws ProcessFailed the process failed
+     */
+    public void update(Company company) throws ProcessFailed;
     
     /**
      * This method saves {@link CompanyPreferences} to database.

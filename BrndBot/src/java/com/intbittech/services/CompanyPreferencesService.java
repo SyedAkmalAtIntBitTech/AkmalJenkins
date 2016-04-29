@@ -29,5 +29,7 @@ public interface CompanyPreferencesService {
     public List<String> getColors(Company company);
 
     public void setColors(CompanyColorsDetails companyColorsDetails, Company company);
+    
+    public void setStudioId(CompanyPreferences companyPreferences);
    
 }

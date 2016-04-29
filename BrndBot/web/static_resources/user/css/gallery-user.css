@@ -1,0 +1,53 @@
+/*
+Copyright 2015 Intbit Technologies. This software and documentation contains
+confidential and proprietary information that is owned by Intbit
+Technologies. Unauthorized use and distribution are strictly prohibited.
+*/
+/* 
+    Created on : 29 Apr, 2016, 11:14:55 AM
+    Author     : sandeep
+*/
+
+.gallery-item-wrap{
+    width: 222px;
+      border: 1px solid #D2D3D5;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.gallery-item-wrap-selected{
+    width: 226px;
+      border: 2px solid #0f76a6;
+    border-radius: 3px;
+      margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.gallery-image-wrap{
+  height: 100px;
+    width: 200px;
+}
+
+.gallery-image{
+  height: 100px;
+    width: 222px;
+}
+
+.gallery-name{
+    padding: 10px 15px;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+.gallery-settings{
+    height: 20px;
+}
+
+.gallery-padding{
+    padding:30px 30px 0px 30px;
+}
+
+.gallery-pane{
+    height: 60vh;
+}

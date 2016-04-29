@@ -1,0 +1,123 @@
+/*
+Copyright 2015 Intbit Technologies. This software and documentation contains
+confidential and proprietary information that is owned by Intbit
+Technologies. Unauthorized use and distribution are strictly prohibited.
+*/
+/* 
+    Created on : 29 Apr, 2016, 3:58:16 PM
+    Author     : sandeep
+*/
+
+.selectCompany-wrap{
+    margin-top:40px;
+    width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logoUpload-wrap{
+    padding: 30px 0px;
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.logoUpload-svg{
+    width: 150px;
+    margin:auto;
+}
+
+.logoUpload--button{
+    width: 180px;
+    margin: auto;
+}
+
+.logo-Uploaded-wrap{
+    width: 300px;
+    margin: auto;
+    padding: 30px 0px;
+}
+
+.logo-Uploaded{
+    max-width: 250px;
+    max-height: 150px;
+}
+
+.logoUpload-Success-svg{
+    width: 50px;
+    margin: 50px;
+}
+
+.palette-pane{
+    width: 1000px;
+}
+
+.pane-palette_left{
+    width: 50%;
+    border-right: 1px solid #D2D3D5;
+    box-sizing: border-box;
+    height: 330px;
+    padding-right: 20px;
+}
+
+.pane-palette_right{
+    width: 50%;
+    box-sizing: border-box;
+    padding: 0px 0px 0px 20px;
+}
+
+.palette-wrap{
+    margin-top: 80px;
+}
+
+.palette{
+    width: 400px;
+    margin: auto;
+}
+
+.palette-colorswab{
+    width: 80px;
+    height: 35px;
+    border: 2px solid #D2D3D5;
+    border-radius: 3px;
+    box-sizing: border-box;
+    margin-right: 20px;
+
+}
+
+.colorOptions-bar{
+    height: 30px;
+    width: 100%;
+    box-sizing: border-box;
+    
+}
+
+.colorOptions-tab{
+    text-align: center;
+    font-size: 13px;
+     line-height: 30px;
+    font-weight: 600;
+     box-sizing: border-box;
+    color: #888;
+    line-height: 30px;
+    height: 29px;
+}
+
+.colorOptions-tab-active{
+    text-align: center;
+    line-height: 30px;
+    height: 29px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0F76A6;
+    border-bottom: 2px solid #0F76A6;
+     box-sizing: border-box;
+    
+}
+
+.onboarding-subtext{
+    margin-top: 10px;
+}
+
+
+

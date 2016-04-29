@@ -6,7 +6,6 @@
 package social.controller;
 
 import com.intbit.ConnectionManager;
-import com.intbittech.marketing.dao.impl.ScheduledEntityListDaoImpl;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyMarketingProgram;
 import com.intbittech.model.RecurringEmailTemplate;
@@ -27,7 +26,7 @@ import java.util.logging.Logger;
 public class SchedulerUtilityMethods {
 
     private static final ConnectionManager connectionManager = ConnectionManager.getInstance();
-    private static final Logger logger = Logger.getLogger(ScheduledEntityListDaoImpl.class.getName());
+    private static final Logger logger = Logger.getLogger(SchedulerUtilityMethods.class.getName());
 
     public static ArrayList<String> getLatestApprovedPost(String status, String entityType, String programStatus) {
         StringBuilder sbSql = new StringBuilder();

@@ -18,6 +18,7 @@ import com.intbittech.services.CompanyImagesService;
 import com.intbittech.services.GlobalImagesService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.UserSessionUtil;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -29,6 +30,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -76,7 +78,11 @@ public class ImagesController {
             String link = "";
             String imageURL = ServletUtil.getServerName(request.getServletContext());
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            if (userProfile.getAuthorities().contains("ROLE_ADMIN")) {
+            List<String> roles = new ArrayList<String>();
+            for (GrantedAuthority authority : userProfile.getAuthorities()) {
+                roles.add(authority.getAuthority());
+            }
+            if (roles.contains("ROLE_ADMIN")) {
                 pathSuffix = globalImagesService.getPath();
                 fileName = FileUploadUtil.uploadFile(pathSuffix, request);
                 link = globalImagesService.getLink(fileName, imageURL);
@@ -95,7 +101,7 @@ public class ImagesController {
                 companyImagesService.save(companyImages);
             }
             transactionResponse.setId(link);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_passwordchangesuccessfully", new String[]{}, Locale.US)));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_save", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));

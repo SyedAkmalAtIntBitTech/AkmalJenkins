@@ -1204,9 +1204,11 @@ uploadModule.service('fileUpload', ['$http', function ($http) {
                 headers: {'Content-Type': undefined}
             })
                     .success(function (data) {
-                        window.open(global_host_address + 'imagegallery.jsp', "_self");
+                         alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                        window.open(global_host_address + 'user/imagegallery', "_self");
                     })
                     .error(function () {
+                       
                         alert(requesterror);
                     });
         };
@@ -1224,7 +1226,7 @@ uploadModule.controller('myCtrl', ['$scope', 'fileUpload', function ($scope, fil
             {
                 var file = $scope.myFile;
                 console.log('file is ' + JSON.stringify(file));
-                var uploadUrl = global_host_address + 'UploadImages';
+                var uploadUrl = global_host_address + '/images/save';
                 fileUpload.uploadFileToUrl(file, uploadUrl);
             }
         };
@@ -1247,42 +1249,43 @@ imagegallery.controller('samplecontoller', function ($scope, $http) {
 
         $http({
             method: 'GET',
-            url: 'GetImageGallery'
-        }).success(function (data, status, headers, config) {
-            $scope.datalists = data;
-
+            url: global_host_address+'/companyImages/get'
+        }).success(function (data) {
+             
+            $scope.datalists = data.d.details;
+         
             $scope.numberOfPages = function () {
                 return Math.ceil($scope.datalists.length / $scope.pageSize);
             };
             if (data === error) {
                 alert(data);
             }
-        }).error(function (data, status, headers, config) {
-            alert(nodataerror);
+        }).error(function (data) {
+            alert(JSON.stringify(data));
         });
 
     };
 
-    $scope.deleteImage = function (image_id, user_id, image_name) {
-        var image = {"image_id": image_id, "user_id": user_id, "image_name": image_name};
-
+    $scope.deleteImage = function (companyImageId) {
+         var deleteOrganization = confirm(deleteImagePrompt);
+            if (deleteOrganization === true)
+            {
+        var image = {"companyImageId": companyImageId};
         $http({
             method: 'POST',
-            url: getHost() + 'DeleteGalleryImages',
-            headers: {'Content-Type': 'application/json'},
-            data: image
+            url: getHost() + '/companyImages/delete/'+companyImageId,
+            headers: {'Content-Type': 'application/json'}
+           
         }).success(function (data)
         {
-            $scope.status = data;
-            if (data === "true") {
-                alert(imagedeletesuccess);
-                window.open(getHost() + 'imagegallery.jsp', "_self");
-            } else if (data === error) {
-                alert(data);
-            }
-        })
+            $scope.datalists = data;
+            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+             window.open(getHost() + 'user/imagegallery', "_self");
+            
+        }).error(function (data){alert(JSON.stringify(data));})
     };
 
+    }
 });
 
 angular.module('imagegallery').filter('pagination', function ()

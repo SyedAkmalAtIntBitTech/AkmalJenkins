@@ -7,7 +7,9 @@ package com.intbittech.controller;
 
 import com.controller.GetColorFromImage;
 import com.intbittech.AppConstants;
-import com.intbittech.model.UserRole;
+import com.intbittech.model.Company;
+import com.intbittech.model.CompanyPreferences;
+import com.intbittech.model.UserProfile;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.modelmappers.CompanyLogoDetails;
@@ -15,13 +17,14 @@ import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.FileHandlerUtil;
+import com.intbittech.utility.UserSessionUtil;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +37,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  *
@@ -50,12 +52,14 @@ public class OnboardingController {
 
     @Autowired
     private CompanyService companyService;
+    
+    @Autowired
+    private CompanyPreferencesService companyPreferencesService;
 
     @Autowired
     private MessageSource messageSource;
     
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    
 
     @RequestMapping(value = "/onboarding/isUserUnique", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getUserUnique(@RequestBody UserDetails usersDetails) {
@@ -77,17 +81,30 @@ public class OnboardingController {
     public ResponseEntity<ContainerResponse> saveUser(@RequestBody UserDetails usersDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            Users user = new Users();
-            user.setUserName(usersDetails.getUserName());
-            user.setUserPassword(passwordEncoder.encode(usersDetails.getUserPassword()));
-            UserRole userRole = new UserRole();
-            userRole.setUserRoleId(2);
-            user.setFkUserRoleId(userRole);
-            user.setCreatedDate(new Date());
-
-            Integer returnMessage = usersService.save(user);
-            transactionResponse.setMessage(returnMessage.toString());
+            String returnMessage = usersService.save(usersDetails);
+            transactionResponse.setMessage(returnMessage);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("user_save", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "/onboarding/saveStudioId", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveStudioId(@RequestParam("studioId") String studioId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+        Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
+        
+        //save studioId
+        Company company = new Company();
+        company.setCompanyId(companyID);
+        CompanyPreferences companyPreferences = new CompanyPreferences();
+        companyPreferences.setCompanyLocation(studioId);
+        companyPreferences.setFkCompanyId(company);
+        companyPreferencesService.setStudioId(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -99,8 +116,11 @@ public class OnboardingController {
     public ResponseEntity<ContainerResponse> saveCompany(@RequestBody CompanyDetails companyDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            Integer companyId = companyService.saveCompany(companyDetails);
-            transactionResponse.setMessage(companyId.toString());
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            companyDetails.setCompanyId(userProfile.getUser().getFkCompanyId().getCompanyId());
+            companyDetails.setUserId(userProfile.getUser().getUserId());
+            String returnMessage = companyService.updateCompany(companyDetails);
+            transactionResponse.setMessage(returnMessage);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("company_save", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -110,17 +130,17 @@ public class OnboardingController {
     }
 
     @RequestMapping(value = "/onboarding/getColorsForLogo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getColorsForLogo(@RequestParam("companyId") Integer companyId) {
+    public ResponseEntity<ContainerResponse> getColorsForLogo() {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         try {
 
             GetColorFromImage getcolorsfromimages = new GetColorFromImage();
             //Change to new AppConstants
-            String uploadPath = AppConstants.BASE_IMAGE_COMPANY;
-            //TODO Get companyId from session after spring security
+            String uploadPath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH;
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             uploadPath = uploadPath + File.separator + companyId + File.separator + "logo";
-            //TODO set correct file name 
-            String FileName = "companylogo.png";
+            String FileName = AppConstants.COMPANY_LOGO_FILENAME;
             String FilePath = uploadPath + File.separator + FileName;
             ArrayList<String> logoColorList = new ArrayList<String>();
             logoColorList = getcolorsfromimages.getColors(FilePath);
@@ -139,8 +159,10 @@ public class OnboardingController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             String storableFileName = null;
-            String filePath = AppConstants.BASE_IMAGE_COMPANY + File.separator + companyLogoDetails.getCompanyId().toString() + File.separator + "logo";
-            storableFileName = FileHandlerUtil.saveCompanyLogo(filePath,"companylogo","png",companyLogoDetails.getImageData());
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            String filePath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + "logo";
+            storableFileName = FileHandlerUtil.saveCompanyLogo(filePath, AppConstants.COMPANY_LOGO_FILENAME,companyLogoDetails.getImageData());
             transactionResponse.setMessage(storableFileName);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyLogo_save", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {

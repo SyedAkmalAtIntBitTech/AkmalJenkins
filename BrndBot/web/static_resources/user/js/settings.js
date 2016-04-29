@@ -287,7 +287,7 @@ function controllerUserChanges($scope, $http) {
 
             $http({
                 method: 'POST',
-                url: getHost() + 'ResetUserPassword',
+                url: getHost() + 'signup/resetPassword.do',
                 headers: {'Content-Type': 'application/json'},
                 data: password_object
             }).success(function (data)
@@ -313,7 +313,7 @@ function controllerUserChanges($scope, $http) {
 
         $http({
             method: 'GET',
-            url: getHost() + 'getColors.do'
+            url: getHost() + 'settings/getColors.do'
         }).success(function (data, status, headers, config) {
             var parseData = JSON.parse(data.d.details[0]);
             $scope.user_preferences_colors = JSON.parse(JSON.stringify(parseData));
@@ -337,12 +337,11 @@ function controllerUserChanges($scope, $http) {
     };
 
     $scope.getLogoColors = function () {
-
         $http({
             method: 'GET',
-            url: 'GetColorsFromLogo'
+            url: getHost() +'/onboarding/getColorsForLogo.do'
         }).success(function (data, status, headers, config) {
-            $scope.color = data.Colors;
+            $scope.color =data.d.details;
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
@@ -385,11 +384,11 @@ function controllerUserChanges($scope, $http) {
             alert("Please fill all six colors! Click MOST USED to select colors.");
         } else {
 
-            var colorObject = "{&quot;" + getColor1() + "&quot;:&quot;" + color1 + "&quot;, &quot;" + getColor2() + "&quot;:&quot;" + color2 + "&quot;, &quot;" + getColor3() + "&quot;:&quot;" + color3 + "&quot;, &quot;" + getColor4() + "&quot;:&quot;" + color4 + "&quot;, &quot;type&quot;:&quot;update&quot;}";
+            var colorObject = '{"color1":'+color1+',"color2":'+color2+',"color3":'+color3+',"color4":'+color4+'}';
 
             $http({
                 method: 'POST',
-                url: getHost() + 'setColors',
+                url: getHost() + 'settings/setColors',
                 headers: {'Content-Type': 'application/json'},
                 data: colorObject
             }).success(function (data) {

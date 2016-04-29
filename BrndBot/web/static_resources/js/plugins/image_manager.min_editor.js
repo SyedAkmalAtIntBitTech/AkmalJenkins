@@ -9,9 +9,9 @@
         return void 0 === c && (c = "undefined" != typeof window ? require("jquery") : require("jquery")(b)), a(c), c
     } : a(jQuery)
 }(function (a) {
-    var uid= $("#userid").val();
+    var companyId= $("#userid").val();
     "use strict";
-    if (a.extend(a.FroalaEditor.DEFAULTS, {imageManagerLoadURL: global_host_address+"GetFilesListServlet?image_type=GALLERY&user_id="+uid, imageManagerLoadMethod: "get", imageManagerLoadParams: {}, imageManagerPreloader: "", imageManagerDeleteURL: "", imageManagerDeleteMethod: "post", imageManagerDeleteParams: {}, imageManagerPageSize: 12, imageManagerScrollOffset: 20, imageManagerToggleTags: !0}), a.FroalaEditor.PLUGINS.imageManager = function (b) {
+    if (a.extend(a.FroalaEditor.DEFAULTS, {imageManagerLoadURL: global_host_address+"getImageList?imageType=GALLERY&companyId="+companyId, imageManagerLoadMethod: "get", imageManagerLoadParams: {}, imageManagerPreloader: "", imageManagerDeleteURL: "", imageManagerDeleteMethod: "post", imageManagerDeleteParams: {}, imageManagerPageSize: 12, imageManagerScrollOffset: 20, imageManagerToggleTags: !0}), a.FroalaEditor.PLUGINS.imageManager = function (b) {
         function c() {
             z.show(), F.show(), U = b.image.get(), A || x(), i(), b.$document.find("body").addClass("prevent-scroll"), b.helpers.isMobile() && b.$document.find("body").addClass("fr-mobile")
         }

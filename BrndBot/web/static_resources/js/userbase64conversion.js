@@ -147,7 +147,7 @@ var userImageConversion = function ($scope, fileReader, $http) {
             }).success(function (data, status, headers, config)
             {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));                           
-                window.open(getHost() + 'signup/onboardingpalette', "_self");
+                window.open(getHost() + 'signup/choosepalette', "_self");
             }).error(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             });
