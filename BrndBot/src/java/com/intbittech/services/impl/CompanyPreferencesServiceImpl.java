@@ -110,5 +110,22 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             throw new ProcessFailed("Database error while retrieving record");
         }
     }
+    
+    @Override
+    public void setStudioId(CompanyPreferences companyPreferences) {
+        try {
+            CompanyPreferences companyPreferencesObject = companyPreferencesDao.getByCompany(companyPreferences.getFkCompanyId());
+            if(companyPreferencesObject == null) {
+                
+                companyPreferencesObject.setFkCompanyId(companyPreferences.getFkCompanyId());
+                
+            }
+            companyPreferencesObject.setCompanyLocation(companyPreferences.getCompanyLocation());
+            updatePreferences(companyPreferencesObject);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error saving studio id");
+        }
+    }
 
 }
