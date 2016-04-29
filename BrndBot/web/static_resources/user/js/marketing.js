@@ -1209,13 +1209,16 @@ function controllerMarketingCampaign($scope, $http) {
             var action = {"title": title, "actiontype": actiontype, "marketingType":marketingProgramType, "type": "save",
                 "description": description, "action_date": myEpoch, "days":days
             };
+            alert(JSON.stringify(action));
             $http({
                 method: 'POST',
                 url: getHost() + 'AddAction.do',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(action)
+               
             }).success(function (data)
             {
+                alert(JSON.stringify(data));
                 $scope.status = data;
                 if (data != "") {
                     alert(actionsaved);

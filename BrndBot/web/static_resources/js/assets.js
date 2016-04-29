@@ -177,6 +177,8 @@ app.controller('globalColors', function($scope,$http) {
                     var fontName= $("#fontName").val();
                     var fontFamilyName= $("#fontFamilyName").val();
                     var fileName= $("#fileName").val();
+                    var fileNameSplit=fileName.split('\\').pop();
+                    var fontTypeData = fileName.split(".").pop().toLowerCase();
                    
                    if (fontName=="")
                    {
@@ -204,14 +206,18 @@ app.controller('globalColors', function($scope,$http) {
                     alert(uploadTTF);
                     return false;
                      }
-                    var globalFonts = {"fontName":fontName,"fontFamilyName":fontFamilyName,"fileName": fileName}
-                                           
+                       var fontDataObject = getFontData();
+                     
+                    var globalFonts = {"fontName":fontName,"fontFamilyName":fontFamilyName,"fontType":fontTypeData,"fileName":fileNameSplit,"fontData": fontDataObject.base64ImgString}
+                    alert(JSON.stringify(globalFonts));                
                     $http({
                     method : 'POST',
                     url : getHost()+'/saveFont.do',
+                    dataType: "json",
                     contentType: "application/json",
                     data: JSON.stringify(globalFonts)
-                        }).success(function(data, status, headers, config) {    
+                        }).success(function(data, status, headers, config) { 
+                           
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));                       
                             window.open(getHost() + 'admin/globalfonts', "_self"); 
                         }).error(function(data, status, headers, config) {
@@ -292,3 +298,31 @@ app.controller('globalColors', function($scope,$http) {
 
            });
 
+function fontConverter(id) {
+    var obj =  document.getElementById(id);
+    obj.addEventListener("change", readFile, false);
+}
+
+function readFile() {
+    if (this.files.length === 1) {
+        var reader = new FileReader();
+        var file = this.files[0];
+        var fileName = file.name;     
+        reader.addEventListener("load", function () {
+            var data = reader.result;
+          base64ImgString = data;
+          
+        }, false);
+        reader.readAsDataURL(file);
+    }
+
+}
+
+function getFontData(){
+ 
+    return {
+        "fileName" : fileName,
+        "base64ImgString" : base64ImgString,
+       
+    };
+}

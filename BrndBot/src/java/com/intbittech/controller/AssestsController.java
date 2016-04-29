@@ -294,16 +294,43 @@ public class AssestsController {
             globalFonts.setFontName(globalFontsDetails.getFontName());
             globalFonts.setFontFamilyName(globalFontsDetails.getFontFamilyName());
             globalFonts.setFileName(globalFontsDetails.getFileName());
-            globalFontsService.save(globalFonts);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalFonts_save", new String[]{}, Locale.US)));
+            String filePathWithFileName=AppConstants.BASE_ADMIN_FONT_UPLOAD_PATH+File.separator+globalFontsDetails.getFileName();
+             String storableFileName = null;
+             try {
+                storableFileName = FileHandlerUtil.saveAdminGlobalImage(filePathWithFileName,
+                        globalFontsDetails.getFontType(), globalFontsDetails.getFontData());
+            
+           
         } catch (Throwable throwable) {
+            
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+             throw throwable;
+        }
+         globalFonts.setFontName(storableFileName);
+            try {
+                globalFontsService.save(globalFonts);
+            } catch (Throwable throwable) {
+                if (storableFileName != null) {
+                    FileHandlerUtil.deleteAdminGlobalImage(storableFileName);
+                }
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_not_save", null, Locale.US)));
+                throw throwable;
+            }
+
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_save", null, Locale.US)));
+      
+  } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
-
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+   
     }
-
+    
+    
+   
+    
+    
     @RequestMapping(value = "saveColorTheme", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveColorTheme(@RequestBody GlobalColorsDetails globalColorsDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
