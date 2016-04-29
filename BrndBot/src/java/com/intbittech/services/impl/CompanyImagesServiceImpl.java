@@ -52,7 +52,7 @@ public class CompanyImagesServiceImpl implements CompanyImagesService {
         CompanyImages companyImages = companyImagesDao.getById(companyImagesId);
         Integer companyId = companyImages.getFkCompanyId().getCompanyId();
         String image_name = companyImages.getImageName();
-        String deletePath = AppConstants.BASE_IMAGE_COMPANY + File.separator + companyId + File.separator + image_name;
+        String deletePath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + image_name;
         File deleteFile = new File(deletePath);
         deleteFile.delete();
         companyImagesDao.delete(companyImages);
@@ -65,7 +65,7 @@ public class CompanyImagesServiceImpl implements CompanyImagesService {
 
     @Override
     public String getPath(Integer companyId) {
-        return AppConstants.BASE_IMAGE_COMPANY + File.separator + companyId;
+        return AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId;
     }
 
     @Override

@@ -27,7 +27,7 @@ public class StringUtility {
     }
 
     public static boolean isEmpty(final String value) {
-        return (value == null || (value.trim().length() == 0));
+        return (value == null || (value.trim().length() == 0) || value.equalsIgnoreCase("null"));
     }
     
     public static String objectListToJsonString(List list) throws IOException {

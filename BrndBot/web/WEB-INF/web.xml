@@ -129,10 +129,6 @@
         <servlet-class>social.controller.SaveKeyValueSessionServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DownloadImageServlet</servlet-name>
-        <servlet-class>com.controller.DownloadImageServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AdminHtmlToImageServlet</servlet-name>
         <servlet-class>util.AdminHtmlToImageServlet</servlet-class>
     </servlet>
@@ -198,10 +194,6 @@
     <servlet>
         <servlet-name>GetTemplates</servlet-name>
         <servlet-class>com.controller.GetTemplates</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetFilesListServlet</servlet-name>
-        <servlet-class>com.controller.GetFilesListServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetStyleServlet</servlet-name>
@@ -327,10 +319,6 @@
         <url-pattern>/SaveKeyValueSessionServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DownloadImageServlet</servlet-name>
-        <url-pattern>/DownloadImage</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AdminHtmlToImageServlet</servlet-name>
         <url-pattern>/AdminHtmlToImageServlet</url-pattern>
     </servlet-mapping>
@@ -392,10 +380,6 @@
     <servlet-mapping>
         <servlet-name>GetTemplates</servlet-name>
         <url-pattern>/GetTemplates</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetFilesListServlet</servlet-name>
-        <url-pattern>/GetFilesListServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetStyleServlet</servlet-name>
