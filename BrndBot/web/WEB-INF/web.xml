@@ -327,10 +327,6 @@
         <url-pattern>/DownloadXml</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PreviewServlet</servlet-name>
-        <url-pattern>/PreviewServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>GetUserFacebookManagePages</servlet-name>
         <url-pattern>/GetUserFacebookManagePages</url-pattern>
     </servlet-mapping>
