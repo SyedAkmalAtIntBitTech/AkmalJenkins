@@ -10,8 +10,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no"></meta>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <script src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!--    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
     <link rel="stylesheet" href="css/pikaday.css"></link>
     <link rel="stylesheet" href="css/datepickerpikaday.css"></link>
     <script src="js/pikaday.js"></script>  
@@ -60,7 +60,6 @@
             type = request.getParameter("type");
         }
     %>
-<script src="js/angular.min.js"></script>
  <%!
             String program_date="";
     %>
@@ -71,7 +70,8 @@
 
 <body ng-app ng-controller="emailautomation">
     <input type="hidden" name="program_end_date" id="program_end_date" value="<%= program_date %>"/>
-    
+    <%@include file="header.jsp" %>    
+    <%@include file="navbar.jsp" %>     
 <script>
     
     var emails = "";
@@ -125,7 +125,7 @@
     
     function emailautomation($scope, $http){
         $("#back").click(function (){
-            window.open(getHost() + 'marketingprogramactions.jsp?past=0&program_id='+program_id+'&program_date='+program_end_date, "_self");
+            window.open(getHost() + 'user/marketingprogramactions?past=0&program_id='+program_id+'&program_date='+program_end_date, "_self");
         });
         $scope.getEntityDetails = function (){
             $scope.showEmailList();
@@ -139,7 +139,7 @@
                     headers: {'Content-Type':'application/json'},
                     data: JSON.stringify(entity_details)
                 }).success(function(data, status){
-//                    alert(JSON.stringify(data.recurring_email_time));
+                    alert("getEntityDetails===\n"+JSON.stringify(data));
                     $scope.entity_details = data;
                     days = data.recurring_email_days;
                     $("#emaillist").val(email_list_name);
@@ -157,7 +157,8 @@
 //                    alert(data.recurring_email_email_list_name);
                     showEmailListName(data.recurring_email_email_list_name);
                     
-                }).error(function(){
+                }).error(function(error){
+                    alert(JSON.stringify(error));
                     alert("Problem fetching the data!");
                 });
                  
@@ -187,12 +188,16 @@
             var emailids = {"update": "allEmailListNames"};
             $http({
                 method: 'GET',
-                url: getHost() + 'GetEmailLists?update=allEmailListNames'
+                url: getHost() + '/emaillist/get?update=allEmailListNames',
+                data: JSON.stringify(emailids)
+//                ?update=allEmailListNames
             }).success(function(data, status, headers, config) {
+                alert("-====showEmailList====\n"+JSON.stringify(data));
                 $scope.emailLists_user = data.user;
                 $scope.emailLists_mindbody = data.mindbody;
-            }).error(function(){
-                alert("Problem fetching the data!");
+            }).error(function(error){
+                alert("showEmailList==Error\n"+JSON.stringify(error));
+//                alert("Problem fetching the data!");
             });
         };
 
@@ -205,11 +210,13 @@
                 $("#emlautomeditorcontainer").show();
                 $http({
                     method: 'GET',
-                    url: getHost() + 'getAllRecurringEmailTemplates.do'
+                    url: getHost() + '/getAllRecurringEmailTemplates.do'
                 }).success(function(data, status){
+                    alert("EmailTemplates===\n"+JSON.stringify(data));
                     $scope.recurring_email_templates = data;
-                }).error(function(){
-                    alert("Problem fetching the data!");
+                }).error(function(error){
+                    alert("EmailTemplates Error===\n"+JSON.stringify(error));
+//                    alert("Problem fetching the data!");
                 });
 
         };
@@ -250,13 +257,13 @@
 
                     $http({
                         method: 'POST',
-                        url: 'addRecurringAction.do',
+                        url: getHost()+'/addRecurringAction.do',
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(recurring_action)
                     }).success(function (data, status, headers, config) {
                         if (data === "true") {
                             alert("Details saved succesfully.");
-                            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+ program_id + '&past=0&program_date='+program_end_date, "_self");
+                            window.open(getHost() + 'user/marketingprogramactions?program_id='+ program_id + '&past=0&program_date='+program_end_date, "_self");
                         }else {
                             alert("Problem saving the record!");
                         }
@@ -282,7 +289,7 @@
                     
                     $http({
                         method: 'POST',
-                        url: 'addupdateRecurringAction.do',
+                        url: getHost()+'addupdateRecurringAction.do',
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(recurring_action)
                     }).success(function (data, status, headers, config) {
@@ -316,7 +323,7 @@
 
                     $http({
                         method: 'POST',
-                        url: 'addupdateRecurringAction.do',
+                        url: getHost()+ 'addupdateRecurringAction.do',
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(recurring_action)
                     }).success(function (data, status, headers, config) {
@@ -349,7 +356,7 @@
                     };                    
                     $http({
                         method: 'POST',
-                        url: 'updateRecurringAction.do',
+                        url: getHost()+'updateRecurringAction.do',
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(recurring_action)
                     }).success(function (data, status, headers, config) {
@@ -711,7 +718,7 @@
                 });
 
                 $.ajax({
-                    url: getHost() + "PreviewServlet",
+                    url: getHost() + "/email/previewServlet",
                     method: "post",
                     data: {
                         htmlString: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
@@ -753,7 +760,7 @@
         <div class="page-title-bar col-1of1"> 
            <div class="exit-button-detail" id="back">
                    <a class="exit-button-icon" href="">
-                       <img type="image/svg+xml" src="images/Icons/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
+                       <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
                    </a>
             </div>
             <div class="page-title-with-back page-title-font"> Create and Email Automation</div>
@@ -835,7 +842,12 @@
                                             increase_direction:'up',
                                             disable_keyboard_mobile: true
                                         });
-                                    </script>
+                                    </script> 
+                                    <style>
+                                            .timepicker_wrap{
+                                                    width: 24% !important;
+                                             }
+                                    </style>
                         </div>
                         <div class="col-4of10 fleft pushUp-30 lftpad-5">
                                 <div class="h4" style="">
@@ -845,11 +857,7 @@
                                     id="datepicker"  
                                     class="input-field-textfield col-1of1" 
                                     value="{{entity_details.recurring_email_till_date| date:'MMM dd yyyy'}}" />  
-                            <style>
-                                .timepicker_wrap{
-                                        width: 52%;
-                                 }
-                            </style>
+                           
                                     <script>
                                         var picker = new Pikaday(
                                         {

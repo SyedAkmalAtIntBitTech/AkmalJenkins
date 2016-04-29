@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
+import javax.servlet.http.HttpServletRequest;
 import model.EmailInfo;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -47,13 +48,13 @@ public class EmailListServiceImpl implements EmailListService {
     SqlMethods sql_methods = new SqlMethods();
 
     @Override
-    public String getEmailList(Map<String, Object> requestBodyMap, Integer companyId) throws Exception {
+    public String getEmailList(HttpServletRequest request, Integer companyId) throws Exception {
 
         JSONObject responseObject = new JSONObject();
         org.json.simple.JSONArray emailListNames = new org.json.simple.JSONArray();
         org.json.simple.JSONArray emailListNames_mindbody = new org.json.simple.JSONArray();
 
-        String queryParameter = (String) requestBodyMap.get("update");
+        String queryParameter = (String) request.getParameter("update");
 
         if (queryParameter.equalsIgnoreCase("allEmailListNames")) {
             emailListNames = getEmailListNames(companyId);
@@ -62,7 +63,7 @@ public class EmailListServiceImpl implements EmailListService {
             responseObject.put(IConstants.kEmailListMindbodyKey, emailListNames_mindbody);
 
         } else if (queryParameter.equalsIgnoreCase("emailsForEmailList")) {
-            String emailListName = (String) requestBodyMap.get("list_name");
+            String emailListName = (String) request.getParameter("list_name");
             org.json.simple.JSONArray json_email_ids = getEmailIds(companyId, emailListName);
             org.json.simple.JSONArray json_email_ids_mindbody = getEmailIds_mindbody(companyId, emailListName);
             responseObject.put(IConstants.kEmailListNameKey, emailListName);

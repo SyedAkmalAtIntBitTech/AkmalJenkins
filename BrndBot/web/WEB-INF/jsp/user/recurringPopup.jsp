@@ -33,10 +33,10 @@
                         </a>
                         <div  class="top-navbar-inner-bb-detail">
                             <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Recurring Email Automation Detail</span></div>
-                            <div class="top-nav-cta-container">
+                            <div class="top-nav-cta-container padright60px">
                                 <div class="approve-button-detail md-button" id="emailapprove" ng-show="recurring_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_email)">Approve</div>
                                 <div class="approve-button-detail md-button" id="emailapprove" ng-show="recurring_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_email)">Disapprove</div>
-                                <div class="delete-button-detail md-button" ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="deleteAutomationSchedule(schedule_id, 'delete', master_email, 'true')">Delete Recurring Email</div>
+                                <div class="delete-button-detail md-button " ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="deleteAutomationSchedule(schedule_id, 'delete', master_email, 'true')">Delete Recurring Email</div>
                             </div>    
                         </div>
                     </div>
@@ -150,7 +150,7 @@
                         <div class="saved-post-preview-detail" id="noemailsdiv" ng-show="recurring_template_status === 'No Template'">
                             <!--SAVED Email GOES HERE-->
                             <div class="overlay-emptystate-icon">
-                                <img type="image/svg+xml" src="images/Icons/Overlay_EmptyStates_Email-Empty-State.svg" class="overlay-emptystate-icon"/>
+                                <img type="image/svg+xml" src="images/Overlay_EmptyStates_Email-Empty-State.svg" class="overlay-emptystate-icon"/>
                             </div>
                             <div class="empty-state-container">
                                 <div class="h2new textCenter textColor-Graynew">

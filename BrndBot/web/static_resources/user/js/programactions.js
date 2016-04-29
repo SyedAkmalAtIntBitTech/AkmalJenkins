@@ -168,8 +168,12 @@ var count=0;
                 $("#removeactionbutton").hide();
             }
         }
+        
+        var selected_schedules_to_delete = "";
+        var selected_schedules_to_delete_recurring = "";
         var countota=0;
         function selcheckboxonetimeact(id){
+            selected_schedules_to_delete=","+selected_schedules_to_delete;
             content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
             var htm=$("#"+id).html();            
             var selected_schedule_id=id;
@@ -196,8 +200,30 @@ var count=0;
                 $("#onetimeactbtn").show();
                 $("#deleteonetimeact").hide();
             }
-        }        
+        }
+//        function setSelectedIds(selectedid) {
+//            var checked = document.getElementById(selectedid).checked;
+//            var a = $("input:checked.chckbox").length;
+//            if (checked && a != 0) {
+//                $("#addemlactbtn").hide();
+//                $("#delemlactbtn").show();
+//                var selected_schedule_id1 = $("#" + selectedid).val();
+//                alert(selected_schedule_id1);
+//                selected_schedules_to_delete = selected_schedule_id1 + "," + selected_schedules_to_delete;
+//        //        alert(selected_schedules_to_delete);
+//            }
+//            else if (!checked && a == 0)
+//            {
+//                var selected_schedule_id = $("#" + selectedid).val();
+//                selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
+//        //        alert(selected_schedules_to_delete);
+//                $("#delemlactbtn").hide();
+//                $("#addemlactbtn").show();
+//            }
+//        }
+
             function selcheckboxrecemail(id){
+            selected_schedules_to_delete_recurring=","+selected_schedules_to_delete_recurring;
             content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
             var htm=$("#"+id).html();
             
@@ -264,8 +290,8 @@ $(".close").click(function(){
         }
         if( change !== "0")
         {
-            $("#change").val("0");
-            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id+'&past=0', "_self");
+//            $("#change").val("0");
+            window.open(getHost() + 'user/marketingprogramactions?program_id='+program_id+'&past=0', "_self");
             $('.bottom-cta-bar').hide();
         }
     });
@@ -404,31 +430,27 @@ function validatetwitteraction() {
     return true;
 }
     
-var selected_schedules_to_delete = "";
-var selected_schedules_to_delete_recurring = "";
-$(document).ready(function ()
-{
-//function setSelectedRecurringIds(selectedid) {
-//    var checked = document.getElementById(selectedid).checked;
-//    var a = $("input:checked.chckbox").length;
-//    if (checked && a!=0) {
-//          $("#addemlactbtn").hide();
-//        $("#delemlactbtn").show();
-//        var selected_schedule_id = $("#" + selectedid).val();
-//        selected_schedules_to_delete_recurring = selected_schedule_id + "," + selected_schedules_to_delete_recurring;
-//        console.log(selected_schedules_to_delete_recurring);
-//    }
-//    else if(!checked && a==0)
-//    {
-//        var selected_schedule_id = $("#" + selectedid).val();
-//        selected_schedules_to_delete_recurring = selected_schedules_to_delete_recurring.replace(selected_schedule_id + ",", "");
-//        console.log(selected_schedules_to_delete_recurring);
-//        $("#delemlactbtn").hide();
-//        $("#addemlactbtn").show();
-//    }
-//}
 
-});
+function setSelectedRecurringIds(selectedid) {
+    var checked = document.getElementById(selectedid).checked;
+    var a = $("input:checked.chckbox").length;
+    if (checked && a!=0) {
+          $("#addemlactbtn").hide();
+        $("#delemlactbtn").show();
+        var selected_schedule_id = $("#" + selectedid).val();
+        selected_schedules_to_delete_recurring = selected_schedule_id + "," + selected_schedules_to_delete_recurring;
+        console.log(selected_schedules_to_delete_recurring);
+    }
+    else if(!checked && a==0)
+    {
+        var selected_schedule_id = $("#" + selectedid).val();
+        selected_schedules_to_delete_recurring = selected_schedules_to_delete_recurring.replace(selected_schedule_id + ",", "");
+        console.log(selected_schedules_to_delete_recurring);
+        $("#delemlactbtn").hide();
+        $("#addemlactbtn").show();
+    }
+}
+
 Date.prototype.customFormat = function (formatString) {
     var YYYY, YY, MMMM, MMM, MM, M, DDDD, DDD, DD, D, hhhh, hhh, hh, h, mm, m, ss, s, ampm, AMPM, dMod, th;
     YY = ((YYYY = this.getFullYear()) + "").slice(-2);
@@ -465,46 +487,28 @@ function setTodaysDate() {
 function programactions($scope, $http, $window){
     
     
-    $scope.setSelectedRecurringIds = function(selectedid) {
-    var checked = document.getElementById(selectedid).checked;
-    var a = $("input:checked.chckbox").length;
-    if (checked && a!=0) {
-          $("#addemlactbtn").hide();
-        $("#delemlactbtn").show();
-        var selected_schedule_id = $("#" + selectedid).val();
-        selected_schedules_to_delete_recurring = selected_schedule_id + "," + selected_schedules_to_delete_recurring;
-        console.log(selected_schedules_to_delete_recurring);
-    }
-    else if(!checked && a==0)
-    {
-        var selected_schedule_id = $("#" + selectedid).val();
-        selected_schedules_to_delete_recurring = selected_schedules_to_delete_recurring.replace(selected_schedule_id + ",", "");
-        console.log(selected_schedules_to_delete_recurring);
-        $("#delemlactbtn").hide();
-        $("#addemlactbtn").show();
-    }
-};
+  
 
 
- $scope.setSelectedIds = function(selectedid) {
-    var checked = document.getElementById(selectedid).checked;
-    var a = $("input:checked.chckbox").length;
-    if (checked && a!=0) {
-          $("#addemlactbtn").hide();
-        $("#delemlactbtn").show();
-        var selected_schedule_id1 = $("#" + selectedid).val();alert(selected_schedule_id1);
-        selected_schedules_to_delete = selected_schedule_id1 + "," + selected_schedules_to_delete;
-//        alert(selected_schedules_to_delete);
-    }
-    else if(!checked && a==0)
-    {
-        var selected_schedule_id = $("#" + selectedid).val();
-        selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
-//        alert(selected_schedules_to_delete);
-        $("#delemlactbtn").hide();
-        $("#addemlactbtn").show();
-    }
-};
+// $scope.setSelectedIds = function(selectedid) {
+//    var checked = document.getElementById(selectedid).checked;
+//    var a = $("input:checked.chckbox").length;
+//    if (checked && a!=0) {
+//          $("#addemlactbtn").hide();
+//        $("#delemlactbtn").show();
+//        var selected_schedule_id1 = $("#" + selectedid).val();alert(selected_schedule_id1);
+//        selected_schedules_to_delete = selected_schedule_id1 + "," + selected_schedules_to_delete;
+////        alert(selected_schedules_to_delete);
+//    }
+//    else if(!checked && a==0)
+//    {
+//        var selected_schedule_id = $("#" + selectedid).val();
+//        selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
+////        alert(selected_schedules_to_delete);
+//        $("#delemlactbtn").hide();
+//        $("#addemlactbtn").show();
+//    }
+//};
 
     
     
@@ -523,7 +527,7 @@ function programactions($scope, $http, $window){
             headers: {'Content-Type':'application/json'},
             data: JSON.stringify(program_id)
         }).success(function (data, status, headers, config) {
-            if (data == "true"){                
+            if (data == "true"){
                   window.open(getHost() + 'user/marketingprogramlists', "_self");                
             }else {
                 alert(savingrecordproblem);
@@ -614,13 +618,13 @@ function programactions($scope, $http, $window){
                           "link_url": link_url, "link_name": link_name, "program_name":program_name};
         $http({
             method: 'POST',
-            url: 'updateUserProgram.do',
+            url: getHost()+'/updateUserProgram.do',
             headers: {'Content-Type':'application/json'},
             data: JSON.stringify(program_details)
         }).success(function (data, status, headers, config) {
           if (data == "true"){
             alert(programdetailssaved);
-            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0'+'&program_date='+event_date, "_self");
+            window.open(getHost() + 'user/marketingprogramactions?program_id='+program+'&past=0'+'&program_date='+event_date, "_self");
           }else {
               alert(savingrecordproblem);
           }
@@ -1024,8 +1028,9 @@ function programactions($scope, $http, $window){
             var program_id=$("#program_id").val();
             $http({
                 method: 'GET',
-                url: getHost() + '/GetScheduledEmailDetail?schedule_id=' + schedule_id
-            }).success(function (data) { alert(JSON.stringify(data));
+                url: getHost() + '/GetScheduledEmailDetail.do?schedule_id=' + schedule_id
+            }).success(function (data) { 
+//                alert(JSON.stringify(data));alert(data.subject);
                 $scope.entitiesdetails = data;
                 if (data.body == undefined) {
                       $("#recurringremovediv").hide();
@@ -1561,11 +1566,11 @@ function programactions($scope, $http, $window){
         if (confirm(message)) {
             $http({
                 method: 'POST',
-                url: getHost() + 'ChangeScheduleServlet',
+                url: getHost() + 'ChangeSchedule.do',
                 headers: {'Content-Type': 'application/json'},
                 data: requestBody
             }).success(function (data)
-            {
+            {   
                 $scope.status = data;
                 if (data !== "") {
                     if(section == getfacebook())
@@ -1582,8 +1587,9 @@ function programactions($scope, $http, $window){
                     {
                         $("#mailpreviewdecond").hide();
                         $("#mailremovedtemplate").show();                     
-                    }
-                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
+                    }     
+                    alert("Recurring Email deleted successfully.");
+                    window.open(getHost() + 'user/marketingprogramactions?program_id='+program+'&past=0', "_self");
                 }
             }).error(function (data, status) {
                 alert(requesterror);
@@ -1607,7 +1613,7 @@ function programactions($scope, $http, $window){
         var requestBody;
         var responseMessage;
         var program=$("#program_id").val();
-        if (type == "deleteMultiple") {alert(data);
+        if (type == "deleteMultiple") {
             if(schedules_to_delete=="0"){
                 message = multiemaildeleteconfirm;
             }

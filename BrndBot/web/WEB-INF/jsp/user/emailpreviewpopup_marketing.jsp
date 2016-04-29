@@ -161,7 +161,7 @@
                             <div class="h2new textCenter textColor-Graynew">
                                 No emails saved to this action.
                             </div>
-                            <a class="link" href="dashboard.jsp">
+                            <a class="link" href="dashboard">
                                 <div class="md-button empty-state-cta">
                                 Go to Dashboard
                                 </div></a>
