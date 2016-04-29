@@ -5,7 +5,6 @@
  */
 package com.intbit;
 
-import com.controller.BrndBotBaseHttpServlet;
 import com.controller.SqlMethods;
 import java.sql.Connection;
 import java.sql.SQLException;

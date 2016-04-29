@@ -11,7 +11,7 @@ import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 
 /**
- * <code> {@link CategoryDao} </code> Interface to get Category details from
+ * <code> {@link CategoryDao} </code> Interface to get Category details froml
  * Category table
  *
  * @author Ajit

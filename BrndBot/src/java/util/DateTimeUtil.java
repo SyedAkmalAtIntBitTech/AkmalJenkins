@@ -17,13 +17,13 @@ import org.apache.commons.lang3.time.DateUtils;
 
 /**
  *
- * @author AR
+ * @author AR/Haider Khan @ Intbit
  */
 public class DateTimeUtil {
-    
+
     static final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
     public static final Logger logger = Logger.getLogger(util.Utility.getClassName(DateTimeUtil.class));
-    
+
     public static boolean timeEqualsCurrentTime(Date datetime) {
         //Make sure time zone is the same when comparison is done. Time doesnt have to be equal to the second. Just the minute is enough.
         boolean flag = false;
@@ -41,7 +41,7 @@ public class DateTimeUtil {
         }
         return flag;
     }
-    
+
     public static boolean dateEqualsCurrentDate(Date datetime) throws ParseException {
         //Make sure time zone is the same when comparison is done. Time doesnt have to be equal to the second. Just the minute is enough.
         boolean flag = false;
@@ -54,7 +54,7 @@ public class DateTimeUtil {
         format.setTimeZone(TimeZone.getTimeZone(timeZoneStr));
         String currentDateString = format.format(currentdate);
         String receivedDateString = format.format(datetime);
-        
+
         DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         Date date1 = format1.parse(currentDateString);
         Date date2 = format1.parse(receivedDateString);
@@ -63,7 +63,7 @@ public class DateTimeUtil {
         }
         return flag;
     }
-    
+
     public static long differenceCurrentTime(Date nextPostDate) throws Exception {
         //Make sure time zone is the same when difference is taken. Return milliseconds.
 
@@ -76,15 +76,15 @@ public class DateTimeUtil {
         format.setTimeZone(TimeZone.getTimeZone(timeZoneStr));
         String StringNextPostDate = format.format(nextPostDate);
         String currentDateString = format.format(currentdate);
-        
+
         Date nextPostDateTime = format.parse(StringNextPostDate);
         Date currentDateTime = format.parse(currentDateString);
         logger.log(Level.INFO, "Next PostDateTime:" + StringNextPostDate + "currentDateTime:" + currentDateString);
         Long differenceCurrentTime = (nextPostDateTime.getTime() - currentDateTime.getTime()) / 1000;
-        
+
         return differenceCurrentTime;
     }
-    
+
     public static long differenceCurrentTimeRecurring(Date nextPostDate) throws Exception {
         //Make sure time zone is the same when difference is taken. Return milliseconds.
 
@@ -99,15 +99,20 @@ public class DateTimeUtil {
         String currentDateString = format.format(currentdate);
         Date nextPostDateTime = format.parse(StringNextPostDate);
         Date currentDateTime = format.parse(currentDateString);
-        
+
         Long differenceCurrentTime = (nextPostDateTime.getTime() - currentDateTime.getTime()) / 1000;
-        
+
         return differenceCurrentTime;
     }
-    
+
     public static Date getDatePlusMins(int minsToAdd) {
         Calendar date = Calendar.getInstance();
         long t = date.getTimeInMillis();
         return new Date(t + (minsToAdd * ONE_MINUTE_IN_MILLIS));
+    }
+
+    public static Date getCurrentGMTDate() {
+        Date date = new Date();
+        return date;
     }
 }
