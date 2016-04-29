@@ -33,6 +33,8 @@
     %>
     <% email_subject = request.getParameter("subject"); %>
     <%
+        String categoryId = request.getParameter("categoryId");
+        String subCategoryId = request.getParameter("subCategoryId");
 //        try {
 //            sql_methods.session = request.getSession(true);          
 //            email_subject=(String)sql_methods.session.getAttribute("email_subject");             
@@ -54,6 +56,8 @@
         <!--Top Nav-->   
         <div class="top-nav">
             <div class="page-title-bar col-1of1"> 
+                <input type="hidden" value="<%=categoryId%>" id="categoryIdTag"/>
+                <input type="hidden" value="<%=subCategoryId%>" id="subCategoryIdTag"/>
                 <input type="hidden" class="input-field-textfield col-8of10" id="mindbodyid" placeholder="Enter Name of email" value="<%=mindbody_id%>"></input>
                 <a class=" exit-button-icon" href="emailsubcategory?id=<%=mindbody_id%>">
                     <div class="exit-button-detail">
@@ -87,7 +91,7 @@
         </div>
         <div class="bottom-cta-bar">
             <div class="bottom-cta-button-container-lg">
-                <a id="emailSubjectContinueButton" href="">
+                <a id="emailSubjectContinueButton" href="#">
                     <div class="bottom-continue-button button-text-1">Continue</div>
                 </a>
             </div>

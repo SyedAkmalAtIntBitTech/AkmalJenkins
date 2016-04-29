@@ -5,6 +5,7 @@
  */
 package mindbody.controller;
 
+import com.intbittech.externalcontent.ExternalSourceProcessedData;
 import java.util.HashMap;
 import org.json.JSONException;
 import org.json.simple.JSONArray;
@@ -12,7 +13,7 @@ import org.json.simple.JSONArray;
  *
  * @author intbit
  */
-public class MindBodyProcessedData {
+public class MindBodyProcessedData extends ExternalSourceProcessedData {
     private HashMap<String, Object> data_hash_map;
     private JSONArray jsonData;
     private JSONArray columnHeader;
@@ -50,6 +51,12 @@ public class MindBodyProcessedData {
         this.title = title;
     }
     
+    /**
+     *
+     * @return
+     * @throws JSONException
+     */
+    @Override
     public org.json.simple.JSONObject getJSON () throws JSONException {
         org.json.simple.JSONObject object = new org.json.simple.JSONObject();
         object.put("mindbody_data", getJsonData());

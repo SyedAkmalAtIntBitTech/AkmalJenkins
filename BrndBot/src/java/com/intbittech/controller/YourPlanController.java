@@ -435,22 +435,19 @@ public class YourPlanController {
             //String imagePostURL = AppConstants.LAYOUT_IMAGES_HOME + getImageFile;
             if (isFacebook.equalsIgnoreCase("true")) {
 
-                String accessToken = request.getParameter("accesstoken");
                 String posttext = request.getParameter("postText");
                 String title = request.getParameter("title");
                 String description = request.getParameter("description");
                 String url1 = request.getParameter("url");
-                returnMessage = PostToFacebook.postStatus(accessToken, title, 
+                returnMessage = PostToFacebook.postStatus(title, 
                         file_image_path, posttext, imagePostURL, getImageFile, url1, 
                         description, imageType, companyId, htmlString);
             }if (isTwitter.equalsIgnoreCase("true")) {
 
-                String twitterAccessToken = request.getParameter("twittweraccestoken");
-                String twitterTokenSecret = request.getParameter("twitterTokenSecret");
                 String text = request.getParameter("text");
                 String shortURL = request.getParameter("shorturl");
                 PrintWriter out1 = response.getWriter();
-                returnMessage = PostToTwitter.postStatus(twitterAccessToken, twitterTokenSecret, 
+                returnMessage = PostToTwitter.postStatus( 
                         imageType, text, shortURL, file_image_path, companyId, htmlString, getImageFile);
                 transactionResponse.setMessage(returnMessage);
             }

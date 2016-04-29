@@ -15,6 +15,7 @@
         <intercept-url pattern="/fonts/**" access="permitAll" />
         <intercept-url pattern="/signup/**" access="permitAll" />
         <intercept-url pattern="/onboarding/**" access="permitAll" />
+        <intercept-url pattern="/downloadImage**" access="permitAll" />
         <intercept-url pattern="/Access_Denied**" access="permitAll" />
         <intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
         <intercept-url pattern="/user**" access="hasRole('USER')" />

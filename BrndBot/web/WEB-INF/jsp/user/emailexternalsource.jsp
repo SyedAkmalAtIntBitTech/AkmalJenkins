@@ -12,6 +12,7 @@
         <title>External Source</title>
         <% 
             String subCategoryId=request.getParameter("subCategoryId");
+            String categoryId=request.getParameter("categoryId");
         %>
     </head>
     <body class="body-normal">
@@ -19,6 +20,7 @@
       <%@include file="navbar.jsp" %>    
        <div class="contentWrap--withSideNav noScroll">
            <input id="subCategoryIdTag" type="text" hidden="" value="<%=subCategoryId%>"/>
+           <input id="categoryIdTag" type="text" hidden="" value="<%=categoryId%>"/>
         <div class="topNav topNav-withSubnav clear">
              <div class="topNav--BackButton fleft">
                  
@@ -49,7 +51,7 @@
                 
                 <div class="pane_content">
                     <div class="subcat-list">
-                       <a href="emaileditor?subCategoryId=<%=subCategoryId%>"><div class="cat-slat clear">
+                       <a href="emaileditor?categoryId=<%=categoryId%>&subCategoryId=<%=subCategoryId%>"><div class="cat-slat clear">
                             <div class="cat-slat-title col-3of10 fleft">External Data Name</div>
                             <div class="cat-slat-description col-2of10 fleft">Date</div>
                              <div class="cat-slat-description col-2of10 fleft">Time</div>

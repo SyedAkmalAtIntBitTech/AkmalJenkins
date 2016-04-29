@@ -76,6 +76,6 @@ public interface EmailModelService {
      */
     public void delete(Integer emailModelId) throws ProcessFailed;
 
-    public String getLayoutEmail(Integer emailModelId, String imageFileName, String hostURL, Integer companyId, Map<String, String> requestBodyMap);
+    public String getLayoutEmail(Integer emailModelId, String hostURL, Integer companyId, Map<String, String> requestBodyMap);
 
 }
