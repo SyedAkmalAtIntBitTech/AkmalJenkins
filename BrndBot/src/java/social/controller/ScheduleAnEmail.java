@@ -14,7 +14,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import util.DateTimeUtil;
+import com.intbittech.utility.DateTimeUtil;
 
 /**
  *
@@ -22,7 +22,9 @@ import util.DateTimeUtil;
  */
 public class ScheduleAnEmail implements Runnable {
 
+
     private Logger logger = Logger.getLogger(ScheduleAnRecurringEmail.class);
+
 
     public void terminateThread() {
         try {

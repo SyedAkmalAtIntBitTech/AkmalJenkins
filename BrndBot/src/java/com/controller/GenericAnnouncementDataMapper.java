@@ -40,7 +40,7 @@ import org.xml.sax.SAXParseException;
  */
 public class GenericAnnouncementDataMapper {
 
-    private static final Logger logger = Logger.getLogger(util.Utility.getClassName(GenericAnnouncementDataMapper.class));
+    private static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(GenericAnnouncementDataMapper.class));
 
     public static JSONObject mapAnnouncements(String socialEditorLayoutFileName) throws JSONException {
         JSONObject json_announcements = new JSONObject();
@@ -80,13 +80,13 @@ public class GenericAnnouncementDataMapper {
 
             }
         } catch (SAXParseException err) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(err, "Exception while reading the xml file:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(err, "Exception while reading the xml file:", null));
 
         } catch (SAXException e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while reading the xml file:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while reading the xml file:", null));
 
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while reading the xml file:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while reading the xml file:", null));
         }
         //System.exit (0);        
 

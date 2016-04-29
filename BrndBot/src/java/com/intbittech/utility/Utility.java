@@ -3,19 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package util;
+package com.intbittech.utility;
 
 import com.divtohtml.StringUtil;
-import com.intbit.AppConstants;
-import com.intbit.util.ServletUtil;
-import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import javax.servlet.ServletContext;
 import model.EmailInfo;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

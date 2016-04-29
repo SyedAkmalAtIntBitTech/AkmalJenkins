@@ -3,29 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit;
+package com.controller;
 
-import com.controller.BrndBotBaseHttpServlet;
-import com.google.gson.Gson;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
  * @author intbit
  */
-//To-Do Ilyas/AR refactor or remove ??
-public class ServletGetStyles extends BrndBotBaseHttpServlet {
+public class ResetUserPassword extends BrndBotBaseHttpServlet {
 
-    String query = "", query1 = "";
+    //GenerateHashPassword generate_hash_password = new GenerateHashPassword();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,34 +37,57 @@ public class ServletGetStyles extends BrndBotBaseHttpServlet {
             throws ServletException, IOException {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
+        String userid = "false";
+        StringBuffer string_buffer = new StringBuffer();
+        String hashURL = "";
+        String password = "";
+        String confirmpassword = "";
+
         PrintWriter out = response.getWriter();
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-        String xml_files;
-        JSONArray jsonarr = new JSONArray();
-        getSqlMethodsInstance().session = request.getSession(true);
+        try {
 
-        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
-            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
+            getSqlMethodsInstance().session = request.getSession(true);
 
-            String query_string = "Select layout from tbl_model where user_id=" + user_id + "";
-
-            prepared_statement = connection.prepareStatement(query_string);
-            result_set = prepared_statement.executeQuery();
-
-            while (result_set.next()) {
-                jsonarr.add(result_set.getString("layout"));
+            BufferedReader reader = request.getReader();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                string_buffer.append(line);
             }
-            String json = new Gson().toJson(jsonarr);
-            response.setContentType("application/json");
-            response.getWriter().write(json);
-        } catch (Exception e) {
-                                  logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
 
-        } finally {
-            out.close();
-            getSqlMethodsInstance().close(result_set, prepared_statement);
+            JSONParser parser = new JSONParser();
+            JSONObject joUser = null;
+            joUser = (JSONObject) parser.parse(string_buffer.toString());
             
+            String type = (String)joUser.get("type");
+
+            if (type.equalsIgnoreCase("update")){
+                password = (String) joUser.get("password");
+                confirmpassword = (String) joUser.get("confirmpassword");
+                Integer user = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
+                userid = String.valueOf(user);
+            }
+            if(type.equalsIgnoreCase("change")){
+                hashURL = (String) joUser.get("hashURL");
+                password = (String) joUser.get("password");
+                confirmpassword = (String) joUser.get("confirmpassword");
+                userid = getSqlMethodsInstance().checkResetStatus(hashURL);
+            }
+
+            String hashPass = "";//generate_hash_password.hashPass(password);
+            
+            if (userid.equals("false")) {
+                out.write("false");
+            } else {
+                getSqlMethodsInstance().resetPassword(userid, hashPass);
+                out.write("true");
+            }
+        } catch (Exception e) {
+                       logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+
+            out.write(getSqlMethodsInstance().error);
+        }finally {
+            out.close();
+            getSqlMethodsInstance().closeConnection();
         }
     }
 

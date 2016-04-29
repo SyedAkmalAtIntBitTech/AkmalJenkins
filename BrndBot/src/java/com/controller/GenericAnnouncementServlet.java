@@ -72,7 +72,7 @@ public class GenericAnnouncementServlet extends BrndBotBaseHttpServlet {
                 response.getWriter().write(mapped_json_object.toString());
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while displaying the annoucement data:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while displaying the annoucement data:", getSqlMethodsInstance().error));
         }
     }
 

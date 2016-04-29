@@ -21,9 +21,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import javax.servlet.ServletContext;
+import com.intbittech.utility.Utility;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-import util.Utility;
+
 
 /**
  *

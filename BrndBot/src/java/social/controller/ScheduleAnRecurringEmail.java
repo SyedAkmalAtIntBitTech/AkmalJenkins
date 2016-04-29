@@ -13,8 +13,9 @@ import java.util.List;
 import model.EmailInfo;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
-import util.DateTimeUtil;
-import util.Utility;
+import com.intbittech.utility.DateTimeUtil;
+import com.intbittech.utility.Utility;
+
 
 /**
  *

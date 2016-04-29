@@ -28,7 +28,7 @@ import static social.controller.SendAnEmail.MANDRILL_KEY;
  */
 public class SendMail {
 
-    private static final Logger logger = Logger.getLogger(util.Utility.getClassName(SendMail.class));
+    private static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(SendMail.class));
 
     public static MessageResponses sendMail(Message message) {
         try {
@@ -60,7 +60,7 @@ public class SendMail {
                 }
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while sending an email via mandrill:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while sending an email via mandrill:", null));
         }
         return null;
     }
@@ -91,7 +91,7 @@ public class SendMail {
                 }
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating org name:", null));
         }
     }
     
