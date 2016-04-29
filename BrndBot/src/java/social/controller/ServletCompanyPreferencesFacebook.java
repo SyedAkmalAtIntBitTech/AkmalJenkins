@@ -7,6 +7,8 @@ package social.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
 import com.google.gson.Gson;
+import com.intbittech.model.UserProfile;
+import com.intbittech.utility.UserSessionUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -19,9 +21,9 @@ import org.json.simple.JSONObject;
  *
  * @author intbit
  */
-public class ServletUserPreferencesFacebook extends BrndBotBaseHttpServlet {
+public class ServletCompanyPreferencesFacebook extends BrndBotBaseHttpServlet {
 
-    UserPreferencesFacebook user_preferences;
+    CompanyPreferencesFacebook companyPreferencesFacebook;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,8 +47,9 @@ public class ServletUserPreferencesFacebook extends BrndBotBaseHttpServlet {
         String default_page_name = "";
 
         try {
-            user_preferences = new UserPreferencesFacebook();
-            Integer user_id = (Integer)getSqlMethodsInstance().session.getAttribute("UID");
+            companyPreferencesFacebook = new CompanyPreferencesFacebook();
+             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             if (request.getParameter("access_token") != null) {
                 default_access_token = request.getParameter("access_token");
             }
@@ -71,7 +74,7 @@ public class ServletUserPreferencesFacebook extends BrndBotBaseHttpServlet {
 //            }
             
             if (method_type.equals("getAccessToken")) {
-                fb_details = user_preferences.getUserPreferenceForAccessToken(user_id);
+                fb_details = companyPreferencesFacebook.getCompanyPreferenceForAccessToken(companyId);
                 
                 if (fb_details.size() != 0 ){
                     
@@ -97,9 +100,9 @@ public class ServletUserPreferencesFacebook extends BrndBotBaseHttpServlet {
                 }
                 
             }else if(method_type.equals("setAccessToken")){
-                    user_preferences.updatePreference(user_id, default_access_token, fb_user_profile_name, default_page_name);
+                    companyPreferencesFacebook.updatePreference(companyId, default_access_token, fb_user_profile_name, default_page_name);
             }else if(method_type.equals("clearFacebookDetails")){
-                    user_preferences.deletePreferences(user_id);
+                    companyPreferencesFacebook.deletePreferences(companyId);
             }
 
         } catch (Exception e) {

@@ -40,9 +40,8 @@ public class CompanyImagesDaoImpl implements CompanyImagesDao {
     @Override
     public List<CompanyImages> getAllCompanyImages(Integer companyId) {
         try {
-            CompanyImages company = new CompanyImages(companyId);
-            Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(CompanyImages.class).add(Restrictions.eq("fkCompanyId", company));
+                        Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(CompanyImages.class).add(Restrictions.eq("fkCompanyId.companyId", companyId));
 
             if (criteria.list().isEmpty()) {
                 return null;
@@ -79,7 +78,7 @@ public class CompanyImagesDaoImpl implements CompanyImagesDao {
     public CompanyImages getById(Integer companyImagesId) {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(CompanyImages.class).add(Restrictions.eq("company_images_id", companyImagesId));
+                    .createCriteria(CompanyImages.class).add(Restrictions.eq("companyImagesId", companyImagesId));
 
             if (criteria.list().isEmpty()) {
                 return null;

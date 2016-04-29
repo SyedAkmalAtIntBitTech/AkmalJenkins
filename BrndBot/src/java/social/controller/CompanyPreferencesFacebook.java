@@ -1,10 +1,9 @@
-package social.controller;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package social.controller;
 
 import com.controller.IConstants;
 import com.controller.SqlMethods;
@@ -15,8 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.naming.NamingException;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.postgresql.util.PGobject;
@@ -25,26 +22,23 @@ import org.postgresql.util.PGobject;
  *
  * @author intbit
  */
-public class UserPreferencesTwitter {
+public class CompanyPreferencesFacebook {
+
+    private static Logger logger = Logger.getLogger(CompanyPreferencesFacebook.class.getName());
     
-    private static final Logger logger = Logger.getLogger(UserPreferencesTwitter.class.getName());
-    
-    SqlMethods sql_methods;
-    PreparedStatement prepared_statement;
-    ResultSet result_set;
+    private SqlMethods sqlMethods = new SqlMethods();
 
-    public UserPreferencesTwitter() throws NamingException {
-        this.sql_methods = new SqlMethods();
-    }
-
-    public void updatePreference(Integer user_id, String twitter_access_token, String twitter_access_token_secret, String user_name) throws SQLException {
-
+    public void updatePreference(Integer companyId, String default_page_access_token, String fb_user_profile_name, String default_page_name ) throws SQLException {
+            PreparedStatement prepared_statement = null;
+            ResultSet result_set = null;
+        
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             PGobject pgobject = new PGobject();
             JSONObject json_objectFromTable = new JSONObject();
+            JSONObject json_facebook = new JSONObject();
             JSONParser parser = new JSONParser();
-            JSONObject json_twitter = new JSONObject();
-            String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
+
+            String query = "Select company_preferences from company_preferences where fk_company_id=" + companyId + "";
 
             prepared_statement = connection.prepareStatement(query);
 
@@ -59,19 +53,19 @@ public class UserPreferencesTwitter {
 
             json_objectFromTable = (JSONObject) parser.parse(obj);
             
-            json_twitter.put("TwitterLoggedIn", "true");
+            json_facebook.put("FacebookLoggedIn", "true");
+            json_facebook.put("fb_default_page_access_token", default_page_access_token);
+            json_facebook.put("fb_user_profile_name", fb_user_profile_name);
+            json_facebook.put("fb_default_page_name", default_page_name);
             
-            json_twitter.put("twitter_access_token", twitter_access_token);
-            json_twitter.put("twitter_access_token_secret", twitter_access_token_secret);
-            json_twitter.put("twitter_user_name", user_name);
-            
-            json_objectFromTable.put(IConstants.kTwitterKey, json_twitter);
+            json_objectFromTable.put(IConstants.kFacebookKey, json_facebook);
+
             result_set.close();
             prepared_statement.close();
 
-            query = "UPDATE tbl_user_preferences"
-                    + " SET user_preferences=?"
-                    + " WHERE user_id=" + user_id + "";
+            query = "UPDATE company_preferences"
+                    + " SET company_preferences=?"
+                    + " WHERE fk_company_id=" + companyId + "";
 
             PGobject jsonObject = new PGobject();
 
@@ -83,66 +77,28 @@ public class UserPreferencesTwitter {
             prepared_statement.setObject(1, jsonObject);
 
             prepared_statement.executeUpdate();
-
+            prepared_statement.close();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "", e);
         }finally {
-            prepared_statement.close();
+            sqlMethods.close(result_set, prepared_statement);
         }
     }
 
-    public JSONObject getUserPreferenceForAccessToken(Integer user_id) throws SQLException {
-        String twitter_data="";
-        String twitter_access_token = "";
-        String twitter_access_token_secret = "", twitter_user_name = "";
-        JSONObject json_fb_to_read = new JSONObject();
-
-        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
-            PGobject pgobject = new PGobject();
-            JSONObject json_objectFromTable = new JSONObject();
-            JSONParser parser = new JSONParser();
-
-            String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
-
-            prepared_statement = connection.prepareStatement(query);
-
-            result_set = prepared_statement.executeQuery();
-
-            if (result_set.next()) {
-                pgobject = (PGobject) result_set.getObject(1);
-            }
-
-            pgobject.setType("json");
-            String obj = pgobject.getValue();
-
-            json_objectFromTable = (JSONObject) parser.parse(obj);
-            
-            if (json_objectFromTable.get(IConstants.kTwitterKey) != null){
-                json_fb_to_read = (JSONObject)json_objectFromTable.get(IConstants.kTwitterKey);
-            }
-            
-
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "", e);
-        }finally {
-            result_set.close();
-            prepared_statement.close();
-        }
-        return json_fb_to_read;
-    }
-
-    public void deletePreferences(Integer user_id)throws SQLException {
+    public JSONObject getCompanyPreferenceForAccessToken(Integer companyId) throws SQLException {
         String access_token = "";
         String user_profile_name = "", default_page_name = "";
         JSONObject json_fb_to_read = new JSONObject();
         JSONObject json_fb = new JSONObject();
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
 
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
             PGobject pgobject = new PGobject();
             JSONObject json_objectFromTable = new JSONObject();
             JSONParser parser = new JSONParser();
 
-            String query = "Select user_preferences from tbl_user_preferences where user_id=" + user_id + "";
+            String query = "Select company_preferences from company_preferences where fk_company_id=" + companyId + "";
 
             prepared_statement = connection.prepareStatement(query);
 
@@ -156,16 +112,67 @@ public class UserPreferencesTwitter {
             String obj = pgobject.getValue();
 
             json_objectFromTable = (JSONObject) parser.parse(obj);
-            if (json_objectFromTable.get(IConstants.kTwitterKey) != null){
-                json_objectFromTable.remove(IConstants.kTwitterKey);
+            if (json_objectFromTable.get(IConstants.kFacebookKey) != null){
+                json_fb_to_read = (JSONObject)json_objectFromTable.get(IConstants.kFacebookKey);
+                String FBLoggedIn = (String)json_fb_to_read.get("FacebookLoggedIn");
+                if (json_fb_to_read.get("FacebookLoggedIn").equals("true")) {
+                    access_token = (String) json_fb_to_read.get("fb_default_page_access_token");
+                    user_profile_name = (String)json_fb_to_read.get("fb_user_profile_name");
+                    default_page_name = (String)json_fb_to_read.get("fb_default_page_name");
+                    json_fb.put("FacebookLoggedIn", "true");
+                    json_fb.put("fb_default_page_access_token", access_token);
+                    json_fb.put("user_profile_page", user_profile_name);
+                    json_fb.put("fb_default_page_name", default_page_name);
+                }
+            }
+
+            
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "", e);
+        } finally {
+            sqlMethods.close(result_set, prepared_statement);
+        }
+            return json_fb;
+
+    }
+
+    public void deletePreferences(Integer companyId)throws SQLException {
+        String access_token = "";
+        String user_profile_name = "", default_page_name = "";
+        JSONObject json_fb_to_read = new JSONObject();
+        JSONObject json_fb = new JSONObject();
+        PreparedStatement prepared_statement = null;
+        ResultSet result_set = null;
+
+        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
+            PGobject pgobject = new PGobject();
+            JSONObject json_objectFromTable = new JSONObject();
+            JSONParser parser = new JSONParser();
+
+            String query = "Select company_preferences from company_preferences where fk_company_id=" + companyId + "";
+
+            prepared_statement = connection.prepareStatement(query);
+
+            result_set = prepared_statement.executeQuery();
+
+            if (result_set.next()) {
+                pgobject = (PGobject) result_set.getObject(1);
+            }
+
+            pgobject.setType("json");
+            String obj = pgobject.getValue();
+
+            json_objectFromTable = (JSONObject) parser.parse(obj);
+            if (json_objectFromTable.get(IConstants.kFacebookKey) != null){
+                json_objectFromTable.remove(IConstants.kFacebookKey);
             }
 
             result_set.close();
             prepared_statement.close();
 
-            query = "UPDATE tbl_user_preferences"
-                    + " SET user_preferences=?"
-                    + " WHERE user_id=" + user_id + "";
+            query = "UPDATE company_preferences"
+                    + " SET company_preferences=?"
+                    + " WHERE fk_company_id=" + companyId + "";
 
             PGobject jsonObject = new PGobject();
 
@@ -186,5 +193,5 @@ public class UserPreferencesTwitter {
         }
         
     }
-    
+
 }

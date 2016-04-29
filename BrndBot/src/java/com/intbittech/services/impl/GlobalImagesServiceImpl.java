@@ -94,11 +94,11 @@ public class GlobalImagesServiceImpl implements GlobalImagesService {
     
     @Override
     public String getLink(String fileName, String imageURL) {
-        return ""+imageURL+"DownloadImage?image_type=ADMIN_LAYOUT_BACKGROUNDIMAGES&company_id=null&image_name=" + fileName;   
+        return ""+imageURL+"downloadImage?imageType=GLOBAL_IMAGE&companyId=0&imageName=" + fileName;   
     }
     @Override
     public String getPath() {
-        return AppConstants.BASE_ADMIN_UPLOAD_PATH + File.separator;
+        return AppConstants.BASE_ADMIN_GLOBAL_IMAGE_UPLOAD_PATH + File.separator;
     }
 
 }
