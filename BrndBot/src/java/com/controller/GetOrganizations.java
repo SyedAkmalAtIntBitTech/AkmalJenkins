@@ -35,7 +35,7 @@ public class GetOrganizations extends BrndBotBaseHttpServlet {
 
         try(Connection connection = ConnectionManager.getInstance().getConnection()) {
 
-            String query = "Select * from tbl_organization";
+            String query = "Select * from organization";
             
             prepared_statement = connection.prepareStatement(query);
             result_set = prepared_statement.executeQuery();
@@ -43,7 +43,7 @@ public class GetOrganizations extends BrndBotBaseHttpServlet {
             while (result_set.next()) {
                 organization org = new organization();
                 organization_name = result_set.getString("organization_name");
-                organization_id = result_set.getInt("id");
+                organization_id = result_set.getInt("organization_id");
                 org.setId(organization_id);
                 org.setOrganization_name(organization_name);
                 jsonarr.add(org);
