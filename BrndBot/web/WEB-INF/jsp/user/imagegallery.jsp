@@ -42,7 +42,8 @@
     <div class="content-main">
     <jsp:include page="imageuploadpopup.jsp"/>
     <jsp:include page="navbar.jsp"/>  
-    <input hidden value=" ${user}"/>
+  
+    <input type="text"  value="${user}"/>
     <!--Top Nav-->   
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
@@ -65,7 +66,7 @@
                     <div class="imageGallery-container  fleft"ng-repeat="images in datalists.slice().reverse()">
                         <div class="imageGallery-card">
                             <div class="galCard-image col-1of1">
-                                <img id="{{images.companyImagesId}}" class="lookchooser5 ptr imagesize" src="/BrndBot/DownloadImage?image_type=GALLERY&image_name={{images.imageName}}&companyId=${companyId}" onclick="showText('{{images.companyImagesId}}','{{images.imageName}}')" />
+                                <img id="{{images.companyImagesId}}" class="lookchooser5 ptr imagesize" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId=${companyId}" onclick="showText('{{images.companyImagesId}}','{{images.imageName}}')" />
                             </div>
                             <div class="galCard-content col-1of1">  
 <!--                                <div class="galImage-name">Image Name</div>
