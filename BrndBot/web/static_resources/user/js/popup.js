@@ -1054,11 +1054,18 @@ $(document).ready(function ()
     $("#fade").hide();
     $("#addActionemllist").hide();
     });
-    ////// social flow ///
+////// social flow  ///
    $("#addImageToPostButton").click(function(){
     $("#addImageDiv").show();
     $("#addImageToPostButton").hide();
     });
+   $("#changeImage").click(function(){
+     $("#imagePopUp").show();
+    });
+   $("#hidepopup").click(function(){
+     $("#imagePopUp").hide();
+    });
+    
 });
 function changePostType(){
    var postType = $("#linkPostFields").css("display");
@@ -1072,6 +1079,51 @@ function changePostType(){
     }
 }
 
+function fbPost(){
+    var shareText = $("#shareText").val();
+    var linkTitle = $("#linkTitle").val();
+    var linkDescription = $("#linkDescription").val();
+    var linkUrl = $("#linkUrl").val();
+    var dataObject="";
+    if(linkTitle === ""){
+       
+    }
+   $.ajax({
+            url: "",
+           method: 'post',
+            data: dataObject,
+          success: function (responseText) {
+                alert(JSON.stringify(responseText));
+                        },
+          error: function (jqXHR, textStatus, errorThrown) {
+              alert(JSON.stringify(jqXHR));
+        }
+    });
+}
+function twitterPost(){
+    var shareText = $("#twitterShareText").val();
+    var dataObject="";
+   $.ajax({
+            url: "",
+           method: 'post',
+            data: dataObject,
+          success: function (responseText) {
+                alert(JSON.stringify(responseText));
+                        },
+          error: function (jqXHR, textStatus, errorThrown) {
+              alert(JSON.stringify(jqXHR));
+        }
+    });
+}
 
- 
-
+function displayUserImages($scope,$http){
+    $scope.getUserImaages = function(){
+        $http({
+                url:"",
+                method:"GET"      
+        }).success(function(data){
+            
+            
+        });
+    }; 
+}

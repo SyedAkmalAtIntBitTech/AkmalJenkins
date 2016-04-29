@@ -40,14 +40,14 @@
                     <div class="pane_content pane-Social-Create-padding ">
                         <div class="inputSection col1of1 pushUp_20">
                             <div class="input_Label">What would you like to share?</div>
-                            <textarea class="input_Field_lg removeDrag" placeholder="Type post here"></textarea>
+                            <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="shareText"></textarea>
                             <span class="displayNone" id="linkPostFields">
                             <div class="input_Label pushUp_20" >Link Title</div>
-                            <textarea class="input_Field removeDrag" placeholder="Type post here"></textarea>
+                            <textarea class="input_Field removeDrag" placeholder="Type post here" id="linkTitle"></textarea>
                             <div class="input_Label pushUp_20">Link Description</div>
-                            <textarea class="input_Field_Md removeDrag" placeholder="Type post here"></textarea>
+                            <textarea class="input_Field_Md removeDrag" placeholder="Type post here" id="linkDescription"></textarea>
                             <div class="input_Label pushUp_20">Link</div>
-                            <textarea class="socialLink_attached removeDrag removeBorder" placeholder="http://www.brndbot.com"></textarea>
+                            <textarea class="socialLink_attached removeDrag removeBorder" placeholder="http://www.brndbot.com" id="linkUrl"></textarea>
                             </span>
                         </div>  
                     </div>
@@ -60,7 +60,7 @@
                     <div class="Social-Add-Image-Wrap clear displayNone" id="addImageDiv">
                         <img src="https://daks2k3a4ib2z.cloudfront.net/562feb3ef5fe5a8c1fd02272/56b8940906817e9a2bbb57ca_Deafult-Image_680x330.jpg" alt="alt_text" border="0" align="center" class="imageAdded pushUp_10 fleft">
                         <div class="col-1of1 clear">
-                            <div class="edit-Image-Button fleft">
+                            <div class="edit-Image-Button fleft" id="changeImage">
                                 Change Image
                             </div>
                             <div class="edit-Image-Button fleft">
@@ -72,17 +72,15 @@
             </div>
         </div>
         <div class="bottomNav">
-            <a href="Onboarding-Screen2.html">
-                <div class="bottom-ContinueButton fright">CONTINUE</div>
-            </a>
+            <div class="bottom-ContinueButton fright" onclick="fbPost()">CONTINUE</div>
         </div>
-<!--       <div class="popUp_background-dark">
+        <div class="popUp_background-dark displayNone" id="imagePopUp" ng-controller="displayUserImages">
        <div class="popUp_CenterVert ">
             <div class="popUp-top-wide clear">
             <div class="popUp_header clear">
                 <div class="pane_title fleft h2 col1of2">Please Select an Image</div>
-                <div class="popUp_close fright">
-                    <object type="image/svg+xml" data="/Final-Icons/Pop-Up-Exit-Button.svg" class="fleft popUp_close-icon" style="cursor:pointer;"> </object>
+                <div class="popUp_close fright" id="hidepopup">
+                    <img type="image/svg+xml" src="../images/Pop-Up-Exit-Button.svg" class="fleft popUp_close-icon" style="cursor:pointer;">
                 </div>
             </div>
             <div class="popUp_subheader clear">
@@ -90,7 +88,7 @@
                 <a href="/Social_Sequence/SocialSequence-AddImage-upload.html" class="popUp_subheader-tabs fleft">Upload Image</a>
             </div>
             <div class=" gallery-padding clear gallery-pane">
-                <div class="gallery-item-wrap-selected fleft">
+                <div class="gallery-item-wrap-selected fleft" ng-repeat="">
                     <div class="gallery-image-wrap">
                          <img src="https://daks2k3a4ib2z.cloudfront.net/562feb3ef5fe5a8c1fd02272/56b8940906817e9a2bbb57ca_Deafult-Image_680x330.jpg" alt="alt_text" border="0" align="center" class="gallery-image">
                     </div>
@@ -154,6 +152,6 @@
             </a>
         </div>
     </div>
-    </div>-->
+    </div>
     </body>
 </html>

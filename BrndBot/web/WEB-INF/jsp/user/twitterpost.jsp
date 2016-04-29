@@ -42,7 +42,7 @@
                     <div class="pane_content pane-Social-Create-padding ">
                         <div class="inputSection col1of1 pushUp_20">
                             <div class="input_Label">What would you like to share?</div>
-                            <textarea class="input_Field_lg removeDrag" placeholder="Type post here"></textarea>
+                            <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="twitterShareText"></textarea>
                         </div>  
                     </div>
                     <div class="Social-Add-Image-Wrap clear">
@@ -57,9 +57,7 @@
             </div>
         </div>
         <div class="bottomNav">
-            <a href="">
-                <div class="bottom-ContinueButton fright">CONTINUE</div>
-            </a>
+            <div class="bottom-ContinueButton fright" onclick="twitterPost()">CONTINUE</div>
         </div>
     </body>
 </html>
