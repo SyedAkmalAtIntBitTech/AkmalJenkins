@@ -171,7 +171,7 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
             try {
                 responseObject.put("Error", "Request unsuccessfull");
             } catch (Exception ex){
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while update the email list:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while update the email list:", getSqlMethodsInstance().error));
             }    
         }
         catch (Exception e) {

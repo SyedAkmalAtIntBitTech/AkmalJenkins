@@ -37,7 +37,7 @@ import org.postgresql.util.PGobject;
  */
 public class MindbodyEmailListProcessor implements Runnable {
 
-    private static final Logger logger = Logger.getLogger(util.Utility.getClassName(MindbodyEmailListProcessor.class));
+    private static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(MindbodyEmailListProcessor.class));
     private static final ConnectionManager connectionManager = ConnectionManager.getInstance();
     private volatile boolean running = true;
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

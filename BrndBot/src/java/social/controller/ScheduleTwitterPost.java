@@ -16,7 +16,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import util.DateTimeUtil;
+import com.intbittech.utility.DateTimeUtil;
 
 /**
  *
@@ -24,7 +24,9 @@ import util.DateTimeUtil;
  */
 public class ScheduleTwitterPost implements Runnable {
 
+
     private Logger logger = Logger.getLogger(ScheduleTwitterPost.class);
+
 
     @Override
     public void run() {

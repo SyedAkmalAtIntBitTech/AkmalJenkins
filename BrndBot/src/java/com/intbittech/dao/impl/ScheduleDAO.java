@@ -35,7 +35,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.postgresql.util.PGobject;
-import util.DateTimeUtil;
+import com.intbittech.utility.DateTimeUtil;
 
 /**
  *
@@ -152,7 +152,7 @@ public class ScheduleDAO {
             try {
                 String sql = "INSERT INTO scheduled_email_list "
                         + " (fk_company_id, subject, body, from_address, email_list_name, from_name, to_email_addresses, reply_to_email_address) VALUES "
-                        + " (?, ?, ?, ?, ?, ?, ?, ?) RETURNING id";
+                        + " (?, ?, ?, ?, ?, ?, ?, ?) RETURNING scheduled_email_list_id";
                 try (PreparedStatement ps = connection.prepareStatement(sql)) {
                     ps.setInt(1, companyId);
                     ps.setString(2, subject);
@@ -211,7 +211,7 @@ public class ScheduleDAO {
 
             ps.executeUpdate();
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e,
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e,
                     "Exception while updating the schedule:", null), e);
 
         }
@@ -280,7 +280,7 @@ public class ScheduleDAO {
             ps.execute();
 
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e,
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e,
                     "Exception while updating the schedule:", null), e);
         }
         return scheduleId;
@@ -309,7 +309,7 @@ public class ScheduleDAO {
             ps.execute();
 
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e,
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e,
                     "Exception while updating the schedule:", null), e);
         }
         return scheduleId;
@@ -336,7 +336,7 @@ public class ScheduleDAO {
                 while (result_set.next()) {
 
                     JSONObject json_object = new JSONObject();
-                    Integer id = result_set.getInt("id");
+                    Integer id = result_set.getInt("scheduled_entity_list_id");
                     String schedule_title = result_set.getString("schedule_title");
                     String schedule_desc = result_set.getString("schedule_desc");
                     Timestamp scheduleTimestamp = result_set.getTimestamp("schedule_time");
@@ -358,19 +358,7 @@ public class ScheduleDAO {
             LocalDate fromDate, LocalDate toDate) throws SQLException {
 
         Map<String, JSONArray> result = new LinkedHashMap<>();
-//        String sql = "SELECT DISTINCT ON (id) slist.*, date(programtable.date_event) - slist.days as cal_schedule_time, date(schedule_time) schedule_date "
-//                + " FROM tbl_scheduled_entity_list slist, "
-//                + " tbl_scheduled_entity_type_color tc, tbl_user_marketing_program programtable"
-//                + " WHERE slist.user_id = ? "
-//                + " AND (date(schedule_time) <= ? "
-//                + " AND date(schedule_time) >= ?) "
-//                + " OR ((slist.is_recurring = 'false' AND date(programtable.date_event) - slist.days <= ? "
-//                + " AND date(programtable.date_event) - slist.days >= ?) "
-//                + " OR (slist.is_recurring = 'true' AND date(programtable.date_event) <= ? "
-//                + " AND date(programtable.date_event) >= ?)) "
-//                + " AND slist.entity_type = tc.entity_type"
-//                + " AND slist.user_marketing_program_id = programtable.id"
-//                + " ORDER BY slist.id, schedule_time ";
+
         String sql = "SELECT DISTINCT ON (scheduled_entity_list_id) slist.*, concat(date(programtable.date_event) - slist.days, ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time, concat(date(programtable.date_event), ' ', slist.schedule_time::time WITH TIME ZONE) as cal_schedule_time_recurring, date(schedule_time) schedule_date "
                 + " FROM scheduled_entity_list slist, "
                 + " company_marketing_program programtable"
@@ -460,7 +448,7 @@ public class ScheduleDAO {
                 }
                 logger.log(Level.INFO, "In com.intbit.dao.ScheduleDAO.getScheduledEntities");
             } catch (Exception e) {
-                logger.log(Level.SEVERE, util.Utility.logMessage(e,
+                logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e,
                         "Exception while getting the schedule:", null), e);
             }
         }
@@ -533,7 +521,7 @@ public class ScheduleDAO {
 //            logger.log(Level.INFO, entityDataArray.toString());
 
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e,
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e,
                     "Exception while reading the dates :", null), e);
         }
         JSONObject json_data = new JSONObject();
@@ -556,7 +544,7 @@ public class ScheduleDAO {
                 System.out.println(e);
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e,
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e,
                     "Exception while getting the program names :", null), e);
         }
         return marketingProgram;
@@ -639,7 +627,7 @@ public class ScheduleDAO {
                                     prepared_statement1.setInt(1, entity_id);
                                     prepared_statement1.execute();
                                 } catch (Exception e) {
-                                    logger.log(Level.SEVERE, util.Utility.logMessage(e,
+                                    logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e,
                                             "Exception while deleting the schedule:", null), e);
                                 }
                             } else if ((entity_type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString()))
@@ -650,7 +638,7 @@ public class ScheduleDAO {
                                     prepared_statement1.setInt(1, entity_id);
                                     prepared_statement1.execute();
                                 } catch (Exception e) {
-                                    logger.log(Level.SEVERE, util.Utility.logMessage(e,
+                                    logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e,
                                             "Exception while deleting the schedule:", null), e);
                                 }
                             }
@@ -659,7 +647,7 @@ public class ScheduleDAO {
                     }
 
                 } catch (Exception e) {
-                    logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
+                    logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
                 }
                 String query_string2 = "Delete from scheduled_entity_list"
                         + " where scheduled_entity_list_id = ?";
@@ -667,7 +655,7 @@ public class ScheduleDAO {
                     prepared_statement2.setInt(1, Integer.parseInt(schedule_ids[i]));
                     prepared_statement2.execute();
                 } catch (Exception e) {
-                    logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
+                    logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
                 }
             }
 
@@ -689,13 +677,13 @@ public class ScheduleDAO {
                         Integer entity_id = result_set.getInt("entity_id");
                         String entity_type = result_set.getString("entity_type");
                         if (entity_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
-                            String query_string1 = "Delete from scheduled_email_list"
+                            String query_string1 = "Delete from scheduled_entity_list"
                                     + " where scheduled_email_list_id = ?";
                             try (PreparedStatement prepared_statement1 = connection.prepareStatement(query_string1)) {
                                 prepared_statement1.setInt(1, entity_id);
                                 prepared_statement1.execute();
                             } catch (Exception e) {
-                                logger.log(Level.SEVERE, util.Utility.logMessage(e,
+                                logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e,
                                         "Exception while deleting the schedule:", null), e);
                             }
                         } else if ((entity_type.equalsIgnoreCase(ScheduledEntityType.Facebook.toString()))
@@ -706,7 +694,7 @@ public class ScheduleDAO {
                                 prepared_statement1.setInt(1, entity_id);
                                 prepared_statement1.execute();
                             } catch (Exception e) {
-                                logger.log(Level.SEVERE, util.Utility.logMessage(e,
+                                logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e,
                                         "Exception while deleting the schedule:", null), e);
                             }
                         }
@@ -714,10 +702,10 @@ public class ScheduleDAO {
                 }
 
             } catch (Exception e) {
-                logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
+                logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
             }
             String query_string2 = "UPDATE scheduled_entity_list"
-                    + " SET entity_id = ?, status = ?, recurring_email_id = ? where scheduled_entity_list_id = ?";
+                    + " SET entity_id = ?, status = ?, fk_recurring_email_id = ? where scheduled_entity_list_id = ?";
             try (PreparedStatement prepared_statement = connection.prepareStatement(query_string2)) {
                 prepared_statement.setInt(1, 0);
                 prepared_statement.setString(2, TemplateStatus.no_template.toString());
@@ -725,7 +713,7 @@ public class ScheduleDAO {
                 prepared_statement.setInt(4, schedule_id);
                 prepared_statement.executeUpdate();
             } catch (Exception e) {
-                logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating the schedule:", null), e);
+                logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating the schedule:", null), e);
             }
         }
     }
@@ -753,7 +741,7 @@ public class ScheduleDAO {
                     }
                 }
             } catch (Exception e) {
-                logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
+                logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
             }
             String query_string2 = "Delete from scheduled_entity_list"
                     + " where scheduled_entity_list_id = ?";
@@ -761,7 +749,7 @@ public class ScheduleDAO {
                 prepared_statement.setInt(1, schedule_id);
                 prepared_statement.executeUpdate();
             } catch (Exception e) {
-                logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
+                logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while deleting the schedule:", null), e);
             }
         }
 
@@ -787,7 +775,7 @@ public class ScheduleDAO {
 
                 prepared_statement.executeUpdate();
             } catch (Exception e) {
-                logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while "
+                logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while "
                         + "updating the note schedule:", null), e);
             }
         }
@@ -844,7 +832,7 @@ public class ScheduleDAO {
                 prepared_statement.executeUpdate();
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating the email schedule:", null), e);
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating the email schedule:", null), e);
         }
     }
 
@@ -869,7 +857,7 @@ public class ScheduleDAO {
                 }
             }
         } catch (Exception ex) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while reading the json email addresses:", null), ex);
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(ex, "Exception while reading the json email addresses:", null), ex);
         }
         return json_email_addresses;
     }

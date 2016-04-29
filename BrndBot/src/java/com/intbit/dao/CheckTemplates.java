@@ -18,6 +18,7 @@ import java.util.logging.Logger;
  *
  * @author development
  */
+// To-Do Ilyas/AR refactor or remove ??
 public class CheckTemplates {
 
     private static final Logger logger = Logger.getLogger(CheckTemplates.class.getName());

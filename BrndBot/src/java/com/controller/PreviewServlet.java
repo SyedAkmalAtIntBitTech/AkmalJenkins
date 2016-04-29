@@ -3,29 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit;
+package com.controller;
 
-import com.controller.BrndBotBaseHttpServlet;
-import com.google.gson.Gson;
+import com.divtohtml.ConvertDivToHTML;
+import com.intbit.AppConstants;
+import com.intbit.util.ServletUtil;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONArray;
+import org.apache.commons.io.FileUtils;
 
 /**
  *
- * @author intbit
+ * @author ilyas
  */
-//To-Do Ilyas/AR refactor or remove ??
-public class ServletGetStyles extends BrndBotBaseHttpServlet {
-
-    String query = "", query1 = "";
+public class PreviewServlet extends BrndBotBaseHttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,39 +32,38 @@ public class ServletGetStyles extends BrndBotBaseHttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
     public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        super.processRequest(request, response);
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-        String xml_files;
-        JSONArray jsonarr = new JSONArray();
-        getSqlMethodsInstance().session = request.getSession(true);
+        try {
+            super.processRequest(request, response);
+            response.setContentType("text/html;charset=UTF-8");
 
-        try(Connection connection = ConnectionManager.getInstance().getConnection()) {
-            Integer user_id = (Integer) getSqlMethodsInstance().session.getAttribute("UID");
+//            ConvertDivToHTML convertDivToHTML = new ConvertDivToHTML(request);
 
-            String query_string = "Select layout from tbl_model where user_id=" + user_id + "";
-
-            prepared_statement = connection.prepareStatement(query_string);
-            result_set = prepared_statement.executeQuery();
-
-            while (result_set.next()) {
-                jsonarr.add(result_set.getString("layout"));
-            }
-            String json = new Gson().toJson(jsonarr);
-            response.setContentType("application/json");
-            response.getWriter().write(json);
-        } catch (Exception e) {
-                                  logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
-
-        } finally {
-            out.close();
-            getSqlMethodsInstance().close(result_set, prepared_statement);
+            String htmlString = request.getParameter("htmlString");
+            String iframeName=request.getParameter("iframeName");
+//            htmlString = convertDivToHTML.getResponsiveHTMLFromDiv(htmlString);
+            String htmlHeader = "";
             
+            htmlHeader = ServletUtil.getEmailHeader();
+            htmlString = htmlHeader + htmlString + "</body></html>";
+            File htmlFolder = new File(AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH);
+            if (!htmlFolder.exists()) {
+                htmlFolder.mkdirs();
+            }
+            File emailTemplateFile = new File(AppConstants.BASE_HTML_TEMPLATE_UPLOAD_PATH + File.separator +iframeName+".html");
+            if(!emailTemplateFile.exists()) {
+                    emailTemplateFile.createNewFile();
+                } 
+            FileWriter emailTemplateWriter = new FileWriter(emailTemplateFile, false); // true to append
+            // false to overwrite.
+            emailTemplateWriter.write(htmlString);
+            emailTemplateWriter.close();
+
+
+            response.getWriter().write(htmlString);
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(ex, "Exception while creating the responsive html:", getSqlMethodsInstance().error));
         }
     }
 

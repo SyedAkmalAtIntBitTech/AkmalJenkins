@@ -135,7 +135,7 @@ public class GetUserPreferences extends BrndBotBaseHttpServlet {
         response.getWriter().write(json);
 
         }catch (Exception e){
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while getting user preferences:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while getting user preferences:", getSqlMethodsInstance().error));
         } finally {
             out.close();
             getSqlMethodsInstance().close(result_set, prepared_statement);
@@ -161,7 +161,7 @@ public class GetUserPreferences extends BrndBotBaseHttpServlet {
                 }
             json_font_names.add(json_font);
         }catch (Exception e){
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while getting user preferences:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while getting user preferences:", getSqlMethodsInstance().error));
         }finally {
             rs.close();
             stmt.close();
