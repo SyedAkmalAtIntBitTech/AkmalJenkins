@@ -91,6 +91,7 @@
                         <span id="gallerySpan">
                             <div class="gallery-item-wrap-selected fleft" ng-repeat="">
                                 <div class="gallery-image-wrap">
+                                    <!--<img id="{{images.companyImagesId}}"  src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId=${companyId}" alt="alt_text" border="0" align="center" class="gallery-image" />-->
                                     <img src="https://daks2k3a4ib2z.cloudfront.net/562feb3ef5fe5a8c1fd02272/56b8940906817e9a2bbb57ca_Deafult-Image_680x330.jpg" alt="alt_text" border="0" align="center" class="gallery-image">
                                 </div>
                                 <div class="gallery-name"> Photo 1</div>

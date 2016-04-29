@@ -1129,7 +1129,7 @@ function twitterPost(){
 function displayUserImages($scope,$http){
     $scope.getUserImaages = function(){
         $http({
-                url:"",
+                url: getHost() + '/companyImages/get',
                 method:"GET"      
         }).success(function(data){
             
