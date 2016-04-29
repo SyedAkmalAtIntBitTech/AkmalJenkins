@@ -24,6 +24,7 @@ import org.json.simple.JSONObject;
  *
  * @author Syed
  */
+// To-Do ILyas/AR  remove or refactor ???
 public class GetUserImages extends BrndBotBaseHttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

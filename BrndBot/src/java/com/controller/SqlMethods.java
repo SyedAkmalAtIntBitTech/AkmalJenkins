@@ -31,6 +31,7 @@ import org.postgresql.util.PGobject;
  *
  * @author intbit
  */
+// To-Do ILyas/AR refactor and please check all the method
 public class SqlMethods {
 
     HttpServletRequest request;
