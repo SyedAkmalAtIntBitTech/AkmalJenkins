@@ -16,7 +16,7 @@ import model.EmailInfo;
 import org.json.simple.JSONArray;
 import static social.controller.ScheduleTwitterPost.logger;
 import com.intbittech.utility.DateTimeUtil;
-import util.Utility;
+import com.intbittech.utility.Utility;
 
 /**
  *

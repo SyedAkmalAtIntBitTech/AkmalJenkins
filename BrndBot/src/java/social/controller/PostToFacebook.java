@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
-import util.Utility;
+import com.intbittech.utility.Utility;
 
 /**
  *

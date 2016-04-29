@@ -120,7 +120,7 @@ public class GetFilesListServlet extends BrndBotBaseHttpServlet {
             response.getWriter().write(new Gson().toJson(imageurlJsonArray));
 
         } catch (IllegalArgumentException ex) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Invalid Image Type:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(ex, "Invalid Image Type:", getSqlMethodsInstance().error));
 
             Map<String, String> responseMap = new HashMap<>();
             responseMap.put("error", "Invalid Image Type. Supported Image types are: "
@@ -128,7 +128,7 @@ public class GetFilesListServlet extends BrndBotBaseHttpServlet {
             response.getWriter().write(new Gson().toJson(responseMap));
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } catch (Exception ex) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Major Exception", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(ex, "Major Exception", getSqlMethodsInstance().error));
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }

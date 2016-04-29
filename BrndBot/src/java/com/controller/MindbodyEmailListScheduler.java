@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class MindbodyEmailListScheduler {
 
-    public static final Logger logger = Logger.getLogger(util.Utility.getClassName(ApplicationContextListener.class));
+    public static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(ApplicationContextListener.class));
 
     final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
 

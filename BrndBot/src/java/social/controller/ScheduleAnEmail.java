@@ -23,7 +23,7 @@ import com.intbittech.utility.DateTimeUtil;
  */
 public class ScheduleAnEmail implements Runnable {
 
-    public static final Logger logger = Logger.getLogger(util.Utility.getClassName(ScheduleAnEmail.class));
+    public static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(ScheduleAnEmail.class));
 
     public void terminateThread() {
         try {

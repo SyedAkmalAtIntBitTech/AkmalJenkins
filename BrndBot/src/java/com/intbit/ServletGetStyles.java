@@ -63,7 +63,7 @@ public class ServletGetStyles extends BrndBotBaseHttpServlet {
             response.setContentType("application/json");
             response.getWriter().write(json);
         } catch (Exception e) {
-                                  logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+                                  logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
 
         } finally {
             out.close();

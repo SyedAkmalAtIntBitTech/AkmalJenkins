@@ -21,7 +21,7 @@ import social.controller.ScheduleTwitterPost;
  */
 public class SocialPostScheduler {
 
-    public static final Logger logger = Logger.getLogger(util.Utility.getClassName(SocialPostScheduler.class));
+    public static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(SocialPostScheduler.class));
     public static final int DefaultPollingInterval = 60;//5 mins
     public static final int InitialDelayPollingInterval = 10;//5 mins
     final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(5);

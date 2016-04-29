@@ -22,7 +22,7 @@ import org.apache.commons.lang3.time.DateUtils;
 public class DateTimeUtil {
 
     static final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
-    public static final Logger logger = Logger.getLogger(util.Utility.getClassName(DateTimeUtil.class));
+    public static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(DateTimeUtil.class));
 
     public static boolean timeEqualsCurrentTime(Date datetime) {
         //Make sure time zone is the same when comparison is done. Time doesnt have to be equal to the second. Just the minute is enough.

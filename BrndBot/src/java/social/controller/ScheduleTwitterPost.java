@@ -25,7 +25,7 @@ import com.intbittech.utility.DateTimeUtil;
  */
 public class ScheduleTwitterPost implements Runnable {
 
-    public static final Logger logger = Logger.getLogger(util.Utility.getClassName(ScheduleTwitterPost.class));
+    public static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(ScheduleTwitterPost.class));
 
     @Override
     public void run() {
