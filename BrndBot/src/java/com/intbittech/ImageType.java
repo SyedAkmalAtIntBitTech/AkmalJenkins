@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit;
+package com.intbittech;
 
 /**
  *
  * @author Mohamed
  */
 public enum ImageType {
-    GALLERY, LOOKS, BRAND_PERSONALITY, ORG_CATEGORIES, LAYOUT_IMAGES, USER_LOGO, ADMIN_LAYOUT_BACKGROUNDIMAGES, HTML_IMAGES,PDF_FILES_PATH;
+    GALLERY, LAYOUT_IMAGES, COMPANY_LOGO, GLOBAL_IMAGE, EMAIL_TEMPLATE_IMAGE, EMAIL_BLOCK_TEMPLATE_IMAGE ,PDF_FILES_PATH;
 }
