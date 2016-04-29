@@ -105,7 +105,8 @@ public class OnboardingController {
             companyPreferences.setCompanyLocation(studioId);
             companyPreferences.setFkCompanyId(company);
             companyPreferencesService.setStudioId(companyPreferences);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("true"));
+            transactionResponse.setMessage("true");
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_source_save", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));

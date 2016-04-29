@@ -185,7 +185,6 @@ function onboardingcontroller($scope,$http) {
 //    };
     
     $scope.getActivationLink = function (){
-        alert();
         var studioId=$("#mindbodyStudioId").val();
         if(studioId===""){
             alert("Please Enter Studio Id.");
@@ -195,12 +194,11 @@ function onboardingcontroller($scope,$http) {
                 method: 'POST',
                 url: getHost() +'/onboarding/saveStudioId.do?studioId='+studioId
             }).success(function (data, status, headers, config) {
-            var studioIdSaved = eval(JSON.stringify(data.d.details[0]));
-            alert(studioIdSaved);
+            var studioIdSaved = eval(JSON.stringify(data.d.message));
             if(studioIdSaved === "true") {
                 $http({
                     method: 'GET',
-                    url: getHost() +'/externalContent/getActivationLink.do?studioId='+studioId
+                    url: getHost() +'/externalContent/getActivationLink.do'
                 }).success(function (data, status, headers, config) {
                     var actiovationLink=eval(JSON.stringify(data.d.details[0]));
                     $("#actiovationLink").attr('href',actiovationLink);
@@ -413,23 +411,21 @@ function onboardingcontroller($scope,$http) {
          var color2=$("#color2").css("backgroundColor");
          var color3=$("#color3").css("backgroundColor");
          var color4=$("#color4").css("backgroundColor");
-         var companyColors='{"color1":'+color1+',"color2":'+color2+',"color3":'+color3+',"color4":'+color4+'}';
+         var companyColors={"color1":color1,"color2":color2,"color3":color3,"color4":color4};
          
         if((color1=="rgba(0, 0, 0, 0)")||(color2=="rgba(0, 0, 0, 0)")||(color3=="rgba(0, 0, 0, 0)")||(color4=="rgba(0, 0, 0, 0)")){
         alert("Please choose all 4 colors.");   
         }
         else{
-            var s= getHost();
-            var colorObject = '{"color1":"rgb(23,323,33)"}';
-             $.ajax({
+            $.ajax({
                 method: 'POST',
                 url: getHost() + 'settings/setColors.do',
                 headers: {'Content-Type': 'application/json'},
-                data: colorObject
+                data: JSON.stringify(companyColors)
             }).success(function (data)
             {
-                alert(JSON.stringify(data));
-//                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 window.open(getHost() + 'user/dashboard', "_self");
             })
             .error(function (data, status) {

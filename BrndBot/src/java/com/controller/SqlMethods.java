@@ -475,7 +475,7 @@ public class SqlMethods {
 
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
 
-            query_string = "Select location from company_preferences where fk_company_id=" + company;
+            query_string = "Select company_location from company_preferences where fk_company_id=" + company;
 
             prepared_statement = connection.prepareStatement(query_string);
             result_set = prepared_statement.executeQuery();

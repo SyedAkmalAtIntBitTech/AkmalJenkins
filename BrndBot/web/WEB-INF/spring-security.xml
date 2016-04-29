@@ -19,8 +19,10 @@
         <intercept-url pattern="/Access_Denied**" access="permitAll" />
         <intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
         <intercept-url pattern="/user**" access="hasRole('USER')" />
-        <intercept-url pattern="*.do**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
-        <intercept-url pattern="/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
+        <intercept-url pattern="/externalContent/getActivationLink**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_TEMP_USER')" />
+        <intercept-url pattern="/settings/setColors**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_TEMP_USER')" />
+        <intercept-url pattern="*.do**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_TEMP_USER')" />
+        <intercept-url pattern="/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN', 'ROLE_TEMP_USER')" />
         <form-login login-page="/login" 
                     username-parameter="username"
                     password-parameter="password"
