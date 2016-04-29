@@ -5,7 +5,6 @@
  */
 package com.intbittech.marketing.service.impl;
 
-import com.intbit.marketing.model.TblScheduledEntityList;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.marketing.dao.ScheduledEntityListDao;
 import com.intbittech.model.ScheduledEntityList;

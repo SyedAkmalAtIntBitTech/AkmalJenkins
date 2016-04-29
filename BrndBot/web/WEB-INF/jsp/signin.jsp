@@ -30,11 +30,14 @@
             <input name="username"  class="input_Field login-fields" type="email" required>
             <div class="input_Label">Password</div>
             <input  class="input_Field login-fields" name="password" type="password" required>
-            <div class="forgot_password">
+            <div class="forgot_password" style="float:left">
                 <span>Forgot Password</span>
             </div>
-           
-            <button style="left:-10px;" type="submit"  class="button button--moema button--text-thick button--text-upper button--size-s pushUp_30">Login</button>
+            <div class="forgot_password" style="position: relative;left: 1vw;" >
+               <a href="signup/registration"> <span>Sign up</span></a>
+            </div>
+            
+            <button style="left:-10px;" type="submit"  class="CTA_Button Button--Blue fleft pushUp_30">Login</button>
             <div class="sign-up_container"></div>
         </div>
     </div>
@@ -43,6 +46,8 @@
            
             
             
+             
+             
       
     </body>
 </html>

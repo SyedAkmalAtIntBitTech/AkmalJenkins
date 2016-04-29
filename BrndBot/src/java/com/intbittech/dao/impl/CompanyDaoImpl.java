@@ -54,7 +54,27 @@ public class CompanyDaoImpl implements CompanyDao{
 
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed("Database error while retrieving record");
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_list_message",new String[]{}, Locale.US));
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public Company getCompanyById(Integer companyId) throws ProcessFailed {
+         try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(Company.class)
+                    .add(Restrictions.eq("companyId", companyId));
+                    
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return (Company) criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
         }
     }
 
@@ -67,6 +87,18 @@ public class CompanyDaoImpl implements CompanyDao{
         } catch(Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public void update(Company company) throws ProcessFailed {
+        try {
+            sessionFactory.getCurrentSession().update(company);
+        } catch(Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
         }
     }
 

@@ -7,7 +7,7 @@ package com.intbittech.marketing.controller;
 
 import com.controller.SqlMethods;
 import com.intbit.AppConstants;
-import com.intbit.marketing.model.EmailDraftModel;
+import com.intbittech.model.EmailDraftModel;
 import com.intbittech.marketing.service.EmailDraftService;
 import com.intbittech.model.Company;
 import com.intbittech.model.EmailDraft;
