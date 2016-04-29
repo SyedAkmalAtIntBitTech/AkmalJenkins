@@ -35,7 +35,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.postgresql.util.PGobject;
-import util.DateTimeUtil;
+import com.intbittech.utility.DateTimeUtil;
 
 /**
  *

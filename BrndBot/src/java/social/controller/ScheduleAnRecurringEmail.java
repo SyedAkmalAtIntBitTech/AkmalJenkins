@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import model.EmailInfo;
 import org.json.simple.JSONArray;
 import static social.controller.ScheduleTwitterPost.logger;
-import util.DateTimeUtil;
+import com.intbittech.utility.DateTimeUtil;
 import util.Utility;
 
 /**
