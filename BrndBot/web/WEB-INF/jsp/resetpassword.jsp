@@ -8,9 +8,11 @@
 <!DOCTYPE html>
 <html ng-app>
     <head>
-     <script src="js/configurations.js"></script>
+          <link rel="shortcut icon" href="css/favicon.png">
+       <script src="js/configurations.js"></script>
         <script src="js/form.js"></script>
         <script src="js/alertmessage.js"></script>
+         
         <script type="text/javascript" src="js/angular.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scaleu=1.0">
@@ -21,7 +23,8 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-     <link rel="stylesheet" type="text/css" href="css/textstyle.css"></link>
+        <link rel="stylesheet" type="text/css" href="css/textstyle.css"></link>
+       
         <link rel="stylesheet" href="css/main1.css">
         <title>BrndBot - Change Password</title>
        

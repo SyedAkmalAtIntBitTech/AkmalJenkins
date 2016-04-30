@@ -91,16 +91,17 @@ function ForgotPassController($scope, $http) {
                 data: $scope.user   
             }).success(function (data)
             {
-                alert(JSON.stringify(data));
+                alert(eval(JSON.stringify(data.d.operationStatus.messages)));          
                 $scope.status = data;
-//                alert(JSON.stringify(status));
                 if (data === "true") {
                     alert(passwordresetlinksent);
+                   
                 } else if (data === "false") {
                     alert(wrongemail);
                 } else if (data === error) {
                     alert(data);
                 }
+                  window.open(getHost() , "_self");
             })
             .error(function (data, status) {
                 
