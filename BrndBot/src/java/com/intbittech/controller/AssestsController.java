@@ -83,9 +83,7 @@ public class AssestsController {
                 case EMAIL_TEMPLATE_IMAGE:
                     imageBasePath = AppConstants.BASE_ADMIN_EMAIL_TEMPLATE_IMAGE_UPLOAD_PATH;
                     break;
-                case EMAIL_BLOCK_TEMPLATE_IMAGE:
-                    imageBasePath = AppConstants.BASE_ADMIN_EMAIL_BLOCK_TEMPLATE_IMAGE_UPLOAD_PATH;
-                    break;
+                
         }
         String finalImagePath = imageBasePath + File.separator + imageName;
         String contentType = request.getServletContext().getMimeType(imageName);
