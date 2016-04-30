@@ -6,6 +6,7 @@
 package com.intbittech.services;
 
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <code>{@link CategoryService}</code> is service layer interface for
@@ -15,7 +16,7 @@ import java.util.Map;
  */
 public interface EmailListService {
 
-    public String getEmailList(Map<String, Object> requestBodyMap, Integer companyId) throws Exception;
+    public String getEmailList(HttpServletRequest request, Integer companyId) throws Exception;
 
     public Boolean setEmailList(Map<String, Object> requestBodyMap, Integer companyId) throws Exception;
 }

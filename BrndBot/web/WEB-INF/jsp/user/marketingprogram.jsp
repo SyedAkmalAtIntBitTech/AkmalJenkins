@@ -32,7 +32,7 @@
                 <span class="topNav--TitleBar--Title fleft h2">Select a category marketing program:</span>
                 <div class=" fright">
                    <div class="page-cta-container">
-                       <a id="cont" class=" fleft" href="usermarketingprogram">
+                       <a id="cont" class=" fleft" href="" ng-click="saveMarketingProgram(<%=marketingCategoryId%>)">
                         <div class=" add-button md-button">Continue</div>    
                     </a>
                     </div>

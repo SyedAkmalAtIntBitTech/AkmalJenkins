@@ -43,7 +43,6 @@
 <link rel="stylesheet" type="text/css" href="css/popup.css"/>    
 <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>    
 <link href="css/style_detail_overlay-1.css" rel="stylesheet" type="text/css"/>  
-<script src="js/marketing.js" type="text/javascript"></script>
 <script src="js/moment.js" type="text/javascript"></script>
 <script src="js/alertmessage.js" type="text/javascript"></script>
 <script src="js/pikaday.js"></script>

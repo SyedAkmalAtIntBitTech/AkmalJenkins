@@ -231,7 +231,7 @@ public class ScheduleDAO {
         String sql = "INSERT INTO scheduled_entity_list"
                 + " (entity_id, schedule_title,schedule_time,entity_type,"
                 + "status,fk_company_id, schedule_desc,is_recurring,"
-                + "fk_company_marketing_program_id,days,till_date,recurring_email_id"
+                + "fk_company_marketing_program_id,days,till_date,fk_recurring_email_id"
                 + ") VALUES"
                 + " (?,?,?,?,?,?,?,?,?,?,?,?) RETURNING scheduled_entity_list_id";
 

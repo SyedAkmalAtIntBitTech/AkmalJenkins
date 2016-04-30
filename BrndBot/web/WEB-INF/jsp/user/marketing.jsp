@@ -20,7 +20,8 @@
     <jsp:include page="twitterpreview.jsp"/> 
     <jsp:include page="emailpreviewslider.jsp"/>
     <jsp:include page="notepreview.jsp"/> 
-    <%@include file="header.jsp" %>       
+    <%@include file="header.jsp" %>  
+    <script src="js/marketing.js" type="text/javascript"></script>     
     <%@include file="navbar.jsp" %>     
     
   

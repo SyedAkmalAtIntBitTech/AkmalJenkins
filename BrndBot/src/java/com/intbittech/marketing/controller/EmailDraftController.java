@@ -11,6 +11,8 @@ import com.intbittech.model.EmailDraftModel;
 import com.intbittech.marketing.service.EmailDraftService;
 import com.intbittech.model.Company;
 import com.intbittech.model.EmailDraft;
+import com.intbittech.model.UserProfile;
+import com.intbittech.utility.UserSessionUtil;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Date;
@@ -139,9 +141,9 @@ public class EmailDraftController {
         try {
 
             sqlmethods.session = request.getSession(true);
-            Integer user_id = (Integer) sqlmethods.session.getAttribute("UID");
-
-            List<EmailDraft> emaildraftlist = emaildraftservice.getAllEmailDrafts(user_id);
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            List<EmailDraft> emaildraftlist = emaildraftservice.getAllEmailDrafts(companyId);
 
             JSONArray json_array_email_draft = new JSONArray();
             
