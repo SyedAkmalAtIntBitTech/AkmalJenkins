@@ -116,7 +116,7 @@ public class UsersDaoImpl implements UsersDao {
     public Users getUserByEmailId(String emailId) throws ProcessFailed {
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(Users.class)
-                .add(Restrictions.eq("email", emailId));
+                .add(Restrictions.eq("userName", emailId));
         if (criteria.list().isEmpty()) {
             return null;
         }
