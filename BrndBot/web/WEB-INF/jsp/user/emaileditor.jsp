@@ -17,7 +17,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
     <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/> 
-    <link href="css/emaileditornew.css" rel="stylesheet" type="text/css"/>
+    <link href="css/emaileditor.css" rel="stylesheet" type="text/css"/>
     <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
     <script src="js/configurations.js"></script>
     <script src="js/angular.min.js"></script>
@@ -299,15 +299,17 @@
                         };
                         
  /*---------------------------------- show style -------------------------------*/
-    
+                            
                         var queryurl;
-                        queryurl = 'GetLayoutStyles?editorType=email';
+                        var subCategoryId=<%=subCategoryIdTag%>;alert(subCategoryId);
+//                        queryurl = getHost()+'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId;
+//                        queryurl = 'GetLayoutStyles?editorType=email';
                         $http({
-                        method : 'GET',
-                                url : queryurl
+                                method : 'GET',
+                                url : getHost()+'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId;
                         }).success(function(data, status, headers, config) {
                             //$scope.datalistsstyles = data;
-//                            alert(JSON.stringify(data));
+                            alert(JSON.stringify(data));
 //                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
 //                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
 //                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
@@ -322,7 +324,7 @@
                             }
 
                         }).error(function(data, status, headers, config) {
-                        alert("No data available! Problem fetching the data.");
+                        alert("No data available! Problem fetching the data.....1");
                                 // called asynchronously if an error occurs
                                 // or server returns response with an error status.
                         });
