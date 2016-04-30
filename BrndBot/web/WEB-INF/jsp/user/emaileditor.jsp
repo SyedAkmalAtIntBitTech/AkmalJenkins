@@ -75,6 +75,7 @@
          String categoryId= request.getParameter("categoryId");
          String subCategoryId= request.getParameter("subCategoryId");
          String emailSubject= request.getParameter("emailSubject");
+         String mindbodyId=request.getParameter("mindbodyId");
 //        email_subject = request.getParameter("subject"); %>
     <%
 //        try {
@@ -192,18 +193,9 @@
                   url: getHost()+"/getAllEmailModelsBySubCategoryId.do?subCategoryId="+subCategoryId,
                 dataType: 'json',
                 success: function (data) {
-//                    alert(JSON.stringify(data.d.details));
-                var jsondataDefault = data;
-                    var allLayoutFilename = [];
-                    $(jsondataDefault).each(function (i, val) {
-                    var i = 0;
-                    $.each(val, function (k, v)
-                    {
-                        allLayoutFilename[i] = v;
-                        i++;
-                    });
-                });
-                showText(allLayoutFilename[0]);
+                    var blockList=data.d.details.reverse();
+                    var emailModelId=blockList[0].emailModelId;
+                showText(emailModelId);
                 angular.element(document.getElementById('MyController')).scope().getEmailDrafts();
 //                $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
 //                $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
@@ -331,37 +323,37 @@
                             
  /*---------------------------------- Show  Block ------------------------------*/     
  
-                        $("#addblkbtn").prop("disabled", true);
-                        $(".selectrow").css("display", "block");
-                        $("#stylelist").css("display", "none");
-                        $("#selectstyleid").css("display", "none");
-                        $("#blklistid").css("display", "block");
-                        $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
-                        $("#styletab").css("background-color", "transparent").css("color", "#19587c");
-                        $('body').scrollTop(0);
-                        $scope.curPage = 0;
-                        $scope.pageSize = 2;
-                        $http({
-                        method : 'GET',
-                                url :getHost()+'getAllBlocksForCompany.do'
-                        }).success(function(data, status, headers, config) {
-                        $scope.datalists = data.d.details;
-                            //alert(JSON.stringtify(data));
-//                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
-//                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton_blue_new.svg";
-//                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
-//                            document.getElementById('edt').style.backgroundColor = 'transparent';
-//                            document.getElementById('stl').style.backgroundColor = 'transparent';
-//                            document.getElementById('blk').style.backgroundColor = '#fff';
-                            $scope.numberOfPages = function() {
-                                return Math.ceil($scope.datalists.length / $scope.pageSize);
-                            };
-                            if (data === error){
-                                alert(data);
-                            }
-                        }).error(function(data, status, headers, config) {
-                        alert("No data available! Problem fetching the data.");
-                        });
+//                        $("#addblkbtn").prop("disabled", true);
+//                        $(".selectrow").css("display", "block");
+//                        $("#stylelist").css("display", "none");
+//                        $("#selectstyleid").css("display", "none");
+//                        $("#blklistid").css("display", "block");
+//                        $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
+//                        $("#styletab").css("background-color", "transparent").css("color", "#19587c");
+//                        $('body').scrollTop(0);
+//                        $scope.curPage = 0;
+//                        $scope.pageSize = 2;
+//                        $http({
+//                        method : 'GET',
+//                                url :getHost()+'getAllBlocksForCompany.do'
+//                        }).success(function(data, status, headers, config) {
+//                            $scope.datalists = data.d.details;
+//                            alert(JSON.stringtify(data));
+////                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
+////                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton_blue_new.svg";
+////                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
+////                            document.getElementById('edt').style.backgroundColor = 'transparent';
+////                            document.getElementById('stl').style.backgroundColor = 'transparent';
+////                            document.getElementById('blk').style.backgroundColor = '#fff';
+//                            $scope.numberOfPages = function() {
+//                                return Math.ceil($scope.datalists.length / $scope.pageSize);
+//                            };
+//                            if (data === error){
+//                                alert(data);
+//                            }
+//                        }).error(function(data, status, headers, config) {
+//                        alert("No data available! Problem fetching the data.");
+//                        });
         
                     $scope.showBlocks = function(){
                         $("#addblkbtn").prop("disabled", true);
@@ -399,21 +391,21 @@
                     };
                     
                     $scope.showImageOfBlock = function(id, mind_body_query){
+                        
                         $(".block-button").addClass("hide");
                         $("#blockdiv li").removeClass("block-slat-active");
                         $("#blockdiv li").addClass("block-slat");
                         $("#"+id).removeClass("block-slat");
                         $("#"+id).addClass("block-slat-active");
                         $("#div2"+id).removeClass("hide");
-                        hlt();
                         $("#stylelist").css("display", "none");
                         $("#blklist").css("display", "block");
                         $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
                         $(":button").removeAttr("disabled");
                         $("#styletab").css("background-color", "transparent").css("color", "#19587c");
-                        $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data, status){
+                        $http.get(getHost()+'getAllEmailBlockModelsByBlockId.do?emailBlockId=' + id).success(function(data, status){
                         var jsondataDefault = data;
-                            //alert(JSON.stringify(data));
+                            alert(JSON.stringify(data));
                             ///alert(id);
                             var allLayoutFilename = [];
                             $(jsondataDefault).each(function (i, val)
@@ -434,7 +426,9 @@
 //                           alert("smtng...style id.."+temp_style_id);
 //                           alert("smtng...style.."+temp_style_layout);
 //                           alert("smtng...mind_body_query.."+temp_mind_body_query);
-                        }).error();
+                        }).error(function(error){
+                            alert(JSON.stringify(error));
+                        });                        
                         $("#addblkbtn").prop("disabled", true);
                      };
                     
@@ -539,12 +533,11 @@
                 $('#continueblock').prop('disabled', false);
             }
             function showText(id){
-            //hiding filter Container 
             var layout_mapper_url = "";
             if (block_clicked == "true"){
                 currentBlockID = temp_block_id;
                 currentMindbodyQuery = temp_mind_body_query;
-            }
+            }           
             if ((mindbodydataId != "") && (mindbodydataId != "0") && (typeof (mindbodydataId) !== "undefined")){
             if (block_clicked == "true"){
             layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email&query=block&block_id=" + currentBlockID + "&mindbody_query=" + currentMindbodyQuery;
@@ -564,7 +557,7 @@
                     success: function (data) {
                     $.ajax({
                     method : 'POST',
-                            url: "GetEmaiLayoutHtmlServlet?id=" + id,
+                            url: "/getLayoutEmailModelById.do?emailModelId=" + id,
                             dataType: 'json',
                             contentType: 'application/json',
                             mimeType: 'application/json',
@@ -578,7 +571,7 @@
                                     editor.find("#defaultblock1").remove();
                                     editorHtml = editor.html();
                             }
-                            styleHtml = '<div id=defaultblock1 onclick="selecterBlockId(defaultblock1,0)">' + data.htmldata + '</div>';
+                            styleHtml = '<div id=defaultblock1 onclick="selecterBlockId(defaultblock1,0)">' + data.d.details.htmldata + '</div>';
                                     $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
 //                                                   $("#defaultblock1").empty().append(data.htmldata);
                             }
@@ -587,14 +580,14 @@
                                 if (editorHtml.contains('id="' + addblockid + '"')){
                                     var jHtmlObject = jQuery(editorHtml);
                                     var editor = jQuery("<p>").append(jHtmlObject);
-                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.htmldata + '</div>';
+                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.d.details.htmldata + '</div>';
                                     editor.find("#" + addblockid).replaceWith(BlockHtml);
                                     editorHtml = editor.html();
                                     $('#edit').froalaEditor('html.set', '' + editorHtml + '');
                                 }
                                 else
                                 {
-                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.htmldata + '</div>';
+                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.d.details.htmldata + '</div>';
                                     $('#edit').froalaEditor('html.set', '' + editorHtml + '' + BlockHtml + '');
                                 }
                             }
@@ -649,6 +642,7 @@
     <input type="hidden" id='subCategoryIdTag' value="<%=subCategoryId%>"/>
     <input type="hidden" id='userid' value="<%= user_id%>"/>
     <input type="hidden" id='draftid' value="<%= draft_id%>"/>
+    <input type="hidden" id='mindbodydata' value="<%= mindbodyId%>"/>
     <input type="hidden" value="<%=email_subject%>" id="email_subject"/>
     <input type="hidden" value="<%=emailSubject%>" id="emailSubjectTag"/>
     <!--SideNav-->
