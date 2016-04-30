@@ -10,11 +10,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no"></meta>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-<!--    <script src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
-    <link rel="stylesheet" href="css/pikaday.css"></link>
-    <link rel="stylesheet" href="css/datepickerpikaday.css"></link>
-    <script src="js/pikaday.js"></script>  
+    <!--<script src="js/jquery.min.js"></script>-->
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
     <title>BrndBot - Email Automation</title>
   
     <%@ include file="fonttypekit.jsp"%>
@@ -70,7 +67,7 @@
 
 <body ng-app ng-controller="emailautomation">
     <input type="hidden" name="program_end_date" id="program_end_date" value="<%= program_date %>"/>
-    <%@include file="header.jsp" %>    
+    <%@include file="header.jsp" %>   
     <%@include file="navbar.jsp" %>     
 <script>
     
@@ -190,10 +187,18 @@
                 method: 'GET',
 //                        url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts'
                  url: getHost() + '/emaillist/get.do?update=allEmailListWithNoOfContacts'
-            }).success(function (data, status, headers, config) { 
+            }).success(function (data, status, headers, config) {
+//                alert(JSON.stringify(JSON.parse(data.d.details))); 
                 var parseData=JSON.parse(data.d.details);
 //                alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user));
                 $scope.emailLists_user = parseData.allEmailListWithNoOfContacts.user;
+                for(var i=0;i<$scope.emailLists_user.length;i++){
+                    if($scope.emailLists_user[i].emailListName == $("#emaillist").val()){
+                        var emailListAddress=$scope.emailLists_user[i].defaultFromName;
+                    }
+//                alert(JSON.stringify($scope.emailLists_user[i].defaultFromName));
+                }
+                alert(emailListAddress);
                 $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
             }).error(function(error){
                 alert("showEmailList==Error\n"+JSON.stringify(error));
@@ -254,13 +259,14 @@
                         "schedule_time_epoch": schedule_time,
                         "program_id" :program_id 
                     };
-
+                    alert(JSON.stringify(recurring_action));
                     $http({
                         method: 'POST',
                         url: getHost()+'/addRecurringAction.do',
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(recurring_action)
                     }).success(function (data, status, headers, config) {
+                        alert(JSON.stringify("success\n"+data));
                         if (data === "true") {
                             alert("Details saved succesfully.");
                             window.open(getHost() + 'user/marketingprogramactions?program_id='+ program_id + '&past=0&program_date='+program_end_date, "_self");
@@ -268,7 +274,8 @@
                             alert("Problem saving the record!");
                         }
                     }).error(function (data, status, headers, config) {
-                        alert("No data available! Problem fetching the data.");
+                        alert("error\n"+JSON.stringify(data));
+//                        alert("No data available! Problem fetching the data.");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });
@@ -849,17 +856,17 @@
                                              }
                                     </style>
                         </div>
-                        <div class="col-4of10 fleft pushUp-30 lftpad-5">
+                        <div class="col-4of10 fleft pushUp-30 lftpad-5"> 
                                 <div class="h4" style="">
                                      Select a till date:
                                 </div>
-                            <input type="text" readonly  name="datepicker" 
-                                    id="datepicker"  
-                                    class="input-field-textfield col-1of1" 
-                                    value="{{entity_details.recurring_email_till_date| date:'MMM dd yyyy'}}" />  
-                           
+                                <!--<input></input>-->
+                                <input class=" input-field-textfield col-1of1" 
+                                    value="{{entity_details.recurring_email_till_date| date:'MMM dd yyyy'}}"
+                                    type="text" readonly  name="datepicker" 
+                                    id="datepicker"/>  
                                     <script>
-                                        var picker = new Pikaday(
+                                        var picker1 = new Pikaday(
                                         {
                                             format:('MM DD YYYY'),
                                             field: document.getElementById('datepicker'),
