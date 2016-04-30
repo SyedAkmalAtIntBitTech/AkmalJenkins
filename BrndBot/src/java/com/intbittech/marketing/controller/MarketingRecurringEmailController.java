@@ -188,12 +188,11 @@ public class MarketingRecurringEmailController {
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             SqlMethods sql_methods = new SqlMethods();
             
-            sql_methods.session = request.getSession(true);
-            Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
 
-            org.json.simple.JSONObject json_user_preferences = sql_methods.getJSONUserPreferences(user_id);
+            org.json.simple.JSONObject json_company_preferences = sql_methods.getJSONCompanyPreferences(companyId);
             
-            org.json.simple.JSONObject json_object_email_settings = (org.json.simple.JSONObject)json_user_preferences.get(IConstants.kEmailSettings);
+            org.json.simple.JSONObject json_object_email_settings = (org.json.simple.JSONObject)json_company_preferences.get(IConstants.kEmailSettings);
 
             Double entity_id = (Double)requestBodyMap.get("entity_id");
             String days = (String)requestBodyMap.get("days");
@@ -245,8 +244,7 @@ public class MarketingRecurringEmailController {
                 = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
         SqlMethods sql_methods = new SqlMethods();
 
-        sql_methods.session = request.getSession(true);
-        Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             
         String days = (String)requestBodyMap.get("days");
         String emaillist = (String)requestBodyMap.get("emaillist");
@@ -279,7 +277,7 @@ public class MarketingRecurringEmailController {
         company.setCompanyId(userProfile.getUser().getFkCompanyId().getCompanyId());
         schedule_email_list.setFkCompanyId(company);
         schedule_email_list.setEmailListName(emaillist);
-        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(user_id);
+        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(companyId);
         
         if (jsonFromAddress != null){
             schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
@@ -329,8 +327,7 @@ public class MarketingRecurringEmailController {
                 = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
         SqlMethods sql_methods = new SqlMethods();
 
-        sql_methods.session = request.getSession(true);
-        Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             
         String entity_id = (String)requestBodyMap.get("entity_id");
         String days = (String)requestBodyMap.get("days");
@@ -363,7 +360,7 @@ public class MarketingRecurringEmailController {
     
         schedule_email_list.setFkCompanyId(userProfile.getUser().getFkCompanyId());
         schedule_email_list.setEmailListName(emaillist);
-        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(user_id);
+        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(companyId);
         
         if (jsonFromAddress != null){
             schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
@@ -415,8 +412,7 @@ public class MarketingRecurringEmailController {
                 = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
         SqlMethods sql_methods = new SqlMethods();
 
-        sql_methods.session = request.getSession(true);
-        Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             
         String entity_id = (String)requestBodyMap.get("entity_id");
         String days = (String)requestBodyMap.get("days");
@@ -482,7 +478,7 @@ public class MarketingRecurringEmailController {
       
         schedule_email_list.setEmailListName(emaillist);
         schedule_email_list.setBody(html_data);
-        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(user_id);
+        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(companyId);
         
         if (jsonFromAddress != null){
             schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
@@ -504,14 +500,14 @@ public class MarketingRecurringEmailController {
         return "true";
     }
 
-    public org.json.simple.JSONObject getFromAddress(Integer user_id){
+    public org.json.simple.JSONObject getFromAddress(Integer companyId){
         try{
 
             SqlMethods sql_methods = new SqlMethods();
 
-            org.json.simple.JSONObject json_user_preferences = sql_methods.getJSONUserPreferences(user_id);
+            org.json.simple.JSONObject json_company_preferences = sql_methods.getJSONCompanyPreferences(companyId);
 
-            org.json.simple.JSONObject json_object_email_settings = (org.json.simple.JSONObject)json_user_preferences.get(IConstants.kEmailSettings);
+            org.json.simple.JSONObject json_object_email_settings = (org.json.simple.JSONObject)json_company_preferences.get(IConstants.kEmailSettings);
 
             String from_address = (String)json_object_email_settings.get(IConstants.kEmailFromAddress);
 
@@ -528,11 +524,10 @@ public class MarketingRecurringEmailController {
             HttpServletResponse response)throws IOException{
 
         SqlMethods sql_methods = new SqlMethods();
+        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
         
-        sql_methods.session = request.getSession(true);
-        Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
-        
-        org.json.simple.JSONObject from_address = (org.json.simple.JSONObject)getFromAddress(user_id);
+        org.json.simple.JSONObject from_address = (org.json.simple.JSONObject)getFromAddress(companyId);
 
         return from_address.toString();
         

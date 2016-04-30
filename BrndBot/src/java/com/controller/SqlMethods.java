@@ -359,7 +359,7 @@ public class SqlMethods {
         return mapper_file_name;
     }
 
-    public JSONObject getJSONUserPreferences(Integer companyId) {
+    public JSONObject getJSONCompanyPreferences(Integer companyId) {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;

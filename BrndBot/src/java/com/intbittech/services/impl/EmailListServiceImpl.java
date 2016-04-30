@@ -511,13 +511,13 @@ public class EmailListServiceImpl implements EmailListService {
     }
 
     private Boolean AddEmailListUserPreference(Integer companyId, org.json.simple.JSONArray json_user_preferences_emails) throws SQLException {
-        org.json.simple.JSONObject userPreferences = sql_methods.getJSONUserPreferences(companyId);
+        org.json.simple.JSONObject userPreferences = sql_methods.getJSONCompanyPreferences(companyId);
         userPreferences.put(IConstants.kEmailAddressUserPreferenceKey, json_user_preferences_emails);
         return sql_methods.updateJSONUserPreference(companyId, userPreferences);
     }
 
     private Boolean updateEmailListUserPreference(Integer companyId, org.json.simple.JSONArray json_user_preferences_emails) throws SQLException {
-        org.json.simple.JSONObject userPreferences = sql_methods.getJSONUserPreferences(companyId);
+        org.json.simple.JSONObject userPreferences = sql_methods.getJSONCompanyPreferences(companyId);
         userPreferences.put(IConstants.kEmailAddressUserPreferenceKey, json_user_preferences_emails);
         return sql_methods.updateJSONUserPreference(companyId, userPreferences);
     }

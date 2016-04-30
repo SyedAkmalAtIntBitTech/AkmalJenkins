@@ -466,13 +466,13 @@ public class SetEmailLists extends BrndBotBaseHttpServlet {
     }
 
     private Boolean AddEmailListUserPreference(Integer user_id, org.json.simple.JSONArray json_user_preferences_emails) throws SQLException {
-//        org.json.simple.JSONObject userPreferences = getSqlMethodsInstance().getJSONUserPreferences(user_id);
+//        org.json.simple.JSONObject userPreferences = getSqlMethodsInstance().getJSONCompanyPreferences(user_id);
 //        userPreferences.put(IConstants.kEmailAddressUserPreferenceKey, json_user_preferences_emails);
         return  false;//getSqlMethodsInstance().updateJSONUserPreference(user_id, userPreferences);
     }
 
     private Boolean updateEmailListUserPreference(Integer user_id, org.json.simple.JSONArray json_user_preferences_emails) throws SQLException {
-        //org.json.simple.JSONObject userPreferences = getSqlMethodsInstance().getJSONUserPreferences(user_id);
+        //org.json.simple.JSONObject userPreferences = getSqlMethodsInstance().getJSONCompanyPreferences(user_id);
         //userPreferences.put(IConstants.kEmailAddressUserPreferenceKey, json_user_preferences_emails);
         return  false;//getSqlMethodsInstance().updateJSONUserPreference(user_id, userPreferences);
     }
