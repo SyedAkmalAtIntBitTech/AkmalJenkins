@@ -31,7 +31,8 @@
                <div id="uploadOnEdit">
             <label class="fileContainer">
                 <div id="triggerFile" class="CTA_Button Button--Gray--text fleft ">Upload TTF</div>
-                <input type="file" id="fileName"  >
+                
+                 <input onclick="fontConverter('fileName')" name="fileNames" type="file" id="fileName" ng-file-select="onFileSelect($files)" > 
             </label>
         </div>
                   
