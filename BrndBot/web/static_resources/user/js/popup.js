@@ -1054,4 +1054,92 @@ $(document).ready(function ()
     $("#fade").hide();
     $("#addActionemllist").hide();
     });
+////// social flow  ///
+   $("#addImageToPostButton").click(function(){
+    $("#addImageDiv").show();
+    $("#addImageToPostButton").hide();
+    });
+   $("#changeImage").click(function(){
+     $("#imagePopUp").show();
+    });
+   $("#hidepopup").click(function(){
+     $("#imagePopUp").hide();
+    });
+   $("#shoeUploadimage").click(function(){
+       $("#gallerySpan").hide();
+       $("#showGallery").removeClass("popUp_subheader-tabs-active fleft").addClass("popUp_subheader-tabs fleft");
+       $("#shoeUploadimage").removeClass("popUp_subheader-tabs fleft").addClass("popUp_subheader-tabs-active fleft");
+       $("#uploadImageSpan").show();
+   });
+   $("#showGallery").click(function(){
+       $("#gallerySpan").show();
+       $("#showGallery").removeClass("popUp_subheader-tabs fleft").addClass("popUp_subheader-tabs-active fleft");
+       $("#shoeUploadimage").removeClass("popUp_subheader-tabs-active fleft").addClass("popUp_subheader-tabs fleft");
+       $("#uploadImageSpan").hide();
+   }); 
+  $("#addImageToTwitterPost").click(function(){
+    $("#addImageDivToTwitterPost").show();
+    $("#addImageToTwitterPost").hide();
+    });
+   
 });
+function changePostType(){
+   var postType = $("#linkPostFields").css("display");
+    if(postType === "none"){
+    $("#linkPostFields").show();
+    $("#postType").text("Change To Normal Post");
+    }
+  if(postType === "inline"){
+    $("#linkPostFields").hide();
+    $("#postType").text("Change To Link Post");
+    }
+}
+
+function fbPost(){
+    var shareText = $("#shareText").val();
+    var linkTitle = $("#linkTitle").val();
+    var linkDescription = $("#linkDescription").val();
+    var linkUrl = $("#linkUrl").val();
+    var dataObject="";
+    if(linkTitle === ""){
+       
+    }
+   $.ajax({
+            url: "",
+           method: 'post',
+            data: dataObject,
+          success: function (responseText) {
+                alert(JSON.stringify(responseText));
+                        },
+          error: function (jqXHR, textStatus, errorThrown) {
+              alert(JSON.stringify(jqXHR));
+        }
+    });
+}
+function twitterPost(){
+    var shareText = $("#twitterShareText").val();
+    var dataObject="";
+    alert(shareText);
+   $.ajax({
+            url: "",
+           method: 'post',
+            data: dataObject,
+          success: function (responseText) {
+                alert(JSON.stringify(responseText));
+                        },
+          error: function (jqXHR, textStatus, errorThrown) {
+              alert(JSON.stringify(jqXHR));
+        }
+    });
+}
+function displayUserImages($scope,$http){
+    $scope.getUserImaages = function(){
+        $http({
+                url: getHost() + '/companyImages/get',
+                method:"GET"      
+        }).success(function(data){
+            
+            
+        });
+    }; 
+}

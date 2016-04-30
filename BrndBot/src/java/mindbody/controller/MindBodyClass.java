@@ -35,7 +35,7 @@ import java.util.logging.Logger;
  */
 public class MindBodyClass {
 
-    private static final Logger logger = Logger.getLogger(util.Utility.getClassName(MindBodyClass.class));
+    private static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(MindBodyClass.class));
 
     private static String sourcePassword = "WBQ2o/mat0gOfT1WeoXDKP1eH8Y=";
     private static String sourceName = "BrndbotLLC";
@@ -64,7 +64,7 @@ public class MindBodyClass {
             staffResult = mindBody.getStaff(staffRequest);
 
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while getting staff:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while getting staff:", null));
 
         }
         return staffResult;
@@ -90,9 +90,9 @@ public class MindBodyClass {
             enrollmentsResult = mindBody.getEnrollments(enrollmentsRequest);
 
         } catch (DatatypeConfigurationException D) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(D, "Exception while  getting enrollments:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(D, "Exception while  getting enrollments:", null));
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while getting enrollments:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while getting enrollments:", null));
         }
         return enrollmentsResult;
     }
@@ -115,9 +115,9 @@ public class MindBodyClass {
             classesRequest.setHideCanceledClasses(true);
             classesResult = mindBody.getClasses(classesRequest);
         } catch (DatatypeConfigurationException D) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(D, "Exception while getting classes:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(D, "Exception while getting classes:", null));
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while getting classes:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while getting classes:", null));
 
         }
         return classesResult;

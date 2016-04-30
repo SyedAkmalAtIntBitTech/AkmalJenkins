@@ -63,7 +63,7 @@ a.svg:after {
     width: 70px;
     height: 100%;
     top: 0;
-    z-index: 2;
+    z-index: 10;
 }
 
 .main-nav-logo{

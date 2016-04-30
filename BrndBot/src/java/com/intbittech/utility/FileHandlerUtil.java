@@ -17,8 +17,8 @@ import javax.imageio.ImageIO;
  */
 public class FileHandlerUtil {
     
-    public static String saveCompanyLogo(String filePath, String imageFileName, String imageFileType, String base64ImageString) throws Throwable {
-        String fileNameWithExtension = imageFileName + "." + imageFileType;
+    public static String saveCompanyLogo(String filePath, String imageFile, String base64ImageString) throws Throwable {
+        String fileNameWithExtension = imageFile;
         saveImageWithOrignalName(fileNameWithExtension, base64ImageString, filePath);
         return fileNameWithExtension;
     }
@@ -163,31 +163,31 @@ public class FileHandlerUtil {
 
     public static String getBaseUploadAdminFilePath() {
 
-        return getBaseUploadFilePath() + File.separator + "admin";
+        return AppConstants.BASE_ADMIN_UPLOAD_PATH;
 
     }
 
     public static String getBaseUploadAdminImageFilePath() {
 
-        return getBaseUploadAdminFilePath() + File.separator + "images";
+        return AppConstants.BASE_ADMIN_IMAGE_UPLOAD_PATH;
 
     }
 
     public static String getAdminGlobalImageFilePath() {
 
-        return getBaseUploadAdminImageFilePath() + File.separator + "globalimages";
+        return AppConstants.BASE_ADMIN_GLOBAL_IMAGE_UPLOAD_PATH;
 
     }
 
     public static String getAdminEmailTemplatesImageFilePath() {
 
-        return getBaseUploadAdminImageFilePath() + File.separator + "emailtemplates";
+        return AppConstants.BASE_ADMIN_EMAIL_TEMPLATE_IMAGE_UPLOAD_PATH;
 
     }
 
     public static String getAdminEmailBlockModelImageFilePath() {
 
-        return getBaseUploadAdminImageFilePath() + File.separator + "emailblockmodels";
+        return AppConstants.BASE_ADMIN_EMAIL_BLOCK_TEMPLATE_IMAGE_UPLOAD_PATH;
 
     }
 

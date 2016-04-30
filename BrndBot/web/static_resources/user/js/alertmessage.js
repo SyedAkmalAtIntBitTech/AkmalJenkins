@@ -152,6 +152,7 @@ var emailsenderror="test";
 var deleteSubCategoryRelationPrompt="Do you want to delete this Email template relation to subcategroy?";
 var deleteEmailBlockPrompt="Do you want to delete this Email Block?";
 var deleteOrganizationPrompt="Do you want to delete this Organization?";
+var deleteImagePrompt="Do you want to delete this Image?";
 var deleteCategoryPrompt="Do you want to delete this Category?";
 var deleteSubCategoryPrompt="Do you want to delete this Sub Category?";
 var enterCategoryName="Please enter category name!";

@@ -29,7 +29,7 @@ import javax.imageio.ImageIO;
  */
 public class GetColorFromImage extends Component {
 
-        private static final Logger logger = Logger.getLogger(util.Utility.getClassName(GetColorFromImage.class));
+        private static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(GetColorFromImage.class));
 
     public static boolean ASC = true;
     public static boolean DESC = false;
@@ -45,7 +45,7 @@ public class GetColorFromImage extends Component {
             int blue = pixel & 0x000000ff;
             hex = String.format("#%02x%02x%02x", red, green, blue);
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating org name:", null));
         }
         return hex;
     }
@@ -82,7 +82,7 @@ public class GetColorFromImage extends Component {
                 }
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating org name:", null));
         }
         return topNColorsList;
     }
@@ -112,7 +112,7 @@ public class GetColorFromImage extends Component {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
         }catch (Exception e){
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating org name:", null));
         }
         return sortedMap;
     }
@@ -124,7 +124,7 @@ public class GetColorFromImage extends Component {
                         + entry.getValue());
             }
         }catch(Exception e){
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating org name:", null));
         }
     }
 //Todo Ilyas move to intbittech
@@ -140,7 +140,7 @@ public class GetColorFromImage extends Component {
             }
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating org name:", null));
 
         }
         return list;

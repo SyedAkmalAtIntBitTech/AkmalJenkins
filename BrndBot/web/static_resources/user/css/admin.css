@@ -590,3 +590,19 @@ width: calc(100% - 129px);
     padding: 7px 16px 7px 16px;
     border-radius: 3px;
 }
+.removeDrag{
+    resize:none;
+}
+.removeBorder{
+    border: none;
+}
+.displayNone{
+    display: none;
+}
+.gallery-image {
+    height: 100px;
+    width: 222px;
+}
+.cursor-shape{
+    cursor: pointer;
+}

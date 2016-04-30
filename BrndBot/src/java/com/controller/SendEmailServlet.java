@@ -142,7 +142,7 @@ public class SendEmailServlet extends BrndBotBaseHttpServlet {
             }        
             out.write("true");
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while Sending Email:", getSqlMethodsInstance().error), e);
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while Sending Email:", getSqlMethodsInstance().error), e);
 
             out.write(getSqlMethodsInstance().error);
         } finally {

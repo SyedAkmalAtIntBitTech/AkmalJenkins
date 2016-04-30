@@ -318,7 +318,7 @@ public class ScheduleSocialPostDAO {
                 }
             }
         }catch (Exception ex){
-            logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while reading the json metadata:", null), ex);
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(ex, "Exception while reading the json metadata:", null), ex);
         }
         return json_metadata;
     } 
