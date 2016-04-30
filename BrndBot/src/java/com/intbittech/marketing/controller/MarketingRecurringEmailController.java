@@ -7,7 +7,7 @@ package com.intbittech.marketing.controller;
 
 import com.controller.IConstants;
 import com.controller.SqlMethods;
-import com.intbit.AppConstants;
+import com.intbittech.AppConstants;
 import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
 import com.intbittech.marketing.service.ScheduledEmailListService;
@@ -289,7 +289,7 @@ public class MarketingRecurringEmailController {
         schedule_email_list.setReplyToEmailAddress(reply_to_address);
         schedule_email_list.setSubject(subject);
         schedule_email_list.setToEmailAddresses(json_object.toString());
-        schedule_email_list.setFkScheduledEntityListId(null);
+//        schedule_email_list.setFkScheduledEntityListId(null);
         
         Integer email_list_id = schedule_email_list_service.save(schedule_email_list);
 
@@ -299,7 +299,7 @@ public class MarketingRecurringEmailController {
         schedule_entity_list.setEntityId(email_list_id);
         schedule_entity_list.setEntityType(ScheduledEntityType.Email.toString());
         schedule_entity_list.setIsRecurring(Boolean.TRUE);
-        schedule_entity_list.setFkRecurringEmailId(null);
+//        schedule_entity_list.setFkRecurringEmailId(null);
         schedule_entity_list.setScheduleDesc(recurring_email_description);
         schedule_entity_list.setScheduleTime(time);
         schedule_entity_list.setScheduleTitle(recurring_email_title);

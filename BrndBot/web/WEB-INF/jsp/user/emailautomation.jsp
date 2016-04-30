@@ -85,14 +85,7 @@
     
     $(document).ready(function () {
          program_end_date=$("#program_end_date").val();
-//         for(var i=1; i<=31; i++){
-//                if ( i == days){
-//                    $('#days').append('<option value='+i+' selected>'+ i + '</option>');
-//                }else {
-//                    $('#days').append('<option value='+i+'>'+ i + '</option>');
-//                }
-//
-//            }
+        
     $("#templatetab").click(function (){
            $("#textdiv").hide();
            $("#templatediv").show();
@@ -190,18 +183,11 @@
             }).success(function (data, status, headers, config) {
 //                alert(JSON.stringify(JSON.parse(data.d.details))); 
                 var parseData=JSON.parse(data.d.details);
-//                alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user));
+                alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user));
                 $scope.emailLists_user = parseData.allEmailListWithNoOfContacts.user;
-                for(var i=0;i<$scope.emailLists_user.length;i++){
-                    if($scope.emailLists_user[i].emailListName == $("#emaillist").val()){
-                        var emailListAddress=$scope.emailLists_user[i].defaultFromName;
-                    }
-//                alert(JSON.stringify($scope.emailLists_user[i].defaultFromName));
-                }
-                alert(emailListAddress);
                 $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
             }).error(function(error){
-                alert("showEmailList==Error\n"+JSON.stringify(error));
+                alert(JSON.stringify(error));
 //                alert("Problem fetching the data!");
             });
         };
@@ -229,7 +215,9 @@
         $scope.addUpdateRecurringAction = function(){
             if (validate()){
                 var days = $("#days").val();
-                var emaillist = $("#emaillist").val();
+                var emaillistwithAddress = $("#emaillist").val().split('-');
+                var emaillist=emaillistwithAddress[0];
+                var to_email_addresses=emaillistwithAddress[1].split(',');alert(to_email_addresses);
                 var subject = $("#subject").val();
                 var from_name = $("#from_name").val();
                 var reply_to_address = $("#reply_to_address").val();
@@ -250,7 +238,7 @@
                 if ( type == 'add'){
                     var recurring_action = {
                         "days":days, "emaillist":emaillist, 
-                        "to_email_addresses": emails,
+                        "to_email_addresses": to_email_addresses,
                         "subject":subject, "from_name":from_name,
                         "reply_to_address":reply_to_address,
                         "recurring_email_title":recurring_email_title,
@@ -266,7 +254,7 @@
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(recurring_action)
                     }).success(function (data, status, headers, config) {
-                        alert(JSON.stringify("success\n"+data));
+                        alert(JSON.stringify(data));
                         if (data === "true") {
                             alert("Details saved succesfully.");
                             window.open(getHost() + 'user/marketingprogramactions?program_id='+ program_id + '&past=0&program_date='+program_end_date, "_self");
@@ -389,7 +377,7 @@
                       //do something special
                      // alert("delay");
                       //$("#select option").filter(".a0").attr('selected','selected');
-
+                      
                       $('#emaillist option[value='+email_list_name+']').attr("selected", "selected");
                       $("#emaillist").change();
 
@@ -520,7 +508,6 @@
             
             });
             function validate(){
-
                 var emlval = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
                 
                 var days = $("#days").val();
@@ -760,7 +747,6 @@
         </div>
     <!--SideNav-->
     <div class="content-main" >
-    <%@include file="navbarv2.jsp" %>
     <!--Top Nav-->   
     <div id="emailautomationcontent">
        <div class="top-nav">
@@ -828,8 +814,8 @@
                         <div class="col-3of10 fleft">
                               <select id="emaillist" name="emaillist" class="input-field-textfield">
                                    <option value="0">-- Select --</option>
-                                   <option ng-repeat ="Lists in emailLists_user" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
-                                   <option ng-repeat ="Lists in emailLists_mindbody" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
+                                   <option ng-repeat ="Listsuser in emailLists_user" value="{{Listsuser.emailListName}}-{{Listsuser.defaultFromName}}">{{Listsuser.emailListName}}</option>
+                                   <option ng-repeat ="Listsmindbody in emailLists_mindbody" value="{{Listsmindbody.emailListName}}">{{Listsmindbody.emailListName}}</option>
                               </select>
                         </div>
                         <div class="col-4of10 fleft pushUp-30">
@@ -852,7 +838,7 @@
                                     </script> 
                                     <style>
                                             .timepicker_wrap{
-                                                    width: 24% !important;
+                                                    width: 47%!important;
                                              }
                                     </style>
                         </div>
