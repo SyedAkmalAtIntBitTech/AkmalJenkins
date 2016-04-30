@@ -118,73 +118,7 @@
         var prevSliderDialog="#emaileditorexternalpopup";
         var sliderDialog="#emaileditorexternalpopup";
         
-        $(document).ready(function(){  
-            
-            /*---------------------------------- show style -------------------------------*/
-                            
-                var queryurl;
-                var subCategoryId=$("#subCategoryIdTag").val();
-//                        queryurl = getHost()+'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId;
-//                        queryurl = 'GetLayoutStyles?editorType=email';
-                $http({
-                        method : 'GET',
-                        url : getHost()+'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId
-                }).success(function(data, status, headers, config) {
-                    //$scope.datalistsstyles = data;
-                    alert(JSON.stringify(data));
-//                    document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
-//                    document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
-//                    document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
-//                    document.getElementById('edt').style.backgroundColor = 'transparent';
-//                    document.getElementById('stl').style.backgroundColor = '#fff';
-//                    document.getElementById('blk').style.backgroundColor = 'transparent';
-                    $scope.numberOfPages = function() {
-                        return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
-                    };
-                    if (data === error){
-                        alert(data);
-                    }
-
-                }).error(function(data, status, headers, config) {
-                alert("No data available! Problem fetching the data.....1");
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-                });
-                            
- /*---------------------------------- Show  Block ------------------------------*/     
- 
-                $("#addblkbtn").prop("disabled", true);
-                $(".selectrow").css("display", "block");
-                $("#stylelist").css("display", "none");
-                $("#selectstyleid").css("display", "none");
-                $("#blklistid").css("display", "block");
-                $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
-                $("#styletab").css("background-color", "transparent").css("color", "#19587c");
-                $('body').scrollTop(0);
-                $scope.curPage = 0;
-                $scope.pageSize = 2;
-                $http({
-                method : 'GET',
-                        url :getHost()+'getAllBlocksForCompany.do'
-                }).success(function(data, status, headers, config) {
-                $scope.datalists = data.d.details;
-                //alert(JSON.stringtify(data));
-//                document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
-//                document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton_blue_new.svg";
-//                document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
-//                document.getElementById('edt').style.backgroundColor = 'transparent';
-//                document.getElementById('stl').style.backgroundColor = 'transparent';
-//                document.getElementById('blk').style.backgroundColor = '#fff';
-                $scope.numberOfPages = function() {
-                    return Math.ceil($scope.datalists.length / $scope.pageSize);
-                };
-                if (data === error){
-                    alert(data);
-                }
-            }).error(function(data, status, headers, config) {
-            alert("No data available! Problem fetching the data.");
-            });
-            
+        $(document).ready(function(){    
             $('#edit').froalaEditor().show();
             $("#closePrev").click(function(){
                 $("#email_previewdiv").hide();
@@ -316,7 +250,6 @@
 //                         $("#div2"+id).removeClass("hide");
 //                    };
                     
-                    
                     $scope.addActive = function(id){
                         $("#stylediv li").removeClass("style-slat-active");
                         $("#stylediv li").addClass("style-slat");
@@ -331,7 +264,6 @@
                     };
                     
                     $scope.showStyles = function(){
-                        alert();
                             var subCategoryId=$("#subCategoryIdTag").val();
                             var queryurl;
                             $scope.curPage = 0;
@@ -339,11 +271,11 @@
                             if (block_clicked == "true" || blockIdSelected != "defaultblock1")
                             {
 //                            queryurl = 'GetLayoutStyles?editorType=email&query=block&block_id=' + block_id;
-                            queryurl = getHost() +'getAllEmailBlockModelsByBlockId?emailBlockId='+ block_id;
+                                queryurl = getHost() +'getAllEmailBlockModelsByBlockId?emailBlockId='+ block_id;
                             }
                             else
                             {
-                            queryurl = getHost() +'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId;
+                                queryurl = getHost() +'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId;
                             }
 //                            alert(queryurl);
                             $http({
@@ -365,7 +297,72 @@
                                     // or server returns response with an error status.
                             });
                         };
-                                
+                        
+ /*---------------------------------- show style -------------------------------*/
+                            
+                        var queryurl;
+                        var subCategoryId=7;
+//                        queryurl = getHost()+'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId;
+//                        queryurl = 'GetLayoutStyles?editorType=email';
+                        $http({
+                                method : 'GET',
+                                url : getHost()+'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId
+                        }).success(function(data, status, headers, config) {
+                            $scope.datalistsstyles = data;
+//                            alert(JSON.stringify(data.d.details));
+//                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
+//                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
+//                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
+//                            document.getElementById('edt').style.backgroundColor = 'transparent';
+//                            document.getElementById('stl').style.backgroundColor = '#fff';
+//                            document.getElementById('blk').style.backgroundColor = 'transparent';
+                            $scope.numberOfPages = function() {
+                                return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
+                            };
+                            if (data === error){
+                                alert(data);
+                            }
+
+                        }).error(function(data, status, headers, config) {
+                        alert("No data available! Problem fetching the data.");
+                                // called asynchronously if an error occurs
+                                // or server returns response with an error status.
+                        });
+                            
+ /*---------------------------------- Show  Block ------------------------------*/     
+ 
+                        $("#addblkbtn").prop("disabled", true);
+                        $(".selectrow").css("display", "block");
+                        $("#stylelist").css("display", "none");
+                        $("#selectstyleid").css("display", "none");
+                        $("#blklistid").css("display", "block");
+                        $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
+                        $("#styletab").css("background-color", "transparent").css("color", "#19587c");
+                        $('body').scrollTop(0);
+                        $scope.curPage = 0;
+                        $scope.pageSize = 2;
+                        $http({
+                        method : 'GET',
+                                url :getHost()+'getAllBlocksForCompany.do'
+                        }).success(function(data, status, headers, config) {
+                        $scope.datalists = data.d.details;
+                            //alert(JSON.stringtify(data));
+//                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
+//                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton_blue_new.svg";
+//                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
+//                            document.getElementById('edt').style.backgroundColor = 'transparent';
+//                            document.getElementById('stl').style.backgroundColor = 'transparent';
+//                            document.getElementById('blk').style.backgroundColor = '#fff';
+                            $scope.numberOfPages = function() {
+                                return Math.ceil($scope.datalists.length / $scope.pageSize);
+                            };
+                            if (data === error){
+                                alert(data);
+                            }
+                        }).error(function(data, status, headers, config) {
+                        alert("No data available! Problem fetching the data.");
+                        });
+        
                     $scope.showBlocks = function(){
                         $("#addblkbtn").prop("disabled", true);
                         $(".selectrow").css("display", "block");
@@ -944,7 +941,7 @@
                     <ul class="block-list" id="stylediv">
                         <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.emailModelId}}" ng-click="addActive('stylelistid'+styles.emailModelId)">
                             <div class="block-name">
-                                <img id="{{styles.emailModelId}}" class="img-responsive lookchooser5 ptr" src="{{styles.imgFileName}}" onclick="showText('{{styles.emailModelId}}')" width="100%" />
+                                <img id="{{styles.emailModelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" onclick="showText('{{styles.emailModelId}}')" width="100%" />
                             </div>
                         </li>
                     </ul>
