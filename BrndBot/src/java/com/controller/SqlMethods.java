@@ -1,7 +1,6 @@
 package com.controller;
 
 import com.divtohtml.DivHTMLModel;
-import com.divtohtml.StringUtil;
 import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
@@ -13,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
@@ -389,82 +387,6 @@ public class SqlMethods {
             close(result_set, prepared_statement);
         }
         return userPreferencesJSONObject;
-    }
-
-    public org.json.simple.JSONArray getEmailListsPreferences(Integer companyId, String type) {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-
-        PGobject pgobject = new PGobject();
-        JSONParser parser = new JSONParser();
-        org.json.simple.JSONObject userPreferencesJSONObject = new org.json.simple.JSONObject();
-        org.json.simple.JSONArray emailListJSONArray = new org.json.simple.JSONArray();
-
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            if (type.equalsIgnoreCase(IConstants.kEmailListUserKey)) {
-                query_string = "Select * from company_preferences where fk_company_id=" + companyId + "";
-
-                prepared_statement = connection.prepareStatement(query_string);
-
-                result_set = prepared_statement.executeQuery();
-
-                if (result_set.next()) {
-                    pgobject = (PGobject) result_set.getObject(IConstants.kUserPreferencesTableKey);
-                }
-                if (pgobject != null & pgobject.getValue() != null && !StringUtil.isEmpty(pgobject.getValue())) {
-                    pgobject.setType("json");
-                    String obj = pgobject.getValue();
-                    userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
-                    org.json.simple.JSONArray emailLists = (org.json.simple.JSONArray) userPreferencesJSONObject.get(IConstants.kEmailAddressUserPreferenceKey);
-
-                    if (userPreferencesJSONObject != null && emailLists != null) {
-                        for (int i = 0; i < emailLists.size(); i++) {
-                            org.json.simple.JSONObject emailJSONObject = (org.json.simple.JSONObject) emailLists.get(i);
-                            emailListJSONArray.add(emailJSONObject);
-                        }
-                    }
-                }
-
-            } else if (type.equalsIgnoreCase(IConstants.kEmailListMindbodyKey)) {
-                query_string = "Select * from company_preferences where company_preferences=" + companyId + "";
-
-                prepared_statement = connection.prepareStatement(query_string);
-
-                result_set = prepared_statement.executeQuery();
-
-                if (result_set.next()) {
-                    pgobject = (PGobject) result_set.getObject(IConstants.kUserPreferencesMindbodyKey);
-                }
-
-
-                if (pgobject != null) {
-                    if(pgobject.getValue() != null && !StringUtil.isEmpty(pgobject.getValue()))
-                    {
-                        pgobject.setType("json");
-                        String obj = pgobject.getValue();
-                        userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
-                        org.json.simple.JSONArray emailLists = (org.json.simple.JSONArray) userPreferencesJSONObject.get(IConstants.kEmailAddressUserPreferenceKey);
-
-                        if (userPreferencesJSONObject != null && emailLists != null) {
-                            for (int i = 0; i < emailLists.size(); i++) {
-                                org.json.simple.JSONObject emailJSONObject = (org.json.simple.JSONObject) emailLists.get(i);
-                                emailListJSONArray.add(emailJSONObject);
-                            }
-                        }
-                    }
-                    
-                }
-
-            }
-
-        } catch (Exception e) {
-            logger.error("Exception in SqlMethods - getEmailListsPreferences"+e.getMessage());
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return emailListJSONArray;
     }
 
     public Integer getStudioID(Integer company) throws SQLException {
