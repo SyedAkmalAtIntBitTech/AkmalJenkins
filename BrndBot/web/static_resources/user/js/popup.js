@@ -70,6 +70,7 @@ function getImageId(idname)
     }
 $(document).ready(function ()
 {  
+    
     $('#chars').text(length);
     $("#emailpreview").click(function(){
         $("#deskpreview").css('background-image', 'url("' + global_host_address +'images/imac27.png'+ '")')
