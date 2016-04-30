@@ -1,13 +1,3 @@
-/*
-Copyright 2015 Intbit Technologies. This software and documentation contains
-confidential and proprietary information that is owned by Intbit
-Technologies. Unauthorized use and distribution are strictly prohibited.
-*/
-/* 
-    Created on : 29 Apr, 2016, 11:14:55 AM
-    Author     : sandeep
-*/
-
 .gallery-item-wrap{
     width: 222px;
       border: 1px solid #D2D3D5;
@@ -17,7 +7,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
 }
 
 .gallery-item-wrap-selected{
-    width: 226px;
+    width: 222px;
       border: 2px solid #0f76a6;
     border-radius: 3px;
       margin-bottom: 20px;
