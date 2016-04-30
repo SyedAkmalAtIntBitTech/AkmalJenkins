@@ -297,7 +297,7 @@ public class AssestsController {
             String filePathWithFileName=AppConstants.BASE_ADMIN_FONT_UPLOAD_PATH+File.separator+globalFontsDetails.getFileName();
              String storableFileName = null;
              try {
-                storableFileName = FileHandlerUtil.saveAdminGlobalImage(filePathWithFileName,
+                storableFileName = FileHandlerUtil.saveAdminGlobalFont(filePathWithFileName,
                         globalFontsDetails.getFontType(), globalFontsDetails.getFontData());
             
            
@@ -306,18 +306,18 @@ public class AssestsController {
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
              throw throwable;
         }
-         globalFonts.setFontName(storableFileName);
+         
             try {
                 globalFontsService.save(globalFonts);
             } catch (Throwable throwable) {
                 if (storableFileName != null) {
-                    FileHandlerUtil.deleteAdminGlobalImage(storableFileName);
+                    FileHandlerUtil.deleteAdminGlobalFont(globalFontsDetails.getFileName());
                 }
-                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_not_save", null, Locale.US)));
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalFonts_not_save", null, Locale.US)));
                 throw throwable;
             }
 
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_save", null, Locale.US)));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalFonts_save", null, Locale.US)));
       
   } catch (Throwable throwable) {
             logger.error(throwable);
