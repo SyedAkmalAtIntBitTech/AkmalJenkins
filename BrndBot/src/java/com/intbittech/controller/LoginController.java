@@ -34,6 +34,16 @@ public class LoginController {
     public String loginPage(ModelMap model) {
         return "signin";
     }
+    
+    @RequestMapping(value = {"/resetpassword"}, method = RequestMethod.GET)
+    public String resetPassword(ModelMap model) {
+        return "resetpassword";
+    }
+    
+    @RequestMapping(value = {"/changepassword"}, method = RequestMethod.GET)
+    public String changePassword(ModelMap model) {
+        return "changepassword";
+    }
    
     
     @RequestMapping(value = "/logout", method = RequestMethod.GET)

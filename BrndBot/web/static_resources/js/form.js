@@ -86,11 +86,12 @@ function ForgotPassController($scope, $http) {
             document.getElementById("enter").disabled = true;
             $http({
                 method: 'POST',
-                url: getHost() + 'SendEmail',
+                url: getHost() + 'signup/forgotPassword',
                 headers: {'Content-Type': 'application/json'},
-                data: $scope.user
+                data: $scope.user   
             }).success(function (data)
             {
+                alert(JSON.stringify(data));
                 $scope.status = data;
 //                alert(JSON.stringify(status));
                 if (data === "true") {
@@ -102,6 +103,8 @@ function ForgotPassController($scope, $http) {
                 }
             })
             .error(function (data, status) {
+                
+                
                 alert(requesterror);
             });
         }
