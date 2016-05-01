@@ -64,6 +64,6 @@ public interface SubCategoryEmailModelDao {
      */
     public void delete(SubCategoryEmailModel subCategoryEmailModel) throws ProcessFailed;
 
-    public SubCategoryEmailModel getBySubCategoryEmailModelId(Integer emailModelId);
+    public SubCategoryEmailModel getBySubCategoryEmailModelId(Integer emailModelId) throws ProcessFailed;
 
 }
