@@ -23,6 +23,7 @@ angular.module("mindbody", [])
                             url :getHost()+ '/externalContent/getListData/'+LookupId
                         }).success(function(data, status, headers, config) {
                             var parseData=JSON.parse(data.d.details);
+                            alert(JSON.stringify(parseData));
                             $scope.mindbodylist=parseData.mindbody_data;
                             $('#loadingGif').remove();
                         }).error(function(data, status, headers, config) {

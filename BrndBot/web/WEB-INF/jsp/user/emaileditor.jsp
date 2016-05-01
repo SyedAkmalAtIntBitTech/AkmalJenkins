@@ -292,34 +292,34 @@
                         
  /*---------------------------------- show style -------------------------------*/
                             
-                        var queryurl;
-                        var subCategoryId=7;
-//                        queryurl = getHost()+'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId;
-//                        queryurl = 'GetLayoutStyles?editorType=email';
-                        $http({
-                                method : 'GET',
-                                url : getHost()+'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId
-                        }).success(function(data, status, headers, config) {
-                            $scope.datalistsstyles = data;
-//                            alert(JSON.stringify(data.d.details));
-//                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
-//                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
-//                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
-//                            document.getElementById('edt').style.backgroundColor = 'transparent';
-//                            document.getElementById('stl').style.backgroundColor = '#fff';
-//                            document.getElementById('blk').style.backgroundColor = 'transparent';
-                            $scope.numberOfPages = function() {
-                                return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
-                            };
-                            if (data === error){
-                                alert(data);
-                            }
-
-                        }).error(function(data, status, headers, config) {
-                        alert("No data available! Problem fetching the data.");
-                                // called asynchronously if an error occurs
-                                // or server returns response with an error status.
-                        });
+//                        var queryurl;
+//                        var subCategoryId=7;
+////                        queryurl = getHost()+'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId;
+////                        queryurl = 'GetLayoutStyles?editorType=email';
+//                        $http({
+//                                method : 'GET',
+//                                url : getHost()+'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId
+//                        }).success(function(data, status, headers, config) {
+//                            $scope.datalistsstyles = data;
+////                            alert(JSON.stringify(data.d.details));
+////                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
+////                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
+////                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
+////                            document.getElementById('edt').style.backgroundColor = 'transparent';
+////                            document.getElementById('stl').style.backgroundColor = '#fff';
+////                            document.getElementById('blk').style.backgroundColor = 'transparent';
+//                            $scope.numberOfPages = function() {
+//                                return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
+//                            };
+//                            if (data === error){
+//                                alert(data);
+//                            }
+//
+//                        }).error(function(data, status, headers, config) {
+//                        alert("No data available! Problem fetching the data.");
+//                                // called asynchronously if an error occurs
+//                                // or server returns response with an error status.
+//                        });
                             
  /*---------------------------------- Show  Block ------------------------------*/     
  
@@ -695,6 +695,7 @@
                                 method: "POST",
                                 data: JSON.stringify(sendData),
                                 success: function (responseText) {
+                                    alert(JSON.stringify(responseText.d.details));
                                     $("#dynamictable5").empty();
                                     $("#dynamictable6").empty();
                                     $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='/BrndBot/DownloadHtmlServlet?file_name=" + rendomIframeFilename + ".html'></iframe>");
@@ -913,7 +914,7 @@
                         </div>
                     </div>
                     <div class="col-1of2 fleft">
-                        <div class="emailSideBar-tab" id="styletab" ng-init="showStyles()" ng-click="showStyles()">
+                        <div class="emailSideBar-tab" id="styletab" ng-init="showStyles()">
                          Change Style
                         </div>
                     </div> 

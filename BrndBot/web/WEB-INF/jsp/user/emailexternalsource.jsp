@@ -55,12 +55,9 @@
                     <div class="subcat-list">
                         <a ng-repeat="mindbody in mindbodylist" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=subCategoryId%>&mindbodyId={{mindbody.id}}">
                             <div class="cat-slat clear">
-                                <div class="cat-slat-title col-3of10 fleft">Teacher Name</div>
-                                <div class="cat-slat-title col-3of10 fleft">Class</div>
-                                <div class="cat-slat-title col-3of10 fleft">Date</div>
-                                <div class="cat-slat-description col-2of10 fleft">{{mindbody.column2}}</div>
-                                <div class="cat-slat-description col-2of10 fleft">{{mindbody.column1}}</div>
+                                <div class="cat-slat-title col-3of10 fleft">{{mindbody.column1}}</div>
                                 <div class="cat-slat-description col-3of10 fleft">{{mindbody.column3}}</div>
+                                <div class="cat-slat-description col-3of10 fleft">{{mindbody.column2}}</div>   
                             </div> 
                         </a>
                     </div>
