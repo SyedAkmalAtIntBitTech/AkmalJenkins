@@ -136,7 +136,7 @@ public class ExternalContentController {
                     //Now emailModelId is actually email_block_model_lookup_id 
                     //get email_block_id from email_block_model_lookup then 
                     //get external_source_keyword_lookup_id from email_block_external_source
-                    EmailBlockModelLookup emailBlockModelLookup = emailBlockModelLookupService.getByEmailBlockModelLookupId(emailModelId);
+                    EmailBlockModelLookup emailBlockModelLookup = emailBlockModelLookupService.getByEmailModelId(emailModelId);
                     EmailBlockExternalSource emailBlockExternalSource = emailBlockExternalSourceService.getByEmailBlockId(emailBlockModelLookup.getFkEmailBlockId().getEmailBlockId());
                     externalKeywordId = emailBlockExternalSource.getFkExternalSourceKeywordLookupId().getExternalSourceKeywordLookupId();
 
