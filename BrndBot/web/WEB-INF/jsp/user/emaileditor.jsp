@@ -698,8 +698,9 @@
                                     alert(JSON.stringify(responseText.d.details));
                                     $("#dynamictable5").empty();
                                     $("#dynamictable6").empty();
-                                    $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='/BrndBot/DownloadHtmlServlet?file_name=" + rendomIframeFilename + ".html'></iframe>");
-                                    $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='/BrndBot/DownloadHtmlServlet?file_name=" + rendomIframeFilename + ".html'></iframe>");
+                                    var iframePath = getHost() +"download/HTML.do?fileName="+rendomIframeFilename+".html";
+                                    $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
+                                    $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
                                 }
                         }).error(function (error){alert(JSON.stringify(error));});
                         $("#fade").show();
