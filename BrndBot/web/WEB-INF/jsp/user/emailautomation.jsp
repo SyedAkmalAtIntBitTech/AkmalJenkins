@@ -914,7 +914,7 @@
                                     </script> 
                                     <style>
                                         .timepicker_wrap{
-                                                width: 24% !important;
+                                                width: 48% !important;
                                          }
                                     </style>
                         </div>
@@ -923,7 +923,7 @@
                                 <div class="h4" style="">
                                      Select a till date:
                                 </div>
-                            <input type="text" readonly  name="datepicker" 
+                            <input type="text"   name="datepicker" 
                                     id="datepicker"  
                                     class="input-field-textfield col-1of1" 
                                     value="{{entity_details.recuring_email_till_date| date:'MMM dd yyyy'}}" />  

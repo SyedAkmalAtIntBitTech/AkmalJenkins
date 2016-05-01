@@ -311,7 +311,7 @@
 }
 .time_pick {
     left: 1px;
-    width:200%;
+    width:100%;
 }
 .claro1{
     overflow: none !important;
@@ -527,7 +527,7 @@ img.exit-button {
     width: 75%;
 }
 input#timepicker1 {
-    width: 53%;
+    width: 100%;
 }
 
 #addContact {
