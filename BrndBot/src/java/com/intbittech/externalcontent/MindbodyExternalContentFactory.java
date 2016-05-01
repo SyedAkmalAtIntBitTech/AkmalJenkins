@@ -25,10 +25,12 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.XMLGregorianCalendar;
 import mindbody.controller.MindBodyClass;
+import mindbody.controller.MindBodyDataMapper;
 import mindbody.controller.MindBodyDuration;
 import mindbody.controller.MindBodyProcessedData;
 import org.json.JSONException;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -61,7 +63,7 @@ public class MindbodyExternalContentFactory extends ExternalContentFactory {
     }
 
     @Override
-    public ExternalSourceProcessedData getListData(String query) throws JSONException, ParseException{
+    public ExternalSourceProcessedData getListData(String query) throws JSONException, ParseException {
         ExternalSourceProcessedData mind_body_processed_data = null;
         if (query.equalsIgnoreCase(MindBodyConstants.kPromote_new_staff_query)) {
             GetStaffResult staffResult = mindBodyClass.getStaff();
@@ -237,6 +239,30 @@ public class MindbodyExternalContentFactory extends ExternalContentFactory {
             mind_body_process_data.setJsonData(json_data_array);
         }
         return mind_body_process_data;
+    }
+
+    @Override
+    public JSONObject getDetailData(String query, Object selected_object) throws JSONException {
+        JSONObject mapped_json_object = new JSONObject();
+        query = query.toLowerCase();
+        if (query.contains("class")) {
+            com.mindbodyonline.clients.api._0_5Class.Class mindbody_class = (com.mindbodyonline.clients.api._0_5Class.Class) selected_object;
+            mapped_json_object = MindBodyDataMapper.mapClassDataRaw(mindbody_class);
+
+        } else if (query.contains("work shop") || query.contains("workshop")) {
+            ClassSchedule mindbody_enrollments = (ClassSchedule) selected_object;
+            mapped_json_object = MindBodyDataMapper.mapEnrollmentDataRaw(mindbody_enrollments);
+        } else if (query.contains("staff")) {
+            com.mindbodyonline.clients.api._0_5Staff.Staff mindbody_staff = (com.mindbodyonline.clients.api._0_5Staff.Staff) selected_object;
+            mapped_json_object = MindBodyDataMapper.mapStaffDataRaw(mindbody_staff);
+        }
+        return mapped_json_object;
+
+    }
+
+    @Override
+    public String getExternalSourceName() {
+        return "Mindbody";
     }
 
 }

@@ -8,6 +8,7 @@ package com.intbittech.externalcontent;
 import com.controller.SqlMethods;
 import java.text.ParseException;
 import org.json.JSONException;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -26,4 +27,8 @@ public abstract class ExternalContentFactory {
     public abstract String getActivationLink();
 
     public abstract ExternalSourceProcessedData getListData(String query) throws JSONException, ParseException;
+
+    public abstract JSONObject getDetailData(String query, Object selected_object) throws JSONException ;
+
+    public abstract String getExternalSourceName();
 }
