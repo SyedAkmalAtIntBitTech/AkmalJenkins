@@ -6,6 +6,7 @@
 package com.intbittech.dao;
 
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.EmailBlockExternalSource;
 import com.intbittech.model.SubCategoryExternalSource;
 import java.util.List;
 
@@ -71,5 +72,7 @@ public interface SubCategoryExternalSourceDao {
      * @throws ProcessFailed the process failed
      */
     public List<SubCategoryExternalSource> getAllSubCategoriesByCategoryID(Integer categoryId) throws ProcessFailed;
+
+    public EmailBlockExternalSource getBySubCategoryId(Integer subCategoryId) throws ProcessFailed;
     
 }
