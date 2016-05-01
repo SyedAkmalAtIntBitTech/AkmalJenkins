@@ -9,7 +9,6 @@ import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.modelmappers.CompanyColorsDetails;
 import java.util.List;
-import java.util.Map;
 import org.json.simple.JSONObject;
 
 /**
@@ -31,5 +30,7 @@ public interface CompanyPreferencesService {
     public void setColors(CompanyColorsDetails companyColorsDetails, Company company);
     
     public void setStudioId(CompanyPreferences companyPreferences);
+
+    public CompanyPreferences getByCompanyId(Integer companyId);
    
 }

@@ -5,7 +5,6 @@
  */
 package com.controller;
 
-import com.intbit.AppConstants;
 import com.intbit.ConnectionManager;
 import com.mindbodyonline.clients.api._0_5Client.Client;
 import java.sql.Connection;
@@ -14,14 +13,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mindbody.controller.MindBodyClass;
@@ -29,6 +26,7 @@ import model.EmailInfo;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.postgresql.util.PGobject;
 
 /**
@@ -65,20 +63,21 @@ public class MindbodyEmailListProcessor implements Runnable {
         }
     }
 
-    private void startProcessing() {
+    private void startProcessing() throws ParseException {
 
         HashMap<Integer, String> rowIdLocationHashMap = new HashMap<>();
 
-        String sql = "SELECT id, location"
-                + " FROM tbl_user_preferences "
-                + " WHERE location IS NOT NULL";
+        String sql = "SELECT id, company_location, email_list"
+                + " FROM company_preferences "
+                + " WHERE company_location IS NOT NULL";
         try (Connection connection = connectionManager.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)) {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     String location = rs.getString("location");
                     int rowId = rs.getInt("id");
-                    rowIdLocationHashMap.put(rowId, location);
+                    String email_list = rs.getString("email_list");
+                    rowIdLocationHashMap.put(rowId, location+"||"+email_list);
                 }
             }
         } catch (SQLException ex) {
@@ -88,13 +87,22 @@ public class MindbodyEmailListProcessor implements Runnable {
         processEachRow(rowIdLocationHashMap);
     }
 
-    private void processEachRow(HashMap<Integer, String> rowIdLocationHashMap) {
+    private void processEachRow(HashMap<Integer, String> rowIdLocationHashMap) throws ParseException {
         JSONParser parser = new JSONParser();
         JSONArray json_email_array = new JSONArray();
         Iterator it = rowIdLocationHashMap.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<Integer, String> pair = (Entry<Integer, String>) it.next();
-            int[] siteids = new int[]{Integer.parseInt(pair.getValue())};
+            String []locationEmailList = pair.getValue().split("||");
+            
+            int[] siteids = new int[]{Integer.parseInt(locationEmailList[0])};
+            JSONObject emailListFromDB = new JSONObject();
+            if(locationEmailList != null && locationEmailList.length > 2) {
+                if(locationEmailList[1].length() > 0) {
+                    emailListFromDB = (JSONObject) parser.parse(locationEmailList[1]);
+                }
+            }
+            
             MindBodyClass mind_body_class = new MindBodyClass(siteids);
             HashMap<String, List<Client>> clientIndexesHashmap = new HashMap<String, List<Client>>();
             try {
@@ -131,10 +139,8 @@ public class MindbodyEmailListProcessor implements Runnable {
 
                 }
                 if (json_email_array.size() >= 0) {
-                    JSONObject json_clientIndexes = new JSONObject();
-                    json_clientIndexes.put(IConstants.kEmailAddressUserPreferenceKey, json_email_array);
-
-                    updateUserPreferencesTable(pair.getKey(), json_clientIndexes);
+                    emailListFromDB.put(IConstants.kEmailListMindbodyKey, json_email_array);
+                    updateUserPreferencesTable(pair.getKey(), emailListFromDB);
                 }
 
             } catch (Exception e) {
@@ -149,21 +155,7 @@ public class MindbodyEmailListProcessor implements Runnable {
         String query_string = "";
 
         PGobject pg_object = new PGobject();
-        query_string = "Update tbl_user_preferences SET mindbody_email_list=? where id=?";
-        try (Connection connection = connectionManager.getConnection();
-                PreparedStatement ps = connection.prepareStatement(query_string)) {
-            pg_object.setType("json");
-            pg_object.setValue(null);
-            ps.setObject(1, pg_object, Types.OTHER);
-            ps.setInt(2, idOfRow);
-            ps.executeUpdate();
-        } catch (SQLException ex) {
-            logger.log(Level.SEVERE, "Mindbody email list processor", ex);
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Mindbody email list processor", e);
-        }
-
-        query_string = "Update tbl_user_preferences SET mindbody_email_list=? where id=?";
+        query_string = "Update company_preferences SET email_list=? where id=?";
         try (Connection connection = connectionManager.getConnection();
                 PreparedStatement ps = connection.prepareStatement(query_string)) {
             pg_object.setType("json");

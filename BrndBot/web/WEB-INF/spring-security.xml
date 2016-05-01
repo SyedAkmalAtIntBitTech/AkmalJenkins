@@ -29,7 +29,10 @@
                     password-parameter="password"
                     authentication-failure-url="/Access_Denied" 
                     authentication-success-handler-ref="brndbotUserLoginSuccessHandler"/>
-       <csrf disabled="true"/>
+        <csrf disabled="true"/>
+        <headers>
+            <frame-options policy="SAMEORIGIN" />
+        </headers>
     </http>
 <!--    In-memory configuration-->
 <!--     <authentication-manager >

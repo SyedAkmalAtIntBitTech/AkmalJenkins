@@ -357,6 +357,7 @@
                         method : 'GET',
                         url :getHost() + '/email/tags.do'
                     }).success(function(data, status, headers, config) { 
+
                     if (data == ""){
                         $scope.email_history = data;
                         $("#nohistorydiv").empty().text(noemailhistory);
@@ -380,6 +381,7 @@
                 $scope.getEmailSettings = function(){                
                 var email_settings = {"type": "get"};                
                 $http({
+
                         method : 'GET',
                         url :getHost() + '/settings/getEmailSettings.do',
                         headers: {'Content-Type': 'application/json'}
@@ -765,8 +767,9 @@ $edit=0;
                          url: getHost() + '/emaillist/get.do?update=allEmailListWithNoOfContacts',
                          data: emailids
                     }).success(function (data, status, headers, config) {  
+
                         var parseData=JSON.parse(data.d.details);
-                        $scope.emailLists = parseData.allEmailListWithNoOfContacts.user;                        
+                        $scope.emailLists = parseData.allEmailListWithNoOfContacts.user; 
                         $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
                         if (data === "true") {
                         } else if (data === error) {
@@ -1050,6 +1053,7 @@ $edit=0;
                 method : 'GET',
                 url : getHost() + 'displayAllEmailDrafts.do'
             }).success(function(data, status) {
+                alert(JSON.stringify(data)+" get all draft")
                 if (data.nodrafts == "yes"){
                     $scope.emaildraftnumber = '0';
                     $scope.emaildraftsstatus = "No email drafts present";

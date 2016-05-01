@@ -50,7 +50,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     public void updateEmailSettings(JSONObject json_object, Company company) throws ProcessFailed {
         try {
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
-            if(companyPreferences == null) {
+            if (companyPreferences == null) {
                 companyPreferences.setFkCompanyId(company);
             }
             JSONParser parser = new JSONParser();
@@ -99,15 +99,14 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     public void setColors(CompanyColorsDetails companyColorsDetailsList, Company company) {
         try {
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
-            if(companyPreferences == null) {
+            if (companyPreferences == null) {
                 companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
             }
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = new JSONObject();
-            if(!StringUtility.isEmpty(companyPreferences.getCompanyPreferences()))
-            {
-            jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
+            if (!StringUtility.isEmpty(companyPreferences.getCompanyPreferences())) {
+                jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
             }
             jsonObject.put(IConstants.kColors, companyColorsDetailsList);
             String colorJsonString = AppConstants.GSON.toJson(jsonObject);
@@ -118,17 +117,17 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             throw new ProcessFailed("Database error while retrieving record");
         }
     }
-    
+
     @Override
     public void setStudioId(CompanyPreferences companyPreferences) {
         try {
             CompanyPreferences companyPreferencesObject = companyPreferencesDao.getByCompany(companyPreferences.getFkCompanyId());
-            if(companyPreferencesObject == null) {
+            if (companyPreferencesObject == null) {
                 companyPreferencesObject = new CompanyPreferences();
                 Company company = new Company();
                 company.setCompanyId(companyPreferences.getFkCompanyId().getCompanyId());
                 companyPreferencesObject.setFkCompanyId(company);
-                
+
             }
             companyPreferencesObject.setCompanyLocation(companyPreferences.getCompanyLocation());
             updatePreferences(companyPreferencesObject);
@@ -136,6 +135,13 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             logger.error(throwable);
             throw new ProcessFailed("Database error saving studio id");
         }
+    }
+
+    @Override
+    public CompanyPreferences getByCompanyId(Integer companyId) {
+        Company company = new Company();
+        company.setCompanyId(companyId);
+        return getByCompany(company);
     }
 
 }

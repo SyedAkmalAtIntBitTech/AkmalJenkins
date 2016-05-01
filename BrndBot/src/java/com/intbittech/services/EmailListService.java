@@ -16,7 +16,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface EmailListService {
 
-    public String getEmailList(HttpServletRequest request, Integer companyId) throws Exception;
+    public String getEmailList(HttpServletRequest request, Integer companyId, String emailListName) throws Exception;
 
     public Boolean setEmailList(Map<String, Object> requestBodyMap, Integer companyId) throws Exception;
+
 }

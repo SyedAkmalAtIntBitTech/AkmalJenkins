@@ -6,7 +6,7 @@
 package com.intbittech.controller;
 
 import com.google.gson.Gson;
-import com.intbit.AppConstants;
+import com.intbittech.AppConstants;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -32,10 +32,10 @@ public class DownloadController {
 
     private Logger logger = Logger.getLogger(DownloadController.class);
 
-    @RequestMapping(value = "/HTML/{fileName}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public void forgotSendEMail(@PathVariable(value = "fileName") String fileName, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @RequestMapping(value = "/HTML", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public void forgotSendEMail(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        String fileName = request.getParameter("fileName");
         if (fileName == null || "".equals(fileName)) {
             Map<String, String> responseMap = new HashMap<>();
             responseMap.put("error", "Name of the image is missing");
