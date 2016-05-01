@@ -73,6 +73,6 @@ public interface SubCategoryExternalSourceDao {
      */
     public List<SubCategoryExternalSource> getAllSubCategoriesByCategoryID(Integer categoryId) throws ProcessFailed;
 
-    public EmailBlockExternalSource getBySubCategoryId(Integer subCategoryId);
+    public EmailBlockExternalSource getBySubCategoryId(Integer subCategoryId) throws ProcessFailed;
     
 }
