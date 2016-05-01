@@ -6,7 +6,7 @@
 package com.intbittech.controller;
 
 import com.google.gson.Gson;
-import com.intbit.AppConstants;
+import com.intbittech.AppConstants;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
