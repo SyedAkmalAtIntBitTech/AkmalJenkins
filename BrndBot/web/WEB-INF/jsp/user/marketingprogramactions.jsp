@@ -18,7 +18,7 @@
     <script src="js/configurations.js"></script>
     <script src="js/popup.js" type="text/javascript"></script>      
     <script src="js/timepicki.js" type="text/javascript"></script>  
-    <style>#progname,#instancehidden,#fbpostremove{display:none;}</style>
+    <style>#progname,#instancehidden,#fbpostremove,#facebooksection,#twittersection{display:none;}</style>
     <%--<jsp:include page="basejsp.jsp"/>--%>
     <%!
             String program_id = "";

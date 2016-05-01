@@ -528,36 +528,39 @@
 //       });
 
    if (type == 'edit'){
-//       var entity_details = {"entity_id": entity_id};                    
-//       $("#emailautomationcontent").show();
-//       $("#emlautomeditorcontainer").hide();
-//       $("#emailautomation").hide();
-//       $("#editpreviewtemplatebottom").hide();
+       var entity_details = {"entity_id": entity_id};                 
+       $("#emailautomationcontent").show();
+       $("#emlautomeditorcontainer").hide();
+       $("#emailautomation").hide();
+       $("#editpreviewtemplatebottom").hide();
        //                
-//                $.ajax({
-//                    url: getHost() + "getRecuringEntity.do",
-//                    method: 'POST',
-//                    dataType: 'json',
-//                    contentType: 'application/json',
-//                    mimeType: 'application/json',
-//                    data: JSON.stringify(entity_details),
-//                    success: function(result){
-//                        
-//                        $("#days").val(result.recuring_email_days);
-////                        $("#emaillist :selected").text(result.recuring_email_email_list_name);
-//                        
-//        //                        $("#emaillist").val();
-//                        $("#subject").val(result.recuring_email_subject);
-//                        $("#from_name").val(result.recuring_email_from_name);
-//                        $("#reply_to_address").val(result.recuring_email_reply_to_email_address);
-//                        $("#recuring_email_title").val(result.recuring_email_title);
-//                        $("#recuring_email_description").val(result.recuring_email_description);
-////                        $("#datepicker").val(result.recuring_email_time);
-//
-//                        $("#emaillist").change();                        
-//                        angular.element(document.getElementById('emailautomation')).scope().setDateNTime(result.recuring_email_time, result.recuring_email_till_date, result.recuring_email_email_list_name);
-//                    }
-//                });
+                $.ajax({
+                    url: getHost() + "getRecuringEntity.do",
+                    method: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    mimeType: 'application/json',
+                    data: JSON.stringify(entity_details),
+                    success: function(result){
+                        
+                        $("#days").val(result.recuring_email_days);
+//                        $("#emaillist :selected").text(result.recuring_email_email_list_name);
+                        
+        //                        $("#emaillist").val();
+                        $("#subject").val(result.recuring_email_subject);
+                        $("#from_name").val(result.recuring_email_from_name);
+                        $("#reply_to_address").val(result.recuring_email_reply_to_email_address);
+                        $("#recuring_email_title").val(result.recuring_email_title);
+                        $("#recuring_email_description").val(result.recuring_email_description);
+//                        $("#datepicker").val(result.recuring_email_time);
+
+                        $("#emaillist").change();                        
+                        angular.element(document.getElementById('emailautomation')).scope().setDateNTime(result.recuring_email_time, result.recuring_email_till_date, result.recuring_email_email_list_name);
+                    },
+                    error: function (error) {
+                     alert(eval(JSON.stringify(error.statusText)));   
+                    }
+                });
 
                 
             }else if (type == 'template'){
