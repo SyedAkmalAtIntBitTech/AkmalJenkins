@@ -10,13 +10,19 @@ import com.intbit.util.ServletUtil;
 import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.externalcontent.ExternalContentSession;
 import com.intbittech.externalcontent.ExternalSourceProcessedData;
+import com.intbittech.model.EmailBlockExternalSource;
+import com.intbittech.model.EmailBlockModelLookup;
 import com.intbittech.model.ExternalSourceKeywordLookup;
+import com.intbittech.model.SubCategoryEmailModel;
 import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
+import com.intbittech.services.EmailBlockExternalSourceService;
+import com.intbittech.services.EmailBlockModelLookupService;
 import com.intbittech.services.EmailModelService;
 import com.intbittech.services.ExternalSourceKeywordLookupService;
-import com.intbittech.services.ExternalSourceService;
+import com.intbittech.services.SubCategoryEmailModelService;
+import com.intbittech.services.SubCategoryExternalSourceService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.UserSessionUtil;
 import java.sql.SQLException;
@@ -53,11 +59,17 @@ public class ExternalContentController {
     @Autowired
     private ExternalContentSession externalContentSession;
     @Autowired
-    private ExternalSourceService externalSourceService;
+    private SubCategoryExternalSourceService subCategoryExternalSourceService;
     @Autowired
     private ExternalSourceKeywordLookupService externalSourceKeywordLookupService;
     @Autowired
     private EmailModelService emailModelService;
+    @Autowired
+    private EmailBlockModelLookupService emailBlockModelLookupService;
+    @Autowired
+    private EmailBlockExternalSourceService emailBlockExternalSourceService;
+    @Autowired
+    private SubCategoryEmailModelService subCategoryEmailModelService;
 
     @RequestMapping(value = "/isActivated", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> isActivated() throws SQLException {
@@ -107,7 +119,7 @@ public class ExternalContentController {
 
     @RequestMapping(value = "/getLayoutEmailModelById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getLayoutEmailModelById(@RequestParam("emailModelId") Integer emailModelId,
-            @RequestParam("externalKeywordId") Integer externalKeywordId,
+            @RequestParam("isBlock") Boolean isBlock,
             @RequestParam("externalDataId") Integer externalDataId,
             HttpServletRequest request, HttpServletResponse response) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
@@ -115,14 +127,36 @@ public class ExternalContentController {
             String hostURL = ServletUtil.getServerName(request.getServletContext());
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-            Map<String, Object> data = new HashMap<String, Object>();
+            Map<String, Object> data = new HashMap<>();
             ExternalSourceKeywordLookup externalSourceKeywordLookup = null;
             externalContentProcessor = new ExternalContentProcessor(companyId);
-            if (externalKeywordId != null && externalDataId != null) {
-                externalSourceKeywordLookup = externalSourceKeywordLookupService.getByExternalSourceKeywordLookupId(externalKeywordId);
-                String query = externalSourceKeywordLookup.getFkExternalSourceKeywordId().getExternalSourceKeywordName();
-                String keyname = externalContentProcessor.getExternalSourceMapKeyName(query);
-                data = (Map<String, Object>) externalContentSession.getSessionKeyValue(keyname);
+            Integer externalKeywordId = null;
+            if (externalDataId != 0) {
+                if (isBlock) {
+                    //Now emailModelId is actually email_block_model_lookup_id 
+                    //get email_block_id from email_block_model_lookup then 
+                    //get external_source_keyword_lookup_id from email_block_external_source
+                    EmailBlockModelLookup emailBlockModelLookup = emailBlockModelLookupService.getByEmailBlockModelLookupId(emailModelId);
+                    EmailBlockExternalSource emailBlockExternalSource = emailBlockExternalSourceService.getByEmailBlockId(emailBlockModelLookup.getFkEmailBlockId().getEmailBlockId());
+                    externalKeywordId = emailBlockExternalSource.getFkExternalSourceKeywordLookupId().getExternalSourceKeywordLookupId();
+
+                } else {
+                    //Now emailModelId is actually sub_caterogy_email_model_id
+                    //get sub_caterogy_id from sub_caterogy_email_model 
+                    //get external_source_keyword_lookup_id from sub_caterogy_external_source
+                    SubCategoryEmailModel subCategoryEmailModel = subCategoryEmailModelService.getBySubCategoryEmailModelId(emailModelId);
+                    EmailBlockExternalSource emailBlockExternalSource = subCategoryExternalSourceService.getBySubCategoryId(subCategoryEmailModel.getFkSubCategoryId().getSubCategoryId());
+                    externalKeywordId = emailBlockExternalSource.getFkExternalSourceKeywordLookupId().getExternalSourceKeywordLookupId();
+
+                }
+                //Defensive code
+                if (externalKeywordId != null) {
+                    externalSourceKeywordLookup = externalSourceKeywordLookupService.getByExternalSourceKeywordLookupId(externalKeywordId);
+                    String query = externalSourceKeywordLookup.getFkExternalSourceKeywordId().getExternalSourceKeywordName();
+                    String keyname = externalContentProcessor.getExternalSourceMapKeyName(query);
+                    data = (Map<String, Object>) externalContentSession.getSessionKeyValue(keyname);
+                }
+
             }
             String html = emailModelService.getLayoutEmail(emailModelId, hostURL, companyId, externalSourceKeywordLookup, externalDataId, data);
             genericResponse.addDetail(html);

@@ -55,4 +55,6 @@ public interface SubCategoryEmailModelService {
      */
     public void delete(Integer subCategoryEmailModelId) throws ProcessFailed;
 
+    public SubCategoryEmailModel getBySubCategoryEmailModelId(Integer emailModelId);
+
 }

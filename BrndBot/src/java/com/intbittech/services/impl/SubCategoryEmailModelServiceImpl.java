@@ -57,4 +57,9 @@ public class SubCategoryEmailModelServiceImpl implements SubCategoryEmailModelSe
         subCategoryEmailModelDao.delete(subCategoryEmailModel);
     }
 
+    @Override
+    public SubCategoryEmailModel getBySubCategoryEmailModelId(Integer emailModelId) {
+        return subCategoryEmailModelDao.getBySubCategoryEmailModelId(emailModelId);      
+    }
+
 }

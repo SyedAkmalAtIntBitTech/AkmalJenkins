@@ -7,7 +7,7 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.SubCategoryExternalSourceDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.ExternalSource;
+import com.intbittech.model.EmailBlockExternalSource;
 import com.intbittech.model.SubCategoryExternalSource;
 import java.util.List;
 import java.util.Locale;
@@ -82,11 +82,11 @@ public class SubCategoryExternalSourceDaoImpl implements SubCategoryExternalSour
      * {@inheritDoc}
      */
     public Integer save(SubCategoryExternalSource subCategoryExternalSource) throws ProcessFailed {
-         try {
+        try {
             return ((Integer) sessionFactory.getCurrentSession().save(subCategoryExternalSource));
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_saving_message", new String[]{}, Locale.US));
         }
     }
 
@@ -94,11 +94,11 @@ public class SubCategoryExternalSourceDaoImpl implements SubCategoryExternalSour
      * {@inheritDoc}
      */
     public void update(SubCategoryExternalSource subCategoryExternalSource) throws ProcessFailed {
-         try {
+        try {
             sessionFactory.getCurrentSession().update(subCategoryExternalSource);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message", new String[]{}, Locale.US));
         }
     }
 
@@ -110,7 +110,7 @@ public class SubCategoryExternalSourceDaoImpl implements SubCategoryExternalSour
             sessionFactory.getCurrentSession().delete(subCategoryExternalSource);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_deleting_message", new String[]{}, Locale.US));
         }
     }
 
@@ -129,6 +129,25 @@ public class SubCategoryExternalSourceDaoImpl implements SubCategoryExternalSour
                 return null;
             }
             return criteria.list();
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message", new String[]{}, Locale.US));
+        }
+    }
+
+    @Override
+    public EmailBlockExternalSource getBySubCategoryId(Integer subCategoryId) {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(SubCategoryExternalSource.class)
+                    .setFetchMode("fkSubCategoryId", FetchMode.JOIN)
+                    .createAlias("fkSubCategoryId.fkCategoryId", "aliasSubCatCat")
+                    .add(Restrictions.eq("aliasSubCatCat.sub_category_id", subCategoryId));;
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return (EmailBlockExternalSource) criteria.list().get(0);
 
         } catch (Throwable throwable) {
             logger.error(throwable);

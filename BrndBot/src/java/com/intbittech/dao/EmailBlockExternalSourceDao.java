@@ -64,4 +64,6 @@ public interface EmailBlockExternalSourceDao {
      */
     public void delete(EmailBlockExternalSource emailBlockExternalSource) throws ProcessFailed;
 
+    public EmailBlockExternalSource getByEmailBlockId(Integer emailBlockId);
+
 }
