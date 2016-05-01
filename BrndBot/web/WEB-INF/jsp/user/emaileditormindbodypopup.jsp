@@ -57,7 +57,7 @@
                             <div class="list-column-description col-1of1 sh3-contact fleft">Instructor</div>
                         </div>
                         <div class="col-21f10 fleft">
-                            <img src="images/Icons/nextArrow.svg" class="next-button-icon" ></img>
+                            <img src="images/nextArrow.svg" class="next-button-icon" ></img>
                         </div>                       
                     </li>
                 </ul>

@@ -3,8 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>BrndBot - Email Editor</title>
-    <%@ include file="fonttypekit.jsp"%>
-    <%--<%@ include file="checksession.jsp" %>--%>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
@@ -118,6 +116,8 @@
         var draft_id = 0;
         var prevSliderDialog="#emaileditorexternalpopup";
         var sliderDialog="#emaileditorexternalpopup";
+        var externalKeywordId="";
+        var externalDataId="";
         
         $(document).ready(function(){    
             $('#edit').froalaEditor().show();
@@ -193,12 +193,13 @@
                   url: getHost()+"/getAllEmailModelsBySubCategoryId.do?subCategoryId="+subCategoryId,
                 dataType: 'json',
                 success: function (data) {
+//                    alert(JSON.stringify(data));
                     var blockList=data.d.details.reverse();
-                    var emailModelId=blockList[0].emailModelId;
-                showText(emailModelId);
-                angular.element(document.getElementById('MyController')).scope().getEmailDrafts();
-//                $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
-//                $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
+                    var emailModelId=blockList[0].subCategoryEmailModelId;
+                    showText(emailModelId);
+                    angular.element(document.getElementById('MyController')).scope().getEmailDrafts();
+//                    $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
+//                    $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
                 },error: function (data){
                     alert(JSON.stringify(data));
                 }
@@ -269,13 +270,13 @@
                             {
                                 queryurl = getHost() +'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId;
                             }
-//                            alert(queryurl);
+//                            alert("blockIdSelected "+blockIdSelected);
                             $http({
                             method : 'GET',
                                     url :  queryurl
                             }).success(function(data, status, headers, config) {
-//                            alert(JSON.stringify(data.d.details));
                             $scope.datalistsstyles = data.d.details;
+                            alert(JSON.stringify(data.d.details)+"...style...");
                             $scope.numberOfPages = function() {
                                 return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
                             };
@@ -370,7 +371,7 @@
                         method : 'GET',
                                 url : getHost()+'getAllBlocksForCompany.do'
                         }).success(function(data, status, headers, config) {
-//                            alert(JSON.stringify(data.d.details));
+                            alert(JSON.stringify(data.d.details)+".....blocks.....");
                             $scope.datalists = data.d.details;
 //                            alert(JSON.stringtify(data));
 //                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
@@ -403,24 +404,24 @@
                         $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
                         $(":button").removeAttr("disabled");
                         $("#styletab").css("background-color", "transparent").css("color", "#19587c");
+                        temp_block_id = id;
+                        temp_mind_body_query = mind_body_query;
                         $http.get(getHost()+'getAllEmailBlockModelsByBlockId.do?emailBlockId=' + id).success(function(data, status){
                         var jsondataDefault = data;
-                            alert(JSON.stringify(data));
+                           
                             ///alert(id);
-                            var allLayoutFilename = [];
-                            $(jsondataDefault).each(function (i, val)
-                            {
-                                var i = 0;
-                                $.each(val, function (k, v) 
-                                {
-                                    allLayoutFilename[i] = v;
-                                    i++;
-                                });
-                            });
-                            temp_block_id = id;
-                            temp_style_id = allLayoutFilename[0];
-                            temp_style_layout = allLayoutFilename[1];                
-                            temp_mind_body_query = mind_body_query;
+//                            var allLayoutFilename = [];
+//                            $(jsondataDefault).each(function (i, val)
+//                            {
+//                                var i = 0;
+//                                $.each(val, function (k, v) 
+//                                {
+//                                    allLayoutFilename[i] = v;
+//                                    i++;
+//                                });
+//                            });
+                            temp_style_id = data.d.details[0].emailBlockModelId;
+//                            temp_style_layout = allLayoutFilename[1];  
                             //$("#" + id).attr('onclick', "showSomething('" + id + "','" + allLayoutFilename[0] + "','" + allLayoutFilename[1] + "','" + mind_body_query + "')");
 //                           alert("smtng...block id.."+temp_block_id);
 //                           alert("smtng...style id.."+temp_style_id);
@@ -433,6 +434,7 @@
                      };
                     
                     $scope.showDataTemp = function(id){
+//                        alert(temp_block_id+" temp_mind_body_query .."+temp_mind_body_query);
                         $scope.showData(temp_block_id, temp_mind_body_query);
                         $("#blockdivheader").hide();
                         $("#styledivheader").show();
@@ -450,20 +452,13 @@
                         block_id = id;
                         addblockid = "block" + addBlockcCount;
                         addBlockcCount++;
-//                            $(".fr-element").append("<div id=" + addblockid + " onclick=selecterBlockId('" + addblockid + "','" + temp_block_id + "');></div>")
-                        if (mind_body_query == "null")
+                        if (mind_body_query == 0)
                         {
                             mindbodydataId = "0";
-                            //$scope.showStyles();
                             showText(temp_style_id);
                         }
                         else
                         {
-//                            $("#tabs-1").hide();
-//                            $("#tabs-2").hide();
-//                            $("#tabs-3").hide();
-//                            $("#tabs-5").hide();
-//                            $("#tabs-4").show().css("width", "830px").css("height", "100%").css("position", "fixed").css("margin-left", "-600px").css("top", "0px");
                             $("#fade").show();
                             $('#slider-button').click();
                             $(".scrollydiv").hide();
@@ -472,33 +467,37 @@
                             $scope.pageSize = 4;
                             $http({
                             method : 'GET',
-                                    url : 'MindBodyDataServlet?mindbody_query=' + mind_body_query
-                            }).success(function(data, status, headers, config)
-                            {   
-//                                $("#loadingGifformindbody").show();
-//                                alert(JSON.stringify(data));
-                                $scope.datalists2 = data;
-                                $scope.numberOfPages = function() 
-                                {
-                                    return Math.ceil($scope.datalists2.length / $scope.pageSize);
-                                };
-                                if (data === error)
-                                {
-                                    alert(data);
+                            url :getHost()+ '/externalContent/isActivated?externalSourceKeywordLookupId='+mind_body_query
+                            }).success(function(data, status, headers, config) {
+                                var minddata= JSON.stringify(data.d.details);
+                                if(minddata === "[true]"){
+                                    $http({
+                                        method : 'GET',
+                                        url :getHost()+ '/externalContent/getListData/'+mind_body_query
+                                    }).success(function(data, status, headers, config) {
+                                            var parseData=JSON.parse(data.d.details);
+                                            $scope.datalists2 = parseData;
+//                                            $scope.numberOfPages = function() 
+//                                            {
+//                                                return Math.ceil($scope.datalists2.length / $scope.pageSize);
+//                                            };
+//                                            if (data === error)
+//                                            {
+//                                                alert(data);
+//                                            }
+                                            $("#loadingGifformindbody").hide();
+                                            $(".scrollydiv").show();
+                                            $("#clsbtn").css("display", "block");
+                                            $("#addblkbtn").prop('disabled', true).css("background-color", "#e3e3e3").css("color", "#9c9da1");
+                                    }).error(function(data, status, headers, config) {
+                                        alert("No data available, problem fetching the data");
+                                    });
                                 }
-                                $("#loadingGifformindbody").hide();
-                                $(".scrollydiv").show();
-                                $("#clsbtn").css("display", "block");
-                                $("#addblkbtn").prop('disabled', true).css("background-color", "#e3e3e3").css("color", "#9c9da1");
-//                              $("#tabs-4").css("width", "830px").css("position", "fixed").css("margin-left", "-600px").css("top", "0px").show("slide", { direction: "right" }, 1000);
-                            }).error(function(data, status, headers, config)
-                            {
-                                alert("No data available! Problem fetching the data.");
-                                // called asynchronously if an error occurs
-                                // or server returns response with an error status.
+                            }).error(function(data, status, headers, config) {
+                                alert("No data available, problem fetching the data");
                             });
-                    }
-                    $scope.showStyles();
+                        }
+                        $scope.showStyles();
                     };
                     
                     $scope.select_category_details = function(id) {
@@ -533,36 +532,29 @@
                 $('#continueblock').prop('disabled', false);
             }
             function showText(id){
-            var layout_mapper_url = "";
-            if (block_clicked == "true"){
-                currentBlockID = temp_block_id;
-                currentMindbodyQuery = temp_mind_body_query;
-            }           
-            if ((mindbodydataId != "") && (mindbodydataId != "0") && (typeof (mindbodydataId) !== "undefined")){
-            if (block_clicked == "true"){
-            layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email&query=block&block_id=" + currentBlockID + "&mindbody_query=" + currentMindbodyQuery;
-            }
-            else{
-            layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email";
-            }
-            } else {
-            layout_mapper_url = 'GenericAnnouncementServlet?model_mapper_id=' + id + "&editor_type=email";
-            }
-//            alert(layout_mapper_url);
-            $.ajax({
-            type: 'GET',
-                    url: layout_mapper_url,
-                    data: {get_param: 'value'},
-                    dataType: 'json',
-                    success: function (data) {
-                    $.ajax({
-                    method : 'POST',
-                            url: "/getLayoutEmailModelById.do?emailModelId=" + id,
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            mimeType: 'application/json',
-                            data: JSON.stringify(data),
-                            success: function (data) {
+                var layout_mapper_url = "";
+                if (block_clicked == "true"){
+                    currentBlockID = temp_block_id;
+                    currentMindbodyQuery = temp_mind_body_query;
+                }   
+    //            alert("emailModelId.. "+id+" block_clicked.. "+block_clicked+" mindbodydataId.. "+mindbodydataId)
+                if ((mindbodydataId != "") && (mindbodydataId != "0") && (typeof (mindbodydataId) !== "undefined")){
+                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById.do?emailModelId=" + id+'&isBlock='+block_clicked+'&externalDataId='+mindbodydataId;
+                } 
+                else 
+                {
+                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById.do?emailModelId=" + id+'&isBlock='+block_clicked+'&externalDataId=null';
+                }
+//                alert("layout_mapper_url... "+layout_mapper_url);
+                $.ajax({
+                        method : 'GET',
+                        url: layout_mapper_url,
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        mimeType: 'application/json',
+                        data: JSON.stringify(data),
+                        success: function (data) {
+                            alert(JSON.stringify(data)+" ...... show text ....");
                             if (block_clicked === "false"){
                             var editorHtml = $('#edit').froalaEditor('html.get');
                                     if (editorHtml.contains('id="defaultblock1"')){
@@ -573,7 +565,7 @@
                             }
                             styleHtml = '<div id=defaultblock1 onclick="selecterBlockId(defaultblock1,0)">' + data.d.details.htmldata + '</div>';
                                     $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
-//                                                   $("#defaultblock1").empty().append(data.htmldata);
+    //                                                   $("#defaultblock1").empty().append(data.htmldata);
                             }
                             else{
                                 var editorHtml = $('#edit').froalaEditor('html.get');
@@ -591,11 +583,11 @@
                                     $('#edit').froalaEditor('html.set', '' + editorHtml + '' + BlockHtml + '');
                                 }
                             }
-
-                            }
-                    });
-                    }
-            });
+                        },
+                        error: function (error) {
+                            alert(JSON.stringify(error))
+                        }
+                });
             }
 
             function addblock(){
@@ -846,7 +838,7 @@
                             },
                             success: function (responseText) {
                                 if (responseText != "0"){
-                                document.location.href = "emaillistselection.jsp?draftid=" + responseText + "&subject=" + email_subject;
+                                document.location.href = "emaillistselection?draftid=" + responseText + "&subject=" + email_subject;
                                 } else 
                                 {
                                     alert("There was a problem while saving the draft! Please try again later.");
@@ -866,7 +858,7 @@
                             success: function (responseText) {
                                 if (responseText == "true")
                                 {
-                                    document.location.href = "emaillistselection.jsp?draftid=" + draft_id + "&subject=" + email_subject;
+                                    document.location.href = "emaillistselection?draftid=" + draft_id + "&subject=" + email_subject;
                                 } else
                                 {
                                     alert("There was a problem while saving the draft! Please try again later.");
@@ -929,16 +921,16 @@
                             <div class="block-name">Header Block</div>
                             <div class="block-button" ng-click="showDataTemp()">Add Block</div>                            
                         </li>-->
-                        <li class="block-slat" ng-repeat="blocks in datalists" id="{{blocks.emailBlockId}}" ng-click="showImageOfBlock(blocks.emailBlockId, blocks.mindbody_query)">
-                            <div class="block-name" id="blklist----{{blocks.emailBlockId}}" >{{blocks.emailBlockName}}</div>                            
-                            <div class="block-button hide" ng-click="showDataTemp(blocks.emailBlockId)" id="div2{{blocks.emailBlockId}}">Add Block</div>
+                        <li class="block-slat" ng-repeat="blocks in datalists" id="{{blocks.emailBlockModelLookupId}}" ng-click="showImageOfBlock(blocks.emailBlockModelLookupId, blocks.externalSourceKeywordLookupId)">
+                            <div class="block-name" id="blklist----{{blocks.emailBlockModelLookupId}}" >{{blocks.emailBlockName}}</div>                            
+                            <div class="block-button hide" ng-click="showDataTemp(blocks.emailBlockModelLookupId)" id="div2{{blocks.emailBlockModelLookupId}}">Add Block</div>
                         </li>
                     </ul>
                     
                     <ul class="block-list" id="stylediv">
-                        <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.emailModelId}}" ng-click="addActive('stylelistid'+styles.emailModelId)">
+                        <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.subCategoryEmailModelId}}" ng-click="addActive('stylelistid'+styles.subCategoryEmailModelId)">
                             <div class="block-name">
-                                <img id="{{styles.emailModelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" onclick="showText('{{styles.emailModelId}}')" width="100%" />
+                                <img id="{{styles.subCategoryEmailModelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" onclick="showText('{{styles.subCategoryEmailModelId}}')" width="100%" />
                             </div>
                         </li>
                     </ul>

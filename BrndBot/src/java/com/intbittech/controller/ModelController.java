@@ -113,6 +113,7 @@ public class ModelController {
             List<EmailModelDetails> emailModelDetailsList = new ArrayList<>();
             for (SubCategoryEmailModel emailModelsObject : subCategoryEmailModelList) {
                 EmailModelDetails emailModelDetails = new EmailModelDetails();
+                emailModelDetails.setSubCategoryEmailModelId(emailModelsObject.getSubCategoryEmailModelId());
                 emailModelDetails.setEmailModelId(emailModelsObject.getFkEmailModelId().getEmailModelId());
                 emailModelDetails.setEmailModelName(emailModelsObject.getFkEmailModelId().getEmailModelName());
                 emailModelDetails.setHtmlData(emailModelsObject.getFkEmailModelId().getHtmlData());
