@@ -5,6 +5,7 @@
  */
 package com.intbittech.services;
 
+import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailBlockExternalSource;
 
 /**

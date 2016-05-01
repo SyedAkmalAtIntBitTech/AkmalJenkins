@@ -8,7 +8,7 @@ package com.intbittech.controller;
 import com.intbittech.model.Channel;
 import com.intbittech.model.Company;
 import com.intbittech.model.EmailBlockExternalSource;
-import com.intbittech.model.MarketingCategoryProgram;
+import com.intbittech.model.EmailBlockModelLookup;
 import com.intbittech.model.Organization;
 import com.intbittech.model.OrganizationCategoryLookup;
 import com.intbittech.model.OrganizationCompanyLookup;
@@ -28,6 +28,7 @@ import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.ChannelService;
 import com.intbittech.services.CompanyService;
+import com.intbittech.services.EmailBlockModelLookupService;
 import com.intbittech.services.EmailBlockService;
 import com.intbittech.services.MarketingCategoryService;
 import com.intbittech.services.OrganizationCategoryLookupService;
@@ -71,6 +72,9 @@ public class CompanyController {
     
     @Autowired
     private MarketingCategoryService marketingCategoryService;
+    
+    @Autowired
+    private EmailBlockModelLookupService emailBlockModelLookupService;
     
     @Autowired
     private MessageSource messageSource;
@@ -279,12 +283,11 @@ public class CompanyController {
                 emailBlockDetails.setEmailBlockId(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId());
                 emailBlockDetails.setEmailBlockName(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockName());
                 emailBlockDetails.setOrganizationId(organizationEmailBlockObject.getFkOrganizationId().getOrganizationId());
-                List<EmailBlockExternalSource> emailBlockExternalSourceList = emailBlockService.getAllEmailBlockExternalSource(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId());
-                if(emailBlockExternalSourceList != null){
-                    EmailBlockExternalSource emailBlockExternalSourceObject = emailBlockExternalSourceList.get(0);
-                    emailBlockDetails.setExternalSourceName(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getFkExternalSourceId().getExternalSourceName());
-                    emailBlockDetails.setExternalSourceKeywordName(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getFkExternalSourceKeywordId().getExternalSourceKeywordName());
-                    emailBlockDetails.setExternalSourceKeywordLookupId(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getExternalSourceKeywordLookupId());
+                List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupService.getAllEmailBlockModel(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId());
+
+                if(emailBlockModelLookupList != null){
+                    EmailBlockModelLookup emailBlockModelLookup = emailBlockModelLookupList.get(0);
+                    emailBlockDetails.setEmailBlockModelLookupId(emailBlockModelLookup.getEmailBlockModelLookupId());
                 }
                 emailBlockDetailsList.add(emailBlockDetails);
             }    

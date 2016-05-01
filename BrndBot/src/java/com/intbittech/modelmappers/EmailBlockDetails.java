@@ -19,6 +19,15 @@ public class EmailBlockDetails implements Serializable {
     private Integer externalSourceKeywordLookupId;
     private String externalSourceName;
     private String externalSourceKeywordName;
+    private Integer emailBlockModelLookupId;
+
+    public Integer getEmailBlockModelLookupId() {
+        return emailBlockModelLookupId;
+    }
+
+    public void setEmailBlockModelLookupId(Integer emailBlockModelLookupId) {
+        this.emailBlockModelLookupId = emailBlockModelLookupId;
+    }
 
     public String getExternalSourceName() {
         return externalSourceName;
