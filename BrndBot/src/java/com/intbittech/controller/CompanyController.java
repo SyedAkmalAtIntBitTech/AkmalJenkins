@@ -284,6 +284,7 @@ public class CompanyController {
                     EmailBlockExternalSource emailBlockExternalSourceObject = emailBlockExternalSourceList.get(0);
                     emailBlockDetails.setExternalSourceName(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getFkExternalSourceId().getExternalSourceName());
                     emailBlockDetails.setExternalSourceKeywordName(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getFkExternalSourceKeywordId().getExternalSourceKeywordName());
+                    emailBlockDetails.setExternalSourceKeywordLookupId(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getExternalSourceKeywordLookupId());
                 }
                 emailBlockDetailsList.add(emailBlockDetails);
             }    
