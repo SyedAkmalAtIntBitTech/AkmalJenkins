@@ -13,8 +13,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
+         <title>User Login</title>
         <jsp:include page="header.jsp"/>
-        <title>User Login</title>
+      
     </head>
     <body class="body-normal">
         
@@ -31,10 +32,10 @@
             <div class="input_Label">Password</div>
             <input  class="input_Field login-fields" name="password" type="password" required>
             <div class="forgot_password" style="float:left">
-                <span>Forgot Password</span>
+                <a href="resetpassword"><span>Forgot Password</span></a>
             </div>
-            <div class="forgot_password" style="position: relative;left: 1vw;" >
-               <a href="signup/registration"> <span>Sign up</span></a>
+            <div class="forgot_password" style="" >
+                <a href="signup/registration"> <span style="position: relative;left: 10px;">Sign up</span></a>
             </div>
             
             <button style="left:-10px;" type="submit"  class="CTA_Button Button--Blue fleft pushUp_30">Login</button>

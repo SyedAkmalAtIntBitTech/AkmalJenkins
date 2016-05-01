@@ -6,12 +6,14 @@
 package com.intbittech.services.impl;
 
 import com.controller.IConstants;
+import com.intbittech.AppConstants;
 import com.intbittech.dao.CompanyPreferencesDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.utility.StringUtility;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -48,7 +50,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     public void updateEmailSettings(JSONObject json_object, Company company) throws ProcessFailed {
         try {
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
-            if(companyPreferences == null) {
+            if (companyPreferences == null) {
                 companyPreferences.setFkCompanyId(company);
             }
             JSONParser parser = new JSONParser();
@@ -97,18 +99,49 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     public void setColors(CompanyColorsDetails companyColorsDetailsList, Company company) {
         try {
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
-            if(companyPreferences == null) {
+            if (companyPreferences == null) {
+                companyPreferences = new CompanyPreferences();
                 companyPreferences.setFkCompanyId(company);
             }
             JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
+            JSONObject jsonObject = new JSONObject();
+            if (!StringUtility.isEmpty(companyPreferences.getCompanyPreferences())) {
+                jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
+            }
             jsonObject.put(IConstants.kColors, companyColorsDetailsList);
-            companyPreferences.setCompanyPreferences(jsonObject.toJSONString());
+            String colorJsonString = AppConstants.GSON.toJson(jsonObject);
+            companyPreferences.setCompanyPreferences(colorJsonString);
             updatePreferences(companyPreferences);
         } catch (Throwable throwable) {
             logger.error(throwable);
             throw new ProcessFailed("Database error while retrieving record");
         }
+    }
+
+    @Override
+    public void setStudioId(CompanyPreferences companyPreferences) {
+        try {
+            CompanyPreferences companyPreferencesObject = companyPreferencesDao.getByCompany(companyPreferences.getFkCompanyId());
+            if (companyPreferencesObject == null) {
+                companyPreferencesObject = new CompanyPreferences();
+                Company company = new Company();
+                company.setCompanyId(companyPreferences.getFkCompanyId().getCompanyId());
+                companyPreferencesObject.setFkCompanyId(company);
+
+            }
+            companyPreferencesObject.setCompanyLocation(companyPreferences.getCompanyLocation());
+            updatePreferences(companyPreferencesObject);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error saving studio id");
+        }
+    }
+
+    @Override
+    public CompanyPreferences getByCompanyId(Integer companyId) {
+        Company company = new Company();
+        company.setCompanyId(companyId);
+        return getByCompany(company);
     }
 
 }

@@ -24,6 +24,7 @@ import org.json.simple.JSONObject;
  *
  * @author Syed
  */
+// To-Do ILyas/AR  remove or refactor ???
 public class GetUserImages extends BrndBotBaseHttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -70,7 +71,7 @@ public class GetUserImages extends BrndBotBaseHttpServlet {
         response.getWriter().write(json);
             
         }catch (Exception e){
-                        logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+                        logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
 
         }finally {
             out.close();

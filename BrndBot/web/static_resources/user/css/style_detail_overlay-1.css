@@ -1,3 +1,7 @@
+body{
+    font-family: "proxima-nova",sans-serif !important;
+}
+
 .margintop30{
     margin-top: 30px;
 }
@@ -63,7 +67,7 @@ a.svg:after {
     width: 70px;
     height: 100%;
     top: 0;
-    z-index: 2;
+    z-index: 10;
 }
 
 .main-nav-logo{
@@ -1691,7 +1695,8 @@ input-field-container{
 }
 
 .col-2of10{
-    width: 21%;
+    /*width: 21%;*/
+    width: 20%;
     box-sizing: border-box;
     margin-right: 72px;
 }
@@ -2717,4 +2722,8 @@ div#editor {
 .font20px
 {
     font-size: 20px;
+}
+
+.padright60px{
+    padding-right: 60px;
 }

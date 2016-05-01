@@ -7,8 +7,9 @@ package com.intbittech.controller;
 
 import com.controller.GetColorFromImage;
 import com.intbittech.AppConstants;
+import com.intbittech.model.Company;
+import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.UserProfile;
-import com.intbittech.model.UserRole;
 import com.intbittech.model.Users;
 import com.intbittech.modelmappers.CompanyDetails;
 import com.intbittech.modelmappers.CompanyLogoDetails;
@@ -16,6 +17,7 @@ import com.intbittech.modelmappers.UserDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
+import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.UsersService;
 import com.intbittech.utility.ErrorHandlingUtil;
@@ -23,7 +25,6 @@ import com.intbittech.utility.FileHandlerUtil;
 import com.intbittech.utility.UserSessionUtil;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  *
@@ -52,6 +52,9 @@ public class OnboardingController {
 
     @Autowired
     private CompanyService companyService;
+    
+    @Autowired
+    private CompanyPreferencesService companyPreferencesService;
 
     @Autowired
     private MessageSource messageSource;
@@ -81,6 +84,29 @@ public class OnboardingController {
             String returnMessage = usersService.save(usersDetails);
             transactionResponse.setMessage(returnMessage);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("user_save", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "/onboarding/saveStudioId", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveStudioId(@RequestParam("studioId") String studioId) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
+
+            //save studioId
+            Company company = new Company();
+            company.setCompanyId(companyID);
+            CompanyPreferences companyPreferences = new CompanyPreferences();
+            companyPreferences.setCompanyLocation(studioId);
+            companyPreferences.setFkCompanyId(company);
+            companyPreferencesService.setStudioId(companyPreferences);
+            transactionResponse.setMessage("true");
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_source_save", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));

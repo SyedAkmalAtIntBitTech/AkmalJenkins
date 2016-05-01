@@ -55,7 +55,7 @@ public class ChangeImageServlet extends BrndBotBaseHttpServlet {
             out.println("</body>");
             out.println("</html>");
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while change image:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while change image:", getSqlMethodsInstance().error));
         }
     }
 

@@ -136,7 +136,7 @@ public class changeLogo extends BrndBotBaseHttpServlet {
                 
             
         } catch (Exception ex) {
-                       logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while updating org name:", getSqlMethodsInstance().error));
+                       logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(ex, "Exception while updating org name:", getSqlMethodsInstance().error));
 
             out.println(getSqlMethodsInstance().error);
         } finally {

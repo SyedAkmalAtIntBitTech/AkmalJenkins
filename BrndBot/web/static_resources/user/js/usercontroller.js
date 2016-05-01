@@ -5,7 +5,7 @@
  */
 
 function userController($scope, $http ) {
-
+    var marketingProgramId="";
     $scope.displayCategory = function () {
         $http({
             method: 'GET',
@@ -66,13 +66,14 @@ $scope.displaySubCategory = function () {
     };
     
     $scope.displayMarketingProgramByCategoryId = function () {
-        var marketingCategoryId=  localStorage.getItem("marketingCategoryId");
+        var marketingCategoryId= $("#marketingCategoryId").val();
+//                localStorage.getItem("marketingCategoryId");
          
         $http({
             method: 'GET',
             url: getHost() + '/getMarketingProgramsByCategoryId.do?marketingCategoryId='+marketingCategoryId
         }).success(function (data, status, headers, config) {
-           
+//           alert(JSON.stringify(data));
             $scope.displayMarketingPrograms = data.d.details;
             var marketingProgramId= JSON.stringify(data.d.details[0].marketingProgramId);
             setTimeout(function () {
@@ -90,12 +91,15 @@ $scope.displaySubCategory = function () {
 
     };
     
+    $scope.saveMarketingProgram = function (marketingCategoryId){
+       window.open(getHost() + 'user/usermarketingprogram?marketingCategoryId='+marketingCategoryId+"&marketingProgramId="+marketingProgramId, "_self");
+    };
     
     $scope.showhtmldata = function(id,htmlData){
          $("#htmlData").text(htmlData);
-   
-      $(".programList").css("background-color", "#fff").css("color","#3f3f42");
-      $(".nameList"+id).css("background-color","#5cc1a3").css("color","#f6f7f7");  
+        marketingProgramId = id;
+        $(".programList").css("background-color", "#fff").css("color", "#3f3f42");
+        $(".nameList"+id).css("background-color","#5cc1a3").css("color","#f6f7f7");  
        
     };
 

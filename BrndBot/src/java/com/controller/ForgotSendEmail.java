@@ -27,7 +27,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 
 import org.json.simple.parser.JSONParser;
-import util.Utility;
+import com.intbittech.utility.Utility;
 
 /**
  *
@@ -141,7 +141,7 @@ public class ForgotSendEmail extends BrndBotBaseHttpServlet {
                 out.write("false");
             }
         } catch (Exception e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
 
             out.write(getSqlMethodsInstance().error);
         } finally {

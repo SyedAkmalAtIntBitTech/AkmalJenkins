@@ -22,7 +22,7 @@
             {
                 selected_emaildrafts_to_delete = selected_schedule_id + "," + selected_emaildrafts_to_delete;
                 count+=1;
-                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#"+id).html(content+'<img src="images/check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#"+id).toggleClass('selection-icon');
             $("#"+id).toggleClass('selection-icon-selected');
@@ -48,7 +48,7 @@
             }else{
                 selectedemailids = id + "," + selectedemailids;
                 count+=1;
-                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#"+id).html(content+'<img src="images/check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#"+id).toggleClass('selection-icon');
             $("#"+id).toggleClass('selection-icon-selected');
@@ -355,9 +355,9 @@
                 $scope.displayemailhistory = function (){
                     $http({
                         method : 'GET',
-                        url : '/email/tags'
-                    }).success(function(data, status, headers, config) {
-                        alert(JSON.stringify(data)+" displayemailhistory");
+                        url :getHost() + '/email/tags.do'
+                    }).success(function(data, status, headers, config) { 
+
                     if (data == ""){
                         $scope.email_history = data;
                         $("#nohistorydiv").empty().text(noemailhistory);
@@ -368,7 +368,7 @@
                         $scope.email_history = data;
                     }
                     if (data === error){
-                        alert(data);
+//                        alert(data);
                     }
                 }).error(function(data, status, headers, config) {
                     alert(nodataerror);
@@ -381,13 +381,14 @@
                 $scope.getEmailSettings = function(){                
                 var email_settings = {"type": "get"};                
                 $http({
-                        method : 'POST',
-                        url : '/settings/getEmailSettings',
-                        headers: {'Content-Type': 'application/json'},
-                        data: email_settings
+
+                        method : 'GET',
+                        url :getHost() + '/settings/getEmailSettings.do',
+                        headers: {'Content-Type': 'application/json'}
+//                        data: email_settings
                     }).success(function (data, status, headers, config) {
-                        alert(JSON.stringify(data)+" getEmailSettings");
-                        $scope.email_settings = data;
+                        var parseData=JSON.parse(data.d.details);
+                        $scope.email_settings = parseData;
                         if (data === error) {
                             alert(data);
                         }
@@ -585,17 +586,13 @@ $edit=0;
                         var Emails = {"emailListName": emailListName, "defaultFromName": defaultFromName, "listDescription":listDescription, "update": "addEmailList"};
                         $http({
                             method: 'POST',
-                            url: getHost() + 'SetEmailLists',
+                            url: getHost() + '/emaillist/save.do',
                             headers: {'Content-Type': 'application/json'},
                             data: Emails
                         }).success(function (data)
                         {
-                            if (data === "true") {
-                                alert(datasaved);
-                                window.open(getHost() + 'emaillists.jsp', "_self");
-                            } else if (data === error) {
-                                alert(data);
-                            }
+                            alert(datasaved);
+                            window.open(getHost() + '/user/emaillists', "_self");
                         });                        
                     }                    
                 };
@@ -653,12 +650,13 @@ $edit=0;
                                             "emailLastName":email_last_name}
                         $http({
                             method: 'POST',
-                            url: getHost() + 'SetEmailLists',
+                            url: getHost() + '/emaillist/save.do',
                             headers: {'Content-Type': 'application/json'},
                             data: emaildetails
                         }).success(function (data)
                         {
-                            if (data === "false") {
+                            var parseData=JSON.stringify(data.d.operationStatus.messages);
+                            if (parseData === '["Email list could not be saved, please try again in sometime."]') {
                                 emaildetails = {"update":"addEmailID", "emailListName":email_list_name, 
                                             "emailAddress":email_address, "emailFirstName":email_first_name, 
                                             "emailLastName":email_last_name}
@@ -669,12 +667,10 @@ $edit=0;
                                     data: emaildetails
                                 }).success(function (data)
                                 {
-                                    if (data === "true") {
-                                        alert(datasaved);
-                                        window.open(getHost() + 'emaillistsdetails.jsp?list_name='+email_list_name+'&type='+type, "_self");
-                                    }
+                                    alert(datasaved);
+                                    window.open(getHost() + 'user/emaillistsdetails.jsp?list_name='+email_list_name+'&type='+type, "_self");
                                 });
-                            }else if (data === "true"){
+                            }else if (parseData === '["Email list saved successfully."]'){
                                 alert(emailexist);
                             }
                         });                    
@@ -685,17 +681,13 @@ $edit=0;
                                                 "emailLastName":email_last_name}
                             $http({
                                 method: 'POST',
-                                url: getHost() + 'SetEmailLists',
+                                url: getHost() + '/emaillist/save.do',
                                 headers: {'Content-Type': 'application/json'},
                                 data: emaildetails
                             }).success(function (data)
                             {
-                                if (data === "true") {
-                                    alert(datasaved);
-                                    window.open(getHost() + 'emaillistsdetails.jsp?list_name='+email_list_name+'&type='+type, "_self");
-                                } else if (data === error) {
-                                    alert(data);
-                                }
+                                alert(datasaved);
+                                window.open(getHost() + 'user/emaillistsdetails?list_name='+email_list_name+'&type='+type, "_self");
                             });
                         }
                     }            
@@ -775,8 +767,9 @@ $edit=0;
                          url: getHost() + '/emaillist/get.do?update=allEmailListWithNoOfContacts',
                          data: emailids
                     }).success(function (data, status, headers, config) {  
-                        alert(JSON.stringify(data)+" taking allEmailListWithNoOfContacts ");
-                        $scope.emailLists = data.allEmailListWithNoOfContacts.user;                        
+
+                        var parseData=JSON.parse(data.d.details);
+                        $scope.emailLists = parseData.allEmailListWithNoOfContacts.user; 
                         $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
                         if (data === "true") {
                         } else if (data === error) {
@@ -793,7 +786,7 @@ $edit=0;
                     $("#chooseEmailList").val("");
                 };
                 
-                $scope.updateList = function (list_name, type) {
+                $scope.updateList = function () {
                     $("#showList").show();
                     $("#importListli").removeClass("top-subnav-link-active");
                     $("#importList").removeClass("h3-active-subnav");
@@ -807,15 +800,14 @@ $edit=0;
                     $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","560px");
                     $http({
                         method: 'GET',
-//                        url: getHost() + 'GetEmailLists?update=emailsForEmailList&list_name='+list_name
                         url: getHost() + '/emaillist/get.do?update=emailsForEmailList&list_name='+list_name
                     }).success(function (data, status, headers, config) {
-                        alert(JSON.stringify(data)+"taking list name");
+                        var parseData=JSON.parse(data.d.details);
                         $(".page-background").css("overflow","scroll");
                         $('#loadingGif').remove();
                         $(".page-background").css("background-color","#EFF2F6");
-                        $scope.user_emailAddresses = data.user_emailAddresses;
-                        $scope.mindbody_emailAddresses = data.mindbody_emailAddresses;
+                        $scope.user_emailAddresses = parseData.user_emailAddresses;
+                        $scope.mindbody_emailAddresses = parseData.mindbody_emailAddresses;
                         $scope.selected_email_listname = list_name;
                         $scope.type = type;
                         if (type == 'user'){
@@ -847,6 +839,8 @@ $edit=0;
                         if (data === error) {
                             alert(data);
                         }
+                    }).error(function(error){
+                        alert(JSON.stringify(error));
                     });
                 };
                 
@@ -1108,7 +1102,7 @@ $edit=0;
             else
             { 
                 count+=1;
-                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#"+id).html(content+'<img src="images/check.svg" class="check-icon" style="cursor:pointer;"/>');
                 selected_draft = id+ "," + selected_draft;
             }
             $("#"+id).toggleClass('selection-icon');

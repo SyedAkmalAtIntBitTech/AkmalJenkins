@@ -17,7 +17,6 @@
         <!--<link href="css/dashboard.css" rel="stylesheet" type="text/css"/>-->
         <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
         <script src="js/configurations.js"></script>
-        <script src="js/angular.min.js"></script>
         <script src="js/marketing.js"></script>
         <script src="js/usermarketingprogram.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -34,8 +33,8 @@
          %>
          
          <%
-             marketing_category_id = request.getParameter("categoryid");
-             marketing_program_id = request.getParameter("programid");
+             marketing_category_id = request.getParameter("marketingCategoryId");
+             marketing_program_id = request.getParameter("marketingProgramId");
          %>
        
          <%--<jsp:include page="basejsp.jsp"/>--%>
@@ -57,7 +56,7 @@
             <!--Top Nav-->   
             <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
-            <a class=" exit-button-icon" href="marketingprogram?categoryid=<%=marketing_category_id%>">
+            <a class=" exit-button-icon" href="marketingprogram?marketingCategoryId=<%=marketing_category_id%>">
             <div class="exit-button-detail">               
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
             </div>
@@ -120,8 +119,8 @@
   
             <!--CTA Bar-->
             <div class="bottom-cta-bar">
-                <div class="bottom-cta-button-container-lg">
-                    <a href="marketingprogramactions" ng-click="saveMarketingProgram()">
+                <div class="bottom-cta-button-container-lg"><!--marketingprogramactions-->
+                    <a href="#" ng-click="saveMarketingProgram()">
                         <div class="bottom-continue-button button-text-1">Continue</div>
                     </a>
                 </div>

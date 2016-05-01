@@ -185,25 +185,34 @@ function onboardingcontroller($scope,$http) {
 //    };
     
     $scope.getActivationLink = function (){
-        alert();
         var studioId=$("#mindbodyStudioId").val();
         if(studioId===""){
             alert("Please Enter Studio Id.");
             $("#mindbodyStudioId").focus();
         }else{
-         $http({
-            method: 'GET',
-            url: getHost() +'/externalContent/getActivationLink.do?studioId='+studioId
-        }).success(function (data, status, headers, config) {
-            var actiovationLink=eval(JSON.stringify(data.d.details[0]));
-            $("#actiovationLink").attr('href',actiovationLink);
-            $("#activationLinkDiv").empty().append(actiovationLink);
-            $("#serviceContinueButton").css("pointer-events","auto");
-//            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            $http({
+                method: 'POST',
+                url: getHost() +'/onboarding/saveStudioId.do?studioId='+studioId
+            }).success(function (data, status, headers, config) {
+            var studioIdSaved = eval(JSON.stringify(data.d.message));
+            if(studioIdSaved === "true") {
+                $http({
+                    method: 'GET',
+                    url: getHost() +'/externalContent/getActivationLink.do'
+                }).success(function (data, status, headers, config) {
+                    var actiovationLink=eval(JSON.stringify(data.d.details[0]));
+                    $("#actiovationLink").attr('href',actiovationLink);
+                    $("#activationLinkDiv").empty().append(actiovationLink);
+                    $("#serviceContinueButton").css("pointer-events","auto");
+        //            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                }).error(function (data, status, headers, config) {
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });
+            }
         }).error(function (data, status, headers, config) {
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
         });
-    }
+        }
     };
     $scope.saveServices = function (){
         var services= $("#services").val();
@@ -398,7 +407,6 @@ function onboardingcontroller($scope,$http) {
     };
     
     $scope.saveColorPalette = function (){
-         var companyId=localStorage.getItem("companyId");
          var color1=$("#color1").css("backgroundColor");
          var color2=$("#color2").css("backgroundColor");
          var color3=$("#color3").css("backgroundColor");
@@ -409,7 +417,7 @@ function onboardingcontroller($scope,$http) {
         alert("Please choose all 4 colors.");   
         }
         else{
-             $.ajax({
+            $.ajax({
                 method: 'POST',
                 url: getHost() + 'settings/setColors.do',
                 headers: {'Content-Type': 'application/json'},
@@ -418,7 +426,7 @@ function onboardingcontroller($scope,$http) {
             {
                 
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                window.open(getHost() + 'login', "_self");
+                window.open(getHost() + 'user/dashboard', "_self");
             })
             .error(function (data, status) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));

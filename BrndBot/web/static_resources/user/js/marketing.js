@@ -11,6 +11,7 @@ var create_button_title = "Edit";
 
 $(document).ready(function ()
 {
+  
     $(".arrow_top").hide();  
     $(".delete-button").hide();
     
@@ -1209,13 +1210,16 @@ function controllerMarketingCampaign($scope, $http) {
             var action = {"title": title, "actiontype": actiontype, "marketingType":marketingProgramType, "type": "save",
                 "description": description, "action_date": myEpoch, "days":days
             };
+          
             $http({
                 method: 'POST',
                 url: getHost() + 'AddAction.do',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(action)
+               
             }).success(function (data)
             {
+                
                 $scope.status = data;
                 if (data != "") {
                     alert(actionsaved);

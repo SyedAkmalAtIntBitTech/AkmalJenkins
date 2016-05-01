@@ -311,7 +311,7 @@
 }
 .time_pick {
     left: 1px;
-    width:200% !important;
+    width:200%;
 }
 .claro1{
     overflow: none !important;
@@ -1345,7 +1345,6 @@ table#fbmanagepages {
     /* color: #cccccc; */
     color: #000;
     border-radius: 3px;
-    display: inherit;
 }
 #logosettingdiv,#palettesettingdiv
 {

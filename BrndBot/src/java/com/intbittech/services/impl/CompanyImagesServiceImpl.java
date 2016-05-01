@@ -65,12 +65,12 @@ public class CompanyImagesServiceImpl implements CompanyImagesService {
 
     @Override
     public String getPath(Integer companyId) {
-        return AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId;
+        return AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId +File.separator+AppConstants.GALLERY_FOLDERNAME;
     }
 
     @Override
     public String getLink(String fileName, Company company, String imageURL) {
-        return ""+imageURL+"DownloadImage?image_type=GALLERY&company_id=" + company.getCompanyId() + "&image_name=" + fileName;
+        return ""+imageURL+"downloadImage?imageType=GALLERY&companyId=" + company.getCompanyId() + "&imageName=" + fileName;
     }
 
 }

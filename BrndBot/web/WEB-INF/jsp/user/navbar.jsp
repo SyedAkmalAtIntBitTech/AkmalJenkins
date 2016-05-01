@@ -1,4 +1,17 @@
-
+   <link rel="SHORTCUT ICON" href="images/favicon.png"/>
+            <script src="//use.typekit.net/wnn8jyx.js"></script>
+            <script>try{Typekit.load({ async: true });}catch(e){}</script>
+             <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
+             
+             <style>
+                 /*cursor pointer on every select box in Brndbot*/
+                 select,.ptr{
+                     cursor: pointer;
+                 }
+                 body{
+                      font-family: "proxima-nova",sans-serif !important;
+                 }
+             </style>
 <div class="mainNav" >   
         <a href="dashboard"><div class="bb-logo-wrap">
                  <img type="image/svg+xml" src="images/Logo_Reverse.svg" class="nav-elements-icon" style="cursor:pointer;">
