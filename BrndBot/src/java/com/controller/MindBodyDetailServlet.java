@@ -20,7 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mindbody.controller.MindBodyDataMapper;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 
 /**
  *

@@ -6,22 +6,24 @@
 package com.intbittech.controller;
 
 import com.google.gson.Gson;
+import com.intbit.util.ServletUtil;
 import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.externalcontent.ExternalContentSession;
 import com.intbittech.externalcontent.ExternalSourceProcessedData;
-import com.intbittech.model.Company;
-import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.ExternalSourceKeywordLookup;
 import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
-import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.services.EmailModelService;
 import com.intbittech.services.ExternalSourceKeywordLookupService;
 import com.intbittech.services.ExternalSourceService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.UserSessionUtil;
 import java.sql.SQLException;
 import java.util.Locale;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -53,7 +55,9 @@ public class ExternalContentController {
     private ExternalSourceService externalSourceService;
     @Autowired
     private ExternalSourceKeywordLookupService externalSourceKeywordLookupService;
-    
+    @Autowired
+    private EmailModelService emailModelService;
+  
     @RequestMapping(value = "/isActivated", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> isActivated() throws SQLException {
         GenericResponse<Boolean> genericResponse = new GenericResponse<>();
@@ -88,9 +92,10 @@ public class ExternalContentController {
             ExternalSourceKeywordLookup externalSourceKeywordLookup = externalSourceKeywordLookupService.getByExternalSourceKeywordLookupId(externalSourceKeywordLookupId);
             String query = externalSourceKeywordLookup.getFkExternalSourceKeywordId().getExternalSourceKeywordName();
             ExternalSourceProcessedData externalSourceProcessedData = externalContentProcessor.getListData(query);
+            String keyname = externalContentProcessor.getExternalSourceMapKeyName(query);
             String jsonn = new Gson().toJson(externalSourceProcessedData.getJSON());
             genericResponse.addDetail(jsonn);
-            externalContentSession.addSessionKeyValue(query + companyID, externalSourceProcessedData.getData_hash_map());
+            externalContentSession.addSessionKeyValue(keyname, externalSourceProcessedData.getData_hash_map());
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
@@ -99,49 +104,32 @@ public class ExternalContentController {
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
+  
+    @RequestMapping(value = "/getLayoutEmailModelById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getLayoutEmailModelById(@RequestParam("emailModelId") Integer emailModelId,
+            @RequestParam("externalKeywordId") Integer externalKeywordId,
+            @RequestParam("externalDataId") Integer externalDataId,
+            HttpServletRequest request, HttpServletResponse response) {
+        GenericResponse<String> genericResponse = new GenericResponse<>();
+        try {
+            String hostURL = ServletUtil.getServerName(request.getServletContext());
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            externalContentProcessor = new ExternalContentProcessor(companyId);
+            ExternalSourceKeywordLookup externalSourceKeywordLookup = externalSourceKeywordLookupService.getByExternalSourceKeywordLookupId(externalKeywordId);
+            String query = externalSourceKeywordLookup.getFkExternalSourceKeywordId().getExternalSourceKeywordName();
+            String keyname = externalContentProcessor.getExternalSourceMapKeyName(query);
+            Map<String, Object> data = (Map<String, Object>) externalContentSession.getSessionKeyValue(keyname);
 
-//    @RequestMapping(value = "/getDetail", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<ContainerResponse> getDetail(HttpServletRequest request,
-//            HttpServletResponse response) {
-//        GenericResponse<String> genericResponse = new GenericResponse<>();
-//        try {
-//            Map<String, Object> mindbodyHashMap = null;
-//            Map<String, Object> requestBodyMap
-//                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-//
-//            String categoryId = (String) requestBodyMap.get("category_id");
-//            String subCategoryId = (String) requestBodyMap.get("sub_category_id");
-//            String subCategoryName = (String) requestBodyMap.get("sub_category_name");
-//            String mindbodyId = (String) requestBodyMap.get("mindbody_id");
-//            String modelMapperId = (String) requestBodyMap.get("model_mapper_id");
-//            String editoryType = (String) requestBodyMap.get("editor_type");
-//            String query = (String) requestBodyMap.get("query");
-//            String mindbodyQuery = (String) requestBodyMap.get("mindbody_query");
-//            Integer blockId = Integer.valueOf(requestBodyMap.get("block_id").toString());
-//            
-//             if (query != null && !query.equalsIgnoreCase("null") && query.equalsIgnoreCase("block")) {
-//                mindbodyHashMap = (Map<String, Object>) externalContentSession.getSessionKeyValue(mindbodyQuery);
-//                subCategoryName = mindbodyQuery;//doing this since its a block and we are checking against the query to send appropriate file
-//            } else {
-//                mindbodyHashMap = (Map<String, Object>) externalContentSession.getSessionKeyValue(k_mind_body);
-//            }
-//
-//            
-//            
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
-//            externalContentProcessor = new ExternalContentProcessor(companyID);
-//            
-//            ExternalSourceProcessedData externalSourceProcessedData = externalContentProcessor.getDetailData(requestBodyMap, id);
-//            String jsonn = new Gson().toJson(externalSourceProcessedData.getJSON());
-//            genericResponse.addDetail(jsonn);
-//            externalContentSession.addSessionKeyValue(query + companyID, externalSourceProcessedData.getData_hash_map());
-//            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
-//
-//        } catch (Throwable throwable) {
-//            logger.error(throwable);
-//            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
-//        }
-//        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
-//    }
+            String html = emailModelService.getLayoutEmail(emailModelId, hostURL, companyId, externalSourceKeywordLookup, externalDataId, data);
+            genericResponse.addDetail(html);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+
 }

@@ -6,15 +6,21 @@
 package com.intbittech.services.impl;
 
 import com.divtohtml.ProcessHTML;
+import com.google.gson.reflect.TypeToken;
+import com.intbittech.AppConstants;
 import com.intbittech.controller.ModelController;
 import com.intbittech.dao.EmailModelDao;
 import com.intbittech.dao.SubCategoryEmailModelDao;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.model.Company;
 import com.intbittech.model.EmailModel;
+import com.intbittech.model.ExternalSourceKeywordLookup;
 import com.intbittech.model.SubCategoryEmailModel;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.EmailModelService;
+import com.intbittech.services.ExternalSourceKeywordLookupService;
+import com.intbittech.utility.Utility;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +29,6 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.intbittech.utility.Utility;
 
 /**
  *
@@ -43,6 +48,10 @@ public class EmailModelServiceImpl implements EmailModelService {
 
     @Autowired
     private CompanyPreferencesService companyPreferencesService;
+
+    @Autowired
+    private ExternalSourceKeywordLookupService externalSourceKeywordLookupService;
+    private ExternalContentProcessor externalContentProcessor;
 
     /**
      * {@inheritDoc}
@@ -114,7 +123,7 @@ public class EmailModelServiceImpl implements EmailModelService {
 
     //TODO Ilyas needs to check path.
     @Override
-    public String getLayoutEmail(Integer emailModelId, String hostURL, Integer companyId, Map<String, String> requestBodyMap) {
+    public String getLayoutEmail(Integer emailModelId, String hostURL, Integer companyId, ExternalSourceKeywordLookup externalSourceKeywordLookup, Integer externalDataId, Map<String, Object> data) {
         String responseHTML = "";
         try {
             EmailModel emailModel = getByEmailModelId(emailModelId);
@@ -128,9 +137,15 @@ public class EmailModelServiceImpl implements EmailModelService {
                 colorHashmap.put("color" + (i++), Utility.rgbToHex(color));
             }
 
+            String query = externalSourceKeywordLookup.getFkExternalSourceKeywordId().getExternalSourceKeywordName();
+            
+            JSONObject externalSourceProcessedData = externalContentProcessor.getDetailData(query, data.get(externalDataId));
+            
+            Map<String, String> dataMap = AppConstants.GSON.fromJson(externalSourceProcessedData.toJSONString(), new TypeToken<HashMap<String, String>>() {}.getType());
+
             String html = "";
             JSONObject htmljson = new JSONObject();
-            ProcessHTML mindbodyHtmlData = new ProcessHTML(emailModel.getHtmlData(), colorHashmap, requestBodyMap, logo_url);
+            ProcessHTML mindbodyHtmlData = new ProcessHTML(emailModel.getHtmlData(), colorHashmap, dataMap, logo_url);
             html = mindbodyHtmlData.processHTML();
 
             htmljson.put("htmldata", html);
