@@ -695,7 +695,7 @@
                                 method: "POST",
                                 data: JSON.stringify(sendData),
                                 success: function (responseText) {
-                                    alert(JSON.stringify(responseText.d.details));
+//                                    alert(JSON.stringify(responseText.d.details));
                                     $("#dynamictable5").empty();
                                     $("#dynamictable6").empty();
                                     var iframePath = getHost() +"download/HTML.do?fileName="+rendomIframeFilename+".html";
