@@ -535,27 +535,30 @@
        $("#editpreviewtemplatebottom").hide();
        //                
                 $.ajax({
-                    url: getHost() + "getRecuringEntity.do",
+                    url: getHost() + "getRecurringEntity.do",
                     method: 'POST',
                     dataType: 'json',
                     contentType: 'application/json',
                     mimeType: 'application/json',
                     data: JSON.stringify(entity_details),
-                    success: function(result){
-                        
-                        $("#days").val(result.recuring_email_days);
-//                        $("#emaillist :selected").text(result.recuring_email_email_list_name);
-                        
+                    success: function(entity_details){
+//                        alert(JSON.stringify(entity_details));                        
+                        $("#days").val(entity_details.recurring_email_days);
+//                        $("#emaillist :selected").option(result.recurring_email_email_list_name);
+//                        $('#emaillist option[value="'+result.recurring_email_email_list_name+'"]').attr("selected", "selected");
         //                        $("#emaillist").val();
-                        $("#subject").val(result.recuring_email_subject);
-                        $("#from_name").val(result.recuring_email_from_name);
-                        $("#reply_to_address").val(result.recuring_email_reply_to_email_address);
-                        $("#recuring_email_title").val(result.recuring_email_title);
-                        $("#recuring_email_description").val(result.recuring_email_description);
-//                        $("#datepicker").val(result.recuring_email_time);
-
+                         $('#emaillist').find('option[value="' + entity_details.recurring_email_email_list_name + '"]').attr("selected", "selected");
+                        $("#subject").val(entity_details.recurring_email_subject);
+                        $("#from_name").val(entity_details.recurring_email_from_name);
+                        $("#reply_to_address").val(entity_details.recurring_email_reply_to_email_address);
+                        $("#recuring_email_title").val(entity_details.recurring_email_title);
+                        $("#recuring_email_description").val(entity_details.recurring_email_description);
+//                        $("#datepicker").val(entity_details.recurring_email_till_date);
+                        var epochToTime = new Date(entity_details.recurring_email_time);
+                         var recurring_email_time = moment(epochToTime).format('hh : mm : a');
+                        $("#timepicker1").val(recurring_email_time);
                         $("#emaillist").change();                        
-                        angular.element(document.getElementById('emailautomation')).scope().setDateNTime(result.recuring_email_time, result.recuring_email_till_date, result.recuring_email_email_list_name);
+                        angular.element(document.getElementById('emailautomation')).scope().setDateNTime(result.recurring_email_time, result.recurring_email_till_date, result.recurring_email_email_list_name);
                     },
                     error: function (error) {
                      alert(eval(JSON.stringify(error.statusText)));   
@@ -899,7 +902,7 @@
                                      Select a Time:
                                 </div>
                             <input id="timepicker1" readonly type="text" name="timepicker1" class="input-field-textfield col-8of10" 
-                                  value="{{entity_details.recuring_email_time |date: 'hh : mm : a'}}" /> 
+                                  value="{{entity_details.recurring_email_time | date: 'hh : mm : a'}}" /> 
                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#timepicker1').timepicki({
@@ -926,7 +929,7 @@
                             <input type="text"   name="datepicker" 
                                     id="datepicker"  
                                     class="input-field-textfield col-1of1" 
-                                    value="{{entity_details.recuring_email_till_date| date:'MMM dd yyyy'}}" />  
+                                    value="{{entity_details.recurring_email_till_date| date:'MMM dd yyyy'}}" />  
                            
                                     <script>
                                         var picker = new Pikaday(

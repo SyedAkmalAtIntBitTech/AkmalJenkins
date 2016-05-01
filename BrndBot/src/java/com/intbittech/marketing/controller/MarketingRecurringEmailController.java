@@ -552,7 +552,16 @@ public class MarketingRecurringEmailController {
             json_entity_list.put("recurring_email_entity_id", schedule_entity_list.getEntityId());
             json_entity_list.put("recurring_email_entity_type", schedule_entity_list.getEntityType());
             json_entity_list.put("recurring_email_is_recurring", schedule_entity_list.getIsRecurring());
-            json_entity_list.put("recurring_email_template_id", schedule_entity_list.getFkRecurringEmailId().getRecurringEmailTemplateId());
+            try {
+                RecurringEmailTemplate recurringEmailTemplate = new RecurringEmailTemplate();
+                recurringEmailTemplate = schedule_entity_list.getFkRecurringEmailId();
+                if(recurringEmailTemplate.getRecurringEmailTemplateId()!=null)
+                json_entity_list.put("recurring_email_template_id", schedule_entity_list.getFkRecurringEmailId().getRecurringEmailTemplateId());
+               
+            } catch (Exception e) {
+                 json_entity_list.put("recurring_email_template_id", "");
+                logger.log(Level.SEVERE,"Exception",e);
+            }
             json_entity_list.put("recurring_email_description", schedule_entity_list.getScheduleDesc());
             json_entity_list.put("recurring_email_time", schedule_entity_list.getScheduleTime().getTime());
             json_entity_list.put("recurring_email_title", schedule_entity_list.getScheduleTitle());
