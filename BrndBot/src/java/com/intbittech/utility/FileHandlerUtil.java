@@ -220,7 +220,7 @@ public class FileHandlerUtil {
 
     public static String getAdminEmailBlockModelImageFilePath() {
 
-        return AppConstants.BASE_ADMIN_EMAIL_BLOCK_TEMPLATE_IMAGE_UPLOAD_PATH;
+        return AppConstants.BASE_ADMIN_EMAIL_TEMPLATE_IMAGE_UPLOAD_PATH;
 
     }
 

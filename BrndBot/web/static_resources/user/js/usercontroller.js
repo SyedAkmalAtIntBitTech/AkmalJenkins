@@ -41,7 +41,17 @@ $scope.displaySubCategory = function () {
         });
 
     };
-    
+    $scope.CheckExternalSource = function (subCategoryId,externalSourceName, externalSourceKeywordLookupId){
+        var categoryid=$("#categoryId").val();
+        if(externalSourceName === "Mindbody")
+        {
+            window.open(getHost() + 'user/emailexternalsource?categoryId='+categoryid+'&subCategoryId='+subCategoryId+'&externalSourceName='+externalSourceName+'&LookupId='+externalSourceKeywordLookupId, "_self");
+        }
+        else
+        {
+            window.open(getHost() + 'user/emailsubjects?categoryId='+categoryid+'&subCategoryId='+subCategoryId, "_self");
+        }
+    };
     $scope.displayMarketingProgram = function () {
         $http({
             method: 'GET',
