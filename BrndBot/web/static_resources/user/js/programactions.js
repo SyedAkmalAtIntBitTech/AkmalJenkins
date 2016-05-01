@@ -1029,7 +1029,7 @@ function programactions($scope, $http, $window){
             $http({
                 method: 'GET',
                 url: getHost() + '/GetScheduledEmailDetail.do?schedule_id=' + schedule_id
-            }).success(function (data) { 
+            }).success(function (data) {
                 var recurringDetails=JSON.parse(data.d.details);
                 $scope.entitiesdetails = recurringDetails;
                 if (data.body == undefined) {
