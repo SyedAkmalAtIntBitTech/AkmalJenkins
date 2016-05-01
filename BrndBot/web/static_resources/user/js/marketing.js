@@ -1210,7 +1210,7 @@ function controllerMarketingCampaign($scope, $http) {
             var action = {"title": title, "actiontype": actiontype, "marketingType":marketingProgramType, "type": "save",
                 "description": description, "action_date": myEpoch, "days":days
             };
-            alert(JSON.stringify(action));
+          
             $http({
                 method: 'POST',
                 url: getHost() + 'AddAction.do',
@@ -1219,7 +1219,7 @@ function controllerMarketingCampaign($scope, $http) {
                
             }).success(function (data)
             {
-                alert(JSON.stringify(data));
+                
                 $scope.status = data;
                 if (data != "") {
                     alert(actionsaved);
