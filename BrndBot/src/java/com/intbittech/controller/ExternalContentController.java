@@ -20,6 +20,7 @@ import com.intbittech.services.ExternalSourceService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.UserSessionUtil;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -57,7 +58,7 @@ public class ExternalContentController {
     private ExternalSourceKeywordLookupService externalSourceKeywordLookupService;
     @Autowired
     private EmailModelService emailModelService;
-  
+
     @RequestMapping(value = "/isActivated", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> isActivated() throws SQLException {
         GenericResponse<Boolean> genericResponse = new GenericResponse<>();
@@ -75,8 +76,7 @@ public class ExternalContentController {
         Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
         externalContentProcessor = new ExternalContentProcessor(companyID);
         genericResponse.addDetail(externalContentProcessor.getActivationLink());
-        
-        
+
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
@@ -104,7 +104,7 @@ public class ExternalContentController {
         }
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
-  
+
     @RequestMapping(value = "/getLayoutEmailModelById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getLayoutEmailModelById(@RequestParam("emailModelId") Integer emailModelId,
             @RequestParam("externalKeywordId") Integer externalKeywordId,
@@ -115,12 +115,15 @@ public class ExternalContentController {
             String hostURL = ServletUtil.getServerName(request.getServletContext());
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Map<String, Object> data = new HashMap<String, Object>();
+            ExternalSourceKeywordLookup externalSourceKeywordLookup = null;
             externalContentProcessor = new ExternalContentProcessor(companyId);
-            ExternalSourceKeywordLookup externalSourceKeywordLookup = externalSourceKeywordLookupService.getByExternalSourceKeywordLookupId(externalKeywordId);
-            String query = externalSourceKeywordLookup.getFkExternalSourceKeywordId().getExternalSourceKeywordName();
-            String keyname = externalContentProcessor.getExternalSourceMapKeyName(query);
-            Map<String, Object> data = (Map<String, Object>) externalContentSession.getSessionKeyValue(keyname);
-
+            if (externalKeywordId != null && externalDataId != null) {
+                externalSourceKeywordLookup = externalSourceKeywordLookupService.getByExternalSourceKeywordLookupId(externalKeywordId);
+                String query = externalSourceKeywordLookup.getFkExternalSourceKeywordId().getExternalSourceKeywordName();
+                String keyname = externalContentProcessor.getExternalSourceMapKeyName(query);
+                data = (Map<String, Object>) externalContentSession.getSessionKeyValue(keyname);
+            }
             String html = emailModelService.getLayoutEmail(emailModelId, hostURL, companyId, externalSourceKeywordLookup, externalDataId, data);
             genericResponse.addDetail(html);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template retrieved successfully."));

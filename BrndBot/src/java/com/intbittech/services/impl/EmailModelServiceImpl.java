@@ -130,18 +130,19 @@ public class EmailModelServiceImpl implements EmailModelService {
             String logo_url = hostURL + "DownloadImage?image_type=USER_LOGO&company_id=" + companyId + "&image_name=" + "logo.jpeg";
             HashMap<String, String> colorHashmap = new HashMap();
             Company company = new Company(companyId);
-
+            Map<String, String> dataMap = new HashMap<>();
             List<String> colorArray = companyPreferencesService.getColors(company);
             int i = 0;
             for (String color : colorArray) {
                 colorHashmap.put("color" + (i++), Utility.rgbToHex(color));
             }
 
-            String query = externalSourceKeywordLookup.getFkExternalSourceKeywordId().getExternalSourceKeywordName();
-            
-            JSONObject externalSourceProcessedData = externalContentProcessor.getDetailData(query, data.get(externalDataId));
-            
-            Map<String, String> dataMap = AppConstants.GSON.fromJson(externalSourceProcessedData.toJSONString(), new TypeToken<HashMap<String, String>>() {}.getType());
+            if (externalSourceKeywordLookup != null) {
+                String query = externalSourceKeywordLookup.getFkExternalSourceKeywordId().getExternalSourceKeywordName();
+                JSONObject externalSourceProcessedData = externalContentProcessor.getDetailData(query, data.get(externalDataId));
+                dataMap = AppConstants.GSON.fromJson(externalSourceProcessedData.toJSONString(), new TypeToken<HashMap<String, String>>() {
+                }.getType());
+            }
 
             String html = "";
             JSONObject htmljson = new JSONObject();
