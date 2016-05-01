@@ -11,7 +11,7 @@ var create_button_title = "Edit";
 
 $(document).ready(function ()
 {
-    alert();
+  
     $(".arrow_top").hide();  
     $(".delete-button").hide();
     
