@@ -7,10 +7,9 @@ package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailModel;
-import com.intbittech.model.Organization;
+import com.intbittech.model.ExternalSourceKeywordLookup;
 import java.util.List;
 import java.util.Map;
-import org.json.simple.JSONObject;
 
 /**
  * <code>{@link EmailModelService}</code> is service layer interface for
@@ -76,6 +75,6 @@ public interface EmailModelService {
      */
     public void delete(Integer emailModelId) throws ProcessFailed;
 
-    public String getLayoutEmail(Integer emailModelId, String imageFileName, String hostURL, Integer companyId, Map<String, String> requestBodyMap);
+    public String getLayoutEmail(Integer emailModelId, String hostURL, Integer companyId, ExternalSourceKeywordLookup externalSourceKeywordLookup, Integer externalDataId, Map<String, Object> data);
 
 }

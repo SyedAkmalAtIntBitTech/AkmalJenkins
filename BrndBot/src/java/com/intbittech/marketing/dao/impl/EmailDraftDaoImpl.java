@@ -48,7 +48,7 @@ public class EmailDraftDaoImpl implements EmailDraftDao {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(EmailDraft.class)
-                    .add(Restrictions.eq("fk_company_id", companyId));
+                    .add(Restrictions.eq("fkCompanyId.companyId", companyId));
                    return criteria.list();
             } catch (Throwable throwable) {
                logger.log(Level.SEVERE, null, throwable);

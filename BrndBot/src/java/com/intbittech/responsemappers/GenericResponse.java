@@ -43,5 +43,4 @@ public class GenericResponse<T>  extends BaseResponse implements Serializable {
     public void addDetail(T detail) {
         details.add(detail);
     }
-    
 }

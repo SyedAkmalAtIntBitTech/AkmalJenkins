@@ -8,8 +8,7 @@
 <!DOCTYPE html>
 <html ng-app>
     <head>
-         <%@ include file="fonttypekit.jsp"%>
-         <%--<%@ include file="checksession.jsp" %>--%>
+       
         <script src="js/configurations.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>  
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -73,6 +72,7 @@
                               data:  password_object
                             }).success(function (data) 
                               {
+                                  alert(data);
                                 $scope.status=data;
                                 if (data === "false"){
                                     alert("User session has expired! Kindly resubmit a request.");
@@ -99,7 +99,7 @@
         </script>
         <link rel="stylesheet" href="css/main1.css">
         <title>BrndBot - Password Change</title>
-        <jsp:include page="basejsp.jsp" />
+       
     </head>
     <body class="container" >
         <%

@@ -9,8 +9,6 @@ import static com.controller.BrndBotBaseHttpServlet.logger;
 import com.controller.IConstants;
 import com.controller.SqlMethods;
 import com.intbittech.dao.impl.EmailHistoryDAO;
-import com.intbit.marketing.model.TblUserPreferences;
-import com.intbit.marketing.service.UserPreferencesService;
 import email.mandrill.Message;
 import email.mandrill.MessageResponses;
 import email.mandrill.Recipient;
@@ -27,15 +25,13 @@ import java.util.logging.Logger;
 import model.EmailInfo;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author Ajit
  */
 public class SendAnEmail {
-    public final static String MANDRILL_KEY = "o-QeQQHbtCk4i6rCphfCcg";//Test key
+    public final static String MANDRILL_KEY = "lymaWyyktPr4YFkyZAzcQQ";//Test key
 
     SqlMethods sqlMethods = new SqlMethods();
     

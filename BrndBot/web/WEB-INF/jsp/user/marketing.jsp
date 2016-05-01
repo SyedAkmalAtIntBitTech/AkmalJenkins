@@ -20,7 +20,16 @@
     <jsp:include page="twitterpreview.jsp"/> 
     <jsp:include page="emailpreviewslider.jsp"/>
     <jsp:include page="notepreview.jsp"/> 
-    <%@include file="header.jsp" %>       
+          <link rel="stylesheet" type="text/css" href="style_detail_overlay.css">
+    <link rel="stylesheet" type="text/css" href="normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/popup.css">
+    <script src="js/moment.js" type="text/javascript"></script>
+    <script src="js/popup.js" type="text/javascript"></script>
+    <%@include file="header.jsp" %>  
+    <script src="js/marketing.js" type="text/javascript"></script>     
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+       <script src="js/popup.js" type="text/javascript"></script>
+     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-5.css"/>
     <%@include file="navbar.jsp" %>     
     
   
@@ -75,8 +84,8 @@
                 <div class="fleft content" ng-repeat="entity in entitySet">
                     <div class="page-content-title-bar">
                         <!--<div class="page-content-title h2" ng-show='entity.date==tomorrow_date'>Tomorrow's Actions</div>-->
-                        <div class="page-content-title h2" ng-show="entity.date === today_date">Today's Actions</div>
-                        <div class="page-content-title h2" ng-show="(entity.date !== today_date)">{{entity.date| date: "MMM dd yyyy"}}</div>
+                        <div class="page-content-title h2" ng-show="entity.date == today_date">Today's Actions</div>
+                        <div class="page-content-title h2" ng-show="(entity.date != today_date)">{{entity.date| date: "MMM dd yyyy"}}</div>
                     </div>
                     <!--List Starts Here-->
                     <ul class="main-container fleft" >

@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  */
 public class GenerateHashPassword {
 
-        private static final Logger logger = Logger.getLogger(util.Utility.getClassName(GenerateHashPassword.class));
+        private static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(GenerateHashPassword.class));
 
     public static final String SALT = "my-salt-text";
 
@@ -47,7 +47,7 @@ public class GenerateHashPassword {
             }
         } catch (NoSuchAlgorithmException e) {
             // handle error here.
-                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while generating hash:", null));
+                       logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while generating hash:", null));
 
         }
 

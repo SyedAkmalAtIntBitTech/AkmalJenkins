@@ -1,5 +1,8 @@
 /**General and Fonts**/
-
+body {
+ 
+  font-family: "proxima-nova",sans-serif !important;
+}
 .h1{}
 
 .h2{}
@@ -90,7 +93,7 @@ width:75%;}
 }
 .body-normal{
     background-color: #ECF0F2 ;
-    font-family: 'Open Sans';
+   font-family: "proxima-nova",sans-serif !important;
     box-sizing: border-box;
     color: #3E4551 ;
 }
@@ -135,7 +138,7 @@ padding: 0px 20px;
     font-size: 13px;
     vertical-align: middle;
     box-sizing: border-box;
-    font-family: ProximaNova-Bold;
+   font-family: "proxima-nova",sans-serif !important;
     font-size: 12px;
     color: #3e4551;
 }
@@ -398,6 +401,7 @@ padding: 5px 15px;
 padding: 5px 30px;
     border-radius: 3px;
     cursor: pointer;
+    border:none;
 }
 
 .Add_Button{

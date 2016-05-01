@@ -5,6 +5,8 @@
  */
 package com.intbittech.controller;
 
+import com.intbittech.AppConstants;
+import com.intbittech.ImageType;
 import com.intbittech.model.GlobalColors;
 import com.intbittech.model.GlobalFonts;
 import com.intbittech.model.GlobalImages;
@@ -20,11 +22,17 @@ import com.intbittech.services.GlobalImagesService;
 import com.intbittech.utility.DateTimeUtil;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.FileHandlerUtil;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.FileHandler;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -56,6 +64,83 @@ public class AssestsController {
 
     @Autowired
     private MessageSource messageSource;
+    
+    @RequestMapping(value = "downloadImage", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void downloadImage(HttpServletRequest request, HttpServletResponse response, @RequestParam("imageName") String imageName, @RequestParam("imageType") String imageType, @RequestParam("companyId") Integer companyId) {
+        try {
+        ImageType imageTypeEnum = ImageType.valueOf(imageType);
+        String imageBasePath = "";
+        switch (imageTypeEnum) {
+                case GALLERY:
+                    imageBasePath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + AppConstants.GALLERY_FOLDERNAME;
+                    break;
+                case COMPANY_LOGO:
+                    imageBasePath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + AppConstants.LOGO_FOLDERNAME;
+                    break;
+                case GLOBAL_IMAGE:
+                    imageBasePath = AppConstants.BASE_ADMIN_GLOBAL_IMAGE_UPLOAD_PATH;
+                    break;
+                case EMAIL_TEMPLATE_IMAGE:
+                    imageBasePath = AppConstants.BASE_ADMIN_EMAIL_TEMPLATE_IMAGE_UPLOAD_PATH;
+                    break;
+                case EMAIL_BLOCK_TEMPLATE_IMAGE:
+                    imageBasePath = AppConstants.BASE_ADMIN_EMAIL_BLOCK_TEMPLATE_IMAGE_UPLOAD_PATH;
+                    break;
+        }
+        String finalImagePath = imageBasePath + File.separator + imageName;
+        String contentType = request.getServletContext().getMimeType(imageName);
+        response.setContentType(contentType);
+        response.setHeader("Content-Disposition", "inline;filename=" + imageName);
+            File file = new File(finalImagePath);
+            response.setContentLength((int) file.length());
+            // Copy the contents of the file to the output stream
+            byte[] buf = new byte[1024];
+            try (FileInputStream fileInputStream = new FileInputStream(finalImagePath)) {
+                try (OutputStream out = response.getOutputStream()) {
+                    int i;
+                    while ((i = fileInputStream.read(buf)) >= 0) {
+                        out.write(buf, 0, i);
+                    }
+                    out.flush();
+                }
+            }
+            response.setStatus(HttpServletResponse.SC_OK);
+        } catch(Throwable throwable) {
+            logger.error(throwable);
+        }
+    }
+    
+    @RequestMapping(value = "getImageList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void getImageList(HttpServletRequest request, HttpServletResponse response, @RequestParam("imageType") String imageType, @RequestParam("companyId") Integer companyId) {
+        try {
+        ImageType imageTypeEnum = ImageType.valueOf(imageType);
+        String imageBasePath = "";
+//        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+//        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+        switch (imageTypeEnum) {
+                case GALLERY:
+                    imageBasePath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + AppConstants.GALLERY_FOLDERNAME;
+                    break;
+                case GLOBAL_IMAGE:
+                    imageBasePath = AppConstants.BASE_ADMIN_GLOBAL_IMAGE_UPLOAD_PATH;
+        }
+        File imageBaseFolder = new File(imageBasePath);
+        JSONArray imageurlJsonArray=new JSONArray();
+        for(File imageFile:imageBaseFolder.listFiles()){
+
+            String imageFilePath = "/BrndBot/downloadImage?imageType="+imageTypeEnum+"&imageName="+imageFile.getName()+"&companyId="+companyId;
+            JSONObject imagejsonObject= new JSONObject();
+            imagejsonObject.put("url", imageFilePath);
+            imagejsonObject.put("thumb", imageFilePath);
+            imageurlJsonArray.add(imagejsonObject);
+        }
+
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().write(AppConstants.GSON.toJson(imageurlJsonArray));
+        } catch(Throwable throwable) {
+            logger.error(throwable);
+        }
+    }
 
     @RequestMapping(value = "getColorThemeById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getColorThemeById(@RequestParam("globalColorsId") Integer globalColorsId) {
@@ -209,16 +294,43 @@ public class AssestsController {
             globalFonts.setFontName(globalFontsDetails.getFontName());
             globalFonts.setFontFamilyName(globalFontsDetails.getFontFamilyName());
             globalFonts.setFileName(globalFontsDetails.getFileName());
-            globalFontsService.save(globalFonts);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalFonts_save", new String[]{}, Locale.US)));
+            String filePathWithFileName=AppConstants.BASE_ADMIN_FONT_UPLOAD_PATH+File.separator+globalFontsDetails.getFileName();
+             String storableFileName = null;
+             try {
+                storableFileName = FileHandlerUtil.saveAdminGlobalFont(filePathWithFileName,
+                        globalFontsDetails.getFontType(), globalFontsDetails.getFontData());
+            
+           
         } catch (Throwable throwable) {
+            
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+             throw throwable;
+        }
+         
+            try {
+                globalFontsService.save(globalFonts);
+            } catch (Throwable throwable) {
+                if (storableFileName != null) {
+                    FileHandlerUtil.deleteAdminGlobalFont(globalFontsDetails.getFileName());
+                }
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalFonts_not_save", null, Locale.US)));
+                throw throwable;
+            }
+
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalFonts_save", null, Locale.US)));
+      
+  } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
-
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+   
     }
-
+    
+    
+   
+    
+    
     @RequestMapping(value = "saveColorTheme", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveColorTheme(@RequestBody GlobalColorsDetails globalColorsDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();

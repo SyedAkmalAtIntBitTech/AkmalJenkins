@@ -82,7 +82,7 @@ public class ResetUserPassword extends BrndBotBaseHttpServlet {
                 out.write("true");
             }
         } catch (Exception e) {
-                       logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+                       logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
 
             out.write(getSqlMethodsInstance().error);
         }finally {

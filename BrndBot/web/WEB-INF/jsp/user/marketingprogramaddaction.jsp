@@ -39,7 +39,7 @@
             <div class="pop-up-title pop-up-title-h1"> Create New Action</div>
              <div class="pop-up-exit-container" id="addactionClose">
                 <a href="" class="pop-up-exit-icon">
-                    <img onclick = "closeOverlay();" type="image/svg+xml" src="images/Icons/Close.svg" class="exit-button-icon" style="cursor:pointer;"/>
+                    <img onclick = "closeOverlay();" type="image/svg+xml" src="images/Close.svg" class="exit-button-icon" style="cursor:pointer;"/>
                 </a>
             </div> 
             <div class="pop-up-inner">

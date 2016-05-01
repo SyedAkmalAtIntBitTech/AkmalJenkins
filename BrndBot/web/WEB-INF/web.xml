@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-<!--    <listener>
+  <listener>
         <description>ServletContextListener</description>
         <listener-class>com.controller.ApplicationContextListener</listener-class>
     </listener>
+    <!--
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml</param-value>
@@ -69,37 +70,18 @@
         <servlet-name>CropImage</servlet-name>
         <servlet-class>com.intbit.CropImage</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>DeleteGalleryImages</servlet-name>
-        <servlet-class>com.controller.DeleteGalleryImages</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetImageGallery</servlet-name>
-        <servlet-class>com.controller.GetImageGallery</servlet-class>
-    </servlet>
+   
     <servlet>
         <servlet-name>UploadImages</servlet-name>
         <servlet-class>com.controller.UploadImages</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetFacebookManagePage</servlet-name>
-        <servlet-class>social.controller.GetFacebookManagePage</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetLayoutStyles</servlet-name>
         <servlet-class>com.controller.GetLayoutStyles</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>MindBodyDataServlet</servlet-name>
-        <servlet-class>com.controller.MindBodyDataServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>MindBodyDetailServlet</servlet-name>
         <servlet-class>com.controller.MindBodyDetailServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetTwitterToken</servlet-name>
-        <servlet-class>social.controller.GetTwitterToken</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetUserPreferences</servlet-name>
@@ -123,10 +105,7 @@
     </servlet>
    
     
-    <servlet>
-        <servlet-name>EmailTextDataServlet</servlet-name>
-        <servlet-class>social.controller.EmailTextDataServlet</servlet-class>
-    </servlet>
+   
     <servlet>
         <servlet-name>GetBlocks</servlet-name>
         <servlet-class>com.controller.GetBlocks</servlet-class>
@@ -138,10 +117,6 @@
     <servlet>
         <servlet-name>SaveKeyValueSessionServlet</servlet-name>
         <servlet-class>social.controller.SaveKeyValueSessionServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DownloadImageServlet</servlet-name>
-        <servlet-class>com.controller.DownloadImageServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AdminHtmlToImageServlet</servlet-name>
@@ -211,10 +186,6 @@
         <servlet-class>com.controller.GetTemplates</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetFilesListServlet</servlet-name>
-        <servlet-class>com.controller.GetFilesListServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GetStyleServlet</servlet-name>
         <servlet-class>com.controller.GetStyleServlet</servlet-class>
     </servlet>
@@ -280,20 +251,8 @@
         <url-pattern>/CropImage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteGalleryImages</servlet-name>
-        <url-pattern>/DeleteGalleryImages</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetImageGallery</servlet-name>
-        <url-pattern>/GetImageGallery</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>UploadImages</servlet-name>
         <url-pattern>/UploadImages</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetFacebookManagePage</servlet-name>
-        <url-pattern>/GetFacebookManagePage</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetLayoutStyles</servlet-name>
@@ -302,14 +261,6 @@
     <servlet-mapping>
         <servlet-name>MindBodyDetailServlet</servlet-name>
         <url-pattern>/MindBodyDetailServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>MindBodyDataServlet</servlet-name>
-        <url-pattern>/MindBodyDataServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetTwitterToken</servlet-name>
-        <url-pattern>/GetTwitterToken</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetUserPreferences</servlet-name>
@@ -331,12 +282,6 @@
         <servlet-name>ChangeImageServlet</servlet-name>
         <url-pattern>/ChangeImageServlet</url-pattern>
     </servlet-mapping>
-   
-    
-    <servlet-mapping>
-        <servlet-name>EmailTextDataServlet</servlet-name>
-        <url-pattern>/EmailTextDataServlet</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetBlocks</servlet-name>
         <url-pattern>/GetBlocks</url-pattern>
@@ -350,10 +295,6 @@
         <url-pattern>/SaveKeyValueSessionServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DownloadImageServlet</servlet-name>
-        <url-pattern>/DownloadImage</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AdminHtmlToImageServlet</servlet-name>
         <url-pattern>/AdminHtmlToImageServlet</url-pattern>
     </servlet-mapping>
@@ -364,10 +305,6 @@
     <servlet-mapping>
         <servlet-name>DownloadXml</servlet-name>
         <url-pattern>/DownloadXml</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>PreviewServlet</servlet-name>
-        <url-pattern>/PreviewServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetUserFacebookManagePages</servlet-name>
@@ -415,10 +352,6 @@
     <servlet-mapping>
         <servlet-name>GetTemplates</servlet-name>
         <url-pattern>/GetTemplates</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetFilesListServlet</servlet-name>
-        <url-pattern>/GetFilesListServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetStyleServlet</servlet-name>

@@ -52,7 +52,7 @@ public class SaveKeyValueSessionServlet extends BrndBotBaseHttpServlet {
             }
             catch (Exception e)
             {
-                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+                 logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
             }
         }
         else if(process.equals("draft"))
@@ -78,7 +78,7 @@ public class SaveKeyValueSessionServlet extends BrndBotBaseHttpServlet {
             }
             catch (Exception e)
             {
-                 logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
+                 logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while updating org name:", getSqlMethodsInstance().error));
             }
         }
        out.print(send);

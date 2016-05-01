@@ -6,8 +6,10 @@
 package com.intbittech.utility;
 
 import com.intbittech.AppConstants;
+import com.intbittech.exception.ProcessFailed;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
@@ -17,10 +19,15 @@ import javax.imageio.ImageIO;
  */
 public class FileHandlerUtil {
     
-    public static String saveCompanyLogo(String filePath, String imageFileName, String imageFileType, String base64ImageString) throws Throwable {
-        String fileNameWithExtension = imageFileName + "." + imageFileType;
+    public static String saveCompanyLogo(String filePath, String imageFile, String base64ImageString) throws Throwable {
+        String fileNameWithExtension = imageFile;
         saveImageWithOrignalName(fileNameWithExtension, base64ImageString, filePath);
         return fileNameWithExtension;
+    }
+    
+    public static String saveAdminGlobalFont(String filePathWithFileName, String fontFileType, String base64ImageString) throws Throwable {
+        saveFontWithOrignalName(filePathWithFileName, base64ImageString);
+        return "true";
     }
 
     // CRUD operation for Admin Global image with File System.
@@ -33,7 +40,7 @@ public class FileHandlerUtil {
      * @throws Throwable 
      */
     public static String saveAdminGlobalImage(String imageFileName, String imageFileType, String base64ImageString) throws Throwable {
-        String filePath = getAdminGlobalImageFilePath();
+        String filePath = AppConstants.BASE_ADMIN_FONT_UPLOAD_PATH;
         String fileNameWithExtension = imageFileName + "." + imageFileType;
         saveImageWithOrignalName(fileNameWithExtension, base64ImageString, filePath);
         return fileNameWithExtension;
@@ -69,7 +76,12 @@ public class FileHandlerUtil {
     
      public static void deleteAdminGlobalImage(String imageFileNameWithextension) throws Throwable {
        String filePath = getAdminGlobalImageFilePath();
-       deleteImage(imageFileNameWithextension, filePath);
+       deleteFile(imageFileNameWithextension, filePath);
+    }
+     
+     public static void deleteAdminGlobalFont(String fontFileNameWithextension) throws Throwable {
+       String filePath = AppConstants.BASE_ADMIN_FONT_UPLOAD_PATH;
+       deleteFile(fontFileNameWithextension, filePath);
     }
 
     //.....................................        End       ................................................................
@@ -106,18 +118,39 @@ public class FileHandlerUtil {
         BufferedImage imageData = DataConverterUtil.convertBase64ToBufferedImage(base64ImageData);
         writeImageFile(imageData, fileNameWithExtension, filePath);
     }
+     
+    public static void saveFontWithOrignalName(String fileWithExtension, String base64ImageString) throws Throwable {
+        String base64ImageData = extractOnlyBase64ImageData(base64ImageString);
+        File outputFileDir = new File(AppConstants.BASE_ADMIN_FONT_UPLOAD_PATH);
+        if (!outputFileDir.exists()) {
+            try {
+                if (!outputFileDir.mkdirs()) {
+                    throw new Throwable("Not able to create directory.");
+                }
+            } catch (SecurityException se) {
+                throw new Throwable("Security Manager does not allow for write permission.");
+            }
+        }
+        File ttfFile = new File(fileWithExtension);
+        try (FileOutputStream output = new FileOutputStream(ttfFile)) {
+            byte[] binary = javax.xml.bind.DatatypeConverter.parseBase64Binary(base64ImageData);
+            output.write(binary);
+        } catch (IOException e) {
+            throw new Throwable(e.getMessage());
+        }
+    }
 
     public static void deleteAdminEmailTemplatesImage(String fileNameWithExtension) throws Throwable {
         String filePath = getAdminEmailTemplatesImageFilePath();
-        deleteImage(fileNameWithExtension, filePath);
+        deleteFile(fileNameWithExtension, filePath);
     }
 
     public static void deleteAdminEmailBlockModelImage(String fileNameWithExtension) throws Throwable {
         String filePath = getAdminEmailBlockModelImageFilePath();
-        deleteImage(fileNameWithExtension, filePath);
+        deleteFile(fileNameWithExtension, filePath);
     }
 
-    public static void deleteImage(String fileNameWithExtension, String filePath) throws Throwable {
+    public static void deleteFile(String fileNameWithExtension, String filePath) throws Throwable {
         File dir = new File(filePath);
         File file = new File(dir, fileNameWithExtension);
         try {
@@ -163,31 +196,31 @@ public class FileHandlerUtil {
 
     public static String getBaseUploadAdminFilePath() {
 
-        return getBaseUploadFilePath() + File.separator + "admin";
+        return AppConstants.BASE_ADMIN_UPLOAD_PATH;
 
     }
 
     public static String getBaseUploadAdminImageFilePath() {
 
-        return getBaseUploadAdminFilePath() + File.separator + "images";
+        return AppConstants.BASE_ADMIN_IMAGE_UPLOAD_PATH;
 
     }
 
     public static String getAdminGlobalImageFilePath() {
 
-        return getBaseUploadAdminImageFilePath() + File.separator + "globalimages";
+        return AppConstants.BASE_ADMIN_GLOBAL_IMAGE_UPLOAD_PATH;
 
     }
 
     public static String getAdminEmailTemplatesImageFilePath() {
 
-        return getBaseUploadAdminImageFilePath() + File.separator + "emailtemplates";
+        return AppConstants.BASE_ADMIN_EMAIL_TEMPLATE_IMAGE_UPLOAD_PATH;
 
     }
 
     public static String getAdminEmailBlockModelImageFilePath() {
 
-        return getBaseUploadAdminImageFilePath() + File.separator + "emailblockmodels";
+        return AppConstants.BASE_ADMIN_EMAIL_BLOCK_TEMPLATE_IMAGE_UPLOAD_PATH;
 
     }
 

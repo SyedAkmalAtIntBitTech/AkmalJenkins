@@ -26,6 +26,8 @@
 <link rel="stylesheet" type="text/css" href="css/admin.css"></link>
 <link rel="stylesheet" type="text/css" href="css/hint.css"></link>
 <link rel="stylesheet" href="css/PopUp.css">
+<link rel="stylesheet" type="text/css" href="css/gallery-user.css"/>
+<link rel="stylesheet" type="text/css" href="css/onboarding.css"/>
 <!--<link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"/>-->
 <script src="js/base.js" type="text/javascript"></script> 
 <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
@@ -34,14 +36,13 @@
 <script src="js/colpick.js" type="text/javascript"></script>
 <script src="js/usercontroller.js" type="text/javascript"></script> 
 <script type="text/javascript" src="js/angular.min.js"></script>
-<script type="text/javascript" src="js/popup.js"></script>
 <link rel="stylesheet" href="css/pikaday.css"/>
 <link rel="stylesheet" href="css/datepickerpikaday.css"/>     
 <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
 <link rel="stylesheet" type="text/css" href="css/popup.css"/>    
 <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>    
 <link href="css/style_detail_overlay-1.css" rel="stylesheet" type="text/css"/>  
-<script src="js/marketing.js" type="text/javascript"></script>
+<script src="js/moment.js" type="text/javascript"></script>
 <script src="js/moment.js" type="text/javascript"></script>
 <script src="js/alertmessage.js" type="text/javascript"></script>
 <script src="js/pikaday.js"></script>

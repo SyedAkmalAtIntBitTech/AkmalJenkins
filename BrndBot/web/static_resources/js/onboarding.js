@@ -126,7 +126,6 @@ function onboardingcontroller($scope,$http) {
         
         var companyName= $("#companyName").val();
         var organizationId= $("#industryDropDown").val();      
-        var userId=localStorage.getItem("userId");
         if(companyName ===""){
             alert(companyNameEmpty);
             $("#companyName").focus();
@@ -137,9 +136,7 @@ function onboardingcontroller($scope,$http) {
         }
         else
         {            
-            localStorage.setItem("companyName",companyName);
-            localStorage.setItem("industryName",organizationId);
-            var saveCompanyDetails={"companyName":companyName,"organizationId":organizationId,"userId":userId};
+            var saveCompanyDetails={"companyName":companyName,"organizationId":organizationId};
 //            window.open(getHost() + 'v2/signup/onboarding3.jsp', "_self");
             $.ajax({
                     method: 'POST',
@@ -149,11 +146,11 @@ function onboardingcontroller($scope,$http) {
                     data: JSON.stringify(saveCompanyDetails)
                 }).success(function (data, status, headers, config)
                 {  
-                    
-                     var companyId=eval(JSON.stringify(data.d.message));
-                    localStorage.setItem("companyId",companyId);
-                              
-                    window.open(getHost() + 'signup/onboarding3', "_self");
+                    var message= data.d.message;
+                    if(message==="true")
+                    {             
+                        window.open(getHost() + 'signup/datasource', "_self");
+                    }
                 }).error(function(data, status, headers, config){
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });                         
@@ -193,24 +190,34 @@ function onboardingcontroller($scope,$http) {
             alert("Please Enter Studio Id.");
             $("#mindbodyStudioId").focus();
         }else{
-         $http({
-            method: 'GET',
-            url: getHost() +'/onboarding/getActivationLink.do?studioId='+studioId
-        }).success(function (data, status, headers, config) {
-            var actiovationLink=eval(JSON.stringify(data.d.details[0]));
-            $("#actiovationLink").attr('href',actiovationLink);
-            $("#activationLinkDiv").empty().append(actiovationLink);
-            $("#serviceContinueButton").css("pointer-events","auto");
-//            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            $http({
+                method: 'POST',
+                url: getHost() +'/onboarding/saveStudioId.do?studioId='+studioId
+            }).success(function (data, status, headers, config) {
+            var studioIdSaved = eval(JSON.stringify(data.d.message));
+            if(studioIdSaved === "true") {
+                $http({
+                    method: 'GET',
+                    url: getHost() +'/externalContent/getActivationLink.do'
+                }).success(function (data, status, headers, config) {
+                    var actiovationLink=eval(JSON.stringify(data.d.details[0]));
+                    $("#actiovationLink").attr('href',actiovationLink);
+                    $("#activationLinkDiv").empty().append(actiovationLink);
+                    $("#serviceContinueButton").css("pointer-events","auto");
+        //            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                }).error(function (data, status, headers, config) {
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                });
+            }
         }).error(function (data, status, headers, config) {
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
         });
-    }
+        }
     };
     $scope.saveServices = function (){
         var services= $("#services").val();
         localStorage.setItem("services",services);
-        window.open(getHost() + 'signup/onboarding4', "_self");
+        window.open(getHost() + 'signup/uploadlogo', "_self");
     };
     
      function validateEmail(emailId) {
@@ -272,10 +279,14 @@ function onboardingcontroller($scope,$http) {
                 data: JSON.stringify(userDetails)
             }).success(function (data)
             {
-                var userId=eval(JSON.stringify(data.d.message));
-                localStorage.setItem("userId",userId);
-                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                window.open(getHost() + 'signup/onboarding2', "_self");
+                
+               var message= data.d.message;
+                if(message==="true")
+                {
+                   $("#username").val(emailId);
+                   $("#userpassword").val(userPassword);
+                   $("#signform").submit();
+                }
             })
             .error(function (data, status) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -312,7 +323,7 @@ function onboardingcontroller($scope,$http) {
 //                $("#uploadedLogoDiv,#uploadedLogoContinueButton").show();
                 
                 $("#uploadedLogo").attr('src',globalLogoImageSrc);
-                window.open(getHost() + 'signup/onboardingpalette', "_self");
+                window.open(getHost() + 'signup/choosepalette', "_self");
             }
             else{
                 alert("Invalid File Type!\n Please choose valid Image format.");
@@ -366,7 +377,7 @@ function onboardingcontroller($scope,$http) {
          var companyId=localStorage.getItem("companyId");
         $http({
             method: 'GET',
-            url: getHost() +'/onboarding/getColorsForLogo.do?companyId='+companyId
+            url: getHost() +'/onboarding/getColorsForLogo.do'
         }).success(function (data, status, headers, config) {
             $scope.color =data.d.details;
         }).error(function (data, status, headers, config) {
@@ -396,7 +407,6 @@ function onboardingcontroller($scope,$http) {
     };
     
     $scope.saveColorPalette = function (){
-         var companyId=localStorage.getItem("companyId");
          var color1=$("#color1").css("backgroundColor");
          var color2=$("#color2").css("backgroundColor");
          var color3=$("#color3").css("backgroundColor");
@@ -407,16 +417,16 @@ function onboardingcontroller($scope,$http) {
         alert("Please choose all 4 colors.");   
         }
         else{
-             $.ajax({
+            $.ajax({
                 method: 'POST',
-                url: getHost() + '/onboarding/saveCompanyColors.do?companyId='+companyId,
+                url: getHost() + 'settings/setColors.do',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(companyColors)
             }).success(function (data)
             {
                 
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                window.open(getHost() + 'login', "_self");
+                window.open(getHost() + 'user/dashboard', "_self");
             })
             .error(function (data, status) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));

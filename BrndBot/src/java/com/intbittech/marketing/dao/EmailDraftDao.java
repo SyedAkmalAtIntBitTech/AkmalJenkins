@@ -5,7 +5,6 @@
  */
 package com.intbittech.marketing.dao;
 
-import com.intbit.marketing.model.TblMarketingAction;
 import com.intbittech.model.EmailDraft;
 import java.util.List;
 
@@ -18,7 +17,7 @@ public interface EmailDraftDao {
    /**
 	 * This method retrieves {@link EmailDraft} by passing id
 	 * @param id
-	 * @return {@link TblMarketingAction}
+	 * @return {@link EmailDraftDao}
         * @throws java.lang.Throwable 
     */
    public EmailDraft getById(Integer id) throws Throwable; 

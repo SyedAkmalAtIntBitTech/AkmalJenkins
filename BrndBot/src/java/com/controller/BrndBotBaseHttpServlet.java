@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class BrndBotBaseHttpServlet extends HttpServlet {
     
 
-    public static final Logger logger = Logger.getLogger(util.Utility.getClassName(BrndBotBaseHttpServlet.class));
+    public static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(BrndBotBaseHttpServlet.class));
 
     SqlMethods sql_methods;
 

@@ -65,4 +65,8 @@ public interface GlobalImagesService {
      * @throws ProcessFailed 
      */
     public Boolean checkForUniqueness(String globalImageName) throws ProcessFailed;
+
+    public String getLink(String fileName, String imageURL);
+
+    public String getPath();
 }

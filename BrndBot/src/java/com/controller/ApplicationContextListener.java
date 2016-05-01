@@ -14,13 +14,13 @@ import javax.servlet.ServletContextListener;
 /**
  * Web application lifecycle listener.
  *
- * @author AR
+ * @author AR - Testing
  */
 public class ApplicationContextListener implements ServletContextListener {
 
     private static ServletContextEvent servletContextEvent;
 
-    public static final Logger logger = Logger.getLogger(util.Utility.getClassName(ApplicationContextListener.class));
+    public static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(ApplicationContextListener.class));
     static ApplicationContextListener applicationContextListener;
 
     public static ApplicationContextListener getApplicationContextListener() {
@@ -72,7 +72,7 @@ public class ApplicationContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        logger.log(Level.INFO, "Application Deployed");
+        logger.log(Level.INFO, "------------------------Application Deployed");
         servletContextEvent = sce;
         applicationContextListener = this;
 //        mindbodyEmailListScheduler = new MindbodyEmailListScheduler();
