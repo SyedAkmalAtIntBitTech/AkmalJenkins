@@ -539,22 +539,19 @@
                 }   
     //            alert("emailModelId.. "+id+" block_clicked.. "+block_clicked+" mindbodydataId.. "+mindbodydataId)
                 if ((mindbodydataId != "") && (mindbodydataId != "0") && (typeof (mindbodydataId) !== "undefined")){
-                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById.do?emailModelId=" + id+'&isBlock='+block_clicked+'&externalDataId='+mindbodydataId;
+                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById.do?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId="+mindbodydataId;
                 } 
                 else 
                 {
-                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById.do?emailModelId=" + id+'&isBlock='+block_clicked+'&externalDataId=null';
+                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById.do?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId=null";
                 }
-//                alert("layout_mapper_url... "+layout_mapper_url);
-                $.ajax({
-                        method : 'GET',
-                        url: layout_mapper_url,
-                        dataType: 'json',
-                        contentType: 'application/json',
-                        mimeType: 'application/json',
-                        data: JSON.stringify(data),
-                        success: function (data) {
-                            alert(JSON.stringify(data)+" ...... show text ....");
+                alert("layout_mapper_url... "+layout_mapper_url);
+                
+                 $.ajax({
+                    method : 'GET',
+                    url :layout_mapper_url
+                    }).success(function(data, status, headers, config) {
+                        alert(JSON.stringify(data)+" ...... show text ....");
                             if (block_clicked === "false"){
                             var editorHtml = $('#edit').froalaEditor('html.get');
                                     if (editorHtml.contains('id="defaultblock1"')){
@@ -583,11 +580,54 @@
                                     $('#edit').froalaEditor('html.set', '' + editorHtml + '' + BlockHtml + '');
                                 }
                             }
-                        },
-                        error: function (error) {
-                            alert(JSON.stringify(error))
-                        }
-                });
+                    }).error(function(error) {
+                        alert(JSON.stringify(error))
+                    });
+
+                
+//                
+//                $.ajax({
+//                        method : 'GET',
+//                        url: layout_mapper_url,
+//                        dataType: 'json',
+//                        contentType: 'application/json',
+//                        mimeType: 'application/json',
+//                        data: JSON.stringify(data),
+//                        success: function (data) {
+//                            alert(JSON.stringify(data)+" ...... show text ....");
+//                            if (block_clicked === "false"){
+//                            var editorHtml = $('#edit').froalaEditor('html.get');
+//                                    if (editorHtml.contains('id="defaultblock1"')){
+//                            var jHtmlObject = jQuery(editorHtml);
+//                                    var editor = jQuery("<p>").append(jHtmlObject);
+//                                    editor.find("#defaultblock1").remove();
+//                                    editorHtml = editor.html();
+//                            }
+//                            styleHtml = '<div id=defaultblock1 onclick="selecterBlockId(defaultblock1,0)">' + data.d.details.htmldata + '</div>';
+//                                    $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
+//    //                                                   $("#defaultblock1").empty().append(data.htmldata);
+//                            }
+//                            else{
+//                                var editorHtml = $('#edit').froalaEditor('html.get');
+//                                if (editorHtml.contains('id="' + addblockid + '"')){
+//                                    var jHtmlObject = jQuery(editorHtml);
+//                                    var editor = jQuery("<p>").append(jHtmlObject);
+//                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.d.details.htmldata + '</div>';
+//                                    editor.find("#" + addblockid).replaceWith(BlockHtml);
+//                                    editorHtml = editor.html();
+//                                    $('#edit').froalaEditor('html.set', '' + editorHtml + '');
+//                                }
+//                                else
+//                                {
+//                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.d.details.htmldata + '</div>';
+//                                    $('#edit').froalaEditor('html.set', '' + editorHtml + '' + BlockHtml + '');
+//                                }
+//                            }
+//                        },
+//                        error: function (error) {
+//                            alert(JSON.stringify(error))
+//                        }
+//                });
             }
 
             function addblock(){
