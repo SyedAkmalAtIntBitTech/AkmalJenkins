@@ -157,7 +157,7 @@
                                     No emails saved to this action.
                                 </div>
                                 <!--<a class="link" href="">-->
-                                    <a href="emailautomation.jsp?type=template&program_id={{program_id}}&entity_id={{schedule_id}}">
+                                    <a href="user/emailautomation?type=template&program_id={{program_id}}&entity_id={{schedule_id}}">
                                         <div class="md-button empty-state-cta">
                                             Save an email to this action
                                         </div>

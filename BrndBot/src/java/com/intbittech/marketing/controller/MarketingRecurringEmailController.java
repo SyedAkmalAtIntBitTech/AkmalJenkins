@@ -287,13 +287,13 @@ public class MarketingRecurringEmailController {
         schedule_email_list.setReplyToEmailAddress(reply_to_address);
         schedule_email_list.setSubject(subject);
         schedule_email_list.setToEmailAddresses(json_object.toString());
-//        schedule_email_list.setFkScheduledEntityListId(null);
+        schedule_email_list.setFkScheduledEntityListId(null);
         
         Integer email_list_id = schedule_email_list_service.save(schedule_email_list);
 
         ScheduledEntityList schedule_entity_list = new ScheduledEntityList();
         
-        schedule_entity_list.setScheduledEntityListId(0);
+//        schedule_entity_list.setScheduledEntityListId(0);
         schedule_entity_list.setEntityId(email_list_id);
         schedule_entity_list.setEntityType(ScheduledEntityType.Email.toString());
         schedule_entity_list.setIsRecurring(Boolean.TRUE);

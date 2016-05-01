@@ -681,7 +681,7 @@ function programactions($scope, $http, $window){
             $(".row").css("display","block");
         });
         $scope.calltoeditrecurring = function(progid,scheduleid){
-            window.open(getHost() + 'emailautomation?type=edit&program_id='+progid+"&entity_id="+scheduleid, "_self");
+            window.open(getHost() + 'user/emailautomation?type=edit&program_id='+progid+"&entity_id="+scheduleid, "_self");
         };
     };
     $scope.checkProgramStatus= function (){
@@ -1030,8 +1030,8 @@ function programactions($scope, $http, $window){
                 method: 'GET',
                 url: getHost() + '/GetScheduledEmailDetail.do?schedule_id=' + schedule_id
             }).success(function (data) { 
-//                alert(JSON.stringify(data));alert(data.subject);
-                $scope.entitiesdetails = data;
+                var recurringDetails=JSON.parse(data.d.details);
+                $scope.entitiesdetails = recurringDetails;
                 if (data.body == undefined) {
                       $("#recurringremovediv").hide();
                       $("#savedemailsdiv").hide();
@@ -1057,10 +1057,10 @@ function programactions($scope, $http, $window){
                 $("#recurringaction a").addClass("h3-subnav");
                 $("#recurringnote").addClass("top-subnav-links-detail");
                 $("#recurringnote a").addClass("h3-subnav");
-                $scope.entities_subject = data.subject;
-                $scope.entities_from_name = data.from_name;
-                $scope.entities_reply_to_email_address = data.reply_to_email_address;
-                $scope.entities_list_name = data.email_list_name;
+                $scope.entities_subject = recurringDetails.subject;
+                $scope.entities_from_name = recurringDetails.from_name;
+                $scope.entities_reply_to_email_address = recurringDetails.reply_to_email_address;
+                $scope.entities_list_name = recurringDetails.email_list_name;
                 $scope.entities_selected_time = schedule_time;
                 $scope.entities_till_date = till_date;
                 $scope.schedule_title = schedule_title;
