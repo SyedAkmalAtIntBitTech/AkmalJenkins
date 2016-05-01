@@ -686,13 +686,14 @@
                      
                     $("#emailpreview").click(function(){              
                         $("#email_previewdiv").show();
-                        $.ajax({
-                                url: getHost() + "/email/previewServlet",
-                                method: "POST",
-                                data: {
+                        var sendData = {
                                     htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                                    iframeName: rendomIframeFilename
-                                },
+                                    iframeName: rendomIframeFilename.toString()
+                                };
+                        $.ajax({
+                                url: getHost() + "/email/previewServlet.do",
+                                method: "POST",
+                                data: JSON.stringify(sendData),
                                 success: function (responseText) {
                                     $("#dynamictable5").empty();
                                     $("#dynamictable6").empty();
