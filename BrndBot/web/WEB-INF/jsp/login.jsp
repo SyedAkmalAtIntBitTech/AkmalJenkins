@@ -8,8 +8,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-       <jsp:include page="header.jsp"/>
         <title>User Login</title>
+       <jsp:include page="header.jsp"/>
+        
     </head>
     <script>
          $("document").ready(function() {

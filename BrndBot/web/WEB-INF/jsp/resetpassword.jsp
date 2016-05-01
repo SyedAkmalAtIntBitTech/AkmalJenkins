@@ -8,7 +8,10 @@
 <!DOCTYPE html>
 <html ng-app>
     <head>
-          <link rel="shortcut icon" href="css/favicon.png">
+        <title>BrndBot - Change Password</title>
+         <jsp:include page="header.jsp"/>
+        
+        <link rel="shortcut icon" href="images/favicon.png"/> 
        <script src="js/configurations.js"></script>
         <script src="js/form.js"></script>
         <script src="js/alertmessage.js"></script>
@@ -26,7 +29,7 @@
         <link rel="stylesheet" type="text/css" href="css/textstyle.css"></link>
        
         <link rel="stylesheet" href="css/main1.css">
-        <title>BrndBot - Change Password</title>
+        
        
     </head>
     <body class="container">
