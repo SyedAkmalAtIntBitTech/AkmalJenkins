@@ -13,6 +13,6 @@ import com.intbittech.model.EmailBlockExternalSource;
  */
 public interface EmailBlockExternalSourceService {
 
-    public EmailBlockExternalSource getByEmailBlockId(Integer emailBlockId);
+    public EmailBlockExternalSource getByEmailBlockId(Integer emailBlockId) throws ProcessFailed;
     
 }
