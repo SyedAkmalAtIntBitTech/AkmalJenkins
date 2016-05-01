@@ -168,8 +168,12 @@ var count=0;
                 $("#removeactionbutton").hide();
             }
         }
+        
+        var selected_schedules_to_delete = "";
+        var selected_schedules_to_delete_recurring = "";
         var countota=0;
         function selcheckboxonetimeact(id){
+            selected_schedules_to_delete=","+selected_schedules_to_delete;
             content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
             var htm=$("#"+id).html();            
             var selected_schedule_id=id;
@@ -182,7 +186,7 @@ var count=0;
             {
                 selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
                 countota+=1;
-                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#"+id).html(content+'<img src="images/check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#"+id).toggleClass('selection-icon');
             $("#"+id).toggleClass('selection-icon-selected');
@@ -196,8 +200,30 @@ var count=0;
                 $("#onetimeactbtn").show();
                 $("#deleteonetimeact").hide();
             }
-        }        
+        }
+//        function setSelectedIds(selectedid) {
+//            var checked = document.getElementById(selectedid).checked;
+//            var a = $("input:checked.chckbox").length;
+//            if (checked && a != 0) {
+//                $("#addemlactbtn").hide();
+//                $("#delemlactbtn").show();
+//                var selected_schedule_id1 = $("#" + selectedid).val();
+//                alert(selected_schedule_id1);
+//                selected_schedules_to_delete = selected_schedule_id1 + "," + selected_schedules_to_delete;
+//        //        alert(selected_schedules_to_delete);
+//            }
+//            else if (!checked && a == 0)
+//            {
+//                var selected_schedule_id = $("#" + selectedid).val();
+//                selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
+//        //        alert(selected_schedules_to_delete);
+//                $("#delemlactbtn").hide();
+//                $("#addemlactbtn").show();
+//            }
+//        }
+
             function selcheckboxrecemail(id){
+            selected_schedules_to_delete_recurring=","+selected_schedules_to_delete_recurring;
             content='<input type="checkbox" id="'+'entityid'+id+'" hidden="">';
             var htm=$("#"+id).html();
             
@@ -211,7 +237,7 @@ var count=0;
             {
                 selected_schedules_to_delete_recurring = selected_schedule_id + "," + selected_schedules_to_delete_recurring;
                 count+=1;
-                $("#"+id).html(content+'<img src="images/Icons/check.svg" class="check-icon" style="cursor:pointer;"/>');
+                $("#"+id).html(content+'<img src="images/check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
             $("#"+id).toggleClass('selection-icon');
             $("#"+id).toggleClass('selection-icon-selected');
@@ -264,8 +290,8 @@ $(".close").click(function(){
         }
         if( change !== "0")
         {
-            $("#change").val("0");
-            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program_id+'&past=0', "_self");
+//            $("#change").val("0");
+            window.open(getHost() + 'user/marketingprogramactions?program_id='+program_id+'&past=0', "_self");
             $('.bottom-cta-bar').hide();
         }
     });
@@ -404,8 +430,6 @@ function validatetwitteraction() {
     return true;
 }
     
-var selected_schedules_to_delete = "";
-var selected_schedules_to_delete_recurring = "";
 
 function setSelectedRecurringIds(selectedid) {
     var checked = document.getElementById(selectedid).checked;
@@ -427,23 +451,6 @@ function setSelectedRecurringIds(selectedid) {
     }
 }
 
-function setSelectedIds(selectedid) {
-        var d = $("input:checked.delchckbx").length;
-        var checked = document.getElementById(selectedid).checked;
-    if (checked && d!=0) {
-        $("#liPriority").hide(); 
-        $("#delactbtn").show(); 
-        var selected_schedule_id = $("#" + selectedid).val();
-        selected_schedules_to_delete = selected_schedule_id + "," + selected_schedules_to_delete;
-        console.log(selected_schedules_to_delete);
-    }else if(!checked && d==0){
-        var selected_schedule_id = $("#" + selectedid).val();
-        selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
-        console.log(selected_schedules_to_delete);
-        $("#liPriority").show(); 
-        $("#delactbtn").hide();         
-    }
-}
 Date.prototype.customFormat = function (formatString) {
     var YYYY, YY, MMMM, MMM, MM, M, DDDD, DDD, DD, D, hhhh, hhh, hh, h, mm, m, ss, s, ampm, AMPM, dMod, th;
     YY = ((YYYY = this.getFullYear()) + "").slice(-2);
@@ -478,6 +485,33 @@ function setTodaysDate() {
     angular.element(document.getElementById('controllerMarketingCampaign')).scope().getCampaigns();
 }
 function programactions($scope, $http, $window){
+    
+    
+  
+
+
+// $scope.setSelectedIds = function(selectedid) {
+//    var checked = document.getElementById(selectedid).checked;
+//    var a = $("input:checked.chckbox").length;
+//    if (checked && a!=0) {
+//          $("#addemlactbtn").hide();
+//        $("#delemlactbtn").show();
+//        var selected_schedule_id1 = $("#" + selectedid).val();alert(selected_schedule_id1);
+//        selected_schedules_to_delete = selected_schedule_id1 + "," + selected_schedules_to_delete;
+////        alert(selected_schedules_to_delete);
+//    }
+//    else if(!checked && a==0)
+//    {
+//        var selected_schedule_id = $("#" + selectedid).val();
+//        selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
+////        alert(selected_schedules_to_delete);
+//        $("#delemlactbtn").hide();
+//        $("#addemlactbtn").show();
+//    }
+//};
+
+    
+    
             $scope.master_facebook = getfacebook();
             $scope.master_twitter = gettwitter();
             $scope.master_email = getemail();
@@ -489,12 +523,12 @@ function programactions($scope, $http, $window){
       var program_id = {"program_id": program};      
         $http({
             method: 'POST',
-            url: 'endMarketingProgram.do',
+            url: getHost()+'/endMarketingProgram.do',
             headers: {'Content-Type':'application/json'},
             data: JSON.stringify(program_id)
         }).success(function (data, status, headers, config) {
-            if (data == "true"){                
-                  window.open(getHost() + 'marketingprogramlists.jsp', "_self");                
+            if (data == "true"){
+                  window.open(getHost() + 'user/marketingprogramlists', "_self");                
             }else {
                 alert(savingrecordproblem);
             }
@@ -584,13 +618,13 @@ function programactions($scope, $http, $window){
                           "link_url": link_url, "link_name": link_name, "program_name":program_name};
         $http({
             method: 'POST',
-            url: 'updateUserProgram.do',
+            url: getHost()+'/updateUserProgram.do',
             headers: {'Content-Type':'application/json'},
             data: JSON.stringify(program_details)
         }).success(function (data, status, headers, config) {
           if (data == "true"){
             alert(programdetailssaved);
-            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0'+'&program_date='+event_date, "_self");
+            window.open(getHost() + 'user/marketingprogramactions?program_id='+program+'&past=0'+'&program_date='+event_date, "_self");
           }else {
               alert(savingrecordproblem);
           }
@@ -617,8 +651,9 @@ function programactions($scope, $http, $window){
         };
         $http({
             method: 'GET',
-            url: 'alluserMarketingProgramForDisplay.do?program_id='+program
+            url: getHost()+'/alluserMarketingProgramForDisplay.do?program_id='+program
         }).success(function (data, status, headers, config){
+//            alert(JSON.stringify(data.emailautomation));
             $("#progname").show();
             document.getElementById("instancehidden").style.display="block";
             if(JSON.stringify(data.emailautomation)==='[]'){
@@ -646,7 +681,7 @@ function programactions($scope, $http, $window){
             $(".row").css("display","block");
         });
         $scope.calltoeditrecurring = function(progid,scheduleid){
-            window.open(getHost() + 'emailautomation.jsp?type=edit&program_id='+progid+"&entity_id="+scheduleid, "_self");
+            window.open(getHost() + 'emailautomation?type=edit&program_id='+progid+"&entity_id="+scheduleid, "_self");
         };
     };
     $scope.checkProgramStatus= function (){
@@ -710,7 +745,7 @@ function programactions($scope, $http, $window){
     };    
     $scope.addEditRecurringAction = function(type,program_id,entity_id){
         var program_end_date=$("#program_end_date").val();
-        window.open(getHost() + 'emailautomation.jsp?type='+type+'&program_id='+program_id+'&entity_id='+entity_id+'&program_date='+program_end_date, "_self");
+        window.open(getHost() + 'user/emailautomation?type='+type+'&program_id='+program_id+'&entity_id='+entity_id+'&program_date='+program_end_date, "_self");
     };    
     $scope.createPost = function(){
         window.open(getHost() + 'dashboard.jsp', "_self");
@@ -993,8 +1028,9 @@ function programactions($scope, $http, $window){
             var program_id=$("#program_id").val();
             $http({
                 method: 'GET',
-                url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
-            }).success(function (data) {
+                url: getHost() + '/GetScheduledEmailDetail.do?schedule_id=' + schedule_id
+            }).success(function (data) { 
+//                alert(JSON.stringify(data));alert(data.subject);
                 $scope.entitiesdetails = data;
                 if (data.body == undefined) {
                       $("#recurringremovediv").hide();
@@ -1270,16 +1306,16 @@ function programactions($scope, $http, $window){
             };
             $http({
                 method: 'POST',
-                url: getHost() + 'AddAction',
+                url: getHost() + '/AddAction.do',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(action)
             }).success(function (data)
-            { 
+            {
+//                alert(JSON.stringify(data.d));
                 $scope.status = data;
-                if (data != "") {
-                    alert("Action saved successfully.");
-                   window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0&program_date='+program_end_date, "_self");
-                }
+                alert("Action saved successfully.");
+                window.open(getHost() + 'user/marketingprogramactions?program_id=' + program + '&past=0&program_date=' + program_end_date, "_self");
+
             }).error(function (data, status) {
                 alert(requesterror);
             });
@@ -1530,11 +1566,11 @@ function programactions($scope, $http, $window){
         if (confirm(message)) {
             $http({
                 method: 'POST',
-                url: getHost() + 'ChangeScheduleServlet',
+                url: getHost() + 'ChangeSchedule.do',
                 headers: {'Content-Type': 'application/json'},
                 data: requestBody
             }).success(function (data)
-            {
+            {   
                 $scope.status = data;
                 if (data !== "") {
                     if(section == getfacebook())
@@ -1551,8 +1587,9 @@ function programactions($scope, $http, $window){
                     {
                         $("#mailpreviewdecond").hide();
                         $("#mailremovedtemplate").show();                     
-                    }
-                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
+                    }     
+                    alert("Recurring Email deleted successfully.");
+                    window.open(getHost() + 'user/marketingprogramactions?program_id='+program+'&past=0', "_self");
                 }
             }).error(function (data, status) {
                 alert(requesterror);
@@ -1614,11 +1651,11 @@ function programactions($scope, $http, $window){
         if (confirm(message)) {
             $http({
                 method: 'POST',
-                url: getHost() + 'ChangeScheduleServlet',
+                url: getHost() + '/ChangeSchedule.do',
                 headers: {'Content-Type': 'application/json'},
                 data: requestBody
             }).success(function (data)
-            {
+            {  
                 $scope.status = data;
                 if (data !== "") {
                     if(section == getfacebook())
@@ -1637,7 +1674,7 @@ function programactions($scope, $http, $window){
                         $("#mailremovedtemplate").show();                     
                     }
                     alert(responseMessage);
-                    window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0&program_date='+program_end_date, "_self");
+                    window.open(getHost() + 'user/marketingprogramactions?program_id='+program+'&past=0&program_date='+program_end_date, "_self");
                 }
             }).error(function (data, status) {
                 alert(requesterror);

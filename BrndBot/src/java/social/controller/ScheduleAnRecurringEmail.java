@@ -10,13 +10,12 @@ import com.intbittech.model.ScheduledEmailList;
 import com.intbittech.model.ScheduledEntityList;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.EmailInfo;
+import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
-import static social.controller.ScheduleTwitterPost.logger;
-import util.DateTimeUtil;
-import util.Utility;
+import com.intbittech.utility.DateTimeUtil;
+import com.intbittech.utility.Utility;
+
 
 /**
  *
@@ -24,11 +23,13 @@ import util.Utility;
  */
 public class ScheduleAnRecurringEmail implements Runnable {
 
+    private Logger logger = Logger.getLogger(ScheduleAnRecurringEmail.class);
+
     public void terminateThread() {
         try {
             Thread.currentThread().interrupt();
         } catch (Exception ex) {
-            Logger.getLogger(ScheduleAnRecurringEmail.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(ex);
         }
     }
 
@@ -91,12 +92,12 @@ public class ScheduleAnRecurringEmail implements Runnable {
                 }
             }
         } catch (Throwable ex) {
-            Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(ex);
         }
     }
 
     private void updateStatusScheduledEmail(ScheduledEntityList scheduledAnEmail) throws Throwable {
-        logger.log(Level.INFO, "RecurringEmail post:" + scheduledAnEmail.getScheduleTitle() + "Id:" + scheduledAnEmail.getScheduledEntityListId() + " time:" + scheduledAnEmail.getScheduleTime().toString());
+        logger.info("RecurringEmail post:" + scheduledAnEmail.getScheduleTitle() + "Id:" + scheduledAnEmail.getScheduledEntityListId()+ " time:" + scheduledAnEmail.getScheduleTime().toString());
         //Call the DAO here
         scheduledAnEmail.setStatus(IConstants.kSocialPostapprovedStatus);
         SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledAnEmail);

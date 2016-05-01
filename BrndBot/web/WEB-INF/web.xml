@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-<!--    <listener>
+  <listener>
         <description>ServletContextListener</description>
         <listener-class>com.controller.ApplicationContextListener</listener-class>
     </listener>
+    <!--
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml</param-value>
@@ -75,20 +76,12 @@
         <servlet-class>com.controller.UploadImages</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetFacebookManagePage</servlet-name>
-        <servlet-class>social.controller.GetFacebookManagePage</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GetLayoutStyles</servlet-name>
         <servlet-class>com.controller.GetLayoutStyles</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MindBodyDetailServlet</servlet-name>
         <servlet-class>com.controller.MindBodyDetailServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>GetTwitterToken</servlet-name>
-        <servlet-class>social.controller.GetTwitterToken</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetUserPreferences</servlet-name>
@@ -112,10 +105,7 @@
     </servlet>
    
     
-    <servlet>
-        <servlet-name>EmailTextDataServlet</servlet-name>
-        <servlet-class>social.controller.EmailTextDataServlet</servlet-class>
-    </servlet>
+   
     <servlet>
         <servlet-name>GetBlocks</servlet-name>
         <servlet-class>com.controller.GetBlocks</servlet-class>
@@ -265,20 +255,12 @@
         <url-pattern>/UploadImages</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GetFacebookManagePage</servlet-name>
-        <url-pattern>/GetFacebookManagePage</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>GetLayoutStyles</servlet-name>
         <url-pattern>/GetLayoutStyles</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MindBodyDetailServlet</servlet-name>
         <url-pattern>/MindBodyDetailServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>GetTwitterToken</servlet-name>
-        <url-pattern>/GetTwitterToken</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetUserPreferences</servlet-name>
@@ -299,12 +281,6 @@
     <servlet-mapping>
         <servlet-name>ChangeImageServlet</servlet-name>
         <url-pattern>/ChangeImageServlet</url-pattern>
-    </servlet-mapping>
-   
-    
-    <servlet-mapping>
-        <servlet-name>EmailTextDataServlet</servlet-name>
-        <url-pattern>/EmailTextDataServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetBlocks</servlet-name>
@@ -329,10 +305,6 @@
     <servlet-mapping>
         <servlet-name>DownloadXml</servlet-name>
         <url-pattern>/DownloadXml</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>PreviewServlet</servlet-name>
-        <url-pattern>/PreviewServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>GetUserFacebookManagePages</servlet-name>

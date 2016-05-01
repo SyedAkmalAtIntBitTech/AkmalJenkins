@@ -9,8 +9,10 @@ import com.intbittech.dao.GlobalFontsDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.GlobalFonts;
 import com.intbittech.services.GlobalFontsService;
+import com.intbittech.utility.FileHandlerUtil;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -70,7 +72,12 @@ public class GlobalFontsServiceImpl implements GlobalFontsService {
         GlobalFonts globalFonts = globalFontsDao.getGlobalFontsById(globalFontsId);
         if(globalFonts == null)
             throw new ProcessFailed(messageSource.getMessage("globalFonts_not_found_delete",new String[]{}, Locale.US));
-        globalFontsDao.delete(globalFonts);
+        try {
+            globalFontsDao.delete(globalFonts);
+            FileHandlerUtil.deleteAdminGlobalFont(globalFonts.getFileName());
+        } catch (Throwable ex) {
+            throw new ProcessFailed(ex.getMessage());
+        }
     }
     
 }

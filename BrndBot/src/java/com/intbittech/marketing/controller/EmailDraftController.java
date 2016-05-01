@@ -7,10 +7,12 @@ package com.intbittech.marketing.controller;
 
 import com.controller.SqlMethods;
 import com.intbit.AppConstants;
-import com.intbittech.model.EmailDraftModel;
+import com.intbittech.marketing.model.EmailDraftModel;
 import com.intbittech.marketing.service.EmailDraftService;
 import com.intbittech.model.Company;
 import com.intbittech.model.EmailDraft;
+import com.intbittech.model.UserProfile;
+import com.intbittech.utility.UserSessionUtil;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Date;
@@ -50,14 +52,14 @@ public class EmailDraftController {
             HttpServletResponse response) throws IOException, Throwable {
         try {
 
-            sqlmethods.session = request.getSession(true);
-            //Todo Haider - replace with SS companyId
-            Integer companyId = (Integer) sqlmethods.session.getAttribute("companyId");
-
-            String emailSubject = (String) sqlmethods.session.getAttribute("email_subject");
-            String subCategoryName = (String) sqlmethods.session.getAttribute("sub_category_name");
-            String subCategoryId = (String) sqlmethods.session.getAttribute("sub_category_id");
-            String categoryId = (String) sqlmethods.session.getAttribute("category_id");
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            String emailSubject = (String) requestBodyMap.get("email_subject");
+            String subCategoryName = (String) requestBodyMap.get("sub_category_name");
+            String subCategoryId = (String) requestBodyMap.get("sub_category_id");
+            String categoryId = (String) requestBodyMap.get("category_id");
 
             EmailDraft email_draft = new EmailDraft();
             Date current_date = new Date();
@@ -96,20 +98,22 @@ public class EmailDraftController {
         JSONObject json_object_email_draft = new JSONObject();
         try {
 
-            sqlmethods.session = request.getSession(true);
-            Integer companyId = (Integer) sqlmethods.session.getAttribute("companyId");
-
-            String emailSubject = (String) sqlmethods.session.getAttribute("email_subject");
-            String subCategoryName = (String) sqlmethods.session.getAttribute("sub_category_name");
-            Double subCategoryId = (Double) sqlmethods.session.getAttribute("sub_category_id");
-            Double categoryId = (Double) sqlmethods.session.getAttribute("category_id");
+                       
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+            String emailSubject = (String) requestBodyMap.get("email_subject");
+            String subCategoryName = (String) requestBodyMap.get("sub_category_name");
+            String subCategoryId = (String) requestBodyMap.get("sub_category_id");
+            String categoryId = (String) requestBodyMap.get("category_id");
 
             EmailDraft emaildraft = emaildraftservice.getById(draftId);
 
             EmailDraftModel emaildraftmodel = new EmailDraftModel();
 
-            emaildraftmodel.setCategoryid(categoryId.intValue());
-            emaildraftmodel.setSubcategoryid(subCategoryId.intValue());
+            emaildraftmodel.setCategoryid(Integer.parseInt(categoryId));
+            emaildraftmodel.setSubcategoryid(Integer.parseInt(subCategoryId));
             emaildraftmodel.setSubcategoryname(subCategoryName);
             emaildraftmodel.setEmailsubject(emailSubject);
             emaildraftmodel.setHtmlbodystring(bodyString);
@@ -138,10 +142,9 @@ public class EmailDraftController {
         JSONObject json_object_email_draft = new JSONObject();
         try {
 
-            sqlmethods.session = request.getSession(true);
-            Integer user_id = (Integer) sqlmethods.session.getAttribute("UID");
-
-            List<EmailDraft> emaildraftlist = emaildraftservice.getAllEmailDrafts(user_id);
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            List<EmailDraft> emaildraftlist = emaildraftservice.getAllEmailDrafts(companyId);
 
             JSONArray json_array_email_draft = new JSONArray();
             

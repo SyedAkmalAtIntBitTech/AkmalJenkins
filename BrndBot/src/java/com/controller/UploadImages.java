@@ -67,7 +67,7 @@ public class UploadImages extends BrndBotBaseHttpServlet {
             logger.info(json.toString());
             response.getWriter().write(json.toString());  
         } catch (Exception ex) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(ex, "Exception while updating org name:", getSqlMethodsInstance().error));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(ex, "Exception while updating org name:", getSqlMethodsInstance().error));
         }
     }
 

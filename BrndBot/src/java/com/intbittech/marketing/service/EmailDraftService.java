@@ -26,7 +26,7 @@ public interface EmailDraftService {
 	 * @return {@link MarketingProgram}
 	 * @throws java.lang.Throwable 
     */
-   public List<EmailDraft> getAllEmailDrafts(Integer user_id) throws Throwable;
+   public List<EmailDraft> getAllEmailDrafts(Integer companyId) throws Throwable;
    
    /**
 	 * This method save {@link EmailDraft} by passing EmailDraft

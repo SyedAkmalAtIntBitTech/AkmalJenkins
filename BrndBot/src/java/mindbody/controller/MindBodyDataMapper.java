@@ -6,8 +6,8 @@
 package mindbody.controller;
 
 import com.divtohtml.StringUtil;
-import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import com.mindbodyonline.clients.api._0_5Class.Class;
+import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import com.mindbodyonline.clients.api._0_5Class.Program;
 import com.mindbodyonline.clients.api._0_5Class.Staff;
 import java.io.File;
@@ -26,7 +26,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -41,7 +41,7 @@ import org.xml.sax.SAXParseException;
  */
 public class MindBodyDataMapper {
 
-    private static final Logger logger = Logger.getLogger(util.Utility.getClassName(MindBodyDataMapper.class));
+    private static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(MindBodyDataMapper.class));
     private static DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     private static DateFormat enrollmentInputFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
 
@@ -215,10 +215,10 @@ public class MindBodyDataMapper {
 
             }
         } catch (SAXParseException err) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(err, "Exception while mapping enrollment:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(err, "Exception while mapping enrollment:", null));
 
         } catch (SAXException e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while mapping enrollment:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while mapping enrollment:", null));
 
         } catch (Throwable t) {
         }
@@ -390,10 +390,10 @@ public class MindBodyDataMapper {
 
             }
         } catch (SAXParseException err) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(err, "Exception while mapping class:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(err, "Exception while mapping class:", null));
 
         } catch (SAXException e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while mapping class:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception while mapping class:", null));
 
         } catch (Throwable t) {
         }
@@ -510,10 +510,10 @@ public class MindBodyDataMapper {
 
             }
         } catch (SAXParseException err) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(err, "Exception mapping staff:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(err, "Exception mapping staff:", null));
 
         } catch (SAXException e) {
-            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception mapping staff:", null));
+            logger.log(Level.SEVERE, com.intbittech.utility.Utility.logMessage(e, "Exception mapping staff:", null));
 
         } catch (Throwable t) {
         }

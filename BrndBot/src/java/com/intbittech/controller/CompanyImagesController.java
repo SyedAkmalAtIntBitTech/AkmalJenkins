@@ -49,7 +49,7 @@ public class CompanyImagesController {
             Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             List<CompanyImages> companyImages = companyImagesService.getAllImagesForCompany(companyId);
             genericResponse.setDetails(companyImages);
-            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_get_all", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -58,11 +58,11 @@ public class CompanyImagesController {
     }
 
     @RequestMapping(value = "/delete/{companyImageId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> saveImage(@PathVariable (value = "companyImageId") Integer companyImageId) {
+    public ResponseEntity<ContainerResponse> deleteImage(@PathVariable (value = "companyImageId") Integer companyImageId) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             companyImagesService.delete(companyImageId);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_passwordchangesuccessfully", new String[]{}, Locale.US)));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_delete", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));

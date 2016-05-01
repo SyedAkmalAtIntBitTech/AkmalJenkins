@@ -11,11 +11,10 @@ import com.intbittech.model.ScheduledEntityList;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import util.DateTimeUtil;
+import com.intbittech.utility.DateTimeUtil;
 
 /**
  *
@@ -23,20 +22,22 @@ import util.DateTimeUtil;
  */
 public class ScheduleAnEmail implements Runnable {
 
-    public static final Logger logger = Logger.getLogger(util.Utility.getClassName(ScheduleAnEmail.class));
+
+    private Logger logger = Logger.getLogger(ScheduleAnRecurringEmail.class);
+
 
     public void terminateThread() {
         try {
             Thread.currentThread().interrupt();
         } catch (Exception ex) {
-            Logger.getLogger(ScheduleAnEmail.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(ex);
         }
     }
 
     @Override
     public void run() {
         //Adding tens mins if there are no latest approved posts
-        logger.log(Level.INFO, "In Email Schedule CallBlock");
+        logger.info("In Email Schedule CallBlock");
 
         try {
             List<ScheduledEntityList> scheduledAnEmail = getLatestApprovedSendEmail();
@@ -48,10 +49,10 @@ public class ScheduleAnEmail implements Runnable {
                     //This time zone should be applied to the current time and then this comparison needs to be made.
                   boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledEmail.getScheduleTime());
 //                    boolean shouldPostNow = true;
-                    logger.log(Level.SEVERE, "Message to display entity id " + currentScheduledEmail.getEntityId() + " and schedule time:", currentScheduledEmail.getScheduleTime());
-                    logger.log(Level.SEVERE, "Current time:" + new Date());
+                    logger.info("Message to display entity id " + currentScheduledEmail.getEntityId() + " and schedule time:"+ currentScheduledEmail.getScheduleTime());
+                    logger.info("Current time:" + new Date());
                     if (shouldPostNow) {
-                        logger.log(Level.SEVERE, "Should post now is true: Sending Mail");
+                        logger.info("Should post now is true: Sending Mail");
 
                         ScheduledEmailList sendAnEmail = getSendEmail(currentScheduledEmail);
                         String html_text = sendAnEmail.getBody();
@@ -74,25 +75,24 @@ public class ScheduleAnEmail implements Runnable {
 
                         if (message.equalsIgnoreCase("success")) {
                             updateStatusScheduledEmail(currentScheduledEmail);
-                            logger.log(Level.SEVERE, "Should post now is true: Sent the mail");
+                            logger.info("Should post now is true: Sent the mail");
                             //Get the next in line
                         }
                     }
                 } else {
-                    logger.log(Level.SEVERE, "Should post now is false: Not sending mail");
+                    logger.info("Should post now is false: Not sending mail");
                 }
             }
 
         } catch (Throwable ex) {
-            System.out.println(ex);
-            Logger.getLogger(ScheduleAnEmail.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(ex);
         }
-        logger.log(Level.INFO, "In Email Schedule CallBlock End");
+        logger.info("In Email Schedule CallBlock End");
 
     }
 
     private void updateStatusScheduledEmail(ScheduledEntityList scheduledAnEmail) throws Throwable {
-        logger.log(Level.INFO, "Email post:" + scheduledAnEmail.getScheduleTitle() + "Id:" + scheduledAnEmail.getScheduledEntityListId() + " time:" + scheduledAnEmail.getScheduleTime().toString());
+        logger.info("Email post:" + scheduledAnEmail.getScheduleTitle() + "Id:" + scheduledAnEmail.getScheduledEntityListId() + " time:" + scheduledAnEmail.getScheduleTime().toString());
         //Call the DAO here
         scheduledAnEmail.setStatus(IConstants.kSocialPostCommpleteStatus);
         SchedulerUtilityMethods.updateScheduledEntityListEntity(scheduledAnEmail);

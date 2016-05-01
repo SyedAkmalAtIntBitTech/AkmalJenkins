@@ -8,6 +8,7 @@ package com.intbittech.externalcontent;
 import java.sql.SQLException;
 import java.text.ParseException;
 import org.json.JSONException;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -34,6 +35,14 @@ public class ExternalContentProcessor {
 
     public ExternalSourceProcessedData  getListData(String query) throws JSONException, ParseException {
         return externalContentFactory.getListData(query);
+    }
+    
+    public JSONObject getDetailData(String query, Object selected_object)  throws JSONException, ParseException {
+        return externalContentFactory.getDetailData(query, selected_object);
+    }
+
+    public String getExternalSourceMapKeyName(String query) {
+        return externalContentFactory.getExternalSourceName()+query+companyId;
     }
 
 }

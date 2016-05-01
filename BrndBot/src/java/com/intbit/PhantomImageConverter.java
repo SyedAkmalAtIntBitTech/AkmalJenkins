@@ -17,7 +17,7 @@ import javax.servlet.ServletContext;
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import util.Utility;
+import com.intbittech.utility.Utility;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

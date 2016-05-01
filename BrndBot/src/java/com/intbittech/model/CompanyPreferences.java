@@ -42,6 +42,8 @@ public class CompanyPreferences implements Serializable {
     @Column(name = "company_preferences")
     @Type(type = "StringJsonObject")
     private String companyPreferences;
+    @Column(name = "company_location")
+    private String companyLocation;
     @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
     @ManyToOne
     private Company fkCompanyId;
@@ -83,6 +85,14 @@ public class CompanyPreferences implements Serializable {
 
     public void setFkCompanyId(Company fkCompanyId) {
         this.fkCompanyId = fkCompanyId;
+    }
+    
+    public String getCompanyLocation() {
+        return companyLocation;
+    }
+
+    public void setCompanyLocation(String companyLocation) {
+        this.companyLocation = companyLocation;
     }
 
 }
