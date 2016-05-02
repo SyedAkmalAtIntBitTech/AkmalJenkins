@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.XMLGregorianCalendar;
 import mindbody.controller.MindBodyClass;
@@ -30,7 +31,6 @@ import mindbody.controller.MindBodyDuration;
 import mindbody.controller.MindBodyProcessedData;
 import org.json.JSONException;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 /**
  *
@@ -242,8 +242,8 @@ public class MindbodyExternalContentFactory extends ExternalContentFactory {
     }
 
     @Override
-    public JSONObject getDetailData(String query, Object selected_object) throws JSONException {
-        JSONObject mapped_json_object = new JSONObject();
+    public Map<String,String> getDetailData(String query, Object selected_object) throws JSONException {
+        Map<String,String> mapped_json_object = new HashMap<>();
         query = query.toLowerCase();
         if (query.contains("class")) {
             com.mindbodyonline.clients.api._0_5Class.Class mindbody_class = (com.mindbodyonline.clients.api._0_5Class.Class) selected_object;

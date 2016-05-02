@@ -9,7 +9,7 @@ angular.module("mindbody", [])
          $(".page-background").css("background-color","#fff");
 //                          $("#continuebutton").hide();
             $scope.showData = function(LookupId){
-            $scope.curPage = 0;
+                    $scope.curPage = 0;
                     $scope.pageSize = 4;
                     $http({
                     method : 'GET',
@@ -52,9 +52,9 @@ angular.module("mindbody", [])
             }
              $('#loadingGif').remove();
             }).error(function(data, status, headers, config) {
-            alert("No data available, problem fetching the data");
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
+                alert("No data available, problem fetching the data");
+                //called asynchronously if an error occurs
+                //or server returns response with an error status.
             });
             };
     });

@@ -8,11 +8,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@ page import="com.controller.SqlMethods"%>
-    <%@ include file="fonttypekit.jsp"%>
-    <%--<%@ include file="checksession.jsp" %>--%>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="js/alertmessage.js" type="text/javascript"></script>
-    <script src="js/angular.min.js" type="text/javascript"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <title>BrndBot - Email List Selection</title>    
@@ -32,8 +29,6 @@
     <%!
         String emailSubject = "";
         String emailList = "";
-        String htmlData = "";
-        String emailAddresses = "";
         String iframeName = "";
         String iframeUrl="";
         String draft_id = "0";
@@ -43,16 +38,15 @@
     <%
 //        sqlmethods.session = request.getSession(true);
 //        session.setAttribute("email_subject",email_subject);
-//        emailSubject = email_subject;
-//        //emailAddresses = (String) sqlmethods.session.getAttribute("email_addresses");
+        emailSubject = email_subject;
+        //emailAddresses = (String) sqlmethods.session.getAttribute("email_addresses");
 //        htmlData = (String) sqlmethods.session.getAttribute("htmldata");
-//        iframeName = (String) sqlmethods.session.getAttribute("iframeName");
-//        iframeUrl="/BrndBot/DownloadHtmlServlet?file_name="+iframeName+".html";
-//        draft_id = "0";
-//        if (!request.getParameter("draftid").equals("null")){
-//            draft_id = (String)request.getParameter("draftid");
-//            out.println();
-//        }
+        iframeName = (String) request.getParameter("iframeName");
+        iframeUrl="/BrndBot/download/HTML.do?fileName="+iframeName+".html";
+        draft_id = "0";
+        if (!request.getParameter("draftid").equals("null")){
+            draft_id = (String)request.getParameter("draftid");
+        }
     %>    
     <style>
         .filrstyle {

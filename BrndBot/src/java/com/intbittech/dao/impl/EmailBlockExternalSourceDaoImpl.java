@@ -109,4 +109,23 @@ public class EmailBlockExternalSourceDaoImpl implements EmailBlockExternalSource
         }
     }
 
+    @Override
+    public EmailBlockExternalSource getByEmailBlockId(Integer emailBlockId) {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(EmailBlockExternalSource.class)
+                    .setFetchMode("fkEmailBlockId", FetchMode.JOIN)
+                    .setFetchMode("fkExternalSourceKeywordLookupId", FetchMode.JOIN)
+                    .add(Restrictions.eq("fkEmailBlockId.emailBlockId", emailBlockId));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return (EmailBlockExternalSource) criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving records.");
+        }
+    }
+
 }

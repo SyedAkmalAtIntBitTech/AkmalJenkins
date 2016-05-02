@@ -40,7 +40,7 @@ public class CompanyImagesDaoImpl implements CompanyImagesDao {
     @Override
     public List<CompanyImages> getAllCompanyImages(Integer companyId) {
         try {
-                        Criteria criteria = sessionFactory.getCurrentSession()
+            Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(CompanyImages.class).add(Restrictions.eq("fkCompanyId.companyId", companyId));
 
             if (criteria.list().isEmpty()) {

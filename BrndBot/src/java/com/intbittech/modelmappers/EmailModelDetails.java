@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 public class EmailModelDetails implements Serializable{
     
-    private Integer subCategoryEmailModelId;
+    private Integer modelId;
     private Integer emailModelId;
     private String emailModelName;
     private String imageFileName;
@@ -46,12 +46,12 @@ public class EmailModelDetails implements Serializable{
 
     
     
-    public Integer getSubCategoryEmailModelId() {
-        return subCategoryEmailModelId;
+    public Integer getModelId() {
+        return modelId;
     }
 
-    public void setSubCategoryEmailModelId(Integer subCategoryEmailModelId) {
-        this.subCategoryEmailModelId = subCategoryEmailModelId;
+    public void setModelId(Integer modelId) {
+        this.modelId = modelId;
     }
 
     public Integer getEmailModelId() {

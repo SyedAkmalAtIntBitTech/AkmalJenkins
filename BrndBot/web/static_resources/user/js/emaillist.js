@@ -754,6 +754,8 @@ $edit=0;
                         } else if (data === error) {
                             alert(data);
                         }
+                    }).error(function(error){
+                        alert("error");
                     });
                 };
                 $scope.showEmailListWithContacts = function () {
@@ -1053,7 +1055,6 @@ $edit=0;
                 method : 'GET',
                 url : getHost() + 'displayAllEmailDrafts.do'
             }).success(function(data, status) {
-                alert(JSON.stringify(data)+" get all draft")
                 if (data.nodrafts == "yes"){
                     $scope.emaildraftnumber = '0';
                     $scope.emaildraftsstatus = "No email drafts present";

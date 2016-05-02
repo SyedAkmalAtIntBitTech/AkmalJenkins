@@ -113,4 +113,23 @@ public class EmailBlockModelLookupDaoImpl implements EmailBlockModelLookupDao {
         }
     }
 
+    @Override
+    public EmailBlockModelLookup getEmailBlockModelByEmailModelId(Integer emailModelId) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(EmailBlockModelLookup.class)
+                    .setFetchMode("fkEmailBlockId", FetchMode.JOIN)
+                    .setFetchMode("fkEmailBlockModelId", FetchMode.JOIN)
+                    .add(Restrictions.eq("emailBlockModelLookupId", emailModelId));
+            if (criteria.list().isEmpty()) {
+                return null;
+            }
+            return (EmailBlockModelLookup) criteria.list().get(0);
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+        }
+    }
+
 }

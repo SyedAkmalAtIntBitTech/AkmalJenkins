@@ -6,9 +6,7 @@
 
 <!DOCTYPE html>
 <head>
-    <title>BrndBot - Email Subject</title>    
-    <%@ include file="fonttypekit.jsp"%>
-    <%--<%@ include file="checksession.jsp" %>--%>
+    <title>BrndBot - Email Subject</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="js/alertmessage.js" type="text/javascript"></script>
     <script src="js/angular.min.js" type="text/javascript"></script>

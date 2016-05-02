@@ -48,19 +48,16 @@ public class EmailDraftController {
     @RequestMapping(value = "/saveEmailDrafts", method = RequestMethod.POST)
     public @ResponseBody
     String saveEmailDrafts(HttpServletRequest request,
-            @RequestParam("bodyString") String bodyString,
-            HttpServletResponse response) throws IOException, Throwable {
+                    HttpServletResponse response) throws IOException, Throwable {
         try {
 
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-            String emailSubject = (String) requestBodyMap.get("email_subject");
-            String subCategoryName = (String) requestBodyMap.get("sub_category_name");
-            String subCategoryId = (String) requestBodyMap.get("sub_category_id");
-            String categoryId = (String) requestBodyMap.get("category_id");
-
+            String emailSubject = (String) requestBodyMap.get("emailSubject");
+            
+            String bodyString = (String) requestBodyMap.get("bodyString");
             EmailDraft email_draft = new EmailDraft();
             Date current_date = new Date();
 
@@ -69,9 +66,6 @@ public class EmailDraftController {
 
             EmailDraftModel emaildraftmodel = new EmailDraftModel();
 
-            emaildraftmodel.setCategoryid(Integer.parseInt(categoryId));
-            emaildraftmodel.setSubcategoryid(Integer.parseInt(subCategoryId));
-            emaildraftmodel.setSubcategoryname(subCategoryName);
             emaildraftmodel.setEmailsubject(emailSubject);
             emaildraftmodel.setHtmlbodystring(bodyString);
 
@@ -103,18 +97,12 @@ public class EmailDraftController {
             Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-            String emailSubject = (String) requestBodyMap.get("email_subject");
-            String subCategoryName = (String) requestBodyMap.get("sub_category_name");
-            String subCategoryId = (String) requestBodyMap.get("sub_category_id");
-            String categoryId = (String) requestBodyMap.get("category_id");
+            String emailSubject = (String) requestBodyMap.get("emailSubject");
 
             EmailDraft emaildraft = emaildraftservice.getById(draftId);
 
             EmailDraftModel emaildraftmodel = new EmailDraftModel();
 
-            emaildraftmodel.setCategoryid(Integer.parseInt(categoryId));
-            emaildraftmodel.setSubcategoryid(Integer.parseInt(subCategoryId));
-            emaildraftmodel.setSubcategoryname(subCategoryName);
             emaildraftmodel.setEmailsubject(emailSubject);
             emaildraftmodel.setHtmlbodystring(bodyString);
 
@@ -159,9 +147,6 @@ public class EmailDraftController {
                     JSONParser json_parser = new JSONParser();
                     JSONObject json_draft_data = (JSONObject) json_parser.parse(json_string_data);
                     json_email_draft.put("emailsubject", json_draft_data.get("emailsubject"));
-                    json_email_draft.put("categoryid", json_draft_data.get("categoryid"));
-                    json_email_draft.put("subcategoryid", json_draft_data.get("subcategoryid"));
-                    json_email_draft.put("subcategoryname", json_draft_data.get("subcategoryname"));
                     json_email_draft.put("jsonemaildraftdata", json_draft_data.get("htmlbodystring"));
 
                     json_array_email_draft.add(json_email_draft);
@@ -178,25 +163,25 @@ public class EmailDraftController {
         return json_object_email_draft.toJSONString();
     }
 
-    @RequestMapping(value = "/saveEmailDraftSessionValues", method = RequestMethod.POST)
-    public @ResponseBody
-    String saveEmailDraftSessionValues(HttpServletRequest request,
-            HttpServletResponse response) throws IOException {
-        try {
-            Map<String, Object> requestBodyMap
-                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-
-            sqlmethods.session.setAttribute("email_subject", requestBodyMap.get("email_subject"));
-            sqlmethods.session.setAttribute("category_id", requestBodyMap.get("category_id"));
-            sqlmethods.session.setAttribute("sub_category_id", requestBodyMap.get("sub_category_id"));
-            sqlmethods.session.setAttribute("sub_category_name", requestBodyMap.get("sub_category_name"));
-
-            return "true";
-        } catch (Exception e) {
-            Logger.getLogger(EmailDraftController.class.getName()).log(Level.SEVERE, null, e);
-        }
-        return "false";
-    }
+//    @RequestMapping(value = "/saveEmailDraftSessionValues", method = RequestMethod.POST)
+//    public @ResponseBody
+//    String saveEmailDraftSessionValues(HttpServletRequest request,
+//            HttpServletResponse response) throws IOException {
+//        try {
+//            Map<String, Object> requestBodyMap
+//                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+//
+//            sqlmethods.session.setAttribute("email_subject", requestBodyMap.get("email_subject"));
+//            sqlmethods.session.setAttribute("category_id", requestBodyMap.get("category_id"));
+//            sqlmethods.session.setAttribute("sub_category_id", requestBodyMap.get("sub_category_id"));
+//            sqlmethods.session.setAttribute("sub_category_name", requestBodyMap.get("sub_category_name"));
+//
+//            return "true";
+//        } catch (Exception e) {
+//            Logger.getLogger(EmailDraftController.class.getName()).log(Level.SEVERE, null, e);
+//        }
+//        return "false";
+//    }
 
     @RequestMapping(value = "/getEmailDraft", method = RequestMethod.GET)
     public @ResponseBody
