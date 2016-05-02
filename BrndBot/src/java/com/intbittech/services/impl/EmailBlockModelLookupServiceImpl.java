@@ -20,21 +20,22 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(rollbackFor = ProcessFailed.class)
 public class EmailBlockModelLookupServiceImpl implements EmailBlockModelLookupService {
-    
+
     private static Logger logger = Logger.getLogger(EmailBlockModelLookupServiceImpl.class);
     @Autowired
     private EmailBlockModelLookupDao emailBlockModelLookupDao;
 
     @Autowired
     private MessageSource messageSource;
-    
+
     /**
      * {@inheritDoc}
      */
     public EmailBlockModelLookup getByEmailBlockModelLookupId(Integer emailBlockModelLookupId) throws ProcessFailed {
         EmailBlockModelLookup emailBlockModelLookup = emailBlockModelLookupDao.getEmailBlockModelLookupById(emailBlockModelLookupId);
-        if(emailBlockModelLookup == null)
-            throw new ProcessFailed(messageSource.getMessage("emailBlockModel_not_found",new String[]{}, Locale.US));
+        if (emailBlockModelLookup == null) {
+            throw new ProcessFailed(messageSource.getMessage("emailBlockModel_not_found", new String[]{}, Locale.US));
+        }
         return emailBlockModelLookup;
     }
 
@@ -57,16 +58,27 @@ public class EmailBlockModelLookupServiceImpl implements EmailBlockModelLookupSe
      */
     public void delete(Integer emailBlockModelLookupId) throws ProcessFailed {
         EmailBlockModelLookup emailBlockModelLookup = emailBlockModelLookupDao.getEmailBlockModelLookupById(emailBlockModelLookupId);
-        if(emailBlockModelLookup == null)
-            throw new ProcessFailed(messageSource.getMessage("emailBlockModel_not_found_delete",new String[]{}, Locale.US));
+        if (emailBlockModelLookup == null) {
+            throw new ProcessFailed(messageSource.getMessage("emailBlockModel_not_found_delete", new String[]{}, Locale.US));
+        }
         emailBlockModelLookupDao.delete(emailBlockModelLookup);
     }
-    
+
     public List<EmailBlockModelLookup> getAllEmailBlockModel(Integer emailBlockId) throws ProcessFailed {
         List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupDao.getAllEmailBlockModel(emailBlockId);
-        if(emailBlockModelLookupList == null)
-            throw new ProcessFailed(messageSource.getMessage("emailBlockModel_not_found",new String[]{}, Locale.US));
+        if (emailBlockModelLookupList == null) {
+            throw new ProcessFailed(messageSource.getMessage("emailBlockModel_not_found", new String[]{}, Locale.US));
+        }
         return emailBlockModelLookupList;
     }
-    
+
+    @Override
+    public EmailBlockModelLookup getByEmailModelId(Integer emailModelId) throws ProcessFailed  {
+        EmailBlockModelLookup emailBlockModelLookup = emailBlockModelLookupDao.getEmailBlockModelByEmailModelId(emailModelId);
+        if (emailBlockModelLookup == null) {
+            throw new ProcessFailed(messageSource.getMessage("emailBlockModel_not_found", new String[]{}, Locale.US));
+        }
+        return emailBlockModelLookup;
+    }
+
 }

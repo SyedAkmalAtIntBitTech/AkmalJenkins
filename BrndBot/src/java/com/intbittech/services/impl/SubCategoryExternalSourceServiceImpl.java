@@ -7,6 +7,7 @@ package com.intbittech.services.impl;
 
 import com.intbittech.dao.SubCategoryExternalSourceDao;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.EmailBlockExternalSource;
 import com.intbittech.model.SubCategoryExternalSource;
 import com.intbittech.services.SubCategoryExternalSourceService;
 import java.util.List;
@@ -26,7 +27,7 @@ public class SubCategoryExternalSourceServiceImpl implements SubCategoryExternal
 
     @Autowired
     private SubCategoryExternalSourceDao subCategoryExternalSourceDao;
-     @Autowired
+    @Autowired
     private MessageSource messageSource;
 
     /**
@@ -44,7 +45,7 @@ public class SubCategoryExternalSourceServiceImpl implements SubCategoryExternal
      * {@inheritDoc}
      */
     public List<SubCategoryExternalSource> getAllSubCategoryExternalSources() throws ProcessFailed {
-         List<SubCategoryExternalSource> subCategoryExternalSourceList = subCategoryExternalSourceDao.getAllSubCategoryExternalSources();
+        List<SubCategoryExternalSource> subCategoryExternalSourceList = subCategoryExternalSourceDao.getAllSubCategoryExternalSources();
         if (subCategoryExternalSourceList == null) {
             throw new ProcessFailed(messageSource.getMessage("subCategoryExternalSource_not_found", new String[]{}, Locale.US));
         }
@@ -55,7 +56,7 @@ public class SubCategoryExternalSourceServiceImpl implements SubCategoryExternal
      * {@inheritDoc}
      */
     public Integer save(SubCategoryExternalSource subCategoryExternalSource) throws ProcessFailed {
-        return  subCategoryExternalSourceDao.save(subCategoryExternalSource);
+        return subCategoryExternalSourceDao.save(subCategoryExternalSource);
     }
 
     /**
@@ -69,11 +70,21 @@ public class SubCategoryExternalSourceServiceImpl implements SubCategoryExternal
      * {@inheritDoc}
      */
     public void delete(Integer subCategoryExternalSourceId) throws ProcessFailed {
-         SubCategoryExternalSource subCategoryExternalSource = subCategoryExternalSourceDao.getBySubCategoryExternalSourceId(subCategoryExternalSourceId);
+        SubCategoryExternalSource subCategoryExternalSource = subCategoryExternalSourceDao.getBySubCategoryExternalSourceId(subCategoryExternalSourceId);
         if (subCategoryExternalSource == null) {
             throw new ProcessFailed(messageSource.getMessage("subCategoryExternalSource_not_found", new String[]{}, Locale.US));
         }
-       subCategoryExternalSourceDao.delete(subCategoryExternalSource);
+        subCategoryExternalSourceDao.delete(subCategoryExternalSource);
+    }
+
+    @Override
+    public SubCategoryExternalSource getBySubCategoryId(Integer subCategoryId) {
+        SubCategoryExternalSource subCategoryExternalSource = subCategoryExternalSourceDao.getBySubCategoryId(subCategoryId);
+        if (subCategoryExternalSource == null) {
+            throw new ProcessFailed(messageSource.getMessage("subCategoryExternalSource_not_found", new String[]{}, Locale.US));
+        }
+
+        return subCategoryExternalSource;
     }
 
 }

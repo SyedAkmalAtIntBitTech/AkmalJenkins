@@ -6,22 +6,32 @@
 package com.intbittech.controller;
 
 import com.google.gson.Gson;
+import com.intbit.util.ServletUtil;
 import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.externalcontent.ExternalContentSession;
 import com.intbittech.externalcontent.ExternalSourceProcessedData;
-import com.intbittech.model.Company;
-import com.intbittech.model.CompanyPreferences;
+import com.intbittech.model.EmailBlockExternalSource;
+import com.intbittech.model.EmailBlockModelLookup;
 import com.intbittech.model.ExternalSourceKeywordLookup;
+import com.intbittech.model.SubCategoryEmailModel;
+import com.intbittech.model.SubCategoryExternalSource;
 import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
-import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.services.EmailBlockExternalSourceService;
+import com.intbittech.services.EmailBlockModelLookupService;
+import com.intbittech.services.EmailModelService;
 import com.intbittech.services.ExternalSourceKeywordLookupService;
-import com.intbittech.services.ExternalSourceService;
+import com.intbittech.services.SubCategoryEmailModelService;
+import com.intbittech.services.SubCategoryExternalSourceService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.UserSessionUtil;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -50,10 +60,18 @@ public class ExternalContentController {
     @Autowired
     private ExternalContentSession externalContentSession;
     @Autowired
-    private ExternalSourceService externalSourceService;
+    private SubCategoryExternalSourceService subCategoryExternalSourceService;
     @Autowired
     private ExternalSourceKeywordLookupService externalSourceKeywordLookupService;
-    
+    @Autowired
+    private EmailModelService emailModelService;
+    @Autowired
+    private EmailBlockModelLookupService emailBlockModelLookupService;
+    @Autowired
+    private EmailBlockExternalSourceService emailBlockExternalSourceService;
+    @Autowired
+    private SubCategoryEmailModelService subCategoryEmailModelService;
+
     @RequestMapping(value = "/isActivated", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> isActivated() throws SQLException {
         GenericResponse<Boolean> genericResponse = new GenericResponse<>();
@@ -71,8 +89,7 @@ public class ExternalContentController {
         Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
         externalContentProcessor = new ExternalContentProcessor(companyID);
         genericResponse.addDetail(externalContentProcessor.getActivationLink());
-        
-        
+
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
@@ -88,9 +105,10 @@ public class ExternalContentController {
             ExternalSourceKeywordLookup externalSourceKeywordLookup = externalSourceKeywordLookupService.getByExternalSourceKeywordLookupId(externalSourceKeywordLookupId);
             String query = externalSourceKeywordLookup.getFkExternalSourceKeywordId().getExternalSourceKeywordName();
             ExternalSourceProcessedData externalSourceProcessedData = externalContentProcessor.getListData(query);
+            String keyname = externalContentProcessor.getExternalSourceMapKeyName(query);
             String jsonn = new Gson().toJson(externalSourceProcessedData.getJSON());
             genericResponse.addDetail(jsonn);
-            externalContentSession.addSessionKeyValue(query + companyID, externalSourceProcessedData.getData_hash_map());
+            externalContentSession.addSessionKeyValue(keyname, externalSourceProcessedData.getData_hash_map());
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
 
         } catch (Throwable throwable) {
@@ -100,48 +118,67 @@ public class ExternalContentController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
-//    @RequestMapping(value = "/getDetail", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<ContainerResponse> getDetail(HttpServletRequest request,
-//            HttpServletResponse response) {
-//        GenericResponse<String> genericResponse = new GenericResponse<>();
-//        try {
-//            Map<String, Object> mindbodyHashMap = null;
-//            Map<String, Object> requestBodyMap
-//                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
-//
-//            String categoryId = (String) requestBodyMap.get("category_id");
-//            String subCategoryId = (String) requestBodyMap.get("sub_category_id");
-//            String subCategoryName = (String) requestBodyMap.get("sub_category_name");
-//            String mindbodyId = (String) requestBodyMap.get("mindbody_id");
-//            String modelMapperId = (String) requestBodyMap.get("model_mapper_id");
-//            String editoryType = (String) requestBodyMap.get("editor_type");
-//            String query = (String) requestBodyMap.get("query");
-//            String mindbodyQuery = (String) requestBodyMap.get("mindbody_query");
-//            Integer blockId = Integer.valueOf(requestBodyMap.get("block_id").toString());
-//            
-//             if (query != null && !query.equalsIgnoreCase("null") && query.equalsIgnoreCase("block")) {
-//                mindbodyHashMap = (Map<String, Object>) externalContentSession.getSessionKeyValue(mindbodyQuery);
-//                subCategoryName = mindbodyQuery;//doing this since its a block and we are checking against the query to send appropriate file
-//            } else {
-//                mindbodyHashMap = (Map<String, Object>) externalContentSession.getSessionKeyValue(k_mind_body);
-//            }
-//
-//            
-//            
-//            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-//            Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
-//            externalContentProcessor = new ExternalContentProcessor(companyID);
-//            
-//            ExternalSourceProcessedData externalSourceProcessedData = externalContentProcessor.getDetailData(requestBodyMap, id);
-//            String jsonn = new Gson().toJson(externalSourceProcessedData.getJSON());
-//            genericResponse.addDetail(jsonn);
-//            externalContentSession.addSessionKeyValue(query + companyID, externalSourceProcessedData.getData_hash_map());
-//            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
-//
-//        } catch (Throwable throwable) {
-//            logger.error(throwable);
-//            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
-//        }
-//        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
-//    }
+    @RequestMapping(value = "/getLayoutEmailModelById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getLayoutEmailModelById(@RequestParam("emailModelId") Integer modelId,
+            @RequestParam("isBlock") Boolean isBlock,
+            @RequestParam("externalDataId") Integer externalDataId,
+            HttpServletRequest request, HttpServletResponse response) {
+        GenericResponse<String> genericResponse = new GenericResponse<>();
+        try {
+            String hostURL = ServletUtil.getServerName(request.getServletContext());
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            Map<String, Object> data = new HashMap<>();
+            ExternalSourceKeywordLookup externalSourceKeywordLookup = null;
+            externalContentProcessor = new ExternalContentProcessor(companyId);
+            Integer externalKeywordId = null;
+            Integer emailOrBlockModel = 0;
+            Integer blockOrSubcategoryId = 0;
+            if (isBlock) {
+                EmailBlockModelLookup emailBlockModelLookup = emailBlockModelLookupService.getByEmailModelId(modelId);
+                emailOrBlockModel = emailBlockModelLookup.getFkEmailBlockModelId().getEmailBlockModelId();
+                blockOrSubcategoryId = emailBlockModelLookup.getFkEmailBlockId().getEmailBlockId();
+            } else {
+                SubCategoryEmailModel subCategoryEmailModel = subCategoryEmailModelService.getBySubCategoryEmailModelId(modelId);
+                emailOrBlockModel = subCategoryEmailModel.getFkEmailModelId().getEmailModelId();
+                blockOrSubcategoryId = subCategoryEmailModel.getFkSubCategoryId().getSubCategoryId();
+            }
+            if (externalDataId != 0) {
+                if (isBlock) {
+                    //Now emailModelId is actually email_block_model_lookup_id 
+                    //get email_block_id from email_block_model_lookup then 
+                    //get external_source_keyword_lookup_id from email_block_external_source
+//                    EmailBlockModelLookup emailBlockModelLookup = emailBlockModelLookupService.getByEmailModelId(modelId);
+                    EmailBlockExternalSource emailBlockExternalSource = emailBlockExternalSourceService.getByEmailBlockId(blockOrSubcategoryId);
+                    externalKeywordId = emailBlockExternalSource.getFkExternalSourceKeywordLookupId().getExternalSourceKeywordLookupId();
+
+                } else {
+                    //Now emailModelId is actually sub_caterogy_email_model_id
+                    //get sub_caterogy_id from sub_caterogy_email_model 
+                    //get external_source_keyword_lookup_id from sub_caterogy_external_source
+//                    SubCategoryEmailModel subCategoryEmailModel = subCategoryEmailModelService.getBySubCategoryEmailModelId(modelId);
+                    SubCategoryExternalSource subCategoryExternalSource = subCategoryExternalSourceService.getBySubCategoryId(blockOrSubcategoryId);
+                    externalKeywordId = subCategoryExternalSource.getFkExternalSourceKeywordLookupId().getExternalSourceKeywordLookupId();
+
+                }
+                //Defensive code
+                if (externalKeywordId != null || externalKeywordId != 0) {
+                    externalSourceKeywordLookup = externalSourceKeywordLookupService.getByExternalSourceKeywordLookupId(externalKeywordId);
+                    String query = externalSourceKeywordLookup.getFkExternalSourceKeywordId().getExternalSourceKeywordName();
+                    String keyname = externalContentProcessor.getExternalSourceMapKeyName(query);
+                    data = (Map<String, Object>) externalContentSession.getSessionKeyValue(keyname);
+                }
+
+            }
+            String html = emailModelService.getLayoutEmail(isBlock,emailOrBlockModel, hostURL, companyId, externalSourceKeywordLookup, externalDataId, data);
+            genericResponse.addDetail(html);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template retrieved successfully."));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+
+    }
+
 }

@@ -6,6 +6,7 @@
 package com.intbittech.services;
 
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.EmailBlockExternalSource;
 import com.intbittech.model.SubCategoryExternalSource;
 import java.util.List;
 
@@ -62,6 +63,8 @@ public interface SubCategoryExternalSourceService {
      * @throws ProcessFailed the process failed
      */
     public void delete(Integer subCategoryExternalSourceId) throws ProcessFailed;
+
+    public SubCategoryExternalSource getBySubCategoryId(Integer subCategoryId);
     
     
     

@@ -17,6 +17,8 @@ public class GlobalFontsDetails implements Serializable {
     private String fontName;
     private String fontFamilyName;
     private String fileName;
+    private String fontType;
+    private String fontData;
 
     public Integer getGlobalFontsId() {
         return globalFontsId;
@@ -50,5 +52,18 @@ public class GlobalFontsDetails implements Serializable {
         this.fileName = fileName;
     }
 
-    
+     public String getFontType() {
+        return fontType;
+    }
+
+    public void setFontType(String fontType) {
+        this.fontType = fontType;
+    }
+     public String getFontData() {
+        return fontData;
+    }
+
+    public void setFontData(String imageData) {
+        this.fontData = imageData;
+    }
 }

@@ -3,8 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>BrndBot - Email Editor</title>
-    <%@ include file="fonttypekit.jsp"%>
-    <%--<%@ include file="checksession.jsp" %>--%>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
@@ -17,7 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
     <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/> 
-    <link href="css/emaileditornew.css" rel="stylesheet" type="text/css"/>
+    <link href="css/emaileditor.css" rel="stylesheet" type="text/css"/>
     <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
     <script src="js/configurations.js"></script>
     <script src="js/angular.min.js"></script>
@@ -75,6 +73,7 @@
          String categoryId= request.getParameter("categoryId");
          String subCategoryId= request.getParameter("subCategoryId");
          String emailSubject= request.getParameter("emailSubject");
+         String mindbodyId=request.getParameter("mindbodyId");
 //        email_subject = request.getParameter("subject"); %>
     <%
 //        try {
@@ -117,6 +116,8 @@
         var draft_id = 0;
         var prevSliderDialog="#emaileditorexternalpopup";
         var sliderDialog="#emaileditorexternalpopup";
+        var externalKeywordId="";
+        var externalDataId="";
         
         $(document).ready(function(){    
             $('#edit').froalaEditor().show();
@@ -192,21 +193,13 @@
                   url: getHost()+"/getAllEmailModelsBySubCategoryId.do?subCategoryId="+subCategoryId,
                 dataType: 'json',
                 success: function (data) {
-//                    alert(JSON.stringify(data.d.details));
-                var jsondataDefault = data;
-                    var allLayoutFilename = [];
-                    $(jsondataDefault).each(function (i, val) {
-                    var i = 0;
-                    $.each(val, function (k, v)
-                    {
-                        allLayoutFilename[i] = v;
-                        i++;
-                    });
-                });
-                showText(allLayoutFilename[0]);
-                angular.element(document.getElementById('MyController')).scope().getEmailDrafts();
-//                $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
-//                $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
+//                    alert(JSON.stringify(data));
+                    var blockList=data.d.details.reverse();
+                    var emailModelId=blockList[0].modelId;
+                    showText(emailModelId);
+                    angular.element(document.getElementById('MyController')).scope().getEmailDrafts();
+//                    $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
+//                    $(".fr-element").append("<div id=defaultblock1 onclick=selecterBlockId('defaultblock1'," + temp_block_id + ");></div>");
                 },error: function (data){
                     alert(JSON.stringify(data));
                 }
@@ -270,20 +263,18 @@
                             $scope.pageSize = 2;
                             if (block_clicked == "true" || blockIdSelected != "defaultblock1")
                             {
-//                            queryurl = 'GetLayoutStyles?editorType=email&query=block&block_id=' + block_id;
-                            queryurl = getHost() +'getAllEmailBlockModelsByBlockId?emailBlockId='+ block_id;
+                                queryurl = getHost() +'getAllEmailBlockModelsByBlockId?emailBlockId='+ block_id;
                             }
                             else
                             {
-                            queryurl = getHost() +'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId;
+                                queryurl = getHost() +'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId;
                             }
-//                            alert(queryurl);
                             $http({
                             method : 'GET',
                                     url :  queryurl
                             }).success(function(data, status, headers, config) {
-//                            alert(JSON.stringify(data.d.details));
                             $scope.datalistsstyles = data.d.details;
+//                            alert("queryurl "+queryurl+"......................\n"+JSON.stringify(data.d.details)+"...style...");
                             $scope.numberOfPages = function() {
                                 return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
                             };
@@ -292,75 +283,10 @@
                             }
 
                             }).error(function(data, status, headers, config) {
-                            alert("No data available! Problem fetching the data.");
-                                    // called asynchronously if an error occurs
-                                    // or server returns response with an error status.
+                                alert("No data available! Problem fetching the data.");
                             });
                         };
                         
- /*---------------------------------- show style -------------------------------*/
-    
-                        var queryurl;
-                        queryurl = 'GetLayoutStyles?editorType=email';
-                        $http({
-                        method : 'GET',
-                                url : queryurl
-                        }).success(function(data, status, headers, config) {
-                            //$scope.datalistsstyles = data;
-//                            alert(JSON.stringify(data));
-//                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
-//                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
-//                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
-//                            document.getElementById('edt').style.backgroundColor = 'transparent';
-//                            document.getElementById('stl').style.backgroundColor = '#fff';
-//                            document.getElementById('blk').style.backgroundColor = 'transparent';
-                            $scope.numberOfPages = function() {
-                                return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
-                            };
-                            if (data === error){
-                                alert(data);
-                            }
-
-                        }).error(function(data, status, headers, config) {
-                        alert("No data available! Problem fetching the data.");
-                                // called asynchronously if an error occurs
-                                // or server returns response with an error status.
-                        });
-                            
- /*---------------------------------- Show  Block ------------------------------*/     
- 
-                        $("#addblkbtn").prop("disabled", true);
-                        $(".selectrow").css("display", "block");
-                        $("#stylelist").css("display", "none");
-                        $("#selectstyleid").css("display", "none");
-                        $("#blklistid").css("display", "block");
-                        $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
-                        $("#styletab").css("background-color", "transparent").css("color", "#19587c");
-                        $('body').scrollTop(0);
-                        $scope.curPage = 0;
-                        $scope.pageSize = 2;
-                        $http({
-                        method : 'GET',
-                                url :getHost()+'getAllBlocksForCompany.do'
-                        }).success(function(data, status, headers, config) {
-                        $scope.datalists = data.d.details;
-                            //alert(JSON.stringtify(data));
-//                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
-//                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton_blue_new.svg";
-//                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
-//                            document.getElementById('edt').style.backgroundColor = 'transparent';
-//                            document.getElementById('stl').style.backgroundColor = 'transparent';
-//                            document.getElementById('blk').style.backgroundColor = '#fff';
-                            $scope.numberOfPages = function() {
-                                return Math.ceil($scope.datalists.length / $scope.pageSize);
-                            };
-                            if (data === error){
-                                alert(data);
-                            }
-                        }).error(function(data, status, headers, config) {
-                        alert("No data available! Problem fetching the data.");
-                        });
-        
                     $scope.showBlocks = function(){
                         $("#addblkbtn").prop("disabled", true);
                         $(".selectrow").css("display", "block");
@@ -376,7 +302,7 @@
                         method : 'GET',
                                 url : getHost()+'getAllBlocksForCompany.do'
                         }).success(function(data, status, headers, config) {
-//                            alert(JSON.stringify(data.d.details));
+//                            alert(JSON.stringify(data.d.details)+".....blocks.....");
                             $scope.datalists = data.d.details;
 //                            alert(JSON.stringtify(data));
 //                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
@@ -397,46 +323,50 @@
                     };
                     
                     $scope.showImageOfBlock = function(id, mind_body_query){
+//                        alert(id);
+//                        alert(mind_body_query);
                         $(".block-button").addClass("hide");
                         $("#blockdiv li").removeClass("block-slat-active");
                         $("#blockdiv li").addClass("block-slat");
                         $("#"+id).removeClass("block-slat");
                         $("#"+id).addClass("block-slat-active");
                         $("#div2"+id).removeClass("hide");
-                        hlt();
                         $("#stylelist").css("display", "none");
                         $("#blklist").css("display", "block");
                         $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
                         $(":button").removeAttr("disabled");
                         $("#styletab").css("background-color", "transparent").css("color", "#19587c");
-                        $http.get('GetLayoutStyles?editorType=email&query=block&block_id=' + id).success(function(data, status){
+                        temp_block_id = id;
+                        temp_mind_body_query = mind_body_query;
+                        $http.get(getHost()+'getAllEmailBlockModelsByBlockId.do?emailBlockId=' + id).success(function(data, status){
                         var jsondataDefault = data;
-                            //alert(JSON.stringify(data));
+                           
                             ///alert(id);
-                            var allLayoutFilename = [];
-                            $(jsondataDefault).each(function (i, val)
-                            {
-                                var i = 0;
-                                $.each(val, function (k, v) 
-                                {
-                                    allLayoutFilename[i] = v;
-                                    i++;
-                                });
-                            });
-                            temp_block_id = id;
-                            temp_style_id = allLayoutFilename[0];
-                            temp_style_layout = allLayoutFilename[1];                
-                            temp_mind_body_query = mind_body_query;
+//                            var allLayoutFilename = [];
+//                            $(jsondataDefault).each(function (i, val)
+//                            {
+//                                var i = 0;
+//                                $.each(val, function (k, v) 
+//                                {
+//                                    allLayoutFilename[i] = v;
+//                                    i++;
+//                                });
+//                            });
+                            temp_style_id = data.d.details[0].emailBlockModelLookupId;
+//                            temp_style_layout = allLayoutFilename[1];  
                             //$("#" + id).attr('onclick', "showSomething('" + id + "','" + allLayoutFilename[0] + "','" + allLayoutFilename[1] + "','" + mind_body_query + "')");
 //                           alert("smtng...block id.."+temp_block_id);
 //                           alert("smtng...style id.."+temp_style_id);
 //                           alert("smtng...style.."+temp_style_layout);
 //                           alert("smtng...mind_body_query.."+temp_mind_body_query);
-                        }).error();
+                        }).error(function(error){
+                            alert(JSON.stringify(error));
+                        });                        
                         $("#addblkbtn").prop("disabled", true);
                      };
                     
                     $scope.showDataTemp = function(id){
+//                        alert(temp_block_id+" temp_mind_body_query .."+temp_mind_body_query);
                         $scope.showData(temp_block_id, temp_mind_body_query);
                         $("#blockdivheader").hide();
                         $("#styledivheader").show();
@@ -454,20 +384,13 @@
                         block_id = id;
                         addblockid = "block" + addBlockcCount;
                         addBlockcCount++;
-//                            $(".fr-element").append("<div id=" + addblockid + " onclick=selecterBlockId('" + addblockid + "','" + temp_block_id + "');></div>")
-                        if (mind_body_query == "null")
+                        if (mind_body_query == 0)
                         {
                             mindbodydataId = "0";
-                            //$scope.showStyles();
                             showText(temp_style_id);
                         }
                         else
                         {
-//                            $("#tabs-1").hide();
-//                            $("#tabs-2").hide();
-//                            $("#tabs-3").hide();
-//                            $("#tabs-5").hide();
-//                            $("#tabs-4").show().css("width", "830px").css("height", "100%").css("position", "fixed").css("margin-left", "-600px").css("top", "0px");
                             $("#fade").show();
                             $('#slider-button').click();
                             $(".scrollydiv").hide();
@@ -476,33 +399,37 @@
                             $scope.pageSize = 4;
                             $http({
                             method : 'GET',
-                                    url : 'MindBodyDataServlet?mindbody_query=' + mind_body_query
-                            }).success(function(data, status, headers, config)
-                            {   
-//                                $("#loadingGifformindbody").show();
-//                                alert(JSON.stringify(data));
-                                $scope.datalists2 = data;
-                                $scope.numberOfPages = function() 
-                                {
-                                    return Math.ceil($scope.datalists2.length / $scope.pageSize);
-                                };
-                                if (data === error)
-                                {
-                                    alert(data);
+                            url :getHost()+ '/externalContent/isActivated?externalSourceKeywordLookupId='+mind_body_query
+                            }).success(function(data, status, headers, config) {
+                                var minddata= JSON.stringify(data.d.details);
+                                if(minddata === "[true]"){
+                                    $http({
+                                        method : 'GET',
+                                        url :getHost()+ '/externalContent/getListData/'+mind_body_query
+                                    }).success(function(data, status, headers, config) {
+                                            var parseData=JSON.parse(data.d.details);
+                                            $scope.datalists2 = parseData;
+//                                            $scope.numberOfPages = function() 
+//                                            {
+//                                                return Math.ceil($scope.datalists2.length / $scope.pageSize);
+//                                            };
+//                                            if (data === error)
+//                                            {
+//                                                alert(data);
+//                                            }
+                                            $("#loadingGifformindbody").hide();
+                                            $(".scrollydiv").show();
+                                            $("#clsbtn").css("display", "block");
+                                            $("#addblkbtn").prop('disabled', true).css("background-color", "#e3e3e3").css("color", "#9c9da1");
+                                    }).error(function(data, status, headers, config) {
+                                        alert("No data available, problem fetching the data");
+                                    });
                                 }
-                                $("#loadingGifformindbody").hide();
-                                $(".scrollydiv").show();
-                                $("#clsbtn").css("display", "block");
-                                $("#addblkbtn").prop('disabled', true).css("background-color", "#e3e3e3").css("color", "#9c9da1");
-//                              $("#tabs-4").css("width", "830px").css("position", "fixed").css("margin-left", "-600px").css("top", "0px").show("slide", { direction: "right" }, 1000);
-                            }).error(function(data, status, headers, config)
-                            {
-                                alert("No data available! Problem fetching the data.");
-                                // called asynchronously if an error occurs
-                                // or server returns response with an error status.
+                            }).error(function(data, status, headers, config) {
+                                alert("No data available, problem fetching the data");
                             });
-                    }
-                    $scope.showStyles();
+                        }
+                        $scope.showStyles();
                     };
                     
                     $scope.select_category_details = function(id) {
@@ -536,38 +463,29 @@
                 $("#" + block_id_temp).addClass('border-highlight');
                 $('#continueblock').prop('disabled', false);
             }
+            
             function showText(id){
-            //hiding filter Container 
-            var layout_mapper_url = "";
-            if (block_clicked == "true"){
-                currentBlockID = temp_block_id;
-                currentMindbodyQuery = temp_mind_body_query;
-            }
-            if ((mindbodydataId != "") && (mindbodydataId != "0") && (typeof (mindbodydataId) !== "undefined")){
-            if (block_clicked == "true"){
-            layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email&query=block&block_id=" + currentBlockID + "&mindbody_query=" + currentMindbodyQuery;
-            }
-            else{
-            layout_mapper_url = 'MindBodyDetailServlet?mindbody_id=' + mindbodydataId + '&model_mapper_id=' + id + "&editor_type=email";
-            }
-            } else {
-            layout_mapper_url = 'GenericAnnouncementServlet?model_mapper_id=' + id + "&editor_type=email";
-            }
-//            alert(layout_mapper_url);
-            $.ajax({
-            type: 'GET',
-                    url: layout_mapper_url,
-                    data: {get_param: 'value'},
-                    dataType: 'json',
-                    success: function (data) {
-                    $.ajax({
-                    method : 'POST',
-                            url: "GetEmaiLayoutHtmlServlet?id=" + id,
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            mimeType: 'application/json',
-                            data: JSON.stringify(data),
-                            success: function (data) {
+                var layout_mapper_url = "";
+                if (block_clicked == "true"){
+                    currentBlockID = temp_block_id;
+                    currentMindbodyQuery = temp_mind_body_query;
+                }   
+                if ((mindbodydataId != "") && (mindbodydataId != "0") && (typeof (mindbodydataId) !== "undefined")){
+                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById.do?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId="+mindbodydataId;
+                } 
+                else 
+                {
+                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById.do?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId=0";
+                }
+                
+//                alert("layout_mapper_url... "+layout_mapper_url);
+
+                 $.ajax({
+                    method : 'GET',
+                    url :layout_mapper_url
+                    }).success(function(data, status, headers, config) {
+                        var emailData=JSON.parse(data.d.details);
+//                        alert(JSON.stringify(data)+" ...... show text121 ....");
                             if (block_clicked === "false"){
                             var editorHtml = $('#edit').froalaEditor('html.get');
                                     if (editorHtml.contains('id="defaultblock1"')){
@@ -576,31 +494,74 @@
                                     editor.find("#defaultblock1").remove();
                                     editorHtml = editor.html();
                             }
-                            styleHtml = '<div id=defaultblock1 onclick="selecterBlockId(defaultblock1,0)">' + data.htmldata + '</div>';
+                            styleHtml = '<div id=defaultblock1 onclick="selecterBlockId(defaultblock1,0)">' + emailData.htmldata + '</div>';
                                     $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
-//                                                   $("#defaultblock1").empty().append(data.htmldata);
+    //                                                   $("#defaultblock1").empty().append(data.htmldata);
                             }
                             else{
                                 var editorHtml = $('#edit').froalaEditor('html.get');
                                 if (editorHtml.contains('id="' + addblockid + '"')){
                                     var jHtmlObject = jQuery(editorHtml);
                                     var editor = jQuery("<p>").append(jHtmlObject);
-                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.htmldata + '</div>';
+                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + emailData.htmldata + '</div>';
                                     editor.find("#" + addblockid).replaceWith(BlockHtml);
                                     editorHtml = editor.html();
                                     $('#edit').froalaEditor('html.set', '' + editorHtml + '');
                                 }
                                 else
                                 {
-                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.htmldata + '</div>';
+                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + emailData.htmldata + '</div>';
                                     $('#edit').froalaEditor('html.set', '' + editorHtml + '' + BlockHtml + '');
                                 }
                             }
-
-                            }
+                    }).error(function(error) {
+                        alert(JSON.stringify(error))
                     });
-                    }
-            });
+
+                
+//                
+//                $.ajax({
+//                        method : 'GET',
+//                        url: layout_mapper_url,
+//                        dataType: 'json',
+//                        contentType: 'application/json',
+//                        mimeType: 'application/json',
+//                        data: JSON.stringify(data),
+//                        success: function (data) {
+//                            alert(JSON.stringify(data)+" ...... show text ....");
+//                            if (block_clicked === "false"){
+//                            var editorHtml = $('#edit').froalaEditor('html.get');
+//                                    if (editorHtml.contains('id="defaultblock1"')){
+//                            var jHtmlObject = jQuery(editorHtml);
+//                                    var editor = jQuery("<p>").append(jHtmlObject);
+//                                    editor.find("#defaultblock1").remove();
+//                                    editorHtml = editor.html();
+//                            }
+//                            styleHtml = '<div id=defaultblock1 onclick="selecterBlockId(defaultblock1,0)">' + data.d.details.htmldata + '</div>';
+//                                    $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
+//    //                                                   $("#defaultblock1").empty().append(data.htmldata);
+//                            }
+//                            else{
+//                                var editorHtml = $('#edit').froalaEditor('html.get');
+//                                if (editorHtml.contains('id="' + addblockid + '"')){
+//                                    var jHtmlObject = jQuery(editorHtml);
+//                                    var editor = jQuery("<p>").append(jHtmlObject);
+//                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.d.details.htmldata + '</div>';
+//                                    editor.find("#" + addblockid).replaceWith(BlockHtml);
+//                                    editorHtml = editor.html();
+//                                    $('#edit').froalaEditor('html.set', '' + editorHtml + '');
+//                                }
+//                                else
+//                                {
+//                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.d.details.htmldata + '</div>';
+//                                    $('#edit').froalaEditor('html.set', '' + editorHtml + '' + BlockHtml + '');
+//                                }
+//                            }
+//                        },
+//                        error: function (error) {
+//                            alert(JSON.stringify(error))
+//                        }
+//                });
             }
 
             function addblock(){
@@ -647,6 +608,7 @@
     <input type="hidden" id='subCategoryIdTag' value="<%=subCategoryId%>"/>
     <input type="hidden" id='userid' value="<%= user_id%>"/>
     <input type="hidden" id='draftid' value="<%= draft_id%>"/>
+    <input type="hidden" id='mindbodydata' value="<%= mindbodyId%>"/>
     <input type="hidden" value="<%=email_subject%>" id="email_subject"/>
     <input type="hidden" value="<%=emailSubject%>" id="emailSubjectTag"/>
     <!--SideNav-->
@@ -690,18 +652,22 @@
                      
                     $("#emailpreview").click(function(){              
                         $("#email_previewdiv").show();
+                        var sendData = {
+                                    htmlString: $('#edit').froalaEditor('html.get'),
+                                    iframeName: rendomIframeFilename.toString()
+                                };
+                                
                         $.ajax({
-                                url: getHost() + "/email/previewServlet",
                                 method: "POST",
-                                data: {
-                                    htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                                    iframeName: rendomIframeFilename
-                                },
+                                url: getHost() + "email/previewServlet.do",                                
+                                data: JSON.stringify(sendData),
                                 success: function (responseText) {
+//                                    alert(JSON.stringify(responseText.d.details));
                                     $("#dynamictable5").empty();
                                     $("#dynamictable6").empty();
-                                    $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='/BrndBot/DownloadHtmlServlet?file_name=" + rendomIframeFilename + ".html'></iframe>");
-                                    $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='/BrndBot/DownloadHtmlServlet?file_name=" + rendomIframeFilename + ".html'></iframe>");
+                                    var iframePath = getHost() +"download/HTML.do?fileName="+rendomIframeFilename+".html";
+                                    $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
+                                    $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
                                 }
                         }).error(function (error){alert(JSON.stringify(error));});
                         $("#fade").show();
@@ -810,73 +776,118 @@
                                     $(this).addClass('border-highlight');
                             });
                             };
-                $(document).ready(function(){
+    $(document).ready(function(){
+                    
+    $("#saveToDraft").click(function (){
+//        $("#saveToDraft").unbind('click');
+        var email_subject = $("#emailSubjectTag").val();
+        alert(email_subject);
+        $.ajax({
+            url: getHost() + "/email/previewServlet",
+            method: "post",
+            data:JSON.stringify({
+                htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                iframeName: rendomIframeFilename.toString()
+            }),
+            success: function (responseText) {
+                alert(JSON.stringify(responseText)+"..");
+                $("#previewcontent").empty();
+                $("#previewcontent").append(responseText.d.details);
+                if (draft_id == "0"){
+                $.ajax({
+                url: getHost() + "saveEmailDrafts.do",
+                        method: "post",
+                        data:JSON.stringify({
+                        bodyString : $('#edit').froalaEditor('html.get'),
+                        emailSubject: email_subject
+                        }),
+                        success: function (responseText) {
+                        if (responseText != "0"){
+                        alert("Draft saved successfully.");
+                        $("#saveToDraft").bind('click');
+                                document.location.href = "dashboard";
+                        } else {
+                        alert("There was a problem while saving the draft! Please try again later.");
+                        }
+                        }
+
+                });
+            } else {
+                $.ajax({
+                    url: getHost() + "updateEmailDraft.do",
+                    method: "post",
+                    data:{
+                    draftid: draft_id,
+                            bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                    },
+                    success: function (responseText) {
+                    if (responseText == "true"){
+                    alert("Draft updated successfully.");
+                            document.location.href = "dashboard";
+                    } else {
+                    alert("There was a problem while saving the draft! Please try again later.");
+                    }
+                    }
+                });
+            }
+            }
+        });
+    });
                                                     
     $("#saveButton").click(function (){
 //        alert($("#emailSubjectTag").val());
         var email_subject = $("#emailSubjectTag").val();
+            var sendData=JSON.stringify({
+            htmlString: $('#edit').froalaEditor('html.get'),
+            iframeName: rendomIframeFilename.toString()
+            });
         $.ajax({
-            url: getHost() + "PreviewServlet",
-            method: "post",
-            data:{
-            htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-            iframeName: rendomIframeFilename
-            },
+            url: getHost() + "/email/previewServlet.do",
+            method: "POST",
+            data: sendData,
             success: function (responseText) {
             $("#previewcontent").empty();
-                $("#previewcontent").append(responseText);
-                $.ajax({
-                    url: getHost() + "SaveKeyValueSessionServlet",
+                $("#previewcontent").append(responseText.d.details);               
+                // added by Syed Ilyas 16 dec 2015 - saves draft
+                if (draft_id == "0")
+                {
+                    $.ajax({
+                    url: getHost() + "saveEmailDrafts.do",
                     method: "post",
-                    data:{
-                        process:"save",
-                        sessionKey:"htmldata",
-                        sessionValue: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                        sessionIframeKey:"iframeName",
-                        sessionIframevalue:"" + rendomIframeFilename
-                    },
+                    data:JSON.stringify({
+                    bodyString : $('#edit').froalaEditor('html.get'), 
+                    emailSubject: email_subject
+                    }),
                     success: function (responseText) {
-                    // added by Syed Ilyas 16 dec 2015 - saves draft
-                        if (draft_id == "0")
+                        if (responseText != "0"){
+                        document.location.href = "emaillistselection?draftid=" + responseText + "&subject=" + email_subject+"&iframeName="+rendomIframeFilename;
+                        } else 
                         {
-                            $.ajax({
-                            url: getHost() + "saveEmailDrafts.do",
-                            method: "post",
-                            data:{
-                            bodyString : $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                            },
-                            success: function (responseText) {
-                                if (responseText != "0"){
-                                document.location.href = "emaillistselection.jsp?draftid=" + responseText + "&subject=" + email_subject;
-                                } else 
-                                {
-                                    alert("There was a problem while saving the draft! Please try again later.");
-                                }
-                            }
-                            });
-                        } 
-                        else 
-                        {
-                        $.ajax({
-                            url: getHost() + "updateEmailDraft.do",
-                            method: "post",
-                            data:{
-                            draftid: draft_id,
-                                    bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                            },
-                            success: function (responseText) {
-                                if (responseText == "true")
-                                {
-                                    document.location.href = "emaillistselection.jsp?draftid=" + draft_id + "&subject=" + email_subject;
-                                } else
-                                {
-                                    alert("There was a problem while saving the draft! Please try again later.");
-                                }
-                            }
-                        });
+                            alert("There was a problem while saving the draft! Please try again later.");
+                        }
                     }
-                    }
-                });
+                    });
+                } 
+                else 
+                {
+                    $.ajax({
+                        url: getHost() + "updateEmailDraft.do",
+                        method: "post",
+                        data:{
+                        draftid: draft_id,
+                                bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                        },
+                        success: function (responseText) {
+                            if (responseText == "true")
+                            {
+                                document.location.href = "emaillistselection?draftid=" + draft_id + "&subject=" + email_subject+"&iframeName="+rendomIframeFilename;
+                            } else
+                            {
+                                alert("There was a problem while saving the draft! Please try again later.");
+                            }
+                        }
+                    });
+                }
             }
         });
     });
@@ -930,16 +941,16 @@
                             <div class="block-name">Header Block</div>
                             <div class="block-button" ng-click="showDataTemp()">Add Block</div>                            
                         </li>-->
-                        <li class="block-slat" ng-repeat="blocks in datalists" id="{{blocks.emailBlockId}}" ng-click="showImageOfBlock(blocks.emailBlockId, blocks.mindbody_query)">
+                        <li class="block-slat" ng-repeat="blocks in datalists" id="{{blocks.emailBlockId}}" ng-click="showImageOfBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)">
                             <div class="block-name" id="blklist----{{blocks.emailBlockId}}" >{{blocks.emailBlockName}}</div>                            
                             <div class="block-button hide" ng-click="showDataTemp(blocks.emailBlockId)" id="div2{{blocks.emailBlockId}}">Add Block</div>
                         </li>
                     </ul>
                     
                     <ul class="block-list" id="stylediv">
-                        <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.emailModelId}}" ng-click="addActive('stylelistid'+styles.emailModelId)">
+                        <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.modelId}}" ng-click="addActive('stylelistid'+styles.modelId)">
                             <div class="block-name">
-                                <img id="{{styles.emailModelId}}" class="img-responsive lookchooser5 ptr" src="{{styles.imgFileName}}" onclick="showText('{{styles.emailModelId}}')" width="100%" />
+                                <img id="{{styles.modelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" onclick="showText('{{styles.modelId}}')" width="100%" />
                             </div>
                         </li>
                     </ul>

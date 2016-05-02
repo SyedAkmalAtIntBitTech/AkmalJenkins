@@ -6,9 +6,7 @@
 
 <!DOCTYPE html>
 <head>
-    <title>BrndBot - Email Subject</title>    
-    <%@ include file="fonttypekit.jsp"%>
-    <%--<%@ include file="checksession.jsp" %>--%>
+    <title>BrndBot - Email Subject</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="js/alertmessage.js" type="text/javascript"></script>
     <script src="js/angular.min.js" type="text/javascript"></script>
@@ -35,6 +33,8 @@
     <%
         String categoryId = request.getParameter("categoryId");
         String subCategoryId = request.getParameter("subCategoryId");
+        String mindbodyId = request.getParameter("mindbodyId");
+        
 //        try {
 //            sql_methods.session = request.getSession(true);          
 //            email_subject=(String)sql_methods.session.getAttribute("email_subject");             
@@ -58,8 +58,9 @@
             <div class="page-title-bar col-1of1"> 
                 <input type="hidden" value="<%=categoryId%>" id="categoryIdTag"/>
                 <input type="hidden" value="<%=subCategoryId%>" id="subCategoryIdTag"/>
+                <input type="hidden" value="<%=mindbodyId%>" id="mindbodyId"/>
                 <input type="hidden" class="input-field-textfield col-8of10" id="mindbodyid" placeholder="Enter Name of email" value="<%=mindbody_id%>"></input>
-                <a class=" exit-button-icon" href="emailsubcategory?id=<%=mindbody_id%>">
+                <a class=" exit-button-icon" href="emailsubcategory?categoryId=<%=categoryId%>&subCategoryId=<%=subCategoryId%>&mindbodyId=<%=mindbodyId%>">
                     <div class="exit-button-detail">
                         <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
                     </div>

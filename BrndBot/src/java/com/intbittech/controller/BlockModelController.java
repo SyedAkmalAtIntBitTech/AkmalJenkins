@@ -85,6 +85,7 @@ public class BlockModelController {
             for (EmailBlockModelLookup emailBlockModelLookupObject : emailBlockModelLookupList) {
                 EmailBlockModelDetails emailBlockModelDetails = new EmailBlockModelDetails();
                 emailBlockModelDetails.setEmailBlockId(emailBlockModelLookupObject.getFkEmailBlockId().getEmailBlockId());
+                emailBlockModelDetails.setModelId(emailBlockModelLookupObject.getFkEmailBlockModelId().getEmailBlockModelId());
                 emailBlockModelDetails.setEmailBlockModelName(emailBlockModelLookupObject.getFkEmailBlockModelId().getEmailBlockModelName());
                 emailBlockModelDetails.setHtmlData(emailBlockModelLookupObject.getFkEmailBlockModelId().getHtmlData());
                 emailBlockModelDetails.setImageFileName(emailBlockModelLookupObject.getFkEmailBlockModelId().getImageFileName());
@@ -111,7 +112,7 @@ public class BlockModelController {
             List<EmailBlockModelDetails> emailModelDetailsList = new ArrayList<>();
             for (EmailBlockModel emailBlockModelObject : emailBlockModelList) {
                 EmailBlockModelDetails emailBlockModelDetails = new EmailBlockModelDetails();
-                emailBlockModelDetails.setEmailBlockModelId(emailBlockModelObject.getEmailBlockModelId());
+                emailBlockModelDetails.setModelId(emailBlockModelObject.getEmailBlockModelId());
                 emailBlockModelDetails.setEmailBlockModelName(emailBlockModelObject.getEmailBlockModelName());
                 emailModelDetailsList.add(emailBlockModelDetails);
             }
@@ -133,7 +134,7 @@ public class BlockModelController {
             EmailBlockModel emailBlockModel = emailBlockModelService.getByEmailBlockModelId(emailBlockModelId);
             List<EmailBlockModelDetails> emailBlockModelDetailsList = new ArrayList<>();
             EmailBlockModelDetails emailBlockModelDetails = new EmailBlockModelDetails();
-            emailBlockModelDetails.setEmailBlockModelId(emailBlockModel.getEmailBlockModelId());
+            emailBlockModelDetails.setModelId(emailBlockModel.getEmailBlockModelId());
             emailBlockModelDetails.setEmailBlockModelName(emailBlockModel.getEmailBlockModelName());
             emailBlockModelDetails.setHtmlData(emailBlockModel.getHtmlData());
             emailBlockModelDetails.setImageFileData(FileHandlerUtil.getAdminEmailBlockModelImageBase64(emailBlockModel.getImageFileName()));
@@ -158,7 +159,7 @@ public class BlockModelController {
             List<EmailBlockModelDetails> emailBlockModelDetailsList = new ArrayList<>();
             for (EmailBlockModel emailModelsObject : emailBlockModelList) {
                 EmailBlockModelDetails emailBlockModelDetails = new EmailBlockModelDetails();
-                emailBlockModelDetails.setEmailBlockModelId(emailModelsObject.getEmailBlockModelId());
+                emailBlockModelDetails.setModelId(emailModelsObject.getEmailBlockModelId());
                 emailBlockModelDetails.setEmailBlockModelName(emailModelsObject.getEmailBlockModelName());
                 emailBlockModelDetailsList.add(emailBlockModelDetails);
             }
@@ -217,7 +218,7 @@ public class BlockModelController {
             emailBlock.setEmailBlockId(emailBlockModelDetails.getEmailBlockId());
             
             EmailBlockModel emailBlockModel = new EmailBlockModel();
-            emailBlockModel.setEmailBlockModelId(emailBlockModelDetails.getEmailBlockModelId());
+            emailBlockModel.setEmailBlockModelId(emailBlockModelDetails.getModelId());
             emailBlockModelLookup.setFkEmailBlockId(emailBlock);
             emailBlockModelLookup.setFkEmailBlockModelId(emailBlockModel);
             emailBlockModelLookupService.save(emailBlockModelLookup);
@@ -234,7 +235,7 @@ public class BlockModelController {
     public ResponseEntity<ContainerResponse> updateBlockModel(@RequestBody EmailBlockModelDetails emailBlockModelDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
-            EmailBlockModel emailBlockModel = emailBlockModelService.getByEmailBlockModelId(emailBlockModelDetails.getEmailBlockModelId());
+            EmailBlockModel emailBlockModel = emailBlockModelService.getByEmailBlockModelId(emailBlockModelDetails.getModelId());
             
             emailBlockModel.setEmailBlockModelName(emailBlockModelDetails.getEmailBlockModelName());
             emailBlockModel.setHtmlData(emailBlockModelDetails.getHtmlData());

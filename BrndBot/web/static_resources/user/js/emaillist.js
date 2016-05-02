@@ -357,6 +357,7 @@
                         method : 'GET',
                         url :getHost() + '/email/tags.do'
                     }).success(function(data, status, headers, config) { 
+
                     if (data == ""){
                         $scope.email_history = data;
                         $("#nohistorydiv").empty().text(noemailhistory);
@@ -380,6 +381,7 @@
                 $scope.getEmailSettings = function(){                
                 var email_settings = {"type": "get"};                
                 $http({
+
                         method : 'GET',
                         url :getHost() + '/settings/getEmailSettings.do',
                         headers: {'Content-Type': 'application/json'}
@@ -752,6 +754,8 @@ $edit=0;
                         } else if (data === error) {
                             alert(data);
                         }
+                    }).error(function(error){
+                        alert("error");
                     });
                 };
                 $scope.showEmailListWithContacts = function () {
@@ -765,8 +769,9 @@ $edit=0;
                          url: getHost() + '/emaillist/get.do?update=allEmailListWithNoOfContacts',
                          data: emailids
                     }).success(function (data, status, headers, config) {  
+
                         var parseData=JSON.parse(data.d.details);
-                        $scope.emailLists = parseData.allEmailListWithNoOfContacts.user;                        
+                        $scope.emailLists = parseData.allEmailListWithNoOfContacts.user; 
                         $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
                         if (data === "true") {
                         } else if (data === error) {

@@ -8,8 +8,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-       <jsp:include page="header.jsp"/>
         <title>User Login</title>
+       <jsp:include page="header.jsp"/>
+        
     </head>
     <script>
          $("document").ready(function() {
@@ -34,7 +35,7 @@
             <div class="input_Label">Password</div>
             <input id="loginPassword" class="input_Field login-fields" type="password" required ng-model="user.password">
             <div class="forgot_password">
-                <span>Forgot Password</span>
+               <a href="resetpassword"><span>Forgot Password</span></a>
             </div>
             <button style="left:-10px;" type="submit"  class="CTA_Button Button--Blue fleft pushUp_30">Login</button>
             <div class="sign-up_container"></div>

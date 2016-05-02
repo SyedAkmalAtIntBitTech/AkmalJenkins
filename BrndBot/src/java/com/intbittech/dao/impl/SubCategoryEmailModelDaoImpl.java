@@ -111,4 +111,23 @@ public class SubCategoryEmailModelDaoImpl implements SubCategoryEmailModelDao {
 
     }
 
+    @Override
+    public SubCategoryEmailModel getBySubCategoryEmailModelId(Integer emailModelId) {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(SubCategoryEmailModel.class)
+                    .setFetchMode("fkEmailModelId", FetchMode.JOIN)
+                    .setFetchMode("fkSubCategoryId", FetchMode.JOIN)
+                    .add(Restrictions.eq("subCategoryEmailModelId", emailModelId));
+            List<SubCategoryEmailModel> subCategoryEmailModelList = criteria.list();
+            if (subCategoryEmailModelList.isEmpty()) {
+                return null;
+            }
+            return (SubCategoryEmailModel) criteria.list().get(0);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record.");
+        }
+    }
+
 }

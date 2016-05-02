@@ -33,7 +33,7 @@ public class EmailDraftDaoImpl implements EmailDraftDao {
        try {
             Criteria criteria=sessionFactory.getCurrentSession()
                     .createCriteria(EmailDraft.class)
-                    .add(Restrictions.eq("id", id));
+                    .add(Restrictions.eq("email_draft_id", id));
             return (EmailDraft)criteria.list().get(0);
             } catch (Throwable throwable) {
                 logger.log(Level.SEVERE, null, throwable);
@@ -44,11 +44,11 @@ public class EmailDraftDaoImpl implements EmailDraftDao {
      /**
 	 * {@inheritDoc}
      */
-    public List<EmailDraft> getAllEmailDrafts(Integer user_id) throws Throwable {
+    public List<EmailDraft> getAllEmailDrafts(Integer companyId) throws Throwable {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(EmailDraft.class)
-                    .add(Restrictions.eq("fkCompanyId.companyId", user_id));
+                    .add(Restrictions.eq("fkCompanyId.companyId", companyId));
                    return criteria.list();
             } catch (Throwable throwable) {
                logger.log(Level.SEVERE, null, throwable);

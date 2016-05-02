@@ -7,7 +7,7 @@
     function getColorID(idNo,color){
         $('.palette-colorswab-selected').css("background-color",color);
     }
-    
+//    
     function getThemeColors(c1,c2,c3,c4){
         $("#color1").css("background-color",c1);
         $("#color2").css("background-color",c2);
@@ -20,7 +20,7 @@
 $(document).ready(function (){
     
 //    $("#color1,#color2,#color3,#color4").css("background-color","rgb(255, 255, 255)");
-    
+
     $("#logoColorsDiv").click(function (){
         $("#picker").hide();
         $("#logocolor").show();
@@ -47,16 +47,8 @@ $(document).ready(function (){
     
    var globalColorPaletteDivId="";
     $(".palette-colorswab , .palette-colorswab-selected").click(function (){
-        
-//        $(".palette-colorswab").removeClass('palette-colorswab-selected');
-//        $(".palette-colorswab").addClass('palette-coloswab');
-        var colorPaletteDivId=$(this).attr('id');
-        globalColorPaletteDivId=colorPaletteDivId;   
-        $(this).toggleClass('palette-colorswab-selected').toggleClass('palette-colorswab');    
-    });
-    
-    $(".select-palette-colorswab").click(function (){
-        $(this).toggleClass('selected-palette-colorswab').toggleClass('select-palette-colorswab');            
+          $(".palette-colorswab-selected").removeClass('palette-colorswab-selected');
+          $(this).addClass('palette-colorswab-selected');   
     });
     
      $('#picker').colpick({
@@ -89,6 +81,7 @@ $(document).ready(function (){
                     data: JSON.stringify(userEmailId)
                 }).success(function (data, status, headers, config)
                 {   
+                  
                     var isUserUnique=eval(JSON.stringify(data.d.message));
                     if(isUserUnique === 'false'){
                         alert("Sorry, that email Id already exists!");
@@ -390,8 +383,9 @@ function onboardingcontroller($scope,$http) {
              $scope.pageSize = 10;
                 $http({
                         method : 'GET',
-                        url : getHost() +'/onboarding/getAllColorThemes.do'
+                        url : getHost() +'getAllColorThemes.do'
                 }).success(function(data, status, headers, config) {
+                    
                     $scope.themeColors = data.d.details;
                 }).error(function(data, status, headers, config) {
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -399,6 +393,7 @@ function onboardingcontroller($scope,$http) {
     };
     
     $scope.clearColorPalette = function (){
+        $(".palette-colorswab-selected").removeClass('palette-colorswab-selected');
         var bgColor="background-color";
         $("#color1").css(bgColor,"");
         $("#color2").css(bgColor,"");
@@ -412,14 +407,13 @@ function onboardingcontroller($scope,$http) {
          var color3=$("#color3").css("backgroundColor");
          var color4=$("#color4").css("backgroundColor");
          var companyColors={"color1":color1,"color2":color2,"color3":color3,"color4":color4};
-         
         if((color1=="rgba(0, 0, 0, 0)")||(color2=="rgba(0, 0, 0, 0)")||(color3=="rgba(0, 0, 0, 0)")||(color4=="rgba(0, 0, 0, 0)")){
         alert("Please choose all 4 colors.");   
         }
         else{
             $.ajax({
                 method: 'POST',
-                url: getHost() + 'settings/setColors.do',
+                url: getHost() + '/settings/setColors',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(companyColors)
             }).success(function (data)

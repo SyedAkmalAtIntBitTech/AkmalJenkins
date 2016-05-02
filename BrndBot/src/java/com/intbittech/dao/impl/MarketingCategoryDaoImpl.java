@@ -7,7 +7,6 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.MarketingCategoryDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.EmailModel;
 import com.intbittech.model.MarketingCategory;
 import com.intbittech.model.OrganizationMarketingCategoryLookup;
 import java.util.List;

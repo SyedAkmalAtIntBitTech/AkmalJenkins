@@ -6,24 +6,31 @@
 package com.intbittech.services.impl;
 
 import com.divtohtml.ProcessHTML;
+import com.intbittech.AppConstants;
 import com.intbittech.controller.ModelController;
+import com.intbittech.dao.EmailBlockModelDao;
 import com.intbittech.dao.EmailModelDao;
 import com.intbittech.dao.SubCategoryEmailModelDao;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.model.Company;
+import com.intbittech.model.EmailBlockModel;
 import com.intbittech.model.EmailModel;
+import com.intbittech.model.ExternalSourceKeywordLookup;
 import com.intbittech.model.SubCategoryEmailModel;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.EmailModelService;
+import com.intbittech.services.ExternalSourceKeywordLookupService;
+import com.intbittech.utility.Utility;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.intbittech.utility.Utility;
 
 /**
  *
@@ -43,6 +50,13 @@ public class EmailModelServiceImpl implements EmailModelService {
 
     @Autowired
     private CompanyPreferencesService companyPreferencesService;
+
+    @Autowired
+    private EmailBlockModelDao emailBlockModelDao;
+
+    @Autowired
+    private ExternalSourceKeywordLookupService externalSourceKeywordLookupService;
+    private ExternalContentProcessor externalContentProcessor;
 
     /**
      * {@inheritDoc}
@@ -114,23 +128,41 @@ public class EmailModelServiceImpl implements EmailModelService {
 
     //TODO Ilyas needs to check path.
     @Override
-    public String getLayoutEmail(Integer emailModelId, String hostURL, Integer companyId, Map<String, String> requestBodyMap) {
+    public String getLayoutEmail(Boolean isBlock, Integer emailModelId, String hostURL, Integer companyId, ExternalSourceKeywordLookup externalSourceKeywordLookup, Integer externalDataId, Map<String, Object> data) throws ProcessFailed {
         String responseHTML = "";
         try {
-            EmailModel emailModel = getByEmailModelId(emailModelId);
-            String logo_url = hostURL + "DownloadImage?image_type=USER_LOGO&company_id=" + companyId + "&image_name=" + "logo.jpeg";
+            String dataHTML = "";
+            if (!isBlock) {
+                EmailModel emailModel = getByEmailModelId(emailModelId);
+                dataHTML = emailModel.getHtmlData();
+            } else {
+                EmailBlockModel emailBlockModel = emailBlockModelDao.getByEmailBlockModelId(emailModelId);
+                dataHTML = emailBlockModel.getHtmlData();
+            }
+            String logo_url = hostURL + "downloadImage?imageType=COMPANY_LOGO&companyId=" + companyId + "&imageName=" + AppConstants.COMPANY_LOGO_FILENAME;
             HashMap<String, String> colorHashmap = new HashMap();
             Company company = new Company(companyId);
-
+            Map<String, String> dataMap = new HashMap<>();
             List<String> colorArray = companyPreferencesService.getColors(company);
             int i = 0;
             for (String color : colorArray) {
                 colorHashmap.put("color" + (i++), Utility.rgbToHex(color));
             }
 
+            if (externalSourceKeywordLookup != null) {
+                externalContentProcessor = new ExternalContentProcessor(companyId);
+                String query = externalSourceKeywordLookup.getFkExternalSourceKeywordId().getExternalSourceKeywordName();
+                Set<String> keys = data.keySet();
+                if (keys.contains(String.valueOf(externalDataId))) {
+                    Object obj = data.get(String.valueOf(externalDataId));
+                    dataMap = externalContentProcessor.getDetailData(query, obj);                            
+                }
+                logger.info(data.keySet());
+            }
+
             String html = "";
             JSONObject htmljson = new JSONObject();
-            ProcessHTML mindbodyHtmlData = new ProcessHTML(emailModel.getHtmlData(), colorHashmap, requestBodyMap, logo_url);
+            ProcessHTML mindbodyHtmlData = new ProcessHTML(dataHTML, colorHashmap, dataMap, logo_url);
             html = mindbodyHtmlData.processHTML();
 
             htmljson.put("htmldata", html);

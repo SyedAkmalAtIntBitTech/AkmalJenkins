@@ -72,7 +72,7 @@ public class ApplicationContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        logger.log(Level.INFO, "Application Deployed");
+        logger.log(Level.INFO, "------------------------Application Deployed");
         servletContextEvent = sce;
         applicationContextListener = this;
 //        mindbodyEmailListScheduler = new MindbodyEmailListScheduler();

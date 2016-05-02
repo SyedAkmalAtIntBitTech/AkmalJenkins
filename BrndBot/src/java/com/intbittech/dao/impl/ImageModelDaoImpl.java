@@ -8,7 +8,6 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.ImageModelDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ImageModel;
-import com.intbittech.model.PrintModel;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -114,7 +113,7 @@ public class ImageModelDaoImpl implements ImageModelDao {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(ImageModel.class);
             for(int i =0 ; i<imageModelIds.size();i++)
-            criteria.add(Restrictions.ne("printModelId", imageModelIds.get(i)));
+            criteria.add(Restrictions.ne("imageModelId", imageModelIds.get(i)));
             List<ImageModel> imageModelList = criteria.list();
             if (imageModelList.isEmpty()) {
                 return null;

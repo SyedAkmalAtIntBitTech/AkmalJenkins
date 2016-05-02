@@ -8,7 +8,7 @@
         ///////////////////////////// Added by Satyajit Roy on 30th nov 2015 ///////////////////////////
                     var categoryId = $("#categoryIdTag").val();
                     var subCategoryId = $("#subCategoryIdTag").val();
-//                    var mindbodyid = $("#mindbodyid").val();
+                    var mindbodyid = $("#mindbodyId").val();
                     var email_subject = $("#emailsubject").val();
                     if(email_subject==="")
                     {
@@ -20,22 +20,7 @@
                     {
                         document.title="BrndBot - Email List Selection"; 
                     }
-//                    var email_addresses = "";
-//                    var email_list = "";
-//                        $.ajax({
-//                        url: getHost() + "EmailTextDataServlet",
-//                        data: {
-//                            email_subject: email_subject,
-//                            email_addresses: email_addresses,
-//                            email_list : email_list
-//                        },
-//                        success: function(result){
-//                            if (result === "true"){
-//                                document.location.href = "emaileditor?id="+mindbodyid+"&subject="+email_subject;
-//                            }
-//                        }
-//                    });
-                    document.location.href = "emaileditor?categoryId="+categoryId+"&subCategoryId="+subCategoryId+"&emailSubject="+email_subject;
+                    document.location.href = "emaileditor?categoryId="+categoryId+"&subCategoryId="+subCategoryId+"&emailSubject="+email_subject+"&mindbodyId="+mindbodyid;
 
         ////////////////////////////////////////// END ////////////////////////////////////////////////
 

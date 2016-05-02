@@ -1,5 +1,8 @@
 /**General and Fonts**/
-
+body {
+  
+  font-family: "proxima-nova",sans-serif !important;
+}
 .h1{}
 
 .h2{}

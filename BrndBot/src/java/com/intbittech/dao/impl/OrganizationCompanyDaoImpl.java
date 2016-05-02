@@ -5,6 +5,7 @@
  */
 package com.intbittech.dao.impl;
 
+import com.intbit.OrganizationTypeConstants;
 import com.intbittech.dao.OrganizationCompanyDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Organization;
@@ -42,7 +43,7 @@ public class OrganizationCompanyDaoImpl implements OrganizationCompanyDao {
                     .setFetchMode("fkCompanyId", FetchMode.JOIN)
                     .setFetchMode("fkOrganizationId", FetchMode.JOIN)
                     .createAlias("fkOrganizationId.fkOrganizationTypeId", "organizationType")
-                    .add(Restrictions.eq("organizationType.organizationTypeId", 2)); //Group is 1
+                    .add(Restrictions.eq("organizationType.organizationTypeId", OrganizationTypeConstants.group.getOrganizationType())); //Group is 1
             if (criteria.list().isEmpty()) {
                 return null;
             }
@@ -65,7 +66,7 @@ public class OrganizationCompanyDaoImpl implements OrganizationCompanyDao {
                     .setFetchMode("fkOrganizationId", FetchMode.JOIN)
                     .add(Restrictions.eq("fkCompanyId.companyId", companyId))
                     .createAlias("fkOrganizationId.fkOrganizationTypeId", "organizationType")
-                    .add(Restrictions.eq("organizationType.organizationTypeId", 2)); //Organization is 2
+                    .add(Restrictions.eq("organizationType.organizationTypeId", OrganizationTypeConstants.organization.getOrganizationType())); //Organization is 2
             if (criteria.list().isEmpty()) {
                 return null;
             }
@@ -88,7 +89,7 @@ public class OrganizationCompanyDaoImpl implements OrganizationCompanyDao {
                     .setFetchMode("fkOrganizationId", FetchMode.JOIN)
                     .add(Restrictions.eq("fkCompanyId.companyId", companyId))
                     .createAlias("fkOrganizationId.fkOrganizationTypeId", "organizationType")
-                    .add(Restrictions.eq("organizationType.organizationTypeId", 1)); //Group is 1
+                    .add(Restrictions.eq("organizationType.organizationTypeId",  OrganizationTypeConstants.group.getOrganizationType())); //Group is 1
             if (criteria.list().isEmpty()) {
                 return null;
             }
@@ -128,7 +129,7 @@ public class OrganizationCompanyDaoImpl implements OrganizationCompanyDao {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(Organization.class)
-                    .add(Restrictions.eq("fkOrganizationTypeId.organizationTypeId", 1)); //Group is 1
+                    .add(Restrictions.eq("fkOrganizationTypeId.organizationTypeId",  OrganizationTypeConstants.organization.getOrganizationType())); //Group is 1
             
             Criterion[] criterions = new Criterion[organizationIds.length];
             for(int i=0;i<organizationIds.length;i++)

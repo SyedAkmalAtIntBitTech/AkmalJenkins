@@ -20,7 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import mindbody.controller.MindBodyDataMapper;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -88,7 +88,7 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
                 Object selected_object = mindbody_hash_map.get(mindbody_data_id);
                 Class mindbody_class = (Class) selected_object;
                 if (editor_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
-                    mapped_json_object = MindBodyDataMapper.mapClassDataRaw(mindbody_class);
+//                    mapped_json_object = MindBodyDataMapper.mapClassDataRaw(mindbody_class);
                 } else {
                     mapped_json_object = MindBodyDataMapper.mapClassData(mindbody_class, editor_mapper_file_name);
                 }
@@ -96,7 +96,7 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
                 Object selected_object = mindbody_hash_map.get(mindbody_data_id);
                 ClassSchedule mindbody_enrollments = (ClassSchedule) selected_object;
                 if (editor_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
-                    mapped_json_object = MindBodyDataMapper.mapEnrollmentDataRaw(mindbody_enrollments);
+//                    mapped_json_object = MindBodyDataMapper.mapEnrollmentDataRaw(mindbody_enrollments);
                 } else {
                 mapped_json_object = MindBodyDataMapper.mapEnrollmentData(mindbody_enrollments, editor_mapper_file_name);
                 }
@@ -104,7 +104,7 @@ public class MindBodyDetailServlet extends BrndBotBaseHttpServlet {
                 Object selected_object = mindbody_hash_map.get(mindbody_data_id);
                 Staff mindbody_staff = (Staff) selected_object;
                 if (editor_type.equalsIgnoreCase(ScheduledEntityType.Email.toString())) {
-                    mapped_json_object = MindBodyDataMapper.mapStaffDataRaw(mindbody_staff);
+//                    mapped_json_object = MindBodyDataMapper.mapStaffDataRaw(mindbody_staff);
                 } else {
                 mapped_json_object = MindBodyDataMapper.mapStaffData(mindbody_staff, editor_mapper_file_name);
                 }
