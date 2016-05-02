@@ -8,7 +8,6 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.UsersDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Users;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
@@ -59,7 +58,6 @@ public class UsersDaoImpl implements UsersDao {
      * {@inheritDoc}
      */
     public Users getUserById(Integer userId) {
-        Users user = new Users();
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(Users.class)
                 .add(Restrictions.eq("userId", userId));
@@ -74,11 +72,9 @@ public class UsersDaoImpl implements UsersDao {
      */
     public Boolean checkUniqueUser(Users user) {
         Boolean isUserUnique = true;
-        List<Users> usersList = new ArrayList<>();
         Criteria criteria = sessionFactory.getCurrentSession()
                 .createCriteria(Users.class)
                 .add(Restrictions.eq("userName", user.getUserName()));
-        usersList = criteria.list();
         if (criteria.list().isEmpty()) {
             isUserUnique = true;
         } else {
