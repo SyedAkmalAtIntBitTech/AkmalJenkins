@@ -8,11 +8,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%@ page import="com.controller.SqlMethods"%>
-    <%@ include file="fonttypekit.jsp"%>
-    <%--<%@ include file="checksession.jsp" %>--%>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="js/alertmessage.js" type="text/javascript"></script>
-    <script src="js/angular.min.js" type="text/javascript"></script>
     <script src="js/configurations.js" type="text/javascript"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <title>BrndBot - Email List Selection</title>    
