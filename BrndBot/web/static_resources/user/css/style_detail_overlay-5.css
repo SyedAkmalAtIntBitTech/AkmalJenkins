@@ -621,6 +621,7 @@ border-top: 1px solid #E8E9EA ;
     margin: 0px;
     box-sizing: border-box;
     overflow-x: visible;
+    z-index: 1;
 }
 
 .top-navbar-detail{
@@ -1328,6 +1329,7 @@ Facebook-preview-name{
     margin-top:0px;
     width:100%;
     float:left;
+    height: calc(28vh - 100%);
    
 }
 
@@ -1389,7 +1391,7 @@ input-field-container{
     border-radius: 3px;
     background-color: #FFFFFF;
     box-sizing: border-box;
-    
+    position:fixed;    
 }
 /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^FONTS^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
 .h1 {

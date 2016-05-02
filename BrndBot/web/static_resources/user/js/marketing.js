@@ -640,16 +640,18 @@ function controllerMarketingCampaign($scope, $http) {
 
      $scope.Approval = function(entity_id, template_status, entity_type){
         
-        var approval_type = {"entity_id": entity_id, 
+        var approval_type = {"entity_id": entity_id.toString(), 
                              "template_status":template_status, 
                              "entity_type": entity_type};
+                        
         
         $http({
             method: 'POST',
-            url: 'approveStatus.do',
+            url: getHost()+'approveStatus.do',
             headers: {'Content-Type':'application/json'},
             data: JSON.stringify(approval_type)
         }).success(function (data, status, headers, config) {
+           
           if (data == "true"){
             alert(templetestatussaved);
             window.open(getHost() + 'user/marketing', "_self");
@@ -657,6 +659,7 @@ function controllerMarketingCampaign($scope, $http) {
               alert(savingrecordproblem);
           }
         }).error(function (data, status, headers, config) {
+  
             alert(nodataerror);
         });      
         
@@ -664,12 +667,14 @@ function controllerMarketingCampaign($scope, $http) {
 
 
     $scope.editScheduleDetails = function (schedule_id, schedule_time, entity_type, schedule_title, schedule_desc,marketingName,is_today_active) {
+      
         $edit=1;  
         if (entity_type == getemail()) {
             $http({
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
+               
                 $scope.entitiesdetails = data;
                 if (data.body == undefined) {
                     $('#maileditremove').hide();
@@ -708,6 +713,7 @@ function controllerMarketingCampaign($scope, $http) {
                 method: 'GET',
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
+                
                 $scope.entitiesdetails = data;
                 if (data.image_name == undefined) {
                     $("#fbpostremove").hide();
@@ -957,7 +963,7 @@ function controllerMarketingCampaign($scope, $http) {
         $('#slider-button').click();
     });
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active) {
-        
+       
         if (entity_type === getemail()) {
             $slider=2;
             sliderDialog = "#emailsection";
@@ -991,8 +997,11 @@ function controllerMarketingCampaign($scope, $http) {
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail.do?schedule_id=' + schedule_id
             }).success(function (data) {
+                var details=(JSON.parse((data.d.details)));
+                var detailsBody =details.body;
+               
                 $scope.entitiesdetails = data;
-                if (data.body == undefined) {
+                if (detailsBody == undefined) {
                     $("#emailapprove").hide();
                     $("#mailtemplatesaved1").hide();
                     $("#mailnotemplate1").show();
@@ -1008,12 +1017,13 @@ function controllerMarketingCampaign($scope, $http) {
                     $('#emailpostremove').show();
                 }
                 var date = new Date(schedule_time);
-                $('#emailcontentiframe').contents().find('html').html(data.body);                 
+                $('#emailcontentiframe').contents().find('html').html(detailsBody);                 
                 $scope.entities_selected_time = date;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 console.log(schedule_desc);
                 $scope.schedule_desc = schedule_desc;
+           
                 $scope.email_template_status = template_status;
                 $scope.schedule_type = entity_type;
                 $scope.marketing_program_name = marketingName;
@@ -1051,8 +1061,9 @@ function controllerMarketingCampaign($scope, $http) {
             $("#facebookpost").click(); 
             $http({
                 method: 'GET',
-                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
+                url: getHost() + 'GetScheduledSocialPostDetail.do?schedule_id=' + schedule_id
             }).success(function (data) {
+               
                 $scope.entitiesdetails = data;
                 if (data.image_name === undefined) {
                     $('#fbactionsave').hide();
@@ -1122,8 +1133,9 @@ function controllerMarketingCampaign($scope, $http) {
              $("#twitterpost").click();
             $http({
                 method: 'GET',
-                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
+                url: getHost() + '/GetScheduledSocialPostDetail.do?schedule_id=' + schedule_id
             }).success(function (data) {
+                
                 $scope.entitiesdetails = data;
                 if (data.image_name == undefined) {
                     
@@ -1144,6 +1156,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $('#twnotemplate').hide();
                     $('#twtemplatesaved').show();
                 }
+               
                 var date = new Date(schedule_time);
                 $scope.entities_selected_time = date;
                 $scope.schedule_title = schedule_title;
