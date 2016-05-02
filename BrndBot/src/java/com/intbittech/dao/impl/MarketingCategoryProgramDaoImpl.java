@@ -8,7 +8,6 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.MarketingCategoryProgramDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.MarketingAction;
-import com.intbittech.model.MarketingCategory;
 import com.intbittech.model.MarketingCategoryProgram;
 import java.util.List;
 import java.util.Locale;

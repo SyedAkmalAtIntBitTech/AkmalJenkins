@@ -49,7 +49,7 @@ public class ScheduleSocialPostDAO {
             String templateStatus,
             String imageType,
             Connection conn) throws SQLException {
-        String sql = "INSERT INTO scheduled_socialpost_list "
+            String sql = "INSERT INTO scheduled_socialpost_list "
                 + " (fk_company_id, image_name, metadata, type, image_type) VALUES"
                 + " (?, ?, ?, ?, ?) RETURNING scheduled_socialpost_list_id";
         Map<String, Integer> methodResponse = new HashMap<>();
