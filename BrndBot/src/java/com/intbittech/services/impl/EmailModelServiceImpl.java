@@ -6,7 +6,6 @@
 package com.intbittech.services.impl;
 
 import com.divtohtml.ProcessHTML;
-import com.google.gson.reflect.TypeToken;
 import com.intbittech.AppConstants;
 import com.intbittech.controller.ModelController;
 import com.intbittech.dao.EmailBlockModelDao;
@@ -27,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,7 +50,7 @@ public class EmailModelServiceImpl implements EmailModelService {
 
     @Autowired
     private CompanyPreferencesService companyPreferencesService;
-    
+
     @Autowired
     private EmailBlockModelDao emailBlockModelDao;
 
@@ -128,17 +128,14 @@ public class EmailModelServiceImpl implements EmailModelService {
 
     //TODO Ilyas needs to check path.
     @Override
-    public String getLayoutEmail(Boolean isBlock, Integer emailModelId, String hostURL, Integer companyId, ExternalSourceKeywordLookup externalSourceKeywordLookup, Integer externalDataId, Map<String, Object> data) {
+    public String getLayoutEmail(Boolean isBlock, Integer emailModelId, String hostURL, Integer companyId, ExternalSourceKeywordLookup externalSourceKeywordLookup, Integer externalDataId, Map<String, Object> data) throws ProcessFailed {
         String responseHTML = "";
         try {
             String dataHTML = "";
-            if(!isBlock)
-            {
+            if (!isBlock) {
                 EmailModel emailModel = getByEmailModelId(emailModelId);
                 dataHTML = emailModel.getHtmlData();
-            }
-            else
-            {
+            } else {
                 EmailBlockModel emailBlockModel = emailBlockModelDao.getByEmailBlockModelId(emailModelId);
                 dataHTML = emailBlockModel.getHtmlData();
             }
@@ -153,10 +150,14 @@ public class EmailModelServiceImpl implements EmailModelService {
             }
 
             if (externalSourceKeywordLookup != null) {
+                externalContentProcessor = new ExternalContentProcessor(companyId);
                 String query = externalSourceKeywordLookup.getFkExternalSourceKeywordId().getExternalSourceKeywordName();
-                JSONObject externalSourceProcessedData = externalContentProcessor.getDetailData(query, data.get(externalDataId));
-                dataMap = AppConstants.GSON.fromJson(externalSourceProcessedData.toJSONString(), new TypeToken<HashMap<String, String>>() {
-                }.getType());
+                Set<String> keys = data.keySet();
+                if (keys.contains(String.valueOf(externalDataId))) {
+                    Object obj = data.get(String.valueOf(externalDataId));
+                    dataMap = externalContentProcessor.getDetailData(query, obj);                            
+                }
+                logger.info(data.keySet());
             }
 
             String html = "";
