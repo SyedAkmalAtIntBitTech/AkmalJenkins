@@ -539,19 +539,19 @@ function programactions($scope, $http, $window){
         }
     };
     
-    $scope.Approval = function(entity_id, template_status, entity_type){        
-        var approval_type = {"entity_id": entity_id, 
+    $scope.Approval = function(entity_id, template_status, entity_type){
+        var approval_type = {"entity_id": entity_id.toString(), 
                              "template_status":template_status, 
-                             "entity_type": entity_type};        
+                             "entity_type": entity_type}; 
         $http({
             method: 'POST',
-            url: 'approveStatus.do',
+            url: getHost()+'approveStatus.do',
             headers: {'Content-Type':'application/json'},
             data: JSON.stringify(approval_type)
         }).success(function (data, status, headers, config) {
           if (data == "true"){
             alert(templatestatuschange);
-            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
+            window.open(getHost() + 'user/marketingprogramactions?program_id='+program+'&past=0', "_self");
           }else {
               alert(savingrecordproblem);
           }
@@ -571,7 +571,7 @@ function programactions($scope, $http, $window){
         }).success(function (data, status, headers, config) {
           if (data == "true"){
             alert(templatestatuschange);
-            window.open(getHost() + 'marketingprogramactions.jsp?program_id='+program+'&past=0', "_self");
+            window.open(getHost() + 'user/marketingprogramactions?program_id='+program+'&past=0', "_self");
           }else {
               alert(savingrecordproblem);
           }
@@ -653,7 +653,6 @@ function programactions($scope, $http, $window){
             method: 'GET',
             url: getHost()+'/alluserMarketingProgramForDisplay.do?program_id='+program
         }).success(function (data, status, headers, config){
-//            alert(JSON.stringify(data.emailautomation));
             $("#progname").show();
             document.getElementById("instancehidden").style.display="block";
             if(JSON.stringify(data.emailautomation)==='[]'){
@@ -662,6 +661,7 @@ function programactions($scope, $http, $window){
             if(JSON.stringify(data.programactions)==='[]'){
             $("#noota").empty().append('No One Time Actions');
             }
+            $scope.template_status=data.emailautomation;
             $scope.programs = data;
             $scope.actionType="Email";
             program_status = data.programdetails.program_status;
@@ -1032,7 +1032,7 @@ function programactions($scope, $http, $window){
             }).success(function (data) {
                 var recurringDetails=JSON.parse(data.d.details);
                 $scope.entitiesdetails = recurringDetails;
-                if (data.body == undefined) {
+                if (recurringDetails.body == undefined) {
                       $("#recurringremovediv").hide();
                       $("#savedemailsdiv").hide();
                       $("#noemailsdiv").show();
@@ -1073,7 +1073,7 @@ function programactions($scope, $http, $window){
                 $scope.program_name=program_name;
                 $scope.program_id=program_id;
                 $scope.days=days;
-                $('#recurringemailcontentiframe').contents().find('html').html(data.body);
+                $('#recurringemailcontentiframe').contents().find('html').html(recurringDetails.body);
             }).error(function (data) {
                 alert(requesterror);
             });

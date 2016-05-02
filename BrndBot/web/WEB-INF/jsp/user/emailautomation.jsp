@@ -133,6 +133,7 @@
             $scope.showEmailList();
             var entity_details = {"entity_id": entity_id};
             if (type === 'add'){
+                $(".page-content-container").css('width','90%');
                 $("#emailautomationcontent").show();
                 $("#emlautomeditorcontainer").hide();
                 $("#emailautomation").hide();
@@ -141,64 +142,65 @@
             else{
                 $http({
                     method: 'POST',
-                    url: getHost() + 'getRecuringEntity.do',
+                    url: getHost() + 'getRecurringEntity.do',
                     headers: {'Content-Type':'application/json'},
                     data: JSON.stringify(entity_details)
                 }).success(function(data, status){
+//                    alert(JSON.stringify(data));
+                    $("#emaillist option:contains("+data.recurring_email_email_list_name+")").attr('selected', 'selected');
                     var error=0;
                     
-                    if (data.recuring_email_title === ""){
+                    if (data.recurring_email_title === ""){
                         alert("Enter the title.");
                         $("#recuring_email_title").focus();
                         error++;
                     }
-                    if (data.recuring_email_description === ""){
+                    if (data.recurring_email_description === ""){
                         alert("Enter the description.");
                         $("#recuring_email_description").focus();
                         error++;
                     }
-                    if (data.recuring_email_days === "0" || data.recuring_email_days === null || typeof data.recuring_email_days === 'undefined') {
+                    if (data.recurring_email_days === "0" || data.recurring_email_days === null || typeof data.recurring_email_days === 'undefined') {
                         if(error===0){alert("Please select the day.");}
                         $("#days").focus();
                         error++;
                     }
-                    if (data.recuring_email_time === ""){
+                    if (data.recurring_email_time === ""){
                         alert("Select the time.");
                         $("#timepicker1").focus();
                         error++;
                     }
-                    if (data.recuring_email_till_date === ""){
+                    if (data.recurring_email_till_date === ""){
                         alert("Till date not selected! Please select the date.");
                         $("#datepicker").focus();
                         error++;
                     }
 
-                    if (data.recuring_email_email_list_name === "0" || data.recuring_email_email_list_name === null || typeof data.recuring_email_email_list_name === 'undefined') {
+                    if (data.recurring_email_email_list_name === "0" || data.recurring_email_email_list_name === null || typeof data.recurring_email_email_list_name === 'undefined') {
                         if(error===0){alert("Please select the email list.");}
                         $("#emaillist").focus();
                         error++;
                     }
-                    if (data.recuring_email_subject === "" ||data.recuring_email_subject === null || typeof data.recuring_email_subject === "undefined") {
+                    if (data.recurring_email_subject === "" ||data.recurring_email_subject === null || typeof data.recurring_email_subject === "undefined") {
                         if(error===0){alert("Enter the subject.");}
                         $("#subject").focus();
                         error++;
                     }
-                    if (data.recuring_email_from_name === "" ||data.recuring_email_from_name === null || typeof data.recuring_email_from_name === "undefined"){
+                    if (data.recurring_email_from_name === "" ||data.recurring_email_from_name === null || typeof data.recurring_email_from_name === "undefined"){
                         if(error===0){alert("Enter the from name.");}
                         $("#from_name").focus();
                         error++;
                     }        
-                    if(data.recuring_email_reply_to_email_address === "" || data.recuring_email_reply_to_email_address === null || typeof data.recuring_email_reply_to_email_address === "undefined"){
+                    if(data.recurring_email_reply_to_email_address === "" || data.recurring_email_reply_to_email_address === null || typeof data.recurring_email_reply_to_email_address === "undefined"){
                         if(error===0){alert("Please Enter Valid reply-to-address.");}
                         $("#reply_to_address").focus();
                         error++;
                     }
-                    
                     if(type==="template")
                     {
                         if(error===0)
                         {
-                            $("#emailautomationcontent").hide();
+                             $("#emailautomationcontent").hide();
                             $("#emailautomation").show();
                             $("#emlautomeditorcontainer").show();
                             $("#editpreviewtemplatebottom").show();
@@ -219,21 +221,25 @@
                         $("#editpreviewtemplatebottom").hide();
                     }
                     $scope.entity_details = data;
-                    days = data.recuring_email_days;
-                    email_list_name=data.recuring_email_email_list_name;                    
-                    $("#emaillist").val(email_list_name);
+                    days = data.recurring_email_days;
+                    email_list_name=data.recurring_email_email_list_name;    
+                    var emailAddress=JSON.parse(data.recurring_email_to_email_addresses);
+                    var email_list_Addresses=eval(JSON.stringify(emailAddress.emailAddresses[0]));
+                    $("#emaillist option:contains("+email_list_name+")").attr('selected', 'selected');
+//                  $('#emaillist option[value='+email_list_name+"-"+email_list_Addresses+']').attr('selected','selected');
+//                    $("#emaillist").val(email_list_name+"-"+email_list_Addresses);
                     $('#days').val(days);
-                    $("#emaillist").val(email_list_name);
-                    if (data.recuring_email_template_id != null){
-                        template_id = data.recuring_email_template_id;
+//                    alert($("#emaillist").val());
+                    if (data.recurring_email_template_id != null){
+                        template_id = data.recurring_email_template_id;
                         entity_no_email_template = "false";
                     }else {
                         entity_no_email_template = "true";
                     }
-                    html_data = data.recuring_email_body;
+                    html_data = data.recurring_email_body;
                     $('#edit').froalaEditor('html.set',''+html_data+'');
 //                    alert(data.recuring_email_email_list_name);
-                    showEmailListName(data.recuring_email_email_list_name);
+                    showEmailListName(data.recurring_email_email_list_name);
                     
                 }).error(function(){
 //                    alert("Problem fetching the data!");
@@ -287,10 +293,11 @@
                 $("#emlautomeditorcontainer").show();
                 $http({
                     method: 'GET',
-                    url: getHost() + 'getAllRecuringEmailTemplates.do'
+                    url: getHost() + 'getAllRecurringEmailTemplates.do'
                 }).success(function(data, status){
                     $scope.recuring_email_templates = data;
-                }).error(function(){
+                }).error(function(error){
+                    alert(JSON.stringify(error));
 //                    alert("Problem fetching the data!");
                 });
 
@@ -298,6 +305,7 @@
 
         $scope.addUpdateRecuringAction = function(){
             if (validate()){
+                
                 var days = $("#days").val();                
                 var emaillistwithAddress = $("#emaillist").val().split('-');
                 var emaillist=emaillistwithAddress[0];
@@ -318,7 +326,7 @@
                 var html_data = $('#edit').froalaEditor('html.get');
 //                var html_data = $iframe.contents().find("html").html();
 //                html_data = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\">" + html_data + "</html>";
-//                alert(emails);
+//                alert(emaillist);
                 if ( type == 'add'){
                     var recuring_action = {
                         "days":days, "emaillist":emaillist, 
@@ -350,23 +358,22 @@
                         // or server returns response with an error status.
                     });
 
-                }else if((type == 'template') && (entity_no_email_template == "true")){
+                    }else if((type == 'template') && (entity_no_email_template == "true")){
                     var recuring_action = {
                         "entity_id" : entity_id, 
                         "days":days, "emaillist":emaillist, 
                         "to_email_addresses": to_email_addresses,
                         "subject":subject, "from_name":from_name,
                         "reply_to_address":reply_to_address,
-                        "recuring_email_title":recuring_email_title,
-                        "recuring_email_description":recuring_email_description,
+                        "recurring_email_title":recuring_email_title,
+                        "recurring_email_description":recuring_email_description,
                         "till_date_epoch":till_date_epoch,
                         "schedule_time_epoch": schedule_time,
                         "program_id" :program_id 
                     };
-                    
                     $http({
                         method: 'POST',
-                        url: 'addupdateRecuringAction.do',
+                        url: getHost()+'addupdateRecurringAction.do',
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(recuring_action)
                     }).success(function (data, status, headers, config) {
@@ -394,22 +401,22 @@
                         "to_email_addresses": to_email_addresses,
                         "subject":subject, "from_name":from_name,
                         "reply_to_address":reply_to_address,
-                        "recuring_email_title":recuring_email_title,
-                        "recuring_email_description":recuring_email_description,
+                        "recurring_email_title": recuring_email_title,
+                        "recurring_email_description":recuring_email_description,
                         "till_date_epoch":till_date_epoch,
                         "schedule_time_epoch": schedule_time,
                         "program_id" :program_id 
                     };
-
+                   
                     $http({
                         method: 'POST',
-                        url: getHost()+'addupdateRecuringAction.do',
+                        url: getHost()+'/addupdateRecurringAction.do',
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(recuring_action)
                     }).success(function (data, status, headers, config) {
                         if ((data === "true")) {
                             alert("Details saved succesfully.");
-                            window.open(getHost() + 'marketingprogramactions?program_id='+ program_id + '&past=0&program_date='+program_end_date, "_self");
+                            window.open(getHost() + 'user/marketingprogramactions?program_id='+ program_id + '&past=0&program_date='+program_end_date, "_self");
                         }else {
 //                            alert("Problem saving the record!");
                         }
@@ -428,21 +435,21 @@
                         "to_email_addresses": to_email_addresses,
                         "subject":subject, "from_name":from_name,
                         "reply_to_address":reply_to_address,
-                        "recuring_email_title":recuring_email_title,
-                        "recuring_email_description":recuring_email_description,
+                        "recurring_email_title":recuring_email_title,
+                        "recurring_email_description":recuring_email_description,
                         "till_date_epoch":till_date_epoch,
                         "schedule_time_epoch": schedule_time,
                         "program_id" :program_id 
-                    };                    
+                    };           
                     $http({
                         method: 'POST',
-                        url: 'updateRecuringAction.do',
+                        url: getHost()+'updateRecurringAction.do',
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(recuring_action)
                     }).success(function (data, status, headers, config) {
                         if ((data === "true")) {
                             alert("Details saved succesfully.");
-                            window.open(getHost() + 'marketingprogramactions?program_id='+program_id+'&past=0&program_date='+program_end_date, "_self");
+                            window.open(getHost() + 'user/marketingprogramactions?program_id='+program_id+'&past=0&program_date='+program_end_date, "_self");
                         }else {
 //                            alert("Problem saving the record!");
                         }
@@ -573,14 +580,17 @@
             
             });
             function validate(){
+                
 
                 var emlval = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
                 
                 var days = $("#days").val();
+//                alert($("#emaillist").val());
 //                var emaillisttext = $("#emaillist :selected").text();
                 var emaillistwithAddress = $("#emaillist").val().split('-');
                 var emaillist=emaillistwithAddress[0];
                 to_email_addresses=emaillistwithAddress[1].split(',');
+                
                 var subject = $("#subject").val();
                 var from_name = $("#from_name").val();
                 var reply_to_address = $("#reply_to_address").val();
@@ -851,7 +861,7 @@
                                 <div class="h4" style="">
                                     Enter a name for this recurring email:
                                 </div>
-                             <input id="recuring_email_title" class="input-field-textfield col-8of10" type="text" required placeholder="Enter Name of email" value="{{entity_details.recuring_email_title}}"></input>
+                             <input id="recuring_email_title" class="input-field-textfield col-8of10" type="text" required placeholder="Enter Name of email" value="{{entity_details.recurring_email_title}}"></input>
                              
                             </div>
                          <div class="col-6of10 fleft pushUp">
@@ -859,7 +869,7 @@
                                     Enter a description for this recurring email:
                                 </div>
                              <input id="recuring_email_description" class="input-field-textfield col-8of10" type="text" required  
-                                       placeholder="Enter description of email" value="{{entity_details.recuring_email_description}}"></input>
+                                       placeholder="Enter description of email" value="{{entity_details.recurring_email_description}}"></input>
                             </div>
                     </div>
                 </div>
@@ -954,14 +964,14 @@
                                 </div>
                                 <input id="subject" class="input-field-textfield col-8of10" type="text" required  
                                         placeholder="Enter subject line" 
-                                        value="{{entity_details.recuring_email_subject}}"></input>
+                                        value="{{entity_details.recurring_email_subject}}"></input>
                             </div>
                             <div class="col-6of10 fleft pushUp">
                                 <div class="h4" style="">
                                     Enter a from name:
                                 </div>
                                 <input id="from_name" class="input-field-textfield col-8of10" type="text" required  placeholder="Enter from name" 
-                                      value="{{entity_details.recuring_email_from_name}}"></input>
+                                      value="{{entity_details.recurring_email_from_name}}"></input>
                             </div>    
                             <div class="col-6of10 fleft pushUp">
                                 <div class="h4" style="">
@@ -969,7 +979,7 @@
                                 </div>
                                 <input id="reply_to_address" class="input-field-textfield col-8of10" type="text" 
                                      required  placeholder="Enter reply-to-address" 
-                                     value="{{entity_details.recuring_email_reply_to_email_address}}"></input>  
+                                     value="{{entity_details.recurring_email_reply_to_email_address}}"></input>  
                             </div>
                     </div>
                 </div>
@@ -1002,7 +1012,8 @@
                                     font-weight:500;
                                     left: 5em; 
                                     color: #2D4444;
-                                    width:57% !important;
+                                    width:calc(100vw - 50%);
+                                    /*width:57% !important;*/
                                     height: 600px;
                                     overflow-y: auto;
                                 }
@@ -1013,6 +1024,17 @@
                                 .editorheight{
                                     height: 620px;
                                 }
+                                .fr-box.fr-basic .fr-element{
+                                    padding-top: 0px !important;
+                                }
+                                .fr-toolbar.fr-top{
+                                    width: calc(100vw - 50%);
+                                }
+                                .page-content-container{width: 100%;}
+                                .centerItem img{
+                                    margin-left: 35%;
+                                }
+                                .imgText{text-align: center;}
                             </style>
 
                         <div id="editor">
@@ -1041,7 +1063,7 @@
                                </div>
                            </div> -->
                        </div>
-                        <div class="col-templatelist">
+                        <div class="col-templatelist col-3of10">
                             <div class="blockselection" id="templatediv">     
                                     <div class="col-1of1">
                                         <div class="">
@@ -1082,19 +1104,19 @@
                                     </div>
 
                                 </div>
-                                <div class="blockstyletab">      
+                                <div class="blockstyletab col-1of10 ">      
                                     <ul class="righttabs fontpnr">
                      <!--                        <li id="templatetab">
                                             <image src='images/sidebar/Icons_styleButton.svg' class="styleimg"/>
                                             <p>STYLE</p>
                                         </li>-->
-                                        <li id="templatetab">
-                                            <image src='images/sidebar/Icons_blockButton.svg' class="blockimg"/>
-                                            <p>TEMPLATE</p>
+                                        <li id="templatetab" class="centerItem">
+                                            <image src='images/Icons_blockButton.svg' class="blockimg" style="    width: calc(12vw - 100%);"/>
+                                            <p class="imgText">TEMPLATE</p>
                                         </li>
-                                        <li id="texttab">
-                                            <image src='images/sidebar/Icons_editButton_blue_new.svg' class="blockimg"/>
-                                            <p>TEXT</p>
+                                        <li id="texttab" class="centerItem">
+                                            <image src='images/Icons_editButton_blue_new.svg' class="blockimg" style="    width: calc(12vw - 100%);"/>
+                                            <p class="imgText">TEXT</p>
                                         </li>
                                     </ul>
                                 </div>
@@ -1150,10 +1172,10 @@
     </div>
    </div>
         <div class="bottom-cta-bar" id="editpreviewtemplatebottom">
-         <div class="bottom-cta-button-container col-inlineflex">
-             <div class="editemail fontpnr">Edit this Email Automation Action</div>   
-             <div class="mobileprev fontpnr" id="iphone" class="img-responsive ptr" onclick="show('iphone');">Mobile Preview</div>
-             <div class="add-action-button md-button button-text-1 paddingperfectbtn" type="button" ng-click="addUpdateRecuringAction()">save</div>
+         <div class="bottom-cta-button-container col-inlineflex col-1of1">
+             <div class="editemail fontpnr col-1of4">Edit this Email Automation Action</div>   
+             <div class="mobileprev fontpnr col-1of4" id="iphone" class="img-responsive ptr" onclick="show('iphone');">Mobile Preview</div>
+             <div class="add-action-button md-button button-text-1 paddingperfectbtn col-1of4" type="button" ng-click="addUpdateRecuringAction()">save</div>
          </div>
         </div>
         <!--</div>-->

@@ -1536,11 +1536,11 @@ textarea#filetext1 {
     }
     .fr-editheader{
         
-    top: 63px !important;
+    /*top: 63px !important;*/
     bottom: 23px !important;
     position: fixed;
     height: 39px;
-    width: 66%;
+    /*width: 66%;*/
     }
     .frhieght{
         margin-top: 4% !important;

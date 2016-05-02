@@ -462,7 +462,7 @@ public class CompanyMarketingProgramController {
         return "false";
     }
 
-    @RequestMapping(value = "/approveStatus", method = RequestMethod.POST)
+     @RequestMapping(value = "/approveStatus", method = RequestMethod.POST)
     public @ResponseBody
     String approveStatus(HttpServletRequest request,
             HttpServletResponse response) throws IOException, Throwable {
@@ -471,10 +471,10 @@ public class CompanyMarketingProgramController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
 
-            Double entity_id = (Double) requestBodyMap.get("entity_id");
+            Integer entity_id = Integer.parseInt((String)requestBodyMap.get("entity_id"));
             String template_status = (String) requestBodyMap.get("template_status");
 
-            ScheduledEntityList scheduled_entity_list = scheduledEntityListService.getEntityById(entity_id.intValue());
+            ScheduledEntityList scheduled_entity_list = scheduledEntityListService.getEntityById(entity_id);
 
             if (template_status.equalsIgnoreCase("approved")) {
                 scheduled_entity_list.setStatus(TemplateStatus.approved.toString());
