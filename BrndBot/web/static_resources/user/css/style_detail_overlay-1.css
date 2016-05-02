@@ -1522,7 +1522,8 @@ input-field-container{
     box-sizing: border-box;
     background-color: #F9FAFC;
     padding-right: 60px;
-    width: 100%;
+    width: 100%;  
+    padding-top: 1%;
     margin-top: 0%;
     margin-left: 0%;
     border-top: 1px solid #bbb;
@@ -1688,6 +1689,7 @@ input-field-container{
 .col-templatelist{
     width: 25%;
     margin-left: 4%;
+    margin-top: 2%;
 }
 .col-1of10{
     width:10%;

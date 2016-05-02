@@ -147,7 +147,7 @@
                 <div id="recurringtemplatediv">
                     <div class="below-nav-container-saved-post-detail emailcontentbordertop" >
                     <div class="inner-content-container-detail">
-                        <div class="saved-post-preview-detail" id="noemailsdiv" ng-show="recurring_template_status === 'No Template'">
+                        <div class="saved-post-preview-detail" id="noemailsdiv" ng-show="recurring_template_status == 'No Template'">
                             <!--SAVED Email GOES HERE-->
                             <div class="overlay-emptystate-icon">
                                 <img type="image/svg+xml" src="images/Overlay_EmptyStates_Email-Empty-State.svg" class="overlay-emptystate-icon"/>
@@ -157,7 +157,7 @@
                                     No emails saved to this action.
                                 </div>
                                 <!--<a class="link" href="">-->
-                                    <a href="emailautomation.jsp?type=template&program_id={{program_id}}&entity_id={{schedule_id}}">
+                                    <a href="emailautomation?type=template&program_id={{program_id}}&entity_id={{schedule_id}}">
                                         <div class="md-button empty-state-cta">
                                             Save an email to this action
                                         </div>
@@ -165,7 +165,7 @@
                                 <!--</a>-->
                             </div>
                         </div>
-                        <div class="below-nav-container-saved-post-detail fixingpos" id="savedemailsdiv" ng-show="recurring_template_status !== 'No Template'">
+                        <div class="below-nav-container-saved-post-detail fixingpos" id="savedemailsdiv" ng-show="recurring_template_status != 'No Template'">
                             <div class="inner-content-container-detail fleft">
                                 <div class="saved-post-header-detail1">
 
