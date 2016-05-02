@@ -859,9 +859,8 @@
                     emailSubject: email_subject
                     }),
                     success: function (responseText) {
-                        alert(JSON.stringify(responseText));
                         if (responseText != "0"){
-                        document.location.href = "emaillistselection?draftid=" + responseText + "&subject=" + email_subject;
+                        document.location.href = "emaillistselection?draftid=" + responseText + "&subject=" + email_subject+"&iframeName="+rendomIframeFilename;
                         } else 
                         {
                             alert("There was a problem while saving the draft! Please try again later.");
@@ -881,7 +880,7 @@
                         success: function (responseText) {
                             if (responseText == "true")
                             {
-                                document.location.href = "emaillistselection?draftid=" + draft_id + "&subject=" + email_subject;
+                                document.location.href = "emaillistselection?draftid=" + draft_id + "&subject=" + email_subject+"&iframeName="+rendomIframeFilename;
                             } else
                             {
                                 alert("There was a problem while saving the draft! Please try again later.");
