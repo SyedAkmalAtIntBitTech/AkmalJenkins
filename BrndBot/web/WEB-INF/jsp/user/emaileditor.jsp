@@ -781,7 +781,6 @@
     $("#saveToDraft").click(function (){
 //        $("#saveToDraft").unbind('click');
         var email_subject = $("#emailSubjectTag").val();
-        alert(email_subject);
         $.ajax({
             url: getHost() + "/email/previewServlet",
             method: "post",
@@ -790,7 +789,6 @@
                 iframeName: rendomIframeFilename.toString()
             }),
             success: function (responseText) {
-                alert(JSON.stringify(responseText)+"..");
                 $("#previewcontent").empty();
                 $("#previewcontent").append(responseText.d.details);
                 if (draft_id == "0"){
