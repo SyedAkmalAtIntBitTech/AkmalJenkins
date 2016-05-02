@@ -383,7 +383,7 @@ function onboardingcontroller($scope,$http) {
              $scope.pageSize = 10;
                 $http({
                         method : 'GET',
-                        url : getHost() +'/onboarding/getAllColorThemes.do'
+                        url : getHost() +'getAllColorThemes.do'
                 }).success(function(data, status, headers, config) {
                     
                     $scope.themeColors = data.d.details;
