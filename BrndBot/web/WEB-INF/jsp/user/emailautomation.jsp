@@ -403,7 +403,7 @@
 
                     $http({
                         method: 'POST',
-                        url: 'addupdateRecuringAction.do',
+                        url: getHost()+'addupdateRecuringAction.do',
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(recuring_action)
                     }).success(function (data, status, headers, config) {
@@ -541,23 +541,17 @@
                     contentType: 'application/json',
                     mimeType: 'application/json',
                     data: JSON.stringify(entity_details),
-                    success: function(entity_details){
-//                        alert(JSON.stringify(entity_details));                        
+                    success: function(entity_details){                   
                         $("#days").val(entity_details.recurring_email_days);
-//                        $("#emaillist :selected").option(result.recurring_email_email_list_name);
-//                        $('#emaillist option[value="'+result.recurring_email_email_list_name+'"]').attr("selected", "selected");
-        //                        $("#emaillist").val();
-                         $('#emaillist').find('option[value="' + entity_details.recurring_email_email_list_name + '"]').attr("selected", "selected");
+                        $("#emaillist option:contains("+entity_details.recurring_email_email_list_name+")").attr('selected', 'selected');
                         $("#subject").val(entity_details.recurring_email_subject);
                         $("#from_name").val(entity_details.recurring_email_from_name);
                         $("#reply_to_address").val(entity_details.recurring_email_reply_to_email_address);
                         $("#recuring_email_title").val(entity_details.recurring_email_title);
                         $("#recuring_email_description").val(entity_details.recurring_email_description);
-//                        $("#datepicker").val(entity_details.recurring_email_till_date);
                         var epochToTime = new Date(entity_details.recurring_email_time);
                          var recurring_email_time = moment(epochToTime).format('hh : mm : a');
-                        $("#timepicker1").val(recurring_email_time);
-                        $("#emaillist").change();                        
+                        $("#timepicker1").val(recurring_email_time);                        
                         angular.element(document.getElementById('emailautomation')).scope().setDateNTime(result.recurring_email_time, result.recurring_email_till_date, result.recurring_email_email_list_name);
                     },
                     error: function (error) {
