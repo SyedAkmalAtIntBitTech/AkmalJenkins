@@ -127,7 +127,7 @@ public class EmailModelServiceImpl implements EmailModelService {
         String responseHTML = "";
         try {
             EmailModel emailModel = getByEmailModelId(emailModelId);
-            String logo_url = hostURL + "DownloadImage?image_type=USER_LOGO&company_id=" + companyId + "&image_name=" + "logo.jpeg";
+            String logo_url = hostURL + "downloadImage?imageType=COMPANY_LOGO&companyId=" + companyId + "&imageName=" + AppConstants.COMPANY_LOGO_FILENAME;
             HashMap<String, String> colorHashmap = new HashMap();
             Company company = new Company(companyId);
             Map<String, String> dataMap = new HashMap<>();

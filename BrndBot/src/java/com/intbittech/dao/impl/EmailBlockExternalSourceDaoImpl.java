@@ -115,6 +115,7 @@ public class EmailBlockExternalSourceDaoImpl implements EmailBlockExternalSource
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(EmailBlockExternalSource.class)
                     .setFetchMode("fkEmailBlockId", FetchMode.JOIN)
+                    .setFetchMode("fkExternalSourceKeywordLookupId", FetchMode.JOIN)
                     .add(Restrictions.eq("fkEmailBlockId.emailBlockId", emailBlockId));
             if (criteria.list().isEmpty()) {
                 return null;

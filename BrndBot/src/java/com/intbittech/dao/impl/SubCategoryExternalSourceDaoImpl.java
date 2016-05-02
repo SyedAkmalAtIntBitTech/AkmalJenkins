@@ -140,10 +140,11 @@ public class SubCategoryExternalSourceDaoImpl implements SubCategoryExternalSour
     public EmailBlockExternalSource getBySubCategoryId(Integer subCategoryId) {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(SubCategoryExternalSource.class)
-                    .setFetchMode("fkSubCategoryId", FetchMode.JOIN)
-                    .createAlias("fkSubCategoryId.fkCategoryId", "aliasSubCatCat")
-                    .add(Restrictions.eq("aliasSubCatCat.sub_category_id", subCategoryId));;
+                   .createCriteria(SubCategoryExternalSource.class)
+                   .setFetchMode("fkSubCategoryId", FetchMode.JOIN)
+                   .setFetchMode("fkExternalSourceKeywordLookupId", FetchMode.JOIN)
+                   .add(Restrictions.eq("fkSubCategoryId.subCategoryId", subCategoryId));
+            
             if (criteria.list().isEmpty()) {
                 return null;
             }
