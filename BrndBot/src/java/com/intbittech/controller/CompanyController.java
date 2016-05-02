@@ -283,11 +283,19 @@ public class CompanyController {
                 emailBlockDetails.setEmailBlockId(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId());
                 emailBlockDetails.setEmailBlockName(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockName());
                 emailBlockDetails.setOrganizationId(organizationEmailBlockObject.getFkOrganizationId().getOrganizationId());
-                List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupService.getAllEmailBlockModel(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId());
-
-                if(emailBlockModelLookupList != null){
-                    EmailBlockModelLookup emailBlockModelLookup = emailBlockModelLookupList.get(0);
-                    emailBlockDetails.setEmailBlockModelLookupId(emailBlockModelLookup.getEmailBlockModelLookupId());
+                //This was wrong edit redoing to previous
+//                List<EmailBlockModelLookup> emailBlockModelLookupList = emailBlockModelLookupService.getAllEmailBlockModel(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId());
+//
+//                if(emailBlockModelLookupList != null){
+//                    EmailBlockModelLookup emailBlockModelLookup = emailBlockModelLookupList.get(0);
+//                    emailBlockDetails.setEmailBlockModelLookupId(emailBlockModelLookup.getEmailBlockModelLookupId());
+//                }
+                List<EmailBlockExternalSource> emailBlockExternalSourceList = emailBlockService.getAllEmailBlockExternalSource(organizationEmailBlockObject.getFkEmailBlockId().getEmailBlockId());
+                if(emailBlockExternalSourceList != null){
+                    EmailBlockExternalSource emailBlockExternalSourceObject = emailBlockExternalSourceList.get(0);
+                    emailBlockDetails.setExternalSourceName(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getFkExternalSourceId().getExternalSourceName());
+                    emailBlockDetails.setExternalSourceKeywordName(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getFkExternalSourceKeywordId().getExternalSourceKeywordName());
+                    emailBlockDetails.setExternalSourceKeywordLookupId(emailBlockExternalSourceObject.getFkExternalSourceKeywordLookupId().getExternalSourceKeywordLookupId());
                 }
                 emailBlockDetailsList.add(emailBlockDetails);
             }    
