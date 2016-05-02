@@ -8,7 +8,6 @@ package com.intbittech.dao.impl;
 import com.intbittech.dao.ForgotPasswordDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.ForgotPassword;
-import com.intbittech.model.Users;
 import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -68,7 +67,7 @@ public class ForgotPasswordDaoImpl implements ForgotPasswordDao {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(ForgotPassword.class)
-                    .add(Restrictions.eq("random_link", hashURL));
+                    .add(Restrictions.eq("randomLink", hashURL));
             if (criteria.list().isEmpty()) {
                 return null;
             }
