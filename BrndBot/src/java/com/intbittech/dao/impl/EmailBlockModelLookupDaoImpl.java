@@ -120,7 +120,7 @@ public class EmailBlockModelLookupDaoImpl implements EmailBlockModelLookupDao {
                     .createCriteria(EmailBlockModelLookup.class)
                     .setFetchMode("fkEmailBlockId", FetchMode.JOIN)
                     .setFetchMode("fkEmailBlockModelId", FetchMode.JOIN)
-                    .add(Restrictions.eq("fkEmailBlockId.email_block_id", emailModelId));
+                    .add(Restrictions.eq("emailBlockModelLookupId", emailModelId));
             if (criteria.list().isEmpty()) {
                 return null;
             }

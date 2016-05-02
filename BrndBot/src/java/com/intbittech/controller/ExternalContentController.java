@@ -150,7 +150,7 @@ public class ExternalContentController {
 
                 }
                 //Defensive code
-                if (externalKeywordId != null) {
+                if (externalKeywordId != null || externalKeywordId != 0) {
                     externalSourceKeywordLookup = externalSourceKeywordLookupService.getByExternalSourceKeywordLookupId(externalKeywordId);
                     String query = externalSourceKeywordLookup.getFkExternalSourceKeywordId().getExternalSourceKeywordName();
                     String keyname = externalContentProcessor.getExternalSourceMapKeyName(query);

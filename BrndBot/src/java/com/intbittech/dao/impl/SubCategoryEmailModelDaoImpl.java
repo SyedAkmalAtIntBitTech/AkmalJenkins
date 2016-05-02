@@ -116,6 +116,8 @@ public class SubCategoryEmailModelDaoImpl implements SubCategoryEmailModelDao {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(SubCategoryEmailModel.class)
+                    .setFetchMode("fkEmailModelId", FetchMode.JOIN)
+                    .setFetchMode("fkSubCategoryId", FetchMode.JOIN)
                     .add(Restrictions.eq("subCategoryEmailModelId", emailModelId));
             List<SubCategoryEmailModel> subCategoryEmailModelList = criteria.list();
             if (subCategoryEmailModelList.isEmpty()) {
