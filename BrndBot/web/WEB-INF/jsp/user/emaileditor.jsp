@@ -477,13 +477,13 @@
                 {
                     layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById.do?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId=null";
                 }
-//                alert("layout_mapper_url... "+layout_mapper_url);
+                alert("layout_mapper_url... "+layout_mapper_url);
                 
                  $.ajax({
                     method : 'GET',
                     url :layout_mapper_url
                     }).success(function(data, status, headers, config) {
-//                        alert(JSON.stringify(data)+" ...... show text121 ....");
+                        alert(JSON.stringify(data)+" ...... show text121 ....");
                             if (block_clicked === "false"){
                             var editorHtml = $('#edit').froalaEditor('html.get');
                                     if (editorHtml.contains('id="defaultblock1"')){
@@ -492,7 +492,7 @@
                                     editor.find("#defaultblock1").remove();
                                     editorHtml = editor.html();
                             }
-                            styleHtml = '<div id=defaultblock1 onclick="selecterBlockId(defaultblock1,0)">' + data.d.details.htmlData + '</div>';
+                            styleHtml = '<div id=defaultblock1 onclick="selecterBlockId(defaultblock1,0)">' + data.d.details.htmldata + '</div>';
                                     $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
     //                                                   $("#defaultblock1").empty().append(data.htmldata);
                             }
@@ -501,14 +501,14 @@
                                 if (editorHtml.contains('id="' + addblockid + '"')){
                                     var jHtmlObject = jQuery(editorHtml);
                                     var editor = jQuery("<p>").append(jHtmlObject);
-                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.d.details.htmlData + '</div>';
+                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.d.details.htmldata + '</div>';
                                     editor.find("#" + addblockid).replaceWith(BlockHtml);
                                     editorHtml = editor.html();
                                     $('#edit').froalaEditor('html.set', '' + editorHtml + '');
                                 }
                                 else
                                 {
-                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.d.details.htmlData + '</div>';
+                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.d.details.htmldata + '</div>';
                                     $('#edit').froalaEditor('html.set', '' + editorHtml + '' + BlockHtml + '');
                                 }
                             }
@@ -650,10 +650,10 @@
                      
                     $("#emailpreview").click(function(){              
                         $("#email_previewdiv").show();
-                        var sendData = {
+                        var sendData = JSON.stringify({
                                     htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                                    iframeName: rendomIframeFilename.toString()
-                                };
+                                    iframeName: rendomIframeFilenames.toString()
+                                });
                         $.ajax({
                                 url: getHost() + "/email/previewServlet.do",
                                 method: "POST",
@@ -785,16 +785,16 @@
                 iframeName: rendomIframeFilename.toString()
             }),
             success: function (responseText) {
-                alert(JSON.stringify(responseText.d.details)+"..");
+                alert(JSON.stringify(responseText)+"..");
                 $("#previewcontent").empty();
                 $("#previewcontent").append(responseText.d.details);
                 if (draft_id == "0"){
                 $.ajax({
-                url: getHost() + "/saveEmailDrafts.do",
+                url: getHost() + "saveEmailDrafts.do",
                         method: "post",
-                        data:{
+                        data:JSON.stringify({
                         bodyString : $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                        },
+                        }),
                         success: function (responseText) {
                         if (responseText != "0"){
                         alert("Draft saved successfully.");
@@ -817,7 +817,7 @@
                     success: function (responseText) {
                     if (responseText == "true"){
                     alert("Draft updated successfully.");
-                            document.location.href = "dashboard.jsp";
+                            document.location.href = "dashboard";
                     } else {
                     alert("There was a problem while saving the draft! Please try again later.");
                     }

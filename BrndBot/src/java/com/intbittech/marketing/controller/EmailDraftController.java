@@ -48,8 +48,7 @@ public class EmailDraftController {
     @RequestMapping(value = "/saveEmailDrafts", method = RequestMethod.POST)
     public @ResponseBody
     String saveEmailDrafts(HttpServletRequest request,
-            @RequestParam("bodyString") String bodyString,
-            HttpServletResponse response) throws IOException, Throwable {
+                    HttpServletResponse response) throws IOException, Throwable {
         try {
 
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
@@ -57,10 +56,10 @@ public class EmailDraftController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             String emailSubject = (String) requestBodyMap.get("email_subject");
-            String subCategoryName = (String) requestBodyMap.get("sub_category_name");
-            String subCategoryId = (String) requestBodyMap.get("sub_category_id");
-            String categoryId = (String) requestBodyMap.get("category_id");
-
+            String subCategoryName = "asdas";//(String) requestBodyMap.get("sub_category_name");
+            String subCategoryId = "0";//(String) requestBodyMap.get("sub_category_id");
+            String categoryId = "0";//(String) requestBodyMap.get("category_id");
+            String bodyString = (String) requestBodyMap.get("bodyString");
             EmailDraft email_draft = new EmailDraft();
             Date current_date = new Date();
 
