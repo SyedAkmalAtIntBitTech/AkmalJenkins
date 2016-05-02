@@ -83,7 +83,7 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
         try {
             CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
             JSONParser parser = new JSONParser();
-            JSONObject jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
+            org.json.JSONObject jsonObject = (org.json.JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
             JSONArray array = (JSONArray) jsonObject.get(IConstants.kColors);
             for (int i = 0; i < array.size(); i++) {
                 colorsArray.add((String) array.get(i));

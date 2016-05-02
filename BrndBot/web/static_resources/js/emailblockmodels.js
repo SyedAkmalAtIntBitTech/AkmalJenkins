@@ -197,7 +197,7 @@ function emailBlocksController($scope, $http, fileReader) {
         var htmlData = $("#edit").froalaEditor('html.get');
         var imgDataObj = getImageData();
          var imageDataMethod= $("#imageEditSrc").attr('src');
-        var emailBlockModel = {"emailBlockModelId":emailBlockModelId, "emailBlockModelName": emailBlockModelName, "htmlData": htmlData, "imageFileName": imgDataObj.imageFileName, "imageFileData": imageDataMethod};
+        var emailBlockModel = {"modelId":emailBlockModelId, "emailBlockModelName": emailBlockModelName, "htmlData": htmlData, "imageFileName": imgDataObj.imageFileName, "imageFileData": imageDataMethod};
         var validate = function () {
             if (emailBlockModelName === "") {
                 alert("Please enter Template Name!");

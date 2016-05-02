@@ -9,11 +9,13 @@ import com.divtohtml.ProcessHTML;
 import com.google.gson.reflect.TypeToken;
 import com.intbittech.AppConstants;
 import com.intbittech.controller.ModelController;
+import com.intbittech.dao.EmailBlockModelDao;
 import com.intbittech.dao.EmailModelDao;
 import com.intbittech.dao.SubCategoryEmailModelDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.model.Company;
+import com.intbittech.model.EmailBlockModel;
 import com.intbittech.model.EmailModel;
 import com.intbittech.model.ExternalSourceKeywordLookup;
 import com.intbittech.model.SubCategoryEmailModel;
@@ -48,6 +50,9 @@ public class EmailModelServiceImpl implements EmailModelService {
 
     @Autowired
     private CompanyPreferencesService companyPreferencesService;
+    
+    @Autowired
+    private EmailBlockModelDao emailBlockModelDao;
 
     @Autowired
     private ExternalSourceKeywordLookupService externalSourceKeywordLookupService;
@@ -123,10 +128,20 @@ public class EmailModelServiceImpl implements EmailModelService {
 
     //TODO Ilyas needs to check path.
     @Override
-    public String getLayoutEmail(Integer emailModelId, String hostURL, Integer companyId, ExternalSourceKeywordLookup externalSourceKeywordLookup, Integer externalDataId, Map<String, Object> data) {
+    public String getLayoutEmail(Boolean isBlock, Integer emailModelId, String hostURL, Integer companyId, ExternalSourceKeywordLookup externalSourceKeywordLookup, Integer externalDataId, Map<String, Object> data) {
         String responseHTML = "";
         try {
-            EmailModel emailModel = getByEmailModelId(emailModelId);
+            String dataHTML = "";
+            if(!isBlock)
+            {
+                EmailModel emailModel = getByEmailModelId(emailModelId);
+                dataHTML = emailModel.getHtmlData();
+            }
+            else
+            {
+                EmailBlockModel emailBlockModel = emailBlockModelDao.getByEmailBlockModelId(emailModelId);
+                dataHTML = emailBlockModel.getHtmlData();
+            }
             String logo_url = hostURL + "downloadImage?imageType=COMPANY_LOGO&companyId=" + companyId + "&imageName=" + AppConstants.COMPANY_LOGO_FILENAME;
             HashMap<String, String> colorHashmap = new HashMap();
             Company company = new Company(companyId);
@@ -146,7 +161,7 @@ public class EmailModelServiceImpl implements EmailModelService {
 
             String html = "";
             JSONObject htmljson = new JSONObject();
-            ProcessHTML mindbodyHtmlData = new ProcessHTML(emailModel.getHtmlData(), colorHashmap, dataMap, logo_url);
+            ProcessHTML mindbodyHtmlData = new ProcessHTML(dataHTML, colorHashmap, dataMap, logo_url);
             html = mindbodyHtmlData.processHTML();
 
             htmljson.put("htmldata", html);

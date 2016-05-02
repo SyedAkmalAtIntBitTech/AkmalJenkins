@@ -78,13 +78,13 @@ public class SubCategoryExternalSourceServiceImpl implements SubCategoryExternal
     }
 
     @Override
-    public EmailBlockExternalSource getBySubCategoryId(Integer subCategoryId) {
-        EmailBlockExternalSource emailBlockExternalSource = subCategoryExternalSourceDao.getBySubCategoryId(subCategoryId);
-        if (emailBlockExternalSource == null) {
+    public SubCategoryExternalSource getBySubCategoryId(Integer subCategoryId) {
+        SubCategoryExternalSource subCategoryExternalSource = subCategoryExternalSourceDao.getBySubCategoryId(subCategoryId);
+        if (subCategoryExternalSource == null) {
             throw new ProcessFailed(messageSource.getMessage("subCategoryExternalSource_not_found", new String[]{}, Locale.US));
         }
 
-        return emailBlockExternalSource;
+        return subCategoryExternalSource;
     }
 
 }

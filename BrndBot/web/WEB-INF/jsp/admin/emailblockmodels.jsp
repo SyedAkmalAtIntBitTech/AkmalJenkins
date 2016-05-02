@@ -32,7 +32,7 @@
                     
                     
                     <div class="listCol col1of2 fleft">
-                        <a href="${pageContext.request.contextPath}/admin/editemailblockmodels?edit=yes&emailBlockModelId={{emailblocks.emailBlockModelId}}"><div class="CTA_Button Button--Gray fright">VIEW/EDIT</div></a>
+                        <a href="${pageContext.request.contextPath}/admin/editemailblockmodels?edit=yes&emailBlockModelId={{emailblocks.modelId}}"><div class="CTA_Button Button--Gray fright">VIEW/EDIT</div></a>
 
                     </div>
                 </li>                

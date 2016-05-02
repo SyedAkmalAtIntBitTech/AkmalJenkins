@@ -973,8 +973,8 @@ function organizationcontroller($scope, $http) {
         var emailBlockId = $("#emailBlockId").val();
         var organizationId = $("#organizationIdTag").val();
         var marketingCategoryId = $("#marketingCategoryId").val();
-        var emailBlockModelId = eval(JSON.stringify(emailBlockModel.emailBlockModelId));
-        var blockEmailTemplate = {"emailBlockModelId": emailBlockModelId, "emailBlockId": emailBlockId}
+        var emailBlockModelId = eval(JSON.stringify(emailBlockModel.modelId));
+        var blockEmailTemplate = {"modelId": emailBlockModelId, "emailBlockId": emailBlockId}
 
         $.ajax({
             method: 'POST',

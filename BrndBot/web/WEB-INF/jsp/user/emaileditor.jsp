@@ -195,7 +195,7 @@
                 success: function (data) {
 //                    alert(JSON.stringify(data));
                     var blockList=data.d.details.reverse();
-                    var emailModelId=blockList[0].subCategoryEmailModelId;
+                    var emailModelId=blockList[0].modelId;
                     showText(emailModelId);
                     angular.element(document.getElementById('MyController')).scope().getEmailDrafts();
 //                    $('#edit').froalaEditor('html.insert','<div id=defaultblock1 onclick=selecterBlockId(defaultblock1,temp_block_id);></div>"', true);
@@ -270,13 +270,13 @@
                             {
                                 queryurl = getHost() +'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId;
                             }
-//                            alert("blockIdSelected "+blockIdSelected);
+//                            alert("queryurl "+queryurl);
                             $http({
                             method : 'GET',
                                     url :  queryurl
                             }).success(function(data, status, headers, config) {
                             $scope.datalistsstyles = data.d.details;
-                            alert(JSON.stringify(data.d.details)+"...style...");
+                            alert("queryurl "+queryurl+"......................\n"+JSON.stringify(data.d.details)+"...style...");
                             $scope.numberOfPages = function() {
                                 return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
                             };
@@ -421,7 +421,7 @@
 //                                    i++;
 //                                });
 //                            });
-                            temp_style_id = data.d.details[0].emailBlockModelId;
+                            temp_style_id = data.d.details[0].emailBlockModelLookupId;
 //                            temp_style_layout = allLayoutFilename[1];  
                             //$("#" + id).attr('onclick', "showSomething('" + id + "','" + allLayoutFilename[0] + "','" + allLayoutFilename[1] + "','" + mind_body_query + "')");
 //                           alert("smtng...block id.."+temp_block_id);
@@ -532,13 +532,14 @@
                 $("#" + block_id_temp).addClass('border-highlight');
                 $('#continueblock').prop('disabled', false);
             }
+            
             function showText(id){
                 var layout_mapper_url = "";
                 if (block_clicked == "true"){
                     currentBlockID = temp_block_id;
                     currentMindbodyQuery = temp_mind_body_query;
                 }   
-    //            alert("emailModelId.. "+id+" block_clicked.. "+block_clicked+" mindbodydataId.. "+mindbodydataId)
+                alert("emailModelId.. "+id+" block_clicked.. "+block_clicked+" mindbodydataId.. "+mindbodydataId)
                 if ((mindbodydataId != "") && (mindbodydataId != "0") && (typeof (mindbodydataId) !== "undefined")){
                     layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById.do?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId="+mindbodydataId;
                 } 
@@ -546,13 +547,13 @@
                 {
                     layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById.do?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId=null";
                 }
-                alert("layout_mapper_url... "+layout_mapper_url);
+//                alert("layout_mapper_url... "+layout_mapper_url);
                 
                  $.ajax({
                     method : 'GET',
                     url :layout_mapper_url
                     }).success(function(data, status, headers, config) {
-                        alert(JSON.stringify(data)+" ...... show text ....");
+                        alert(JSON.stringify(data)+" ...... show text121 ....");
                             if (block_clicked === "false"){
                             var editorHtml = $('#edit').froalaEditor('html.get');
                                     if (editorHtml.contains('id="defaultblock1"')){
@@ -561,7 +562,7 @@
                                     editor.find("#defaultblock1").remove();
                                     editorHtml = editor.html();
                             }
-                            styleHtml = '<div id=defaultblock1 onclick="selecterBlockId(defaultblock1,0)">' + data.d.details.htmldata + '</div>';
+                            styleHtml = '<div id=defaultblock1 onclick="selecterBlockId(defaultblock1,0)">' + data.d.details.htmlData + '</div>';
                                     $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
     //                                                   $("#defaultblock1").empty().append(data.htmldata);
                             }
@@ -570,14 +571,14 @@
                                 if (editorHtml.contains('id="' + addblockid + '"')){
                                     var jHtmlObject = jQuery(editorHtml);
                                     var editor = jQuery("<p>").append(jHtmlObject);
-                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.d.details.htmldata + '</div>';
+                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.d.details.htmlData + '</div>';
                                     editor.find("#" + addblockid).replaceWith(BlockHtml);
                                     editorHtml = editor.html();
                                     $('#edit').froalaEditor('html.set', '' + editorHtml + '');
                                 }
                                 else
                                 {
-                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.d.details.htmldata + '</div>';
+                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.d.details.htmlData + '</div>';
                                     $('#edit').froalaEditor('html.set', '' + editorHtml + '' + BlockHtml + '');
                                 }
                             }
@@ -962,16 +963,16 @@
                             <div class="block-name">Header Block</div>
                             <div class="block-button" ng-click="showDataTemp()">Add Block</div>                            
                         </li>-->
-                        <li class="block-slat" ng-repeat="blocks in datalists" id="{{blocks.emailBlockModelLookupId}}" ng-click="showImageOfBlock(blocks.emailBlockModelLookupId, blocks.externalSourceKeywordLookupId)">
-                            <div class="block-name" id="blklist----{{blocks.emailBlockModelLookupId}}" >{{blocks.emailBlockName}}</div>                            
-                            <div class="block-button hide" ng-click="showDataTemp(blocks.emailBlockModelLookupId)" id="div2{{blocks.emailBlockModelLookupId}}">Add Block</div>
+                        <li class="block-slat" ng-repeat="blocks in datalists" id="{{blocks.emailBlockId}}" ng-click="showImageOfBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)">
+                            <div class="block-name" id="blklist----{{blocks.emailBlockId}}" >{{blocks.emailBlockName}}</div>                            
+                            <div class="block-button hide" ng-click="showDataTemp(blocks.emailBlockId)" id="div2{{blocks.emailBlockId}}">Add Block</div>
                         </li>
                     </ul>
                     
                     <ul class="block-list" id="stylediv">
-                        <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.subCategoryEmailModelId}}" ng-click="addActive('stylelistid'+styles.subCategoryEmailModelId)">
+                        <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.modelId}}" ng-click="addActive('stylelistid'+styles.modelId)">
                             <div class="block-name">
-                                <img id="{{styles.subCategoryEmailModelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" onclick="showText('{{styles.subCategoryEmailModelId}}')" width="100%" />
+                                <img id="{{styles.modelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" onclick="showText('{{styles.modelId}}')" width="100%" />
                             </div>
                         </li>
                     </ul>

@@ -43,7 +43,7 @@ String subCategoryID=request.getParameter("subCategoryId");
                         <span class="listCol_Text fleft">{{emailModel.emailModelName}}</span>
                     </div>
                     <div class="listCol col1of4 fright" >
-                        <div class="CTA_Button Button--Gray fright" ng-click="deleteSubCategoryEmailModel(emailModel.subCategoryEmailModelId)">Remove Template</div>
+                        <div class="CTA_Button Button--Gray fright" ng-click="deleteSubCategoryEmailModel(emailModel.modelId)">Remove Template</div>
                     </div>
                 </li>
                 <li class="listItem" ng-show="emailModels==null">

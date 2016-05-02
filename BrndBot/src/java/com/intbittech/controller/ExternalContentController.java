@@ -14,6 +14,7 @@ import com.intbittech.model.EmailBlockExternalSource;
 import com.intbittech.model.EmailBlockModelLookup;
 import com.intbittech.model.ExternalSourceKeywordLookup;
 import com.intbittech.model.SubCategoryEmailModel;
+import com.intbittech.model.SubCategoryExternalSource;
 import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
@@ -118,7 +119,7 @@ public class ExternalContentController {
     }
 
     @RequestMapping(value = "/getLayoutEmailModelById", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ContainerResponse> getLayoutEmailModelById(@RequestParam("emailModelId") Integer emailModelId,
+    public ResponseEntity<ContainerResponse> getLayoutEmailModelById(@RequestParam("emailModelId") Integer modelId,
             @RequestParam("isBlock") Boolean isBlock,
             @RequestParam("externalDataId") Integer externalDataId,
             HttpServletRequest request, HttpServletResponse response) {
@@ -131,22 +132,33 @@ public class ExternalContentController {
             ExternalSourceKeywordLookup externalSourceKeywordLookup = null;
             externalContentProcessor = new ExternalContentProcessor(companyId);
             Integer externalKeywordId = null;
+            Integer emailOrBlockModel = 0;
+            Integer blockOrSubcategoryId = 0;
+            if (isBlock) {
+                EmailBlockModelLookup emailBlockModelLookup = emailBlockModelLookupService.getByEmailModelId(modelId);
+                emailOrBlockModel = emailBlockModelLookup.getFkEmailBlockModelId().getEmailBlockModelId();
+                blockOrSubcategoryId = emailBlockModelLookup.getFkEmailBlockId().getEmailBlockId();
+            } else {
+                SubCategoryEmailModel subCategoryEmailModel = subCategoryEmailModelService.getBySubCategoryEmailModelId(modelId);
+                emailOrBlockModel = subCategoryEmailModel.getFkEmailModelId().getEmailModelId();
+                blockOrSubcategoryId = subCategoryEmailModel.getFkSubCategoryId().getSubCategoryId();
+            }
             if (externalDataId != 0) {
                 if (isBlock) {
                     //Now emailModelId is actually email_block_model_lookup_id 
                     //get email_block_id from email_block_model_lookup then 
                     //get external_source_keyword_lookup_id from email_block_external_source
-                    EmailBlockModelLookup emailBlockModelLookup = emailBlockModelLookupService.getByEmailModelId(emailModelId);
-                    EmailBlockExternalSource emailBlockExternalSource = emailBlockExternalSourceService.getByEmailBlockId(emailBlockModelLookup.getFkEmailBlockId().getEmailBlockId());
+//                    EmailBlockModelLookup emailBlockModelLookup = emailBlockModelLookupService.getByEmailModelId(modelId);
+                    EmailBlockExternalSource emailBlockExternalSource = emailBlockExternalSourceService.getByEmailBlockId(blockOrSubcategoryId);
                     externalKeywordId = emailBlockExternalSource.getFkExternalSourceKeywordLookupId().getExternalSourceKeywordLookupId();
 
                 } else {
                     //Now emailModelId is actually sub_caterogy_email_model_id
                     //get sub_caterogy_id from sub_caterogy_email_model 
                     //get external_source_keyword_lookup_id from sub_caterogy_external_source
-                    SubCategoryEmailModel subCategoryEmailModel = subCategoryEmailModelService.getBySubCategoryEmailModelId(emailModelId);
-                    EmailBlockExternalSource emailBlockExternalSource = subCategoryExternalSourceService.getBySubCategoryId(subCategoryEmailModel.getFkSubCategoryId().getSubCategoryId());
-                    externalKeywordId = emailBlockExternalSource.getFkExternalSourceKeywordLookupId().getExternalSourceKeywordLookupId();
+//                    SubCategoryEmailModel subCategoryEmailModel = subCategoryEmailModelService.getBySubCategoryEmailModelId(modelId);
+                    SubCategoryExternalSource subCategoryExternalSource = subCategoryExternalSourceService.getBySubCategoryId(blockOrSubcategoryId);
+                    externalKeywordId = subCategoryExternalSource.getFkExternalSourceKeywordLookupId().getExternalSourceKeywordLookupId();
 
                 }
                 //Defensive code
@@ -158,7 +170,7 @@ public class ExternalContentController {
                 }
 
             }
-            String html = emailModelService.getLayoutEmail(emailModelId, hostURL, companyId, externalSourceKeywordLookup, externalDataId, data);
+            String html = emailModelService.getLayoutEmail(isBlock,emailOrBlockModel, hostURL, companyId, externalSourceKeywordLookup, externalDataId, data);
             genericResponse.addDetail(html);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Email template retrieved successfully."));
         } catch (Throwable throwable) {
