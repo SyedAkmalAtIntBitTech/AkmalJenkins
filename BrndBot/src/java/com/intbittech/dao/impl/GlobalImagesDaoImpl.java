@@ -7,7 +7,6 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.GlobalImagesDao;
 import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.GlobalColors;
 import com.intbittech.model.GlobalImages;
 import java.util.List;
 import java.util.Locale;
