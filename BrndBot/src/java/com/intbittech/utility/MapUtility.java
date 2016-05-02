@@ -5,6 +5,7 @@
  */
 package com.intbittech.utility;
 
+import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,4 +24,13 @@ public class MapUtility {
         return true;
     }
 
+    public static Map<String, String> convertObjectToStringMap(Map<String, Object> objectMap) {
+        Map<String, String> newMap = new HashMap<String, String>();
+        for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+            if (entry.getValue() instanceof String) {
+                newMap.put(entry.getKey(), (String) entry.getValue());
+            }
+        }
+        return newMap;
+    }
 }

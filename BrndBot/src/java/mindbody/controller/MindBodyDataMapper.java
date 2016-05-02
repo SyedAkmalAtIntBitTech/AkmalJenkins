@@ -6,6 +6,7 @@
 package mindbody.controller;
 
 import com.divtohtml.StringUtil;
+import com.intbittech.utility.MapUtility;
 import com.mindbodyonline.clients.api._0_5Class.Class;
 import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import com.mindbodyonline.clients.api._0_5Class.Program;
@@ -17,6 +18,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBElement;
@@ -522,28 +525,28 @@ public class MindBodyDataMapper {
         return json_mindbody_staff_data;
     }
 
-    public static JSONObject mapStaffDataRaw(com.mindbodyonline.clients.api._0_5Staff.Staff mindbody_staff) {
-        JSONObject json_mindbody_staff_data = new JSONObject();
+    public static Map<String, String> mapStaffDataRaw(com.mindbodyonline.clients.api._0_5Staff.Staff mindbody_staff) {
+        Map<String, Object> mapData = new HashMap<>();
 
         try {
             if (mindbody_staff != null) {
 
                 if (mindbody_staff.getName() != null) {
-                    json_mindbody_staff_data.put("name", mindbody_staff.getName());
+                    mapData.put("name", mindbody_staff.getName());
                 }
 
                 if (mindbody_staff.getImageURL() != null) {
-                    json_mindbody_staff_data.put("imageurl", mindbody_staff.getImageURL());
+                    mapData.put("imageurl", mindbody_staff.getImageURL());
                 }
                 if (!StringUtil.isEmpty(mindbody_staff.getBio())) {
-                    json_mindbody_staff_data.put("bio", Jsoup.parse(mindbody_staff.getBio()).text());
+                    mapData.put("bio", Jsoup.parse(mindbody_staff.getBio()).text());
                 }
                 if (mindbody_staff.getEmail() != null) {
-                    json_mindbody_staff_data.put("email", Jsoup.parse(mindbody_staff.getEmail()).text());
+                    mapData.put("email", Jsoup.parse(mindbody_staff.getEmail()).text());
                 }
 
                 if (mindbody_staff.getMobilePhone() != null) {
-                    json_mindbody_staff_data.put("mobilephone", mindbody_staff.getMobilePhone());
+                    mapData.put("mobilephone", mindbody_staff.getMobilePhone());
                 }
             }
         } catch (Throwable t) {
@@ -551,33 +554,33 @@ public class MindBodyDataMapper {
         }
         //System.exit (0);        
 
-        return json_mindbody_staff_data;
+        return MapUtility.convertObjectToStringMap(mapData);
     }
 
-    public static JSONObject mapEnrollmentDataRaw(ClassSchedule mindbody_enrollments) {
-        JSONObject json_mindbody_enrollment_data = new JSONObject();
+    public static Map<String, String> mapEnrollmentDataRaw(ClassSchedule mindbody_enrollments) {
+        Map<String, Object> mapData = new HashMap<>();
         try {
             if (mindbody_enrollments != null) {
                 if (mindbody_enrollments.getID().getValue() != null) {
-                    json_mindbody_enrollment_data.put("enrollmentid", mindbody_enrollments.getID().getValue());
+                    mapData.put("enrollmentid", mindbody_enrollments.getID().getValue());
                 }
 
                 if (mindbody_enrollments.getClassDescription().getName() != null) {
-                    json_mindbody_enrollment_data.put("enrollmentname", Jsoup.parse(mindbody_enrollments.getClassDescription().getName()).text());
+                    mapData.put("enrollmentname", Jsoup.parse(mindbody_enrollments.getClassDescription().getName()).text());
                 }
 
                 if (mindbody_enrollments.getClassDescription().getDescription() != null) {
-                    json_mindbody_enrollment_data.put("enrollmentdescription", Jsoup.parse(mindbody_enrollments.getClassDescription().getDescription()).text());
+                    mapData.put("enrollmentdescription", Jsoup.parse(mindbody_enrollments.getClassDescription().getDescription()).text());
                 }
 
                 Program program = mindbody_enrollments.getClassDescription().getProgram();
 
                 if (program.getName() != null) {
-                    json_mindbody_enrollment_data.put("enrollmentprogramname", Jsoup.parse(program.getName()).text());
+                    mapData.put("enrollmentprogramname", Jsoup.parse(program.getName()).text());
                 }
 
                 if (mindbody_enrollments.getClassDescription().getImageURL() != null) {
-                    json_mindbody_enrollment_data.put("enrollmentimageurl", mindbody_enrollments.getClassDescription().getImageURL());
+                    mapData.put("enrollmentimageurl", mindbody_enrollments.getClassDescription().getImageURL());
                 }
 
                 JAXBElement<XMLGregorianCalendar> jcalendarStartDate = mindbody_enrollments.getStartDate();
@@ -588,7 +591,7 @@ public class MindBodyDataMapper {
 
                 Date combinedStartDate = combineDateTime(xmlcalendarStartDate, xmlcalendarStartTime);
                 if (combinedStartDate != null) {
-                    json_mindbody_enrollment_data.put("enrollmentstartdatetime", combinedStartDate);
+                    mapData.put("enrollmentstartdatetime", combinedStartDate);
                 }
 
                 JAXBElement<XMLGregorianCalendar> jcalendarEndDate = mindbody_enrollments.getEndDate();
@@ -599,7 +602,7 @@ public class MindBodyDataMapper {
 
                 Date combinedEndDate = combineDateTime(xmlcalendarEndDate, xmlcalendarEndTime);
                 if (combinedEndDate != null) {
-                    json_mindbody_enrollment_data.put("enrollmentenddatetime", combinedEndDate);
+                    mapData.put("enrollmentenddatetime", combinedEndDate);
                 }
 
                 Staff staff = mindbody_enrollments.getStaff();
@@ -609,7 +612,7 @@ public class MindBodyDataMapper {
                 String Name = First_name + " " + Last_name;
 
                 if (Name != null) {
-                    json_mindbody_enrollment_data.put("staffname", Name);
+                    mapData.put("staffname", Name);
                 }
 
             }//end of for loop with s var
@@ -618,33 +621,33 @@ public class MindBodyDataMapper {
         }
         //System.exit (0);        
 
-        return json_mindbody_enrollment_data;
+        return MapUtility.convertObjectToStringMap(mapData);
     }
 
-    public static JSONObject mapClassDataRaw(Class mindbody_class) throws JSONException {
-        JSONObject json_mindbody_class_data = new JSONObject();
+    public static Map<String, String> mapClassDataRaw(Class mindbody_class) throws JSONException {
+        Map<String, Object> map_mindbody_class_data = new HashMap<>();
 
         try {
             if (mindbody_class != null) {
 
                 if (mindbody_class.getID().getValue() != null) {
-                    json_mindbody_class_data.put("classid", mindbody_class.getID().getValue());
+                    map_mindbody_class_data.put("classid", mindbody_class.getID().getValue());
                 }
 
                 if (mindbody_class.getClassDescription().getName() != null) {
 
-                    json_mindbody_class_data.put("classname", Jsoup.parse(mindbody_class.getClassDescription().getName()).text());
+                    map_mindbody_class_data.put("classname", Jsoup.parse(mindbody_class.getClassDescription().getName()).text());
                 }
                 if (mindbody_class.getClassDescription().getDescription() != null) {
-                    json_mindbody_class_data.put("classdescription", Jsoup.parse(mindbody_class.getClassDescription().getDescription()).text());
+                    map_mindbody_class_data.put("classdescription", Jsoup.parse(mindbody_class.getClassDescription().getDescription()).text());
                 }
                 Program program = mindbody_class.getClassDescription().getProgram();
 
                 if (program.getName() != null) {
-                    json_mindbody_class_data.put("classprogramname", Jsoup.parse(program.getName()).text());
+                    map_mindbody_class_data.put("classprogramname", Jsoup.parse(program.getName()).text());
                 }
                 if (mindbody_class.getClassDescription().getImageURL() != null) {
-                    json_mindbody_class_data.put("classimageurl", mindbody_class.getClassDescription().getImageURL());
+                    map_mindbody_class_data.put("classimageurl", mindbody_class.getClassDescription().getImageURL());
                 }
                 JAXBElement<XMLGregorianCalendar> calendarStart = mindbody_class.getStartDateTime();
 
@@ -653,7 +656,7 @@ public class MindBodyDataMapper {
                 if (calendarStartDateTime != null) {
                     Date date = parseMindBodyDateToDate(calendarStartDateTime.toString());
 
-                    json_mindbody_class_data.put("classstartdatetime", date);
+                    map_mindbody_class_data.put("classstartdatetime", date);
                 }
                 Staff staff = mindbody_class.getStaff();
 
@@ -662,7 +665,7 @@ public class MindBodyDataMapper {
                 String Name = First_name + " " + Last_name;
 
                 if (Name != null) {
-                    json_mindbody_class_data.put("staffname", Jsoup.parse(Name).text());
+                    map_mindbody_class_data.put("staffname", Jsoup.parse(Name).text());
                 }
 
                 JAXBElement<XMLGregorianCalendar> calendarEnd = mindbody_class.getEndDateTime();
@@ -671,15 +674,15 @@ public class MindBodyDataMapper {
 
                 if (calendarEndDateTime != null) {
                     Date date = parseMindBodyDateToDate(calendarEndDateTime.toString());
-                    json_mindbody_class_data.put("classenddatetime", date);
+                    map_mindbody_class_data.put("classenddatetime", date);
                 }
 
             }
         } catch (Throwable t) {
         }
         //System.exit (0);        
+        return MapUtility.convertObjectToStringMap(map_mindbody_class_data);
 
-        return json_mindbody_class_data;
     }
 
     private static Date toDate(XMLGregorianCalendar calendar) {

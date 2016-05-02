@@ -64,7 +64,7 @@ public interface SubCategoryExternalSourceService {
      */
     public void delete(Integer subCategoryExternalSourceId) throws ProcessFailed;
 
-    public EmailBlockExternalSource getBySubCategoryId(Integer subCategoryId);
+    public SubCategoryExternalSource getBySubCategoryId(Integer subCategoryId);
     
     
     

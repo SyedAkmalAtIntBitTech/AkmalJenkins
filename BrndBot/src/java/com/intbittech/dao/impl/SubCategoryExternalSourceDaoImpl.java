@@ -137,7 +137,7 @@ public class SubCategoryExternalSourceDaoImpl implements SubCategoryExternalSour
     }
 
     @Override
-    public EmailBlockExternalSource getBySubCategoryId(Integer subCategoryId) {
+    public SubCategoryExternalSource getBySubCategoryId(Integer subCategoryId) {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                    .createCriteria(SubCategoryExternalSource.class)
@@ -148,7 +148,7 @@ public class SubCategoryExternalSourceDaoImpl implements SubCategoryExternalSour
             if (criteria.list().isEmpty()) {
                 return null;
             }
-            return (EmailBlockExternalSource) criteria.list().get(0);
+            return (SubCategoryExternalSource) criteria.list().get(0);
 
         } catch (Throwable throwable) {
             logger.error(throwable);

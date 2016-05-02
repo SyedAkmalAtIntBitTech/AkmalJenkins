@@ -16,7 +16,7 @@ public class EmailBlockModelDetails implements Serializable{
     private Integer emailBlockModelLookupId;
     private Integer emailBlockId;
     private String emailBlockName;
-    private Integer emailBlockModelId;
+    private Integer modelId;
     private String emailBlockModelName;
     private String imageFileName;
     private String imageFileData;
@@ -46,12 +46,12 @@ public class EmailBlockModelDetails implements Serializable{
         this.emailBlockName = emailBlockName;
     }
 
-    public Integer getEmailBlockModelId() {
-        return emailBlockModelId;
+    public Integer getModelId() {
+        return modelId;
     }
 
-    public void setEmailBlockModelId(Integer emailBlockModelId) {
-        this.emailBlockModelId = emailBlockModelId;
+    public void setModelId(Integer modelId) {
+        this.modelId = modelId;
     }
 
     public String getEmailBlockModelName() {
