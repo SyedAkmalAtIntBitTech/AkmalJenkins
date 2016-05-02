@@ -392,7 +392,8 @@
                     };
                     
                     $scope.showImageOfBlock = function(id, mind_body_query){
-                        
+                        alert(id);
+                        alert(mind_body_query);
                         $(".block-button").addClass("hide");
                         $("#blockdiv li").removeClass("block-slat-active");
                         $("#blockdiv li").addClass("block-slat");
@@ -434,7 +435,7 @@
                      };
                     
                     $scope.showDataTemp = function(id){
-//                        alert(temp_block_id+" temp_mind_body_query .."+temp_mind_body_query);
+                        alert(temp_block_id+" temp_mind_body_query .."+temp_mind_body_query);
                         $scope.showData(temp_block_id, temp_mind_body_query);
                         $("#blockdivheader").hide();
                         $("#styledivheader").show();
@@ -947,7 +948,7 @@
                         </div>
                     </div>
                     <div class="col-1of2 fleft">
-                        <div class="emailSideBar-tab" id="styletab" ng-init="showStyles()">
+                        <div class="emailSideBar-tab" id="styletab" ng-init="showStyles()" ng-click="showStyles()">
                          Change Style
                         </div>
                     </div> 
