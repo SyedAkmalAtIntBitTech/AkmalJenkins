@@ -462,7 +462,7 @@ public class CompanyMarketingProgramController {
         return "false";
     }
 
-    @RequestMapping(value = "/approveStatus", method = RequestMethod.POST)
+     @RequestMapping(value = "/approveStatus", method = RequestMethod.POST)
     public @ResponseBody
     String approveStatus(HttpServletRequest request,
             HttpServletResponse response) throws IOException, Throwable {

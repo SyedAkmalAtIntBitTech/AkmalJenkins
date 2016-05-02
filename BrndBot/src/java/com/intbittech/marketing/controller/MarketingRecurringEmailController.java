@@ -7,7 +7,7 @@ package com.intbittech.marketing.controller;
 
 import com.controller.IConstants;
 import com.controller.SqlMethods;
-import com.intbit.AppConstants;
+import com.intbittech.AppConstants;
 import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
 import com.intbittech.marketing.service.ScheduledEmailListService;
@@ -188,12 +188,11 @@ public class MarketingRecurringEmailController {
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             SqlMethods sql_methods = new SqlMethods();
             
-            sql_methods.session = request.getSession(true);
-            Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
 
-            org.json.simple.JSONObject json_user_preferences = sql_methods.getJSONUserPreferences(user_id);
+            org.json.simple.JSONObject json_company_preferences = sql_methods.getJSONCompanyPreferences(companyId);
             
-            org.json.simple.JSONObject json_object_email_settings = (org.json.simple.JSONObject)json_user_preferences.get(IConstants.kEmailSettings);
+            org.json.simple.JSONObject json_object_email_settings = (org.json.simple.JSONObject)json_company_preferences.get(IConstants.kEmailSettings);
 
             Double entity_id = (Double)requestBodyMap.get("entity_id");
             String days = (String)requestBodyMap.get("days");
@@ -245,8 +244,7 @@ public class MarketingRecurringEmailController {
                 = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
         SqlMethods sql_methods = new SqlMethods();
 
-        sql_methods.session = request.getSession(true);
-        Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             
         String days = (String)requestBodyMap.get("days");
         String emaillist = (String)requestBodyMap.get("emaillist");
@@ -279,7 +277,7 @@ public class MarketingRecurringEmailController {
         company.setCompanyId(userProfile.getUser().getFkCompanyId().getCompanyId());
         schedule_email_list.setFkCompanyId(company);
         schedule_email_list.setEmailListName(emaillist);
-        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(user_id);
+        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(companyId);
         
         if (jsonFromAddress != null){
             schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
@@ -295,11 +293,11 @@ public class MarketingRecurringEmailController {
 
         ScheduledEntityList schedule_entity_list = new ScheduledEntityList();
         
-        schedule_entity_list.setScheduledEntityListId(0);
+//        schedule_entity_list.setScheduledEntityListId(0);
         schedule_entity_list.setEntityId(email_list_id);
         schedule_entity_list.setEntityType(ScheduledEntityType.Email.toString());
         schedule_entity_list.setIsRecurring(Boolean.TRUE);
-        schedule_entity_list.setFkRecurringEmailId(null);
+//        schedule_entity_list.setFkRecurringEmailId(null);
         schedule_entity_list.setScheduleDesc(recurring_email_description);
         schedule_entity_list.setScheduleTime(time);
         schedule_entity_list.setScheduleTitle(recurring_email_title);
@@ -329,8 +327,7 @@ public class MarketingRecurringEmailController {
                 = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
         SqlMethods sql_methods = new SqlMethods();
 
-        sql_methods.session = request.getSession(true);
-        Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             
         String entity_id = (String)requestBodyMap.get("entity_id");
         String days = (String)requestBodyMap.get("days");
@@ -363,7 +360,7 @@ public class MarketingRecurringEmailController {
     
         schedule_email_list.setFkCompanyId(userProfile.getUser().getFkCompanyId());
         schedule_email_list.setEmailListName(emaillist);
-        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(user_id);
+        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(companyId);
         
         if (jsonFromAddress != null){
             schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
@@ -415,8 +412,7 @@ public class MarketingRecurringEmailController {
                 = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
         SqlMethods sql_methods = new SqlMethods();
 
-        sql_methods.session = request.getSession(true);
-        Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
+        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             
         String entity_id = (String)requestBodyMap.get("entity_id");
         String days = (String)requestBodyMap.get("days");
@@ -482,7 +478,7 @@ public class MarketingRecurringEmailController {
       
         schedule_email_list.setEmailListName(emaillist);
         schedule_email_list.setBody(html_data);
-        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(user_id);
+        org.json.simple.JSONObject jsonFromAddress = (org.json.simple.JSONObject)getFromAddress(companyId);
         
         if (jsonFromAddress != null){
             schedule_email_list.setFromAddress(jsonFromAddress.get(IConstants.kEmailFromAddress).toString());
@@ -504,14 +500,14 @@ public class MarketingRecurringEmailController {
         return "true";
     }
 
-    public org.json.simple.JSONObject getFromAddress(Integer user_id){
+    public org.json.simple.JSONObject getFromAddress(Integer companyId){
         try{
 
             SqlMethods sql_methods = new SqlMethods();
 
-            org.json.simple.JSONObject json_user_preferences = sql_methods.getJSONUserPreferences(user_id);
+            org.json.simple.JSONObject json_company_preferences = sql_methods.getJSONCompanyPreferences(companyId);
 
-            org.json.simple.JSONObject json_object_email_settings = (org.json.simple.JSONObject)json_user_preferences.get(IConstants.kEmailSettings);
+            org.json.simple.JSONObject json_object_email_settings = (org.json.simple.JSONObject)json_company_preferences.get(IConstants.kEmailSettings);
 
             String from_address = (String)json_object_email_settings.get(IConstants.kEmailFromAddress);
 
@@ -528,11 +524,10 @@ public class MarketingRecurringEmailController {
             HttpServletResponse response)throws IOException{
 
         SqlMethods sql_methods = new SqlMethods();
+        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
         
-        sql_methods.session = request.getSession(true);
-        Integer user_id = (Integer) sql_methods.session.getAttribute("UID");
-        
-        org.json.simple.JSONObject from_address = (org.json.simple.JSONObject)getFromAddress(user_id);
+        org.json.simple.JSONObject from_address = (org.json.simple.JSONObject)getFromAddress(companyId);
 
         return from_address.toString();
         
@@ -557,7 +552,16 @@ public class MarketingRecurringEmailController {
             json_entity_list.put("recurring_email_entity_id", schedule_entity_list.getEntityId());
             json_entity_list.put("recurring_email_entity_type", schedule_entity_list.getEntityType());
             json_entity_list.put("recurring_email_is_recurring", schedule_entity_list.getIsRecurring());
-            json_entity_list.put("recurring_email_template_id", schedule_entity_list.getFkRecurringEmailId().getRecurringEmailTemplateId());
+            try {
+                RecurringEmailTemplate recurringEmailTemplate = new RecurringEmailTemplate();
+                recurringEmailTemplate = schedule_entity_list.getFkRecurringEmailId();
+                if(recurringEmailTemplate.getRecurringEmailTemplateId()!=null)
+                json_entity_list.put("recurring_email_template_id", schedule_entity_list.getFkRecurringEmailId().getRecurringEmailTemplateId());
+               
+            } catch (Exception e) {
+                 json_entity_list.put("recurring_email_template_id", "");
+                logger.log(Level.SEVERE,"Exception",e);
+            }
             json_entity_list.put("recurring_email_description", schedule_entity_list.getScheduleDesc());
             json_entity_list.put("recurring_email_time", schedule_entity_list.getScheduleTime().getTime());
             json_entity_list.put("recurring_email_title", schedule_entity_list.getScheduleTitle());

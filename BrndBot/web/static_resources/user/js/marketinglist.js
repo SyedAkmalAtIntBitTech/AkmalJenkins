@@ -72,7 +72,7 @@
                 });                
             };
             $scope.sendProgramId = function(program_id,past){
-                var program_end_date=$("#program_end_date"+program_id).html();
+                var program_end_date=$("#program_end_date"+program_id).text();
                 program_end_date=program_end_date.split(' ').join('-');
                 window.open(getHost() + 'user/marketingprogramactions?program_id='+program_id+'&past='+past+'&program_date='+program_end_date, "_self");
             };
