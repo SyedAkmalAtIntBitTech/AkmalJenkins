@@ -475,7 +475,7 @@
                 } 
                 else 
                 {
-                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById.do?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId=null";
+                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById.do?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId=0";
                 }
                 alert("layout_mapper_url... "+layout_mapper_url);
                 
@@ -483,6 +483,7 @@
                     method : 'GET',
                     url :layout_mapper_url
                     }).success(function(data, status, headers, config) {
+                        var emailData=JSON.parse(data.d.details);
                         alert(JSON.stringify(data)+" ...... show text121 ....");
                             if (block_clicked === "false"){
                             var editorHtml = $('#edit').froalaEditor('html.get');
@@ -492,7 +493,7 @@
                                     editor.find("#defaultblock1").remove();
                                     editorHtml = editor.html();
                             }
-                            styleHtml = '<div id=defaultblock1 onclick="selecterBlockId(defaultblock1,0)">' + data.d.details.htmldata + '</div>';
+                            styleHtml = '<div id=defaultblock1 onclick="selecterBlockId(defaultblock1,0)">' + emailData.htmldata + '</div>';
                                     $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
     //                                                   $("#defaultblock1").empty().append(data.htmldata);
                             }
@@ -501,14 +502,14 @@
                                 if (editorHtml.contains('id="' + addblockid + '"')){
                                     var jHtmlObject = jQuery(editorHtml);
                                     var editor = jQuery("<p>").append(jHtmlObject);
-                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.d.details.htmldata + '</div>';
+                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + emailData.htmldata + '</div>';
                                     editor.find("#" + addblockid).replaceWith(BlockHtml);
                                     editorHtml = editor.html();
                                     $('#edit').froalaEditor('html.set', '' + editorHtml + '');
                                 }
                                 else
                                 {
-                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + data.d.details.htmldata + '</div>';
+                                    BlockHtml = '<div id=' + addblockid + ' onclick=selecterBlockId(' + addblockid + ',' + temp_block_id + ')>' + emailData.htmldata + '</div>';
                                     $('#edit').froalaEditor('html.set', '' + editorHtml + '' + BlockHtml + '');
                                 }
                             }
