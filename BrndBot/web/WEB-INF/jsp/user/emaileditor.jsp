@@ -323,8 +323,8 @@
                     };
                     
                     $scope.showImageOfBlock = function(id, mind_body_query){
-                        alert(id);
-                        alert(mind_body_query);
+//                        alert(id);
+//                        alert(mind_body_query);
                         $(".block-button").addClass("hide");
                         $("#blockdiv li").removeClass("block-slat-active");
                         $("#blockdiv li").addClass("block-slat");
@@ -366,7 +366,7 @@
                      };
                     
                     $scope.showDataTemp = function(id){
-                        alert(temp_block_id+" temp_mind_body_query .."+temp_mind_body_query);
+//                        alert(temp_block_id+" temp_mind_body_query .."+temp_mind_body_query);
                         $scope.showData(temp_block_id, temp_mind_body_query);
                         $("#blockdivheader").hide();
                         $("#styledivheader").show();
@@ -477,14 +477,15 @@
                 {
                     layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById.do?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId=0";
                 }
-                alert("layout_mapper_url... "+layout_mapper_url);
                 
+//                alert("layout_mapper_url... "+layout_mapper_url);
+
                  $.ajax({
                     method : 'GET',
                     url :layout_mapper_url
                     }).success(function(data, status, headers, config) {
                         var emailData=JSON.parse(data.d.details);
-                        alert(JSON.stringify(data)+" ...... show text121 ....");
+//                        alert(JSON.stringify(data)+" ...... show text121 ....");
                             if (block_clicked === "false"){
                             var editorHtml = $('#edit').froalaEditor('html.get');
                                     if (editorHtml.contains('id="defaultblock1"')){
@@ -651,13 +652,14 @@
                      
                     $("#emailpreview").click(function(){              
                         $("#email_previewdiv").show();
-                        var sendData = JSON.stringify({
-                                    htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                                    iframeName: rendomIframeFilenames.toString()
-                                });
+                        var sendData = {
+                                    htmlString: $('#edit').froalaEditor('html.get'),
+                                    iframeName: rendomIframeFilename.toString()
+                                };
+                                
                         $.ajax({
-                                url: getHost() + "/email/previewServlet.do",
                                 method: "POST",
+                                url: getHost() + "email/previewServlet.do",                                
                                 data: JSON.stringify(sendData),
                                 success: function (responseText) {
 //                                    alert(JSON.stringify(responseText.d.details));
@@ -778,6 +780,8 @@
                     
     $("#saveToDraft").click(function (){
 //        $("#saveToDraft").unbind('click');
+        var email_subject = $("#emailSubjectTag").val();
+        alert(email_subject);
         $.ajax({
             url: getHost() + "/email/previewServlet",
             method: "post",
@@ -794,13 +798,14 @@
                 url: getHost() + "saveEmailDrafts.do",
                         method: "post",
                         data:JSON.stringify({
-                        bodyString : $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                        bodyString : $('#edit').froalaEditor('html.get'),
+                        emailSubject: email_subject
                         }),
                         success: function (responseText) {
                         if (responseText != "0"){
                         alert("Draft saved successfully.");
                         $("#saveToDraft").bind('click');
-                                document.location.href = "dashboard.jsp";
+                                document.location.href = "dashboard";
                         } else {
                         alert("There was a problem while saving the draft! Please try again later.");
                         }
@@ -832,68 +837,58 @@
     $("#saveButton").click(function (){
 //        alert($("#emailSubjectTag").val());
         var email_subject = $("#emailSubjectTag").val();
+            var sendData=JSON.stringify({
+            htmlString: $('#edit').froalaEditor('html.get'),
+            iframeName: rendomIframeFilename.toString()
+            });
         $.ajax({
-            url: getHost() + "PreviewServlet",
-            method: "post",
-            data:{
-            htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-            iframeName: rendomIframeFilename
-            },
+            url: getHost() + "/email/previewServlet.do",
+            method: "POST",
+            data: sendData,
             success: function (responseText) {
             $("#previewcontent").empty();
-                $("#previewcontent").append(responseText);
-                $.ajax({
-                    url: getHost() + "SaveKeyValueSessionServlet",
+                $("#previewcontent").append(responseText.d.details);               
+                // added by Syed Ilyas 16 dec 2015 - saves draft
+                if (draft_id == "0")
+                {
+                    $.ajax({
+                    url: getHost() + "saveEmailDrafts.do",
                     method: "post",
-                    data:{
-                        process:"save",
-                        sessionKey:"htmldata",
-                        sessionValue: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                        sessionIframeKey:"iframeName",
-                        sessionIframevalue:"" + rendomIframeFilename
-                    },
+                    data:JSON.stringify({
+                    bodyString : $('#edit').froalaEditor('html.get'), 
+                    emailSubject: email_subject
+                    }),
                     success: function (responseText) {
-                    // added by Syed Ilyas 16 dec 2015 - saves draft
-                        if (draft_id == "0")
+                        alert(JSON.stringify(responseText));
+                        if (responseText != "0"){
+                        document.location.href = "emaillistselection?draftid=" + responseText + "&subject=" + email_subject;
+                        } else 
                         {
-                            $.ajax({
-                            url: getHost() + "saveEmailDrafts.do",
-                            method: "post",
-                            data:{
-                            bodyString : $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                            },
-                            success: function (responseText) {
-                                if (responseText != "0"){
-                                document.location.href = "emaillistselection?draftid=" + responseText + "&subject=" + email_subject;
-                                } else 
-                                {
-                                    alert("There was a problem while saving the draft! Please try again later.");
-                                }
-                            }
-                            });
-                        } 
-                        else 
-                        {
-                        $.ajax({
-                            url: getHost() + "updateEmailDraft.do",
-                            method: "post",
-                            data:{
-                            draftid: draft_id,
-                                    bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                            },
-                            success: function (responseText) {
-                                if (responseText == "true")
-                                {
-                                    document.location.href = "emaillistselection?draftid=" + draft_id + "&subject=" + email_subject;
-                                } else
-                                {
-                                    alert("There was a problem while saving the draft! Please try again later.");
-                                }
-                            }
-                        });
+                            alert("There was a problem while saving the draft! Please try again later.");
+                        }
                     }
-                    }
-                });
+                    });
+                } 
+                else 
+                {
+                    $.ajax({
+                        url: getHost() + "updateEmailDraft.do",
+                        method: "post",
+                        data:{
+                        draftid: draft_id,
+                                bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                        },
+                        success: function (responseText) {
+                            if (responseText == "true")
+                            {
+                                document.location.href = "emaillistselection?draftid=" + draft_id + "&subject=" + email_subject;
+                            } else
+                            {
+                                alert("There was a problem while saving the draft! Please try again later.");
+                            }
+                        }
+                    });
+                }
             }
         });
     });
