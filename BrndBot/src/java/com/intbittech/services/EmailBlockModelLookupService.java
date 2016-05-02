@@ -63,5 +63,7 @@ public interface EmailBlockModelLookupService {
      * @throws ProcessFailed the process failed
      */
     public List<EmailBlockModelLookup> getAllEmailBlockModel(Integer emailBlockId) throws ProcessFailed;
+
+    public EmailBlockModelLookup getByEmailModelId(Integer emailModelId) throws ProcessFailed;
     
 }

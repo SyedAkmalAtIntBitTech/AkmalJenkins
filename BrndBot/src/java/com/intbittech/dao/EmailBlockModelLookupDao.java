@@ -64,4 +64,6 @@ public interface EmailBlockModelLookupDao {
      */
     public void delete(EmailBlockModelLookup emailBlockModelLookup) throws ProcessFailed;
 
+    public EmailBlockModelLookup getEmailBlockModelByEmailModelId(Integer emailModelId);
+
 }
