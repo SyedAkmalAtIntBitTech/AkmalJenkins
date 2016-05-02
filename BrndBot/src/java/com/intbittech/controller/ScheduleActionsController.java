@@ -127,9 +127,7 @@ public class ScheduleActionsController {
             List<String> errors = validateRequestBodyList(requestBodyList);
 
             for (Map<String, Object> requestBodyMap : requestBodyList) {
-                String tokenDataString = requestBodyMap.get("token_data").toString();
                 String type = requestBodyMap.get("type").toString();
-                errors.addAll(validateTokenData(tokenDataString, type));
                 String metadataString = requestBodyMap.get("metadata").toString();
                 errors.addAll(validateMetadata(metadataString, type));
             }
@@ -160,9 +158,7 @@ public class ScheduleActionsController {
             List<String> errors = validateRequestBodyList(requestBodyList);
 
             for (Map<String, Object> requestBodyMap : requestBodyList) {
-                String tokenDataString = requestBodyMap.get("token_data").toString();
                 String type = requestBodyMap.get("type").toString();
-                errors.addAll(validateTokenData(tokenDataString, type));
                 String metadataString = requestBodyMap.get("metadata").toString();
                 errors.addAll(validateMetadata(metadataString, type));
             }
@@ -280,23 +276,6 @@ public class ScheduleActionsController {
         if (!MapUtility.mapContainsKey(requestBody, "metadata")) {
             errorMsgs.add("metadata JSON is missing");
         }
-
-        return errorMsgs;
-    }
-
-    private List<String> validateTokenData(String tokenDataString, String postType) {
-
-        List<String> errorMsgs = validateJsonData(tokenDataString,
-                " is missing in token data JSON Object", () -> {
-                    Set<String> requiredKeys = new HashSet<>();
-                    if (postType.contains(ScheduledEntityType.Facebook.toString())) {
-                        requiredKeys.add("access_token");
-                    } else if (postType.contains(ScheduledEntityType.Twitter.toString())) {
-                        requiredKeys.add("access_token");
-                        requiredKeys.add("token_secret");
-                    }
-                    return requiredKeys;
-                });
 
         return errorMsgs;
     }
