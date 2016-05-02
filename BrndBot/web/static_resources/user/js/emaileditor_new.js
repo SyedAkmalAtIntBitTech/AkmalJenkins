@@ -404,35 +404,37 @@
   $(document).ready(function(){
      
     $("#saveToDraft").click(function (){
-        $("#saveToDraft").unbind('click');
+//        $("#saveToDraft").unbind('click');
+        alert(rendomIframeFilename);
         $.ajax({
-            url: getHost() + "PreviewServlet",
+            url: getHost() + "/email/previewServlet",
             method: "post",
-            data:{
-            htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                    iframeName: rendomIframeFilename
-            },
+            data:JSON.stringify({
+                htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                iframeName: rendomIframeFilename.toString()
+            }),
             success: function (responseText) {
-            $("#previewcontent").empty();
-                    $("#previewcontent").append(responseText);
-                    if (draft_id == "0"){
-            $.ajax({
-            url: getHost() + "saveEmailDrafts.do",
-                    method: "post",
-                    data:{
-                    bodyString : $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
-                    },
-                    success: function (responseText) {
-                    if (responseText != "0"){
-                    alert("Draft saved successfully.");
-                    $("#saveToDraft").bind('click');
-                            document.location.href = "dashboard.jsp";
-                    } else {
-                    alert("There was a problem while saving the draft! Please try again later.");
-                    }
-                    }
+                alert(JSON.stringify(responseText));
+                $("#previewcontent").empty();
+                $("#previewcontent").append(responseText);
+                if (draft_id == "0"){
+                $.ajax({
+                url: getHost() + "saveEmailDrafts.do",
+                        method: "post",
+                        data:{
+                        bodyString : $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                        },
+                        success: function (responseText) {
+                        if (responseText != "0"){
+                        alert("Draft saved successfully.");
+                        $("#saveToDraft").bind('click');
+                                document.location.href = "dashboard.jsp";
+                        } else {
+                        alert("There was a problem while saving the draft! Please try again later.");
+                        }
+                        }
 
-            });
+                });
             } else {
                 $.ajax({
                     url: getHost() + "updateEmailDraft.do",
@@ -457,7 +459,7 @@
     $("#saveButton").click(function (){
                                 var email_subject = $("#email_subject").val();
                             $.ajax({
-                                    url: getHost() + "PreviewServlet",
+                                    url: getHost() + "/email/previewServlet.do",
                                     method: "post",
                                     data:{
                                     htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),

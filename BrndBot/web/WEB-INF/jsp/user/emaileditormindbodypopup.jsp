@@ -46,7 +46,7 @@
                 <!--SAVED POST GOES HERE-->
                 <ul class="subcategory-list-container col-1of1 fleft scrollydiv">  
                     <li class="subcategory-list-element col-1of1 fleft" ng-repeat="jsonclass in datalists2.mindbody_data" ng-click="select_category_details(jsonclass.id)">
-                       <div class="subcat-list col-4of10 fleft padding-right-15 ">{{jsonclass.column1}} 
+                       <div class="subcat-list col-3of10 fleft padding-right-15 ">{{jsonclass.column1}} 
                        </div>
                         <div class=" col-2of10 fleft ">
                             <div class="slat-column-font list-column-number col-1of1 sh2 fleft margin-top-12">{{jsonclass.column3}}</div>
@@ -56,7 +56,7 @@
                             <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{jsonclass.column2}}</div>
                             <div class="list-column-description col-1of1 sh3-contact fleft">Instructor</div>
                         </div>
-                        <div class="col-21f10 fleft">
+                        <div class="col-2f10 fleft">
                             <img src="images/nextArrow.svg" class="next-button-icon" ></img>
                         </div>                       
                     </li>

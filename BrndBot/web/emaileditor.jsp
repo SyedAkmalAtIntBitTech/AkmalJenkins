@@ -113,7 +113,61 @@
         var prevSliderDialog="#emaileditorexternalpopup";
         var sliderDialog="#emaileditorexternalpopup";
         
-        $(document).ready(function(){    
+        $(document).ready(function(){  
+            
+        $("#saveToDraft").click(function (){
+            alert();
+//        $("#saveToDraft").unbind('click');
+        $.ajax({
+            url: getHost() + "PreviewServlet",
+            method: "post",
+            data:{
+            htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                    iframeName: rendomIframeFilename
+            },
+            success: function (responseText) {
+            $("#previewcontent").empty();
+                    $("#previewcontent").append(responseText);
+                    if (draft_id == "0"){
+            $.ajax({
+            url: getHost() + "saveEmailDrafts.do",
+                    method: "post",
+                    data:{
+                    bodyString : $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                    },
+                    success: function (responseText) {
+                    if (responseText != "0"){
+                    alert("Draft saved successfully.");
+                    $("#saveToDraft").bind('click');
+                            document.location.href = "dashboard.jsp";
+                    } else {
+                    alert("There was a problem while saving the draft! Please try again later.");
+                    }
+                    }
+
+            });
+            } else {
+                $.ajax({
+                    url: getHost() + "updateEmailDraft.do",
+                    method: "post",
+                    data:{
+                    draftid: draft_id,
+                            bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                    },
+                    success: function (responseText) {
+                    if (responseText == "true"){
+                    alert("Draft updated successfully.");
+                            document.location.href = "dashboard.jsp";
+                    } else {
+                    alert("There was a problem while saving the draft! Please try again later.");
+                    }
+                    }
+                });
+            }
+            }
+        });
+    });
+            
             $("#closePrev").click(function(){
                 $("#email_previewdiv").hide();
                 $('#fade').hide();                
@@ -614,8 +668,7 @@
             });    </script>
 
 </head>    
-<div id="fade" class="black_overlay"></div>
-<%--<jsp:include page="emailpreview.jsp" />--%>  
+<div id="fade" class="black_overlay"></div> 
 <body ng-app="myapp"> 
     <div id="boxes" >
         <div id="dialog" class="window" >
@@ -652,7 +705,10 @@
         <div class="emailEditor-page-background fleft">
             <div class="emailEditor-leftCol ">
                  <script>
-                    $("#emailpreview").click(function(){                        
+                    
+                    
+                    $("#emailpreview").click(function(){   
+                        alert();
                         $("#email_previewdiv").show();
                         $.ajax({
                                 url: getHost() + "PreviewServlet",
@@ -774,8 +830,8 @@
                                     $(this).addClass('border-highlight');
                             });
                             };
-                $(document).ready(function(){
-                                                                        
+    $(document).ready(function(){
+                                                                            
     $("#styletab").click(function (){
         $("#blockdivheader").hide();
         $("#styledivheader").show();

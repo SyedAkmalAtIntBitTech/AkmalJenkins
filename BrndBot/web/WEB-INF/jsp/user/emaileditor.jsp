@@ -263,20 +263,18 @@
                             $scope.pageSize = 2;
                             if (block_clicked == "true" || blockIdSelected != "defaultblock1")
                             {
-//                            queryurl = 'GetLayoutStyles?editorType=email&query=block&block_id=' + block_id;
                                 queryurl = getHost() +'getAllEmailBlockModelsByBlockId?emailBlockId='+ block_id;
                             }
                             else
                             {
                                 queryurl = getHost() +'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId;
                             }
-//                            alert("queryurl "+queryurl);
                             $http({
                             method : 'GET',
                                     url :  queryurl
                             }).success(function(data, status, headers, config) {
                             $scope.datalistsstyles = data.d.details;
-                            alert("queryurl "+queryurl+"......................\n"+JSON.stringify(data.d.details)+"...style...");
+//                            alert("queryurl "+queryurl+"......................\n"+JSON.stringify(data.d.details)+"...style...");
                             $scope.numberOfPages = function() {
                                 return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
                             };
@@ -285,77 +283,10 @@
                             }
 
                             }).error(function(data, status, headers, config) {
-                            alert("No data available! Problem fetching the data.");
-                                    // called asynchronously if an error occurs
-                                    // or server returns response with an error status.
+                                alert("No data available! Problem fetching the data.");
                             });
                         };
                         
- /*---------------------------------- show style -------------------------------*/
-                            
-//                        var queryurl;
-//                        var subCategoryId=7;
-////                        queryurl = getHost()+'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId;
-////                        queryurl = 'GetLayoutStyles?editorType=email';
-//                        $http({
-//                                method : 'GET',
-//                                url : getHost()+'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId
-//                        }).success(function(data, status, headers, config) {
-//                            $scope.datalistsstyles = data;
-////                            alert(JSON.stringify(data.d.details));
-////                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton_blue_new.svg";
-////                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton.svg";
-////                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
-////                            document.getElementById('edt').style.backgroundColor = 'transparent';
-////                            document.getElementById('stl').style.backgroundColor = '#fff';
-////                            document.getElementById('blk').style.backgroundColor = 'transparent';
-//                            $scope.numberOfPages = function() {
-//                                return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
-//                            };
-//                            if (data === error){
-//                                alert(data);
-//                            }
-//
-//                        }).error(function(data, status, headers, config) {
-//                        alert("No data available! Problem fetching the data.");
-//                                // called asynchronously if an error occurs
-//                                // or server returns response with an error status.
-//                        });
-                            
- /*---------------------------------- Show  Block ------------------------------*/     
- 
-//                        $("#addblkbtn").prop("disabled", true);
-//                        $(".selectrow").css("display", "block");
-//                        $("#stylelist").css("display", "none");
-//                        $("#selectstyleid").css("display", "none");
-//                        $("#blklistid").css("display", "block");
-//                        $("#blocktab").css("background-color", "#ffffff").css("color", "#19587c");
-//                        $("#styletab").css("background-color", "transparent").css("color", "#19587c");
-//                        $('body').scrollTop(0);
-//                        $scope.curPage = 0;
-//                        $scope.pageSize = 2;
-//                        $http({
-//                        method : 'GET',
-//                                url :getHost()+'getAllBlocksForCompany.do'
-//                        }).success(function(data, status, headers, config) {
-//                            $scope.datalists = data.d.details;
-//                            alert(JSON.stringtify(data));
-////                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
-////                            document.getElementById('blkimg').src = "images/sidebar/Icons_blockButton_blue_new.svg";
-////                            document.getElementById('edtimg').src = "images/sidebar/Icons_editButton.svg";
-////                            document.getElementById('edt').style.backgroundColor = 'transparent';
-////                            document.getElementById('stl').style.backgroundColor = 'transparent';
-////                            document.getElementById('blk').style.backgroundColor = '#fff';
-//                            $scope.numberOfPages = function() {
-//                                return Math.ceil($scope.datalists.length / $scope.pageSize);
-//                            };
-//                            if (data === error){
-//                                alert(data);
-//                            }
-//                        }).error(function(data, status, headers, config) {
-//                        alert("No data available! Problem fetching the data.");
-//                        });
-        
                     $scope.showBlocks = function(){
                         $("#addblkbtn").prop("disabled", true);
                         $(".selectrow").css("display", "block");
@@ -371,7 +302,7 @@
                         method : 'GET',
                                 url : getHost()+'getAllBlocksForCompany.do'
                         }).success(function(data, status, headers, config) {
-                            alert(JSON.stringify(data.d.details)+".....blocks.....");
+//                            alert(JSON.stringify(data.d.details)+".....blocks.....");
                             $scope.datalists = data.d.details;
 //                            alert(JSON.stringtify(data));
 //                            document.getElementById('stlimg').src = "images/sidebar/Icons_styleButton.svg";
@@ -539,7 +470,6 @@
                     currentBlockID = temp_block_id;
                     currentMindbodyQuery = temp_mind_body_query;
                 }   
-                alert("emailModelId.. "+id+" block_clicked.. "+block_clicked+" mindbodydataId.. "+mindbodydataId)
                 if ((mindbodydataId != "") && (mindbodydataId != "0") && (typeof (mindbodydataId) !== "undefined")){
                     layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById.do?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId="+mindbodydataId;
                 } 
@@ -553,7 +483,7 @@
                     method : 'GET',
                     url :layout_mapper_url
                     }).success(function(data, status, headers, config) {
-                        alert(JSON.stringify(data)+" ...... show text121 ....");
+//                        alert(JSON.stringify(data)+" ...... show text121 ....");
                             if (block_clicked === "false"){
                             var editorHtml = $('#edit').froalaEditor('html.get');
                                     if (editorHtml.contains('id="defaultblock1"')){
@@ -843,7 +773,60 @@
                                     $(this).addClass('border-highlight');
                             });
                             };
-                $(document).ready(function(){
+    $(document).ready(function(){
+                    
+    $("#saveToDraft").click(function (){
+//        $("#saveToDraft").unbind('click');
+        $.ajax({
+            url: getHost() + "/email/previewServlet",
+            method: "post",
+            data:JSON.stringify({
+                htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                iframeName: rendomIframeFilename.toString()
+            }),
+            success: function (responseText) {
+                alert(JSON.stringify(responseText.d.details)+"..");
+                $("#previewcontent").empty();
+                $("#previewcontent").append(responseText.d.details);
+                if (draft_id == "0"){
+                $.ajax({
+                url: getHost() + "/saveEmailDrafts.do",
+                        method: "post",
+                        data:{
+                        bodyString : $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                        },
+                        success: function (responseText) {
+                        if (responseText != "0"){
+                        alert("Draft saved successfully.");
+                        $("#saveToDraft").bind('click');
+                                document.location.href = "dashboard.jsp";
+                        } else {
+                        alert("There was a problem while saving the draft! Please try again later.");
+                        }
+                        }
+
+                });
+            } else {
+                $.ajax({
+                    url: getHost() + "updateEmailDraft.do",
+                    method: "post",
+                    data:{
+                    draftid: draft_id,
+                            bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                    },
+                    success: function (responseText) {
+                    if (responseText == "true"){
+                    alert("Draft updated successfully.");
+                            document.location.href = "dashboard.jsp";
+                    } else {
+                    alert("There was a problem while saving the draft! Please try again later.");
+                    }
+                    }
+                });
+            }
+            }
+        });
+    });
                                                     
     $("#saveButton").click(function (){
 //        alert($("#emailSubjectTag").val());
