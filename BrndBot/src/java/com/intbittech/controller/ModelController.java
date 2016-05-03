@@ -117,7 +117,6 @@ public class ModelController {
                 emailModelDetails.setEmailModelId(emailModelsObject.getFkEmailModelId().getEmailModelId());
                 emailModelDetails.setEmailModelName(emailModelsObject.getFkEmailModelId().getEmailModelName());
                 emailModelDetails.setHtmlData(emailModelsObject.getFkEmailModelId().getHtmlData());
-                //TODO Ilyas send image data
                 emailModelDetails.setImageFileName(emailModelsObject.getFkEmailModelId().getImageFileName());
                 emailModelDetails.setModelId(emailModelsObject.getSubCategoryEmailModelId());
                 emailModelDetailsList.add(emailModelDetails);

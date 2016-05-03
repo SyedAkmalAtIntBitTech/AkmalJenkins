@@ -5,7 +5,7 @@
  */
 package com.intbittech.services.impl;
 
-import com.intbit.AppConstants;
+import com.intbittech.AppConstants;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
 import com.intbit.TemplateStatus;
@@ -74,7 +74,6 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
     @Override
     public Map<String, Integer> scheduleEmail(Map<String, Object> requestBodyMap, Integer companyId) {
 
-        //TODO Ilyas needs to check the path and stuff.
         try {
 
             Double schedule = (Double) requestBodyMap.get("schedule_time");
@@ -123,7 +122,6 @@ public class ScheduleActionsServiceImpl implements ScheduleActionsService {
     @Override
     public Map<String, Integer> scheduleEmailActions(Map<String, Object> requestBodyMap, Integer companyId) {
 
-        //TODO Ilyas needs to check the path and stuff.
         try {
             String schedule_id = (String) requestBodyMap.get("schedule_id");
             String scheduleDesc = requestBodyMap.containsKey("schedule_desc")

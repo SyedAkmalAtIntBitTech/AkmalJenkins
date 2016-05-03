@@ -129,7 +129,6 @@ public class SendEmailServiceImpl implements SendEmailService {
         return new Gson().toJson(tagsFromMandrillForUser);
     }
 
-    //TODO Ilyas to check the path.
     @Override
     public String previewEmail(Integer companyId, Map<String, Object> requestBodyMap) {
         try {
