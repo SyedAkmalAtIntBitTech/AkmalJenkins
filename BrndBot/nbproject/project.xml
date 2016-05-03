@@ -15,10 +15,6 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.struts-tiles-1.3.10.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
                     <file>${file.reference.struts-scripting-1.3.10.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
