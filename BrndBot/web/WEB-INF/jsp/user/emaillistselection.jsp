@@ -128,7 +128,7 @@
                    
                 </div>
                 <div class="col-15of4 fleft unit">
-                      <input type="button" id="upload" value="Upload" onclick="upload()" class="md-button add-action-button noborder"/>      
+                    <input type="button" id="upload" value="Upload" onclick="upload()" class="md-button add-action-button noborder"/>      
                    </div>
                     </div>
                 </div>            

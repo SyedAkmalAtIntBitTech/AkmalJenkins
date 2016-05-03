@@ -234,10 +234,11 @@
 //            return true;
 //            }
             function emailSettings($scope, $http){                
-                
+              
                 $scope.setScheduling = function () {
+                    
                     $("#schedulethepost").unbind('click');
-                    draft_id = $("#draft_id").val();
+                  var  draft_id = $("#draft_id").val();
                     var schedule_id = $("#email_actions").val();
                     var from_name = $("#name").val();
                     var email_subject = $("#subject").val();
@@ -292,27 +293,29 @@
                             "schedule_desc": schedule_desc,
                             "iframeName": iframe_name
                         };
+                        
                         $http({
                             method: 'POST',
-                            url: 'ScheduleEmail',
+                            url:getHost() + 'actions/scheduleEmail.do',
                             headers: {'Content-Type': 'application/json'},
-                            data: email_scheduling
+                            data: JSON.stringify(email_scheduling)
                         }).success(function (data) {  
                             
-                            if (data != "") {
+                            if (JSON.stringify(data) != "") {
                                $http({
                                method: 'POST',
                                url: getHost() + "deleteEmailDraft.do?draftid="+draft_id
                                }).success(function (data) {
                                    alert("Your Email has been Scheduled Successfully");
-                                   document.location.href = "dashboard.jsp";
+                                   document.location.href = getHost()+"user/dashboard";
                                    $("#schedulethepost").bind('click');
                                 }).error(function (data) {
+                                    alert(JSON.stringify(data));
                                     alert("No data available! Problem fetching the data.");
                                 });
                             }
-                        }).error(function (data) {
-                            alert("No data available! Problem fetching the data.");
+                        }).error(function (data) {alert(JSON.stringify(data));
+                            alert("sads");
                         });
                     }else {
                         var email_scheduling = {
@@ -329,17 +332,17 @@
                         };
                         $http({
                             method: 'POST',
-                            url: 'ScheduleEmailActions',
+                             url:getHost() + 'actions/scheduleEmailActions.do',
                             headers: {'Content-Type': 'application/json'},
-                            data: email_scheduling
+                            data: JSON.stringify(email_scheduling)
                         }).success(function (data) {
-                            if (data != "") {
+                            if (JSON.stringify(data) != "") {
                                $http({
                                method: 'POST',
                                url: getHost() + "deleteEmailDraft.do?draftid="+draft_id
                                }).success(function (data) {
                                 alert("Your Email has been Scheduled Successfully.");
-                                document.location.href = "dashboard.jsp";
+                                document.location.href = getHost()+"user/dashboard";
                                 $("#schedulethepost").bind('click');
                                 }).error(function (data) {
                                     alert("No data available! Problem fetching the data.");
@@ -471,6 +474,7 @@
 //                };
                 
                 $scope.getProgramNames = function() {
+                   
                     $http({
                        method: 'GET',
                        url:getHost() + 'getAllUserMarketingPrograms.do'
@@ -496,10 +500,10 @@
                     });
                 };
                  $scope.getActions = function (program_id) {
-                    alert(program_id);
+                   
                     $http({
                         method: 'GET',
-                        url: getHost() + 'GetScheduledActions?programid='+ program_id + '&type='+ getemail()
+                        url: getHost() + 'actions/getActions.do?programid='+ program_id + '&type='+ getemail()
                     }).success(function (data) {
                         alert(JSON.stringify(data));
                         $scope.email_actions = data;
@@ -508,14 +512,17 @@
                     });
                 }; 
                  $("#programs").change(function(){
-                    
-                program_id = $("#programs").val();
+                    program_id = $("#programs").val();
+                    var data={"programid": program_id,"type": getemail()};
 //                angular.element(document.getElementById('emailSettings')).scope().getActions(program_id);
                 $http({
-                        method: 'GET',
-                        url: getHost() + 'GetScheduledActions?programid='+ program_id + '&type='+ getemail()
+                        method: 'POST',
+                        url: getHost() + 'actions/getActions.do',
+                        data:JSON.stringify(data)
                     }).success(function (data) {
-                        //alert(JSON.stringify(data));
+                        alert(JSON.stringify(data));
+//                        alert(JSON.stringify(data.d.details));
+                        var actions=JSON.stringify(data.d.details);
                         $scope.email_actions = data;
                     }).error(function (data) {
                         alert("Request not successful!");
@@ -550,6 +557,8 @@
        $(document).ready(function () {
            
            $("#chooseEmailList").change(function () {
+               
+               
 //                    var x = document.getElementById("chooseEmailList").selectedIndex;
 //                    var List_name = document.getElementsByTagName("option")[x].value;
                     var List_name = $("#chooseEmailList").val();
@@ -568,24 +577,32 @@
                         $.ajax({
                                 method: 'GET',
                                 url: getHost() + '/emaillist/get.do?update=emailsForEmailList&emailListName='+List_name,
-                                success: function(result){                                    
+                                success: function(result){        
+                                
                                     var parseData=JSON.parse(result.d.details);
-                                    alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user));
+                                   
+                                   var JSONData = parseData.user_emailAddresses;
+                                   var JSONdataArray=JSON.stringify(JSONData);
                                     var i = 0;
-                                    for(i=0; i<result.user_emailAddresses.length; i++){
-                                        if (result.user_emailAddresses[i].emailAddress!= ""){
-                                            emails = result.user_emailAddresses[i].emailAddress+ "," + emails;
+                                    for(i=0; i<JSON.stringify(JSONData).length; i++){
+                                        
+                                        if (JSON.stringify(JSONData[i].emailAddress)!= ""){
+                                            
+                                            emails = eval(JSON.stringify(JSONData[i].emailAddress))+ "," + emails;
+                                            $("#emailaddresses").val(emails);
+                                            $("#toaddress").val(emails);
+                                              selectCsvFile();     
                                      }
-                                    }
-                                    for(i=0; i<result.mindbody_emailAddresses.length; i++){
-                                        if (result.mindbody_emailAddresses[i] != ""){
-                                            emails = result.mindbody_emailAddresses[i] + "," + emails;
-                                        }
-                                    }                                    
-                                    $("#emailaddresses").val(emails);
-                                    $("#toaddress").val(emails);
+                                   
+                                    }           
+//                                    for(i=0; i<JSONdataArray.mindbody_emailAddresses.length; i++){
+//                                        if (JSONdataArray.mindbody_emailAddresses[i] != ""){
+//                                            emails = JSONdataArray.mindbody_emailAddresses[i] + "," + emails;
+//                                        }
+//                                    }           
                                 },
                                 error: function(error){
+                                    
                                     alert(JSON.stringify(error));
                                 }
                         });
@@ -738,14 +755,16 @@
                 return true;
             }
             function sendEmail() {
+                
                 var draft_id = $("#draft_id").val();
                 if(validate()){
+                   
                 $('<img id="loadingGif" src="images/YogaLoadingGif.gif"/>').appendTo('body').css("position", "absolute").css("top", "300px").css("left", "500px");
 //                alert(formattedHTMLData);
                 $.ajax({
                     
-                    url: getHost() + "SendEmailServlet",
-                    type: "post",
+                    url: getHost() + "/email/send.do",
+                    type: "POST",
                     data: {
                         from_name: $("#name").val(),
                         email_subject: $("#subject").val(),
@@ -756,18 +775,20 @@
                         email_list: $("#email_list").val(),
                         iframeName: $("#iframe_name").val()
                     },
+                   
                     success: function (responseText) {
                        
+                       alert(JSON.stringify(responseText));
                         $.ajax({
                             url: getHost() + "deleteEmailDraft.do?draftid="+draft_id,
-                            type: "post",
+                            type: "POST",
                             success: function (responseText) {
                                 if(responseText=="true")
                                 {
                                     $('#loadingGif').remove();
                                     setTimeout(function () {
                                         alert(emailsend);
-                                        window.location = "dashboard.jsp";
+                                        window.location = "dashboard";
                                     }, 1000);
                                    
                                 }
@@ -834,7 +855,7 @@
                 var Emails = {"emailListName": email_list_name, "emailAddresses": email_list , "update": "addUpdateEmailList"};
                     $http({
                         method: 'POST',
-                        url: getHost() + 'SetEmailLists',
+                        url: getHost() + '/emaillist/save',
                         headers: {'Content-Type': 'application/json'},
                         data: Emails
                     }).success(function (data)
@@ -851,6 +872,7 @@
             };
 
             $scope.showEmailList = function () {
+                
                     $(".emaillist").show();
                     $("#email_list_name").hide();
 
@@ -858,7 +880,7 @@
                         method: 'GET',
                         url: getHost() + '/emaillist/get.do?update=allEmailListWithNoOfContacts&emailListName=null'
                     }).success(function(data, status, headers, config) {
-                        var parseData=JSON.parse(data.d.details)
+                        var parseData=JSON.parse(data.d.details);
 //                        alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user)+"..... success....");
                         $scope.emailLists = parseData.allEmailListWithNoOfContacts.user;
                         $scope.emailLists_mindbody = data.mindbody;
@@ -880,6 +902,7 @@
                 };
         }
         function upload() {
+          
                 var reg=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 var fileUpload = document.getElementById("fileid");
                 var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
