@@ -3,15 +3,33 @@
  * License https://froala.com/wysiwyg-editor/terms
  * Copyright 2014-2015 Froala Labs
  */
-var colorcodeArray;
+var colorcodeArray=[];
+var hexDigits = new Array
+        ("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"); 
+
+//Function to convert hex format to a rgb color
+function rgb2hex(rgb) {
+ rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+ return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
+function hex(x) {
+  return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+ }
+
  $.ajax({
     async: false,
-    url: 'GetColorsServlet',
+    url: global_host_address + 'settings/getColors.do',
     dataType: 'json',
 success:function(data){
-    colorcodeArray=data;
+    for(var i=0;i<data.d.details.length;i++)
+    {
+        colorcodeArray[i] = rgb2hex(data.d.details[i]);
+    }
 }
  });
+ 
+ 
 
 !function (a) {
     "function" == typeof define && define.amd ? module.exports = function (b, c) {

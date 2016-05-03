@@ -9,6 +9,7 @@ import com.intbittech.model.Category;
 import com.intbittech.model.Channel;
 import com.intbittech.model.OrganizationCategoryLookup;
 import com.intbittech.model.OrganizationCompanyLookup;
+import com.intbittech.model.UserProfile;
 import com.intbittech.modelmappers.CategoryDetails;
 import com.intbittech.modelmappers.ChannelDetails;
 import com.intbittech.modelmappers.OrganizationCompanyDetails;
@@ -23,6 +24,7 @@ import com.intbittech.services.ChannelService;
 import com.intbittech.services.CompanyService;
 import com.intbittech.services.OrganizationCategoryLookupService;
 import com.intbittech.utility.ErrorHandlingUtil;
+import com.intbittech.utility.UserSessionUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -167,8 +169,8 @@ public class CategoryController {
     public ResponseEntity<ContainerResponse> getAllCompanyCategories(@RequestParam("channelId") Integer channelId) {
         GenericResponse<CategoryDetails> genericResponse = new GenericResponse<CategoryDetails>();
         try {
-            //TODO Haider remove this and add companyId from session
-            Integer companyId = 1;
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
             organizationCompanyDetail = companyService.getAllOrganizationsByCompanyId(companyId);
             List<OrganizationCompanyDetails> organizationCompanyDetailsList = new ArrayList<>();
