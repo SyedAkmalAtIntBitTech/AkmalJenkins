@@ -197,15 +197,15 @@ app.controller('globalColors', function($scope,$http) {
                     return false;
                    }
                       var fileType = fileName.split(".")[1];
-                     if(fileType=="")
-                         {
-                       if((fileType !="ttf")) {
-                     alert("Please Select only TTF file!");
-                     $("#fileName").focus();
-                     return false;
-                       }
                      
-                      }
+                    
+//                       if((fileType !="ttf")) {
+//                     alert("Please Select only TTF file!");
+//                     $("#fileName").focus();
+//                     return false;
+//                       }
+                     
+                    
                       
                        var fontDataObject = getFontData();
                      

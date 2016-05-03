@@ -89,7 +89,7 @@ app.directive("ngFileSelect",function(){
   
 
 var globalImageController = function ($scope, fileReader, $http) {
-     console.log(fileReader);
+     
     $scope.getFile = function () {
         $scope.progress = 0;
         fileReader.readAsDataUrl($scope.file, $scope)
