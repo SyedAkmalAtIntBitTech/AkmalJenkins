@@ -104,8 +104,8 @@
                         <div class="h2 col-1of1">
                             <select class="chooseEmailList col-1of1" id="chooseEmailList" name="chooseEmailList">
                                 <option value="1">Manual</option>
-                                <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
-                                <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists}}">{{Lists}}</option>
+                                <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
+                                <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
                             </select>
                         </div>
                         <!--<div class="p chooseList-subtext col-1of1">Choose a recipient list</div>-->

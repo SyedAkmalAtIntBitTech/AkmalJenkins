@@ -388,6 +388,7 @@
 //                        data: email_settings
                     }).success(function (data, status, headers, config) {
                         var parseData=JSON.parse(data.d.details);
+//                        alert(JSON.stringify(parseData));
                         $scope.email_settings = parseData;
                         if (data === error) {
                             alert(data);
@@ -762,12 +763,10 @@ $edit=0;
                     $("#scrl").show();
                     $(".emaillist").show();
                     $("#email_list_name").hide();
-                    var emailids = {"update": "allEmailListNames"};
                     $.ajax({
                         method: 'GET',
 //                        url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts'
-                         url: getHost() + '/emaillist/get.do?update=allEmailListWithNoOfContacts',
-                         data: emailids
+                        url: getHost() + '/emaillist/get.do?update=allEmailListWithNoOfContacts&emailListName=null',
                     }).success(function (data, status, headers, config) {  
 
                         var parseData=JSON.parse(data.d.details);
@@ -802,7 +801,7 @@ $edit=0;
                     $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","560px");
                     $http({
                         method: 'GET',
-                        url: getHost() + '/emaillist/get.do?update=emailsForEmailList&list_name='+list_name
+                        url: getHost() + '/emaillist/get.do?update=emailsForEmailList&emailListName='+list_name
                     }).success(function (data, status, headers, config) {
                         var parseData=JSON.parse(data.d.details);
                         $(".page-background").css("overflow","scroll");

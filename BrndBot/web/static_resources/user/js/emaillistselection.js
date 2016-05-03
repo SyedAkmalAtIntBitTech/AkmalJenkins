@@ -233,27 +233,7 @@
 //            }
 //            return true;
 //            }
-            function emailSettings($scope, $http){
-                $scope.getEmailSettings = function(){
-                
-                var email_settings = {"type": "get"};
-                
-                $http({
-                        method : 'POST',
-                        url : 'EmailSettingsServlet',
-                        headers: {'Content-Type': 'application/json'},
-                        data: email_settings
-                    }).success(function (data, status, headers, config) {
-                        $scope.email_settings = data;
-                        if (data === error) {
-                            alert(data);
-                        }
-                    }).error(function (data, status, headers, config) {
-                        alert("No data available! Problem fetching the data.");
-                        // called asynchronously if an error occurs
-                        // or server returns response with an error status.
-                    });
-                };
+            function emailSettings($scope, $http){                
                 
                 $scope.setScheduling = function () {
                     $("#schedulethepost").unbind('click');
@@ -495,11 +475,16 @@
                        method: 'GET',
                        url:getHost() + 'getAllUserMarketingPrograms.do'
                     }).success(function (data){
+//                        alert(JSON.stringify(data)+" ... ok ...");
                         $http({
-                        method: 'GET',
-                        url: getHost() + 'GetScheduledActions?programid=0&type='+ getemail()
+                        method: 'POST',
+                        url: getHost() + '/actions/getActions.do',
+                        data: {
+                            programid: null,
+                            type: getemail()
+                        }
                         }).success(function (data1) {
-                            //alert(JSON.stringify(data));
+//                            alert(JSON.stringify(data1));
                             $scope.email_actions = data1;
                         }).error(function (data1) {
                             alert("Request not successful!");
@@ -579,16 +564,14 @@
                        
                     }else {
                         var emails = "";
-                        $("#email_list_name").val(List_name);
+                        $("#email_list_name").val(List_name);                                                
                         $.ajax({
-                                url: getHost() + "GetEmailLists",
-                                data: {
-                                    update: "emailsForEmailList",
-                                    list_name: List_name
-                                },
-                                success: function(result){
+                                method: 'GET',
+                                url: getHost() + '/emaillist/get.do?update=emailsForEmailList&emailListName='+List_name,
+                                success: function(result){                                    
+                                    var parseData=JSON.parse(result.d.details);
+                                    alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user));
                                     var i = 0;
-                                    
                                     for(i=0; i<result.user_emailAddresses.length; i++){
                                         if (result.user_emailAddresses[i].emailAddress!= ""){
                                             emails = result.user_emailAddresses[i].emailAddress+ "," + emails;
@@ -601,6 +584,9 @@
                                     }                                    
                                     $("#emailaddresses").val(emails);
                                     $("#toaddress").val(emails);
+                                },
+                                error: function(error){
+                                    alert(JSON.stringify(error));
                                 }
                         });
                     }
@@ -821,22 +807,20 @@
         }
         function EmailListSetting($scope, $http) {
             
-            $scope.getEmailSettings = function(){                
-            var email_settings = {"type": "get"};                
-            $http({
-                    method : 'POST',
-                    url : 'EmailSettingsServlet',
-                    headers: {'Content-Type': 'application/json'},
-                    data: email_settings
+            $scope.getEmailSettings = function(){
+                $http({
+                    method : 'GET',
+                    url : getHost()+'/settings/getEmailSettings.do',
+                    headers: {'Content-Type': 'application/json'}
                 }).success(function (data, status, headers, config) {
-                    $scope.email_settings = data;
+                    var parseData=JSON.parse(data.d.details);
+//                    alert(JSON.stringify(parseData));
+                    $scope.email_settings = parseData;
                     if (data === error) {
                         alert(data);
                     }
                 }).error(function (data, status, headers, config) {
-                    alert("No data available, problem fetching the data");
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
+                    alert("No data available! Problem fetching the data.");
                 });
             };
         }
@@ -867,21 +851,24 @@
             };
 
             $scope.showEmailList = function () {
-                            $(".emaillist").show();
-                            $("#email_list_name").hide();
+                    $(".emaillist").show();
+                    $("#email_list_name").hide();
 
-                    var emailids = {"update": "allEmailListNames"};
                     $http({
                         method: 'GET',
-                        url: getHost() + 'GetEmailLists?update=allEmailListNames'
-                }).success(function(data, status, headers, config) {
-                        $scope.emailLists = data.user;
+                        url: getHost() + '/emaillist/get.do?update=allEmailListWithNoOfContacts&emailListName=null'
+                    }).success(function(data, status, headers, config) {
+                        var parseData=JSON.parse(data.d.details)
+//                        alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user)+"..... success....");
+                        $scope.emailLists = parseData.allEmailListWithNoOfContacts.user;
                         $scope.emailLists_mindbody = data.mindbody;
                         if (data === "true") {
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
                         } else if (data === error) {
                             alert(data);
                         }
+                    }).error(function(error) {
+                        alert(JSON.stringify(error)+" ..... error ......");
                     });
             };
 

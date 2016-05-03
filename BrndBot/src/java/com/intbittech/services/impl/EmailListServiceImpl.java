@@ -111,22 +111,23 @@ public class EmailListServiceImpl implements EmailListService {
 
                 emailListArrayToUI.add(emailListObject);
             }
+            if(emailListArrayJSONMindbody!=null){
+                for (int i = 0; i < emailListArrayJSONMindbody.size(); i++) {
+                    JSONObject emailListObject = new JSONObject();
+                    JSONObject json_object = (JSONObject) emailListArrayJSONMindbody.get(i);
+                    emailListObject.put(IConstants.kEmailListNameKey, json_object.get(IConstants.kEmailListNameKey));
+                    JSONArray emails = (JSONArray) json_object.get(IConstants.kEmailAddressesKey);
+                    if (!emails.equals("")) {
+                        emailListObject.put("noofcontants", emails.size());
+                    } else if (emails.equals("")) {
+                        emailListObject.put("noofcontants", "0");
+                    }
 
-            for (int i = 0; i < emailListArrayJSONMindbody.size(); i++) {
-                JSONObject emailListObject = new JSONObject();
-                JSONObject json_object = (JSONObject) emailListArrayJSONMindbody.get(i);
-                emailListObject.put(IConstants.kEmailListNameKey, json_object.get(IConstants.kEmailListNameKey));
-                JSONArray emails = (JSONArray) json_object.get(IConstants.kEmailAddressesKey);
-                if (!emails.equals("")) {
-                    emailListObject.put("noofcontants", emails.size());
-                } else if (emails.equals("")) {
-                    emailListObject.put("noofcontants", "0");
+                    emailListObject.put(IConstants.kEmailListDefaultFromName, json_object.get(IConstants.kEmailListDefaultFromName));
+                    emailListObject.put(IConstants.kEmailListListDescription, json_object.get(IConstants.kEmailListListDescription));
+
+                    emailListArrayToUIMindbody.add(emailListObject);
                 }
-
-                emailListObject.put(IConstants.kEmailListDefaultFromName, json_object.get(IConstants.kEmailListDefaultFromName));
-                emailListObject.put(IConstants.kEmailListListDescription, json_object.get(IConstants.kEmailListListDescription));
-
-                emailListArrayToUIMindbody.add(emailListObject);
             }
             JSONObject json_email_contacts = new JSONObject();
             json_email_contacts.put(IConstants.kEmailListUserKey, emailListArrayToUI);
@@ -261,7 +262,6 @@ public class EmailListServiceImpl implements EmailListService {
         }
         return emailListArrayJSON;
     }
-
     private JSONArray getEmailListNames(JSONObject emailListJSONObject, EmailListType emailListType) throws ClassNotFoundException, SQLException {
         JSONArray emailListNamesJSON = new JSONArray();
         JSONArray emailListToProcess = getEmailListForType(emailListJSONObject, emailListType);
