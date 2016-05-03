@@ -29,7 +29,7 @@
             program = <%= program_id %>;
         </script>
 </head>    
-    <style>.arrow_top{display:none;}</style>
+    <style>.arrow_top{display:none;}.timepicker_wrap {width: 113% !important;}</style>
 <body>
     <div id="fade" class="black_overlay" ></div>
         <div id="addAction">

@@ -201,26 +201,26 @@ var count=0;
                 $("#deleteonetimeact").hide();
             }
         }
-//        function setSelectedIds(selectedid) {
-//            var checked = document.getElementById(selectedid).checked;
-//            var a = $("input:checked.chckbox").length;
-//            if (checked && a != 0) {
-//                $("#addemlactbtn").hide();
-//                $("#delemlactbtn").show();
-//                var selected_schedule_id1 = $("#" + selectedid).val();
-//                alert(selected_schedule_id1);
-//                selected_schedules_to_delete = selected_schedule_id1 + "," + selected_schedules_to_delete;
-//        //        alert(selected_schedules_to_delete);
-//            }
-//            else if (!checked && a == 0)
-//            {
-//                var selected_schedule_id = $("#" + selectedid).val();
-//                selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
-//        //        alert(selected_schedules_to_delete);
-//                $("#delemlactbtn").hide();
-//                $("#addemlactbtn").show();
-//            }
-//        }
+        function setSelectedIds(selectedid) {
+            var checked = document.getElementById(selectedid).checked;
+            var a = $("input:checked.chckbox").length;
+            if (checked && a != 0) {
+                $("#addemlactbtn").hide();
+                $("#delemlactbtn").show();
+                var selected_schedule_id1 = $("#" + selectedid).val();
+                alert(selected_schedule_id1);
+                selected_schedules_to_delete = selected_schedule_id1 + "," + selected_schedules_to_delete;
+        //        alert(selected_schedules_to_delete);
+            }
+            else if (!checked && a == 0)
+            {
+                var selected_schedule_id = $("#" + selectedid).val();
+                selected_schedules_to_delete = selected_schedules_to_delete.replace(selected_schedule_id + ",", "");
+        //        alert(selected_schedules_to_delete);
+                $("#delemlactbtn").hide();
+                $("#addemlactbtn").show();
+            }
+        }
 
             function selcheckboxrecemail(id){
             selected_schedules_to_delete_recurring=","+selected_schedules_to_delete_recurring;
