@@ -1065,6 +1065,8 @@ $(document).ready(function ()
     });
    $("#hidepopup").click(function(){
      $("#imagePopUp").hide();
+     $("#twitterSetPinPopUp").hide();
+     $("#fbmanagePagePopUp").hide();
     });
    $("#shoeUploadimage").click(function(){
        $("#gallerySpan").hide();
@@ -1143,4 +1145,126 @@ function displayUserImages($scope,$http){
             
         });
     }; 
+}
+function isDefaultTwitterSet(){
+                        $.ajax({
+                        url: getHost() +'settings/twitterDetails.do',
+                        method: 'post',
+                        async: true,
+                        data: JSON.stringify({
+                            access_token_method: "getAccessToken"
+                        }),
+                        success: function (responseText) {
+                            alert("sucess"+JSON.stringify(responseText));
+                            var twitterAccessToken = responseText.d.message;
+                            if((twitterAccessToken = null) || ( twitterAccessToken = "" ))
+                            {
+                                getAuthURL();
+                            }
+                            else {
+                            $("#twitterSetPinPopUp").hide();
+                            window.location = getHost() +"user/twitterpost";
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                        
+                    }
+                    });
+    
+}
+function getAuthURL(){
+                     $.ajax({
+                            url: getHost() +'settings/twitterAuthURL.do',
+                            method: 'GET',
+                            success: function (responseText) { 
+                                $("#twitterSetPinPopUp").show();
+                                $("#twitterlink").html("<a href='" + responseText.d.details[0] + "' target='_blank'>get your pin</a>");
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert("error:" +JSON.stringify(jqXHR));
+                            }
+                    });
+                }
+                
+function setTwitterAccessToken(){
+    alert();
+            var pin = $("#pinTextBox").val();
+            alert(pin);
+        if (pin.length > 0) {
+            $.ajax({
+                url: getHost() +'settings/twitterGetToken/'+pin,
+                method: 'GET',
+                success: function (responseText) {
+                    alert(JSON.stringify(responseText));
+                    $("#twitterSetPinPopUp").hide();
+                    window.location = getHost() +"user/twitterpost";
+                    
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                alert(JSON.stringify(jqXHR));
+            }
+            });
+
+        } else {
+            alert(pinerror);
+            $("#pinTextBox").focus();
+        }
+}
+angular.module("socialMedia", [])
+    .controller("isDefaultFbPageSet", function($scope, $http) {
+       
+        $scope.getmanage = function(){
+        alert("getmanage");
+        $http({
+                url: getHost() + 'settings/fbAuthURL',
+                method:"GET"      
+        }).success(function(data){
+                    alert(JSON.stringify(data.d.details[0]));
+                    window.location = data.d.details[0]; 
+            
+        });
+    }; 
+    $scope.checkForCode = function(){
+                alert("checkForCode");
+        var code=getUrlParameter("code");
+                alert(code);
+           if(typeof code !=="undefined"){
+                $http({
+                        url: getHost() + 'settings/fbGetToken/'+code,
+                        method:"GET"      
+                }).success(function(data){
+                            alert(JSON.stringify(data.d.details[0].fbPages[0]));
+                            $("#fbmanagePagePopUp").show();
+                            $scope.fbPagesDetails = data.d.details[0].fbPages;
+                });
+             }
+    }; 
+   $scope.setPageAccessToken = function(accessToken){
+                alert(accessToken);
+                $http({
+                        url: getHost() + 'settings/',
+                        method:"GET"      
+                }).success(function(data){
+                            alert(JSON.stringify(data.d.details[0]));
+                });
+    }; 
+});
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+
+function hideFbPopup(){
+    alert();
+    $("#fbmanagePagePopUp").hide();
 }
