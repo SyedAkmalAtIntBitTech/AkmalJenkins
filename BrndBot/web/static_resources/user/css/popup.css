@@ -60,6 +60,7 @@
 
 .firstcol{
     margin: 51px 40.3px 48px 57px;
+
 }
 .secondcol{
     margin: 51px 40.3px 48px 42.7px;
@@ -1549,6 +1550,7 @@ textarea#filetext1 {
     .right-email-select{
         
          height: -webkit-calc(100% - 33px) !important;
+
     }
     .fr-editheader{
         

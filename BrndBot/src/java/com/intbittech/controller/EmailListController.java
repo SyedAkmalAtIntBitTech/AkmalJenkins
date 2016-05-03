@@ -54,7 +54,7 @@ public class EmailListController {
             Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             String data = emailListService.getEmailList(request, companyId, emailListName);
             transactionResponse.addDetail(data);
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("success", new String[]{}, Locale.US)));
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("list_success", new String[]{}, Locale.US)));
             
         } catch (Throwable throwable) {
             logger.error(throwable);
