@@ -17,6 +17,7 @@ public class MarketingActionDetails {
     private String description;
     private String time;
     private Boolean is_recuring;
+    private String tilldate;
 
     public String getTitle() {
         return title;
@@ -64,6 +65,14 @@ public class MarketingActionDetails {
 
     public void setIs_recuring(Boolean is_recuring) {
         this.is_recuring = is_recuring;
+    }
+
+    public String getTilldate() {
+        return tilldate;
+    }
+
+    public void setTilldate(String tilldate) {
+        this.tilldate = tilldate;
     }
     
     
