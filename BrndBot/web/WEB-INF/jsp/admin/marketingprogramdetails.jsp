@@ -71,7 +71,7 @@
                             <span class="listCol_Text fleft">{{marketingAction.days}}</span>
                         </div>
                         <div class="listCol col1of4 fleft">
-                            <div class="CTA_Button Button--Gray fright" ng-click="getlistnum($index)">Manage Action</div>
+                            <div class="CTA_Button Button--Gray fright" ng-click="getlistnum($index,'recurring')">Manage Action</div>
                         </div>
                     </li>
                 </ul>
@@ -109,7 +109,7 @@
                             <span class="listCol_Text fleft">{{marketingOneTimeAction.type}}</span>
                         </div>
                         <div class="listCol col1of4 fleft">
-                            <div class="CTA_Button Button--Gray fright" ng-click="getlistnum($index)">Manage Action</div> 
+                            <div class="CTA_Button Button--Gray fright" ng-click="getlistnum($index,'oneTimeActions')">Manage Action</div> 
                         </div>
                     </li>
                 </ul>

@@ -94,7 +94,7 @@
                                <div class="selection-icon" id="{{entitydetails.schedule_id}}" onclick="selcheckbox(this.id)"><input type="checkbox" id="entityid{{entitydetails.entity_id}}" value="{{entitydetails.entity_id}}" name="entityname" hidden></input></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
-                                <div ng-show="entitydetails.entity_type !== master_note">
+                                <div ng-show="entitydetails.entity_type != master_note">
                                     <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'Template Saved'"  data-hint="Template Saved" > 
                                         <img src="images/templateSaved.svg" class="status-button" />
                                     </div>

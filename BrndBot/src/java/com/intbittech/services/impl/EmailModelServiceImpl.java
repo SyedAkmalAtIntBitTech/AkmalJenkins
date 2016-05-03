@@ -126,7 +126,6 @@ public class EmailModelServiceImpl implements EmailModelService {
         return emailModelList;
     }
 
-    //TODO Ilyas needs to check path.
     @Override
     public String getLayoutEmail(Boolean isBlock, Integer emailModelId, String hostURL, Integer companyId, ExternalSourceKeywordLookup externalSourceKeywordLookup, Integer externalDataId, Map<String, Object> data) throws ProcessFailed {
         String responseHTML = "";

@@ -75,7 +75,7 @@
             }
             
             function usermarketingprogram($scope, $http){
-                
+               
                 $scope.saveMarketingProgram = function(){
                     
                 if (validate()){
@@ -191,7 +191,7 @@
                     }).success(function (data, status, headers, config) {
                         if (data !== null){
                             alert("Details saved successfully.");
-                            var redirect="user/marketingprogramactions?past=0&program_id="+marketing_program_id+"&program_date="+program_date_time;
+                            var redirect="user/marketingprogramactions?past=0&program_id="+data+"&program_date="+program_date_time;
                             window.open(getHost() + redirect, "_self");
                         }else {
                             alert("Problem saving the record!");

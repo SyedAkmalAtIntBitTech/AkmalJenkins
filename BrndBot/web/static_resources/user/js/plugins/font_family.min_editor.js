@@ -3,15 +3,19 @@
  * License https://froala.com/wysiwyg-editor/terms
  * Copyright 2014-2015 Froala Labs
  */
-var FontArray;
-               $.ajax({
-                   async: false,
-                   url: global_host_address+ "GetFontsServlet",
-                   dataType: 'json',
-                   success:function(data){
-                    FontArray=data;   
-                    }
-                });
+var FontArray = [];
+
+$.ajax({
+    async: false,
+    url: global_host_address+ "getAllFonts.do",
+    dataType: 'json',
+    success:function(data){
+        var font = data.d.details;
+       
+        for (var i=0;i<font.length;i++)
+            FontArray[font[i].fontFamilyName]= font[i].fontFamilyName; 
+     }
+ });
     
 
 !function (a) {
