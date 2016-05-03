@@ -12,6 +12,7 @@ import com.intbittech.model.MarketingProgram;
 import com.intbittech.model.OrganizationCompanyLookup;
 import com.intbittech.model.OrganizationMarketingCategoryLookup;
 import com.intbittech.modelmappers.MarketingActionDetails;
+import com.intbittech.modelmappers.MarketingActionsObjectDetails;
 import com.intbittech.modelmappers.MarketingCategoryDetails;
 import com.intbittech.modelmappers.MarketingCategoryProgramDetails;
 import com.intbittech.modelmappers.MarketingProgramActionsDetails;
@@ -281,7 +282,8 @@ public class MarketingController {
             marketingProgramActionsDetails.setMarketingProgramName(marketingProgram.getMarketingProgramName());
             marketingProgramActionsDetails.setHtmlData(marketingProgram.getHtmlData());
             marketingProgramActionsDetails.setMarketingActionId(marketingAction.getMarketingActionId());
-            List<MarketingActionDetails> marketingActions = StringUtility.jsonStringToObjectList(marketingAction.getJsonTemplate());
+            List<MarketingActionsObjectDetails> marketingActionsObjectDetailses = StringUtility.jsonStringToObjectList(marketingAction.getJsonTemplate());
+            List<MarketingActionDetails> marketingActions = marketingActionsObjectDetailses.get(0).getActions();
             marketingProgramActionsDetails.setMarketingActions(marketingActions);
             marketingProgramActionsDetailsList.add(marketingProgramActionsDetails);
             genericResponse.setDetails(marketingProgramActionsDetailsList);

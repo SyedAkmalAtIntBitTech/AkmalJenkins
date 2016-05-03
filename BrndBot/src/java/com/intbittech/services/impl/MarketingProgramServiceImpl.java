@@ -11,13 +11,16 @@ import com.intbittech.dao.MarketingProgramDao;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.MarketingAction;
 import com.intbittech.model.MarketingProgram;
+import com.intbittech.modelmappers.MarketingActionsObjectDetails;
 import com.intbittech.modelmappers.MarketingProgramActionsDetails;
 import com.intbittech.services.MarketingProgramService;
 import com.intbittech.utility.StringUtility;
+import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -104,7 +107,12 @@ public class MarketingProgramServiceImpl implements MarketingProgramService {
             MarketingProgram marketingProgramObject = new MarketingProgram();
             marketingProgramObject.setMarketingProgramId(marketingProgramId);
             marketingAction.setFkMarketingProgramId(marketingProgramObject);
-            String jsonString = StringUtility.objectListToJsonString(marketingProgramActionsDetails.getMarketingActions());
+            List<MarketingActionsObjectDetails> marketingActionsObjectDetailses = new ArrayList<>();
+            MarketingActionsObjectDetails marketingActionsObjectDetails = new MarketingActionsObjectDetails();
+            marketingActionsObjectDetails.setActions(marketingProgramActionsDetails.getMarketingActions());
+            marketingActionsObjectDetailses.add(marketingActionsObjectDetails);
+            String jsonString = StringUtility.objectListToJsonString(marketingActionsObjectDetailses);
+            
             marketingAction.setJsonTemplate(jsonString);
             marketingActionDao.save(marketingAction);
 
@@ -131,7 +139,13 @@ public class MarketingProgramServiceImpl implements MarketingProgramService {
             MarketingProgram marketingProgramObject = new MarketingProgram();
             marketingProgramObject.setMarketingProgramId(marketingProgramActionsDetails.getMarketingProgramId());
             marketingAction.setFkMarketingProgramId(marketingProgramObject);
-            String jsonString = StringUtility.objectListToJsonString(marketingProgramActionsDetails.getMarketingActions());
+            
+            List<MarketingActionsObjectDetails> marketingActionsObjectDetailses = new ArrayList<>();
+            MarketingActionsObjectDetails marketingActionsObjectDetails = new MarketingActionsObjectDetails();
+            marketingActionsObjectDetails.setActions(marketingProgramActionsDetails.getMarketingActions());
+            marketingActionsObjectDetailses.add(marketingActionsObjectDetails);
+            
+            String jsonString = StringUtility.objectListToJsonString(marketingActionsObjectDetailses);
             marketingAction.setJsonTemplate(jsonString);
             marketingActionDao.update(marketingAction);
 
