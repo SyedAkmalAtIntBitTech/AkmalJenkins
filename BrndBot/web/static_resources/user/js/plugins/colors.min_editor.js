@@ -22,8 +22,6 @@ function hex(x) {
     url: global_host_address + 'settings/getColors.do',
     dataType: 'json',
 success:function(data){
-    alert(JSON.stringify(data));
-    alert(data.d.details.length);
     for(var i=0;i<data.d.details.length;i++)
     {
         colorcodeArray[i] = rgb2hex(data.d.details[i]);
