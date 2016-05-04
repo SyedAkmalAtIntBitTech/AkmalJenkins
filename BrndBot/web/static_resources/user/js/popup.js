@@ -1112,7 +1112,7 @@ function postToFacebook(){
            method: 'post',
             data: JSON.stringify({
                    imageToPost: image_name,
-                   accesstoken: localStorage.getItem("CurrentFbAccessToken"),
+                   accessToken: localStorage.getItem("CurrentFbAccessToken"),
                    postText: shareText,
                    title: linkTitle,
                    url: linkUrl,
@@ -1176,51 +1176,25 @@ angular.module("imageGallery", [])
             alert(JSON.stringify(data));
         });
     }; 
-        $scope.uploadFile = function () {
-                alert("upload image");
-        if ($("#myFile").val() === "") {
-            alert(chooseimage);
-            return false;
-        }
-        if(imagefilevalidation("myFile")){   }
-        else
-        {
-            return false;
-        }
-
-        $("#myFile").upload("UploadImages", function (success) {
-            var imagetext = $("#myFile").val();
+     $scope.uploadFile = function () {
+            alert("uploadFile");
+            var imagetext = $("#filesToUpload").val();
             if (imagetext === "")
             {
                 alert(chooseimage);
             }
             else
             {
-                alert(imageuploadsuccess);
-                $("#fileuploaddiv").hide();
-                $scope.showImages();
-                $("#myFile").val('');
+                    alert("1");
+                var file = $scope.myFile;
+                alert("1");
+                console.log('file is ' + JSON.stringify(file));
+                var uploadUrl = getHost() + '/images/save';
+                fileUpload.uploadFileToUrl(file, uploadUrl);
             }
-        });
-    };
-    $scope.showImages = function () {
-        $("#addContact").hide();
-        $("#imageGalleryDiv").show();
-        $("#fade").show();
-        //$("#imageGallerySection").show();
-        $scope.curPage = 0;
-        $scope.pageSize = 100;
-        $http({
-            method: 'GET',
-            url: 'GetUserImages'
-        }).success(function (data, status, headers, config) {
-            //alert(JSON.stringify(data));
-            $scope.datalistimages = data;
-        }).error(function (data, status, headers, config) {
-            alert(nodataerror);
-        });
-    };
+        };
 });
+
 function isDefaultTwitterSet(){
                         $.ajax({
                         url: getHost() +'settings/twitterDetails.do',
