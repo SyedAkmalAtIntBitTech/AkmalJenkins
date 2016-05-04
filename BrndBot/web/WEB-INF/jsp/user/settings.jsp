@@ -33,7 +33,11 @@
     <script src="js/settings.js" type="text/javascript"></script>
     <link href="css/tabcontent.css" rel="stylesheet" type="text/css"/>
     <script src="js/settingspalettechooser.js" type="text/javascript"></script>     
-   
+    <style>
+        a{
+            position:initial;
+        }
+        </style>
    <jsp:include page="basejsp.jsp" />
    <%! 
             String change = "";
