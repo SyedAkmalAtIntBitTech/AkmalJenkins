@@ -21,6 +21,14 @@
    <script src="js/timepicki.js" type="text/javascript"></script>
    <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>    
     <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
+    <style>
+        .timepicker_wrap {
+            width:113% !important;
+        }
+        .time_pick{
+            width:100% !important;
+        }
+    </style>
 </head>    
     <body>
         <div id="fade" class="black_overlay" ></div>
