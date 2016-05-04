@@ -663,7 +663,7 @@ $edit=0;
                                             "emailLastName":email_last_name}
                                 $http({
                                     method: 'POST',
-                                    url: getHost() + 'SetEmailLists',
+                                    url: getHost() + '/emaillist/save.do',
                                     headers: {'Content-Type': 'application/json'},
                                     data: emaildetails
                                 }).success(function (data)
