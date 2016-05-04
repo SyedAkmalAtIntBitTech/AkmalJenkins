@@ -68,7 +68,7 @@
             </div>
         </div>
         <div class="bottomNav">
-            <div class="bottom-ContinueButton fright" onclick="twitterPost()">CONTINUE</div>
+            <div class="bottom-ContinueButton fright" onclick="PostToTwitter()">CONTINUE</div>
         </div>
         <%@include file="imagegallerypopup.jsp" %>  
     </body>

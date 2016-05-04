@@ -54,7 +54,7 @@ public class SocialPostController {
 
             String title = (String) requestBodyMap.get("title");
             String file_image_path = (String) requestBodyMap.get("file_image_path");
-            String posttext = (String) requestBodyMap.get("posttext");
+            String posttext = (String) requestBodyMap.get("postText");
             String imagePostURL = (String) requestBodyMap.get("imagePostURL");
             String getImageFile = (String) requestBodyMap.get("getImageFile");
             String url = (String) requestBodyMap.get("url");
@@ -82,11 +82,11 @@ public class SocialPostController {
             Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
 
             String text = (String) requestBodyMap.get("text");
-            String shortURL = (String) requestBodyMap.get("shortURL");
-            String fileImagePath = (String) requestBodyMap.get("fileImagePath");
+            String shortURL = (String) requestBodyMap.get("shorturl");
+            String fileImagePath = (String) requestBodyMap.get("imageToPost");
             String htmlString = (String) requestBodyMap.get("htmlString");
             String getImageFile = (String) requestBodyMap.get("getImageFile");
-            String image_type = (String) requestBodyMap.get("image_type");
+            String image_type = (String) requestBodyMap.get("imageType");
             String status = PostToTwitter.postStatus(image_type, text, shortURL, fileImagePath, companyId, htmlString, getImageFile);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(status));
         } catch (Throwable throwable) {

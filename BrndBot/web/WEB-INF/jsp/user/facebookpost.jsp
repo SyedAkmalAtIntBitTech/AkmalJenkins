@@ -72,7 +72,7 @@
             </div>
         </div>
         <div class="bottomNav">
-            <div class="bottom-ContinueButton fright" onclick="fbPost()">CONTINUE</div>
+            <div class="bottom-ContinueButton fright" onclick="postToFacebook()">CONTINUE</div>
         </div>
        <%@include file="imagegallerypopup.jsp" %>  
     </body>

@@ -25,10 +25,11 @@
                             </div>
                         </span>
                     </div>
+                    <input type="hidden" id="pageAccessToken"/> 
                 </div>
                 <div class="popUp-bottom-wide">
-                    <span class="clickable-area">
-                        <div class="popUp-bottom-link">ADD IMAGE</div>
+                    <span class="clickable-area" ng-click="postToSelectedPage()">
+                        <div class="popUp-bottom-link">Done</div>
                     </span>
                 </div>
             </div>

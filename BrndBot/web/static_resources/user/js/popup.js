@@ -1098,19 +1098,27 @@ function changePostType(){
     }
 }
 
-function fbPost(){
+function postToFacebook(){
     var shareText = $("#shareText").val();
+    alert(shareText);
+    shareText = "facebook test";
     var linkTitle = $("#linkTitle").val();
     var linkDescription = $("#linkDescription").val();
     var linkUrl = $("#linkUrl").val();
-    var dataObject="";
-    if(linkTitle === ""){
-       
-    }
+    var image_name = "http://www.zigcdn.com/media/wallpaper/2015/May/mercedes-benz-amg-gt-wallpaper-pic-image-photo-zigwheels-29052015_640x480.jpg"; 
+    var image_type =  "url";     
    $.ajax({
-            url: "",
+           url: getHost() + "socialPost/postToFacebook",
            method: 'post',
-            data: dataObject,
+            data: JSON.stringify({
+                   imageToPost: image_name,
+                   accesstoken: localStorage.getItem("CurrentFbAccessToken"),
+                   postText: shareText,
+                   title: linkTitle,
+                   url: linkUrl,
+                   description: linkDescription,
+                   imageType: image_type
+            }),
           success: function (responseText) {
                 alert(JSON.stringify(responseText));
                         },
@@ -1119,14 +1127,24 @@ function fbPost(){
         }
     });
 }
-function twitterPost(){
+function PostToTwitter(){
     var shareText = $("#twitterShareText").val();
-    var dataObject="";
+    shareText + "bit.ly/1XOkJo";
     alert(shareText);
-   $.ajax({
-            url: "",
+    var dataObject="";
+    var image_name = "http://www.zigcdn.com/media/wallpaper/2015/May/mercedes-benz-amg-gt-wallpaper-pic-image-photo-zigwheels-29052015_640x480.jpg"; 
+    var image_type =  "url";
+    $.ajax({
+            url: getHost() + "socialPost/postToTwitter",
            method: 'post',
-            data: dataObject,
+            data: JSON.stringify({
+                   imageToPost: image_name,
+                   twittweraccestoken: $("#twittweraccestoken").val(),
+                   twitterTokenSecret: $("#twitterTokenSecret").val(),
+                   text: shareText,
+                   imageType: image_type,
+                   shorturl: "bit.ly/1XOkJo"
+                }),
           success: function (responseText) {
                 alert(JSON.stringify(responseText));
                         },
@@ -1135,17 +1153,74 @@ function twitterPost(){
         }
     });
 }
-function displayUserImages($scope,$http){
+
+angular.module("imageGallery", [])
+    .controller("displayImageFromGallery", function($scope, $http) {
     $scope.getUserImaages = function(){
-        $http({
-                url: getHost() + '/companyImages/get',
-                method:"GET"      
-        }).success(function(data){
-            
-            
+                alert("getUserImaages");
+      $http({
+            method: 'GET',
+            url: getHost() +'/companyImages/get'
+        }).success(function (data) {
+            alert(JSON.stringify(data));
+             
+            $scope.datalists = data.d.details;
+         
+            $scope.numberOfPages = function () {
+                return Math.ceil($scope.datalists.length / $scope.pageSize);
+            };
+            if (data === error) {
+                alert(data);
+            }
+        }).error(function (data) {
+            alert(JSON.stringify(data));
         });
     }; 
-}
+        $scope.uploadFile = function () {
+                alert("upload image");
+        if ($("#myFile").val() === "") {
+            alert(chooseimage);
+            return false;
+        }
+        if(imagefilevalidation("myFile")){   }
+        else
+        {
+            return false;
+        }
+
+        $("#myFile").upload("UploadImages", function (success) {
+            var imagetext = $("#myFile").val();
+            if (imagetext === "")
+            {
+                alert(chooseimage);
+            }
+            else
+            {
+                alert(imageuploadsuccess);
+                $("#fileuploaddiv").hide();
+                $scope.showImages();
+                $("#myFile").val('');
+            }
+        });
+    };
+    $scope.showImages = function () {
+        $("#addContact").hide();
+        $("#imageGalleryDiv").show();
+        $("#fade").show();
+        //$("#imageGallerySection").show();
+        $scope.curPage = 0;
+        $scope.pageSize = 100;
+        $http({
+            method: 'GET',
+            url: 'GetUserImages'
+        }).success(function (data, status, headers, config) {
+            //alert(JSON.stringify(data));
+            $scope.datalistimages = data;
+        }).error(function (data, status, headers, config) {
+            alert(nodataerror);
+        });
+    };
+});
 function isDefaultTwitterSet(){
                         $.ajax({
                         url: getHost() +'settings/twitterDetails.do',
@@ -1241,12 +1316,26 @@ angular.module("socialMedia", [])
     }; 
    $scope.setPageAccessToken = function(accessToken){
                 alert(accessToken);
-                $http({
-                        url: getHost() + 'settings/',
-                        method:"GET"      
-                }).success(function(data){
-                            alert(JSON.stringify(data.d.details[0]));
-                });
+                $("#pageAccessToken").val(accessToken);
+//                $http({
+//                        url: getHost() + 'settings/',
+//                        method:"GET"      
+//                }).success(function(data){
+//                            alert(JSON.stringify(data.d.details[0]));
+//                });
+    }; 
+    $scope.postToSelectedPage = function(){
+                alert("postToSelectedPage");
+              var accessToken= $("#pageAccessToken").val();
+                localStorage.setItem("CurrentFbAccessToken",accessToken);
+                alert(localStorage.getItem("CurrentFbAccessToken"));
+                window.location = getHost() + "user/facebookpost";
+//                $http({
+//                        url: getHost() + 'settings/',
+//                        method:"GET"      
+//                }).success(function(data){
+//                            alert(JSON.stringify(data.d.details[0]));
+//                });
     }; 
 });
 var getUrlParameter = function getUrlParameter(sParam) {
