@@ -95,7 +95,7 @@
             
         </div>
     </div>
-    <div class="pop-up-cta-container pop-up-cta-container-newaction cur" ng-click="AddAction()" >
+    <div id="addActionYourPlan" class="pop-up-cta-container pop-up-cta-container-newaction cur" ng-click="AddAction()" >
         <a href="javascript:void(0)">
             <div class="pop-up-cta-button-full"> Save Action</div>
         </a>

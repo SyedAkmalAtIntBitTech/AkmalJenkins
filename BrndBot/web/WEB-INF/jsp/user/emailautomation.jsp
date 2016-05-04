@@ -76,6 +76,7 @@
     
 <script>
     
+    var emailLists="";
     var to_email_addresses="";
     var schedule_time = "";
     var schedule_date = "";
@@ -142,7 +143,7 @@
             else{
                 $http({
                     method: 'POST',
-                    url: getHost() + 'getRecurringEntity.do',
+                    url: getHost() + 'getRecurringEntity',
                     headers: {'Content-Type':'application/json'},
                     data: JSON.stringify(entity_details)
                 }).success(function(data, status){
@@ -255,7 +256,7 @@
            
             $http({
                 method: 'GET',
-                url: getHost() + 'getUserPreferences.do'
+                url: getHost() + 'getUserPreferences'
             }).success(function(data, status, headers, config) {
                 if (data != ""){
                     alert("Please enter from address and reply to email address in email settings.");
@@ -272,7 +273,7 @@
             var emailids = {"update": "allEmailListNames"}; 
             $.ajax({
                 method: 'GET',
-                 url: getHost() + 'emaillist/get.do?update=allEmailListWithNoOfContacts&emailListName=null'
+                 url: getHost() + 'emaillist/get?update=allEmailListWithNoOfContacts&emailListName=null'
             }).success(function (data, status, headers, config) {
                 var parseData=JSON.parse(data.d.details);
 //                alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user));
@@ -293,7 +294,7 @@
                 $("#emlautomeditorcontainer").show();
                 $http({
                     method: 'GET',
-                    url: getHost() + 'getAllRecurringEmailTemplates.do'
+                    url: getHost() + 'getAllRecurringEmailTemplates'
                 }).success(function(data, status){
                     $scope.recuring_email_templates = data;
                 }).error(function(error){
@@ -307,9 +308,11 @@
             if (validate()){
                 
                 var days = $("#days").val();                
-                var emaillistwithAddress = $("#emaillist").val().split('-');
-                var emaillist=emaillistwithAddress[0];
-                to_email_addresses=emaillistwithAddress[1].split(',');
+//                var emaillistwithAddress = $("#emaillist").val().split('-');
+//                var emaillist=emaillistwithAddress[0];
+//                to_email_addresses=emaillistwithAddress[1].split(',');
+                var emaillist=$("#emaillist").val();
+                var to_email_addresses=emailLists.split(',');
                 var subject = $("#subject").val();
                 var from_name = $("#from_name").val();
                 var reply_to_address = $("#reply_to_address").val();
@@ -341,7 +344,7 @@
                     };
                     $http({
                         method: 'POST',
-                        url: getHost()+'/addRecurringAction.do',
+                        url: getHost()+'/addRecurringAction',
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(recuring_action)
                     }).success(function (data, status, headers, config) {
@@ -373,7 +376,7 @@
                     };
                     $http({
                         method: 'POST',
-                        url: getHost()+'addupdateRecurringAction.do',
+                        url: getHost()+'addupdateRecurringAction',
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(recuring_action)
                     }).success(function (data, status, headers, config) {
@@ -410,7 +413,7 @@
                    
                     $http({
                         method: 'POST',
-                        url: getHost()+'/addupdateRecurringAction.do',
+                        url: getHost()+'/addupdateRecurringAction',
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(recuring_action)
                     }).success(function (data, status, headers, config) {
@@ -443,7 +446,7 @@
                     };           
                     $http({
                         method: 'POST',
-                        url: getHost()+'updateRecurringAction.do',
+                        url: getHost()+'updateRecurringAction',
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(recuring_action)
                     }).success(function (data, status, headers, config) {
@@ -516,23 +519,36 @@
        $("#emlautomeditorcontainer").hide();
        $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
 
-//       $("#emaillist").change(function () {
-//
-//           var List_name = $("#emaillist").val();
-//           $.ajax({
-//               url: getHost() + "GetEmailLists",
-//               method: 'POST',                    
+       $("#emaillist").change(function () {
+
+           var List_name = $("#emaillist").val();
+           $.ajax({
+               url: getHost() + "/emaillist/get?update=emailsForEmailList&emailListName="+List_name,
+               method: 'GET',                    
 //               data: {
 //                   update: "emailsForEmailList",
 //                   list_name: List_name
 //               },
-//               success: function(result){
+               success: function(data){
+//                   alert(JSON.stringify(data.d.details));
+                   var emailListName = $.parseJSON(data.d.details);                   
+                   for(var i=0;i<emailListName.user_emailAddresses.length;i++){
+                          var emails = emailListName.user_emailAddresses[i];
+                          emailLists=emailLists+eval(JSON.stringify(emails.emailAddress))+",";
+                   }
+//                   alert(emailLists);
+//                   var emailListNames=JSON.stringify(emailListName.user_emailAddresses);
+//                   alert(emailListName.user_emailAddresses.length);
 //                   var i = 0;
-//                   emails = result.user_emailAddresses;
-//               }
-//           });
-//
-//       });
+//                   var emails = emailListName.user_emailAddresses;
+//                   alert(emails);
+               },
+               error: function (errorThrown) {
+                    alert(JSON.stringify(errorThrown));                        
+                }
+           });
+
+       });
 
    if (type == 'edit'){
        var entity_details = {"entity_id": entity_id};                 
@@ -542,7 +558,7 @@
        $("#editpreviewtemplatebottom").hide();
        //                
                 $.ajax({
-                    url: getHost() + "getRecurringEntity.do",
+                    url: getHost() + "getRecurringEntity",
                     method: 'POST',
                     dataType: 'json',
                     contentType: 'application/json',
@@ -585,11 +601,11 @@
                 var emlval = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
                 
                 var days = $("#days").val();
-//                alert($("#emaillist").val());
-//                var emaillisttext = $("#emaillist :selected").text();
-                var emaillistwithAddress = $("#emaillist").val().split('-');
-                var emaillist=emaillistwithAddress[0];
-                to_email_addresses=emaillistwithAddress[1].split(',');
+                var emaillist=($("#emaillist").val());
+//                var emaillisttext = $("#emaillist :selected").text();alert(emaillisttext);
+//                var emaillistwithAddress = $("#emaillist").val().split('-');
+//                var emaillist=emaillistwithAddress[0];
+//                to_email_addresses=emaillistwithAddress[1].split(',');
                 
                 var subject = $("#subject").val();
                 var from_name = $("#from_name").val();
@@ -1035,6 +1051,11 @@
                                     margin-left: 35%;
                                 }
                                 .imgText{text-align: center;}
+                                
+                                .fr-editheader {
+                                    top: 5px !important;
+                                    bottom: 23px !important;
+                                }
                             </style>
 
                         <div id="editor">

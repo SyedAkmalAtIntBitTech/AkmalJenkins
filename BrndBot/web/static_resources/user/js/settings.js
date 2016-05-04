@@ -287,7 +287,7 @@ function controllerUserChanges($scope, $http) {
 
             $http({
                 method: 'POST',
-                url: getHost() + 'signup/resetPassword.do',
+                url: getHost() + 'signup/resetPassword',
                 headers: {'Content-Type': 'application/json'},
                 data: password_object
             }).success(function (data)
@@ -313,7 +313,7 @@ function controllerUserChanges($scope, $http) {
 
         $http({
             method: 'GET',
-            url: getHost() + 'settings/getColors.do'
+            url: getHost() + 'settings/getColors'
         }).success(function (data, status, headers, config) {
             var parseData = JSON.parse(data.d.details[0]);
             $scope.user_preferences_colors = JSON.parse(JSON.stringify(parseData));
@@ -339,7 +339,7 @@ function controllerUserChanges($scope, $http) {
     $scope.getLogoColors = function () {
         $http({
             method: 'GET',
-            url: getHost() +'/onboarding/getColorsForLogo.do'
+            url: getHost() +'/onboarding/getColorsForLogo'
         }).success(function (data, status, headers, config) {
             $scope.color =data.d.details;
             if (data === error) {

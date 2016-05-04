@@ -963,7 +963,7 @@ function controllerMarketingCampaign($scope, $http) {
 //                $('#posttext').css('overflow', 'hidden').autogrow();
     $http({
         method: 'GET',
-        url: getHost() + 'getAllUserMarketingProgramsByUserId.do'
+        url: getHost() + 'getAllUserMarketingProgramsByUserId'
     }).success(function (data) {
         $scope.urls = data;
         console.log($scope.urls);
@@ -999,7 +999,7 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.getProgramNames = function () {
         $http({
             method: 'GET',
-            url: getHost() + 'getAllUserMarketingPrograms.do'
+            url: getHost() + 'getAllUserMarketingPrograms'
         }).success(function (data) {
 //                        alert(JSON.stringify(data));
             $scope.marketing_programs = data;
@@ -1109,7 +1109,7 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.getProgramNames = function () {
         $http({
             method: 'GET',
-            url: getHost() + 'getAllUserMarketingPrograms.do'
+            url: getHost() + 'getAllUserMarketingPrograms'
         }).success(function (data) {
 //                        alert(JSON.stringify(data));
             $scope.marketing_programs = data;
@@ -1121,7 +1121,7 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.getLinks = function () {
         $http({
             method: 'GET',
-            url: getHost() + 'getAllUserMarketingProgramsByUserId.do'
+            url: getHost() + 'getAllUserMarketingProgramsByUserId'
         }).success(function (data) {
             $scope.urls = data;
             console.log($scope.urls);

@@ -29,7 +29,7 @@
 <link rel="stylesheet" type="text/css" href="css/gallery-user.css"/>
 <link rel="stylesheet" type="text/css" href="css/onboarding.css"/>
 <!--<link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"/>-->
-<script src="js/base.js" type="text/javascript"></script> 
+<!--<script src="js/base.js" type="text/javascript"></script>--> 
 <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
 <script src="js/alertmessage.js" type="text/javascript"></script>
 <script src="js/configurations.js"></script>   
@@ -49,5 +49,7 @@
 <script src="js/configurations.js" type="text/javascript"></script>
 <script src="js/timepicki.js" type="text/javascript"></script>
 <script src="js/popup.js" type="text/javascript"></script>
+<!--<link href="css/textstyle.css" rel="stylesheet" type="text/css"/>-->
+<%@include file="loadingoverlay.jsp" %>  
 
 

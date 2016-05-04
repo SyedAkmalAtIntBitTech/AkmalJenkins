@@ -59,7 +59,7 @@
     <script type="text/javascript" src="js/plugins/link.min.js"></script>
     <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
     <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
-    
+    <%@include file="loadingoverlay.jsp" %>  
     <%!            
 //        SqlMethods sql_methods = new SqlMethods();
         StringBuffer string_buffer = new StringBuffer();
@@ -74,6 +74,7 @@
          String subCategoryId= request.getParameter("subCategoryId");
          String emailSubject= request.getParameter("emailSubject");
          String mindbodyId=request.getParameter("mindbodyId");
+         String LookupId=request.getParameter("LookupId");
 //        email_subject = request.getParameter("subject"); %>
     <%
 //        try {
@@ -118,6 +119,14 @@
         var sliderDialog="#emaileditorexternalpopup";
         var externalKeywordId="";
         var externalDataId="";
+        
+        
+        function showOverlay(){
+            $("#loadoverlaydiv").show();
+        }
+        function hideOverlay(){
+            $("#loadoverlaydiv").hide();
+        }
         
         $(document).ready(function(){    
             $('#edit').froalaEditor().show();
@@ -190,7 +199,7 @@
             $.ajax({
                 type: 'GET',
 //                url: "GetLayoutStyles?editorType=email",
-                  url: getHost()+"/getAllEmailModelsBySubCategoryId.do?subCategoryId="+subCategoryId,
+                  url: getHost()+"/getAllEmailModelsBySubCategoryId?subCategoryId="+subCategoryId,
                 dataType: 'json',
                 success: function (data) {
 //                    alert(JSON.stringify(data));
@@ -215,7 +224,7 @@
 
                     $http({
                     method : 'GET',
-                            url : getHost() + 'getEmailDraft.do?draftid=' + draft_id
+                            url : getHost() + 'getEmailDraft?draftid=' + draft_id
                     }).success(function(data, status) {
                     if (data == ""){
                     $scope.emaildraftsstatus = "No email drafts present";
@@ -257,6 +266,7 @@
                     };
                     
                     $scope.showStyles = function(){
+                            showOverlay();
                             var subCategoryId=$("#subCategoryIdTag").val();
                             var queryurl;
                             $scope.curPage = 0;
@@ -267,7 +277,7 @@
                             }
                             else
                             {
-                                queryurl = getHost() +'getAllEmailModelsBySubCategoryId.do?subCategoryId='+subCategoryId;
+                                queryurl = getHost() +'getAllEmailModelsBySubCategoryId?subCategoryId='+subCategoryId;
                             }
                             $http({
                             method : 'GET',
@@ -278,16 +288,20 @@
                             $scope.numberOfPages = function() {
                                 return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
                             };
+                            hideOverlay();
                             if (data === error){
                                 alert(data);
+                                hideOverlay();
                             }
 
                             }).error(function(data, status, headers, config) {
+                                hideOverlay();
                                 alert("No data available! Problem fetching the data.");
                             });
                         };
                         
                     $scope.showBlocks = function(){
+                        showOverlay();
                         $("#addblkbtn").prop("disabled", true);
                         $(".selectrow").css("display", "block");
                         $("#stylelist").css("display", "none");
@@ -300,8 +314,9 @@
                         $scope.pageSize = 2;
                         $http({
                         method : 'GET',
-                                url : getHost()+'getAllBlocksForCompany.do'
+                                url : getHost()+'getAllBlocksForCompany'
                         }).success(function(data, status, headers, config) {
+                            hideOverlay();
 //                            alert(JSON.stringify(data.d.details)+".....blocks.....");
                             $scope.datalists = data.d.details;
 //                            alert(JSON.stringtify(data));
@@ -313,16 +328,21 @@
 //                            document.getElementById('blk').style.backgroundColor = '#fff';
                             $scope.numberOfPages = function() {
                                 return Math.ceil($scope.datalists.length / $scope.pageSize);
+//                                hideOverlay();
                             };
                             if (data === error){
                                 alert(data);
-                            }
+                                hideOverlay();
+                            }                            
+//                            hideOverlay();
                         }).error(function(data, status, headers, config) {
-                        alert("No data available! Problem fetching the data.");
+                            hideOverlay();
+                            alert("No data available! Problem fetching the data.");
                         });
                     };
                     
                     $scope.showImageOfBlock = function(id, mind_body_query){
+                        showOverlay();
 //                        alert(id);
 //                        alert(mind_body_query);
                         $(".block-button").addClass("hide");
@@ -338,8 +358,9 @@
                         $("#styletab").css("background-color", "transparent").css("color", "#19587c");
                         temp_block_id = id;
                         temp_mind_body_query = mind_body_query;
-                        $http.get(getHost()+'getAllEmailBlockModelsByBlockId.do?emailBlockId=' + id).success(function(data, status){
+                        $http.get(getHost()+'getAllEmailBlockModelsByBlockId?emailBlockId=' + id).success(function(data, status){
                         var jsondataDefault = data;
+                        hideOverlay();
                            
                             ///alert(id);
 //                            var allLayoutFilename = [];
@@ -361,6 +382,7 @@
 //                           alert("smtng...mind_body_query.."+temp_mind_body_query);
                         }).error(function(error){
                             alert(JSON.stringify(error));
+                            hideOverlay();
                         });                        
                         $("#addblkbtn").prop("disabled", true);
                      };
@@ -471,11 +493,11 @@
                     currentMindbodyQuery = temp_mind_body_query;
                 }   
                 if ((mindbodydataId != "") && (mindbodydataId != "0") && (typeof (mindbodydataId) !== "undefined")){
-                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById.do?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId="+mindbodydataId;
+                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId="+mindbodydataId;
                 } 
                 else 
                 {
-                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById.do?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId=0";
+                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId=0";
                 }
                 
 //                alert("layout_mapper_url... "+layout_mapper_url);
@@ -609,6 +631,8 @@
     <input type="hidden" id='userid' value="<%= user_id%>"/>
     <input type="hidden" id='draftid' value="<%= draft_id%>"/>
     <input type="hidden" id='mindbodydata' value="<%= mindbodyId%>"/>
+    <input type="hidden" id='categoryIdTag' value="<%= categoryId%>"/>
+    <input type="hidden" id='LookupId' value="<%= LookupId%>"/>
     <input type="hidden" value="<%=email_subject%>" id="email_subject"/>
     <input type="hidden" value="<%=emailSubject%>" id="emailSubjectTag"/>
     <!--SideNav-->
@@ -617,7 +641,7 @@
     <!--Top Nav-->   
     <div class="top-nav-full">
         <div class="page-title-bar col-1of1"> 
-            <a class=" exit-button-icon" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=categoryId%>">    
+            <a class=" exit-button-icon" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=categoryId%>&mindbodyId={{mindbody.id}}&LookupId=<%=LookupId%>">    
                 <div class="exit-button-detail">
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                 </div>
@@ -641,7 +665,7 @@
 //                     $("#saveToDraft").click(function (){
 //                         var draftId=1;
 //                         $.ajax({
-//                                url: getHost() + "/getEmailDraft.do?draftid="+ draft_id,
+//                                url: getHost() + "/getEmailDraft?draftid="+ draft_id,
 //                                method: "GET",
 //                                success: function (data) {
 //                                alert(data);    
@@ -659,13 +683,13 @@
                                 
                         $.ajax({
                                 method: "POST",
-                                url: getHost() + "email/previewServlet.do",                                
+                                url: getHost() + "email/previewServlet",                                
                                 data: JSON.stringify(sendData),
                                 success: function (responseText) {
 //                                    alert(JSON.stringify(responseText.d.details));
                                     $("#dynamictable5").empty();
                                     $("#dynamictable6").empty();
-                                    var iframePath = getHost() +"download/HTML.do?fileName="+rendomIframeFilename+".html";
+                                    var iframePath = getHost() +"download/HTML?fileName="+rendomIframeFilename+".html";
                                     $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
                                     $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
                                 }
@@ -700,7 +724,7 @@
                             $(function () {
                             var urlList11;
                                     $.ajax({
-                                    url:'getAllUserMarketingProgramsBySessionUserId.do',
+                                    url:'getAllUserMarketingProgramsBySessionUserId',
                                             method:'Get',
                                             dataType: 'json',
                                             contentType: 'application/json',
@@ -793,7 +817,7 @@
                 $("#previewcontent").append(responseText.d.details);
                 if (draft_id == "0"){
                 $.ajax({
-                url: getHost() + "saveEmailDrafts.do",
+                url: getHost() + "saveEmailDrafts",
                         method: "post",
                         data:JSON.stringify({
                         bodyString : $('#edit').froalaEditor('html.get'),
@@ -812,7 +836,7 @@
                 });
             } else {
                 $.ajax({
-                    url: getHost() + "updateEmailDraft.do",
+                    url: getHost() + "updateEmailDraft",
                     method: "post",
                     data:{
                     draftid: draft_id,
@@ -835,12 +859,16 @@
     $("#saveButton").click(function (){
 //        alert($("#emailSubjectTag").val());
         var email_subject = $("#emailSubjectTag").val();
+        var subCategoryId=$("#subCategoryIdTag").val();
+        var categoryId=$("#categoryIdTag").val();
+        var mindbodydata=$("#mindbodydata").val();
+        var LookupId=$("#LookupId").val();
             var sendData=JSON.stringify({
             htmlString: $('#edit').froalaEditor('html.get'),
             iframeName: rendomIframeFilename.toString()
             });
         $.ajax({
-            url: getHost() + "/email/previewServlet.do",
+            url: getHost() + "/email/previewServlet",
             method: "POST",
             data: sendData,
             success: function (responseText) {
@@ -850,7 +878,7 @@
                 if (draft_id == "0")
                 {
                     $.ajax({
-                    url: getHost() + "saveEmailDrafts.do",
+                    url: getHost() + "saveEmailDrafts",
                     method: "post",
                     data:JSON.stringify({
                     bodyString : $('#edit').froalaEditor('html.get'), 
@@ -858,8 +886,7 @@
                     }),
                     success: function (responseText) {
                         if (responseText != "0"){
-                        document.location.href = "emaillistselection?draftid=" + responseText + "&subject=" + email_subject+"&iframeName="+rendomIframeFilename;
-                        } else 
+                        document.location.href = "emaillistselection?draftid=" + responseText + "&subject=" + email_subject+"&iframeName="+rendomIframeFilename+"&categoryId="+categoryId+"&subCategoryId="+subCategoryId+"&emailSubject="+email_subject+"&mindbodyId="+mindbodydata+"&LookupId="+LookupId;                        } else 
                         {
                             alert("There was a problem while saving the draft! Please try again later.");
                         }
@@ -869,7 +896,7 @@
                 else 
                 {
                     $.ajax({
-                        url: getHost() + "updateEmailDraft.do",
+                        url: getHost() + "updateEmailDraft",
                         method: "post",
                         data:{
                         draftid: draft_id,

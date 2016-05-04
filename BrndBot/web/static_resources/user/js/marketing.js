@@ -538,7 +538,7 @@ function controllerMarketingCampaign($scope, $http) {
         if(curr_date !== invalid){
                 $http({
                     method: 'GET',
-                    url: getHost() + 'GetScheduledEntities.do?from=' + curr_date + '&to=' + new_date
+                    url: getHost() + 'GetScheduledEntities?from=' + curr_date + '&to=' + new_date
                 }).success(function (data) { 
                     var parseJSON=JSON.parse(data.d.details);
                     var entitySet = {};
@@ -622,7 +622,7 @@ function controllerMarketingCampaign($scope, $http) {
         
         $http({
             method: 'POST',
-            url: 'approveStatusRecurring.do',
+            url: 'approveStatusRecurring',
             headers: {'Content-Type':'application/json'},
             data: JSON.stringify(approval_type)
         }).success(function (data, status, headers, config) {
@@ -647,7 +647,7 @@ function controllerMarketingCampaign($scope, $http) {
         
         $http({
             method: 'POST',
-            url: getHost()+'approveStatus.do',
+            url: getHost()+'approveStatus',
             headers: {'Content-Type':'application/json'},
             data: JSON.stringify(approval_type)
         }).success(function (data, status, headers, config) {
@@ -938,7 +938,7 @@ function controllerMarketingCampaign($scope, $http) {
         $edit=1; 
         $http({
                 method: 'GET',
-                url: getHost() + 'getMarketingProgramName.do'
+                url: getHost() + 'getMarketingProgramName'
             }).success(function (data, status) {
                 $scope.marketprogram = data.userProgramData;
                 if (data.userProgramData.user_program_id == "") {                    
@@ -995,7 +995,7 @@ function controllerMarketingCampaign($scope, $http) {
              $("#emailpost").click();
             $http({
                 method: 'GET',
-                url: getHost() + 'GetScheduledEmailDetail.do?schedule_id=' + schedule_id
+                url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 var details=(JSON.parse((data.d.details)));
                 var detailsBody =details.body;
@@ -1061,7 +1061,7 @@ function controllerMarketingCampaign($scope, $http) {
             $("#facebookpost").click(); 
             $http({
                 method: 'GET',
-                url: getHost() + 'GetScheduledSocialPostDetail.do?schedule_id=' + schedule_id
+                url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                
                 $scope.entitiesdetails = data;
@@ -1133,7 +1133,7 @@ function controllerMarketingCampaign($scope, $http) {
              $("#twitterpost").click();
             $http({
                 method: 'GET',
-                url: getHost() + '/GetScheduledSocialPostDetail.do?schedule_id=' + schedule_id
+                url: getHost() + '/GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 
                 $scope.entitiesdetails = data;
@@ -1208,6 +1208,7 @@ function controllerMarketingCampaign($scope, $http) {
 
 
     $scope.AddAction = function () {
+        
         var title = $("#addactiontitle").val();
         var actiontype = $("#actiontype").val();
         var marketingProgramType=$("#marketing_program").val();
@@ -1226,17 +1227,18 @@ function controllerMarketingCampaign($scope, $http) {
           
             $http({
                 method: 'POST',
-                url: getHost() + 'AddAction.do',
+                url: getHost() + 'AddAction',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(action)
                
             }).success(function (data)
             {
-                
+                $("#addActionYourPlan").unbind('click');                
                 $scope.status = data;
                 if (data != "") {
                     alert(actionsaved);
                     window.open(getHost() + 'user/marketing', "_self");
+                    $("#addActionYourPlan").bind('click');
                 }
             }).error(function (data, status) {
                 alert(requesterror);
@@ -1497,7 +1499,7 @@ function controllerMarketingCampaign($scope, $http) {
         if (confirm(message)) {
             $http({
                 method: 'POST',
-                url: getHost() + 'ChangeSchedule.do',
+                url: getHost() + 'ChangeSchedule',
                 headers: {'Content-Type': 'application/json'},
                 data: requestBody
             }).success(function (data)
@@ -1584,7 +1586,7 @@ function controllerMarketingCampaign($scope, $http) {
             };
             $http({
                 method: 'POST',
-                url: getHost() + 'AddAction.do',
+                url: getHost() + 'AddAction',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(action)
             }).success(function (data)
@@ -1910,7 +1912,7 @@ function postSocial() {
             {
                 var bit_url = v.data.url;
                 $.ajax({
-                    url: 'PostToSocial.do',
+                    url: 'PostToSocial',
                     method: 'post',
                     data: {
                         imageToPost: image_name,

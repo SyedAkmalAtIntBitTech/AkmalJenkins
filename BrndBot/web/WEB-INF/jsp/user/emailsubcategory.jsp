@@ -19,13 +19,11 @@
         <div class="contentWrap--withSideNav noScroll" ng-app ng-controller="userController">
             <input id="categoryId" value="<%=categoryId%>" type="hidden"/>
             <div class="topNav topNav-withSubnav clear">
-                <div class="topNav--BackButton fleft">
-                    <a class="exit-button-icon" href="emailcategory">
-
+                <a class="exit-button-icon" href="emailcategory">
+                    <div class="topNav--BackButton fleft">
                         <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
-
-                    </a>
-                </div>
+                    </div>
+                </a>
                 <div class="topNav--TitleBar--withBackButton fleft">
                     <span class="topNav--TitleBar--Title fleft h2">Create an Email</span>
                     <div class="topNav--TitleBar--CTABox fright">
