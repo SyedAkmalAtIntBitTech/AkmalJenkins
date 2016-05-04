@@ -436,7 +436,7 @@ public class SqlMethods {
             if (pdffilename != null) {
                 query_string = "Insert into social_post_history(fk_company_id, time_sent, content_html, twitter, facebook, pdf_file_name) Values (?,?,?,?,?,?)";
 
-                prepared_statement = getConnection().prepareStatement(query_string);
+                prepared_statement = connection.prepareStatement(query_string);
 
                 prepared_statement.setInt(1, companyId);
                 prepared_statement.setTimestamp(2, getCurrentTimeStamp());
@@ -453,7 +453,7 @@ public class SqlMethods {
             if (imagefilename != null && !image_type.equals("url")) {
                 query_string = "Insert into social_post_history(fk_company_id, time_sent, content_html, twitter, facebook, image_file_name) Values (?,?,?,?,?,?)";
 
-                prepared_statement = getConnection().prepareStatement(query_string);
+                prepared_statement = connection.prepareStatement(query_string);
 
                 prepared_statement.setInt(1, companyId);
                 prepared_statement.setTimestamp(2, getCurrentTimeStamp());
