@@ -11,7 +11,7 @@
         <link rel="shortcut icon" href="images/favicon.png"/>
         <title>BrndBot-Admin Organization</title>
     </head>
-    <body class="body-normal" ng-app  ng-controller="printTemplates" >        
+    <body class="body-normal" ng-app  >        
         <jsp:include page="header.jsp"/>
         <div class="content-area" ng-init="printTemplateScope()">
         <div class="content-area_header">

@@ -87,7 +87,7 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
                      
         $http({
                     method : 'GET',
-                    url : getHost()+'/getMarketingProgramActionsById.do?marketingProgramId='+marketingProgramId
+                    url : getHost()+'/getMarketingProgramActionsById?marketingProgramId='+marketingProgramId
                 }).success(function(data, status, headers, config) {
                     
                     $scope.getAllMarketingProgram = data.d.details[0];
@@ -156,7 +156,7 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
         else{
                      $.ajax({
                             method: 'POST',
-                            url: getHost() + 'saveMarketingProgramActions.do',
+                            url: getHost() + '/saveMarketingProgramActions',
                             dataType: "json",
                             contentType: "application/json",
                             data: JSON.stringify(marketingProgramdetails)
@@ -192,7 +192,7 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
                     else{
                     $.ajax({
                             method: 'POST',
-                            url: getHost() + '/updateMarketingProgramActions.do?marketingProgramId='+marketingProgramId,
+                            url: getHost() + '/updateMarketingProgramActions?marketingProgramId='+marketingProgramId,
                             dataType: "json",
                             contentType: "application/json",
                             data: JSON.stringify(updatemarketingProgramdetails)

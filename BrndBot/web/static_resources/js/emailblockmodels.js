@@ -97,7 +97,7 @@ function emailBlocksController($scope, $http, fileReader) {
 
         $http({
             method: 'GET',
-            url: getHost() + '/getAllEmailBlockModel.do'
+            url: getHost() + '/getAllEmailBlockModel'
         }).success(function (data, status, headers, config) {
             $scope.emailBlocksModelData = data.d.details;
         }).error(function (data, status, headers, config) {
@@ -111,7 +111,7 @@ function emailBlocksController($scope, $http, fileReader) {
         var emailBlockIdTag = $("#emailBlockIdTag").val();
         $http({
             method: 'GET',
-            url: getHost() + '/getEmailBlockModelById.do?emailBlockModelId=' + emailBlockIdTag
+            url: getHost() + '/getEmailBlockModelById?emailBlockModelId=' + emailBlockIdTag
         }).success(function (data, status, headers, config) {
             $('.fr-element').html(eval(JSON.stringify(data.d.details[0].htmlData)));
             $('#showFileName').text(eval(JSON.stringify(data.d.details[0].imageFileName)));
@@ -156,7 +156,7 @@ function emailBlocksController($scope, $http, fileReader) {
         if (validate()) {
             $.ajax({
                 method: 'POST',
-                url: getHost() + '/saveBlockModel.do',
+                url: getHost() + '/saveBlockModel',
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(emailBlockModel)
@@ -179,7 +179,7 @@ function emailBlocksController($scope, $http, fileReader) {
         {
             $http({
                 method: 'GET',
-                url: getHost() + '/deleteBlockModel.do?emailBlockModelId=' + emailBlockModelId,
+                url: getHost() + '/deleteBlockModel?emailBlockModelId=' + emailBlockModelId,
             }).success(function (data, status, headers, config) {
                 $scope.getEmailModelById = data.d.details;
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -226,7 +226,7 @@ function emailBlocksController($scope, $http, fileReader) {
         if (validate()) {
             $.ajax({
                 method: 'POST',
-                url: getHost() + '/updateBlockModel.do',
+                url: getHost() + '/updateBlockModel',
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(emailBlockModel)
