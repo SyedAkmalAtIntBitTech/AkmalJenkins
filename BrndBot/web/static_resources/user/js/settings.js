@@ -239,21 +239,6 @@ function controllerUserChanges($scope, $http) {
         });
     };
 
-    $scope.getLogo = function () {
-
-        $http({
-            method: 'GET',
-            url: 'GetColorsFromLogo'
-        }).success(function (data, status, headers, config) {
-            $scope.color = data.Colors;
-            if (data === error) {
-            }
-        }).error(function (data, status, headers, config) {
-            alert(nodataerror);
-        });
-    };
-
-
     $scope.createUserPreferences = function ()
     {
 
