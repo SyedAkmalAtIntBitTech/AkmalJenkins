@@ -33,7 +33,7 @@ public class EmailDraftDaoImpl implements EmailDraftDao {
        try {
             Criteria criteria=sessionFactory.getCurrentSession()
                     .createCriteria(EmailDraft.class)
-                    .add(Restrictions.eq("email_draft_id", id));
+                    .add(Restrictions.eq("emailDraftId", id));
             return (EmailDraft)criteria.list().get(0);
             } catch (Throwable throwable) {
                 logger.log(Level.SEVERE, null, throwable);

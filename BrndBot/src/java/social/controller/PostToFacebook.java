@@ -34,20 +34,14 @@ import org.springframework.stereotype.Service;
 public class PostToFacebook {
 
     private final static Logger logger = Logger.getLogger(PostToFacebook.class);
-
-    public static String postStatus(String title,
-            String file_image_path, String posttext,
-            String imagePostURL, String getImageFile,
-            String url, String description, String imageType,
-            Integer companyID, String htmlString) throws MalformedURLException, IOException, Throwable {
-
-        String returnMessage = "success";
+public static String postStatus(String title, String fileImagePath, String posttext, String imagePostURL, String getImageFile, String url, String description, String imageType, Integer companyID, String htmlString, String accessToken) {
+  String returnMessage = "success";
         String status = "";
         try {
             Facebook facebook = new FacebookFactory().getInstance();
             facebook.setOAuthAppId("592852577521569", "a87cc0c30d792fa5dd0aaef6b43994ef");
             facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
-            facebook.setOAuthAccessToken(new AccessToken(getFacebookAccessToken(companyID)));
+            facebook.setOAuthAccessToken(new AccessToken(accessToken));
             /* change the context path while uploading the war file */
             ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
             String context_real_path = servletContext.getRealPath("");
@@ -58,9 +52,9 @@ public class PostToFacebook {
 
                 Media media;
                 if (imageType.equals("url")) {
-                    media = new Media("xyz", new URL(file_image_path).openStream());
+                    media = new Media("xyz", new URL(fileImagePath).openStream());
                 } else {
-                    media = new Media(new File(file_image_path));
+                    media = new Media(new File(fileImagePath));
                 }
                 PhotoUpdate update = new PhotoUpdate(media);
                 update.message(posttext);
@@ -109,7 +103,15 @@ public class PostToFacebook {
             logger.error(e.getMessage());
             throw new ProcessFailed("Could post on facebook");
         }
-        return returnMessage;
+        return returnMessage;    
+}
+    public static String postStatus(String title,
+            String file_image_path, String posttext,
+            String imagePostURL, String getImageFile,
+            String url, String description, String imageType,
+            Integer companyID, String htmlString) throws MalformedURLException, IOException, Throwable {
+       return postStatus(title, file_image_path, posttext, imagePostURL, getImageFile, url, description, imageType, companyID, htmlString,getFacebookAccessToken(companyID));
+       
     }
 
     private static HashMap<String, String> getFacebookCompanyPreferences(Integer companyId) throws Throwable {
@@ -124,4 +126,6 @@ public class PostToFacebook {
         }
         return "";
     }
+
+    
 }

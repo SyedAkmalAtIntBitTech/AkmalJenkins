@@ -104,8 +104,8 @@
                         <div class="h2 col-1of1">
                             <select class="chooseEmailList col-1of1" id="chooseEmailList" name="chooseEmailList">
                                 <option value="1">Manual</option>
-                                <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists}}">{{Lists}}</option>
-                                <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists}}">{{Lists}}</option>
+                                <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
+                                <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
                             </select>
                         </div>
                         <!--<div class="p chooseList-subtext col-1of1">Choose a recipient list</div>-->
@@ -128,7 +128,7 @@
                    
                 </div>
                 <div class="col-15of4 fleft unit">
-                      <input type="button" id="upload" value="Upload" onclick="upload()" class="md-button add-action-button noborder"/>      
+                    <input type="button" id="upload" value="Upload" onclick="upload()" class="md-button add-action-button noborder"/>      
                    </div>
                     </div>
                 </div>            

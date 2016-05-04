@@ -68,7 +68,7 @@
                    </div>
                </div>
                <a href="${pageContext.request.contextPath}/logout"><div class="nav_tab-logout fright cursorpointer"> Logout</div></a>
-               <a href="${pageContext.request.contextPath}/admin/emailblockmodels"><div class="nav_tab fleft"> Email Blocks</div></a>
+             
            </div>
        </div>
        <div class="nav-offset"></div>

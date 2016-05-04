@@ -12,6 +12,7 @@ import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.UserSessionUtil;
 import java.io.BufferedReader;
+import java.io.File;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +38,6 @@ public class SocialPostController {
 
     private final static Logger logger = Logger.getLogger(SocialPostController.class);
 
-   
     @Autowired
     private MessageSource messageSource;
 
@@ -51,17 +51,18 @@ public class SocialPostController {
 
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-
+            String accessToken = (String) requestBodyMap.get("accessToken");
             String title = (String) requestBodyMap.get("title");
             String file_image_path = (String) requestBodyMap.get("file_image_path");
-            String posttext = (String) requestBodyMap.get("posttext");
+            String posttext = (String) requestBodyMap.get("postText");
             String imagePostURL = (String) requestBodyMap.get("imagePostURL");
-            String getImageFile = (String) requestBodyMap.get("getImageFile");
+            String getImageFile = (String) requestBodyMap.get("imageToPost");
             String url = (String) requestBodyMap.get("url");
             String description = (String) requestBodyMap.get("description");
             String imageType = (String) requestBodyMap.get("imageType");
             String htmlString = (String) requestBodyMap.get("htmlString");
-            String status = PostToFacebook.postStatus(title, file_image_path, posttext, imagePostURL, getImageFile, url, description, imageType, companyId, htmlString);
+            String fileImagePath = getImageTypePrefix(imageType, companyId, getImageFile);
+            String status = PostToFacebook.postStatus(title, fileImagePath, posttext, imagePostURL, getImageFile, url, description, imageType, companyId, htmlString,accessToken);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(status));
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -82,11 +83,14 @@ public class SocialPostController {
             Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
 
             String text = (String) requestBodyMap.get("text");
-            String shortURL = (String) requestBodyMap.get("shortURL");
-            String fileImagePath = (String) requestBodyMap.get("fileImagePath");
+            String shortURL = (String) requestBodyMap.get("shorturl");
+            String fileImagePath = (String) requestBodyMap.get("imageToPost");
             String htmlString = (String) requestBodyMap.get("htmlString");
             String getImageFile = (String) requestBodyMap.get("getImageFile");
-            String image_type = (String) requestBodyMap.get("image_type");
+            String image_type = (String) requestBodyMap.get("imageType");
+
+//            String fileImagePath = getImageTypePrefix(image_type, companyId, getImageFile);
+
             String status = PostToTwitter.postStatus(image_type, text, shortURL, fileImagePath, companyId, htmlString, getImageFile);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(status));
         } catch (Throwable throwable) {
@@ -94,5 +98,17 @@ public class SocialPostController {
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
+    private String getImageTypePrefix(String imageType, Integer companyId, String getImageFile) {
+        String file_image_path = "";
+        if (imageType.equals("layout")) {
+            file_image_path = com.intbit.AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
+        } else if (imageType.equals("gallery")) {
+            file_image_path = com.intbit.AppConstants.USER_IMAGE_HOME + File.separator + companyId + File.separator + getImageFile;
+        } else if (imageType.equals("url")) {
+            file_image_path = getImageFile;
+        }
+        return file_image_path;
     }
 }

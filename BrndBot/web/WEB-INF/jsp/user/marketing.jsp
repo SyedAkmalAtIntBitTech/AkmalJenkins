@@ -31,7 +31,26 @@
        <script src="js/popup.js" type="text/javascript"></script>
      <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-5.css"/>
     <%@include file="navbar.jsp" %>     
-    
+    <style>
+        .textcenter{
+            margin-left: 27px;
+            margin-top: -17px;
+        }
+        .saved-post-preview-detail{
+          
+           margin-top: -64px;
+           padding-bottom: 283px;
+           padding-top: -12px;
+           height: 0vh
+
+        }
+        .fields-note-detail{
+            margin-top: 5px;
+            padding-bottom: 381px;
+            padding-top: -12px;
+            height: 0vh;
+        }
+        </style>
   
     <input type="hidden" name="change" id="change" value="0"/>
     <!--Top Nav-->   
@@ -94,7 +113,7 @@
                                <div class="selection-icon" id="{{entitydetails.schedule_id}}" onclick="selcheckbox(this.id)"><input type="checkbox" id="entityid{{entitydetails.entity_id}}" value="{{entitydetails.entity_id}}" name="entityname" hidden></input></div>
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
-                                <div ng-show="entitydetails.entity_type !== master_note">
+                                <div ng-show="entitydetails.entity_type != master_note">
                                     <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'Template Saved'"  data-hint="Template Saved" > 
                                         <img src="images/templateSaved.svg" class="status-button" />
                                     </div>

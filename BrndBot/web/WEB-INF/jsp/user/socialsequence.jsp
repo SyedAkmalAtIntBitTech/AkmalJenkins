@@ -11,7 +11,7 @@
         <link rel="shortcut icon" href="images/favicon.png">
         <title>Category</title>
     </head>
-    <body class="body-normal">
+    <body class="body-normal" ng-app="socialMedia" ng-controller="isDefaultFbPageSet">
         <%@include file="header.jsp" %>       
         <%@include file="navbar.jsp" %>  
 
@@ -36,26 +36,33 @@
                         <div class="pane_title fleft h2">Select a Social Channel</div>
                     </div>
                     <div class="pane_content">
-                        <div class="cat-list">
-                            <a href="facebookpost"> <div class="cat-slat clear">
-                                    <div class="fleft col-1of10">
+                        <div class="cat-list"  ng-init="checkForCode()">
+                            <!--<a href="facebookpost">--> 
+                            <div class="cat-slat clear" onclick="" ng-click="getmanage()" >
+                                    <div class="fleft col-1of10" >
                                         <img type="image/svg+xml" src="images/F_icon.svg" class="social-channel-icon" style="cursor:pointer;"> </object>
                                     </div>
                                     <div class="cat-slat-title col-8of10 fleft">Facebook</div>
 
-                                </div></a>
-                            <a href="twitterpost"> <div class="cat-slat clear">
-                                    <div class="fleft col-1of10">
+                                </div>
+                            <!--</a>-->
+                            <!--<a href="">--> 
+                            <div class="cat-slat clear" onclick="isDefaultTwitterSet()">
+                                    <div class="fleft col-1of10" >
                                         <img type="image/svg+xml" src="images/Twitter_icon.svg" class="social-channel-icon" style="cursor:pointer;"> </object>
                                     </div>
                                     <div class="cat-slat-title col-8of10 fleft">Twitter</div>
 
-                                </div></a>
+                                </div>
+                    <!--</a>-->
                         </div>
 
                     </div>
-                </div>   
+                </div> 
             </div>
         </div>
+           <%@include file="twitterpopup.jsp" %>
+           <%@include file="facebookmanagepages.jsp" %>
+           
     </body>
 </html>

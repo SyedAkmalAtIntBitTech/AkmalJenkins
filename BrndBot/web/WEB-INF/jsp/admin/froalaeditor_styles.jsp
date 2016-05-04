@@ -27,7 +27,7 @@
             <script type="text/javascript" src="js/plugins/colors.min.js" ></script>
             <script type="text/javascript" src="js/plugins/emoticons.min.js"></script>
             <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
-            <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
+            <script type="text/javascript" src="js/plugins/font_family.min_editor.js"></script>
             <script type="text/javascript" src="js/plugins/image.min.js"></script>
             <script type="text/javascript" src="js/plugins/file.min.js"></script>
             <script type="text/javascript" src="js/plugins/image_manager.min.js"></script>
