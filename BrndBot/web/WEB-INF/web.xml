@@ -182,10 +182,6 @@
     </servlet>
     
     <servlet>
-        <servlet-name>GetTemplates</servlet-name>
-        <servlet-class>com.controller.GetTemplates</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>GetStyleServlet</servlet-name>
         <servlet-class>com.controller.GetStyleServlet</servlet-class>
     </servlet>
@@ -349,11 +345,8 @@
         <url-pattern>/DownloadSVGServlet</url-pattern>
     </servlet-mapping>
     
-    <servlet-mapping>
-        <servlet-name>GetTemplates</servlet-name>
-        <url-pattern>/GetTemplates</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
+   
+ <servlet-mapping>
         <servlet-name>GetStyleServlet</servlet-name>
         <url-pattern>/GetStyleServlet</url-pattern>
     </servlet-mapping>
