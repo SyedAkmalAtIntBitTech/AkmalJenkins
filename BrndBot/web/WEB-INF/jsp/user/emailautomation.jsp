@@ -272,7 +272,7 @@
             var emailids = {"update": "allEmailListNames"}; 
             $.ajax({
                 method: 'GET',
-                 url: getHost() + '/emaillist/get.do?update=allEmailListWithNoOfContacts'
+                 url: getHost() + 'emaillist/get.do?update=allEmailListWithNoOfContacts&emailListName=null'
             }).success(function (data, status, headers, config) {
                 var parseData=JSON.parse(data.d.details);
 //                alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user));
@@ -897,8 +897,8 @@
                         <div class="col-3of10 fleft">
                               <select id="emaillist" name="emaillist" class="input-field-textfield">
                                    <option value="0">-- Select --</option>
-                                   <option ng-repeat ="Lists in emailLists_user" value="{{Lists.emailListName}}-{{Lists.defaultFromName}}">{{Lists.emailListName}}</option>
-                                   <option ng-repeat ="Lists in emailLists_mindbody" value="{{Lists.emailListName}}-{{Lists.defaultFromName}}">{{Lists.emailListName}}</option>
+                                   <option ng-repeat ="Lists in emailLists_user" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
+                                   <option ng-repeat ="Lists in emailLists_mindbody" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
                               </select>
                         </div>
                         <div class="col-4of10 fleft pushUp-30">

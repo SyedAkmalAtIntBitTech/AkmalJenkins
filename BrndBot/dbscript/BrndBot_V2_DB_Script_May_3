@@ -1,0 +1,849 @@
+CREATE TABLE category
+(
+  category_id serial NOT NULL,
+  category_name character varying(50),
+  fk_channel_id integer,
+  CONSTRAINT category_pkey PRIMARY KEY (category_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE category
+  OWNER TO postgres;
+
+CREATE TABLE channel
+(
+  channel_id serial NOT NULL,
+  channel_name character varying(50),
+  CONSTRAINT channel_pkey PRIMARY KEY (channel_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE channel
+  OWNER TO postgres;
+
+CREATE TABLE company
+(
+  company_id serial NOT NULL,
+  company_name character varying(50),
+  created_date timestamp with time zone,
+  invite_code text,
+  CONSTRAINT company_pkey PRIMARY KEY (company_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE company
+  OWNER TO postgres;
+
+CREATE TABLE email_block
+(
+  email_block_id serial NOT NULL,
+  email_block_name character varying(50),
+  CONSTRAINT email_block_pkey PRIMARY KEY (email_block_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE email_block
+  OWNER TO postgres;
+
+CREATE TABLE email_block_model
+(
+  email_block_model_id serial NOT NULL,
+  email_block_model_name character varying(50),
+  image_file_name character varying(150),
+  html_data text,
+  CONSTRAINT email_block_model_pkey PRIMARY KEY (email_block_model_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE email_block_model
+  OWNER TO postgres;
+
+CREATE TABLE email_mandrill_history
+(
+  email_mandrill_history_id serial NOT NULL,
+  to_email character varying(250),
+  status character varying(200),
+  reject_reason character varying(300),
+  mandrill_email_id character varying(300),
+  CONSTRAINT email_mandrill_history_pkey PRIMARY KEY (email_mandrill_history_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE email_mandrill_history
+  OWNER TO postgres;
+
+CREATE TABLE email_model
+(
+  email_model_id serial NOT NULL,
+  email_model_name character varying(50),
+  image_file_name character varying(150),
+  html_data text,
+  CONSTRAINT email_model_pkey PRIMARY KEY (email_model_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE email_model
+  OWNER TO postgres;
+
+CREATE TABLE external_source
+(
+  external_source_id serial NOT NULL,
+  external_source_name character varying(50),
+  CONSTRAINT external_source_pkey PRIMARY KEY (external_source_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE external_source
+  OWNER TO postgres;
+	
+CREATE TABLE external_source_keyword
+(
+  external_source_keyword_id serial NOT NULL,
+  external_source_keyword_name character varying(50),
+  CONSTRAINT external_source_keyword_pkey PRIMARY KEY (external_source_keyword_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE external_source_keyword
+  OWNER TO postgres;
+
+CREATE TABLE forgot_password
+(
+  forgot_password_id serial NOT NULL,
+  random_link character varying(1000),
+  expiry_date date NOT NULL,
+  expiry_time bigint,
+  fk_user_id integer,
+  CONSTRAINT forgot_password_pkey PRIMARY KEY (forgot_password_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE forgot_password
+  OWNER TO postgres;
+
+CREATE TABLE global_colors
+(
+  global_colors_id serial NOT NULL,
+  color_name character varying(150),
+  color_1 character varying(50),
+  color_2 character varying(50),
+  color_3 character varying(50),
+  color_4 character varying(50),
+  CONSTRAINT global_colors_pkey PRIMARY KEY (global_colors_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE global_colors
+  OWNER TO postgres;
+
+CREATE TABLE global_fonts
+(
+  global_fonts_id serial NOT NULL,
+  font_name character varying(50),
+  font_family_name character varying(50),
+  file_name character varying(50),
+  CONSTRAINT global_fonts_pkey PRIMARY KEY (global_fonts_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE global_fonts
+  OWNER TO postgres;
+
+CREATE TABLE global_images
+(
+  global_images_id serial NOT NULL,
+  image_name character varying(150),
+  create_date timestamp with time zone,
+  CONSTRAINT global_images_pkey PRIMARY KEY (global_images_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE global_images
+  OWNER TO postgres;
+
+CREATE TABLE image_model
+(
+  image_model_id serial NOT NULL,
+  image_model_name character varying(50),
+  layout_file_name character varying(50),
+  model_file_name character varying(50),
+  image_file_name character varying(50),
+  CONSTRAINT image_model_pkey PRIMARY KEY (image_model_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE image_model
+  OWNER TO postgres;
+
+CREATE TABLE marketing_category
+(
+  marketing_category_id serial NOT NULL,
+  marketing_category_name character varying(50),
+  CONSTRAINT marketing_category_pkey PRIMARY KEY (marketing_category_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE marketing_category
+  OWNER TO postgres;
+
+CREATE TABLE marketing_program
+(
+  marketing_program_id serial NOT NULL,
+  marketing_program_name character varying(50),
+  html_data text,
+  fk_marketing_category_id integer,
+  CONSTRAINT marketing_program_pkey PRIMARY KEY (marketing_program_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE marketing_program
+  OWNER TO postgres;
+
+CREATE TABLE organization_type
+(
+  organization_type_id serial NOT NULL,
+  organization_type_name character varying(50),
+  CONSTRAINT organization_type_pkey PRIMARY KEY (organization_type_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE organization_type
+  OWNER TO postgres;
+
+CREATE TABLE print_model
+(
+  print_model_id serial NOT NULL,
+  print_model_name character varying(50),
+  layout_file_name character varying(150),
+  model_file_name character varying(150),
+  image_file_name character varying(150),
+  CONSTRAINT print_model_pkey PRIMARY KEY (print_model_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE print_model
+  OWNER TO postgres;
+
+CREATE TABLE recurring_email_template
+(
+  recurring_email_template_id serial NOT NULL,
+  html_data text,
+  template_name character varying(150),
+  CONSTRAINT recurring_email_template_pkey PRIMARY KEY (recurring_email_template_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE recurring_email_template
+  OWNER TO postgres;
+
+CREATE TABLE user_role
+(
+  user_role_id serial NOT NULL,
+  role_name character varying(20),
+  CONSTRAINT user_role_pkey PRIMARY KEY (user_role_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE user_role
+  OWNER TO postgres;
+
+CREATE TABLE company_images
+(
+  company_images_id serial NOT NULL,
+  image_name character varying(50),
+  created_date timestamp with time zone,
+  fk_company_id integer,
+  CONSTRAINT company_images_pkey PRIMARY KEY (company_images_id),
+  CONSTRAINT company_images_fk_company_id_fkey FOREIGN KEY (fk_company_id)
+      REFERENCES company (company_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE company_images
+  OWNER TO postgres;
+
+CREATE TABLE company_preferences
+(
+  company_preferences_id serial NOT NULL,
+  email_list json,
+  company_preferences json,
+  fk_company_id integer,
+  company_location character varying(30),
+  CONSTRAINT company_preferences_pkey PRIMARY KEY (company_preferences_id),
+  CONSTRAINT company_preferences_fk_company_id_fkey FOREIGN KEY (fk_company_id)
+      REFERENCES company (company_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE company_preferences
+  OWNER TO postgres;
+
+CREATE TABLE email_draft
+(
+  email_draft_id serial NOT NULL,
+  fk_company_id integer,
+  draft_date timestamp with time zone,
+  draft_json json,
+  edit_date timestamp with time zone,
+  CONSTRAINT email_draft_pkey PRIMARY KEY (email_draft_id),
+  CONSTRAINT email_draft_fk_company_id_fkey FOREIGN KEY (fk_company_id)
+      REFERENCES company (company_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE email_draft
+  OWNER TO postgres;
+
+CREATE TABLE email_sent_history
+(
+  email_sent_history_id serial NOT NULL,
+  fk_company_id integer,
+  time_sent timestamp with time zone,
+  content_html text,
+  email_address character varying(150),
+  email_list_name character varying(50),
+  email_tag character varying(1000),
+  subject character varying(1000),
+  to_email_addresses json,
+  CONSTRAINT email_sent_history_pkey PRIMARY KEY (email_sent_history_id),
+  CONSTRAINT email_sent_history_fk_company_id_fkey FOREIGN KEY (fk_company_id)
+      REFERENCES company (company_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE email_sent_history
+  OWNER TO postgres;
+
+CREATE TABLE marketing_action
+(
+  marketing_action_id serial NOT NULL,
+  fk_marketing_program_id integer,
+  json_template json,
+  CONSTRAINT marketing_action_pkey PRIMARY KEY (marketing_action_id),
+  CONSTRAINT marketing_action_fk_marketing_program_id_fkey FOREIGN KEY (fk_marketing_program_id)
+      REFERENCES marketing_program (marketing_program_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE marketing_action
+  OWNER TO postgres;
+
+CREATE TABLE organization
+(
+  organization_id serial NOT NULL,
+  organization_name character varying(50),
+  fk_organization_type_id integer,
+  CONSTRAINT organization_pkey PRIMARY KEY (organization_id),
+  CONSTRAINT organization_fk_organization_type_id_fkey FOREIGN KEY (fk_organization_type_id)
+      REFERENCES organization_type (organization_type_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE organization
+  OWNER TO postgres;
+
+CREATE TABLE organization_recurring_email_lookup
+(
+  organization_recurring_email_lookup_id serial NOT NULL,
+  fk_organization_id integer,
+  fk_recurring_email_template_id integer,
+  CONSTRAINT organization_recurring_email_lookup_pkey PRIMARY KEY (organization_recurring_email_lookup_id),
+  CONSTRAINT organization_recurring_email_lookup_fk_organization_id_fkey FOREIGN KEY (fk_organization_id)
+      REFERENCES organization (organization_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE organization_recurring_email_lookup
+  OWNER TO postgres;
+
+CREATE TABLE scheduled_socialpost_list
+(
+  scheduled_socialpost_list_id serial NOT NULL,
+  fk_company_id integer,
+  image_name character varying(250),
+  meta_data json,
+  type character varying(250),
+  fk_scheduled_entity_list_id integer,
+  image_type character varying(30),
+  CONSTRAINT socialpost_list_pk PRIMARY KEY (scheduled_socialpost_list_id),
+  CONSTRAINT scheduled_socialpost_list_fk_company_id_fkey FOREIGN KEY (fk_company_id)
+      REFERENCES company (company_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE scheduled_socialpost_list
+  OWNER TO postgres;
+
+CREATE TABLE social_post_history
+(
+  social_post_history_id serial NOT NULL,
+  fk_company_id integer,
+  time_sent date,
+  twitter boolean,
+  facebook boolean,
+  pdf_file_name character varying(150),
+  image_file_name character varying(150),
+  content_html text,
+  CONSTRAINT social_post_history_pkey PRIMARY KEY (social_post_history_id),
+  CONSTRAINT social_post_history_fk_company_id_fkey FOREIGN KEY (fk_company_id)
+      REFERENCES company (company_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE social_post_history
+  OWNER TO postgres;
+
+CREATE TABLE sub_category
+(
+  sub_category_id serial NOT NULL,
+  sub_category_name character varying(50),
+  fk_category_id integer,
+  CONSTRAINT sub_category_pkey PRIMARY KEY (sub_category_id),
+  CONSTRAINT sub_category_fk_category_id_fkey FOREIGN KEY (fk_category_id)
+      REFERENCES category (category_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE sub_category
+  OWNER TO postgres;
+
+CREATE TABLE users
+(
+  user_id serial NOT NULL,
+  user_name character varying(50),
+  user_password character varying(500),
+  created_date timestamp with time zone,
+  fk_company_id integer,
+  fk_user_role_id integer NOT NULL,
+  CONSTRAINT users_pkey PRIMARY KEY (user_id),
+  CONSTRAINT users_fk_company_id_fkey FOREIGN KEY (fk_company_id)
+      REFERENCES company (company_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT users_fk_user_role_id_fkey FOREIGN KEY (fk_user_role_id)
+      REFERENCES user_role (user_role_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE users
+  OWNER TO postgres;
+
+CREATE TABLE company_marketing_program
+(
+  company_marketing_program_id serial NOT NULL,
+  company_marketing_program_name character varying(50),
+  date_event timestamp with time zone,
+  created_date timestamp with time zone,
+  status character varying(20),
+  url character varying(500),
+  link_name character varying(50),
+  fk_marketing_program_id integer,
+  fk_company_id integer,
+  CONSTRAINT company_marketing_program_pkey PRIMARY KEY (company_marketing_program_id),
+  CONSTRAINT company_marketing_program_fk_company_id_fkey FOREIGN KEY (fk_company_id)
+      REFERENCES company (company_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT company_marketing_program_fk_marketing_program_id_fkey FOREIGN KEY (fk_marketing_program_id)
+      REFERENCES marketing_program (marketing_program_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE company_marketing_program
+  OWNER TO postgres;
+
+CREATE TABLE external_source_keyword_lookup
+(
+  external_source_keyword_lookup_id serial NOT NULL,
+  fk_external_source_id integer,
+  fk_external_source_keyword_id integer,
+  CONSTRAINT external_source_keyword_lookup_pkey PRIMARY KEY (external_source_keyword_lookup_id),
+  CONSTRAINT external_source_keyword_looku_fk_external_source_keyword_i_fkey FOREIGN KEY (fk_external_source_keyword_id)
+      REFERENCES external_source_keyword (external_source_keyword_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT external_source_keyword_lookup_fk_external_source_id_fkey FOREIGN KEY (fk_external_source_id)
+      REFERENCES external_source (external_source_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE external_source_keyword_lookup
+  OWNER TO postgres;
+
+CREATE TABLE email_block_external_source
+(
+  email_block_external_source_id serial NOT NULL,
+  fk_email_block_id integer,
+  fk_external_source_keyword_lookup_id integer,
+  CONSTRAINT email_block_external_source_pkey PRIMARY KEY (email_block_external_source_id),
+  CONSTRAINT email_block_external_source_fk_email_block_id_fkey FOREIGN KEY (fk_email_block_id)
+      REFERENCES email_block (email_block_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE,
+  CONSTRAINT email_block_external_source_fk_external_source_keyword_loo_fkey FOREIGN KEY (fk_external_source_keyword_lookup_id)
+      REFERENCES external_source_keyword_lookup (external_source_keyword_lookup_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE email_block_external_source
+  OWNER TO postgres;
+
+CREATE TABLE email_block_model_lookup
+(
+  email_block_model_lookup_id serial NOT NULL,
+  fk_email_block_id integer,
+  fk_email_block_model_id integer,
+  CONSTRAINT email_block_model_lookup_pkey PRIMARY KEY (email_block_model_lookup_id),
+  CONSTRAINT email_block_model_lookup_fk_email_block_id_fkey FOREIGN KEY (fk_email_block_id)
+      REFERENCES email_block (email_block_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE,
+  CONSTRAINT email_block_model_lookup_fk_email_block_model_id_fkey FOREIGN KEY (fk_email_block_model_id)
+      REFERENCES email_block_model (email_block_model_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE email_block_model_lookup
+  OWNER TO postgres;
+
+
+
+CREATE TABLE marketing_category_program
+(
+  marketing_category_program_id serial NOT NULL,
+  fk_marketing_category integer,
+  fk_marketing_program integer,
+  CONSTRAINT marketing_category_program_pkey PRIMARY KEY (marketing_category_program_id),
+  CONSTRAINT marketing_category_program_fk_marketing_category_fkey FOREIGN KEY (fk_marketing_category)
+      REFERENCES marketing_category (marketing_category_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE,
+  CONSTRAINT marketing_category_program_fk_marketing_program_fkey FOREIGN KEY (fk_marketing_program)
+      REFERENCES marketing_program (marketing_program_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE marketing_category_program
+  OWNER TO postgres;
+
+CREATE TABLE organization_category_lookup
+(
+  organization_category_id serial NOT NULL,
+  fk_organization_id integer,
+  fk_category_id integer,
+  CONSTRAINT organization_category_lookup_pkey PRIMARY KEY (organization_category_id),
+  CONSTRAINT organization_category_lookup_fk_category_id_fkey FOREIGN KEY (fk_category_id)
+      REFERENCES category (category_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE,
+  CONSTRAINT organization_category_lookup_fk_organization_id_fkey FOREIGN KEY (fk_organization_id)
+      REFERENCES organization (organization_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE organization_category_lookup
+  OWNER TO postgres;
+
+CREATE TABLE organization_company_lookup
+(
+  organization_company_lookup_id serial NOT NULL,
+  fk_organization_id integer,
+  fk_company_id integer,
+  CONSTRAINT organization_company_lookup_pkey PRIMARY KEY (organization_company_lookup_id),
+  CONSTRAINT organization_company_lookup_fk_company_id_fkey FOREIGN KEY (fk_company_id)
+      REFERENCES company (company_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE,
+  CONSTRAINT organization_company_lookup_fk_organization_id_fkey FOREIGN KEY (fk_organization_id)
+      REFERENCES organization (organization_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE organization_company_lookup
+  OWNER TO postgres;
+
+CREATE TABLE organization_email_block_lookup
+(
+  organization_email_block_id serial NOT NULL,
+  fk_organization_id integer,
+  fk_email_block_id integer,
+  CONSTRAINT organization_email_block_lookup_pkey PRIMARY KEY (organization_email_block_id),
+  CONSTRAINT organization_email_block_lookup_fk_email_block_id_fkey FOREIGN KEY (fk_email_block_id)
+      REFERENCES email_block (email_block_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE,
+  CONSTRAINT organization_email_block_lookup_fk_organization_id_fkey FOREIGN KEY (fk_organization_id)
+      REFERENCES organization (organization_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE organization_email_block_lookup
+  OWNER TO postgres;
+
+CREATE TABLE organization_marketing_category_lookup
+(
+  organization_marketing_category_id serial NOT NULL,
+  fk_organization_id integer,
+  fk_marketing_category_id integer,
+  CONSTRAINT organization_marketing_category_lookup_pkey PRIMARY KEY (organization_marketing_category_id),
+  CONSTRAINT organization_marketing_category_l_fk_marketing_category_id_fkey FOREIGN KEY (fk_marketing_category_id)
+      REFERENCES marketing_category (marketing_category_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE,
+  CONSTRAINT organization_marketing_category_lookup_fk_organization_id_fkey FOREIGN KEY (fk_organization_id)
+      REFERENCES organization (organization_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE organization_marketing_category_lookup
+  OWNER TO postgres;
+
+CREATE TABLE scheduled_entity_list
+(
+  scheduled_entity_list_id serial NOT NULL,
+  entity_id integer,
+  schedule_title character varying(1024),
+  schedule_time timestamp with time zone,
+  entity_type character varying(250),
+  status character varying(50),
+  schedule_desc character varying(2048),
+  is_recurring boolean,
+  days integer,
+  till_date timestamp with time zone,
+  fk_recurring_email_id integer,
+  fk_company_id integer,
+  fk_company_marketing_program_id integer,
+  CONSTRAINT scheduled_entity_list_pk PRIMARY KEY (scheduled_entity_list_id),
+  CONSTRAINT scheduled_entity_list_fk_company_id_fkey FOREIGN KEY (fk_company_id)
+      REFERENCES company (company_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT scheduled_entity_list_fk_company_marketing_program_id_fkey FOREIGN KEY (fk_company_marketing_program_id)
+      REFERENCES company_marketing_program (company_marketing_program_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT scheduled_entity_list_fk_recurring_email_id_fkey FOREIGN KEY (fk_recurring_email_id)
+      REFERENCES recurring_email_template (recurring_email_template_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE scheduled_entity_list
+  OWNER TO postgres;
+
+CREATE TABLE scheduled_email_list
+(
+  scheduled_email_list_id serial NOT NULL,
+  fk_company_id integer,
+  subject character varying(2048),
+  body text,
+  from_address character varying(250),
+  email_list_name character varying(250),
+  from_name character varying(1024),
+  to_email_addresses json,
+  reply_to_email_address character varying(150),
+  fk_scheduled_entity_list_id integer,
+  CONSTRAINT scheduled_email_list_pk PRIMARY KEY (scheduled_email_list_id),
+  CONSTRAINT scheduled_email_list_fk_company_id_fkey FOREIGN KEY (fk_company_id)
+      REFERENCES company (company_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT scheduled_email_list_fk_scheduled_entity_list_id_fkey FOREIGN KEY (fk_scheduled_entity_list_id)
+      REFERENCES scheduled_entity_list (scheduled_entity_list_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE scheduled_email_list
+  OWNER TO postgres;
+
+CREATE TABLE sub_category_email_model
+(
+  sub_category_email_model_id serial NOT NULL,
+  fk_sub_category_id integer,
+  fk_email_model_id integer,
+  CONSTRAINT sub_category_email_model_pkey PRIMARY KEY (sub_category_email_model_id),
+  CONSTRAINT sub_category_email_model_fk_email_model_id_fkey FOREIGN KEY (fk_email_model_id)
+      REFERENCES email_model (email_model_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE,
+  CONSTRAINT sub_category_email_model_fk_sub_category_id_fkey FOREIGN KEY (fk_sub_category_id)
+      REFERENCES sub_category (sub_category_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE sub_category_email_model
+  OWNER TO postgres;
+
+CREATE TABLE sub_category_external_source
+(
+  sub_category_external_source_id serial NOT NULL,
+  fk_sub_category_id integer,
+  fk_external_source_keyword_lookup_id integer,
+  CONSTRAINT sub_category_external_source_pkey PRIMARY KEY (sub_category_external_source_id),
+  CONSTRAINT sub_category_external_source_fk_external_source_keyword_lo_fkey FOREIGN KEY (fk_external_source_keyword_lookup_id)
+      REFERENCES external_source_keyword_lookup (external_source_keyword_lookup_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT sub_category_external_source_fk_sub_category_id_fkey FOREIGN KEY (fk_sub_category_id)
+      REFERENCES sub_category (sub_category_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE sub_category_external_source
+  OWNER TO postgres;
+
+CREATE TABLE sub_category_image_model
+(
+  sub_category_image_model_id serial NOT NULL,
+  fk_sub_category_id integer,
+  fk_image_model_id integer,
+  CONSTRAINT sub_category_image_model_pkey PRIMARY KEY (sub_category_image_model_id),
+  CONSTRAINT sub_category_image_model_fk_image_model_id_fkey FOREIGN KEY (fk_image_model_id)
+      REFERENCES image_model (image_model_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE,
+  CONSTRAINT sub_category_image_model_fk_sub_category_id_fkey FOREIGN KEY (fk_sub_category_id)
+      REFERENCES sub_category (sub_category_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE sub_category_image_model
+  OWNER TO postgres;
+
+CREATE TABLE sub_category_print_model
+(
+  sub_category_print_model_id serial NOT NULL,
+  fk_sub_category_id integer,
+  fk_print_model_id integer,
+  CONSTRAINT sub_category_print_model_pkey PRIMARY KEY (sub_category_print_model_id),
+  CONSTRAINT sub_category_print_model_fk_print_model_id_fkey FOREIGN KEY (fk_print_model_id)
+      REFERENCES print_model (print_model_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE,
+  CONSTRAINT sub_category_print_model_fk_sub_category_id_fkey FOREIGN KEY (fk_sub_category_id)
+      REFERENCES sub_category (sub_category_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE sub_category_print_model
+  OWNER TO postgres;
+
+
+
+
+
+--Insert tables
+
+-- Data for Name: channel;
+
+INSERT INTO channel VALUES (1, 'image');
+INSERT INTO channel VALUES (2, 'print');
+INSERT INTO channel VALUES (3, 'email');
+
+-- Data for Name: company_marketing_program;
+
+INSERT INTO company_marketing_program VALUES (0, 'General', NULL, NULL, 'Open', NULL, NULL, NULL, NULL);
+
+-- Data for Name: external_source;
+
+INSERT INTO external_source VALUES (0, 'None');
+INSERT INTO external_source VALUES (1, 'Mindbody');
+
+-- Data for Name: external_source_keyword;
+
+INSERT INTO external_source_keyword VALUES (1, 'promote new class');
+INSERT INTO external_source_keyword VALUES (0, 'none');
+INSERT INTO external_source_keyword VALUES (2, 'promote todays class');
+INSERT INTO external_source_keyword VALUES (3, 'promote new workshop');
+INSERT INTO external_source_keyword VALUES (4, 'promote todays workshop');
+INSERT INTO external_source_keyword VALUES (5, 'promote upcoming workshops');
+INSERT INTO external_source_keyword VALUES (6, 'promote new staff');
+INSERT INTO external_source_keyword VALUES (7, 'staff spotlight');
+
+-- Data for Name: external_source_keyword_lookup;
+--
+
+INSERT INTO external_source_keyword_lookup VALUES (0, 0, 0);
+INSERT INTO external_source_keyword_lookup VALUES (2, 1, 2);
+INSERT INTO external_source_keyword_lookup VALUES (1, 1, 1);
+INSERT INTO external_source_keyword_lookup VALUES (3, 1, 3);
+INSERT INTO external_source_keyword_lookup VALUES (5, 1, 5);
+INSERT INTO external_source_keyword_lookup VALUES (6, 1, 6);
+INSERT INTO external_source_keyword_lookup VALUES (7, 1, 7);
+INSERT INTO external_source_keyword_lookup VALUES (4, 1, 4);
+
+
+-- Data for Name: organization_type;
+--
+
+INSERT INTO organization_type VALUES (1, 'group');
+INSERT INTO organization_type VALUES (2, 'organization');
+
+-- Data for Name: user_role;
+--
+
+INSERT INTO user_role VALUES (1, 'ROLE_ADMIN');
+INSERT INTO user_role VALUES (2, 'ROLE_USER');
+INSERT INTO user_role VALUES (3, 'ROLE_TEMP_USER');
+
+-- Data for Name: users;
+--
+
+INSERT INTO users VALUES (1, 'admin@brndbot.com', '$2a$10$akpeEn.gsnv7mOJHE1ACe.CoRJTXG9buyB6HqgXVMv5iWGY3BOZ6.', NULL, NULL, 1);
+
+
+

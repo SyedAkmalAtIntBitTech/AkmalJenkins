@@ -27,11 +27,17 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
         $(".overflowhide").css("overflow","auto");
     };
     
-    $scope.getlistnum = function (index) {
+    $scope.getlistnum = function (index,action) {
               $(".overflowhide").css("overflow","hidden").animate({scrollTop:0}, '10', 'swing');
               $("#editMarketingProgramsPopup").show();
               $("#addMarketingProgramsPopup").hide();
               $("#addOrganizationPopupDiv").show();
+              if(action=='recurring'){
+                $("#actionTypeOneTimeActions option:contains(Email)").attr('selected', 'selected');
+                $("#actionTypeOneTimeActions").attr("disabled", "disabled");
+              }else{
+                $("#actionTypeOneTimeActions").attr("disabled", false);
+              }
               $scope.indexvalue =index;
     };
     
@@ -44,6 +50,8 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
               $("#editMarketingProgramsPopup").hide();
               $("#addMarketingProgramsPopupDiv").show();
               $("#addMarketingProgramsPopup").show();
+//              $("#newActionTypeOneTimeActions option:contains(Email)").attr('selected', 'selected');
+//              $("#newActionTypeOneTimeActions").attr("disabled", "disabled");
                $("#recurringActionSelect").show();
                $("#oneTimeAction").hide();
                $("#recurringActionDays").show();
@@ -66,6 +74,7 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
        
     
     $scope.getMarketingProgramActionsById = function (){
+        
         var marketingProgramId=$("#marketingProgramIdTag").val();
         if(window.location.href.indexOf("marketingprogramdetails?marketingProgramId") > -1) {
             $("#updateMarketingProgramSaveButton").show();
@@ -80,6 +89,7 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
                     method : 'GET',
                     url : getHost()+'/getMarketingProgramActionsById.do?marketingProgramId='+marketingProgramId
                 }).success(function(data, status, headers, config) {
+                    
                     $scope.getAllMarketingProgram = data.d.details[0];
                     var marketingActionId=JSON.stringify(data.d.details[0].marketingActionId);
                     globalMarketingActionId=marketingActionId;
@@ -110,12 +120,12 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
         var newActionsNoOfDays = $("#newActionsNoOfDays").val();
         var newActionTime = $("#newActionTime").val();
         $scope.newMarketingAction={"days": newActionsNoOfDays,"description": "","time": newActionTime,"is_recuring": is_recurring,
-                                    "title": newOneTimeActionName,"type": newActionTypeOneTimeActions
+                                    "title": newOneTimeActionName,"type": newActionTypeOneTimeActions,"tilldate": ""
                                    };                                   
         globalActionsArray.push($scope.newMarketingAction);
         $scope.marketingProgramActions=globalActionsArray;
         $("#newOneTimeActionName").val('')
-        $("#newActionTypeOneTimeActions").val('');
+//        $("#newActionTypeOneTimeActions").val('');
         $("#newActionsNoOfDays").val('');
         $("#newActionTime").val('');
         $scope.closeOneTimeActionPopUp();
@@ -123,8 +133,13 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
     
     
     $scope.saveMarketingProgramActions = function (){
+        
 //        var marketingProgramId=$("#marketingProgramIdTag").val();
-        var allProgramActions=angular.copy($scope.marketingProgramActions); // angular.copy() will remove the $$hashkey from JSONArray
+        var ProgramActions=angular.copy($scope.marketingProgramActions); // angular.copy() will remove the $$hashkey from JSONArray
+        
+        
+        var allProgramActionsStringify=JSON.stringify(ProgramActions);
+        var allProgramActions=JSON.parse(allProgramActionsStringify);
         var marketingProgramName = $("#marketingProgramName").val();
         var marketingProgramHtml= $("#marketingProgramHtml").val();
         var marketingProgramdetails = {"marketingProgramName": marketingProgramName,"htmlData": marketingProgramHtml,"marketingActions": allProgramActions};
@@ -138,10 +153,10 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
                $("#marketingProgramHtml").focus();
                return false;
         } 
-                    else{
-                    $.ajax({
+        else{
+                     $.ajax({
                             method: 'POST',
-                            url: getHost() + '/saveMarketingProgramActions.do',
+                            url: getHost() + 'saveMarketingProgramActions.do',
                             dataType: "json",
                             contentType: "application/json",
                             data: JSON.stringify(marketingProgramdetails)
@@ -150,6 +165,7 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));                       
                             window.open(getHost() + 'admin/marketingprogram', "_self");
                         }).error(function(data, status, headers, config){
+                            alert(JSON.stringify(data));
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                         });                         
                     }
