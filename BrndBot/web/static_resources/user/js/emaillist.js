@@ -1019,7 +1019,7 @@ $edit=0;
         if (confirm(message)) {
             $http({
                 method: 'POST',
-                url:'deleteEmailDrafts',
+                url:getHost()+'deleteEmailDrafts',
                 headers: {'Content-Type': 'application/json'},
                 data: requestBody
             }).success(function (data)
