@@ -1071,17 +1071,19 @@ $edit=0;
                         "sub_category_id": sub_category_id, 
                         "sub_category_name": sub_category_name};
             $http({
-                method : 'POST',
-                url : getHost() + 'saveEmailDraftSessionValues.do',
-                headers: {'Content-Type':'application/json'},
-                data: JSON.stringify(draftdetails)
+                method : 'GET',
+                url : getHost() + '/getEmailDraft?draftid='+draft_id,
+                headers: {'Content-Type':'application/json'}
+//                data: JSON.stringify(draftdetails)
             }).success(function(data, status) {
                 if (data == "false"){
                     alert(draftsavingerror)
                 }else {
-                    window.open(getHost() + 'emaileditor.jsp?id='+null+'&draftid='+draft_id+'&subject='+email_subject, "_self");                    
+                    window.open(getHost() + '/user/emaileditor?id='+null+'&draftid='+draft_id+'&subject='+email_subject, "_self");                    
                 }
             }).error(function(data, status) {
+                alert("oye..");
+                window.open(getHost() + '/user/emaileditor?id='+null+'&draftid='+draft_id+'&subject='+email_subject, "_self");     
                 alert(nodataerror);
             });
         };    
