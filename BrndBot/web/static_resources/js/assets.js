@@ -41,7 +41,7 @@ app.controller('globalColors', function($scope,$http) {
     $scope.displayGlobalcolors =function(){
         $http({
                             method : 'GET',
-                            url : getHost()+'/getAllColorThemes.do'
+                            url : getHost()+'/getAllColorThemes'
                         }).success(function(data, status, headers, config) {
                         $scope.colorname = data.d.details;  
                         }).error(function(data, status, headers, config) {
@@ -63,7 +63,7 @@ app.controller('globalColors', function($scope,$http) {
                                            "color2":secondValue,"color3":thirdValue,"color4":fourthValue};
                     $http({
                             method : 'POST',
-                            url : getHost()+'/updateColorTheme.do',
+                            url : getHost()+'/updateColorTheme',
                             contentType: "application/json",
                             data: JSON.stringify(globalColorValues)
                         }).success(function(data, status, headers, config) {    
@@ -111,7 +111,7 @@ app.controller('globalColors', function($scope,$http) {
                                       
                     $http({
                             method : 'POST',
-                            url : getHost()+'/saveColorTheme.do',
+                            url : getHost()+'/saveColorTheme',
                             contentType: "application/json",
                             data: JSON.stringify(globalColorValues)
                         }).success(function(data, status, headers, config) {    
@@ -162,7 +162,7 @@ app.controller('globalColors', function($scope,$http) {
                     $scope.getGlobalFonts =function(){
                         $http({
                         method : 'GET',
-                        url : getHost()+'/getAllFonts.do'
+                        url : getHost()+'/getAllFonts'
                     }).success(function(data, status, headers, config) {
                     $scope.fontNames = data.d.details;  
                     }).error(function(data, status, headers, config) {
@@ -212,7 +212,7 @@ app.controller('globalColors', function($scope,$http) {
                     var globalFonts = {"fontName":fontName,"fontFamilyName":fontFamilyName,"fontType":fontTypeData,"fileName":fileNameSplit,"fontData": fontDataObject.base64ImgString}      
                     $http({
                     method : 'POST',
-                    url : getHost()+'/saveFont.do',
+                    url : getHost()+'/saveFont',
                     dataType: "json",
                     contentType: "application/json",
                     data: JSON.stringify(globalFonts)
@@ -245,7 +245,7 @@ app.controller('globalColors', function($scope,$http) {
                   var updateGlobalFont = {"globalFontsId":globalFontsId,"fontName":editFontName,"fontFamilyName":editFontFamilyName,"fileName":uploadFileName}
                     $http({
                             method : 'POST',
-                            url : getHost()+'/updateFont.do',
+                            url : getHost()+'/updateFont',
                             contentType: "application/json",
                             data: JSON.stringify(updateGlobalFont)
                         }).success(function(data, status, headers, config) {    
@@ -264,7 +264,7 @@ app.controller('globalColors', function($scope,$http) {
                {
                   $http({
                        method : 'GET',
-                       url : getHost()+'/deleteFont.do?globalFontsId='+globalFontsId
+                       url : getHost()+'/deleteFont?globalFontsId='+globalFontsId
                    }).success(function(data, status, headers, config) {
 
                        $scope.fontDisplay = data.d.details;
@@ -284,7 +284,7 @@ app.controller('globalColors', function($scope,$http) {
                {
                   $http({
                        method : 'GET',
-                       url : getHost()+'/deleteColorTheme.do?globalColorsId='+globalColorsId
+                       url : getHost()+'/deleteColorTheme?globalColorsId='+globalColorsId
                    }).success(function(data, status, headers, config) {
 
                        $scope.allColors = data.d.details;

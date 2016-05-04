@@ -37,7 +37,7 @@ function recurringEmail($scope,$http) {
     $scope.recurring = function () {
                     $http({
                             method : 'GET',
-                            url : getHost()+'/getAllRecurringEmails.do'
+                            url : getHost()+'/getAllRecurringEmails'
                         }).success(function(data, status, headers, config) {
                             $scope.recurringEmailDetail = data.d.details;  
                         }).error(function(data, status, headers, config) {
@@ -58,7 +58,7 @@ function recurringEmail($scope,$http) {
         }
          $.ajax({
                     method: 'POST',
-                    url: getHost() + '/saveRecurringEmail.do',
+                    url: getHost() + '/saveRecurringEmail',
                     dataType: "json",
                     contentType: "application/json",
                     data: JSON.stringify(templateData)
@@ -76,7 +76,7 @@ function recurringEmail($scope,$http) {
      var recurringEmailTemplateId=$("#recurringEmailTemplateId").val();
                     $http({
                             method : 'GET',
-                            url : getHost()+'/getRecurringEmailTemplateById.do?recurringEmailTemplateId='+recurringEmailTemplateId
+                            url : getHost()+'/getRecurringEmailTemplateById?recurringEmailTemplateId='+recurringEmailTemplateId
                         }).success(function(data, status, headers, config) {
                          
                             $scope.getRecurringTemplateDetails = data.d.details[0];  
@@ -94,7 +94,7 @@ function recurringEmail($scope,$http) {
         var templateData ={"recurringEmailTemplateId":recurringEmailTemplateId, "templateName" : emailTemplateName,  "htmlData" : htmlData};
          $.ajax({
                     method: 'POST',
-                    url: getHost() + '/updateRecurringEmail.do?recurringEmailTemplateId='+recurringEmailTemplateId,
+                    url: getHost() + '/updateRecurringEmail?recurringEmailTemplateId='+recurringEmailTemplateId,
                     dataType: "json",
                     contentType: "application/json",
                     data: JSON.stringify(templateData)
@@ -116,7 +116,7 @@ function recurringEmail($scope,$http) {
             {
                     $http({
                             method : 'GET',
-                            url : getHost()+'/deleteRecurringEmail.do?recurringEmailTemplateId='+recurringEmailTemplateId
+                            url : getHost()+'/deleteRecurringEmail?recurringEmailTemplateId='+recurringEmailTemplateId
                         }).success(function(data, status, headers, config) {
                             $scope.getRecurringTemplateDetails = data.d.details;  
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));

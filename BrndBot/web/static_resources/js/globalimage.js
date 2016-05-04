@@ -106,7 +106,7 @@ var globalImageController = function ($scope, fileReader, $http) {
        
                $http({
                     method : 'GET',
-                    url : getHost()+ '/getGlobalImageById.do?globalImageId='+globalImageId,
+                    url : getHost()+ '/getGlobalImageById?globalImageId='+globalImageId,
                 }).success(function(data, status, headers, config) {     
                  $scope.getGlobalImageDetails= data.d.details[0];
                  $("#editImageName").val(data.d.details[0].imageName);
@@ -146,7 +146,7 @@ var globalImageController = function ($scope, fileReader, $http) {
        
             $.ajax({
                 method: 'POST',
-                url: getHost() + '/saveGlobalImage.do',
+                url: getHost() + '/saveGlobalImage',
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(globalImage)
@@ -176,7 +176,7 @@ var globalImageController = function ($scope, fileReader, $http) {
         
          $.ajax({
                 method: 'POST',
-                url: getHost() + '/updateGlobalImage.do',
+                url: getHost() + '/updateGlobalImage',
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(globalImageUpdate)
@@ -198,7 +198,7 @@ var globalImageController = function ($scope, fileReader, $http) {
             {
                $http({
                     method : 'GET',
-                    url : getHost()+'/deleteGlobalImage.do?globalImageId='+deleteGLobalImageId
+                    url : getHost()+'/deleteGlobalImage?globalImageId='+deleteGLobalImageId
                 }).success(function(data, status, headers, config) {
                     
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -213,7 +213,7 @@ var globalImageController = function ($scope, fileReader, $http) {
     $scope.getGlobalImage= function (){
                $http({
                     method : 'GET',
-                    url : getHost()+ '/getAllGlobalImages.do'
+                    url : getHost()+ '/getAllGlobalImages'
                 }).success(function(data, status, headers, config) {                  
                 $scope.getAllGlobalImages= data.d.details;
                 }).error(function(data, status, headers, config) {

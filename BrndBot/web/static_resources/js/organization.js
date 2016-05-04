@@ -30,7 +30,7 @@ function organizationcontroller($scope, $http) {
 
         $http({
             method: 'GET',
-            url: getHost() + '/getAllOrganizations.do'
+            url: getHost() + '/getAllOrganizations'
         }).success(function (data, status, headers, config) {
             $scope.organizationDetails = data.d.details;
         }).error(function (data, status, headers, config) {
@@ -51,7 +51,7 @@ function organizationcontroller($scope, $http) {
         } else {
             $.ajax({
                 method: 'POST',
-                url: getHost() + '/saveOrganization.do',
+                url: getHost() + '/saveOrganization',
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(organization)
@@ -74,7 +74,7 @@ function organizationcontroller($scope, $http) {
         var organizationId = $("#organizationIdTag").val();
         $http({
             method: 'GET',
-            url: getHost() + '/getOrganizationById.do?organizationId=' + organizationId
+            url: getHost() + '/getOrganizationById?organizationId=' + organizationId
         }).success(function (data, status, headers, config) {
             var organizationTypeId = JSON.stringify(data.d.details[0].organizationTypeId);
             $("#organizationDetailsTypeId > [value=" + organizationTypeId + "]").attr("selected", "true");
@@ -90,7 +90,7 @@ function organizationcontroller($scope, $http) {
             {
                 $http({
                     method: 'GET',
-                    url: getHost() + '/deleteOrganization.do?organizationId=' + organizationId
+                    url: getHost() + '/deleteOrganization?organizationId=' + organizationId
                 }).success(function (data, status, headers, config) {
                     $scope.organizationDetails = data.d.details;
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -113,7 +113,7 @@ function organizationcontroller($scope, $http) {
             };
             $http({
                 method: 'POST',
-                url: getHost() + '/updateOrganization.do',
+                url: getHost() + '/updateOrganization',
                 dataType: "json",
                 contentType: "application/json",
                 data: updateorg
@@ -139,7 +139,7 @@ function organizationcontroller($scope, $http) {
 
         $http({
             method: 'GET',
-            url: getHost() + '/getAllOrganizationCategoryByOrganizationId.do?organizationId=' + organizationId
+            url: getHost() + '/getAllOrganizationCategoryByOrganizationId?organizationId=' + organizationId
         }).success(function (data, status, headers, config) {
             for (var i = 0; i <= data.d.channelDetailsList.length; i++) {
                 var obj = data.d.channelDetailsList[i];
@@ -170,7 +170,7 @@ function organizationcontroller($scope, $http) {
         } else {
             $.ajax({
                 method: 'POST',
-                url: getHost() + '/saveCategory.do',
+                url: getHost() + '/saveCategory',
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(emailCategory)
@@ -197,7 +197,7 @@ function organizationcontroller($scope, $http) {
         } else {
             $.ajax({
                 method: 'POST',
-                url: getHost() + '/saveCategory.do',
+                url: getHost() + '/saveCategory',
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(category)
@@ -225,7 +225,7 @@ function organizationcontroller($scope, $http) {
 
             $.ajax({
                 method: 'POST',
-                url: getHost() + '/saveCategory.do',
+                url: getHost() + '/saveCategory',
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(imageCategory)
@@ -245,7 +245,7 @@ function organizationcontroller($scope, $http) {
         var categoryId = $("#categoryIdTag").val();
         $http({
             method: 'GET',
-            url: getHost() + '/getCategoryByCategoryId.do?categoryId=' + categoryId,
+            url: getHost() + '/getCategoryByCategoryId?categoryId=' + categoryId,
         }).success(function (data)
         {
             $scope.categoryDetails = data.d.categoryDetails;
@@ -262,7 +262,7 @@ function organizationcontroller($scope, $http) {
         {
             $http({
                 method: 'GET',
-                url: getHost() + '/deleteCategory.do?categoryId=' + categoryId,
+                url: getHost() + '/deleteCategory?categoryId=' + categoryId,
             }).success(function (data, status, headers, config) {
                 $scope.categoryDetails = data.d.categoryDetails;
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -281,7 +281,7 @@ function organizationcontroller($scope, $http) {
         var subCategoryId = $("#subCategoryIdTag").val();
         $http({
             method: 'GET',
-            url: getHost() + '/getAllSubCategoriesByCategoryId.do?categoryId=' + categoryId,
+            url: getHost() + '/getAllSubCategoriesByCategoryId?categoryId=' + categoryId,
         }).success(function (data, status, headers, config) {
             for (var i = 0; i < data.d.details.length; i++) {
                 if (data.d.details[i].subCategoryId == subCategoryId)
@@ -303,7 +303,7 @@ function organizationcontroller($scope, $http) {
         {
             $http({
                 method: 'GET',
-                url: getHost() + '/deleteSubCategory.do?subCategoryId=' + subCategoryId,
+                url: getHost() + '/deleteSubCategory?subCategoryId=' + subCategoryId,
             }).success(function (data, status, headers, config) {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 if (window.location.href.indexOf("emailsubcategorydetails") > -1) {
@@ -325,7 +325,7 @@ function organizationcontroller($scope, $http) {
     $scope.getAllExternalSourceKeywordLookups = function () {
         $http({
             method: 'GET',
-            url: getHost() + '/getAllExternalSourceKeywordLookups.do',
+            url: getHost() + '/getAllExternalSourceKeywordLookups',
         }).success(function (data, status, headers, config) {
             for (var i = 0; i < data.d.details.length; i++)
             {
@@ -350,7 +350,7 @@ function organizationcontroller($scope, $http) {
 
             $.ajax({
                 method: 'POST',
-                url: getHost() + '/saveSubCategory.do',
+                url: getHost() + '/saveSubCategory',
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(subCategory)
@@ -376,7 +376,7 @@ function organizationcontroller($scope, $http) {
     $scope.getAllExternalSourceKeywordLookups = function () {
         $http({
             method: 'GET',
-            url: getHost() + '/getAllExternalSourceKeywordLookups.do',
+            url: getHost() + '/getAllExternalSourceKeywordLookups',
         }).success(function (data, status, headers, config) {
             for (var i = 0; i < data.d.details.length; i++)
             {
@@ -391,7 +391,7 @@ function organizationcontroller($scope, $http) {
 
         $http({
             method: 'GET',
-            url: getHost() + '/getAllEmailBlocksByOrganizationId.do?organizationId=' + organizationId,
+            url: getHost() + '/getAllEmailBlocksByOrganizationId?organizationId=' + organizationId,
         }).success(function (data, status, headers, config) {
             $scope.emailBlocks = data.d.details;
         }).error(function (data, status, headers, config) {
@@ -412,7 +412,7 @@ function organizationcontroller($scope, $http) {
 
             $.ajax({
                 method: 'POST',
-                url: getHost() + '/saveEmailBlock.do',
+                url: getHost() + '/saveEmailBlock',
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(emailCategory)
@@ -431,7 +431,7 @@ function organizationcontroller($scope, $http) {
         var emailBlockId = $("#emailBlockId").val();
         $http({
             method: 'GET',
-            url: getHost() + '/getAllEmailBlocksById.do?emailBlockId=' + emailBlockId
+            url: getHost() + '/getAllEmailBlocksById?emailBlockId=' + emailBlockId
         }).success(function (data)
         {
             for (var i = 0; i < data.d.details.length; i++)
@@ -450,7 +450,7 @@ function organizationcontroller($scope, $http) {
         var emailBlockId = $("#emailBlockId").val();
         $http({
             method: 'GET',
-            url: getHost() + '/getAllNonAddedEmailBlockModel.do?emailBlockId=' + emailBlockId
+            url: getHost() + '/getAllNonAddedEmailBlockModel?emailBlockId=' + emailBlockId
         }).success(function (data)
         {
 
@@ -476,7 +476,7 @@ function organizationcontroller($scope, $http) {
         {
             $http({
                 method: 'GET',
-                url: getHost() + '/deleteEmailBlock.do?emailBlockId=' + emailBlockId,
+                url: getHost() + '/deleteEmailBlock?emailBlockId=' + emailBlockId,
             }).success(function (data, status, headers, config) {
                 $scope.getEmailBlock = data.d.details;
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -492,7 +492,7 @@ function organizationcontroller($scope, $http) {
         var subCategoryId = $("#subCategoryIdTag").val();
         $http({
             method: 'GET',
-            url: getHost() + '/getAllEmailModelBySubCategory.do?subCategoryId=' + subCategoryId
+            url: getHost() + '/getAllEmailModelBySubCategory?subCategoryId=' + subCategoryId
         }).success(function (data)
         {
             $scope.emailModels = data.d.details;
@@ -506,7 +506,7 @@ function organizationcontroller($scope, $http) {
         var subCategoryId = $("#subCategoryIdTag").val();
         $http({
             method: 'GET',
-            url: getHost() + '/getAllImageModelBySubCategory.do?subCategoryId=' + subCategoryId
+            url: getHost() + '/getAllImageModelBySubCategory?subCategoryId=' + subCategoryId
         }).success(function (data)
         {
             $scope.imageModels = data.d.details;
@@ -520,7 +520,7 @@ function organizationcontroller($scope, $http) {
         var subCategoryId = $("#subCategoryIdTag").val();
         $http({
             method: 'GET',
-            url: getHost() + '/getAllPrintModelBySubCategory.do?subCategoryId=' + subCategoryId
+            url: getHost() + '/getAllPrintModelBySubCategory?subCategoryId=' + subCategoryId
         }).success(function (data)
         {
             $scope.printModels = data.d.details;
@@ -534,7 +534,7 @@ function organizationcontroller($scope, $http) {
     $scope.getAllNonAddedEmailModelsBySubCategoryId = function (subCategoryID) {
         $http({
             method: 'GET',
-            url: getHost() + '/getAllNonAddedEmailModels.do?subCategoryId=' + subCategoryID
+            url: getHost() + '/getAllNonAddedEmailModels?subCategoryId=' + subCategoryID
         }).success(function (data)
         {
             $("#relateEmailTemplateAddButton").show().css('pointer-events', 'none');
@@ -554,7 +554,7 @@ function organizationcontroller($scope, $http) {
     $scope.getAllNonAddedImageModelsBySubCategoryId = function (subCategoryID) {
         $http({
             method: 'GET',
-            url: getHost() + '/getAllNonAddedImageModels.do?subCategoryId=' + subCategoryID
+            url: getHost() + '/getAllNonAddedImageModels?subCategoryId=' + subCategoryID
         }).success(function (data)
         {
             $("#relateImageTemplateAddButton").show();
@@ -567,7 +567,7 @@ function organizationcontroller($scope, $http) {
     $scope.getAllNonAddedPrintModelsBySubCategoryId = function (subCategoryID) {
         $http({
             method: 'GET',
-            url: getHost() + '/getAllNonAddedPrintModels.do?subCategoryId=' + subCategoryID
+            url: getHost() + '/getAllNonAddedPrintModels?subCategoryId=' + subCategoryID
         }).success(function (data)
         {
             $("#relatePrintTemplateAddButton").show();
@@ -599,7 +599,7 @@ function organizationcontroller($scope, $http) {
 
         $.ajax({
             method: 'POST',
-            url: getHost() + '/saveSubCategoryEmailModel.do',
+            url: getHost() + '/saveSubCategoryEmailModel',
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify(emailTemplateRelate)
@@ -624,7 +624,7 @@ function organizationcontroller($scope, $http) {
 
         $.ajax({
             method: 'POST',
-            url: getHost() + '/saveSubCategoryPrintModel.do',
+            url: getHost() + '/saveSubCategoryPrintModel',
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify(printTemplateRelate)
@@ -647,7 +647,7 @@ function organizationcontroller($scope, $http) {
         {
             $http({
                 method: 'GET',
-                url: getHost() + '/deleteSubCategoryEmailModel.do?subCategoryEmailModelID=' + subCategoryEmailModelId
+                url: getHost() + '/deleteSubCategoryEmailModel?subCategoryEmailModelID=' + subCategoryEmailModelId
             }).success(function (data)
             {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -664,7 +664,7 @@ function organizationcontroller($scope, $http) {
         var organizationId = $("#organizationIdTag").val();
         $http({
             method: 'GET',
-            url: getHost() + '/getAllRecurringByOrganizationId.do?organizationId=' + organizationId
+            url: getHost() + '/getAllRecurringByOrganizationId?organizationId=' + organizationId
         }).success(function (data)
         {
             $scope.allRecurringEmails = data.d.details;
@@ -677,7 +677,7 @@ function organizationcontroller($scope, $http) {
         var organizationId = $("#organizationIdTag").val();
         $http({
             method: 'GET',
-            url: getHost() + '/getAllNonAddedRecurringEmail.do?organizationId=' + organizationId
+            url: getHost() + '/getAllNonAddedRecurringEmail?organizationId=' + organizationId
         }).success(function (data)
         {
             $("#relateRecurringEmailTemplateAddButton").show().css('pointer-events', 'none');
@@ -696,7 +696,7 @@ function organizationcontroller($scope, $http) {
 
         $.ajax({
             method: 'POST',
-            url: getHost() + '/saveOrganizationRecurringEmail.do',
+            url: getHost() + '/saveOrganizationRecurringEmail',
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify(saveOrganizationRecurringEmailById)
@@ -716,7 +716,7 @@ function organizationcontroller($scope, $http) {
         if (deleteRecurring == true) {
             $http({
                 method: 'GET',
-                url: getHost() + '/deleteOrganizationRecurringEmail.do?organizationRecurringEmailLookupId=' + organizationRecurringEmailLookupId
+                url: getHost() + '/deleteOrganizationRecurringEmail?organizationRecurringEmailLookupId=' + organizationRecurringEmailLookupId
             }).success(function (data)
             {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -733,7 +733,7 @@ function organizationcontroller($scope, $http) {
         var organizationId = $("#organizationIdTag").val();
         $http({
             method: 'GET',
-            url: getHost() + '/getAllMarketingCategoryByOrganizationId.do?organizationId=' + organizationId
+            url: getHost() + '/getAllMarketingCategoryByOrganizationId?organizationId=' + organizationId
         }).success(function (data)
         {
             $scope.marketingCategories = data.d.details;
@@ -747,7 +747,7 @@ function organizationcontroller($scope, $http) {
         var marketingCategoryId = $("#marketingCategoryId").val();
         $http({
             method: 'GET',
-            url: getHost() + '/getByMarketingCategoryId.do?marketingCategoryId=' + marketingCategoryId
+            url: getHost() + '/getByMarketingCategoryId?marketingCategoryId=' + marketingCategoryId
         }).success(function (data)
         {
             for (var i = 0; i < data.d.details.length; i++)
@@ -775,7 +775,7 @@ function organizationcontroller($scope, $http) {
         var marketingCategory = {"marketingCategoryName": categoryName, "organizationId": organizationIdNew}
         $.ajax({
             method: 'POST',
-            url: getHost() + '/saveMarketingCategory.do',
+            url: getHost() + '/saveMarketingCategory',
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify(marketingCategory)
@@ -797,7 +797,7 @@ function organizationcontroller($scope, $http) {
         {
             $http({
                 method: 'GET',
-                url: getHost() + '/deleteMarketingCategory.do?marketingCategoryId=' + marketingCategoryId
+                url: getHost() + '/deleteMarketingCategory?marketingCategoryId=' + marketingCategoryId
             }).success(function (data)
             {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -813,7 +813,7 @@ function organizationcontroller($scope, $http) {
 
         $http({
             method: 'GET',
-            url: getHost() + '/getAllMarketingPrograms.do'
+            url: getHost() + '/getAllMarketingPrograms'
         }).success(function (data)
         {
             $scope.marketingProgramLists = data.d.details;
@@ -827,7 +827,7 @@ function organizationcontroller($scope, $http) {
         var emailBlockId = $("#emailBlockId").val();
         $http({
             method: 'GET',
-            url: getHost() + '/getAllEmailBlockModelById.do?emailBlockId=' + emailBlockId
+            url: getHost() + '/getAllEmailBlockModelById?emailBlockId=' + emailBlockId
         }).success(function (data)
         {
             $scope.getEmailBlockTemplate = data.d.details;
@@ -845,7 +845,7 @@ function organizationcontroller($scope, $http) {
         {
             $http({
                 method: 'GET',
-                url: getHost() + '/deleteEmailBlockModel.do?emailBlockModelLookupId=' + emailBlockModelLookupId
+                url: getHost() + '/deleteEmailBlockModel?emailBlockModelLookupId=' + emailBlockModelLookupId
             }).success(function (data)
             {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -864,7 +864,7 @@ function organizationcontroller($scope, $http) {
 
         $http({
             method: 'GET',
-            url: getHost() + '/getMarketingProgramsByCategoryId.do?marketingCategoryId=' + marketingCategoryId
+            url: getHost() + '/getMarketingProgramsByCategoryId?marketingCategoryId=' + marketingCategoryId
         }).success(function (data)
         {
             $scope.getMarketingPrograms = data.d.details;
@@ -881,7 +881,7 @@ function organizationcontroller($scope, $http) {
         {
             $http({
                 method: 'GET',
-                url: getHost() + '/deleteMarketingCategoryProgram.do?marketingCategoryProgramId=' + marketingProgramId
+                url: getHost() + '/deleteMarketingCategoryProgram?marketingCategoryProgramId=' + marketingProgramId
             }).success(function (data)
             {
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -897,7 +897,7 @@ function organizationcontroller($scope, $http) {
         var marketingCategoryId = $("#marketingCategoryId").val();
         $http({
             method: 'GET',
-            url: getHost() + '/getAllNonAddedMarketingPrograms.do?marketingCategoryId=' + marketingCategoryId
+            url: getHost() + '/getAllNonAddedMarketingPrograms?marketingCategoryId=' + marketingCategoryId
         }).success(function (data)
         {
 
@@ -938,7 +938,7 @@ function organizationcontroller($scope, $http) {
 
         $.ajax({
             method: 'POST',
-            url: getHost() + '/saveMarketingCategoryProgram.do',
+            url: getHost() + '/saveMarketingCategoryProgram',
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify(marketingAddTemplate)
@@ -978,7 +978,7 @@ function organizationcontroller($scope, $http) {
 
         $.ajax({
             method: 'POST',
-            url: getHost() + '/saveEmailBlockModel.do',
+            url: getHost() + '/saveEmailBlockModel',
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify(blockEmailTemplate)
