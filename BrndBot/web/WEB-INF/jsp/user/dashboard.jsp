@@ -13,7 +13,7 @@
 
 <body class="body-normal">
      <%@include file="header.jsp" %>       
-      <%@include file="navbar.jsp" %>       
+      <%@include file="navbar.jsp" %>          
     <!--Main Content Wrap-->
     <div class="contentWrap--withSideNav">
         <div class="topNav clear">
