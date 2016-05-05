@@ -140,7 +140,7 @@
                     </div>
                     <div class="bottom-cta-bar5">
                         <div class="bottom-cta-button-container">
-                            <div class="edit-button-detail md-button button-text-1 fright edit-button-detailrecemail" ng-click="calltoeditrecurring(program_id,schedule_id)">Edit Automation Details</div>
+                            <div class="edit-button-detail md-button button-text-1 edit-button-detailrecemail" ng-click="calltoeditrecurring(program_id,schedule_id)">Edit Automation Details</div>
                         </div>
                     </div>
                 </div>

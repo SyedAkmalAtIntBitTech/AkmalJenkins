@@ -9,7 +9,7 @@ function controllerMarketingCategories($http, $scope,  $window){
     $scope.getMarketingCategories = function(){
         $http({
             method: 'GET',
-            url: getHost()+'getCompanyMarketingCategories.do'
+            url: getHost()+'getCompanyMarketingCategories'
         }).success(function (data, status, headers, config) {
 //              alert(JSON.stringify(data));
 //            alert(JSON.stringify(data.marketingData[0].name));
@@ -36,7 +36,7 @@ function controllerMarketingCategories($http, $scope,  $window){
         
         $http({
             method: 'GET',
-            url: getHost()+ 'displaymarketingProgram.do?marketingCategoryId='+$("#categoryidHidden").val()
+            url: getHost()+ 'displaymarketingProgram?marketingCategoryId='+$("#categoryidHidden").val()
         }).success(function (data, status, headers, config) {
             if(JSON.stringify(data.marketingProgramsData) === "[]"){
                 $("#selmarprog").empty().append('Oops! No Marketing programs. Please select any other category.');

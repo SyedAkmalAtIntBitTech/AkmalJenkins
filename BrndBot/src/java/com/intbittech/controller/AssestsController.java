@@ -302,7 +302,6 @@ public class AssestsController {
         } catch (Throwable throwable) {
             
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
-             throw throwable;
         }
          
             try {

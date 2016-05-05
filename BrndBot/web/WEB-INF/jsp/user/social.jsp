@@ -184,7 +184,7 @@
                             <div class="fleft col-6of10 dropdown-label-active">Social Hub</div>
                         </a>
                     </li>
-                    <a href="emaillists.jsp">
+                    <a href="emaillists">
                         <li class="dropdown-section fleft col-1of1 " id="emailhubli">
                             <div><img type="image/svg+xml" src="images/Hub-Dropdowns_email.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
                             <div class="fleft col-6of10 dropdown-label">Email Hub</div>
@@ -201,7 +201,7 @@
             <div class="page-inner-content-container">
                 <div class="fleft content">
                     <!--List Starts Here-->                    
-                    <div id="popup">
+<!--                    <div id="popup">
                         <div id="content">
                             <center>
                                 <table id="fbmanagepages">
@@ -209,7 +209,7 @@
                                 </table>
                             </center>
                         </div>   
-                    </div>
+                    </div>-->
                     <div id="twitterpopup" style="display: none">
                         <div id="content">
                             <p>Please click the url and get the pin</p>

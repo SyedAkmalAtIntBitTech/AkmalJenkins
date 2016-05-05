@@ -1,8 +1,15 @@
    <link rel="SHORTCUT ICON" href="images/favicon.png"/>
             <script src="//use.typekit.net/wnn8jyx.js"></script>
             <script>try{Typekit.load({ async: true });}catch(e){}</script>
-             <link href="css/textstyle.css" rel="stylesheet" type="text/css"/>
-             
+             <!--<link href="css/textstyle.css" rel="stylesheet" type="text/css"/>-->
+             <script>
+                 function showOverlay(){
+                     $("#loadoverlaydiv").show();
+                 }
+                 function hideOverlay(){
+                     $("#loadoverlaydiv").hide();
+                 }
+             </script>
              <style>
                  /*cursor pointer on every select box in Brndbot*/
                  select,.ptr{
@@ -11,6 +18,7 @@
                  body{
                       font-family: "proxima-nova",sans-serif !important;
                  }
+                 #loadoverlaydiv{display: none}
              </style>
 <div class="mainNav" >   
         <a href="dashboard"><div class="bb-logo-wrap">

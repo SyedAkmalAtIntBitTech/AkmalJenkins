@@ -1,17 +1,33 @@
-<%-- 
-    Document   : error404.jsp
-    Created on : 21 Apr, 2016, 5:08:48 PM
-    Author     : Haider Khan @ Intbit
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>404 : Oops requested resource is not found</h1>
-    </body>
+<head>
+<title>404 error page</title>
+<jsp:include page="header.jsp"/>
+<link href="css/404.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+	
+	<div class="wrap">
+		
+		<div class="content">
+			
+			<div class="logo">
+                            <h1><a href="#"><img  class="signUp-logo" src="images/BB-Hello.svg"/></a></h1>
+				<span>Oops! The Page you requested was not found!</span>
+			</div>
+			
+			<div class="buttom">
+				<div class="seach_bar">
+					<p>you can go to <span><a href=getHost()+"/login">Login</a></span> here</p>
+					
+				</div>
+			</div>
+			
+		</div>
+		
+	
+	</div>
+	
+	
+</body>
 </html>

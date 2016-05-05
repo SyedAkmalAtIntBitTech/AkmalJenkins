@@ -17,13 +17,12 @@
 
         <!--Main Content Wrap-->
         <div class="contentWrap--withSideNav noScroll" ng-app ng-controller="userController">
-            <div class="topNav topNav-withSubnav clear">
-                <div class="topNav--BackButton fleft">
-                    <a class="exit-button-icon" href="dashboard">          
-                        <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">            
+            <div class="topNav topNav-withSubnav clear">                
+                    <a class="exit-button-icon" href="dashboard">  
+                        <div class="topNav--BackButton fleft">        
+                                <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">            
+                        </div>
                     </a>
-
-                </div>
                 <div class="topNav--TitleBar--withBackButton fleft">
                     <span class="topNav--TitleBar--Title fleft h2">Create an Email</span>
                     <div class="topNav--TitleBar--CTABox fright">

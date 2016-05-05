@@ -185,14 +185,16 @@
                                           };
                     $http({
                         method: 'POST',
-                        url: getHost() + 'setMarketingProgram.do',
+                        url: getHost() + 'setMarketingProgram',
                         headers: {'Content-Type':'application/json'},
                         data: JSON.stringify(program_details)
                     }).success(function (data, status, headers, config) {
                         if (data !== null){
+                            $("#saveMarketingProgram").unbind('click');
                             alert("Details saved successfully.");
                             var redirect="user/marketingprogramactions?past=0&program_id="+data+"&program_date="+program_date_time;
                             window.open(getHost() + redirect, "_self");
+                            $("#saveMarketingProgram").bind('click');
                         }else {
                             alert("Problem saving the record!");
                         }

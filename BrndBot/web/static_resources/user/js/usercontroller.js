@@ -7,11 +7,13 @@
 function userController($scope, $http ) {
     var marketingProgramId="";
     $scope.displayCategory = function () {
+        showOverlay();
         $http({
             method: 'GET',
-            url: getHost() + '/getAllCompanyCategories.do?channelId='+emailChannelId
+            url: getHost() + '/getAllCompanyCategories?channelId='+emailChannelId
         }).success(function (data, status, headers, config) {
             $scope.displayAllCategories = data.d.details;
+            hideOverlay();
         }).error(function (data, status, headers, config) {
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
 
@@ -31,7 +33,7 @@ $scope.displaySubCategory = function () {
       var categoryId=  localStorage.getItem("categoryId");
         $http({
             method: 'GET',
-            url: getHost() + '/getAllSubCategoriesByCategoryId.do?categoryId='+categoryId
+            url: getHost() + '/getAllSubCategoriesByCategoryId?categoryId='+categoryId
         }).success(function (data, status, headers, config) {
             $scope.displayAllSubCategories = data.d.details;
               
@@ -55,7 +57,7 @@ $scope.displaySubCategory = function () {
     $scope.displayMarketingProgram = function () {
         $http({
             method: 'GET',
-            url: getHost() + '/getCompanyMarketingCategories.do'
+            url: getHost() + '/getCompanyMarketingCategories'
         }).success(function (data, status, headers, config) {
             $scope.displayAllMarketingPrograms = data.d.details;
         }).error(function (data, status, headers, config) {
@@ -71,7 +73,7 @@ $scope.displaySubCategory = function () {
          
         $http({
             method: 'GET',
-            url: getHost() + '/getMarketingProgramsByCategoryId.do?marketingCategoryId='+marketingCategoryId
+            url: getHost() + '/getMarketingProgramsByCategoryId?marketingCategoryId='+marketingCategoryId
         }).success(function (data, status, headers, config) {
 //           alert(JSON.stringify(data));
             $scope.displayMarketingPrograms = data.d.details;

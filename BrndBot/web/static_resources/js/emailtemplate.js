@@ -128,7 +128,7 @@ function emailTemplateController($scope, $http ,fileReader) {
 
         $http({
             method: 'GET',
-            url: getHost() + '/getAllEmailModel.do'
+            url: getHost() + '/getAllEmailModel'
         }).success(function (data, status, headers, config) {
             $scope.emailTemplates = data.d.details;
         }).error(function (data, status, headers, config) {
@@ -172,12 +172,13 @@ function emailTemplateController($scope, $http ,fileReader) {
         if (validate()) {
             $.ajax({
                 method: 'POST',
-                url: getHost() + '/saveEmailModel.do',
+                url: getHost() + '/saveEmailModel',
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(emailModel)
             }).success(function (data, status, headers, config)
             {
+                
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 window.open(getHost() + 'admin/emailtemplates', "_self");
             }).error(function (data, status, headers, config) {
@@ -222,7 +223,7 @@ function emailTemplateController($scope, $http ,fileReader) {
         if (validate()) {
             $.ajax({
                 method: 'POST',
-                url: getHost() + '/editEmailModel.do',
+                url: getHost() + '/editEmailModel',
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(emailModel)
@@ -242,7 +243,7 @@ function emailTemplateController($scope, $http ,fileReader) {
         
         $http({
             method: 'GET',
-            url: getHost() + '/getEmailModelById.do?emailModelId=' + emailModelId
+            url: getHost() + '/getEmailModelById?emailModelId=' + emailModelId
         }).success(function (data, status, headers, config) {
             $('.fr-element').html(eval(JSON.stringify(data.d.details[0].htmlData)));
             $('#showFIleName').text(eval(JSON.stringify(data.d.details[0].imageFileName)));
@@ -261,7 +262,7 @@ function emailTemplateController($scope, $http ,fileReader) {
         {
             $http({
                 method: 'GET',
-                url: getHost() + '/deleteEmailModel.do?emailModelId=' + emailModelId,
+                url: getHost() + '/deleteEmailModel?emailModelId=' + emailModelId,
             }).success(function (data, status, headers, config) {
                 $scope.emailModelById = data.d.details;
                 alert(eval(JSON.stringify(data.d.operationStatus.messages)));

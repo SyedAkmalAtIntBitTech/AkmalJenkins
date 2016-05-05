@@ -117,7 +117,7 @@ app.directive("ngFileSelect",function(){
    
 var userImageConversion = function ($scope, fileReader, $http) {
     $scope.imageSrc ="images/uploadPhoto.svg";
-     console.log(fileReader);
+    
     $scope.getFile = function () {
         $scope.progress = 0;
         fileReader.readAsDataUrl($scope.file, $scope)
@@ -139,7 +139,7 @@ var userImageConversion = function ($scope, fileReader, $http) {
         var globalImage = {"imageType": imageTypeData, "imageData": imgDataObj.base64ImgString};
             $.ajax({
                 method: 'POST',
-                url: getHost() + '/onboarding/saveCompanyLogo.do',
+                url: getHost() + '/onboarding/saveCompanyLogo',
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(globalImage)

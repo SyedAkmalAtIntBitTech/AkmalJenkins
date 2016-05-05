@@ -9,6 +9,7 @@
                     var categoryId = $("#categoryIdTag").val();
                     var subCategoryId = $("#subCategoryIdTag").val();
                     var mindbodyid = $("#mindbodyId").val();
+                    var LookupId = $("#LookupId").val();
                     var email_subject = $("#emailsubject").val();
                     if(email_subject==="")
                     {
@@ -20,7 +21,7 @@
                     {
                         document.title="BrndBot - Email List Selection"; 
                     }
-                    document.location.href = "emaileditor?categoryId="+categoryId+"&subCategoryId="+subCategoryId+"&emailSubject="+email_subject+"&mindbodyId="+mindbodyid;
+                    document.location.href = "emaileditor?categoryId="+categoryId+"&subCategoryId="+subCategoryId+"&emailSubject="+email_subject+"&mindbodyId="+mindbodyid+"&LookupId="+LookupId;
 
         ////////////////////////////////////////// END ////////////////////////////////////////////////
 

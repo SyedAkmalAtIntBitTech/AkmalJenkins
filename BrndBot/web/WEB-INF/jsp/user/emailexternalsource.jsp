@@ -27,11 +27,11 @@
         <input id="LookupId" type="text" hidden="" value="<%=LookupId%>"/>
         <script src="js/mindbody.js" type="text/javascript"></script>
         <div class="topNav topNav-withSubnav clear">
-             <div class="topNav--BackButton fleft">                 
-                <a class="exit-button-icon" href="emailsubcategory?categoryId=<%=categoryId%>">          
+            <a class="exit-button-icon" href="emailsubcategory?categoryId=<%=categoryId%>">     
+                <div class="topNav--BackButton fleft">                      
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
-                </a>
-            </div>
+                </div>
+            </a>
             <div class="topNav--TitleBar--withBackButton fleft">
                 <span class="topNav--TitleBar--Title fleft h2">Create an Email</span>
             </div>
@@ -53,7 +53,7 @@
                 
                 <div class="pane_content">
                     <div class="subcat-list">
-                        <a ng-repeat="mindbody in mindbodylist" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=subCategoryId%>&mindbodyId={{mindbody.id}}">
+                        <a ng-repeat="mindbody in mindbodylist" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=subCategoryId%>&mindbodyId={{mindbody.id}}&LookupId=<%=LookupId%>">
                             <div class="cat-slat clear">
                                 <div class="cat-slat-title col-3of10 fleft">{{mindbody.column1}}</div>
                                 <div class="cat-slat-description col-3of10 fleft">{{mindbody.column3}}</div>

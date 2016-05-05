@@ -119,7 +119,7 @@
   
             <!--CTA Bar-->
             <div class="bottom-cta-bar">
-                <div class="bottom-cta-button-container-lg"><!--marketingprogramactions-->
+                <div id="saveMarketingProgram" class="bottom-cta-button-container-lg"><!--marketingprogramactions-->
                     <a href="#" ng-click="saveMarketingProgram()">
                         <div class="bottom-continue-button button-text-1">Continue</div>
                     </a>
