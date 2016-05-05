@@ -20,7 +20,7 @@
                     {
                         document.title="BrndBot - Email List Selection"; 
                     }
-                    document.location.href = "emaileditor?categoryId="+categoryId+"&subCategoryId="+subCategoryId+"&emailSubject="+email_subject+"&mindbodyId="+mindbodyid;
+                    document.location.href = "emaileditor?draftId=null&categoryId="+categoryId+"&subCategoryId="+subCategoryId+"&emailSubject="+email_subject+"&mindbodyId="+mindbodyid;
 
         ////////////////////////////////////////// END ////////////////////////////////////////////////
 

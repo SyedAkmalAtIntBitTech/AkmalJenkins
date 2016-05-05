@@ -966,16 +966,18 @@ $edit=0;
             $http({
                     method : 'GET',
                     url : getHost() + 'getEmailDraft.do?draftid='+Id
-                  }).success(function(data, status) {
-                  if (data == ""){
+                }).success(function(data, status) {
+                    alert(JSON.stringify(data));
+                    if (data == ""){
                         $scope.emaildraftsstatus = noemaildraft;
-                        }else {     
-                                $scope.htmlbody = data.htmlbody;
-                                $('#draftshow').empty().append(data.htmlbody);
-                              }
-                        }).error(function(data, status) {
-                            alert(nodataerror);
-                        }); 
+                    }else {     
+                        $scope.htmlbody = data.htmlbody;
+                        $('#draftshow').empty().append(data.htmlbody);
+                    }
+                }).error(function(data, status) {
+                    alert(nodataerror);
+                }); 
+                alert(Id);
                 $scope.id = Id;
                 $scope.categoryid = categoryId;
                 $scope.emailsubject = emailSubject;
@@ -1056,10 +1058,10 @@ $edit=0;
         };
 
         $scope.editDrafts = function(draft_id, category_id,email_subject, sub_category_id, sub_category_name){
-            
             var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id, 
                         "sub_category_id": sub_category_id, 
                         "sub_category_name": sub_category_name};
+                    alert(JSON.stringify(draftdetails));
             $http({
                 method : 'POST',
                 url : getHost() + '/saveEmailDraftSessionValue',

@@ -465,7 +465,6 @@
             }
             
             function showText(id){
-                alert(id);
                 var layout_mapper_url = "";
                 if (block_clicked == "true"){
                     currentBlockID = temp_block_id;
@@ -610,7 +609,6 @@
     <input type="hidden" id='userid' value="<%= user_id%>"/>
     <input type="hidden" id='draftid' value="<%= draft_id%>"/>
     <input type="hidden" id='mindbodydata' value="<%= mindbodyId%>"/>
-    <input type="hidden" value="<%=email_subject%>" id="email_subject"/>
     <input type="hidden" value="<%=emailSubject%>" id="emailSubjectTag"/>
     <!--SideNav-->
     <div class="content-main" ng-controller="MyController">   
@@ -618,7 +616,7 @@
     <!--Top Nav-->   
     <div class="top-nav-full">
         <div class="page-title-bar col-1of1"> 
-            <a class=" exit-button-icon" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=categoryId%>">    
+            <a class=" exit-button-icon" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=categoryId%>&mindbodyId=<%=mindbodyId%>&emailSubject=<%=emailSubject%>">    
                 <div class="exit-button-detail">
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                 </div>

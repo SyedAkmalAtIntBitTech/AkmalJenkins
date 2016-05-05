@@ -15,6 +15,7 @@ angular.module("mindbody", [])
                     method : 'GET',
                     url :getHost()+ '/externalContent/isActivated?externalSourceKeywordLookupId='+LookupId
                     }).success(function(data, status, headers, config) {
+//                        alert(JSON.stringify(data.d.details));
                         var minddata= JSON.stringify(data.d.details);
                         if(minddata === "[true]"){
                             

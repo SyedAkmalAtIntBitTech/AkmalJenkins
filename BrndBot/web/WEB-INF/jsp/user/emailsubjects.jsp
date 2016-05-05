@@ -29,11 +29,11 @@
         String email_subject = "";
         String from_emaileeditor = null;
     %>
-    <% email_subject = request.getParameter("subject"); %>
     <%
         String categoryId = request.getParameter("categoryId");
         String subCategoryId = request.getParameter("subCategoryId");
         String mindbodyId = request.getParameter("mindbodyId");
+        String email_subject = request.getParameter("emailSubject");
         
 //        try {
 //            sql_methods.session = request.getSession(true);          
@@ -59,6 +59,7 @@
                 <input type="hidden" value="<%=categoryId%>" id="categoryIdTag"/>
                 <input type="hidden" value="<%=subCategoryId%>" id="subCategoryIdTag"/>
                 <input type="hidden" value="<%=mindbodyId%>" id="mindbodyId"/>
+                <input type="hidden" value="<%=email_subject%>" id="email_subject"/>
                 <input type="hidden" class="input-field-textfield col-8of10" id="mindbodyid" placeholder="Enter Name of email" value="<%=mindbody_id%>"></input>
                 <a class=" exit-button-icon" href="emailsubcategory?categoryId=<%=categoryId%>&subCategoryId=<%=subCategoryId%>&mindbodyId=<%=mindbodyId%>">
                     <div class="exit-button-detail">
