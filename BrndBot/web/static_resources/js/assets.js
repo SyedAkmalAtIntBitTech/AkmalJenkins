@@ -196,26 +196,33 @@ app.controller('globalColors', function($scope,$http) {
                     $("#fontFamilyName").focus();
                     return false;
                    }
+                   if(fileName=="")
+                    {
+                     var ext = $('#fileName').val().split('.').pop().toLowerCase();
+                      if($.inArray(ext, ['ttf']) == -1) {
+                      alert(uploadTTF);
+                      return false;
+                       }
+                    }
+                    else
+                    {
+                        if(fontTypeData !=="ttf")
+                       {
+                           alert("Please choose ttf file.");
+                           return false;
+                       }
+                    }
                       var fileType = fileName.split(".")[1];
                      
-                    
-//                       if((fileType !="ttf")) {
-//                     alert("Please Select only TTF file!");
-//                     $("#fileName").focus();
-//                     return false;
-//                       }
-                     
-                    
-                      
                        var fontDataObject = getFontData();
                      
-                    var globalFonts = {"fontName":fontName,"fontFamilyName":fontFamilyName,"fontType":fontTypeData,"fileName":fileNameSplit,"fontData": fontDataObject.base64ImgString}      
-                    $http({
-                    method : 'POST',
-                    url : getHost()+'/saveFont',
-                    dataType: "json",
-                    contentType: "application/json",
-                    data: JSON.stringify(globalFonts)
+                        var globalFonts = {"fontName":fontName,"fontFamilyName":fontFamilyName,"fontType":fontTypeData,"fileName":fileNameSplit,"fontData": fontDataObject.base64ImgString}      
+                        $http({
+                        method : 'POST',
+                        url : getHost()+'/saveFont',
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: JSON.stringify(globalFonts)
                         }).success(function(data, status, headers, config) { 
                            
                             alert(eval(JSON.stringify(data.d.operationStatus.messages)));                       
@@ -233,16 +240,43 @@ app.controller('globalColors', function($scope,$http) {
                   var editFontFamilyName= $("#editFontFamilyName").val();
                   var globalFontsId= $("#globalFontsId").val();
                   var uploadFileName= $("#uploadFileName").val();
+                  var fileNameSplit=uploadFileName.split('\\').pop();
+                  var fontTypeData = uploadFileName.split(".").pop().toLowerCase();
+                  if (editFontName=="")
+                   {
+                       
+                    alert(fontContentName);
+                    $("#fontName").focus();
+                    return false;
+                   }
+                
+                   if (editFontFamilyName=="")
+                   {
+                       
+                    alert(fontFamily);
+                    $("#fontFamilyName").focus();
+                    return false;
+                   }
                   if(uploadFileName=="")
                   {
                    var ext = $('#uploadFileName').val().split('.').pop().toLowerCase();
                     if($.inArray(ext, ['ttf']) == -1) {
-                    alert(uploadTTF);
-                    return false;
-                     }
+                        alert(uploadTTF);
+                        return false;
+                    }                    
                  }
+                 else
+                 {
+                     if(fontTypeData !=="ttf")
+                    {
+                        alert("Please choose ttf file.");
+                        return false;
+                    }
+                 }
+                 var fileType = uploadFileName.split(".")[1];
+                 var fontDataObject = getFontData();
                   
-                  var updateGlobalFont = {"globalFontsId":globalFontsId,"fontName":editFontName,"fontFamilyName":editFontFamilyName,"fileName":uploadFileName}
+                  var updateGlobalFont = {"globalFontsId":globalFontsId,"fontName":editFontName,"fontFamilyName":editFontFamilyName,"fontType":fontTypeData,"fileName":fileNameSplit,"fontData": fontDataObject.base64ImgString}
                     $http({
                             method : 'POST',
                             url : getHost()+'/updateFont',
@@ -317,6 +351,7 @@ function readFile() {
     }
 
 }
+
 
 function getFontData(){
  

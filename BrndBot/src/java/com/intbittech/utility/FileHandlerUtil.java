@@ -29,6 +29,15 @@ public class FileHandlerUtil {
         saveFontWithOrignalName(filePathWithFileName, base64ImageString);
         return "true";
     }
+    
+    public static String updateAdminGlobalFont(String oldFileNameWithExtension,String filePathWithFileName, String fontFileType, String base64ImageString) throws Throwable {
+        if(oldFileNameWithExtension != null){
+            deleteAdminGlobalFont(oldFileNameWithExtension);
+             saveFontWithOrignalName(filePathWithFileName, base64ImageString);
+        }
+        saveFontWithOrignalName(filePathWithFileName, base64ImageString);
+        return "true";
+    }
 
     // CRUD operation for Admin Global image with File System.
     /**
