@@ -176,27 +176,52 @@
                     }
                     };
                     
+                    function getAuthURL(){
+                            $.ajax({
+                                   url: getHost() +'settings/twitterAuthURL',
+                                   method: 'GET',
+                                   success: function (responseText) { 
+                                       $("#twitterSetPinPopUp").show();
+                                       $("#twitterlink").html("<a href='" + responseText.d.details[0] + "' target='_blank'>get your pin</a>");
+                                   },
+                                   error: function (jqXHR, textStatus, errorThrown) {
+                                       alert("error:" +JSON.stringify(jqXHR));
+                                   }
+                           });
+                       }
                     $scope.getTwitterDetails = function () {
                        
-                       var access_token_method= "";
-                       var twitter_access_tokens="";
-                       var setting="";
-                        
-                        var settings={"access_token_method":"setAccessToken","twitter_access_tokens":"getAccessToken","settings":setting};
+//                       var access_token_method= "";
+//                       var twitter_access_tokens="";
+//                       var setting="";
+//                        
+//                        var settings={"access_token_method":"setAccessToken","twitter_access_tokens":"getAccessToken","settings":setting};
                         
                         $http({
                             method: 'POST',
                           url: getHost()+ '/settings/twitterDetails',
-                          data:JSON.stringify(settings)
+//                          data:JSON.stringify(settings),
+                          async: true,
+                          data: JSON.stringify({access_token_method: "getAccessToken"})
                         }).success(function (data, status, headers, config) {
-                            alert(JSON.stringify(data));
-                            $scope.twitterPage = data;
-
-                            if (data.TwitterLoggedIn == "true"){
-                                $("#twitterclear").show();
-                            }else{
-                                $("#twitterclear").hide();
+//                            alert(JSON.stringify(data.d.message));
+                            var twitterAccessToken = data.d.message;
+                            $scope.twitterProfileName=data.d.message.split(',').pop(2);
+//                            $("#twitterSetPinPopUp").show();
+                            if((twitterAccessToken = null) || ( twitterAccessToken = "" ))
+                            {
+                                getAuthURL();
                             }
+                            else {
+//                            window.location = getHost() +"user/twitterpost";
+                            }
+//                            $scope.twitterPage = data;
+//
+//                            if (data.TwitterLoggedIn == "true"){
+//                                $("#twitterclear").show();
+//                            }else{
+//                                $("#twitterclear").hide();
+//                            }
                         }).error(function (data, status, headers, config) {
                             alert(data);
                             alert(nodataerror);
