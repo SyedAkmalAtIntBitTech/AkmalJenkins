@@ -7,6 +7,7 @@
 function controllerMarketingCategories($http, $scope,  $window){
     
     $scope.getMarketingCategories = function(){
+        showOverlay();
         $http({
             method: 'GET',
             url: getHost()+'getCompanyMarketingCategories'
@@ -19,7 +20,9 @@ function controllerMarketingCategories($http, $scope,  $window){
             if (data === error) {
                 alert(data);
             }
+            hideOverlay();
         }).error(function (data, status, headers, config) {
+            hideOverlay();
             alert(data);
 //            alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs

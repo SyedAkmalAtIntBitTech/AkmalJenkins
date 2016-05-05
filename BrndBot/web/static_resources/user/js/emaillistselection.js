@@ -479,7 +479,7 @@
 //                };
                 
                 $scope.getProgramNames = function() {
-                   
+                   showOverlay(); 
                     $http({
                        method: 'GET',
                        url:getHost() + 'getAllUserMarketingPrograms'
@@ -493,18 +493,22 @@
                             type: getemail()
                         }
                         }).success(function (data1) {
+                            hideOverlay(); 
 //                            alert(JSON.stringify(data1));
                             $scope.email_actions = data1;
                         }).error(function (data1) {
+                            hideOverlay(); 
                             alert("Request not successful!");
                         });
 //                        alert(JSON.stringify(data));
                         $scope.marketing_programs = data;
                     }).error(function (data){
+                        hideOverlay(); 
                         alert("Request not successful!");
                     });
                 };
                  $scope.getActions = function (program_id) {
+                     
                    
                     $http({
                         method: 'GET',
@@ -834,6 +838,7 @@
         function EmailListSetting($scope, $http) {
             
             $scope.getEmailSettings = function(){
+                showOverlay();
                 $http({
                     method : 'GET',
                     url : getHost()+'/settings/getEmailSettings',
@@ -842,10 +847,12 @@
                     var parseData=JSON.parse(data.d.details);
 //                    alert(JSON.stringify(parseData));
                     $scope.email_settings = parseData;
+                    hideOverlay();
                     if (data === error) {
                         alert(data);
                     }
                 }).error(function (data, status, headers, config) {
+                    hideOverlay();
                     alert("No data available! Problem fetching the data.");
                 });
             };
@@ -877,7 +884,7 @@
             };
 
             $scope.showEmailList = function () {
-                
+                    showOverlay();                
                     $(".emaillist").show();
                     $("#email_list_name").hide();
 
@@ -889,12 +896,14 @@
 //                        alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user)+"..... success....");
                         $scope.emailLists = parseData.allEmailListWithNoOfContacts.user;
                         $scope.emailLists_mindbody = data.mindbody;
+                        hideOverlay();
                         if (data === "true") {
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
                         } else if (data === error) {
                             alert(data);
                         }
                     }).error(function(error) {
+                        hideOverlay();
                         alert(JSON.stringify(error)+" ..... error ......");
                     });
             };

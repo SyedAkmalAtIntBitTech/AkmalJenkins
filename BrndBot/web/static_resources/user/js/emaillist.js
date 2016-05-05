@@ -353,6 +353,7 @@
             }
  function emailHistory($scope, $http) {
                 $scope.displayemailhistory = function (){
+                    showOverlay();
                     $http({
                         method : 'GET',
                         url :getHost() + '/email/tags'
@@ -370,7 +371,9 @@
                     if (data === error){
 //                        alert(data);
                     }
+                    hideOverlay();
                 }).error(function(data, status, headers, config) {
+                    hideOverlay();
                     alert(nodataerror);
                 });        
                 }
@@ -378,7 +381,8 @@
             function EmailListController($scope, $http) {
                 $("#addemlstbtn").show();
                 
-                $scope.getEmailSettings = function(){                
+                $scope.getEmailSettings = function(){     
+                showOverlay();
                 var email_settings = {"type": "get"};                
                 $http({
 
@@ -393,7 +397,9 @@
                         if (data === error) {
                             alert(data);
                         }
+                        hideOverlay();
                     }).error(function (data, status, headers, config) {
+                        hideOverlay();
                         alert("No data available, problem fetching the data");
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
@@ -756,6 +762,7 @@ $edit=0;
                     });
                 };
                 $scope.showEmailListWithContacts = function () {
+                    showOverlay();
                     $("#scrl").show();
                     $(".emaillist").show();
                     $("#email_list_name").hide();
@@ -768,11 +775,14 @@ $edit=0;
                         var parseData=JSON.parse(data.d.details);
                         $scope.emailLists = parseData.allEmailListWithNoOfContacts.user; 
                         $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
+                        hideOverlay();
                         if (data === "true") {
                         } else if (data === error) {
                             alert(data);
                         }
+                        
                     }).error(function(error){
+                        hideOverlay();
                         alert("error");
                     });
                 };
@@ -1045,6 +1055,7 @@ $edit=0;
          };
             
         $scope.getAllDrafts = function(){
+            showOverlay();
             $("#emaildraftsection").hide();
             $http({
                 method : 'GET',
@@ -1053,10 +1064,12 @@ $edit=0;
                 if (data.nodrafts == "yes"){
                     $scope.emaildraftnumber = '0';
                     $scope.emaildraftsstatus = "No email drafts present";
+                    hideOverlay();
                 }else {
                     $scope.emaildrafts = data.emaildrafts;
                 }
             }).error(function(data, status) {
+                hideOverlay();
                 alert(nodataerror);
             });            
         };
