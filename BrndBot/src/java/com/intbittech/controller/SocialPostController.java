@@ -86,12 +86,13 @@ public class SocialPostController {
             String shortURL = (String) requestBodyMap.get("shorturl");
             String fileImagePath = (String) requestBodyMap.get("imageToPost");
             String htmlString = (String) requestBodyMap.get("htmlString");
-            String getImageFile = (String) requestBodyMap.get("getImageFile");
-            String image_type = (String) requestBodyMap.get("imageType");
+            String imageType = (String) requestBodyMap.get("imageType");
+            String getImageFile = getImageTypePrefix(imageType, companyId, fileImagePath);
+            
 
 //            String fileImagePath = getImageTypePrefix(image_type, companyId, getImageFile);
 
-            String status = PostToTwitter.postStatus(image_type, text, shortURL, fileImagePath, companyId, htmlString, getImageFile);
+            String status = PostToTwitter.postStatus(imageType, text, shortURL, fileImagePath, companyId, htmlString, getImageFile);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(status));
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -104,7 +105,7 @@ public class SocialPostController {
         String file_image_path = "";
         if (imageType.equals("layout")) {
             file_image_path = com.intbit.AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
-        } else if (imageType.equals("gallery")) {
+        } else if (imageType.equalsIgnoreCase("gallery")) {
             file_image_path = com.intbit.AppConstants.USER_IMAGE_HOME + File.separator + companyId + File.separator + getImageFile;
         } else if (imageType.equals("url")) {
             file_image_path = getImageFile;
