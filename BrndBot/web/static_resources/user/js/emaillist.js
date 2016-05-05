@@ -407,22 +407,12 @@
                         var email_settings = {"from_address": from_address, "reply_email_address": reply_email_address, "type": "add"};
                         $http({
                             method: 'POST',
-                            url: getHost() + 'EmailSettingsServlet',
+                            url: getHost() + '/settings/saveEmailSettings',
                             headers: {'Content-Type': 'application/json'},
                             data: email_settings
                         }).success(function (data)
                         {
-                            
-                            $scope.status = data;
-                            if (data === "false") {
-                                alert(sessionexpire);
-                            } else if (data === "true") {
-                                alert(sessionsaved);
-                                $("#from_address").val("");
-                                $("#reply_email_address").val("");
-                            } else if (data === error) {
-                                alert(data);
-                            }
+                            alert(sessionsaved);
                         }).error(function (data, status) {
                             alert(requesterror);
                         });
@@ -669,7 +659,7 @@ $edit=0;
                                 }).success(function (data)
                                 {
                                     alert(datasaved);
-                                    window.open(getHost() + 'user/emaillistsdetails.jsp?list_name='+email_list_name+'&type='+type, "_self");
+                                    window.open(getHost() + 'user/emaillistsdetails?list_name='+email_list_name+'&type='+type, "_self");
                                 });
                             }else if (parseData === '["Email list saved successfully."]'){
                                 alert(emailexist);
@@ -1015,14 +1005,14 @@ $edit=0;
         if (confirm(message)) {
             $http({
                 method: 'POST',
-                url:'deleteEmailDrafts.do',
+                url:getHost() + '/deleteEmailDrafts',
                 headers: {'Content-Type': 'application/json'},
                 data: requestBody
             }).success(function (data)
             {
                 $scope.status = data;
                 if (data !== "") {
-                    window.open(getHost() + 'emaillists.jsp?emaildrafts=1', "_self");
+                    window.open(getHost() + 'user/emaillists?emaildrafts=1', "_self");
                 }
             }).error(function (data, status) {
                 alert(someerror);
@@ -1072,14 +1062,14 @@ $edit=0;
                         "sub_category_name": sub_category_name};
             $http({
                 method : 'POST',
-                url : getHost() + 'saveEmailDraftSessionValues.do',
+                url : getHost() + '/saveEmailDraftSessionValue',
                 headers: {'Content-Type':'application/json'},
                 data: JSON.stringify(draftdetails)
             }).success(function(data, status) {
                 if (data == "false"){
                     alert(draftsavingerror)
                 }else {
-                    window.open(getHost() + 'emaileditor.jsp?id='+null+'&draftid='+draft_id+'&subject='+email_subject, "_self");                    
+                    window.open(getHost() + 'user/emaileditor?id='+null+'&draftid='+draft_id+'&subject='+email_subject, "_self");                    
                 }
             }).error(function(data, status) {
                 alert(nodataerror);

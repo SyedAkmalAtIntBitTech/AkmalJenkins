@@ -150,16 +150,16 @@
             $("#stylediv li:nth-child(1)").addClass("style-slat-active");
         });
                     
-                    console.log(draft_id);
-                    $(document).ready(function () {
-                        mindbodydataId = $("#mindbodydata").val();
-                        draft_id = <%= draft_id%>;
-                        console.log(draft_id);
-                    $("#addblkbtn").prop('disabled', true);
-                    $(".selectrow").css("display", "none");
-                        rendomIframeFilename = event.timeStamp;
-                        selecterBlockId('defaultblock1', temp_block_id);
-                    $("#sortUpBlock").click(function () {
+    console.log(draft_id);
+    $(document).ready(function () {
+            mindbodydataId = $("#mindbodydata").val();
+            draft_id = <%= draft_id%>;
+            console.log(draft_id);
+            $("#addblkbtn").prop('disabled', true);
+            $(".selectrow").css("display", "none");
+            rendomIframeFilename = event.timeStamp;
+            selecterBlockId('defaultblock1', temp_block_id);
+            $("#sortUpBlock").click(function () {
             var current = $("#" + addblockid);
                     current.prev().before(current);
             });
@@ -465,6 +465,7 @@
             }
             
             function showText(id){
+                alert(id);
                 var layout_mapper_url = "";
                 if (block_clicked == "true"){
                     currentBlockID = temp_block_id;
