@@ -6,7 +6,6 @@
 package com.intbittech.controller;
 
 import com.controller.ApplicationContextListener;
-import com.controller.GenerateHashPassword;
 import com.intbit.AppConstants;
 import com.intbittech.model.ForgotPassword;
 import com.intbittech.model.UserProfile;
@@ -15,6 +14,7 @@ import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.ForgotPasswordService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.UserSessionUtil;
+import com.intbittech.utility.Utility;
 import java.io.BufferedReader;
 import java.util.Locale;
 import java.util.Map;
@@ -27,12 +27,12 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import com.intbittech.utility.Utility;
 
 /**
  *
@@ -48,6 +48,9 @@ public class SignupController {
     ForgotPasswordService forgotPasswordService;
     @Autowired
     private MessageSource messageSource;
+     @Autowired
+    private PasswordEncoder passwordEncoder;
+   
 
     @RequestMapping(value = "/{jspFileName}", method = RequestMethod.GET)
     public String signUpJspPages(ModelMap model, @PathVariable(value = "jspFileName") String jspFileName) {
@@ -91,8 +94,7 @@ public class SignupController {
             String password = (String) requestBodyMap.get("password");
             String hashURL = (String) requestBodyMap.get("hashURL");
             Integer userId;
-            GenerateHashPassword generate_hash_password = new GenerateHashPassword();
-            String hashPassword = generate_hash_password.hashPass(password);
+            String hashPassword = passwordEncoder.encode(password);
             if (type.equalsIgnoreCase("update")) {
                 UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
                 userId = userProfile.getUser().getUserId();

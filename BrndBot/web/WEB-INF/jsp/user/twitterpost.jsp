@@ -26,10 +26,8 @@
                     <div class="topNav--TitleBar--CTABox fright">
                         <div class="CTA_Button Button--Gray">Help!</div>
                     </div>
-                    <div class="topNav--TitleBar--CTABox fright pushRight_30">
-                        <a href="facebooklinkpost">
-                            <div class="CTA_Button Button--Gray">Change To Link Post</div>
-                        </a>
+                    <div class="topNav--TitleBar--CTABox fright pushRight_30" onclick="changeTwitterPostType()">
+                        <div class="CTA_Button Button--Gray" id="postType">Change To Link Post</div>
                     </div>
                 </div>
             </div>
@@ -41,8 +39,14 @@
                     </div>
                     <div class="pane_content pane-Social-Create-padding ">
                         <div class="inputSection col1of1 pushUp_20">
-                            <div class="input_Label">What would you like to share?</div>
-                            <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="twitterShareText"></textarea>
+                            <span>
+                                <div class="input_Label">What would you like to share?</div>
+                                <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="twitterShareText"></textarea>
+                            </span>
+                            <span class="displayNone" id="twitterLinkPost">
+                                <div class="input_Label pushUp_20">Link</div>
+                                <textarea class="socialLink_attached removeDrag removeBorder" placeholder="http://www.brndbot.com" id="linkUrl"></textarea>
+                            </span>
                         </div>  
                     </div>
                     <div class="Social-Add-Image-Wrap clear" id="addImageToTwitterPost">
@@ -54,7 +58,7 @@
                         </span>
                     </div>
                     <div class="Social-Add-Image-Wrap clear displayNone" id="addImageDivToTwitterPost">
-                        <img src="https://daks2k3a4ib2z.cloudfront.net/562feb3ef5fe5a8c1fd02272/56b8940906817e9a2bbb57ca_Deafult-Image_680x330.jpg" alt="alt_text" border="0" align="center" class="imageAdded pushUp_10 fleft">
+                        <img src="https://daks2k3a4ib2z.cloudfront.net/562feb3ef5fe5a8c1fd02272/56b8940906817e9a2bbb57ca_Deafult-Image_680x330.jpg" alt="alt_text" border="0" align="center" id="selectedImage" class="imageAdded pushUp_10 fleft">
                         <div class="col-1of1 clear">
                             <div class="edit-Image-Button fleft" id="changeImage">
                                 Change Image
