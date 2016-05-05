@@ -58,6 +58,7 @@
         function controllerUserMarketingProgamsByStatus($scope, $http){
           $("#delmarkprog").hide();
             $scope.getUserMarketingProgramsOpen = function(){
+                showOverlay();
                 var programStatus = { "programType": "Open" };                
                 $http({
                     method: 'GET',
@@ -66,7 +67,9 @@
                 }).success(function (data, status, headers, config) {
 //                    alert(JSON.stringify(data));
                     $scope.current_programs = data.programs;
+                   hideOverlay();
                 }).error(function (data, status, headers, config) {
+                    hideOverlay();
                     alert(data);
 //                    alert(nodataerror);
                 });                

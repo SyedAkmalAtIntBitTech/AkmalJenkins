@@ -1157,6 +1157,7 @@ function PostToTwitter(){
 angular.module("imageGallery", [])
     .controller("displayImageFromGallery", function($scope, $http) {
     $scope.getUserImaages = function(){
+        showOverlay();
                 alert("getUserImaages");
       $http({
             method: 'GET',
@@ -1165,6 +1166,7 @@ angular.module("imageGallery", [])
             alert(JSON.stringify(data));
              
             $scope.datalists = data.d.details;
+            hideOverlay();
          
             $scope.numberOfPages = function () {
                 return Math.ceil($scope.datalists.length / $scope.pageSize);
@@ -1173,6 +1175,7 @@ angular.module("imageGallery", [])
                 alert(data);
             }
         }).error(function (data) {
+            hideOverlay();
             alert(JSON.stringify(data));
         });
     }; 
@@ -1274,6 +1277,7 @@ angular.module("socialMedia", [])
         });
     }; 
     $scope.checkForCode = function(){
+        showOverlay();
                 alert("checkForCode");
         var code=getUrlParameter("code");
                 alert(code);
@@ -1285,6 +1289,7 @@ angular.module("socialMedia", [])
                             alert(JSON.stringify(data.d.details[0].fbPages[0]));
                             $("#fbmanagePagePopUp").show();
                             $scope.fbPagesDetails = data.d.details[0].fbPages;
+                            hideOverlay();
                 });
              }
     }; 

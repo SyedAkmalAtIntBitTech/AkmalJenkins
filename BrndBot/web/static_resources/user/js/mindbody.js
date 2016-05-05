@@ -29,7 +29,7 @@ angular.module("mindbody", [])
                             hideOverlay();
 //                            $('#loadingGif').remove();
                         }).error(function(data, status, headers, config) {
-
+                                hideOverlay();
                         });             
 //                            $('#loadingGif').remove();
                             $('#nodata').show();
@@ -54,6 +54,7 @@ angular.module("mindbody", [])
             }
 //             $('#loadingGif').remove();
             }).error(function(data, status, headers, config) {
+                hideOverlay();
                 alert("No data available, problem fetching the data");
                 //called asynchronously if an error occurs
                 //or server returns response with an error status.

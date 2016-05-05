@@ -521,6 +521,7 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.master_email = getemail();
     $scope.master_note = getnote();
     $scope.getCampaigns = function () {
+        showOverlay();
         var curr_date = '';
         var tomorrowDate = '';
         var new_date = '';
@@ -549,8 +550,9 @@ function controllerMarketingCampaign($scope, $http) {
                     $scope.nodata = parseJSON.noactionsmessage;
                     $("#default").css("display", "block");
                     $('.page-background').animate({ scrollTop: 0 },500);
-                    
+                    hideOverlay();
                 }).error(function (data) {
+                    hideOverlay();
                     alert(requesterror);
                 });
         }

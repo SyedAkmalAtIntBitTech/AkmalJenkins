@@ -15,6 +15,7 @@ function userController($scope, $http ) {
             $scope.displayAllCategories = data.d.details;
             hideOverlay();
         }).error(function (data, status, headers, config) {
+            hideOverlay();
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
 
         });
@@ -29,15 +30,16 @@ $scope.setCategoryID = function (id) {
     };
 
 $scope.displaySubCategory = function () {
-  
+    showOverlay();   
       var categoryId=  localStorage.getItem("categoryId");
         $http({
             method: 'GET',
             url: getHost() + '/getAllSubCategoriesByCategoryId?categoryId='+categoryId
         }).success(function (data, status, headers, config) {
             $scope.displayAllSubCategories = data.d.details;
-              
+            hideOverlay();  
         }).error(function (data, status, headers, config) {
+            hideOverlay();
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
 
         });
@@ -55,19 +57,23 @@ $scope.displaySubCategory = function () {
         }
     };
     $scope.displayMarketingProgram = function () {
+        showOverlay();
         $http({
             method: 'GET',
             url: getHost() + '/getCompanyMarketingCategories'
         }).success(function (data, status, headers, config) {
             $scope.displayAllMarketingPrograms = data.d.details;
+            hideOverlay();
         }).error(function (data, status, headers, config) {
+            hideOverlay();
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-
+            
         });
 
     };
     
     $scope.displayMarketingProgramByCategoryId = function () {
+        showOverlay();
         var marketingCategoryId= $("#marketingCategoryId").val();
 //                localStorage.getItem("marketingCategoryId");
          
@@ -80,15 +86,16 @@ $scope.displaySubCategory = function () {
             var marketingProgramId= JSON.stringify(data.d.details[0].marketingProgramId);
             setTimeout(function () {
                 $("#"+marketingProgramId).click();
-              
+              hideOverlay();
             }, 0);
            for(var i=0;i<=data.d.details.length;i++)
            {
               $("#htmlData").text(data.d.details[i].htmlData); 
            }
         }).error(function (data, status, headers, config) {
+            hideOverlay();
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-
+            
         });
 
     };

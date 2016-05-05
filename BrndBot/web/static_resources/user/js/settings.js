@@ -310,6 +310,7 @@ function controllerUserChanges($scope, $http) {
         }
     };
     $scope.showColors = function () {
+        showOverlay();
 
         $http({
             method: 'GET',
@@ -327,10 +328,11 @@ function controllerUserChanges($scope, $http) {
         }).success(function (data, status, headers, config) {
 
             $scope.themes = data;
-
+            hideOverlay();
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
+            hideOverlay();
             alert(nodataerror);
         });
 
