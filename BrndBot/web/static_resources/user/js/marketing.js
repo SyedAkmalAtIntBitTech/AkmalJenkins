@@ -1208,7 +1208,7 @@ function controllerMarketingCampaign($scope, $http) {
 
 
     $scope.AddAction = function () {
-        
+        $("#addActionYourPlan").unbind('click'); 
         var title = $("#addactiontitle").val();
         var actiontype = $("#actiontype").val();
         var marketingProgramType=$("#marketing_program").val();
@@ -1233,7 +1233,7 @@ function controllerMarketingCampaign($scope, $http) {
                
             }).success(function (data)
             {
-                $("#addActionYourPlan").unbind('click');                
+                $("#addActionYourPlan").bind('click');                
                 $scope.status = data;
                 if (data != "") {
                     alert(actionsaved);
@@ -1241,6 +1241,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $("#addActionYourPlan").bind('click');
                 }
             }).error(function (data, status) {
+                $("#addActionYourPlan").bind('click');
                 alert(requesterror);
             });
         }
