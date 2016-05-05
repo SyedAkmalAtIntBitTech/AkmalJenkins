@@ -75,7 +75,7 @@ $(document).ready(function (){
                 var userEmailId={"userName":emailId};
             $.ajax({
                     method: 'POST',
-                    url: getHost() + '/onboarding/isUserUnique.do',
+                    url: getHost() + '/onboarding/isUserUnique',
                     dataType: "json",
                     contentType: "application/json",
                     data: JSON.stringify(userEmailId)
@@ -106,7 +106,7 @@ function onboardingcontroller($scope,$http) {
         
                     $http({
                             method : 'GET',
-                            url : getHost()+'/onboarding/getAllOnlyOrganizations.do'
+                            url : getHost()+'/onboarding/getAllOnlyOrganizations'
                         }).success(function(data, status, headers, config) {
                             $scope.organizations=data.d.details;
                         }).error(function(data, status, headers, config) {
@@ -133,7 +133,7 @@ function onboardingcontroller($scope,$http) {
 //            window.open(getHost() + 'v2/signup/onboarding3.jsp', "_self");
             $.ajax({
                     method: 'POST',
-                    url: getHost() + '/onboarding/saveCompany.do',
+                    url: getHost() + '/onboarding/saveCompany',
                     dataType: "json",
                     contentType: "application/json",
                     data: JSON.stringify(saveCompanyDetails)
@@ -155,7 +155,7 @@ function onboardingcontroller($scope,$http) {
 //        alert(localStorage.getItem("companyName")+"\n"+localStorage.getItem("industryName"));
             $http({
                             method : 'GET',
-                            url : getHost()+'/onboarding/getAllExternalSources.do'
+                            url : getHost()+'/onboarding/getAllExternalSources'
                         }).success(function(data, status, headers, config) {
                            
                             $scope.services=data.d.details;
@@ -185,13 +185,13 @@ function onboardingcontroller($scope,$http) {
         }else{
             $http({
                 method: 'POST',
-                url: getHost() +'/onboarding/saveStudioId.do?studioId='+studioId
+                url: getHost() +'/onboarding/saveStudioId?studioId='+studioId
             }).success(function (data, status, headers, config) {
             var studioIdSaved = eval(JSON.stringify(data.d.message));
             if(studioIdSaved === "true") {
                 $http({
                     method: 'GET',
-                    url: getHost() +'/externalContent/getActivationLink.do'
+                    url: getHost() +'/externalContent/getActivationLink'
                 }).success(function (data, status, headers, config) {
                     var actiovationLink=eval(JSON.stringify(data.d.details[0]));
                     $("#actiovationLink").attr('href',actiovationLink);
@@ -267,7 +267,7 @@ function onboardingcontroller($scope,$http) {
             var userDetails={"userName":emailId,"userPassword":userPassword};
             $.ajax({
                 method: 'POST',
-                url: getHost() + '/onboarding/saveUser.do',
+                url: getHost() + '/onboarding/saveUser',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(userDetails)
             }).success(function (data)
@@ -370,7 +370,7 @@ function onboardingcontroller($scope,$http) {
          var companyId=localStorage.getItem("companyId");
         $http({
             method: 'GET',
-            url: getHost() +'/onboarding/getColorsForLogo.do'
+            url: getHost() +'/onboarding/getColorsForLogo'
         }).success(function (data, status, headers, config) {
             $scope.color =data.d.details;
         }).error(function (data, status, headers, config) {
@@ -383,7 +383,7 @@ function onboardingcontroller($scope,$http) {
              $scope.pageSize = 10;
                 $http({
                         method : 'GET',
-                        url : getHost() +'getAllColorThemes.do'
+                        url : getHost() +'getAllColorThemes'
                 }).success(function(data, status, headers, config) {
                     
                     $scope.themeColors = data.d.details;

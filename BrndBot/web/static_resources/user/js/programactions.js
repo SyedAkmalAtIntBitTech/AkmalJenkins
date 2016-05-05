@@ -523,7 +523,7 @@ function programactions($scope, $http, $window){
       var program_id = {"program_id": program};      
         $http({
             method: 'POST',
-            url: getHost()+'/endMarketingProgram.do',
+            url: getHost()+'/endMarketingProgram',
             headers: {'Content-Type':'application/json'},
             data: JSON.stringify(program_id)
         }).success(function (data, status, headers, config) {
@@ -545,7 +545,7 @@ function programactions($scope, $http, $window){
                              "entity_type": entity_type}; 
         $http({
             method: 'POST',
-            url: getHost()+'approveStatus.do',
+            url: getHost()+'approveStatus',
             headers: {'Content-Type':'application/json'},
             data: JSON.stringify(approval_type)
         }).success(function (data, status, headers, config) {
@@ -565,7 +565,7 @@ function programactions($scope, $http, $window){
         
         $http({
             method: 'POST',
-            url: 'approveStatusRecurring.do',
+            url: 'approveStatusRecurring',
             headers: {'Content-Type':'application/json'},
             data: JSON.stringify(approval_type)
         }).success(function (data, status, headers, config) {
@@ -618,7 +618,7 @@ function programactions($scope, $http, $window){
                           "link_url": link_url, "link_name": link_name, "program_name":program_name};
         $http({
             method: 'POST',
-            url: getHost()+'/updateUserProgram.do',
+            url: getHost()+'/updateUserProgram',
             headers: {'Content-Type':'application/json'},
             data: JSON.stringify(program_details)
         }).success(function (data, status, headers, config) {
@@ -651,7 +651,7 @@ function programactions($scope, $http, $window){
         };
         $http({
             method: 'GET',
-            url: getHost()+'/alluserMarketingProgramForDisplay.do?program_id='+program
+            url: getHost()+'/alluserMarketingProgramForDisplay?program_id='+program
         }).success(function (data, status, headers, config){
             $("#progname").show();
             document.getElementById("instancehidden").style.display="block";
@@ -1008,7 +1008,7 @@ function programactions($scope, $http, $window){
         $edit=1; 
         $http({
                 method: 'GET',
-                url: getHost() + 'getMarketingProgramName.do'
+                url: getHost() + 'getMarketingProgramName'
             }).success(function (data, status) {
                 $scope.marketprogram = data.userProgramData;
                 if (data.userProgramData.user_program_id == "") {                    
@@ -1028,7 +1028,7 @@ function programactions($scope, $http, $window){
             var program_id=$("#program_id").val();
             $http({
                 method: 'GET',
-                url: getHost() + '/GetScheduledEmailDetail.do?schedule_id=' + schedule_id
+                url: getHost() + '/GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
                 var recurringDetails=JSON.parse(data.d.details);
                 $scope.entitiesdetails = recurringDetails;
@@ -1306,16 +1306,17 @@ function programactions($scope, $http, $window){
             };
             $http({
                 method: 'POST',
-                url: getHost() + '/AddAction.do',
+                url: getHost() + '/AddAction',
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(action)
             }).success(function (data)
             {
+                $("#addActionMarketingProgram").unbind('click');
 //                alert(JSON.stringify(data.d));
                 $scope.status = data;
                 alert("Action saved successfully.");
                 window.open(getHost() + 'user/marketingprogramactions?program_id=' + program + '&past=0&program_date=' + program_end_date, "_self");
-
+                $("#addActionMarketingProgram").bind('click');
             }).error(function (data, status) {
                 alert(requesterror);
             });
@@ -1566,7 +1567,7 @@ function programactions($scope, $http, $window){
         if (confirm(message)) {
             $http({
                 method: 'POST',
-                url: getHost() + 'ChangeSchedule.do',
+                url: getHost() + 'ChangeSchedule',
                 headers: {'Content-Type': 'application/json'},
                 data: requestBody
             }).success(function (data)
@@ -1651,7 +1652,7 @@ function programactions($scope, $http, $window){
         if (confirm(message)) {
             $http({
                 method: 'POST',
-                url: getHost() + '/ChangeSchedule.do',
+                url: getHost() + '/ChangeSchedule',
                 headers: {'Content-Type': 'application/json'},
                 data: requestBody
             }).success(function (data)

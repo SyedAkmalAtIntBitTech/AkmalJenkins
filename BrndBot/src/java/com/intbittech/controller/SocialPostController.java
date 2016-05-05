@@ -51,18 +51,18 @@ public class SocialPostController {
 
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-
+            String accessToken = (String) requestBodyMap.get("accessToken");
             String title = (String) requestBodyMap.get("title");
             String file_image_path = (String) requestBodyMap.get("file_image_path");
             String posttext = (String) requestBodyMap.get("postText");
             String imagePostURL = (String) requestBodyMap.get("imagePostURL");
-            String getImageFile = (String) requestBodyMap.get("getImageFile");
+            String getImageFile = (String) requestBodyMap.get("imageToPost");
             String url = (String) requestBodyMap.get("url");
             String description = (String) requestBodyMap.get("description");
             String imageType = (String) requestBodyMap.get("imageType");
             String htmlString = (String) requestBodyMap.get("htmlString");
             String fileImagePath = getImageTypePrefix(imageType, companyId, getImageFile);
-            String status = PostToFacebook.postStatus(title, fileImagePath, posttext, imagePostURL, getImageFile, url, description, imageType, companyId, htmlString);
+            String status = PostToFacebook.postStatus(title, fileImagePath, posttext, imagePostURL, getImageFile, url, description, imageType, companyId, htmlString,accessToken);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(status));
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -86,12 +86,13 @@ public class SocialPostController {
             String shortURL = (String) requestBodyMap.get("shorturl");
             String fileImagePath = (String) requestBodyMap.get("imageToPost");
             String htmlString = (String) requestBodyMap.get("htmlString");
-            String getImageFile = (String) requestBodyMap.get("getImageFile");
-            String image_type = (String) requestBodyMap.get("imageType");
+            String imageType = (String) requestBodyMap.get("imageType");
+            String getImageFile = getImageTypePrefix(imageType, companyId, fileImagePath);
+            
 
 //            String fileImagePath = getImageTypePrefix(image_type, companyId, getImageFile);
 
-            String status = PostToTwitter.postStatus(image_type, text, shortURL, fileImagePath, companyId, htmlString, getImageFile);
+            String status = PostToTwitter.postStatus(imageType, text, shortURL, fileImagePath, companyId, htmlString, getImageFile);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(status));
         } catch (Throwable throwable) {
             logger.error(throwable);
@@ -104,7 +105,7 @@ public class SocialPostController {
         String file_image_path = "";
         if (imageType.equals("layout")) {
             file_image_path = com.intbit.AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
-        } else if (imageType.equals("gallery")) {
+        } else if (imageType.equalsIgnoreCase("gallery")) {
             file_image_path = com.intbit.AppConstants.USER_IMAGE_HOME + File.separator + companyId + File.separator + getImageFile;
         } else if (imageType.equals("url")) {
             file_image_path = getImageFile;

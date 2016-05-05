@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Admin welcome page</title>
+    <title>User welcome page</title>
 </head>
 <body>
     Dear <strong>${user}</strong>, welcome to our site.</br></br></br>

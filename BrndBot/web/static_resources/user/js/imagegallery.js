@@ -38,7 +38,9 @@ function Showimguploadpopup()
                             headers: {'Content-Type': undefined}
                         })
                             .success(function (data) {
+                                $("#upload").unbind('click');
                                 window.open(global_host_address + 'imagegallery.jsp', "_self");
+                                $("#upload").bind('click');
                             })
                             .error(function () {
                                 alert(requesterror);

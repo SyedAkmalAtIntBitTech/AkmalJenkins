@@ -169,104 +169,7 @@ function validate() {
 }
 
 function controllerUserChanges($scope, $http) {
-    $scope.getLooks = function () {
-
-        $http({
-            method: 'GET',
-            url: 'GetLooks?type=selected'
-        }).success(function (data, status, headers, config) {
-            $scope.UserLooks = data;
-            if (data === error) {
-            }
-        }).error(function (data, status, headers, config) {
-            alert(nodataerror);
-        });
-
-        $http({
-            method: 'GET',
-            url: 'GetLooks'
-        }).success(function (data, status, headers, config) {
-            $scope.First = data.first;
-            $scope.Second = data.second;
-            if (data === error) {
-            }
-        }).error(function (data, status, headers, config) {
-            alert(nodataerror);
-        });
-    };
-
-    $scope.updateLooks = function () {
-        var look_id = $("#lookid").val();
-        if (look_id == "") {
-            alert(lockerror);
-        } else {
-            $http({
-                method: 'POST',
-                url: 'SetLookID?type=update&LookID=' + look_id
-
-            }).success(function (data, status, headers, config) {
-                $scope.status = data;
-                if (data === "true") {
-                    alert(detailssaveds);
-                    $scope.getLooks();
-                } else
-                if (data === error) {
-                }
-            }).error(function (data, status, headers, config) {
-                alert(nodataerror);
-            });
-        }
-    };
-
-    $scope.getBrands = function () {
-
-        $http({
-            method: 'GET',
-            url: 'GetBrandPersonality?type=selected'
-        }).success(function (data, status, headers, config) {
-            $scope.UserBrand = data;
-            if (data === error) {
-            }
-        }).error(function (data, status, headers, config) {
-            alert(nodataerror);
-        });
-
-        $http({
-            method: 'GET',
-            url: 'GetBrandPersonality?type=all'
-        }).success(function (data, status, headers, config) {
-            $scope.First = data.first;
-            if (data === error) {
-            }
-        }).error(function (data, status, headers, config) {
-            alert(nodataerror);
-        });
-    };
-
-    $scope.updateBrands = function () {
-
-        var brandID = $("#hiddenform").val();
-        if (brandID == "") {
-            alert(personalityerror);
-        } else {
-            $http({
-                method: 'POST',
-                url: 'SubbrandPersonality?brndID=' + brandID + '&type=update'
-
-            }).success(function (data, status, headers, config) {
-                $scope.status = data;
-                if (data === "true") {
-                    alert(detailssaved);
-                    $scope.getBrands();
-                } else
-                if (data === error) {
-                }
-            }).error(function (data, status, headers, config) {
-                alert(nodataerror);
-            });
-        }
-    };
-
+    
     $scope.changePassword = function () {
         var password = "";
         var confirmpassword = "";
@@ -287,7 +190,7 @@ function controllerUserChanges($scope, $http) {
 
             $http({
                 method: 'POST',
-                url: getHost() + 'signup/resetPassword.do',
+                url: getHost() + 'signup/resetPassword',
                 headers: {'Content-Type': 'application/json'},
                 data: password_object
             }).success(function (data)
@@ -313,23 +216,10 @@ function controllerUserChanges($scope, $http) {
 
         $http({
             method: 'GET',
-            url: getHost() + 'settings/getColors.do'
+            url: getHost() + 'settings/getColors'
         }).success(function (data, status, headers, config) {
             var parseData = JSON.parse(data.d.details[0]);
             $scope.user_preferences_colors = JSON.parse(JSON.stringify(parseData));
-        }).error(function (data, status, headers, config) {
-            alert(nodataerror);
-        });
-
-        $http({
-            method: 'GET',
-            url: 'GetColorPalettes'
-        }).success(function (data, status, headers, config) {
-
-            $scope.themes = data;
-
-            if (data === error) {
-            }
         }).error(function (data, status, headers, config) {
             alert(nodataerror);
         });
@@ -339,7 +229,7 @@ function controllerUserChanges($scope, $http) {
     $scope.getLogoColors = function () {
         $http({
             method: 'GET',
-            url: getHost() +'/onboarding/getColorsForLogo.do'
+            url: getHost() +'onboarding/getColorsForLogo'
         }).success(function (data, status, headers, config) {
             $scope.color =data.d.details;
             if (data === error) {
@@ -348,21 +238,6 @@ function controllerUserChanges($scope, $http) {
             alert(nodataerror);
         });
     };
-
-    $scope.getLogo = function () {
-
-        $http({
-            method: 'GET',
-            url: 'GetColorsFromLogo'
-        }).success(function (data, status, headers, config) {
-            $scope.color = data.Colors;
-            if (data === error) {
-            }
-        }).error(function (data, status, headers, config) {
-            alert(nodataerror);
-        });
-    };
-
 
     $scope.createUserPreferences = function ()
     {

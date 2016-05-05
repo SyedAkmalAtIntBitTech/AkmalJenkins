@@ -61,7 +61,7 @@
                 var programStatus = { "programType": "Open" };                
                 $http({
                     method: 'GET',
-                    url: getHost()+ 'listAllMarketingProgram.do?programType=Open',
+                    url: getHost()+ 'listAllMarketingProgram?programType=Open',
                     data: programStatus 
                 }).success(function (data, status, headers, config) {
 //                    alert(JSON.stringify(data));
@@ -81,7 +81,7 @@
                 var programStatus = { "programType": "Closed" };
                 $http({
                     method: 'GET',
-                    url: getHost()+ 'listAllMarketingProgram.do?programType=Closed',
+                    url: getHost()+ 'listAllMarketingProgram?programType=Closed',
                     data: programStatus 
                 }).success(function (data, status, headers, config) {
 //                    alert(JSON.stringify(data));

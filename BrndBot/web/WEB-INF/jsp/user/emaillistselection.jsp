@@ -36,6 +36,11 @@
     %>
     <%  email_subject=request.getParameter("subject");%>
     <%
+         String categoryId= request.getParameter("categoryId");
+         String subCategoryId= request.getParameter("subCategoryId");
+         String mindbodyId=request.getParameter("mindbodyId");
+         String LookupId=request.getParameter("LookupId");
+    
 //        sqlmethods.session = request.getSession(true);
 //        session.setAttribute("email_subject",email_subject);
         emailSubject = email_subject;
@@ -77,6 +82,10 @@
     <%@include file="navbar.jsp" %>
     <%@include file="emaillistselectionpopup.jsp" %>    
     <%@include file="emailpreview.jsp" %>
+    <input type="hidden" id='subCategoryIdTag' value="<%=subCategoryId%>"/>
+    <input type="hidden" id='mindbodydata' value="<%= mindbodyId%>"/>
+    <input type="hidden" id='categoryIdTag' value="<%= categoryId%>"/>
+    <input type="hidden" id='LookupId' value="<%= LookupId%>"/>
     <input type="hidden" value="<%= draft_id %>" name="draft_id" id="draft_id"></input>  
     <input type="hidden" value="<%= iframeName %>" name="iframeName" id="iframeName1"></input>  
     <input type="hidden" value="<%= emailSubject %>" name="iframeName" id="email_subject"></input> 

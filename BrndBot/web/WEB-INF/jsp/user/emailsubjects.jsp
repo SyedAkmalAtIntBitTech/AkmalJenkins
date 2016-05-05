@@ -34,6 +34,8 @@
         String subCategoryId = request.getParameter("subCategoryId");
         String mindbodyId = request.getParameter("mindbodyId");
         String email_subject = request.getParameter("emailSubject");
+        String LookupId=request.getParameter("LookupId");
+        String externalSourceName=request.getParameter("externalSourceName");
         
 //        try {
 //            sql_methods.session = request.getSession(true);          
@@ -60,8 +62,10 @@
                 <input type="hidden" value="<%=subCategoryId%>" id="subCategoryIdTag"/>
                 <input type="hidden" value="<%=mindbodyId%>" id="mindbodyId"/>
                 <input type="hidden" value="<%=email_subject%>" id="email_subject"/>
+                <input id="LookupId" type="hidden" value="<%=LookupId%>"/>
+                <input id="externalSourceName" type="hidden" value="<%=externalSourceName%>"/>
                 <input type="hidden" class="input-field-textfield col-8of10" id="mindbodyid" placeholder="Enter Name of email" value="<%=mindbody_id%>"></input>
-                <a class=" exit-button-icon" href="emailsubcategory?categoryId=<%=categoryId%>&subCategoryId=<%=subCategoryId%>&mindbodyId=<%=mindbodyId%>">
+                <a class=" exit-button-icon" href="emailexternalsource?categoryId=<%=categoryId%>&subCategoryId=<%=subCategoryId%>&mindbodyId=<%=mindbodyId%>&LookupId=<%=LookupId%>">
                     <div class="exit-button-detail">
                         <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
                     </div>

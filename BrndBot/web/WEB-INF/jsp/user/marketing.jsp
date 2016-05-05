@@ -31,7 +31,26 @@
        <script src="js/popup.js" type="text/javascript"></script>
      <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-5.css"/>
     <%@include file="navbar.jsp" %>     
-    
+    <style>
+        .textcenter{
+            margin-left: 27px;
+            margin-top: -17px;
+        }
+        .saved-post-preview-detail{
+          
+           margin-top: -64px;
+           padding-bottom: 283px;
+           padding-top: -12px;
+           height: 0vh
+
+        }
+        .fields-note-detail{
+            margin-top: 5px;
+            padding-bottom: 381px;
+            padding-top: -12px;
+            height: 0vh;
+        }
+        </style>
   
     <input type="hidden" name="change" id="change" value="0"/>
     <!--Top Nav-->   

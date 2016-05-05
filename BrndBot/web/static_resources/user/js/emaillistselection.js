@@ -1,5 +1,10 @@
         function backeditor() {
-            window.open(getHost() + 'emaileditor.jsp?id=mindbodyid&subject='+$("#email_subject").val(), "_self");
+        var email_subject = $("#email_subject").val();
+        var subCategoryId=$("#subCategoryIdTag").val();
+        var categoryId=$("#categoryIdTag").val();
+        var mindbodydata=$("#mindbodydata").val();
+        var LookupId=$("#LookupId").val();
+            window.open(getHost() + 'user/emaileditor?subject='+email_subject+"&subCategoryId="+subCategoryId+"&categoryId="+categoryId+"&mindbodyId="+mindbodydata+"&LookupId="+LookupId, "_self");
         }
         var draft_id = "";
          $(document).ready(function () {
@@ -296,7 +301,7 @@
                         
                         $http({
                             method: 'POST',
-                            url:getHost() + 'actions/scheduleEmail.do',
+                            url:getHost() + 'actions/scheduleEmail',
                             headers: {'Content-Type': 'application/json'},
                             data: JSON.stringify(email_scheduling)
                         }).success(function (data) {  
@@ -304,7 +309,7 @@
                             if (JSON.stringify(data) != "") {
                                $http({
                                method: 'POST',
-                               url: getHost() + "deleteEmailDraft.do?draftid="+draft_id
+                               url: getHost() + "deleteEmailDraft?draftid="+draft_id
                                }).success(function (data) {
                                    alert("Your Email has been Scheduled Successfully");
                                    document.location.href = getHost()+"user/dashboard";
@@ -332,14 +337,14 @@
                         };
                         $http({
                             method: 'POST',
-                             url:getHost() + 'actions/scheduleEmailActions.do',
+                             url:getHost() + 'actions/scheduleEmailActions',
                             headers: {'Content-Type': 'application/json'},
                             data: JSON.stringify(email_scheduling)
                         }).success(function (data) {
                             if (JSON.stringify(data) != "") {
                                $http({
                                method: 'POST',
-                               url: getHost() + "deleteEmailDraft.do?draftid="+draft_id
+                               url: getHost() + "deleteEmailDraft?draftid="+draft_id
                                }).success(function (data) {
                                 alert("Your Email has been Scheduled Successfully.");
                                 document.location.href = getHost()+"user/dashboard";
@@ -422,7 +427,7 @@
 //                            if (data != "") {
 //                               $http({
 //                               method: 'POST',
-//                               url: getHost() + "deleteEmailDraft.do?draftid="+draft_id
+//                               url: getHost() + "deleteEmailDraft?draftid="+draft_id
 //                               }).success(function (data) {
 //                                   alert("Your Email has been Scheduled Successfully");
 //                                   document.location.href = "dashboard.jsp";
@@ -456,7 +461,7 @@
 //                            if (data != "") {
 //                               $http({
 //                               method: 'POST',
-//                               url: getHost() + "deleteEmailDraft.do?draftid="+draft_id
+//                               url: getHost() + "deleteEmailDraft?draftid="+draft_id
 //                               }).success(function (data) {
 //                                alert("Your Email has been Scheduled Successfully.");
 //                                document.location.href = "dashboard.jsp";
@@ -477,12 +482,12 @@
                    
                     $http({
                        method: 'GET',
-                       url:getHost() + 'getAllUserMarketingPrograms.do'
+                       url:getHost() + 'getAllUserMarketingPrograms'
                     }).success(function (data){
 //                        alert(JSON.stringify(data)+" ... ok ...");
                         $http({
                         method: 'POST',
-                        url: getHost() + '/actions/getActions.do',
+                        url: getHost() + '/actions/getActions',
                         data: {
                             programid: null,
                             type: getemail()
@@ -503,7 +508,7 @@
                    
                     $http({
                         method: 'GET',
-                        url: getHost() + 'actions/getActions.do?programid='+ program_id + '&type='+ getemail()
+                        url: getHost() + 'actions/getActions?programid='+ program_id + '&type='+ getemail()
                     }).success(function (data) {
                         alert(JSON.stringify(data));
                         $scope.email_actions = data;
@@ -517,7 +522,7 @@
 //                angular.element(document.getElementById('emailSettings')).scope().getActions(program_id);
                 $http({
                         method: 'POST',
-                        url: getHost() + 'actions/getActions.do',
+                        url: getHost() + 'actions/getActions',
                         data:JSON.stringify(data)
                     }).success(function (data) {
                         alert(JSON.stringify(data));
@@ -576,7 +581,7 @@
                         $("#email_list_name").val(List_name);                                                
                         $.ajax({
                                 method: 'GET',
-                                url: getHost() + '/emaillist/get.do?update=emailsForEmailList&emailListName='+List_name,
+                                url: getHost() + '/emaillist/get?update=emailsForEmailList&emailListName='+List_name,
                                 success: function(result){        
                                 
                                     var parseData=JSON.parse(result.d.details);
@@ -763,7 +768,7 @@
 //                alert(formattedHTMLData);
                 $.ajax({
                     
-                    url: getHost() + "/email/send.do",
+                    url: getHost() + "/email/send",
                     type: "POST",
                     data: {
                         from_name: $("#name").val(),
@@ -780,7 +785,7 @@
                        
                        alert(JSON.stringify(responseText));
                         $.ajax({
-                            url: getHost() + "deleteEmailDraft.do?draftid="+draft_id,
+                            url: getHost() + "deleteEmailDraft?draftid="+draft_id,
                             type: "POST",
                             success: function (responseText) {
                                 if(responseText=="true")
@@ -831,7 +836,7 @@
             $scope.getEmailSettings = function(){
                 $http({
                     method : 'GET',
-                    url : getHost()+'/settings/getEmailSettings.do',
+                    url : getHost()+'/settings/getEmailSettings',
                     headers: {'Content-Type': 'application/json'}
                 }).success(function (data, status, headers, config) {
                     var parseData=JSON.parse(data.d.details);
@@ -878,7 +883,7 @@
 
                     $http({
                         method: 'GET',
-                        url: getHost() + '/emaillist/get.do?update=allEmailListWithNoOfContacts&emailListName=null'
+                        url: getHost() + '/emaillist/get?update=allEmailListWithNoOfContacts&emailListName=null'
                     }).success(function(data, status, headers, config) {
                         var parseData=JSON.parse(data.d.details);
 //                        alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user)+"..... success....");

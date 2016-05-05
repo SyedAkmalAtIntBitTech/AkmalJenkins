@@ -5,10 +5,11 @@
  */
 angular.module("mindbody", [])
     .controller("controllerGetMindBody", function($scope, $http) {
-         $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","40%").css("left","45%");
+//         $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","40%").css("left","45%");
          $(".page-background").css("background-color","#fff");
 //                          $("#continuebutton").hide();
             $scope.showData = function(LookupId){
+                    showOverlay();
                     $scope.curPage = 0;
                     $scope.pageSize = 4;
                     $http({
@@ -26,7 +27,8 @@ angular.module("mindbody", [])
                             var parseData=JSON.parse(data.d.details);
 //                            alert(JSON.stringify(parseData));
                             $scope.mindbodylist=parseData.mindbody_data;
-                            $('#loadingGif').remove();
+                            hideOverlay();
+//                            $('#loadingGif').remove();
                         }).error(function(data, status, headers, config) {
 
                         });             
@@ -51,7 +53,7 @@ angular.module("mindbody", [])
             if (data === error){
             alert(data);
             }
-             $('#loadingGif').remove();
+//             $('#loadingGif').remove();
             }).error(function(data, status, headers, config) {
                 alert("No data available, problem fetching the data");
                 //called asynchronously if an error occurs

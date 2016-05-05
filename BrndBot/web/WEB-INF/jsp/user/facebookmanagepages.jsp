@@ -13,10 +13,13 @@
                         </div>
                     </div>
                     <div class="popUp_subheader clear">
+                        <span>
+                            <input type="checkbox" name="defaultManagePage" id="setDefaultManagePage"> Set Selected page as default<br>
+                        </span>
                     </div>
                     <div class=" gallery-padding clear gallery-pane">
                         <span ng-repeat="fbDetails in fbPagesDetails">
-                            <div class="gallery-item-wrap-selected fleft" ng-click="setPageAccessToken(fbDetails.pageAccessToken)">
+                            <div class="gallery-item-wrap-selected fleft" ng-click="setPageAccessToken(fbDetails.pageAccessToken,fbDetails.profileName)">
                                 <div class="gallery-image-wrap">
                                     <img src="{{fbDetails.profilPicture}}" alt="alt_text" border="0" align="center" class="gallery-image" style="width: 218px;">
                                 </div>
@@ -25,7 +28,6 @@
                             </div>
                         </span>
                     </div>
-                    <input type="hidden" id="pageAccessToken"/> 
                 </div>
                 <div class="popUp-bottom-wide">
                     <span class="clickable-area" ng-click="postToSelectedPage()">

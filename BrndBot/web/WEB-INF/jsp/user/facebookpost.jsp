@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <div class="Social-Add-Image-Wrap clear displayNone" id="addImageDiv">
-                        <img src="https://daks2k3a4ib2z.cloudfront.net/562feb3ef5fe5a8c1fd02272/56b8940906817e9a2bbb57ca_Deafult-Image_680x330.jpg" alt="alt_text" border="0" align="center" class="imageAdded pushUp_10 fleft">
+                        <img src="https://daks2k3a4ib2z.cloudfront.net/562feb3ef5fe5a8c1fd02272/56b8940906817e9a2bbb57ca_Deafult-Image_680x330.jpg" id="selectedImage" alt="alt_text" border="0" align="center" class="imageAdded pushUp_10 fleft">
                         <div class="col-1of1 clear">
                             <div class="edit-Image-Button fleft" id="changeImage">
                                 Change Image
