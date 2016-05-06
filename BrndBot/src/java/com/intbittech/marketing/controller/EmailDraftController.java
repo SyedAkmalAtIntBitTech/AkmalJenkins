@@ -148,7 +148,9 @@ public class EmailDraftController {
                     JSONObject json_draft_data = (JSONObject) json_parser.parse(json_string_data);
                     json_email_draft.put("emailsubject", json_draft_data.get("emailsubject"));
                     json_email_draft.put("jsonemaildraftdata", json_draft_data.get("htmlbodystring"));
-
+                    json_email_draft.put("subcategoryid", json_draft_data.get("subcategoryid"));
+                    json_email_draft.put("categoryid", json_draft_data.get("categoryid"));
+                    json_email_draft.put("subcategoryname", json_draft_data.get("subcategoryname"));                    
                     json_array_email_draft.add(json_email_draft);
                 }
                 json_object_email_draft.put("emaildrafts", json_array_email_draft);
