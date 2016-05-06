@@ -66,7 +66,7 @@ public class PostToTwitter {
 
             try {
                 SqlMethods sql_methods = new SqlMethods();
-                sql_methods.setSocialPostHistory(companyId, htmlString, false, true, image_type, getImageFile, null);
+                sql_methods.setSocialPostHistory(companyId, htmlString, false, true, image_type, fileImagePath, null);
             } catch (Exception ex) {
                 logger.error(ex.getMessage());
                 throw new ProcessFailed("Could not insert record for a twitter post");
