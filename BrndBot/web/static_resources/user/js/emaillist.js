@@ -764,7 +764,7 @@ $edit=0;
 //                        url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts'
                         url: getHost() + '/emaillist/get?update=allEmailListWithNoOfContacts&emailListName=null',
                     }).success(function (data, status, headers, config) {  
-
+//                        alert(JSON.stringify(JSON.parse(data.d.details)));
                         var parseData=JSON.parse(data.d.details);
                         $scope.emailLists = parseData.allEmailListWithNoOfContacts.user; 
                         $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
@@ -964,15 +964,15 @@ $edit=0;
             });
                 
             $scope.showdraftpopup = function (Id,categoryId,emailSubject,editdate,subCategoryId,subCategoryName){
-                  
             $slider=2;
+//            alert("draftid.. "+Id+" ..categoryId.. "+categoryId+" ..emailSubject.. "+emailSubject+" ..editdate.. "+editdate+" ..subCategoryId.. "+subCategoryId+" ..subCategoryName.. "+subCategoryName);
             sliderDialog = "#emaildraftpopup";
             prevSliderDialog = "#emaildraftpopup";
             $http({
                     method : 'GET',
                     url : getHost() + 'getEmailDraft?draftid='+Id
-                  }).success(function(data, status) {
-                  if (data == ""){
+                }).success(function(data, status) {
+                    if (data == ""){
                         $scope.emaildraftsstatus = noemaildraft;
                     }else {     
                         $scope.htmlbody = data.htmlbody;
@@ -1050,6 +1050,7 @@ $edit=0;
                 method : 'GET',
                 url : getHost() + 'displayAllEmailDrafts'
             }).success(function(data, status) {
+//                alert(JSON.stringify(data.emaildrafts));
                 if (data.nodrafts == "yes"){
                     $scope.emaildraftnumber = '0';
                     $scope.emaildraftsstatus = "No email drafts present";
@@ -1076,6 +1077,7 @@ $edit=0;
                 if (data == "false"){
                     alert(draftsavingerror)
                 }else {
+//                    draftId=null&categoryId=18&subCategoryId=7&emailSubject=sub&mindbodyId=75031&LookupId=4
                     window.open(getHost() + 'user/emaileditor?id='+null+'&draftid='+draft_id+'&subject='+email_subject, "_self");                    
 
                 }
