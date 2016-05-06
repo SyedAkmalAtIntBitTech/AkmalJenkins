@@ -94,6 +94,7 @@ public class SocialPostController {
 
             String status = PostToTwitter.postStatus(imageType, text, shortURL, fileImagePath, companyId, htmlString, getImageFile);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(status));
+            transactionResponse.setMessage(status);
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
