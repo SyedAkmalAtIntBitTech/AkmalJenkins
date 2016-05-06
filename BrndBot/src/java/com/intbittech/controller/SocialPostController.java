@@ -106,7 +106,7 @@ public class SocialPostController {
         if (imageType.equals("layout")) {
             file_image_path = com.intbit.AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
         } else if (imageType.equalsIgnoreCase("gallery")) {
-            file_image_path = com.intbit.AppConstants.USER_IMAGE_HOME + File.separator + companyId + File.separator + getImageFile;
+            file_image_path = com.intbittech.AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator+ com.intbittech.AppConstants.GALLERY_FOLDERNAME +File.separator+ getImageFile;
         } else if (imageType.equals("url")) {
             file_image_path = getImageFile;
         }

@@ -57,7 +57,7 @@ public class PostToTwitter {
             if (image_type.equals("url")) {
                 status.setMedia("xyz", new URL(fileImagePath).openStream());
             } else {
-                File file = new File(fileImagePath);
+                File file = new File(getImageFile);
 
                 // set the image to be uploaded here.
                 status.setMedia(file);
