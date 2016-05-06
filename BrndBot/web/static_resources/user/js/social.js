@@ -97,7 +97,7 @@
                     
                     if ((check_default_managed_page === true) && (check_default === "true")){
                         $.ajax({
-                                url: 'ServletUserPreferencesFacebook',
+                                url: getHost()+ '/settings/facebookDetails',
                                 method: 'post',
                                 data: {
                                    default_page_name: managed_page,
@@ -141,7 +141,7 @@
                     $scope.getFacebookDetails = function () {
                         $http({
                             method: 'GET',
-                            url: 'ServletUserPreferencesFacebook?access_token_method=getAccessToken&settings=true'
+                            url: getHost() + 'settings/facebookDetails?access_token_method=getAccessToken&settings=true'
                         }).success(function (data, status, headers, config) {
 //                            alert(JSON.stringify(data));
                             $scope.facebookPage = data;
@@ -166,7 +166,7 @@
                         $("#fbclear").hide();
                         $http({
                             method: 'POST',
-                            url: 'ServletUserPreferencesFacebook?access_token_method=clearFacebookDetails'
+                            url: getHost() + 'settings/facebookDetails?access_token_method=clearFacebookDetails'
                         }).success(function (data, status, headers, config) {                            
                             alert(detailsclear);
                             $scope.getfacebookdetails();
@@ -211,7 +211,7 @@
                         $("#twitterclear").hide();
                         $http({
                             method: 'POST',
-                            url: 'ServletUserPreferencesTwitter?access_token_method=clearTwitterDetails'
+                            url: getHost()+ '/settings/twitterDetails?access_token_method=clearTwitterDetails'
                         }).success(function (data, status, headers, config) {
                             $scope.getTwitterDetails();
                         }).error(function (data, status, headers, config) {
