@@ -32,7 +32,7 @@
              
         </div>
     </div>
-        <form hidden class="form-horizontal" id="signform" action="${pageContext.request.contextPath}/login" method="POST">
+        <form hidden class="form-horizontal" id="signform" action="${pageContext.request.contextPath}/signup/company" method="POST">
     <div class="Login_left-pane fleft">
         <div class="Login_left-pane_vert-split"></div>
         <div class="Login_left-pane_vert-split"></div>
