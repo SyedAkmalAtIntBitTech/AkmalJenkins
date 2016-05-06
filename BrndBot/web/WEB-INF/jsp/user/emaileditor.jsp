@@ -800,8 +800,7 @@
                                     $(this).addClass('border-highlight');
                             });
                             };
-    $(document).ready(function(){
-                    
+    $(document).ready(function(){                    
     $("#saveToDraft").click(function (){
 //        $("#saveToDraft").unbind('click');
         var email_subject = $("#emailSubjectTag").val();
@@ -815,6 +814,7 @@
             success: function (responseText) {
                 $("#previewcontent").empty();
                 $("#previewcontent").append(responseText.d.details);
+//                var LookupId=$("#LookupId").val();
                 if (draft_id == "0"){
                 $.ajax({
                 url: getHost() + "saveEmailDrafts",
@@ -822,6 +822,8 @@
                         data:JSON.stringify({
                         bodyString : $('#edit').froalaEditor('html.get'),
                         emailSubject: email_subject
+//                        mindbodyId: mindbodydata,
+//                        lookupId: LookupId 
                         }),
                         success: function (responseText) {
                         if (responseText != "0"){

@@ -397,15 +397,17 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "/fbAuthURL", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/fbAuthURL", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> fbLogin(HttpServletRequest request) {
         GenericResponse<String> genericResponse = new GenericResponse<>();
         String hostURL = ServletUtil.getServerName(request.getServletContext());
         try {
-            facebook = new FacebookFactory().getInstance();
+             Map<String, String> requestBodyMap = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+             String redirectUrl = requestBodyMap.get("redirectUrl");
+             facebook = new FacebookFactory().getInstance();
             facebook.setOAuthAppId(AppConstants.facebookString1, AppConstants.facebookString2);
             facebook.setOAuthPermissions(AppConstants.facebookPermissions);
-            genericResponse.addDetail(facebook.getOAuthAuthorizationURL(hostURL+"user/socialsequence"));
+            genericResponse.addDetail(facebook.getOAuthAuthorizationURL(hostURL+""+redirectUrl));
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("Success", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);

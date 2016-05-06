@@ -32,7 +32,7 @@
             <label class="fileContainer">
                 <div id="triggerFile" class="CTA_Button Button--Gray--text fleft ">Upload TTF</div>
                 
-                 <input onclick="fontConverter('fileName')" name="fileNames" type="file" id="fileName" ng-file-select="onFileSelect($files)" > 
+                 <input onclick="fontConverter('fileName')" accept=".ttf" name="fileNames" type="file" id="fileName" ng-file-select="onFileSelect($files)" > 
             </label>
         </div>
                   
@@ -40,7 +40,7 @@
                   <div id="uploadTTF">
             <label class="fileContainer">
                 <div id="triggerFile" class="CTA_Button Button--Gray--text fleft ">Upload TTF</div>
-                <input type="file" id="uploadFileName" value=""/>
+                <input type="file" accept=".ttf" onclick="fontConverter('uploadFileName')" id="uploadFileName" value=""/>
             </label>
         </div>
                 

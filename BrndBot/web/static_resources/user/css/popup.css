@@ -1601,5 +1601,18 @@ textarea#filetext1 {
 }
 }
 
+.twitterLogoutButton {
+    height: 35px;
+    width: 180px;
+    margin-top: 12px;
+    background-color: #d5dadf;
+    border: none;
+    border-radius: 5px;
+    color: #767777;
+}
+.twitterLogoutButton:hover {
+    background-color: #0F76A6;
+    color: #ffffff;
+}
 /*----------------- Arfa end code-----------------*/
 

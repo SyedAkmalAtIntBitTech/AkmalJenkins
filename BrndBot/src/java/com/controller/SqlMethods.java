@@ -69,7 +69,7 @@ public class SqlMethods {
             try {
                 ps.close();
             } catch (SQLException e) {
-                logger.error("Exception while prepared statement close: "+ e.getMessage());
+                logger.error("Exception while prepared statement close: " + e.getMessage());
             }
         }
     }
@@ -114,7 +114,7 @@ public class SqlMethods {
 
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            logger.error("Exception in sqlmethods AddImages: "+e.getMessage());
+            logger.error("Exception in sqlmethods AddImages: " + e.getMessage());
         } finally {
             close(result_set, prepared_statement);
         }
@@ -132,12 +132,13 @@ public class SqlMethods {
             prepared_statement = connection.prepareStatement(query_string);
             prepared_statement.executeUpdate();
         } catch (Exception e) {
-            logger.error("Exception in sqlmethods deleteImages: "+e.getMessage());
+            logger.error("Exception in sqlmethods deleteImages: " + e.getMessage());
         } finally {
             close(result_set, prepared_statement);
         }
     }
 //TODO ilyas Check - this is used in many places(used in mindbody servlets)
+
     public Integer getOrganizationID(Integer userId) throws ClassNotFoundException, SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
@@ -154,7 +155,7 @@ public class SqlMethods {
                 org_id = result_set.getInt("fk_organization_id");
             }
         } catch (Exception e) {
-            logger.error("Exception in sqlmethods getOrganizationID: "+e.getMessage());
+            logger.error("Exception in sqlmethods getOrganizationID: " + e.getMessage());
 
         } finally {
             close(result_set, prepared_statement);
@@ -179,7 +180,7 @@ public class SqlMethods {
             }
 
         } catch (SQLException e) {
-            logger.error("Exception in sqlmethods checkEmailAvailability: "+e.getMessage());
+            logger.error("Exception in sqlmethods checkEmailAvailability: " + e.getMessage());
         } finally {
             close(result_set, prepared_statement);
         }
@@ -205,7 +206,7 @@ public class SqlMethods {
                 returnResult = true;
             }
         } catch (Exception e) {
-            logger.error("Exception in sqlmethods updateJSONUserPreference: "+e.getMessage());
+            logger.error("Exception in sqlmethods updateJSONUserPreference: " + e.getMessage());
 
         } finally {
             close(result_set, prepared_statement);
@@ -349,7 +350,7 @@ public class SqlMethods {
             }
 
         } catch (Exception e) {
-            logger.error("Exception in SqlMethods - getMapperFile"+e.getMessage());
+            logger.error("Exception in SqlMethods - getMapperFile" + e.getMessage());
 
         } finally {
             close(result_set, prepared_statement);
@@ -381,7 +382,7 @@ public class SqlMethods {
             userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
 
         } catch (Exception e) {
-            logger.error("Exception in SqlMethods - getJSONUserPreferences"+e.getMessage());
+            logger.error("Exception in SqlMethods - getJSONUserPreferences" + e.getMessage());
 
         } finally {
             close(result_set, prepared_statement);
@@ -406,14 +407,13 @@ public class SqlMethods {
                 studio_id = Integer.parseInt(result_set.getString(1));
             }
         } catch (Exception e) {
-            logger.error("Exception in SqlMethods - getStudioID"+e.getMessage());
+            logger.error("Exception in SqlMethods - getStudioID" + e.getMessage());
 
         } finally {
             close(result_set, prepared_statement);
         }
         return studio_id;
     }
-
 
     private static java.sql.Timestamp getCurrentTimeStamp() {
 
@@ -423,14 +423,14 @@ public class SqlMethods {
     }
 
     //TODO Ilyas create appconstants for these
-    public void setSocialPostHistory(Integer companyId, String contenthtml, 
-            boolean twitter, boolean facebook,String image_type, 
+    public void setSocialPostHistory(Integer companyId, String contenthtml,
+            boolean twitter, boolean facebook, String image_type,
             String imagefilename, String pdffilename) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
         ResultSet result_set = null;
         String file_image_path = "";
-        
+
         try (Connection connection = ConnectionManager.getInstance().getConnection()) {
 
             if (pdffilename != null) {
@@ -460,18 +460,19 @@ public class SqlMethods {
                 prepared_statement.setString(3, contenthtml);
                 prepared_statement.setBoolean(4, twitter);
                 prepared_statement.setBoolean(5, facebook);
-
-                if (image_type.equals("layout")){
+                prepared_statement.setString(6, imagefilename);
+               
+                if (image_type.equals("layout")) {
                     file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + imagefilename;
                     File file = new File(file_image_path);
                     FileInputStream fis = new FileInputStream(file);
                     prepared_statement.setBinaryStream(6, fis, file.length());
-                }else if(image_type.equals("gallery")){
-                    file_image_path = AppConstants.USER_IMAGE_HOME + File.separator + companyId + File.separator + imagefilename;
+                } else if (image_type.equals("gallery")) {
+                    file_image_path = com.intbittech.AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + com.intbittech.AppConstants.GALLERY_FOLDERNAME + File.separator + imagefilename;
                     File file = new File(file_image_path);
                     FileInputStream fis = new FileInputStream(file);
-                    prepared_statement.setBinaryStream(6, fis, file.length());
-                }else if (image_type.equals("url")){
+                    //  prepared_statement.setBinaryStream(6, fis, file.length());
+                } else if (image_type.equals("url")) {
 //                    file_image_path = imagefilename;
 //                    File file = new File(file_image_path);
 //                    InputStream fiss = new URL(file_image_path).openStream();
@@ -480,10 +481,8 @@ public class SqlMethods {
                 prepared_statement.executeUpdate();
             }
 
-            
-
         } catch (Exception e) {
-            logger.error("Exception in SqlMethods - setSocialPostHistory"+e.getMessage());
+            logger.error("Exception in SqlMethods - setSocialPostHistory" + e.getMessage());
 
         } finally {
             close(result_set, prepared_statement);
@@ -529,12 +528,12 @@ public class SqlMethods {
             }
 
         } catch (Exception e) {
-            logger.error("Exception in SqlMethods - getHTMLforDivHTMLModelList"+e.getMessage());
+            logger.error("Exception in SqlMethods - getHTMLforDivHTMLModelList" + e.getMessage());
 
         } finally {
             close(result_set, prepared_statement);
         }
         return newList;
     }
-    
+
 }
