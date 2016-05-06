@@ -764,7 +764,7 @@ $edit=0;
 //                        url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts'
                         url: getHost() + '/emaillist/get?update=allEmailListWithNoOfContacts&emailListName=null',
                     }).success(function (data, status, headers, config) {  
-
+//                        alert(JSON.stringify(JSON.parse(data.d.details)));
                         var parseData=JSON.parse(data.d.details);
                         $scope.emailLists = parseData.allEmailListWithNoOfContacts.user; 
                         $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
@@ -1078,7 +1078,7 @@ $edit=0;
                     alert(draftsavingerror)
                 }else {
 //                    draftId=null&categoryId=18&subCategoryId=7&emailSubject=sub&mindbodyId=75031&LookupId=4
-                    window.open(getHost() + 'user/emaileditor?draftid='+draft_id+'&categoryId='+category_id+'&subCategoryId='+sub_category_id+'&emailSubject='+email_subject, "_self");                    
+                    window.open(getHost() + 'user/emaileditor?id='+null+'&draftid='+draft_id+'&subject='+email_subject, "_self");                    
 
                 }
             }).error(function(data, status) {
