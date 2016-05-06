@@ -6,20 +6,24 @@
 
 function controllerMarketingCategories($scope, $http, $window){
     $scope.getMarketingCategories = function(){
+        showOverlay();
         $http({
             method: 'GET',
             url: 'displaymarketingCategory.do'
         }).success(function (data, status, headers, config) {
 //            alert(JSON.stringify(data.marketingData[0].name));
             $scope.categories = data.marketingData;
+            hideOverlay();
             
             if (data === error) {
                 alert(data);
             }
         }).error(function (data, status, headers, config) {
+            hideOverlay();
             alert("No data available! Problem fetching the data.");
             // called asynchronously if an error occurs
             // or server returns response with an error status.
+            
         });                
     };
 

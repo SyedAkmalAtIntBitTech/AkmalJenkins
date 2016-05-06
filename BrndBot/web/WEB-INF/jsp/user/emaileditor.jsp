@@ -159,16 +159,16 @@
             $("#stylediv li:nth-child(1)").addClass("style-slat-active");
         });
                     
-                    console.log(draft_id);
-                    $(document).ready(function () {
-                        mindbodydataId = $("#mindbodydata").val();
-                        draft_id = <%= draft_id%>;
-                        console.log(draft_id);
-                    $("#addblkbtn").prop('disabled', true);
-                    $(".selectrow").css("display", "none");
-                        rendomIframeFilename = event.timeStamp;
-                        selecterBlockId('defaultblock1', temp_block_id);
-                    $("#sortUpBlock").click(function () {
+    console.log(draft_id);
+    $(document).ready(function () {
+            mindbodydataId = $("#mindbodydata").val();
+            draft_id = <%= draft_id%>;
+            console.log(draft_id);
+            $("#addblkbtn").prop('disabled', true);
+            $(".selectrow").css("display", "none");
+            rendomIframeFilename = event.timeStamp;
+            selecterBlockId('defaultblock1', temp_block_id);
+            $("#sortUpBlock").click(function () {
             var current = $("#" + addblockid);
                     current.prev().before(current);
             });
@@ -641,7 +641,7 @@
     <!--Top Nav-->   
     <div class="top-nav-full">
         <div class="page-title-bar col-1of1"> 
-            <a class=" exit-button-icon" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=categoryId%>&mindbodyId={{mindbody.id}}&LookupId=<%=LookupId%>">    
+            <a class=" exit-button-icon" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=categoryId%>&mindbodyId={{mindbody.id}}&LookupId=<%=LookupId%>&emailSubject=<%=emailSubject%>">    
                 <div class="exit-button-detail">
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                 </div>

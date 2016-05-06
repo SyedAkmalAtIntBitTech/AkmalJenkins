@@ -821,7 +821,8 @@
         }
         function EmailListSetting($scope, $http) {
             
-            $scope.getEmailSettings = function(){                
+            $scope.getEmailSettings = function(){ 
+            showOverlay();
             var email_settings = {"type": "get"};                
             $http({
                     method : 'POST',
@@ -830,10 +831,12 @@
                     data: email_settings
                 }).success(function (data, status, headers, config) {
                     $scope.email_settings = data;
+                    hideOverlay();
                     if (data === error) {
                         alert(data);
                     }
                 }).error(function (data, status, headers, config) {
+                    hideOverlay();
                     alert("No data available, problem fetching the data");
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.

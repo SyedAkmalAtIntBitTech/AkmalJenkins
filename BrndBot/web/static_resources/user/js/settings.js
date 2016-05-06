@@ -213,6 +213,7 @@ function controllerUserChanges($scope, $http) {
         }
     };
     $scope.showColors = function () {
+        showOverlay();
 
         $http({
             method: 'GET',
@@ -221,6 +222,20 @@ function controllerUserChanges($scope, $http) {
             var parseData = JSON.parse(data.d.details[0]);
             $scope.user_preferences_colors = JSON.parse(JSON.stringify(parseData));
         }).error(function (data, status, headers, config) {
+            alert(nodataerror);
+        });
+
+        $http({
+            method: 'GET',
+            url: 'GetColorPalettes'
+        }).success(function (data, status, headers, config) {
+
+            $scope.themes = data;
+            hideOverlay();
+            if (data === error) {
+            }
+        }).error(function (data, status, headers, config) {
+            hideOverlay();
             alert(nodataerror);
         });
 

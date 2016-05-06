@@ -1202,11 +1202,13 @@ function getSortenUrl(url){
 angular.module("imageGallery", [])
     .controller("displayImageFromGallery", function($scope, $http) {
     $scope.getUserImaages = function(){
+        showOverlay();
       $http({
             method: 'GET',
             url: getHost() +'/companyImages/get'
         }).success(function (data){
             $scope.datalists = data.d.details;
+            hideOverlay();
             $scope.numberOfPages = function () {
                 return Math.ceil($scope.datalists.length / $scope.pageSize);
             };
@@ -1214,6 +1216,7 @@ angular.module("imageGallery", [])
                 alert(data);
             }
         }).error(function (data) {
+            hideOverlay();
             alert(JSON.stringify(data));
         });
     }; 
@@ -1374,7 +1377,8 @@ angular.module("socialMedia", [])
              });
     }; 
     $scope.checkForCode = function(){
-         var code=getUrlParameter("code");
+        showOverlay();
+        var code=getUrlParameter("code");
            if(typeof code !=="undefined"){
                 $http({
                         url: getHost() + 'settings/fbGetToken/'+code,
@@ -1383,6 +1387,7 @@ angular.module("socialMedia", [])
                             alert(JSON.stringify(data.d.details[0].fbPages[0]));
                             $("#fbmanagePagePopUp").show();
                             $scope.fbPagesDetails = data.d.details[0].fbPages;
+                            hideOverlay();
                 });
              }
     }; 

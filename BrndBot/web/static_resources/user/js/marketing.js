@@ -521,6 +521,7 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.master_email = getemail();
     $scope.master_note = getnote();
     $scope.getCampaigns = function () {
+        showOverlay();
         var curr_date = '';
         var tomorrowDate = '';
         var new_date = '';
@@ -549,8 +550,9 @@ function controllerMarketingCampaign($scope, $http) {
                     $scope.nodata = parseJSON.noactionsmessage;
                     $("#default").css("display", "block");
                     $('.page-background').animate({ scrollTop: 0 },500);
-                    
+                    hideOverlay();
                 }).error(function (data) {
+                    hideOverlay();
                     alert(requesterror);
                 });
         }
@@ -1208,7 +1210,7 @@ function controllerMarketingCampaign($scope, $http) {
 
 
     $scope.AddAction = function () {
-        
+        $("#addActionYourPlan").unbind('click'); 
         var title = $("#addactiontitle").val();
         var actiontype = $("#actiontype").val();
         var marketingProgramType=$("#marketing_program").val();
@@ -1233,7 +1235,7 @@ function controllerMarketingCampaign($scope, $http) {
                
             }).success(function (data)
             {
-                $("#addActionYourPlan").unbind('click');                
+                $("#addActionYourPlan").bind('click');                
                 $scope.status = data;
                 if (data != "") {
                     alert(actionsaved);
@@ -1241,6 +1243,7 @@ function controllerMarketingCampaign($scope, $http) {
                     $("#addActionYourPlan").bind('click');
                 }
             }).error(function (data, status) {
+                $("#addActionYourPlan").bind('click');
                 alert(requesterror);
             });
         }

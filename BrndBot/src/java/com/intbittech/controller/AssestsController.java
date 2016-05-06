@@ -64,13 +64,13 @@ public class AssestsController {
 
     @Autowired
     private MessageSource messageSource;
-    
+
     @RequestMapping(value = "downloadImage", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public void downloadImage(HttpServletRequest request, HttpServletResponse response, @RequestParam("imageName") String imageName, @RequestParam("imageType") String imageType, @RequestParam("companyId") Integer companyId) {
         try {
-        ImageType imageTypeEnum = ImageType.valueOf(imageType);
-        String imageBasePath = "";
-        switch (imageTypeEnum) {
+            ImageType imageTypeEnum = ImageType.valueOf(imageType);
+            String imageBasePath = "";
+            switch (imageTypeEnum) {
                 case GALLERY:
                     imageBasePath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + AppConstants.GALLERY_FOLDERNAME;
                     break;
@@ -83,12 +83,12 @@ public class AssestsController {
                 case EMAIL_TEMPLATE_IMAGE:
                     imageBasePath = AppConstants.BASE_ADMIN_EMAIL_TEMPLATE_IMAGE_UPLOAD_PATH;
                     break;
-                
-        }
-        String finalImagePath = imageBasePath + File.separator + imageName;
-        String contentType = request.getServletContext().getMimeType(imageName);
-        response.setContentType(contentType);
-        response.setHeader("Content-Disposition", "inline;filename=" + imageName);
+
+            }
+            String finalImagePath = imageBasePath + File.separator + imageName;
+            String contentType = request.getServletContext().getMimeType(imageName);
+            response.setContentType(contentType);
+            response.setHeader("Content-Disposition", "inline;filename=" + imageName);
             File file = new File(finalImagePath);
             response.setContentLength((int) file.length());
             // Copy the contents of the file to the output stream
@@ -103,39 +103,39 @@ public class AssestsController {
                 }
             }
             response.setStatus(HttpServletResponse.SC_OK);
-        } catch(Throwable throwable) {
+        } catch (Throwable throwable) {
             logger.error(throwable);
         }
     }
-    
+
     @RequestMapping(value = "getImageList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public void getImageList(HttpServletRequest request, HttpServletResponse response, @RequestParam("imageType") String imageType, @RequestParam("companyId") Integer companyId) {
         try {
-        ImageType imageTypeEnum = ImageType.valueOf(imageType);
-        String imageBasePath = "";
+            ImageType imageTypeEnum = ImageType.valueOf(imageType);
+            String imageBasePath = "";
 //        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
 //        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-        switch (imageTypeEnum) {
+            switch (imageTypeEnum) {
                 case GALLERY:
                     imageBasePath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + AppConstants.GALLERY_FOLDERNAME;
                     break;
                 case GLOBAL_IMAGE:
                     imageBasePath = AppConstants.BASE_ADMIN_GLOBAL_IMAGE_UPLOAD_PATH;
-        }
-        File imageBaseFolder = new File(imageBasePath);
-        JSONArray imageurlJsonArray=new JSONArray();
-        for(File imageFile:imageBaseFolder.listFiles()){
+            }
+            File imageBaseFolder = new File(imageBasePath);
+            JSONArray imageurlJsonArray = new JSONArray();
+            for (File imageFile : imageBaseFolder.listFiles()) {
 
-            String imageFilePath = "/BrndBot/downloadImage?imageType="+imageTypeEnum+"&imageName="+imageFile.getName()+"&companyId="+companyId;
-            JSONObject imagejsonObject= new JSONObject();
-            imagejsonObject.put("url", imageFilePath);
-            imagejsonObject.put("thumb", imageFilePath);
-            imageurlJsonArray.add(imagejsonObject);
-        }
+                String imageFilePath = "/BrndBot/downloadImage?imageType=" + imageTypeEnum + "&imageName=" + imageFile.getName() + "&companyId=" + companyId;
+                JSONObject imagejsonObject = new JSONObject();
+                imagejsonObject.put("url", imageFilePath);
+                imagejsonObject.put("thumb", imageFilePath);
+                imageurlJsonArray.add(imagejsonObject);
+            }
 
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().write(AppConstants.GSON.toJson(imageurlJsonArray));
-        } catch(Throwable throwable) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write(AppConstants.GSON.toJson(imageurlJsonArray));
+        } catch (Throwable throwable) {
             logger.error(throwable);
         }
     }
@@ -292,18 +292,17 @@ public class AssestsController {
             globalFonts.setFontName(globalFontsDetails.getFontName());
             globalFonts.setFontFamilyName(globalFontsDetails.getFontFamilyName());
             globalFonts.setFileName(globalFontsDetails.getFileName());
-            String filePathWithFileName=AppConstants.BASE_ADMIN_FONT_UPLOAD_PATH+File.separator+globalFontsDetails.getFileName();
-             String storableFileName = null;
-             try {
+            String filePathWithFileName = AppConstants.BASE_ADMIN_FONT_UPLOAD_PATH + File.separator + globalFontsDetails.getFileName();
+            String storableFileName = null;
+            try {
                 storableFileName = FileHandlerUtil.saveAdminGlobalFont(filePathWithFileName,
                         globalFontsDetails.getFontType(), globalFontsDetails.getFontData());
-            
-           
-        } catch (Throwable throwable) {
-            
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
-        }
-         
+
+            } catch (Throwable throwable) {
+
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+            }
+
             try {
                 globalFontsService.save(globalFonts);
             } catch (Throwable throwable) {
@@ -315,19 +314,15 @@ public class AssestsController {
             }
 
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalFonts_save", null, Locale.US)));
-      
-  } catch (Throwable throwable) {
+
+        } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
-   
+
     }
-    
-    
-   
-    
-    
+
     @RequestMapping(value = "saveColorTheme", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveColorTheme(@RequestBody GlobalColorsDetails globalColorsDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
@@ -420,11 +415,16 @@ public class AssestsController {
     @RequestMapping(value = "updateFont", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> updateFont(@RequestBody GlobalFontsDetails globalFontsDetails) {
         TransactionResponse transactionResponse = new TransactionResponse();
+
         try {
-            GlobalFonts globalFonts = new GlobalFonts();
+            GlobalFonts globalFonts = globalFontsService.getGlobalFontsById(globalFontsDetails.getGlobalFontsId());
             globalFonts.setGlobalFontsId(globalFontsDetails.getGlobalFontsId());
             globalFonts.setFontName(globalFontsDetails.getFontName());
             globalFonts.setFontFamilyName(globalFontsDetails.getFontFamilyName());
+            String filePathWithFileName = AppConstants.BASE_ADMIN_FONT_UPLOAD_PATH + File.separator + globalFontsDetails.getFileName();
+
+            FileHandlerUtil.updateAdminGlobalFont(globalFonts.getFileName(), filePathWithFileName,
+                    globalFontsDetails.getFontType(), globalFontsDetails.getFontData());
             globalFonts.setFileName(globalFontsDetails.getFileName());
             globalFontsService.update(globalFonts);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalFonts_update", new String[]{}, Locale.US)));
@@ -490,13 +490,12 @@ public class AssestsController {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
             boolean unique = globalImagesService.checkForUniqueness(globalImageName);
-            if(unique){
+            if (unique) {
                 transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_name_avialable", null, Locale.US)));
+            } else {
+                transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_name_not_avialable", null, Locale.US)));
             }
-            else{
-            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_name_not_avialable", null, Locale.US)));
-            }
-            
+
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));

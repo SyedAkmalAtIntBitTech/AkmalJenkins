@@ -16,6 +16,7 @@ angular.module("mindbody", [])
                     method : 'GET',
                     url :getHost()+ '/externalContent/isActivated?externalSourceKeywordLookupId='+LookupId
                     }).success(function(data, status, headers, config) {
+//                        alert(JSON.stringify(data.d.details));
                         var minddata= JSON.stringify(data.d.details);
                         if(minddata === "[true]"){
                             
@@ -29,7 +30,7 @@ angular.module("mindbody", [])
                             hideOverlay();
 //                            $('#loadingGif').remove();
                         }).error(function(data, status, headers, config) {
-
+                                hideOverlay();
                         });             
 //                            $('#loadingGif').remove();
                             $('#nodata').show();
@@ -54,6 +55,7 @@ angular.module("mindbody", [])
             }
 //             $('#loadingGif').remove();
             }).error(function(data, status, headers, config) {
+                hideOverlay();
                 alert("No data available, problem fetching the data");
                 //called asynchronously if an error occurs
                 //or server returns response with an error status.

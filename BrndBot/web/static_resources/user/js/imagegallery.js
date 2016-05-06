@@ -75,6 +75,7 @@ function Showimguploadpopup()
                 imagegallery.controller('samplecontoller', function ($scope,$http) {
 
                 $scope.showData = function(){
+                    showOverlay();
 //                     alert("showData");
                  $scope.curPage = 0;
                  $scope.pageSize = 1000;
@@ -84,6 +85,7 @@ function Showimguploadpopup()
                             url : 'GetImageGallery'
                     }).success(function(data, status, headers, config) {
                         $scope.datalists = data;
+                        hideOverlay();
                         
                     $scope.numberOfPages = function() {
                                             return Math.ceil($scope.datalists.length / $scope.pageSize);
@@ -92,6 +94,7 @@ function Showimguploadpopup()
                             alert(data);
                         }
                     }).error(function(data, status, headers, config) {
+                        hideOverlay();
                             alert(nodataerror);
                     });
 

@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="favicon.png">
     <meta charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="text/javascript" src="js/angular.min.js"></script>  
+    <!--<script type="text/javascript" src="js/angular.min.js"></script>-->  
     <script src="js/configurations.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
@@ -154,6 +154,7 @@
 <body ng-app ng-controller="controllerSocial">
     <div  id="controllerSocial"> 
     <!--SideNav-->
+    <%@ include file="twitterpopup.jsp"%>
     <%@ include file="onetimetwitterpopup.jsp"%>
     <%@ include file="onetimefacebookpopup.jsp"%>  
     <%@include file="header.jsp" %>
@@ -237,8 +238,8 @@
                                             <div id="view2" ng-init="getTwitterDetails()" style="width:550px; height:140px;" >
                                                 <div class="slat-title email-list-slat-title col-1of1">Twitter</div>
                                                 <div id="twpagename" >
-                                                    <div class="list-column-description col-1of1 sh3 fleft">Profile Name : {{twitterPage.twitter_user_name}}</div>
-                                                    <button id="twitter" class="buttonchange" name="change">Change</button>
+                                                    <div class="list-column-description col-1of1 sh3 fleft">Profile Name : {{twitterProfileName}}</div>
+                                                    <button id="twitterLogoutButton" class="twitterLogoutButton" name="change">Logout From Twitter</button>
                                                     <button id="twitterclear" class="buttonchange" name="twitterclear" ng-click="clearTwitterDetails()">Clear</button>
                                                 </div>
                                             </div>
