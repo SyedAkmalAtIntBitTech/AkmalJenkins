@@ -1120,6 +1120,7 @@ function postToFacebook(){
     var linkUrl = $("#linkUrl").val();
     var image_name = selecImageName;
     var image_type = selecImageType;   
+    alert(localStorage.getItem("CurrentFbAccessToken"));
     
    $.ajax({
            url: getHost() + "socialPost/postToFacebook",
@@ -1135,6 +1136,10 @@ function postToFacebook(){
             }),
           success: function (responseText) {
                 alert(JSON.stringify(responseText));
+                var isSuccess= responseText.d;
+                    if(isSuccess === "sucess"){
+                       $("#fbSuccessPostPopup").show();
+                    }
                         },
           error: function (jqXHR, textStatus, errorThrown) {
               alert(JSON.stringify(jqXHR));
@@ -1200,11 +1205,8 @@ angular.module("imageGallery", [])
       $http({
             method: 'GET',
             url: getHost() +'/companyImages/get'
-        }).success(function (data) {
-            alert(JSON.stringify(data));
-             
+        }).success(function (data){
             $scope.datalists = data.d.details;
-         
             $scope.numberOfPages = function () {
                 return Math.ceil($scope.datalists.length / $scope.pageSize);
             };
@@ -1242,7 +1244,7 @@ angular.module("imageGallery", [])
                         })
                         .error(function () {
 
-                            alert(requesterror);
+                          alert(requesterror);
                         });
                 }
         };
@@ -1356,7 +1358,10 @@ angular.module("socialMedia", [])
                          {
                             $http({
                                url: getHost() + 'settings/fbAuthURL',
-                                method:"GET"      
+                               method:"Post",
+                               data: JSON.stringify({
+                                           redirectUrl: "user/socialsequence"
+                                      }) 
                                 }).success(function(data){
                                             alert(JSON.stringify(data.d.details[0]));
                                             window.location = data.d.details[0]; 
@@ -1381,15 +1386,10 @@ angular.module("socialMedia", [])
                 });
              }
     }; 
-   $scope.setPageAccessToken = function(accessToken,pageName){
+   $scope.setPageAccessToken = function(accessToken,pageName,profileName){
                localStorage.setItem("CurrentFbAccessToken",accessToken);
                localStorage.setItem("CurrentFbPageName",pageName);
-//                $http({
-//                        url: getHost() + 'settings/',
-//                        method:"GET"      
-//                }).success(function(data){
-//                            alert(JSON.stringify(data.d.details[0]));
-//                });
+               localStorage.setItem("FbProfileName",profileName);
     }; 
     $scope.postToSelectedPage = function(){
                 var addDafaultmanagePage = $("#setDefaultManagePage").prop('checked');
@@ -1401,7 +1401,8 @@ angular.module("socialMedia", [])
                      data: JSON.stringify({
                                  access_token_method: "setAccessToken",
                                  access_token:localStorage.getItem("CurrentFbAccessToken"),
-                                 default_page_name: localStorage.getItem("CurrentFbPageName")
+                                 default_page_name: localStorage.getItem("CurrentFbPageName"),
+                                 fb_user_profile_name:localStorage.getItem("FbProfileName")
                              })
                         }).success(function(data){
                                     alert(JSON.stringify(data));
