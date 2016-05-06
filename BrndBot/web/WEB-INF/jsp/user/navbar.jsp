@@ -22,7 +22,7 @@
              </style>
 <div class="mainNav" >   
         <a href="dashboard"><div class="bb-logo-wrap">
-                 <img type="image/svg+xml" src="images/Logo_Reverse.svg" class="nav-elements-icon" style="cursor:pointer;">
+                 <img type="image/svg+xml" src="images/Logo_Reverse.svg" class="brndbot_logo" style="cursor:pointer;">
             
             </div></a>
         <a  class="hint--right" href="marketing" data-hint="YOUR PLAN"><div class="nav-tabs">

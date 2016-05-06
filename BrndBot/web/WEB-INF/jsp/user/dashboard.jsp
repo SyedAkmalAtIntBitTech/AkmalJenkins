@@ -32,7 +32,7 @@
                     <div class="dashboard-MainCTA-col fleft">
                         <div class="dashboard-MainCTA "> 
                             <div class="dash-icon">
-                                <img type="image/svg+xml" src="images/dashIcons-01.svg" class="dash-svg" style="cursor:pointer;">
+                                <a href="socialsequence"><img type="image/svg+xml" src="images/dashIcons-01.svg" class="dash-svg" style="cursor:pointer;"></a>
                                  
                                 </div>
                             <div class="dashboard-mainCTA-subtext">Content to be provided here</div>
@@ -43,7 +43,7 @@
                     <div class="dashboard-MainCTA-col fleft">
                         <div class="dashboard-MainCTA "> 
                             <div class="dash-icon">
-                                <img type="image/svg+xml" src="images/dashIcons-02.svg" class="dash-svg" style="cursor:pointer;">
+                                <a href="emailcategory"><img type="image/svg+xml" src="images/dashIcons-02.svg" class="dash-svg" style="cursor:pointer;"></a>
                                  
                                 </div>
                             <div class="dashboard-mainCTA-subtext">Content to be provided here</div>

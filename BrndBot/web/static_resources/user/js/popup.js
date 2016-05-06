@@ -1345,7 +1345,6 @@ function setTwitterAccessToken(){
 }
 angular.module("socialMedia", [])
     .controller("isDefaultFbPageSet", function($scope, $http) {
-       
      $scope.getmanage = function(){
             $http({
                      url: getHost() + 'settings/facebookDetails.do',
@@ -1387,7 +1386,6 @@ angular.module("socialMedia", [])
                             alert(JSON.stringify(data.d.details[0].fbPages[0]));
                             $("#fbmanagePagePopUp").show();
                             $scope.fbPagesDetails = data.d.details[0].fbPages;
-                            hideOverlay();
                 });
              }
     }; 

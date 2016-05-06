@@ -73,6 +73,7 @@ $scope.displaySubCategory = function () {
     };
     
     $scope.displayMarketingProgramByCategoryId = function () {
+   
         showOverlay();
         var marketingCategoryId= $("#marketingCategoryId").val();
 //                localStorage.getItem("marketingCategoryId");
@@ -81,17 +82,21 @@ $scope.displaySubCategory = function () {
             method: 'GET',
             url: getHost() + '/getMarketingProgramsByCategoryId?marketingCategoryId='+marketingCategoryId
         }).success(function (data, status, headers, config) {
-//           alert(JSON.stringify(data));
-            $scope.displayMarketingPrograms = data.d.details;
-            var marketingProgramId= JSON.stringify(data.d.details[0].marketingProgramId);
-            setTimeout(function () {
-                $("#"+marketingProgramId).click();
-              hideOverlay();
-            }, 0);
-           for(var i=0;i<=data.d.details.length;i++)
-           {
-              $("#htmlData").text(data.d.details[i].htmlData); 
-           }
+            var data=data.d.operationStatus.messages; 
+            if(data !="No marketing programs found."){
+                hideOverlay(); 
+                $scope.displayMarketingPrograms = data.d.details;
+                var marketingProgramId= JSON.stringify(data.d.details[0].marketingProgramId);         
+                $("#"+marketingProgramId).click();  
+                for(var i=0;i<=data.d.details.length;i++)
+                {
+                   $("#htmlData").text(data.d.details[i].htmlData); 
+                } 
+            }
+            else
+            {                
+                hideOverlay();        
+            }
         }).error(function (data, status, headers, config) {
             hideOverlay();
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));

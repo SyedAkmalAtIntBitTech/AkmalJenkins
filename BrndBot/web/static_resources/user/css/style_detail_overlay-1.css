@@ -2638,7 +2638,7 @@ width: 10%;
 }
 .width40
 {
-    width:40% !important;
+    width:40%;
 }
 .width45
 {
@@ -2729,3 +2729,13 @@ div#editor {
 .padright60px{
     padding-right: 60px;
 }
+
+
+/*************************** arfa start code ************************/
+
+@media screen and (max-width: 1230px) {
+.width40 {
+    width: 100% !important;
+}
+}
+/**************************** arfa end code ************************/

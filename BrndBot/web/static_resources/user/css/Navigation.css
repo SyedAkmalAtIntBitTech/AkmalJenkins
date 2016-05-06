@@ -44,7 +44,7 @@
 .bb-logo-wrap{
     width: 100%;
     height: 70px;
-   
+    
     padding: 10px 15px;
     
 
@@ -241,3 +241,29 @@
 .pop-up-background-gallery{
     margin-top: 4vw;
 }
+/***********************Arfa Tasmiya Start code******************************/
+@media screen and (max-width:1230px) and (min-width:900px) {
+    .pop-up-background {
+    width: 700px;
+    margin-top: 0px;
+}
+}
+
+@media screen and (max-width:900px) and (min-width:600px) {
+    .pop-up-background {
+    width: 500px;
+    margin-top: 0px;
+}
+}
+
+@media screen and (max-width:600px) and (min-width:300px) {
+    .pop-up-background {
+    width: 370px;
+    margin-top: 0px;
+}
+}
+
+.brndbot_logo {
+    width: 35px !important;
+}
+/***********************Arfa Tasmiya Start code******************************/

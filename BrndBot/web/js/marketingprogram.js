@@ -13,11 +13,11 @@ function controllerMarketingCategories($scope, $http, $window){
         }).success(function (data, status, headers, config) {
 //            alert(JSON.stringify(data.marketingData[0].name));
             $scope.categories = data.marketingData;
-            hideOverlay();
             
             if (data === error) {
                 alert(data);
             }
+            hideOverlay();
         }).error(function (data, status, headers, config) {
             hideOverlay();
             alert("No data available! Problem fetching the data.");
