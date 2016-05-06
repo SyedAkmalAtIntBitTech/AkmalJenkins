@@ -64,6 +64,7 @@ public class SocialPostController {
             String fileImagePath = getImageTypePrefix(imageType, companyId, getImageFile);
             String status = PostToFacebook.postStatus(title, fileImagePath, posttext, imagePostURL, getImageFile, url, description, imageType, companyId, htmlString,accessToken);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(status));
+            transactionResponse.setMessage(status);
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
