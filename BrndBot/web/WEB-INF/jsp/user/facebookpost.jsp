@@ -74,6 +74,7 @@
         <div class="bottomNav">
             <div class="bottom-ContinueButton fright" onclick="postToFacebook()">CONTINUE</div>
         </div>
-       <%@include file="imagegallerypopup.jsp" %>  
+       <%@include file="imagegallerypopup.jsp" %>
+       <%@include file="facebookpostsuccesspopup.jsp" %>  
     </body>
 </html>
