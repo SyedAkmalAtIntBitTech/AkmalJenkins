@@ -57,7 +57,7 @@ public class PostToTwitter {
             if (image_type.equals("url")) {
                 status.setMedia("xyz", new URL(fileImagePath).openStream());
             } else {
-                File file = new File(fileImagePath);
+                File file = new File(getImageFile);
 
                 // set the image to be uploaded here.
                 status.setMedia(file);
@@ -66,7 +66,7 @@ public class PostToTwitter {
 
             try {
                 SqlMethods sql_methods = new SqlMethods();
-                sql_methods.setSocialPostHistory(companyId, htmlString, false, true, image_type, getImageFile, null);
+                sql_methods.setSocialPostHistory(companyId, htmlString, false, true, image_type, fileImagePath, null);
             } catch (Exception ex) {
                 logger.error(ex.getMessage());
                 throw new ProcessFailed("Could not insert record for a twitter post");
