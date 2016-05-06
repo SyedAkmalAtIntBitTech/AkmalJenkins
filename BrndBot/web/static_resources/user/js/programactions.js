@@ -1282,6 +1282,7 @@ function programactions($scope, $http, $window){
     };
     
     $scope.AddAction = function () {
+        $("#addActionMarketingProgram").unbind('click');
         var program=$("#program_id").val();
         var program_end_date=$("#program_end_date").val();
         var title = $("#addactiontitle").val();
@@ -1311,7 +1312,7 @@ function programactions($scope, $http, $window){
                 data: JSON.stringify(action)
             }).success(function (data)
             {
-                $("#addActionMarketingProgram").unbind('click');
+                
 //                alert(JSON.stringify(data.d));
                 $scope.status = data;
                 alert("Action saved successfully.");

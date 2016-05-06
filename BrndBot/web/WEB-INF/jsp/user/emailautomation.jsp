@@ -133,7 +133,20 @@
         $scope.getEntityDetails = function (){
             $scope.showEmailList();
             var entity_details = {"entity_id": entity_id};
-            if (type === 'add'){
+                if (type === 'add'){
+//                $.ajax({
+//                method: 'GET',
+//                url: getHost() + 'emaillist/get?update=allEmailListWithNoOfContacts&emailListName=null'
+//                }).success(function (data, status, headers, config) {
+//                    alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user[0].emailListName));
+//                    
+//                    var parseData=JSON.parse(parseData.allEmailListWithNoOfContacts);
+//                    $scope.emailLists_user = parseData.user;
+//                    $scope.emailLists_mindbody = parseData.mindbody;
+//                }).error(function(error){
+//                    alert(JSON.stringify(error));
+//    //                alert("Problem fetching the data!");
+//                });
                 $(".page-content-container").css('width','90%');
                 $("#emailautomationcontent").show();
                 $("#emlautomeditorcontainer").hide();
@@ -267,16 +280,13 @@
            
        };
        
-        $scope.showEmailList = function () {
-            
-
-            var emailids = {"update": "allEmailListNames"}; 
+        $scope.showEmailList = function () {             
             $.ajax({
                 method: 'GET',
                  url: getHost() + 'emaillist/get?update=allEmailListWithNoOfContacts&emailListName=null'
             }).success(function (data, status, headers, config) {
                 var parseData=JSON.parse(data.d.details);
-//                alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user));
+//                alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user[0].emailListName));
                 $scope.emailLists_user = parseData.allEmailListWithNoOfContacts.user;
                 $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
             }).error(function(error){

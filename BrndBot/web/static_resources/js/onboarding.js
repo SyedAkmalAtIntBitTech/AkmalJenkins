@@ -271,14 +271,14 @@ function onboardingcontroller($scope,$http) {
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(userDetails)
             }).success(function (data)
-            {
-                
+            {                
                var message= data.d.message;
                 if(message==="true")
                 {
                    $("#username").val(emailId);
                    $("#userpassword").val(userPassword);
-                   $("#signform").submit();
+//                   $("#signform").submit();
+                   window.open(getHost()+'signup/company', "_self");
                 }
             })
             .error(function (data, status) {
