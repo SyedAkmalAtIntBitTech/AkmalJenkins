@@ -125,39 +125,39 @@ app.controller('globalColors', function($scope,$http) {
     
     
                     $scope.addFontContent = function (){
-                     $("#fontPopup").show();
-                     $("#addOrganizationPopupDiv").show();  
-                     $("#editFont").hide();
-                     $("#addFont").show();
-                     $("#nameFont").show();
-                      $("#editFonts").hide();
-                      $("#fontFamilyCssName").show();
-                      $("#editFontFamilyCssName").hide();
-                      $("#uploadOnEdit").show();
-                      $("#uploadTTF").hide();
-                      $("#createFont").show();
-                      $("#editFontDetails").hide();
-                      $("#deleteGlobalFont").hide();
+                        $("#fontPopup").show();
+                        $("#addOrganizationPopupDiv").show();  
+                        $("#editFont").hide();
+                        $("#addFont").show();
+                        $("#nameFont").show();
+                        $("#editFonts").hide();
+                        $("#fontFamilyCssName").show();
+                        $("#editFontFamilyCssName").hide();
+                        $("#uploadOnEdit").show();
+                        $("#uploadTTF").hide();
+                        $("#createFont").show();
+                        $("#editFontDetails").hide();
+                        $("#deleteGlobalFont").hide();
                     }
 
                     $scope.updateFontContent = function (fontName,fontFamilyName,globalFontsId,fileName){
                        
-                     $("#globalFontsId").val(globalFontsId);
-                     $("#editFontName").val(fontName);   
-                     $("#editFontFamilyName").val(fontFamilyName);    
-                     $("#fontPopup").show();
-                     $("#addOrganizationPopupDiv").show();  
-                     $("#editFont").show();
-                     $("#addFont").hide();
-                    $("#nameFont").hide();
-                    $("#editFonts").show();
-                    $("#fontFamilyCssName").hide();
-                     $("#editFontFamilyCssName").show();
-                     $("#uploadOnEdit").hide();
-                      $("#uploadTTF").show();
-                      $("#createFont").hide();
-                      $("#editFontDetails").show();
-                      $("#deleteGlobalFont").show();
+                        $("#globalFontsId").val(globalFontsId);
+                        $("#editFontName").val(fontName);   
+                        $("#editFontFamilyName").val(fontFamilyName);    
+                        $("#fontPopup").show();
+                        $("#addOrganizationPopupDiv").show();  
+                        $("#editFont").show();
+                        $("#addFont").hide();
+                        $("#nameFont").hide();
+                        $("#editFonts").show();
+                        $("#fontFamilyCssName").hide();
+                        $("#editFontFamilyCssName").show();
+                        $("#uploadOnEdit").hide();
+                        $("#uploadTTF").show();
+                        $("#createFont").hide();
+                        $("#editFontDetails").show();
+                        $("#deleteGlobalFont").show();
                     }
                     $scope.getGlobalFonts =function(){
                         $http({
