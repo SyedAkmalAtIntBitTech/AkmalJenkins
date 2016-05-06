@@ -954,7 +954,7 @@
                                     <script>
                                         var picker = new Pikaday(
                                         {
-                                            format:('MM DD YYYY'),
+                                            format:('MM-DD-YYYY'),
                                             field: document.getElementById('datepicker'),
                                             firstDay: 1,
                                             minDate: new Date(2000, 0, 1),

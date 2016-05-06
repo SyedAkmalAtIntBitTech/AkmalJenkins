@@ -59,7 +59,7 @@
                 </div>
             </div>
             
-            <div id="schedulepopup" ng-controller="emailSettings" id="emailSettings">
+            <div id="schedulepopup" ng-controller="emailSettings">
                 <div class="pop-up-exit-container">
                     <div class="pop-up-exit-icon" id="closeschedulepopup">
                         <img type="image/svg+xml" src="images/Close.svg" class="exit-button-icon"></img>

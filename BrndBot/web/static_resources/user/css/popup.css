@@ -41,7 +41,7 @@
 }
 .left10
 {
-    margin-left:10px;
+    margin-left:0px;
 }
 .right10
 {
@@ -167,7 +167,7 @@
     margin-top:32px;
 }
 .top55{
-    margin-top:55px;
+    margin-top:0px;
 }
 .topthirty7{
     margin-top:37px;
@@ -701,6 +701,7 @@ input#timepicker1 {
 .pop-up-container.pop-up-container-newaction1 {
     z-index: 0;
     height: 500px;
+    width: 100%;
 }
 .pop-up-cta-container-newaction1 {
     border-bottom-left-radius: 3px;
@@ -1454,6 +1455,9 @@ textarea#filetext1 {
     width: 126px;
     border:none;
     resize: none;
+    border: 1px solid #D5DADF;
+    padding: 50px 10px;
+    border-radius: 3px;
 }
 .hideornot
 {
@@ -1566,7 +1570,36 @@ textarea#filetext1 {
     }
 /*-----------------rasim end code-----------------*/
 
+/*----------------- Arfa start code---------------*/
+@media screen and (max-width:1500px) and (min-width:900px) {
+   .pop-up-container.pop-up-container-newaction1 {
+    width: 700px !important;
+}
+}
+@media screen and (max-width:1500px) and (min-width:1001px) {
+#schedulepopup {
+    padding-left: 21%;
+}
+}
+@media screen and (max-width:1000px) {
+#schedulepopup {
+    padding-left: 15%;
+}
+}
+@media screen and (max-width:900px) {
+   .pop-up-container.pop-up-container-newaction1 {
+    width: 500px !important;
+}
+}
+@media screen and (max-width:600px) and (min-width:450px) {
+.pop-up-container.pop-up-container-newaction1 {
+    width: 370px !important;
+}
 
+#schedulepopup {
+    padding-left: 7%;
+}
+}
 
-
+/*----------------- Arfa end code-----------------*/
 

@@ -1267,17 +1267,18 @@ angular.module("socialMedia", [])
        
         $scope.getmanage = function(){
         alert("getmanage");
+        showOverlay();  
         $http({
                 url: getHost() + 'settings/fbAuthURL',
                 method:"GET"      
         }).success(function(data){
+            hideOverlay();
                     alert(JSON.stringify(data.d.details[0]));
                     window.location = data.d.details[0]; 
             
         });
     }; 
     $scope.checkForCode = function(){
-        showOverlay();
                 alert("checkForCode");
         var code=getUrlParameter("code");
                 alert(code);
@@ -1289,7 +1290,6 @@ angular.module("socialMedia", [])
                             alert(JSON.stringify(data.d.details[0].fbPages[0]));
                             $("#fbmanagePagePopUp").show();
                             $scope.fbPagesDetails = data.d.details[0].fbPages;
-                            hideOverlay();
                 });
              }
     }; 

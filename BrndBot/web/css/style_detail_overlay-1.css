@@ -1784,8 +1784,8 @@ selfclear:after{
     clear:both;
 }
 .main-container{
-    padding-right:30px;
-    padding-left: 30px;
+    padding-right: 0px;
+    padding-left: 0px;
     background-color: #ffffff;
     margin-top: 30px;
     margin-bottom: 45px;
@@ -2717,3 +2717,4 @@ div#editor {
 {
     font-size: 20px;
 }
+
