@@ -19,6 +19,7 @@ import com.intbittech.model.RecurringEmailTemplate;
 import com.intbittech.model.ScheduledEmailList;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserProfile;
+import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.RecurringEmailTemplateService;
 import com.intbittech.utility.UserSessionUtil;
 import java.io.BufferedReader;
@@ -55,6 +56,8 @@ public class MarketingRecurringEmailController {
     private ScheduledEmailListService schedule_email_list_service;
     @Autowired
     private ScheduledEntityListService scheduledEntityListService;
+    @Autowired
+    private CompanyPreferencesService companyPreferencesService;
     String return_response = "false";
     /*
         this method is used to get all of the recurring email templates from the database
@@ -190,9 +193,8 @@ public class MarketingRecurringEmailController {
             
             Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
 
-            org.json.simple.JSONObject json_company_preferences = sql_methods.getJSONCompanyPreferences(companyId);
-            
-            org.json.simple.JSONObject json_object_email_settings = (org.json.simple.JSONObject)json_company_preferences.get(IConstants.kEmailSettings);
+            Company company = new Company(companyId);
+            org.json.simple.JSONObject json_object_email_settings = companyPreferencesService.getEmailSettings(company);
 
             Double entity_id = (Double)requestBodyMap.get("entity_id");
             String days = (String)requestBodyMap.get("days");
@@ -205,8 +207,7 @@ public class MarketingRecurringEmailController {
             
             ScheduledEmailList scheduled_email_list = new ScheduledEmailList();
             scheduled_email_list.setScheduledEmailListId(0);
-            Company company = new Company();
-            company.setCompanyId(userProfile.getUser().getFkCompanyId().getCompanyId());
+
             scheduled_email_list.setFkCompanyId(company);
             scheduled_email_list.setSubject(subject);
             scheduled_email_list.setBody(html_data);
@@ -502,12 +503,8 @@ public class MarketingRecurringEmailController {
 
     public org.json.simple.JSONObject getFromAddress(Integer companyId){
         try{
-
-            SqlMethods sql_methods = new SqlMethods();
-
-            org.json.simple.JSONObject json_company_preferences = sql_methods.getJSONCompanyPreferences(companyId);
-
-            org.json.simple.JSONObject json_object_email_settings = (org.json.simple.JSONObject)json_company_preferences.get(IConstants.kEmailSettings);
+            Company company = new Company(companyId);
+            org.json.simple.JSONObject json_object_email_settings = companyPreferencesService.getEmailSettings(company);
 
             String from_address = (String)json_object_email_settings.get(IConstants.kEmailFromAddress);
 

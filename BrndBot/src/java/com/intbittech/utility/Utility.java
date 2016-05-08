@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import model.EmailInfo;
+import com.intbittech.model.EmailInfo;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 

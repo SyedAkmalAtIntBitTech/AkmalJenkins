@@ -5,7 +5,6 @@
  */
 package com.controller;
 
-import mindbody.controller.*;
 import com.divtohtml.StringUtil;
 import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import com.mindbodyonline.clients.api._0_5Class.Class;

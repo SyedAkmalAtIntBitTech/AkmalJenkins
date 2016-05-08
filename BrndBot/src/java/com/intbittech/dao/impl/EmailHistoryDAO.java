@@ -7,8 +7,8 @@ package com.intbittech.dao.impl;
 
 import com.controller.IConstants;
 import com.intbit.ConnectionManager;
-import email.mandrill.MessageResponse;
-import email.mandrill.MessageResponses;
+import com.intbittech.email.mandrill.MessageResponse;
+import com.intbittech.email.mandrill.MessageResponses;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

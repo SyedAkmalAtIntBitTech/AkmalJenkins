@@ -19,7 +19,7 @@ import java.util.logging.Level;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import mindbody.controller.MindBodyDataMapper;
+import com.intbittech.mindbody.MindBodyDataMapper;
 import org.json.simple.JSONObject;
 
 /**

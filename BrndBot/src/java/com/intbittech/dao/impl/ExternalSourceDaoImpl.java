@@ -13,6 +13,7 @@ import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -50,7 +51,7 @@ public class ExternalSourceDaoImpl implements ExternalSourceDao {
 
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message", new String[]{}, Locale.US));
         }
     }
 
@@ -60,7 +61,8 @@ public class ExternalSourceDaoImpl implements ExternalSourceDao {
     public List<ExternalSource> getAllExternalSources() throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
-                    .createCriteria(ExternalSource.class);
+                    .createCriteria(ExternalSource.class)
+                    .addOrder(Order.asc("external_source_id"));
             if (criteria.list().isEmpty()) {
                 return null;
             }
@@ -68,7 +70,7 @@ public class ExternalSourceDaoImpl implements ExternalSourceDao {
 
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_message", new String[]{}, Locale.US));
         }
     }
 
@@ -80,7 +82,7 @@ public class ExternalSourceDaoImpl implements ExternalSourceDao {
             return ((Integer) sessionFactory.getCurrentSession().save(externalSource));
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_saving_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_saving_message", new String[]{}, Locale.US));
         }
     }
 
@@ -92,7 +94,7 @@ public class ExternalSourceDaoImpl implements ExternalSourceDao {
             sessionFactory.getCurrentSession().update(externalSource);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_updating_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_updating_message", new String[]{}, Locale.US));
         }
     }
 
@@ -104,7 +106,7 @@ public class ExternalSourceDaoImpl implements ExternalSourceDao {
             sessionFactory.getCurrentSession().delete(externalSource);
         } catch (Throwable throwable) {
             logger.error(throwable);
-            throw new ProcessFailed(messageSource.getMessage("error_deleting_message",new String[]{}, Locale.US));
+            throw new ProcessFailed(messageSource.getMessage("error_deleting_message", new String[]{}, Locale.US));
         }
     }
 
