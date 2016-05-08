@@ -214,37 +214,7 @@ public class SqlMethods {
         return returnResult;
     }
 
-    //TODO Ilyas - not used any where - check again and delete - AR re did the servlet associated with this - ForgotSendEmail
-    public void setUserDetails(Integer userid, String randvalue, Date expdate, Date exptime) throws SQLException {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-
-            Date expdatee = new Date();
-
-            java.sql.Date sdat = new java.sql.Date(expdate.getYear(), expdate.getMonth(), expdate.getDate());
-            long time3 = System.currentTimeMillis();
-
-            query_string = "Insert into tbl_forgot_Password(userid, randomlink, expdate, exptime) Values (?,?,?,?)";
-
-            prepared_statement = connection.prepareStatement(query_string);
-            prepared_statement.setString(1, String.valueOf(userid));
-            prepared_statement.setString(2, randvalue);
-            prepared_statement.setDate(3, sdat);
-            prepared_statement.setLong(4, time3);
-
-            prepared_statement.executeUpdate();
-
-        } catch (Exception e) {
-//            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-
-    }
+   
 
     //TODO Ilyas - not used any where - check again and delete - AR re did the servlet associated with this - ResetUserPassword
     public void resetPassword(String id, String password) throws SQLException {
@@ -356,38 +326,6 @@ public class SqlMethods {
             close(result_set, prepared_statement);
         }
         return mapper_file_name;
-    }
-
-    public JSONObject getJSONCompanyPreferences(Integer companyId) {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-
-        PGobject pgobject = new PGobject();
-        JSONParser parser = new JSONParser();
-        org.json.simple.JSONObject userPreferencesJSONObject = new org.json.simple.JSONObject();
-
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "Select * from company_preferences where fk_company_id=" + companyId + "";
-            logger.info(query_string);
-            prepared_statement = connection.prepareStatement(query_string);
-
-            result_set = prepared_statement.executeQuery();
-
-            if (result_set.next()) {
-                pgobject = (PGobject) result_set.getObject(IConstants.kUserPreferencesTableKey);
-            }
-            pgobject.setType("json");
-            String obj = pgobject.getValue();
-            userPreferencesJSONObject = (org.json.simple.JSONObject) parser.parse(obj);
-
-        } catch (Exception e) {
-            logger.error("Exception in SqlMethods - getJSONUserPreferences" + e.getMessage());
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return userPreferencesJSONObject;
     }
 
     public Integer getStudioID(Integer company) throws SQLException {

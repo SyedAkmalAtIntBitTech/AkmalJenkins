@@ -46,8 +46,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import social.controller.PostToFacebook;
-import social.controller.PostToTwitter;
+import com.intbittech.social.PostToFacebook;
+import com.intbittech.social.PostToTwitter;
 
 /**
  *

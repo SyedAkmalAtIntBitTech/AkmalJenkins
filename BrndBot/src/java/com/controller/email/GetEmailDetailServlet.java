@@ -6,7 +6,7 @@
 package com.controller.email;
 
 import com.google.gson.Gson;
-import email.mandrill.MandrillApiHandler;
+import com.intbittech.email.mandrill.MandrillApiHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URISyntaxException;

@@ -25,10 +25,10 @@ import java.util.List;
 import java.util.Map;
 import javax.xml.bind.JAXBElement;
 import javax.xml.datatype.XMLGregorianCalendar;
-import mindbody.controller.MindBodyClass;
-import mindbody.controller.MindBodyDataMapper;
-import mindbody.controller.MindBodyDuration;
-import mindbody.controller.MindBodyProcessedData;
+import com.intbittech.mindbody.MindBodyClass;
+import com.intbittech.mindbody.MindBodyDataMapper;
+import com.intbittech.mindbody.MindBodyDuration;
+import com.intbittech.mindbody.MindBodyProcessedData;
 import org.json.JSONException;
 import org.json.simple.JSONArray;
 

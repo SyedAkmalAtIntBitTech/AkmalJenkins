@@ -231,10 +231,6 @@
     </servlet-mapping>
     
     <servlet-mapping>
-        <servlet-name>SendEmail</servlet-name>
-        <url-pattern>/SendEmail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ServletUploadFonts</servlet-name>
         <url-pattern>/ServletUploadFonts</url-pattern>
     </servlet-mapping>

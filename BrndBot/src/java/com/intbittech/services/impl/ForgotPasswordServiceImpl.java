@@ -12,17 +12,17 @@ import com.intbittech.model.ForgotPassword;
 import com.intbittech.model.Users;
 import com.intbittech.services.ForgotPasswordService;
 import com.intbittech.services.UsersService;
-import email.mandrill.Message;
-import email.mandrill.Recipient;
-import email.mandrill.RecipientMetadata;
-import email.mandrill.SendMail;
+import com.intbittech.email.mandrill.Message;
+import com.intbittech.email.mandrill.Recipient;
+import com.intbittech.email.mandrill.RecipientMetadata;
+import com.intbittech.email.mandrill.SendMail;
+import static com.intbittech.email.mandrill.SendMail.MANDRILL_KEY;
 import java.util.ArrayList;
 import java.util.Date;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import static social.controller.SendAnEmail.MANDRILL_KEY;
 
 /**
  *

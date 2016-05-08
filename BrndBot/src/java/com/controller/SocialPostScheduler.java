@@ -10,10 +10,10 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import social.controller.ScheduleAnEmail;
-import social.controller.ScheduleAnRecurringEmail;
-import social.controller.ScheduleFacebookPost;
-import social.controller.ScheduleTwitterPost;
+import com.intbittech.social.ScheduleAnEmail;
+import com.intbittech.social.ScheduleAnRecurringEmail;
+import com.intbittech.social.ScheduleFacebookPost;
+import com.intbittech.social.ScheduleTwitterPost;
 
 /**
  *

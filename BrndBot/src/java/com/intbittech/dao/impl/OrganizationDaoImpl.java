@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -81,7 +82,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(Organization.class)
                     .setFetchMode("fkOrganizationTypeId", FetchMode.JOIN)
-                    .add(Restrictions.eq("fkOrganizationTypeId.organizationTypeId", OrganizationTypeConstants.organization.getOrganizationType()));
+                    .add(Restrictions.eq("fkOrganizationTypeId.organizationTypeId", OrganizationTypeConstants.organization.getOrganizationType()))
             if (criteria.list().isEmpty()) {
                 return null;
             }

@@ -11,12 +11,13 @@ import com.intbit.util.ServletUtil;
 import com.intbittech.dao.impl.EmailHistoryDAO;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.services.SendEmailService;
-import email.mandrill.MandrillApiHandler;
-import email.mandrill.Message;
-import email.mandrill.MessageResponses;
-import email.mandrill.Recipient;
-import email.mandrill.RecipientMetadata;
-import email.mandrill.SendMail;
+import com.intbittech.email.mandrill.MandrillApiHandler;
+import com.intbittech.email.mandrill.Message;
+import com.intbittech.email.mandrill.MessageResponses;
+import com.intbittech.email.mandrill.Recipient;
+import com.intbittech.email.mandrill.RecipientMetadata;
+import com.intbittech.email.mandrill.SendMail;
+import static com.intbittech.email.mandrill.SendMail.MANDRILL_KEY;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -27,7 +28,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import static social.controller.SendAnEmail.MANDRILL_KEY;
 
 /**
  *
