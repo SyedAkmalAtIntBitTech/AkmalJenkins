@@ -82,7 +82,7 @@ public class OrganizationDaoImpl implements OrganizationDao {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(Organization.class)
                     .setFetchMode("fkOrganizationTypeId", FetchMode.JOIN)
-                    .add(Restrictions.eq("fkOrganizationTypeId.organizationTypeId", OrganizationTypeConstants.organization.getOrganizationType()))
+                    .add(Restrictions.eq("fkOrganizationTypeId.organizationTypeId", OrganizationTypeConstants.organization.getOrganizationType()));
             if (criteria.list().isEmpty()) {
                 return null;
             }
