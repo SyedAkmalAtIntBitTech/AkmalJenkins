@@ -277,8 +277,7 @@ function onboardingcontroller($scope,$http) {
                 {
                    $("#username").val(emailId);
                    $("#userpassword").val(userPassword);
-//                   $("#signform").submit();
-                   window.open(getHost()+'signup/company', "_self");
+                   $("#signform").submit();
                 }
             })
             .error(function (data, status) {
