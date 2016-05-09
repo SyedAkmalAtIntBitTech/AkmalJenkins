@@ -5,6 +5,8 @@
  */
 package com.intbittech.utility;
 
+import com.divtohtml.ProcessHTML;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
@@ -29,6 +31,9 @@ public class MapUtility {
         for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
             if (entry.getValue() instanceof String) {
                 newMap.put(entry.getKey(), (String) entry.getValue());
+            } else if (entry.getValue() instanceof Date) {
+                String dateString = ProcessHTML.inputFormat.format(entry.getValue());
+                newMap.put(entry.getKey(), dateString);
             }
         }
         return newMap;

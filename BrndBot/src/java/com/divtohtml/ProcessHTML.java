@@ -52,7 +52,7 @@ public class ProcessHTML {
     private final Map<String, String> externalSourceMapper;
     private final String userLogoURL;
     
-    private static DateFormat inputFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+    public static DateFormat inputFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
 
     //color hash map should have keys with color1,color2
     public ProcessHTML(String htmlContent, HashMap<String, String> colorHashmap, Map<String, String> externalSourceMapper, String logoURL) {
