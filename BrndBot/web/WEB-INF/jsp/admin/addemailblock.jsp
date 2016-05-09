@@ -8,15 +8,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+       
       <title>Add a new block</title>
     </head>
     <body ng-app  ng-controller="organizationcontroller">
-       
+        
         <div id="addEmailBlockPopUp" class="popUp_background">
-             <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer"></div>
+            
+            <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer"></div>
+           
         <div  class="popUp">
+            
              <div class="content-area_header">
+                  
                 <div class="popUp_title fleft"> Add a new Block </div>
             </div>
             <div class="inputSection col1of2" ng-init="getAllExternalSourceKeywordLookups()">

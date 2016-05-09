@@ -8,12 +8,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <title>Add a new category</title>
     </head>
     <body ng-app  ng-controller="organizationcontroller">
-        <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer"></div>
+        
         <div id="addSubCategoryPopup" class="popUp_background">
+            <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer"></div>
         <div  class="popUp">
             <div class="content-area_header">
                 <div class="popUp_title fleft"> Add a new sub-category </div>

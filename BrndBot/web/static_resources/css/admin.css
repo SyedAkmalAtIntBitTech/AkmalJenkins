@@ -517,6 +517,7 @@ padding: 5px 45px;
     width: 991px;
     padding-bottom: 30px;
     height:474px;
+    overflow-y: auto;
 }
 
 .popUp_title{
