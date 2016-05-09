@@ -14,7 +14,6 @@
     <%--<%@ include file="checksession.jsp" %>--%>
     <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="css/bootstrap.css"></link>
-    <script type="text/javascript" src="js/angular.min.js"></script>  
     <script src="js/configurations.js" type="text/javascript"></script>
     <script src="js/alertmessage.js" type="text/javascript"></script>
 

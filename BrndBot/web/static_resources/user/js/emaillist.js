@@ -352,6 +352,7 @@
                return true;
             }
  function emailHistory($scope, $http) {
+                showOverlay();
                 $scope.displayemailhistory = function (){
                     showOverlay();
                     $http({
@@ -379,8 +380,8 @@
                 }
             }
             function EmailListController($scope, $http) {
-                $("#addemlstbtn").show();
-                
+                $("#addemlstbtn").show();                   
+                showOverlay();
                 $scope.getEmailSettings = function(){     
                 showOverlay();
                 var email_settings = {"type": "get"};                
@@ -762,6 +763,7 @@ $edit=0;
                     });
                 };
                 $scope.showEmailListWithContacts = function () {
+                    $("#addemlstbtn").show();
                     showOverlay();
                     $("#scrl").show();
                     $(".emaillist").show();
@@ -770,8 +772,10 @@ $edit=0;
                         method: 'GET',
 //                        url: getHost() + 'GetEmailLists?update=allEmailListWithNoOfContacts'
                         url: getHost() + '/emaillist/get?update=allEmailListWithNoOfContacts&emailListName=null',
-                    }).success(function (data, status, headers, config) {  
-//                        alert(JSON.stringify(JSON.parse(data.d.details)));
+                    }).success(function (data, status, headers, config) { 
+                        if(location.search != "?emaildrafts=1"){
+                            $("#addemlstbtn").show();
+                        }//                        alert(JSON.stringify(JSON.parse(data.d.details)));
                         var parseData=JSON.parse(data.d.details);
                         $scope.emailLists = parseData.allEmailListWithNoOfContacts.user; 
                         $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
@@ -1057,6 +1061,7 @@ $edit=0;
             
         $scope.getAllDrafts = function(){
             showOverlay();
+            $("#addemlstbtn").hide();
             $("#emaildraftsection").hide();
             $http({
                 method : 'GET',

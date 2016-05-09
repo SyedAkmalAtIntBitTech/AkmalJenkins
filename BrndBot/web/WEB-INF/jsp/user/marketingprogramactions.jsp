@@ -296,11 +296,12 @@
                                 <script>
                                             var picker = new Pikaday(
                                             {
-                                            field: document.getElementById('progactdatepicker'),
-                                                    firstDay: 1,
-                                                    minDate: new Date(2000, 0, 1),
-                                                    maxDate: new Date(2050, 12, 31),
-                                                    yearRange: [2000, 2050]
+                                                format: ('ddd MMM DD YYYY'),
+                                                field: document.getElementById('progactdatepicker'),
+                                                firstDay: 1,
+                                                minDate: new Date(2000, 0, 1),
+                                                maxDate: new Date(2050, 12, 31),
+                                                yearRange: [2000, 2050]
                                             });                                
                                 </script>
                             </div>

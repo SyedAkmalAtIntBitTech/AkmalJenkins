@@ -214,38 +214,42 @@ function controllerUserChanges($scope, $http) {
     };
     $scope.showColors = function () {
         showOverlay();
-
         $http({
             method: 'GET',
             url: getHost() + 'settings/getColors'
         }).success(function (data, status, headers, config) {
+            hideOverlay();
             var parseData = JSON.parse(data.d.details[0]);
             $scope.user_preferences_colors = JSON.parse(JSON.stringify(parseData));
         }).error(function (data, status, headers, config) {
-            alert(nodataerror);
+            hideOverlay();
+            alert(JSON.stringify(data));
+//            alert(nodataerror);
         });
 
-        $http({
-            method: 'GET',
-            url: 'GetColorPalettes'
-        }).success(function (data, status, headers, config) {
-
-            $scope.themes = data;
-            hideOverlay();
-            if (data === error) {
-            }
-        }).error(function (data, status, headers, config) {
-            hideOverlay();
-            alert(nodataerror);
-        });
+//        $http({
+//            method: 'GET',
+//            url: getHost()+'GetColorPalettes'
+//        }).success(function (data, status, headers, config) {
+//
+//            $scope.themes = data;
+//            hideOverlay();
+//            if (data === error) {
+//            }
+//        }).error(function (data, status, headers, config) {
+//            hideOverlay();
+//            alert(nodataerror);
+//        });
 
     };
 
     $scope.getLogoColors = function () {
+        showOverlay();
         $http({
             method: 'GET',
             url: getHost() +'onboarding/getColorsForLogo'
         }).success(function (data, status, headers, config) {
+//          alert(JSON.stringify(data.d.details));
             $scope.color =data.d.details;
             if (data === error) {
             }
