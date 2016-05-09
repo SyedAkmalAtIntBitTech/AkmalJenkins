@@ -426,3 +426,19 @@ td,
 th {
   padding: 0;
 }
+@media screen and (min-height:900px) and (max-height:1500px)
+{
+    .popup-screen{
+        position: relative;
+        top: 121px;
+        left: 223px;
+        
+    }
+    .emailPreview{
+        position: relative;
+        top: -50px;
+        left: 223px;
+    }
+    
+    
+}
