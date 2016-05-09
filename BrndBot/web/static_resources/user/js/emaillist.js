@@ -973,9 +973,9 @@ $edit=0;
                 $('#slider-button').click();
             });
                 
-            $scope.showdraftpopup = function (Id,categoryId,emailSubject,editdate,subCategoryId,subCategoryName){
+            $scope.showdraftpopup = function (Id,categoryId,emailSubject,editdate,subCategoryId,mindbodyId,lookupId){
             $slider=2;
-//            alert("draftid.. "+Id+" ..categoryId.. "+categoryId+" ..emailSubject.. "+emailSubject+" ..editdate.. "+editdate+" ..subCategoryId.. "+subCategoryId+" ..subCategoryName.. "+subCategoryName);
+//            alert("draftid.. "+Id+" ..categoryId.. "+categoryId+" ..mindbodyId.. "+mindbodyId+" ..lookupId.. "+lookupId+" ..emailSubject.. "+emailSubject);
             sliderDialog = "#emaildraftpopup";
             prevSliderDialog = "#emaildraftpopup";
             $http({
@@ -997,8 +997,9 @@ $edit=0;
                 $scope.emailsubject = emailSubject;
                 $scope.editdate = editdate;
                 $scope.subcategoryid = subCategoryId;
-                $scope.subcategoryname = subCategoryName;
-            $('#slider-button').click();                    
+                $scope.mindbodyId = mindbodyId;
+                $scope.lookupId = lookupId;
+                $('#slider-button').click();                    
            };
             
         $scope.deletedrafts = function (type,id) {
@@ -1075,10 +1076,9 @@ $edit=0;
             });            
         };
 
-        $scope.editDrafts = function(draft_id, category_id,email_subject, sub_category_id, sub_category_name){
+        $scope.editDrafts = function(draft_id, category_id,email_subject, sub_category_id, mindbodyId, lookupId){
             var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id, 
-                        "sub_category_id": sub_category_id, 
-                        "sub_category_name": sub_category_name};
+                        "sub_category_id": sub_category_id};
 //                    alert(JSON.stringify(draftdetails));
             $http({
 
@@ -1091,7 +1091,7 @@ $edit=0;
                     alert(draftsavingerror)
                 }else {
 //                    draftId=null&categoryId=18&subCategoryId=7&emailSubject=sub&mindbodyId=75031&LookupId=4
-                    window.open(getHost() + 'user/emaileditor?id='+null+'&draftid='+draft_id+'&subject='+email_subject, "_self");                    
+                    window.open(getHost() + 'user/emaileditor?draftId='+draft_id+'&emailSubject='+email_subject+'&categoryId='+category_id+'&subCategoryId='+sub_category_id+'&mindbodyId='+mindbodyId+'&LookupId='+lookupId, "_self");                    
 
                 }
             }).error(function(data, status) {
