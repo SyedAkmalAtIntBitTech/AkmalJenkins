@@ -73,8 +73,14 @@ function controllerSocial($scope, $http) {
         }).success(function (data, status, headers, config) {
             var facebookDetails = data.d.message;
             var facebookDetailsArray = facebookDetails.split(",");
-            $scope.user_profile_page = facebookDetailsArray[1];
-            $scope.fb_default_page_name = facebookDetailsArray[2];
+            if (facebookDetailsArray[1] === "null") {
+                $scope.user_profile_page = " - ";
+                $scope.fb_default_page_name = " - ";
+                $("#facebook").text("Login");
+            } else {
+                $scope.user_profile_page = facebookDetailsArray[1];
+                $scope.fb_default_page_name = facebookDetailsArray[2];
+            }
 
         }).error(function (data, status, headers, config) {
             alert(nodataerror);
@@ -102,18 +108,16 @@ function controllerSocial($scope, $http) {
                 url: getHost() + 'settings/fbGetToken/' + code,
                 method: "GET"
             }).success(function (data) {
-                alert("da"+JSON.stringify(data));
-                alert(JSON.stringify(data.d.details[0].user_profile_name));
                 $("#fbmanagePagePopUp").show();
                 $scope.fbPagesDetails = data.d.details[0].fbPages;
-                 $scope.fbProfileName = data.d.details[0].user_profile_name;
+                $scope.fbProfileName = data.d.details[0].user_profile_name;
             });
         }
     };
-    $scope.setPageAccessToken = function (accessToken, pageName,profileName) {
+    $scope.setPageAccessToken = function (accessToken, pageName, profileName) {
         localStorage.setItem("CurrentFbAccessToken", accessToken);
         localStorage.setItem("CurrentFbPageName", pageName);
-        localStorage.setItem("FbProfileName",profileName);
+        localStorage.setItem("FbProfileName", profileName);
     };
     $scope.postToSelectedPage = function () {
         var addDafaultmanagePage = $("#setDefaultManagePage").prop('checked');
@@ -125,17 +129,16 @@ function controllerSocial($scope, $http) {
                     access_token_method: "setAccessToken",
                     access_token: localStorage.getItem("CurrentFbAccessToken"),
                     default_page_name: localStorage.getItem("CurrentFbPageName"),
-                    fb_user_profile_name:localStorage.getItem("FbProfileName")
+                    fb_user_profile_name: localStorage.getItem("FbProfileName")
                 })
             }).success(function (data) {
                 $("#fbmanagePagePopUp").hide();
                 window.location = getHost() + "user/social";
             });
-        }
-        else{
+        } else {
             alert("Plese select a page");
         }
- 
+
     };
     $scope.clearFacebookDetails = function () {
         if (confirm(clearconfirm)) {
@@ -163,13 +166,18 @@ function controllerSocial($scope, $http) {
                 access_token_method: "getAccessToken"
             })
         }).success(function (data, status, headers, config) {
-            alert(JSON.stringify(data));
             var twitterData = data.d.message.split(",");
             var twitterprofileName = twitterData[2];
-            $scope.twitterProfileName = twitterprofileName;
-
+            if (typeof twitterprofileName === "undefined") {
+                $scope.twitterProfileName = " - ";
+                $("#twitterLogoutButton").hide();
+                $("#twitterLogInButton").show();
+            } else {
+                $scope.twitterProfileName = twitterprofileName;
+                $("#twitterLogoutButton").show();
+                $("#twitterLogInButton").hide();
+            }
         }).error(function (data, status, headers, config) {
-            alert(data);
             alert(nodataerror);
         });
     };
@@ -191,4 +199,38 @@ function controllerSocial($scope, $http) {
             alert(detailsclear);
         }
     };
-}    
+}
+function getAuthURLFromSocialHub() {
+    $.ajax({
+        url: getHost() + 'settings/twitterAuthURL.do',
+        method: 'GET',
+        success: function (responseText) {
+            $("#twitterSetPinPopUpFromSocialhub").show();
+            $("#twitterlink").html("<a href='" + responseText.d.details[0] + "' target='_blank'>get your pin</a>");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert("error:" + JSON.stringify(jqXHR));
+        }
+    });
+}
+
+function setTwitterAccessTokenFromSocialHub() {
+    var pin = $("#pinTextBox").val();
+    if (pin.length > 0) {
+        $.ajax({
+            url: getHost() + 'settings/twitterGetToken/' + pin,
+            method: 'GET',
+            success: function (responseText) {
+                $("#twitterSetPinPopUpFromSocialhub").hide();
+                window.location = getHost() + "user/social";
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(JSON.stringify(jqXHR));
+            }
+        });
+
+    } else {
+        alert(pinerror);
+        $("#pinTextBox").focus();
+    }
+}

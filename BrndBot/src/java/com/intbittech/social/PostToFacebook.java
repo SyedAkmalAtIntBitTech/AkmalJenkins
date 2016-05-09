@@ -25,7 +25,6 @@ import com.intbittech.utility.Utility;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-
 /**
  *
  * @author AR
@@ -34,8 +33,9 @@ import org.springframework.stereotype.Service;
 public class PostToFacebook {
 
     private final static Logger logger = Logger.getLogger(PostToFacebook.class);
-public static String postStatus(String title, String fileImagePath, String posttext, String imagePostURL, String getImageFile, String url, String description, String imageType, Integer companyID, String htmlString, String accessToken) {
-  String returnMessage = "success";
+
+    public static String postStatus(String title, String fileImagePath, String posttext, String imagePostURL, String getImageFile, String url, String description, String imageType, Integer companyID, String htmlString, String accessToken) {
+        String returnMessage = "success";
         String status = "";
         try {
             Facebook facebook = new FacebookFactory().getInstance();
@@ -49,44 +49,58 @@ public static String postStatus(String title, String fileImagePath, String postt
             logger.info("message while facebook post:" + imageContextPath);
 
             if (title.equals("")) {
-
-                Media media;
-                if (imageType.equals("url")) {
-                    media = new Media("xyz", new URL(fileImagePath).openStream());
+                if (!imageType.isEmpty()) {
+                    Media media;
+                    if (imageType.equals("url")) {
+                        media = new Media("xyz", new URL(fileImagePath).openStream());
+                    } else {
+                        media = new Media(new File(fileImagePath));
+                    }
+                    PhotoUpdate update = new PhotoUpdate(media);
+                    update.message(posttext);
+                    status = facebook.postPhoto(update);
                 } else {
-                    media = new Media(new File(fileImagePath));
+                    PostUpdate post = new PostUpdate(posttext);
+                    status = facebook.postFeed(post);
                 }
-                PhotoUpdate update = new PhotoUpdate(media);
-                update.message(posttext);
-                status = facebook.postPhoto(update);
+
             } else {
                 logger.info("title:" + title);
-                if (imageType.equals("layout")) {
-                    PostUpdate post = new PostUpdate(posttext)
-                            .picture(new URL(imageContextPath + "DownloadImage?image_type=LAYOUT_IMAGES&image_name=" + getImageFile))
-                            .name(title)
-                            .link(new URL(url))
-                            .description(description);
-                    status = facebook.postFeed(post);
+                if (!imageType.isEmpty()) {
+                    if (imageType.equals("layout")) {
+                        PostUpdate post = new PostUpdate(posttext)
+                                .picture(new URL(imageContextPath + "DownloadImage?image_type=LAYOUT_IMAGES&image_name=" + getImageFile))
+                                .name(title)
+                                .link(new URL(url))
+                                .description(description);
+                        status = facebook.postFeed(post);
 
-                } else if (imageType.equals("gallery")) {
+                    } else if (imageType.equals("gallery")) {
+                        PostUpdate post = new PostUpdate(posttext)
+                                .picture(new URL(imageContextPath + "DownloadImage?image_type=GALLERY&image_name=" + getImageFile + "&user_id=" + companyID))
+                                .name(title)
+                                .link(new URL(url))
+                                .description(description);
+                        status = facebook.postFeed(post);
+                    } else if (imageType.equals("url")) {
+                        PostUpdate post = new PostUpdate(posttext)
+                                .picture(new URL(getImageFile))
+                                .name(title)
+                                .link(new URL(url))
+                                .description(description);
+                        status = facebook.postFeed(post);
+                    }
+                    if (!(status.equals(""))) {
+                        status = returnMessage;
+                    }
+                } else {
                     PostUpdate post = new PostUpdate(posttext)
-                            .picture(new URL(imageContextPath + "DownloadImage?image_type=GALLERY&image_name=" + getImageFile + "&user_id=" + companyID))
-                            .name(title)
-                            .link(new URL(url))
-                            .description(description);
-                    status = facebook.postFeed(post);
-                } else if (imageType.equals("url")) {
-                    PostUpdate post = new PostUpdate(posttext)
-                            .picture(new URL(getImageFile))
                             .name(title)
                             .link(new URL(url))
                             .description(description);
                     status = facebook.postFeed(post);
                 }
-                if (!(status.equals(""))) {
-                    status = returnMessage;
-                }
+
             }
             logger.info("message while facebook post:" + status);
             try {
@@ -103,15 +117,16 @@ public static String postStatus(String title, String fileImagePath, String postt
             logger.error(e.getMessage());
             throw new ProcessFailed("Could post on facebook");
         }
-        return returnMessage;    
-}
+        return returnMessage;
+    }
+
     public static String postStatus(String title,
             String file_image_path, String posttext,
             String imagePostURL, String getImageFile,
             String url, String description, String imageType,
             Integer companyID, String htmlString) throws MalformedURLException, IOException, Throwable {
-       return postStatus(title, file_image_path, posttext, imagePostURL, getImageFile, url, description, imageType, companyID, htmlString,getFacebookAccessToken(companyID));
-       
+        return postStatus(title, file_image_path, posttext, imagePostURL, getImageFile, url, description, imageType, companyID, htmlString, getFacebookAccessToken(companyID));
+
     }
 
     private static HashMap<String, String> getFacebookCompanyPreferences(Integer companyId) throws Throwable {
@@ -119,7 +134,7 @@ public static String postStatus(String title, String fileImagePath, String postt
         return companyPreferencesFacebook.getCompanyPreferenceForAccessToken(companyId);
     }
 
-    private  static String getFacebookAccessToken(Integer companyId) throws Throwable {
+    private static String getFacebookAccessToken(Integer companyId) throws Throwable {
         HashMap<String, String> hashMap = getFacebookCompanyPreferences(companyId);
         if (hashMap != null) {
             return hashMap.get("fb_default_page_access_token");
@@ -127,5 +142,4 @@ public static String postStatus(String title, String fileImagePath, String postt
         return "";
     }
 
-    
 }
