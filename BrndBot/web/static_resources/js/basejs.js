@@ -29,9 +29,15 @@ $(document).ready(function () {
         $("#editImage").hide();
         $("#emailSchedulePopUp").hide();
         $("#emailPreviewPopUp").hide();
+        $("#EmailBlockPopUp").hide();
         
     
     });
+     $("#closePrev").click(function(){
+                $("#addEmailBlockPopUp").hide();
+                $("#addOrganizationPopupDiv").hide();
+                     
+            });
 
   $("#emailschedule").click(function () {
     alert();
@@ -124,25 +130,3 @@ $("#addMarketingProgramsPopupDiv").click(function () {
 
 });
 
-
-                 /* NavBar Menu DropDown
-                    When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function showDropDown(id) {
-    document.getElementById(id).classList.toggle("show");
-}
-
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}

@@ -10,8 +10,9 @@
     <head>
     </head>
     <body ng-app  ng-controller="organizationcontroller">
-        <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer"></div>
+        
         <div id="addEmailTemplatePopUp" class="popUp_background">
+            <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer"></div>
             <div  class="popUpAllTemplate" >
             <div class="content-area_header" >
                 <div class="popUp_title fleft"> Add a Template</div>
