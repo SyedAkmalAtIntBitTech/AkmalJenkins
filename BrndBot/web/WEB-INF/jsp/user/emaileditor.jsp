@@ -75,6 +75,7 @@
          String emailSubject= request.getParameter("emailSubject");
          String mindbodyId=request.getParameter("mindbodyId");
          String LookupId=request.getParameter("LookupId");
+         String draft_id=request.getParameter("draftId");
 //        email_subject = request.getParameter("subject"); %>
     <%
 //        try {
@@ -808,7 +809,7 @@
                 $("#previewcontent").empty();
                 $("#previewcontent").append(responseText.d.details);
 //                var LookupId=$("#LookupId").val();
-                if (draft_id == "0"){
+                if (draft_id == "0" || draft_id == "null" ||draft_id == null){
                 $.ajax({
                     url: getHost() + "saveEmailDrafts",
                     method: "post",
@@ -833,18 +834,19 @@
                     }
                 });
             } else {
+//                    alert(draft_id+".."+lookupId+".."+mindbodyData+".."+categoryId+".."+subCategoryId+".."+email_subject);
                 $.ajax({
                     url: getHost() + "updateEmailDraft",
                     method: "post",
-                    data:{
-                        draftid: draft_id,
-                        bodyString :$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                    data:JSON.stringify({
+                        draftId: draft_id.toString(),
+                        bodyString :$('#edit').froalaEditor('html.get'), 
                         lookupId : lookupId,
                         mindbodyData : mindbodyData,
                         categoryId : categoryId,
                         subCategoryId : subCategoryId,
                         emailSubject : email_subject
-                    },
+                    }),
                     success: function (responseText) {
                     if (responseText == "true"){
                     alert("Draft updated successfully.");

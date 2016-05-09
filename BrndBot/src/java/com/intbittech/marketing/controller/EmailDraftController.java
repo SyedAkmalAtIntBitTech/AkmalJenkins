@@ -104,8 +104,8 @@ public class EmailDraftController {
 
     @RequestMapping(value = "/updateEmailDraft", method = RequestMethod.POST)
     public @ResponseBody
-    String updateEmailDraft(@RequestParam("draftid") Integer draftId,
-            @RequestParam("bodyString") String bodyString, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, Throwable {
+    String updateEmailDraft(HttpServletRequest request,
+                    HttpServletResponse response) throws IOException, Throwable  {
         JSONObject json_object_email_draft = new JSONObject();
         try {
 
@@ -115,10 +115,12 @@ public class EmailDraftController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             String emailSubject = (String) requestBodyMap.get("emailSubject");
-            Integer categoryId = Integer.parseInt((String)requestBodyMap.get("categoryid"));
-            Integer subCategoryId = Integer.parseInt((String) requestBodyMap.get("subCategoryid"));
-            Integer lookupId = Integer.parseInt((String)requestBodyMap.get("lookupid"));
-            Integer mindbodyId = Integer.parseInt((String) requestBodyMap.get("mindbodydata"));
+            Integer categoryId = Integer.parseInt((String)requestBodyMap.get("categoryId"));
+            Integer subCategoryId = Integer.parseInt((String) requestBodyMap.get("subCategoryId"));
+            Integer lookupId = Integer.parseInt((String)requestBodyMap.get("lookupId"));
+            Integer mindbodyId = Integer.parseInt((String) requestBodyMap.get("mindbodyData"));
+            Integer draftId = Integer.parseInt((String) requestBodyMap.get("draftId"));
+            String bodyString =(String) requestBodyMap.get("bodyString");
             EmailDraft emaildraft = emaildraftservice.getById(draftId);
 
             EmailDraftModel emaildraftmodel = new EmailDraftModel();
