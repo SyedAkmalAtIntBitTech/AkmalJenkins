@@ -129,7 +129,8 @@
             $("#loadoverlaydiv").hide();
         }
         
-        $(document).ready(function(){    
+        $(document).ready(function(){
+             $('#edit').froalaEditor({key: FroalaLicenseKey});
             $('#edit').froalaEditor().show();
             $("#closePrev").click(function(){
                 $("#email_previewdiv").hide();
@@ -881,7 +882,7 @@
             $("#previewcontent").empty();
                 $("#previewcontent").append(responseText.d.details);               
                 // added by Syed Ilyas 16 dec 2015 - saves draft
-                if (draft_id == "0")
+                if (draft_id == "0" || draft_id == "null" || draft_id == null)
                 {
                     $.ajax({
                     url: getHost() + "saveEmailDrafts",
@@ -908,15 +909,15 @@
                     $.ajax({
                         url: getHost() + "updateEmailDraft",
                         method: "post",
-                        data:{
-                            draftid: draft_id,
+                        data:JSON.stringify({
+                            draftId: draft_id.toString(),
                             bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
                             lookupId : lookupId,
                             mindbodyData : mindbodyData,
                             categoryId : categoryId,
                             subCategoryId : subCategoryId,
                             emailSubject : email_subject
-                        },
+                        }),
                         success: function (responseText) {
                             if (responseText == "true")
                             {
