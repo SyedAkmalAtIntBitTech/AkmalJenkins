@@ -128,7 +128,8 @@
             $("#loadoverlaydiv").hide();
         }
         
-        $(document).ready(function(){    
+        $(document).ready(function(){
+             $('#edit').froalaEditor({key: FroalaLicenseKey});
             $('#edit').froalaEditor().show();
             $("#closePrev").click(function(){
                 $("#email_previewdiv").hide();
