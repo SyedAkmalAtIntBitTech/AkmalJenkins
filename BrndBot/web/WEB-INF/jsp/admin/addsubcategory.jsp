@@ -22,8 +22,8 @@
                 <div class="input_Label">Sub Category Name</div>
                 <input id="subCategoryName" class="input_Field" type="text"/>
                 <div class="input_Label">Optional External Source</div>
-                <select class="input_Field" id="optionalExternalSource">
-                    <option class="input_Field" value="{{ExternalSourceKeywordLookups.externalSourceKeywordId}}">{{ExternalSourceKeywordLookups.externalSourceName}}-{{ExternalSourceKeywordLookups.externalSourceKeywordName}}</option>
+                <select  class="input_Field" id="optionalExternalSource">
+                    <option ng-repeat="ExternalSourceKeywordLookup in ExternalSourceKeywordLookups" class="input_Field" value="{{ExternalSourceKeywordLookup.externalSourceKeywordId}}">{{ExternalSourceKeywordLookup.externalSourceName}}-{{ExternalSourceKeywordLookup.externalSourceKeywordName}}</option>
                 </select>
                 
                 <div id="addSubCategoryButton"  class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addSubCategory()">Create Sub Category</div>
