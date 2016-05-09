@@ -146,7 +146,8 @@ public class CompanyMarketingProgramController {
         List<CompanyMarketingProgram> companyMarketingProgramList = companyMarketingProgramService.getAllCompanyMarketingProgramByType(companyId, programType);
         JSONObject jsonObject = new JSONObject();
         JSONArray json_array = new JSONArray();
-
+        if(companyMarketingProgramList !=null)
+        {
         for (CompanyMarketingProgram companyMarketingProgramObject : companyMarketingProgramList) {
             JSONObject json_obj = new JSONObject();
             json_obj.put("id", companyMarketingProgramObject.getCompanyMarketingProgramId());
@@ -163,6 +164,7 @@ public class CompanyMarketingProgramController {
             }
             json_array.put(json_obj);
 
+        }
         }
         jsonObject.put("programs", json_array);
         return jsonObject.toString();
