@@ -196,22 +196,22 @@ app.controller('globalColors', function($scope,$http) {
                     $("#fontFamilyName").focus();
                     return false;
                    }
-                   if(fileName=="")
-                    {
-                     var ext = $('#fileName').val().split('.').pop().toLowerCase();
-                      if($.inArray(ext, ['ttf']) == -1) {
-                      alert(uploadTTF);
-                      return false;
-                       }
-                    }
-                    else
-                    {
-                        if(fontTypeData !=="ttf")
-                       {
-                           alert("Please choose ttf file.");
-                           return false;
-                       }
-                    }
+//                   if(fileName=="")
+//                    {
+//                     var ext = $('#fileName').val().split('.').pop().toLowerCase();
+//                      if($.inArray(ext, ['ttf']) == -1) {
+//                      alert(uploadTTF);
+//                      return false;
+//                       }
+//                    }
+//                    else
+//                    {
+//                        if(fontTypeData !=="ttf")
+//                       {
+//                           alert("Please choose ttf file.");
+//                           return false;
+//                       }
+//                    }
                       var fileType = fileName.split(".")[1];
                      
                        var fontDataObject = getFontData();
@@ -257,22 +257,22 @@ app.controller('globalColors', function($scope,$http) {
                     $("#fontFamilyName").focus();
                     return false;
                    }
-                  if(uploadFileName=="")
-                  {
-                   var ext = $('#uploadFileName').val().split('.').pop().toLowerCase();
-                    if($.inArray(ext, ['ttf']) == -1) {
-                        alert(uploadTTF);
-                        return false;
-                    }                    
-                 }
-                 else
-                 {
-                     if(fontTypeData !=="ttf")
-                    {
-                        alert("Please choose ttf file.");
-                        return false;
-                    }
-                 }
+//                  if(uploadFileName=="")
+//                  {
+//                   var ext = $('#uploadFileName').val().split('.').pop().toLowerCase();
+//                    if($.inArray(ext, ['ttf']) == -1) {
+//                        alert(uploadTTF);
+//                        return false;
+//                    }                    
+//                 }
+//                 else
+//                 {
+//                     if(fontTypeData !=="ttf")
+//                    {
+//                        alert("Please choose ttf file.");
+//                        return false;
+//                    }
+//                 }
                  var fileType = uploadFileName.split(".")[1];
                  var fontDataObject = getFontData();
                   
