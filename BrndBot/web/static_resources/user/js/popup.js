@@ -1290,7 +1290,8 @@ function isDefaultTwitterSet(){
                         success: function (responseText) {
                             alert("sucess"+JSON.stringify(responseText));
                             var twitterAccessToken = responseText.d.message;
-                            if((twitterAccessToken = null) || ( twitterAccessToken = "" ))
+                            alert(twitterAccessToken);
+                            if((twitterAccessToken === null) || ( twitterAccessToken === "" ))
                             {
                                 getAuthURL();
                             }

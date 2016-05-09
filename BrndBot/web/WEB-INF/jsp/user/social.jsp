@@ -174,7 +174,7 @@
             <div class="top-subnav-tabs-container">
                 <ul class="top-subnav-nav-elements">
                     <li class="top-subnav-link-active" id="fbsetting"> <a class="h3-active-subnav" ng-click="getFacebookDetails()">Facebook Settings</a></li>
-                    <li class="top-subnav-links" id="twsetting"> <a class="h3" ng-click="getTwitterDetails()">Twitter Settings</a></li>
+                    <li class="top-subnav-links" id="twsetting"> <a class="h3">Twitter Settings</a></li>
                 </ul>
             </div>
             <div class="dropdown-hub" id="socialdropdown">
@@ -239,8 +239,8 @@
                                                 <div class="slat-title email-list-slat-title col-1of1">Twitter</div>
                                                 <div id="twpagename" >
                                                     <div class="list-column-description col-1of1 sh3 fleft">Profile Name : {{twitterProfileName}}</div>
-                                                    <button id="twitterLogoutButton" class="twitterLogoutButton" name="change">Logout From Twitter</button>
-                                                    <button id="twitterclear" class="buttonchange" name="twitterclear" ng-click="clearTwitterDetails()">Clear</button>
+                                                    <button id="twitterLogoutButton" class="twitterLogoutButton" name="change" ng-click="clearTwitterDetails()">Logout From Twitter</button>
+                                                    <!--<button id="twitterclear" class="buttonchange" name="twitterclear">Clear</button>-->
                                                 </div>
                                             </div>
                                         </div>
