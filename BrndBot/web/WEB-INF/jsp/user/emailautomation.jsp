@@ -28,8 +28,9 @@
     <link rel="stylesheet" type="text/css" href="css/slat.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <link href="css/emailautomationeditor.css" rel="stylesheet" type="text/css"/>
-    
     <style>
+        #email_previewdiv{margin-left:0% !important;}
+        .pop-up-background{margin-top:2vw !important;}
         .fr-box.fr-code-view textarea.fr-code{
             padding-top: 35px !important;
         }
@@ -734,7 +735,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <link href="css/froala_editor.css" rel="stylesheet" type="text/css"/>
-    <!--<link href="css/popup.css" rel="stylesheet" type="text/css"/>-->
+    <link href="css/popup.css" rel="stylesheet" type="text/css"/>
     <link href="css/froala_style.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="css/plugins/code_view.css"/>
     <link rel="stylesheet" href="css/plugins/colors.css"/>
@@ -783,70 +784,96 @@
   <script>
      var rendomIframeFilename="";
        $(document).ready(function () {
+            $("#closePrev").click(function(){
+                $("#email_previewdiv").hide();
+                $('#fade').hide();                
+            });
             rendomIframeFilename=event.timeStamp;
-        });
-    
-        function show(id) {
-                var getId = id;
-                var dynamicStyle, dynamicWidth, dynamicHeight;
-                var imageUrl = "images/Phone.svg";
-                var id = '#dialog';
-                //Get the screen height and width
-                var maskHeight = $(document).height();
-                var maskWidth = $(window).width();
-                //Set heigth and width to mask to fill up the whole screen
-                $('#mask').css({'width':maskWidth, 'height':maskHeight});
-                //transition effect
-                $('#mask').fadeIn(500);
-                $('#mask').fadeTo("slow", 0.95);
-                //Get the window height and width
-                var winH = $(window).height();
-                var winW = $(window).width();
-                //Set the popup window to center
-                $(id).css('top', winH / 2 - $(id).height() / 2);
-                $(id).css('left', winW / 2 - $(id).width() / 2);
-                //transition effect
-                $(id).fadeIn(2000);
-                //if close button is clicked
-                $('.window .close').click(function (e) {
-        //Cancel the link behavior
-                e.preventDefault();
-                        $('#mask').hide();
-                        $('.window').hide();
-                });
-                //if mask is clicked
-                $('#mask').click(function () {
-                    $(this).hide();
-                    $('.window').hide();
-                });
+            $("#emailpreview").click(function(){   
+                $("#email_previewdiv").show();
+                var sendData = {
+                            htmlString: $('#edit').froalaEditor('html.get'),
+                            iframeName: rendomIframeFilename.toString()
+                        };
 
                 $.ajax({
-                    url: getHost() + "PreviewServlet",
-                    method: "post",
-                    data: {
-                        htmlString: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
-                        iframeName: rendomIframeFilename
-                      },
-                    success: function (responseText) {
-//                                        alert(responseText);
-                     if(getId === "iphone"){
-                        $('.window').css("top","110px");
-                        dynamicWidth="275";
-                        dynamicHeight="439";
-
-                        $(".window").empty();
-                        $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
-                        $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
-//                                        $("#imageDivPopup").append("<div style='width:"+(dynamicWidth-20)+"px;height:"+(dynamicHeight-60)+"px;margin-left:10px;position:relative;top:28px;overflow:scroll;'>"+responseText+"</div>");
-                        $("#imageDivPopup").append("<iframe style='width:320px;height:509px;position:relative;top:-47px;left:-22px;-webkit-transform: scale(0.696);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name="+rendomIframeFilename+".html'></iframe>");
-
-                        $('.window').show();
-                    }
-               }
-            }); 
-            
-    }       
-                    
+                        method: "POST",
+                        url: getHost() + "email/previewServlet",                                
+                        data: JSON.stringify(sendData),
+                        success: function (responseText) {
+        //                                    alert(JSON.stringify(responseText.d.details));
+                            $("#dynamictable5").empty();
+                            $("#dynamictable6").empty();
+                            var iframePath = getHost() +"download/HTML?fileName="+rendomIframeFilename+".html";
+                            $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
+                            $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
+                        }
+                }).error(function (error){alert(JSON.stringify(error));});
+                $("#fade").show();
+            });
+        });
+    
+     
+//        function show(id) {
+//                var getId = id;
+//                var dynamicStyle, dynamicWidth, dynamicHeight;
+//                var imageUrl = "images/Phone.svg";
+//                var id = '#dialog';
+//                //Get the screen height and width
+//                var maskHeight = $(document).height();
+//                var maskWidth = $(window).width();
+//                //Set heigth and width to mask to fill up the whole screen
+//                $('#mask').css({'width':maskWidth, 'height':maskHeight});
+//                //transition effect
+//                $('#mask').fadeIn(500);
+//                $('#mask').fadeTo("slow", 0.95);
+//                //Get the window height and width
+//                var winH = $(window).height();
+//                var winW = $(window).width();
+//                //Set the popup window to center
+//                $(id).css('top', winH / 2 - $(id).height() / 2);
+//                $(id).css('left', winW / 2 - $(id).width() / 2);
+//                //transition effect
+//                $(id).fadeIn(2000);
+//                //if close button is clicked
+//                $('.window .close').click(function (e) {
+//        //Cancel the link behavior
+//                e.preventDefault();
+//                        $('#mask').hide();
+//                        $('.window').hide();
+//                });
+//                //if mask is clicked
+//                $('#mask').click(function () {
+//                    $(this).hide();
+//                    $('.window').hide();
+//                });
+//
+//                $.ajax({
+//                    url: getHost() + "PreviewServlet",
+//                    method: "post",
+//                    data: {
+//                        htmlString: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
+//                        iframeName: rendomIframeFilename
+//                      },
+//                    success: function (responseText) {
+////                                        alert(responseText);
+//                     if(getId === "iphone"){
+//                        $('.window').css("top","110px");
+//                        dynamicWidth="275";
+//                        dynamicHeight="439";
+//
+//                        $(".window").empty();
+//                        $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
+//                        $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
+////                                        $("#imageDivPopup").append("<div style='width:"+(dynamicWidth-20)+"px;height:"+(dynamicHeight-60)+"px;margin-left:10px;position:relative;top:28px;overflow:scroll;'>"+responseText+"</div>");
+//                        $("#imageDivPopup").append("<iframe style='width:320px;height:509px;position:relative;top:-47px;left:-22px;-webkit-transform: scale(0.696);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name="+rendomIframeFilename+".html'></iframe>");
+//
+//                        $('.window').show();
+//                    }
+//               }
+//            }); 
+//            
+//    }       
                
 </script>     
         <div id="boxes">
@@ -1022,6 +1049,48 @@
   </div>
    </div>
    <div id="emailautomation" class="page-background">
+       <div id="fade" class="black_overlay" ></div>
+           <div id="email_previewdiv">
+        <div class="pop-up-background">
+            <div class="pop-up-container-emailPreview"> 
+                <a class=" exit-button-detail-ep link svg" href="" id="closePrev">
+                    <img type="image/svg+xml" src="images/close.svg" class="closeemailpreview" style="cursor:pointer;"> </img>
+                </a>
+                <div class="pop-up-title-emailpreview "> 
+                    <div class="emailPreview-header fleft">Email Preview</div>
+                </div>
+                <!--inner-->
+                <div class="pop-up-inner-ep height400">
+                    <div class="emailPreviews col-1of1 fleft"> 
+                        <div class="emailPreview-desktop-col  fleft">
+                            <div class="emailPreview-headers">Desktop Preview</div>
+                            <!--<div class="iphoneshow img-responsive" id="deskpreview" style="display: block; height: 300px; width: 295px; margin-left: 215px; margin-top: 50px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">-->
+                                <div class="content">  
+                                    <div id="dynamictable5" style="position: relative; width: 100%; border: none; overflow: scroll; height: 400px;background-color: rgb(255, 255, 255);" src="">
+                                    
+                                    </div>                   
+                                </div>
+                            <!--</div>-->
+                            <div class="desktopshow" style="display:none;">
+                                <iframe id='dynamictable' class="desktoppreview" src=''></iframe> 
+                            </div>                        
+                        </div>
+                        <div class="emailPreview-mobile-col fleft">
+                            <div class="emailPreview-headers">Mobile Preview</div>
+                            <div class="iphoneshow img-responsive" id="mobpreview" style="display: block; height: 370px; width: 100%; margin-left: 6px; margin-top: 0px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">
+                                <div class="content">  
+                                    <div  id="dynamictable6" style="position: relative; width: 100%; height: 400px; overflow: scroll; border: none; background-color: rgb(255, 255, 255);">
+                                    
+                                    </div>                
+                                </div>
+                            <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <!--           <div class="col-md-1 col-lg-1 col-sm-2 halfcol" >
                <%--<jsp:include page="leftmenu.html"/>--%>
            </div>-->
@@ -1201,11 +1270,11 @@
 
         </div>
     </div>
-   </div>
+   </div>           
         <div class="bottom-cta-bar" id="editpreviewtemplatebottom">
          <div class="bottom-cta-button-container col-inlineflex col-1of1">
              <div class="editemail fontpnr col-1of4">Edit this Email Automation Action</div>   
-             <div class="mobileprev fontpnr col-1of4" id="iphone" class="img-responsive ptr" onclick="show('iphone');">Mobile Preview</div>
+             <div class="mobileprev fontpnr col-1of4" id="emailpreview" class="img-responsive ptr" >Email Preview</div>
              <div class="add-action-button md-button button-text-1 paddingperfectbtn col-1of4" type="button" ng-click="addUpdateRecuringAction()">save</div>
          </div>
         </div>
