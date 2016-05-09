@@ -108,7 +108,12 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
             if (!StringUtility.isEmpty(companyPreferences.getCompanyPreferences())) {
                 jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
             }
-            jsonObject.put(IConstants.kColors, companyColorsDetailsList);
+            JSONArray colorsArray = new JSONArray();
+            colorsArray.add(companyColorsDetailsList.getColor1());
+            colorsArray.add(companyColorsDetailsList.getColor2());
+            colorsArray.add(companyColorsDetailsList.getColor3());
+            colorsArray.add(companyColorsDetailsList.getColor4());
+            jsonObject.put(IConstants.kColors, colorsArray);
             String colorJsonString = AppConstants.GSON.toJson(jsonObject);
             companyPreferences.setCompanyPreferences(colorJsonString);
             updatePreferences(companyPreferences);

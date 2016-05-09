@@ -49,7 +49,7 @@ public class FileHandlerUtil {
      * @throws Throwable 
      */
     public static String saveAdminGlobalImage(String imageFileName, String imageFileType, String base64ImageString) throws Throwable {
-        String filePath = AppConstants.BASE_ADMIN_FONT_UPLOAD_PATH;
+        String filePath = AppConstants.BASE_ADMIN_GLOBAL_IMAGE_UPLOAD_PATH;
         String fileNameWithExtension = imageFileName + "." + imageFileType;
         saveImageWithOrignalName(fileNameWithExtension, base64ImageString, filePath);
         return fileNameWithExtension;
