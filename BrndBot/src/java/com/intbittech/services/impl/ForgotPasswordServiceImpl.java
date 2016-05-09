@@ -76,7 +76,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 
         message.setKey(MANDRILL_KEY);
 //                String url=request.getRequestURL().toString().replace("SendEmail","");  
-        message.setHtml("<html><body>" + imageContextPath + "changepassword.jsp?userid=" + hashURL + "</body></html>");
+        message.setHtml("<html><body>" + imageContextPath + "changepassword?userid=" + hashURL + "</body></html>");
         message.setText("text");
         message.setSubject("your password changing link for our account");
         message.setFrom_email("intbit@intbittech.com");

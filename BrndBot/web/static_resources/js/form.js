@@ -82,6 +82,7 @@ function ForgotPassController($scope, $http) {
     }
 
     $scope.checkEmail = function () {
+        
         if (validate()) {
             document.getElementById("enter").disabled = true;
             $http({

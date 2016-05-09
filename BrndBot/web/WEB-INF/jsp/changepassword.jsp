@@ -8,18 +8,17 @@
 <!DOCTYPE html>
 <html ng-app>
     <head>
-       
+       <jsp:include page="header.jsp"/>
         <script src="js/configurations.js"></script>
-        <script type="text/javascript" src="js/angular.min.js"></script>  
+      
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scaleu=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery-1.11.3.min.js"></script>
+   
 
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
+       
         <script>
             
             var hashURL="";
@@ -48,14 +47,16 @@
             $(document).ready(function (){                        
                 hashURL = $("#hashURL").val();
                 if(hashURL==="null"){
-                    window.open(getHost() +'login.jsp',"_self");
+                    window.open(getHost() +'login',"_self");
                 }
             });
        
                     
-            function controllerPassword($scope, $http){
-                $scope.changePassword = function() 
+            function controllerPassword1($scope, $http){
+              
+                $scope.changePassword1 = function() 
                 {
+                   
                       $("#enter").css("pointer-events","none");
                       var password = $("#inputpassword").val();
                       var confirmpassword = $("#inputreenter").val();
@@ -63,28 +64,30 @@
 
                     if(validat()){
 
-                            var password_object = {"hashURL":hashURL,"password":password,"confirmpassword":confirmpassword,"type":type};
+                            var password_object = {"hashURL":hashURL,"password":password,"type":type};
                             
                             $http({
                               method: 'POST',
-                              url: getHost() +'ResetUserPassword',
-                              headers: {'Content-Type': 'application/json'},
-                              data:  password_object
+                              url: getHost() +'/signup/resetPassword',
+                              data:  JSON.stringify(password_object)
                             }).success(function (data) 
                               {
-                                  alert(data);
+                                  
                                 $scope.status=data;
+                                 alert("Password has been changed successfully.");
+                                    window.open(getHost() +'login',"_self");
                                 if (data === "false"){
                                     alert("User session has expired! Kindly resubmit a request.");
                                 }else if (data === "true"){
                                     alert("Password has been changed successfully.");
-                                    window.open(getHost() +'login.jsp',"_self");
+                                    window.open(getHost() +'login',"_self");
 //                                     $("#enter").bind('click');
                                 }else if(data === error){
                                     alert(data);
                                 }
                               })
                                 .error(function(data, status) {
+                                     alert(data);
                                 // called asynchronously if an error occurs
                                 // or server returns response with an error status.
 
@@ -108,7 +111,7 @@
         <div id="signupdiv">
                 
             <img id="logo" src="images/logo.png" class="img-responsive" width="100" height="150"> <br>
-                <form class="form-horizontal" id="signform" ng-controller="controllerPassword" ng-submit="changePassword()" >
+                <form class="form-horizontal" id="signform" ng-controller="controllerPassword1" ng-submit="changePassword1()" >
                         
                         <div class="group">
                              <div class="col-md-3 col-md-offset-5">                            
