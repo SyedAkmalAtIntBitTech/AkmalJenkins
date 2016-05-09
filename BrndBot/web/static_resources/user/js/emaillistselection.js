@@ -774,7 +774,7 @@
                     
                     url: getHost() + "/email/send",
                     type: "POST",
-                    data: {
+                    data: JSON.stringify({
                         from_name: $("#name").val(),
                         email_subject: $("#subject").val(),
                         email_addresses: $("#toaddress").val(),
@@ -783,11 +783,12 @@
                         htmldata: formattedHTMLData,
                         email_list: $("#email_list").val(),
                         iframeName: $("#iframe_name").val()
-                    },
+                    }),
                    
                     success: function (responseText) {
                        
-                       alert(JSON.stringify(responseText));
+                       alert(JSON.stringify(responseText.d.message));
+                       if(responseText.d.message == "true") {
                         $.ajax({
                             url: getHost() + "deleteEmailDraft?draftid="+draft_id,
                             type: "POST",
@@ -807,6 +808,7 @@
                                 alert("Error!");
                             }
                         });
+                    }
                     },
                     error: function () {
                         $('#loadingGif').remove();
