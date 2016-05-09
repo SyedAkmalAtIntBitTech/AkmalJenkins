@@ -12,8 +12,9 @@
       <title>Add a new block</title>
     </head>
     <body ng-app  ng-controller="organizationcontroller">
-        <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer"></div>
+       
         <div id="addEmailBlockPopUp" class="popUp_background">
+             <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer"></div>
         <div  class="popUp">
              <div class="content-area_header">
                 <div class="popUp_title fleft"> Add a new Block </div>
@@ -24,7 +25,7 @@
                
                 <div class="input_Label">Optional External Source</div>
                 <select class="input_Field" id="optionalExternalSource" >
-                    <option class="input_Field" value="{{ExternalSourceKeywordLookups.externalSourceKeywordId}}">{{ExternalSourceKeywordLookups.externalSourceName}}-{{ExternalSourceKeywordLookups.externalSourceKeywordName}}</option>
+                    <option ng-repeat="ExternalSourceKeywordLookup in ExternalSourceKeywordLookups" class="input_Field" value="{{ExternalSourceKeywordLookup.externalSourceKeywordId}}">{{ExternalSourceKeywordLookup.externalSourceName}}-{{ExternalSourceKeywordLookup.externalSourceKeywordName}}</option>
                 </select>
                 <div id="addEmail"  class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addEmailBlock()">CreateBlock</div>
             </div>
