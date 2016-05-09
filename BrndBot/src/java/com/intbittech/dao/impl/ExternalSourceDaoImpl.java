@@ -62,7 +62,7 @@ public class ExternalSourceDaoImpl implements ExternalSourceDao {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(ExternalSource.class)
-                    .addOrder(Order.asc("external_source_id"));
+                    .addOrder(Order.asc("externalSourceId"));
             if (criteria.list().isEmpty()) {
                 return null;
             }
