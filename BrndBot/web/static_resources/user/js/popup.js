@@ -1376,7 +1376,6 @@ angular.module("socialMedia", [])
              });
     }; 
     $scope.checkForCode = function(){
-        showOverlay();
         var code=getUrlParameter("code");
            if(typeof code !=="undefined"){
                 $http({
