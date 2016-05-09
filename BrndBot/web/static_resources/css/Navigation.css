@@ -232,3 +232,14 @@
     width: 100%;
     display: block;
 }
+ .alert-div {
+    width: 400px;
+    display: none;
+    background-color: #ff9999;
+    text-align: center;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 20px;
+    position: relative;
+    left: -7vh;
+ }
