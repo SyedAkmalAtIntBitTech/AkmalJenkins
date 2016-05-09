@@ -421,11 +421,15 @@ public class AssestsController {
             globalFonts.setGlobalFontsId(globalFontsDetails.getGlobalFontsId());
             globalFonts.setFontName(globalFontsDetails.getFontName());
             globalFonts.setFontFamilyName(globalFontsDetails.getFontFamilyName());
-            String filePathWithFileName = AppConstants.BASE_ADMIN_FONT_UPLOAD_PATH + File.separator + globalFontsDetails.getFileName();
+            String fontData = globalFontsDetails.getFontData();
+            if(!fontData.isEmpty()){
+                String filePathWithFileName = AppConstants.BASE_ADMIN_FONT_UPLOAD_PATH + File.separator + globalFontsDetails.getFileName();
 
             FileHandlerUtil.updateAdminGlobalFont(globalFonts.getFileName(), filePathWithFileName,
                     globalFontsDetails.getFontType(), globalFontsDetails.getFontData());
-            globalFonts.setFileName(globalFontsDetails.getFileName());
+            globalFonts.setFileName(globalFontsDetails.getFileName());  
+            }
+          
             globalFontsService.update(globalFonts);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalFonts_update", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
