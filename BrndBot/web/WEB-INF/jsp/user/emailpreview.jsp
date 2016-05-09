@@ -20,7 +20,7 @@
     <div id="fade" class="black_overlay" ></div>
     <!--Top Nav-->  
     <div id="email_previewdiv">
-        <div class="pop-up-background">
+        <div class="pop-up-background emailPreview">
         <div class="pop-up-container-emailPreview"> 
                 <a class=" exit-button-detail-ep link svg" href="" id="closePreview">
                     <img type="image/svg+xml" src="images/close.svg" class="closeemailpreview" style="cursor:pointer;"> </img>

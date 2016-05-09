@@ -374,14 +374,14 @@ function organizationcontroller($scope, $http) {
     };
 
     $scope.getAllExternalSourceKeywordLookups = function () {
+        
         $http({
             method: 'GET',
             url: getHost() + '/getAllExternalSourceKeywordLookups',
         }).success(function (data, status, headers, config) {
-            for (var i = 0; i < data.d.details.length; i++)
-            {
-                $scope.ExternalSourceKeywordLookups = data.d.details[i];
-            }
+           
+             $scope.ExternalSourceKeywordLookups = data.d.details;
+
         }).error(function (data, status, headers, config) {
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
         });
