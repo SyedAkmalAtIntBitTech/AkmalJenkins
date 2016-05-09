@@ -283,9 +283,9 @@
                             method : 'GET',
                                     url :  queryurl
                             }).success(function(data, status, headers, config) {
-                            $scope.datalistsstyles = data.d.details;
+                                $scope.datalistsstyles = data.d.details;
 //                            alert("queryurl "+queryurl+"......................\n"+JSON.stringify(data.d.details)+"...style...");
-                            $scope.numberOfPages = function() {
+                                $scope.numberOfPages = function() {
                                 return Math.ceil($scope.datalistsstyles.length / $scope.pageSize);
                             };
                             hideOverlay();
@@ -432,7 +432,7 @@
                                             var parseData=JSON.parse(data.d.details);
                                             $scope.datalists2 = parseData;
 //                                            $scope.numberOfPages = function() 
-//                                            {
+//                                            {if
 //                                                return Math.ceil($scope.datalists2.length / $scope.pageSize);
 //                                            };
 //                                            if (data === error)
@@ -492,12 +492,12 @@
                     currentBlockID = temp_block_id;
                     currentMindbodyQuery = temp_mind_body_query;
                 }   
-                if ((mindbodydataId != "") && (mindbodydataId != "0") && (typeof (mindbodydataId) !== "undefined")){
-                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId="+mindbodydataId;
+                if ((mindbodydataId === "") || (mindbodydataId === null) || (mindbodydataId === "null")|| (mindbodydataId === "0") || (typeof (mindbodydataId) === "undefined")){
+                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId=0";
                 } 
                 else 
                 {
-                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId=0";
+                    layout_mapper_url = getHost()+"externalContent/getLayoutEmailModelById?emailModelId=" + id+"&isBlock="+block_clicked+"&externalDataId="+mindbodydataId;
                 }
                 
 //                alert("layout_mapper_url... "+layout_mapper_url);
@@ -537,6 +537,7 @@
                                 }
                             }
                     }).error(function(error) {
+                        alert("..");
                         alert(JSON.stringify(error))
                     });
 
@@ -662,18 +663,6 @@
         <div class="emailEditor-page-background fleft">
             <div class="emailEditor-leftCol ">
                  <script>
-//                     $("#saveToDraft").click(function (){
-//                         var draftId=1;
-//                         $.ajax({
-//                                url: getHost() + "/getEmailDraft?draftid="+ draft_id,
-//                                method: "GET",
-//                                success: function (data) {
-//                                alert(data);    
-//                                }
-//                        }).error(function (error){alert(JSON.stringify(error));});
-//                    });                   
-                     
-                     
                     $("#emailpreview").click(function(){              
                         $("#email_previewdiv").show();
                         var sendData = {
@@ -804,11 +793,15 @@
     $("#saveToDraft").click(function (){
 //        $("#saveToDraft").unbind('click');
         var email_subject = $("#emailSubjectTag").val();
+        var lookupId = $("#LookupId").val();
+        var mindbodyData = $("#mindbodydata").val();  
+        var categoryId = $("#categoryIdTag").val();
+        var subCategoryId = $("#subCategoryIdTag").val(); 
         $.ajax({
             url: getHost() + "/email/previewServlet",
             method: "post",
             data:JSON.stringify({
-                htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                htmlString: $('#edit').froalaEditor('html.get'),
                 iframeName: rendomIframeFilename.toString()
             }),
             success: function (responseText) {
@@ -817,32 +810,40 @@
 //                var LookupId=$("#LookupId").val();
                 if (draft_id == "0"){
                 $.ajax({
-                url: getHost() + "saveEmailDrafts",
-                        method: "post",
-                        data:JSON.stringify({
-                        bodyString : $('#edit').froalaEditor('html.get'),
-                        emailSubject: email_subject
+                    url: getHost() + "saveEmailDrafts",
+                    method: "post",
+                    data:JSON.stringify({
+                    bodyString : $('#edit').froalaEditor('html.get'),
+                    lookupId : lookupId,
+                    mindbodyData : mindbodyData,
+                    categoryId : categoryId,
+                    subCategoryId : subCategoryId,
+                    emailSubject : email_subject
 //                        mindbodyId: mindbodydata,
 //                        lookupId: LookupId 
-                        }),
-                        success: function (responseText) {
+                    }),
+                    success: function (responseText) {
                         if (responseText != "0"){
                         alert("Draft saved successfully.");
                         $("#saveToDraft").bind('click');
                                 document.location.href = "dashboard";
                         } else {
-                        alert("There was a problem while saving the draft! Please try again later.");
+                            alert("There was a problem while saving the draft! Please try again later.");
                         }
-                        }
-
+                    }
                 });
             } else {
                 $.ajax({
                     url: getHost() + "updateEmailDraft",
                     method: "post",
                     data:{
-                    draftid: draft_id,
-                            bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                        draftid: draft_id,
+                        bodyString :$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                        lookupId : lookupId,
+                        mindbodyData : mindbodyData,
+                        categoryId : categoryId,
+                        subCategoryId : subCategoryId,
+                        emailSubject : email_subject
                     },
                     success: function (responseText) {
                     if (responseText == "true"){
@@ -861,10 +862,11 @@
     $("#saveButton").click(function (){
 //        alert($("#emailSubjectTag").val());
         var email_subject = $("#emailSubjectTag").val();
-        var subCategoryId=$("#subCategoryIdTag").val();
-        var categoryId=$("#categoryIdTag").val();
-        var mindbodydata=$("#mindbodydata").val();
-        var LookupId=$("#LookupId").val();
+        var lookupId = $("#LookupId").val();
+        var mindbodyData = $("#mindbodydata").val();  
+        var categoryId = $("#categoryIdTag").val();
+        var subCategoryId = $("#subCategoryIdTag").val(); 
+
             var sendData=JSON.stringify({
             htmlString: $('#edit').froalaEditor('html.get'),
             iframeName: rendomIframeFilename.toString()
@@ -884,7 +886,11 @@
                     method: "post",
                     data:JSON.stringify({
                     bodyString : $('#edit').froalaEditor('html.get'), 
-                    emailSubject: email_subject
+                    lookupId : lookupId,
+                    mindbodyData : mindbodyData,
+                    categoryId : categoryId,
+                    subCategoryId : subCategoryId,
+                    emailSubject : email_subject
                     }),
                     success: function (responseText) {
                         if (responseText != "0"){
@@ -901,8 +907,13 @@
                         url: getHost() + "updateEmailDraft",
                         method: "post",
                         data:{
-                        draftid: draft_id,
-                                bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                            draftid: draft_id,
+                            bodyString:$('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                            lookupId : lookupId,
+                            mindbodyData : mindbodyData,
+                            categoryId : categoryId,
+                            subCategoryId : subCategoryId,
+                            emailSubject : email_subject
                         },
                         success: function (responseText) {
                             if (responseText == "true")

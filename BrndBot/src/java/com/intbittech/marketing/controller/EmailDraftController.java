@@ -56,8 +56,21 @@ public class EmailDraftController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             String emailSubject = (String) requestBodyMap.get("emailSubject");
-            
             String bodyString = (String) requestBodyMap.get("bodyString");
+            Integer categoryId = Integer.parseInt((String)requestBodyMap.get("categoryId"));
+            Integer subCategoryId = Integer.parseInt((String) requestBodyMap.get("subCategoryId"));
+            String lookupIdStr=(String)requestBodyMap.get("lookupId");
+            Integer lookupId=0;
+            if(lookupIdStr!=""||lookupIdStr!=null)
+            {
+                lookupId = Integer.parseInt(lookupIdStr);
+            }    
+            String mindbodyIdStr=(String) requestBodyMap.get("mindbodyData");
+            Integer mindbodyId=0;
+            if(mindbodyIdStr!=""||mindbodyIdStr!=null)
+            {
+                mindbodyId = Integer.parseInt(mindbodyIdStr);
+            }  
             EmailDraft email_draft = new EmailDraft();
             Date current_date = new Date();
 
@@ -67,6 +80,10 @@ public class EmailDraftController {
             EmailDraftModel emaildraftmodel = new EmailDraftModel();
 
             emaildraftmodel.setEmailsubject(emailSubject);
+            emaildraftmodel.setLookupid(lookupId);
+            emaildraftmodel.setMindbodyid(mindbodyId);
+            emaildraftmodel.setCategoryid(categoryId);
+            emaildraftmodel.setSubcategoryid(subCategoryId);
             emaildraftmodel.setHtmlbodystring(bodyString);
 
             String str_model = (String) AppConstants.GSON.toJson(emaildraftmodel);
@@ -98,13 +115,20 @@ public class EmailDraftController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             String emailSubject = (String) requestBodyMap.get("emailSubject");
-
+            Integer categoryId = Integer.parseInt((String)requestBodyMap.get("categoryid"));
+            Integer subCategoryId = Integer.parseInt((String) requestBodyMap.get("subCategoryid"));
+            Integer lookupId = Integer.parseInt((String)requestBodyMap.get("lookupid"));
+            Integer mindbodyId = Integer.parseInt((String) requestBodyMap.get("mindbodydata"));
             EmailDraft emaildraft = emaildraftservice.getById(draftId);
 
             EmailDraftModel emaildraftmodel = new EmailDraftModel();
 
             emaildraftmodel.setEmailsubject(emailSubject);
             emaildraftmodel.setHtmlbodystring(bodyString);
+            emaildraftmodel.setCategoryid(categoryId);
+            emaildraftmodel.setSubcategoryid(subCategoryId);
+            emaildraftmodel.setLookupid(lookupId);
+            emaildraftmodel.setMindbodyid(mindbodyId);
 
             Date edit_date = new Date();
 
@@ -150,7 +174,9 @@ public class EmailDraftController {
                     json_email_draft.put("jsonemaildraftdata", json_draft_data.get("htmlbodystring"));
                     json_email_draft.put("subcategoryid", json_draft_data.get("subcategoryid"));
                     json_email_draft.put("categoryid", json_draft_data.get("categoryid"));
-                    json_email_draft.put("subcategoryname", json_draft_data.get("subcategoryname"));                    
+                    json_email_draft.put("subcategoryname", json_draft_data.get("subcategoryname")); 
+                    json_email_draft.put("lookupid", json_draft_data.get("lookupid")); 
+                    json_email_draft.put("mindbodyid", json_draft_data.get("mindbodyid")); 
                     json_array_email_draft.add(json_email_draft);
                 }
                 json_object_email_draft.put("emaildrafts", json_array_email_draft);

@@ -31,7 +31,7 @@
                 <div class="top-navbar-inner-bb-detail">
                     <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Saved Draft</span></div>
                     <div class="top-nav-cta-container">
-                        <div class="approve-button-detail md-button" ng-click="editDrafts(id, categoryid, emailsubject, subcategoryid, subcategoryname)">Edit this Draft</div>
+                        <div class="approve-button-detail md-button" ng-click="editDrafts(id, categoryid, emailsubject, subcategoryid, mindbodyId, lookupId)">Edit this Draft</div>
                         <div class="delete-button-detail md-button" ng-click="deletedrafts('delete',id);">Delete this Draft</div>
                     </div>    
                 </div>
