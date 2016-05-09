@@ -27,7 +27,7 @@
         <form-login login-page="/login" 
                     username-parameter="username"
                     password-parameter="password"
-                    authentication-failure-url="/Access_Denied" 
+                    authentication-failure-url="/login?accessdenied=true" 
                     authentication-success-handler-ref="brndbotUserLoginSuccessHandler"/>
         <csrf disabled="true"/>
         <headers>

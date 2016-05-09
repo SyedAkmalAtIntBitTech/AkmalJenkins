@@ -145,7 +145,7 @@ var emailsenderror="test";
 var emailsenderror="test";
 var emailsenderror="test";
 var emailsenderror="test";
-
+var passwordMatchError ="The email or password that you entered don't match. "
 
 /// ADMIN alerts Starts////
 

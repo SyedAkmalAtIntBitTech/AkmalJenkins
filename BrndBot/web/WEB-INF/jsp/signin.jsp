@@ -15,19 +15,34 @@
     <head>
          <title>User Login</title>
         <jsp:include page="header.jsp"/>
-      
+       <script>
+         $("document").ready(function() {
+             if(window.location.href.indexOf("signout") > -1) {
+                window.location = getHost() +"login";
+                alert(logoutmsg);
+             }
+             if(window.location.href.indexOf("accessdenied=true") > -1) {
+                  $("div.alert-div").fadeIn(300).delay(2000);
+                //alert(passwordMatchError);
+             }
+        setTimeout(function(){ $("#inputemail").focus();},10);});  
+        </script>
+    
     </head>
     <body class="body-normal">
         
              <form class="form-horizontal" id="signform" action="${pageContext.request.contextPath}/login" method="POST">
+                 
     <div class="Login_left-pane fleft">
         <div class="Login_left-pane_vert-split"></div>
         <div class="Login_left-pane_vert-split"></div>
     </div>
     <div class="Login_right-pane fright">
         <div class="login-container">
+             <div class="alert-div">The email or password that you entered don't match.</div>
             <img src="images/BB_regular.svg" class="login-logo" style="cursor:pointer;"> 
             <div class="input_Label pushUp_30">Email</div>
+           
             <input name="username"  class="input_Field login-fields" type="email" required>
             <div class="input_Label">Password</div>
             <input  class="input_Field login-fields" name="password" type="password" required>
