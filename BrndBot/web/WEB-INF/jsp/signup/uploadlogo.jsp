@@ -39,7 +39,7 @@
                 <div class="pane_content">
                     <div class="h3 font--lightGray">Upload a hi-res version of your logo. A .PNG format works the best, but you may use a .JPEG as well.</div>
                     <div class="logoUpload-wrap imageLogo">
-                        <img id="imageUpload" src="{{imageSrc}}" class="imagePreview" style="cursor:pointer;" />
+                        <img id="imageUpload" src="{{imageSrc}}" class="imagePreview" />
                     </div>
                    <label class="fileContainer">
                 <div id="triggerFile" class="Add_Button Button--Gray logoUpload--button ">Upload Logo</div>
