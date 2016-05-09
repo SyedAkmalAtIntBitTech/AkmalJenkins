@@ -787,7 +787,6 @@
                    
                     success: function (responseText) {
                        
-                       alert(JSON.stringify(responseText.d.message));
                        if(responseText.d.message == "true") {
                         $.ajax({
                             url: getHost() + "deleteEmailDraft?draftid="+draft_id,

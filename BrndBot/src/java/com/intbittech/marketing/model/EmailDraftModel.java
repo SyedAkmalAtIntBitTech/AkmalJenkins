@@ -13,9 +13,27 @@ public class EmailDraftModel {
     private Integer categoryid;
     private Integer subcategoryid;
     private String subcategoryname;
+    private Integer lookupid;
+    private Integer mindbodyid;
     private String emailsubject;
     private String htmlbodystring;
 
+    public Integer getMindbodyid() {
+        return mindbodyid;
+    }
+
+    public void setMindbodyid(Integer mindbodyid) {
+        this.mindbodyid = mindbodyid;
+    }
+    
+    public Integer getLookupid() {
+        return lookupid;
+    }
+
+    public void setLookupid(Integer lookupid) {
+        this.lookupid = lookupid;
+    }
+    
     public Integer getCategoryid() {
         return categoryid;
     }
