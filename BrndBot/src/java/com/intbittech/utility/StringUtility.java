@@ -31,11 +31,11 @@ public class StringUtility {
         return (value == null || (value.trim().length() == 0) || value.equalsIgnoreCase("null"));
     }
     
-    public static String objectListToJsonString(List list) throws IOException {
+    public static String objectListToJsonString(MarketingActionsObjectDetails marketingActionsObjectDetails) throws IOException {
         
         final StringWriter stringWriter =new StringWriter();
     final ObjectMapper mapper = new ObjectMapper();
-    mapper.writeValue(stringWriter, list);
+    mapper.writeValue(stringWriter, marketingActionsObjectDetails);
     return stringWriter.toString();
         
     }
@@ -43,6 +43,7 @@ public class StringUtility {
     public static List jsonStringToObjectList(String jsonString) throws JSONException, IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonFactory jFactory = new JsonFactory();
+        jsonString = "["+jsonString+"]";
         JsonParser jsonParser= jFactory.createParser(jsonString);
         List<MarketingActionsObjectDetails> myObjectList = mapper.readValue(jsonParser, mapper.getTypeFactory().constructCollectionType(List.class, MarketingActionsObjectDetails.class));
         return myObjectList;

@@ -212,7 +212,7 @@ public class CompanyMarketingProgramController {
                 jSONObject.put("dateTime", scheduledEntityListObject.getScheduleTime().getTime());
                 jSONObject.put("programTemplateName", scheduledEntityListObject.getScheduleTitle());
                 jSONObject.put("days", scheduledEntityListObject.getDays());
-                jSONObject.put("tillDate", scheduledEntityListObject.getTillDate().getTime());
+                jSONObject.put("tillDate", "");
                 int d = scheduledEntityListObject.getDays();
                 jSONObject.put("description", scheduledEntityListObject.getScheduleDesc());
                 jSONObject.put("postDateStatus", postDateStatus);

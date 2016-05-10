@@ -107,11 +107,11 @@ public class MarketingProgramServiceImpl implements MarketingProgramService {
             MarketingProgram marketingProgramObject = new MarketingProgram();
             marketingProgramObject.setMarketingProgramId(marketingProgramId);
             marketingAction.setFkMarketingProgramId(marketingProgramObject);
-            List<MarketingActionsObjectDetails> marketingActionsObjectDetailses = new ArrayList<>();
+//            List<MarketingActionsObjectDetails> marketingActionsObjectDetailses = new ArrayList<>();
             MarketingActionsObjectDetails marketingActionsObjectDetails = new MarketingActionsObjectDetails();
             marketingActionsObjectDetails.setActions(marketingProgramActionsDetails.getMarketingActions());
-            marketingActionsObjectDetailses.add(marketingActionsObjectDetails);
-            String jsonString = StringUtility.objectListToJsonString(marketingActionsObjectDetailses);
+//            marketingActionsObjectDetailses.add(marketingActionsObjectDetails);
+            String jsonString = StringUtility.objectListToJsonString(marketingActionsObjectDetails);
             
             marketingAction.setJsonTemplate(jsonString);
             marketingActionDao.save(marketingAction);
@@ -140,12 +140,12 @@ public class MarketingProgramServiceImpl implements MarketingProgramService {
             marketingProgramObject.setMarketingProgramId(marketingProgramActionsDetails.getMarketingProgramId());
             marketingAction.setFkMarketingProgramId(marketingProgramObject);
             
-            List<MarketingActionsObjectDetails> marketingActionsObjectDetailses = new ArrayList<>();
+//            List<MarketingActionsObjectDetails> marketingActionsObjectDetailses = new ArrayList<>();
             MarketingActionsObjectDetails marketingActionsObjectDetails = new MarketingActionsObjectDetails();
             marketingActionsObjectDetails.setActions(marketingProgramActionsDetails.getMarketingActions());
-            marketingActionsObjectDetailses.add(marketingActionsObjectDetails);
+//            marketingActionsObjectDetailses.add(marketingActionsObjectDetails);
             
-            String jsonString = StringUtility.objectListToJsonString(marketingActionsObjectDetailses);
+            String jsonString = StringUtility.objectListToJsonString(marketingActionsObjectDetails);
             marketingAction.setJsonTemplate(jsonString);
             marketingActionDao.update(marketingAction);
 

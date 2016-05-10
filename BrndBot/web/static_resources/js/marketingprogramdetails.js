@@ -119,7 +119,7 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
         var newActionTypeOneTimeActions= $("#newActionTypeOneTimeActions").val();
         var newActionsNoOfDays = $("#newActionsNoOfDays").val();
         var newActionTime = $("#newActionTime").val();
-        $scope.newMarketingAction={"days": newActionsNoOfDays,"description": "","time": newActionTime,"is_recuring": is_recurring,
+        $scope.newMarketingAction={"days": newActionsNoOfDays,"description": "","time": newActionTime,"is_recurring": is_recurring,
                                     "title": newOneTimeActionName,"type": newActionTypeOneTimeActions,"tilldate": ""
                                    };                                   
         globalActionsArray.push($scope.newMarketingAction);

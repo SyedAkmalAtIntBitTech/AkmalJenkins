@@ -16,7 +16,7 @@ public class MarketingActionDetails {
     private String days ;
     private String description;
     private String time;
-    private Boolean is_recuring;
+    private Boolean is_recurring;
     private String tilldate;
 
     public String getTitle() {
@@ -59,12 +59,12 @@ public class MarketingActionDetails {
         this.time = time;
     }
 
-    public Boolean getIs_recuring() {
-        return is_recuring;
+    public Boolean getIs_recurring() {
+        return is_recurring;
     }
 
-    public void setIs_recuring(Boolean is_recuring) {
-        this.is_recuring = is_recuring;
+    public void setIs_recurring(Boolean is_recurring) {
+        this.is_recurring = is_recurring;
     }
 
     public String getTilldate() {
