@@ -430,6 +430,7 @@
                                         url :getHost()+ '/externalContent/getListData/'+mind_body_query
                                     }).success(function(data, status, headers, config) {
                                             var parseData=JSON.parse(data.d.details);
+//                                            alert(JSON.stringify(parseData))
                                             $scope.datalists2 = parseData;
 //                                            $scope.numberOfPages = function() 
 //                                            {if
@@ -537,7 +538,6 @@
                                 }
                             }
                     }).error(function(error) {
-                        alert("..");
                         alert(JSON.stringify(error))
                     });
 
