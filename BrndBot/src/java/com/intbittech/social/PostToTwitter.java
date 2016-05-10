@@ -30,8 +30,6 @@ public class PostToTwitter {
     public static String postStatus(String image_type, String text, String shortURL, String fileImagePath, Integer companyId, String htmlString, String getImageFile) throws Throwable {
         String returnMessage = "";
         try {
-
-            String shortUrl = "";
             ConfigurationBuilder twitterConfigBuilder = new ConfigurationBuilder();
             twitterConfigBuilder.setDebugEnabled(true);
             twitterConfigBuilder.setOAuthConsumerKey("K7TJ3va8cyAeh6oN3Hia91S2o");
@@ -41,26 +39,27 @@ public class PostToTwitter {
 
             Twitter twitter = new TwitterFactory(twitterConfigBuilder.build()).getInstance();
             String statusMessage = text.replace("bit.ly/1XOkJo", "");
-            shortUrl = shortURL;
-            if (shortUrl.length() > 0) {
+            if (shortURL != null) {
                 String StatusMessageWithoutUrl = statusMessage.substring(0, statusMessage.length());
-                if (StatusMessageWithoutUrl.length() + shortUrl.length() < 140) {
-                    statusMessage = StatusMessageWithoutUrl + " " + shortUrl;
+                if (StatusMessageWithoutUrl.length() + shortURL.length() < 140) {
+                    statusMessage = StatusMessageWithoutUrl + " " + shortURL;
                 } else {
-                    int urlLength = shortUrl.length() + 1;
+                    int urlLength = shortURL.length() + 1;
                     int statusLength = 115 - urlLength;
                     statusMessage = StatusMessageWithoutUrl.substring(0, statusLength);
-                    statusMessage = statusMessage + " " + shortUrl;
+                    statusMessage = statusMessage + " " + shortURL;
                 }
             }
             StatusUpdate status = new StatusUpdate(statusMessage);
-            if (image_type.equals("url")) {
-                status.setMedia("xyz", new URL(fileImagePath).openStream());
-            } else {
-                File file = new File(getImageFile);
+            if (!image_type.isEmpty()) {
+                if (image_type.equals("url")) {
+                    status.setMedia("xyz", new URL(fileImagePath).openStream());
+                } else {
+                    File file = new File(getImageFile);
 
-                // set the image to be uploaded here.
-                status.setMedia(file);
+                    // set the image to be uploaded here.
+                    status.setMedia(file);
+                }
             }
             twitter.updateStatus(status);
 

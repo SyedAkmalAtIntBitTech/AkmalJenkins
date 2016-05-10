@@ -7,14 +7,14 @@
             <div class="popUp_CenterVert ">
                 <div class="popUp-top-wide clear">
                     <div class="popUp_header clear">
-                        <div class="pane_title fleft h2 col1of2">Please Select an Image</div>
+                        <div class="pane_title fleft h2 col1of2">Please Select a page</div>
                         <div class="popUp_close fright" onclick="hideFbPopup()">
                             <img type="image/svg+xml" src="../images/Pop-Up-Exit-Button.svg" class="fleft popUp_close-icon cursor-shape">
                         </div>
                     </div>
                     <div class="popUp_subheader clear">
-                        <span>
-                            <input type="checkbox" name="defaultManagePage" id="setDefaultManagePage"> Set Selected page as default<br>
+                        <span class="popUp_subheader-tabs fleft">
+                            <input type="checkbox" name="defaultManagePage" id="setDefaultManagePage">  Set selected page as default<br>
                         </span>
                     </div>
                     <div class=" gallery-padding clear gallery-pane">
