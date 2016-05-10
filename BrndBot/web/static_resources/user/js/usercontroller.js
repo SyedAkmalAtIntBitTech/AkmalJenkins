@@ -82,8 +82,10 @@ $scope.displaySubCategory = function () {
             method: 'GET',
             url: getHost() + '/getMarketingProgramsByCategoryId?marketingCategoryId='+marketingCategoryId
         }).success(function (data, status, headers, config) {
-            var data=data.d.operationStatus.messages; 
-            if(data !="No marketing programs found."){
+          
+            var dataDetails=data.d.operationStatus.messages; 
+            
+            if(dataDetails !="No marketing programs found."){
                 hideOverlay(); 
                 $scope.displayMarketingPrograms = data.d.details;
                 var marketingProgramId= JSON.stringify(data.d.details[0].marketingProgramId);         

@@ -43,7 +43,7 @@ public class OrganizationCompanyDaoImpl implements OrganizationCompanyDao {
                     .setFetchMode("fkCompanyId", FetchMode.JOIN)
                     .setFetchMode("fkOrganizationId", FetchMode.JOIN)
                     .createAlias("fkOrganizationId.fkOrganizationTypeId", "organizationType")
-                    .add(Restrictions.eq("organizationType.organizationTypeId", OrganizationTypeConstants.group.getOrganizationType())); //Group is 1
+                    .add(Restrictions.eq("organizationType.organizationTypeId", OrganizationTypeConstants.organization.getOrganizationType())); //Group is 1
             if (criteria.list().isEmpty()) {
                 return null;
             }
