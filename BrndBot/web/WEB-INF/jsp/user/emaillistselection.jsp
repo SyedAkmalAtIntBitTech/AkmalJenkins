@@ -25,6 +25,10 @@
     <jsp:include page="basejsp.jsp" />
     <style>
         #emladdrstxtarea,#clktoupload,#upload,#emaildetailscontbtn,#emaildetailsid,#backemaildetails{display:none;}
+        .pop-up-background {
+            width: calc(96vw - 549px) !important;
+            margin-top: 4vw !important;
+        }
     </style>
     <%!
         String emailSubject = "";

@@ -83,8 +83,8 @@ public class ApplicationContextListener implements ServletContextListener {
         socialPostScheduler = new SocialPostScheduler();
 //        socialPostScheduler.startTwitterScheduler();
 //        socialPostScheduler.startFacebookScheduler();
-//        socialPostScheduler.startEmailScheduler();
-//        socialPostScheduler.startRecurringEmailScheduler();
+        socialPostScheduler.startEmailScheduler();
+        socialPostScheduler.startRecurringEmailScheduler();
         
         //Checks if default user program exists else adds general program which is used for your plan
 //        UserProgramUtility.generalProgramChecker();
@@ -94,7 +94,7 @@ public class ApplicationContextListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {
         logger.log(Level.INFO, "Application Un Deployed");
 //        mindbodyEmailListScheduler.stopScheduler();
-//        socialPostScheduler.stopScheduler();
+        socialPostScheduler.stopScheduler();
         applicationContextListener = null;
         servletContextEvent = null;
     }

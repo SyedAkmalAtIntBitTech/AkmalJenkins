@@ -234,7 +234,7 @@
                 });
                 
                 if(location.search == "?emaildrafts=1"){
-                     $("#emaillistsdiv").hide();
+                    $("#emaillistsdiv").hide();
                     $("#emaildraftsdiv").show();
                     $("#addemlstbtn").hide();
                     $("#emldrftab").addClass("top-subnav-link-active");
@@ -351,34 +351,33 @@
                $("#default_from_name").val("");
                return true;
             }
- function emailHistory($scope, $http) {
-                showOverlay();
-                $scope.displayemailhistory = function (){
-                    showOverlay();
-                    $http({
-                        method : 'GET',
-                        url :getHost() + '/email/tags'
-                    }).success(function(data, status, headers, config) { 
-
-                    if (data == ""){
-                        $scope.email_history = data;
-                        $("#nohistorydiv").empty().text(noemailhistory);
-                        $(".nohiswid").css("width","250px");
-                        $("#historydiv").hide();
-                    }else {
-                        $("#historydiv").show();
-                        $scope.email_history = data;
-                    }
-                    if (data === error){
-//                        alert(data);
-                    }
-                    hideOverlay();
-                }).error(function(data, status, headers, config) {
-                    hideOverlay();
-                    alert(nodataerror);
-                });        
-                }
-            }
+            function emailHistory($scope, $http) {
+               showOverlay();
+               $scope.displayemailhistory = function (){
+                   showOverlay();
+                   $http({
+                       method : 'GET',
+                       url :getHost() + '/email/tags'
+                   }).success(function(data, status, headers, config) { 
+//                    alert(JSON.stringify(data.d.details[0]));
+                   if (data.d.details[0] == "[]"){
+                       
+                       $scope.email_history = JSON.parse(data.d.details);
+                       $("#nohistorydiv").empty().text(noemailhistory);
+                       $(".nohiswid").css("width","250px");
+                       $("#historydiv").hide();
+                   }else {
+                       $("#historydiv").show();
+                       $scope.email_history = JSON.parse(data.d.details);
+                   }
+                   hideOverlay();
+               }).error(function(data, status, headers, config) {
+                   hideOverlay();
+                   alert(nodataerror);
+               });        
+               }
+           }
+ 
             function EmailListController($scope, $http) {
                 $("#addemlstbtn").show();                   
                 showOverlay();
@@ -591,7 +590,7 @@ $edit=0;
                         {
                             $("#createEmailListButton").unbind('click');
                             alert(datasaved);
-                            window.open(getHost() + '/user/emaillists', "_self");
+                            window.open(getHost() + 'user/emaillists', "_self");
                             $("#createEmailListButton").bind('click');
                         });                        
                     }                    
@@ -821,6 +820,7 @@ $edit=0;
                         $scope.mindbody_emailAddresses = parseData.mindbody_emailAddresses;
                         $scope.selected_email_listname = list_name;
                         $scope.type = type;
+                        hideOverlay();
                         if (type == 'user'){
                             $("#tab1").hide();
                             $("#tab2").hide();
@@ -849,7 +849,7 @@ $edit=0;
                         }
                         if (data === error) {
                             alert(data);
-                        }
+                        }                        
                     }).error(function(error){
 //                        alert(JSON.stringify(error));
                     });
@@ -931,7 +931,7 @@ $edit=0;
                                 alert(contactdelete);
                                 $scope.updateList(email_list_name);
                                 selectedemailids = "";
-                                window.open(getHost() + '/user/emaillistsdetails?list_name='+email_list_name+'&type=user', "_self");
+                                window.open(getHost() + 'user/emaillistsdetails?list_name='+email_list_name+'&type=user', "_self");
                             }).error(function (error)
                             {
                                 alert(JSON.stringify(error));
@@ -1100,8 +1100,7 @@ $edit=0;
 
                 }
             }).error(function(data, status) {
-                alert("oye..");
-                window.open(getHost() + '/user/emaileditor?id='+null+'&draftid='+draft_id+'&subject='+email_subject, "_self");     
+                window.open(getHost() + 'user/emaileditor?id='+null+'&draftid='+draft_id+'&subject='+email_subject, "_self");     
                 alert(nodataerror);
             });
         };    
