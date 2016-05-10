@@ -3,20 +3,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="telephone=no"/>
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <link rel="shortcut icon" href="favicon.png">
     <title>BrndBot - Account Settings</title>
     <meta charset="UTF-8" >
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-    
-    <%--<%@ include file="checksession.jsp" %>--%>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="css/bootstrap.css"></link>
     <script src="js/configurations.js" type="text/javascript"></script>
     <script src="js/alertmessage.js" type="text/javascript"></script>
-
+    <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
+     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/resources/demos/style.css"/>
     <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
     <link href="css/popup.css" rel="stylesheet" type="text/css"/>
@@ -37,7 +35,7 @@
             position:initial;
         }
         </style>
-   <jsp:include page="basejsp.jsp" />
+   <%--<jsp:include page="basejsp.jsp" />--%>
    <%! 
             String change = "";
         %>
@@ -57,11 +55,9 @@
     <div class="content-main" ng-controller="controllerUserChanges">
         <input type="hidden" value="<%=change%>" id="change"></input>
         <!--SideNav-->
-        <%--<%@ include file="header.jsp"%>--%>
+
          <jsp:include page="header.jsp"/>  
           <jsp:include page="navbar.jsp"/>  
-       
-        
         <!--Top Nav-->   
         <div class="top-nav">
             <div class="page-title-bar col-1of1"> 
@@ -110,7 +106,7 @@
                             Logo
                         </div>
                         <div class="pushUp">
-                            <form name="formpersonality" action="/BrndBot/changeLogo" enctype="multipart/form-data" method="post" class="ng-pristine ng-valid">
+                            <form id="data" name="formpersonality"  enctype="multipart/form-data" method="post" class="ng-pristine ng-valid">
                                 <div class="col-2of10 fleft cur1">
                                     <div class="logo-container"><textarea class="top55 left10 right10" id="filetext1">Choose an Image to upload</textarea>
                                         <input type="hidden" name="upload" value="update"></input>
@@ -136,53 +132,51 @@
                                 <p id="comment2">Click on a color to change it or choose from a theme. Don't worry, you can always change it later.</p>
                                 <div class="col-md-12"><p id="test" class="span3" >MOST USED<span class="col-md-offset-5" id="leastuse">LEAST USE</span></p> </div>
                                 <div id="sortable" class="step_wrapper">
-                                    <div id="elementToPutStyleInto1" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color1}}"  onclick="getElementID('elementToPutStyleInto1')"></div>
-                                    <div id="elementToPutStyleInto2" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color2}}"  onclick="getElementID('elementToPutStyleInto2')"></div>
-                                    <div id="elementToPutStyleInto3" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color3}}"  onclick="getElementID('elementToPutStyleInto3')"></div>
-                                    <div id="elementToPutStyleInto4" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors.color4}}"  onclick="getElementID('elementToPutStyleInto4')"></div>
+                                    <div id="elementToPutStyleInto1" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors[0]}}"  onclick="getElementID('elementToPutStyleInto1')"></div>
+                                    <div id="elementToPutStyleInto2" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors[1]}}"  onclick="getElementID('elementToPutStyleInto2')"></div>
+                                    <div id="elementToPutStyleInto3" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors[2]}}"  onclick="getElementID('elementToPutStyleInto3')"></div>
+                                    <div id="elementToPutStyleInto4" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors[3]}}"  onclick="getElementID('elementToPutStyleInto4')"></div>
                                     <div class="resetpalette ptr"> <p id="resetpalette">RESET ORIGINAL PALETTE</p></div>
                                 </div>
                             </div>
-                            <div class="col-md-7 col-md-offset-0 ">
-                                <div class="tabbable tabs-top">
-                                    <br>
-                                    <ul id="btn" class="nav nav-tabs" >
-                                        <li id="li1" class="active"><a id="a1" href="#picktheme" data-toggle="tab">PICK FROM A THEME</a></li>
-                                        <li id="li2" class=""><a id="a1" href="#custom" data-toggle="tab">CHOOSE CUSTOM</a></li>
-                                        <li id="li3" class=""><a id="a1" href="#logocolor" data-toggle="tab">PICK FROM LOGO COLORS</a></li>
-                                    </ul> 
-                                    <div class="tab-content">
-                                        <br>
-                                        <%! Integer i = 1;%>
-                                        <div class="tab-pane active" id="picktheme">
+                            <div class="col-md-7 col-md-offset-0 ">         
+                                <div class="">
+                                    <div class="page-title-bar col-1of1"> 
+                                    </div>
+                                    <div class="page-subnav-bar-regular"> 
+                                        <div class="top-subnav-tabs-container">
+                                            <ul class="top-subnav-nav-elements">
+                                                <li class="top-subnav-links" id="fromThem"> <a class="h3">PICK FROM A THEME</a></li>
+                                                <li class="top-subnav-links" id="fromPalette"> <a class="h3">CHOOSE CUSTOM</a></li>
+                                                <li class="top-subnav-links" id="fromLogo"> <a class="h3">PICK FROM LOGO COLORS</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                      <div class="tab-pane active" id="picktheme">
                                             <div style="height:250px; overflow-y:scroll;">
-                                                <div ng-repeat= "theme in themes" id="rep" >
-                                                    <div ng-repeat="colors in theme" id="rep1">
-                                                        <div ng-show="colors.theme_id == null">
-                                                            <div id="{{colors.id}}" class="foo blankcolor-box step_box ptr" onclick="getIDNo('{{colors.id}}')" style="background-color:{{colors.colorHex}};"></div>
-                                                        </div>
-                                                        <div id="{{colors.theme_id}}" class="ptr" onclick="doSomething('{{colors.theme_id}}')"><div ng-show="colors.id == null" style="padding-top: 10px; color: #7f7f7f;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{colors.theme_name}}</div></div>
-                                                    </div> 
-                                                    <div id='id'>
-                                                        <p><br/></p>
-                                                    </div>
+                                            <div ng-repeat="color in themes" class="palette-wrap-globalColors">
+                                                <div id="{{color.globalColorsId}}" class="palette-global clear">
+                                                    <div class="foo blankcolor-box step_box ptr" style="background-color:{{color.color1}};" onclick="setSelectedColor('{{color.color1}}')"></div>
+                                                    <div class="foo blankcolor-box step_box ptr" style="background-color:{{color.color2}};" onclick="setSelectedColor('{{color.color2}}')"></div>
+                                                    <div class="foo blankcolor-box step_box ptr" style="background-color:{{color.color3}};" onclick="setSelectedColor('{{color.color3}}')"></div>
+                                                    <div class="foo blankcolor-box step_box ptr" style="background-color:{{color.color4}};" onclick="setSelectedColor('{{color.color4}}')"></div>
+                                                    <div onclick="setThemeColors('{{color.color1}}','{{color.color2}}','{{color.color3}}','{{color.color4}}')"style="padding-top: 10px; color: #7f7f7f;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{color.colorName}}</div>
                                                 </div>
                                             </div>
+                                            </div>
                                         </div>
-                                        <div class="tab-pane" id="custom">
+                                        <div class="tab-pane displayNone" id="custom">
                                             <br>     
                                             <div  id="picker"></div><br><br>
                                         </div>
-                                        <div class="tab-pane" id="logocolor" >
-                                            <div class="tab-pane active" id="picktheme" ng-init="getLogoColors()">
-                                                <!--                                                                <div><button type="button" class="btn btn-primary" value="click to display colors" ng-click="getLogoColors()">click to display colors</button></div>-->
+                                        <div class="tab-pane displayNone" id="logocolor" >
+                                            <div class="tab-pane active" id="picktheme">
                                                 <div ng-repeat="col in color">
-                                                    <div id="{{col.id}}" class="foo" style="background-color:{{col.colorHex}};" onclick="getIDNo('{{col.id}}')"></div>
+                                                    <div class="foo" style="background-color:{{col}};" onclick="setSelectedColor('{{col}}')"></div>
                                                 </div>
                                             </div>
-                                        </div> 
-                                    </div><br>
-                                    <div>
+                                        </div>
                                         <div class="form-group">
                                             <div class="col-sm-offset-0 col-md-4" >
                                                 <form class="form-horizontal">
@@ -193,13 +187,12 @@
                                                     <input type="hidden" id="finalcolor5" name="finalcolor5" ng-model="selColor.finalcolor5"/>
                                                     <input type="hidden" id="finalcolor6" name="finalcolor6" ng-model="selColor.finalcolor6"/>
                                                     <div class="span4 col-md-offset-0">
-                                                        <button  type="button" class="edit-button-detail md-button button-text-1 fleft savebutton noborder" ng-click="createUserPreferences()">SAVE</button>
+                                                        <button  type="button" class="edit-button-detail md-button button-text-1 fleft savebutton noborder" style="margin-left: -6%;" ng-click="createUserPreferences()">SAVE</button>
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    </div>  
                             </div>
                         </div>
                     </div>
