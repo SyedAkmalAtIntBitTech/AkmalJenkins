@@ -63,9 +63,9 @@
                             <div class="edit-Image-Button fleft" id="changeImage">
                                 Change Image
                             </div>
-                            <div class="edit-Image-Button fleft">
+<!--                            <div class="edit-Image-Button fleft">
                                 Edit Image
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>   
