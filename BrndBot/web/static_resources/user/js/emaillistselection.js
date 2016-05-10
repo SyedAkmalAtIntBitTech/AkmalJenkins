@@ -529,10 +529,10 @@
                         url: getHost() + 'actions/getActions',
                         data:JSON.stringify(data)
                     }).success(function (data) {
-                        alert(JSON.stringify(data));
-//                        alert(JSON.stringify(data.d.details));
-                        var actions=JSON.stringify(data.d.details);
-                        $scope.email_actions = data;
+                     var emailActions=data.d.details;
+                     var actions=eval(JSON.parse(emailActions));
+                        
+                        $scope.email_actions = actions;
                     }).error(function (data) {
                         alert("Request not successful!");
                     });
