@@ -6,12 +6,12 @@
 package com.controller;
 
 import com.intbit.ConnectionManager;
+import com.intbittech.component.SpringContextBridge;
 import com.mindbodyonline.clients.api._0_5Client.Client;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,7 +22,12 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.intbittech.mindbody.MindBodyClass;
+import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.EmailInfo;
+import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.services.EmailListService;
+import com.intbittech.utility.StringUtility;
+import java.util.regex.Pattern;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -67,15 +72,15 @@ public class MindbodyEmailListProcessor implements Runnable {
 
         HashMap<Integer, String> rowIdLocationHashMap = new HashMap<>();
 
-        String sql = "SELECT id, company_location, email_list"
+        String sql = "SELECT company_location, email_list,fk_company_id"
                 + " FROM company_preferences "
                 + " WHERE company_location IS NOT NULL";
         try (Connection connection = connectionManager.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql)) {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    String location = rs.getString("location");
-                    int rowId = rs.getInt("id");
+                    String location = rs.getString("company_location");
+                    int rowId = rs.getInt("fk_company_id");
                     String email_list = rs.getString("email_list");
                     rowIdLocationHashMap.put(rowId, location+"||"+email_list);
                 }
@@ -88,12 +93,12 @@ public class MindbodyEmailListProcessor implements Runnable {
     }
 
     private void processEachRow(HashMap<Integer, String> rowIdLocationHashMap) throws ParseException {
-        JSONParser parser = new JSONParser();
+            JSONParser parser = new JSONParser();
         JSONArray json_email_array = new JSONArray();
         Iterator it = rowIdLocationHashMap.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<Integer, String> pair = (Entry<Integer, String>) it.next();
-            String []locationEmailList = pair.getValue().split("||");
+            String []locationEmailList = pair.getValue().split(Pattern.quote("||"));
             
             int[] siteids = new int[]{Integer.parseInt(locationEmailList[0])};
             JSONObject emailListFromDB = new JSONObject();
@@ -138,9 +143,9 @@ public class MindbodyEmailListProcessor implements Runnable {
                     json_email_array.add(json_email_object);
 
                 }
+
                 if (json_email_array.size() >= 0) {
-                    emailListFromDB.put(IConstants.kEmailListMindbodyKey, json_email_array);
-                    updateUserPreferencesTable(pair.getKey(), emailListFromDB);
+                    updateUserPreferencesTable(pair.getKey(), json_email_array);
                 }
 
             } catch (Exception e) {
@@ -150,24 +155,12 @@ public class MindbodyEmailListProcessor implements Runnable {
         }
     }
 
-    private void updateUserPreferencesTable(Integer idOfRow, JSONObject userIdWithJSONObject) {
+    private void updateUserPreferencesTable(Integer idOfRow, JSONArray mindbodyEmails) throws Exception {
 
-        String query_string = "";
-
-        PGobject pg_object = new PGobject();
-        query_string = "Update company_preferences SET email_list=? where id=?";
-        try (Connection connection = connectionManager.getConnection();
-                PreparedStatement ps = connection.prepareStatement(query_string)) {
-            pg_object.setType("json");
-            pg_object.setValue(userIdWithJSONObject.toString());
-            ps.setObject(1, pg_object, Types.OTHER);
-            ps.setInt(2, idOfRow);
-            ps.executeUpdate();
-        } catch (SQLException ex) {
-            logger.log(Level.SEVERE, "Mindbody email list processor", ex);
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Mindbody email list processor", e);
-        }
-
+        EmailListService emailListService = SpringContextBridge.services().getEmailListService();
+        Map<String, Object> map = new HashMap<>();
+        map.put("update", "updateMindbodyList");
+        map.put(IConstants.kEmailListMindbodyKey, mindbodyEmails);
+        emailListService.setEmailList(map, idOfRow);;
     }
 }

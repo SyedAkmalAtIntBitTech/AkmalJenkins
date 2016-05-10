@@ -110,7 +110,7 @@ public class EmailListServiceImpl implements EmailListService {
 
                 emailListArrayToUI.add(emailListObject);
             }
-            if(emailListArrayJSONMindbody!=null){
+            if (emailListArrayJSONMindbody != null) {
                 for (int i = 0; i < emailListArrayJSONMindbody.size(); i++) {
                     JSONObject emailListObject = new JSONObject();
                     JSONObject json_object = (JSONObject) emailListArrayJSONMindbody.get(i);
@@ -145,8 +145,8 @@ public class EmailListServiceImpl implements EmailListService {
         CompanyPreferences companyPreferences = companyPreferencesService.getByCompanyId(companyId);
         JSONParser jsonParser = new JSONParser();
         JSONObject emailListJSONObject = new JSONObject();
-        if(!StringUtility.isEmpty(companyPreferences.getEmailList())) {
-           emailListJSONObject = (JSONObject) jsonParser.parse(companyPreferences.getEmailList());
+        if (!StringUtility.isEmpty(companyPreferences.getEmailList())) {
+            emailListJSONObject = (JSONObject) jsonParser.parse(companyPreferences.getEmailList());
         }
         String queryParameter = (String) requestBodyMap.get("update");
 
@@ -216,6 +216,11 @@ public class EmailListServiceImpl implements EmailListService {
             String emailListName = (String) requestBodyMap.get(IConstants.kEmailListNameKey);
             dataresponse = deleteEmailList(emailListJSONObject, emailListName, companyPreferences);
 
+        } else if (queryParameter.equalsIgnoreCase("updateMindbodyList")) {
+            emailListJSONObject = (JSONObject) jsonParser.parse(companyPreferences.getEmailList());
+            JSONArray mindbodyList = (JSONArray) requestBodyMap.get(IConstants.kEmailListMindbodyKey);
+            dataresponse = updateMindbodyEmailList(emailListJSONObject, mindbodyList, companyPreferences);
+
         }
         return dataresponse;
     }
@@ -266,6 +271,7 @@ public class EmailListServiceImpl implements EmailListService {
         }
         return emailListArrayJSON;
     }
+
     private JSONArray getEmailListNames(JSONObject emailListJSONObject, EmailListType emailListType) throws ClassNotFoundException, SQLException {
         JSONArray emailListNamesJSON = new JSONArray();
         JSONArray emailListToProcess = getEmailListForType(emailListJSONObject, emailListType);
@@ -291,7 +297,7 @@ public class EmailListServiceImpl implements EmailListService {
             json_user_preferences_email.put(IConstants.kEmailListAddedDate, dateFormat.format(new Date()));
 
             emailListArrayJSON.add(json_user_preferences_email);
-            return updateEmailListUserPreference(emailListsJSONObject, emailListArrayJSON,companyPreferences);
+            return updateEmailListUserPreference(emailListsJSONObject, emailListArrayJSON, companyPreferences);
         } else {
             JSONObject json_user_preferences_email = new JSONObject();
 
@@ -524,10 +530,10 @@ public class EmailListServiceImpl implements EmailListService {
             String listName = (String) emailListJSONObject.get(IConstants.kEmailListNameKey);
             JSONObject newEmailListJSONObject = (JSONObject) json_user_preferences_emails.get(i);
             String newListName = (String) newEmailListJSONObject.get(IConstants.kEmailListNameKey);
-            if(listName.equalsIgnoreCase(newListName)) {
+            if (listName.equalsIgnoreCase(newListName)) {
                 emailListArrayJSON.remove(i);
                 emailListArrayJSON.add(i, newEmailListJSONObject);
-            }            
+            }
         }
         emailListsJSONObject.put(IConstants.kEmailListUserKey, emailListArrayJSON);
         return saveEmailPreferences(emailListsJSONObject, companyPreferences);
@@ -561,7 +567,12 @@ public class EmailListServiceImpl implements EmailListService {
         return false;
     }
 
-    private Boolean saveEmailPreferences(JSONObject emailListsObject,CompanyPreferences companyPreferences) {
+    private Boolean updateMindbodyEmailList(JSONObject emailListsJSONObject, JSONArray mindbodyEmails, CompanyPreferences companyPreferences) throws SQLException {
+        emailListsJSONObject.put(IConstants.kEmailListMindbodyKey, mindbodyEmails);
+        return saveEmailPreferences(emailListsJSONObject, companyPreferences);
+    }
+
+    private Boolean saveEmailPreferences(JSONObject emailListsObject, CompanyPreferences companyPreferences) {
         companyPreferences.setEmailList(emailListsObject.toJSONString());
         companyPreferencesService.updatePreferences(companyPreferences);
         return true;
