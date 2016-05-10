@@ -222,21 +222,18 @@
             .controller("MyController", function($scope, $http) {                        
 
                     $scope.getEmailDrafts = function(){
-
-                    if (draft_id != ""){
-
+                    if (draft_id !== "" && draft_id !==null && draft_id !=="null"){
                     $http({
-                    method : 'GET',
-                            url : getHost() + 'getEmailDraft?draftid=' + draft_id
+                        method : 'GET',
+                        url : getHost() + 'getEmailDraft?draftid=' + draft_id
                     }).success(function(data, status) {
-                    if (data == ""){
-                    $scope.emaildraftsstatus = "No email drafts present";
-                    } else {
+                        if (data == ""){
+                            $scope.emaildraftsstatus = "No email drafts present";
+                        } else {
 
-                    $scope.htmlbody = data.htmlbody;
+                            $scope.htmlbody = data.htmlbody;
                             $('#edit').froalaEditor('html.set', '' + data.htmlbody);
-                    }
-
+                        }
                     }).error(function(data, status) {
                     alert("No data available! Problem fetching the data.");
                             // called asynchronously if an error occurs
@@ -824,7 +821,7 @@
                 $("#previewcontent").empty();
                 $("#previewcontent").append(responseText.d.details);
 //                var LookupId=$("#LookupId").val();
-                if (draft_id == "0" || draft_id == "null" ||draft_id == null){
+                if (draft_id == "0" || draft_id == "null" || draft_id == null){
                 $.ajax({
                     url: getHost() + "saveEmailDrafts",
                     method: "post",

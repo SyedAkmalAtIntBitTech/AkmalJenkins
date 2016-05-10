@@ -97,10 +97,10 @@
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
             <div class="exit-button-detail" onclick="backeditor()">
-                <a class=" exit-button-icon" href="emaileditor" id="backemaillist">
+                <a class=" exit-button-icon" href="" id="backemaillist">
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
                 </a>
-                <a class=" exit-button-icon" href="emaileditor" id="backemaildetails">
+                <a class=" exit-button-icon" href="" id="backemaildetails">
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
                 </a>
             </div>
