@@ -90,14 +90,14 @@ public class SchedulerUtilityMethods {
             sbSql.append(" and lower(entitytable.status) like '").append(status).append("'");
             sbSql.append(" and entitytable.entity_type like'").append(entityType).append("'");
             sbSql.append(" and entitytable.is_recurring = '").append(isRecurring).append("'");
-            sbSql.append(" and (date(programtable.date_event AT TIME ZONE 'US/Eastern') - entitytable.days  = current_date AT TIME ZONE 'US/Eastern' or (date(entitytable.schedule_time AT TIME ZONE 'US/Eastern'))= current_date AT TIME ZONE 'US/Eastern')");
-            sbSql.append(" and date_trunc('minute', entitytable.schedule_time)::time AT TIME ZONE 'US/Eastern' = date_trunc('minute', localtimestamp)::time AT TIME ZONE 'US/Eastern'");
+            sbSql.append(" and (date(programtable.date_event AT TIME ZONE 'Asia/Kolkata') - entitytable.days  = current_date AT TIME ZONE 'Asia/Kolkata' or (date(entitytable.schedule_time AT TIME ZONE 'Asia/Kolkata'))= current_date AT TIME ZONE 'Asia/Kolkata')");
+            sbSql.append(" and date_trunc('minute', entitytable.schedule_time)::time AT TIME ZONE 'Asia/Kolkata' = date_trunc('minute', localtimestamp)::time AT TIME ZONE 'Asia/Kolkata'");
             sbSql.append(" order by entitytable.schedule_time::time");
 //            sbSql.append(" limit 1");
             sbSql.append(";");
         }
         ArrayList<String> entityId = new ArrayList<String>();
-
+logger.log(Level.SEVERE,sbSql.toString());
         try (Connection conn = connectionManager.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sbSql.toString())) {
             ps.execute();
@@ -165,7 +165,7 @@ public class SchedulerUtilityMethods {
     }
 
     public static ScheduledSocialpostList getSocialPostEntityById(int entityId) {
-        String sql = "select * from scheduled_socialpost_list where id=" + entityId;
+        String sql = "select * from scheduled_socialpost_list where scheduled_socialpost_list_id=" + entityId;
         ScheduledSocialpostList result = null;
 
         try (Connection conn = connectionManager.getConnection();
@@ -190,7 +190,7 @@ public class SchedulerUtilityMethods {
     }
 
     public static ScheduledEmailList getEmailEntityById(int entityId) {
-        String sql = "select * from scheduled_email_list where id=" + entityId;
+        String sql = "select * from scheduled_email_list where scheduled_email_list_id=" + entityId;
         ScheduledEmailList result = null;
 
         try (Connection conn = connectionManager.getConnection();
