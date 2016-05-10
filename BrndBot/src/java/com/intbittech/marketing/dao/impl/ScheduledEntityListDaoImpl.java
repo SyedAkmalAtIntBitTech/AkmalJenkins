@@ -55,7 +55,7 @@ public class ScheduledEntityListDaoImpl implements ScheduledEntityListDao {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(ScheduledEntityList.class)
-                    .add(Restrictions.eq("entityId", id));
+                    .add(Restrictions.eq("scheduledEntityListId", id));
             return (ScheduledEntityList) criteria.list().get(0);
         } catch (ProcessFailed throwable) {
             logger.log(Level.SEVERE, null, throwable);
