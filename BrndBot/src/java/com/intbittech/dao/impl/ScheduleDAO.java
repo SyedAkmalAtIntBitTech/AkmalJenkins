@@ -533,7 +533,7 @@ public class ScheduleDAO {
 
     public static String getMarketingProgramName(int marketingId, Connection connection) {
         String marketingProgram = "";
-        String sql1 = "SELECT name FROM company_marketing_program WHERE company_marketing_program_id = ? ";
+        String sql1 = "SELECT company_marketing_program_name FROM company_marketing_program WHERE company_marketing_program_id = ? ";
         try (PreparedStatement ps1 = connection.prepareStatement(sql1)) {
             ps1.setInt(1, marketingId);
             try (ResultSet rs1 = ps1.executeQuery()) {

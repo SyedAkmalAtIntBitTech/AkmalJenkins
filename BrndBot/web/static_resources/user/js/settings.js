@@ -83,6 +83,24 @@ $(document).ready(function () {
             $(".showornot").show();
         }
     });
+   $("#fromThem").click(function(){
+        $("#logocolor").hide();
+        $("#custom").hide();
+        $("#picktheme").show();
+    });
+   $("#fromPalette").click(function(){
+        $("#picktheme").hide();
+        $("#logocolor").hide();
+        $("#custom").show();
+        
+    });
+   $("#fromLogo").click(function(){
+        $("#picktheme").hide();
+        $("#custom").hide();
+        $("#logocolor").show();
+    });
+    
+    
 });
 
 var ElementID;
@@ -97,10 +115,8 @@ function getElementID(IDNo) {
     $("#sortable").disableSelection();
 }
 /*------ pass color into the selected element got by id-----*/
-function getIDNo(IDNo) {
-    var s = $("#" + IDNo).attr("style");
-    var s1 = s.split(":");
-    $("#" + ElementID).css("background-color", s1[1].replace(";", " "));
+function setSelectedColor(color){
+    $("#" + ElementID).css("background-color", color);
 }
 var id = 1;
 var theme_id = 0;
@@ -114,6 +130,12 @@ function doSomething(theme_id) {
         $("#elementToPutStyleInto" + i).css("background-color", $("#" + colorid).css("background-color"));
     }
 }
+function setThemeColors(color1,color2,color3,color4){
+     $("#elementToPutStyleInto1").css("background-color",color1);
+     $("#elementToPutStyleInto2").css("background-color",color2);
+     $("#elementToPutStyleInto3").css("background-color",color3);
+     $("#elementToPutStyleInto4").css("background-color",color4);
+} 
 
 var elementid1;
 function showLook(lookid) {
@@ -196,50 +218,42 @@ function controllerUserChanges($scope, $http) {
             }).success(function (data)
             {
                 $scope.status = data;
-                if (data === "false") {
-                    alert(sessionexpire);
-                } else if (data === "true") {
-                    alert(passwordchanged);
                     $("#inputpassword1").val("");
                     $("#inputreenter1").val("");
                     $("#inputpassword").val("");
                     $("#inputreenter").val("");
                     $("#showpassword").prop("checked", false);
-                } else if (data === error) {
-                }
             }).error(function (data, status) {
                 alert(requesterror);
             });
         }
     };
     $scope.showColors = function () {
+        $scope.getLogoColors();
         showOverlay();
         $http({
             method: 'GET',
             url: getHost() + 'settings/getColors'
-        }).success(function (data, status, headers, config) {
+        }).success(function (data) {
             hideOverlay();
-            var parseData = JSON.parse(data.d.details[0]);
-            $scope.user_preferences_colors = JSON.parse(JSON.stringify(parseData));
+            $scope.user_preferences_colors = data.d.details;
         }).error(function (data, status, headers, config) {
             hideOverlay();
-            alert(JSON.stringify(data));
-//            alert(nodataerror);
+            alert(nodataerror);
         });
 
-//        $http({
-//            method: 'GET',
-//            url: getHost()+'GetColorPalettes'
-//        }).success(function (data, status, headers, config) {
-//
-//            $scope.themes = data;
-//            hideOverlay();
-//            if (data === error) {
-//            }
-//        }).error(function (data, status, headers, config) {
-//            hideOverlay();
-//            alert(nodataerror);
-//        });
+        $http({
+            method: 'GET',
+            url: getHost()+'getAllColorThemes'
+        }).success(function (data, status, headers, config) {
+            $scope.themes = data.d.details;
+            hideOverlay();
+            if (data === error) {
+            }
+        }).error(function (data, status, headers, config) {
+            hideOverlay();
+            alert(nodataerror);
+        });
 
     };
 
@@ -249,7 +263,6 @@ function controllerUserChanges($scope, $http) {
             method: 'GET',
             url: getHost() +'onboarding/getColorsForLogo'
         }).success(function (data, status, headers, config) {
-//          alert(JSON.stringify(data.d.details));
             $scope.color =data.d.details;
             if (data === error) {
             }
@@ -260,7 +273,6 @@ function controllerUserChanges($scope, $http) {
 
     $scope.createUserPreferences = function ()
     {
-
         var s1 = $("#elementToPutStyleInto1").css("background-color");
         var s2 = $("#elementToPutStyleInto2").css("background-color");
         var s3 = $("#elementToPutStyleInto3").css("background-color");
@@ -269,7 +281,6 @@ function controllerUserChanges($scope, $http) {
         document.getElementById("finalcolor2").value = s2;
         document.getElementById("finalcolor3").value = s3;
         document.getElementById("finalcolor4").value = s4;
-
         var color1 = $("#finalcolor1").val();
         var color2 = $("#finalcolor2").val();
         var color3 = $("#finalcolor3").val();
@@ -277,26 +288,18 @@ function controllerUserChanges($scope, $http) {
         if (color1 == "" || color2 == "" || color3 == "" || color4 == "") {
             alert("Please fill all six colors! Click MOST USED to select colors.");
         } else {
-
-            var colorObject = '{"color1":'+color1+',"color2":'+color2+',"color3":'+color3+',"color4":'+color4+'}';
-
+            var colorObject = '{"color1":"'+color1+'","color2":"'+color2+'","color3":"'+color3+'","color4":"'+color4+'"}';
             $http({
                 method: 'POST',
                 url: getHost() + 'settings/setColors',
-                headers: {'Content-Type': 'application/json'},
                 data: colorObject
             }).success(function (data) {
                 $scope.status = data;
-
-                if (data === error) {
-                } else {
                     alert(detailssaved);
                     $scope.showColors();
-                }
             }).error(function (data, status) {
                 alert(requesterror);
             });
         }
     };
-}
-;
+};
