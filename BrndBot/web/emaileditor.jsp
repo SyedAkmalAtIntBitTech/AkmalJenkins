@@ -116,7 +116,6 @@
         $(document).ready(function(){  
             
         $("#saveToDraft").click(function (){
-            alert();
 //        $("#saveToDraft").unbind('click');
         $.ajax({
             url: getHost() + "PreviewServlet",
@@ -262,7 +261,7 @@
 
                     $scope.getEmailDrafts = function(){
 
-                    if (draft_id != ""){
+                    if (draft_id != "" || draft_id !=null || draft_id !="null"){
 
                     $http({
                     method : 'GET',
@@ -277,9 +276,9 @@
                     }
 
                     }).error(function(data, status) {
-                    alert("No data available! Problem fetching the data.");
-                            // called asynchronously if an error occurs
-                            // or server returns response with an error status.
+                        alert("No data available! Problem fetching the data.");
+//                        called asynchronously if an error occurs
+//                        or server returns response with an error status.
                     });
                     }
 
@@ -708,7 +707,6 @@
                     
                     
                     $("#emailpreview").click(function(){   
-                        alert();
                         $("#email_previewdiv").show();
                         $.ajax({
                                 url: getHost() + "PreviewServlet",

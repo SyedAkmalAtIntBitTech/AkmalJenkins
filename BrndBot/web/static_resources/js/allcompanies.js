@@ -13,6 +13,7 @@ function allCompaniesController($scope,$http){
              method: 'GET',
              url : getHost()+'/getAllCompanies.do'            
         }).success(function(data, status, headers, config){
+            
             $scope.company = data.d.details;            
         }).error(function(data, status, headers, config){
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));          
