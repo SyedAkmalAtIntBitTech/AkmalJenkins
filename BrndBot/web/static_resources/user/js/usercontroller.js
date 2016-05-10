@@ -89,7 +89,9 @@ $scope.displaySubCategory = function () {
                 hideOverlay(); 
                 $scope.displayMarketingPrograms = data.d.details;
                 var marketingProgramId= JSON.stringify(data.d.details[0].marketingProgramId);         
-                $("#"+marketingProgramId).click();  
+                setTimeout(function (){
+                    $("#"+marketingProgramId).click(); 
+                },0);
                 for(var i=0;i<=data.d.details.length;i++)
                 {
                    $("#htmlData").text(data.d.details[i].htmlData); 
