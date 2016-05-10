@@ -235,20 +235,17 @@ function controllerUserChanges($scope, $http) {
             method: 'GET',
             url: getHost() + 'settings/getColors'
         }).success(function (data) {
-            alert(JSON.stringify(data));
             hideOverlay();
             $scope.user_preferences_colors = data.d.details;
         }).error(function (data, status, headers, config) {
             hideOverlay();
-            alert(JSON.stringify(data));
-//            alert(nodataerror);
+            alert(nodataerror);
         });
 
         $http({
             method: 'GET',
             url: getHost()+'getAllColorThemes'
         }).success(function (data, status, headers, config) {
-            alert(JSON.stringify(data));
             $scope.themes = data.d.details;
             hideOverlay();
             if (data === error) {
@@ -266,7 +263,6 @@ function controllerUserChanges($scope, $http) {
             method: 'GET',
             url: getHost() +'onboarding/getColorsForLogo'
         }).success(function (data, status, headers, config) {
-          alert(JSON.stringify(data.d.details));
             $scope.color =data.d.details;
             if (data === error) {
             }
@@ -293,20 +289,14 @@ function controllerUserChanges($scope, $http) {
             alert("Please fill all six colors! Click MOST USED to select colors.");
         } else {
             var colorObject = '{"color1":"'+color1+'","color2":"'+color2+'","color3":"'+color3+'","color4":"'+color4+'"}';
-            alert(getHost());
             $http({
                 method: 'POST',
                 url: getHost() + 'settings/setColors',
                 data: colorObject
             }).success(function (data) {
-                alert(JSON.stringify(data));
                 $scope.status = data;
-
-                if (data === error) {
-                } else {
                     alert(detailssaved);
                     $scope.showColors();
-                }
             }).error(function (data, status) {
                 alert(requesterror);
             });

@@ -1117,8 +1117,6 @@ function postToFacebook() {
     var linkUrl = $("#linkUrl").val();
     var image_name = selecImageName;
     var image_type = selecImageType;
-    alert(localStorage.getItem("CurrentFbAccessToken"));
-
     $.ajax({
         url: getHost() + "socialPost/postToFacebook",
         method: 'post',
@@ -1171,7 +1169,7 @@ function PostToTwitter() {
                     shorturl: bit_url
                 }),
                 success: function (responseText) {
-                    alert(JSON.stringify(responseText));
+//                    alert(JSON.stringify(responseText));
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(JSON.stringify(jqXHR));
@@ -1202,17 +1200,13 @@ angular.module("imageGallery", [])
                 });
             };
             $scope.uploadFile1 = function () {
-                alert("uploadFile");
                 var imagetext = $("#filesToUpload").val();
                 if (imagetext === "")
                 {
                     alert(chooseimage);
                 } else
                 {
-                    alert("1");
                     var file = $scope.myFile1;
-                    alert(file);
-                    alert("1");
                     console.log('file is ' + JSON.stringify(file));
                     var uploadUrl = getHost() + '/images/save';
                     var fd = new FormData();
@@ -1222,7 +1216,6 @@ angular.module("imageGallery", [])
                         headers: {'Content-Type': undefined}
                     })
                             .success(function (data) {
-                                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                                 window.open(global_host_address + 'user/imagegallery', "_self");
                             })
                             .error(function () {
@@ -1267,7 +1260,6 @@ function isDefaultTwitterSet() {
             access_token_method: "getAccessToken"
         }),
         success: function (responseText) {
-            alert("sucess" + JSON.stringify(responseText));
             var twitterAccessToken = responseText.d.message;
             if ((twitterAccessToken === null) || (twitterAccessToken === ""))
             {
@@ -1378,7 +1370,7 @@ angular.module("socialMedia", [])
                             fb_user_profile_name: localStorage.getItem("FbProfileName")
                         })
                     }).success(function (data) {
-                        alert(JSON.stringify(data));
+//                        alert(JSON.stringify(data));
                     });
                 }
                 window.location = getHost() + "user/facebookpost";
