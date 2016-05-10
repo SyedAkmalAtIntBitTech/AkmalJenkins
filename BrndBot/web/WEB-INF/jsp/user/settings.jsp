@@ -106,7 +106,7 @@
                             Logo
                         </div>
                         <div class="pushUp">
-                            <form name="formpersonality" action="/BrndBot/settings/changeLogo.do" enctype="multipart/form-data" method="post" class="ng-pristine ng-valid">
+                            <form id="data" name="formpersonality"  enctype="multipart/form-data" method="post" class="ng-pristine ng-valid">
                                 <div class="col-2of10 fleft cur1">
                                     <div class="logo-container"><textarea class="top55 left10 right10" id="filetext1">Choose an Image to upload</textarea>
                                         <input type="hidden" name="upload" value="update"></input>

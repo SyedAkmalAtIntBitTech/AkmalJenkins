@@ -120,6 +120,16 @@ function setSelectedColor(color){
 }
 var id = 1;
 var theme_id = 0;
+function doSomething(theme_id) {
+    var theamNum = parseInt(theme_id.replace("theme", ""));
+    theamNum--;
+    var num = theamNum * 6;
+    $("#themeid").val(theme_id);
+    for (var i = 1; i <= 6; i++) {
+        var colorid = "color" + (i + num);
+        $("#elementToPutStyleInto" + i).css("background-color", $("#" + colorid).css("background-color"));
+    }
+}
 function setThemeColors(color1,color2,color3,color4){
      $("#elementToPutStyleInto1").css("background-color",color1);
      $("#elementToPutStyleInto2").css("background-color",color2);
