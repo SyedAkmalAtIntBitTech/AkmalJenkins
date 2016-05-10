@@ -126,7 +126,7 @@
                                 var picker = new Pikaday(
                                 {
                                     field: document.getElementById('jumptodatepicker'),
-                                    format: 'YYYY-MM-DD',
+                                    format: 'ddd MMM DD YYYY',
                                     firstDay: 1,
                                     minDate: new Date(min),
                                     maxDate: new Date(max),
