@@ -6,6 +6,7 @@
 package com.intbittech.component;
 
 import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.services.EmailListService;
 
 /**
  * This interface represents a list of Spring Beans (services) which need to be referenced from a non Spring class.
@@ -13,4 +14,5 @@ import com.intbittech.services.CompanyPreferencesService;
  */
 public interface SpringContextBridgedServices {
     CompanyPreferencesService getCompanyPreferencesService();
+    EmailListService getEmailListService();
 }

@@ -777,7 +777,7 @@ $edit=0;
                         }//                        alert(JSON.stringify(JSON.parse(data.d.details)));
                         var parseData=JSON.parse(data.d.details);
                         $scope.emailLists = parseData.allEmailListWithNoOfContacts.user; 
-                        $scope.emailListsMindbody = data.allEmailListWithNoOfContacts.mindbody;
+                        $scope.emailListsMindbody = parseData.allEmailListWithNoOfContacts.mindbody;
                         hideOverlay();
                         if (data === "true") {
                         } else if (data === error) {

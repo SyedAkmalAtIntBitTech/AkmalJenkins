@@ -6,6 +6,7 @@
 package com.intbittech.component;
 
 import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.services.EmailListService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -24,6 +25,8 @@ public class SpringContextBridge
 
     @Autowired
     private CompanyPreferencesService companyPreferencesService; //Autowire the CompanyPreferencesService
+    @Autowired
+    private EmailListService emailListService;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) 
@@ -46,5 +49,10 @@ public class SpringContextBridge
     @Override
     public CompanyPreferencesService getCompanyPreferencesService() {
         return companyPreferencesService;
+    }
+    
+    @Override
+    public EmailListService getEmailListService() {
+        return emailListService;
     }
 }
