@@ -130,6 +130,7 @@
         }
         
         $(document).ready(function(){
+            showOverlay();
              $('#edit').froalaEditor({key: FroalaLicenseKey});
             $('#edit').froalaEditor().show();
             $("#closePrev").click(function(){
@@ -221,21 +222,18 @@
             .controller("MyController", function($scope, $http) {                        
 
                     $scope.getEmailDrafts = function(){
-
-                    if (draft_id != ""){
-
+                    if (draft_id !== "" && draft_id !==null && draft_id !=="null"){
                     $http({
-                    method : 'GET',
-                            url : getHost() + 'getEmailDraft?draftid=' + draft_id
+                        method : 'GET',
+                        url : getHost() + 'getEmailDraft?draftid=' + draft_id
                     }).success(function(data, status) {
-                    if (data == ""){
-                    $scope.emaildraftsstatus = "No email drafts present";
-                    } else {
+                        if (data == ""){
+                            $scope.emaildraftsstatus = "No email drafts present";
+                        } else {
 
-                    $scope.htmlbody = data.htmlbody;
+                            $scope.htmlbody = data.htmlbody;
                             $('#edit').froalaEditor('html.set', '' + data.htmlbody);
-                    }
-
+                        }
                     }).error(function(data, status) {
                     alert("No data available! Problem fetching the data.");
                             // called asynchronously if an error occurs
@@ -268,7 +266,7 @@
                     };
                     
                     $scope.showStyles = function(){
-                            showOverlay();
+//                            showOverlay();
                             var subCategoryId=$("#subCategoryIdTag").val();
                             var queryurl;
                             $scope.curPage = 0;
@@ -303,7 +301,7 @@
                         };
                         
                     $scope.showBlocks = function(){
-                        showOverlay();
+//                        showOverlay();
                         $("#addblkbtn").prop("disabled", true);
                         $(".selectrow").css("display", "block");
                         $("#stylelist").css("display", "none");
@@ -344,7 +342,7 @@
                     };
                     
                     $scope.showImageOfBlock = function(id, mind_body_query){
-                        showOverlay();
+//                        showOverlay();
 //                        alert(id);
 //                        alert(mind_body_query);
                         $(".block-button").addClass("hide");
@@ -713,16 +711,29 @@
                             $.FroalaEditor.DEFAULTS.htmlAllowedAttrs = $.merge($.FroalaEditor.DEFAULTS.htmlAllowedAttrs, ['onclick']); 
                             
                             $(function () {
-                            var urlList11;
+                            var urlList11="";var hrefs;
                                     $.ajax({
-                                    url:'getAllUserMarketingProgramsBySessionUserId',
+                                    url:getHost()+'getAllUserMarketingProgramsBySessionUserId',
                                             method:'Get',
                                             dataType: 'json',
                                             contentType: 'application/json',
                                             mimeType: 'application/json',
                                             success: function (responseText) {
-                                            urlList11 = responseText
-                                                    $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: urlList11});
+//                                            alert(JSON.stringify(responseText));
+                                            var linkListLength=responseText.length;
+                                                for(var i=0;i<linkListLength;i++){
+                                                    hrefs = eval(JSON.stringify(responseText[i].href));
+                                                    if(hrefs!=""){
+                                                        urlList11 = JSON.stringify(responseText[i])+","+urlList11;
+                                                    }
+                                                }
+                                                var lastChar = urlList11.slice(-1);
+                                                if (lastChar == ',') {
+                                                  urlList11 = urlList11.slice(0, -1);
+                                                }
+                                                var linkListArray="["+urlList11+"]";
+//                                                alert(linkListArray);
+                                                $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: linkListArray});
                                             }
                                     });
                             });        
@@ -810,7 +821,7 @@
                 $("#previewcontent").empty();
                 $("#previewcontent").append(responseText.d.details);
 //                var LookupId=$("#LookupId").val();
-                if (draft_id == "0" || draft_id == "null" ||draft_id == null){
+                if (draft_id == "0" || draft_id == "null" || draft_id == null){
                 $.ajax({
                     url: getHost() + "saveEmailDrafts",
                     method: "post",

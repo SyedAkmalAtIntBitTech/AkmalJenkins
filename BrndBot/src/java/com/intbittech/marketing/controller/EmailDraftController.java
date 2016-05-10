@@ -61,13 +61,13 @@ public class EmailDraftController {
             Integer subCategoryId = Integer.parseInt((String) requestBodyMap.get("subCategoryId"));
             String lookupIdStr=(String)requestBodyMap.get("lookupId");
             Integer lookupId=0;
-            if(lookupIdStr!=""||lookupIdStr!=null)
+            if(!lookupIdStr.equals("null"))
             {
                 lookupId = Integer.parseInt(lookupIdStr);
             }    
             String mindbodyIdStr=(String) requestBodyMap.get("mindbodyData");
             Integer mindbodyId=0;
-            if(mindbodyIdStr!=""||mindbodyIdStr!=null)
+            if(!mindbodyIdStr.equals("null"))
             {
                 mindbodyId = Integer.parseInt(mindbodyIdStr);
             }  
