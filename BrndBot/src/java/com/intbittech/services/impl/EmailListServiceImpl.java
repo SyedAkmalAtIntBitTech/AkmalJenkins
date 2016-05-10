@@ -146,12 +146,8 @@ public class EmailListServiceImpl implements EmailListService {
         JSONParser jsonParser = new JSONParser();
         JSONObject emailListJSONObject = new JSONObject();
         if(!StringUtility.isEmpty(companyPreferences.getEmailList())) {
-           JSONObject userEmailListJSONObject = (JSONObject) jsonParser.parse(companyPreferences.getEmailList());
-//           emailListJSONObject = (JSONObject) userEmailListJSONObject.get(IConstants.kEmailListUserKey);
-        } else {
-//            emailListJSONObject.put(IConstants.kEmailListUserKey, "");
+           emailListJSONObject = (JSONObject) jsonParser.parse(companyPreferences.getEmailList());
         }
-
         String queryParameter = (String) requestBodyMap.get("update");
 
         if (queryParameter.equalsIgnoreCase("addEmailList")) {

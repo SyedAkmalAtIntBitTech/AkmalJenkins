@@ -662,7 +662,7 @@ $edit=0;
                                             "emailLastName":email_last_name}
                                 $http({
                                     method: 'POST',
-                                    url: getHost() + '/emaillist/save.do',
+                                    url: getHost() + '/emaillist/save',
                                     headers: {'Content-Type': 'application/json'},
                                     data: emaildetails
                                 }).success(function (data)
@@ -730,7 +730,7 @@ $edit=0;
                     var Emails = {"emailListName": email_list_name, "emailAddresses": email_list, "update": "UpdateEmailList"};
                     $http({
                         method: 'POST',
-                        url: getHost() + 'SetEmailLists',
+                        url: getHost() + '/emaillist/save',
                         headers: {'Content-Type': 'application/json'},
                         data: Emails
                     }).success(function (data)
@@ -900,14 +900,14 @@ $edit=0;
                         }
                         $http({
                             method: 'POST',
-                            url: getHost() + 'SetEmailLists',
+                            url: getHost() + '/emaillist/save',
                             headers: {'Content-Type': 'application/json'},
                             data: EmailLists
                         }).success(function (data)
                         {
-                            if (data === "true") {
+                            if (data.d.operationStatus.statusCode === "Success") {
                                 alert(deleteemaillist);
-                                window.open(getHost() + 'emaillists.jsp', "_self");
+                                window.open(getHost() + 'user/emaillists', "_self");
                             } else if (data === error) {
                                 alert(data);
                             }
