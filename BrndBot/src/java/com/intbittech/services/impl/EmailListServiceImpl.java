@@ -144,7 +144,13 @@ public class EmailListServiceImpl implements EmailListService {
 
         CompanyPreferences companyPreferences = companyPreferencesService.getByCompanyId(companyId);
         JSONParser jsonParser = new JSONParser();
-        JSONObject emailListJSONObject = (JSONObject) jsonParser.parse(companyPreferences.getEmailList());
+        JSONObject emailListJSONObject = new JSONObject();
+        if(!StringUtility.isEmpty(companyPreferences.getEmailList())) {
+           JSONObject userEmailListJSONObject = (JSONObject) jsonParser.parse(companyPreferences.getEmailList());
+//           emailListJSONObject = (JSONObject) userEmailListJSONObject.get(IConstants.kEmailListUserKey);
+        } else {
+//            emailListJSONObject.put(IConstants.kEmailListUserKey, "");
+        }
 
         String queryParameter = (String) requestBodyMap.get("update");
 
@@ -258,6 +264,9 @@ public class EmailListServiceImpl implements EmailListService {
                 emailListArrayJSON = (JSONArray) emailListJSONObject.get(IConstants.kEmailListMindbodyKey);
                 break;
             default:
+        }
+        if (emailListArrayJSON == null || emailListArrayJSON.isEmpty()) {
+            emailListArrayJSON = new JSONArray();
         }
         return emailListArrayJSON;
     }
@@ -509,6 +518,11 @@ public class EmailListServiceImpl implements EmailListService {
 
     private Boolean updateEmailListUserPreference(JSONObject emailListsJSONObject, JSONArray json_user_preferences_emails, CompanyPreferences companyPreferences) throws SQLException {
         JSONArray emailListArrayJSON = getEmailListForType(emailListsJSONObject, EmailListType.Regular);
+        if (emailListArrayJSON == null || emailListArrayJSON.isEmpty()) {
+            for (int i = 0; i < json_user_preferences_emails.size(); i++) {
+                emailListArrayJSON.add(json_user_preferences_emails.get(i));
+            }
+        }
         for (int i = 0; i < emailListArrayJSON.size(); i++) {
             JSONObject emailListJSONObject = (JSONObject) emailListArrayJSON.get(i);
             String listName = (String) emailListJSONObject.get(IConstants.kEmailListNameKey);
