@@ -779,9 +779,9 @@ $edit=0;
                         $scope.emailLists = parseData.allEmailListWithNoOfContacts.user; 
                         $scope.emailListsMindbody = parseData.allEmailListWithNoOfContacts.mindbody;
                         hideOverlay();
-                        if (data === "true") {
-                        } else if (data === error) {
-                            alert(data);
+                         if (data.d.operationStatus.statusCode === "Success") {
+                        } else {
+                            alert(data.d.operationStatus.messages[0]);
                         }
                         
                     }).error(function(error){
