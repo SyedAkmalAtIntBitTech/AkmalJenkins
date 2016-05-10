@@ -808,14 +808,13 @@
                 $("#previewcontent").append(responseText.d.details);
 //                var LookupId=$("#LookupId").val();
                 if (draft_id == "0" || draft_id == "null" || draft_id == null){
-                alert(draft_id);
                 $.ajax({
                     url: getHost() + "saveEmailDrafts",
                     method: "post",
                     data:JSON.stringify({
                     bodyString : $('#edit').froalaEditor('html.get'),
-                    lookupId : lookupId.toString(),
-                    mindbodyData : mindbodyData.toString(),
+                    lookupId : lookupId,
+                    mindbodyData : mindbodyData,
                     categoryId : categoryId,
                     subCategoryId : subCategoryId,
                     emailSubject : email_subject
