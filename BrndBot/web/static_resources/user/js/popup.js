@@ -1067,12 +1067,17 @@ $(document).ready(function ()
     });
     $("#shoeUploadimage").click(function () {
         $("#gallerySpan").hide();
+        $("#addImageButton").hide();
+        $("#uploadImageButton").show();
         $("#showGallery").removeClass("popUp_subheader-tabs-active fleft").addClass("popUp_subheader-tabs fleft");
         $("#shoeUploadimage").removeClass("popUp_subheader-tabs fleft").addClass("popUp_subheader-tabs-active fleft");
         $("#uploadImageSpan").show();
+        
     });
     $("#showGallery").click(function () {
         $("#gallerySpan").show();
+        $("#uploadImageButton").hide();
+        $("#addImageButton").show();
         $("#showGallery").removeClass("popUp_subheader-tabs fleft").addClass("popUp_subheader-tabs-active fleft");
         $("#shoeUploadimage").removeClass("popUp_subheader-tabs-active fleft").addClass("popUp_subheader-tabs fleft");
         $("#uploadImageSpan").hide();
@@ -1178,8 +1183,11 @@ function PostToTwitter() {
         }
     });
 }
-angular.module("imageGallery", [])
-        .controller("displayImageFromGallery", function ($scope, $http) {
+
+
+    var imgApp = angular.module('imageGallery', []);
+
+        imgApp.controller("displayImageFromGallery", ['$scope','$http', 'fileUpload', function($scope,$http,fileUpload) {
             $scope.getUserImaages = function () {
                 showOverlay();
                 $http({
@@ -1199,15 +1207,14 @@ angular.module("imageGallery", [])
                     alert(JSON.stringify(data));
                 });
             };
-            $scope.uploadFile1 = function () {
-                var imagetext = $("#filesToUpload").val();
+            $scope.uploadLogo = function () {
+                var imagetext = $("#uploadLogoID").val();
                 if (imagetext === "")
                 {
                     alert(chooseimage);
                 } else
                 {
-                    var file = $scope.myFile1;
-                    console.log('file is ' + JSON.stringify(file));
+                    var file = $scope.logo;
                     var uploadUrl = getHost() + '/images/save';
                     var fd = new FormData();
                     fd.append('file', file);
@@ -1216,7 +1223,13 @@ angular.module("imageGallery", [])
                         headers: {'Content-Type': undefined}
                     })
                             .success(function (data) {
-                                window.open(global_host_address + 'user/imagegallery', "_self");
+                                $scope.getUserImaages();
+                                        $("#uploadImageSpan").hide();
+                                        $("#gallerySpan").show();
+                                        $("#uploadImageButton").hide();
+                                        $("#addImageButton").show();
+                                        $("#showGallery").removeClass("popUp_subheader-tabs fleft").addClass("popUp_subheader-tabs-active fleft");
+                                        $("#shoeUploadimage").removeClass("popUp_subheader-tabs-active fleft").addClass("popUp_subheader-tabs fleft");
                             })
                             .error(function () {
 
@@ -1235,7 +1248,39 @@ angular.module("imageGallery", [])
                 $("#imagePopUp").hide();
             };
 
+        }]);
+           
+ imgApp.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);       
+ 
+ imgApp.service('fileUpload', ['$http', function ($http) {
+    this.uploadFileToUrl = function(file, uploadUrl){
+        var fd = new FormData();
+        fd.append('file', file);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(){
+        })
+        .error(function(){
         });
+    }
+}]);
+            
 function changeimagetext1() {
     var imagetext = $("#filesToUpload1").val();
     if (imagetext === "")

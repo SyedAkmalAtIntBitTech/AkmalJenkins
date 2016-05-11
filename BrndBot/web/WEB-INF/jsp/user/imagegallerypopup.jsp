@@ -33,20 +33,20 @@
                             <img type="image/svg+xml" src="images/uploadPhoto.svg" class="logoUpload-svg" style="cursor:pointer;">
                         </div>
                         <div class="Add_Button Button--Gray logoUpload--button">Upload Image
-                            <input type="file" name="filesToUpload1[]" id="filesToUpload1" class="upload fileupld" onchange="changeimagetext1()" file-model="myFile1">
+                            <input type="file"  id="uploadLogoID" class="Add_Button Button--Gray logoUpload--button upload fileupld"  file-model="logo">
                         </div>
                     </span>
                 </div>
             </span>
         </div>
-        <div class="popUp-bottom-wide" id="uploadImageButton" ng-click="addImage()">
+        <div class="popUp-bottom-wide" id="addImageButton" ng-click="addImage()">
             <span class="clickable-area">
                 <div class="popUp-bottom-link">ADD IMAGE</div>
             </span>
         </div>
-        <div class="popUp-bottom-wide displayNone" id="addImageButton"  ng-click="uploadFile1()">
+        <div class="popUp-bottom-wide displayNone" id="uploadImageButton"  ng-click="uploadLogo()">
             <span class="clickable-area">
-                <div class="popUp-bottom-link">ADD IMAGE</div>
+                <div class="popUp-bottom-link">UPLOAD IMAGE</div>
             </span>
         </div>
 
