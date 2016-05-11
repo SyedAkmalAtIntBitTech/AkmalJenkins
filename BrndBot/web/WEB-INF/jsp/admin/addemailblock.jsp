@@ -14,8 +14,8 @@
     <body ng-app  ng-controller="organizationcontroller">
         
         <div id="addEmailBlockPopUp" class="popUp_background">
-            
-            <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer"></div>
+             <div id="addOrganizationPopupDiv1" class="popUp_backgroundlayer"></div>
+           
            
         <div  class="popUp">
             
