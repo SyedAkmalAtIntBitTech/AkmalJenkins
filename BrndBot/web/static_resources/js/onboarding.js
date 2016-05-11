@@ -176,7 +176,7 @@ function onboardingcontroller($scope,$http) {
 //            $("#serviceContinueButton").css("pointer-events","auto");
 //        }        
 //    };
-    
+    var globalActivation =true;
     $scope.getActivationLink = function (){
         var studioId=$("#mindbodyStudioId").val();
         if(studioId===""){
@@ -197,20 +197,54 @@ function onboardingcontroller($scope,$http) {
                     $("#actiovationLink").attr('href',actiovationLink);
                     $("#activationLinkDiv").empty().append(actiovationLink);
                     $("#serviceContinueButton").css("pointer-events","auto");
+                    
+                    $http({
+                            method : 'GET',
+                            url : getHost()+'/externalContent/isActivated'
+                        }).success(function(data, status, headers, config) {
+                           var activation=JSON.stringify(data.d.details[0]); 
+                           globalActivation=activation;
+                            if(globalActivation=="false")
+                            {
+                                return false;
+                                
+                            }else{
+                                $("#serviceContinueButton").css("pointer-events","auto");
+                            }
+                            
+                           
+                        }).error(function(data, status, headers, config) {
+                           
+                        });  
+                    
         //            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 }).error(function (data, status, headers, config) {
                     alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });
+                
+                  
+                
             }
         }).error(function (data, status, headers, config) {
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
         });
         }
     };
+    
+
+    
     $scope.saveServices = function (){
-        var services= $("#services").val();
-        localStorage.setItem("services",services);
-        window.open(getHost() + 'signup/uploadlogo', "_self");
+       
+                    if(globalActivation=="false")
+                            {
+                                alert(activateMindBody);
+                            }else{
+                                $("#serviceContinueButton").css("pointer-events","auto");
+                                 var services= $("#services").val();
+                                 localStorage.setItem("services",services);
+                                 window.open(getHost() + 'signup/uploadlogo', "_self");
+                            }
+       
     };
     
      function validateEmail(emailId) {
@@ -291,11 +325,12 @@ function onboardingcontroller($scope,$http) {
     });
     $("#services").change(function (){
        var serviceValue=$("#services").val();
-        if(serviceValue !== '0'){
+        if(serviceValue !== '0' && globalActivation==true){
+           
             $("#serviceContinueButton").css("pointer-events","none");
             $("#mindbodyStudioDiv").show();
         }
-        if(serviceValue === '0'){
+        if(serviceValue === '0' && globalActivation==false){
             $("#mindbodyStudioDiv").hide();
             $("#serviceContinueButton").css("pointer-events","auto");
         }       
