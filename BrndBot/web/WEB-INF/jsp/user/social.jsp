@@ -8,7 +8,7 @@
                 <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
                 <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
                 <link rel="stylesheet" type="text/css" href="css/slat.css"></link>
-                <link rel="shortcut icon" href="favicon.png"></link> 
+                <link rel="shortcut icon" href="images/favicon.png"></link>
                 <script src="js/configurations.js" type="text/javascript"></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
                 <link href="css/socialeditor.css" rel="stylesheet" type="text/css"/>
@@ -49,7 +49,7 @@
                     <div class="dropdown-hub" id="socialdropdown">
                         <ul class="dropdown-inner">
                             <li class="dropdown-section col-1of1 fleft" id="socialhubli" >
-                                <a href="">
+                                <a href="social">
                                     <div><img type="image/svg+xml" src="images/Hub-Dropdowns_social.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
                                     <div class="fleft col-6of10 dropdown-label-active">Social Hub</div>
                                 </a>

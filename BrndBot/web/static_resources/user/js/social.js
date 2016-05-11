@@ -1,5 +1,8 @@
 
 $(document).ready(function () {
+    $("#socialclick").click(function(){
+    $("#socialdropdown").css("display","block");
+       });
     $("#twsetting").click(function () {
         $("#view1").hide();
         $("#view2").show();
