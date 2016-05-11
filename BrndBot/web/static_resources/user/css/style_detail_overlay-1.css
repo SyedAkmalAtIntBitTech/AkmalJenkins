@@ -798,7 +798,8 @@ padding-top: 0px;
     padding-top:0px;
     padding-bottom:0px;
     height: 100% !important;
-    max-height: 490px;
+    /*max-height: 490px;*/
+    max-height: 46vw;
     //overflow: auto;
     
 }
@@ -1520,10 +1521,10 @@ input-field-container{
     float: left;
     height: 0px;
     box-sizing: border-box;
-    background-color: #F9FAFC;
+    background-color: #FFFFFF;
     padding-right: 60px;
     width: 100%;  
-    padding-top: 1%;
+    padding-top: 0%;
     margin-top: 0%;
     margin-left: 0%;
     border-top: 1px solid #bbb;
@@ -2523,7 +2524,8 @@ width: 10%;
     padding-right: 30px;
     overflow-y: auto;
     max-height: 480px;
-    min-height: 480px;
+    min-height:440px;
+    /*min-height: 480px;*/
 }
 .imageGallery-inner-popup {
     margin: auto;
@@ -2739,3 +2741,12 @@ div#editor {
 }
 }
 /**************************** arfa end code ************************/
+
+
+.imageNamecenter{
+    width:100%;
+    text-align: center;
+    margin-top: 45px;
+    margin-left: auto;
+    margin-right: auto;
+}

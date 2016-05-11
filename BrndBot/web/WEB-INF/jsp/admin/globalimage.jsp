@@ -25,25 +25,30 @@
             <div class="slatHeaders">
                 <div class="listHeaderCol col1of2 fleft">
                     <span class="listCol_Header fleft"> Image Name</span>
+                     
                 </div>
+                
                 <div class="listHeaderCol col1of4 fleft">
                     <span class="listCol_Header fleft"> Date Added</span>
                 </div>
             </div>
             <ul class="slatArea">
                 <li class="listItem" ng-repeat="getAllGlobalImage in getAllGlobalImages.slice().reverse()" >
+                    <input hidden="" id="globalImageName" value="{{getAllGlobalImage.imageName}}"/>
                     <div class="listCol col1of2 fleft">
                         <span class="listCol_Text fleft">{{getAllGlobalImage.imageName.split('.')[0]}}</span>
+                        <input id="sd" value="{{url}}{{getAllGlobalImage.imageName}}" />
                     </div>
                     <div class="listCol col1of4 fleft">
                     <span class="listCol_Text fleft">{{getAllGlobalImage.createdDate | date : format : timezone}} </span>
-                   
+                    
                 </div>
                     <div class="listCol col1of4 fleft">
                         <a>
                             <div id="editImagePopUp" ng-click="editImagePopUp(getAllGlobalImage.globalImageId)" class="CTA_Button Button--Gray fright">View / Edit</div>
                         </a>
                     </div>
+                    
                 </li>
             </ul>
             

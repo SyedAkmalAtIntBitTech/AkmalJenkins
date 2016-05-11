@@ -128,6 +128,21 @@
         
     
     function emailautomation($scope, $http){
+        $("#datepicker").val('Sun Dec 31 2200');$("#datepickerdiv").hide();
+         $scope.showEmailList = function () {             
+            $.ajax({
+                method: 'GET',
+                 url: getHost() + 'emaillist/get?update=allEmailListWithNoOfContacts&emailListName=null'
+            }).success(function (data, status, headers, config) {
+                var parseData=JSON.parse(data.d.details);
+//                alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user[0].emailListName));
+                $scope.emailLists_user = parseData.allEmailListWithNoOfContacts.user;
+                $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
+            }).error(function(error){
+                alert(JSON.stringify(error));
+//                alert("Problem fetching the data!");
+            });
+        };
         $("#back").click(function (){
             window.open(getHost() + 'user/marketingprogramactions?past=0&program_id='+program_id+'&program_date='+program_end_date, "_self");
         });
@@ -135,6 +150,8 @@
             $scope.showEmailList();
             var entity_details = {"entity_id": entity_id};
                 if (type === 'add'){
+                    
+                    $("#datepicker").val('Sun Dec 31 2200');$("#datepickerdiv").hide();
 //                $.ajax({
 //                method: 'GET',
 //                url: getHost() + 'emaillist/get?update=allEmailListWithNoOfContacts&emailListName=null'
@@ -281,20 +298,7 @@
            
        };
        
-        $scope.showEmailList = function () {             
-            $.ajax({
-                method: 'GET',
-                 url: getHost() + 'emaillist/get?update=allEmailListWithNoOfContacts&emailListName=null'
-            }).success(function (data, status, headers, config) {
-                var parseData=JSON.parse(data.d.details);
-//                alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user[0].emailListName));
-                $scope.emailLists_user = parseData.allEmailListWithNoOfContacts.user;
-                $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
-            }).error(function(error){
-                alert(JSON.stringify(error));
-//                alert("Problem fetching the data!");
-            });
-        };
+       
 
         /*
          * Bring all the recuring email templates from the database
@@ -373,6 +377,7 @@
                     });
 
                     }else if((type == 'template') && (entity_no_email_template == "true")){
+                        $(".page-content-container").css('width','100%');
                     var recuring_action = {
                         "entity_id" : entity_id, 
                         "days":days, "emaillist":emaillist, 
@@ -409,6 +414,7 @@
                     });
 
                 }else if ((type == 'edit') && (entity_no_email_template == "true")){
+                    $(".page-content-container").css('width','90%');
                     var recuring_action = {
                         "entity_id" : entity_id, 
                         "days":days, "emaillist":emaillist, 
@@ -442,6 +448,7 @@
                     });
                     
                 }else if(((type == 'template') && (entity_no_email_template == 'false')) || ((type = 'edit') && (entity_no_email_template == 'false'))){
+                     $(".page-content-container").css('width','90%');
                     var recuring_action = {
                         "entity_id" : entity_id, 
                         "template_id" : template_id, "html_data": html_data,
@@ -562,6 +569,7 @@
        });
 
    if (type == 'edit'){
+        $(".page-content-container").css('width','90%');
        var entity_details = {"entity_id": entity_id};                 
        $("#emailautomationcontent").show();
        $("#emlautomeditorcontainer").hide();
@@ -978,7 +986,7 @@
                                          }
                                     </style>
                         </div>
-                        <div class="col-4of10 fleft pushUp-30 lftpad-5">
+                        <div class="col-4of10 fleft pushUp-30 lftpad-5" id="datepickerdiv">
                             <!--<input></input>-->
                                 <div class="h4" style="">
                                      Select a till date:

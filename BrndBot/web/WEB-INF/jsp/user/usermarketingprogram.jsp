@@ -84,13 +84,14 @@
                         </div>
                         <div class="col-1of1 fleft pushUp">
                             <div class="col-9of10 fleft">
-                                <div class="h4" style="">
-                                   Select a date for the end of this program:
+                                <div class="h4" style="" ng-init="getHtmlData()">
+                                    <span id="htmldata">Select a date for the end of this program:</span>
                                 </div>
                                 <input type="text" class="input-field-textfield col-8of10 width20" name="programdatetime" id="programdatetime" value="" readonly="">
                                 <script>
                                     var picker = new Pikaday(
                                     {
+                                        format: ('ddd MMM DD YYYY'),
                                         field: document.getElementById('programdatetime'),
                                         firstDay: 1,
                                         minDate: new Date(2000, 0, 1),
