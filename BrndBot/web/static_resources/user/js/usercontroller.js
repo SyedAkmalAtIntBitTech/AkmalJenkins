@@ -98,9 +98,7 @@ $scope.displaySubCategory = function () {
             hideOverlay();
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             
-        });
-        $(".programList").css("background-color", "#fff").css("color", "#3f3f42");
-        $(".nameList"+id).css("background-color","#5cc1a3").css("color","#f6f7f7");  
+        }); 
     };
     
     $scope.saveMarketingProgram = function (marketingCategoryId){     
@@ -108,9 +106,7 @@ $scope.displaySubCategory = function () {
     };
     
     $scope.showhtmldata = function(id,htmlData,marketingCategoryId){
-        marketingProgramId = id;
-        $(".programList").css("background-color", "#fff").css("color", "#3f3f42");
-        $(".nameList"+id).css("background-color","#5cc1a3").css("color","#f6f7f7");         
+        marketingProgramId = id;        
     };
 //    $scope.redirectToUserMarketingProgram = function(id,htmlData,marketingCategoryId){        
 //        alert();
