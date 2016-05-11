@@ -38,7 +38,7 @@
        
         <div class="topNav--offset"></div>
         <div class="contentWrapInner" ng-init="displayMarketingProgramByCategoryId()">
-            <div class="pane pane--600px" style="width:50%;float:left;margin-left: 94px;">
+            <div class="pane pane--600px" >
                 <div class="pane_header clear">
                     <div class="pane_title fleft h2">Marketing Programs</div>
                 </div>
