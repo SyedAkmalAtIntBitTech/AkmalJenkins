@@ -1615,4 +1615,14 @@ textarea#filetext1 {
     color: #ffffff;
 }
 /*----------------- Arfa end code-----------------*/
+/*----------------- Satyajit end code-----------------*/
 
+.programList2 {
+    border: 1px solid #e0e0e0;
+    margin-top: 2px;
+}
+.programList2:hover{
+    background-color: #5cc1a4;
+    color: #FFFFFF;
+}
+/*----------------- Satyajit end code-----------------*/

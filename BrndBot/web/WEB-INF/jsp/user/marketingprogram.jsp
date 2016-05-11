@@ -27,14 +27,13 @@
             </a>
             <div class="topNav--TitleBar--withBackButton fleft">
                 <span class="topNav--TitleBar--Title fleft h2">Select a category marketing program:</span>
-                <div class=" fright">
+<!--                <div class=" fright">
                    <div class="page-cta-container">
-                       <a id="cont" class=" fleft" href="" ng-click="saveMarketingProgram(<%=marketingCategoryId%>)">
-                        <div class=" add-button md-button">Continue</div>    
-                    </a>
-                    </div>
-                    
-                </div>
+                        <a id="cont" class=" fleft" href="" ng-click="saveMarketingProgram(<%=marketingCategoryId%>)">
+                            <div class=" add-button md-button">Continue</div>    
+                        </a>
+                    </div>                    
+                </div>-->
             </div>
        
         <div class="topNav--offset"></div>
@@ -47,19 +46,19 @@
                 <div class="pane_content">
                     
                     <div class="cat-list" ng-repeat="displayAllMarketingProgram in displayMarketingPrograms">
-                        
-                        <div  class="{{displayAllMarketingProgram.marketingProgramId}}">
-                            <ul>
-                                <li class="programList nameList{{displayAllMarketingProgram.marketingProgramId}}" ng-click="showhtmldata(displayAllMarketingProgram.marketingProgramId,displayAllMarketingProgram.htmlData)">
-                                    <div id="{{displayAllMarketingProgram.marketingProgramId}}" class="cat-slat-titles">{{displayAllMarketingProgram.marketingProgramName}}</div>
-                                </li>
-                            </ul>
-                        </div>
-                        
+                        <a id="categoryId" href="usermarketingprogram?marketingCategoryId=<%=marketingCategoryId%>&marketingProgramId={{displayAllMarketingProgram.marketingProgramId}}">
+                            <div  class="{{displayAllMarketingProgram.marketingProgramId}}">
+                                <ul>
+                                    <li class="programList2 nameList{{displayAllMarketingProgram.marketingProgramId}}" ng-click="showhtmldata(displayAllMarketingProgram.marketingProgramId,displayAllMarketingProgram.htmlData,<%=marketingCategoryId%>)">
+                                        <div id="{{displayAllMarketingProgram.marketingProgramId}}" class="cat-slat-titles">{{displayAllMarketingProgram.marketingProgramName}}</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>   
-            <div class="pane pane--600px" style="width:30%;float:right;margin-right: 92px;">
+<!--            <div class="pane pane--600px" style="width:30%;float:right;margin-right: 92px;">
                 <div class="pane_header clear">
                       <div class="pane_title fleft h2">Description</div>
                 </div>
@@ -69,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-            </div>   
+            </div>   -->
         </div>
         </div>
     
