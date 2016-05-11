@@ -27,8 +27,8 @@ function changeimagetext() {
         alert(chooseimage);
     }
     else
-    {
-        $("#imagetext").val(imagetext);
+    {  
+        $("#imagetext").val(imagetext.split('\\').pop());
     }
     if(imagefilevalidation("imagetext")){   }
     else
