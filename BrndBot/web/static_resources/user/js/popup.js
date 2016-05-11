@@ -1135,8 +1135,9 @@ function postToFacebook() {
             imageType: image_type
         }),
         success: function (responseText) {
-            var isSuccess = responseText.d;
-            if (isSuccess === "sucess") {
+            var isSuccess = responseText.d.message;
+            alert(JSON.stringify(responseText));
+            if (isSuccess === "success") {
                 $("#fbSuccessPostPopup").show();
             }
         },
@@ -1174,7 +1175,11 @@ function PostToTwitter() {
                     shorturl: bit_url
                 }),
                 success: function (responseText) {
-//                    alert(JSON.stringify(responseText));
+                    alert(JSON.stringify(responseText));
+                    var isSuccess = responseText.d.message;
+                    if (isSuccess === "success") {
+                        $("#twitterSuccessPostPopup").show();
+                    }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(JSON.stringify(jqXHR));

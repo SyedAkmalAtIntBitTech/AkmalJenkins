@@ -101,7 +101,6 @@ $(document).ready(function () {
     });
     
 $("form#data").submit(function(){
-        alert();
     var formData = new FormData($(this)[0]);
 
             $.ajax({

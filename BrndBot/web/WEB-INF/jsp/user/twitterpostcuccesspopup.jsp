@@ -1,10 +1,10 @@
 <%-- 
-    Document   : facebookpostsuccesspopup
-    Created on : 6 May, 2016, 12:32:58 PM
+    Document   : twitterpostcuccesspopup
+    Created on : 11 May, 2016, 4:59:18 PM
     Author     : sandeep
 --%>
 
-    <div class="popUp_background-dark displayNone" id="fbSuccessPostPopup">
+    <div class="popUp_background-dark displayNone" id="twitterSuccessPostPopup">
         <div class="popUp popUp_CenterVert">
            <div class="popUp_header clear">
                 <div class="pane_title fleft h2 col1of2">Post Successful!</div>
@@ -15,11 +15,11 @@
             </div>
             <div class="pane_content pane-padding">
                 <div class="postSent-desc-wrap">
-                    <div class="h3 font--lightGray ">Your post has been successfully posted on Facebook. Would you like to post the same content on Twitter? </div>
+                    <div class="h3 font--lightGray ">Your post has been successfully posted on Twitter. Would you like to post the same content on Facebook? </div>
                 </div>
                 <div class="postSent-button-wrap">
                     <div class="fleft">
-                         <a href="/BrndBot/user/facebookpost"><div class="CTA_Button Button--Gray ">Post to Facebook</div></a>
+                         <a href="/BrndBot/user/twitterpost"><div class="CTA_Button Button--Gray ">Post to Twitter</div></a>
                     </div>
                     <div class="fright">
                         <a href="/BrndBot/user/dashboard"><div class="CTA_Button Button--Gray ">Go to Dashboard</div></a>
