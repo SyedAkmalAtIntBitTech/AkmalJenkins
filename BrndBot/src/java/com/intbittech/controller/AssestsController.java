@@ -5,6 +5,7 @@
  */
 package com.intbittech.controller;
 
+import com.intbit.util.ServletUtil;
 import com.intbittech.AppConstants;
 import com.intbittech.ImageType;
 import com.intbittech.model.GlobalColors;
@@ -126,7 +127,7 @@ public class AssestsController {
             JSONArray imageurlJsonArray = new JSONArray();
             for (File imageFile : imageBaseFolder.listFiles()) {
 
-                String imageFilePath = "/BrndBot/downloadImage?imageType=" + imageTypeEnum + "&imageName=" + imageFile.getName() + "&companyId=" + companyId;
+                String imageFilePath = ServletUtil.getServerName(request.getServletContext())+"downloadImage?imageType=" + imageTypeEnum + "&imageName=" + imageFile.getName() + "&companyId=" + companyId;
                 JSONObject imagejsonObject = new JSONObject();
                 imagejsonObject.put("url", imageFilePath);
                 imagejsonObject.put("thumb", imageFilePath);
