@@ -100,6 +100,25 @@ $(document).ready(function () {
         $("#logocolor").show();
     });
     
+$("form#data").submit(function(){
+        alert();
+    var formData = new FormData($(this)[0]);
+
+            $.ajax({
+                url: getHost() +"settings/changeLogo.do",
+                type: 'POST',
+                data: formData,
+                async: false,
+                success: function (data) {
+                    alert(JSON.stringify(data));
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+
+    return false;
+});
     
 });
 

@@ -213,7 +213,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
             int maxMemSize = 5000 * 1024;
             //TODO Ilyas - Check path here.
 
-            String uploadPath = AppConstants.BASE_IMAGE_COMPANY;
+            String uploadPath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH;
 
             // Verify the content type
             String contentType = request.getContentType();
@@ -258,7 +258,7 @@ public class SettingsController extends BrndBotBaseHttpServlet {
                             uploadDir.mkdirs();
                         }
 
-                        fileName = fileName + "_" + company.getCompanyId();
+                        fileName = AppConstants.COMPANY_LOGO_FILENAME;
 
                         if (uploadType.equals("update")) {
 //                                    String file_name_to_delete = getSqlMethodsInstance().getLogofileName(UID);
@@ -270,6 +270,9 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
                         filePath = uploadPath + File.separator + fileName;
                         File storeFile = new File(filePath);
+                        if(storeFile.exists()){
+                            storeFile.delete();
+                        }
                         fi.write(storeFile);
                     }
                 }
