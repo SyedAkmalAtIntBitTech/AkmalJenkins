@@ -211,11 +211,23 @@ var globalImageController = function ($scope, fileReader, $http) {
     
    
     $scope.getGlobalImage= function (){
+        
                $http({
                     method : 'GET',
                     url : getHost()+ '/getAllGlobalImages'
-                }).success(function(data, status, headers, config) {                  
-                $scope.getAllGlobalImages= data.d.details;
+                }).success(function(data, status, headers, config) { 
+                    for(i=0;i<=data.d.details.length;i++)
+                    {
+                        var imageName = data.d.details[i].imageName;
+                        var globalImageName= $("#globalImageName").val(imageName);
+                         $("#sd").val("asdsad");
+                      
+                    $scope.getAllGlobalImages= data.d.details;
+                    $scope.url= getHost()+"downloadImage?imageType=GLOBAL_IMAGE&companyId=1&imageName=";
+                    }
+                    
+                    //"getHost()+ '/downloadImage?imageType=GLOBAL_IMAGE&imageName='+globalImageName+'&companyId=1'"
+                
                 }).error(function(data, status, headers, config) {
                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
                 });  

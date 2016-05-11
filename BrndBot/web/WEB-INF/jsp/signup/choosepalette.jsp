@@ -76,7 +76,8 @@
                                             <div class="palette-colorswab-global fleft" style="background-color:{{color.color2}};" onclick="getColorID('{{color.globalColorsId}}','{{color.color2}}')"></div>
                                             <div class="palette-colorswab-global fleft" style="background-color:{{color.color3}};" onclick="getColorID('{{color.globalColorsId}}','{{color.color3}}')"></div>
                                             <div class="palette-colorswab-global fleft" style="background-color:{{color.color4}};" onclick="getColorID('{{color.globalColorsId}}','{{color.color4}}')"></div>
-                                            <div class="font--lightGray pointer" onclick="getThemeColors('{{color.color1}}','{{color.color2}}','{{color.color3}}','{{color.color4}}')">{{color.colorName}}</div>
+                                            <div class="font--lightGray pointer" style="margin-top: 7px;
+" onclick="getThemeColors('{{color.color1}}','{{color.color2}}','{{color.color3}}','{{color.color4}}')">{{color.colorName}}</div>
                                         </div>
                                     </div>
                                 </div>
