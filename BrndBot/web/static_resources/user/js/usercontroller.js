@@ -88,14 +88,7 @@ $scope.displaySubCategory = function () {
             if(dataDetails !="No marketing programs found."){
                 hideOverlay(); 
                 $scope.displayMarketingPrograms = data.d.details;
-                var marketingProgramId= JSON.stringify(data.d.details[0].marketingProgramId);         
-                setTimeout(function (){
-                    $("#"+marketingProgramId).click(); 
-                },0);
-                for(var i=0;i<=data.d.details.length;i++)
-                {
-                   $("#htmlData").text(data.d.details[i].htmlData); 
-                } 
+                var marketingProgramId= JSON.stringify(data.d.details[0].marketingProgramId);  
             }
             else
             {                
@@ -105,20 +98,23 @@ $scope.displaySubCategory = function () {
             hideOverlay();
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
             
-        });
-
+        }); 
     };
     
-    $scope.saveMarketingProgram = function (marketingCategoryId){
+    $scope.saveMarketingProgram = function (marketingCategoryId){     
        window.open(getHost() + 'user/usermarketingprogram?marketingCategoryId='+marketingCategoryId+"&marketingProgramId="+marketingProgramId, "_self");
     };
     
-    $scope.showhtmldata = function(id,htmlData){
-         $("#htmlData").text(htmlData);
-        marketingProgramId = id;
-        $(".programList").css("background-color", "#fff").css("color", "#3f3f42");
-        $(".nameList"+id).css("background-color","#5cc1a3").css("color","#f6f7f7");  
-       
+    $scope.showhtmldata = function(id,htmlData,marketingCategoryId){
+        marketingProgramId = id;        
     };
+//    $scope.redirectToUserMarketingProgram = function(id,htmlData,marketingCategoryId){        
+//        alert();
+//        $("#htmlData").html(htmlData);
+//        marketingProgramId = id;
+//        $(".programList").css("background-color", "#fff").css("color", "#3f3f42");
+//        $(".nameList"+id).css("background-color","#5cc1a3").css("color","#f6f7f7");  
+//        window.open(getHost() + 'user/usermarketingprogram?marketingCategoryId='+marketingCategoryId+"&marketingProgramId="+marketingProgramId, "_self");
+//    };
 
 }
