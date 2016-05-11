@@ -230,7 +230,7 @@
                 <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionEmailNote(schedule_id)">Save Notes</div>
             </div>
         </div>
-        <div class="bottom-cta-bar" id="emailpostremove" ng-show="entitiesdetails.body !== undefined">
+        <div class="bottom-cta-bar" id="emailpostremove" ng-hide="entitiesdetails.body !== undefined">
              <div class="bottom-cta-button-container-email-mark">
  
                      <div class="remove-button-detail md-button button-text-1 fleft" ng-click="deleteSchedule(schedule_id,'remove',master_email)">Remove Saved Email</div>

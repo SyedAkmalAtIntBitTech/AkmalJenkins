@@ -105,14 +105,14 @@
                                 {{entities_selected_time| date:'HH:mm a'}}
                             </div>
                         </div>  
-                        <div class="sendingDetails-row fleft">
+<!--                        <div class="sendingDetails-row fleft" >
                             <div class="fleft input-supportText">
                                 Have this email automation recur until:
                             </div>
                             <div class="fleft  input-field-date">
                                {{entities_till_date| date:'MMMM dd yyyy'}}
                             </div>
-                        </div> 
+                        </div> -->
                         </div>    
                         <div class="fleft pushUp-">
                             <div class="input-header-actionDetail" style="">

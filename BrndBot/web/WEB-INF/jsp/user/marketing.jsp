@@ -46,7 +46,8 @@
         }
         .fields-note-detail{
             margin-top: 5px;
-            padding-bottom: 381px;
+            /*padding-bottom: 381px;*/
+            padding-bottom: 40vw;
             padding-top: -12px;
             height: 0vh;
         }

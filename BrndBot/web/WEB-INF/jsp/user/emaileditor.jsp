@@ -131,8 +131,6 @@
         
         $(document).ready(function(){
             showOverlay();
-             $('#edit').froalaEditor({key: FroalaLicenseKey});
-            $('#edit').froalaEditor().show();
             $("#closePrev").click(function(){
                 $("#email_previewdiv").hide();
                 $('#fade').hide();                
@@ -711,7 +709,6 @@
                             $.FroalaEditor.DEFAULTS.htmlAllowedAttrs = $.merge($.FroalaEditor.DEFAULTS.htmlAllowedAttrs, ['onclick']); 
                             
                             $(function () {
-                            var urlList11="";var hrefs;
                                     $.ajax({
                                     url:getHost()+'getAllUserMarketingProgramsBySessionUserId',
                                             method:'Get',
@@ -719,21 +716,7 @@
                                             contentType: 'application/json',
                                             mimeType: 'application/json',
                                             success: function (responseText) {
-//                                            alert(JSON.stringify(responseText));
-                                            var linkListLength=responseText.length;
-                                                for(var i=0;i<linkListLength;i++){
-                                                    hrefs = eval(JSON.stringify(responseText[i].href));
-                                                    if(hrefs!=""){
-                                                        urlList11 = JSON.stringify(responseText[i])+","+urlList11;
-                                                    }
-                                                }
-                                                var lastChar = urlList11.slice(-1);
-                                                if (lastChar == ',') {
-                                                  urlList11 = urlList11.slice(0, -1);
-                                                }
-                                                var linkListArray="["+urlList11+"]";
-//                                                alert(linkListArray);
-                                                $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: linkListArray});
+                                                $('#edit').froalaEditor({key: FroalaLicenseKey, linkList:responseText});
                                             }
                                     });
                             });        

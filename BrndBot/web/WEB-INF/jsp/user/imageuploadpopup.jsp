@@ -39,8 +39,8 @@
                             <div id="triggerfile" class="md-button gray-button">Browse your Images</div>
                             <input type="file" name="filesToUpload[]" id="filesToUpload" class="upload fileupld" onchange="changeimagetext()" file-model="myFile"/>
                         </div>
-                        <div class="browse-button">
-                        <input type="text" placeholder="No image selected" class="noborder " id="imagetext" readonly/>
+                        <div class="imageNamecenter">
+                        <input type="text" placeholder="No image selected" class="noborder imageNamecenter" id="imagetext" readonly/>
                         </div>
                     </div>                     
                 </div>

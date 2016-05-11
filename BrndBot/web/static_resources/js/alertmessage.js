@@ -146,6 +146,7 @@ var emailsenderror="test";
 var emailsenderror="test";
 var emailsenderror="test";
 var passwordMatchError ="The email or password that you entered don't match. "
+var activateMindBody = "Please activate the MindBody";
 
 /// ADMIN alerts Starts////
 

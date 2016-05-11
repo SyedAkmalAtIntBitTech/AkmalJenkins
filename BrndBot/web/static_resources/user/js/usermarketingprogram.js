@@ -76,6 +76,38 @@
             
             function usermarketingprogram($scope, $http){
                
+                $scope.getHtmlData = function(){
+                    showOverlay();
+                    var marketingCategoryId= $("#marketing_category_id").val();
+                    var marketing_program_id= $("#marketing_program_id").val();
+//                    localStorage.getItem("marketingCategoryId");         
+                    $http({
+                        method: 'GET',
+                        url: getHost() + '/getMarketingProgramsByCategoryId?marketingCategoryId='+marketingCategoryId
+                    }).success(function (data, status, headers, config) {
+//                        alert(JSON.stringify(data.d.details));
+                        var dataDetails=data.d.operationStatus.messages;             
+                        if(dataDetails !="No marketing programs found."){
+                            hideOverlay(); 
+                            $scope.displayMarketingPrograms = data.d.details;
+                            var marketingProgramId= JSON.stringify(data.d.details[0].marketingProgramId);         
+                            for(var i=0;i<=data.d.details.length;i++)
+                            {                                
+                                if(data.d.details[i].marketingProgramId == marketing_program_id)
+                                {
+                                    $("#htmldata").html(data.d.details[i].htmlData); 
+                                }
+                            } 
+                        }
+                        else
+                        {                
+                            hideOverlay();        
+                        }
+                    }).error(function (data, status, headers, config) {
+                        hideOverlay();
+                        alert(eval(JSON.stringify(data.d.operationStatus.messages)));            
+                    });                   
+               };
                 $scope.saveMarketingProgram = function(){
                     
                 if (validate()){
