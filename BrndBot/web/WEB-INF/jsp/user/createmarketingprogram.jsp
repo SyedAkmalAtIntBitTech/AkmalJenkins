@@ -39,7 +39,7 @@
                         <div class="pane_title fleft h2">Please choose a marketing program type.</div>
                     </div>
                     <div class="pane_content">
-                        <div class="cat-list"  ng-repeat="category in categories" data-hint="{{category.marketingCategoryName}}">
+                        <div class="cat-list"  ng-repeat="category in categories">
                             <div class="cat-slat">
                                 <a id="categoryId" href="marketingprogram?marketingCategoryId={{category.marketingCategoryId}}" >
                                     <div class="cat-slat-title">{{category.marketingCategoryName}}</div>
