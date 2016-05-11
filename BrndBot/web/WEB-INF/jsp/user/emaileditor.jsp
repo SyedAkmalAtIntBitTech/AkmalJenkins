@@ -640,12 +640,12 @@
     <!--Top Nav-->   
     <div class="top-nav-full">
         <div class="page-title-bar col-1of1"> 
-            <a class=" exit-button-icon" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=categoryId%>&mindbodyId={{mindbody.id}}&LookupId=<%=LookupId%>&emailSubject=<%=emailSubject%>">    
+            <a class=" exit-button-icon" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=categoryId%>&mindbodyId=<%=mindbodyId%>&LookupId=<%=LookupId%>&emailSubject=<%=emailSubject%>">    
                 <div class="exit-button-detail">
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                 </div>
             </a>
-            <div class="page-title-with-back page-title-font">Email Editor</div>
+            <div class="page-title-with-back page-title-font">Email Editor<%=mindbodyId%></div>
             <div class="page-cta-container">
                 <a href="" class="gray-button fleft pushright">
                     <!--<div class="nounderline md-button" onclick="show('iphone');">  Mobile Preview</div>-->  
