@@ -12,9 +12,9 @@
         <title>Popup Image</title>
     </head>
     <body >
-        <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer" ></div>
+      
         <div class="popUp_background" id="editImage">
-            
+              <div id="addOrganizationPopupDivEditImage" class="popUp_backgroundlayer" ></div>
         <div class="popUp" ng-controller="globalImageController">
             <div class="content-area_header">
                 <div id ="getDeleteId">{{getDeleteId}}</div>

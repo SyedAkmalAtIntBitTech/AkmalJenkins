@@ -11,10 +11,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Popup Image</title>
     </head>
-    <body><div id="addOrganizationPopupDiv" class="popUp_backgroundlayer" ></div>
+    <body>
       
         <div class="popUp_background" id="globalImageId">
-              
+              <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer" ></div>
         <div class="popUp" ng-controller="globalImageController">
              <div class="content-area_header">
                 <div class="popUp_title fleft"> Image Detail</div>

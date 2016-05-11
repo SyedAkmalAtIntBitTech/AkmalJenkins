@@ -102,7 +102,7 @@ var globalImageController = function ($scope, fileReader, $http) {
    $scope.editImagePopUp = function (globalImageId) {
        var editImageName="";
     $("#editImage").show();
-    $("#addOrganizationPopupDiv").show();
+    $("#addOrganizationPopupDivEditImage").show();
        
                $http({
                     method : 'GET',

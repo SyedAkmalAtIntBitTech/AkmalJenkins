@@ -12,8 +12,9 @@
     </head>
     <body>
 
-        <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer"></div>
+      
         <div id="addMarketingPopUp" class="popUp_background" ng-app  ng-controller="organizationcontroller">
+              <div id="addOrganizationPopupDivProgram" class="popUp_backgroundlayer"></div>
         <div  class="popUp">
              <div class="content-area_header">
                 <div class="popUp_title fleft"> Add a new Category </div>

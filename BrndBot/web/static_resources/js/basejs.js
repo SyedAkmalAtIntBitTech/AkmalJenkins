@@ -33,6 +33,31 @@ $(document).ready(function () {
         
     
     });
+    
+    $("#addOrganizationPopupDiv1").click(function(){
+        $("#addEmailBlockPopUp").hide();
+        
+    });
+    $("#addOrganizationPopupDivImage").click(function(){
+        $("#addImageCategory").hide();
+        
+    });
+    $("#addOrganizationPopupDivPrint").click(function(){
+        $("#addPrintCategoryPopup").hide();
+        
+    });
+     $("#addOrganizationPopupDivProgram").click(function(){
+        $("#addMarketingPopUp").hide();
+        
+    });
+    $("#addOrganizationPopupDivRecurring").click(function(){
+        $("#addRecurringEmailTemplatePopUp").hide();
+        
+    });
+    $("#addOrganizationPopupDivEditImage").click(function(){
+        $("#editImage").hide();
+        
+    });
      $("#closePrev").click(function(){
                 $("#addEmailBlockPopUp").hide();
                 $("#addOrganizationPopupDiv").hide();
@@ -54,7 +79,7 @@ $(document).ready(function () {
     
 $("#addRecurringEmailTemplateButton").click(function () {
     $("#addRecurringEmailTemplatePopUp").show();
-    $("#addOrganizationPopupDiv").show();
+    $("#addOrganizationPopupDivRecurring").show();
 });
 $("#addNewTemplate").click(function () {
     $("#addRecurringPopUp").show();
@@ -84,22 +109,22 @@ $("#addSubCategory").click(function () {
 
 $("#addCategoryPrint").click(function () {
     $("#addPrintCategoryPopup").show();
-    $("#addOrganizationPopupDiv").show();
+    $("#addOrganizationPopupDivPrint").show();
 });
 
 $("#addCategoryImage").click(function () {
     $("#addImageCategory").show();
-    $("#addOrganizationPopupDiv").show();
+    $("#addOrganizationPopupDivImage").show();
 });
 
 $("#addEmailBlock").click(function () {
     $("#addEmailBlockPopUp").show();
-    $("#addOrganizationPopupDiv").show();
+    $("#addOrganizationPopupDiv1").show();
 });
 
 $("#addMarketingCategory").click(function () {
     $("#addMarketingPopUp").show();
-    $("#addOrganizationPopupDiv").show();
+    $("#addOrganizationPopupDivProgram").show();
 });
 
 
