@@ -134,7 +134,6 @@
                                 <script>
                                     var picker = new Pikaday(
                                     {
-                                        format: 'MMM DD YYYY',
                                         field: document.getElementById('datepickerfb'),
                                         firstDay: 1,
                                         minDate: new Date(1970, 0, 1),

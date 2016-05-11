@@ -122,7 +122,6 @@
                                         <script>
                                             var picker = new Pikaday(
                                             {
-                                                format: 'MMM DD YYYY',
                                                 field: document.getElementById('emaildatetime'),
                                                 firstDay: 1,
                                                 minDate: new Date(2000, 0, 1),
