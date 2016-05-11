@@ -807,14 +807,14 @@ $edit=0;
                     var type=$("#get_type").val();
                     $("#tab4").hide();
                     $("#email_list_name").val(list_name);
-                    $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","560px");
+//                    $('<img id="loadingGif" src="images/YogaLoadingGif.gif" />').appendTo('body').css("position","absolute").css("top","300px").css("left","560px");
                     $http({
                         method: 'GET',
                         url: getHost() + '/emaillist/get?update=emailsForEmailList&emailListName='+list_name
                     }).success(function (data, status, headers, config) {
                         var parseData=JSON.parse(data.d.details);
                         $(".page-background").css("overflow","scroll");
-                        $('#loadingGif').remove();
+//                        $('#loadingGif').remove();
                         $(".page-background").css("background-color","#EFF2F6");
                         $scope.user_emailAddresses = parseData.user_emailAddresses;
                         $scope.mindbody_emailAddresses = parseData.mindbody_emailAddresses;
