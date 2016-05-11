@@ -63,7 +63,9 @@
             <div class="top-subnav-tabs-container-with-button">
                 <ul class="top-subnav-nav-elements">
                     <li class="top-subnav-link-active" id="emailListli"> <a class="h3-active-subnav" id="emailList" ng-click="updateList()">Email List</a></li>
+                    <% if(type.equals("user")){%>
                     <li class="top-subnav-links" id="importListli" > <a class="h3" id="importList" ng-click="showAddContacts()">Import Contacts to List</a></li>
+                    <% }%>
                 </ul>
             </div>
         </div>
@@ -116,7 +118,7 @@
                                     </div>
                                 </a>
                                 <div class="slat-title-container col-4of10 fleft">
-                                    <div class="slat-title  col-1of1 sh1-contact" onclick="fun('update','{{email.emailAddress}}','{{email.id}}','{{email.firstName}}','{{email.lastName}}');">{{email.emailAddress}}</div>
+                                    <div class="slat-title  col-1of1 sh1-contact">{{email.emailAddress}}</div>
                                     <div class="slat-title  col-1of1 sh1-contact" ng-show="email.emailAddress == '' && type == 'user'" id='NoContacts'>No contacts available</div>
                                     <div class="action-list-slat-description col-1of1 sh3-contact">Added on {{email.addedDate| date:'  M/dd/yyyy'}}</div>
                                 </div>

@@ -132,8 +132,10 @@
                             </div>
                             <div class="col-7of10 slat-unit fleft ">
                                 <div class="slat-title-container col-1of2 fleft">
-                                    <div class="slat-title email-list-slat-title col-1of1 ">{{email.emailListName}}</div>
-                                    <div class="action-list-slat-description col-1of1 sh3"> </div>
+                                    <a href="emaillistsdetails?list_name={{email.emailListName}}&type=mindbody">
+                                        <div class="slat-title email-list-slat-title col-1of1 ">{{email.emailListName}}</div>
+                                        <div class="action-list-slat-description col-1of1 sh3"> </div>
+                                    </a>
                                 </div>
                                 <div class=" col-3of10 fleft slat-attribute-container">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.noofcontants}}</div>
