@@ -63,7 +63,7 @@
                     </div>
                 </div>
                 <ul class="slatArea" ng-repeat="marketingAction in marketingProgramActions">
-                    <li class="listItem" ng-show="marketingAction.is_recuring==true">
+                    <li class="listItem" ng-show="marketingAction.is_recurring==true">
                         <div class="listCol col1of2 fleft">
                             <span class="listCol_Text fleft"> {{marketingAction.title}}</span>
                         </div>
@@ -97,7 +97,7 @@
                     </div>
                 </div>
                 <ul class="slatArea" ng-repeat="marketingOneTimeAction in marketingProgramActions">
-                    <li class="listItem" ng-show="marketingOneTimeAction.is_recuring==false">
+                    <li class="listItem" ng-show="marketingOneTimeAction.is_recurring==false">
                         <div class="listCol col1of4 fleft">
                             <span class="listCol_Text fleft">{{marketingOneTimeAction.title}}</span>
                         </div>
