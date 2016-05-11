@@ -91,7 +91,6 @@
                                 <script>
                                     var picker = new Pikaday(
                                     {
-                                        format: ('ddd MMM DD YYYY'),
                                         field: document.getElementById('programdatetime'),
                                         firstDay: 1,
                                         minDate: new Date(2000, 0, 1),
