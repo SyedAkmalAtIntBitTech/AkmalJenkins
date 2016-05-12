@@ -18,12 +18,13 @@
 <!--    <script src="js/socialimage.js" type="text/javascript"></script>-->
     <script src="js/socialeditor.js" type="text/javascript"></script>
     <script src="js/ajaxfileupload.js" type="text/javascript"></script>
-    <style>.arrow_top{display:none;}
+    <style>
+        .pop-up-inner1{margin-top: 14px;}.arrow_top{display:none;}
         .timepicker_wrap{top:-155px !important;width: 200px;}
         #schedule_time{width:60% !important;}
         .pop-up-background {
     width: calc(98vw - 747px) !important;
-    margin-top: 15vw !important;
+    margin-top: 0vw !important;
 }
     </style>
 
@@ -134,12 +135,12 @@
                             </div>
                         </div>
                         </div>
-                        
-                    </div>
-                    <div class="pop-up-cta-container pop-up-cta-container-newaction1 cur" id ="schedulethepost"  ng-click="setScheduling()">
+                        <div class="pop-up-cta-container pop-up-cta-container-newaction1 cur" id ="schedulethepost"  ng-click="setScheduling()">
                         <input type="hidden" value="socialmedia"/>
                         <div class="algnmnt" name="socialscheduleid" id="socialscheduleid" >SCHEDULE</div>
                     </div>
+                    </div>
+                    
                     </div>
                 </div>
             </div>
