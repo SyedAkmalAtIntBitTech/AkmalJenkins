@@ -10,6 +10,7 @@
     background-color: #e5eaf1;
     padding: 10px 30px 20px 30px;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 .add-image-icon{

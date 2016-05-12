@@ -82,7 +82,7 @@
                                                             <div class="list-column-description col-1of1 sh3 fleft">Profile Name : {{user_profile_page}}</div>
                                                             <div class="list-column-description col-1of1 sh3 fleft">Default Managed Page Name : {{fb_default_page_name}}</div>
                                                             <button id="facebook" class="buttonchange" name="change" ng-click="getManagePage()">Change</button>
-                                                            <button id="fbclear" class="buttonchange" name="fbclear" ng-click="clearFacebookDetails()">Clear</button>
+                                                            <button id="fbclear" class="buttonchange displayNone" name="fbclear" ng-click="clearFacebookDetails()">Clear</button>
                                                         </div>
                                                     </div>
                                                     <div id="view2" ng-init="getTwitterDetails()" style="width:550px; height:140px;" >

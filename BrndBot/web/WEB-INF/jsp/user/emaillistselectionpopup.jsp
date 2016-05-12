@@ -21,6 +21,10 @@
     <style>.arrow_top{display:none;}
         .timepicker_wrap{top:-155px !important;width: 200px;}
         #schedule_time{width:60% !important;}
+        .pop-up-background {
+    width: calc(98vw - 747px) !important;
+    margin-top: 15vw !important;
+}
     </style>
 
 </head>    

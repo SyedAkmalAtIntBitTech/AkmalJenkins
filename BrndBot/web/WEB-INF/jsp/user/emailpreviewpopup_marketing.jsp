@@ -33,7 +33,7 @@
                 <div  class="top-navbar-inner-bb-detail">
                     <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Email Action Detail</span></div>
                     <div class="top-nav-cta-container">
-                        <div class="approve-button-detail md-button" id="emailapprove" ng-show="email_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_email)">Approve</div>
+                        <div class="approve-button-detail md-button" id="savedtemplate" ng-show="email_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_email)">Approve</div>
                         <div class="approve-button-detail md-button" id="emailapprove" ng-show="email_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_email)">Disapprove</div>
                         <div class="delete-button-detail md-button" ng-click="deleteSchedule(schedule_id,'delete', master_email)">Delete Action</div>
                     </div>    
@@ -150,7 +150,7 @@
         <div id="emailpostsection">
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="saved-post-preview-detail" id="noemailsdiv" ng-show="entitiesdetails.body === undefined">
+                <div class="saved-post-preview-detail" id="noemailsdiv" ng-show="entitiesdetails.body == undefined">
 
                                 <!--SAVED Email GOES HERE-->
 
@@ -167,7 +167,7 @@
                                 </div></a>
                         </div>
                 </div>
-                <div class="below-nav-container-saved-post-detail" id="savedemailsdiv" ng-show="entitiesdetails.body !== undefined">
+                <div class="below-nav-container-saved-post-detail" id="savedemailsdiv" ng-show="entitiesdetails.body != undefined">
                     <div class="inner-content-container-detail fleft">
                         <div class="saved-post-header-detail1">
                             
