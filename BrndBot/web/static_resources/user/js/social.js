@@ -83,6 +83,7 @@ function controllerSocial($scope, $http) {
             } else {
                 $scope.user_profile_page = facebookDetailsArray[1];
                 $scope.fb_default_page_name = facebookDetailsArray[2];
+                $("#fbclear").show();
             }
 
         }).error(function (data, status, headers, config) {
