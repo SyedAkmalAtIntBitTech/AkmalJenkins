@@ -125,7 +125,7 @@ var globalImageController = function ($scope, fileReader, $http) {
 };
    
     $scope.saveGlobalImage = function () {
-        
+       $("#saveGlobalImage").unbind();
         var imageName = $("#imageName").val();
         var imageData = $("#imageData").val();
         var imageFIleNameData = $("#imageFileName").val();
