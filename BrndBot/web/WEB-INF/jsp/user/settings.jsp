@@ -68,7 +68,7 @@
                     <ul class="top-subnav-nav-elements">
                         <li class="top-subnav-link-active" id="accountsettingtab"> <a class="h3-active-subnav">Account Settings</a></li>
                         <li class="top-subnav-links" id="logosettingtab"> <a class="h3">Logo Settings</a></li>
-                        <li class="top-subnav-links" id="palettesettingtab"> <a class="h3">Palette Settings</a></li>
+                        <li class="top-subnav-links" id="palettesettingtab" ng-click="getLogoColors()"> <a class="h3">Palette Settings</a></li>
                     </ul>
                 </div>
             </div>
