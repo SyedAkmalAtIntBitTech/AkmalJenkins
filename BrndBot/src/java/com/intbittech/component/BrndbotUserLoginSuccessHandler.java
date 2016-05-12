@@ -52,9 +52,9 @@ public class BrndbotUserLoginSuccessHandler extends SimpleUrlAuthenticationSucce
             roles.add(authority.getAuthority());
         }
         if (isAdmin(roles)) {
-            url = "/admin";
+            url = "/admin/";
         } else if (isUser(roles)) {
-            url = "/user";
+            url = "/user/";
         } else if (isTempUser(roles)) {
             url = "/signup/company";
         } else {
