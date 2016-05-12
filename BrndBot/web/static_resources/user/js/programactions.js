@@ -1115,10 +1115,12 @@ function programactions($scope, $http, $window){
                 method: 'GET',
                 url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
             }).success(function (data) {
+                var parseData=JSON.parse(data.d.details);
+//                alert(JSON.stringify(parseData.body));
                 $(".timepicker_wrap").css("width","27%");
                 $(".arrow_top").hide();
-                $scope.entitiesdetails = data;
-                if (data.body == undefined) {
+                $scope.entitiesdetails = parseData;
+                if (parseData.body == undefined) {
                 } else {
                 }
                 if(template_status=="complete")
@@ -1131,7 +1133,7 @@ function programactions($scope, $http, $window){
                     $("#emailgreen").hide();
                     $("#emailred").show();
                 }
-                $("#emailcontentiframe").contents().find('html').html(data.body);
+                $("#emailcontentiframe").contents().find('html').html(parseData.body);
                 $scope.entities_selected_time = post_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;

@@ -101,7 +101,7 @@ public class ScheduleActionsController {
             Map<String, Object> requestBodyMap
                     = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
             List<String> errors = validateScheduleEmailActionsRequestBody(requestBodyMap);
-            if (!errors.isEmpty()) {
+            if (errors.isEmpty()) {
                 UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
                 Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
                 Map<String, Integer> data = actionsService.scheduleEmailActions(requestBodyMap, companyId);

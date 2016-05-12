@@ -150,7 +150,7 @@
         <div id="emailpostsection">
             <div class="below-nav-container-saved-post-detail">
             <div class="inner-content-container-detail">
-                <div class="saved-post-preview-detail" id="noemailsdiv" ng-show="entitiesdetails.body === undefined">
+                <div class="saved-post-preview-detail" id="noemailsdiv" ng-show="entitiesdetails.body == undefined">
 
                                 <!--SAVED Email GOES HERE-->
 
@@ -167,7 +167,7 @@
                                 </div></a>
                         </div>
                 </div>
-                <div class="below-nav-container-saved-post-detail" id="savedemailsdiv" ng-show="entitiesdetails.body !== undefined">
+                <div class="below-nav-container-saved-post-detail" id="savedemailsdiv" ng-show="entitiesdetails.body != undefined">
                     <div class="inner-content-container-detail fleft">
                         <div class="saved-post-header-detail1">
                             
