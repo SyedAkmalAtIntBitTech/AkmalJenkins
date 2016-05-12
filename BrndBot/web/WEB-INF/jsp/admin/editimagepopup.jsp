@@ -36,7 +36,7 @@
            
             </label>
        
-                <div ng-click="updateGlobalImage()"  id="saveGlobalImage" class="CTA_Button Button--Gray pushUp_45 ">Update Image</div>
+                <div ng-click="updateGlobalImage()"  id="updateGlobalImage" class="CTA_Button Button--Gray pushUp_45 ">Update Image</div>
             </div>
             
 

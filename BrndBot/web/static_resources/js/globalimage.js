@@ -167,6 +167,7 @@ var globalImageController = function ($scope, fileReader, $http) {
     
     
      $scope.updateGlobalImage = function () {
+         $("#updateGlobalImage").unbind();
         var globalImageId=  $("#getDeleteId").val();
         var imageName = $("#editImageName").val();
         var imageFileData = $("#editImageFileName").val();
