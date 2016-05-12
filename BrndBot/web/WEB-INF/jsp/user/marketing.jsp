@@ -105,7 +105,7 @@
                     <div class="page-content-title-bar">
                         <!--<div class="page-content-title h2" ng-show='entity.date==tomorrow_date'>Tomorrow's Actions</div>-->
                         <div class="page-content-title h2" ng-show="entity.date == today_date">Today's Actions</div>
-                        <div class="page-content-title h2" ng-show="(entity.date != today_date)">{{entity.date| date: "MMM dd yyyy"}}</div>
+                        <div class="page-content-title h2" ng-show="(entity.date != today_date)">{{mySplit(entity.date,0)}} {{mySplit(entity.date,2)}} {{myYear(mySplit(entity.date,1))}}</div>
                     </div>
                     <!--List Starts Here-->
                     <ul class="main-container fleft" >
