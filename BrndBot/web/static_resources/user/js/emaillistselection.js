@@ -243,7 +243,7 @@
                 $scope.setScheduling = function () {
                     
                     $("#schedulethepost").unbind('click');
-                  var  draft_id = $("#draft_id").val();
+                    var  draft_id = $("#draft_id").val();
                     var schedule_id = $("#email_actions").val();
                     var from_name = $("#name").val();
                     var email_subject = $("#subject").val();
@@ -479,23 +479,24 @@
 //                };
                 
                 $scope.getProgramNames = function() {
-                   showOverlay(); 
+                    showOverlay();                     
                     $http({
                        method: 'GET',
                        url:getHost() + 'getAllUserMarketingPrograms'
                     }).success(function (data){
-//                        alert(JSON.stringify(data)+" ... ok ...");
+//                        alert(JSON.stringify(data));
                         $http({
                         method: 'POST',
                         url: getHost() + '/actions/getActions',
                         data: {
-                            programid: null,
+                            programid: "0",
                             type: getemail()
                         }
-                        }).success(function (data1) {
+                        }).success(function (data1) {                            
                             hideOverlay(); 
-//                            alert(JSON.stringify(data1));
-                            $scope.email_actions = data1;
+                            var parseData=JSON.parse(JSON.parse(data1.d.details));
+//                            alert(JSON.stringify(parseData));
+                            $scope.email_actions = parseData;
                         }).error(function (data1) {
                             hideOverlay(); 
                             alert("Request not successful!");
@@ -770,8 +771,7 @@
                    
                 $('<img id="loadingGif" src="images/YogaLoadingGif.gif"/>').appendTo('body').css("position", "absolute").css("top", "300px").css("left", "500px");
 //                alert(formattedHTMLData);
-                $.ajax({
-                    
+                $.ajax({                    
                     url: getHost() + "/email/send",
                     type: "POST",
                     data: JSON.stringify({
@@ -833,9 +833,8 @@
                 document.getElementById('schedule_title').value="";
                 document.getElementById('schedule_time').value="";
                 document.getElementById('schedule_date').value="";
-                }
-                 
-        }
+                }                 
+            }
         function EmailListSetting($scope, $http) {
             
             $scope.getEmailSettings = function(){

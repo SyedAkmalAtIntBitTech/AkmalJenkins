@@ -54,8 +54,8 @@
                     <div  class="top-navbar-inner-bb-detail">
                         <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Twitter Post Action Detail</span></div>
                         <div class="top-nav-cta-container">
-                            <div class="approve-button-detail md-button" id="fbapprove" ng-show="twitter_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_twitter)">Approve</div>
-                            <div class="approve-button-detail md-button" id="fbapprove" ng-show="twitter_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_twitter)">Disapprove</div>
+                            <div class="approve-button-detail md-button" id="twsavetemplate" ng-show="twitter_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_twitter)">Approve</div>
+                            <div class="approve-button-detail md-button" id="twapprove" ng-show="twitter_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_twitter)">Disapprove</div>
                             <div class="delete-button-detail md-button" ng-click="deleteSchedule(schedule_id,'delete', master_twitter)">Delete Action</div>
                         </div>    
                     </div>

@@ -1175,7 +1175,7 @@ function PostToTwitter() {
                     shorturl: bit_url
                 }),
                 success: function (responseText) {
-                    alert(JSON.stringify(responseText));
+                   // alert(JSON.stringify(responseText));
                     var isSuccess = responseText.d.message;
                     if (isSuccess === "success") {
                         $("#twitterSuccessPostPopup").show();
