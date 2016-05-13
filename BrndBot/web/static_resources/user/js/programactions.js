@@ -1291,10 +1291,11 @@ function programactions($scope, $http, $window){
         var actiontype = $("#actiontype").val();
         var marketingProgramType=$("#marketing_program").val();
         var description = $("#description").val();
+        var dateSelect = $("#jumptodatepicker").val();
         var actiondate = "1970/01/01";
         var days=$("#days").val();          
         var actionDateTime=$("#timepicker1").val().replace(/ /g,'');
-        var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+        var l=dateSelect.toLocaleString() +" "+actionDateTime.toLocaleString();
         var myDate = new Date(l); // Your timezone!        
         var schedule_time = Date.parse(l);
         console.log("Epoch: " + schedule_time);        

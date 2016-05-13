@@ -136,7 +136,7 @@
                                 <div class="input-header-actionDetail" style="">
                                     TIME
                                 </div>
-                                <input id="timepickeremail" type="text" name="timepickeremail" class="timepickertextbox " value="{{entities_selected_time| date:'h : mm : a'}}"/> 
+                                <input id="timepickeremail" type="text" name="timepickeremail" class="timepickertextbox " value="{{entities_selected_time| date:'hh : mm : a'}}"/> 
                                 <script>
                                     $('#timepickeremail').timepicki({
                                         show_meridian:true,
