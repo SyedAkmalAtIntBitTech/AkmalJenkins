@@ -311,10 +311,10 @@ $(document).ready(function ()
     $("#dropdownurl").change(function () {
         var choosenlink = $("#dropdownurl").val();
         var link = choosenlink.split("--");
-        $("#url").val(link[0]);
+        $("#linkUrl").val(link[0]);
         if (choosenlink === "0")
         {
-            $("#url").val("http://");
+            $("#linkUrl").val("http://");
         }
     });
     $("#url").keyup(function () {
@@ -1102,18 +1102,6 @@ function changePostType() {
         $("#postType").text("Change To Link Post");
     }
 }
-function changeTwitterPostType() {
-    var postType = $("#twitterLinkPost").css("display");
-    if (postType === "none") {
-        $("#twitterLinkPost").show();
-        $("#postType").text("Change To Normal Post");
-    }
-    if (postType === "inline") {
-        $("#twitterLinkPost").hide();
-        $("#linkUrl").val("");
-        $("#postType").text("Change To Link Post");
-    }
-}
 function postToFacebook() {
     var shareText = $("#shareText").val();
     shareText = "facebook test";
@@ -1193,7 +1181,7 @@ function PostToTwitter() {
     var imgApp = angular.module('imageGallery', []);
 
         imgApp.controller("displayImageFromGallery", ['$scope','$http', 'fileUpload', function($scope,$http,fileUpload) {
-            $scope.getUserImaages = function () {
+                $scope.getUserImaages = function () {
                 showOverlay();
                 $http({
                     method: 'GET',
@@ -1251,6 +1239,32 @@ function PostToTwitter() {
             $scope.addImage = function () {
                 $("#selectedImage").attr("src", "/BrndBot/downloadImage?imageType=GALLERY&imageName=" + selecImageName + "&companyId=" + selecCompanyId + "");
                 $("#imagePopUp").hide();
+            };
+            
+            $scope.changeTwitterPostType = function (){
+               var postType = $("#twitterLinkPost").css("display");
+                if (postType === "none") {
+                    $("#urlDropDownSpan").show();
+                    $("#twitterLinkPost").show();
+                    $("#postType").text("Change To Normal Post");
+                }
+                if (postType === "inline") {
+                    $("#twitterLinkPost").hide();
+                    $("#urlDropDownSpan").hide();
+                    $("#linkUrl").val("");
+                    $("#postType").text("Change To Link Post");
+                }
+            };
+          $scope.getUrls = function (){
+                $http({
+                    method: 'GET',
+                    url: getHost() + "/getAllUserMarketingProgramsByUserId"
+                }).success(function (data) {
+                     $scope.urls= data;
+                });
+            };
+            $scope.getSelectedUrl = function (){
+                alert();
             };
 
         }]);

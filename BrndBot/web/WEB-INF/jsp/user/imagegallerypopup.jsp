@@ -4,8 +4,8 @@
     Author     : sandeep
 --%>
 <script src="js/ajaxfileupload.js" type="text/javascript"></script>
-<div class="popUp_background-dark displayNone" id="imagePopUp" ng-app="imageGallery">
-    <div class="popUp_CenterVert" ng-controller="displayImageFromGallery">
+<div class="popUp_background-dark displayNone" id="imagePopUp" >
+    <div class="popUp_CenterVert">
         <div class="popUp-top-wide lear" >
             <span >
                 <div class="popUp_header clear">
