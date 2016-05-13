@@ -72,8 +72,9 @@
             </div>
         </div>
         <div class="bottomNav">
-            <div class="bottom-ContinueButton fright" onclick="PostToTwitter()">CONTINUE</div>
+            <div class="bottom-ContinueButton fright" onclick="post()">CONTINUE</div>
         </div>
+        <%@include file="emaillistselectionpopup.jsp" %> 
         <%@include file="imagegallerypopup.jsp" %>
         <%@include file="twitterpostcuccesspopup.jsp" %> 
     </body>
