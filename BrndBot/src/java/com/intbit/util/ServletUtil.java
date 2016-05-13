@@ -91,7 +91,7 @@ public class ServletUtil {
         try {
             ScriptEngineManager manager = new ScriptEngineManager();
             ScriptEngine engine = manager.getEngineByName("JavaScript");
-            String path = context.getRealPath("")+"/js/configurations.js";
+            String path = context.getRealPath("")+"/static_resources/js/configurations.js";
 // read script file
             engine.eval(Files.newBufferedReader(Paths.get(path), StandardCharsets.UTF_8));
 

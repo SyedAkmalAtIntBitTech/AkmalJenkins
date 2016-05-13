@@ -46,7 +46,7 @@
 <script src="js/moment.js" type="text/javascript"></script>
 <script src="js/alertmessage.js" type="text/javascript"></script>
 <script src="js/pikaday.js"></script>
-<script src="js/configurations.js" type="text/javascript"></script>
+<script src="../js/configurations.js" type="text/javascript"></script>
 <script src="js/timepicki.js" type="text/javascript"></script>
 <script src="js/popup.js" type="text/javascript"></script>
 <!--<link href="css/textstyle.css" rel="stylesheet" type="text/css"/>-->

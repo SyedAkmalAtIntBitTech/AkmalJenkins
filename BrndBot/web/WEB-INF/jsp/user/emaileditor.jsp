@@ -17,7 +17,7 @@
     <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/> 
     <link href="css/emaileditor.css" rel="stylesheet" type="text/css"/>
     <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
-    <script src="js/configurations.js"></script>
+    <script src="../js/configurations.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/dashboard.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -645,7 +645,7 @@
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                 </div>
             </a>
-            <div class="page-title-with-back page-title-font">Email Editor<%=mindbodyId%></div>
+            <div class="page-title-with-back page-title-font">Email Editor</div>
             <div class="page-cta-container">
                 <a href="" class="gray-button fleft pushright">
                     <!--<div class="nounderline md-button" onclick="show('iphone');">  Mobile Preview</div>-->  
