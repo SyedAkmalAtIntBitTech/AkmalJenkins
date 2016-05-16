@@ -133,6 +133,7 @@
                     $("#emaillistsdiv").hide();
                     $("#emaildraftsdiv").hide();
                     $("#addemlstbtn").hide();
+                    $("#footerdiv").show();
                     $("#emailhistorydiv").show();
                     $("#emlhistab").addClass("top-subnav-link-active");
                     $("#emlhistab a").addClass("h3-active-subnav");
@@ -148,12 +149,15 @@
                     $("#emlsettab a").removeClass("h3-active-subnav");
                     $("#emlsettab").addClass("top-subnav-links");
                     $("#emlsettab a").addClass("h3");
+                    $("#footertab").removeClass("top-subnav-link-active").addClass("top-subnav-links");
+                    $("#footertab a").removeClass("h3-active-subnav").addClass("h3");
                 });
                  $("#emlsettab").click(function (){
                     $("#savesetbtn").show();
                     $("#emailhistorydiv").hide();
                     $("#deleteEmaildraft").hide();
                     $("#emaillistsdiv").hide();
+                    $("#footerdiv").show();
                     $("#emaisetdiv").show();
                     $("#emaildraftsdiv").hide();
                     $("#addemlstbtn").hide();
@@ -171,6 +175,8 @@
                     $("#emllistab a").removeClass("h3-active-subnav");
                     $("#emllistab").addClass("top-subnav-links");
                     $("#emllistab a").addClass("h3"); 
+                    $("#footertab").removeClass("top-subnav-link-active").addClass("top-subnav-links");
+                    $("#footertab a").removeClass("h3-active-subnav").addClass("h3");
                 });
                    
                 var mouse_is_inside = false;
@@ -189,6 +195,7 @@
                     $("#emaisetdiv").hide();
                     $("#emailhistorydiv").hide();
                     $("#emaillistsdiv").hide();
+                    $("#footerdiv").show();
                     $("#emaildraftsdiv").show();
                     $("#addemlstbtn").hide();
                     $("#emlhistab").removeClass("top-subnav-link-active");
@@ -205,6 +212,8 @@
                     $("#emlsettab a").removeClass("h3-active-subnav");
                     $("#emlsettab").addClass("top-subnav-links");
                     $("#emlsettab a").addClass("h3"); 
+                    $("#footertab").removeClass("top-subnav-link-active").addClass("top-subnav-links");
+                    $("#footertab a").removeClass("h3-active-subnav").addClass("h3");
                     $("#removeselactions").hide();
                     getAllDrafts();
                 });
@@ -214,6 +223,7 @@
                     $("#emaisetdiv").hide();
                     $("#emailhistorydiv").hide();
                     $("#deleteEmaildraft").hide();
+                    $("#footerdiv").show();
                     $("#emaillistsdiv").show();
                     $("#emaildraftsdiv").hide();
                     $("#addemlstbtn").show();
@@ -231,6 +241,36 @@
                     $("#emlsettab a").removeClass("h3-active-subnav");
                     $("#emlsettab").addClass("top-subnav-links");
                     $("#emlsettab a").addClass("h3");
+                    $("#footertab").removeClass("top-subnav-link-active").addClass("top-subnav-links");
+                    $("#footertab a").removeClass("h3-active-subnav").addClass("h3");
+                });
+               $("#footertab").click(function (){
+                    $("#savesetbtn").hide();
+                    $("#emaisetdiv").hide();
+                    $("#deleteEmaildraft").hide();
+                    $("#emaillistsdiv").hide();
+                    $("#emaildraftsdiv").hide();
+                    $("#addemlstbtn").hide();
+                    $("#emailhistorydiv").hide();
+                    $("#footerdiv").show();
+                 
+                    
+                    $("#emlhistab").removeClass("top-subnav-link-active").addClass("top-subnav-links");
+                    $("#emlhistab a").removeClass("h3-active-subnav").addClass("h3");
+                    $("#emllistab").removeClass("top-subnav-link-active").addClass("top-subnav-links");
+                    $("#emllistab a").removeClass("h3-active-subnav").addClass("h3");
+                    $("#emldrftab").removeClass("top-subnav-link-active").addClass("top-subnav-links");;
+                    $("#emldrftab a").removeClass("h3-active-subnav").addClass("h3");
+                    $("#emllistab").removeClass("top-subnav-link-active").addClass("top-subnav-links");;
+                    $("#emllistab a").removeClass("h3-active-subnav").addClass("h3");
+                    $("#emldrftab").removeClass("top-subnav-link-active").addClass("top-subnav-links");;
+                    $("#emldrftab a").removeClass("h3-active-subnav").addClass("h3"); 
+                    $("#emlsettab").removeClass("top-subnav-link-active").addClass("top-subnav-links");;
+                    $("#emlsettab a").removeClass("h3-active-subnav").addClass("h3");
+                    $("#emlsettab").removeClass("top-subnav-link-active").addClass("top-subnav-links");;
+                    $("#emlsettab a").removeClass("h3-active-subnav").addClass("h3");
+                    $("#footertab").removeClass("top-subnav-links").addClass("top-subnav-link-active");
+                    $("#footertab a").removeClass("h3").addClass("h3-active-subnav");
                 });
                 
                 if(location.search == "?emaildrafts=1"){
@@ -375,7 +415,7 @@
                    hideOverlay();
                    alert(nodataerror);
                });        
-               }
+               };
            }
  
             function EmailListController($scope, $http) {
@@ -1103,7 +1143,16 @@ $edit=0;
                 window.open(getHost() + 'user/emaileditor?id='+null+'&draftid='+draft_id+'&subject='+email_subject, "_self");     
                 alert(nodataerror);
             });
-        };    
+        };
+       $scope.getFooterDetails = function (){
+                       $http({
+
+                method : 'GET',
+                url : getHost() + '/settings/getAllPreferences'
+            }).success(function(data, status) {
+                ////// to do sandeep
+            });
+       };
  };
 
 /////////Email drafts js///////
