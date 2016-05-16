@@ -1092,10 +1092,12 @@ function changePostType() {
     var postType = $("#linkPostFields").css("display");
     if (postType === "none") {
         $("#linkPostFields").show();
+        $("#urlDropDownSpan").show();
         $("#postType").text("Change To Normal Post");
     }
     if (postType === "inline") {
         $("#linkPostFields").hide();
+        $("#urlDropDownSpan").hide();
         $("#linkTitle").val("");
         $("#linkDescription").val("");
         $("#linkUrl").val("");
