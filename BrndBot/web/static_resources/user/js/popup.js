@@ -1086,7 +1086,11 @@ $(document).ready(function ()
         $("#addImageDivToTwitterPost").show();
         $("#addImageToTwitterPost").hide();
     });
-
+    
+$("#closesendpopup").click(function () {
+    $("#sendpopup").hide();
+    $("#fade").hide();
+});
 });
 function changePostType() {
     var postType = $("#linkPostFields").css("display");
@@ -1106,7 +1110,6 @@ function changePostType() {
 }
 function postToFacebook() {
     var shareText = $("#shareText").val();
-    shareText = "facebook test";
     var linkTitle = $("#linkTitle").val();
     var linkDescription = $("#linkDescription").val();
     var linkUrl = $("#linkUrl").val();
@@ -1136,7 +1139,28 @@ function postToFacebook() {
         }
     });
 }
-function PostToTwitter() {
+function validateTwitter(){
+    var twitterText=$("#twitterShareText").val();
+    var selectedImage=$("#selectedImage").attr('src').contains('companyId');
+    if(twitterText == ""){
+        alert("Please enter the text to share.");
+        $("#twitterShareText").focus();
+    }
+    else if(!selectedImage){
+        alert("Please add an Image to post.");
+        $("#addImageToTwitterPost").trigger('click');
+    }
+    else if((twitterText != "")&&(selectedImage)){
+    $("#sendpopup").show();
+    $("#fade").show();        
+    }
+};
+function post(){
+    validateTwitter();
+};
+
+function postToTwitter() {
+    showOverlay();
     var shareText = $("#twitterShareText").val();
     shareText + "bit.ly/1XOkJo";
     var url = $("#linkUrl").val();
@@ -1165,9 +1189,13 @@ function PostToTwitter() {
                     shorturl: bit_url
                 }),
                 success: function (responseText) {
-                   // alert(JSON.stringify(responseText));
+                    hideOverlay();
+                    $("#sendpopup").hide();
+                    $("#fade").hide();
+//                    alert(JSON.stringify(responseText));
                     var isSuccess = responseText.d.message;
                     if (isSuccess === "success") {
+                        alert("Successfully posted to Twitter.");
                         $("#twitterSuccessPostPopup").show();
                     }
                 },
@@ -1178,6 +1206,397 @@ function PostToTwitter() {
         }
     });
 }
+function schedulePostToTwitter(){
+    
+//                    showOverlay();                     
+                    $.ajax({
+                       method: 'GET',
+                       url:getHost() + 'getAllUserMarketingPrograms'
+                    }).success(function (data){
+                        alert(JSON.stringify(data));
+                        $.ajax({
+                        method: 'POST',
+                        url: getHost() + '/actions/getActions',
+                        data: {
+                            programid: "0",
+                            type: getemail()
+                        }
+                        }).success(function (data1) {alert(JSON.stringify(data1.d.details));                            
+                            hideOverlay(); 
+                            var parseData=JSON.parse(JSON.parse(data1.d.details));
+//                            alert(JSON.stringify(parseData));
+                            $scope.email_actions = parseData;
+                        }).error(function (data1) {
+                            hideOverlay(); 
+                            alert("Request not successful!");
+                        });
+//                        alert(JSON.stringify(data));
+                        $scope.marketing_programs = data;
+                    }).error(function (data){
+                        hideOverlay(); 
+                        alert("Request not successful!");
+                    });
+}
+
+
+
+
+
+ function setScheduling() {
+        var isFacebook = $("#isFacebook").val();
+        var isTwitter = $("#isTwitter").val();
+        var schedule_date = $("#schedule_social_date").val();
+        var schedule_time = $("#schedule_social_time").val().replace(/ /g, '');
+        var schedule_title = $("#schedule_title").val();
+        var schedule_desc = $("#schedule_desc").val();
+        var programs = $("#programs").val();
+        var facebookac = $("#facebookactions").val();
+        var twitterac = $("#twitteractions").val();
+        var imagetype = $("#gallery").val();
+        var link_description = $("#link_description").val();
+        var bit_url = "";
+        var link = $("#Linkurl").val();
+
+        if (link != undefined) {
+            var f = link.startsWith("http");
+
+            if (!f)
+            {
+                link = "http://" + $("#Linkurl").val();
+            }
+            var url = link;
+            var username = "sandeep264328"; // bit.ly username
+            var key = "R_63e2f83120b743bc9d9534b841d41be6";
+        }
+
+        $.ajax({
+            url: "http://api.bit.ly/v3/shorten",
+            data: {longUrl: url, apiKey: key, login: username},
+            dataType: "jsonp",
+            success: function (v)
+            {
+                bit_url = v.data.url;
+                $("#sortLengthurl").val(bit_url);
+            }
+        });
+        if (programs === "0") {
+            if (schedule_date === "" && schedule_time === "" && schedule_title === "" && schedule_desc === "")
+            {
+                if (number === 2)
+                {
+                    if (facebookac === "0")
+                    {
+                        alert(facebookactionchoose);
+                        $("#facebookactions").focus();
+                        return false;
+                    }
+                    if (twitterac === "0")
+                    {
+                        alert(twitteractionchoose);
+                        $("#twitteractions").focus();
+                        return false;
+                    }
+                }
+                if (number === 1)
+                {
+                    if (facebookac === "0" || twitterac === "0")
+                    {
+                        if (fb === 1 && facebookac === "0")
+                        {
+                            alert(facebookactionchoose);
+                            $("#facebookactions").focus();
+                            return false;
+                        }
+                        else if (tw === 1 && twitterac === "0")
+                        {
+                            alert(twitteractionchoose);
+                            $("#twitteractions").focus();
+                            return false;
+                        }
+                    }
+                }
+            } else {
+                if (schedule_title === "")
+                {
+                    alert(titleerror);
+                    $("#schedule_title").focus();
+                    return false;
+                }
+                if (schedule_desc === "")
+                {
+                    alert(descriptionerror);
+                    $("#schedule_desc").focus();
+                    return false;
+                }
+                if (schedule_time === "")
+                {
+                    alert(timeerror);
+                    $("#schedule_social_time").focus();
+                    return false;
+                }
+            }
+        } else {
+            if (number === 2)
+            {
+                if (facebookac === "0")
+                {
+                    alert(facebookactionchoose);
+                    $("#facebookactions").focus();
+                    return false;
+                }
+                if (twitterac === "0")
+                {
+                    alert(twitteractionchoose);
+                    $("#twitteractions").focus();
+                    return false;
+                }
+            }
+            if (number === 1)
+            {
+                if (facebookac === "0" || twitterac === "0")
+                {
+                    if (fb === 1 && facebookac === "0")
+                    {
+                        alert(facebookactionchoose);
+                        $("#facebookactions").focus();
+                        return false;
+                    }
+                    else if (tw === 1 && twitterac === "0")
+                    {
+                        alert(twitteractionchoose);
+                        $("#twitteractions").focus();
+                        return false;
+                    }
+                }
+            }
+        }
+
+        var image_name = $("#imageToPost").val();
+        var program_id = $("#programs").val();
+        var schedule_id_facebook = "0";
+        var schedule_id_twitter = "0";
+        var ManagedPage = "";
+
+        if ((isFacebook == "true") && (isTwitter == "false")) {
+            schedule_id_facebook = $("#facebookactions").val();
+            ManagedPage = $("#pagenameSend").val();
+        } else if ((isFacebook == "false") && (isTwitter == "true")) {
+            schedule_id_twitter = $("#twitteractions").val();
+        } else if ((isFacebook == "true") && (isTwitter == "true")) {
+            schedule_id_facebook = $("#facebookactions").val();
+            schedule_id_twitter = $("#twitteractions").val();
+            ManagedPage = $("#pagenameSend").val();
+        }
+
+        if ((schedule_id_facebook == "0") && (schedule_id_twitter == "0")) {
+            var schedule_date = $("#schedule_social_date").val();
+            var schedule_time = $("#schedule_social_time").val().replace(/ /g, '');
+            var schedule_title = $("#schedule_title").val();
+            var schedule_desc = $("#schedule_desc").val();
+            var l = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
+            var schedule_time = Date.parse(l);
+            console.log("Epoch: " + schedule_time);
+            var myEpoch = schedule_time;
+            console.log("New Epoch: " + myEpoch);
+            var social_schedule = "";
+            if (isFacebook == "true" && isTwitter == "false") {
+
+                social_schedule = [
+                    {
+                        type: getfacebook(),
+                        image_name: image_name,
+                        schedule_time: myEpoch,
+                        schedule_title: schedule_title,
+                        program_id: program_id,
+                        schedule_desc: schedule_desc,
+                        image_type: imagetype,
+                        token_data: {
+                            "access_token": '"' + $("#accesstoken").val() + '"'
+                        },
+                        metadata: {
+                            description: '"' + $("#link_description").val() + '"',
+                            post_text: '"' + $("#posttext").val() + '"',
+                            url: '"' + $("#Linkurl").val() + '"',
+                            ManagedPage: '"' + ManagedPage + '"',
+                            title: '"' + $("#link_title").val() + '"'
+                        }
+                    }
+                ];
+
+            }
+            else if (isFacebook == "false" && isTwitter == "true") {
+                social_schedule = [
+                    {
+                        type: gettwitter(),
+                        image_name: image_name,
+                        schedule_time: myEpoch,
+                        schedule_title: schedule_title,
+                        program_id: program_id,
+                        schedule_desc: schedule_desc,
+                        image_type: imagetype,
+                        token_data: {
+                            "access_token": '"' + $("#twittweraccestoken").val() + '"',
+                            "token_secret": '"' + $("#twitterTokenSecret").val() + '"'
+                        },
+                        metadata: {
+                            text: '"' + latesttwtext + '"',
+                            shorturl: '"' + $("#sortLengthurl").val() + '"'
+                        }
+                    }
+                ];
+
+            }
+            else if (isFacebook == "true" && isTwitter == "true") {
+                social_schedule =
+                        [
+                            {
+                                type: getfacebook(),
+                                image_name: image_name,
+                                schedule_time: myEpoch,
+                                schedule_title: schedule_title,
+                                program_id: program_id,
+                                schedule_desc: schedule_desc,
+                                image_type: imagetype,
+                                token_data: {
+                                    "access_token": '"' + $("#accesstoken").val() + '"'
+                                },
+                                metadata: {
+                                    description: '"' + $("#link_description").val() + '"',
+                                    post_text: '"' + $("#posttext").val() + '"',
+                                    url: '"' + $("#Linkurl").val() + '"',
+                                    ManagedPage: '"' + ManagedPage + '"',
+                                    title: '"' + $("#link_title").val() + '"'
+                                }
+                            },
+                            {
+                                type: gettwitter(),
+                                image_name: image_name,
+                                schedule_time: myEpoch,
+                                schedule_title: schedule_title,
+                                program_id: program_id,
+                                schedule_desc: schedule_desc,
+                                image_type: imagetype,
+                                token_data: {
+                                    "access_token": '"' + $("#twittweraccestoken").val() + '"',
+                                    "token_secret": '"' + $("#twitterTokenSecret").val() + '"'
+                                },
+                                metadata: {
+                                    text: '"' + latesttwtext + '"',
+                                    shorturl: '"' + $("#sortLengthurl").val() + '"'
+                                }
+                            }
+                        ];
+            }
+            $.ajax({
+                url: getHost() + 'ScheduleSocialPost',
+                method: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                mimeType: 'application/json',
+                data: JSON.stringify(social_schedule),
+                success: function (responseText) {
+                    alert(postsuccess);
+                    document.location.href = "dashboard.jsp";
+                }
+            });
+        } else {
+            if (isFacebook == "true" && isTwitter == "false") {
+                social_schedule = [
+                    {
+                        type: getfacebook(),
+                        image_name: image_name,
+                        program_id: program_id,
+                        schedule_id: schedule_id_facebook,
+                        image_type: imagetype,
+                        token_data: {
+                            "access_token": '"' + $("#accesstoken").val() + '"'
+                        },
+                        metadata: {
+                            description: '"' + $("#link_description").val() + '"',
+                            post_text: '"' + $("#posttext").val() + '"',
+                            url: '"' + $("#Linkurl").val() + '"',
+                            ManagedPage: '"' + ManagedPage + '"',
+                            title: '"' + $("#link_title").val() + '"'
+                        }
+                    }
+                ];
+
+            } else if (isFacebook == "false" && isTwitter == "true") {
+                social_schedule = [
+                    {
+                        type: gettwitter(),
+                        image_name: image_name,
+                        program_id: program_id,
+                        schedule_id: schedule_id_twitter,
+                        image_type: imagetype,
+                        token_data: {
+                            "access_token": '"' + $("#twittweraccestoken").val() + '"',
+                            "token_secret": '"' + $("#twitterTokenSecret").val() + '"'
+                        },
+                        metadata: {
+                            text: '"' + latesttwtext + '"',
+                            shorturl: '"' + $("#sortLengthurl").val() + '"'
+                        }
+                    }
+                ];
+
+            } else if (isFacebook == "true" && isTwitter == "true") {
+
+                social_schedule =
+                        [
+                            {
+                                type: getfacebook(),
+                                image_name: image_name,
+                                program_id: program_id,
+                                schedule_id: schedule_id_facebook,
+                                image_type: imagetype,
+                                token_data: {
+                                    "access_token": '"' + $("#accesstoken").val() + '"'
+                                },
+                                metadata: {
+                                    description: '"' + $("#link_description").val() + '"',
+                                    post_text: '"' + $("#posttext").val() + '"',
+                                    url: '"' + $("#Linkurl").val() + '"',
+                                    ManagedPage: '"' + ManagedPage + '"',
+                                    title: '"' + $("#sortLengthurl").val() + '"'
+                                }
+                            },
+                            {
+                                type: gettwitter(),
+                                image_name: image_name,
+                                program_id: program_id,
+                                schedule_id: schedule_id_twitter,
+                                image_type: imagetype,
+                                token_data: {
+                                    "access_token": '"' + $("#twittweraccestoken").val() + '"',
+                                    "token_secret": '"' + $("#twitterTokenSecret").val() + '"'
+                                },
+                                metadata: {
+                                    text: '"' + latesttwtext + '"',
+                                    shorturl: '"' + $("#sortLengthurl").val() + '"'
+                                }
+                            }
+                        ];
+            }
+            $.ajax({
+                url: getHost() + 'ScheduleSocialPostActions',
+                method: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                mimeType: 'application/json',
+                data: JSON.stringify(social_schedule),
+                success: function (responseText) {
+                    alert(postsuccess);
+                    document.location.href = "dashboard.jsp";
+                }
+            });
+        }
+     
+     
+     
+                };
+
+
 
 
     var imgApp = angular.module('imageGallery', []);
