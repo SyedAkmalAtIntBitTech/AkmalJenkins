@@ -996,7 +996,6 @@ function controllerMarketingCampaign($scope, $http) {
         $('#slider-button').click();
     });
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active) {
-       
         if (entity_type === getemail()) {
             $slider=2;
             sliderDialog = "#emailsection";
@@ -1051,7 +1050,7 @@ function controllerMarketingCampaign($scope, $http) {
                 }
                 var date = new Date(schedule_time);
                 $('#emailcontentiframe').contents().find('html').html(detailsBody);                 
-                $scope.entities_selected_time = date;
+                $scope.entities_selected_time = schedule_time;
                 $scope.schedule_title = schedule_title;
                 $scope.schedule_id = schedule_id;
                 console.log(schedule_desc);

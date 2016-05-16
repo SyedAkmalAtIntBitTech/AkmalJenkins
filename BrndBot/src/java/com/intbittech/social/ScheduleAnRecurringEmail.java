@@ -41,7 +41,7 @@ public class ScheduleAnRecurringEmail implements Runnable {
             List<ScheduledEntityList> scheduledAnRecurringEmail = getLatestApprovedSendEmail();
             for (ScheduledEntityList currentScheduledRecurringEmail : scheduledAnRecurringEmail) {
                 if (scheduledAnRecurringEmail != null) {
-                    boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledRecurringEmail.getScheduleTime());
+                    boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledRecurringEmail.getScheduleTime(),currentScheduledRecurringEmail.getFkCompanyId().getCompanyId());
 //                    boolean shouldPostNow = true;
 
                     if (shouldPostNow) {

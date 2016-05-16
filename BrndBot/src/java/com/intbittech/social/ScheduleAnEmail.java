@@ -48,7 +48,7 @@ public class ScheduleAnEmail implements Runnable {
                 if (scheduledAnEmail != null) {
                 //The time zone of the saved date should be extracted.
                     //This time zone should be applied to the current time and then this comparison needs to be made.
-                  boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledEmail.getScheduleTime());
+                  boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledEmail.getScheduleTime(),currentScheduledEmail.getFkCompanyId().getCompanyId());
 //                    boolean shouldPostNow = true;
                     logger.info("Message to display entity id " + currentScheduledEmail.getEntityId() + " and schedule time:"+ currentScheduledEmail.getScheduleTime());
                     logger.info("Current time:" + new Date());
