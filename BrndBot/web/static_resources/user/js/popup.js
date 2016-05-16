@@ -1,4 +1,5 @@
 
+var program_id="";
 var maxLength = 140;
 var end_date = "";
 var selecImageName = "";
@@ -71,6 +72,37 @@ function getImageId(idname)
 }
 $(document).ready(function ()
 {
+    
+    $("#programs").change(function () {
+
+        program_id = $("#programs").val();
+        if (location.href.contains('twitterpost')) {
+            angular.element(document.getElementById('socialScheduleController')).scope().getSocialTwitterActions(program_id);
+        }
+        if (location.href.contains('facebookpost')) {
+            angular.element(document.getElementById('socialScheduleController')).scope().getSocialFacebookActions(program_id);
+        }
+
+        if (parseInt(program_id) == 0) {
+            $("#facebookactions").attr("disabled", false);
+            $("#twitteractions").attr("disabled", false);
+
+            document.getElementById('schedule_desc').disabled = false;
+            document.getElementById('schedule_title').disabled = false;
+            document.getElementById('schedule_social_date').disabled = false;
+            document.getElementById('schedule_social_time').disabled = false;
+        } else {
+            $("#facebookactions").attr("disabled", false);
+            $("#twitteractions").attr("disabled", false);
+
+            document.getElementById('schedule_desc').disabled = true;
+            document.getElementById('schedule_title').disabled = true;
+            document.getElementById('schedule_social_date').disabled = true;
+            document.getElementById('schedule_social_time').disabled = true;
+
+        }
+    });
+    
 
     $('#chars').text(length);
     $("#emailpreview").click(function () {
@@ -1206,38 +1238,74 @@ function postToTwitter() {
         }
     });
 }
-function schedulePostToTwitter(){
-    
-//                    showOverlay();                     
-                    $.ajax({
-                       method: 'GET',
-                       url:getHost() + 'getAllUserMarketingPrograms'
-                    }).success(function (data){
-                        alert(JSON.stringify(data));
+function socialScheduleController($scope, $http) {
+        $scope.schedulePostToTwitter = function(){
+            var marketingPrograms=[];
+    //                    showOverlay();                     
                         $.ajax({
-                        method: 'POST',
-                        url: getHost() + '/actions/getActions',
-                        data: {
-                            programid: "0",
-                            type: getemail()
-                        }
-                        }).success(function (data1) {alert(JSON.stringify(data1.d.details));                            
-                            hideOverlay(); 
-                            var parseData=JSON.parse(JSON.parse(data1.d.details));
-//                            alert(JSON.stringify(parseData));
-                            $scope.email_actions = parseData;
-                        }).error(function (data1) {
+                           method: 'GET',
+                           url:getHost() + 'getAllUserMarketingPrograms'
+                        }).success(function (data){
+                            if(location.href.contains('twitterpost')){$("#facebookselection").hide();}
+                            if(location.href.contains('facebookpost')){$("#twitterselection").hide();}
+//                            alert(JSON.stringify(JSON.parse(data)));
+                            marketingPrograms=JSON.stringify(JSON.parse(data));
+                            $scope.marketing_programs1=eval(marketingPrograms);
+                            $.ajax({
+                            method: 'POST',
+                            url: getHost() + 'actions/getActions',
+                            data: {
+                                programid: "0",
+                                type: gettwitter()
+                            }
+                            }).success(function (data1) {
+//                                alert(JSON.stringify(data1.d.details));                            
+                                hideOverlay(); 
+                                var parseData=JSON.parse(JSON.parse(data1.d.details));
+    //                            alert(JSON.stringify(parseData));
+                                $scope.twitter_actions = parseData;
+                            }).error(function (data1) {
+                                hideOverlay(); 
+                                alert("Request not successful!");
+                            });
+    //                        alert(JSON.stringify(data));
+                            $scope.marketing_programs = data;
+                        }).error(function (data){
                             hideOverlay(); 
                             alert("Request not successful!");
                         });
-//                        alert(JSON.stringify(data));
-                        $scope.marketing_programs = data;
-                    }).error(function (data){
-                        hideOverlay(); 
-                        alert("Request not successful!");
-                    });
+    };
+    $scope.getSocialTwitterActions = function (program_id) {
+        $http({
+            method: 'GET',
+            url: getHost() + 'actions/getActions',
+            data:{programid:program_id,type:gettwitter()}
+        }).success(function (data) {alert(JSON.stringify(data));
+            $scope.twitter_actions = data;
+        }).error(function (data) {
+            alert(requesterror);
+        });
+    };
 }
 
+function validateact(){
+               if(document.getElementById('programs').value === "0")
+                {
+                document.getElementById('schedule_title').disabled=false;
+                document.getElementById('schedule_desc').disabled=false;
+                document.getElementById('schedule_social_date').disabled=false;
+                document.getElementById('schedule_social_time').disabled=false;
+                 }
+            else{
+                document.getElementById('schedule_title').disabled=true;
+                document.getElementById('schedule_desc').disabled=true;
+                document.getElementById('schedule_social_date').disabled=true;
+                document.getElementById('schedule_social_time').disabled=true;
+                document.getElementById('schedule_title').value="";
+                document.getElementById('schedule_desc').value="";
+                document.getElementById('schedule_social_date').value="";
+                }                 
+            }
 
 
 
@@ -1488,16 +1556,19 @@ function schedulePostToTwitter(){
                         ];
             }
             $.ajax({
-                url: getHost() + 'ScheduleSocialPost',
+                url: getHost() + 'actions/scheduleSocialPost',
                 method: 'post',
                 dataType: 'json',
                 contentType: 'application/json',
                 mimeType: 'application/json',
                 data: JSON.stringify(social_schedule),
-                success: function (responseText) {
+                success: function (responseText) {alert(JSON.stringify(responseText));
                     alert(postsuccess);
-                    document.location.href = "dashboard.jsp";
-                }
+                    document.location.href = "dashboard";
+                },
+                error: function (errorThrown) {
+                    alert(JSON.stringify(errorThrown));
+            }
             });
         } else {
             if (isFacebook == "true" && isTwitter == "false") {
@@ -1579,15 +1650,15 @@ function schedulePostToTwitter(){
                         ];
             }
             $.ajax({
-                url: getHost() + 'ScheduleSocialPostActions',
+                url: getHost() + 'actions/scheduleSocialPostActions',
                 method: 'post',
                 dataType: 'json',
                 contentType: 'application/json',
                 mimeType: 'application/json',
                 data: JSON.stringify(social_schedule),
-                success: function (responseText) {
+                success: function (responseText) {alert(responseText);
                     alert(postsuccess);
-                    document.location.href = "dashboard.jsp";
+                    document.location.href = "dashboard";
                 }
             });
         }

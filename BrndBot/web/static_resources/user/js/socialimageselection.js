@@ -958,69 +958,69 @@ function autosize(textarea) {
     $(textarea).height(1); // temporarily shrink textarea so that scrollHeight returns content height when content does not fill textarea
     $(textarea).height($(textarea).prop("scrollHeight"));
 }
-function controllerMarketingCampaign($scope, $http) {
-//               
-//                $('#posttext').css('overflow', 'hidden').autogrow();
-    $http({
-        method: 'GET',
-        url: getHost() + 'getAllUserMarketingProgramsByUserId'
-    }).success(function (data) {
-        $scope.urls = data;
-        console.log($scope.urls);
-    }).error(function (data) {
-        alert(requesterror);
-    });
-
-    $scope.getSocialFacebookActions = function (program_id) {
-
-        $http({
-            method: 'GET',
-            url: getHost() + 'GetScheduledActions?programid=' + program_id + '&type=' + getfacebook()
-        }).success(function (data) {
-            $scope.facebook_actions = data;
-            console.log($scope.facebook_actions);
-        }).error(function (data) {
-            alert(requesterror);
-        });
-    };
-
-    $scope.getSocialTwitterActions = function (program_id) {
-
-        $http({
-            method: 'GET',
-            url: getHost() + 'GetScheduledActions?programid=' + program_id + '&type=' + gettwitter()
-        }).success(function (data) {
-            $scope.twitter_actions = data;
-        }).error(function (data) {
-            alert(requesterror);
-        });
-    };
-
-    $scope.getProgramNames = function () {
-        $http({
-            method: 'GET',
-            url: getHost() + 'getAllUserMarketingPrograms'
-        }).success(function (data) {
-//                        alert(JSON.stringify(data));
-            $scope.marketing_programs = data;
-        }).error(function (data) {
-            alert(requesterror);
-        });
-    };
-
-    $scope.getSocialActions = function () {
-
-        $http({
-            method: 'GET',
-            url: getHost() + 'GetScheduledActions?type=social'
-        }).success(function (data) {
-            $scope.social_actions = data;
-        }).error(function (data) {
-            alert(requesterror);
-        });
-    };
-
-}
+//function controllerMarketingCampaign($scope, $http) {
+////               
+////                $('#posttext').css('overflow', 'hidden').autogrow();
+//    $http({
+//        method: 'GET',
+//        url: getHost() + 'getAllUserMarketingProgramsByUserId'
+//    }).success(function (data) {
+//        $scope.urls = data;
+//        console.log($scope.urls);
+//    }).error(function (data) {
+//        alert(requesterror);
+//    });
+//
+//    $scope.getSocialFacebookActions = function (program_id) {
+//
+//        $http({
+//            method: 'GET',
+//            url: getHost() + 'GetScheduledActions?programid=' + program_id + '&type=' + getfacebook()
+//        }).success(function (data) {
+//            $scope.facebook_actions = data;
+//            console.log($scope.facebook_actions);
+//        }).error(function (data) {
+//            alert(requesterror);
+//        });
+//    };
+//
+//    $scope.getSocialTwitterActions = function (program_id) {
+//
+//        $http({
+//            method: 'GET',
+//            url: getHost() + 'GetScheduledActions?programid=' + program_id + '&type=' + gettwitter()
+//        }).success(function (data) {
+//            $scope.twitter_actions = data;
+//        }).error(function (data) {
+//            alert(requesterror);
+//        });
+//    };
+//
+//    $scope.getProgramNames = function () {
+//        $http({
+//            method: 'GET',
+//            url: getHost() + 'getAllUserMarketingPrograms'
+//        }).success(function (data) {
+////                        alert(JSON.stringify(data));
+//            $scope.marketing_programs = data;
+//        }).error(function (data) {
+//            alert(requesterror);
+//        });
+//    };
+//
+//    $scope.getSocialActions = function () {
+//
+//        $http({
+//            method: 'GET',
+//            url: getHost() + 'GetScheduledActions?type=social'
+//        }).success(function (data) {
+//            $scope.social_actions = data;
+//        }).error(function (data) {
+//            alert(requesterror);
+//        });
+//    };
+//
+//}
 
 function validateact() {
     var facebookactions = $("#facebookactions").val();
@@ -1111,7 +1111,7 @@ function controllerMarketingCampaign($scope, $http) {
             method: 'GET',
             url: getHost() + 'getAllUserMarketingPrograms'
         }).success(function (data) {
-//                        alert(JSON.stringify(data));
+//                        alert(JSON.stringify(JSON.parse(data)));
             $scope.marketing_programs = data;
         }).error(function (data) {
             alert(requesterror);
