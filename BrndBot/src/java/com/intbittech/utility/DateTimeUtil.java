@@ -24,8 +24,8 @@ public class DateTimeUtil {
     static final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
     public static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(DateTimeUtil.class));
 
-    public static boolean timeEqualsCurrentTime(Date datetime, Integer companyId) {
-        if(companyId!=0)
+    public static boolean timeEqualsCurrentTime(Date datetime, Integer companyProgramId) {
+        if(companyProgramId!=0)
         {
             //Checks if the currect date is DST if yes then -1 hour
             datetime = isDSTCalculate(datetime);

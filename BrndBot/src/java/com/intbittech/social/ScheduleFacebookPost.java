@@ -51,7 +51,7 @@ public class ScheduleFacebookPost implements Runnable {
                     Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, "Message to display entity id " + currentScheduledFacebookPost.getEntityId() + " and schedule time", currentScheduledFacebookPost.getScheduleTime());
 
                     Logger.getLogger(ScheduleFacebookPost.class.getName()).log(Level.SEVERE, "Current time:" + new Date());
-                    boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledFacebookPost.getScheduleTime(),currentScheduledFacebookPost.getFkCompanyId().getCompanyId());
+                    boolean shouldPostNow = DateTimeUtil.timeEqualsCurrentTime(currentScheduledFacebookPost.getScheduleTime(),currentScheduledFacebookPost.getFkCompanyMarketingProgramId().getCompanyMarketingProgramId());
 //                    boolean shouldPostNow = true;
 
                     if (shouldPostNow) {
