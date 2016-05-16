@@ -81,7 +81,7 @@
         <div class="bottomNav">
             <div class="bottom-ContinueButton fright" onclick="post()">CONTINUE</div>
         </div>
-        <%@include file="emaillistselectionpopup.jsp" %> 
+        <%@include file="sociallistselection.jsp" %> 
         <%@include file="imagegallerypopup.jsp" %>
         <%@include file="twitterpostcuccesspopup.jsp" %> 
     </body>
