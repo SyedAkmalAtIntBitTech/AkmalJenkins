@@ -1120,7 +1120,6 @@ function changeTwitterPostType() {
 }
 function postToFacebook() {
     var shareText = $("#shareText").val();
-    shareText = "facebook test";
     var linkTitle = $("#linkTitle").val();
     var linkDescription = $("#linkDescription").val();
     var linkUrl = $("#linkUrl").val();
