@@ -11,7 +11,7 @@
         <link rel="shortcut icon" href="images/favicon.png">
         <title>Category</title>
     </head>
-    <body class="body-normal">
+    <body class="body-normal" ng-app="imageGallery"  ng-controller="displayImageFromGallery">
         <%@include file="header.jsp" %>       
         <%@include file="navbar.jsp" %>  
         <div class="contentWrap--withSideNav">
@@ -26,7 +26,7 @@
                     <div class="topNav--TitleBar--CTABox fright">
                         <div class="CTA_Button Button--Gray">Help!</div>
                     </div>
-                    <div class="topNav--TitleBar--CTABox fright pushRight_30" onclick="changeTwitterPostType()">
+                    <div class="topNav--TitleBar--CTABox fright pushRight_30" ng-click="changeTwitterPostType()">
                         <div class="CTA_Button Button--Gray" id="postType">Change To Link Post</div>
                     </div>
                 </div>
@@ -42,6 +42,13 @@
                             <span>
                                 <div class="input_Label">What would you like to share?</div>
                                 <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="twitterShareText"></textarea>
+                            </span>
+                            <span class="displayNone" id='urlDropDownSpan'>
+                                <div class="input_Label pushUp_20">Choose from your Existing Links:</div>
+                                <select id='dropdownurl' class="select_Field_lg removeDrag" ng-init="getUrls()" ng-change="getSelectedUrl()">
+                                    <option value="0" class="caret">LINK URL<lable></lable></option>
+                                    <option ng-repeat="url in urls" value="{{url.url}}--{{url.link_name}}">{{url.prigram_name}} - {{url.link_name}} - {{url.url}}</option>
+                                </select>
                             </span>
                             <span class="displayNone" id="twitterLinkPost">
                                 <div class="input_Label pushUp_20">Link</div>
@@ -63,9 +70,9 @@
                             <div class="edit-Image-Button fleft" id="changeImage">
                                 Change Image
                             </div>
-<!--                            <div class="edit-Image-Button fleft">
-                                Edit Image
-                            </div>-->
+                            <!--                            <div class="edit-Image-Button fleft">
+                                                            Edit Image
+                                                        </div>-->
                         </div>
                     </div>
                 </div>   

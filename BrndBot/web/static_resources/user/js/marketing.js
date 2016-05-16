@@ -520,6 +520,37 @@ function controllerMarketingCampaign($scope, $http) {
     $scope.master_twitter = gettwitter();
     $scope.master_email = getemail();
     $scope.master_note = getnote();
+    $scope.mySplit = function(string, nb) {
+      var array = string.split('-');
+      return array[nb];
+    }
+    $scope.myYear = function(string) {
+        var month="";
+        if(string=='01')
+            return month="Jan";
+        if(string=='02')
+            return month="Feb";
+        if(string=='03')
+            return month="Mar";
+        if(string=='04')
+            return month="Apr";
+        if(string=='05')
+            return month="May";
+        if(string=='06')
+            return month="Jun";
+        if(string=='07')
+            return month="Jul";
+        if(string=='08')
+            return month="Aug";
+        if(string=='09')
+            return month="Sept";
+        if(string=='10')
+            return month="Oct";
+        if(string=='11')
+            return month="Nov";
+        if(string=='12')
+            return month="Dec";
+    }
     $scope.getCampaigns = function () {
         showOverlay();
         var curr_date = '';

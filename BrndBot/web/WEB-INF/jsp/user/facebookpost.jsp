@@ -11,7 +11,7 @@
         <link rel="shortcut icon" href="images/favicon.png">
         <title>Category</title>
     </head>
-    <body class="body-normal">
+    <body class="body-normal" ng-app="imageGallery"  ng-controller="displayImageFromGallery">
         <%@include file="header.jsp" %>       
         <%@include file="navbar.jsp" %>  
         <div class="contentWrap--withSideNav">
@@ -46,6 +46,13 @@
                                 <textarea class="input_Field removeDrag" placeholder="Type post here" id="linkTitle"></textarea>
                                 <div class="input_Label pushUp_20">Link Description</div>
                                 <textarea class="input_Field_Md removeDrag" placeholder="Type post here" id="linkDescription"></textarea>
+                                <span class="displayNone" id='urlDropDownSpan'>
+                                    <div class="input_Label pushUp_20">Choose from your Existing Links:</div>
+                                    <select id='dropdownurl' class="select_Field_lg removeDrag" ng-init="getUrls()" ng-change="getSelectedUrl()">
+                                        <option value="0" class="caret">LINK URL<lable></lable></option>
+                                        <option ng-repeat="url in urls" value="{{url.url}}--{{url.link_name}}">{{url.prigram_name}} - {{url.link_name}} - {{url.url}}</option>
+                                    </select>
+                                </span>
                                 <div class="input_Label pushUp_20">Link</div>
                                 <textarea class="socialLink_attached removeDrag removeBorder" placeholder="http://www.brndbot.com" id="linkUrl"></textarea>
                             </span>
@@ -63,9 +70,9 @@
                             <div class="edit-Image-Button fleft" id="changeImage">
                                 Change Image
                             </div>
-<!--                            <div class="edit-Image-Button fleft">
-                                Edit Image
-                            </div>-->
+                            <!--                            <div class="edit-Image-Button fleft">
+                                                            Edit Image
+                                                        </div>-->
                         </div>
                     </div>
                 </div>   
@@ -74,7 +81,7 @@
         <div class="bottomNav">
             <div class="bottom-ContinueButton fright" onclick="postToFacebook()">CONTINUE</div>
         </div>
-       <%@include file="imagegallerypopup.jsp" %>
-       <%@include file="facebookpostsuccesspopup.jsp" %>  
+        <%@include file="imagegallerypopup.jsp" %>
+        <%@include file="facebookpostsuccesspopup.jsp" %>  
     </body>
 </html>

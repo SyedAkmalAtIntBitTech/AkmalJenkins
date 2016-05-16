@@ -247,16 +247,13 @@ function controllerUserChanges($scope, $http) {
         }
     };
     $scope.showColors = function () {
-        $scope.getLogoColors();
         showOverlay();
         $http({
             method: 'GET',
             url: getHost() + 'settings/getColors'
         }).success(function (data) {
-            hideOverlay();
             $scope.user_preferences_colors = data.d.details;
         }).error(function (data, status, headers, config) {
-            hideOverlay();
             alert(nodataerror);
         });
 
@@ -269,10 +266,9 @@ function controllerUserChanges($scope, $http) {
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {
-            hideOverlay();
             alert(nodataerror);
         });
-
+        
     };
 
     $scope.getLogoColors = function () {
@@ -282,6 +278,7 @@ function controllerUserChanges($scope, $http) {
             url: getHost() +'onboarding/getColorsForLogo'
         }).success(function (data, status, headers, config) {
             $scope.color =data.d.details;
+            hideOverlay();
             if (data === error) {
             }
         }).error(function (data, status, headers, config) {

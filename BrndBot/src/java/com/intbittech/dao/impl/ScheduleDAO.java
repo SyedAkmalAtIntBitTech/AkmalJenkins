@@ -322,6 +322,7 @@ public class ScheduleDAO {
                 + " where entity_id=?"
                 + " and entity_type =?"
                 + " and status = ?"
+                + " and is_recurring = false"
                 + " and fk_company_marketing_program_id =?"
                 + " and fk_company_id = ?";
 
