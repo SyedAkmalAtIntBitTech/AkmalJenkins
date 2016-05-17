@@ -1813,6 +1813,11 @@ selfclear:after{
     min-width: 450px !important;
     
 }
+.main-container70width{
+    width: 50% !important;
+    min-width: 450px !important;
+    
+}
 .main-container50widthright{
 /*    width: 40% !important;
     min-width: 500px !important;*/

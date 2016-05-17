@@ -1149,9 +1149,30 @@ $edit=0;
                 method : 'GET',
                 url : getHost() + '/settings/getAllPreferences'
             }).success(function(data, status) {
-                $scope.footerDetails = JSON.parse(data.d.details).footers;
+                $scope.footerDetails = JSON.parse(data.d.details).userProfile;
             });
        };
+      $scope.changeFooterDetails = function (){
+      var address = $("#footerAddress").val();
+      var websiteurl = $("#footerWebsiteUrl").val();;
+      var facebookurl = $("#footerFacebookUrl").val();;
+      var twitterUrl = $("#footerTwitterUrl").val();;
+      var instagramUrl = $("#footerInstagramUrl").val();
+
+       var footerData = '{"facebookUrl":"'+facebookurl+'","twitterUrl":"'+twitterUrl+'","instagramUrl":"'+instagramUrl+'","websiteUrl":"'+websiteurl+'","address":"'+address+'"}';
+       $http({
+                method: 'POST',
+                url: getHost() + 'settings/setFooter',
+                data: footerData
+            }).success(function (data) {
+                    alert(detailssaved);
+                    $("#emailFooterPopup").hide();
+                    $scope.getFooterDetails();
+                    
+            }).error(function (data, status) {
+                alert(requesterror);
+            });
+   } ;
  };
 
 /////////Email drafts js///////
@@ -1183,3 +1204,9 @@ $edit=0;
                 $("#drftEmailDelete").hide();
             }
         }
+       function openEmailFooterPopup(){
+           $("#emailFooterPopup").show();
+       }
+      function hideEmailFooterPopup(){
+          $("#emailFooterPopup").hide();
+      }
