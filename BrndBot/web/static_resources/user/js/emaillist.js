@@ -1158,9 +1158,9 @@ $edit=0;
       var facebookurl = $("#footerFacebookUrl").val();;
       var twitterUrl = $("#footerTwitterUrl").val();;
       var instagramUrl = $("#footerInstagramUrl").val();
-
-       var footerData = '{"facebookUrl":"'+facebookurl+'","twitterUrl":"'+twitterUrl+'","instagramUrl":"'+instagramUrl+'","websiteUrl":"'+websiteurl+'","address":"'+address+'"}';
-       $http({
+      var footerData = '{"facebookUrl":"'+facebookurl+'","twitterUrl":"'+twitterUrl+'","instagramUrl":"'+instagramUrl+'","websiteUrl":"'+websiteurl+'","address":"'+address+'"}';
+      if(address){
+          $http({
                 method: 'POST',
                 url: getHost() + 'settings/setFooter',
                 data: footerData
@@ -1172,6 +1172,12 @@ $edit=0;
             }).error(function (data, status) {
                 alert(requesterror);
             });
+      }
+        else{
+            alert("please enter the Address");
+            $("#footerAddress").focus();
+        }
+
    } ;
  };
 
