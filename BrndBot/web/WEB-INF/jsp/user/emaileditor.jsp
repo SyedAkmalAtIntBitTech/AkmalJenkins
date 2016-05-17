@@ -661,10 +661,60 @@
         <div class="emailEditor-page-background fleft">
             <div class="emailEditor-leftCol ">
                  <script>
+                     function UserFooter(fb,twitter,website,instagram,address){
+                        var returnFooter ="";
+                        var footer = "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" height=\"100%\" width=\"100%\" bgcolor=\"#EEEEEE\" style=\"border-collapse:collapse;\"><tr><td valign=\"top\"> <center style=\"width: 100%;\"> <div style=\"max-width: 680px;\"> <!--[if (gte mso 9)|(IE)]> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"680\" align=\"center\"> <tr> <td> <![endif]--> <!-- Atom Body: BEGIN --> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" bgcolor=\"#EEEEEE\" width=\"100%\" style=\"max-width: 680px;\"> <tr> <td style=\"padding-top:15px;\" class=\"mobile-padding\"> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" width=\"100%\" style=\"max-width: 300px; background-color:#inherit\" class=\"mobile-padding\"> <tr>";
+
+                        var footerFB = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerFB$$$\"><img src=\""+getHost()+"images/Facebook_Filled.png"+"\" alt=\"Facebook Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Facebook </td> </tr> </table> </td>";
+
+                        var footerTwitter = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerTwitter$$$\"><img src=\""+getHost()+"images/Twitter_Filled.png"+"\" alt=\"Twitter Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Twitter </td> </tr> </table> </td>";
+
+                        var footerWebsite = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerWebsite$$$\"><img src=\""+getHost()+"images/Website_Filled.png"+"\" alt=\"Website Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Website </td> </tr> </table> </td>";
+
+                        var footerInstagram = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerInstagram$$$\"><img src=\""+getHost()+"images/Insta_Filled.png"+"\" alt=\"Instagram Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Instagram </td> </tr> </table> </td>";
+
+                        var footerMiddle = "</tr> </table> </td> </tr>";
+
+                        var footerAddress = "<!--HEADER: BEGIN--> <tr> <td style=\"font-family: sans-serif; font-size: 12px; mso-height-rule: exactly; line-height: 120%; text-align:center; color: #555555; padding: 20px 55px 20px 55px;\" class=\"fluid mobile-padding\"> $$$footerAddress$$$ </td> </tr> <!--HEADER: END-->";
+
+                        var footerClose = "</table> <!--[if (gte mso 9)|(IE)]> </td> </tr> </table> <![endif]--> </div> </center> </td></tr></table>";
+
+
+                        returnFooter = footer;
+                        if(fb != "")
+                            returnFooter+=footerFB.replace("$$$footerFB$$$",fb);
+                        if(twitter != "" && typeof twitter != "undefined")
+                            returnFooter+=footerTwitter.replace("$$$footerTwitter$$$",twitter);
+
+                        if(website != "" && typeof website != "undefined")
+                            returnFooter+=footerWebsite.replace("$$$footerWebsite$$$",website);
+
+                        if(instagram != "" && typeof instagram != "undefined")
+                            returnFooter+=footerInstagram.replace("$$$footerInstagram$$$",instagram);
+
+                        returnFooter+=footerMiddle;
+
+                        if(address != "" && typeof address != "undefined")
+                            returnFooter+=footerAddress.replace("$$$footerAddress$$$",address);
+
+                        returnFooter+=footerClose;
+
+                        return returnFooter;
+                    }
                     $("#emailpreview").click(function(){              
                         $("#email_previewdiv").show();
+                        
+                        $.ajax({
+                            method : 'GET',
+                            url : getHost() + 'settings/getAllPreferences'
+                        }).success(function(data, status) {
+                            var footerData = JSON.parse(data.d.details);
+                            var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
+                                    footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
+                                    footerData.userProfile.address);
+                          
                         var sendData = {
-                                    htmlString: $('#edit').froalaEditor('html.get'),
+                                    htmlString: $('#edit').froalaEditor('html.get')+footer,
                                     iframeName: rendomIframeFilename.toString()
                                 };
                                 
@@ -683,7 +733,7 @@
                         }).error(function (error){alert(JSON.stringify(error));});
                         $("#fade").show();
                     });
-                    
+                    });
                     $("#addblkbtn").click(function (){
                     $("#tabs-4").css("display", "none");
                             $("#clsbtn").css("display", "none");
@@ -756,11 +806,19 @@
                                     $(this).hide();
                                     $('.window').hide();
                             });
+                            $.ajax({
+                            method : 'GET',
+                            url : getHost() + 'settings/getAllPreferences'
+                        }).success(function(data, status) {
+                            var footerData = JSON.parse(data.d.details);
+                            var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
+                                    footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
+                                    footerData.userProfile.address);
                                     $.ajax({
                                     url: getHost() + "PreviewServlet",
                                             method: "post",
                                             data: {
-                                            htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                                            htmlString: $('#edit').froalaEditor('html.get')+footer, //$(".fr-element").html(),
                                                     iframeName: rendomIframeFilename
                                             },
                                             success: function (responseText) {
@@ -777,6 +835,7 @@
                                             }
                                             }
                                     });
+                                    });
                             }
                     
                             function hlt(){
@@ -792,12 +851,20 @@
         var lookupId = $("#LookupId").val();
         var mindbodyData = $("#mindbodydata").val();  
         var categoryId = $("#categoryIdTag").val();
-        var subCategoryId = $("#subCategoryIdTag").val(); 
+        var subCategoryId = $("#subCategoryIdTag").val();
+        $.ajax({
+            method : 'GET',
+            url : getHost() + 'settings/getAllPreferences'
+        }).success(function(data, status) {
+            var footerData = JSON.parse(data.d.details);
+            var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
+                    footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
+                    footerData.userProfile.address);
         $.ajax({
             url: getHost() + "/email/previewServlet",
             method: "post",
             data:JSON.stringify({
-                htmlString: $('#edit').froalaEditor('html.get'),
+                htmlString: $('#edit').froalaEditor('html.get')+footer,
                 iframeName: rendomIframeFilename.toString()
             }),
             success: function (responseText) {
@@ -854,6 +921,7 @@
             }
             }
         });
+        });
     });
                                                     
     $("#saveButton").click(function (){
@@ -863,11 +931,19 @@
         var mindbodyData = $("#mindbodydata").val();  
         var categoryId = $("#categoryIdTag").val();
         var subCategoryId = $("#subCategoryIdTag").val(); 
-
+        $.ajax({
+            method : 'GET',
+            url : getHost() + 'settings/getAllPreferences'
+        }).success(function(data, status) {
+            var footerData = JSON.parse(data.d.details);
+            var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
+                    footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
+                    footerData.userProfile.address);
             var sendData=JSON.stringify({
-            htmlString: $('#edit').froalaEditor('html.get'),
+            htmlString: $('#edit').froalaEditor('html.get')+footer,
             iframeName: rendomIframeFilename.toString()
             });
+            
         $.ajax({
             url: getHost() + "/email/previewServlet",
             method: "POST",
@@ -925,6 +1001,7 @@
                 }
             }
         });
+        });
     });
                     
     $("#styletab").click(function (){
@@ -947,7 +1024,12 @@
         $("#blocktab").removeClass("emailSideBar-tab");
         $("#blocktab").addClass("emailSideBar-tab-active");
     });
+    
+    
+    
+    
                 });
+                
         </script>   
                 <div id="editor">
                     <div id='edit' class="editorclass" style="margin-top: 5px;">
