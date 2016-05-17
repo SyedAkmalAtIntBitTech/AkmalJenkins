@@ -31,6 +31,7 @@ public interface CompanyPreferencesService {
     
     public void setStudioId(CompanyPreferences companyPreferences);
 
-    public CompanyPreferences getByCompanyId(Integer companyId);
-   
+    public CompanyPreferences getByCompanyId(Integer companyId);   
+
+    public List<CompanyPreferences> getAllForLocationId(String locationId);
 }

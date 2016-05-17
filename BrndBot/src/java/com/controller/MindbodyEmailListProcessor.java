@@ -70,7 +70,7 @@ public class MindbodyEmailListProcessor implements Runnable {
 
     private void startProcessing() throws ParseException {
 
-        HashMap<Integer, String> rowIdLocationHashMap = new HashMap<>();
+        HashMap<Integer, Integer> rowIdLocationHashMap = new HashMap<>();
 
         String sql = "SELECT company_location, email_list,fk_company_id"
                 + " FROM company_preferences "
@@ -79,10 +79,9 @@ public class MindbodyEmailListProcessor implements Runnable {
                 PreparedStatement ps = connection.prepareStatement(sql)) {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    String location = rs.getString("company_location");
-                    int rowId = rs.getInt("fk_company_id");
-                    String email_list = rs.getString("email_list");
-                    rowIdLocationHashMap.put(rowId, location+"||"+email_list);
+                    int location = rs.getInt("company_location");
+                    int compnayId = rs.getInt("fk_company_id");
+                    rowIdLocationHashMap.put(compnayId, location);
                 }
             }
         } catch (SQLException ex) {
@@ -92,22 +91,12 @@ public class MindbodyEmailListProcessor implements Runnable {
         processEachRow(rowIdLocationHashMap);
     }
 
-    private void processEachRow(HashMap<Integer, String> rowIdLocationHashMap) throws ParseException {
-            JSONParser parser = new JSONParser();
+    public void processEachRow(HashMap<Integer, Integer> rowIdLocationHashMap) throws ParseException {
         JSONArray json_email_array = new JSONArray();
         Iterator it = rowIdLocationHashMap.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry<Integer, String> pair = (Entry<Integer, String>) it.next();
-            String []locationEmailList = pair.getValue().split(Pattern.quote("||"));
-            
-            int[] siteids = new int[]{Integer.parseInt(locationEmailList[0])};
-            JSONObject emailListFromDB = new JSONObject();
-            if(locationEmailList != null && locationEmailList.length > 2) {
-                if(locationEmailList[1].length() > 0) {
-                    emailListFromDB = (JSONObject) parser.parse(locationEmailList[1]);
-                }
-            }
-            
+            Map.Entry<Integer, Integer> pair = (Entry<Integer, Integer>) it.next();
+            int[] siteids = new int[]{pair.getValue()};
             MindBodyClass mind_body_class = new MindBodyClass(siteids);
             HashMap<String, List<Client>> clientIndexesHashmap = new HashMap<String, List<Client>>();
             try {
@@ -151,16 +140,14 @@ public class MindbodyEmailListProcessor implements Runnable {
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "Mindbody email list processor", e);
             }
-
         }
     }
 
-    private void updateUserPreferencesTable(Integer idOfRow, JSONArray mindbodyEmails) throws Exception {
-
+    private void updateUserPreferencesTable(Integer companyId, JSONArray mindbodyEmails) throws Exception {
         EmailListService emailListService = SpringContextBridge.services().getEmailListService();
         Map<String, Object> map = new HashMap<>();
-        map.put("update", "updateMindbodyList");
+        map.put("update", "updateAllCompanyMindbodyListForStudioId");
         map.put(IConstants.kEmailListMindbodyKey, mindbodyEmails);
-        emailListService.setEmailList(map, idOfRow);;
+        emailListService.setEmailList(map, companyId);;
     }
 }

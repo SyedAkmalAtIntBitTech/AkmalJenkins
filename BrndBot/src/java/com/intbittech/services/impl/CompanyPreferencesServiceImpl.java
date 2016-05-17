@@ -17,6 +17,7 @@ import com.intbittech.utility.StringUtility;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.Query;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -147,6 +148,11 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
         Company company = new Company();
         company.setCompanyId(companyId);
         return getByCompany(company);
+    }
+
+    @Override
+    public List<CompanyPreferences> getAllForLocationId(String locationId) {
+         return companyPreferencesDao.getByLocationId(locationId);
     }
 
 }

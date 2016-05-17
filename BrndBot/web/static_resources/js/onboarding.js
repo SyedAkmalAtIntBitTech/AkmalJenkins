@@ -235,15 +235,22 @@ function onboardingcontroller($scope,$http) {
     
     $scope.saveServices = function (){
        
-                    if(globalActivation=="false")
-                            {
-                                alert(activateMindBody);
-                            }else{
-                                $("#serviceContinueButton").css("pointer-events","auto");
-                                 var services= $("#services").val();
-                                 localStorage.setItem("services",services);
-                                 window.open(getHost() + 'signup/uploadlogo', "_self");
-                            }
+        if(globalActivation=="false") {
+            alert(activateMindBody);
+        } else {
+             $http({
+                method: 'GET',
+                url: getHost() + 'onboarding/completedActivation'
+            }).success(function (data, status, headers, config) {
+
+            }).error(function (data, status, headers, config) {
+
+            });
+            $("#serviceContinueButton").css("pointer-events", "auto");
+            var services = $("#services").val();
+            localStorage.setItem("services", services);
+            window.open(getHost() + 'signup/uploadlogo', "_self");
+        }
        
     };
     
