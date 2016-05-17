@@ -71,7 +71,11 @@ function getImageId(idname)
 }
 $(document).ready(function ()
 {
-
+  $(".imageSelect").click(function () {
+    alert();
+    $('.selected').removeClass('selected');
+    $(this).addClass('selected');
+});
     $('#chars').text(length);
     $("#emailpreview").click(function () {
         $("#deskpreview").css('background-image', 'url("' + global_host_address + 'images/imac27.png' + '")')
@@ -1687,6 +1691,10 @@ function schedulePostToTwitter(){
             $scope.getSelectedUrl = function (){
                 alert();
             };
+            $scope.selectImage = function (id){
+                $('.gallery-item-wrap-selected-true').addClass('gallery-item-wrap-selected').removeClass('gallery-item-wrap-selected-true');
+                $("."+id).removeClass('gallery-item-wrap-selected').addClass('gallery-item-wrap-selected-true');
+            };
 
         }]);
            
@@ -1859,6 +1867,11 @@ angular.module("socialMedia", [])
                     });
                 }
                 window.location = getHost() + "user/facebookpost";
+            };
+            $scope.selectImage = function (id){
+                $('.gallery-item-wrap-selected-true').addClass('gallery-item-wrap-selected').removeClass('gallery-item-wrap-selected-true');
+                $("."+id).removeClass('gallery-item-wrap-selected').addClass('gallery-item-wrap-selected-true');
+//                alert(id);
             };
         });
 var getUrlParameter = function getUrlParameter(sParam) {

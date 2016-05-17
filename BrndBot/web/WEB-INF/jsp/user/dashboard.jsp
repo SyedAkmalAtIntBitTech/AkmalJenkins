@@ -32,10 +32,10 @@
                     <div class="dashboard-MainCTA-col fleft">
                         <div class="dashboard-MainCTA "> 
                             <div class="dash-icon">
-                                <a href="socialsequence"><img type="image/svg+xml" src="images/dashIcons-01.svg" class="dash-svg" style="cursor:pointer;"></a>
+                                <a href="socialsequence"><img type="image/svg+xml" src="images/homepage-icons-01.svg" class="dash-svg" style="cursor:pointer;"></a>
                                  
                                 </div>
-                            <div class="dashboard-mainCTA-subtext">Content to be provided here</div>
+                            <div class="dashboard-mainCTA-subtext">Create an email to send now or schedule for later</div>
                             <div class=" dashboard-mainCTA-button "><a href="socialsequence"><div class="Button--Blue Dash_Button">Create a Social Post</div></a></div>
                         </div>
                     </div>
@@ -43,10 +43,10 @@
                     <div class="dashboard-MainCTA-col fleft">
                         <div class="dashboard-MainCTA "> 
                             <div class="dash-icon">
-                                <a href="emailcategory"><img type="image/svg+xml" src="images/dashIcons-02.svg" class="dash-svg" style="cursor:pointer;"></a>
+                                <a href="emailcategory"><img type="image/svg+xml" src="images/homepage-icons-02.svg" class="dash-svg" style="cursor:pointer;"></a>
                                  
                                 </div>
-                            <div class="dashboard-mainCTA-subtext">Content to be provided here</div>
+                            <div class="dashboard-mainCTA-subtext">Post now or schedule a Facebook or Twitter post</div>
                             <div class=" dashboard-mainCTA-button "><a href="emailcategory"><div class="Button--Blue Dash_Button">Create an Email</div></a></div>
                         </div>
                     </div>
@@ -54,9 +54,9 @@
                     <div class="dashboard-MainCTA-col fleft">
                         <div class="dashboard-MainCTA "> 
                             <div class="dash-icon">
-                                   <img type="image/svg+xml" src="images/dashIcons-01.svg" class="dash-svg" style="cursor:pointer;">
+                                   <img type="image/svg+xml" src="images/homepage-icons-03.svg" class="dash-svg" style="cursor:pointer;">
                                 </div>
-                            <div class="dashboard-mainCTA-subtext">Content to be provided here</div>
+                            <div class="dashboard-mainCTA-subtext">Create a new marketing campaign and plan actions</div>
                             <div class=" dashboard-mainCTA-button "><a href="createmarketingprogram"><div class="Button--Blue Dash_Button">Create a Campaign</div></a></div>
                         </div>
                     </div>

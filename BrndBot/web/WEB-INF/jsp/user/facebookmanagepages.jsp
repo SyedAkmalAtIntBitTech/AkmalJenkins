@@ -19,7 +19,7 @@
                     </div>
                     <div class=" gallery-padding clear gallery-pane">
                         <span ng-repeat="fbDetails in fbPagesDetails">
-                            <div class="gallery-item-wrap-selected fleft" ng-click="setPageAccessToken(fbDetails.pageAccessToken,fbDetails.profileName,fbProfileName)">
+                            <div class="gallery-item-wrap-selected fleft {{fbDetails.profileName}}" ng-click="setPageAccessToken(fbDetails.pageAccessToken,fbDetails.profileName,fbProfileName);selectImage(fbDetails.profileName)">
                                 <div class="gallery-image-wrap">
                                     <img src="{{fbDetails.profilPicture}}" alt="alt_text" border="0" align="center" class="gallery-image" style="width: 218px;">
                                 </div>

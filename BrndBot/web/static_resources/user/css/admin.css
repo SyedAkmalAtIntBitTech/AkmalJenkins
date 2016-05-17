@@ -321,13 +321,13 @@ width:44px;
 /** Buttons**/
 
 .CTA_Button{
-padding: 5px 30px;
+    padding: 5px 30px;
     border-radius: 3px;
     cursor: pointer;
 }
 
 .Add_Button{
-padding: 5px 45px;
+    padding: 10px 45px 0px 45px;
     border-radius: 3px;
     font-size: 14px;   
      cursor: pointer;

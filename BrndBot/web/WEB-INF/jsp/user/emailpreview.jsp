@@ -35,7 +35,7 @@
                         <div class="emailPreview-headers">Desktop Preview</div>
                         <!--<div class="iphoneshow img-responsive" id="deskpreview" style="display: block; height: 300px; width: 295px; margin-left: 215px; margin-top: 50px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">-->
                             <div class="content">  
-                                <iframe id="dynamictable5" style="position: relative; width: 100%; border: none; height: 400px;background-color: rgb(255, 255, 255);" src="<%=iframeUrl%>"></iframe>                   
+                                <iframe id="dynamictable5" style="position: relative; width: 100%; border: none; height: 420px;background-color: rgb(255, 255, 255);" src="<%=iframeUrl%>"></iframe>                   
                             </div>
                         <!--</div>-->
                         <div class="desktopshow" style="display:none;">
