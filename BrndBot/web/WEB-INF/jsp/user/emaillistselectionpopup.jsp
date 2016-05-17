@@ -50,13 +50,13 @@
                         <div class="pop-up-title pop-up-title-h1"> Would you like to send now or schedule for later?</div>
                         <div class="pop-up-inner-imageSelection">
                             <div class="col-8of10  center">
-                                <div class="col-4of10 pushright fleft" onclick="postToTwitter()">
+                                <div class="col-4of10 pushright fleft" onclick="sendEmail()">
                                     <div class="image-selection-button" id="posttofb"> 
                                         <img type="image/svg+xml" src="images/postNow.svg" class="post-button-icon" style="cursor:pointer;"> </img>
                                     </div>
                                     <div class="button-description">Send Now</div>
                                 </div>
-                                <div class="col-4of10 fright" onclick="schedulePostToTwitter()">
+                                <div class="col-4of10 fright" >
                                     <div class="image-selection-button" id="schedule">
                                         <img type="image/svg+xml" src="images/schedulePost.svg" class="schedule-button-icon" style="cursor:pointer;"> </img>
                                     </div>
@@ -68,7 +68,7 @@
                 </div>
             </div>
             
-            <div id="schedulepopup">
+            <div id="schedulepopup" ng-controller="emailSettings">
                 <div class="pop-up-exit-container">
                     <div class="pop-up-exit-icon" id="closeschedulepopup">
                         <img type="image/svg+xml" src="images/Close.svg" class="exit-button-icon"></img>
@@ -139,7 +139,7 @@
                             </div>
                         </div>
                         </div>
-                        <div class="pop-up-cta-container pop-up-cta-container-newaction1 cur" id ="schedulethepost"  onclick="setScheduling()">
+                        <div class="pop-up-cta-container pop-up-cta-container-newaction1 cur" id ="schedulethepost"  ng-click="setScheduling()">
                         <input type="hidden" value="socialmedia"/>
                         <div class="algnmnt" name="socialscheduleid" id="socialscheduleid" >SCHEDULE</div>
                     </div>
