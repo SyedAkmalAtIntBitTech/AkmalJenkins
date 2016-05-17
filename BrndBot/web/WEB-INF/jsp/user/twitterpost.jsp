@@ -79,7 +79,7 @@
             </div>
         </div>
         <div class="bottomNav">
-            <div class="bottom-ContinueButton fright" onclick="post()">CONTINUE</div>
+            <div class="bottom-ContinueButton fright" onclick="postTwitter()">CONTINUE</div>
         </div>
         <%@include file="sociallistselection.jsp" %> 
         <%@include file="imagegallerypopup.jsp" %>

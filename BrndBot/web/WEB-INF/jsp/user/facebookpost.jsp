@@ -79,8 +79,10 @@
             </div>
         </div>
         <div class="bottomNav">
-            <div class="bottom-ContinueButton fright" onclick="postToFacebook()">CONTINUE</div>
+            <div class="bottom-ContinueButton fright" onclick="postFacebook()">CONTINUE</div>
+            <!--onclick="postToFacebook()"-->
         </div>
+        <%@include file="sociallistselectionfb.jsp" %> 
         <%@include file="imagegallerypopup.jsp" %>
         <%@include file="facebookpostsuccesspopup.jsp" %>  
     </body>
