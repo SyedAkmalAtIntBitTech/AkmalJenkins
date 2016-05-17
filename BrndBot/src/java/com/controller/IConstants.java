@@ -59,5 +59,5 @@ public interface IConstants {
     final static String kUserMarketingProgramOpenStatus = "open";
     final static String kTwitterTextKey = "text";
     final static String kTwitterURLKey = "shorturl";
-    final static String kFooters = "footers";
+    final static String kFooters = "userProfile";
 }

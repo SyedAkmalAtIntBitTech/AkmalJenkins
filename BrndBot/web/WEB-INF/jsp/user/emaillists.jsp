@@ -300,48 +300,61 @@
                 </div>
                 <div class="page-content-container email-list-contact-page email-draft-page displayNone" id="footerdiv">
                     <div class="fleft content ">
-                        <div class="page-content-title h2">Your Footer Settings</div>
+                        <div class="page-content-title"><span class="h2">Email Footer Settings</span><p>This footer will be added to the bottom all emails being sent out. </p></div>
                         <!--List Starts Here-->
-                        <div class="emailSettings-container fleft pushUp-50 main-container main-container50width col-8of10" ng-init="getFooterDetails()">
+                        <div class="emailSettings-container fleft  main-container main-container70width col-8of10" ng-init="getFooterDetails()">
                             <div class="col-1of1 fleft">
                                 <div class="col-7of10 fleft">
                                     <div class="h4" style="">
-                                        Facebook Url:
+                                        Company Address 
                                     </div>
-                                    <input id="from_address" class="input-field-textfield col-8of10" type="text" name="from_address" value="{{email_settings.from_address}}" placeholder="Enter default email address"/>
-
+                                    <input id="from_address" class="input-field-textfield col-8of10" type="text" name="from_address" value="{{footerDetails.address}}" placeholder="Enter default email address" readonly/>
+                                    <p> We need this to comply with email spam (CANSPAM) laws</p>
                                 </div>
                             </div>
                             <div class="col-1of1 fleft pushUp">
                                 <div class="col-7of10 fleft">
                                     <div class="h4" style="">
-                                        Twitter Url:
+                                        Website URL
                                     </div>
-                                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{email_settings.reply_email_address}}" name="reply_email_address" placeholder="Enter reply-to-email address"/>
+                                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{footerDetails.websiteUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
+                                    <p> This can be copied from the browser <a class="input-help" href="#">Click to learn how</a></p>
                                 </div>
                             </div>
                             <div class="col-1of1 fleft pushUp">
                                 <div class="col-7of10 fleft">
                                     <div class="h4" style="">
-                                        WebsiteUrl Url:
+                                       Facebook URL
                                     </div>
-                                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{email_settings.reply_email_address}}" name="reply_email_address" placeholder="Enter reply-to-email address"/>
+                                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{footerDetails.facebookUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
+                                     <p> Log into your company's Facebook page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
                                 </div>
                             </div>
                             <div class="col-1of1 fleft pushUp">
                                 <div class="col-7of10 fleft">
                                     <div class="h4" style="">
-                                        Instagram Url:
+                                       Twitter URL
                                     </div>
-                                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{email_settings.reply_email_address}}" name="reply_email_address" placeholder="Enter reply-to-email address"/>
+                                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{footerDetails.twitterUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
+                                   <p> Log into your company's Twitter page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
                                 </div>
                             </div>
                             <div class="col-1of1 fleft pushUp">
                                 <div class="col-7of10 fleft">
                                     <div class="h4" style="">
-                                        Address:
+                                        Instagram URL 
                                     </div>
-                                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{email_settings.reply_email_address}}" name="reply_email_address" placeholder="Enter reply-to-email address"/>
+                                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{footerDetails.instagramUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
+                                    <p> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
+                                </div>
+                            </div>
+                            <div class="col-1of1 fleft pushUp">
+                                <div class="col-7of10 fleft">
+                                    <div class="h4" style="" onclick="openEmailFooterPopup()">
+                                        <div class="update-container">
+                                            <span class="small-button slat-button">Update Email Footer</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>                        
@@ -353,6 +366,7 @@
                     <div class="remove-action-detail md-button button-text-1" id="deleteEmailList" ng-click="deleteEmailList();">Remove Selected Email List(s)</div>
                 </div>
             </div>
+         <%@include file="emailfooterpopup.jsp" %>
         </div>
         <div id="light" class="white_content closepopup">
             <a href = "javascript:void(0)" style="text-decoration:none;">
@@ -362,6 +376,6 @@
             </a>
         </div>     
         <!--CTA Bar-->
-
+        
     </body>
 </html>

@@ -133,7 +133,7 @@
                     $("#emaillistsdiv").hide();
                     $("#emaildraftsdiv").hide();
                     $("#addemlstbtn").hide();
-                    $("#footerdiv").show();
+                    $("#footerdiv").hide();
                     $("#emailhistorydiv").show();
                     $("#emlhistab").addClass("top-subnav-link-active");
                     $("#emlhistab a").addClass("h3-active-subnav");
@@ -157,7 +157,7 @@
                     $("#emailhistorydiv").hide();
                     $("#deleteEmaildraft").hide();
                     $("#emaillistsdiv").hide();
-                    $("#footerdiv").show();
+                    $("#footerdiv").hide();
                     $("#emaisetdiv").show();
                     $("#emaildraftsdiv").hide();
                     $("#addemlstbtn").hide();
@@ -195,7 +195,7 @@
                     $("#emaisetdiv").hide();
                     $("#emailhistorydiv").hide();
                     $("#emaillistsdiv").hide();
-                    $("#footerdiv").show();
+                    $("#footerdiv").hide();
                     $("#emaildraftsdiv").show();
                     $("#addemlstbtn").hide();
                     $("#emlhistab").removeClass("top-subnav-link-active");
@@ -223,7 +223,7 @@
                     $("#emaisetdiv").hide();
                     $("#emailhistorydiv").hide();
                     $("#deleteEmaildraft").hide();
-                    $("#footerdiv").show();
+                    $("#footerdiv").hide();
                     $("#emaillistsdiv").show();
                     $("#emaildraftsdiv").hide();
                     $("#addemlstbtn").show();
@@ -1145,14 +1145,40 @@ $edit=0;
             });
         };
        $scope.getFooterDetails = function (){
-                       $http({
-
+          $http({
                 method : 'GET',
                 url : getHost() + '/settings/getAllPreferences'
             }).success(function(data, status) {
-                ////// to do sandeep
+                $scope.footerDetails = JSON.parse(data.d.details).userProfile;
             });
        };
+      $scope.changeFooterDetails = function (){
+      var address = $("#footerAddress").val();
+      var websiteurl = $("#footerWebsiteUrl").val();;
+      var facebookurl = $("#footerFacebookUrl").val();;
+      var twitterUrl = $("#footerTwitterUrl").val();;
+      var instagramUrl = $("#footerInstagramUrl").val();
+      var footerData = '{"facebookUrl":"'+facebookurl+'","twitterUrl":"'+twitterUrl+'","instagramUrl":"'+instagramUrl+'","websiteUrl":"'+websiteurl+'","address":"'+address+'"}';
+      if(address){
+          $http({
+                method: 'POST',
+                url: getHost() + 'settings/setFooter',
+                data: footerData
+            }).success(function (data) {
+                    alert(detailssaved);
+                    $("#emailFooterPopup").hide();
+                    $scope.getFooterDetails();
+                    
+            }).error(function (data, status) {
+                alert(requesterror);
+            });
+      }
+        else{
+            alert("please enter the Address");
+            $("#footerAddress").focus();
+        }
+
+   } ;
  };
 
 /////////Email drafts js///////
@@ -1184,3 +1210,9 @@ $edit=0;
                 $("#drftEmailDelete").hide();
             }
         }
+       function openEmailFooterPopup(){
+           $("#emailFooterPopup").show();
+       }
+      function hideEmailFooterPopup(){
+          $("#emailFooterPopup").hide();
+      }
