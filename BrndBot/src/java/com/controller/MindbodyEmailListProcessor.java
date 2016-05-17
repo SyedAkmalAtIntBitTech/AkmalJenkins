@@ -143,11 +143,11 @@ public class MindbodyEmailListProcessor implements Runnable {
         }
     }
 
-    private void updateUserPreferencesTable(Integer idOfRow, JSONArray mindbodyEmails) throws Exception {
+    private void updateUserPreferencesTable(Integer companyId, JSONArray mindbodyEmails) throws Exception {
         EmailListService emailListService = SpringContextBridge.services().getEmailListService();
         Map<String, Object> map = new HashMap<>();
-        map.put("update", "updateMindbodyList");
+        map.put("update", "updateAllCompanyMindbodyListForStudioId");
         map.put(IConstants.kEmailListMindbodyKey, mindbodyEmails);
-        emailListService.setEmailList(map, idOfRow);;
+        emailListService.setEmailList(map, companyId);;
     }
 }

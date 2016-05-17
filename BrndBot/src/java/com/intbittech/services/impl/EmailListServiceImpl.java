@@ -22,6 +22,7 @@ import java.util.Set;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import com.intbittech.model.EmailInfo;
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.simple.JSONArray;
@@ -216,11 +217,9 @@ public class EmailListServiceImpl implements EmailListService {
             String emailListName = (String) requestBodyMap.get(IConstants.kEmailListNameKey);
             dataresponse = deleteEmailList(emailListJSONObject, emailListName, companyPreferences);
 
-        } else if (queryParameter.equalsIgnoreCase("updateMindbodyList")) {
-            emailListJSONObject = (JSONObject) jsonParser.parse(companyPreferences.getEmailList());
+        } else if (queryParameter.equalsIgnoreCase("updateAllCompanyMindbodyListForStudioId")) {
             JSONArray mindbodyList = (JSONArray) requestBodyMap.get(IConstants.kEmailListMindbodyKey);
-            dataresponse = updateMindbodyEmailList(emailListJSONObject, mindbodyList, companyPreferences);
-
+            dataresponse = updateMindbodyEmailList(companyPreferences.getCompanyLocation(), mindbodyList, companyId);
         }
         return dataresponse;
     }
@@ -567,9 +566,22 @@ public class EmailListServiceImpl implements EmailListService {
         return false;
     }
 
-    private Boolean updateMindbodyEmailList(JSONObject emailListsJSONObject, JSONArray mindbodyEmails, CompanyPreferences companyPreferences) throws SQLException {
-        emailListsJSONObject.put(IConstants.kEmailListMindbodyKey, mindbodyEmails);
-        return saveEmailPreferences(emailListsJSONObject, companyPreferences);
+    private Boolean updateMindbodyEmailList(String locationId, JSONArray mindbodyEmails, Integer companyID) throws SQLException, ParseException {
+        List<CompanyPreferences> companyPreferencesList = companyPreferencesService.getAllForLocationId(locationId);
+        if (companyPreferencesList == null) {
+            return true;
+        }
+        for (CompanyPreferences companyPreferences : companyPreferencesList) {
+            JSONParser jsonParser = new JSONParser();
+            JSONObject emailListJSONObject = new JSONObject();
+            if (!StringUtility.isEmpty(companyPreferences.getEmailList())) {
+                emailListJSONObject = (JSONObject) jsonParser.parse(companyPreferences.getEmailList());
+            }
+            emailListJSONObject.put(IConstants.kEmailListMindbodyKey, mindbodyEmails);
+            companyPreferences.setEmailList(emailListJSONObject.toJSONString());
+            companyPreferencesService.updatePreferences(companyPreferences);
+        }
+        return true;
     }
 
     private Boolean saveEmailPreferences(JSONObject emailListsObject, CompanyPreferences companyPreferences) {
@@ -577,5 +589,4 @@ public class EmailListServiceImpl implements EmailListService {
         companyPreferencesService.updatePreferences(companyPreferences);
         return true;
     }
-
 }

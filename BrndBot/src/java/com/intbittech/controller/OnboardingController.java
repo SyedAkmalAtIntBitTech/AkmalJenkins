@@ -119,12 +119,12 @@ public class OnboardingController {
     public ResponseEntity<ContainerResponse> completedActivation() {
         TransactionResponse transactionResponse = new TransactionResponse();
         try {
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
 
             Runnable myRunnable = new Runnable() {
                 public void run() {
                     try {
-                        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-                        Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
                         HashMap<Integer, Integer> rowMap = new HashMap<>();
                         SqlMethods sqlMethods = new SqlMethods();
                         Integer studioId = sqlMethods.getStudioID(companyID);
@@ -137,6 +137,8 @@ public class OnboardingController {
                     }
                 }
             };
+            Thread thread = new Thread(myRunnable);
+            thread.start();
 
             transactionResponse.setMessage("true");
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("success", new String[]{}, Locale.US)));
