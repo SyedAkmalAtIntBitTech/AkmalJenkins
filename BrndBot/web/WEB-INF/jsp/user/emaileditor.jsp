@@ -20,11 +20,13 @@
     <script src="../js/configurations.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/dashboard.js"></script>
+    <script src="js/alertmessage.js"></script>  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <link href="css/froala_editor.css" rel="stylesheet" type="text/css"/>
     <link href="css/popup.css" rel="stylesheet" type="text/css"/>
     <link href="css/froala_style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="css/emailfooterpopup.css"/>
     <link rel="stylesheet" href="css/plugins/code_view.css"/>
     <link rel="stylesheet" href="css/plugins/colors.css"/>
     <link rel="stylesheet" href="css/plugins/emoticons.css"/>
@@ -46,7 +48,7 @@
     <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
     <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
     <script type="text/javascript" src="js/plugins/font_family.min_editor.js"></script>
-    <script type="text/javascript" src="js/plugins/image.min.js"></script>
+    <!--<script type="text/javascript" src="js/plugins/image.min.js"></script>-->
     <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
     <script type="text/javascript" src="js/plugins/file.min.js"></script>
     <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
@@ -120,7 +122,6 @@
         var sliderDialog="#emaileditorexternalpopup";
         var externalKeywordId="";
         var externalDataId="";
-        
         
         function showOverlay(){
             $("#loadoverlaydiv").show();
@@ -215,10 +216,8 @@
                 }
             });
             });
-                    angular.module("myapp", [])
-
+         angular.module("myapp", [])
             .controller("MyController", function($scope, $http) {                        
-
                     $scope.getEmailDrafts = function(){
                     if (draft_id !== "" && draft_id !==null && draft_id !=="null"){
                     $http({
@@ -461,7 +460,43 @@
                         $("#filtercontainer").hide();
                         $("#fade").hide();
                         $("#slider-button").click();
-                    }
+                    };
+                    $scope.getFooterDetails = function (){
+                      $http({
+                             method : 'GET',
+                             url : getHost() + '/settings/getAllPreferences'
+                         }).success(function(data, status) {
+                             $scope.footerDetails = JSON.parse(data.d.details).userProfile;
+                         });
+                    };
+                   $scope.changeFooterDetails = function (){
+                   var address = $("#footerAddress").val();
+                   var websiteurl = $("#footerWebsiteUrl").val();;
+                   var facebookurl = $("#footerFacebookUrl").val();;
+                   var twitterUrl = $("#footerTwitterUrl").val();;
+                   var instagramUrl = $("#footerInstagramUrl").val();
+                   var footerData = '{"facebookUrl":"'+facebookurl+'","twitterUrl":"'+twitterUrl+'","instagramUrl":"'+instagramUrl+'","websiteUrl":"'+websiteurl+'","address":"'+address+'"}';
+                   if(address){
+                       $http({
+                             method: 'POST',
+                             url: getHost() + 'settings/setFooter',
+                             data: footerData
+                         }).success(function (data) {
+                                 alert(detailssaved);
+                                 $("#emailFooterPopup").hide();
+                                 $("#emailpreview").trigger("click");                               
+
+                         }).error(function (data, status) {
+                             alert(requesterror);
+                         });
+                   }
+                     else{
+                         alert("please enter the Address");
+                         $("#footerAddress").focus();
+                     }
+
+                } ;
+
             });
                     angular.module('myapp').filter('pagination', function()
             {
@@ -614,8 +649,10 @@
             }
             $("#selcatdet").click(function (){
             $("#blocktab").click();
-                    $("#tabs-4").hide();
-            });    </script>
+            $("#tabs-4").hide();
+            });    
+              
+     </script>
 
 </head>    
 <div id="fade" class="black_overlay"></div>
@@ -641,6 +678,7 @@
     <div class="top-nav-full">
         <div class="page-title-bar col-1of1"> 
             <a class=" exit-button-icon" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=categoryId%>&mindbodyId=<%=mindbodyId%>&LookupId=<%=LookupId%>&emailSubject=<%=emailSubject%>">    
+                <a href="facebookmanagepages.jsp"></a>
                 <div class="exit-button-detail">
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                 </div>
@@ -701,37 +739,41 @@
 
                         return returnFooter;
                     }
+ 
                     $("#emailpreview").click(function(){              
-                        $("#email_previewdiv").show();
-                        
                         $.ajax({
                             method : 'GET',
                             url : getHost() + 'settings/getAllPreferences'
                         }).success(function(data, status) {
                             var footerData = JSON.parse(data.d.details);
-                            var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
-                                    footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
-                                    footerData.userProfile.address);
-                          
-                        var sendData = {
-                                    htmlString: $('#edit').froalaEditor('html.get')+footer,
-                                    iframeName: rendomIframeFilename.toString()
-                                };
-                                
-                        $.ajax({
-                                method: "POST",
-                                url: getHost() + "email/previewServlet",                                
-                                data: JSON.stringify(sendData),
-                                success: function (responseText) {
-//                                    alert(JSON.stringify(responseText.d.details));
-                                    $("#dynamictable5").empty();
-                                    $("#dynamictable6").empty();
-                                    var iframePath = getHost() +"download/HTML?fileName="+rendomIframeFilename+".html";
-                                    $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
-                                    $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
-                                }
-                        }).error(function (error){alert(JSON.stringify(error));});
-                        $("#fade").show();
+                            if(!footerData.userProfile.address){
+                                $("#emailFooterPopup").show();
+                            }else{
+                                $("#email_previewdiv").show();
+                                var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
+                                        footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
+                                        footerData.userProfile.address);
+
+                            var sendData = {
+                                        htmlString: $('#edit').froalaEditor('html.get')+footer,
+                                        iframeName: rendomIframeFilename.toString()
+                                    };
+
+                            $.ajax({
+                                    method: "POST",
+                                    url: getHost() + "email/previewServlet",                                
+                                    data: JSON.stringify(sendData),
+                                    success: function (responseText) {
+    //                                    alert(JSON.stringify(responseText.d.details));
+                                        $("#dynamictable5").empty();
+                                        $("#dynamictable6").empty();
+                                        var iframePath = getHost() +"download/HTML?fileName="+rendomIframeFilename+".html";
+                                        $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
+                                        $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
+                                    }
+                            }).error(function (error){alert(JSON.stringify(error));});
+                            $("#fade").show();
+                           }
                     });
                     });
                     $("#addblkbtn").click(function (){
@@ -1024,12 +1066,7 @@
         $("#blocktab").removeClass("emailSideBar-tab");
         $("#blocktab").addClass("emailSideBar-tab-active");
     });
-    
-    
-    
-    
-                });
-                
+  });        
         </script>   
                 <div id="editor">
                     <div id='edit' class="editorclass" style="margin-top: 5px;">
@@ -1074,6 +1111,9 @@
                 </div>
             </div>
         </div>
+        <span ng-init="getFooterDetails()">
+        <%@include file="emailfooterpopup.jsp" %>
+        </span>
     </div>  
     
     <div id="fade" class="black_overlay" ></div>
@@ -1118,7 +1158,7 @@
                 </div>
             </div>
         </div>
-    </div>           
+    </div>  
     <!--CTA Bar-->
     <div class="bottom-cta-bar" id="bottomdiv">
         <div class="bottom-cta-button-container-lg">

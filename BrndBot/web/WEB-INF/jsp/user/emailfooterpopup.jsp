@@ -5,6 +5,7 @@
 --%>
 <link href="css/normalize.css" rel="stylesheet" type="text/css"/>
 <link href="css/general.css" rel="stylesheet" type="text/css"/>
+<div class="emailFooterPopupDiv">
 <div class="popUp_background-dark displayNone" id="emailFooterPopup">
     <div class="modal-pane modal-pane-width-reg popUp_CenterVert">
         <div class="modal-pane-header-wrap">
@@ -56,4 +57,5 @@
             <a class="long-button blue-button">Save Email Footer Settings</a>
         </div>
     </div>
+</div>
 </div>

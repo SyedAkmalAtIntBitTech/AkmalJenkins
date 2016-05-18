@@ -498,47 +498,6 @@
                 }
             }
             
-            function UserFooter(fb,twitter,website,instagram,address){
-                        var returnFooter ="";
-                        var footer = "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" height=\"100%\" width=\"100%\" bgcolor=\"#EEEEEE\" style=\"border-collapse:collapse;\"><tr><td valign=\"top\"> <center style=\"width: 100%;\"> <div style=\"max-width: 680px;\"> <!--[if (gte mso 9)|(IE)]> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"680\" align=\"center\"> <tr> <td> <![endif]--> <!-- Atom Body: BEGIN --> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" bgcolor=\"#EEEEEE\" width=\"100%\" style=\"max-width: 680px;\"> <tr> <td style=\"padding-top:15px;\" class=\"mobile-padding\"> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" width=\"100%\" style=\"max-width: 300px; background-color:#inherit\" class=\"mobile-padding\"> <tr>";
-
-                        var footerFB = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerFB$$$\"><img src=\""+getHost()+"images/Facebook_Filled.png"+"\" alt=\"Facebook Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Facebook </td> </tr> </table> </td>";
-
-                        var footerTwitter = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerTwitter$$$\"><img src=\""+getHost()+"images/Twitter_Filled.png"+"\" alt=\"Twitter Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Twitter </td> </tr> </table> </td>";
-
-                        var footerWebsite = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerWebsite$$$\"><img src=\""+getHost()+"images/Website_Filled.png"+"\" alt=\"Website Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Website </td> </tr> </table> </td>";
-
-                        var footerInstagram = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerInstagram$$$\"><img src=\""+getHost()+"images/Insta_Filled.png"+"\" alt=\"Instagram Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Instagram </td> </tr> </table> </td>";
-
-                        var footerMiddle = "</tr> </table> </td> </tr>";
-
-                        var footerAddress = "<!--HEADER: BEGIN--> <tr> <td style=\"font-family: sans-serif; font-size: 12px; mso-height-rule: exactly; line-height: 120%; text-align:center; color: #555555; padding: 20px 55px 20px 55px;\" class=\"fluid mobile-padding\"> $$$footerAddress$$$ </td> </tr> <!--HEADER: END-->";
-
-                        var footerClose = "</table> <!--[if (gte mso 9)|(IE)]> </td> </tr> </table> <![endif]--> </div> </center> </td></tr></table>";
-
-
-                        returnFooter = footer;
-                        if(fb != "")
-                            returnFooter+=footerFB.replace("$$$footerFB$$$",fb);
-                        if(twitter != "" && typeof twitter != "undefined")
-                            returnFooter+=footerTwitter.replace("$$$footerTwitter$$$",twitter);
-
-                        if(website != "" && typeof website != "undefined")
-                            returnFooter+=footerWebsite.replace("$$$footerWebsite$$$",website);
-
-                        if(instagram != "" && typeof instagram != "undefined")
-                            returnFooter+=footerInstagram.replace("$$$footerInstagram$$$",instagram);
-
-                        returnFooter+=footerMiddle;
-
-                        if(address != "" && typeof address != "undefined")
-                            returnFooter+=footerAddress.replace("$$$footerAddress$$$",address);
-
-                        returnFooter+=footerClose;
-
-                        return returnFooter;
-                    }
-            
              function showEmailListName(email_list_name){
                     setTimeout(function() 
                     {
@@ -572,7 +531,42 @@
 //                $iframe.contents().find("body").append(html_data);
                 template_id = id;
         };
+        
+                      $scope.getFooterDetails = function (){
+                      $http({
+                             method : 'GET',
+                             url : getHost() + '/settings/getAllPreferences'
+                         }).success(function(data, status) {
+                             $scope.footerDetails = JSON.parse(data.d.details).userProfile;
+                         });
+                    };
+                   $scope.changeFooterDetails = function (){
+                   var address = $("#footerAddress").val();
+                   var websiteurl = $("#footerWebsiteUrl").val();;
+                   var facebookurl = $("#footerFacebookUrl").val();;
+                   var twitterUrl = $("#footerTwitterUrl").val();;
+                   var instagramUrl = $("#footerInstagramUrl").val();
+                   var footerData = '{"facebookUrl":"'+facebookurl+'","twitterUrl":"'+twitterUrl+'","instagramUrl":"'+instagramUrl+'","websiteUrl":"'+websiteurl+'","address":"'+address+'"}';
+                   if(address){
+                       $http({
+                             method: 'POST',
+                             url: getHost() + 'settings/setFooter',
+                             data: footerData
+                         }).success(function (data) {
+                                 alert(detailssaved);
+                                 $("#emailFooterPopup").hide();
+                                 $("#emailpreview").trigger("click");                               
 
+                         }).error(function (data, status) {
+                             alert(requesterror);
+                         });
+                   }
+                     else{
+                         alert("please enter the Address");
+                         $("#footerAddress").focus();
+                     }
+
+                } ;
     }
 
 </script>
@@ -844,6 +838,9 @@
     });
   </script>
   <script>
+               function hideEmailFooterPopup(){
+                      $("#emailFooterPopup").hide();
+                  } 
      var rendomIframeFilename="";
        $(document).ready(function () {
             $("#closePrev").click(function(){
@@ -851,30 +848,90 @@
                 $('#fade').hide();                
             });
             rendomIframeFilename=event.timeStamp;
-            $("#emailpreview").click(function(){   
-                $("#email_previewdiv").show();
-                var sendData = {
-                            htmlString: $('#edit').froalaEditor('html.get'),
-                            iframeName: rendomIframeFilename.toString()
-                        };
+            $("#emailpreview").click(function(){
+                $("#email_previewdiv").hide();
+                $('#fade').hide(); 
+                        $.ajax({
+                            method : 'GET',
+                            url : getHost() + 'settings/getAllPreferences'
+                        }).success(function(data, status) {
+                            var footerData = JSON.parse(data.d.details);
+                            if(!footerData.userProfile.address){
+                                $("#emailFooterPopup").show();
+                            }else{
+                                $("#email_previewdiv").show();
+//                                $("#email_previewdiv").show();
+                                var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
+                                        footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
+                                        footerData.userProfile.address);
+                                    alert();
+                            var sendData = {
+                                        htmlString: $('#edit').froalaEditor('html.get')+footer,
+                                        iframeName: rendomIframeFilename.toString()
+                                    };
 
-                $.ajax({
-                        method: "POST",
-                        url: getHost() + "email/previewServlet",                                
-                        data: JSON.stringify(sendData),
-                        success: function (responseText) {
-        //                                    alert(JSON.stringify(responseText.d.details));
-                            $("#dynamictable5").empty();
-                            $("#dynamictable6").empty();
-                            var iframePath = getHost() +"download/HTML?fileName="+rendomIframeFilename+".html";
-                            $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
-                            $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
-                        }
-                }).error(function (error){alert(JSON.stringify(error));});
-                $("#fade").show();
+                            $.ajax({
+                                    method: "POST",
+                                    url: getHost() + "email/previewServlet",                                
+                                    data: JSON.stringify(sendData),
+                                    success: function (responseText) {
+    //                                    alert(JSON.stringify(responseText.d.details));
+                                        $("#dynamictable5").empty();
+                                        $("#dynamictable6").empty();
+                                        var iframePath = getHost() +"download/HTML?fileName="+rendomIframeFilename+".html";
+                                        $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
+                                        $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
+                                    }
+                            }).error(function (error){alert(JSON.stringify(error));});
+                            $("#fade").show();
+                           }
+                    });
             });
+            
+            
+            
         });
-    
+                function UserFooter(fb,twitter,website,instagram,address){
+                alert("sasa");
+                        var returnFooter ="";
+                        var footer = "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" height=\"100%\" width=\"100%\" bgcolor=\"#EEEEEE\" style=\"border-collapse:collapse;\"><tr><td valign=\"top\"> <center style=\"width: 100%;\"> <div style=\"max-width: 680px;\"> <!--[if (gte mso 9)|(IE)]> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"680\" align=\"center\"> <tr> <td> <![endif]--> <!-- Atom Body: BEGIN --> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" bgcolor=\"#EEEEEE\" width=\"100%\" style=\"max-width: 680px;\"> <tr> <td style=\"padding-top:15px;\" class=\"mobile-padding\"> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" width=\"100%\" style=\"max-width: 300px; background-color:#inherit\" class=\"mobile-padding\"> <tr>";
+
+                        var footerFB = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerFB$$$\"><img src=\""+getHost()+"images/Facebook_Filled.png"+"\" alt=\"Facebook Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Facebook </td> </tr> </table> </td>";
+
+                        var footerTwitter = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerTwitter$$$\"><img src=\""+getHost()+"images/Twitter_Filled.png"+"\" alt=\"Twitter Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Twitter </td> </tr> </table> </td>";
+
+                        var footerWebsite = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerWebsite$$$\"><img src=\""+getHost()+"images/Website_Filled.png"+"\" alt=\"Website Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Website </td> </tr> </table> </td>";
+
+                        var footerInstagram = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerInstagram$$$\"><img src=\""+getHost()+"images/Insta_Filled.png"+"\" alt=\"Instagram Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Instagram </td> </tr> </table> </td>";
+
+                        var footerMiddle = "</tr> </table> </td> </tr>";
+
+                        var footerAddress = "<!--HEADER: BEGIN--> <tr> <td style=\"font-family: sans-serif; font-size: 12px; mso-height-rule: exactly; line-height: 120%; text-align:center; color: #555555; padding: 20px 55px 20px 55px;\" class=\"fluid mobile-padding\"> $$$footerAddress$$$ </td> </tr> <!--HEADER: END-->";
+
+                        var footerClose = "</table> <!--[if (gte mso 9)|(IE)]> </td> </tr> </table> <![endif]--> </div> </center> </td></tr></table>";
+
+
+                        returnFooter = footer;
+                        if(fb != "")
+                            returnFooter+=footerFB.replace("$$$footerFB$$$",fb);
+                        if(twitter != "" && typeof twitter != "undefined")
+                            returnFooter+=footerTwitter.replace("$$$footerTwitter$$$",twitter);
+
+                        if(website != "" && typeof website != "undefined")
+                            returnFooter+=footerWebsite.replace("$$$footerWebsite$$$",website);
+
+                        if(instagram != "" && typeof instagram != "undefined")
+                            returnFooter+=footerInstagram.replace("$$$footerInstagram$$$",instagram);
+
+                        returnFooter+=footerMiddle;
+
+                        if(address != "" && typeof address != "undefined")
+                            returnFooter+=footerAddress.replace("$$$footerAddress$$$",address);
+
+                        returnFooter+=footerClose;
+
+                        return returnFooter;
+                    }
      
 //        function show(id) {
 //                var getId = id;
@@ -1342,5 +1399,8 @@
         <!--</div>-->
      <!--</div>-->
 <!--</div>-->
+        <span ng-init="getFooterDetails()">
+        <%@include file="emailfooterpopup.jsp" %>
+        </span>
     </body>
 </html>
