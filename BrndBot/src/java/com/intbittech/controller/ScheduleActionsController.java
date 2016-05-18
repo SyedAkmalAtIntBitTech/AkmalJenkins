@@ -132,7 +132,7 @@ public class ScheduleActionsController {
                 errors.addAll(validateMetadata(metadataString, type));
             }
 
-            if (!errors.isEmpty()) {
+            if (errors.isEmpty()) {
                 UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
                 Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
                 List<Map<String, Integer>> responseData = actionsService.scheduleSocialPostActions(requestBodyList, companyId);
