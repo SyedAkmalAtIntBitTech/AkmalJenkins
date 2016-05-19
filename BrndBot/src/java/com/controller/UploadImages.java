@@ -24,7 +24,6 @@ import org.json.simple.JSONObject;
  *
  * @author Syed
  */
-//......... To Do make a controller out of this Servlet...........//
 public class UploadImages extends BrndBotBaseHttpServlet {
 
     private static final Logger logger = Logger.getLogger(UploadImages.class.getName());
@@ -54,9 +53,10 @@ public class UploadImages extends BrndBotBaseHttpServlet {
            String imageURL=ServletUtil.getServerName(request.getServletContext());
             if(companyId != null){
                 //User upload
+                 sql_methods = new SqlMethods();
                 pathSuffix = AppConstants.USER_IMAGE_HOME + File.separator + companyId;
                 fileName = FileUploadUtil.uploadFile(pathSuffix, request);
-                getSqlMethodsInstance().AddImages(companyId, fileName);
+                sql_methods.AddImages(companyId, fileName);
                 link = ""+imageURL+"downloadImage?imageType=GALLERY&companyId=" + companyId + "&imageName=" + fileName;
                 
             } else {
