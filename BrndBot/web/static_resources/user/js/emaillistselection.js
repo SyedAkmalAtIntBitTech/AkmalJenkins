@@ -572,6 +572,7 @@
 //                    var x = document.getElementById("chooseEmailList").selectedIndex;
 //                    var List_name = document.getElementsByTagName("option")[x].value;
                     var List_name = $("#chooseEmailList").val();
+                    alert(List_name);
                     if (List_name == 1){
 //                        $("#emailaddresses").hide();
 //                        $("#drop-zone").hide();
@@ -583,15 +584,19 @@
                        
                     }else {
                         var emails = "";
-                        $("#email_list_name").val(List_name);                                                
+                        $("#email_list_name").val(List_name);   
+                        
                         $.ajax({
                                 method: 'GET',
                                 url: getHost() + '/emaillist/get?update=emailsForEmailList&emailListName='+List_name,
                                 success: function(result){        
                                 
                                     var parseData=JSON.parse(result.d.details);
-                                   
-                                   var JSONData = parseData.user_emailAddresses;
+                                   var JSONData;
+                                   if(JSON.stringify(parseData.mindbody_emailAddresses) === "[]")
+                                       JSONData = parseData.user_emailAddresses;
+                                   else
+                                       JSONData = parseData.mindbody_emailAddresses;
                                    var JSONdataArray=JSON.stringify(JSONData);
                                     var i = 0;
                                     for(i=0; i<JSON.stringify(JSONData).length; i++){
@@ -895,7 +900,7 @@
                         var parseData=JSON.parse(data.d.details);
 //                        alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user)+"..... success....");
                         $scope.emailLists = parseData.allEmailListWithNoOfContacts.user;
-                        $scope.emailLists_mindbody = data.mindbody;
+                        $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
                         hideOverlay();
                         if (data === "true") {
 //                                window.open(getHost() + 'emaillists.jsp', "_self");
