@@ -2753,6 +2753,7 @@ div#editor {
   width: 100%;
   overflow-y: scroll;
   display: block;
+  position:fixed;
 }
 
 .BBsaved-action-header-bar{
