@@ -129,7 +129,9 @@
         function hideOverlay(){
             $("#loadoverlaydiv").hide();
         }
-        
+        function editFooter(){
+            $("#emailFooterPopup").show();
+        }
         $(document).ready(function(){
             showOverlay();
             $("#closePrev").click(function(){
@@ -484,7 +486,6 @@
                          }).success(function (data) {
                                  alert(detailssaved);
                                  $("#emailFooterPopup").hide();
-                                 $("#emailpreview").trigger("click");                               
 
                          }).error(function (data, status) {
                              alert(requesterror);
@@ -1072,6 +1073,14 @@
                     <div id='edit' class="editorclass" style="margin-top: 5px;">
                     </div>
                 </div>
+ <!--////////////........ uncomment for footer....................///////-->
+<!--                 <div class="in-editor-footer-wrap">
+                            <h3>Email Footer</h3>
+                            <p>Your email footer is the same on every email. You 
+                        see the footer in this email by previewing your email. To edit
+                        the footer click email footer settings.</p>
+                            <span class="reg-button gray-button" onclick="editFooter()">Edit Email Footer</span>
+                </div>-->
             </div>
             <div class="emailEditor-rightCol fright rightcoloumn">
                 <div class="emailSideBar-Header">

@@ -796,9 +796,12 @@
     });
   </script>
   <script>
-               function hideEmailFooterPopup(){
-                      $("#emailFooterPopup").hide();
-                  } 
+       function hideEmailFooterPopup(){
+                 $("#emailFooterPopup").hide();
+               } 
+       function editFooter(){
+            $("#emailFooterPopup").show();
+        }
      var rendomIframeFilename="";
        $(document).ready(function () {
             $("#closePrev").click(function(){
@@ -843,8 +846,6 @@
                            }
                     });
             });
-            
-            
             
         });
                 function UserFooter(fb,twitter,website,instagram,address){
@@ -1151,6 +1152,14 @@
                         <div id="editor">
                             <div id='edit' class="editorheight" style="margin-top:0px;"></div>
                         </div>
+<!--////////////////////.......... uncomment for footer to do click is not working because area is overlapping to each other......////-->                           
+<!--                        <div class="in-editor-footer-wrap">
+                            <h3>Email Footer</h3>
+                            <p>Your email footer is the same on every email. You 
+                        see the footer in this email by previewing your email. To edit
+                        the footer click email footer settings.</p>
+                            <span class="reg-button gray-button" onclick="editFooter()">Edit Email Footer</span>
+                        </div>-->
 <!--                            <div class="btmdiv">
                                <div class="col-1of1">
                                        <div class="editemail fontpnr">Edit this Email Automation Action</div>
