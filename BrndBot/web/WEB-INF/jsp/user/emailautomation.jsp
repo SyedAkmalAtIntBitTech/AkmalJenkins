@@ -357,7 +357,7 @@
                         "schedule_time_epoch": schedule_time,
                         "program_id" :program_id 
                     };
-                    $http({
+                    $http({ 
                         method: 'POST',
                         url: getHost()+'/addRecurringAction',
                         headers: {'Content-Type':'application/json'},
@@ -454,13 +454,16 @@
                         url : getHost() + 'settings/getAllPreferences'
                     }).success(function(data, status) {
                         var footerData = JSON.parse(data.d.details);
+                            if(!footerData.userProfile.address){
+                                $("#emailFooterPopup").show();
+                            }else{
                         var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
                                 footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
                                 footerData.userProfile.address);
                         var sendData=JSON.stringify({
-                        htmlString: $('#edit').froalaEditor('html.get')+footer,
-                        iframeName: rendomIframeFilename.toString()
-                        });
+                                        htmlString: $('#edit').froalaEditor('html.get')+footer,
+                                        iframeName: rendomIframeFilename.toString()
+                                        });
                         
                     var recuring_action = {
                         "entity_id" : entity_id, 
@@ -494,7 +497,9 @@
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });
-                    });
+                    
+                     } 
+                });
                 }
             }
             
@@ -555,8 +560,6 @@
                          }).success(function (data) {
                                  alert(detailssaved);
                                  $("#emailFooterPopup").hide();
-                                 $("#emailpreview").trigger("click");                               
-
                          }).error(function (data, status) {
                              alert(requesterror);
                          });
@@ -743,53 +746,8 @@
                 }
                 return true;
             };
-
-
-   
-
 </script> 
-    <!-----------------------EMAIL AUTOMATION EDITOR HEADER------------------>
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="css/froala_editor.css"/>
-    <link rel="stylesheet" href="css/froala_style.css"/>
-    <link rel="stylesheet" href="css/plugins/code_view.css"/>
-    <link rel="stylesheet" href="css/plugins/colors.css"/>
-    <link rel="stylesheet" href="css/plugins/emoticons.css"/>
-    <link rel="stylesheet" href="css/plugins/image_manager.css"/>
-    <link rel="stylesheet" href="css/plugins/image.css"/>
-    <link rel="stylesheet" href="css/plugins/line_breaker.css"/>
-    <link rel="stylesheet" href="css/plugins/table.css"/>
-    <link rel="stylesheet" href="css/plugins/char_counter.css"/>
-    <link rel="stylesheet" href="css/plugins/video.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css"/>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <link href="css/emailautomation.css" rel="stylesheet" type="text/css"/>
-    <link href="css/dashboard.css" rel="stylesheet" type="text/css"/>
-    <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-    <script src="js/configurations.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
-    <script type="text/javascript" src="js/froala_editor.min_editor.js" ></script>
-
-    <script type="text/javascript" src="js/plugins/align.min.js"></script>
-    <script type="text/javascript" src="js/plugins/code_view.min.js"></script>
-    <script type="text/javascript" src="js/plugins/colors.min_Editor.js" ></script>
-    <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
-    <script type="text/javascript" src="js/plugins/font_family.min.js"></script>
-    <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
-    <script type="text/javascript" src="js/plugins/file.min.js"></script>
-    <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
-    <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
-    <script type="text/javascript" src="js/plugins/url.min.js"></script>
-    <script type="text/javascript" src="js/plugins/entities.min.js"></script>
-    <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
-    <script type="text/javascript" src="js/plugins/save.min.js"></script>
-    <script type="text/javascript" src="js/plugins/quote.min.js"></script>-->
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-
     <link href="css/froala_editor.css" rel="stylesheet" type="text/css"/>
     <link href="css/popup.css" rel="stylesheet" type="text/css"/>
     <link href="css/froala_style.css" rel="stylesheet" type="text/css"/>
@@ -864,7 +822,6 @@
                                 var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
                                         footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
                                         footerData.userProfile.address);
-                                    alert();
                             var sendData = {
                                         htmlString: $('#edit').froalaEditor('html.get')+footer,
                                         iframeName: rendomIframeFilename.toString()
@@ -875,7 +832,6 @@
                                     url: getHost() + "email/previewServlet",                                
                                     data: JSON.stringify(sendData),
                                     success: function (responseText) {
-    //                                    alert(JSON.stringify(responseText.d.details));
                                         $("#dynamictable5").empty();
                                         $("#dynamictable6").empty();
                                         var iframePath = getHost() +"download/HTML?fileName="+rendomIframeFilename+".html";
@@ -892,7 +848,6 @@
             
         });
                 function UserFooter(fb,twitter,website,instagram,address){
-                alert("sasa");
                         var returnFooter ="";
                         var footer = "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" height=\"100%\" width=\"100%\" bgcolor=\"#EEEEEE\" style=\"border-collapse:collapse;\"><tr><td valign=\"top\"> <center style=\"width: 100%;\"> <div style=\"max-width: 680px;\"> <!--[if (gte mso 9)|(IE)]> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"680\" align=\"center\"> <tr> <td> <![endif]--> <!-- Atom Body: BEGIN --> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" bgcolor=\"#EEEEEE\" width=\"100%\" style=\"max-width: 680px;\"> <tr> <td style=\"padding-top:15px;\" class=\"mobile-padding\"> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" width=\"100%\" style=\"max-width: 300px; background-color:#inherit\" class=\"mobile-padding\"> <tr>";
 
@@ -932,68 +887,6 @@
 
                         return returnFooter;
                     }
-     
-//        function show(id) {
-//                var getId = id;
-//                var dynamicStyle, dynamicWidth, dynamicHeight;
-//                var imageUrl = "images/Phone.svg";
-//                var id = '#dialog';
-//                //Get the screen height and width
-//                var maskHeight = $(document).height();
-//                var maskWidth = $(window).width();
-//                //Set heigth and width to mask to fill up the whole screen
-//                $('#mask').css({'width':maskWidth, 'height':maskHeight});
-//                //transition effect
-//                $('#mask').fadeIn(500);
-//                $('#mask').fadeTo("slow", 0.95);
-//                //Get the window height and width
-//                var winH = $(window).height();
-//                var winW = $(window).width();
-//                //Set the popup window to center
-//                $(id).css('top', winH / 2 - $(id).height() / 2);
-//                $(id).css('left', winW / 2 - $(id).width() / 2);
-//                //transition effect
-//                $(id).fadeIn(2000);
-//                //if close button is clicked
-//                $('.window .close').click(function (e) {
-//        //Cancel the link behavior
-//                e.preventDefault();
-//                        $('#mask').hide();
-//                        $('.window').hide();
-//                });
-//                //if mask is clicked
-//                $('#mask').click(function () {
-//                    $(this).hide();
-//                    $('.window').hide();
-//                });
-//
-//                $.ajax({
-//                    url: getHost() + "PreviewServlet",
-//                    method: "post",
-//                    data: {
-//                        htmlString: $('#edit').froalaEditor('html.get'),//$(".fr-element").html(),
-//                        iframeName: rendomIframeFilename
-//                      },
-//                    success: function (responseText) {
-////                                        alert(responseText);
-//                     if(getId === "iphone"){
-//                        $('.window').css("top","110px");
-//                        dynamicWidth="275";
-//                        dynamicHeight="439";
-//
-//                        $(".window").empty();
-//                        $(".window").append("<div id=imageDivPopup style='width:"+dynamicWidth+"px;height:"+dynamicHeight+"px;'></div>");
-//                        $("#imageDivPopup").css("background-image","url("+imageUrl+")").css("background-size","100% 100%");
-////                                        $("#imageDivPopup").append("<div style='width:"+(dynamicWidth-20)+"px;height:"+(dynamicHeight-60)+"px;margin-left:10px;position:relative;top:28px;overflow:scroll;'>"+responseText+"</div>");
-//                        $("#imageDivPopup").append("<iframe style='width:320px;height:509px;position:relative;top:-47px;left:-22px;-webkit-transform: scale(0.696);background-color:#FFF;' src='/BrndBot/DownloadHtmlServlet?file_name="+rendomIframeFilename+".html'></iframe>");
-//
-//                        $('.window').show();
-//                    }
-//               }
-//            }); 
-//            
-//    }       
-               
 </script>     
         <div id="boxes">
             <div id="dialog" class="window">
@@ -1396,9 +1289,6 @@
              <div class="add-action-button md-button button-text-1 paddingperfectbtn col-1of4" type="button" ng-click="addUpdateRecuringAction()">save</div>
          </div>
         </div>
-        <!--</div>-->
-     <!--</div>-->
-<!--</div>-->
         <span ng-init="getFooterDetails()">
         <%@include file="emailfooterpopup.jsp" %>
         </span>
