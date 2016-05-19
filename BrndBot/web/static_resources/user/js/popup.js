@@ -1146,6 +1146,311 @@ function postToFacebook() {
         }
     });
 }
+
+function scheduleTwitter() {
+    var twitterac = $("#twitteractions").val();
+    var program_id=$("#programs").val();
+    var shareText = $("#shareText").val();
+    var linkTitle = $("#linkTitle").val();
+    var linkDescription = $("#linkDescription").val();
+    var linkUrl = $("#linkUrl").val();
+    var image_name = selecImageName;
+    var image_type = selecImageType;
+    var schedule_date = $("#schedule_social_date").val();
+    var schedule_time = $("#schedule_social_time").val().replace(/ /g, '');
+    var schedule_title = $("#schedule_title").val();
+    var schedule_desc = $("#schedule_desc").val();
+    var l = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
+    var schedule_time = Date.parse(l);
+    var myEpoch = schedule_time;
+    var schedule_id_twitter="";
+    var sendData="";
+    if(program_id !=="0" || twitterac !== "0")
+    {    
+        if (twitterac === "0")
+        {
+            alert(twitteractionchoose);
+            $("#twitteractions").focus();
+            return false;
+        }
+        schedule_id_twitter = $("#twitteractions").val();
+        $.ajax({
+            url: getHost() + '/settings/twitterDetails.do',
+            method: "POST",
+            data: JSON.stringify({
+                access_token_method: "getAccessToken"
+            })
+        }).success(function (data, status, headers, config) {
+            var twitterData = data.d.message.split(",");
+            var accessToken =twitterData[0];
+            var tokenSecret =twitterData[1];
+            var shareText = $("#twitterShareText").val();
+            var url = $("#linkUrl").val();
+            if(url !=="")
+            {
+                var username = "sandeep264328";
+                var key = "R_63e2f83120b743bc9d9534b841d41be6";
+                $.ajax({
+                    url: "http://api.bit.ly/v3/shorten",
+                    async: false,
+                    data: {longUrl: url, apiKey: key, login: username},
+                    dataType: "jsonp",
+                    success: function (v)
+                    {
+                        var bitUrl = v.data.url;                        
+                        sendData = [
+                        {
+                            type: gettwitter(),
+                            image_name: image_name,
+                            program_id: program_id,
+                            schedule_id: schedule_id_twitter,
+                            image_type: image_type,
+                            token_data: {
+                                "access_token": '"' + accessToken + '"',
+                                "token_secret": '"' + tokenSecret + '"'
+                            },
+                            metadata: {
+                                text: '"' + shareText + '"',
+                                shorturl: '"' + bitUrl + '"'
+                            }
+                        }
+                        ];
+                        $.ajax({
+                            url: getHost() + "actions/scheduleSocialPostActions",
+                            method: 'post',
+                            data: JSON.stringify(sendData),
+                            success: function (responseText) {
+                //                    alert(JSON.stringify(responseText));
+                                var isSuccess = JSON.stringify(responseText.d.operationStatus.messages);
+                                var parseData=JSON.parse(isSuccess);
+                                if (parseData == "Success") {
+                                    alert(postsuccess);
+                                    location.href=getHost()+"user/dashboard";
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert(JSON.stringify(jqXHR));
+                            }
+                        });
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(JSON.stringify(jqXHR));
+                    }
+                });
+            }
+            else{
+                var bitUrl = "";
+                sendData = [{
+                    type: gettwitter(),
+                    image_name: image_name,
+                    schedule_time: myEpoch,
+                    schedule_title: schedule_title,
+                    program_id: program_id,
+                    schedule_desc: schedule_desc,
+                    image_type: image_type,
+                    token_data: {
+                        "access_token": '"' + accessToken + '"',
+                        "token_secret": '"' + tokenSecret + '"'
+                    },
+                    metadata: {
+                        text: '"' + shareText + '"',
+                        shorturl: '"' + bitUrl + '"'
+                    }      
+                }];
+                $.ajax({
+                    url: getHost() + "actions/scheduleSocialPost",
+                    method: 'post',
+                    data: JSON.stringify(sendData),
+                    success: function (responseText) {
+//                        alert(JSON.stringify(responseText));
+                        var isSuccess = JSON.stringify(responseText.d.operationStatus.messages);
+                        var parseData=JSON.parse(isSuccess);
+                        if (parseData == "Success") {
+                            alert(postsuccess);
+                            location.href=getHost()+"user/dashboard";
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(JSON.stringify(jqXHR));
+                    }
+                });
+            }
+        }).error(function (error) {
+            alert(nodataerror);            
+        });
+    }
+    else{
+        if (schedule_title === "")
+        {
+            alert(titleerror);
+            $("#schedule_title").focus();
+            return false;
+        }
+        if (schedule_desc === "")
+        {
+            alert(descriptionerror);
+            $("#schedule_desc").focus();
+            return false;
+        }
+        if (schedule_date === "")
+        {
+            alert(dateerror);
+            $("#schedule_social_date").focus();
+            return false;
+        }
+        if ($("#schedule_social_time").val() === "")
+        {
+            alert(timeerror);
+            $("#schedule_social_time").focus();
+            return false;
+        }       
+        
+        
+        
+        if ($("#shareText").val() === "")
+        {
+            alert(facebooktitle);
+            flag = 1;
+            $("#shareText").focus();
+            return false;
+        }
+        if (image_name === "")
+        {
+            alert(chooseimage);
+            flag = 1;
+            $("#fade").show();
+            $("#addContact").show();
+            return false;
+        }
+        if ($("#linkUrl").val() !== "")
+        {
+            if ($("#linkTitle").val() === "")
+            {
+                alert(linktitleerror);
+                flag = 1;
+                $("#linkTitle").focus();
+                return false;
+            }
+            if ($("#linkDescription").val() === "")
+            {
+                alert(descriptionerror);
+                flag = 1;
+                $("#linkDescription").focus();
+                return false;
+            }
+        }
+        $.ajax({
+            url: getHost() + '/settings/twitterDetails.do',
+            method: "POST",
+            data: JSON.stringify({
+                access_token_method: "getAccessToken"
+            })
+        }).success(function (data, status, headers, config) {
+//            alert(JSON.stringify(data));
+            
+            var twitterData = data.d.message.split(",");
+            var accessToken =twitterData[0];
+            var tokenSecret =twitterData[1];
+            var shareText = $("#twitterShareText").val();
+            var url = $("#linkUrl").val();
+            if(url !=="")
+            {
+                var username = "sandeep264328";
+                var key = "R_63e2f83120b743bc9d9534b841d41be6";
+                $.ajax({
+                    url: "http://api.bit.ly/v3/shorten",
+                    async: false,
+                    data: {longUrl: url, apiKey: key, login: username},
+                    dataType: "jsonp",
+                    success: function (v)
+                    {
+                        var bitUrl = v.data.url;
+                        sendData = [{
+                                type: gettwitter(),
+                                image_name: image_name,
+                                schedule_time: myEpoch,
+                                schedule_title: schedule_title,
+                                program_id: program_id,
+                                schedule_desc: schedule_desc,
+                                image_type: image_type,
+                                token_data: {
+                                    "access_token": '"' + accessToken + '"',
+                                    "token_secret": '"' + tokenSecret + '"'
+                                },
+                                metadata: {
+                                    text: '"' + shareText + '"',
+                                    shorturl: '"' + bitUrl + '"'
+                                }      
+                            }];
+                        $.ajax({
+                            url: getHost() + "actions/scheduleSocialPost",
+                            method: 'post',
+                            data: JSON.stringify(sendData),
+                            success: function (responseText) {
+//                                alert(JSON.stringify(responseText));
+                                var isSuccess = JSON.stringify(responseText.d.operationStatus.messages);
+                                var parseData=JSON.parse(isSuccess);
+                                if (parseData == "Success") {
+                                    alert(postsuccess);
+                                    location.href=getHost()+"user/dashboard";
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert(JSON.stringify(jqXHR));
+                            }
+                        });
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(JSON.stringify(jqXHR));
+                    }
+                });
+            }
+            else{
+                var bitUrl = "";
+                sendData = [{
+                    type: gettwitter(),
+                    image_name: image_name,
+                    schedule_time: myEpoch,
+                    schedule_title: schedule_title,
+                    program_id: program_id,
+                    schedule_desc: schedule_desc,
+                    image_type: image_type,
+                    token_data: {
+                        "access_token": '"' + accessToken + '"',
+                        "token_secret": '"' + tokenSecret + '"'
+                    },
+                    metadata: {
+                        text: '"' + shareText + '"',
+                        shorturl: '"' + bitUrl + '"'
+                    }      
+                }];
+                $.ajax({
+                    url: getHost() + "actions/scheduleSocialPost",
+                    method: 'post',
+                    data: JSON.stringify(sendData),
+                    success: function (responseText) {
+//                        alert(JSON.stringify(responseText));
+                        var isSuccess = JSON.stringify(responseText.d.operationStatus.messages);
+                        var parseData=JSON.parse(isSuccess);
+                        if (parseData == "Success") {
+                            alert(postsuccess);
+                            location.href=getHost()+"user/dashboard";
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(JSON.stringify(jqXHR));
+                    }
+                });
+            }
+        }).error(function (data, status, headers, config) {
+            alert(nodataerror);
+        });
+        
+    }
+//        alert(JSON.stringify(JSON.parse(sendData))); 
+    
+}
+
 function scheduleFacebook() {
     var facebookac = $("#facebookactions").val();
     var twitterac = $("#twitteractions").val();
@@ -1165,7 +1470,7 @@ function scheduleFacebook() {
     var myEpoch = schedule_time;
     var schedule_id_facebook="";
     var sendData="";
-    if(program_id !=="0")
+    if(program_id !=="0" || facebookac !== "0")
     {    
         if (facebookac === "0")
         {
@@ -1316,6 +1621,7 @@ function scheduleFacebook() {
 //        alert(JSON.stringify(JSON.parse(sendData))); 
     
 }
+
 function validateTwitter(){
     var twitterText=$("#twitterShareText").val();
     var selectedImage=$("#selectedImage").attr('src').contains('companyId');
@@ -1326,6 +1632,7 @@ function validateTwitter(){
     else if(!selectedImage){
         alert("Please add an Image to post.");
         $("#addImageToTwitterPost").trigger('click');
+        $("#imagePopUp").show();
     }
     else if((twitterText != "")&&(selectedImage)){
     $("#sendpopup").show();
@@ -1914,6 +2221,7 @@ function validateact(){
     var imgApp = angular.module('imageGallery', []);
 
         imgApp.controller("displayImageFromGallery", ['$scope','$http', 'fileUpload', function($scope,$http,fileUpload) {
+                
                 $scope.getUserImaages = function () {
                 showOverlay();
                 $http({
@@ -1995,9 +2303,6 @@ function validateact(){
                 }).success(function (data) {
                      $scope.urls= data;
                 });
-            };
-            $scope.getSelectedUrl = function (){
-                alert();
             };
 
         }]);

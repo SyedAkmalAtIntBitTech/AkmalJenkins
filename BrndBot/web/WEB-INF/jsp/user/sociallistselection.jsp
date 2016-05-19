@@ -157,7 +157,7 @@
                             </div>
                         </div>
                     </div>
-                        <div class="pop-up-cta-container pop-up-cta-container-newaction1 cur" id ="schedulethepost"  onclick="setScheduling()">
+                        <div class="pop-up-cta-container pop-up-cta-container-newaction1 cur" id ="schedulethepost"  onclick="scheduleTwitter()">
                         <input type="hidden" value="socialmedia"/>
                         <div class="algnmnt" name="socialscheduleid" id="socialscheduleid" >SCHEDULE</div>
                     </div>

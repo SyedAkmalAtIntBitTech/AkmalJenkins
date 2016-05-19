@@ -162,7 +162,7 @@ public class ScheduleSocialPostDAO {
                     int entityId = rs.getInt("scheduled_socialpost_list_id");
                     String imageName = rs.getString("image_name");
                     
-                    String metadata = rs.getString("metadata");
+                    String metadata = rs.getString("meta_data");
                     String type = rs.getString("type");
                     String image_type = rs.getString("image_type");
                    

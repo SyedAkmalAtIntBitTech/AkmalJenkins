@@ -736,7 +736,8 @@ $(document).ready(function () {
                     document.location.href = "dashboard.jsp";
                 }
             });
-        } else {
+        } 
+        else {
             if (isFacebook == "true" && isTwitter == "false") {
                 social_schedule = [
                     {
@@ -758,7 +759,8 @@ $(document).ready(function () {
                     }
                 ];
 
-            } else if (isFacebook == "false" && isTwitter == "true") {
+            }
+            else if (isFacebook == "false" && isTwitter == "true") {
                 social_schedule = [
                     {
                         type: gettwitter(),
@@ -777,7 +779,8 @@ $(document).ready(function () {
                     }
                 ];
 
-            } else if (isFacebook == "true" && isTwitter == "true") {
+            } 
+            else if (isFacebook == "true" && isTwitter == "true") {
 
                 social_schedule =
                         [

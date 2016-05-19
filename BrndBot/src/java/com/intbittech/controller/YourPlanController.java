@@ -400,7 +400,7 @@ public class YourPlanController {
             logger.error(throwable);
             genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
-        return new ResponseEntity<>(new ContainerResponse(null),HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new ContainerResponse(genericResponse),HttpStatus.ACCEPTED);
     }
     
     @RequestMapping(value = "/PostToSocial", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
