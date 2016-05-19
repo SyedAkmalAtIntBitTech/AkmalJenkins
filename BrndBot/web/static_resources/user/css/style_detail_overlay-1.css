@@ -1,5 +1,14 @@
 body{
     font-family: "proxima-nova",sans-serif !important;
+     
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none !important;
+    border-color: #1EADFC !important;
+    border-radius:3px !important;
 }
 
 .margintop30{
