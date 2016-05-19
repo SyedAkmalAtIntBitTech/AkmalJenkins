@@ -9,6 +9,8 @@ package com.controller;
 import com.intbit.AppConstants;
 import com.intbit.FileUploadUtil;
 import com.intbit.util.ServletUtil;
+import com.intbittech.model.UserProfile;
+import com.intbittech.utility.UserSessionUtil;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +24,7 @@ import org.json.simple.JSONObject;
  *
  * @author Syed
  */
+//......... To Do make a controller out of this Servlet...........//
 public class UploadImages extends BrndBotBaseHttpServlet {
 
     private static final Logger logger = Logger.getLogger(UploadImages.class.getName());
@@ -41,18 +44,20 @@ public class UploadImages extends BrndBotBaseHttpServlet {
         super.processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         try {
-            Integer user_id = (Integer) request.getSession().getAttribute("UID");
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+//            Integer user_id = (Integer) request.getSession().getAttribute("UID");
             String pathSuffix = "";
             String fileName = "";
             String link = "";
             String styleImage="";
            String imageURL=ServletUtil.getServerName(request.getServletContext());
-            if(user_id != null){
+            if(companyId != null){
                 //User upload
-                pathSuffix = AppConstants.USER_IMAGE_HOME + File.separator + user_id;
+                pathSuffix = AppConstants.USER_IMAGE_HOME + File.separator + companyId;
                 fileName = FileUploadUtil.uploadFile(pathSuffix, request);
-                getSqlMethodsInstance().AddImages(user_id, fileName);
-                link = ""+imageURL+"DownloadImage?image_type=GALLERY&user_id=" + user_id + "&image_name=" + fileName;
+                getSqlMethodsInstance().AddImages(companyId, fileName);
+                link = ""+imageURL+"downloadImage?imageType=GALLERY&companyId=" + companyId + "&imageName=" + fileName;
                 
             } else {
                 //Admin upload for editor

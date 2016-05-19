@@ -71,10 +71,10 @@
         <servlet-class>com.intbit.CropImage</servlet-class>
     </servlet>
    
-    <servlet>
+-->    <servlet>
         <servlet-name>UploadImages</servlet-name>
         <servlet-class>com.controller.UploadImages</servlet-class>
-    </servlet>
+    </servlet><!--
     <servlet>
         <servlet-name>GetLayoutStyles</servlet-name>
         <servlet-class>com.controller.GetLayoutStyles</servlet-class>
@@ -242,10 +242,10 @@
         <servlet-name>CropImage</servlet-name>
         <url-pattern>/CropImage</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
+-->    <servlet-mapping>
         <servlet-name>UploadImages</servlet-name>
         <url-pattern>/UploadImages</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping><!--
     <servlet-mapping>
         <servlet-name>GetLayoutStyles</servlet-name>
         <url-pattern>/GetLayoutStyles</url-pattern>

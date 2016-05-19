@@ -1,4 +1,6 @@
 
+<%@page import="com.intbittech.utility.UserSessionUtil"%>
+<%@page import="com.intbittech.model.UserProfile"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -44,21 +46,7 @@
     <script src="js/froala_editor.min_editor.js" type="text/javascript"></script>
 <!--<script src="js/plugins/code_view.min.js" type="text/javascript"></script>-->
     <!--<script type="text/javascript" src="js/emaileditor_new.js"></script>-->
-    <script type="text/javascript" src="js/plugins/align.min.js"></script>
-    <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
-    <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
-    <script type="text/javascript" src="js/plugins/font_family.min_editor.js"></script>
-    <!--<script type="text/javascript" src="js/plugins/image.min.js"></script>-->
-    <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
-    <script type="text/javascript" src="js/plugins/file.min.js"></script>
-    <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
-    <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
-    <script type="text/javascript" src="js/plugins/url.min.js"></script>
-    <script type="text/javascript" src="js/plugins/entities.min.js"></script>
-    <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
-    <script type="text/javascript" src="js/plugins/save.min.js"></script>
-    <script type="text/javascript" src="js/plugins/quote.min.js"></script>
-    <script type="text/javascript" src="js/plugins/link.min.js"></script>
+   
     <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
     <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
     <%@include file="loadingoverlay.jsp" %>  
@@ -69,7 +57,7 @@
         String logoImageName = null;
         String draft_id = "0";
         String email_subject = "";
-        String user_id="";
+        Integer companyId;
     %>
     <% 
          String categoryId= request.getParameter("categoryId");
@@ -80,7 +68,9 @@
          String draft_id=request.getParameter("draftId");
 //        email_subject = request.getParameter("subject"); %>
     <%
-//        try {
+        try {
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
 //            sql_methods.session = request.getSession(true);          
 //            sql_methods.session.setAttribute("email_subject", email_subject);
 //            draft_id = "0";
@@ -95,10 +85,10 @@
 //                draft_id = (String) request.getParameter("draftid");
 //                out.println();
 //            }
-//        } catch (Exception e) {
+        } catch (Exception e) {
 //            System.out.println(e.getCause());
 //            System.out.println(e.getMessage());
-//        }
+        }
 
     %>
      <script>
@@ -665,7 +655,7 @@
         <div id="mask"></div>
     </div> 
     <input type="hidden" id='subCategoryIdTag' value="<%=subCategoryId%>"/>
-    <input type="hidden" id='userid' value="<%= user_id%>"/>
+    <input type="hidden" id='userid' value="<%= companyId%>"/>
     <input type="hidden" id='draftid' value="<%= draft_id%>"/>
     <input type="hidden" id='mindbodydata' value="<%= mindbodyId%>"/>
     <input type="hidden" id='categoryIdTag' value="<%= categoryId%>"/>
@@ -1183,5 +1173,20 @@
             </div>
         </a>
     </div>
+    <script type="text/javascript" src="js/plugins/align.min.js"></script>
+    <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
+    <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
+    <script type="text/javascript" src="js/plugins/font_family.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/image.min.js"></script>
+    <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/file.min.js"></script>
+    <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/url.min.js"></script>
+    <script type="text/javascript" src="js/plugins/entities.min.js"></script>
+    <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
+    <script type="text/javascript" src="js/plugins/save.min.js"></script>
+    <script type="text/javascript" src="js/plugins/quote.min.js"></script>
+    <script type="text/javascript" src="js/plugins/link.min.js"></script>
     </body>
 </html>
