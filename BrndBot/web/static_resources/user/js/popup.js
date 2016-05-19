@@ -1058,16 +1058,22 @@ $(document).ready(function ()
     });
 ////// social flow  ///
     $("#addImageToPostButton").click(function () {
-        $("#addImageDiv").show();
+         $("#addImageDiv").show();
+        $("#imagePopUp").show();
         $("#addImageToPostButton").hide();
     });
     $("#changeImage").click(function () {
         $("#imagePopUp").show();
     });
+    
     $("#hidepopup").click(function () {
+        $("#addImageDiv").hide();
+        $("#addImageToPostButton").show();
         $("#imagePopUp").hide();
         $("#twitterSetPinPopUp").hide();
         $("#fbmanagePagePopUp").hide();
+        $("#addImageToTwitterPost").show();
+        $("#addImageDivToTwitterPost").hide();
     });
     $("#shoeUploadimage").click(function () {
         $("#gallerySpan").hide();
@@ -1087,6 +1093,7 @@ $(document).ready(function ()
         $("#uploadImageSpan").hide();
     });
     $("#addImageToTwitterPost").click(function () {
+         $("#imagePopUp").show();
         $("#addImageDivToTwitterPost").show();
         $("#addImageToTwitterPost").hide();
     });
