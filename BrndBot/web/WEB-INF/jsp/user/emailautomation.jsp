@@ -132,6 +132,7 @@
          $scope.showEmailList = function () {             
             $.ajax({
                 method: 'GET',
+                async: false,
                  url: getHost() + 'emaillist/get?update=allEmailListWithNoOfContacts&emailListName=null'
             }).success(function (data, status, headers, config) {
                 var parseData=JSON.parse(data.d.details);
