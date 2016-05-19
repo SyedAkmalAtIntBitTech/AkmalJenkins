@@ -53,7 +53,7 @@
                                         <option ng-repeat="url in urls" value="{{url.url}}--{{url.link_name}}">{{url.prigram_name}} - {{url.link_name}} - {{url.url}}</option>
                                     </select>
                                 </span>
-                                <div class="input_Label pushUp_20">Link</div>
+                                <div class="input_Label pushUp_20">Write Custom Link</div>
                                 <textarea class="socialLink_attached removeDrag removeBorder" placeholder="http://www.brndbot.com" id="linkUrl"></textarea>
                             </span>
                         </div>  
