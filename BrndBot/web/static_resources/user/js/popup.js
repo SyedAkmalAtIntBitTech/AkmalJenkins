@@ -1705,7 +1705,6 @@ function postFacebook(){
 function postToTwitter() {
     showOverlay();
     var shareText = $("#twitterShareText").val();
-    shareText + "bit.ly/1XOkJo";
     var url = $("#linkUrl").val();
     var image_name = selecImageName;
     var image_type = selecImageType;
@@ -2299,8 +2298,8 @@ function validateact(){
                     var enteredData = $("#twitterShareText").val();
                     $("#urlDropDownSpan").show();
                     $("#twitterLinkPost").show();
-                    $("#twitterShareText").attr("maxlength",127);
-                    $("#twitterShareText").val(enteredData.substring(0,127));
+                    $("#twitterShareText").attr("maxlength",90);
+                    $("#twitterShareText").val(enteredData.substring(0,90));
                     $("#postType").text("Change To Normal Post");
                 }
                 if (postType === "inline") {
