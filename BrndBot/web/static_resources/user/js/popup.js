@@ -1706,7 +1706,6 @@ function postFacebook(){
 function postToTwitter() {
     showOverlay();
     var shareText = $("#twitterShareText").val();
-    shareText + "bit.ly/1XOkJo";
     var url = $("#linkUrl").val();
     var image_name = selecImageName;
     var image_type = selecImageType;
@@ -2297,13 +2296,18 @@ function validateact(){
             $scope.changeTwitterPostType = function (){
                var postType = $("#twitterLinkPost").css("display");
                 if (postType === "none") {
+                    var enteredData = $("#twitterShareText").val();
                     $("#urlDropDownSpan").show();
                     $("#twitterLinkPost").show();
+                    $("#twitterShareText").attr("maxlength",90);
+                    $("#twitterShareText").val(enteredData.substring(0,90));
                     $("#postType").text("Change To Normal Post");
                 }
                 if (postType === "inline") {
+                    
                     $("#twitterLinkPost").hide();
                     $("#urlDropDownSpan").hide();
+                    $("#twitterShareText").attr("maxlength",116);
                     $("#linkUrl").val("");
                     $("#postType").text("Change To Link Post");
                 }

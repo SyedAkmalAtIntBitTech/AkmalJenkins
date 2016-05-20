@@ -2818,3 +2818,17 @@ div#editor {
   padding: 0px 0px 45px 0px;
   display: block;
 }
+.BBfacebook-button{
+    margin-top: -65px;
+    margin-right: 47px;
+    float: right;
+    cursor: pointer;
+}
+.BBfacebook-header{
+    margin-left: 87px;
+    position: relative;
+    top: -29px;
+}
+.BBstyle{
+    height:auto;
+}

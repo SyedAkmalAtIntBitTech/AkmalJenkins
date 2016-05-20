@@ -15,7 +15,7 @@
        
         <div id="addOrganizationPopup" class="popUp_background">
         <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer"></div>
-        <div  class="popUp">
+        <div  class="popUp addPopUp">
              <div class="content-area_header">
                 <div class="popUp_title fleft"> Create an Organization </div>
             </div>
