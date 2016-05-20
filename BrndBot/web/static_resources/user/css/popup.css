@@ -1485,7 +1485,8 @@ textarea#filetext1 {
     font-family:"proxima-nova",sans-serif;
     font-weight:500;
     color: #2D4444;
-    height: -webkit-calc(100% - 141px);
+    /*height: -webkit-calc(100% - 141px);*/
+    height: -webkit-calc(76% - 141px);
     overflow: scroll;
    //max-height: 600px;
     /*                                overflow: auto;*/
