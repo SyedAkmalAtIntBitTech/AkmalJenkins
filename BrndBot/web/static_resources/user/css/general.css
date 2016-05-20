@@ -270,7 +270,10 @@ a {
     font-size: 13px;
     font-weight: 500;
 }
-
+.continue-bar a:hover{
+    color: #ffffff;
+    background-color: #5cc2a5;
+}
 .continue-bar-valid{
     background-color: greenyellow;
     color: white;
