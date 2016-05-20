@@ -121,6 +121,9 @@
         }
         function editFooter(){
             $("#emailFooterPopup").show();
+        }       
+        function hideEmailFooterPopup(){
+          $("#emailFooterPopup").hide();
         }
         $(document).ready(function(){
             showOverlay();
@@ -669,7 +672,6 @@
     <div class="top-nav-full">
         <div class="page-title-bar col-1of1"> 
             <a class=" exit-button-icon" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=categoryId%>&mindbodyId=<%=mindbodyId%>&LookupId=<%=LookupId%>&emailSubject=<%=emailSubject%>">    
-                <a href="facebookmanagepages.jsp"></a>
                 <div class="exit-button-detail">
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                 </div>
@@ -731,15 +733,20 @@
                         return returnFooter;
                     }
  
-                    $("#emailpreview").click(function(){              
+                    $("#emailpreview").click(function(){            
                         $.ajax({
                             method : 'GET',
                             url : getHost() + 'settings/getAllPreferences'
                         }).success(function(data, status) {
                             var footerData = JSON.parse(data.d.details);
-                            if(!footerData.userProfile.address){
+                            if(!footerData.userProfile){
                                 $("#emailFooterPopup").show();
+                            }
+                         else{
+                             if(!footerData.userProfile.address){
+                            $("#emailFooterPopup").show();
                             }else{
+                            
                                 $("#email_previewdiv").show();
                                 var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
                                         footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
@@ -765,6 +772,7 @@
                             }).error(function (error){alert(JSON.stringify(error));});
                             $("#fade").show();
                            }
+                       }
                     });
                     });
                     $("#addblkbtn").click(function (){
@@ -1064,13 +1072,13 @@
                     </div>
                 </div>
  <!--////////////........ uncomment for footer....................///////-->
-<!--                 <div class="in-editor-footer-wrap">
+                 <div class="in-editor-footer-wrap">
                             <h3>Email Footer</h3>
                             <p>Your email footer is the same on every email. You 
                         see the footer in this email by previewing your email. To edit
                         the footer click email footer settings.</p>
                             <span class="reg-button gray-button" onclick="editFooter()">Edit Email Footer</span>
-                </div>-->
+                </div>
             </div>
             <div class="emailEditor-rightCol fright rightcoloumn">
                 <div class="emailSideBar-Header">
