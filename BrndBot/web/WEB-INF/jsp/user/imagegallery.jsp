@@ -73,7 +73,7 @@
                                 <div class="galImage-description">Added on Nov 26 2015</div>-->
                                 <div class="galCard-divider"></div>
                                 <!--<img type="image/svg+xml" src="images/Icons/settings.svg" class="galCard-settingsicon fleft"> </img>-->
-                                <li class="nav-elements-icon-container hint--top"  data-hint="Delete">
+                                <li class="nav-elements-icon-container hint--top delete--gallery"  data-hint="Delete">
                                     <img type="image/svg+xml" id="delete" src="images/trash.svg" class="galCard-trashicon fleft cur" ng-click="deleteImage(images.companyImagesId)"/>
                                 </li>                                 
                                  <!--<button name="delete"  id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>-->
