@@ -86,7 +86,7 @@
 
 .pane_content{
     margin: 20px 0px 20px 0px;
-    display: block;
+    display: flex;
     box-sizing: border-box;
 }
 

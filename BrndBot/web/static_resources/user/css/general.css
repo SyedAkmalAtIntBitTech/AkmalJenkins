@@ -639,7 +639,7 @@ a {
     background-color: rgba(57,60,70,.7);
     display: -webkit-flex;
    display: flex;
-   -webkit-flex-direction: row /* works with row or column */
+   -webkit-flex-direction: row; /* works with row or column */
    flex-direction: row;
    -webkit-align-items: center;
    align-items: center;
@@ -721,7 +721,7 @@ p.modal-content-header{
 .modal-pane-content-wrap .send-or-schedule-wrap{
    display: -webkit-flex;
    display: flex;
-   -webkit-flex-direction: row /* works with row or column */
+   -webkit-flex-direction: row; /* works with row or column */
    flex-direction: row;
    -webkit-align-items: center;
    align-items: center;
@@ -767,7 +767,7 @@ p.modal-content-header{
 .modal-pane-content-wrap .create-new-action-schedule-wrap{
     display: -webkit-flex;
    display: flex;
-   -webkit-flex-direction: row /* works with row or column */
+   -webkit-flex-direction: row; /* works with row or column */
    flex-direction: row;
    -webkit-align-items: center;
    align-items: center;

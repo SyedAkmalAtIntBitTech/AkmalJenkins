@@ -50,7 +50,7 @@ public class ScheduleSocialPostDAO {
             String imageType,
             Connection conn) throws SQLException {
             String sql = "INSERT INTO scheduled_socialpost_list "
-                + " (fk_company_id, image_name, metadata, type, image_type) VALUES"
+                + " (fk_company_id, image_name, meta_data, type, image_type) VALUES"
                 + " (?, ?, ?, ?, ?) RETURNING scheduled_socialpost_list_id";
         Map<String, Integer> methodResponse = new HashMap<>();
         int scheduleSocialPostId = -1;
@@ -103,8 +103,8 @@ public class ScheduleSocialPostDAO {
             String templateStatus, String imageType,
             Connection conn) throws SQLException {
         String sql = "INSERT INTO scheduled_socialpost_list "
-                + " (fk_company_id, image_name, metadata, type, image_type) VALUES"
-                + " (?, ?, ?, ?, ?) RETURNING id";
+                + " (fk_company_id, image_name, meta_data, type, image_type) VALUES"
+                + " (?, ?, ?, ?, ?) RETURNING scheduled_socialpost_list_id";
         Map<String, Integer> methodResponse = new HashMap<>();
         int scheduleSocialPostId = -1;
         try {
@@ -162,7 +162,7 @@ public class ScheduleSocialPostDAO {
                     int entityId = rs.getInt("scheduled_socialpost_list_id");
                     String imageName = rs.getString("image_name");
                     
-                    String metadata = rs.getString("metadata");
+                    String metadata = rs.getString("meta_data");
                     String type = rs.getString("type");
                     String image_type = rs.getString("image_type");
                    

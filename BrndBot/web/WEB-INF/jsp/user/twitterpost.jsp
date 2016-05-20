@@ -51,7 +51,7 @@
                                 </select>
                             </span>
                             <span class="displayNone" id="twitterLinkPost">
-                                <div class="input_Label pushUp_20">Link</div>
+                                <div class="input_Label pushUp_20">Write Custom Link</div>
                                 <textarea class="socialLink_attached removeDrag removeBorder" placeholder="http://www.brndbot.com" id="linkUrl"></textarea>
                             </span>
                         </div>  
@@ -79,9 +79,9 @@
             </div>
         </div>
         <div class="bottomNav">
-            <div class="bottom-ContinueButton fright" onclick="post()">CONTINUE</div>
+            <div class="bottom-ContinueButton fright" onclick="postTwitter()">CONTINUE</div>
         </div>
-        <%@include file="emaillistselectionpopup.jsp" %> 
+        <%@include file="sociallistselection.jsp" %> 
         <%@include file="imagegallerypopup.jsp" %>
         <%@include file="twitterpostcuccesspopup.jsp" %> 
     </body>

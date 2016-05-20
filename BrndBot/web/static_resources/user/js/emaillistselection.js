@@ -515,7 +515,6 @@
                         method: 'GET',
                         url: getHost() + 'actions/getActions?programid='+ program_id + '&type='+ getemail()
                     }).success(function (data) {
-                        alert(JSON.stringify(data));
                         $scope.email_actions = data;
                     }).error(function (data) {
                         alert("Request not successful!");
@@ -572,7 +571,6 @@
 //                    var x = document.getElementById("chooseEmailList").selectedIndex;
 //                    var List_name = document.getElementsByTagName("option")[x].value;
                     var List_name = $("#chooseEmailList").val();
-                    alert(List_name);
                     if (List_name == 1){
 //                        $("#emailaddresses").hide();
 //                        $("#drop-zone").hide();

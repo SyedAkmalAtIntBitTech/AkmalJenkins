@@ -26,7 +26,7 @@
                 </div>            
             </a>
             <div class="topNav--TitleBar--withBackButton fleft">
-                <span class="topNav--TitleBar--Title fleft h2">Select a category marketing program:</span>
+                <span class="topNav--TitleBar--Title fleft h2">Create a Marketing Program</span>
 <!--                <div class=" fright">
                    <div class="page-cta-container">
                         <a id="cont" class=" fleft" href="" ng-click="saveMarketingProgram(<%=marketingCategoryId%>)">
@@ -40,7 +40,7 @@
         <div class="contentWrapInner" ng-init="displayMarketingProgramByCategoryId()">
             <div class="pane pane--600px" >
                 <div class="pane_header clear">
-                    <div class="pane_title fleft h2">Marketing Programs</div>
+                    <div class="pane_title fleft h2">Select a Category</div>
                 </div>
                 
                 <div class="pane_content">
