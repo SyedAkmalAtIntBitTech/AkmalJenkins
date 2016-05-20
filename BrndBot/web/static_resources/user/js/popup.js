@@ -1669,13 +1669,18 @@ function schedulePostToTwitter(){
             $scope.changeTwitterPostType = function (){
                var postType = $("#twitterLinkPost").css("display");
                 if (postType === "none") {
+                    var enteredData = $("#twitterShareText").val();
                     $("#urlDropDownSpan").show();
                     $("#twitterLinkPost").show();
+                    $("#twitterShareText").attr("maxlength",127);
+                    $("#twitterShareText").val(enteredData.substring(0,127));
                     $("#postType").text("Change To Normal Post");
                 }
                 if (postType === "inline") {
+                    
                     $("#twitterLinkPost").hide();
                     $("#urlDropDownSpan").hide();
+                    $("#twitterShareText").attr("maxlength",140);
                     $("#linkUrl").val("");
                     $("#postType").text("Change To Link Post");
                 }
