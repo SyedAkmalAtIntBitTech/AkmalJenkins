@@ -7,7 +7,7 @@ package com.intbittech.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
 import com.controller.SqlMethods;
-import com.intbit.AppConstants;
+import com.intbittech.AppConstants;
 import com.intbit.FileUploadUtil;
 import com.intbit.util.ServletUtil;
 import com.intbittech.model.UserProfile;
@@ -36,9 +36,9 @@ public class UploadImageController extends BrndBotBaseHttpServlet {
             String link = "";
             String imageURL = ServletUtil.getServerName(request.getServletContext());
             //Admin upload for editor
-            pathSuffix = AppConstants.ADMIN_LAYOUT_BACKGROUNDIMAGES_HOME + File.separator;
+            pathSuffix = AppConstants.BASE_ADMIN_GLOBAL_IMAGE_UPLOAD_PATH;
             fileName = FileUploadUtil.uploadFile(pathSuffix, request);
-            link = "" + imageURL + "downloadImage?imageType=ADMIN_LAYOUT_BACKGROUNDIMAGES&user_id=null&imageName=" + fileName;
+            link = "" + imageURL + "downloadImage?imageType=GLOBAL_IMAGE&companyId=0&imageName=" + fileName;
             JSONObject json = new JSONObject();
             json.put("link", link);
             response.setContentType("application/json");
@@ -62,7 +62,7 @@ public class UploadImageController extends BrndBotBaseHttpServlet {
             String imageURL = ServletUtil.getServerName(request.getServletContext());
             if (companyId != null) {
                SqlMethods sql_methods = new SqlMethods();
-                pathSuffix = AppConstants.USER_IMAGE_HOME + File.separator + companyId;
+                pathSuffix = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + AppConstants.GALLERY_FOLDERNAME;
                 fileName = FileUploadUtil.uploadFile(pathSuffix, request);
                 sql_methods.AddImages(companyId, imageURL);
                 link = "" + imageURL + "downloadImage?imageType=GALLERY&companyId=" + companyId + "&imageName=" + fileName;
