@@ -2306,7 +2306,7 @@ function validateact(){
                     
                     $("#twitterLinkPost").hide();
                     $("#urlDropDownSpan").hide();
-                    $("#twitterShareText").attr("maxlength",140);
+                    $("#twitterShareText").attr("maxlength",116);
                     $("#linkUrl").val("");
                     $("#postType").text("Change To Link Post");
                 }
