@@ -38,17 +38,9 @@ public class PostToTwitter {
             twitterConfigBuilder.setOAuthAccessTokenSecret(getTwitterAccessTokenSecret(companyId));
 
             Twitter twitter = new TwitterFactory(twitterConfigBuilder.build()).getInstance();
-            String statusMessage = text.replace("bit.ly/1XOkJo", "");
+            String statusMessage = text;
             if (shortURL != null) {
-                String StatusMessageWithoutUrl = statusMessage.substring(0, statusMessage.length());
-                if (StatusMessageWithoutUrl.length() + shortURL.length() < 140) {
-                    statusMessage = StatusMessageWithoutUrl + " " + shortURL;
-                } else {
-                    int urlLength = shortURL.length() + 1;
-                    int statusLength = 115 - urlLength;
-                    statusMessage = StatusMessageWithoutUrl.substring(0, statusLength);
-                    statusMessage = statusMessage + " " + shortURL;
-                }
+                 statusMessage = statusMessage + " " + shortURL;
             }
             StatusUpdate status = new StatusUpdate(statusMessage);
             if (!image_type.isEmpty()) {
