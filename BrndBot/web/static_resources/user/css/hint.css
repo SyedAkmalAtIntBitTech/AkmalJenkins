@@ -36,10 +36,11 @@ and open the template in the editor.
  * 	1) hint
  */
 .delete--gallery:after{
-   position: relative !important;
-    left: 66px !important;
+      position: relative !important;
+    left: 135px !important;
     top: -24px !important;
-    width:0px !important;
+    width: 0px !important;
+    margin-left: -92px !important;
 }
 .delete--gallery:before{
   display: none !important;
