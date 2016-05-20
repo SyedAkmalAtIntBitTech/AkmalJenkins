@@ -16,11 +16,12 @@
         <%@include file="navbar.jsp" %>  
         <div class="contentWrap--withSideNav">
             <div class="topNav topNav-withSubnav clear">
-                <div class="topNav--BackButton fleft">
-                    <a class="exit-button-icon" href="dashboard">          
+                 <a class="exit-button-icon" href="dashboard">      
+                <div class="topNav--BackButton fleft">              
                         <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">            
-                    </a>
+                  
                 </div>
+                       </a>
                 <div class="topNav--TitleBar--withBackButton fleft">
                     <span class="topNav--TitleBar--Title fleft h2">Create a Twitter Post</span>
                     <div class="topNav--TitleBar--CTABox fright">

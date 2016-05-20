@@ -380,7 +380,7 @@ font-size: 14px;
     border-radius: 3px;
     font-size: 13px;
     /*color: #D2D3D5;*/
-    color:#808080;
+    color:#000;
 }
 
 .input_Instructions{
@@ -412,7 +412,7 @@ font-size: 14px;
     border-radius: 3px;
     font-size: 13px;
     height: 60px;
-    color: #D2D3D5;
+    color: #000;
 }
 
 

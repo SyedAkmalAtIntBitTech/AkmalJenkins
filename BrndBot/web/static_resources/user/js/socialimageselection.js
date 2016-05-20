@@ -1133,6 +1133,8 @@ function controllerMarketingCampaign($scope, $http) {
         });
     };
     $scope.uploadFile = function () {
+        alert();
+        $("#upload").unbind();
         if ($("#myFile").val() === "") {
             alert(chooseimage);
             return false;
