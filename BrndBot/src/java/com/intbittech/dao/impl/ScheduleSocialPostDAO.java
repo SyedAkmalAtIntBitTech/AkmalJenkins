@@ -104,7 +104,7 @@ public class ScheduleSocialPostDAO {
             Connection conn) throws SQLException {
         String sql = "INSERT INTO scheduled_socialpost_list "
                 + " (fk_company_id, image_name, meta_data, type, image_type) VALUES"
-                + " (?, ?, ?, ?, ?) RETURNING fk_company_id";
+                + " (?, ?, ?, ?, ?) RETURNING scheduled_socialpost_list_id";
         Map<String, Integer> methodResponse = new HashMap<>();
         int scheduleSocialPostId = -1;
         try {
