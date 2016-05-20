@@ -1084,7 +1084,7 @@ function programactions($scope, $http, $window){
                                           schedule_title, schedule_desc, 
                                           post_time, action_status,
                                           days,program_name,
-                                          program_id) {           
+                                          program_id) {   
         if (entity_type === getemail()) {
             $slider=2;
             sliderDialog = "#emailsection";            
@@ -1350,7 +1350,7 @@ function programactions($scope, $http, $window){
             var days=$("#emaildays").val();
             var actionDateTime=$("#timepickeremail").val().replace(/ /g,'');
             //var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
-            var l="Sun Nov 01 1970 "+actionDateTime.toLocaleString();
+            var l="Mon Jan 01 1970 "+actionDateTime.toLocaleString();
             var myDate = new Date(l); // Your timezone!
             var schedule_time = Date.parse(l);
             console.log("Epoch: " + schedule_time);

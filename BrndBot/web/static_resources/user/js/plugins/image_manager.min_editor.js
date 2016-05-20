@@ -11,7 +11,7 @@
 }(function (a) {
     var companyId= $("#userid").val();
     "use strict";
-    if (a.extend(a.FroalaEditor.DEFAULTS, {imageManagerLoadURL: global_host_address+"getImageList?image_type=GALLERY&companyId="+companyId, imageManagerLoadMethod: "get", imageManagerLoadParams: {}, imageManagerPreloader: "", imageManagerDeleteURL: "", imageManagerDeleteMethod: "post", imageManagerDeleteParams: {}, imageManagerPageSize: 12, imageManagerScrollOffset: 20, imageManagerToggleTags: !0}), a.FroalaEditor.PLUGINS.imageManager = function (b) {
+    if (a.extend(a.FroalaEditor.DEFAULTS, {imageManagerLoadURL: global_host_address+"getImageList?imageType=GALLERY&companyId="+companyId, imageManagerLoadMethod: "get", imageManagerLoadParams: {}, imageManagerPreloader: "", imageManagerDeleteURL: "", imageManagerDeleteMethod: "post", imageManagerDeleteParams: {}, imageManagerPageSize: 12, imageManagerScrollOffset: 20, imageManagerToggleTags: !0}), a.FroalaEditor.PLUGINS.imageManager = function (b) {
         function c() {
             z.show(), F.show(), U = b.image.get(), A || x(), i(), b.$document.find("body").addClass("prevent-scroll"), b.helpers.isMobile() && b.$document.find("body").addClass("fr-mobile")
         }

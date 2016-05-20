@@ -6,6 +6,8 @@
 package com.intbittech.controller;
 
 import com.controller.GetColorFromImage;
+import com.controller.MindbodyEmailListProcessor;
+import com.controller.SqlMethods;
 import com.intbittech.AppConstants;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
@@ -25,6 +27,7 @@ import com.intbittech.utility.FileHandlerUtil;
 import com.intbittech.utility.UserSessionUtil;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,14 +55,12 @@ public class OnboardingController {
 
     @Autowired
     private CompanyService companyService;
-    
+
     @Autowired
     private CompanyPreferencesService companyPreferencesService;
 
     @Autowired
     private MessageSource messageSource;
-    
-    
 
     @RequestMapping(value = "/onboarding/isUserUnique", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getUserUnique(@RequestBody UserDetails usersDetails) {
@@ -90,7 +91,7 @@ public class OnboardingController {
         }
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(value = "/onboarding/saveStudioId", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> saveStudioId(@RequestParam("studioId") String studioId) {
         TransactionResponse transactionResponse = new TransactionResponse();
@@ -107,6 +108,40 @@ public class OnboardingController {
             companyPreferencesService.setStudioId(companyPreferences);
             transactionResponse.setMessage("true");
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_source_save", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "/onboarding/completedActivation", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> completedActivation() {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyID = userProfile.getUser().getFkCompanyId().getCompanyId();
+
+            Runnable myRunnable = new Runnable() {
+                public void run() {
+                    try {
+                        HashMap<Integer, Integer> rowMap = new HashMap<>();
+                        SqlMethods sqlMethods = new SqlMethods();
+                        Integer studioId = sqlMethods.getStudioID(companyID);
+                        rowMap.put(companyID, studioId);
+                        MindbodyEmailListProcessor mindbodyEmailListProcessor = new MindbodyEmailListProcessor();
+                        mindbodyEmailListProcessor.processEachRow(rowMap);
+                    } catch (Throwable throwable) {
+                        logger.error(throwable);
+                        transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+                    }
+                }
+            };
+            Thread thread = new Thread(myRunnable);
+            thread.start();
+
+            transactionResponse.setMessage("true");
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("success", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
@@ -164,7 +199,7 @@ public class OnboardingController {
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
             String filePath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + "logo";
-            storableFileName = FileHandlerUtil.saveCompanyLogo(filePath, AppConstants.COMPANY_LOGO_FILENAME,companyLogoDetails.getImageData());
+            storableFileName = FileHandlerUtil.saveCompanyLogo(filePath, AppConstants.COMPANY_LOGO_FILENAME, companyLogoDetails.getImageData());
             transactionResponse.setMessage(storableFileName);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyLogo_save", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {

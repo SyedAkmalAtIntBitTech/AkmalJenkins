@@ -246,6 +246,7 @@ function controllerUserChanges($scope, $http) {
             });
         }
     };
+    
     $scope.showColors = function () {
         showOverlay();
         $http({
@@ -317,4 +318,19 @@ function controllerUserChanges($scope, $http) {
             });
         }
     };
+//   --------To change the footer details-----------//
+    
+//   $scope.changeFooterDetails = function (){
+//        alert();
+//       var colorObject = '{"facebookUrl":"http://google.com","twitterUrl":"http://google.com","instagramUrl":"http://google.com","websiteUrl":"http://google.com","address":"bangalore"}';
+//       $http({
+//                method: 'POST',
+//                url: getHost() + 'settings/setFooter',
+//                data: colorObject
+//            }).success(function (data) {
+//                    alert(detailssaved);
+//            }).error(function (data, status) {
+//                alert(requesterror);
+//            });
+//   } ;
 };

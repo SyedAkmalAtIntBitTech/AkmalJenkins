@@ -12,11 +12,13 @@ import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.modelmappers.CompanyColorsDetails;
+import com.intbittech.modelmappers.FooterDetails;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.utility.StringUtility;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.Query;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -147,6 +149,34 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
         Company company = new Company();
         company.setCompanyId(companyId);
         return getByCompany(company);
+    }
+    
+    @Override
+    public void setFooterDetails(FooterDetails footerDetails, Company company) {
+                try {
+            CompanyPreferences companyPreferences = companyPreferencesDao.getByCompany(company);
+            if (companyPreferences == null) {
+                companyPreferences = new CompanyPreferences();
+                companyPreferences.setFkCompanyId(company);
+            }
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject = new JSONObject();
+            if (!StringUtility.isEmpty(companyPreferences.getCompanyPreferences())) {
+                jsonObject = (JSONObject) parser.parse(companyPreferences.getCompanyPreferences());
+            }
+            jsonObject.put(IConstants.kFooters, footerDetails);
+            String colorJsonString = AppConstants.GSON.toJson(jsonObject);
+            companyPreferences.setCompanyPreferences(colorJsonString);
+            updatePreferences(companyPreferences);
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
+    }
+
+    @Override
+    public List<CompanyPreferences> getAllForLocationId(String locationId) {
+         return companyPreferencesDao.getByLocationId(locationId);
     }
 
 }

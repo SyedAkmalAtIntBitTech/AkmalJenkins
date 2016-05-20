@@ -1,4 +1,6 @@
 
+<%@page import="com.intbittech.utility.UserSessionUtil"%>
+<%@page import="com.intbittech.model.UserProfile"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -20,11 +22,13 @@
     <script src="../js/configurations.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/dashboard.js"></script>
+    <script src="js/alertmessage.js"></script>  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <link href="css/froala_editor.css" rel="stylesheet" type="text/css"/>
     <link href="css/popup.css" rel="stylesheet" type="text/css"/>
     <link href="css/froala_style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="css/emailfooterpopup.css"/>
     <link rel="stylesheet" href="css/plugins/code_view.css"/>
     <link rel="stylesheet" href="css/plugins/colors.css"/>
     <link rel="stylesheet" href="css/plugins/emoticons.css"/>
@@ -42,21 +46,7 @@
     <script src="js/froala_editor.min_editor.js" type="text/javascript"></script>
 <!--<script src="js/plugins/code_view.min.js" type="text/javascript"></script>-->
     <!--<script type="text/javascript" src="js/emaileditor_new.js"></script>-->
-    <script type="text/javascript" src="js/plugins/align.min.js"></script>
-    <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
-    <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
-    <script type="text/javascript" src="js/plugins/font_family.min_editor.js"></script>
-    <script type="text/javascript" src="js/plugins/image.min.js"></script>
-    <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
-    <script type="text/javascript" src="js/plugins/file.min.js"></script>
-    <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
-    <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
-    <script type="text/javascript" src="js/plugins/url.min.js"></script>
-    <script type="text/javascript" src="js/plugins/entities.min.js"></script>
-    <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
-    <script type="text/javascript" src="js/plugins/save.min.js"></script>
-    <script type="text/javascript" src="js/plugins/quote.min.js"></script>
-    <script type="text/javascript" src="js/plugins/link.min.js"></script>
+   
     <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
     <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
     <%@include file="loadingoverlay.jsp" %>  
@@ -67,7 +57,7 @@
         String logoImageName = null;
         String draft_id = "0";
         String email_subject = "";
-        String user_id="";
+        Integer companyId;
     %>
     <% 
          String categoryId= request.getParameter("categoryId");
@@ -78,7 +68,9 @@
          String draft_id=request.getParameter("draftId");
 //        email_subject = request.getParameter("subject"); %>
     <%
-//        try {
+        try {
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
 //            sql_methods.session = request.getSession(true);          
 //            sql_methods.session.setAttribute("email_subject", email_subject);
 //            draft_id = "0";
@@ -93,10 +85,10 @@
 //                draft_id = (String) request.getParameter("draftid");
 //                out.println();
 //            }
-//        } catch (Exception e) {
+        } catch (Exception e) {
 //            System.out.println(e.getCause());
 //            System.out.println(e.getMessage());
-//        }
+        }
 
     %>
      <script>
@@ -121,14 +113,15 @@
         var externalKeywordId="";
         var externalDataId="";
         
-        
         function showOverlay(){
             $("#loadoverlaydiv").show();
         }
         function hideOverlay(){
             $("#loadoverlaydiv").hide();
         }
-        
+        function editFooter(){
+            $("#emailFooterPopup").show();
+        }
         $(document).ready(function(){
             showOverlay();
             $("#closePrev").click(function(){
@@ -215,10 +208,8 @@
                 }
             });
             });
-                    angular.module("myapp", [])
-
+         angular.module("myapp", [])
             .controller("MyController", function($scope, $http) {                        
-
                     $scope.getEmailDrafts = function(){
                     if (draft_id !== "" && draft_id !==null && draft_id !=="null"){
                     $http({
@@ -461,7 +452,42 @@
                         $("#filtercontainer").hide();
                         $("#fade").hide();
                         $("#slider-button").click();
-                    }
+                    };
+                    $scope.getFooterDetails = function (){
+                      $http({
+                             method : 'GET',
+                             url : getHost() + '/settings/getAllPreferences'
+                         }).success(function(data, status) {
+                             $scope.footerDetails = JSON.parse(data.d.details).userProfile;
+                         });
+                    };
+                   $scope.changeFooterDetails = function (){
+                   var address = $("#footerAddress").val();
+                   var websiteurl = $("#footerWebsiteUrl").val();;
+                   var facebookurl = $("#footerFacebookUrl").val();;
+                   var twitterUrl = $("#footerTwitterUrl").val();;
+                   var instagramUrl = $("#footerInstagramUrl").val();
+                   var footerData = '{"facebookUrl":"'+facebookurl+'","twitterUrl":"'+twitterUrl+'","instagramUrl":"'+instagramUrl+'","websiteUrl":"'+websiteurl+'","address":"'+address+'"}';
+                   if(address){
+                       $http({
+                             method: 'POST',
+                             url: getHost() + 'settings/setFooter',
+                             data: footerData
+                         }).success(function (data) {
+                                 alert(detailssaved);
+                                 $("#emailFooterPopup").hide();
+
+                         }).error(function (data, status) {
+                             alert(requesterror);
+                         });
+                   }
+                     else{
+                         alert("please enter the Address");
+                         $("#footerAddress").focus();
+                     }
+
+                } ;
+
             });
                     angular.module('myapp').filter('pagination', function()
             {
@@ -614,8 +640,10 @@
             }
             $("#selcatdet").click(function (){
             $("#blocktab").click();
-                    $("#tabs-4").hide();
-            });    </script>
+            $("#tabs-4").hide();
+            });    
+              
+     </script>
 
 </head>    
 <div id="fade" class="black_overlay"></div>
@@ -627,7 +655,7 @@
         <div id="mask"></div>
     </div> 
     <input type="hidden" id='subCategoryIdTag' value="<%=subCategoryId%>"/>
-    <input type="hidden" id='userid' value="<%= user_id%>"/>
+    <input type="hidden" id='userid' value="<%= companyId%>"/>
     <input type="hidden" id='draftid' value="<%= draft_id%>"/>
     <input type="hidden" id='mindbodydata' value="<%= mindbodyId%>"/>
     <input type="hidden" id='categoryIdTag' value="<%= categoryId%>"/>
@@ -641,6 +669,7 @@
     <div class="top-nav-full">
         <div class="page-title-bar col-1of1"> 
             <a class=" exit-button-icon" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=categoryId%>&mindbodyId=<%=mindbodyId%>&LookupId=<%=LookupId%>&emailSubject=<%=emailSubject%>">    
+                <a href="facebookmanagepages.jsp"></a>
                 <div class="exit-button-detail">
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                 </div>
@@ -661,29 +690,83 @@
         <div class="emailEditor-page-background fleft">
             <div class="emailEditor-leftCol ">
                  <script>
+                     function UserFooter(fb,twitter,website,instagram,address){
+                        var returnFooter ="";
+                        var footer = "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" height=\"100%\" width=\"100%\" bgcolor=\"#EEEEEE\" style=\"border-collapse:collapse;\"><tr><td valign=\"top\"> <center style=\"width: 100%;\"> <div style=\"max-width: 680px;\"> <!--[if (gte mso 9)|(IE)]> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"680\" align=\"center\"> <tr> <td> <![endif]--> <!-- Atom Body: BEGIN --> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" bgcolor=\"#EEEEEE\" width=\"100%\" style=\"max-width: 680px;\"> <tr> <td style=\"padding-top:15px;\" class=\"mobile-padding\"> <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\" width=\"100%\" style=\"max-width: 300px; background-color:#inherit\" class=\"mobile-padding\"> <tr>";
+
+                        var footerFB = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerFB$$$\"><img src=\""+getHost()+"images/Facebook_Filled.png"+"\" alt=\"Facebook Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Facebook </td> </tr> </table> </td>";
+
+                        var footerTwitter = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerTwitter$$$\"><img src=\""+getHost()+"images/Twitter_Filled.png"+"\" alt=\"Twitter Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Twitter </td> </tr> </table> </td>";
+
+                        var footerWebsite = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerWebsite$$$\"><img src=\""+getHost()+"images/Website_Filled.png"+"\" alt=\"Website Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Website </td> </tr> </table> </td>";
+
+                        var footerInstagram = "<td width=\"20%\" style=\"padding:10px; text-align:center;\"> <table > <tr> <td style=\"text-align:center;\"> <a href=\"$$$footerInstagram$$$\"><img src=\""+getHost()+"images/Insta_Filled.png"+"\" alt=\"Instagram Icon\" style=\"border: 0;width: 50px;\" class=\"\"></a> </td> </tr> <tr> <td style=\"padding: 8px 5px 0px 5px; text-align: center; font-family: arial; font-size: 11px; mso-height-rule: exactly; line-height: 100%; color: #GGG; font-weight: normal\"> Instagram </td> </tr> </table> </td>";
+
+                        var footerMiddle = "</tr> </table> </td> </tr>";
+
+                        var footerAddress = "<!--HEADER: BEGIN--> <tr> <td style=\"font-family: sans-serif; font-size: 12px; mso-height-rule: exactly; line-height: 120%; text-align:center; color: #555555; padding: 20px 55px 20px 55px;\" class=\"fluid mobile-padding\"> $$$footerAddress$$$ </td> </tr> <!--HEADER: END-->";
+
+                        var footerClose = "</table> <!--[if (gte mso 9)|(IE)]> </td> </tr> </table> <![endif]--> </div> </center> </td></tr></table>";
+
+
+                        returnFooter = footer;
+                        if(fb != "")
+                            returnFooter+=footerFB.replace("$$$footerFB$$$",fb);
+                        if(twitter != "" && typeof twitter != "undefined")
+                            returnFooter+=footerTwitter.replace("$$$footerTwitter$$$",twitter);
+
+                        if(website != "" && typeof website != "undefined")
+                            returnFooter+=footerWebsite.replace("$$$footerWebsite$$$",website);
+
+                        if(instagram != "" && typeof instagram != "undefined")
+                            returnFooter+=footerInstagram.replace("$$$footerInstagram$$$",instagram);
+
+                        returnFooter+=footerMiddle;
+
+                        if(address != "" && typeof address != "undefined")
+                            returnFooter+=footerAddress.replace("$$$footerAddress$$$",address);
+
+                        returnFooter+=footerClose;
+
+                        return returnFooter;
+                    }
+ 
                     $("#emailpreview").click(function(){              
-                        $("#email_previewdiv").show();
-                        var sendData = {
-                                    htmlString: $('#edit').froalaEditor('html.get'),
-                                    iframeName: rendomIframeFilename.toString()
-                                };
-                                
                         $.ajax({
-                                method: "POST",
-                                url: getHost() + "email/previewServlet",                                
-                                data: JSON.stringify(sendData),
-                                success: function (responseText) {
-//                                    alert(JSON.stringify(responseText.d.details));
-                                    $("#dynamictable5").empty();
-                                    $("#dynamictable6").empty();
-                                    var iframePath = getHost() +"download/HTML?fileName="+rendomIframeFilename+".html";
-                                    $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
-                                    $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
-                                }
-                        }).error(function (error){alert(JSON.stringify(error));});
-                        $("#fade").show();
+                            method : 'GET',
+                            url : getHost() + 'settings/getAllPreferences'
+                        }).success(function(data, status) {
+                            var footerData = JSON.parse(data.d.details);
+                            if(!footerData.userProfile.address){
+                                $("#emailFooterPopup").show();
+                            }else{
+                                $("#email_previewdiv").show();
+                                var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
+                                        footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
+                                        footerData.userProfile.address);
+
+                            var sendData = {
+                                        htmlString: $('#edit').froalaEditor('html.get')+footer,
+                                        iframeName: rendomIframeFilename.toString()
+                                    };
+
+                            $.ajax({
+                                    method: "POST",
+                                    url: getHost() + "email/previewServlet",                                
+                                    data: JSON.stringify(sendData),
+                                    success: function (responseText) {
+    //                                    alert(JSON.stringify(responseText.d.details));
+                                        $("#dynamictable5").empty();
+                                        $("#dynamictable6").empty();
+                                        var iframePath = getHost() +"download/HTML?fileName="+rendomIframeFilename+".html";
+                                        $("#dynamictable5").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
+                                        $("#dynamictable6").append("<iframe style='width:100%;height:100%;position:relative;background-color:#FFF;border:none;' src='" + iframePath + "'></iframe>");
+                                    }
+                            }).error(function (error){alert(JSON.stringify(error));});
+                            $("#fade").show();
+                           }
                     });
-                    
+                    });
                     $("#addblkbtn").click(function (){
                     $("#tabs-4").css("display", "none");
                             $("#clsbtn").css("display", "none");
@@ -756,11 +839,19 @@
                                     $(this).hide();
                                     $('.window').hide();
                             });
+                            $.ajax({
+                            method : 'GET',
+                            url : getHost() + 'settings/getAllPreferences'
+                        }).success(function(data, status) {
+                            var footerData = JSON.parse(data.d.details);
+                            var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
+                                    footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
+                                    footerData.userProfile.address);
                                     $.ajax({
                                     url: getHost() + "PreviewServlet",
                                             method: "post",
                                             data: {
-                                            htmlString: $('#edit').froalaEditor('html.get'), //$(".fr-element").html(),
+                                            htmlString: $('#edit').froalaEditor('html.get')+footer, //$(".fr-element").html(),
                                                     iframeName: rendomIframeFilename
                                             },
                                             success: function (responseText) {
@@ -777,6 +868,7 @@
                                             }
                                             }
                                     });
+                                    });
                             }
                     
                             function hlt(){
@@ -792,12 +884,20 @@
         var lookupId = $("#LookupId").val();
         var mindbodyData = $("#mindbodydata").val();  
         var categoryId = $("#categoryIdTag").val();
-        var subCategoryId = $("#subCategoryIdTag").val(); 
+        var subCategoryId = $("#subCategoryIdTag").val();
+        $.ajax({
+            method : 'GET',
+            url : getHost() + 'settings/getAllPreferences'
+        }).success(function(data, status) {
+            var footerData = JSON.parse(data.d.details);
+            var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
+                    footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
+                    footerData.userProfile.address);
         $.ajax({
             url: getHost() + "/email/previewServlet",
             method: "post",
             data:JSON.stringify({
-                htmlString: $('#edit').froalaEditor('html.get'),
+                htmlString: $('#edit').froalaEditor('html.get')+footer,
                 iframeName: rendomIframeFilename.toString()
             }),
             success: function (responseText) {
@@ -854,6 +954,7 @@
             }
             }
         });
+        });
     });
                                                     
     $("#saveButton").click(function (){
@@ -863,11 +964,19 @@
         var mindbodyData = $("#mindbodydata").val();  
         var categoryId = $("#categoryIdTag").val();
         var subCategoryId = $("#subCategoryIdTag").val(); 
-
+        $.ajax({
+            method : 'GET',
+            url : getHost() + 'settings/getAllPreferences'
+        }).success(function(data, status) {
+            var footerData = JSON.parse(data.d.details);
+            var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
+                    footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
+                    footerData.userProfile.address);
             var sendData=JSON.stringify({
-            htmlString: $('#edit').froalaEditor('html.get'),
+            htmlString: $('#edit').froalaEditor('html.get')+footer,
             iframeName: rendomIframeFilename.toString()
             });
+            
         $.ajax({
             url: getHost() + "/email/previewServlet",
             method: "POST",
@@ -925,6 +1034,7 @@
                 }
             }
         });
+        });
     });
                     
     $("#styletab").click(function (){
@@ -947,12 +1057,20 @@
         $("#blocktab").removeClass("emailSideBar-tab");
         $("#blocktab").addClass("emailSideBar-tab-active");
     });
-                });
+  });        
         </script>   
                 <div id="editor">
                     <div id='edit' class="editorclass" style="margin-top: 5px;">
                     </div>
                 </div>
+ <!--////////////........ uncomment for footer....................///////-->
+<!--                 <div class="in-editor-footer-wrap">
+                            <h3>Email Footer</h3>
+                            <p>Your email footer is the same on every email. You 
+                        see the footer in this email by previewing your email. To edit
+                        the footer click email footer settings.</p>
+                            <span class="reg-button gray-button" onclick="editFooter()">Edit Email Footer</span>
+                </div>-->
             </div>
             <div class="emailEditor-rightCol fright rightcoloumn">
                 <div class="emailSideBar-Header">
@@ -992,6 +1110,9 @@
                 </div>
             </div>
         </div>
+        <span ng-init="getFooterDetails()">
+        <%@include file="emailfooterpopup.jsp" %>
+        </span>
     </div>  
     
     <div id="fade" class="black_overlay" ></div>
@@ -1012,7 +1133,7 @@
                             <div class="emailPreview-headers">Desktop Preview</div>
                             <!--<div class="iphoneshow img-responsive" id="deskpreview" style="display: block; height: 300px; width: 295px; margin-left: 215px; margin-top: 50px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">-->
                                 <div class="content">  
-                                    <div id="dynamictable5" style="position: relative; width: 100%; border: none; overflow: scroll; height: 400px;background-color: rgb(255, 255, 255);" src="">
+                                    <div id="dynamictable5" style="position: relative; width: 100%; border: none; overflow: scroll; height: 420px;background-color: rgb(255, 255, 255);" src="">
                                     
                                     </div>                   
                                 </div>
@@ -1036,7 +1157,7 @@
                 </div>
             </div>
         </div>
-    </div>           
+    </div>  
     <!--CTA Bar-->
     <div class="bottom-cta-bar" id="bottomdiv">
         <div class="bottom-cta-button-container-lg">
@@ -1052,5 +1173,20 @@
             </div>
         </a>
     </div>
+    <script type="text/javascript" src="js/plugins/align.min.js"></script>
+    <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
+    <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
+    <script type="text/javascript" src="js/plugins/font_family.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/image.min.js"></script>
+    <script type="text/javascript" src="js/plugins/image.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/file.min.js"></script>
+    <script type="text/javascript" src="js/plugins/image_manager.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/table.min_editor.js"></script>
+    <script type="text/javascript" src="js/plugins/url.min.js"></script>
+    <script type="text/javascript" src="js/plugins/entities.min.js"></script>
+    <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
+    <script type="text/javascript" src="js/plugins/save.min.js"></script>
+    <script type="text/javascript" src="js/plugins/quote.min.js"></script>
+    <script type="text/javascript" src="js/plugins/link.min.js"></script>
     </body>
 </html>

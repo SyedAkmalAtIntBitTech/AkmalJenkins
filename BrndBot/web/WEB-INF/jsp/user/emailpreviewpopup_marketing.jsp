@@ -167,22 +167,33 @@
                                 </div></a>
                         </div>
                 </div>
-                <div class="below-nav-container-saved-post-detail" id="savedemailsdiv" ng-show="entitiesdetails.body != undefined">
-                    <div class="inner-content-container-detail fleft">
+                <div class="BBoverlay-content" id="savedemailsdiv" ng-show="entitiesdetails.body != undefined">
+                    <div class="BBsaved-action-header-bar">
+                        <div class="BBsaved-action-header-details-wrap">
+                            <h2 class="BBsection-header">SAVED EMAIL PREVIEW</h2>
+                            
+                        </div>
+                        <a class="BBreg-button BBedit-saved-email-button" ng-click="deleteSchedule(schedule_id,'remove',master_email)">Remove Saved Email</a>
+                        
+                    </div>
+                    <div class="BBsaved-email-container">
+                        <iframe id="emailcontentiframe" class="emailcontentiframetag"></iframe>
+                    </div>
+<!--                    <div class="inner-content-container-detail fleft">
                         <div class="saved-post-header-detail1">
                             
-<!--                            <div class="h4"></div>
+                            <div class="h4"></div>
                             <div class="instruction-text">Subject Line: {{entitiesdetails.subject}}</div>
                             <div class="instruction-text">To: {{entitiesdetails.email_list_name}}</div>
-                            <div class="instruction-text">From Name: {{entitiesdetails.from_name}}</div>-->
+                            <div class="instruction-text">From Name: {{entitiesdetails.from_name}}</div>
                             <div class="instruction-text1"></div>
                         </div>
                         <div class="inner-content-detail">
                             <div class="saved-email-preview-detail emailcontent">
                                 <iframe id="emailcontentiframe" class="emailcontentiframetag"></iframe>
                             </div>
-                            </div>
-                    </div>
+                        </div>
+                    </div>-->
                 </div>
 <!--                        </div>
                     </div>-->
@@ -230,16 +241,16 @@
                 <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionEmailNote(schedule_id)">Save Notes</div>
             </div>
         </div>
-        <div class="bottom-cta-bar" id="emailpostremove" ng-hide="entitiesdetails.body !== undefined">
+<!--        <div class="bottom-cta-bar" id="emailpostremove" ng-hide="entitiesdetails.body !== undefined">
              <div class="bottom-cta-button-container-email-mark">
  
                      <div class="remove-button-detail md-button button-text-1 fleft" ng-click="deleteSchedule(schedule_id,'remove',master_email)">Remove Saved Email</div>
-<!--            <div class="bottom-cta-button-containernew">
+            <div class="bottom-cta-button-containernew">
  
                 <div class="edit-button-detail md-button button-text-1 fleft" style="left:550px;position:relative;">Edit Email</div>
-            </div>-->
+            </div>
         </div>
-        </div>
+        </div>-->
     </div>
 </div>
 </body>

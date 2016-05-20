@@ -20,7 +20,7 @@
                 </div>
                 <div class=" gallery-padding clear gallery-pane">
                     <span id="gallerySpan" ng-init="getUserImaages()"> 
-                        <div class="gallery-item-wrap-selected fleft" ng-repeat="images in datalists">
+                        <div class="gallery-item-wrap-selected fleft {{images.companyImagesId}}" ng-repeat="images in datalists"  ng-click="selectImage(images.companyImagesId)">
                             <div class="gallery-image-wrap">
                                 <img id="{{images.companyImagesId}}"  src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId=${companyId}" ng-click="selectImageToPost(images.imageName, 'gallery',${companyId})" alt="alt_text" border="0" align="center" class="gallery-image" />
                             </div>
@@ -32,7 +32,7 @@
                         <div class="logoUpload-wrap">
                             <img type="image/svg+xml" src="images/uploadPhoto.svg" class="logoUpload-svg" style="cursor:pointer;">
                         </div>
-                        <div class="Add_Button Button--Gray logoUpload--button">Upload Image
+                        <div class="Add_Button Button--Gray logoUpload--button">Select Image
                             <input type="file"  id="uploadLogoID" class="Add_Button Button--Gray logoUpload--button upload fileupld"  file-model="logo">
                         </div>
                     </span>
