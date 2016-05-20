@@ -4,7 +4,7 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 
-
+       /*comment Andy Test*/
 function allCompaniesController($scope,$http){
     
   $scope.allCompanyDetails = function (){
