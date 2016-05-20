@@ -77,7 +77,7 @@ public class PostToFacebook {
 
                     } else if (imageType.equals("gallery")) {
                         PostUpdate post = new PostUpdate(posttext)
-                                .picture(new URL(imageContextPath + "DownloadImage?image_type=GALLERY&image_name=" + getImageFile + "&user_id=" + companyID))
+                                .picture(new URL(imageContextPath + "downloadImage?imageType=GALLERY&imageName=" + getImageFile + "&companyId=" + companyID))
                                 .name(title)
                                 .link(new URL(url))
                                 .description(description);

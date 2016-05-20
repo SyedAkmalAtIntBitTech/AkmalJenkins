@@ -10,10 +10,11 @@
     <div class="modal-pane modal-pane-width-reg popUp_CenterVert">
         <div class="modal-pane-header-wrap">
             <h2 class="">Email Footer Settings</h2>
-            <a class="modal-pane-header-exit"></a>
-            <div class="popUp_close fright" onclick="hideEmailFooterPopup()">
-                <img type="image/svg+xml" src="../images/Pop-Up-Exit-Button.svg" class="fleft popUp_close-icon cursor-shape">
-            </div>
+            <a class="modal-pane-header-exit">
+                <div class="popUp_close " onclick="hideEmailFooterPopup()">
+                    <img type="image/svg+xml" src="../images/Pop-Up-Exit-Button.svg" class="fleft popUp_close-icon cursor-shape">
+                </div>
+            </a>
         </div>
         <div class="modal-pane-content-wrap" style="overflow-y: scroll;">
             <p class="modal-content-header">Change the settings of the email footer. A company address must be entered. All fields that are left blank will not show up as links in the footer.</p>

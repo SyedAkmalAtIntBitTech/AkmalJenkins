@@ -54,7 +54,6 @@ public class SchedulerUtilityMethods {
                     entityId.add(Integer.toString(e));
                 }
             }
-
             return entityId;
 
         } catch (Exception e) {

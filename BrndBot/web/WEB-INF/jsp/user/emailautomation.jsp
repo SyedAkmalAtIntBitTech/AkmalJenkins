@@ -43,6 +43,8 @@
         }
         .fr-wrapper{    margin-top: 2% !important;}
         .arrow_top,#emlautomeditorcontainer,#emailautomationcontent,#emailautomation,#textdiv,#myModal,#editpreviewtemplatebottom{display:none;}
+        .in-editor-footer-wrap{margin-left: 10%;margin-top: calc(41vw - 100px)!important;max-width: calc(55vw - 110px)!important;}
+        
     </style>
     <%! 
         String entity_id = "";
@@ -1125,6 +1127,8 @@
                    <div class="col-emaileditor">
                        <div class="col-emaileditordiv">
                             <style>
+                                .bottom-cta-button-container{padding-top: 1% !important;}
+                                .popUp_close {padding: 0px 0;}
                                 #edit{
                                     position: fixed;
                                     top:10px;
@@ -1134,7 +1138,8 @@
                                     color: #2D4444;
                                     width:calc(100vw - 50%);
                                     /*width:57% !important;*/
-                                    height: 600px;
+                                    /*height: 600px;*/
+                                    height:60%;
                                     overflow-y: auto;
                                 }
                                 ::-webkit-scrollbar { 
@@ -1166,13 +1171,13 @@
                             <div id='edit' class="editorheight" style="margin-top:0px;"></div>
                         </div>
 <!--////////////////////.......... uncomment for footer to do click is not working because area is overlapping to each other......////-->                           
-<!--                        <div class="in-editor-footer-wrap">
+                        <div class="in-editor-footer-wrap">
                             <h3>Email Footer</h3>
                             <p>Your email footer is the same on every email. You 
                         see the footer in this email by previewing your email. To edit
                         the footer click email footer settings.</p>
                             <span class="reg-button gray-button" onclick="editFooter()">Edit Email Footer</span>
-                        </div>-->
+                        </div>
 <!--                            <div class="btmdiv">
                                <div class="col-1of1">
                                        <div class="editemail fontpnr">Edit this Email Automation Action</div>

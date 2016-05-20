@@ -1258,6 +1258,7 @@ function scheduleTwitter() {
                     schedule_title: schedule_title,
                     program_id: program_id,
                     schedule_desc: schedule_desc,
+                    schedule_id: schedule_id_twitter,
                     image_type: image_type,
                     token_data: {
                         "access_token": '"' + accessToken + '"',
@@ -1269,7 +1270,7 @@ function scheduleTwitter() {
                     }      
                 }];
                 $.ajax({
-                    url: getHost() + "actions/scheduleSocialPost",
+                    url: getHost() + "actions/scheduleSocialPostActions",
                     method: 'post',
                     data: JSON.stringify(sendData),
                     success: function (responseText) {

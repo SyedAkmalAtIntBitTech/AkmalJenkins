@@ -25,9 +25,9 @@ button:focus {
     outline: none;
 }
 
-*{
+/**{
     box-sizing: border-box;
-}
+}*/
 
 h2{
     margin: 0;
@@ -718,7 +718,7 @@ p.modal-content-header{
 }
 
 .modal-pane-header-exit:before{
-    content: url(/icons/gray-close.svg);
+    /*content: url(/icons/gray-close.svg);*/
 }
 
 .modal-pane-content-wrap .send-or-schedule-wrap{
@@ -1091,13 +1091,13 @@ p.modal-content-header{
 
 .in-editor-footer-wrap{
     background-color: #f9f9f9;
-    border: 1px solid #D5D9DD ;
+    border: 1px solid #D5D9DD;
     border-radius: 3px;
-    margin: auto;
-    margin-top: 30px;
-    padding: 30px;
+    margin-top: calc(38vw - 100px);
+    padding: 20px;
     text-align: center;
-    max-width: 600px;
+    max-width: calc(75vw - 110px);
+    z-index: 10;
 }
 
 .in-editor-footer-wrap h3{
