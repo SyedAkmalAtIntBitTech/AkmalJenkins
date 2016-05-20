@@ -43,7 +43,7 @@
 
 .bb-logo-wrap{
     width: 57%;
-    height: 70px;
+    height: 60px;
     
     padding: 10px 15px;
     
@@ -264,6 +264,6 @@
 }
 
 .brndbot_logo {
-    width: 35px !important;
+    width: 100% !important;
 }
 /***********************Arfa Tasmiya Start code******************************/
