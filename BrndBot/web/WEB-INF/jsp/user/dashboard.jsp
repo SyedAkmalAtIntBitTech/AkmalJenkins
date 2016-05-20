@@ -36,7 +36,7 @@
                                  
                                 </div>
                             <div class="dashboard-mainCTA-subtext">Create an email to send now or schedule for later</div>
-                            <div class=" dashboard-mainCTA-button "><a href="socialsequence"><div class="Button--Blue Dash_Button">Create a Social Post</div></a></div>
+                            <div class=" dashboard-mainCTA-button "><a href="emailcategory"><div class="Button--Blue Dash_Button">Create an Email</div></a></div>
                         </div>
                     </div>
                     
@@ -47,7 +47,8 @@
                                  
                                 </div>
                             <div class="dashboard-mainCTA-subtext">Post now or schedule a Facebook or Twitter post</div>
-                            <div class=" dashboard-mainCTA-button "><a href="emailcategory"><div class="Button--Blue Dash_Button">Create an Email</div></a></div>
+                           
+                             <div class=" dashboard-mainCTA-button "><a href="socialsequence"><div class="Button--Blue Dash_Button">Create a Social Post</div></a></div>
                         </div>
                     </div>
                     

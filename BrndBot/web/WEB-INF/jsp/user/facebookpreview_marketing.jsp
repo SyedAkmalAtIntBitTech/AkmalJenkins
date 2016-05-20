@@ -185,9 +185,14 @@
                             </div>
                         </div>
                         <div class="saved-post-preview-detail" id="savedpostdiv">
-
+                           <div class="BBsaved-action-header-details-wrap">
+                            <h2 class="BBsection-header BBfacebook-header">SAVED FACEBOOK PREVIEW</h2>
+                            
+                        </div>
+                             <div class="BBreg-button BBedit-saved-email-button BBfacebook-button" ng-click="deleteSchedule(schedule_id,'remove',master_facebook)">Remove Saved Post</div>
+           
                             <!--SAVED Email GOES HERE-->
-                            <div class="saved-post-header-detail" >
+                            <div class="BBsaved-email-container" >
 <!--                                <div class="h4">Saved Facebook Post</div>
                                 <div class="instruction-text">Saved post.</div>-->
                             <div class="Facebook-preview">
@@ -253,11 +258,11 @@
             </div>
         </div>
          
-        <div class="" id="fbpostremove">
+<!--        <div class="" id="fbpostremove">
             <div class="bottom-cta-button-container">
                 <div class="remove-button-detail md-button button-text-1 fleft removebutton" ng-click="deleteSchedule(schedule_id,'remove',master_facebook)">Remove Saved Post</div>
             </div>
-        </div>
+        </div>-->
         
         <div class="" id="fbnotesave">
             <div class="bottom-cta-button-container">
