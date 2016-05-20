@@ -99,4 +99,21 @@ public class CompanyPreferencesDaoImpl implements CompanyPreferencesDao {
         }
     }
 
+    @Override
+    public List<CompanyPreferences> getByLocationId(String locationId) {
+          try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(CompanyPreferences.class)
+                    .add(Restrictions.eq("companyLocation", locationId));
+            List<CompanyPreferences> list = criteria.list();
+            if (list.isEmpty()) {
+                return null;
+            }
+            return list;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
+    }
 }

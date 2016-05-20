@@ -35,5 +35,6 @@ public interface CompanyPreferencesService {
     public CompanyPreferences getByCompanyId(Integer companyId);
     
     public void setFooterDetails(FooterDetails footerDetails,Company company);
-   
+
+    public List<CompanyPreferences> getAllForLocationId(String locationId);
 }

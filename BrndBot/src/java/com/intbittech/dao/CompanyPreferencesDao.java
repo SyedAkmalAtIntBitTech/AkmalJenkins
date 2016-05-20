@@ -5,10 +5,9 @@
  */
 package com.intbittech.dao;
 
-import com.intbittech.exception.ProcessFailed;
-import com.intbittech.model.Category;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
+import java.util.List;
 
 /**
  * <code> {@link CategoryDao} </code> Interface to get Category details froml
@@ -21,9 +20,7 @@ public interface CompanyPreferencesDao {
     public void saveOrUpdate(CompanyPreferences companyPreferences);
 
     public CompanyPreferences getByCompany(Company company);
-    
-    
-    
-    
+
+    public List<CompanyPreferences> getByLocationId(String locationId);
     
 }

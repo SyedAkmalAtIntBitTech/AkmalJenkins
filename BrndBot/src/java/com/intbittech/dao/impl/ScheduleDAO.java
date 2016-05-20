@@ -420,9 +420,9 @@ public class ScheduleDAO {
                         Timestamp scheduleTimestamp1 = rs.getTimestamp("cal_schedule_time");
                         long scheduleTime1;
                         if (rs.getBoolean("is_recurring")) {
-                           scheduleTime1 = rs.getTimestamp("cal_schedule_time_recurring").getTime();
+                           scheduleTime1 = rs.getTimestamp("schedule_time").getTime();
                         } else {
-                            scheduleTime1 = scheduleTimestamp1.getTime();
+                            scheduleTime1 = rs.getTimestamp("schedule_time").getTime();
                         }
                         scheduleDetailJSONObject.put("schedule_time", scheduleTime1);
                         //sends always true
