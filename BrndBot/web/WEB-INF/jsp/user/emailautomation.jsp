@@ -455,9 +455,14 @@
                         url : getHost() + 'settings/getAllPreferences'
                     }).success(function(data, status) {
                         var footerData = JSON.parse(data.d.details);
-                            if(!footerData.userProfile.address){
+                            if(!footerData.userProfile){
                                 $("#emailFooterPopup").show();
-                            }else{
+                            }
+                         else{
+                             if(!footerData.userProfile.address){
+                                $("#emailFooterPopup").show();
+                            }
+                            else{
                         var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
                                 footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
                                 footerData.userProfile.address);
@@ -499,7 +504,8 @@
                         // or server returns response with an error status.
                     });
                     
-                     } 
+                     }
+                 }
                 });
                 }
             }
@@ -818,9 +824,14 @@
                             url : getHost() + 'settings/getAllPreferences'
                         }).success(function(data, status) {
                             var footerData = JSON.parse(data.d.details);
-                            if(!footerData.userProfile.address){
+                            if(!footerData.userProfile){
                                 $("#emailFooterPopup").show();
-                            }else{
+                            }
+                         else{
+                             if(!footerData.userProfile.address){
+                                $("#emailFooterPopup").show();
+                            }
+                            else{
                                 $("#email_previewdiv").show();
 //                                $("#email_previewdiv").show();
                                 var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
@@ -845,6 +856,7 @@
                             }).error(function (error){alert(JSON.stringify(error));});
                             $("#fade").show();
                            }
+                       }
                     });
             });
             

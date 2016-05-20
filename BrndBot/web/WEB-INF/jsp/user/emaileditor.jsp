@@ -737,9 +737,14 @@
                             url : getHost() + 'settings/getAllPreferences'
                         }).success(function(data, status) {
                             var footerData = JSON.parse(data.d.details);
-                            if(!footerData.userProfile.address){
+                            if(!footerData.userProfile){
                                 $("#emailFooterPopup").show();
+                            }
+                         else{
+                             if(!footerData.userProfile.address){
+                            $("#emailFooterPopup").show();
                             }else{
+                            
                                 $("#email_previewdiv").show();
                                 var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
                                         footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
@@ -765,6 +770,7 @@
                             }).error(function (error){alert(JSON.stringify(error));});
                             $("#fade").show();
                            }
+                       }
                     });
                     });
                     $("#addblkbtn").click(function (){
