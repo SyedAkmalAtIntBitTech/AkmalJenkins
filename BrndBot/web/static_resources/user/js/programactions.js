@@ -1179,8 +1179,10 @@ function programactions($scope, $http, $window){
                 method: 'GET',
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
-                $scope.entitiesdetails = data;
-                if (data.image_name == undefined) {
+                var parseData=JSON.parse(data.d.details);
+//                alert(JSON.stringify(parseData));
+                $scope.entitiesdetails = parseData;
+                if (parseData.image_name == undefined) {
                     $('#nopostsaveddiv').show();
                     $('#savedpostdiv').hide();
                     $('#fbnotemplate').show();
@@ -1237,8 +1239,10 @@ function programactions($scope, $http, $window){
                 method: 'GET',
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
-                $scope.entitiesdetails = data;
-                if (data.image_name == undefined) {
+                var parseData=JSON.parse(data.d.details);
+//                alert(JSON.stringify(parseData));
+                $scope.entitiesdetails = parseData;
+                if (parseData.image_name == undefined) {
                     $('#twtsavedpostdiv').hide();
                     $('#twtnopostsaveddiv').show();
                     $('#twtsavedposthead').hide();

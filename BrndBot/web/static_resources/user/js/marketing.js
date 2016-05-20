@@ -1095,9 +1095,10 @@ function controllerMarketingCampaign($scope, $http) {
                 method: 'GET',
                 url: getHost() + 'GetScheduledSocialPostDetail?schedule_id=' + schedule_id
             }).success(function (data) {
-               
-                $scope.entitiesdetails = data;
-                if (data.image_name === undefined) {
+                var parseData=JSON.parse(data.d.details);
+//               alert(JSON.stringify(parseData));
+                $scope.entitiesdetails = parseData;
+                if (parseData.image_name === undefined) {
                     $('#fbactionsave').hide();
                     $('#fbpostremove').hide();
                     $('#nopostsaveddiv').show();
@@ -1166,10 +1167,10 @@ function controllerMarketingCampaign($scope, $http) {
             $http({
                 method: 'GET',
                 url: getHost() + '/GetScheduledSocialPostDetail?schedule_id=' + schedule_id
-            }).success(function (data) {
-                
-                $scope.entitiesdetails = data;
-                if (data.image_name == undefined) {
+            }).success(function (data) {                
+                var parseData=JSON.parse(data.d.details);                
+                $scope.entitiesdetails = parseData;
+                if (parseData.image_name == undefined) {
                     
                     $('#twtnopostsaveddiv').show();
                     $('#twtsavedpostdiv').hide();

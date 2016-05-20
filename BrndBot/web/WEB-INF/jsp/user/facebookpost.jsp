@@ -53,7 +53,7 @@
                                         <option ng-repeat="url in urls" value="{{url.url}}--{{url.link_name}}">{{url.prigram_name}} - {{url.link_name}} - {{url.url}}</option>
                                     </select>
                                 </span>
-                                <div class="input_Label pushUp_20">Link</div>
+                                <div class="input_Label pushUp_20">Write Custom Link</div>
                                 <textarea class="socialLink_attached removeDrag removeBorder" placeholder="http://www.brndbot.com" id="linkUrl"></textarea>
                             </span>
                         </div>  
@@ -79,8 +79,10 @@
             </div>
         </div>
         <div class="bottomNav">
-            <div class="bottom-ContinueButton fright" onclick="postToFacebook()">CONTINUE</div>
+            <div class="bottom-ContinueButton fright" onclick="postFacebook()">CONTINUE</div>
+            <!--onclick="postToFacebook()"-->
         </div>
+        <%@include file="sociallistselectionfb.jsp" %> 
         <%@include file="imagegallerypopup.jsp" %>
         <%@include file="facebookpostsuccesspopup.jsp" %>  
     </body>
