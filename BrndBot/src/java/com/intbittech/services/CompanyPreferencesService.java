@@ -8,6 +8,7 @@ package com.intbittech.services;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.modelmappers.CompanyColorsDetails;
+import com.intbittech.modelmappers.FooterDetails;
 import java.util.List;
 import org.json.simple.JSONObject;
 
@@ -31,7 +32,9 @@ public interface CompanyPreferencesService {
     
     public void setStudioId(CompanyPreferences companyPreferences);
 
-    public CompanyPreferences getByCompanyId(Integer companyId);   
+    public CompanyPreferences getByCompanyId(Integer companyId);
+    
+    public void setFooterDetails(FooterDetails footerDetails,Company company);
 
     public List<CompanyPreferences> getAllForLocationId(String locationId);
 }

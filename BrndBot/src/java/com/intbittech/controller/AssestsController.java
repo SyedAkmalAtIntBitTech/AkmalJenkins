@@ -108,7 +108,7 @@ public class AssestsController {
             logger.error(throwable);
         }
     }
-
+//......... To Do check with llyas or Ar,to get companyId from frontEnd we need to insert java code in jsp page... / 
     @RequestMapping(value = "getImageList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public void getImageList(HttpServletRequest request, HttpServletResponse response, @RequestParam("imageType") String imageType, @RequestParam("companyId") Integer companyId) {
         try {

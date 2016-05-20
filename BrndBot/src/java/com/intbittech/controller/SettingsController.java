@@ -15,6 +15,7 @@ import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.UserProfile;
 import com.intbittech.modelmappers.CompanyColorsDetails;
+import com.intbittech.modelmappers.FooterDetails;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
@@ -507,5 +508,20 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         }
 
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    @RequestMapping(value = "/setFooter", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> setFooter(@RequestBody FooterDetails footerDetails) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Company company = userProfile.getUser().getFkCompanyId();
+            companyPreferencesService.setFooterDetails(footerDetails, company);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("companyCategories_color_update", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
 }
