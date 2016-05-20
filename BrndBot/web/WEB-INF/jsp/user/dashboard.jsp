@@ -55,7 +55,7 @@
                     <div class="dashboard-MainCTA-col fleft">
                         <div class="dashboard-MainCTA "> 
                             <div class="dash-icon">
-                                   <img type="image/svg+xml" src="images/homepage-icons-03.svg" class="dash-svg" style="cursor:pointer;">
+                                <a href="createmarketingprogram">  <img type="image/svg+xml" src="images/homepage-icons-03.svg" class="dash-svg" style="cursor:pointer;"></a>
                                 </div>
                             <div class="dashboard-mainCTA-subtext">Create a new marketing campaign and plan actions</div>
                             <div class=" dashboard-mainCTA-button "><a href="createmarketingprogram"><div class="Button--Blue Dash_Button">Create a Campaign</div></a></div>
