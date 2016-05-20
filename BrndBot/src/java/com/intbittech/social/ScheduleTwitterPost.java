@@ -6,7 +6,7 @@
 package com.intbittech.social;
 
 import com.controller.IConstants;
-import com.intbit.AppConstants;
+import com.intbittech.AppConstants;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.ScheduledSocialpostList;
 import java.io.File;
@@ -47,18 +47,18 @@ public class ScheduleTwitterPost implements Runnable {
                         JSONObject jsonObject = (JSONObject) new JSONParser().parse(jsonString);
                         String text = jsonObject.get(IConstants.kTwitterTextKey).toString();
                         String url = jsonObject.get(IConstants.kTwitterURLKey).toString();
-                        Integer comapnyId = currentScheduledTwitterPost.getFkCompanyId().getCompanyId();
+                        
+                        Integer companyId = currentScheduledTwitterPost.getFkCompanyId().getCompanyId();
                         String file_image_path = "";
                         if (twitterPost.getImageType().equals("layout")) {
-                            file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + twitterPost.getImageName();
+//                            file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + twitterPost.getImageName();
                         } else if (twitterPost.getImageType().equals("gallery")) {
-                            file_image_path = AppConstants.USER_IMAGE_HOME + File.separator + comapnyId + File.separator + twitterPost.getImageName();
+                            file_image_path = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + AppConstants.GALLERY_FOLDERNAME + File.separator + twitterPost.getImageName();
                         } else if (twitterPost.getImageType().equals("url")) {
                             file_image_path = twitterPost.getImageName();
                         }
-
                         logger.info(text + " Tweet @" + new Date());
-                        String message = PostToTwitter.postStatus(twitterPost.getImageType(), text, url, file_image_path, comapnyId, null, twitterPost.getImageName());
+                        String message = PostToTwitter.postStatus(twitterPost.getImageType(), text, url, file_image_path, companyId, null, file_image_path);
                         if (message.equalsIgnoreCase("success")) {
                             updateStatusScheduledTwitter(currentScheduledTwitterPost);
                         }
