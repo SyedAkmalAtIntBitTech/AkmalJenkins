@@ -7,17 +7,10 @@
 }
 
 .gallery-item-wrap-selected{
-    width: 224px;
-      border: 1px solid #0f76a6;
+    width: 222px;
+      border: 2px solid #0f76a6;
     border-radius: 3px;
       margin-bottom: 20px;
-    margin-right: 20px;
-}
-.gallery-item-wrap-selected-true{
-    width: 228px;
-    border: 2px solid #0f76a6;
-    border-radius: 3px;
-    margin-bottom: 20px;
     margin-right: 20px;
 }
 
