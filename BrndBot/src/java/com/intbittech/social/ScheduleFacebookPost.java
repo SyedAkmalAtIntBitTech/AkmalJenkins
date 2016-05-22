@@ -6,7 +6,7 @@
 package com.intbittech.social;
 
 import com.controller.IConstants;
-import com.intbit.AppConstants;
+import com.intbittech.AppConstants;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.ScheduledSocialpostList;
 import java.io.File;
@@ -67,9 +67,9 @@ public class ScheduleFacebookPost implements Runnable {
                         String file_image_path = "";
                         // To-do Ajit/Ilyas refactor AppConstants..
                         if (facebookPost.getImageType().equals("layout")) {
-                            file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + facebookPost.getImageName();
+//                            file_image_path = AppConstants.LAYOUT_IMAGES_HOME + File.separator + facebookPost.getImageName();
                         } else if (facebookPost.getImageType().equals("gallery")) {
-                            file_image_path = AppConstants.USER_IMAGE_HOME + File.separator + companyId + File.separator + facebookPost.getImageName();
+                            file_image_path = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + com.intbittech.AppConstants.GALLERY_FOLDERNAME + File.separator + facebookPost.getImageName();
                         } else if (facebookPost.getImageType().equals("url")) {
                             file_image_path = facebookPost.getImageName();
                         }

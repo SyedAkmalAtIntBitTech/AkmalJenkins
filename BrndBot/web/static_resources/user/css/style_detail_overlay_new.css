@@ -2342,7 +2342,8 @@ width:100%;
 
 .galCard-trashicon{
     height: 15px; 
-    margin-left:80px;
+   position: relative;
+    left: 81px;
     margin-top: 2px
 }
 

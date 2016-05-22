@@ -81,7 +81,6 @@
                     angular.module("myapp", [])
 
                     .controller("MyController", function($scope, $http) {
-
                     $scope.getEmailDrafts = function(){
 
                     if (draft_id != ""){
@@ -273,7 +272,7 @@
                     }
                     $scope.showStyles();
                     };
-                            $scope.select_category_details = function(id) {
+                    $scope.select_category_details = function(id) {
                             mindbodydataId = id;
                                     $("#stylelist").css("display", "block");
                                     $scope.showStyles();
@@ -284,9 +283,8 @@
                                     $("#tabs-3").hide();
                                     $("#tabs-4").hide();
                                     $("#tabs-5").hide();
-                            }
-
-                    });
+                            };
+        });
                     angular.module('myapp').filter('pagination', function()
             {
             return function(input, start)

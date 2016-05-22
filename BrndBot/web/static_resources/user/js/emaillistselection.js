@@ -515,7 +515,6 @@
                         method: 'GET',
                         url: getHost() + 'actions/getActions?programid='+ program_id + '&type='+ getemail()
                     }).success(function (data) {
-                        alert(JSON.stringify(data));
                         $scope.email_actions = data;
                     }).error(function (data) {
                         alert("Request not successful!");
@@ -583,15 +582,19 @@
                        
                     }else {
                         var emails = "";
-                        $("#email_list_name").val(List_name);                                                
+                        $("#email_list_name").val(List_name);   
+                        
                         $.ajax({
                                 method: 'GET',
                                 url: getHost() + '/emaillist/get?update=emailsForEmailList&emailListName='+List_name,
                                 success: function(result){        
                                 
                                     var parseData=JSON.parse(result.d.details);
-                                   
-                                   var JSONData = parseData.user_emailAddresses;
+                                   var JSONData;
+                                   if(JSON.stringify(parseData.mindbody_emailAddresses) === "[]")
+                                       JSONData = parseData.user_emailAddresses;
+                                   else
+                                       JSONData = parseData.mindbody_emailAddresses;
                                    var JSONdataArray=JSON.stringify(JSONData);
                                     var i = 0;
                                     for(i=0; i<JSON.stringify(JSONData).length; i++){
@@ -895,7 +898,7 @@
                         var parseData=JSON.parse(data.d.details);
 //                        alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user)+"..... success....");
                         $scope.emailLists = parseData.allEmailListWithNoOfContacts.user;
-                        $scope.emailLists_mindbody = data.mindbody;
+                        $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
                         hideOverlay();
                         if (data === "true") {
 //                                window.open(getHost() + 'emaillists.jsp', "_self");

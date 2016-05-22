@@ -35,6 +35,18 @@ and open the template in the editor.
  * Classes added:
  * 	1) hint
  */
+.delete--gallery:after{
+      position: relative !important;
+    left: 135px !important;
+    top: -24px !important;
+    width: 0px !important;
+    margin-left: -92px !important;
+}
+.delete--gallery:before{
+  display: none !important;
+  width:0px !important;
+}
+
 .hint, [data-hint] {
   position: relative;
   display: inline-block;

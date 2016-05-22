@@ -213,7 +213,7 @@ padding: 0px 20px;
 }
 .headernav a >div{
     text-decoration: none;
-    color:#3E4551;
+    color:#000;
 }
 .nav_logo_svg{
     height: 40px;
@@ -518,6 +518,8 @@ padding: 5px 45px;
     padding-bottom: 30px;
     height:474px;
     overflow-y: auto;
+    margin-top: 25vh;
+    margin-left: 25vh;
 }
 
 .popUp_title{
@@ -881,3 +883,7 @@ height: 150px;
 
 .push-z{
     z-index:10000}
+.addPopUp{
+    margin-top: 30vh;
+    margin-left: 30vh;
+}

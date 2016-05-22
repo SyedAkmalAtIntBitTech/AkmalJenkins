@@ -199,39 +199,38 @@
                                     </div></a>
                                 </div>
                             </div>
-                            <div class="saved-post-preview-detail"  id="twtsavedpostdiv">
+                            <div class="saved-post-preview-detail" style="margin-top: 36px;"  id="twtsavedpostdiv">
 
                                 <!--SAVED Email GOES HERE-->
-
+                               <div class="BBsaved-action-header-details-wrap">
+                            <h2 style="top: -53px;" class="BBsection-header BBfacebook-header">SAVED TWITTER PREVIEW</h2>
+                            
+                        </div>
+                                <div class="BBreg-button BBedit-saved-email-button BBfacebook-button" ng-click="deleteSchedule(schedule_id,'remove',master_twitter)">Remove Saved Post</div>
+                               <div class="BBsaved-email-container" >
                                 <div class="twitter-post-preview">
                                     <div class="Facebook-preview-header">
-                                        <div class="Facebook-preview-profpic"><img id="twitter_preview_profpic" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>"/></div>
+                                        <div class="Facebook-preview-profpic">
+                                            <img id="twitter_preview_profpic" src="/BrndBot/downloadImage?imageType=COMPANY_LOGO&companyId=${companyId}&imageName=companylogo.png"/>
+                                        </div>
                                         <div class="Facebook-preview-name-container">
                                             <div class="Facebook-preview-name">{{entitiesdetails.metadata.text}}</div>
                                         </div>
                                     </div>
                                     <div class="Facebook-preview-usercontent">{{entitiesdetails.metadata.shorturl}}</div>
                                     <div class="Facebook-link-container">
-                                    <div class="Facebook-preview-image">
                                         <div ng-show="entitiesdetails.image_type == 'gallery'">
-                                            <img id="prevfbimg" style="max-width: 240px;" src='/BrndBot/DownloadImage?image_type=GALLERY&image_name={{entitiesdetails.image_name}}&user_id=<%= user_id %>'/>
+                                            <img id="prevfbimg" src='/BrndBot/downloadImage?imageType=GALLERY&imageName={{entitiesdetails.image_name}}&companyId=${companyId}'/>
                                         </div>
                                         <div ng-show="entitiesdetails.image_type == 'layout'">
-                                            <img id="prevfbimg" style="max-width: 240px;" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                            <img id="prevfbimg" src='/BrndBot/downloadImage?imageType=LAYOUT_IMAGES&imageName={{entitiesdetails.image_name}}'/>
                                         </div>
                                         <div ng-show="entitiesdetails.image_type == 'url'">
-                                            <img id="prevfbimg" style="max-width: 240px;" src='{{entitiesdetails.image_name}}'/>
+                                            <img id="prevfbimg" src='{{entitiesdetails.image_name}}'/>
                                         </div>
-                                        
-                                       <!--<img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=GALLERY&image_name={{entitiesdetails.image_name}}'/>-->
-                                    </div>
-                                        <!--                                        <div class="Facebook-preview-link-container">
-                                            <div class="Facebook-preview-link-title">{{entitiesdetails.metadata.title}}</div>
-                                            <div class="Facebook-preview-link-description">This workshop is going to be so awesoem for the new season and get you in really good shape!</div>
-                                            <div class="Facebook-preview-link-url">Demo Description goes here but cuts off</div>
-                                        </div>-->
                                     </div>
                                 </div>
+                               </div>
                             </div>
                         </div>
                     </div>
@@ -269,11 +268,11 @@
                 </div>
             </div>
 
-            <div class="" id="twtpostremove">
+<!--            <div class="" id="twtpostremove">
                 <div class="bottom-cta-button-container">
                     <div class="remove-button-detail md-button button-text-1 fleft removebutton" ng-click="deleteSchedule(schedule_id,'remove',master_twitter)">Remove Saved Post</div>
                 </div>
-            </div>
+            </div>-->
 
             <div class="" id="twnotesave">
             <div class="bottom-cta-button-container">

@@ -49,7 +49,7 @@
   .hoverClass{width:200px;margin-left: -64px;height: 300px;}
 </style>
    <body>
-       <div class="nav ">
+       <div class="nav " style="z-index: 46;">
            <div class="logodiv nav_logo fleft">
                <img  src="images/main-admin-logo.svg" class="bb-logo" >
            </div>

@@ -185,14 +185,19 @@
                             </div>
                         </div>
                         <div class="saved-post-preview-detail" id="savedpostdiv">
-
+                           <div class="BBsaved-action-header-details-wrap">
+                            <h2 class="BBsection-header BBfacebook-header">SAVED FACEBOOK PREVIEW</h2>
+                            
+                        </div>
+                             <div class="BBreg-button BBedit-saved-email-button BBfacebook-button" ng-click="deleteSchedule(schedule_id,'remove',master_facebook)">Remove Saved Post</div>
+           
                             <!--SAVED Email GOES HERE-->
-                            <div class="saved-post-header-detail" >
+                            <div class="BBsaved-email-container" >
 <!--                                <div class="h4">Saved Facebook Post</div>
                                 <div class="instruction-text">Saved post.</div>-->
                             <div class="Facebook-preview">
                                 <div class="Facebook-preview-header">
-                                    <div class="Facebook-preview-profpic"><img id="fb_preview_profpic" src="/BrndBot/DownloadImage?image_type=USER_LOGO&user_id=<%= user_id%>&image_name=<%= logoImageName%>"/></div>
+                                    <div class="Facebook-preview-profpic"><img id="fb_preview_profpic" src="/BrndBot/downloadImage?imageType=COMPANY_LOGO&companyId=${companyId}&imageName=companylogo.png"/></div>
                                     <div class="Facebook-preview-name-container">
                                         <div class="Facebook-preview-name">{{schedule_title}}</div>
                                     </div>
@@ -201,16 +206,15 @@
                                 <div class="Facebook-link-container">
                                     <div class="Facebook-preview-image">
                                         <div ng-show="entitiesdetails.image_type == 'gallery'">
-                                            <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=GALLERY&image_name={{entitiesdetails.image_name}}&user_id=<%= user_id %>'/>
+                                            <img id="prevfbimg" src='/BrndBot/downloadImage?imageType=GALLERY&imageName={{entitiesdetails.image_name}}&companyId=${companyId}'/>
                                         </div>
                                         <div ng-show="entitiesdetails.image_type == 'layout'">
-                                            <img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{entitiesdetails.image_name}}'/>
+                                            <img id="prevfbimg" src='/BrndBot/downloadImage?imageType=LAYOUT_IMAGES&imageName={{entitiesdetails.image_name}}'/>
                                         </div>
                                         <div ng-show="entitiesdetails.image_type == 'url'">
                                             <img id="prevfbimg" src='{{entitiesdetails.image_name}}'/>
                                         </div>
                                         
-                                       <!--<img id="prevfbimg" src='/BrndBot/DownloadImage?image_type=GALLERY&image_name={{entitiesdetails.image_name}}'/>-->
                                     </div>
                                     <div class="Facebook-preview-link-container">
                                         <div class="Facebook-preview-link-title">{{entitiesdetails.metadata.title}}</div>
@@ -254,11 +258,11 @@
             </div>
         </div>
          
-        <div class="" id="fbpostremove">
+<!--        <div class="" id="fbpostremove">
             <div class="bottom-cta-button-container">
                 <div class="remove-button-detail md-button button-text-1 fleft removebutton" ng-click="deleteSchedule(schedule_id,'remove',master_facebook)">Remove Saved Post</div>
             </div>
-        </div>
+        </div>-->
         
         <div class="" id="fbnotesave">
             <div class="bottom-cta-button-container">

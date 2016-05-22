@@ -7,6 +7,7 @@
 function userController($scope, $http ) {
     var marketingProgramId="";
     $scope.displayCategory = function () {
+        $(".pane_content").css("display","block");
         showOverlay();
         $http({
             method: 'GET',

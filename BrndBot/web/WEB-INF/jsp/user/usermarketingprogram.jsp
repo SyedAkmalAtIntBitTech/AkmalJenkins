@@ -9,123 +9,102 @@
 <html>
     <head>
         <title>BrndBot - User Marketing Program </title>
-        <meta charset="UTF-8">
-         <%--<%@ include file="fonttypekit.jsp"%>--%>
-         <link rel="shortcut icon" href="images/favicon.png"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="js/jquery.min.js"></script>
-        <!--<link href="css/dashboard.css" rel="stylesheet" type="text/css"/>-->
-        <link href="css/simplecontinuebutton.css" rel="stylesheet" type="text/css"/>
-        <script src="js/configurations.js"></script>
-        <script src="js/marketing.js"></script>
+        <link rel="shortcut icon" href="images/favicon.png"/>
+        <link rel="stylesheet" href="css/general.css">
         <script src="js/usermarketingprogram.js"></script>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta name="format-detection" content="telephone=no">
-        <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-        <link rel="shortcut icon" href="favicon.png">
-        <script src="js/pikaday.js"></script>
-        
-        <script src="js/dashboard.js"></script>
-        <style>.nav-tabs1{line-height: 0px !important;}</style>
+
+        <style>.nav-tabs1{line-height: 0px !important;}*{box-sizing:initial;}</style>
         <%!
             String marketing_category_id = "";
             String marketing_program_id = "";
-         %>
-         
-         <%
-             marketing_category_id = request.getParameter("marketingCategoryId");
-             marketing_program_id = request.getParameter("marketingProgramId");
-         %>
-       
-         <%--<jsp:include page="basejsp.jsp"/>--%>
-         
+        %>
+
+        <%
+            marketing_category_id = request.getParameter("marketingCategoryId");
+            marketing_program_id = request.getParameter("marketingProgramId");
+        %>
     </head>
     <body ng-app>
         <div class="content-main" ng-controller="usermarketingprogram">
             <input type="hidden" value="<%=marketing_category_id%>" id="marketing_category_id"/>
             <input type="hidden" value="<%=marketing_program_id%>" id="marketing_program_id"/>
-         <%@include file="header.jsp" %>      
+            <%@include file="header.jsp" %>      
             <%@include file="navbar.jsp" %>
-        <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css">
-        <link rel="stylesheet" type="text/css" href="css/normalize.css">
-        <link rel="stylesheet" type="text/css" href="css/slat.css">
-        <link href="css/usermarketingprogram.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" href="css/pikaday.css">
-        <link rel="stylesheet" href="css/datepickerpikaday.css">
-        
-            <!--Top Nav-->   
             <div class="top-nav">
-        <div class="page-title-bar col-1of1"> 
-            <a class=" exit-button-icon" href="marketingprogram?marketingCategoryId=<%=marketing_category_id%>">
-            <div class="exit-button-detail">               
-                    <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
-            </div>
-             </a>
-            <div class="page-title-with-back page-title-font">Marketing Program Details</div>
-            <!--<div class="page-cta-container">
-                <a href="" class="gray-button fleft">
-                    <div class=" md-button">  End Marketing Program</div>    
-                </a>
-            </div>-->
-        </div>
-    </div>
-            <!--Main Content GENERIC--> 
-            <div class="sequence-page-background">
-            <div class="sequence-page-content-container">
-                <div class="sequence-page-header">Marketing Program Details</div>
-                    <div class="email-detail-selection col-1of1 fleft">
-                       <div class="col-1of1 fleft">
-                            <div class="col-9of10 fleft">
-                                <div class="h4" style="">
-                                    Enter a name for this Marketing Program
-                                </div>
-                                <input id="program_name" class="input-field-textfield col-8of10 width40" value="" type="text" required="" placeholder="Enter a name for this Marketing Program">
-                            </div>
+                <div class="page-title-bar col-1of1"> 
+                    <a class=" exit-button-icon" href="marketingprogram?marketingCategoryId=<%=marketing_category_id%>">
+                        <div class="exit-button-detail">               
+                            <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                         </div>
-                        <div class="col-1of1 fleft pushUp">
-                            <div class="col-9of10 fleft">
-                                <div class="h4" style="" ng-init="getHtmlData()">
-                                    <span id="htmldata">Select a date for the end of this program:</span>
-                                </div>
-                                <input type="text" class="input-field-textfield col-8of10 width20" name="programdatetime" id="programdatetime" value="" readonly="">
+                    </a>
+                    <div class="page-title-with-back page-title-font">Create a Marketing Campaign</div>
+                </div>
+            </div>
+                        
+            <div class="top-nav-bar-offset"></div>
+            <div class="content-wrap content-wrap-padding content-wrap-with-continue-bar">
+                <div class="modal-pane modal-pane-width-full">
+                    <div class="modal-pane-header-wrap">
+                        <h2 class="">Marketing Program Details</h2>
+
+                    </div>
+                    <div class="sequence-pane-content-wrap">
+
+                        <h3 class="sequence-pane-content-section-header">General Campaign Settings</h3>
+                        <p class="sequence-pane-content-section-sub-header">These are the default settings for this campaign. They can be changed at any time in the campaign overview.</p>
+
+                        <div class="input-wrap">
+                            <label> Campaign Name </label>
+                            <div class="input">
+                                <input id="program_name" type="text" required="" >
+                            </div>
+                            <p> This is for internal use only</p>
+                        </div>
+                        <div class="input-wrap ">
+                            <label> Date of Campaign Inserted Here </label>
+                            <div class="input">
+                                <input type="text" name="programdatetime" id="programdatetime" value="" readonly="">
                                 <script>
-                                    var picker = new Pikaday(
-                                    {
-                                        field: document.getElementById('programdatetime'),
-                                        firstDay: 1,
-                                        minDate: new Date(2000, 0, 1),
-                                        maxDate: new Date(2050, 12, 31),
-                                        yearRange: [2000,2050]
-                                    });
+                                            var picker = new Pikaday(
+                                                    {
+                                                        field: document.getElementById('programdatetime'),
+                                                        firstDay: 1,
+                                                        minDate: new Date(2000, 0, 1),
+                                                        maxDate: new Date(2050, 12, 31),
+                                                        yearRange: [2000, 2050]
+                                                    });
                                 </script>
                             </div>
                         </div>
-                         <div class="cols-2 fleft col-9of10 pushUp link-col">
-                           
-                             <div class="input-field-container col-3of10 fleft pushright">
-                                <div class="h4"> Link </div>
-                                <input id="program_url" value="" class="input-field-textfield input-placeholder" type="text" required="" onchange="validateurl()" placeholder="Ex. http://www.google.com">
-                            </div>
-                            <div class="input-field-container col-3of10 fleft">
-                                <div class="h4"> Link Name</div>
-                                <input id="program_url_name" value="" class="input-field-textfield input-placeholder" type="text" required="" placeholder="Enter Name for Link">
+
+
+                        <h3 class="sequence-pane-content-section-header">Campaign Link Settings<i>Not Required</i></h3>
+                        <p class="sequence-pane-content-section-sub-header">This link will be able to be used throughout your templates. It should link to where your clients can take action e.g. sign up or learn more.</p>
+                        <div class="input-wrap">
+                            <label>URL </label>
+                            <div class="input">
+                                <input id="program_url" type="text" required="" onchange="validateurl()" placeholder="Ex. http://www.google.com">
+                                <p> This can be copied from the browser</p>
                             </div>
                         </div>
-                      
-                    <!--Inner Content Conatiner GENERIC-->
+                        <div class="input-wrap">
+                            <label> Link Name </label>
+                            <div class="input">
+                                <input id="program_url_name" value="" type="text">
+                                <p> This is for internal use only to reference this link URL. </p>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
+                <div class="continue-bar-offset"></div>
             </div>
-        </div>
-  
-            <!--CTA Bar-->
-            <div class="bottom-cta-bar">
-                <div id="saveMarketingProgram" class="bottom-cta-button-container-lg"><!--marketingprogramactions-->
-                    <a href="#" ng-click="saveMarketingProgram()">
-                        <div class="bottom-continue-button button-text-1">Continue</div>
-                    </a>
-                </div>
+
+            <div class="continue-bar">
+                <a id="saveMarketingProgram" class="fright" ng-click="saveMarketingProgram()">CONTINUE</a>
             </div>
+
         </div>
-</div>
     </body>
 </html>

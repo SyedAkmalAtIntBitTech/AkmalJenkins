@@ -16,11 +16,12 @@
         <%@include file="navbar.jsp" %>  
         <div class="contentWrap--withSideNav">
             <div class="topNav topNav-withSubnav clear">
-                <div class="topNav--BackButton fleft">
-                    <a class="exit-button-icon" href="dashboard">          
+                 <a class="exit-button-icon" href="dashboard">      
+                <div class="topNav--BackButton fleft">              
                         <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">            
-                    </a>
+                  
                 </div>
+                       </a>
                 <div class="topNav--TitleBar--withBackButton fleft">
                     <span class="topNav--TitleBar--Title fleft h2">Create a Twitter Post</span>
                     <div class="topNav--TitleBar--CTABox fright">
@@ -41,7 +42,7 @@
                         <div class="inputSection col1of1 pushUp_20">
                             <span>
                                 <div class="input_Label">What would you like to share?</div>
-                                <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="twitterShareText"></textarea>
+                                <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="twitterShareText" maxlength="116"></textarea>
                             </span>
                             <span class="displayNone" id='urlDropDownSpan'>
                                 <div class="input_Label pushUp_20">Choose from your Existing Links:</div>
@@ -51,7 +52,7 @@
                                 </select>
                             </span>
                             <span class="displayNone" id="twitterLinkPost">
-                                <div class="input_Label pushUp_20">Link</div>
+                                <div class="input_Label pushUp_20">Write Custom Link</div>
                                 <textarea class="socialLink_attached removeDrag removeBorder" placeholder="http://www.brndbot.com" id="linkUrl"></textarea>
                             </span>
                         </div>  
@@ -79,9 +80,9 @@
             </div>
         </div>
         <div class="bottomNav">
-            <div class="bottom-ContinueButton fright" onclick="post()">CONTINUE</div>
+            <div class="bottom-ContinueButton fright" onclick="postTwitter()">CONTINUE</div>
         </div>
-        <%@include file="emaillistselectionpopup.jsp" %> 
+        <%@include file="sociallistselection.jsp" %> 
         <%@include file="imagegallerypopup.jsp" %>
         <%@include file="twitterpostcuccesspopup.jsp" %> 
     </body>

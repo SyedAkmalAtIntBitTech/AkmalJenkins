@@ -45,6 +45,7 @@ public class PostToFacebook {
             /* change the context path while uploading the war file */
             ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
             String context_real_path = servletContext.getRealPath("");
+            context_real_path += "/static_resources";
             String imageContextPath = Utility.getServerName(context_real_path);
             logger.info("message while facebook post:" + imageContextPath);
 
@@ -77,7 +78,7 @@ public class PostToFacebook {
 
                     } else if (imageType.equals("gallery")) {
                         PostUpdate post = new PostUpdate(posttext)
-                                .picture(new URL(imageContextPath + "DownloadImage?image_type=GALLERY&image_name=" + getImageFile + "&user_id=" + companyID))
+                                .picture(new URL(imageContextPath + "downloadImage?imageType=GALLERY&imageName=" + getImageFile + "&companyId=" + companyID))
                                 .name(title)
                                 .link(new URL(url))
                                 .description(description);
