@@ -9,6 +9,7 @@ import com.controller.IConstants;
 import com.google.gson.Gson;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.CompanyPreferences;
+import com.intbittech.model.EmailInfo;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.EmailListService;
 import com.intbittech.utility.StringUtility;
@@ -17,12 +18,11 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
-import com.intbittech.model.EmailInfo;
-import java.util.List;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.simple.JSONArray;
@@ -576,6 +576,9 @@ public class EmailListServiceImpl implements EmailListService {
             JSONObject emailListJSONObject = new JSONObject();
             if (!StringUtility.isEmpty(companyPreferences.getEmailList())) {
                 emailListJSONObject = (JSONObject) jsonParser.parse(companyPreferences.getEmailList());
+                if (emailListJSONObject.containsKey(IConstants.kEmailListMindbodyKey)) {
+                    emailListJSONObject.remove(IConstants.kEmailListMindbodyKey);
+                }
             }
             emailListJSONObject.put(IConstants.kEmailListMindbodyKey, mindbodyEmails);
             companyPreferences.setEmailList(emailListJSONObject.toJSONString());

@@ -7,6 +7,9 @@ package com.controller;
 
 import com.intbit.ConnectionManager;
 import com.intbittech.component.SpringContextBridge;
+import com.intbittech.mindbody.MindBodyClass;
+import com.intbittech.model.EmailInfo;
+import com.intbittech.services.EmailListService;
 import com.mindbodyonline.clients.api._0_5Client.Client;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,18 +24,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.intbittech.mindbody.MindBodyClass;
-import com.intbittech.model.CompanyPreferences;
-import com.intbittech.model.EmailInfo;
-import com.intbittech.services.CompanyPreferencesService;
-import com.intbittech.services.EmailListService;
-import com.intbittech.utility.StringUtility;
-import java.util.regex.Pattern;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.postgresql.util.PGobject;
 
 /**
  *
@@ -68,7 +61,7 @@ public class MindbodyEmailListProcessor implements Runnable {
         }
     }
 
-    private void startProcessing() throws ParseException {
+    public void startProcessing() throws ParseException {
 
         HashMap<Integer, Integer> rowIdLocationHashMap = new HashMap<>();
 
