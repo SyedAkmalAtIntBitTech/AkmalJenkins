@@ -1096,7 +1096,7 @@ p.modal-content-header{
     margin-top: calc(38vw - 100px);
     padding: 20px;
     text-align: center;
-    max-width: calc(75vw - 110px);
+    max-width: calc(72vw - 110px);
     z-index: 10;
 }
 

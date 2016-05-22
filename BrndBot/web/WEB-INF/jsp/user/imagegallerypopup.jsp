@@ -20,9 +20,9 @@
                 </div>
                 <div class=" gallery-padding clear gallery-pane">
                     <span id="gallerySpan" ng-init="getUserImaages()"> 
-                        <div class="gallery-item-wrap-selected fleft {{images.companyImagesId}}" ng-repeat="images in datalists"  ng-click="selectImage(images.companyImagesId)">
+                        <div class="gallery-item-wrap-selected fleft {{images.companyImagesId}}" ng-repeat="images in datalists"  ng-click="selectImage(images.companyImagesId);selectImageToPost(images.imageName, 'gallery',${companyId});">
                             <div class="gallery-image-wrap">
-                                <img id="{{images.companyImagesId}}"  src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId=${companyId}" ng-click="selectImageToPost(images.imageName, 'gallery',${companyId})" alt="alt_text" border="0" align="center" class="gallery-image" />
+                                <img id="{{images.companyImagesId}}"  src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId=${companyId}" alt="alt_text" border="0" align="center" class="gallery-image" />
                             </div>
                             <div class="gallery-name"> Photo {{images.companyImagesId}}</div>
                             <div class="gallery-settings"></div>

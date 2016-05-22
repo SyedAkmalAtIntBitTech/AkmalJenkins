@@ -41,7 +41,7 @@
 }
 .left10
 {
-    margin-left:10px;
+    margin-left:0px;
 }
 .right10
 {
@@ -60,6 +60,7 @@
 
 .firstcol{
     margin: 51px 40.3px 48px 57px;
+
 }
 .secondcol{
     margin: 51px 40.3px 48px 42.7px;
@@ -166,7 +167,7 @@
     margin-top:32px;
 }
 .top55{
-    margin-top:55px;
+    margin-top:0px;
 }
 .topthirty7{
     margin-top:37px;
@@ -311,7 +312,7 @@
 }
 .time_pick {
     left: 1px;
-    width:200%;
+    width:100%;
 }
 .claro1{
     overflow: none !important;
@@ -320,8 +321,8 @@
     background-color: #f6f7f7 !important;
     border-radius: 3px;
     border-color:#e3e3e3;
-    height:25px;
-    //width:120px;
+    height: 25px;
+    //width: 120px;
     font-size: 12px;
     appearance: none;
     -moz-appearance: none;
@@ -527,7 +528,7 @@ img.exit-button {
     width: 75%;
 }
 input#timepicker1 {
-    width: 53%;
+    width: 100%;
 }
 
 #addContact {
@@ -700,6 +701,7 @@ input#timepicker1 {
 .pop-up-container.pop-up-container-newaction1 {
     z-index: 0;
     height: 500px;
+    width: 100%;
 }
 .pop-up-cta-container-newaction1 {
     border-bottom-left-radius: 3px;
@@ -879,6 +881,22 @@ a#removeLink {
     cursor: pointer;
     opacity: .9;
 }
+
+.feditImage {
+    background-color: lightgrey;
+    width: 200px;
+    position: absolute;
+    height: 30px;
+    padding-top: 10px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 150px;
+    margin-left: 258px;
+    margin-right: auto;
+    color: white;
+    cursor: pointer;
+    opacity: .9;
+}
 .editbtnalgnment{ margin-top: 150px !important;}
 .teditImage {
     background-color: lightgrey;
@@ -889,7 +907,7 @@ a#removeLink {
     text-align: center;
     border-radius: 5px;
     margin-top: 150px;
-    margin-left: 258px;
+    margin-left: 36px;
     margin-right: auto;
     color: white;
     cursor: pointer;
@@ -1437,6 +1455,9 @@ textarea#filetext1 {
     width: 126px;
     border:none;
     resize: none;
+    border: 1px solid #D5DADF;
+    padding: 50px 10px;
+    border-radius: 3px;
 }
 .hideornot
 {
@@ -1464,7 +1485,8 @@ textarea#filetext1 {
     font-family:"proxima-nova",sans-serif;
     font-weight:500;
     color: #2D4444;
-    height: -webkit-calc(100% - 141px);
+    /*height: -webkit-calc(100% - 141px);*/
+    height: -webkit-calc(76% - 141px);
     overflow: scroll;
    //max-height: 600px;
     /*                                overflow: auto;*/
@@ -1533,6 +1555,7 @@ textarea#filetext1 {
     .right-email-select{
         
          height: -webkit-calc(100% - 33px) !important;
+
     }
     .fr-editheader{
         
@@ -1548,7 +1571,367 @@ textarea#filetext1 {
     }
 /*-----------------rasim end code-----------------*/
 
+/*----------------- Arfa start code---------------*/
+@media screen and (max-width:1500px) and (min-width:900px) {
+   .pop-up-container.pop-up-container-newaction1 {
+    width: 700px !important;
+}
+}
+@media screen and (max-width:1500px) and (min-width:1001px) {
+#schedulepopup {
+    padding-left: 21%;
+}
+}
+@media screen and (max-width:1000px) {
+#schedulepopup {
+    padding-left: 15%;
+}
+}
+@media screen and (max-width:900px) {
+   .pop-up-container.pop-up-container-newaction1 {
+    width: 500px !important;
+}
+}
+@media screen and (max-width:600px) and (min-width:450px) {
+.pop-up-container.pop-up-container-newaction1 {
+    width: 370px !important;
+}
+
+#schedulepopup {
+    padding-left: 7%;
+}
+}
+
+.twitterLogoutButton {
+    height: 35px;
+    width: 180px;
+    margin-top: 12px;
+    background-color: #d5dadf;
+    border: none;
+    border-radius: 5px;
+    color: #767777;
+}
+.twitterLogoutButton:hover {
+    background-color: #0F76A6;
+    color: #ffffff;
+}
+/*----------------- Arfa end code-----------------*/
+/*----------------- Satyajit end code-----------------*/
+
+.programList2 {
+    border: 1px solid #e0e0e0;
+    margin-top: 2px;
+}
+.programList2:hover{
+    background-color: #F8F8F8;
+}
+/*----------------- Satyajit end code-----------------*/
+
+
+/*----------------- New PopUp css code Starts-----------------*/
+.popUp_background-dark{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(62,69,81,.64);
+    position: fixed;
+    top:0;
+    left: 0;
+    z-index: 10000;
+}
+
+.popUp_background-white{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(248,248,248,.85);
+    position: fixed;
+    top:0;
+    left: 0;
+    z-index: 10000;
+}
+
+
+.popUp{
+    z-index: 1100;
+    background-color: #FFFFFF;
+    display: block;
+    border-radius: 3px;
+    border: 1px solid #D2D3D5;
+    padding: 0px 0px;
+    margin: auto;
+    width: 600px;
+    padding-bottom: 30px;
+    box-sizing: border-box;
+    
+}
+
+.popUp-top{
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-top: 1px solid #D2D3D5;
+    border-right: 1px solid #D2D3D5;
+    border-left: 1px solid #D2D3D5;
+    padding: 0px 0px 30px 0px;
+    margin: auto;
+    width: 600px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    
+}
+
+.popUp-top-wide{
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-top: 1px solid #D2D3D5;
+    border-right: 1px solid #D2D3D5;
+    border-left: 1px solid #D2D3D5;
+    padding: 0px 0px 30px 0px;
+    margin: auto;
+    width: 1080px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    
+}
+
+.popUp-bottom{
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom: 1px solid #64B6EE;
+    border-right: 1px solid #64B6EE;
+    border-left: 1px solid #64B6EE;
+    padding: 0px 0px 0px 0px;
+    margin: auto;
+    width: 600px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    
+}
+
+.popUp-bottom-wide{
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom: 1px solid #64B6EE;
+    border-right: 1px solid #64B6EE;
+    border-left: 1px solid #64B6EE;
+    padding: 0px 0px 0px 0px;
+    margin: auto;
+    width: 1080px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    
+}
+
+
+.popUp-small{
+    z-index: 1100;
+    background-color: #FFFFFF;
+    display: block;
+    border-radius: 3px;
+    border: 1px solid #D2D3D5;
+    padding: 0px 0px;
+    margin: auto;
+    width: 450px;
+    box-sizing: border-box;
+    
+}
+
+
+.popUp_wide{
+    z-index: 1100;
+        background-color: #FFFFFF;
+    display: block;
+    border-radius: 3px;
+    border: 1px solid #D2D3D5;
+    padding: 0px 0px;
+    margin: auto;
+    width: 800px;
+    padding-bottom: 30px;
+        box-sizing: border-box;
+    
+}
+
+.popUp_fullWidth{
+    z-index: 1100;
+        background-color: #FFFFFF;
+    display: block;
+    border-radius: 3px;
+    border: 1px solid #D2D3D5;
+    padding: 0px 0px;
+    margin: auto;
+    width: 1200px;
+        box-sizing: border-box;
+    
+}
+
+
+.popUp_CenterVert{
+        position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.popUp_topMargin{
+       margin-top: 5%;
+}
+
+.popUp_topMargin_3{
+       margin-top: 3%;
+}
+
+.popUp_header{
+     border-bottom: 1px solid #D2D3D5;
+    padding: 0px 30px;
+    
+}
+    
+.popUp_title{
+    font-size: 18px;
+    color: #3E4551; 
+}
+
+.popUp_close{
+    padding: 22px 0;
+}
+
+.popUp_header-wrap{
+    padding: 12px 0;
+    margin-right: 20px;
+}
+
+.popUp_header-icon{
+   width: 40px;
+}
+
+
+.popUp_close-icon{
+    width: 20px;
+}
+
+.popUp_subheader-tabs{
+    line-height: 30px;
+    margin-right: 20px;
+    text-align: left;
+    color: #AAA;
+}
+
+.popUp_subheader-tabs-active{
+    line-height: 30px;
+     margin-right: 20px;
+    text-align: left;
+    color: #0F76A6;
+}
+.popUp_subheader{
+    border-bottom: 1px solid #D2D3D5;
+    padding: 0px 30px;
+    height: 30px;
+    width: 100%;
+    box-sizing: border-box;
+}
 
 
 
+.popUp_subheader-emailDes-col{
+    width: 760px ;
+   background-color: #FFFFFF;
+}
 
+.popUp_subheader-emailDes-header{
+    border-bottom: 1px solid #D2D3D5;
+    padding: 0px 30px;
+    height: 30px;
+    width: 100%;
+    line-height: 30px;
+    box-sizing: border-box;
+    color: #666;
+    font-size: 13px;
+   
+}
+
+.popUp_subheader-emailDes-email{
+    height: 72vh;
+    overflow-y: scroll;
+    
+}
+
+.popUp_subheader-emailMob-col{
+    width:438px;
+    background-color: #FFFFFF;
+     box-sizing: border-box;
+}
+
+
+.popUp_subheader-emailMob-header{
+    border-bottom: 1px solid #D2D3D5;
+    padding: 0px 30px;
+    height: 30px;
+    width: 100%;
+    line-height: 30px;
+    box-sizing: border-box;
+    color: #666;
+     border-left: 1px solid #D2D3D5;
+    font-size: 13px;
+}
+
+
+.popUp_subheader-emailMob-email{
+   border-left: 1px solid #D2D3D5;
+    background-color: #FFFFFF;
+    height: 72vh;
+    overflow-y: scroll;
+}
+
+
+
+.popUp-gallery-wrap{
+    width: 100%;
+    overflow-y: scroll;
+    max-height: calc(100vh - 340px);
+}
+
+.postSent-svg{
+    width: 200px;
+}
+
+.postSent-svg-wrap{
+    width: 200px;
+    margin: auto;
+    padding-top: 20px
+}
+
+.postSent-button-wrap{
+    width: 400px;
+    margin: auto;
+    padding-top: 45px;
+}
+
+.postSent-desc-wrap{
+    width: 400px;
+    margin: auto;
+    padding-top: 10px;
+}
+
+.popUp-bottom-link{
+    width: 100%;
+    height: 40px;
+    background-color: #64B6EE;
+    line-height: 40px;
+    color: #FFFFFF;
+    text-align: center;
+    cursor: pointer;
+}
+
+.popUp-bottom-link-inactive{
+    width: 100%;
+    height: 40px;
+    background-color: #DDD;
+    line-height: 40px;
+    color: #999;
+    text-align: center;
+}
+
+.delete-icon-popUp{
+    height: 30px;
+    margin-top: 4px
+}
+/*************************** ADD IMAGE *************************/
+
+/*----------------- New PopUp css code Stops-----------------*/
