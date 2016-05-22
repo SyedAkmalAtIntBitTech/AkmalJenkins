@@ -42,7 +42,7 @@
                         <div class="inputSection col1of1 pushUp_20">
                             <span>
                                 <div class="input_Label">What would you like to share?</div>
-                                <textarea  class="input_Field_lg removeDrag" placeholder="Type post here" id="twitterShareText"></textarea>
+                                <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="twitterShareText" maxlength="116"></textarea>
                             </span>
                             <span class="displayNone" id='urlDropDownSpan'>
                                 <div class="input_Label pushUp_20">Choose from your Existing Links:</div>

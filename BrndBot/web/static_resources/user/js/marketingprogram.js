@@ -7,6 +7,7 @@
 function controllerMarketingCategories($http, $scope,  $window){
     
     $scope.getMarketingCategories = function(){
+        $(".pane_content").css("display","block");
         showOverlay();
         $http({
             method: 'GET',

@@ -26,7 +26,7 @@
         .pop-up-inner1{margin-top: 14px;}.arrow_top{display:none;}
         .timepicker_wrap{width: 80%;}
         .pop-up-background {
-    width: calc(76vw - 669px) !important;
+    width: calc(90vw - 580px) !important;
     margin-top: 0vw !important;
 }
     </style>

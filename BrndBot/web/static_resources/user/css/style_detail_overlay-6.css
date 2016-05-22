@@ -2919,7 +2919,7 @@ width:100%;
     
 }
 
-.emailEditor-leftCol{}
+.emailEditor-leftCol{display: inline-flex;}
 
 .emailEditor-rightCol{
     width: 400px;

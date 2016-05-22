@@ -25,7 +25,6 @@
 
 <link rel="stylesheet" type="text/css" href="css/admin.css"></link>
 <link rel="stylesheet" type="text/css" href="css/hint.css"></link>
-<link rel="stylesheet" href="css/PopUp.css">
 <link rel="stylesheet" type="text/css" href="css/gallery-user.css"/>
 <link rel="stylesheet" type="text/css" href="css/onboarding.css"/>
 <!--<link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"/>-->

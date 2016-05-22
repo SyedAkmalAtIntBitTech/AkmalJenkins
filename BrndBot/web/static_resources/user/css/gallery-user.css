@@ -8,9 +8,9 @@
 
 .gallery-item-wrap-selected{
     width: 224px;
-      border: 2px solid #C4E5F4;
+    border: 2px solid #C4E5F4;
     border-radius: 3px;
-      margin-bottom: 20px;
+    margin-bottom: 20px;
     margin-right: 20px;
 }
 .gallery-item-wrap-selected-true{
