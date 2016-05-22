@@ -905,8 +905,10 @@ padding-top: 0px;
 }
 .emailcontentiframetag{
     width: 100%;
-    
     border: 0px;
+    height: 759px;
+    overflow-y: auto;
+    
 }
 .Facebook-preview{
     width:494px;

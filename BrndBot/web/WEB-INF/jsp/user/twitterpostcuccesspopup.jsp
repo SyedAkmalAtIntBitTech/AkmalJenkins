@@ -13,9 +13,9 @@
                  <a href="../../../images/postSent.svg"></a>
                  <img type="image/svg+xml" src="../images/postSent.svg" class="postSent-svg" style="cursor:pointer;">
             </div>
-            <div class="pane_content pane-padding">
+            <div class="pane_content pane-padding pane-editing">
                 <div class="postSent-desc-wrap">
-                    <div class="h3 font--lightGray ">Your post has been successfully posted on Twitter. Would you like to post the same content on Facebook? </div>
+                    <div class="h3 font--lightGray ">Your post has been successfully posted on Twitter. Would you like to post another content on Twitter? </div>
                 </div>
                 <div class="postSent-button-wrap">
                     <div class="fleft">

@@ -137,3 +137,6 @@
 }
 
 .schedule-Post-icon{}
+.pane-editing{
+    display: block !important;
+}
