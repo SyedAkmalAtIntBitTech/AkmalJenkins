@@ -1126,6 +1126,7 @@ function changePostType() {
     }
 }
 function postToFacebook() {
+    showOverlay();
     var shareText = $("#shareText").val();
     var linkTitle = $("#linkTitle").val();
     var linkDescription = $("#linkDescription").val();
@@ -1148,6 +1149,7 @@ function postToFacebook() {
             var isSuccess = responseText.d.message;
 //            alert(JSON.stringify(responseText));
             if (isSuccess === "success") {
+                hideOverlay();
                 $("#closesendpopup").trigger('click');
                 $("#fbSuccessPostPopup").show();
             }
@@ -1681,17 +1683,18 @@ function validateFacebook(){
             return false;
         }
     }
-    if ($("#dropdownurl").val() === "0")
-    {
-        $("#linkTitle").val("");
-        $("#linkUrl").val(""); 
-        $("#linkDescription").val(""); 
-    }
     if((facebookText != "")&&(selectedImage)){
         $("#sendpopup").show();
         $("#fade").show(); 
         return false;
     }
+//    if ($("#dropdownurl").val() === "0")
+//    {
+//        $("#linkTitle").val("");
+//        $("#linkUrl").val(""); 
+//        $("#linkDescription").val(""); 
+//    }
+    
 };
 function postTwitter(){
     validateTwitter();

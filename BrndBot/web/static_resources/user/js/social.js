@@ -65,7 +65,6 @@ function imgchng() {
 }
 
 function controllerSocial($scope, $http) {
-
     $scope.getFacebookDetails = function () {
         $http({
             url: getHost() + 'settings/facebookDetails.do',
@@ -123,6 +122,11 @@ function controllerSocial($scope, $http) {
         localStorage.setItem("CurrentFbPageName", pageName);
         localStorage.setItem("FbProfileName", profileName);
     };
+    $scope.selectImage = function (id){
+        $('.gallery-item-wrap-selected-true').addClass('gallery-item-wrap-selected').removeClass('gallery-item-wrap-selected-true');
+        $("."+id).removeClass('gallery-item-wrap-selected').addClass('gallery-item-wrap-selected-true');
+    };
+    
     $scope.postToSelectedPage = function () {
         var addDafaultmanagePage = $("#setDefaultManagePage").prop('checked');
         if (addDafaultmanagePage) {

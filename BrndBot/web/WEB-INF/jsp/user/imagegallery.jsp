@@ -35,14 +35,15 @@
     <style>#imagepopup{display: none;
     position: fixed;
     z-index: 999999;
-        width:100%;}</style>
+        width:100%;}
+    
+    </style>
 
 <body ng-app="rootApp"  class="claro1" ng-controller="controllerMarketingCampaign">
     <!--SideNav-->
     <div class="content-main">
     <jsp:include page="imageuploadpopup.jsp"/>
     <jsp:include page="navbar.jsp"/>  
-  
     <input type="text"  value="${user}"/>
     <!--Top Nav-->   
     <div class="top-nav">
@@ -73,7 +74,7 @@
                                 <div class="galImage-description">Added on Nov 26 2015</div>-->
                                 <div class="galCard-divider"></div>
                                 <!--<img type="image/svg+xml" src="images/Icons/settings.svg" class="galCard-settingsicon fleft"> </img>-->
-                                <li class="nav-elements-icon-container hint--top delete--gallery"  data-hint="Delete">
+                                <li class="nav-elements-icon-container hint--top delete--gallery"  data-hint1="Delete">
                                     <img type="image/svg+xml" id="delete" src="images/trash.svg" class="galCard-trashicon fleft cur" ng-click="deleteImage(images.companyImagesId)"/>
                                 </li>                                 
                                  <!--<button name="delete"  id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>-->
