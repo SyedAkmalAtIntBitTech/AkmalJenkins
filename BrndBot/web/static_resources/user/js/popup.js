@@ -162,6 +162,7 @@ $(document).ready(function ()
     /*------------------------------------------------ social image popup----------------*/
 
     $("#schedule").click(function () {
+        $("#sendpopup").hide();
         $("#postpopup").hide();
         $("#schedulepopup").show();
         $("#fade").show();
@@ -169,6 +170,7 @@ $(document).ready(function ()
 
     $("#closeschedulepopup").click(function () {
         $("#postpopup").show();
+        $("#sendpopup").show();
         $("#schedulepopup").hide();
         $("#fade").show();
     });

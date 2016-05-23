@@ -26,7 +26,7 @@
         .pop-up-inner1{margin-top: 14px;}.arrow_top{display:none;}
         .timepicker_wrap{width: 80%;}
         .pop-up-background {
-    width: calc(90vw - 580px) !important;
+    width: calc(60vw - 200px) !important;
     margin-top: 0vw !important;
 }
     </style>
@@ -51,13 +51,13 @@
                             <div class="col-8of10  center">
                                 <div class="col-4of10 pushright fleft" onclick="postToFacebook()">
                                     <div class="image-selection-button" id="posttofb"> 
-                                        <img type="image/svg+xml" src="images/postNow.svg" class="post-button-icon" style="cursor:pointer;margin-left: 7vh;"> </img>
+                                        <img type="image/svg+xml" src="images/postNow.svg" class="post-button-icon" style="cursor:pointer;"> </img>
                                     </div>
                                     <div class="button-description">Post Now</div>
                                 </div>
                                 <div class="col-4of10 fright" ng-click="schedulePostToTwitter()">
                                     <div class="image-selection-button" id="schedule">
-                                        <img type="image/svg+xml" src="images/schedulePost.svg" class="schedule-button-icon" style="cursor:pointer;margin-left: 7vh;"> </img>
+                                        <img type="image/svg+xml" src="images/schedulePost.svg" class="schedule-button-icon" style="cursor:pointer;"> </img>
                                     </div>
                                     <div class="button-description">Schedule for Later</div>
                                 </div>
