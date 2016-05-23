@@ -130,7 +130,7 @@ public class YourPlanController {
                         schedule_title,
                         scheduleTimeStamp,
                         schedule_desc,
-                        com.intbit.AppConstants.GSON.fromJson(metadataString, Map.class)
+                        AppConstants.GSON.fromJson(metadataString, Map.class)
                 );
                 
                 messageStatus = "true";
@@ -421,18 +421,15 @@ public class YourPlanController {
             String file_image_path = "";
             String returnMessage = "";
             boolean status = true;
-            //TODO Ilyas need to refactor this
             if (imageType.equals("layout")){
-                file_image_path = com.intbit.AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
+//                file_image_path = com.intbit.AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
             }else if (imageType.equals("gallery")) {
-                file_image_path = com.intbit.AppConstants.USER_IMAGE_HOME + File.separator + companyId + File.separator + getImageFile;
+                file_image_path = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + AppConstants.GALLERY_FOLDERNAME + File.separator + getImageFile;
             }else if (imageType.equals("url")){
                 file_image_path = getImageFile;
             }
 
-//            String file_image_path = getServletContext().getRealPath("") + "/temp/"+getImageFile;
             String imagePostURL = ServletUtil.getServerName(request.getServletContext());
-            //String imagePostURL = AppConstants.LAYOUT_IMAGES_HOME + getImageFile;
             if (isFacebook.equalsIgnoreCase("true")) {
 
                 String posttext = request.getParameter("postText");
@@ -453,11 +450,11 @@ public class YourPlanController {
             }
             logger.log(Priority.DEBUG, "message while facebook post:"+returnMessage);
 
-            if (returnMessage.equals("success") && imageType.equals("layout")){
-                file_image_path = com.intbit.AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
-                File deleteFile = new File(file_image_path);
-                status = deleteFile.delete();
-            }
+//            if (returnMessage.equals("success") && imageType.equals("layout")){
+//                file_image_path = com.intbit.AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
+//                File deleteFile = new File(file_image_path);
+//                status = deleteFile.delete();
+//            }
             logger.log(Priority.DEBUG, "message after social post:"+status);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("data_success",new String[]{}, Locale.US)));
         }catch(Throwable throwable){

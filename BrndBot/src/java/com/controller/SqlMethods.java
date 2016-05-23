@@ -97,7 +97,6 @@ public class SqlMethods {
 ////        }
     }
 
-    //TODO Ilyas datetime needs testing
     public void AddImages(Integer companyId, String image_name) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;

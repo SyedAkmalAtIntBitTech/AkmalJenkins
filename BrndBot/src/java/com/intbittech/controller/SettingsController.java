@@ -199,7 +199,6 @@ public class SettingsController extends BrndBotBaseHttpServlet {
         return (JSONArray) colorFromFile.get("admincustomcolors");
     }
 
-    //TODO Ilyas to check the path
     @RequestMapping(value = "/changeLogo", method = RequestMethod.POST)
     public ResponseEntity<ContainerResponse> changeLogo(HttpServletRequest request,
             HttpServletResponse response) {
@@ -212,7 +211,6 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
             int maxFileSize = 5000 * 1024;
             int maxMemSize = 5000 * 1024;
-            //TODO Ilyas - Check path here.
 
             String uploadPath = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH;
 
@@ -225,7 +223,6 @@ public class SettingsController extends BrndBotBaseHttpServlet {
                 // maximum size that will be stored in memory
                 factory.setSizeThreshold(maxMemSize);
                 // Location to save data that is larger than maxMemSize.
-                //TODO Ilyas - Check path here.
                 //factory.setRepository(new File(AppConstants.TMP_FOLDER));
                 factory.setRepository(new File("/home"));
 

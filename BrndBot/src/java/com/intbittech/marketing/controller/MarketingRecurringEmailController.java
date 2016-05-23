@@ -515,7 +515,6 @@ public class MarketingRecurringEmailController {
         return null;
     }
     
-    //TODO Ilyas check this again
     @RequestMapping (value = "/getUserPreferences", method = RequestMethod.GET)
     public @ResponseBody String getUserPreferences(HttpServletRequest request,
             HttpServletResponse response)throws IOException{
