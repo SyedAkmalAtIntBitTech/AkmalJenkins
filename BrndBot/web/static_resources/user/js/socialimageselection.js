@@ -1222,6 +1222,8 @@ uploadModule.service('fileUpload', ['$http', function ($http) {
 uploadModule.controller('myCtrl', ['$scope', 'fileUpload', function ($scope, fileUpload) {
 
         $scope.uploadFile = function () {
+           
+           $("#upload").unbind();
             var imagetext = $("#filesToUpload").val();
             if (imagetext === "")
             {
@@ -1229,6 +1231,7 @@ uploadModule.controller('myCtrl', ['$scope', 'fileUpload', function ($scope, fil
             }
             else
             {
+                 $("#upload").unbind();
                 var file = $scope.myFile;
                 console.log('file is ' + JSON.stringify(file));
                 var uploadUrl = global_host_address + '/images/save';

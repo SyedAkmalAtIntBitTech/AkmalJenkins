@@ -52,13 +52,13 @@
                             <div class="col-8of10  center">
                                 <div class="col-4of10 pushright fleft" onclick="postToTwitter()">
                                     <div class="image-selection-button" id="posttofb"> 
-                                        <img type="image/svg+xml" src="images/postNow.svg" class="post-button-icon" style="cursor:pointer;margin-left: 5vh;"> </img>
+                                        <img type="image/svg+xml" src="images/postNow.svg" class="post-button-icon" style="cursor:pointer;margin-left: 2vh;"> </img>
                                     </div>
                                     <div class="button-description">Post Now</div>
                                 </div>
                                 <div class="col-4of10 fright" ng-click="schedulePostToTwitter()">
                                     <div class="image-selection-button" id="schedule">
-                                        <img type="image/svg+xml" src="images/schedulePost.svg" class="schedule-button-icon" style="cursor:pointer;margin-left: 5vh;"> </img>
+                                        <img type="image/svg+xml" src="images/schedulePost.svg" class="schedule-button-icon" style="cursor:pointer;margin-left: 2vh;"> </img>
                                     </div>
                                     <div class="button-description">Schedule for Later</div>
                                 </div>
