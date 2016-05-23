@@ -293,6 +293,7 @@
                         };
                         
                     $scope.showBlocks = function(){
+                        $("#"+addblockid).css("border","");
 //                        showOverlay();
                         $("#addblkbtn").prop("disabled", true);
                         $(".selectrow").css("display", "block");
@@ -621,6 +622,7 @@
 
             function selecterBlockId(selectblock, blockid){
             var selectblockid = selectblock.id;
+            $("#"+selectblockid).css("border","2px solid #1EADFC").siblings().css("border","");
             temp_block_id =blockid;
 //                alert(selectblockid);
                     $("img").click(function(){
@@ -645,7 +647,7 @@
             $("#blocktab").click();
             $("#tabs-4").hide();
             });    
-              
+                       
      </script>
 
 </head>    
@@ -733,7 +735,8 @@
                         return returnFooter;
                     }
  
-                    $("#emailpreview").click(function(){            
+                    $("#emailpreview").click(function(){
+                        $("#"+addblockid).css("border","");
                         $.ajax({
                             method : 'GET',
                             url : getHost() + 'settings/getAllPreferences'
@@ -887,6 +890,7 @@
                             };
     $(document).ready(function(){                    
     $("#saveToDraft").click(function (){
+           $("#"+addblockid).css("border","");
 //        $("#saveToDraft").unbind('click');
         var email_subject = $("#emailSubjectTag").val();
         var lookupId = $("#LookupId").val();
@@ -966,6 +970,7 @@
     });
                                                     
     $("#saveButton").click(function (){
+        $("#"+addblockid).css("border","");
 //        alert($("#emailSubjectTag").val());
         var email_subject = $("#emailSubjectTag").val();
         var lookupId = $("#LookupId").val();
