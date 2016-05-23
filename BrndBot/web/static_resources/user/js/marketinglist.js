@@ -76,7 +76,17 @@
             };
             $scope.sendProgramId = function(program_id,past){
                 var program_end_date=$("#program_end_date"+program_id).text();
-                program_end_date=program_end_date.split(' ').join('-');
+                var dateArray=program_end_date.split(' ');
+                var months1 = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                var month = months1.indexOf(dateArray[0])+1;
+                if(month<10)
+                {
+                    month="0"+month;
+                }
+                var day=dateArray[1];
+                var year=dateArray[2];
+                program_end_date=year+"-"+month+"-"+day;
+//                alert(program_end_date);
                 window.open(getHost() + 'user/marketingprogramactions?program_id='+program_id+'&past='+past+'&program_date='+program_end_date, "_self");
             };
             
