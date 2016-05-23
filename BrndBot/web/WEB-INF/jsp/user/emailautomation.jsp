@@ -23,6 +23,7 @@
     <!--<link href="css/emailautomation.css" rel="stylesheet" type="text/css"/>-->
     <script src="js/configurations.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-6.css"></link>
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay_new.css"></link>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="stylesheet" type="text/css" href="css/slat.css"></link>
@@ -44,7 +45,49 @@
         .fr-wrapper{    margin-top: 2% !important;}
         .arrow_top,#emlautomeditorcontainer,#emailautomationcontent,#emailautomation,#textdiv,#myModal,#editpreviewtemplatebottom{display:none;}
         .in-editor-footer-wrap{margin-left: 10%;margin-top: calc(41vw - 100px)!important;max-width: calc(55vw - 110px)!important;}
-        
+
+.emailEditor-rightCol {
+    width: 40%;
+    border-left: 1px solid #E3E3E3;
+    height: auto;
+    padding-bottom: 0px;
+    margin-top: 60px;
+    background-color: #FFFFFF;
+}
+.emailSideBar-Header {
+    height: 40px;
+    border-bottom: 1px solid #E3E3E3;
+    width: 30%;
+    position: fixed;
+    background-color: #fff;
+}
+.in-editor-footer-wrap {
+    position:fixed;
+    background-color: #f9f9f9;
+    border: 1px solid #D5D9DD;
+    border-radius: 3px;
+    margin-top: calc(38vw - 100px);
+    padding: 20px;
+    text-align: center;
+    max-width: calc(72vw - 110px);
+    z-index: 10;
+    margin-left: 8%;
+}
+
+.block-list {
+    background: #f9f9f9;
+    padding: 0px 20px;
+    height: 100vh;
+    margin-top: 18%;
+    padding-top: 2px;
+    cursor: pointer;
+}
+
+
+.col-emaileditordiv {
+    width: 74%;
+    margin-left: -4%;
+}
     </style>
     <%! 
         String entity_id = "";
@@ -72,11 +115,26 @@
     %>
 </head>    
 
-<body ng-app ng-controller="emailautomation">
+<body  class="content-main" ng-app ng-controller="emailautomation">
      <%@include file="header.jsp" %>   
     <%@include file="navbar.jsp" %>    
     <input type="hidden" name="program_end_date" id="program_end_date" value="<%= program_date %>"/>
-    
+     <div class="top-nav-full">
+        <div class="page-title-bar col-1of1"> 
+            <a class=" exit-button-icon" href="">    
+                <div class="exit-button-detail">
+                    <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
+                </div>
+            </a>
+            <div class="page-title-with-back page-title-font">Email Editor</div>
+            <div class="page-cta-container">
+                <a href="" class="gray-button fleft pushright">
+                    <div class="nounderline md-button" id="emailpreview">  Preview Email</div>  
+                </a>
+
+            </div>
+        </div>
+    </div>
 <script>
     
     var emailLists="";
@@ -1125,13 +1183,13 @@
                <!--<div class="col-1of1">-->
                <!--<div class="">-->
                    <div class="col-emaileditor">
-                       <div class="col-emaileditordiv">
+                       <div class="col-emaileditordiv" style="width: 100%;">
                             <style>
                                 .bottom-cta-button-container{padding-top: 1% !important;}
                                 .popUp_close {padding: 0px 0;}
                                 #edit{
                                     position: fixed;
-                                    top:10px;
+                                    top:20px;
                                     font-family:"proxima-nova";
                                     font-weight:500;
                                     left: 5em; 
@@ -1162,14 +1220,20 @@
                                 .imgText{text-align: center;}
                                 
                                 .fr-editheader {
-                                    top: 5px !important;
-                                    bottom: 23px !important;
+                                        top: 63px !important;
+                                        bottom: 23px !important;
+                                        position: fixed;
+                                        height: 39px;
+                                        width: 62%;
                                 }
                             </style>
-
+        <div class="emailEditor-page-background fleft">
+            <div class="emailEditor-leftCol ">
                         <div id="editor">
-                            <div id='edit' class="editorheight" style="margin-top:0px;"></div>
+                            <div id='edit' class="editorheight" style=""></div>
                         </div>
+            </div>
+        </div>
 <!--////////////////////.......... uncomment for footer to do click is not working because area is overlapping to each other......////-->                           
                         <div class="in-editor-footer-wrap">
                             <h3>Email Footer</h3>
@@ -1201,16 +1265,64 @@
                                </div>
                            </div> -->
                        </div>
-                        <div class="col-templatelist col-3of10">
+                       <div class="emailEditor-rightCol fright rightcoloumn">
+                <div class="emailSideBar-Header">
+                    <div class="col-1of2 fleft">
+                        <div class="emailSideBar-tab-active" id="templatediv" style="color: rgb(25, 88, 124); background-color: rgb(255, 255, 255);">
+                         Add Block
+                        </div>
+                    </div>
+                    <div class="col-1of2 fleft">
+                        <div class="emailSideBar-tab" id="templatetab" style="color: rgb(25, 88, 124); background-color: transparent;">
+                         Select a Text
+                        </div>
+                    </div> 
+                </div>
+                <div class="email-Block-Selection right-email-select">
+                    <div class="email-Block-Header" id="blockdivheader">Select a block to add:</div>
+                    <div class="email-Block-Header" id="styledivheader">Select a style for this block:</div>
+                    <div class="block-selection-divider"></div>
+                    <ul class="block-list" id="blockdiv">
+<!--                        <li class="block-slat-active" >
+                            <div class="block-name">Header Block</div>
+                            <div class="block-button" ng-click="showDataTemp()">Add Block</div>                            
+                        </li>-->
+                        <!-- ngRepeat: blocks in datalists --><li class="block-slat ng-scope" ng-repeat="blocks in datalists" id="1" ng-click="showImageOfBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)">
+                            <div class="block-name ng-binding" id="blklist----1">NM Block</div>                            
+                            <div class="block-button hide" ng-click="showDataTemp(blocks.emailBlockId)" id="div21">Add Block</div>
+                        </li><li class="block-slat ng-scope" ng-repeat="blocks in datalists" id="2" ng-click="showImageOfBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)">
+                            <div class="block-name ng-binding" id="blklist----2">M Block</div>                            
+                            <div class="block-button hide" ng-click="showDataTemp(blocks.emailBlockId)" id="div22">Add Block</div>
+                        </li>
+                    </ul>
+                    
+                    <ul class="block-list" id="stylediv">
+                        <!-- ngRepeat: styles in datalistsstyles.slice().reverse() --><li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat ng-scope" id="stylelistid3" ng-click="addActive('stylelistid'+styles.modelId)">
+                            <div class="block-name">
+                                <img id="3" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName=1462792829041.jpg&amp;imageType=EMAIL_TEMPLATE_IMAGE&amp;companyId=0" onclick="showText('3')" width="100%">
+                            </div>
+                        </li><li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat ng-scope" id="stylelistid2" ng-click="addActive('stylelistid'+styles.modelId)">
+                            <div class="block-name">
+                                <img id="2" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName=1462788061691.jpg&amp;imageType=EMAIL_TEMPLATE_IMAGE&amp;companyId=0" onclick="showText('2')" width="100%">
+                            </div>
+                        </li><li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat ng-scope" id="stylelistid1" ng-click="addActive('stylelistid'+styles.modelId)">
+                            <div class="block-name">
+                                <img id="1" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName=1463565241278.jpg&amp;imageType=EMAIL_TEMPLATE_IMAGE&amp;companyId=0" onclick="showText('1')" width="100%">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+<!--                        <div class="col-templatelist col-3of10">
                             <div class="blockselection" id="templatediv">     
                                     <div class="col-1of1">
                                         <div class="">
                                             <div class="selblocknew fontpnr">Select a Template</div>
                                         </div>
                                             <div class="selblklinediv"><hr class="selblkline"></div>
-                     <!--                        <div class="col-md-6 col-lg-6 col-sm-6">
+                                             <div class="col-md-6 col-lg-6 col-sm-6">
                                             <div class="addblkdiv"><input class="addblkbtn fontpns " type="button" value="Add Block"></div>
-                                        </div>-->
+                                        </div>
                                     </div>
                                     
                                     
@@ -1220,12 +1332,12 @@
                                                     <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
                                                 </li>
                                             </ul>
-                     <!--                            <ul id="stylelist" class="blocklist fontpnr">
+                                                 <ul id="stylelist" class="blocklist fontpnr">
                                                 <li ng-repeat="styles in datalistsstyles">
                                                     <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" /></div>
                                                 </li>
 
-                                            </ul>-->
+                                            </ul>
                                     </div>
                                 </div>
                                 <div class="blockselection" id="textdiv">     
@@ -1242,12 +1354,12 @@
                                     </div>
 
                                 </div>
-                                <div class="blockstyletab col-1of10 ">      
+                        <div class="blockstyletab col-1of10 ">      
                                     <ul class="righttabs fontpnr">
-                     <!--                        <li id="templatetab">
+                                             <li id="templatetab">
                                             <image src='images/sidebar/Icons_styleButton.svg' class="styleimg"/>
                                             <p>STYLE</p>
-                                        </li>-->
+                                        </li>
                                         <li id="templatetab" class="centerItem">
                                             <image src='images/Icons_blockButton.svg' class="blockimg" style="    width: calc(12vw - 100%);"/>
                                             <p class="imgText">TEMPLATE</p>
@@ -1257,7 +1369,7 @@
                                             <p class="imgText">TEXT</p>
                                         </li>
                                     </ul>
-                                </div>
+                                </div>-->
                         </div>
                
                    </div>
@@ -1311,8 +1423,8 @@
    </div>           
         <div class="bottom-cta-bar" id="editpreviewtemplatebottom">
          <div class="bottom-cta-button-container col-inlineflex col-1of1">
-             <div class="editemail fontpnr col-1of4">Edit this Email Automation Action</div>   
-             <div class="mobileprev fontpnr col-1of4" id="emailpreview" class="img-responsive ptr" >Email Preview</div>
+<!--             <div class="editemail fontpnr col-1of4">Edit this Email Automation Action</div>   
+             <div class="mobileprev fontpnr col-1of4" id="emailpreview" class="img-responsive ptr" >Email Preview</div>-->
              <div class="add-action-button md-button button-text-1 paddingperfectbtn col-1of4" type="button" ng-click="addUpdateRecuringAction()">save</div>
          </div>
         </div>
