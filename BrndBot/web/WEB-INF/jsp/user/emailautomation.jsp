@@ -23,6 +23,7 @@
     <!--<link href="css/emailautomation.css" rel="stylesheet" type="text/css"/>-->
     <script src="js/configurations.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-6.css"></link>
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay_new.css"></link>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="stylesheet" type="text/css" href="css/slat.css"></link>
@@ -44,7 +45,72 @@
         .fr-wrapper{    margin-top: 2% !important;}
         .arrow_top,#emlautomeditorcontainer,#emailautomationcontent,#emailautomation,#textdiv,#myModal,#editpreviewtemplatebottom{display:none;}
         .in-editor-footer-wrap{margin-left: 10%;margin-top: calc(41vw - 100px)!important;max-width: calc(55vw - 110px)!important;}
-        
+
+.emailEditor-rightCol {
+    width: 40%;
+    border-left: 1px solid #E3E3E3;
+    height: auto;
+    padding-bottom: 0px;
+    margin-top: 60px;
+    background-color: #FFFFFF;
+}
+.emailSideBar-Header {
+    height: 40px;
+    border-bottom: 1px solid #E3E3E3;
+    width: 30%;
+    position: fixed;
+    background-color: #fff;
+}
+.in-editor-footer-wrap {
+    position:fixed;
+    background-color: #f9f9f9;
+    border: 1px solid #D5D9DD;
+    border-radius: 3px;
+    margin-top: calc(38vw - 100px);
+    padding: 20px;
+    text-align: center;
+    max-width: calc(72vw - 110px);
+    z-index: 10;
+    margin-left: 8%;
+}
+
+.block-list {
+    background: #f9f9f9;
+    padding: 0px 20px;
+    height: 75vh;
+    margin-top: 18%;
+    padding-top: 2px;
+    cursor: pointer;
+}
+
+
+.col-emaileditordiv {
+    width: 74%;
+    margin-left: -4%;
+}
+.nav-elements-icon {
+    border-top: 0px solid #203c4f;
+    display: block;
+    line-height: 53px;
+    list-style: none;
+    margin: 0;
+    width: 100%;
+    padding: 0px;
+    width: 35px;
+    height: 35px;
+    margin: auto;
+}
+.right-email-select {
+    height: -webkit-calc(10% - 1px) !important;
+}
+.contentWrap--withSideNav{
+     width: calc(10vw - 70px); 
+    position: fixed;
+    left: 70px;
+    top: 0px;
+    height: 100vh;
+    overflow: auto;
+}
     </style>
     <%! 
         String entity_id = "";
@@ -72,11 +138,28 @@
     %>
 </head>    
 
-<body ng-app ng-controller="emailautomation">
+<body  class="content-main" ng-app ng-controller="emailautomation">
      <%@include file="header.jsp" %>   
     <%@include file="navbar.jsp" %>    
     <input type="hidden" name="program_end_date" id="program_end_date" value="<%= program_date %>"/>
-    
+    <div class="contentWrap--withSideNav noScroll ng-scope" style="width:calc(10vw - 70px); ">
+    <div class="topNav topNav-withSubnav clear">
+        <div class="page-title-bar col-1of1"> 
+            <a class=" exit-button-icon" href="marketingprogramlists">    
+                <div class="exit-button-detail">
+                    <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
+                </div>
+            </a>
+            <div class="page-title-with-back page-title-font">Email Editor</div>
+            <div class="page-cta-container">
+                <a href="" class="gray-button fleft pushright">
+                    <div class="nounderline md-button" id="emailpreview">  Preview Email</div>  
+                </a>
+
+            </div>
+        </div>
+    </div>
+    </div>
 <script>
     
     var emailLists="";
@@ -103,16 +186,21 @@
 //
 //            }
     $("#templatetab").click(function (){
-           $("#textdiv").hide();
-           $("#templatediv").show();
-           $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
-           $("#texttab").css("background-color","transparent").css("color","#19587c");
+           $("#blklist").hide();
+           $("#blockdivheader").hide();
+           $("#textTab").show();
+           $("#stylediv").show();
+           
+           $("#templatetab").removeClass("emailSideBar-tab").addClass("emailSideBar-tab-active").css("background-color","#ffffff").css("color","#19587c");
+           $("#templatediv").removeClass("emailSideBar-tab-active").addClass("emailSideBar-tab").css("background-color","transparent").css("color","#19587c");
        });
-       $("#texttab").click(function (){
-           $("#templatediv").hide();
-           $("#textdiv").show();
-           $("#texttab").css("background-color","#ffffff").css("color","#19587c");
-           $("#templatetab").css("background-color","transparent").css("color","#19587c");
+       $("#templatediv").click(function (){
+           $("#stylediv").hide();
+           $("#textTab").hide();
+           $("#blockdivheader").show();
+           $("#blklist").show();
+           $("#templatediv").removeClass("emailSideBar-tab").addClass("emailSideBar-tab-active").css("background-color","#ffffff").css("color","#19587c");
+           $("#templatetab").removeClass("emailSideBar-tab-active").addClass("emailSideBar-tab").css("background-color","transparent").css("color","#19587c");
        });  
     });
     
@@ -799,9 +887,9 @@
       $('#edit').froalaEditor({
         key: FroalaLicenseKey
       });
-       $("#templatetab").click(function (){
-       $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
-       });
+//       $("#templatetab").click(function (){
+//       $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
+//       });
     });
   </script>
   <script>
@@ -861,7 +949,7 @@
                        }
                     });
             });
-            
+          
         });
                 function UserFooter(fb,twitter,website,instagram,address){
                         var returnFooter ="";
@@ -1125,13 +1213,13 @@
                <!--<div class="col-1of1">-->
                <!--<div class="">-->
                    <div class="col-emaileditor">
-                       <div class="col-emaileditordiv">
+                       <div class="col-emaileditordiv" style="width: 100%;">
                             <style>
                                 .bottom-cta-button-container{padding-top: 1% !important;}
                                 .popUp_close {padding: 0px 0;}
                                 #edit{
                                     position: fixed;
-                                    top:10px;
+                                    top:20px;
                                     font-family:"proxima-nova";
                                     font-weight:500;
                                     left: 5em; 
@@ -1162,14 +1250,20 @@
                                 .imgText{text-align: center;}
                                 
                                 .fr-editheader {
-                                    top: 5px !important;
-                                    bottom: 23px !important;
+                                        top: 63px !important;
+                                        bottom: 23px !important;
+                                        position: fixed;
+                                        height: 39px;
+                                        width: 62%;
                                 }
                             </style>
-
+        <div class="emailEditor-page-background fleft">
+            <div class="emailEditor-leftCol ">
                         <div id="editor">
-                            <div id='edit' class="editorheight" style="margin-top:0px;"></div>
+                            <div id='edit' class="editorheight" style=""></div>
                         </div>
+            </div>
+        </div>
 <!--////////////////////.......... uncomment for footer to do click is not working because area is overlapping to each other......////-->                           
                         <div class="in-editor-footer-wrap">
                             <h3>Email Footer</h3>
@@ -1201,16 +1295,48 @@
                                </div>
                            </div> -->
                        </div>
-                        <div class="col-templatelist col-3of10">
+                       <div class="emailEditor-rightCol fright rightcoloumn">
+                <div class="emailSideBar-Header">
+                    <div class="col-1of2 fleft">
+                        <div class="emailSideBar-tab-active" id="templatediv" style="color: rgb(25, 88, 124); background-color: rgb(255, 255, 255);">
+                         Add Template
+                        </div>
+                    </div>
+                    <div class="col-1of2 fleft">
+                        <div class="emailSideBar-tab" id="templatetab" style="color: rgb(25, 88, 124); background-color: transparent;">
+                         Select a Text
+                        </div>
+                    </div> 
+                </div>
+                <div class="email-Block-Selection right-email-select">
+                    <div class="email-Block-Header" id="blockdivheader">Select a Template:</div>
+                    <div class="email-Block-Header displayNone" id="textTab">Select a Text:</div>
+                    <div class="block-selection-divider"></div>
+                      <ul id="blklist" class="block-list blocklistnew fontpnr">
+                           <li ng-repeat="email_template in recuring_email_templates"> 
+                                <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
+                           </li>
+                      </ul>
+                    <ul class="block-list" id="stylediv">
+                        <li>
+                            <div class="textstyle">To add client name please use these options</div>
+                            <div class="textstyle">Ex: Hi &LT;clientFirstName&GT; </div>
+                            <div class="textstyle">Hi &LT;clientLastName&GT; </div>
+                            <div class="textstyle">Hi &LT;clientFullName&GT; </div>  
+                        </li>
+                    </ul>
+                </div>
+            </div>
+<!--                        <div class="col-templatelist col-3of10">
                             <div class="blockselection" id="templatediv">     
                                     <div class="col-1of1">
                                         <div class="">
                                             <div class="selblocknew fontpnr">Select a Template</div>
                                         </div>
                                             <div class="selblklinediv"><hr class="selblkline"></div>
-                     <!--                        <div class="col-md-6 col-lg-6 col-sm-6">
+                                             <div class="col-md-6 col-lg-6 col-sm-6">
                                             <div class="addblkdiv"><input class="addblkbtn fontpns " type="button" value="Add Block"></div>
-                                        </div>-->
+                                        </div>
                                     </div>
                                     
                                     
@@ -1220,12 +1346,12 @@
                                                     <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
                                                 </li>
                                             </ul>
-                     <!--                            <ul id="stylelist" class="blocklist fontpnr">
+                                                 <ul id="stylelist" class="blocklist fontpnr">
                                                 <li ng-repeat="styles in datalistsstyles">
                                                     <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" /></div>
                                                 </li>
 
-                                            </ul>-->
+                                            </ul>
                                     </div>
                                 </div>
                                 <div class="blockselection" id="textdiv">     
@@ -1242,12 +1368,12 @@
                                     </div>
 
                                 </div>
-                                <div class="blockstyletab col-1of10 ">      
+                        <div class="blockstyletab col-1of10 ">      
                                     <ul class="righttabs fontpnr">
-                     <!--                        <li id="templatetab">
+                                             <li id="templatetab">
                                             <image src='images/sidebar/Icons_styleButton.svg' class="styleimg"/>
                                             <p>STYLE</p>
-                                        </li>-->
+                                        </li>
                                         <li id="templatetab" class="centerItem">
                                             <image src='images/Icons_blockButton.svg' class="blockimg" style="    width: calc(12vw - 100%);"/>
                                             <p class="imgText">TEMPLATE</p>
@@ -1257,7 +1383,7 @@
                                             <p class="imgText">TEXT</p>
                                         </li>
                                     </ul>
-                                </div>
+                                </div>-->
                         </div>
                
                    </div>
@@ -1308,12 +1434,12 @@
 
         </div>
     </div>
-   </div>           
+   </div>   
         <div class="bottom-cta-bar" id="editpreviewtemplatebottom">
-         <div class="bottom-cta-button-container col-inlineflex col-1of1">
-             <div class="editemail fontpnr col-1of4">Edit this Email Automation Action</div>   
-             <div class="mobileprev fontpnr col-1of4" id="emailpreview" class="img-responsive ptr" >Email Preview</div>
-             <div class="add-action-button md-button button-text-1 paddingperfectbtn col-1of4" type="button" ng-click="addUpdateRecuringAction()">save</div>
+         <div class="bottom-cta-button-container-lg">
+<!--             <div class="editemail fontpnr col-1of4">Edit this Email Automation Action</div>   
+             <div class="mobileprev fontpnr col-1of4" id="emailpreview" class="img-responsive ptr" >Email Preview</div>-->
+             <div class="bottom-continue-button button-text-1" type="button" ng-click="addUpdateRecuringAction()">Save</div>
          </div>
         </div>
         <span ng-init="getFooterDetails()">
