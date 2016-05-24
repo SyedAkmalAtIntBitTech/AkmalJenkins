@@ -1439,7 +1439,7 @@
          <div class="bottom-cta-button-container-lg">
 <!--             <div class="editemail fontpnr col-1of4">Edit this Email Automation Action</div>   
              <div class="mobileprev fontpnr col-1of4" id="emailpreview" class="img-responsive ptr" >Email Preview</div>-->
-             <div class="bottom-continue-button button-text-1" type="button" ng-click="addUpdateRecuringAction()">save</div>
+             <div class="bottom-continue-button button-text-1" type="button" ng-click="addUpdateRecuringAction()">Save</div>
          </div>
         </div>
         <span ng-init="getFooterDetails()">
