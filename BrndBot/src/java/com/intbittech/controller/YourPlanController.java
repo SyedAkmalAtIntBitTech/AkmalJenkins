@@ -425,7 +425,7 @@ public class YourPlanController {
             if (imageType.equals("layout")){
                 file_image_path = com.intbit.AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
             }else if (imageType.equals("gallery")) {
-                file_image_path = com.intbit.AppConstants.USER_IMAGE_HOME + File.separator + companyId + File.separator + getImageFile;
+                file_image_path = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator + AppConstants.GALLERY_FOLDERNAME + File.separator + getImageFile;
             }else if (imageType.equals("url")){
                 file_image_path = getImageFile;
             }
