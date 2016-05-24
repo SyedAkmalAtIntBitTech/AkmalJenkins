@@ -77,7 +77,7 @@
 .block-list {
     background: #f9f9f9;
     padding: 0px 20px;
-    height: 100vh;
+    height: 75vh;
     margin-top: 18%;
     padding-top: 2px;
     cursor: pointer;
@@ -87,6 +87,21 @@
 .col-emaileditordiv {
     width: 74%;
     margin-left: -4%;
+}
+.nav-elements-icon {
+    border-top: 0px solid #203c4f;
+    display: block;
+    line-height: 53px;
+    list-style: none;
+    margin: 0;
+    width: 100%;
+    padding: 0px;
+    width: 35px;
+    height: 35px;
+    margin: auto;
+}
+.right-email-select {
+    height: -webkit-calc(10% - 1px) !important;
 }
     </style>
     <%! 
@@ -161,16 +176,21 @@
 //
 //            }
     $("#templatetab").click(function (){
-           $("#textdiv").hide();
-           $("#templatediv").show();
-           $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
-           $("#texttab").css("background-color","transparent").css("color","#19587c");
+           $("#blklist").hide();
+           $("#blockdivheader").hide();
+           $("#textTab").show();
+           $("#stylediv").show();
+           
+           $("#templatetab").removeClass("emailSideBar-tab").addClass("emailSideBar-tab-active").css("background-color","#ffffff").css("color","#19587c");
+           $("#templatediv").removeClass("emailSideBar-tab-active").addClass("emailSideBar-tab").css("background-color","transparent").css("color","#19587c");
        });
-       $("#texttab").click(function (){
-           $("#templatediv").hide();
-           $("#textdiv").show();
-           $("#texttab").css("background-color","#ffffff").css("color","#19587c");
-           $("#templatetab").css("background-color","transparent").css("color","#19587c");
+       $("#templatediv").click(function (){
+           $("#stylediv").hide();
+           $("#textTab").hide();
+           $("#blockdivheader").show();
+           $("#blklist").show();
+           $("#templatediv").removeClass("emailSideBar-tab").addClass("emailSideBar-tab-active").css("background-color","#ffffff").css("color","#19587c");
+           $("#templatetab").removeClass("emailSideBar-tab-active").addClass("emailSideBar-tab").css("background-color","transparent").css("color","#19587c");
        });  
     });
     
@@ -857,9 +877,9 @@
       $('#edit').froalaEditor({
         key: FroalaLicenseKey
       });
-       $("#templatetab").click(function (){
-       $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
-       });
+//       $("#templatetab").click(function (){
+//       $("#templatetab").css("background-color","#ffffff").css("color","#19587c");
+//       });
     });
   </script>
   <script>
@@ -919,7 +939,7 @@
                        }
                     });
             });
-            
+          
         });
                 function UserFooter(fb,twitter,website,instagram,address){
                         var returnFooter ="";
@@ -1269,7 +1289,7 @@
                 <div class="emailSideBar-Header">
                     <div class="col-1of2 fleft">
                         <div class="emailSideBar-tab-active" id="templatediv" style="color: rgb(25, 88, 124); background-color: rgb(255, 255, 255);">
-                         Add Block
+                         Add Template
                         </div>
                     </div>
                     <div class="col-1of2 fleft">
@@ -1279,36 +1299,20 @@
                     </div> 
                 </div>
                 <div class="email-Block-Selection right-email-select">
-                    <div class="email-Block-Header" id="blockdivheader">Select a block to add:</div>
-                    <div class="email-Block-Header" id="styledivheader">Select a style for this block:</div>
+                    <div class="email-Block-Header" id="blockdivheader">Select a Template:</div>
+                    <div class="email-Block-Header displayNone" id="textTab">Select a Text:</div>
                     <div class="block-selection-divider"></div>
-                    <ul class="block-list" id="blockdiv">
-<!--                        <li class="block-slat-active" >
-                            <div class="block-name">Header Block</div>
-                            <div class="block-button" ng-click="showDataTemp()">Add Block</div>                            
-                        </li>-->
-                        <!-- ngRepeat: blocks in datalists --><li class="block-slat ng-scope" ng-repeat="blocks in datalists" id="1" ng-click="showImageOfBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)">
-                            <div class="block-name ng-binding" id="blklist----1">NM Block</div>                            
-                            <div class="block-button hide" ng-click="showDataTemp(blocks.emailBlockId)" id="div21">Add Block</div>
-                        </li><li class="block-slat ng-scope" ng-repeat="blocks in datalists" id="2" ng-click="showImageOfBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)">
-                            <div class="block-name ng-binding" id="blklist----2">M Block</div>                            
-                            <div class="block-button hide" ng-click="showDataTemp(blocks.emailBlockId)" id="div22">Add Block</div>
-                        </li>
-                    </ul>
-                    
+                      <ul id="blklist" class="block-list blocklistnew fontpnr">
+                           <li ng-repeat="email_template in recuring_email_templates"> 
+                                <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
+                           </li>
+                      </ul>
                     <ul class="block-list" id="stylediv">
-                        <!-- ngRepeat: styles in datalistsstyles.slice().reverse() --><li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat ng-scope" id="stylelistid3" ng-click="addActive('stylelistid'+styles.modelId)">
-                            <div class="block-name">
-                                <img id="3" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName=1462792829041.jpg&amp;imageType=EMAIL_TEMPLATE_IMAGE&amp;companyId=0" onclick="showText('3')" width="100%">
-                            </div>
-                        </li><li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat ng-scope" id="stylelistid2" ng-click="addActive('stylelistid'+styles.modelId)">
-                            <div class="block-name">
-                                <img id="2" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName=1462788061691.jpg&amp;imageType=EMAIL_TEMPLATE_IMAGE&amp;companyId=0" onclick="showText('2')" width="100%">
-                            </div>
-                        </li><li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat ng-scope" id="stylelistid1" ng-click="addActive('stylelistid'+styles.modelId)">
-                            <div class="block-name">
-                                <img id="1" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName=1463565241278.jpg&amp;imageType=EMAIL_TEMPLATE_IMAGE&amp;companyId=0" onclick="showText('1')" width="100%">
-                            </div>
+                        <li>
+                            <div class="textstyle">To add client name please use these options</div>
+                            <div class="textstyle">Ex: Hi &LT;clientFirstName&GT; </div>
+                            <div class="textstyle">Hi &LT;clientLastName&GT; </div>
+                            <div class="textstyle">Hi &LT;clientFullName&GT; </div>  
                         </li>
                     </ul>
                 </div>
@@ -1420,12 +1424,12 @@
 
         </div>
     </div>
-   </div>           
+   </div>   
         <div class="bottom-cta-bar" id="editpreviewtemplatebottom">
-         <div class="bottom-cta-button-container col-inlineflex col-1of1">
+         <div class="bottom-cta-button-container-lg">
 <!--             <div class="editemail fontpnr col-1of4">Edit this Email Automation Action</div>   
              <div class="mobileprev fontpnr col-1of4" id="emailpreview" class="img-responsive ptr" >Email Preview</div>-->
-             <div class="add-action-button md-button button-text-1 paddingperfectbtn col-1of4" type="button" ng-click="addUpdateRecuringAction()">save</div>
+             <div class="bottom-continue-button button-text-1" type="button" ng-click="addUpdateRecuringAction()">save</div>
          </div>
         </div>
         <span ng-init="getFooterDetails()">
