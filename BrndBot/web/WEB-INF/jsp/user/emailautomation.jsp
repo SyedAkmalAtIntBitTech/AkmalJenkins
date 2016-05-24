@@ -103,6 +103,14 @@
 .right-email-select {
     height: -webkit-calc(10% - 1px) !important;
 }
+.contentWrap--withSideNav{
+     width: calc(10vw - 70px); 
+    position: fixed;
+    left: 70px;
+    top: 0px;
+    height: 100vh;
+    overflow: auto;
+}
     </style>
     <%! 
         String entity_id = "";
@@ -134,9 +142,10 @@
      <%@include file="header.jsp" %>   
     <%@include file="navbar.jsp" %>    
     <input type="hidden" name="program_end_date" id="program_end_date" value="<%= program_date %>"/>
-     <div class="top-nav-full">
+    <div class="contentWrap--withSideNav noScroll ng-scope" style="width:calc(10vw - 70px); ">
+    <div class="topNav topNav-withSubnav clear">
         <div class="page-title-bar col-1of1"> 
-            <a class=" exit-button-icon" href="">    
+            <a class=" exit-button-icon" href="marketingprogramlists">    
                 <div class="exit-button-detail">
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                 </div>
@@ -149,6 +158,7 @@
 
             </div>
         </div>
+    </div>
     </div>
 <script>
     
