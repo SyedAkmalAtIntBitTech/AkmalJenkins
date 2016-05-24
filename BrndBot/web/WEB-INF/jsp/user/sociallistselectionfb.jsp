@@ -53,7 +53,7 @@
                                     <div class="image-selection-button" id="posttofb"> 
                                         <img type="image/svg+xml" src="images/postNow.svg" class="post-button-icon" style="cursor:pointer;"> </img>
                                     </div>
-                                    <div class="button-description">Post Now</div>
+                                    <div class="button-description">Post to Facebook Now</div>
                                 </div>
                                 <div class="col-4of10 fright" ng-click="schedulePostToTwitter()">
                                     <div class="image-selection-button" id="schedule">
