@@ -144,7 +144,7 @@ function controllerSocial($scope, $http) {
                 window.location = getHost() + "user/social";
             });
         } else {
-            alert("Plese select a page");
+            alert("Please select any page and set as Default.");
         }
 
     };

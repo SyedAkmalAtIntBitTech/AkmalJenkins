@@ -13,8 +13,8 @@
                         </div>
                     </div>
                     <div class="popUp_subheader clear">
-                        <span class="popUp_subheader-tabs fleft">
-                            <input type="checkbox" name="defaultManagePage" id="setDefaultManagePage">  Set selected page as default<br>
+                        <span class="popUp_subheader-tabs fleft darktext">
+                            <input type="checkbox" name="defaultManagePage" id="setDefaultManagePage" class="marginRight">Set selected page as default<br>
                         </span>
                     </div>
                     <div class=" gallery-padding clear gallery-pane">

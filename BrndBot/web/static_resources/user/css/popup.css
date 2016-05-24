@@ -1812,7 +1812,12 @@ textarea#filetext1 {
     text-align: left;
     color: #AAA;
 }
-
+.darktext{
+    color:#000;
+}
+.marginRight{
+    margin-right: 5px;
+}
 .popUp_subheader-tabs-active{
     line-height: 30px;
      margin-right: 20px;
