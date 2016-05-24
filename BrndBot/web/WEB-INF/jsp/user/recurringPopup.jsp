@@ -167,8 +167,8 @@
                         </div>
                         
                         
-                       <div class="BBoverlay-content" id="savedemailsdiv" ng-show="recurring_template_status != 'No Template'">
-                    <div class="BBsaved-action-header-bar">
+                       <div class="BBoverlay-content" style="margin-top: -54px; " id="savedemailsdiv" ng-show="recurring_template_status != 'No Template'">
+                    <div class="BBsaved-action-header-bar" >
                         <div class="BBsaved-action-header-details-wrap">
                             <h2 class="BBsection-header">SAVED EMAIL PREVIEW</h2>
                             

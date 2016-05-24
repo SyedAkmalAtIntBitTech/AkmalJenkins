@@ -18,10 +18,8 @@
                     <div class="h3 font--lightGray ">Your post has been successfully posted on Facebook. Would you like to post another content on Facebook? </div>
                 </div>
                 <div class="postSent-button-wrap">
-                    <div class="fleft">
-                         <a href="/BrndBot/user/facebookpost"><div class="CTA_Button Button--Gray ">Post to Facebook</div></a>
-                    </div>
-                    <div class="fright">
+                  
+                    <div class="fright dashboard-link">
                         <a href="/BrndBot/user/dashboard"><div class="CTA_Button Button--Gray ">Go to Dashboard</div></a>
                     </div>
                 </div>

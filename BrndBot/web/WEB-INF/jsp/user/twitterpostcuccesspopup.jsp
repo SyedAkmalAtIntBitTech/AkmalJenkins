@@ -18,10 +18,8 @@
                     <div class="h3 font--lightGray ">Your post has been successfully posted on Twitter. Would you like to post another content on Twitter? </div>
                 </div>
                 <div class="postSent-button-wrap">
-                    <div class="fleft">
-                         <a href="/BrndBot/user/twitterpost"><div class="CTA_Button Button--Gray ">Post to Twitter</div></a>
-                    </div>
-                    <div class="fright">
+                    
+                    <div class="fright dashboard-link">
                         <a href="/BrndBot/user/dashboard"><div class="CTA_Button Button--Gray ">Go to Dashboard</div></a>
                     </div>
                 </div>
