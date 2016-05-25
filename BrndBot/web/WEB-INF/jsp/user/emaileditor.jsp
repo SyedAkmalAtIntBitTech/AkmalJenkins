@@ -981,6 +981,14 @@
             method : 'GET',
             url : getHost() + 'settings/getAllPreferences'
         }).success(function(data, status) {
+                                   var footerData = JSON.parse(data.d.details);
+                            if(!footerData.userProfile){
+                                $("#emailFooterPopup").show();
+                            }
+                         else{
+                             if(!footerData.userProfile.address){
+                            $("#emailFooterPopup").show();
+                            }else{     
             var footerData = JSON.parse(data.d.details);
             var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
                     footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
@@ -1047,6 +1055,8 @@
                 }
             }
         });
+     }
+    }
         });
     });
                     
