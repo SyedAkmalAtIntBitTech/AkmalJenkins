@@ -1357,7 +1357,7 @@ input-field-container{
     padding: 6px 10px 3px 10px;
     margin-top: 10px;
     box-sizing: border-box;
-     color: #cccccc;
+     color: #666;
 }
 
 .input-field-textfield:hover{
@@ -1367,7 +1367,7 @@ input-field-container{
     padding: 6px 10px 3px 10px;
     margin-top: 10px;
     box-sizing: border-box;
-     color: #cccccc;
+     color: #666;
     cursor: pointer;
 }
 
@@ -1378,7 +1378,7 @@ input-field-container{
     padding: 6px 10px 3px 10px;
     margin-top: 10px;
     box-sizing: border-box;
-     color: #cccccc;
+     color: #666;
     cursor: pointer;
 }
 

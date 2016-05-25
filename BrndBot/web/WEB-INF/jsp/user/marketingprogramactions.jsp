@@ -130,9 +130,25 @@
                                     <div class="slat-title email-list-slat-title col-1of1 sh1">{{emailautomation.programTemplateName}}</div>
                                     <div class="action-list-slat-description col-1of1 sh3">{{emailautomation.description}}</div>
                                 </div>
-                                <div class=" col-2of10  fleft slat-attribute-container">
+<!--                                <div class=" col-2of10  fleft slat-attribute-container">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{emailautomation.dateTime| date:'MMM dd'}}</div>
                                     <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
+                                </div>-->
+                               <div class=" col-2of10  fleft slat-attribute-container">
+                                 <div class="slat-column-font list-column-number col-1of1 sh2 fleft">
+                                     <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'Template Saved'"> 
+                                         <img src="images/Pause.svg" class="status-button" />
+                                     </div>
+                                     <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'No Template'"> 
+                                         <img src="images/Pause.svg" class="status-button"/>
+                                     </div>
+                                     <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'Approved'"> 
+                                         <img src="images/Play.svg" class="status-button"/>
+                                     </div>
+                                     <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'Complete'"> 
+<!--                                         <img src="images/ActionComplete.svg" class="status-button"/>-->
+                                     </div>
+                                 </div>
                                 </div>
                                 <div class=" col-2of10  fleft slat-attribute-container">
                                     <div class="slat-column-font list-column-number col-1of1 sh2 fleft" >{{actionType}}</div>
