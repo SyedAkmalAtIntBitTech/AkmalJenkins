@@ -5,7 +5,7 @@
  */
 package com.intbittech.controller;
 
-import com.intbit.AppConstants;
+import com.intbittech.AppConstants;
 import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.TransactionResponse;
@@ -106,9 +106,9 @@ public class SocialPostController {
     private String getImageTypePrefix(String imageType, Integer companyId, String getImageFile) {
         String file_image_path = "";
         if (imageType.equals("layout")) {
-            file_image_path = com.intbit.AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
+            file_image_path = com.intbittech.utility.AppConstants.LAYOUT_IMAGES_HOME + File.separator + getImageFile;
         } else if (imageType.equalsIgnoreCase("gallery")) {
-            file_image_path = com.intbittech.AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator+ com.intbittech.AppConstants.GALLERY_FOLDERNAME +File.separator+ getImageFile;
+            file_image_path = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH + File.separator + companyId + File.separator+ AppConstants.GALLERY_FOLDERNAME +File.separator+ getImageFile;
         } else if (imageType.equals("url")) {
             file_image_path = getImageFile;
         }

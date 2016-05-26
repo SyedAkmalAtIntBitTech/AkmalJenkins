@@ -1,4 +1,4 @@
-package com.imagetopdf.image;
+package com.intbittech.utility.imagetopdf.image;
 
 /**
  * 

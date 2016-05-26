@@ -1,10 +1,10 @@
-package com.imagetopdf.image;
+package com.intbittech.utility.imagetopdf.image;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.imagetopdf.Image2BufferedImageConverterPool;
+import com.intbittech.utility.imagetopdf.Image2BufferedImageConverterPool;
 
 /**
  * 

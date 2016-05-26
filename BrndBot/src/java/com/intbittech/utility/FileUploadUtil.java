@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit;
+package com.intbittech.utility;
 
+import com.intbittech.AppConstants;
 import java.io.File;
 import java.util.Iterator;
 import java.util.List;
@@ -14,6 +15,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 
 /**
  *

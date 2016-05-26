@@ -6,7 +6,7 @@
 package com.intbittech.controller;
 
 import com.controller.ApplicationContextListener;
-import com.intbit.AppConstants;
+import com.intbittech.AppConstants;
 import com.intbittech.model.ForgotPassword;
 import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.ContainerResponse;

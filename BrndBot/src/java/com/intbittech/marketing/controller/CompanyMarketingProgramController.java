@@ -6,8 +6,8 @@
 package com.intbittech.marketing.controller;
 
 import com.controller.IConstants;
-import com.intbit.AppConstants;
-import com.intbit.TemplateStatus;
+import com.intbittech.AppConstants;
+import com.intbittech.enums.TemplateStatus;
 import com.intbittech.marketing.service.CompanyMarketingProgramService;
 import com.intbittech.marketing.service.ScheduledEntityListService;
 import com.intbittech.model.Company;

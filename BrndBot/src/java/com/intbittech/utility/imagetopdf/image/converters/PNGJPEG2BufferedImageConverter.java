@@ -1,4 +1,4 @@
-package com.imagetopdf.image.converters;
+package com.intbittech.utility.imagetopdf.image.converters;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import com.imagetopdf.Image2BufferedImageConverter;
+import com.intbittech.utility.imagetopdf.Image2BufferedImageConverter;
 
 /**
  * 

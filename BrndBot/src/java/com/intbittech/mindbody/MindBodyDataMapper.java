@@ -5,7 +5,7 @@
  */
 package com.intbittech.mindbody;
 
-import com.divtohtml.StringUtil;
+import com.intbittech.divtohtml.StringUtil;
 import com.intbittech.utility.MapUtility;
 import com.mindbodyonline.clients.api._0_5Class.Class;
 import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;

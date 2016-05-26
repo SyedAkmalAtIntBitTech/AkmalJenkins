@@ -1,4 +1,4 @@
-package com.divtohtml;
+package com.intbittech.divtohtml;
 
 import java.text.DateFormat;
 import java.text.ParseException;

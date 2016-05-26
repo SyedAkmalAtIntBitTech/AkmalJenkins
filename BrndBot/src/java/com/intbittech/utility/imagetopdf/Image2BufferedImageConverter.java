@@ -1,4 +1,4 @@
-package com.imagetopdf;
+package com.intbittech.utility.imagetopdf;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

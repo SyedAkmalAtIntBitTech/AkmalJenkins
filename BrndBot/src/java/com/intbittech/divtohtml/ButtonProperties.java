@@ -1,4 +1,4 @@
-package com.divtohtml;
+package com.intbittech.divtohtml;
 
 public class ButtonProperties extends BaseProperties {
 

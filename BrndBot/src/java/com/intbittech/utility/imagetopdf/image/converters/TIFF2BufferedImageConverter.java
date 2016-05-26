@@ -1,4 +1,4 @@
-package com.imagetopdf.image.converters;
+package com.intbittech.utility.imagetopdf.image.converters;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-import com.imagetopdf.Image2BufferedImageConverter;
+import com.intbittech.utility.imagetopdf.Image2BufferedImageConverter;
 import com.sun.media.jai.codec.FileSeekableStream;
 import com.sun.media.jai.codec.ImageCodec;
 import com.sun.media.jai.codec.ImageDecoder;

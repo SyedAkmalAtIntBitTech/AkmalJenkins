@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.intbit.util;
+package com.intbittech.utility;
 
 import com.intbittech.AppConstants;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;

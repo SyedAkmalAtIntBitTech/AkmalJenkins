@@ -1,22 +1,18 @@
-package com.intbit;
+package com.intbittech.utility;
 
-import com.divtohtml.StringUtil;
-import java.awt.image.BufferedImage;
+import com.intbittech.divtohtml.StringUtil;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import com.intbittech.utility.Utility;
 
 /*

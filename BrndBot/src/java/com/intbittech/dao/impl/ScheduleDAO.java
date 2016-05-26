@@ -6,10 +6,10 @@
 package com.intbittech.dao.impl;
 
 import com.controller.IConstants;
-import com.divtohtml.StringUtil;
+import com.intbittech.divtohtml.StringUtil;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
-import com.intbit.TemplateStatus;
+import com.intbittech.enums.TemplateStatus;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;

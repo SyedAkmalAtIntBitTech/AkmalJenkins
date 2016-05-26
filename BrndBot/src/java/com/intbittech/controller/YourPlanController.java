@@ -7,8 +7,8 @@ package com.intbittech.controller;
 
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
-import com.intbit.TemplateStatus;
-import com.intbit.util.ServletUtil;
+import com.intbittech.enums.TemplateStatus;
+import com.intbittech.utility.ServletUtil;
 import com.intbittech.dao.impl.ScheduleDAO;
 import com.intbittech.AppConstants;
 import com.intbittech.dao.impl.ScheduleSocialPostDAO;

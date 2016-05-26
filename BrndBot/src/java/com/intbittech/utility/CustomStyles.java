@@ -5,14 +5,9 @@
  */
 package com.intbit.util;
 
-import com.intbit.AppConstants;
-import java.io.File;
 import java.io.FileReader;
-import java.util.*;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 

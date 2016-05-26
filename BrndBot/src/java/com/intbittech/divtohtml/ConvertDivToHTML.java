@@ -1,9 +1,9 @@
-package com.divtohtml;
+package com.intbittech.divtohtml;
 
 import com.controller.SqlMethods;
-import com.intbit.AppConstants;
-import com.intbit.PhantomImageConverter;
-import com.intbit.util.ServletUtil;
+import com.intbittech.utility.AppConstants;
+import com.intbittech.utility.PhantomImageConverter;
+import com.intbittech.utility.ServletUtil;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,8 +14,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.script.ScriptEngine;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.FileUtils;
 

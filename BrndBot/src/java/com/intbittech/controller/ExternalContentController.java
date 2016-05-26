@@ -6,7 +6,7 @@
 package com.intbittech.controller;
 
 import com.google.gson.Gson;
-import com.intbit.util.ServletUtil;
+import com.intbittech.utility.ServletUtil;
 import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.externalcontent.ExternalContentSession;
 import com.intbittech.externalcontent.ExternalSourceProcessedData;

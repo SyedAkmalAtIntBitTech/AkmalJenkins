@@ -4,7 +4,7 @@
  *
  */
 
-package com.divtohtml;
+package com.intbittech.divtohtml;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

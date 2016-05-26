@@ -1,7 +1,7 @@
 package com.controller;
 
-import com.divtohtml.DivHTMLModel;
-import com.intbit.AppConstants;
+import com.intbittech.divtohtml.DivHTMLModel;
+import com.intbittech.utility.AppConstants;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
 import java.io.File;
@@ -22,7 +22,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.postgresql.util.PGobject;
 
 /**
