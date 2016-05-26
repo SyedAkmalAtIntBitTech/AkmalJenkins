@@ -143,7 +143,7 @@ public class EmailModelServiceImpl implements EmailModelService {
             Company company = new Company(companyId);
             Map<String, String> dataMap = new HashMap<>();
             List<String> colorArray = companyPreferencesService.getColors(company);
-            int i = 0;
+            int i = 1;
             for (String color : colorArray) {
                 colorHashmap.put("color" + (i++), Utility.rgbToHex(color));
             }

@@ -33,11 +33,11 @@ public class Utility {
         }
         return name;
     }
-    
-    public static String getFullName(EmailInfo emailinfo){
+
+    public static String getFullName(EmailInfo emailinfo) {
         return emailinfo.getFirstName() + " " + emailinfo.getLastName();
     }
-    
+
     public static String logMessage(Exception e, String message, String dbMessage) {
         String newMessage = message.concat(e.toString());
         if (dbMessage != null) {
@@ -68,8 +68,8 @@ public class Utility {
                         html_content.append("<style type=\"text/css\">\n"
                                 + "            @font-face {\n"
                                 + "                        font-family:" + font_name + ";\n"
-                                + "                        src: url("+server_name+"DownloadFonts?file_name=" + font_family_name[1] + ");\n"
-//                                + "                        src: url("+ AppConstants.BASE_FONT_UPLOAD_PATH + File.separator + font_family_name[1] + ");\n"
+                                + "                        src: url(" + server_name + "DownloadFonts?file_name=" + font_family_name[1] + ");\n"
+                                //                                + "                        src: url("+ AppConstants.BASE_FONT_UPLOAD_PATH + File.separator + font_family_name[1] + ");\n"
                                 + "        </style>");
                     }
                 }
@@ -78,12 +78,12 @@ public class Utility {
         }
         return html_content.toString();
     }
-    
+
     public static String getServerName(String context) {
         try {
             ScriptEngineManager manager = new ScriptEngineManager();
             ScriptEngine engine = manager.getEngineByName("JavaScript");
-            String path = context +"/js/configurations.js";
+            String path = context + "/js/configurations.js";
 // read script file
             engine.eval(Files.newBufferedReader(Paths.get(path), StandardCharsets.UTF_8));
 
@@ -94,18 +94,28 @@ public class Utility {
             return "http://clients.brndbot.com/BrndBot/";
         }
     }
-    public static String rgbToHex(String rgb){
-        String colorcode=rgb.replace("rgb(", "").replace(")", "").replace(" ","");
-        String Hex="#";
-        String[] integervalue=colorcode.split(",");
-        int r=Integer.parseInt(integervalue[0]);
-        int g=Integer.parseInt(integervalue[1]);
-        int b=Integer.parseInt(integervalue[2]);
-       Hex= Hex.concat(Integer.toHexString(r));
-       Hex= Hex.concat(Integer.toHexString(g));
-       Hex= Hex.concat(Integer.toHexString(b));
-        
-       return Hex.toUpperCase();
+
+    public static String rgbToHex(String rgb) {
+        String colorcode = rgb.replace("rgb(", "").replace(")", "").replace(" ", "");
+        String Hex = "#";
+        String[] integervalue = colorcode.split(",");
+        int r = Integer.parseInt(integervalue[0]);
+        int g = Integer.parseInt(integervalue[1]);
+        int b = Integer.parseInt(integervalue[2]);
+        if (r < 16) {
+            Hex = Hex.concat("0");
+        }
+        Hex = Hex.concat(Integer.toHexString(r));
+        if (g < 16) {
+            Hex = Hex.concat("0");
+        }
+        Hex = Hex.concat(Integer.toHexString(g));
+        if (b < 16) {
+            Hex = Hex.concat("0");
+        }
+        Hex = Hex.concat(Integer.toHexString(b));
+
+        return Hex.toUpperCase();
     }
-    
+
 }

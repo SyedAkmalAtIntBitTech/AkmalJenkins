@@ -30,7 +30,7 @@
             <input type="hidden" value="<%=marketing_program_id%>" id="marketing_program_id"/>
             <%@include file="header.jsp" %>      
             <%@include file="navbar.jsp" %>
-            <div class="top-nav">
+            <div class="top-nav" ng-init="getHtmlData()">
                 <div class="page-title-bar col-1of1"> 
                     <a class=" exit-button-icon" href="marketingprogram?marketingCategoryId=<%=marketing_category_id%>">
                         <div class="exit-button-detail">               
@@ -61,7 +61,7 @@
                             <p> This is for internal use only</p>
                         </div>
                         <div class="input-wrap ">
-                            <label> Date of Campaign Inserted Here </label>
+                            <label id="labelDate"> </label>
                             <div class="input">
                                 <input type="text" name="programdatetime" id="programdatetime" value="" readonly="">
                                 <script>

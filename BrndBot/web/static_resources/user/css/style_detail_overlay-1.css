@@ -2765,7 +2765,6 @@ div#editor {
 
 .BBoverlay-content{
   height: calc(100vh - 100px);
-  width: 100%;
   overflow-y: scroll;
   display: block;
   position:fixed;
