@@ -5,7 +5,7 @@
  */
 package com.intbittech.utility;
 
-import com.divtohtml.ProcessHTML;
+import com.intbittech.divtohtml.ProcessHTML;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;

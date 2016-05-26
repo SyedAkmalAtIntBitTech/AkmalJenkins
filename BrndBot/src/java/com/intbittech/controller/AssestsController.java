@@ -5,7 +5,7 @@
  */
 package com.intbittech.controller;
 
-import com.intbit.util.ServletUtil;
+import com.intbittech.utility.ServletUtil;
 import com.intbittech.AppConstants;
 import com.intbittech.ImageType;
 import com.intbittech.model.GlobalColors;

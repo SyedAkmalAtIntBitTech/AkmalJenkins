@@ -5,8 +5,8 @@
  */
 package com.intbittech.controller;
 
-import com.intbit.FileUploadUtil;
-import com.intbit.util.ServletUtil;
+import com.intbittech.utility.FileUploadUtil;
+import com.intbittech.utility.ServletUtil;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyImages;
 import com.intbittech.model.GlobalImages;

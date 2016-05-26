@@ -5,8 +5,6 @@
  */
 package com.intbittech.controller;
 
-import com.intbit.AppConstants;
-import com.intbit.util.ServletUtil;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.EmailModel;
 import com.intbittech.model.ImageModel;
@@ -15,7 +13,6 @@ import com.intbittech.model.SubCategory;
 import com.intbittech.model.SubCategoryEmailModel;
 import com.intbittech.model.SubCategoryImageModel;
 import com.intbittech.model.SubCategoryPrintModel;
-import com.intbittech.model.UserProfile;
 import com.intbittech.modelmappers.EmailModelDetails;
 import com.intbittech.modelmappers.ImageModelDetails;
 import com.intbittech.modelmappers.PrintModelDetails;
@@ -30,16 +27,10 @@ import com.intbittech.services.SubCategoryImageModelService;
 import com.intbittech.services.SubCategoryPrintModelService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.FileHandlerUtil;
-import com.intbittech.utility.UserSessionUtil;
-import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;

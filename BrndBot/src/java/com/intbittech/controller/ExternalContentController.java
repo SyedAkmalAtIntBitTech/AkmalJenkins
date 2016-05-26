@@ -6,7 +6,7 @@
 package com.intbittech.controller;
 
 import com.google.gson.Gson;
-import com.intbit.util.ServletUtil;
+import com.intbittech.utility.ServletUtil;
 import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.externalcontent.ExternalContentSession;
 import com.intbittech.externalcontent.ExternalSourceProcessedData;
@@ -93,7 +93,6 @@ public class ExternalContentController {
         return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
     }
 
-    //TODO Ilyas needs to explain whats coming here.
     @RequestMapping(value = "/getListData/{externalSourceKeywordLookupId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getListData(@PathVariable("externalSourceKeywordLookupId") Integer externalSourceKeywordLookupId) {
         GenericResponse<String> genericResponse = new GenericResponse<>();

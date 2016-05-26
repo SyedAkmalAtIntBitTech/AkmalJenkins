@@ -5,7 +5,7 @@
  */
 package com.intbittech.controller;
 
-import com.intbit.AppConstants;
+import com.intbittech.AppConstants;
 import com.intbittech.model.UserProfile;
 import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;

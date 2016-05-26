@@ -5,7 +5,7 @@
  */
 package com.intbittech.services.impl;
 
-import com.divtohtml.ProcessHTML;
+import com.intbittech.divtohtml.ProcessHTML;
 import com.intbittech.AppConstants;
 import com.intbittech.controller.ModelController;
 import com.intbittech.dao.EmailBlockModelDao;

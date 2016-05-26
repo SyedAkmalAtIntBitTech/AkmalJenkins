@@ -39,4 +39,6 @@ public class AppConstants {
     public static final String facebookString1 = "592852577521569";
     public static final String facebookString2 = "a87cc0c30d792fa5dd0aaef6b43994ef";
     public static final String facebookPermissions = "publish_actions, publish_pages,manage_pages";
+    
+    public static final String TMP_FOLDER = BASE_UPLOAD_PATH + File.separator + "/tmp";
 }

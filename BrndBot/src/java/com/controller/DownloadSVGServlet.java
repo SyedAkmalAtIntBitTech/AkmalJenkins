@@ -6,12 +6,11 @@
 package com.controller;
 
 import com.google.gson.Gson;
-import com.intbit.AppConstants;
+import com.intbittech.utility.AppConstants;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;

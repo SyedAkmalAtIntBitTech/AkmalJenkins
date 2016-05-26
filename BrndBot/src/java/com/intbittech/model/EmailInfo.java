@@ -5,7 +5,7 @@
  */
 package com.intbittech.model;
 
-import com.intbit.AppConstants;
+import com.intbittech.AppConstants;
 import java.util.UUID;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

@@ -6,16 +6,14 @@
 package com.controller;
 
 import static com.controller.BrndBotBaseHttpServlet.logger;
-import com.intbit.AppConstants;
+import com.intbittech.utility.AppConstants;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.intbittech.mindbody.MindBodyDataMapper;
 import org.json.JSONObject;
 
 /**

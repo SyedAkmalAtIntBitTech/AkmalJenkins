@@ -1,7 +1,7 @@
 package com.controller;
 
-import com.divtohtml.DivHTMLModel;
-import com.intbit.AppConstants;
+import com.intbittech.divtohtml.DivHTMLModel;
+import com.intbittech.utility.AppConstants;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
 import java.io.File;
@@ -22,7 +22,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.postgresql.util.PGobject;
 
 /**
@@ -97,7 +96,6 @@ public class SqlMethods {
 ////        }
     }
 
-    //TODO Ilyas datetime needs testing
     public void AddImages(Integer companyId, String image_name) throws SQLException {
         String query_string = "";
         PreparedStatement prepared_statement = null;
@@ -212,70 +210,6 @@ public class SqlMethods {
             close(result_set, prepared_statement);
         }
         return returnResult;
-    }
-
-   
-
-    //TODO Ilyas - not used any where - check again and delete - AR re did the servlet associated with this - ResetUserPassword
-    public void resetPassword(String id, String password) throws SQLException {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            query_string = "UPDATE tbl_user_login_details"
-                    + " SET password ='" + password + "' WHERE id=" + id + "";
-
-            prepared_statement = connection.prepareStatement(query_string);
-            prepared_statement.executeUpdate();
-            prepared_statement.close();
-
-            query_string = "Delete From tbl_forgot_password where userid='" + id + "'";
-            prepared_statement = connection.prepareStatement(query_string);
-            prepared_statement.executeUpdate();
-
-        } catch (Exception e) {
-//            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-    }
-
-    //TODO Ilyas - not used any where - check again and delete - AR re did the servlet associated with this - ResetUserPassword
-    public String checkResetStatus(String hash) throws SQLException {
-        String query_string = "";
-        PreparedStatement prepared_statement = null;
-        ResultSet result_set = null;
-
-        Date expdatee = new Date();
-        String userid = "false";
-        try (Connection connection = ConnectionManager.getInstance().getConnection()) {
-            java.sql.Date sdat = new java.sql.Date(expdatee.getYear(), expdatee.getMonth(), expdatee.getDate());
-
-            java.sql.Time time = new Time(System.currentTimeMillis());
-            long time3 = System.currentTimeMillis();
-
-            query_string = "Select * from tbl_forgot_password where randomlink='" + hash + "' and expdate='" + sdat + "'";
-
-            prepared_statement = connection.prepareStatement(query_string);
-            result_set = prepared_statement.executeQuery();
-            if (result_set.next()) {
-
-                long time2 = result_set.getLong("exptime");
-                time2 = time2 + 600000;
-                if (time3 <= time2) {
-                    userid = result_set.getString("userid");
-                }
-
-            }
-        } catch (Exception e) {
-//            logger.log(Level.SEVERE, util.Utility.logMessage(e, "Exception while updating org name:", null));
-
-        } finally {
-            close(result_set, prepared_statement);
-        }
-        return userid;
     }
 
     //TODO Ilyas/AR - used in mindbody refactor when needed

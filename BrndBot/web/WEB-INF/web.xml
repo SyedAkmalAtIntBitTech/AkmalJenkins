@@ -70,11 +70,6 @@
         <servlet-name>CropImage</servlet-name>
         <servlet-class>com.intbit.CropImage</servlet-class>
     </servlet>
-   
-  <servlet>
-        <servlet-name>UploadImages</servlet-name>
-        <servlet-class>com.controller.UploadImages</servlet-class>
-    </servlet>
     <servlet>
         <servlet-name>GetLayoutStyles</servlet-name>
         <servlet-class>com.controller.GetLayoutStyles</servlet-class>
@@ -129,10 +124,6 @@
     <servlet>
         <servlet-name>DownloadXml</servlet-name>
         <servlet-class>com.controller.DownloadXmlServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>PreviewServlet</servlet-name>
-        <servlet-class>com.controller.PreviewServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GetUserFacebookManagePages</servlet-name>

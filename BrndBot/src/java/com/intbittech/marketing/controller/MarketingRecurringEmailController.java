@@ -9,9 +9,9 @@ import com.controller.IConstants;
 import com.controller.SqlMethods;
 import com.intbittech.AppConstants;
 import com.intbit.ScheduledEntityType;
-import com.intbit.TemplateStatus;
+import com.intbittech.enums.TemplateStatus;
 import com.intbittech.marketing.service.ScheduledEmailListService;
-import com.intbit.util.ServletUtil;
+import com.intbittech.utility.ServletUtil;
 import com.intbittech.marketing.service.ScheduledEntityListService;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyMarketingProgram;
@@ -515,7 +515,6 @@ public class MarketingRecurringEmailController {
         return null;
     }
     
-    //TODO Ilyas check this again
     @RequestMapping (value = "/getUserPreferences", method = RequestMethod.GET)
     public @ResponseBody String getUserPreferences(HttpServletRequest request,
             HttpServletResponse response)throws IOException{

@@ -5,11 +5,10 @@
  */
 package com.intbittech.dao.impl;
 
-import com.intbittech.dao.impl.ScheduleDAO;
-import com.intbit.AppConstants;
+import com.intbittech.AppConstants;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;
-import com.intbit.TemplateStatus;
+import com.intbittech.enums.TemplateStatus;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

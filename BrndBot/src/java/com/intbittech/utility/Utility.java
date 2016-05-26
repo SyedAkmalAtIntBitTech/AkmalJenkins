@@ -5,7 +5,7 @@
  */
 package com.intbittech.utility;
 
-import com.divtohtml.StringUtil;
+import com.intbittech.divtohtml.StringUtil;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
