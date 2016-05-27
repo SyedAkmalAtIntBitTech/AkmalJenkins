@@ -1002,6 +1002,7 @@ p.modal-content-header{
     min-height: 32px;
     background-color: #fff;
     border: 1px solid #c9c9c9;
+    color: #666;
 }
 
 .dropdown-list{

@@ -115,8 +115,14 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
     
     
     $scope.createOneTimeAction = function (is_recurring){
+        var newActionTypeOneTimeActions="";
+        if(is_recurring){
+         newActionTypeOneTimeActions = $("#recurringDropdown").val();
+        }else{
+         newActionTypeOneTimeActions= $("#OneTimeDropdown").val();
+        }
         var newOneTimeActionName = $("#newOneTimeActionName").val();
-        var newActionTypeOneTimeActions= $("#newActionTypeOneTimeActions").val();
+
         var newActionsNoOfDays = $("#newActionsNoOfDays").val();
         var newActionTime = $("#newActionTime").val();
         $scope.newMarketingAction={"days": newActionsNoOfDays,"description": "","time": newActionTime,"is_recurring": is_recurring,

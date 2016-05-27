@@ -18,14 +18,14 @@
             </div>	
             <div id="recurringActionSelect" class=" col1of2 pushUp_10 col-padding fright">
                 <div class="input_Label">Action Type</div>
-                <select disabled class="input_Field" id="newActionTypeOneTimeActions">
+                <select disabled class="input_Field" id="recurringDropdown">
                     <option class="input_Field">Email</option>
                     
                 </select>
             </div>
             <div id="oneTimeAction" class=" col1of2 pushUp_10 col-padding fright">
                 <div class="input_Label">Action Type</div>
-                <select class="input_Field" id="newActionTypeOneTimeActions">
+                <select class="input_Field" id="OneTimeDropdown">
                     <option class="input_Field">Facebook</option>
                     <option class="input_Field">Twitter</option>
                     <option class="input_Field">Email</option>

@@ -581,6 +581,7 @@ input-field-container{
     padding: 6px 10px 3px 10px;
     margin-top: 10px;
     box-sizing: border-box;
+    color: #666;
 }
 
 .inner-content-column-container-detail{
@@ -694,7 +695,7 @@ input-field-container{
     box-sizing: border-box;
 }
 .input-supportText{
-       font-size: 16px;
+    font-size: 16px;
     color: #3F3F42 ;
     font-weight: 400;
     margin-right: 8px;

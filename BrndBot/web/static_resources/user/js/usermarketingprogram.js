@@ -95,7 +95,7 @@
                             {                                
                                 if(data.d.details[i].marketingProgramId == marketing_program_id)
                                 {
-                                    $("#htmldata").html(data.d.details[i].htmlData); 
+                                    $("#labelDate").html(data.d.details[i].htmlData); 
                                 }
                             } 
                         }

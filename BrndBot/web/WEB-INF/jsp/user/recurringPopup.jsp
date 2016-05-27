@@ -18,7 +18,6 @@
     <link rel="stylesheet" type="text/css" href="css/popup.css">
     <link rel="shortcut icon" href="favicon.png">
     <script src="js/popup.js" type="text/javascript"></script>
-    
 </head>    
     <body>
         <div id="fade" class="black_overlay" ></div>
@@ -34,8 +33,8 @@
                         <div  class="top-navbar-inner-bb-detail">
                             <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Recurring Email Automation Detail</span></div>
                             <div class="top-nav-cta-container padright60px">
-                                <div class="approve-button-detail md-button" id="emailsabetemplate" ng-show="recurring_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_email)">Approve</div>
-                                <div class="approve-button-detail md-button" id="emailapprove" ng-show="recurring_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_email)">Disapprove</div>
+                                <div class="approve-button-detail md-button" id="emailsabetemplate" ng-show="recurring_template_status=='Template Saved'" ng-click="Approval(schedule_id, 'approved', master_email)">Play</div>
+                                <div class="approve-button-detail md-button" id="emailapprove" ng-show="recurring_template_status=='Approved'" ng-click="Approval(schedule_id, 'template_saved', master_email)">Pause</div>
                                 <div class="delete-button-detail md-button " ng-hide="programs.programdetails.program_status == 'Closed'" ng-click="deleteAutomationSchedule(schedule_id, 'delete', master_email, 'true')">Delete Recurring Email</div>
                             </div>    
                         </div>

@@ -32,7 +32,7 @@
                     <div class="dashboard-MainCTA-col fleft">
                         <div class="dashboard-MainCTA "> 
                             <div class="dash-icon">
-                                <a href="socialsequence"><img type="image/svg+xml" src="images/homepage-icons-01.svg" class="dash-svg" style="cursor:pointer;"></a>
+                                <a href="emailcategory"><img type="image/svg+xml" src="images/homepage-icons-01.svg" class="dash-svg" style="cursor:pointer;"></a>
                                  
                                 </div>
                             <div class="dashboard-mainCTA-subtext">Create an email to send now or schedule for later</div>
@@ -43,7 +43,7 @@
                     <div class="dashboard-MainCTA-col fleft">
                         <div class="dashboard-MainCTA "> 
                             <div class="dash-icon">
-                                <a href="emailcategory"><img type="image/svg+xml" src="images/homepage-icons-02.svg" class="dash-svg" style="cursor:pointer;"></a>
+                                <a href="socialsequence"><img type="image/svg+xml" src="images/homepage-icons-02.svg" class="dash-svg" style="cursor:pointer;"></a>
                                  
                                 </div>
                             <div class="dashboard-mainCTA-subtext">Post now or schedule a Facebook or Twitter post</div>
