@@ -20,6 +20,7 @@ and open the template in the editor.
   position: relative;
   top:22px;
   margin-bottom: 50px;
+  color: #666;
   
 }
 
@@ -32,6 +33,7 @@ and open the template in the editor.
    box-shadow: none !important ;
   border-bottom:1px solid #757575;
   border-radius:0px; 
+  color: #666;
   
   
 }

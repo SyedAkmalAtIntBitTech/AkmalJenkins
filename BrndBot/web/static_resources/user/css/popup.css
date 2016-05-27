@@ -727,7 +727,7 @@ input#timepicker1 {
 
 /*-------------------------------------------- After marge by Satyajit Roy ------------------------------------------------*/
 select#dropdownurl,#url {
-    color: #3b3b4b;
+    color: #666;
 }
 #addActionemllist{
     display: block;
@@ -1131,11 +1131,10 @@ input#schedule_social_time {
                 border-top: none;
                 border-bottom: none;
                 border-radius: 2px;
-                color:#2b2f35;
                 /*background: url("images/dropdown.png") no-repeat 275px center;*/
                 background-color: #F2F2F4; 
                 font-size:18px;
-                color: #3f4042;
+                color: #666;
                 height:40px;
             }
         #chooseEmailId:focus{
@@ -1145,6 +1144,7 @@ input#schedule_social_time {
             width: 400px;
             height : 300px;
             background-color: #e4e4e4;
+            color:#666;
         }
         .btn-primary{
             border-radius:10px;

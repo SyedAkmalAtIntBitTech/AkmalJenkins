@@ -1420,6 +1420,7 @@ input-field-container{
                 top:0px;
                 resize:none;
                 border-radius: 5px;
+                color: #666;
             }
 .externalData-selection-content{
     padding-top: 120px;
@@ -2666,7 +2667,7 @@ width: 10%;
     padding: 6px 10px 3px 10px;
     margin-top: 10px;
     box-sizing: border-box;
-    color: #2D4355;
+    color: #666;
 }
 .pop-up-inner1 {
     padding-left: 30px;

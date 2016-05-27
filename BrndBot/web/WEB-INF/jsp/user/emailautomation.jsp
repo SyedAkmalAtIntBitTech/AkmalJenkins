@@ -142,8 +142,7 @@
      <%@include file="header.jsp" %>   
     <%@include file="navbar.jsp" %>    
     <input type="hidden" name="program_end_date" id="program_end_date" value="<%= program_date %>"/>
-    <div class="contentWrap--withSideNav noScroll ng-scope" style="width:calc(10vw - 70px); ">
-    <div class="topNav topNav-withSubnav clear">
+    <div class="top-nav-full">
         <div class="page-title-bar col-1of1"> 
             <a class=" exit-button-icon" href="marketingprogramlists">    
                 <div class="exit-button-detail">
@@ -158,7 +157,6 @@
 
             </div>
         </div>
-    </div>
     </div>
 <script>
     
@@ -1219,7 +1217,7 @@
                                 .popUp_close {padding: 0px 0;}
                                 #edit{
                                     position: fixed;
-                                    top:20px;
+                                    top:6px;
                                     font-family:"proxima-nova";
                                     font-weight:500;
                                     left: 5em; 

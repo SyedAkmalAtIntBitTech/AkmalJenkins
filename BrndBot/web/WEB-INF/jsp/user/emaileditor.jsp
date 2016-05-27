@@ -49,6 +49,11 @@
    
     <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
     <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
+    <style>
+         .popUp_close {
+             padding: 0px 0;
+             }
+    </style>
     <%@include file="loadingoverlay.jsp" %>  
     <%!            
 //        SqlMethods sql_methods = new SqlMethods();

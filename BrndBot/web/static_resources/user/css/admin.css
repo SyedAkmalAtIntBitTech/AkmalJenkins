@@ -379,8 +379,7 @@ font-size: 14px;
     box-sizing: border-box;
     border-radius: 3px;
     font-size: 13px;
-    /*color: #D2D3D5;*/
-    color:#000;
+    color:#666;
 }
 
 .input_Instructions{
@@ -399,7 +398,7 @@ font-size: 14px;
     border-radius: 3px;
     font-size: 13px;
     height: 100px;
-    color:black;
+    color:#666;
 }
 
 .input_Field_Md{

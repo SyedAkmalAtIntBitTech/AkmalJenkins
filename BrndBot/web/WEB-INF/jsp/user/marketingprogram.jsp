@@ -14,7 +14,14 @@
     </head>
     <body class="body-normal">
          <%@include file="header.jsp" %>       
-      <%@include file="navbar.jsp" %>       
+      <%@include file="navbar.jsp" %>  
+      <style>
+            .pane_content{
+               margin: 20px 0px 20px 0px;
+               display: block;
+               box-sizing: border-box;
+           }
+      </style>
   <% String marketingCategoryId = request.getParameter("marketingCategoryId"); %>
     <!--Main Content Wrap-->
     <div class="contentWrap--withSideNav noScroll" ng-app ng-controller="userController">
