@@ -18,15 +18,6 @@
     <link rel="stylesheet" type="text/css" href="css/popup.css">
     <link rel="shortcut icon" href="favicon.png">
     <script src="js/popup.js" type="text/javascript"></script>
-    <style>
-   .BBoverlay-content {
-    height: calc(100vh - 100px);
-     width: 0%; 
-    overflow-y: scroll;
-    display: block;
-    position: fixed;
-}
-    </style>
 </head>    
     <body>
         <div id="fade" class="black_overlay" ></div>
