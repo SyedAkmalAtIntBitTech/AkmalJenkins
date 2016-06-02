@@ -2,7 +2,7 @@
 // **************** @author Arfa Shakeel @ Intbit **************** //
 
 
-app.factory('signupFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('signupFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var signupFactoryObject = {};
     signupFactoryObject.signUpPageGet = function (jspFileName) {
         var deffered = $q.defer();

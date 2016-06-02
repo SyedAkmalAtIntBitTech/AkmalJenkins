@@ -9,10 +9,10 @@
 <html>
 <head>
      <title>BrndBot-On Boarding</title>
-   <jsp:include page="header.jsp"/>
+   <%--<jsp:include page="header.jsp"/>--%>
 </head>    
 
-<body class="body-normal" ng-app ng-controller="onboardingcontroller">
+<body class="body-normal">
     
     <!--SideNav-->
     
@@ -63,7 +63,7 @@
         </div>
     </div>
     <div class="bottomNav">
-        <div class="bottom-ContinueButton fright" ng-click="saveCompany()">CONTINUE</div>
+        <a href="#/datasource" <div class="bottom-ContinueButton fright">CONTINUE</div>
     </div>
     
     

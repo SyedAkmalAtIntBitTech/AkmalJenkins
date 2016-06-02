@@ -2,7 +2,7 @@
 // **************** @author Arfa Shakeel @ Intbit **************** //
 
 
-app.factory('uploadImageFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('uploadImageFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var uploadImageFactoryObject = {};
     uploadImageFactoryObject.uploadByAdminPost = function () {
         var deffered = $q.defer();

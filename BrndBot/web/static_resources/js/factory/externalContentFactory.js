@@ -2,7 +2,7 @@
 // **************** @author Arfa Shakeel @ Intbit **************** //
 
 
-app.factory('externalContentFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('externalContentFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var externalContentFactoryObject = {};
     externalContentFactoryObject.activatedGet = function () {
         var deffered = $q.defer();

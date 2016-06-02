@@ -2,7 +2,7 @@
 // **************** @author Arfa Shakeel @ Intbit **************** //
 
 
-app.factory('emailFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('emailFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var emailFactoryObject = {};
     emailFactoryObject.sendEmail = function () {
         var deffered = $q.defer();

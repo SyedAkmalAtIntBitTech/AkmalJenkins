@@ -13,9 +13,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-         <title>User Login</title>
+        <title>User Login</title>
         <jsp:include page="header.jsp"/>
-       <script>
+        <script>
          $("document").ready(function() {
              if(window.location.href.indexOf("signout") > -1) {
                 window.location = getHost() +"login";
@@ -27,13 +27,14 @@
              }
         setTimeout(function(){ $("#inputemail").focus();},10);});  
         </script>
+
     
     </head>
-    <body class="body-normal">
+    <body class="body-normal" ng-app="signupApp" ng-controller="onboardingController">
         
-             <form class="form-horizontal" id="signform" action="${pageContext.request.contextPath}/login" method="POST">
+<!--             <form class="form-horizontal" id="signform" action="${pageContext.request.contextPath}/login" method="POST">
                  
-    <div class="Login_left-pane fleft">
+           <div class="Login_left-pane fleft" >
         <div class="Login_left-pane_vert-split"></div>
         <div class="Login_left-pane_vert-split"></div>
     </div>
@@ -50,7 +51,7 @@
                 <a href="resetpassword"><span>Forgot Password</span></a>
             </div>
             <div class="forgot_password" style="" >
-                <a href="signup/registration"> <span style="position: relative;left: 10px;">Sign up</span></a>
+                <a href="#/signup/registration"> <span style="position: relative;left: 10px;">Sign up</span></a>
             </div>
             
             <button style="left:-10px;" type="submit"  class="CTA_Button Button--Blue fleft pushUp_30">Login</button>
@@ -58,12 +59,12 @@
         </div>
     </div>
     <input type="hidden" name="${_csrf.parameterName}"   value="${_csrf.token}" />
-             </form>
+             </form>-->
            
-            
-            
-             
-             
-      
+<script type="text/ng-template">
+</script>
+
+    <div ng-view></div>
+  
     </body>
 </html>

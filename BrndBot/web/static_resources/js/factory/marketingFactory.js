@@ -1,7 +1,7 @@
 
 //************************ @author Tasmiya P.S @ Intbit *************************
 
-app.factory('marketingFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('marketingFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var marketingFactoryObject = {};
     marketingFactoryObject.marketingProgramsGet = function (marketingCategoryId) {
         var deffered = $q.defer();

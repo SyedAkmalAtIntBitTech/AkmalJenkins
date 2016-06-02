@@ -1,7 +1,7 @@
 
 //************************ @author Tasmiya P.S @ Intbit *************************
 
-app.factory('recurringEmailFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('recurringEmailFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var recurringEmailFactoryObject = {};
     recurringEmailFactoryObject.saveRecurringEmailPost = function (recurringEmailDetails) {
         var deffered = $q.defer();

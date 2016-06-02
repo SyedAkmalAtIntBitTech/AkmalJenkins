@@ -1,7 +1,7 @@
 
 //************************ @author Tasmiya P.S @ Intbit *************************
 
-app.factory('userFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('userFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var userFactoryObject = {};
     userFactoryObject.userWelcomePageGet = function () {
         var deffered = $q.defer();

@@ -9,7 +9,7 @@
 <html >
 <head>
      <title>BrndBot-On Boarding</title>
-      <jsp:include page="header.jsp"/>
+      <%--<jsp:include page="header.jsp"/>--%>
 </head>    
 <body class="body-normal" ng-app ng-controller="onboardingcontroller">
     
@@ -66,7 +66,7 @@
     </div>
     <div class="bottomNav">
         <!--<a href="onboarding3activation.jsp">-->
-        <div id="serviceContinueButton" class="bottom-ContinueButton fright" ng-click="saveServices()">CONTINUE</div>
+        <a href="#/uploadlogo"><div id="serviceContinueButton" class="bottom-ContinueButton fright">CONTINUE</div></a>
         <!--</a>-->
     </div>
     

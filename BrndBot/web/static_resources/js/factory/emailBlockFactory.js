@@ -1,8 +1,7 @@
 
 // **************** @author Arfa Shakeel @ Intbit **************** //
 
-
-app.factory('emailBlockFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('emailBlockFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var emailBlockFactoryObject = {};
     emailBlockFactoryObject.saveEmailBlockPost = function (emailBlockDetails) {
         var deffered = $q.defer();

@@ -5,7 +5,6 @@
 --%>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>JSP Page</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="format-detection" content="telephone=no">
 <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
@@ -24,7 +23,9 @@
 <link rel="stylesheet" type="text/css" href="css/login-onboarding.css"></link>
 <link rel="stylesheet" type="text/css" href="css/admin.css"></link>
 <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
-<script type="text/javascript" src="js/angular.min.js"></script>
+<!--<script type="text/javascript" src="js/angular.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
 <script src="js/alertmessage.js" type="text/javascript"></script>
 <script src="js/onboarding.js" type="text/javascript"></script> 
 <script src="js/configurations.js"></script>   
@@ -33,3 +34,11 @@
 <script src="js/colpick.js" type="text/javascript"></script>
 <script src="js/form.js" type="text/javascript"></script>
 <link rel="shortcut icon" href="images/favicon.png"/> 
+<script src="js/controller/onboardingController.js" type="text/javascript"></script>
+<script src="js/factory/subCategoryFactory.js" type="text/javascript"></script>
+<script src="js/factory/settingsFactory.js" type="text/javascript"></script>
+<script src="js/factory/onboardingFactory.js" type="text/javascript"></script>
+<script src="js/factory/organizationFactory.js" type="text/javascript"></script>
+<script src="js/factory/urlServices.js" type="text/javascript"></script>
+<script src="js/factory/authFactory.js" type="text/javascript"></script>
+<script src="js/controller/routing.js" type="text/javascript"></script>
