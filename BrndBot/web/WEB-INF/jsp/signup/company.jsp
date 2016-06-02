@@ -3,19 +3,7 @@
     Created on : Mar 31, 2016, 7:35:39 PM
     Author     : development
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-     <title>BrndBot-On Boarding</title>
-   <%--<jsp:include page="header.jsp"/>--%>
-</head>    
-
-<body class="body-normal">
-    
     <!--SideNav-->
-    
     <!--Main Content Wrap-->
     <div class="contentWrap--withNoSideNav" >
         <div class="topNav clear">
@@ -48,26 +36,11 @@
                                 <option class="input_Field" value="0">Please select an industry</option>
                                 <option class="input_Field" ng-repeat ="organization in organizations" value="{{organization.organizationId}}">{{organization.organizationName}}</option>
                         </select>
-<!--                        <select class="input_Field select_Field" id="industry">
-                            <option class="input_Field">Please select an industry</option>
-                        </select>-->
-<!--                        <div class="input_Field">
-                            <span>Please select an industry</span>
-                            <img  src="../images/userimages/dropdown.svg" class="dropdown-svg fright" style="cursor:pointer;"></img>
-                        </div>-->
-                        <!--<div class="input_Instructions">Please select an industry</div>-->
                     </div>
                     </div>
                 </div>
             </div>   
         </div>
-    </div>
     <div class="bottomNav">
-        <a href="#/datasource" <div class="bottom-ContinueButton fright">CONTINUE</div>
+        <a href="#/datasource"> <div class="bottom-ContinueButton fright">CONTINUE</div></a>
     </div>
-    
-    
-    
-    
-</body>
-</html>

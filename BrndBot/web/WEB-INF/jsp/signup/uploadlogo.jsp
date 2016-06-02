@@ -3,24 +3,14 @@
     Created on : Mar 31, 2016, 8:17:10 PM
     Author     : development
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html ng-app="uploadImage">
-    <head>
-        <title>BrndBot-On Boarding</title>
-    <%--<jsp:include page="header.jsp"/>--%>
-    </head>
- <body class="body-normal" ng-controller="userImageConversion">
-    
+<div class="body-normal"> 
     <!--SideNav-->
-    
     <!--Main Content Wrap-->
     <div class="contentWrap--withNoSideNav">
         <div class="topNav clear">
             <a href="#">
                 <div class="topNav--BackButton fleft">
-                <img  src="images/backbutton.svg" class="backButton-svg" style="cursor:pointer;">
+                    <img  src="images/backbutton.svg" class="backButton-svg" style="cursor:pointer;">
                 </div>
             </a>
             <div class="topNav--TitleBar--withBackButton fleft">
@@ -41,23 +31,16 @@
                     <div class="logoUpload-wrap imageLogo">
                         <img id="imageUpload" src="{{imageSrc}}" class="imagePreview" />
                     </div>
-                   <label class="fileContainer">
-                <div id="triggerFile" class="Add_Button Button--Gray logoUpload--button ">Upload Logo</div>
-                <input  onclick="imageConverter('imageFileName')" name="fileName" type="file" id="imageFileName" ng-file-select="onFileSelect($files)" > 
-           
-            </label>
-                    <!--</a>-->
-                    </div>
+                    <label class="fileContainer">
+                        <div id="triggerFile" class="Add_Button Button--Gray logoUpload--button ">Upload Logo</div>
+                        <input  onclick="imageConverter('imageFileName')" name="fileName" type="file" id="imageFileName" ng-file-select="onFileSelect($files)" > 
+                    </label>
                 </div>
-            </div> 
-
+            </div>
+        </div> 
+        <div class="bottomNav">
+            <a href="#/choosepalette">
+                <div id="uploadLogoContinueButton" class="bottom-ContinueButton fright">CONTINUE</div>
+            </a>
         </div>
-    <div class="bottomNav">
-        <a href="#/choosepalette">
-        <div id="uploadLogoContinueButton" class="bottom-ContinueButton fright">CONTINUE</div>
-        </a>
     </div>
- 
-    
-</body>
-</html>
