@@ -57,50 +57,50 @@ brndBotSignupApp.controller("onboardingController", ['$scope', 'subCategoryFacto
         };
         $scope.getOrganizations = function () {
             organizationFactory.organizationGet().then(function (data) {
-
+                $scope.organizations=data.d.details;
             });
         };
         $scope.saveCompany = function () {
             $scope.companyDetails = {};
-            onboardingFactory.saveCompanyPost($scope.companyDetails).then(function () {
+            onboardingFactory.saveCompanyPost($scope.companyDetails).then(function (data) {
 
             });
         };
         $scope.getAllServices = function () {
-            subCategoryFactory.allExternalSourcesGet().then(function () {
-
+            subCategoryFactory.allExternalSourcesGet().then(function (data) {
+                $scope.services=data.d.details;
             });
         };
         $scope.saveCompany = function () {
-            onboardingFactory.completedActivationGet.then(function () {
+            onboardingFactory.completedActivationGet.then(function (data) {
 
             });
         };
         $scope.getActivationLink = function () {
             $scope.studioId = {};
-            onboardingFactory.saveStudioIdPost(studioId).then(function () {
+            onboardingFactory.saveStudioIdPost(studioId).then(function (data) {
 
             });
         };
         $scope.saveServices = function () {
-            onboardingFactory.completedActivationGet().then(function () {
+            onboardingFactory.completedActivationGet().then(function (data) {
 
             });
         };
         $scope.uploadLogo = function () {
             $scope.imageTypeData = {};
             $scope.imgDataObj = {};
-            onboardingFactory.saveCompanyLogoPost(imageTypeData, imgDataObj).then(function () {
+            onboardingFactory.saveCompanyLogoPost(imageTypeData, imgDataObj).then(function (data) {
 
             });
         };
         $scope.getColorsFromLogo = function () {
-            onboardingFactory.colorsForLogoGet().then(function () {
+            onboardingFactory.colorsForLogoGet().then(function (data) {
 
             });
         };
         $scope.getAllThemes = function () {
-            onboardingFactory.allColorThemesGet().then(function () {
+            onboardingFactory.allColorThemesGet().then(function (data) {
 
             });
         };
@@ -109,7 +109,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', 'subCategoryFacto
             $scope.color2 = {};
             $scope.color3 = {};
             $scope.color4 = {};
-            settingsFactory.setColorsPost(color1, color2, color3, color4).then(function () {
+            settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
 
             });
         };
