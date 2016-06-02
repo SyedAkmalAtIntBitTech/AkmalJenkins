@@ -10,7 +10,14 @@
 var global_host_address = "http://localhost:8080/BrndBot/";
 var factoryApp =  angular.module('factorys', []);
 var brndBotSignupApp = angular.module('signupApp', ['factorys','ngRoute']);
-var socialApp = angular.module('socialApp', ['factorys','ngRoute']);
+var socialFlowApp = angular.module('socialFlowApp', ['factorys','ngRoute']);
+var emailFlowApp = angular.module('emailFlowApp', ['factorys','ngRoute']);
+var marketingFlowApp = angular.module('marketingFlowApp', ['factorys','ngRoute']);
+var yourPlanFlowApp = angular.module('yourPlanFlowApp', ['factorys','ngRoute']);
+var dashboardFlowApp = angular.module('dashboardFlowApp', ['factorys','ngRoute']);
+var settingFlowApp = angular.module('settingFlowApp', ['factorys','ngRoute']);
+var userGalleryApp = angular.module('userGalleryApp', ['factorys','ngRoute']);
+
 var error = "system failure error";  
 var FroalaLicenseKey ="snJ-7c1krD-13fD1wzF-7==";
 
