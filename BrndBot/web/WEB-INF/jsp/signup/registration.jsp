@@ -9,9 +9,8 @@
 <html>
     <head>
         <title>BrndBot - SignUp</title>
-        <jsp:include page="header.jsp"/>
     </head>
-    <body class="body-normal" ng-app ng-controller="onboardingcontroller">
+    <body class="body-normal">
     <div class="Login_left-pane fleft">
         <div class="Login_left-pane_vert-split"></div>
         <div class="Login_left-pane_vert-split"></div>
@@ -26,7 +25,7 @@
              <div class="input_Label">Confirm Password</div>
             <input class="input_Field login-fields" id="rePassword" type="password" placeholder="Confirm Password"/>
             
-            <div class="CTA_Button Button--Blue fleft pushUp_30" ng-click="saveUser()">Sign Up</div>
+            <a href="#/company"><div class="CTA_Button Button--Blue fleft pushUp_30">Sign Up</div></a>
             <div class="sign-up_container"></div>
             
              

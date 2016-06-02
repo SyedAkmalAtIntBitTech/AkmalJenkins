@@ -9,7 +9,7 @@
 <html>
     <head>
         <title>BrndBot- Color Palette</title>
-        <jsp:include page="header.jsp"/>
+        <%--<jsp:include page="header.jsp"/>--%>
     </head>
     <body class="body-normal" ng-app ng-controller="onboardingcontroller">
 
