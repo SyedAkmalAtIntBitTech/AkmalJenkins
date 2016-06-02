@@ -4,9 +4,25 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 socialApp.controller("socialController", ['$scope', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', function ($scope, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory) {
-        $scope.saveUser = function (userDetails) {
-            onboardingFactory.saveUserPost(userDetails).then(function (data) {
+        $scope.getManagePage = function () {
+            onboardingFactory.saveUserPost().then(function (data) {
 
             });
         };
+        $scope.isDefaultTwitterAccountSet = function (){
+            
+        };
+        $scope.getUserImages = function (){
+            
+        };
+        $scope.getUrls = function (){
+            
+        };
+        $scope.postToFacebook = function(){
+            
+        };
+        $scope.postToTwitter = function(){
+            
+        };
+        
     }]);
