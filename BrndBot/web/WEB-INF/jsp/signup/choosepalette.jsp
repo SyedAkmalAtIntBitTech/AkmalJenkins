@@ -1,7 +1,7 @@
 <%-- 
-    Document   : onboardingpalette
-    Created on : Mar 31, 2016, 8:28:31 PM
-    Author     : development
+    Document   : newjsp
+    Created on : 1 Jun, 2016, 6:02:21 PM
+    Author     : sandeep
 --%>
 <!--SideNav-->
 
