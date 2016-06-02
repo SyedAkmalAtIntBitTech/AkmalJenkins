@@ -39,38 +39,20 @@ brndBotSignupApp.controller("onboardingController", ['$scope', 'subCategoryFacto
             return true;
         };
 
-        $scope.saveUser = function (userDetails) {            
-            if(validateSignUp()){
-                var emailId = $('#emailId').val();
-                var userPassword = $("#password").val();
-                var userDetails={"userName":emailId,"userPassword":userPassword};
-                $.ajax({
-                    method: 'POST',
-                    url: getHost() + '/onboarding/saveUser',
-                    headers: {'Content-Type': 'application/json'},
-                    data: JSON.stringify(userDetails)
-                }).success(function (data)
-                {                
-                   var message= data.d.message;
+        $scope.saveUser = function (userDetails) { 
+            var emailId=$scope.signUpEmail;
+            var password=$scope.signUpPassword;
+            alert(emailId +""+password);
+            var userDetails={"userName":emailId,"userPassword":password};
+            onboardingFactory.saveUserPost(userDetails).then(function (data) {
+                alert(JSON.stringify(data));
+                       var message= data.d.message;
                     if(message==="true")
                     {
                        $("#username").val(emailId);
                        $("#userpassword").val(userPassword);
                        $("#signform").submit();
                     }
-                })
-                .error(function (data, status) {
-                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                });
-            }
-            
-            
-            
-            
-            
-            return false;
-            onboardingFactory.saveUserPost(userDetails).then(function (data) {
-
             });
         };
         $scope.getOrganizations = function () {
