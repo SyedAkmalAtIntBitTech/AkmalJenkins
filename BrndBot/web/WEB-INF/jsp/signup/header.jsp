@@ -1,11 +1,10 @@
 <%-- 
-    Document   : header
-    Created on : Apr 6, 2016, 3:29:52 PM
-    Author     : Rasim Parvez at IntBit Technologies.
+    Document   : newjsp
+    Created on : 1 Jun, 2016, 6:02:21 PM
+    Author     : sandeep
 --%>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>JSP Page</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="format-detection" content="telephone=no">
 <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />

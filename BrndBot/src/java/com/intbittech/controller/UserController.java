@@ -38,11 +38,11 @@ public class UserController {
         return "user/dashboard";
     }
 
-    @RequestMapping(value = "/{jspFileName}", method = RequestMethod.GET)
-    public String UserJspPages(ModelMap model, @PathVariable(value = "jspFileName") String jspFileName) {
+    @RequestMapping(value = "/{htmlFileName}", method = RequestMethod.GET)
+    public String UserJspPages(ModelMap model, @PathVariable(value = "htmlFileName") String htmlFileName) {
         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
         model.addAttribute("user", userProfile);
         model.addAttribute("companyId", userProfile.getUser().getFkCompanyId().getCompanyId());
-        return "user/" + jspFileName;
+        return "user/" + htmlFileName;
     }
 }

@@ -29,11 +29,11 @@ public class AdminController {
         return "admin/organization";
     }
     
-    @RequestMapping(value = "/{jspFileName}", method = RequestMethod.GET)
-    public String adminJspPages(ModelMap model,@PathVariable(value = "jspFileName") String jspFileName) {
+    @RequestMapping(value = "/{htmlFileName}", method = RequestMethod.GET)
+    public String adminJspPages(ModelMap model,@PathVariable(value = "htmlFileName") String htmlFileName) {
         UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
         model.addAttribute("user", userProfile);
-        return "admin/" + jspFileName;
+        return "admin/" + htmlFileName;
     }
     
 
