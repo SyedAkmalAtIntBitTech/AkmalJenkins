@@ -1,7 +1,7 @@
 
 //************************ @author Tasmiya P.S @ Intbit *************************
 
-app.factory('LoginFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('LoginFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var LoginFactoryObject = {};
     LoginFactoryObject.signinGet = function () {
         var deffered = $q.defer();

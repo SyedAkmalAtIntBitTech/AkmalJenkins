@@ -5,8 +5,6 @@
  */
 
 //This is to get the parameters from URL
-var app = angular.module("brndBot", []);
-
 var currentEnvironment = "local";
 //var currentEnvironment = "dev";
 
@@ -16,7 +14,7 @@ var environmentDev = "dev";
 var globalurl = "http://development2.brndbot.com/BrndBot/user";
 var localurl = "http://localhost:8080/BrndbotSampleProject";
 
-app.service('configurationService', function (){
+factoryApp.service('configurationService', function (){
     this.getGlobalURL = function () {
         if (currentEnvironment === environmentLocal)
             return localurl;

@@ -1,7 +1,7 @@
 
 //************************ @author Tasmiya P.S @ Intbit *************************
 
-app.factory('emailListFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('emailListFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var emailListFactoryObject = {};
     emailListFactoryObject.emailListGet = function (emailListName,requestMap) {
         var deffered = $q.defer();

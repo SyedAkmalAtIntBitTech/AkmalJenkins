@@ -9,7 +9,7 @@
 <html ng-app="uploadImage">
     <head>
         <title>BrndBot-On Boarding</title>
-    <jsp:include page="header.jsp"/>
+    <%--<jsp:include page="header.jsp"/>--%>
     </head>
  <body class="body-normal" ng-controller="userImageConversion">
     
@@ -53,9 +53,9 @@
 
         </div>
     <div class="bottomNav">
-        <!--<a href="onboardinglogouploaded.jsp">-->
-        <div id="uploadLogoContinueButton" class="bottom-ContinueButton fright" ng-click="saveUserImage()">CONTINUE</div>
-        <!--</a>-->
+        <a href="#/choosepalette">
+        <div id="uploadLogoContinueButton" class="bottom-ContinueButton fright">CONTINUE</div>
+        </a>
     </div>
  
     

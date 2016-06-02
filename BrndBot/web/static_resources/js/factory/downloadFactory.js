@@ -1,7 +1,7 @@
 
 //************************ @author Tasmiya P.S @ Intbit *************************
 
-app.factory('downloadFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('downloadFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var downloadFactoryObject = {};
     downloadFactoryObject.downloadGet = function () {
         var deffered = $q.defer();

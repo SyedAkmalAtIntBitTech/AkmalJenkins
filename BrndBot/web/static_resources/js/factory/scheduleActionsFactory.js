@@ -2,7 +2,7 @@
 // **************** @author Arfa Shakeel @ Intbit **************** //
 
 
-app.factory('scheduleActionsFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('scheduleActionsFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var scheduleActionsFactoryObject = {};
     scheduleActionsFactoryObject.getActionsPost = function () {
         var deffered = $q.defer();

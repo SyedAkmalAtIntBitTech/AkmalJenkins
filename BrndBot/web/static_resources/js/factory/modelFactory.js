@@ -2,7 +2,7 @@
 // **************** @author Arfa Shakeel @ Intbit **************** //
 
 
-app.factory('modelFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('modelFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var modelFactoryObject = {};
     modelFactoryObject.emailModelGet = function (subCategoryId) {
         var deffered = $q.defer();

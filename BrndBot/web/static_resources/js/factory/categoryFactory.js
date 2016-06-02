@@ -2,7 +2,7 @@
 // **************** @author Arfa Shakeel @ Intbit **************** //
 
 
-app.factory('categoryFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('categoryFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var categoryFactoryObject = {};
     categoryFactoryObject.categoryGet = function (categoryId) {
         var deffered = $q.defer();

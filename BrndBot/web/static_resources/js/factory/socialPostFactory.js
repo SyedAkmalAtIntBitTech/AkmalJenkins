@@ -2,7 +2,7 @@
 // **************** @author Arfa Shakeel @ Intbit **************** //
 
 
-app.factory('socialPostFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('socialPostFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var socialPostFactoryObject = {};
     socialPostFactoryObject.facebookPost = function () {
         var deffered = $q.defer();

@@ -1,7 +1,7 @@
 
 // **************** @author Arfa Shakeel @ Intbit **************** //
  
-app.factory('blockModelFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('blockModelFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var blockModelFactoryObject = {};
     blockModelFactoryObject.emailBlockModelLookupGet = function (emailBlockId) {
         var deffered = $q.defer();
@@ -24,7 +24,7 @@ app.factory('blockModelFactory', function ($q, authenticatedServiceFactory, conf
     blockModelFactoryObject.emailBlockModelGet = function () {
         var deffered = $q.defer();
         var url = configurationService.emailBlockModelURL();
-        authenticatedServiceFactory.makeCall("GET", url,  "").then(function (data) {
+        authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

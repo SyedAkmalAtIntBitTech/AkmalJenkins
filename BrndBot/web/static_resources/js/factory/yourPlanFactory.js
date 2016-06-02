@@ -1,7 +1,7 @@
 
 //************************ @author Tasmiya P.S @ Intbit *************************
 
-app.factory('yourPlanFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('yourPlanFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var yourPlanFactoryObject = {};
     yourPlanFactoryObject.scheduledEntitiesGet = function () {
         var deffered = $q.defer();

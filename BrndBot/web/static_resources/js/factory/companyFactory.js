@@ -1,7 +1,7 @@
 
 //************************ @author Tasmiya P.S @ Intbit *************************
 
-app.factory('companyFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('companyFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var companyFactoryObject = {};
     companyFactoryObject.companyGet = function () {
         var deffered = $q.defer();
