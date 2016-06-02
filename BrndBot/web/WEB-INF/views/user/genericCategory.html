@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<div class="contentWrapInner">
+    <div class="pane pane--600px">
+        <div class="pane_header clear">
+            <div class="pane_title fleft h2">{{header}}</div>
+        </div>
+        <div class="pane_content">
+            <div class="cat-list" ng-repeat="category in displayAllCategories">
+                <div class="cat-slat">
+                    <a id="categoryId" href="emailsubcategory?categoryId={{category.categoryId}}" ng-click="setCategoryID(category.categoryId)">
+                        <div class="cat-slat-title">{{category.categoryName}}</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>   
+</div>

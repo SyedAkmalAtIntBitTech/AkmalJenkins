@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="shortcut icon" href="images/favicon.png">
+        <title>Category</title>
+    </head>
+    <body class="body-normal"> 
+        <div ng-include src="'header.html'"></div>
+        <div ng-include src="'navbar.html'"></div>
+        <!--Main Content Wrap-->
+        <div class="contentWrap--withSideNav noScroll" ng-app ng-controller="userController">
+            <div class="topNav topNav-withSubnav clear">                
+                    <a class="exit-button-icon" href="dashboard">  
+                        <div class="topNav--BackButton fleft">        
+                                <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">            
+                        </div>
+                    </a>
+                <div class="topNav--TitleBar--withBackButton fleft">
+                    <span class="topNav--TitleBar--Title fleft h2">Create an Email</span>
+                    <div class="topNav--TitleBar--CTABox fright">
+                        <div class="CTA_Button Button--Gray">Help!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="topNav--offset"></div>            
+            <div ng-init="displayCategory()">
+                <div ng-include src="'genericCategory.html'"></div>  
+            </div>
+        </div>
+    </body>
+</html>

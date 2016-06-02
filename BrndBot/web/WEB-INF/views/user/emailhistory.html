@@ -1,0 +1,44 @@
+<div class="page-content-container email-list-contact-page email-draft-page" id="emailhistorydiv" ng-controller="emailHistory">
+    <div class="fleft content"  ng-init="displayemailhistory()">
+        <div class="page-content-title pushUp h2" ng-show="email_history.length > 0">Your Email History</div>
+        <div class="page-content-title pushUp h2" ng-show="email_history.length == 0">No Email History present</div>
+        <!--List Starts Here-->
+        <ul class="main-container fleft" id="historydiv" ng-show="email_history.length > 0" >
+
+            <div  ng-repeat="email in email_history">
+                <li class="slat-container fleft selfclear" id="li{{drafts.id}}">
+                    <div class="col-4of10 slat-unit fleft" id="deleteids"> 
+                        <div class="slat-title-container col-1of1 fleft">
+                            <div class="slat-title email-list-slat-title col-1of1 sh1">{{email.tag}}</div>
+                            <div class="action-list-slat-description col-1of1 sh3">Sent on</div>
+                        </div>
+                    </div>
+                    <div class="col-2of10 slat-unit fleft ">
+                        <div class="slat-title-container col-1of1 fleft">
+                            <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.sent}}</div>
+                            <div class="list-column-description col-1of1 sh3 fleft">Number Sent</div>
+                        </div>
+                    </div>
+                    <div class="col-1of10 fleft">
+                        <div class="slat-cta-container">
+                            <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{(email.opens / email.sent) * 100}}%</div>
+                            <div class="list-column-description col-1of1 sh3 fleft">Open Rate</div>                                
+                        </div>
+                    </div>
+                    <div class="col-2of10 fleft">
+                        <div class="slat-cta-container">
+                            <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{(email.clicks / email.sent) * 100}}%</div>
+                            <div class="list-column-description col-1of1 sh3 fleft">Click Through Rate</div>
+                        </div>
+                    </div>
+                    <div class="col-1of10 fleft">
+                        <div class="slat-cta-container">
+                            <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.unsubs}}</div>
+                            <div class="list-column-description col-1of1 sh3 fleft">Unsubscribes</div>
+                        </div>
+                    </div>
+                </li>
+            </div>
+        </ul>
+    </div>
+</div> 

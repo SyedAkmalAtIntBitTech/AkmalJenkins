@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>BrndBot - Create Marketing Program</title> 
+    <link rel="import" href="header.html">
+   
+
+</head>    
+
+<body ng-app class="body-normal">
+  
+    <div class="contentWrap--withSideNav noScroll" ng-controller="controllerMarketingCategories">
+     
+        <div ng-include src="'navbar.html'"></div>
+  
+            <div class="topNav--offset"></div>
+            <div class="contentWrapInner" ng-init="getMarketingCategories()">
+                <div class="pane pane--600px">
+                    <div class="pane_header clear">
+                        <div class="pane_title fleft h2">Please choose a marketing program type.</div>
+                    </div>
+                    <div class="pane_content">
+                        <div class="cat-list"  ng-repeat="category in categories">
+                            <div class="cat-slat">
+                                <a id="categoryId" href="marketingprogram?marketingCategoryId={{category.marketingCategoryId}}" >
+                                    <div class="cat-slat-title">{{category.marketingCategoryName}}</div>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>   
+            </div>
+
+    </body>
+</html>

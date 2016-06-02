@@ -1,0 +1,62 @@
+<div class="page-content-container email-list-contact-page email-draft-page displayNone" id="footerdiv">
+    <div class="fleft content ">
+        <div class="page-content-title"><span class="h2">Email Footer Settings</span><p>This footer will be added to the bottom all emails being sent out. </p></div>
+        <!--List Starts Here-->
+        <div class="emailSettings-container fleft  main-container main-container70width col-8of10" ng-init="getFooterDetails()">
+            <div class="col-1of1 fleft">
+                <div class="col-7of10 fleft">
+                    <div class="h4" style="">
+                        Company Address 
+                    </div>
+                    <input id="from_address" class="input-field-textfield col-8of10" type="text" name="from_address" value="{{footerDetails.address}}" placeholder="Enter default email address" readonly/>
+                    <p> We need this to comply with email spam (CANSPAM) laws</p>
+                </div>
+            </div>
+            <div class="col-1of1 fleft pushUp">
+                <div class="col-7of10 fleft">
+                    <div class="h4" style="">
+                        Website URL
+                    </div>
+                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{footerDetails.websiteUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
+                    <p> This can be copied from the browser <a class="input-help" href="#">Click to learn how</a></p>
+                </div>
+            </div>
+            <div class="col-1of1 fleft pushUp">
+                <div class="col-7of10 fleft">
+                    <div class="h4" style="">
+                       Facebook URL
+                    </div>
+                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{footerDetails.facebookUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
+                     <p> Log into your company's Facebook page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
+                </div>
+            </div>
+            <div class="col-1of1 fleft pushUp">
+                <div class="col-7of10 fleft">
+                    <div class="h4" style="">
+                       Twitter URL
+                    </div>
+                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{footerDetails.twitterUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
+                   <p> Log into your company's Twitter page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
+                </div>
+            </div>
+            <div class="col-1of1 fleft pushUp">
+                <div class="col-7of10 fleft">
+                    <div class="h4" style="">
+                        Instagram URL 
+                    </div>
+                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{footerDetails.instagramUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
+                    <p> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
+                </div>
+            </div>
+            <div class="col-1of1 fleft pushUp">
+                <div class="col-7of10 fleft">
+                    <div class="h4" style="" onclick="openEmailFooterPopup()">
+                        <div class="update-container">
+                            <span class="small-button slat-button">Update Email Footer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>                        
+    </div>   
+</div>
