@@ -1,0 +1,9 @@
+<div id="view2" ng-init="getTwitterDetails()" style="width:550px; height:140px;" >
+    <div class="slat-title email-list-slat-title col-1of1">Twitter</div>
+    <div id="twpagename" >
+        <div class="list-column-description col-1of1 sh3 fleft">Profile Name : {{twitterProfileName}}</div>
+        <button id="twitterLogoutButton" class="twitterLogoutButton" name="change" ng-click="clearTwitterDetails()">Logout From Twitter</button>
+        <button id="twitterLogInButton" class="twitterLogoutButton displayNone" onclick="getAuthURLFromSocialHub()" >Login to Twitter</button>
+        <!--<button id="twitterclear" class="buttonchange" name="twitterclear">Clear</button>-->
+    </div>
+</div>
