@@ -12,6 +12,10 @@ dashboardFlowApp.config(function ($routeProvider) {
                 templateUrl: 'emailsubcategory.html',
                 controller: 'dashboardController'
             })
+            .when('/emailsubjects', {
+                templateUrl: 'emailsubjects.html',
+                controller: 'dashboardController'
+            })
             .when('/emailexternalsource', {
                 templateUrl: 'emailexternalsource.html',
                 controller: 'dashboardController'

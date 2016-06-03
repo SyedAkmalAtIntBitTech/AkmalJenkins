@@ -1,33 +1,22 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="shortcut icon" href="images/favicon.png">
-        <title>Sub-category</title>
-    </head>
-    <body class="body-normal">
-        <div ng-include src="'header.html'"></div>
-        <div ng-include src="'navbar.html'"></div>      
-        <!--<% String categoryId = request.getParameter("categoryId");%>-->
-        <div class="contentWrap--withSideNav noScroll" ng-app ng-controller="userController">
-            <input id="categoryId" value="<%=categoryId%>" type="hidden"/>
-            <div class="topNav topNav-withSubnav clear">
-                <a class="exit-button-icon" href="emailcategory">
-                    <div class="topNav--BackButton fleft">
-                        <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
-                    </div>
-                </a>
-                <div class="topNav--TitleBar--withBackButton fleft">
-                    <span class="topNav--TitleBar--Title fleft h2">Create an Email</span>
-                    <div class="topNav--TitleBar--CTABox fright">
-                        <div class="CTA_Button Button--Gray">Help!</div>
-                    </div>
-                </div>
+  
+<!--<% String categoryId = request.getParameter("categoryId");%>-->
+<div class="contentWrap--withSideNav noScroll">
+    <input id="categoryId" value="<%=categoryId%>" type="hidden"/>
+    <div class="topNav topNav-withSubnav clear">
+        <a class="exit-button-icon" href="emailcategory">
+            <div class="topNav--BackButton fleft">
+                <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
             </div>
-            <div class="topNav--offset"></div>
-            <div ng-init="displaySubCategory()">
-                <div ng-include src="'genericCategory.html'"></div>    
+        </a>
+        <div class="topNav--TitleBar--withBackButton fleft">
+            <span class="topNav--TitleBar--Title fleft h2">Create an Email</span>
+            <div class="topNav--TitleBar--CTABox fright">
+                <div class="CTA_Button Button--Gray">Help!</div>
             </div>
         </div>
-
-    </body>
-</html>
+    </div>
+    <div class="topNav--offset"></div>
+    <div ng-init="getCategories(emailsubcategory)">
+        <div ng-include src="'generictableview.html'"></div>    
+    </div>
+</div>
