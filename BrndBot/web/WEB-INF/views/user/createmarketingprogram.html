@@ -2,9 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>BrndBot - Create Marketing Program</title> 
-    <link rel="import" href="header.html">
-   
-
+    <link rel="import" href="header.html"></link>
 </head>    
 
 <body ng-app class="body-normal">
@@ -20,10 +18,14 @@
                         <div class="pane_title fleft h2">Please choose a marketing program type.</div>
                     </div>
                     <div class="pane_content">
-                        <div class="cat-list"  ng-repeat="category in categories">
+                        <div class="cat-list"  >
+                            <!--ng-repeat="category in categories"-->
                             <div class="cat-slat">
-                                <a id="categoryId" href="marketingprogram?marketingCategoryId={{category.marketingCategoryId}}" >
+<!--                                <a id="categoryId" href="marketingprogram?marketingCategoryId={{category.marketingCategoryId}}" >
                                     <div class="cat-slat-title">{{category.marketingCategoryName}}</div>
+                                </a>-->
+                                <a id="categoryId" href="marketingprogram.html" >
+                                    <div class="cat-slat-title">TEST 1</div>
                                 </a>
                             </div>
 

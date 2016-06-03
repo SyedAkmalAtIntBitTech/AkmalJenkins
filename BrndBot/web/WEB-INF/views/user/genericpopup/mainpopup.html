@@ -1,0 +1,15 @@
+<div ng-controller="genericActionsController" style="display:inline-flex;">
+    <ul style='display: list-item;position:fixed;top:66%;'>
+        <li class="" ng-click="setTemplate('Email',false)">Set Email Action</li>
+        <li class="" ng-click="setTemplate('Facebook Post',false)">Set Facebook Action</li>
+        <li class="" ng-click="setTemplate('Twitter Post',false)">Set Twitter Action</li>
+        <li class="" ng-click="setTemplate('Email',true)">Set Marketing Email Action</li>
+        <li class="" ng-click="setTemplate('Facebook Post',true)">Set Marketing Facebook Action</li>
+        <li class="" ng-click="setTemplate('Twitter Post',true)">Set Marketing Twitter Action</li>
+        <li class="" ng-click="setTemplate('Reminder','')">Set Reminder Action</li>
+    </ul>
+    <div ng-init="main()">
+        <div ng-include src="'genericpopup/genericpopup.html'"></div>
+        <div ng-include src="'genericpopup/yourplanreminderpopup.html'"></div>
+    </div>
+</div>

@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
-         <link rel="shortcut icon" href="images/favicon.png">
+        <link rel="import" href="header.html">
+        <link rel="shortcut icon" href="images/favicon.png">
         <title>Category</title>
     </head>
     <body class="body-normal">
-     <link rel="import" href="header.html">
 <!--  <% String marketingCategoryId = request.getParameter("marketingCategoryId"); %>-->
     <!--Main Content Wrap-->
     <div class="contentWrap--withSideNav noScroll" ng-app ng-controller="userController">
@@ -38,12 +37,23 @@
                 
                 <div class="pane_content">
                     
-                    <div class="cat-list" ng-repeat="displayAllMarketingProgram in displayMarketingPrograms">
+<!--                    <div class="cat-list" ng-repeat="displayAllMarketingProgram in displayMarketingPrograms">
                         <a id="categoryId" href="usermarketingprogram?marketingCategoryId=<%=marketingCategoryId%>&marketingProgramId={{displayAllMarketingProgram.marketingProgramId}}">
                             <div  class="{{displayAllMarketingProgram.marketingProgramId}}">
                                 <ul>
                                     <li class="programList2 nameList{{displayAllMarketingProgram.marketingProgramId}}" ng-click="showhtmldata(displayAllMarketingProgram.marketingProgramId,displayAllMarketingProgram.htmlData,<%=marketingCategoryId%>)">
                                         <div id="{{displayAllMarketingProgram.marketingProgramId}}" class="cat-slat-titles">{{displayAllMarketingProgram.marketingProgramName}}</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </a>
+                    </div>-->
+                    <div class="cat-list" >
+                        <a id="categoryId" href="usermarketingprogram.html">
+                            <div  class="{{displayAllMarketingProgram.marketingProgramId}}">
+                                <ul>
+                                    <li class="programList2 nameList{{displayAllMarketingProgram.marketingProgramId}}" ng-click="showhtmldata(displayAllMarketingProgram.marketingProgramId,displayAllMarketingProgram.htmlData,<%=marketingCategoryId%>)">
+                                        <div id="{{displayAllMarketingProgram.marketingProgramId}}" class="cat-slat-titles">{{displayAllMarketingProgram.marketingProgramName}}TEST</div>
                                     </li>
                                 </ul>
                             </div>

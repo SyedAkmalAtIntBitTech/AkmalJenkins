@@ -54,11 +54,13 @@
                             </div>
                         </li>
                     </ul>
-                    <ul  class="main-container fleft" ng-show="current_programs!=''">
-                        <li class="slat-container fleft selfclear" ng-repeat="program in current_programs">
+<!--                    <ul  class="main-container fleft" ng-show="current_programs!=''">
+                        <li class="slat-container fleft selfclear" ng-repeat="program in current_programs">-->
+                        <ul  class="main-container fleft" >
+                        <li class="slat-container fleft selfclear" >
                             <div class="col-1of1 slat-unit fleft ">
                                 <div class="slat-title-container col-3of10 fleft">
-                                    <div class="slat-title  col-1of1 sh1-contact">{{program.program_name}}</div>
+                                    <div class="slat-title  col-1of1 sh1-contact">TEST{{program.program_name}}</div>
                                     <div class="action-list-slat-description col-1of1 sh3-contact">Added on {{program.start_date | date: 'MMM dd yyyy'}}</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
@@ -74,7 +76,8 @@
                                 <div class="col-1of4 fleft">
                                     <div class="slat-cta-container">
                                         <a href=""> 
-                                            <div class="small-button slat-button detail-button-font" ng-click="sendProgramId(program.id,'0')">View Program</div>
+                                            <div class="small-button slat-button detail-button-font" ><a href="marketingprogramactions.html"> View Program </a></div>
+                                            <!--ng-click="sendProgramId(program.id,'0')"-->
                                         </a>
                                     </div>
                                 </div>
