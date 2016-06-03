@@ -33,30 +33,6 @@ function kUserPreference_HasLoggedInFacebook (){
     return "facebook";
 }
 
-function getColor1(){
-    return "color1";
-}
-
-function getColor2(){
-    return "color2";
-}
-
-function getColor3(){
-    return "color3";
-}
-
-function getColor4(){
-    return "color4";
-}
-
-function getColor5(){
-    return "color5";
-}
-
-function getColor6(){
-    return "color6";
-}
-
 function getemail(){
     return "Email";
 }

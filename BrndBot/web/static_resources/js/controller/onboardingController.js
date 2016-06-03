@@ -3,12 +3,12 @@
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
-brndBotSignupApp.controller("onboardingController", ['$scope', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', function ($scope, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory) {
+brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory','externalContentFactory', function ($scope, $location, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory,externalContentFactory) {
         function validateSignUp()
-        {  
-            var emailId=$scope.signUpEmail;
-            var password=$scope.signUpPassword;
-            var rePassword=$scope.signUpConfirmPassword;
+        {
+            var emailId = $scope.signUpEmail;
+            var password = $scope.signUpPassword;
+            var rePassword = $scope.signUpConfirmPassword;
             if ($.trim(emailId).length === 0) {
                 alert(emptyemail);
                 emailId.focus();
@@ -39,52 +39,59 @@ brndBotSignupApp.controller("onboardingController", ['$scope', 'subCategoryFacto
             return true;
         };
 
-        $scope.saveUser = function (userDetails) { 
-            var emailId=$scope.signUpEmail;
-            var password=$scope.signUpPassword;
-            alert(emailId +""+password);
-            var userDetails={"userName":emailId,"userPassword":password};
+        $scope.saveUser = function (userDetails) {
             onboardingFactory.saveUserPost(userDetails).then(function (data) {
                 alert(JSON.stringify(data));
-                       var message= data.d.message;
-                    if(message==="true")
-                    {
-                       $("#username").val(emailId);
-                       $("#userpassword").val(userPassword);
-                       $("#signform").submit();
-                    }
+                var message = data.d.message;
+                if (message === "true")
+                {
+                    $("#signform").submit();
+                    $location.path("/signup/company");
+                }
             });
         };
         $scope.getOrganizations = function () {
             organizationFactory.organizationGet().then(function (data) {
-                $scope.organizations=data.d.details;
+                $scope.defaultOrganisation = [{organizationId: 0, organizationName: 'Please select an industry'}];
+                $scope.organizations = $scope.defaultOrganisation.concat(data.d.details);
+                $scope.organizationId = $scope.organizations[0].organizationId;
             });
         };
-        $scope.saveCompany = function () {
-            $scope.companyDetails = {};
-            onboardingFactory.saveCompanyPost($scope.companyDetails).then(function (data) {
-
+        $scope.saveCompany = function (companyName, organizationId) {
+            var companyDetails = {"companyName": companyName, "organizationId": organizationId};
+            onboardingFactory.saveCompanyPost(JSON.stringify(companyDetails)).then(function (data) {
+                alert(JSON.stringify(data));
+                $location.path("/signup/datasource");
             });
         };
         $scope.getAllServices = function () {
             subCategoryFactory.allExternalSourcesGet().then(function (data) {
-                $scope.services=data.d.details;
+                alert(JSON.stringify(data));
+                $scope.services = data.d.details;
+                $scope.thirdPartyService = data.d.details[0].externalSourceId;
             });
         };
-        $scope.saveCompany = function () {
-            onboardingFactory.completedActivationGet.then(function (data) {
-
-            });
-        };
-        $scope.getActivationLink = function () {
-            $scope.studioId = {};
+        $scope.getActivationLink = function (studioId) {
+            alert(JSON.stringify(studioId));
             onboardingFactory.saveStudioIdPost(studioId).then(function (data) {
-
+                alert(JSON.stringify(data));
+                var studioIdSaved = eval(JSON.stringify(data.d.message));
+                if (studioIdSaved === "true") {
+                    externalContentFactory.activationLinkGet().then(function (data){
+                       alert(JSON.stringify(data.d.details)); 
+                       $scope.activationLink = data.d.details[0];
+                    });
+                }
             });
         };
         $scope.saveServices = function () {
             onboardingFactory.completedActivationGet().then(function (data) {
-
+                alert(JSON.stringify(data));
+              var studioIdSaved = eval(JSON.stringify(data.d.message));
+                if (studioIdSaved === "true") {
+                    $location.path("/signup/uploadlogo");
+                }
+                
             });
         };
         $scope.uploadLogo = function () {
