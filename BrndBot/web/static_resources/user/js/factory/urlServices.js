@@ -12,7 +12,7 @@ var environmentLocal = "local";
 var environmentDev = "dev";
 
 var globalurl = "http://development2.brndbot.com/BrndBot/user";
-var localurl = "http://localhost:8080/BrndbotSampleProject";
+var localurl = "http://localhost:8080/BrndBot";
 
 factoryApp.service('configurationService', function (){
     this.getGlobalURL = function () {
