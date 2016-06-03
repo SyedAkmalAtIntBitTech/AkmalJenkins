@@ -1,6 +1,6 @@
 
 // **************** @author Arfa Shakeel @ Intbit **************** //
- 
+
 factoryApp.factory('blockModelFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var blockModelFactoryObject = {};
     blockModelFactoryObject.emailBlockModelLookupGet = function (emailBlockId) {

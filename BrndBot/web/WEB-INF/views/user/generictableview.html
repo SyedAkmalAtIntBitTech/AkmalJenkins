@@ -1,13 +1,20 @@
-<!DOCTYPE html>
 <div class="contentWrapInner">
     <div class="pane pane--600px">
         <div class="pane_header clear">
             <div class="pane_title fleft h2">{{header}}</div>
+            <!--<div class="pane_title fleft h2">Choose Category</div>-->
         </div>
         <div class="pane_content">
+<!--            <div class="cat-list">
+                <div class="cat-slat">
+                    <a id="categoryId" href="#/emailsubcategory" ng-click="setCategoryID(1)">
+                        <div class="cat-slat-title">Category 1</div>
+                    </a>
+                </div>
+            </div>-->
             <div class="cat-list" ng-repeat="category in displayAllCategories">
                 <div class="cat-slat">
-                    <a id="categoryId" href="emailsubcategory?categoryId={{category.categoryId}}" ng-click="setCategoryID(category.categoryId)">
+                    <a id="categoryId" href="" ng-click="redirect(forward)">
                         <div class="cat-slat-title">{{category.categoryName}}</div>
                     </a>
                 </div>

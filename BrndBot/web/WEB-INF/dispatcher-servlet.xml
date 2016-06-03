@@ -61,6 +61,7 @@
     <mvc:resources mapping="/css/**" location="/static_resources/css/"/>
     <mvc:resources mapping="/images/**" location="/static_resources/images/"/>
     <mvc:resources mapping="/js/**" location="/static_resources/js/"/>
+    <mvc:resources mapping="/js/**" location="/static_resources/js/factory"/>
     <mvc:resources mapping="/admin/css/**" location="/static_resources/css/"/>
     <mvc:resources mapping="/admin/images/**" location="/static_resources/images/"/>
     <mvc:resources mapping="/admin/js/**" location="/static_resources/js/"/>
@@ -70,7 +71,7 @@
     <mvc:resources mapping="/user/css/plugins/**" location="/static_resources/user/css/plugins/"/>
     <mvc:resources mapping="/user/js/**" location="/static_resources/user/js/"/>
     <mvc:resources mapping="/user/js/controller/**" location="/static_resources/user/js/controller/"/>
-    <mvc:resources mapping="/user/js/**" location="/static_resources/user/js/factory"/>
+    <mvc:resources mapping="/user/js/factory/**" location="/static_resources/js/factory"/>
     <mvc:resources mapping="/user/js/plugins/**" location="/static_resources/user/js/plugins/"/>
     <mvc:resources mapping="/user/fonts/**" location="/static_resources/fonts/"/>
     <mvc:resources mapping="/signup/css/**" location="/static_resources/css/"/>

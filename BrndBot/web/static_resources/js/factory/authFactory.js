@@ -7,13 +7,13 @@
 factoryApp.factory('authenticatedServiceFactory', function ($http, $q) {
     var service = {};
     service.makeCall = function (methodType, URL, data, authType) {
-
+        
         var deffered = $q.defer();
         var config = "";
         config = {headers:{'Content-Type': 'application/json'}};
         if (methodType === "GET") {
-            var request = $http.get(URL, data,config).then(function (getData) {
-                    deffered.resolve(getData.data);
+            var request = $http.get(URL, data,config).then(function (getData) {        
+                deffered.resolve(getData.data);
             }, function (error) {
 
             });

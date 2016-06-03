@@ -52,7 +52,8 @@ factoryApp.factory('categoryFactory', function ($q, authenticatedServiceFactory,
     categoryFactoryObject.allCompanyCategoriesGet = function (channelId) {
         var deffered = $q.defer();
         var url = configurationService.allCompanyCategoriesURL();
-        var data = '{"channelId":"' + channelId + '"}';
+        url=url+"?channelId="+channelId;
+        var data = "";
         authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
             deffered.resolve(data);
         });

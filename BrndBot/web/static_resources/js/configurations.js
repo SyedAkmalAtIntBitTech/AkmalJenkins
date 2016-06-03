@@ -17,10 +17,8 @@ var yourPlanFlowApp = angular.module('yourPlanFlowApp', ['factorys','ngRoute']);
 var dashboardFlowApp = angular.module('dashboardFlowApp', ['factorys','ngRoute']);
 var settingFlowApp = angular.module('settingFlowApp', ['factorys','ngRoute']);
 var userGalleryApp = angular.module('userGalleryApp', ['factorys','ngRoute']);
-
 var error = "system failure error";  
 var FroalaLicenseKey ="snJ-7c1krD-13fD1wzF-7==";
-
 function getHost(){
      return global_host_address;
 }

@@ -1,7 +1,5 @@
 
 // **************** @author Arfa Shakeel @ Intbit **************** //
-
-
 factoryApp.factory('subCategoryFactory', function ($q,authenticatedServiceFactory, configurationService) {
     var subCategoryFactoryObject = {};
     subCategoryFactoryObject.saveSubCategoryPost = function (subCategoryDetails) {
