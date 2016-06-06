@@ -11,11 +11,11 @@ factoryApp.factory('authenticatedServiceFactory', function ($http, $q) {
         var deffered = $q.defer();
         var config = "";
         config = {headers:{'Content-Type': 'application/json'}};
-        if (methodType === "GET") {
-            var request = $http.get(URL, data,config).then(function (getData) {        
+        if (methodType === "GET") {            
+//            alert("get"+JSON.stringify("URL.."+URL+"..data.."+data+"..config.."+config));
+            var request = $http.get(URL, data,config).then(function (getData) { 
                 deffered.resolve(getData.data);
             }, function (error) {
-
             });
         }
         else if (methodType === "POST") {

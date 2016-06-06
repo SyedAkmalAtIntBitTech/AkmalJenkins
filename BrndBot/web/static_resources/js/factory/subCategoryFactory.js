@@ -31,9 +31,8 @@ factoryApp.factory('subCategoryFactory', function ($q,authenticatedServiceFactor
     };
     subCategoryFactoryObject.allSubCategoriesGet = function (categoryId) {
         var deffered = $q.defer();
-        var url = configurationService.allSubCategoriesURL();
-        var data = '{"categoryId":"' + categoryId + '"}';
-        authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
+        var url = configurationService.allSubCategoriesURL()+"?categoryId="+categoryId;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
