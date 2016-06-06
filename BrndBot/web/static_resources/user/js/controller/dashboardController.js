@@ -1,9 +1,13 @@
 
-dashboardFlowApp.controller("dashboardController", ['$scope', '$location', 'categoryFactory', function ($scope,$location, categoryFactory) {
+dashboardFlowApp.controller("dashboardController", ['$scope', '$location','$window', 'categoryFactory','redirectFactory', function ($scope,$location,$window,categoryFactory,redirectFactory) {
     $scope.emailChannelId = 3;
     $scope.printChannelId = 2;
     $scope.imageChannelId = 1;
     $scope.forward="";
+    $scope.redirectFlow= function(pageName)
+    {   
+      redirectFactory.redirectFlowTo(pageName);        
+    };
     $scope.redirect= function(pageName)
     {
         $scope.forward=pageName;
@@ -18,5 +22,5 @@ dashboardFlowApp.controller("dashboardController", ['$scope', '$location', 'cate
             $scope.displayAllCategories=data.d.details;
         });
     };
-
+    
 }]);
