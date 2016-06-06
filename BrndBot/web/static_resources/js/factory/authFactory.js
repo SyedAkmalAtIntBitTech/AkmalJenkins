@@ -7,7 +7,6 @@
 factoryApp.factory('authenticatedServiceFactory', function ($http, $q) {
     var service = {};
     service.makeCall = function (methodType, URL, data, authType) {
-        
         var deffered = $q.defer();
         var config = "";
         config = {headers:{'Content-Type': 'application/json'}};
