@@ -1,38 +1,54 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>BrndBot - Create Marketing Program</title> 
-    <link rel="import" href="header.html"></link>
+    <link rel="shortcut icon" href="images/favicon.png">
+        <title>Dashboard</title>
+        <link rel="stylesheet" type="text/css" href="css/General-Utility.css">
+        <link rel="stylesheet" type="text/css" href="css/Navigation.css">
+        <link rel="stylesheet" type="text/css" href="css/Pane.css">
+        <link rel="stylesheet" type="text/css" href="css/Page-Structure.css">
+        <link rel="stylesheet" type="text/css" href="css/Dashboard.css">
+        <link rel="stylesheet" type="text/css" href="css/Email.css">
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/Form-Input.css">
+        <link rel="stylesheet" type="text/css" href="css/overlay-drawer.css">
+        <link rel="stylesheet" type="text/css" href="css/sequence-Pages.css">
+        <link rel="stylesheet" type="text/css" href="css/slats.css">
+        <link rel="stylesheet" type="text/css" href="css/onboarding.css">
+        <link rel="stylesheet" type="text/css" href="css/login-onboarding.css">
+        <link rel="stylesheet" type="text/css" href="css/admin.css">
+        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+        <script src="js/alertmessage.js" type="text/javascript"></script>
+        <script src="js/onboarding.js" type="text/javascript"></script> 
+        <script src="../js/configurations.js"></script>   
+        <script src="js/userbase64conversion.js"></script>   
+        <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
+        <script src="js/colpick.js" type="text/javascript"></script>
+        <script src="js/form.js" type="text/javascript"></script>
+        <link rel="shortcut icon" href="images/favicon.png"/> 
+        <script src="../js/factory/categoryFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/subCategoryFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/settingsFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/onboardingFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/organizationFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/urlServices.js" type="text/javascript"></script>
+        <script src="../js/factory/authFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/marketingFactory.js" type="text/javascript"></script>
+        <script src="js/controller/routing.js" type="text/javascript"></script>
+         <script src="js/controller/marketingController.js" type="text/javascript"></script>
+         
 </head>    
 
-<body ng-app class="body-normal">
-  
-    <div class="contentWrap--withSideNav noScroll" ng-controller="controllerMarketingCategories">
-     
-        <div ng-include src="'navbar.html'"></div>
-  
-            <div class="topNav--offset"></div>
-            <div class="contentWrapInner" ng-init="getMarketingCategories()">
-                <div class="pane pane--600px">
-                    <div class="pane_header clear">
-                        <div class="pane_title fleft h2">Please choose a marketing program type.</div>
-                    </div>
-                    <div class="pane_content">
-                        <div class="cat-list"  >
-                            <!--ng-repeat="category in categories"-->
-                            <div class="cat-slat">
-<!--                                <a id="categoryId" href="marketingprogram?marketingCategoryId={{category.marketingCategoryId}}" >
-                                    <div class="cat-slat-title">{{category.marketingCategoryName}}</div>
-                                </a>-->
-                                <a id="categoryId" href="marketingprogram.html" >
-                                    <div class="cat-slat-title">TEST 1</div>
-                                </a>
-                            </div>
+  <body ng-app="marketingFlowApp" class="body-normal" ng-controller="marketingController">
+   <script type="text/ng-template"></script>    
+    <div ng-include src="'navbar.html'"></div> 
+    
+    <div><div ng-view></div></div>    
+    <!--Main Content Wrap-->    
+</body>
+    
 
-                        </div>
-                    </div>
-                </div>   
-            </div>
-
-    </body>
+    
 </html>

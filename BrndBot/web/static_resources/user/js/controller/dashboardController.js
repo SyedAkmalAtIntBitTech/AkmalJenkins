@@ -1,5 +1,5 @@
 
-dashboardFlowApp.controller("dashboardController", ['$scope', '$location', 'categoryFactory', function ($scope,$location, categoryFactory) {
+dashboardFlowApp.controller("dashboardController", ['$scope', '$location','$window', 'categoryFactory', function ($scope,$location,$window, categoryFactory) {
     $scope.emailChannelId = 3;
     $scope.printChannelId = 2;
     $scope.imageChannelId = 1;
@@ -9,6 +9,11 @@ dashboardFlowApp.controller("dashboardController", ['$scope', '$location', 'cate
         $scope.forward=pageName;
         $location.path("/"+pageName);         
         
+    };
+    $scope.redirectToMarketingProgram= function(pageName)
+    {
+        $window.location=getHost()+"user/"+pageName;
+       
     };
     $scope.getCategories= function(forward)
     {
