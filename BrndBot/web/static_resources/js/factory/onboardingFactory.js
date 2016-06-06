@@ -23,9 +23,9 @@ factoryApp.factory('onboardingFactory', function ($q,authenticatedServiceFactory
     };
     onboardingFactoryObject.saveStudioIdPost = function (studioId) {
         var deffered = $q.defer();
-        var url = configurationService.saveStudioIdURL();
-        var data = '{"studioId":"' + studioId + '"}';
-        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
+        var url = configurationService.saveStudioIdURL()+"?studioId="+studioId;
+        alert(url);
+        authenticatedServiceFactory.makeCall("POST", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
@@ -41,7 +41,7 @@ factoryApp.factory('onboardingFactory', function ($q,authenticatedServiceFactory
     onboardingFactoryObject.saveCompanyPost = function (companyDetails) {
         var deffered = $q.defer();
         var url = configurationService.saveCompanyURL();
-        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, companyDetails, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
