@@ -1,10 +1,54 @@
-<!-- 
-    Document   : newjsp
-    Created on : 1 Jun, 2016, 6:02:21 PM
-    Author     : sandeep and edited by satyajit
+<!DOCTYPE html>
+<!--
+Copyright 2015 Intbit Technologies. This software and documentation contains
+confidential and proprietary information that is owned by Intbit
+Technologies. Unauthorized use and distribution are strictly prohibited.
 -->
-
-<div class="body-normal">
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="format-detection" content="telephone=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+        <link rel="stylesheet" type="text/css" href="css/General-Utility.css">
+        <link rel="stylesheet" type="text/css" href="css/Navigation.css">
+        <link rel="stylesheet" type="text/css" href="css/Pane.css">
+        <link rel="stylesheet" type="text/css" href="css/Page-Structure.css">
+        <link rel="stylesheet" type="text/css" href="css/Dashboard.css">
+        <link rel="stylesheet" type="text/css" href="css/Email.css">
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/Form-Input.css">
+        <link rel="stylesheet" type="text/css" href="css/overlay-drawer.css">
+        <link rel="stylesheet" type="text/css" href="css/sequence-Pages.css">
+        <link rel="stylesheet" type="text/css" href="css/slats.css">
+        <link rel="stylesheet" type="text/css" href="css/onboarding.css">
+        <link rel="stylesheet" type="text/css" href="css/login-onboarding.css">
+        <link rel="stylesheet" type="text/css" href="css/admin.css">
+        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+        <script src="js/alertmessage.js" type="text/javascript"></script>
+        <script src="js/onboarding.js" type="text/javascript"></script> 
+        <script src="js/configurations.js"></script>   
+        <script src="js/userbase64conversion.js"></script>   
+        <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
+        <script src="js/colpick.js" type="text/javascript"></script>
+        <script src="js/form.js" type="text/javascript"></script>
+        <link rel="shortcut icon" href="images/favicon.png"/> 
+        <script src="js/controller/onboardingController.js" type="text/javascript"></script>
+        <script src="js/factory/subCategoryFactory.js" type="text/javascript"></script>
+        <script src="js/factory/settingsFactory.js" type="text/javascript"></script>
+        <script src="js/factory/onboardingFactory.js" type="text/javascript"></script>
+        <script src="js/factory/organizationFactory.js" type="text/javascript"></script>
+        <script src="js/factory/urlServices.js" type="text/javascript"></script>
+        <script src="js/factory/authFactory.js" type="text/javascript"></script>
+        <script src="js/controller/routing.js" type="text/javascript"></script>
+       
+    </head>
+    <body ng-app="signupApp" ng-controller="onboardingController">
+         <div class="body-normal">
     <div class="Login_left-pane fleft">
         <div class="Login_left-pane_vert-split"></div>
         <div class="Login_left-pane_vert-split"></div>
@@ -13,16 +57,16 @@
         <div class="login-container">
             <img src="images/BB-Hello.svg" class="signUp-logo" style="cursor:pointer;">
             <div class="input_Label pushUp_30">Email</div>
-            <input class="input_Field login-fields" ng-model="signUpEmail" placeholder="Email"  ng-blur="isUserUnique()"/>
+            <input class="input_Field login-fields" ng-model="userDetails.userName" placeholder="Email"  ng-blur="isUserUnique()"/>
             <div class="input_Label">Password</div>
-            <input class="input_Field login-fields" ng-model="signUpPassword" type="password" placeholder="Password"/>
+            <input class="input_Field login-fields" ng-model="userDetails.userPassword" type="password" placeholder="Password"/>
             <div class="input_Label">Confirm Password</div>
             <input class="input_Field login-fields" type="password" ng-model="signUpConfirmPassword" placeholder="Confirm Password"/>
-            <a href="#/company"><div class="CTA_Button Button--Blue fleft pushUp_30"  ng-click="saveUser('abc')">Sign Up</div></a>
+            <div class="CTA_Button Button--Blue fleft pushUp_30"  ng-click="saveUser(userDetails)">Sign Up</div>
             <div class="sign-up_container"></div>
         </div>
     </div>
-<!--    <form hidden class="form-horizontal" id="signform" action="${pageContext.request.contextPath}/login" method="POST">
+             <form hidden class="form-horizontal" id="signform" action="/BrndBot/login" method="POST">
         <div class="Login_left-pane fleft">
             <div class="Login_left-pane_vert-split"></div>
             <div class="Login_left-pane_vert-split"></div>
@@ -31,9 +75,9 @@
             <div class="login-container">
                 <img src="images/BB_regular.svg" class="login-logo" style="cursor:pointer;"> 
                 <div class="input_Label pushUp_30">Email</div>
-                <input name="username"  id="username" class="input_Field login-fields" type="text" required>
+                <input name="username"  id="username" ng-model="userDetails.userName" class="input_Field login-fields" type="text" required>
                 <div class="input_Label">Password</div>
-                <input  class="input_Field login-fields" id="userpassword" name="password" type="text" required>
+                <input  class="input_Field login-fields" ng-model="userDetails.userPassword" id="userpassword" name="password" type="text" required>
                 <div class="forgot_password" style="float:left">
                     <span>Forgot Password</span>
                 </div>
@@ -45,6 +89,8 @@
                 <div class="sign-up_container"></div>
             </div>
         </div>
-        <input type="hidden" name="${_csrf.parameterName}"   value="${_csrf.token}" />
-    </form>-->
+    </form>
 </div>
+
+    </body>
+</html>

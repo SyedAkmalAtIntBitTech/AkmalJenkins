@@ -56,7 +56,7 @@ public class BrndbotUserLoginSuccessHandler extends SimpleUrlAuthenticationSucce
         } else if (isUser(roles)) {
             url = "/user/dashboard";
         } else if (isTempUser(roles)) {
-            url = "/signup/company";
+            url = "/#/signup/company";
         } else {
             url = "/login?accessdenied=true";
         }

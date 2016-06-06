@@ -9,7 +9,7 @@
     <!--Main Content Wrap-->
     <div class="contentWrap--withNoSideNav" ng-init="getAllServices()">
         <div class="topNav clear">
-            <a href="#">
+            <a href="#/company">
                 <div class="topNav--BackButton fleft">
                     <img  src="images/backbutton.svg" class="backButton-svg" style="cursor:pointer;"/>
                 </div>
@@ -31,25 +31,23 @@
                     <div class="h3 font--lightGray">BrndBot syncs with your other tools. If you are not using any of these services, just select 'none'!</div>
                     <div class="inputSection col-6of10 ">
                         <div class="input_Label">Please select a third party service</div>
-
-                        <select class="input_Field select_Field clear" id="services" >
-                            <option class="input_Field" ng-repeat="service in services" value="{{service.externalSourceId}}">{{service.externalSourceName}}</option>
+                        <select ng-model="thirdPartyService" class="input_Field select_Field clear" id="services" ng-options="service.externalSourceId as service.externalSourceName for service in services">
                         </select> 
                     </div>
-                    <div class="inputSection col-1of1 " id="mindbodyStudioDiv">
+                    <div ng-if="thirdPartyService==1" class="inputSection col-1of1 ">
                         <div class="input_Label">Please enter Mindbody Studio Id</div>
                         <div class="col-6of10">
-                            <input class="input_Field " type="text" id="mindbodyStudioId">
+                            <input class="input_Field " type="text" id="mindbodyStudioId" ng-model="studioId">
                         </div>
-                        <a href="" id="actiovationLink" target="_blank"><div class="input_Label" id="activationLinkDiv"></div></a>
-                        <div class="CTA_Button Button--Gray clear-colors" ng-click="getActivationLink()">Activation</div>
+                        <a href="{{activationLink}}" id="actiovationLink" target="_blank"><div class="input_Label" id="activationLinkDiv">{{activationLink}}</div></a>
+                        <div class="CTA_Button Button--Gray clear-colors" ng-click="getActivationLink(studioId)">Activation</div>
                     </div>
                 </div>
             </div>
         </div>   
     </div>
     <div class="bottomNav">
-        <a href="#/uploadlogo"><div id="serviceContinueButton" class="bottom-ContinueButton fright">CONTINUE</div></a>
+        <div id="serviceContinueButton" ng-click="saveServices()" class="bottom-ContinueButton fright">CONTINUE</div>
     </div>
 </div>
 

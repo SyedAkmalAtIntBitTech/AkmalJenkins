@@ -4,23 +4,19 @@ brndBotSignupApp.config(function ($routeProvider) {
                 templateUrl: 'signup/loginform.html',
                 controller: 'onboardingController'
             })
-            .when('/register', {
-                templateUrl: 'signup/registration.html',
-                controller: 'onboardingController'
-            })
-            .when('/company', {
+            .when('/signup/company', {
                 templateUrl: 'signup/company.html',
                 controller: 'onboardingController'
             })
-            .when('/datasource', {
+            .when('/signup/datasource', {
                 templateUrl: 'signup/datasource.html',
                 controller: 'onboardingController'
             })
-            .when('/uploadlogo', {
+            .when('/signup/uploadlogo', {
                 templateUrl: 'signup/uploadlogo.html',
                 controller: 'onboardingController'
             })
-            .when('/choosepalette', {
+            .when('/signup/choosepalette', {
                 templateUrl: 'signup/choosepalette.html',
                 controller: 'onboardingController'
             })
