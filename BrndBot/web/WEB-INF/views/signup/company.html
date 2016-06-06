@@ -7,7 +7,7 @@
     <!--Main Content Wrap-->
     <div class="contentWrap--withNoSideNav" >
         <div class="topNav clear">
-            <a href="#"><div class="topNav--BackButton fleft">
+            <a href="#/register"><div class="topNav--BackButton fleft">
                     <img  src="images/backbutton.svg" class="backButton-svg" style="cursor:pointer;" />
             </div></a>                
             <div class="topNav--TitleBar--withBackButton fleft">
@@ -27,14 +27,12 @@
                     <div class="h3 font--lightGray">Welcome to BrndBot! First what is your company name?</div>
                     <div class="inputSection col-6of10">
                         <div class="input_Label">Please enter your company name:</div>
-                        <input class="input_Field" id="companyName" placeholder="Company Name"/>
+                        <input class="input_Field" id="companyName" ng-model="companyName" placeholder="Company Name"/>
                     </div>
                      <div class="h3 font--lightGray pushUp_30">We have built BrndBot differently for different industries to give you the best experience possible.</div>
                     <div class="inputSection col-6of10 ">
                         <div class="input_Label">Please select an industry</div>
-                        <select  id="industryDropDown"  class="input_Field select_Field">
-                                <option class="input_Field" value="0">Please select an industry</option>
-                                <option class="input_Field" ng-repeat ="organization in organizations" value="{{organization.organizationId}}">{{organization.organizationName}}</option>
+                        <select ng-model="organizationId" id="industryDropDown"  class="input_Field select_Field" ng-options="organization.organizationId as organization.organizationName for organization in organizations">
                         </select>
                     </div>
                     </div>
@@ -42,5 +40,5 @@
             </div>   
         </div>
     <div class="bottomNav">
-        <a href="#/datasource"> <div class="bottom-ContinueButton fright">CONTINUE</div></a>
+        <div class="bottom-ContinueButton fright" ng-click="saveCompany(companyName,organizationId)">CONTINUE</div>
     </div>

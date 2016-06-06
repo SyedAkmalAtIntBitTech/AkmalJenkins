@@ -5,22 +5,18 @@ dashboardFlowApp.config(function ($routeProvider) {
                 controller: 'dashboardController'
             })
             .when('/emailcategory', {
-                templateUrl: 'emailcategory.html',
-                controller: 'dashboardController'
+                templateUrl: 'emailcategory.html'
             })
             .when('/emailsubcategory', {
-                templateUrl: 'emailsubcategory.html',
-                controller: 'dashboardController'
+                templateUrl: 'emailsubcategory.html'
             })
             .when('/emailsubjects', {
-                templateUrl: 'emailsubjects.html',
-                controller: 'dashboardController'
+                templateUrl: 'emailsubjects.html'
             })
             .when('/emailexternalsource', {
-                templateUrl: 'emailexternalsource.html',
-                controller: 'dashboardController'
+                templateUrl: 'emailexternalsource.html'
             })
-            .otherwise({redirectTo: '/dashboard'});
+             .otherwise({redirectTo: '/dashboard'});
     });
     
 emailFlowApp.config(function ($routeProvider) {
@@ -91,39 +87,12 @@ userGalleryApp.config(function($routeProvider){
 });
 
 marketingFlowApp.config(function($routeProvider){
+  
     $routeProvider
-            .when('/marketingprogramlists', {
-                templateUrl: 'user/marketingprogramlists.html',
-                controller: 'controllerUserMarketingProgamsByStatus'
-            })
-              .when('/marketingprogramactions', {
-                templateUrl: 'user/marketingprogramactions.html',
-                controller: 'programactions'
-            })
-            .when('/emailautomation', {
-                templateUrl: 'user/emailautomation.html',
-                controller: 'emailautomation'
-            })
-            .when('/createmarketingprogram', {
-                templateUrl: 'user/createmarketingprogram.html',
-                controller: 'controllerMarketingCategories'
-            })
-            .when('/marketingprogram', {
-                templateUrl: 'user/marketingprogram.html',
-                controller: 'userController'
-            })
-            .when('/usermarketingprogram', {
-                templateUrl: 'user/usermarketingprogram.html',
-                controller: 'usermarketingprogram'
-            })
-             .when('/emaillists', {
-                templateUrl: 'user/emaillists.html',
-                controller: 'EmailListController'
-            })
-              .when('/emaillistsdetails', {
-                templateUrl: 'user/emaillists.html',
-                controller: 'EmailListController'
-            })
-                               
-            .otherwise({redirectTo: '/signin'});
+    .when('/createmarketingprogram', {
+                templateUrl: 'basemarketingprogram.html',
+                controller: 'marketingController'
+    }) 
+    
+    .otherwise({redirectTo: '/createmarketingprogram'});
 });

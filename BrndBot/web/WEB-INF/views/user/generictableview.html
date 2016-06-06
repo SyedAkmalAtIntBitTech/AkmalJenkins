@@ -14,9 +14,9 @@
             </div>-->
             <div class="cat-list" ng-repeat="category in displayAllCategories">
                 <div class="cat-slat">
-                    <a id="categoryId" href="" ng-click="redirect(forward)">
-                        <div class="cat-slat-title">{{category.categoryName}}</div>
-                    </a>
+                   
+                        <div class="cat-slat-title" ng-click="redirect(forward,category.categoryId)">{{category.categoryName}}</div>
+                    
                 </div>
             </div>
         </div>

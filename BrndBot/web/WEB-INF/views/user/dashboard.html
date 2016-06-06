@@ -43,8 +43,8 @@
     <body ng-app="dashboardFlowApp" class="body-normal" ng-controller="dashboardController">
     <script type="text/ng-template"></script>    
     <div ng-include src="'navbar.html'"></div> 
-    <input type="hidden" ng-model="categoryId"/>
-    <input type="hidden" ng-model="subcategoryId"/>
+    <input type="hidden" ng-model="categoryId" value="{{categoryId}}"/>
+    <input type="hidden" ng-model="subcategoryId" value="{{subcategoryId}}"/>
     <input type="hidden" ng-model="emailChannelId" value="{{emailChannelId}}"/>
     
     <div><div ng-view></div></div>    
