@@ -5,6 +5,7 @@
  */
 package com.intbittech.controller;
 
+import com.intbittech.AppConstants;
 import com.intbittech.utility.FileUploadUtil;
 import com.intbittech.utility.ServletUtil;
 import com.intbittech.model.Company;
@@ -18,6 +19,7 @@ import com.intbittech.services.CompanyImagesService;
 import com.intbittech.services.GlobalImagesService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.UserSessionUtil;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -101,6 +103,28 @@ public class ImagesController {
                 companyImagesService.save(companyImages);
             }
             transactionResponse.setId(link);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_save", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "/uploadLogo", method = RequestMethod.POST)
+    public ResponseEntity<ContainerResponse> uploadLogo(HttpServletRequest request, HttpServletResponse response) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+
+        try {
+            String pathSuffix = AppConstants.BASE_IMAGE_COMPANY_UPLOAD_PATH;
+            String fileName = "";
+            String link = "";
+            String imageURL = ServletUtil.getServerName(request.getServletContext());
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Company company = userProfile.getUser().getFkCompanyId();
+            pathSuffix = pathSuffix + File.separator + company.getCompanyId() + File.separator + "logo";
+            
+            fileName = FileUploadUtil.uploadLogo(pathSuffix, request);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_save", new String[]{}, Locale.US)));
         } catch (Throwable throwable) {
             logger.error(throwable);

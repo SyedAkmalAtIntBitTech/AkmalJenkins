@@ -17,6 +17,22 @@ var yourPlanFlowApp = angular.module('yourPlanFlowApp', ['factorys','ngRoute']);
 var dashboardFlowApp = angular.module('dashboardFlowApp', ['factorys','ngRoute']);
 var settingFlowApp = angular.module('settingFlowApp', ['factorys','ngRoute']);
 var userGalleryApp = angular.module('userGalleryApp', ['factorys','ngRoute']);
+
+factoryApp.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);
 var error = "system failure error";  
 var FroalaLicenseKey ="snJ-7c1krD-13fD1wzF-7==";
 function getHost(){

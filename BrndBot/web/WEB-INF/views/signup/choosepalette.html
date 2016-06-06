@@ -6,7 +6,7 @@
 <!--SideNav-->
 
 <!--Main Content Wrap-->
-<div class="contentWrap--withNoSideNav" ng-init="getLogoColors()">
+<div class="contentWrap--withNoSideNav" ng-init="getColorFromPicker()">
     <div class="topNav clear">
         <a href="#">
             <div class="topNav--BackButton fleft">
@@ -42,24 +42,24 @@
                 </div>
                 <div class="pane-palette_right fright" >
                     <div class="colorOptions-bar clear">
-                        <div class="colorOptions-tab-active col-1of3 fleft" id="customColors">Custom Colors</div>
-                        <div class="colorOptions-tab col-1of3 fleft" id="themeColors" ng-click="showThemeColors()">Choose from Theme</div>
-                        <div class="colorOptions-tab col-1of3 fleft" id="logoColorsDiv" >Choose from Logo</div>
+                        <div class="colorOptions-tab-active col-1of3 fleft" id="customColors" ng-click="getColorFromPicker()">Custom Colors</div>
+                        <div class="colorOptions-tab col-1of3 fleft" id="themeColors" ng-click="getAllThemes()">Choose from Theme</div>
+                        <div class="colorOptions-tab col-1of3 fleft" id="logoColorsDiv" ng-click="getColorsFromLogo()">Choose from Logo</div>
                     </div>
                     <div  class="pane-palette_right fleft">
 
-                        <div class="color-picker-space" id="picker"></div>
+                        <div ng-if="colorFrom == 'custom'" ng-init="colorFrom='custom'" class="color-picker-space" id="picker1"></div>
 
-                        <div  class="palette-wrap" id="logocolor" >
+                        <div ng-if="colorFrom == 'logo'" class="palette-wrap" id="logocolor1" >
                             <div class="palette clear" id="picktheme">
                                 <!--<div><button type="button" class="btn btn-primary" value="click to display colors" >click to display colors</button></div>-->
                                 <div ng-repeat="col in color">
-                                    <div  class="logo-palette-colorswab fleft" style="background-color:{{col}};" onclick="getColorID('{{col.id}}','{{col}}')"></div>
+                                    <div  class="logo-palette-colorswab fleft" style="background-color:{{col}};" onclick="getColorID({{col.id}},{{col}})"></div>
                                 </div>
                             </div>
                         </div>
 
-                        <div id="themeColorsDiv" class="palette-theme-global">
+                        <div ng-if="colorFrom == 'theme'" id="themeColorsDiv1" class="palette-theme-global">
                             <div ng-repeat="color in themeColors" class="palette-wrap-globalColors">
                                 <div id="{{color.globalColorsId}}" class="palette-global clear">
                                     <div class="palette-colorswab-global fleft" style="background-color:{{color.color1}};" onclick="getColorID('{{color.globalColorsId}}','{{color.color1}}')"></div>
