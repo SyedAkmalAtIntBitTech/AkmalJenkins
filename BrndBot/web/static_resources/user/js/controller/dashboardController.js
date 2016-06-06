@@ -1,9 +1,5 @@
 
-<<<<<<< HEAD
-dashboardFlowApp.controller("dashboardController", ['$scope', '$location','$window', 'categoryFactory', function ($scope,$location,$window, categoryFactory) {
-=======
 dashboardFlowApp.controller("dashboardController", ['$scope', '$location', 'categoryFactory','subCategoryFactory', function ($scope,$location, categoryFactory, subCategoryFactory) {
->>>>>>> e0c79fce85415f77f2b4d43bd296f90b8cffa15f
     $scope.emailChannelId = 3;
     $scope.printChannelId = 2;
     $scope.imageChannelId = 1;
