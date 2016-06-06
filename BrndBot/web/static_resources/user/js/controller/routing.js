@@ -5,20 +5,16 @@ dashboardFlowApp.config(function ($routeProvider) {
                 controller: 'dashboardController'
             })
             .when('/emailcategory', {
-                templateUrl: 'emailcategory.html',
-                controller: 'dashboardController'
+                templateUrl: 'emailcategory.html'
             })
             .when('/emailsubcategory', {
-                templateUrl: 'emailsubcategory.html',
-                controller: 'dashboardController'
+                templateUrl: 'emailsubcategory.html'
             })
             .when('/emailsubjects', {
-                templateUrl: 'emailsubjects.html',
-                controller: 'dashboardController'
+                templateUrl: 'emailsubjects.html'
             })
             .when('/emailexternalsource', {
-                templateUrl: 'emailexternalsource.html',
-                controller: 'dashboardController'
+                templateUrl: 'emailexternalsource.html'
             })
             .otherwise({redirectTo: '/dashboard'});
     });
