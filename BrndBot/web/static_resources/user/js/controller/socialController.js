@@ -4,8 +4,22 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 
-socialFlowApp.controller("socialController", ['$scope','$location','$window','subCategoryFactory','settingsFactory', 'organizationFactory', 'onboardingFactory','companyMarketingProgramFactory', function ($scope,$location,$window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory,companyMarketingProgramFactory) {
+socialFlowApp.controller("socialController", ['$scope','$location','$window','subCategoryFactory','settingsFactory', 'organizationFactory', 'onboardingFactory','companyMarketingProgramFactory','companyImagesFactory','companyFactory', function ($scope,$location,$window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory,companyMarketingProgramFactory,companyImagesFactory,companyFactory) {
         $scope.showTwitterPopup=false;
+        $scope.showImageGalleryPopup=false;
+        $scope.showUserImages=true;
+        $scope.showUploadImage=false;
+        $scope.selectImageName = "";
+        $scope.selectImageType = "";
+        $scope.selectCompanyId = "";
+        $scope.imageUnSelect = 'gallery-item-wrap-selected';
+        $scope.imageSelected = 'gallery-item-wrap-selected-true';
+        $scope.displayImage ='https://daks2k3a4ib2z.cloudfront.net/562feb3ef5fe5a8c1fd02272/56b8940906817e9a2bbb57ca_Deafult-Image_680x330.jpg';
+        $scope.addImageToPostButton=true;
+        $scope.twitterImageDivToPost=false;
+        $scope.imageToBeUploaded='images/uploadPhoto.svg';
+        
+        
         $scope.getManagePage = function () {
             var data=JSON.stringify({redirectUrl: "user/social"});
             settingsFactory.fbLoginPost(data).then(function(data){
@@ -32,20 +46,49 @@ socialFlowApp.controller("socialController", ['$scope','$location','$window','su
                 alert(JSON.stringify(data.d.message));
             });
         };
+        
         $scope.getUserImages = function (){ 
-            
+            companyImagesFactory.companyImagesGet().then(function (data){
+                $scope.datalists = data.d.details;
+            });
+            companyFactory.companyGet().then(function (data){
+                $scope.companyId=data.d.details[0].companyId;
+            });
+        }; 
+        
+        $scope.selectImage = function (id){
+//            $scope.imageUnSelect = 'gallery-item-wrap-selected-true';
+            angular.element(document.getElementsByClassName('gallery-item-wrap-selected-true')).addClass('gallery-item-wrap-selected').removeClass('gallery-item-wrap-selected-true');
+            angular.element(document.getElementById(id)).removeClass('gallery-item-wrap-selected').addClass('gallery-item-wrap-selected-true');            
         };
+        
+        $scope.selectImageToPost = function (imageName, imageType, companyId) {
+                $scope.selectImageName = imageName;
+                $scope.selectImageType = imageType;
+                $scope.selectImageType.toLowerCase();
+                $scope.selectCompanyId = companyId;
+        };
+        
         $scope.getUrls = function (){
             companyMarketingProgramFactory.getAllUserMarketingProgramsUserIdGet().then(function (data){
                 $scope.urls= data;                
             });
         };
+        
+        $scope.getSelectedUrl = function (urlsLink){
+//            alert(urlsLink);
+//            $scope.linkUrls=urlsLink.split('--').pop();
+//            alert($scope.linkUrls);
+        };
+        
         $scope.postToFacebook = function(){
             
         };
+        
         $scope.postToTwitter = function(){
             
         };
+        
         $scope.checkForCode = function () {
             settingsFactory.fbGetTokenGet().then(function (data){   
                         alert(JSON.stringify(data.d));
@@ -64,6 +107,7 @@ socialFlowApp.controller("socialController", ['$scope','$location','$window','su
 //                    });
 //                }
         };
+        
 //        $scope.getUrlParameter = function(sParam) {
 //            var sPageURL = decodeURIComponent($window.location.search.substring(1)),
 //                    sURLVariables = sPageURL.split('&'),
@@ -78,6 +122,7 @@ socialFlowApp.controller("socialController", ['$scope','$location','$window','su
 //                }
 //            }
 //        };
+
         $scope.changeTwitterPostType = function (){
             if($scope.showTwitterLink === true){
                 $scope.showTwitterLink=false;
@@ -87,5 +132,78 @@ socialFlowApp.controller("socialController", ['$scope','$location','$window','su
             }
         };
             
+        $scope.show_hide_ImageGalleryPopup = function (flag){
+            if(flag === true){
+                $scope.selectTabGallery='popUp_subheader-tabs-active';
+                $scope.selectTabUpload='popUp_subheader-tabs';
+                $scope.showImageGalleryPopup=true;
+            }
+            else{
+                $scope.showUserImages=true;
+                $scope.showUploadImage=false;
+                $scope.selectTabGallery='popUp_subheader-tabs';
+                $scope.selectTabUpload='popUp_subheader-tabs-active';
+                $scope.displayImage ='https://daks2k3a4ib2z.cloudfront.net/562feb3ef5fe5a8c1fd02272/56b8940906817e9a2bbb57ca_Deafult-Image_680x330.jpg';
+                $scope.addImageToPostButton=true;
+                $scope.twitterImageDivToPost=false;
+                $scope.showImageGalleryPopup=false;
+            }
+        };
         
+        $scope.show_Hide_Upload_GalleryImages = function (flag){
+            if(flag === true){
+                $scope.selectTabGallery='popUp_subheader-tabs-active';
+                $scope.selectTabUpload='popUp_subheader-tabs';
+                $scope.showUserImages=true;
+                $scope.showUploadImage=false;
+                
+            }else{                
+                $scope.selectTabGallery='popUp_subheader-tabs';
+                $scope.selectTabUpload='popUp_subheader-tabs-active';
+                $scope.showUserImages=false;
+                $scope.showUploadImage=true;
+            }
+        };
+        
+        $scope.addImage = function () {
+                $scope.displayImage= "/BrndBot/downloadImage?imageType=GALLERY&imageName=" + $scope.selectImageName + "&companyId=" + $scope.selectCompanyId + "";
+//                $("#imagePopUp").hide();
+                $scope.showImageGalleryPopup=false;
+                $scope.addImageToPostButton=false;
+                $scope.twitterImageDivToPost=true;
+                
+        };
+        
+        
+        $scope.uploadLogo = function () {
+                alert($scope.logo);
+                var imagetext = $("#uploadLogoID").val();
+                if (imagetext === "")
+                {
+                    alert(chooseimage);
+                } else
+                {
+                    var file = $scope.logo;
+                    var uploadUrl = getHost() + '/images/save';
+                    var fd = new FormData();
+                    fd.append('file', file);
+                    $http.post(uploadUrl, fd, {
+                        transformRequest: angular.identity,
+                        headers: {'Content-Type': undefined}
+                    })
+                            .success(function (data) {
+                                $scope.getUserImaages();
+                                        $("#uploadImageSpan").hide();
+                                        $("#gallerySpan").show();
+                                        $("#uploadImageButton").hide();
+                                        $("#addImageButton").show();
+                                        $("#showGallery").removeClass("popUp_subheader-tabs fleft").addClass("popUp_subheader-tabs-active fleft");
+                                        $("#shoeUploadimage").removeClass("popUp_subheader-tabs-active fleft").addClass("popUp_subheader-tabs fleft");
+                            })
+                            .error(function () {
+                                alert(requesterror);
+                            });
+                }
+            };
+            
     }]);
