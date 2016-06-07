@@ -16,7 +16,6 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-
 /**
  *
  * @author Mohamed Sanaulla
@@ -27,11 +26,11 @@ public class FileUploadUtil {
 
     private static final int maxFileSize = 30000 * 1024;
     private static final int maxMemSize = 30000 * 1024;
-    
+
     public static String uploadFile(String uploadPath,
             HttpServletRequest request) throws FileUploadException, Exception {
         logger.info("FileUploadUtil::Entering FileUploadUtil#uploadFile");
-        
+
         String fileName = null;
         logger.info("FileUploadUtil::Upload path without filename: " + uploadPath);
         DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -69,7 +68,58 @@ public class FileUploadUtil {
                     fi.write(storeFile);
                     logger.info("FileUploadUtil::File Uploaded successfully");
 
-                }else{
+                } else {
+                    throw new IllegalArgumentException("Filename of uploded file cannot be empty");
+                }
+            }
+        }
+        return fileName;
+    }
+
+    public static String uploadLogo(String uploadPath,
+            HttpServletRequest request) throws FileUploadException, Exception {
+        logger.info("FileUploadUtil::Entering FileUploadUtil#uploadFile");
+        String fileName = null;
+        logger.info("FileUploadUtil::Upload path without filename: " + uploadPath);
+        DiskFileItemFactory factory = new DiskFileItemFactory();
+        // maximum size that will be stored in memory
+        factory.setSizeThreshold(maxMemSize);
+        // Location to save data that is larger than maxMemSize.
+        factory.setRepository(new File(AppConstants.TMP_FOLDER));
+
+        // Create a new file upload handler
+        ServletFileUpload upload = new ServletFileUpload(factory);
+        // maximum file size to be uploaded.
+        upload.setSizeMax(maxFileSize);
+
+        // Parse the request to get file items.
+        List fileItems = upload.parseRequest(request);
+
+        // Process the uploaded file items
+        Iterator i = fileItems.iterator();
+
+        while (i.hasNext()) {
+            FileItem fi = (FileItem) i.next();
+            if (!(fi.isFormField())) {
+                // Get the uploaded file parameters
+                fileName = fi.getName();
+                if (!"".equals(fileName)) {
+                    File uploadDir = new File(uploadPath);
+                    boolean result = false;
+                    if (!uploadDir.exists()) {
+                        result = uploadDir.mkdirs();
+                    }
+                    // Write the file
+                    String filePath = uploadPath + File.separator + AppConstants.COMPANY_LOGO_FILENAME;
+                    logger.info("FileUploadUtil::Upload path with filename" + filePath);
+                    File storeFile = new File(filePath);
+                    if (storeFile.exists()) {
+                        storeFile.delete();
+                    }
+                    fi.write(storeFile);
+                    logger.info("FileUploadUtil::File Uploaded successfully");
+
+                } else {
                     throw new IllegalArgumentException("Filename of uploded file cannot be empty");
                 }
             }

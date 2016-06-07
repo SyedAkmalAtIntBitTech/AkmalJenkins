@@ -15,7 +15,7 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
         var deffered = $q.defer();
         var url = configurationService.setColorsURL();
         var companyColors = {"color1": color1, "color2": color2, "color3": color3, "color4": color4};
-        authenticatedServiceFactory.makeCall("POST", url, companyColors, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, JSON.stringify(companyColors), "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
@@ -52,10 +52,12 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
         });
         return deffered.promise;
     };
-    settingsFactoryObject.changeLogoPost = function () {
+    settingsFactoryObject.changeLogoPost = function (file) {
         var deffered = $q.defer();
-        var url = configurationService.changeLogoURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        var fd = new FormData();
+        fd.append('file', file);
+        var url = configurationService.saveLogoURL();
+        authenticatedServiceFactory.makeCall("POST", url, fd ,"UPLOADIMAGE").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

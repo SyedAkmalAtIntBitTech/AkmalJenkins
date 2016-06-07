@@ -32,9 +32,11 @@
                         <img id="imageUpload" src="{{imageSrc}}" class="imagePreview" />
                     </div>
                     <label class="fileContainer">
+                        <form id="data" name="formpersonality"  enctype="multipart/form-data" method="post" class="ng-pristine ng-valid">
                         <div id="triggerFile" class="Add_Button Button--Gray logoUpload--button ">Upload Logo</div>
                         <input  onclick="imageConverter('imageFileName')" name="fileName" type="file" id="imageFileName" ng-file-select="onFileSelect($files)" > 
-                    </label>
+                        </form>
+                        </label>
                 </div>
             </div>
         </div> 
