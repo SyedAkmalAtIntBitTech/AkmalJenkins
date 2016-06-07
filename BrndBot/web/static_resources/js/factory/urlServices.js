@@ -472,6 +472,9 @@ factoryApp.service('configurationService', function (){
     this.saveImageURL = function () {
         return this.getGlobalURL() + "/images/save";
     };
+   this.saveLogoURL = function () {
+        return this.getGlobalURL() + "/images/uploadLogo";
+    };
     
         //************** emailListFactory ********************//
 

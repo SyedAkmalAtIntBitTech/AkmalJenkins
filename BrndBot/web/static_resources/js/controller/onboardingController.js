@@ -3,7 +3,9 @@
  * confidential and proprietary information that is owned by Intbit
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
-brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory','externalContentFactory', function ($scope, $location, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory,externalContentFactory) {
+brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'externalContentFactory', 'settingsFactory', 'assetsFactory', function ($scope, $location, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, externalContentFactory, settingsFactory, assetsFactory) {
+        $scope.imageSrc = "images/uploadPhoto.svg";
+        $scope.colorFrom = "custom";
         function validateSignUp()
         {
             var emailId = $scope.signUpEmail;
@@ -37,11 +39,12 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 return false;
             }
             return true;
-        };
+        }
+        ;
 
         $scope.saveUser = function (userDetails) {
             onboardingFactory.saveUserPost(userDetails).then(function (data) {
-                alert(JSON.stringify(data));
+//                alert(JSON.stringify(data));
                 var message = data.d.message;
                 if (message === "true")
                 {
@@ -60,65 +63,97 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.saveCompany = function (companyName, organizationId) {
             var companyDetails = {"companyName": companyName, "organizationId": organizationId};
             onboardingFactory.saveCompanyPost(JSON.stringify(companyDetails)).then(function (data) {
-                alert(JSON.stringify(data));
+//                alert(JSON.stringify(data));
                 $location.path("/signup/datasource");
             });
         };
         $scope.getAllServices = function () {
             subCategoryFactory.allExternalSourcesGet().then(function (data) {
-                alert(JSON.stringify(data));
                 $scope.services = data.d.details;
                 $scope.thirdPartyService = data.d.details[0].externalSourceId;
             });
         };
         $scope.getActivationLink = function (studioId) {
-            alert(JSON.stringify(studioId));
             onboardingFactory.saveStudioIdPost(studioId).then(function (data) {
-                alert(JSON.stringify(data));
                 var studioIdSaved = eval(JSON.stringify(data.d.message));
                 if (studioIdSaved === "true") {
-                    externalContentFactory.activationLinkGet().then(function (data){
-                       alert(JSON.stringify(data.d.details)); 
-                       $scope.activationLink = data.d.details[0];
+                    externalContentFactory.activationLinkGet().then(function (data) {
+                        $scope.activationLink = data.d.details[0];
                     });
                 }
             });
         };
         $scope.saveServices = function () {
             onboardingFactory.completedActivationGet().then(function (data) {
-                alert(JSON.stringify(data));
-              var studioIdSaved = eval(JSON.stringify(data.d.message));
-                if (studioIdSaved === "true") {
-                    $location.path("/signup/uploadlogo");
-                }
-                
+                var studioIdSaved = eval(JSON.stringify(data.d.message));
+//                if (studioIdSaved === "true") {
+                $location.path("/signup/uploadlogo");
+//                }
+
             });
         };
         $scope.uploadLogo = function () {
-            $scope.imageTypeData = {};
-            $scope.imgDataObj = {};
-            onboardingFactory.saveCompanyLogoPost(imageTypeData, imgDataObj).then(function (data) {
-
+            var file = $scope.myFile;
+            settingsFactory.changeLogoPost(file).then(function (data) {
+                $location.path("signup/choosepalette");
             });
         };
         $scope.getColorsFromLogo = function () {
+            $scope.colorFrom = "logo";
             onboardingFactory.colorsForLogoGet().then(function (data) {
-
+                $scope.color = data.d.details;
             });
         };
         $scope.getAllThemes = function () {
-            onboardingFactory.allColorThemesGet().then(function (data) {
-
+            $scope.colorFrom = "theme";
+            assetsFactory.allColorThemesGet().then(function (data) {
+                $scope.curPage = 0;
+                $scope.pageSize = 10;
+                $scope.themeColors = data.d.details;
             });
+        };
+        $scope.getColorFromPicker = function () {
+            $scope.colorFrom = "custom";
+        };
+        $scope.getColorID = function (color) {
+            alert(color);
+            $('.palette-colorswab-selected').css("background-color", color);
+        };
+        $scope.selectTheme = function (color1, color2, color3, color4) {
+            $("#color1").css("background-color", color1);
+            $("#color2").css("background-color", color2);
+            $("#color3").css("background-color", color3);
+            $("#color4").css("background-color", color4);
+        };
+        $scope.clearColorPalette = function () {
+            var bgColor = "background-color";
+            $("#color1").css(bgColor, "");
+            $("#color2").css(bgColor, "");
+            $("#color3").css(bgColor, "");
+            $("#color4").css(bgColor, "");
         };
         $scope.saveColorPalette = function () {
-            $scope.color1 = {};
-            $scope.color2 = {};
-            $scope.color3 = {};
-            $scope.color4 = {};
+            alert("saveColorPalette");
+            var color1 = $("#color1").css("backgroundColor");
+            var color2 = $("#color2").css("backgroundColor");
+            var color3 = $("#color3").css("backgroundColor");
+            var color4 = $("#color4").css("backgroundColor");
+            if ((color1 === "rgba(0, 0, 0, 0)") || (color2 === "rgba(0, 0, 0, 0)") || (color3 === "rgba(0, 0, 0, 0)") || (color4 === "rgba(0, 0, 0, 0)")) {
+                alert("Please choose all 4 colors.");
+            }
             settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
-
+                alert(JSON.stringify(data));
             });
         };
+        //to display color picker
+        $('#picker').colpick({
+            flat: true,
+            layout: 'hex',
+            onSubmit: function (hsb, hex, rgb, el) {
+                //for haking hex value alert(hex);
+                $('.palette-colorswab-selected').css("background-color", "#" + hex);
+                $('.palette-colorswab-selected').val("#" + hex);
 
+            }
+        });
     }]);
