@@ -11,6 +11,7 @@
                 <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
             </div>
         </a>-->
+    <div class="topNav topNav-withSubnav clear">
         <a class="exit-button-icon" href="">     
             <div class="topNav--BackButton fleft">                      
                 <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
@@ -30,7 +31,7 @@
             <div class="pane_content">
                 <div class="subcat-list">
 <!--                    <a ng-repeat="mindbody in mindbodylist" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=subCategoryId%>&mindbodyId={{mindbody.id}}&LookupId=<%=LookupId%>">-->
-                        <a ng-repeat="mindbody in mindbodylist" href="{{mindbody}}">
+                        <a ng-repeat="mindbody in mindbodylist" ng-click="redirect('emailsubjects','','mindbody','',mindbody.id)">
                             <div class="cat-slat clear">
                             <div class="cat-slat-title col-3of10 fleft">{{mindbody.column1}}</div>
                             <div class="cat-slat-description col-3of10 fleft">{{mindbody.column3}}</div>
