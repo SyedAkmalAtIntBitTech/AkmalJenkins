@@ -45,12 +45,11 @@ socialFlowApp.config(function ($routeProvider) {
                 controller: 'socialController'
             })
             .when('/facebookpost', {
-                templateUrl: 'user/facebookpost.html',
-//                controller: 'displayImageFromGallery'
+                templateUrl: 'facebookpost.html',
+                controller: 'displayImageFromGallery'
             })
             .when('/twitterpost', {
-                templateUrl: 'user/twitterpost.html',
-//                controller: 'displayImageFromGallery'
+                templateUrl: 'twitterpost.html'
             })
             
             .otherwise({redirectTo: '/socialsequence'});
