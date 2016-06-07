@@ -1,31 +1,5 @@
-<!--<%-- 
-    Document   : usermarketingprogram
-    Created on : Jan 25, 2016, 6:00:00 PM
-    Author     : Satyajit Roy at IntBit Technologies.
---%>-->
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>BrndBot - User Marketing Program </title>
-        
-        <link rel="shortcut icon" href="images/favicon.png"/>
-        <link rel="import" href="header.html"/>
-    
-        
-        <style>.nav-tabs1{line-height: 0px !important;}*{box-sizing:initial;}</style>
-<!--        <%!
-            String marketing_category_id = "";
-            String marketing_program_id = "";
-        %>
-
-        <%
-            marketing_category_id = request.getParameter("marketingCategoryId");
-            marketing_program_id = request.getParameter("marketingProgramId");
-        %>-->
-    </head>
-        <body ng-app="marketingFlowApp"  ng-controller="marketingController">
-         <div ng-include src="'navbar.html'"></div>
-         <div class="content-main"  ng-init="marketingProgramDetails()">
+          
+<div class="content-main"  ng-init="marketingProgramDetails()">
             <input type="hidden" value="<%=marketing_category_id%>" id="marketing_category_id"/>
             <input type="hidden" value="{{marketingProgramId}}" ng-model="marketingProgramId" />
 
@@ -55,14 +29,14 @@
                         <div class="input-wrap">
                             <label> Campaign Name </label>
                             <div class="input">
-                                <input id="program_name" type="text" required="" >
+                                <input type="text" ng-model="programName" >
                             </div>
                             <p> This is for internal use only</p>
                         </div>
                         <div class="input-wrap ">
                             <label> Date of Campaign Inserted Here </label>
                             <div class="input">
-                                <input type="text" name="programdatetime" id="programdatetime" value="" readonly="">
+                                <input type="text" ng-model="programDateTime" name="programdatetime" id="programdatetime" value="" readonly="">
                                 <script>
                                             var picker = new Pikaday(
                                                     {
@@ -82,14 +56,14 @@
                         <div class="input-wrap">
                             <label>URL </label>
                             <div class="input">
-                                <input id="program_url" type="text" required="" onchange="validateurl()" placeholder="Ex. http://www.google.com">
+                                <input id="program_url" ng-model="programUrl" type="text" onchange="validateurl()" placeholder="Ex. http://www.google.com">
                                 <p> This can be copied from the browser</p>
                             </div>
                         </div>
                         <div class="input-wrap">
                             <label> Link Name </label>
                             <div class="input">
-                                <input id="program_url_name" value="" type="text">
+                                <input id="program_url_name" ng-model="programUrlName"  type="text">
                                 <p> This is for internal use only to reference this link URL. </p>
                             </div>
                         </div>
@@ -100,10 +74,9 @@
                 <div class="continue-bar-offset"></div>
             </div>
 
-            <div class="continue-bar">
-                <a id="saveMarketingProgram" class="fright" ng-click="saveMarketingProgram()">CONTINUE</a>
+            <div class="continue-bar" ng-click="saveMarketingProgram(programName,programUrl,programUrlName,programDateTime)">
+                <a id="saveMarketingProgram" class="fright">CONTINUE</a>
             </div>
 
         </div>
-    </body>
-</html>
+  
