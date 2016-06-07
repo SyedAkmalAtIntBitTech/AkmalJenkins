@@ -70,18 +70,18 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
         });
         return deffered.promise;
     };
-    settingsFactoryObject.twitterPost = function () {
+    settingsFactoryObject.twitterPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.twitterURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, data).then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    settingsFactoryObject.fbLoginPost = function () {
+    settingsFactoryObject.fbLoginPost = function (data) {
         var deffered = $q.defer();
-        var url = configurationService.fbLoginURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        var url = configurationService.fbLoginURL();        
+        authenticatedServiceFactory.makeCall("POST", url, data).then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

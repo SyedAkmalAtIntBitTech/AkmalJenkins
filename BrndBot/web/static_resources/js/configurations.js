@@ -60,6 +60,8 @@ factoryApp.directive('toggleClass', function () {
 
 var error = "system failure error";  
 var FroalaLicenseKey ="snJ-7c1krD-13fD1wzF-7==";
+
+
 function getHost(){
      return global_host_address;
 }
