@@ -38,7 +38,8 @@
         <script src="../js/factory/authFactory.js" type="text/javascript"></script>
         <script src="../js/factory/genericRedirectFactory.js" type="text/javascript"></script>
         <script src="js/controller/dashboardController.js" type="text/javascript"></script>
-        <script src="js/controller/routing.js" type="text/javascript"></script>        
+        <script src="js/controller/routing.js" type="text/javascript"></script>
+        <script src="../js/factory/companyMarketingFactory.js" type="text/javascript"></script>
 </head>    
 
     <body ng-app="dashboardFlowApp" class="body-normal" ng-controller="dashboardController">
@@ -51,7 +52,7 @@
     <input type="hidden" ng-model="forwardtwo" value="{{forwardtwo}}"/>
     <input type="hidden" ng-model="lookupId" value="{{lookupId}}"/>
     
-    <div><div ng-view></div></div>    
+    <div ng-view></div> 
     <!--Main Content Wrap-->    
 </body>
 </html>

@@ -5,7 +5,6 @@
 factoryApp.factory('organizationFactory', function ($q,authenticatedServiceFactory, configurationService) {
     var organizationFactoryObject = {};
     organizationFactoryObject.allOrganizationGet = function () {
-        alert("sas");
         var deffered = $q.defer();
         var url = configurationService.allOrganizationURL();
         authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {

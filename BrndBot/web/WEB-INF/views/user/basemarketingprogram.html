@@ -1,20 +1,9 @@
 <div class="contentWrap--withSideNav noScroll">
-            <div class="topNav--offset"></div>
-            <div class="contentWrapInner" ng-init="getAllMarketingPrograms()">
-                <div class="pane pane--600px">
-                    <div class="pane_header clear">
-                        <div class="pane_title fleft h2">Please choose a marketing program type.</div>
-                    </div>
-                    <div class="pane_content" ng-model="paneContent">
-                        <div class="cat-list"  ng-repeat="marketingProgram in marketingPrograms">
-                            <div class="cat-slat">
-                                <a id="categoryId" href="marketingprogram?marketingProgramId={{marketingProgram.marketingProgramId}}" >
-                                    <div class="cat-slat-title">{{marketingProgram.marketingProgramName}}</div>
-                                </a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>   
-            </div>
+    <div class="topNav--offset"></div>
+    <div class="contentWrapInner" ng-init="getAllMarketingPrograms('marketingprogram')">
+        <div class="pane pane--600px">
+             <div ng-include src="'generictableview.html'"></div>             
+        </div>      
+    </div>
+</div>
             

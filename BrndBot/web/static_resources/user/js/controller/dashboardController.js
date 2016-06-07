@@ -70,9 +70,11 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
           redirectFactory.redirectFlowTo(pageName);        
         };
 
+
         $scope.redirectToMarketingProgram= function(pageName)
         {
             $window.location=getHost()+"user/"+pageName;       
         };        
     }]);
+
 
