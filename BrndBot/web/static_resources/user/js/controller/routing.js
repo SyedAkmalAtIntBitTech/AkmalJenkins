@@ -93,6 +93,13 @@ marketingFlowApp.config(function($routeProvider){
                 templateUrl: 'basemarketingprogram.html',
                 controller: 'marketingController'
     }) 
+    .when('/marketingprogram', {
+                templateUrl: 'marketingprogram.html'
+    })
+    .when('/usermarketingprogram', {
+                templateUrl: 'usermarketingprogram.html',
+                
+    }) 
     
     .otherwise({redirectTo: '/createmarketingprogram'});
 });

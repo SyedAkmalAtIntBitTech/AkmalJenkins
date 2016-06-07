@@ -1,5 +1,5 @@
 
-dashboardFlowApp.controller("dashboardController", ['$scope', '$location', 'categoryFactory','subCategoryFactory', function ($scope,$location, categoryFactory, subCategoryFactory) {
+dashboardFlowApp.controller("dashboardController", ['$scope', '$location', "$window",'categoryFactory','subCategoryFactory', function ($scope,$location,$window, categoryFactory, subCategoryFactory) {
     $scope.emailChannelId = 3;
     $scope.printChannelId = 2;
     $scope.imageChannelId = 1;
@@ -20,6 +20,7 @@ dashboardFlowApp.controller("dashboardController", ['$scope', '$location', 'cate
     $scope.getCategories= function(forward)
     {
         categoryFactory.allCompanyCategoriesGet(emailChannelId).then(function (data) {
+            $scope.pageName="email";    
             $scope.header="Select Category";
             $scope.forward=forward;
             $scope.displayAllCategories=data.d.details;

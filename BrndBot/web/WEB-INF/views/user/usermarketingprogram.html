@@ -7,9 +7,10 @@
 <html>
     <head>
         <title>BrndBot - User Marketing Program </title>
+        
         <link rel="shortcut icon" href="images/favicon.png"/>
         <link rel="import" href="header.html"/>
-
+        
         <style>.nav-tabs1{line-height: 0px !important;}*{box-sizing:initial;}</style>
 <!--        <%!
             String marketing_category_id = "";
@@ -21,11 +22,11 @@
             marketing_program_id = request.getParameter("marketingProgramId");
         %>-->
     </head>
-    <body ng-app>
+        <body ng-app="marketingFlowApp"  ng-controller="marketingController">
          <div ng-include src="'navbar.html'"></div>
-        <div class="content-main" ng-controller="usermarketingprogram">
+         <div class="content-main"  ng-init="marketingProgramDetails()">
             <input type="hidden" value="<%=marketing_category_id%>" id="marketing_category_id"/>
-            <input type="hidden" value="<%=marketing_program_id%>" id="marketing_program_id"/>
+            <input type="hidden" value="{{marketingProgramId}}" ng-model="marketingProgramId" />
 
             <div class="top-nav">
                 <div class="page-title-bar col-1of1"> 

@@ -5,9 +5,8 @@ factoryApp.factory('marketingFactory', function ($q, authenticatedServiceFactory
     var marketingFactoryObject = {};
     marketingFactoryObject.marketingProgramsGet = function (marketingCategoryId) {
         var deffered = $q.defer();
-        var url = configurationService.marketingProgramsURL();
-        var data = '{"marketingCategoryId":"' + marketingCategoryId + '"}';
-        authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
+        var url = configurationService.marketingProgramsURL()+"?marketingCategoryId="+marketingCategoryId;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
