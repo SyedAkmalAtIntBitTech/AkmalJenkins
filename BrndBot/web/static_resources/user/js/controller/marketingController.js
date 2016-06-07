@@ -1,6 +1,5 @@
 
 marketingFlowApp.controller("marketingController", ['$scope', '$location', 'marketingFactory', 'companyMarketingProgramFactory',function ($scope,$location, marketingFactory, companyMarketingProgramFactory) { 
-        
         $scope.marketingCategoryId="";
         $scope.redirect= function(pageName,marketingCategoryId)
         {   
