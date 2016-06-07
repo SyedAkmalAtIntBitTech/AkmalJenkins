@@ -29,7 +29,7 @@
                             <img type="image/svg+xml" ng-src="{{imageToBeUploaded}}" class="logoUpload-svg" style="cursor:pointer;">
                         </div>
                         <div class="Add_Button Button--Gray logoUpload--button">Select Image
-                            <input type="file" id="uploadLogoID" class="Add_Button Button--Gray logoUpload--button upload fileupld" file-model="logo">
+                            <input type="file" file-model="myFile1" class="Add_Button Button--Gray logoUpload--button upload fileupld"/>
                         </div>
                     </span>
                 </div>
@@ -40,7 +40,7 @@
                 <div class="popUp-bottom-link">ADD IMAGE</div>
             </span>
         </div>
-        <div class="popUp-bottom-wide " id="uploadImageButton"  ng-click="uploadLogo()" ng-show="showUploadImage">
+        <div class="popUp-bottom-wide " id="uploadImageButton"  ng-click="uploadLogo1(myFile1)" ng-show="showUploadImage">
             <span class="clickable-area">
                 <div class="popUp-bottom-link">UPLOAD IMAGE</div>
             </span>
