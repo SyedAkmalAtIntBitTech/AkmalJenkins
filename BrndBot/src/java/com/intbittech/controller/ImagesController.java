@@ -122,7 +122,7 @@ public class ImagesController {
             String imageURL = ServletUtil.getServerName(request.getServletContext());
             UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
             Company company = userProfile.getUser().getFkCompanyId();
-            pathSuffix = pathSuffix + File.separator + company.getCompanyId() + File.separator + "logo";
+            pathSuffix = pathSuffix + File.separator + company.getCompanyId() + File.separator + AppConstants.LOGO_FOLDERNAME;
             
             fileName = FileUploadUtil.uploadLogo(pathSuffix, request);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("globalImages_save", new String[]{}, Locale.US)));
