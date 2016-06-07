@@ -47,6 +47,7 @@ factoryApp.factory('onboardingFactory', function ($q,authenticatedServiceFactory
     onboardingFactoryObject.colorsForLogoGet = function () {
         var deffered = $q.defer();
         var url = configurationService.colorsForLogoURL();
+        alert(url);
         authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
             deffered.resolve(data);
         });

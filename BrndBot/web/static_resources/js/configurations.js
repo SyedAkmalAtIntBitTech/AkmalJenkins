@@ -33,6 +33,31 @@ factoryApp.directive('fileModel', ['$parse', function ($parse) {
         }
     };
 }]);
+factoryApp.directive('toggleClass', function () {
+    var directiveDefinitionObject = {
+        restrict: 'A',
+        template: '<div ng-click="localFunction()" ng-class="selected"  ng-transclude></div>',
+        replace: true,
+        scope: {
+            model: '='
+        },
+        transclude: true,
+        link: function (scope, element, attrs) {
+            scope.localFunction = function () {
+                scope.model.value = scope.$id;
+            };
+            scope.$watch('model.value', function () {
+                if (scope.model.value === scope.$id) {
+                    scope.selected = "palette-colorswab-selected fleft";
+                } else {
+                    scope.selected = 'palette-colorswab fleft';
+                }
+            });
+        }
+    };
+    return directiveDefinitionObject;
+});
+
 var error = "system failure error";  
 var FroalaLicenseKey ="snJ-7c1krD-13fD1wzF-7==";
 function getHost(){

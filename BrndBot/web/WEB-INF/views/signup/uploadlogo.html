@@ -9,7 +9,7 @@
     <!--Main Content Wrap-->
     <div class="contentWrap--withNoSideNav">
         <div class="topNav clear">
-            <a href="#">
+            <a href="#/signup/datasource">
                 <div class="topNav--BackButton fleft">
                     <img  src="images/backbutton.svg" class="backButton-svg" style="cursor:pointer;">
                 </div>
@@ -32,16 +32,14 @@
                     <div class="logoUpload-wrap imageLogo">
                         <img id="imageUpload" src="{{imageSrc}}" class="imagePreview" />
                     </div>
-<!--                    <label class="fileContainer">-->
-                         <input type="file" file-model="myFile"/>
-    <button ng-click="uploadLogo()">upload me</button>
-                    <!--</label>-->
+                    <label class="fileContainer">
+                        <div id="triggerFile" class="Add_Button Button--Gray logoUpload--button ">Upload Logo</div>
+                         <input type="file" file-model="myFile" />
+                    </label>
                 </div>
             </div>
         </div> 
         <div class="bottomNav">
-            <a href="#/choosepalette">
-                <div id="uploadLogoContinueButton" class="bottom-ContinueButton fright">CONTINUE</div>
-            </a>
+                <div id="uploadLogoContinueButton" ng-click="uploadLogo()" class="bottom-ContinueButton fright">CONTINUE</div>
         </div>
     </div>

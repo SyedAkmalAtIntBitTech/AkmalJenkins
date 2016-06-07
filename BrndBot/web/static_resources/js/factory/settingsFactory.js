@@ -15,7 +15,7 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
         var deffered = $q.defer();
         var url = configurationService.setColorsURL();
         var companyColors = {"color1": color1, "color2": color2, "color3": color3, "color4": color4};
-        authenticatedServiceFactory.makeCall("POST", url, companyColors, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, JSON.stringify(companyColors), "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

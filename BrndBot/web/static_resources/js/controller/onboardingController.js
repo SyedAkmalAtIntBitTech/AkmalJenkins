@@ -4,6 +4,8 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'externalContentFactory', 'settingsFactory', 'assetsFactory', function ($scope, $location, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, externalContentFactory, settingsFactory, assetsFactory) {
+        $scope.imageSrc = "images/uploadPhoto.svg";
+        $scope.colorFrom = "custom";
         function validateSignUp()
         {
             var emailId = $scope.signUpEmail;
@@ -67,19 +69,15 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         };
         $scope.getAllServices = function () {
             subCategoryFactory.allExternalSourcesGet().then(function (data) {
-                alert(JSON.stringify(data));
                 $scope.services = data.d.details;
                 $scope.thirdPartyService = data.d.details[0].externalSourceId;
             });
         };
         $scope.getActivationLink = function (studioId) {
-            alert(JSON.stringify(studioId));
             onboardingFactory.saveStudioIdPost(studioId).then(function (data) {
-//                alert(JSON.stringify(data));
                 var studioIdSaved = eval(JSON.stringify(data.d.message));
                 if (studioIdSaved === "true") {
                     externalContentFactory.activationLinkGet().then(function (data) {
-                        alert(JSON.stringify(data.d.details));
                         $scope.activationLink = data.d.details[0];
                     });
                 }
@@ -87,7 +85,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         };
         $scope.saveServices = function () {
             onboardingFactory.completedActivationGet().then(function (data) {
-//                alert(JSON.stringify(data));
                 var studioIdSaved = eval(JSON.stringify(data.d.message));
 //                if (studioIdSaved === "true") {
                 $location.path("/signup/uploadlogo");
@@ -98,14 +95,12 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.uploadLogo = function () {
             var file = $scope.myFile;
             settingsFactory.changeLogoPost(file).then(function (data) {
-//                alert(JSON.stringify(data));
                 $location.path("signup/choosepalette");
             });
         };
         $scope.getColorsFromLogo = function () {
             $scope.colorFrom = "logo";
             onboardingFactory.colorsForLogoGet().then(function (data) {
-                alert(JSON.stringify(data));
                 $scope.color = data.d.details;
             });
         };
@@ -114,29 +109,51 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             assetsFactory.allColorThemesGet().then(function (data) {
                 $scope.curPage = 0;
                 $scope.pageSize = 10;
-                alert(JSON.stringify(data.d.details));
                 $scope.themeColors = data.d.details;
-            });
-        };
-        $scope.saveColorPalette = function () {
-            $scope.color1 = {};
-            $scope.color2 = {};
-            $scope.color3 = {};
-            $scope.color4 = {};
-            settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
-
             });
         };
         $scope.getColorFromPicker = function () {
             $scope.colorFrom = "custom";
-            $('#picker1').colpick({
-                flat: true,
-                layout: 'hex',
-                onSubmit: function (hsb, hex, rgb, el) {
-                    //for haking hex value alert(hex);
-                    $('.palette-colorswab-selected').css("background-color", "#" + hex);
-                }
+        };
+        $scope.getColorID = function (color) {
+            alert(color);
+            $('.palette-colorswab-selected').css("background-color", color);
+        };
+        $scope.selectTheme = function (color1, color2, color3, color4) {
+            $("#color1").css("background-color", color1);
+            $("#color2").css("background-color", color2);
+            $("#color3").css("background-color", color3);
+            $("#color4").css("background-color", color4);
+        };
+        $scope.clearColorPalette = function () {
+            var bgColor = "background-color";
+            $("#color1").css(bgColor, "");
+            $("#color2").css(bgColor, "");
+            $("#color3").css(bgColor, "");
+            $("#color4").css(bgColor, "");
+        };
+        $scope.saveColorPalette = function () {
+            alert("saveColorPalette");
+            var color1 = $("#color1").css("backgroundColor");
+            var color2 = $("#color2").css("backgroundColor");
+            var color3 = $("#color3").css("backgroundColor");
+            var color4 = $("#color4").css("backgroundColor");
+            if ((color1 === "rgba(0, 0, 0, 0)") || (color2 === "rgba(0, 0, 0, 0)") || (color3 === "rgba(0, 0, 0, 0)") || (color4 === "rgba(0, 0, 0, 0)")) {
+                alert("Please choose all 4 colors.");
+            }
+            settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
+                alert(JSON.stringify(data));
             });
         };
+        //to display color picker
+        $('#picker').colpick({
+            flat: true,
+            layout: 'hex',
+            onSubmit: function (hsb, hex, rgb, el) {
+                //for haking hex value alert(hex);
+                $('.palette-colorswab-selected').css("background-color", "#" + hex);
+                $('.palette-colorswab-selected').val("#" + hex);
 
+            }
+        });
     }]);
