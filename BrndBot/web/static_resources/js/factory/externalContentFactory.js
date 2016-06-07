@@ -4,9 +4,9 @@
 
 factoryApp.factory('externalContentFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var externalContentFactoryObject = {};
-    externalContentFactoryObject.activatedGet = function () {
+    externalContentFactoryObject.activatedGet = function (lookupId) {
         var deffered = $q.defer();
-        var url = configurationService.activatedGetURL();
+        var url = configurationService.activatedGetURL()+"?externalSourceKeywordLookupId="+lookupId;
         authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
