@@ -39,21 +39,20 @@ emailFlowApp.config(function ($routeProvider) {
 });
 
 socialFlowApp.config(function ($routeProvider) {
-    $routeProvider
+    $routeProvider    
             .when('/socialsequence', {
-                templateUrl: 'user/socialsequence.html',
-                controller: 'isDefaultFbPageSet'
+                templateUrl: 'basesocialsequence.html',
+                controller: 'socialController'
             })
             .when('/facebookpost', {
-                templateUrl: 'user/facebookpost.html',
+                templateUrl: 'facebookpost.html',
                 controller: 'displayImageFromGallery'
             })
             .when('/twitterpost', {
-                templateUrl: 'user/twitterpost.html',
-                controller: 'displayImageFromGallery'
+                templateUrl: 'twitterpost.html'
             })
-                    
-            .otherwise({redirectTo: '/signin'});
+            
+            .otherwise({redirectTo: '/socialsequence'});
 });
 
 yourPlanFlowApp.config(function ($routeProvider) {
