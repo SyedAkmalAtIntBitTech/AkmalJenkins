@@ -40,12 +40,11 @@ socialFlowApp.config(function ($routeProvider) {
                 controller: 'socialController'
             })
             .when('/facebookpost', {
-                templateUrl: 'user/facebookpost.html',
-//                controller: 'displayImageFromGallery'
+                templateUrl: 'facebookpost.html',
+                controller: 'displayImageFromGallery'
             })
             .when('/twitterpost', {
-                templateUrl: 'user/twitterpost.html',
-//                controller: 'displayImageFromGallery'
+                templateUrl: 'twitterpost.html'
             })
             
             .otherwise({redirectTo: '/socialsequence'});
@@ -85,8 +84,18 @@ marketingFlowApp.config(function($routeProvider){
   
     $routeProvider
     .when('/createmarketingprogram', {
-                templateUrl: 'basemarketingprogram.html',
-                controller: 'marketingController'
+                templateUrl: 'basemarketingprogram.html'
+               
+    }) 
+    .when('/marketingprogram', {
+                templateUrl: 'marketingprogram.html'
+    })
+    .when('/usermarketingprogram', {
+                templateUrl: 'usermarketingprogram.html'
+            
+               
+        
+                
     }) 
     
     .otherwise({redirectTo: '/createmarketingprogram'});

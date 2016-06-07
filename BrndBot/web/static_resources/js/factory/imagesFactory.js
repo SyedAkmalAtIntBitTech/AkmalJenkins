@@ -11,10 +11,12 @@ factoryApp.factory('imageFactory', function ($q, authenticatedServiceFactory, co
         });
         return deffered.promise;
     };
-    imageFactoryObject.saveImagePost = function () {
+    imageFactoryObject.saveImagePost = function (file) {
         var deffered = $q.defer();
+        var fd = new FormData();
+        fd.append('file', file);
         var url = configurationService.saveImageURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url,fd, "UPLOADIMAGE").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

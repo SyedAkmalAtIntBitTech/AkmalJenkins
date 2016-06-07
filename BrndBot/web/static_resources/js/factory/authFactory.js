@@ -9,21 +9,32 @@ factoryApp.factory('authenticatedServiceFactory', function ($http, $q) {
     service.makeCall = function (methodType, URL, data, authType) {
         var deffered = $q.defer();
         var config = "";
-        config = {headers:{'Content-Type': 'application/json'}};
-        if (methodType === "GET") {            
-//            alert("get"+JSON.stringify("URL.."+URL+"..data.."+data+"..config.."+config));
-            var request = $http.get(URL, data,config).then(function (getData) { 
-                deffered.resolve(getData.data);
-            }, function (error) {
-            });
-        }
-        else if (methodType === "POST") {
-            alert("insidePost");
-            $http.post(URL, data,config).then(function (putData) {
-                alert("past");
+        config = {headers: {'Content-Type': 'application/json'}};
+
+        if (authType === "UPLOADIMAGE")
+        {
+            if (methodType === "POST") {
+                $http.post(URL, data, {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                }).then(function (putData) {
                     deffered.resolve(putData.data);
-            }, function (error) {
-            });
+                }, function (error) {
+                });
+            }
+        } else {
+            if (methodType === "GET") {
+                var request = $http.get(URL, data, config).then(function (getData) {
+                    deffered.resolve(getData.data);
+                }, function (error) {
+
+                });
+            } else if (methodType === "POST") {
+                $http.post(URL, data, config).then(function (putData) {
+                    deffered.resolve(putData.data);
+                }, function (error) {
+                });
+            }
         }
 //        else if (methodType === "DELETE") {
 //            $http.delete(URL, data, config).then(function (deleteData) {

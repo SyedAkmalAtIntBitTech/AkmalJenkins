@@ -106,7 +106,7 @@ a.svg:after {
 }
 
 .nav-elements-icon-container-bottom{ 
- position: fixed;
+ position: absolute;
     bottom:0;
     margin-left: 10px;
     
