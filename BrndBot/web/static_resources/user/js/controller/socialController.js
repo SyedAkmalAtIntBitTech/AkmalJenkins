@@ -51,8 +51,8 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
             companyImagesFactory.companyImagesGet().then(function (data) {
                 $scope.datalists = data.d.details;
             });
-            companyFactory.companyGet().then(function (data) {
-                $scope.companyId = data.d.details[0].companyId;
+            companyFactory.currentCompanyGet().then(function (data) {
+                $scope.companyId = data.d.details[0];
             });
         };
 

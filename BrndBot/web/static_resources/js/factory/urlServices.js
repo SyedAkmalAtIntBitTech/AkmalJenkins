@@ -438,6 +438,10 @@ factoryApp.service('configurationService', function (){
 
     //************** companyFactory ********************//
     
+    this.currentCompanyURL = function () {
+        return this.getGlobalURL() + "/getCurrentCompany";
+    };
+    
     this.companyURL = function () {
         return this.getGlobalURL() + "/getAllCompanies";
     };

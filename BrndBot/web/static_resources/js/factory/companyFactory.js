@@ -3,6 +3,15 @@
 
 factoryApp.factory('companyFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var companyFactoryObject = {};
+    
+    companyFactoryObject.currentCompanyGet = function () {
+        var deffered = $q.defer();
+        var url = configurationService.currentCompanyURL();
+        authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
     companyFactoryObject.companyGet = function () {
         var deffered = $q.defer();
         var url = configurationService.companyURL();
