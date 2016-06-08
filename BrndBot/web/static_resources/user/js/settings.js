@@ -272,20 +272,20 @@ function controllerUserChanges($scope, $http) {
 //        
 //    };
 
-    $scope.getLogoColors = function () {
-        showOverlay();
-        $http({
-            method: 'GET',
-            url: getHost() +'onboarding/getColorsForLogo'
-        }).success(function (data, status, headers, config) {
-            $scope.color =data.d.details;
-            hideOverlay();
-            if (data === error) {
-            }
-        }).error(function (data, status, headers, config) {
-            alert(nodataerror);
-        });
-    };
+//    $scope.getLogoColors = function () {
+//        showOverlay();
+//        $http({
+//            method: 'GET',
+//            url: getHost() +'onboarding/getColorsForLogo'
+//        }).success(function (data, status, headers, config) {
+//            $scope.color =data.d.details;
+//            hideOverlay();
+//            if (data === error) {
+//            }
+//        }).error(function (data, status, headers, config) {
+//            alert(nodataerror);
+//        });
+//    };
 
     $scope.createUserPreferences = function ()
     {

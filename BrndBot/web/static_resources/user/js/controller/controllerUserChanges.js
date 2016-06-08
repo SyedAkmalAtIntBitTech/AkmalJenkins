@@ -9,7 +9,6 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
         $scope.showColors = function () {
             settingsFactory.getColorsURLGet().then(function (data) {
-                debugAlert(JSON.stringify(data));
                 $scope.user_preferences_colors = data.d.details;
             });
 
@@ -21,6 +20,19 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.getLogoColors = function () {
             onboardingFactory.colorsForLogoGet().then(function (data) {
                 $scope.color = data.d.details;
+            });
+        };
+        
+        $scope.createUserPreferences = function ()
+        {
+            color1 = "rgb(255, 0, 255)";
+            color2 = "rgb(255, 0, 255)";
+            color3 = "rgb(255, 0, 255)";
+            color4 = "rgb(255, 0, 255)";
+            settingsFactory.setColorsPost(color1,color2,color3,color4).then(function (data) {
+                $scope.status = data;
+                alert(data.d.operationStatus.messages[0]);
+                $scope.showColors();
             });
         };
 
