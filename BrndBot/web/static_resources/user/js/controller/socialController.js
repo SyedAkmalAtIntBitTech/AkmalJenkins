@@ -18,10 +18,12 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
         $scope.addImageToPostButton = true;
         $scope.twitterImageDivToPost = false;
         $scope.imageToBeUploaded = 'images/uploadPhoto.svg';
-
+        $scope.CurrentFbAccessToken = "";
+        $scope.CurrentFbPageName = "";
+        $scope.FbProfileName = "";
 
         $scope.getManagePage = function () {
-            var data = JSON.stringify({redirectUrl: "user/socialsequence#/socialsequence"});
+            var data = JSON.stringify({redirectUrl: "user/socialsequence"});
             settingsFactory.fbLoginPost(data).then(function (data) {
                 $window.location = data.d.details[0];
             });
@@ -93,10 +95,34 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
             var code = $scope.getUrlParameter("code");
             alert(code);
             if (typeof code !== "undefined") {
-                settingsFactory.fbGetTokenGet().then(function (data) {
+                settingsFactory.fbGetTokenGet(code).then(function (data) {
                     alert(JSON.stringify(data.d));
+                    $scope.managepage = true;
+                    $scope.fbPagesDetails = data.d.details[0].fbPages;
+                    $scope.fbProfileName = data.d.details[0].user_profile_name;
                 });
             }
+        };
+        $scope.setPageAccessToken = function (accessToken, pageName, profileName) {
+            alert("setPageAccessToken");
+            $scope.CurrentFbAccessToken = accessToken;
+            $scope.CurrentFbPageName = pageName;
+            $scope.FbProfileName = profileName;
+        };
+        $scope.postToSelectedPage = function () {
+            var addDafaultmanagePage = $("#setDefaultManagePage").prop('checked');
+            if (addDafaultmanagePage) {
+                var pageDetails = JSON.stringify({
+                    access_token_method: "setAccessToken",
+                    access_token: $scope.CurrentFbAccessToken,
+                    default_page_name: $scope.CurrentFbPageName,
+                    fb_user_profile_name: $scope.FbProfileName
+                });
+                settingsFactory.facebookPost(pageDetails).then(function (data) {
+                    alert(JSON.stringify(data));
+                });
+            }
+            $location.path("/facebookpost");
         };
 
         $scope.getUrlParameter = function (sParam) {
@@ -172,5 +198,9 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
                 $scope.getUserImages();
 //                alert(JSON.stringify(data));
             });
+        };
+        $scope.hideFbPopup = function () {
+//          $("#fbmanagePagePopUp").show();  
+            $scope.managepage = false;
         };
     }]);
