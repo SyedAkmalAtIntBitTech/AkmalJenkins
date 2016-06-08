@@ -210,67 +210,67 @@ function validate() {
 
 function controllerUserChanges($scope, $http) {
     
-    $scope.changePassword = function () {
-        var password = "";
-        var confirmpassword = "";
-        var x = $("#showpassword").is(':checked');
-        if (x === true)
-        {
-            password = $("#inputpassword1").val();
-            confirmpassword = $("#inputreenter1").val();
-        } else
-        {
-            password = $("#inputpassword").val();
-            confirmpassword = $("#inputreenter").val();
-        }
-
-        if (validate()) {
-
-            var password_object = {"password": password, "confirmpassword": confirmpassword, "type": "update"};
-
-            $http({
-                method: 'POST',
-                url: getHost() + 'signup/resetPassword',
-                headers: {'Content-Type': 'application/json'},
-                data: password_object
-            }).success(function (data)
-            {
-                $scope.status = data;
-                    $("#inputpassword1").val("");
-                    $("#inputreenter1").val("");
-                    $("#inputpassword").val("");
-                    $("#inputreenter").val("");
-                    $("#showpassword").prop("checked", false);
-            }).error(function (data, status) {
-                alert(requesterror);
-            });
-        }
-    };
+//    $scope.changePassword = function () {
+//        var password = "";
+//        var confirmpassword = "";
+//        var x = $("#showpassword").is(':checked');
+//        if (x === true)
+//        {
+//            password = $("#inputpassword1").val();
+//            confirmpassword = $("#inputreenter1").val();
+//        } else
+//        {
+//            password = $("#inputpassword").val();
+//            confirmpassword = $("#inputreenter").val();
+//        }
+//
+//        if (validate()) {
+//
+//            var password_object = {"password": password, "confirmpassword": confirmpassword, "type": "update"};
+//
+//            $http({
+//                method: 'POST',
+//                url: getHost() + 'signup/resetPassword',
+//                headers: {'Content-Type': 'application/json'},
+//                data: password_object
+//            }).success(function (data)
+//            {
+//                $scope.status = data;
+//                    $("#inputpassword1").val("");
+//                    $("#inputreenter1").val("");
+//                    $("#inputpassword").val("");
+//                    $("#inputreenter").val("");
+//                    $("#showpassword").prop("checked", false);
+//            }).error(function (data, status) {
+//                alert(requesterror);
+//            });
+//        }
+//    };
     
-    $scope.showColors = function () {
-        showOverlay();
-        $http({
-            method: 'GET',
-            url: getHost() + 'settings/getColors'
-        }).success(function (data) {
-            $scope.user_preferences_colors = data.d.details;
-        }).error(function (data, status, headers, config) {
-            alert(nodataerror);
-        });
-
-        $http({
-            method: 'GET',
-            url: getHost()+'getAllColorThemes'
-        }).success(function (data, status, headers, config) {
-            $scope.themes = data.d.details;
-            hideOverlay();
-            if (data === error) {
-            }
-        }).error(function (data, status, headers, config) {
-            alert(nodataerror);
-        });
-        
-    };
+//    $scope.showColors = function () {
+//        showOverlay();
+//        $http({
+//            method: 'GET',
+//            url: getHost() + 'settings/getColors'
+//        }).success(function (data) {
+//            $scope.user_preferences_colors = data.d.details;
+//        }).error(function (data, status, headers, config) {
+//            alert(nodataerror);
+//        });
+//
+//        $http({
+//            method: 'GET',
+//            url: getHost()+'getAllColorThemes'
+//        }).success(function (data, status, headers, config) {
+//            $scope.themes = data.d.details;
+//            hideOverlay();
+//            if (data === error) {
+//            }
+//        }).error(function (data, status, headers, config) {
+//            alert(nodataerror);
+//        });
+//        
+//    };
 
     $scope.getLogoColors = function () {
         showOverlay();
