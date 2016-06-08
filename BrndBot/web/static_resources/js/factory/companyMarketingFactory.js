@@ -4,6 +4,7 @@
 factoryApp.factory('companyMarketingProgramFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var companyMarketingProgramFactoryObject = {};
     companyMarketingProgramFactoryObject.setMarketingProgramPost = function (programDetails) {
+       
         var deffered = $q.defer();
         var data =programDetails;
         var url = configurationService.setMarketingProgramURL();
@@ -14,18 +15,16 @@ factoryApp.factory('companyMarketingProgramFactory', function ($q, authenticated
     };
     companyMarketingProgramFactoryObject.listAllMarketingProgramGet = function (programType) {
         var deffered = $q.defer();
-        var url = configurationService.listAllMarketingProgramURL();
-        var data = '{"programType":"' + programType + '"}';
-        authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
+        var url = configurationService.listAllMarketingProgramURL()+"?programType="+programType;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
     companyMarketingProgramFactoryObject.alluserMarketingProgramGet = function (program_id) {
         var deffered = $q.defer();
-        var url = configurationService.alluserMarketingProgramURL();
-        var data = '{"program_id":"' + program_id + '"}';
-        authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
+        var url = configurationService.alluserMarketingProgramURL()+"?program_id="+program_id;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
