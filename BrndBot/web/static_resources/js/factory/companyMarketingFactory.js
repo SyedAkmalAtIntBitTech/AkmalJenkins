@@ -3,10 +3,11 @@
 
 factoryApp.factory('companyMarketingProgramFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var companyMarketingProgramFactoryObject = {};
-    companyMarketingProgramFactoryObject.setMarketingProgramPost = function () {
+    companyMarketingProgramFactoryObject.setMarketingProgramPost = function (programDetails) {
         var deffered = $q.defer();
+        var data =programDetails;
         var url = configurationService.setMarketingProgramURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

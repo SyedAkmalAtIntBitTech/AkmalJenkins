@@ -1,58 +1,222 @@
-.dashboard-MainCTA-wrap{
-    width: 100%;
-}
+@import url("icon-fonts-styles.css");
 
-.dashboard-MainCTA-col{
+body{
+    display: block;
+    background-color: #EFF2F6;
+    font-family: "proxima nova";
     box-sizing: border-box;
-    border-radius: 4px;
-    padding-left: 10px;
-    padding-right: 10px;
-    min-width: 260px;
-    margin-right: 20px;
-    width:33%
 }
 
-.dashboard-MainCTA{
-    border: 1px solid #D2D3D5;
-    padding: 30px 20px;
-    height: 300px;
-    box-sizing: border-box;
-    border-radius: 4px;
-    width: 100%;
+p{
+ margin:0;   
 }
 
-.dash-icon{
-    width: 90px;
-    margin: auto;
-
-    
-}
-
-.dash-svg{
-    width: 100%;
-    margin: auto;
-
-    
-}
-
-.dashboard-mainCTA-subtext{
-    width: 100%;
-    text-align: center;
-    box-sizing: border-box;
-    margin-top: 30px;
-    line-height: 150%;
-}
-
-.dashboard-mainCTA-button{
-    width: 100%;
-    padding: 30px 10px 0px 10px;
-    box-sizing: border-box;
-    font-size: 14px;
-}
-
-.h-dash-header{
+h1{
+    margin: 0;
+     color: #3F3F42;
     font-size: 22px;
+    font-weight: 400;
 }
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+/**{
+    box-sizing: border-box;
+}*/
+
+h2{
+    margin: 0;
+    color: #3F3F42;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+h3{
+    margin:0;
+    color: #3F3F42;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.fleft{
+    float: left
+}
+
+.fright{
+    float: right;
+}
+
+label{
+    color: #3E4551;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+a {
+    cursor: pointer;
+}
+
+.reg-button{
+    padding: 9px 12px;
+    border-radius: 3px;
+    text-align: center;
+    font-size:14px;
+    font-weight: 500;
+}
+
+.long-button{
+    padding: 9px 30px;
+    border-radius: 3px;
+    text-align: center;
+    font-size:14px;
+    font-weight: 500;
+}
+
+.gray-button{
+    background-color: #EEF0F2;
+    color: #354147; 
+}
+
+.gray-button:hover{
+    background-color: #DAE1E9;
+    color: #354147; 
+}
+
+.gray-button:active{
+    background-color: #C4CDD5;
+    color: #354147; 
+}
+
+
+.blue-button{
+    background-color: #1EADFC ;
+    color: #FFFFFF; 
+}
+
+
+.green-button{
+    background-color: #5CC2A5;
+    color: #FFFFFF; 
+}
+
+
+
+/* main nav */
+
+.side-nav{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 70px;
+    height: 100vh;
+    background-color: #2D4355;
+}
+
+.main-content-wrap{
+    position: fixed;
+    top: 0px;
+    left: 70px;
+    width: calc(100vw - 70px);
+    overflow-y: scroll;
+}
+
+.top-nav-bar{
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #B3B6BF;
+    padding-right: 45px;
+    background-color: #FFFFFF;
+}
+
+.top-nav-bar h2{
+    padding-left: 30px;  
+    line-height: 60px;
+}
+
+
+.back-button{
+    width: 60px;
+    height: 100%;
+    background-color: #0F76A6 ;
+    display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction:row;
+   flex-direction: row;
+   -webkit-align-items: center;
+   align-items: center;
+   -webkit-justify-content: center;
+   justify-content: center;
+}
+
+.top-nav-bar-offset{
+    height: 60px;
+}
+
+
+
+
+/* Sub Nav Classes */
+
+.top-sub-nav{
+    height:45px;
+    border-bottom: 1px solid #B3B6BF;
+    background-color: #FFFFFF;
+    width: 100%;
+    position: fixed;
+    top: 61px;
+    left: 70px;
+}
+
+.top-subnav-bar-offset{
+    height: 45px;
+}
+
+.hub-dropdown{
+    width: 125px;
+    background-color: #0F76A6;
+    height: 100%;
+    float: left;
+}
+
+.sub-nav-tab-wrap{
+    padding-left: 30px;
+    line-height: 42px;
+    color: #AFB0B4 ;
+    float: left;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.sub-nav-tab{
+    padding: 0px 15px;
+    float: left;
+}
+
+.sub-nav-tab:hover{
+    color: #3F3F42;
+}
+
+
+.sub-nav-tab-active{
+    color: #0F76A6;
+    border-bottom: 3px solid #0F76A6 ;
+    box-sizing: border-box;
+    padding: 0px 15px;
+    float: left;
+}
+
+
+.sub-nav-tab:first-child{
+    padding: 0px 15px 0px 0px;
+}
+
+
 /*Content Classes*/
 
 .content-wrap{
@@ -838,7 +1002,6 @@ p.modal-content-header{
     min-height: 32px;
     background-color: #fff;
     border: 1px solid #c9c9c9;
-    color: #666;
 }
 
 .dropdown-list{
