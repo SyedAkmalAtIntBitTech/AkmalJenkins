@@ -96,10 +96,16 @@ marketingFlowApp.config(function($routeProvider){
                 templateUrl: 'marketingprogram.html'
     })
     .when('/usermarketingprogram', {
-                templateUrl: 'usermarketingprogram.html'
-            
-               
-        
+                templateUrl: 'usermarketingprogram.html'    
+                
+    }) 
+    .when('/marketingprogramlists', {
+                templateUrl: 'marketingprogramlists.html'    
+                
+    }) 
+    .when('/marketingprogramactions', {
+                templateUrl: 'marketingprogramactions.html',
+              
                 
     }) 
     
