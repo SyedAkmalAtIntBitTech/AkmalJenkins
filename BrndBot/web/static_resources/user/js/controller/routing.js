@@ -4,6 +4,11 @@ dashboardFlowApp.config(function ($routeProvider) {
                 templateUrl: 'basedashboard.html',
                 controller: 'dashboardController'
             })
+            .otherwise({redirectTo: '/dashboard'});
+    });
+    
+emailFlowApp.config(function ($routeProvider) {
+    $routeProvider            
             .when('/emailcategory', {
                 templateUrl: 'emailcategory.html'
             })
@@ -16,26 +21,16 @@ dashboardFlowApp.config(function ($routeProvider) {
             .when('/emailexternalsource', {
                 templateUrl: 'emailexternalsource.html'
             })
-             .otherwise({redirectTo: '/dashboard'});
-    });
-    
-emailFlowApp.config(function ($routeProvider) {
-    $routeProvider
-           
             .when('/emailsubjects', {
-                templateUrl: 'user/emailsubjects.html',
-                controller: 'userController'
-            })
-            .when('/emaileditor', {
-                templateUrl: 'user/emaileditor.html',
-                controller: 'userController'
+                templateUrl: 'emailsubjects.html'
+            }) 
+            .when('/baseemaileditor', {
+                templateUrl: 'emaileditor.html'
             })
             .when('/emaillistselection', {
-                templateUrl: 'user/emaillistselection.html',
-                controller: 'userController'
-            })
-          
-            .otherwise({redirectTo: '/signin'});
+                templateUrl: 'emaillistselection.html'
+            })            
+            .otherwise({redirectTo: '/emailcategory'});
 });
 
 socialFlowApp.config(function ($routeProvider) {

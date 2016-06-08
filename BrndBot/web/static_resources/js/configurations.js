@@ -11,13 +11,15 @@ var global_host_address = "http://localhost:8080/BrndBot/";
 var factoryApp =  angular.module('factorys', []);
 var brndBotSignupApp = angular.module('signupApp', ['factorys','ngRoute']);
 var socialFlowApp = angular.module('socialFlowApp', ['factorys','ngRoute']);
-var emailFlowApp = angular.module('emailFlowApp', ['factorys','ngRoute']);
+var emailFlowApp = angular.module('emailFlowApp', ['factorys','ngRoute','sharedService']);
 var marketingFlowApp = angular.module('marketingFlowApp', ['factorys','ngRoute']);
 var yourPlanFlowApp = angular.module('yourPlanFlowApp', ['factorys','ngRoute']);
-var dashboardFlowApp = angular.module('dashboardFlowApp', ['factorys','ngRoute']);
+var dashboardFlowApp = angular.module('dashboardFlowApp', ['factorys','ngRoute','sharedService']);
 var settingFlowApp = angular.module('settingFlowApp', ['factorys','ngRoute']);
 var userGalleryApp = angular.module('userGalleryApp', ['factorys','ngRoute']);
-
+var error = "system failure error";  
+var FroalaLicenseKey ="snJ-7c1krD-13fD1wzF-7==";
+var sharedServiceApp = angular.module('sharedService', []);
 factoryApp.directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
@@ -58,9 +60,6 @@ factoryApp.directive('toggleClass', function () {
     return directiveDefinitionObject;
 });
 
-var error = "system failure error";  
-var FroalaLicenseKey ="snJ-7c1krD-13fD1wzF-7==";
-
 
 function getHost(){
      return global_host_address;
@@ -89,7 +88,6 @@ function gettwitter(){
 function getnote(){
     return "Reminder";
 }
-
 String.prototype.contains = function(it) { 
     return this.indexOf(it) !== -1; 
 };

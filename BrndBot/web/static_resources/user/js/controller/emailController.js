@@ -1,4 +1,4 @@
-dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$location', 'categoryFactory', 'subCategoryFactory','externalContentFactory','redirectFactory','SharedService', function ($scope, $window, $location, categoryFactory, subCategoryFactory,externalContentFactory,redirectFactory,SharedService) {
+emailFlowApp.controller("emailController", ['$scope','$window', '$location', 'categoryFactory', 'subCategoryFactory','externalContentFactory','redirectFactory','SharedService', function ($scope, $window, $location, categoryFactory, subCategoryFactory,externalContentFactory,redirectFactory,SharedService) {
         $scope.emailChannelId = 3;
         $scope.printChannelId = 2;
         $scope.imageChannelId = 1;
@@ -91,11 +91,9 @@ dashboardFlowApp.controller("dashboardController", ['$scope','$window', '$locati
             redirectFactory.redirectFlowTo(pageName);        
         };
 
-
         $scope.redirectToMarketingProgram= function(pageName)
         {
             redirectFactory.redirectFlowTo(pageName);    
-        };        
+        };                
     }]);
-
 

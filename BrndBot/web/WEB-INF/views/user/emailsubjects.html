@@ -32,11 +32,10 @@
         <div class="email-detail-selection col-1of1 fleft">
             <div class="col-1of1 fleft">
                 <div class="col-9of10 fleft">
-                    <!--<% if (email_subject != null) {%>-->
-                    <input id="emailsubject" class="input-field-textfield col-8of10" placeholder="Enter Name of email" name="emailsubject" type="text" value="<%= email_subject%>" required/>
-                    <!--<%} else {%>-->
-                    <input id="emailsubject" class="input-field-textfield col-8of10" placeholder="Enter Name of email" name="emailsubject" type="text" required/>
-                    <!--<%}%>-->
+                    <input ng-model="emailsubject" class="input-field-textfield col-8of10" placeholder="Enter Subject of email" name="emailsubject" type="text" value="{{emailsubject}}" required/>
+                </div>
+                <div class="col-9of10 fleft">
+                    {{emailSubjectError}}
                 </div>
             </div>
 
@@ -49,8 +48,8 @@
     </div>
 </div>
 <div class="bottom-cta-bar">
-    <div class="bottom-cta-button-container-lg">
-        <a id="emailSubjectContinueButton" href="#">
+    <div class="bottom-cta-button-container-lg" ng-click="redirect('baseemaileditor','','','','')">
+        <a href="#">
             <div class="bottom-continue-button button-text-1">Continue</div>
         </a>
     </div>
