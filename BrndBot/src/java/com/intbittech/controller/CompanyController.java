@@ -79,6 +79,27 @@ public class CompanyController {
     @Autowired
     private MessageSource messageSource;
     
+    @RequestMapping(value = "getCurrentCompany",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> getCurrentCompany() {
+        GenericResponse<String> genericResponse = new GenericResponse<String>();
+        try {
+            List<String> currentCompany = new ArrayList<>();
+            
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            
+            currentCompany.add(userProfile.getUser().getFkCompanyId().getCompanyId().toString());
+            
+            genericResponse.setDetails(currentCompany);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("company_get_all",new String[]{}, Locale.US)));
+            
+            
+        } catch(Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
     @RequestMapping(value = "getAllCompanies",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getAllCompanies() {
         GenericResponse<CompanyDetails> genericResponse = new GenericResponse<CompanyDetails>();
