@@ -21,7 +21,7 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
 
 
         $scope.getManagePage = function () {
-            var data = JSON.stringify({redirectUrl: "user/social"});
+            var data = JSON.stringify({redirectUrl: "user/socialsequence#/socialsequence"});
             settingsFactory.fbLoginPost(data).then(function (data) {
                 $window.location = data.d.details[0];
             });
@@ -51,8 +51,8 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
             companyImagesFactory.companyImagesGet().then(function (data) {
                 $scope.datalists = data.d.details;
             });
-            companyFactory.companyGet().then(function (data) {
-                $scope.companyId = data.d.details[0].companyId;
+            companyFactory.currentCompanyGet().then(function (data) {
+                $scope.companyId = data.d.details[0];
             });
         };
 
@@ -90,44 +90,32 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
         };
 
         $scope.checkForCode = function () {
-            settingsFactory.fbGetTokenGet().then(function (data) {
-                alert(JSON.stringify(data.d));
-            });
-//                var code = $scope.getUrlParameter("code");
-//                if (typeof code !== "undefined") {
-//                    settingsFactory.fbGetTokenGet().then(function (data){   
-//                        alert(data);
-//                    });
-//                    $http({
-//                        url: getHost() + 'settings/fbGetToken/' + code,
-//                        method: "GET"
-//                    }).success(function (data) {
-//                        $("#fbmanagePagePopUp").show();
-//                        $scope.fbPagesDetails = data.d.details[0].fbPages;
-//                    });
-//                }
+            var code = $scope.getUrlParameter("code");
+            alert(code);
+            if (typeof code !== "undefined") {
+                settingsFactory.fbGetTokenGet().then(function (data) {
+                    alert(JSON.stringify(data.d));
+                });
+            }
         };
 
-//        $scope.getUrlParameter = function(sParam) {
-//            var sPageURL = decodeURIComponent($window.location.search.substring(1)),
-//                    sURLVariables = sPageURL.split('&'),
-//                    sParameterName,
-//                    i;
-//
-//            for (i = 0; i < sURLVariables.length; i++) {
-//                sParameterName = sURLVariables[i].split('=');
-//
-//                if (sParameterName[0] === sParam) {
-//                    return sParameterName[1] === undefined ? true : sParameterName[1];
-//                }
-//            }
-//        };
+        $scope.getUrlParameter = function (sParam) {
+            var sPageURL = decodeURIComponent($window.location.search.substring(1)),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName, i;
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
 
         $scope.changeTwitterPostType = function () {
             if ($scope.showTwitterLink === true) {
                 $scope.showTwitterLink = false;
-            }
-            else {
+            } else {
                 $scope.showTwitterLink = true;
             }
         };
@@ -137,8 +125,7 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
                 $scope.selectTabGallery = 'popUp_subheader-tabs-active';
                 $scope.selectTabUpload = 'popUp_subheader-tabs';
                 $scope.showImageGalleryPopup = true;
-            }
-            else {
+            } else {
                 $scope.showUserImages = true;
                 $scope.showUploadImage = false;
                 $scope.selectTabGallery = 'popUp_subheader-tabs';

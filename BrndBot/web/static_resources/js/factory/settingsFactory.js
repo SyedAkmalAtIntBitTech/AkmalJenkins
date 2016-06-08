@@ -6,7 +6,7 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
     settingsFactoryObject.getColorsURLGet = function () {
         var deffered = $q.defer();
         var url = configurationService.getColorsURL();
-        authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
