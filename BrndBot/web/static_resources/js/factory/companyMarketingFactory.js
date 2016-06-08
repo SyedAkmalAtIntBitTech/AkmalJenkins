@@ -2,15 +2,12 @@
 //************************ @author Tasmiya P.S @ Intbit *************************
 
 factoryApp.factory('companyMarketingProgramFactory', function ($q, authenticatedServiceFactory, configurationService) {
-    alert();
     var companyMarketingProgramFactoryObject = {};
     companyMarketingProgramFactoryObject.setMarketingProgramPost = function (programDetails) {
-         alert(JSON.stringify(programDetails));
         var deffered = $q.defer();
         var data =programDetails;
         var url = configurationService.setMarketingProgramURL();
         authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
-             alert();
             deffered.resolve(data);
         });
         return deffered.promise;

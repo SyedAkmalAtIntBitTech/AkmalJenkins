@@ -47,8 +47,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', 'mark
         
          $scope.saveMarketingProgram = function(programName,programUrl,programUrlName,programDateTime){
              programDateTime="2015-2-12"
-             
-             // alert($scope.marketingCategoryId+"sdd"+$scope.marketingProgramId);
+            
               var data = {"program_name": programName, 
                                            "program_date_time": programDateTime,
                                            "program_url":programUrl,
@@ -56,16 +55,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', 'mark
                                            "marketing_category_id":$scope.marketingCategoryId.toString(),
                                            "marketing_program_id":$scope.marketingProgramId.toString()
                                           };
-                                    alert(JSON.stringify(data));
-                                 
+                               
                 companyMarketingProgramFactory.setMarketingProgramPost(data).then(function (data) {
-                   alert(JSON.stringify(data));
-////                $scope.pageName="marketingPrograms";
-////                $scope.forward=forwardone;
-////                $scope.displayAllMarketingPrograms=data.d.details;
-////                $scope.header="Select a Category";
-//  
-//            });
+                 // alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+                 alert(data.d.operationStatus.messages);
 });
         };    
         
