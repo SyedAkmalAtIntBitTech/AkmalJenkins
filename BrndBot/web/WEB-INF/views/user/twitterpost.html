@@ -14,7 +14,7 @@
                     <div class="topNav--TitleBar--CTABox fright">
                         <div class="CTA_Button Button--Gray">Help!</div>
                     </div>
-                    <div class="topNav--TitleBar--CTABox fright pushRight_30" ng-click="changeTwitterPostType()">
+                    <div class="topNav--TitleBar--CTABox fright pushRight_30" ng-click="twitterShare.url='';changeTwitterPostType();">
                         <div class="CTA_Button Button--Gray" id="postType">Change To Link Post</div>
                     </div>
                 </div>
@@ -29,32 +29,29 @@
                         <div class="inputSection col1of1 pushUp_20">
                             <span>
                                 <div class="input_Label">What would you like to share?</div>
-                                <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="twitterShareText" maxlength="116"></textarea>
+                                <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="twitterShareText" maxlength="116" ng-model="twitterShare.text"></textarea>
                             </span>
-                            <span ng-show="showTwitterLink == true" class="" id='urlDropDownSpan'>
+                            <span ng-show="showTwitterLink == true" class="" id='urlDropDownSpan' ng-init="getUrls()">                               
                                 <div class="input_Label pushUp_20">Choose from your Existing Links:</div>
-                                <select id='dropdownurl' class="select_Field_lg removeDrag" ng-init="getUrls()" ng-change="getSelectedUrl(linkUrls)"  ng-model="linkUrls">
-                                    <option value="" class="caret">LINK URL</option>
-                                    <option ng-repeat="url in urls" value="{{url.url}}--{{url.link_name}}">{{url.prigram_name}} - {{url.link_name}} - {{url.url}}</option>
-                                </select>
+                                <select ng-model="linkUrls" id="dropdownurl"  class="select_Field_lg removeDrag" ng-options="url.url as url.prigram_name+' - '+url.link_name+' - '+url.url for url in urls"></select>
                             </span>
                             <span ng-show="showTwitterLink == true" class="" id="twitterLinkPost">
                                 <div class="input_Label pushUp_20">Write Custom Link</div>
-                                <textarea class="socialLink_attached removeDrag removeBorder" placeholder="http://www.brndbot.com" id="linkOfUrls">{{linkUrls.split('--').pop(0)}}</textarea></span>
+                                <textarea class="socialLink_attached removeDrag removeBorder" ng-model="twitterShare.url=linkUrls.split('-').pop(0)" placeholder="http://www.brndbot.com" id="linkOfUrls">{{linkUrls.split('-').pop(0)}}</textarea></span>
                         </div>  
                     </div>
                     <div ng-show="addImageToPostButton" class="Social-Add-Image-Wrap clear" id="addImageToTwitterPost" ng-click="show_hide_ImageGalleryPopup(true)">
                         <span class="clickable-area">
-                            <img type="image/svg+xml" src="images/add-Image.svg" class="add-image-icon fleft" style="cursor:pointer;">
+                            <img type="image/svg+xml" src="images/add-Image.svg" ng-model="twitterShare.img" class="add-image-icon fleft" style="cursor:pointer;">
                             <div class="Add-Image-Button fleft">
                                 Add Image to Post
                             </div>
                         </span>
                     </div>
-                    <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap clear" id="addImageDivToTwitterPost" ng-click="show_hide_ImageGalleryPopup(true)">
-                        <img ng-src="{{displayImage}}" alt="alt_text" border="0" align="center" id="selectedImage" class="imageAdded pushUp_10 fleft">
+                    <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap clear" id="addImageDivToTwitterPost">
+                        <img ng-src="{{displayImage}}" ng-model="twitterShare.img = displayImage"alt="alt_text" border="0" align="center" id="selectedImage" class="imageAdded pushUp_10 fleft">
                         <div class="col-1of1 clear">
-                            <div class="edit-Image-Button fleft" id="changeImage">
+                            <div class="edit-Image-Button fleft" id="changeImage"  ng-click="show_hide_ImageGalleryPopup(true)">
                                 Change Image
                             </div>
                             <!--                            <div class="edit-Image-Button fleft">
@@ -66,9 +63,7 @@
             </div>
         </div>
         <div class="bottomNav">
-            <div class="bottom-ContinueButton fright" onclick="postTwitter()">CONTINUE</div>
+            <div class="bottom-ContinueButton fright" ng-click="show_hide_SocialListSelectionPopup(true)">CONTINUE</div>
         </div>
-  <div ng-if="false" ng-include src="'sociallistselection.html'"></div>
-  <div ng-include src="'imagegallerypopup.html'"></div>
-  <div ng-if="false" ng-include src="'twitterpostcuccesspopup.html'"></div>
+
      

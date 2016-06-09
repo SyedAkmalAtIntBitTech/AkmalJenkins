@@ -13,7 +13,7 @@ factoryApp.factory('LoginFactory', function ($q, authenticatedServiceFactory, co
     };
     LoginFactoryObject.resetPasswordGet = function () {
         var deffered = $q.defer();
-        var url = configurationService.resetPasswordURL();
+        var url = configurationService.resetLoginPasswordURL();
         authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
             deffered.resolve(data);
         });

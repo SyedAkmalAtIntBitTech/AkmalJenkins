@@ -399,6 +399,9 @@ factoryApp.service('configurationService', function (){
         return this.getGlobalURL() + "/socialPost/postToTwitter";
     };
     
+    this.getShortenUrl = function () {
+        return "http://api.bit.ly/v3/shorten";
+    };
     
     //**************** subCategoryFactory **********************//
     
@@ -437,6 +440,10 @@ factoryApp.service('configurationService', function (){
     };
 
     //************** companyFactory ********************//
+    
+    this.currentCompanyURL = function () {
+        return this.getGlobalURL() + "/getCurrentCompany";
+    };
     
     this.companyURL = function () {
         return this.getGlobalURL() + "/getAllCompanies";
@@ -718,7 +725,7 @@ factoryApp.service('configurationService', function (){
         return this.getGlobalURL() + "//login";
     };
     
-    this.resetPasswordURL = function () {
+    this.resetLoginPasswordURL = function () {
         return this.getGlobalURL() + "/resetpassword";
     };
     

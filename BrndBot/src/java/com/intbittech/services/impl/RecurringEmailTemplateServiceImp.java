@@ -136,5 +136,17 @@ public class RecurringEmailTemplateServiceImp implements RecurringEmailTemplateS
         return recurringEmailTemplates;
         
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<OrganizationRecurringEmailLookup> getAllRecurringEmailsByOrganizationIds(Integer[] organizationIds) throws ProcessFailed {
+        List<OrganizationRecurringEmailLookup> recurringEmailTemplates = recurringEmailTemplateDao.getAllRecurringEmailsByOrganizationIds(organizationIds);
+        if(recurringEmailTemplates == null) {
+            throw new ProcessFailed(messageSource.getMessage("recurringEmail_not_found", new String[]{}, Locale.US));
+        }
+        return recurringEmailTemplates;
+        
+    }
 
 }
