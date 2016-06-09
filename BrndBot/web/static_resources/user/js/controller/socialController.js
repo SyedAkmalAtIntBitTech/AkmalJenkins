@@ -93,10 +93,8 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
 
         $scope.checkForCode = function () {
             var code = $scope.getUrlParameter("code");
-            alert(code);
             if (typeof code !== "undefined") {
                 settingsFactory.fbGetTokenGet(code).then(function (data) {
-                    alert(JSON.stringify(data.d));
                     $scope.managepage = true;
                     $scope.fbPagesDetails = data.d.details[0].fbPages;
                     $scope.fbProfileName = data.d.details[0].user_profile_name;
@@ -203,4 +201,29 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
 //          $("#fbmanagePagePopUp").show();  
             $scope.managepage = false;
         };
+        $scope.changePostType = function () {
+            var postType = $("#linkPostFields").css("display");
+            alert(postType);
+            if (postType === "none") {
+                $("#linkPostFields").show();
+                $("#urlDropDownSpan").show();
+                lonkopen = 1;
+                $("#postType").text("Change To Normal Post");
+            }
+            if (postType === "block") {
+                $("#linkPostFields").hide();
+                $("#urlDropDownSpan").hide();
+                $("#linkTitle").val("");
+                $("#linkDescription").val("");
+                $("#linkUrl").val("");
+                lonkopen = 0;
+                $("#postType").text("Change To Link Post");
+            }
+
+        };
+        $("#addImageToPostButton").click(function () {
+            $("#addImageDiv").show();
+            $("#imagePopUp").show();
+            $("#addImageToPostButton").hide();
+        });
     }]);
