@@ -130,7 +130,7 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
                                    };                                   
         globalActionsArray.push($scope.newMarketingAction);
         $scope.marketingProgramActions=globalActionsArray;
-        $("#newOneTimeActionName").val('')
+        $("#newOneTimeActionName").val('');
 //        $("#newActionTypeOneTimeActions").val('');
         $("#newActionsNoOfDays").val('');
         $("#newActionTime").val('');
@@ -139,7 +139,7 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
     
     
     $scope.saveMarketingProgramActions = function (){
-        
+        $scope.marketingProgramActions=globalActionsArray;
 //        var marketingProgramId=$("#marketingProgramIdTag").val();
         var ProgramActions=angular.copy($scope.marketingProgramActions); // angular.copy() will remove the $$hashkey from JSONArray
         
@@ -162,7 +162,7 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
         else{
                      $.ajax({
                             method: 'POST',
-                            url: getHost() + '/saveMarketingProgramActions',
+                            url: getHost() + 'saveMarketingProgramActions',
                             dataType: "json",
                             contentType: "application/json",
                             data: JSON.stringify(marketingProgramdetails)
@@ -181,7 +181,7 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
     
     $scope.updateMarketingProgramActions=function (){
         var marketingProgramId=$("#marketingProgramIdTag").val();
-         var allProgramActions=angular.copy($scope.marketingProgramActions); // angular.copy() will remove the $$hashkey from JSONArray
+        var allProgramActions=angular.copy($scope.marketingProgramActions); // angular.copy() will remove the $$hashkey from JSONArray
         var marketingProgramName = $("#marketingProgramName").val();
         var marketingProgramHtml= $("#marketingProgramHtml").val();
         var updatemarketingProgramdetails = {"marketingProgramId":marketingProgramId,"marketingProgramName": marketingProgramName,"htmlData": marketingProgramHtml,"marketingActionId": globalMarketingActionId,"marketingActions": allProgramActions};

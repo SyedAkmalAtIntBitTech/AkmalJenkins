@@ -22,7 +22,7 @@
                     <option class="input_Field">Facebook</option>
                     <option class="input_Field">Twitter</option>
                     <option class="input_Field">Email</option>
-                    <option class="input_Field">Reminder</option>
+                    <!--<option class="input_Field">Reminder</option>-->
                 </select>
             </div>
         </div>
