@@ -722,7 +722,7 @@ factoryApp.service('configurationService', function (){
         return this.getGlobalURL() + "//login";
     };
     
-    this.resetPasswordURL = function () {
+    this.resetLoginPasswordURL = function () {
         return this.getGlobalURL() + "/resetpassword";
     };
     

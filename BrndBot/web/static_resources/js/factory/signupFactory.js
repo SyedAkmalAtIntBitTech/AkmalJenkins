@@ -20,10 +20,11 @@ factoryApp.factory('signupFactory', function ($q, authenticatedServiceFactory, c
         });
         return deffered.promise;
     };
-    signupFactoryObject.resetPasswordPost = function () {
+    signupFactoryObject.resetPasswordPost = function (resetData) {
         var deffered = $q.defer();
         var url = configurationService.resetPasswordURL();
-        authenticatedServiceFactory.makeCall("POST", url, "", "").then(function (data) {
+        alert(url);
+        authenticatedServiceFactory.makeCall("POST", url, resetData, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

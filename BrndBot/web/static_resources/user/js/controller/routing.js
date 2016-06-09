@@ -62,12 +62,17 @@ yourPlanFlowApp.config(function ($routeProvider) {
 
 settingFlowApp.config(function ($routeProvider) {
     $routeProvider
-            .when('/settings', {
-                templateUrl: 'user/settings.html',
-                controller: 'controllerUserChanges'
+            
+            .when('/useraccountsettings', {
+                templateUrl: 'useraccountsettings.html'
             })
-                               
-            .otherwise({redirectTo: '/signin'});
+            .when('/userlogosettings', {
+                templateUrl: 'userlogosettings.html'
+            })
+            .when('/userpalettesettings', {
+                templateUrl: 'userpalettesettings.html'
+            })
+            .otherwise({redirectTo: '/useraccountsettings'});
 });
 
 userGalleryApp.config(function($routeProvider){
@@ -91,10 +96,16 @@ marketingFlowApp.config(function($routeProvider){
                 templateUrl: 'marketingprogram.html'
     })
     .when('/usermarketingprogram', {
-                templateUrl: 'usermarketingprogram.html'
-            
-               
-        
+                templateUrl: 'usermarketingprogram.html'    
+                
+    }) 
+    .when('/marketingprogramlists', {
+                templateUrl: 'marketingprogramlists.html'    
+                
+    }) 
+    .when('/marketingprogramactions', {
+                templateUrl: 'marketingprogramactions.html',
+              
                 
     }) 
     

@@ -1,25 +1,8 @@
 
+<div class="content-main">
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <link rel="import" href="header.html">
-    <style>
-        #pastprogs,#delmarkprog{display: none;}
-    </style>
-    
-</head>    
-
-<body ng-app class="">
-    <!--SideNav-->
-    <div class="content-main" ng-controller="marketingController">
-      
-        <div ng-include src="'navbar.html'"></div>
-       
-        
-    <!--Top Nav-->   
     <div class="top-nav"  >
-        <div class="page-title-bar col-1of1" ng-init="getUserMarketingProgramsOpen()"> 
+        <div class="page-title-bar col-1of1" > 
             <div class="page-title-regular page-title-font">Your Marketing Programs</div>
             <div class="page-cta-container" >
                 <a id="crtmarkprog" href="createmarketingprogram.html" class=" fleft">
@@ -34,87 +17,86 @@
             <div class="top-subnav-tabs-container">
                 <ul class="top-subnav-nav-elements">
                     <!--<li class="top-subnav-links" id="createnewprogli"><a id="createnewprog" class="h3">Create New Program</a></li>-->
-                    <li class="top-subnav-link-active" id="curmarprogli"><a id="curmarprog" class="h3-active-subnav" onclick="currprograms()">Current Marketing Programs</a></li>
-                    <li class="top-subnav-links" id="pstmarprogli"> <a class="h3" id="pstmarprog" onclick="pastprograms()">Past Marketing Programs</a></li>
+                    <li class="top-subnav-link-active" id="curmarprogli" ng-click="showCurrentPrograms()"><a id="curmarprog" class="h3-active-subnav" >Current Marketing Programs</a></li>
+                    <li class="top-subnav-links" id="pstmarprogli" ng-click="showPastPrograms()"> <a class="h3" id="pstmarprog" >Past Marketing Programs</a></li>
                 </ul>
             </div>
         </div>
     </div>
-        <!--Main Content GENERIC--> 
+    <!--Main Content GENERIC--> 
     <div class="page-background" >
         <div class="page-content-container email-list-contact-page">
-            
+
             <!--Inner Content Conatiner GENERIC-->
             <div class="page-inner-content-container ">
-                <div class="fleft content" id="currprogs" ng-init="getUserMarketingProgramsOpen()">
-                    <ul class="main-container fleft" ng-show="current_programs==''" id="noprogramsavailable">
+                <div class="fleft content" id="currprogs" ng-show="currProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
+                    <ul class="main-container fleft" ng-show="currentPrograms == ''" id="noprogramsavailable">
                         <li class="slat-container fleft selfclear">
                             <div class="col-1of1 slat-unit fleft " >
                                 No Programs Available
                             </div>
                         </li>
                     </ul>
-<!--                    <ul  class="main-container fleft" ng-show="current_programs!=''">
-                        <li class="slat-container fleft selfclear" ng-repeat="program in current_programs">-->
-                        <ul  class="main-container fleft" >
-                        <li class="slat-container fleft selfclear" >
-                            <div class="col-1of1 slat-unit fleft ">
+                    <!--                    <ul  class="main-container fleft" ng-show="current_programs!=''">
+                                            <li class="slat-container fleft selfclear" ng-repeat="program in current_programs">-->
+                    <ul  class="main-container fleft" >
+                        <li class="slat-container fleft selfclear" ng-repeat="program in currentPrograms">
+                            <div class="col-1of1 slat-unit fleft " >
                                 <div class="slat-title-container col-3of10 fleft">
-                                    <div class="slat-title  col-1of1 sh1-contact">TEST{{program.program_name}}</div>
-                                    <div class="action-list-slat-description col-1of1 sh3-contact">Added on {{program.start_date | date: 'MMM dd yyyy'}}</div>
+                                    <div class="slat-title  col-1of1 sh1-contact">{{program.program_name}}</div>
+                                    <div class="action-list-slat-description col-1of1 sh3-contact">Added on {{program.start_date| date: 'MMM dd yyyy'}}</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" id="program_end_date{{program.id}}">{{program.end_date | date: "MMM dd yyyy"}}</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" id="program_end_date{{program.id}}">{{program.end_date| date: "MMM dd yyyy"}}</div>
                                     <div class="action-list-slat-description padtop25 col-1of1 sh3-contact">End Date </div>
-                                    <input type="hidden" value="{{program.end_date| date: "MMM dd yyyy"}}" ></input>
+                                    <input type="hidden" value='{{program.end_date| date: "MMM dd yyyy"}}' >
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" ng-hide="program.noofpostleft=='0'">{{program.noofpostleft}}</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft"ng-show="program.noofpostleft!='0'">Actions Left</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft" ng-show="program.noofpostleft=='0'">No Actions Left</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" ng-hide="program.noofpostleft == '0'">{{program.noofpostleft}}</div>
+                                    <div class="list-column-description col-1of1 sh3-contact fleft"ng-show="program.noofpostleft != '0'">Actions Left</div>
+                                    <div class="list-column-description col-1of1 sh3-contact fleft" ng-show="program.noofpostleft == '0'">No Actions Left</div>
                                 </div>
                                 <div class="col-1of4 fleft">
                                     <div class="slat-cta-container">
-                                        <a href=""> 
-                                            <div class="small-button slat-button detail-button-font" ><a href="marketingprogramactions.html"> View Program </a></div>
-                                            <!--ng-click="sendProgramId(program.id,'0')"-->
-                                        </a>
+
+                                            <div class="small-button slat-button detail-button-font" ><span ng-click="redirectToActions(forward, program.id,past=0,program.end_date)" > View Program </span></div>
+                                            <!--ng-click="sendProgramId(program.id,'0')"-->                                    
                                     </div>
                                 </div>
                             </div>
                         </li>
                     </ul>
                 </div>
-                <div class="fleft content" id="pastprogs" ng-init="getUserMarketingProgramsClosed()">
-                    <ul  class="main-container fleft" ng-show="past_programs!=''">
-                        <li class="slat-container fleft selfclear" ng-repeat="program in past_programs">
+                <div class="fleft content" id="" ng-show="pastProgramsDiv"   ng-init="getUserMarketingProgramsClosed('marketingprogramactions')">
+                    <ul  class="main-container fleft" ng-show="pastPrograms != ''">
+                        <li class="slat-container fleft selfclear" ng-repeat="program in pastPrograms">
                             <div class="col-1of1 slat-unit fleft " >
                                 <div class="slat-title-container col-3of10 fleft">
                                     <div class="slat-title  col-1of1 sh1-contact">{{program.program_name}}</div>
-                                    <div class="action-list-slat-description col-1of1 sh3-contact">Added on {{program.start_date | date: 'MMM dd yyyy'}}</div>
+                                    <div class="action-list-slat-description col-1of1 sh3-contact">Added on {{program.start_date| date: 'MMM dd yyyy'}}</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{program.end_date | date: "MMMM dd, yyyy"}}</div>
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{program.end_date| date: "MMMM dd, yyyy"}}</div>
                                     <div class="list-column-description col-1of1 sh3-contact fleft">End Date</div>
                                 </div>
                                 <div class=" col-2of10 fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" ng-hide="program.noofpostleft=='0'">{{program.noofpostleft}}</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft"ng-show="program.noofpostleft!='0'">Actions Left</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft" ng-show="program.noofpostleft=='0'">No Actions Left</div>
-<!--                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{program.noofpostleft}}</div>
-                                    <div class="list-column-description col-1of1 sh3-contact fleft">Actions Left</div>-->
+                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" ng-hide="program.noofpostleft == '0'">{{program.noofpostleft}}</div>
+                                    <div class="list-column-description col-1of1 sh3-contact fleft"ng-show="program.noofpostleft != '0'">Actions Left</div>
+                                    <div class="list-column-description col-1of1 sh3-contact fleft" ng-show="program.noofpostleft == '0'">No Actions Left</div>
+                                    <!--                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{program.noofpostleft}}</div>
+                                                                        <div class="list-column-description col-1of1 sh3-contact fleft">Actions Left</div>-->
                                 </div>
                                 <div class="col-1of4 fleft">
                                     <div class="slat-cta-container">
                                         <a href="">
-                                            <div class="small-button slat-button detail-button-font"  ng-click="sendProgramId(program.id,'1')">View Program</div>
+                                            <div class="small-button slat-button detail-button-font" <span ng-click="redirectToActions(forward, program.id,past=1,program.end_date)">View Program</div>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </li>
                     </ul>
-                     <ul class="main-container fleft" ng-show="past_programs==''" id="nopastprogramsavailable">
+                    <ul class="main-container fleft" ng-show="pastPrograms == ''" id="nopastprogramsavailable">
                         <li class="slat-container fleft selfclear">
                             <div class="col-1of1 slat-unit fleft " >
                                 No Past Programs Available
@@ -122,10 +104,10 @@
                         </li>
                     </ul>
                 </div>
-                </div>
-            </div>            
-        </div>
-        </div>
+            </div>
+        </div>            
     </div>
+</div>
+</div>
 </body>
 </html>
