@@ -15,21 +15,18 @@ emailFlowApp.config(function ($routeProvider) {
             .when('/emailsubcategory', {
                 templateUrl: 'emailsubcategory.html'
             })
-            .when('/emailsubjects', {
-                templateUrl: 'emailsubjects.html'
-            })
             .when('/emailexternalsource', {
                 templateUrl: 'emailexternalsource.html'
             })
             .when('/emailsubjects', {
                 templateUrl: 'emailsubjects.html'
-            }) 
-            .when('/baseemaileditor', {
+            })            
+            .when('/emaileditor', {
                 templateUrl: 'emaileditor.html'
-            })
+            }) 
             .when('/emaillistselection', {
                 templateUrl: 'emaillistselection.html'
-            })            
+            })           
             .otherwise({redirectTo: '/emailcategory'});
 });
 

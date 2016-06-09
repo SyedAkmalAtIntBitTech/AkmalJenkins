@@ -3,6 +3,7 @@
     <link rel="stylesheet" type="text/css" href="css/slat.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <link rel="stylesheet" href="css/popup.css">
+    <div ng-include src="'navbar.html'"></div> 
 <div class="top-nav">
     <div class="page-title-bar col-1of1"> 
 <!--        <input type="hidden" value="<%=categoryId%>" id="categoryIdTag"/>
@@ -48,9 +49,7 @@
     </div>
 </div>
 <div class="bottom-cta-bar">
-    <div class="bottom-cta-button-container-lg" ng-click="redirect('baseemaileditor','','','','')">
-        <a href="#">
-            <div class="bottom-continue-button button-text-1">Continue</div>
-        </a>
+    <div class="bottom-cta-button-container-lg" ng-click="redirect('emaileditor','','','','')">
+        <div class="bottom-continue-button button-text-1">Continue</div>
     </div>
 </div>
