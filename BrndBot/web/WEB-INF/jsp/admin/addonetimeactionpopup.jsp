@@ -8,7 +8,7 @@
     <div id="addMarketingProgramsPopupDiv" class="popUp_backgroundlayer"></div>
     <div class="popUp" >
         <div class="content-area_header">
-            <div id="createOneTimeActionPopUpTitle" class="popUp_title fleft"> Create a One Time Action </div>
+            <div id="createOneTimeActionPopUpTitle" class="popUp_title fleft">popup Create a One Time Action </div>
             <div id="createRecurringActionPopUpTitle" class="popUp_title fleft"> Create a Recurring Action </div>
         </div>
         <div class="inputSection">
@@ -29,7 +29,7 @@
                     <option class="input_Field">Facebook</option>
                     <option class="input_Field">Twitter</option>
                     <option class="input_Field">Email</option>
-                    <option class="input_Field">Reminder</option>
+                    <!--<option class="input_Field">Reminder</option>-->
                 </select>
             </div>
              

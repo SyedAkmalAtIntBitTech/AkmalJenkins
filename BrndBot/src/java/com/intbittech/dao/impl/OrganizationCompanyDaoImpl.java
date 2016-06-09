@@ -129,7 +129,7 @@ public class OrganizationCompanyDaoImpl implements OrganizationCompanyDao {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(Organization.class)
-                    .add(Restrictions.eq("fkOrganizationTypeId.organizationTypeId",  OrganizationTypeConstants.organization.getOrganizationType())); //Group is 1
+                    .add(Restrictions.eq("fkOrganizationTypeId.organizationTypeId",  OrganizationTypeConstants.group.getOrganizationType())); //Group is 1
             
             Criterion[] criterions = new Criterion[organizationIds.length];
             for(int i=0;i<organizationIds.length;i++)

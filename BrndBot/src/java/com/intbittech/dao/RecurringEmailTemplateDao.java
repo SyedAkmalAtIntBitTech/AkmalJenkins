@@ -90,9 +90,16 @@ public interface RecurringEmailTemplateDao
      * @throws ProcessFailed the process failed
      */
     
+    public List<OrganizationRecurringEmailLookup> getAllRecurringEmailsByOrganizationIds(Integer[] organizationIds) throws ProcessFailed;
+    
+    /**
+     * This method retrieves the list of {@link RecurringEmailTemplate} from Database.
+     *
+     * @return list of {@link RecurringEmailTemplate}
+     * @throws ProcessFailed the process failed
+     */
+    
     public List<RecurringEmailTemplate> getAllRecurringEmails() throws ProcessFailed;
-    
-    
     
                
             

@@ -7,12 +7,15 @@ package com.intbittech.dao.impl;
 
 import com.intbittech.dao.RecurringEmailTemplateDao;
 import com.intbittech.exception.ProcessFailed;
+import com.intbittech.model.OrganizationRecurringEmailLookup;
 import com.intbittech.model.RecurringEmailTemplate;
 import java.util.List;
 import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -115,6 +118,32 @@ public class RecurringEmailTemplateDaoImp implements RecurringEmailTemplateDao {
        /**
      * {@inheritDoc}
      */
+       public List<OrganizationRecurringEmailLookup> getAllRecurringEmailsByOrganizationIds(Integer[] organizationIds) throws ProcessFailed {
+        try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(OrganizationRecurringEmailLookup.class)
+                    .setFetchMode("fkOrganizationId", FetchMode.JOIN)
+                    .setFetchMode("fkRecurringEmailTemplateId", FetchMode.JOIN);
+            Criterion[] criterions = new Criterion[organizationIds.length];
+            for(int i=0;i<organizationIds.length;i++)
+              criterions[i] = (Restrictions.eq("fkOrganizationId.organizationId", organizationIds[i]));
+              
+            criteria.add(Restrictions.or(criterions));
+            List<OrganizationRecurringEmailLookup> recurringEmailList = criteria.list();
+            if (recurringEmailList.isEmpty()) {
+                return null;
+            }
+            return recurringEmailList;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed(messageSource.getMessage("error_retrieving_list_message",new String[]{}, Locale.US));
+        }
+    }
+       
+    /**
+     * {@inheritDoc}
+     */
        public List<RecurringEmailTemplate> getAllRecurringEmails() throws ProcessFailed {
         try {
             Criteria criteria = sessionFactory.getCurrentSession()
@@ -129,7 +158,7 @@ public class RecurringEmailTemplateDaoImp implements RecurringEmailTemplateDao {
             logger.error(throwable);
             throw new ProcessFailed(messageSource.getMessage("error_retrieving_list_message",new String[]{}, Locale.US));
         }
-    }
+    }   
 
     
 }

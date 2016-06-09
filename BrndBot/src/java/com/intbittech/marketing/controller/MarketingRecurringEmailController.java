@@ -15,11 +15,14 @@ import com.intbit.util.ServletUtil;
 import com.intbittech.marketing.service.ScheduledEntityListService;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyMarketingProgram;
+import com.intbittech.model.OrganizationCompanyLookup;
+import com.intbittech.model.OrganizationRecurringEmailLookup;
 import com.intbittech.model.RecurringEmailTemplate;
 import com.intbittech.model.ScheduledEmailList;
 import com.intbittech.model.ScheduledEntityList;
 import com.intbittech.model.UserProfile;
 import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.services.CompanyService;
 import com.intbittech.services.RecurringEmailTemplateService;
 import com.intbittech.utility.UserSessionUtil;
 import java.io.BufferedReader;
@@ -59,6 +62,8 @@ public class MarketingRecurringEmailController {
     private ScheduledEntityListService scheduledEntityListService;
     @Autowired
     private CompanyPreferencesService companyPreferencesService;
+    @Autowired
+    private CompanyService companyService;
     String return_response = "false";
 
     /*
@@ -70,16 +75,29 @@ public class MarketingRecurringEmailController {
     String getAllRecurringEmailTemplates() {
         JSONArray json_array_recurring_email_template = new JSONArray();
         try {
-
-            List<RecurringEmailTemplate> recurring_email_templates = recurringEmailTemplateService.getAllRecurringEmails();
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            List<OrganizationCompanyLookup> organizationCompanyDetail = new ArrayList<>();
+            organizationCompanyDetail = companyService.getAllOrganizationsByCompanyId(companyId);
+            Integer organizationCompanySize = organizationCompanyDetail.size();
+            Integer[] organizationIds = new Integer[organizationCompanySize];
+            Integer organizationCount =0;
+            if(organizationCompanyDetail!=null)
+            {
+                for(OrganizationCompanyLookup organizationObject : organizationCompanyDetail) {
+                    organizationIds[organizationCount++] = organizationObject.getFkOrganizationId().getOrganizationId();
+                }
+            }
+            
+            List<OrganizationRecurringEmailLookup> recurring_email_templates = recurringEmailTemplateService.getAllRecurringEmailsByOrganizationIds(organizationIds);
             Integer i = 1;
-            for (RecurringEmailTemplate marketing_template : recurring_email_templates) {
+            for (OrganizationRecurringEmailLookup marketing_template : recurring_email_templates) {
 
                 JSONObject json_marketing_programming = new JSONObject();
                 json_marketing_programming.put("id", i);
-                json_marketing_programming.put("template_id", marketing_template.getRecurringEmailTemplateId());
-                json_marketing_programming.put("template_name", marketing_template.getTemplateName());
-                json_marketing_programming.put("html_data", marketing_template.getHtmlData());
+                json_marketing_programming.put("template_id", marketing_template.getFkRecurringEmailTemplateId().getRecurringEmailTemplateId());
+                json_marketing_programming.put("template_name", marketing_template.getFkRecurringEmailTemplateId().getTemplateName());
+                json_marketing_programming.put("html_data", marketing_template.getFkRecurringEmailTemplateId().getHtmlData());
 
                 json_array_recurring_email_template.put(json_marketing_programming);
                 i++;
