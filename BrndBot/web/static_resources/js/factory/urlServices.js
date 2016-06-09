@@ -399,6 +399,9 @@ factoryApp.service('configurationService', function (){
         return this.getGlobalURL() + "/socialPost/postToTwitter";
     };
     
+    this.getShortenUrl = function () {
+        return "http://api.bit.ly/v3/shorten";
+    };
     
     //**************** subCategoryFactory **********************//
     
