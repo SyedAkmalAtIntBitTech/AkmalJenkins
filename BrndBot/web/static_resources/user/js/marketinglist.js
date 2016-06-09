@@ -31,7 +31,7 @@
             }
         }
          function pastprograms(){
-             document.getElementById("currprogs").style.display = "none";
+          
              document.getElementById("pastprogs").style.display = "block";
              document.getElementById("pstmarprogli").classList.remove("top-subnav-links");
              document.getElementById("pstmarprogli").classList.add("top-subnav-link-active");

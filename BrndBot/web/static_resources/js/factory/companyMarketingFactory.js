@@ -2,33 +2,29 @@
 //************************ @author Tasmiya P.S @ Intbit *************************
 
 factoryApp.factory('companyMarketingProgramFactory', function ($q, authenticatedServiceFactory, configurationService) {
-    alert();
     var companyMarketingProgramFactoryObject = {};
     companyMarketingProgramFactoryObject.setMarketingProgramPost = function (programDetails) {
-         alert(JSON.stringify(programDetails));
+       
         var deffered = $q.defer();
         var data =programDetails;
         var url = configurationService.setMarketingProgramURL();
         authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
-             alert();
             deffered.resolve(data);
         });
         return deffered.promise;
     };
     companyMarketingProgramFactoryObject.listAllMarketingProgramGet = function (programType) {
         var deffered = $q.defer();
-        var url = configurationService.listAllMarketingProgramURL();
-        var data = '{"programType":"' + programType + '"}';
-        authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
+        var url = configurationService.listAllMarketingProgramURL()+"?programType="+programType;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
     companyMarketingProgramFactoryObject.alluserMarketingProgramGet = function (program_id) {
         var deffered = $q.defer();
-        var url = configurationService.alluserMarketingProgramURL();
-        var data = '{"program_id":"' + program_id + '"}';
-        authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
+        var url = configurationService.alluserMarketingProgramURL()+"?program_id="+program_id;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
