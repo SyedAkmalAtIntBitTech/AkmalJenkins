@@ -12,7 +12,7 @@ var environmentLocal = "local";
 var environmentDev = "dev";
 
 var globalurl = "http://development2.brndbot.com/BrndBot/user";
-var localurl = "http://localhost:8080/BrndBot";
+var localurl = "http://localhost:8081/BrndBot";
 
 factoryApp.service('configurationService', function (){
     this.getGlobalURL = function () {
@@ -399,6 +399,9 @@ factoryApp.service('configurationService', function (){
         return this.getGlobalURL() + "/socialPost/postToTwitter";
     };
     
+    this.getShortenUrl = function () {
+        return "http://api.bit.ly/v3/shorten";
+    };
     
     //**************** subCategoryFactory **********************//
     

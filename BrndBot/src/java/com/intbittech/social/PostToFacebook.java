@@ -7,6 +7,7 @@ package com.intbittech.social;
 
 import com.controller.ApplicationContextListener;
 import com.controller.SqlMethods;
+import com.intbittech.AppConstants;
 import com.intbittech.exception.ProcessFailed;
 import facebook4j.Facebook;
 import facebook4j.FacebookException;
@@ -39,7 +40,7 @@ public class PostToFacebook {
         String status = "";
         try {
             Facebook facebook = new FacebookFactory().getInstance();
-            facebook.setOAuthAppId("592852577521569", "a87cc0c30d792fa5dd0aaef6b43994ef");
+            facebook.setOAuthAppId(AppConstants.facebookString1, AppConstants.facebookString2);
             facebook.setOAuthPermissions("publish_actions, publish_pages,manage_pages");
             facebook.setOAuthAccessToken(new AccessToken(accessToken));
             /* change the context path while uploading the war file */

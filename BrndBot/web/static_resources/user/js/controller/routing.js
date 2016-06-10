@@ -37,8 +37,7 @@ socialFlowApp.config(function ($routeProvider) {
                 controller: 'socialController'
             })
             .when('/facebookpost', {
-                templateUrl: 'facebookpost.html',
-                controller: 'displayImageFromGallery'
+                templateUrl: 'facebookpost.html'
             })
             .when('/twitterpost', {
                 templateUrl: 'twitterpost.html'
