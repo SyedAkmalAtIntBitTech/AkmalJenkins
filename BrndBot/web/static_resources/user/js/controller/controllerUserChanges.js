@@ -1,7 +1,7 @@
 settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$location', 'signupFactory', 'settingsFactory', 'assetsFactory', 'onboardingFactory', function ($scope, $window, $location, signupFactory, settingsFactory, assetsFactory, onboardingFactory) {
  
   $scope.inputType = 'password';
-  
+
   // Hide & show password function
   $scope.hideShowPassword = function(){
     if ($scope.inputType == 'password')
@@ -19,8 +19,38 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $scope.status = data;
             });
         };
-
+        $scope.changeLogo = function (logoImage) {
+            var file = logoImage;
+            alert(file);
+            settingsFactory.changeLogoPost(file).then(function (data) {
+                alert(JSON.stringify(data));
+                $location.path("signup/choosepalette");
+            });
+        };
+        $scope.getColorsFromLogo = function (logoColors) {
+            alert();
+           
+            
+            alert(logoColors);
+            $scope.colorFrom = "logo";
+            onboardingFactory.colorsForLogoGet().then(function (data) {
+                alert(JSON.stringify(data));
+                $scope.color = data.d.details;
+            });
+        };
+        $scope.getAllThemes = function (themeColors) {
+            alert(themeColors);
+            $scope.colorFrom = "theme";
+            assetsFactory.allColorThemesGet().then(function (data) {
+                alert(JSON.stringify(data));
+                $scope.curPage = 0;
+                $scope.pageSize = 10;
+                $scope.themeColors = data.d.details;
+            });
+        };
         $scope.showColors = function () {
+            $scope.palatte= false;
+            
            
             settingsFactory.getColorsURLGet().then(function (data) {
                 
@@ -55,5 +85,6 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 $scope.showColors();
             });
         };
+        
 
     }]);

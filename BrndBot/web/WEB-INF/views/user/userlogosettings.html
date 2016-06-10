@@ -9,12 +9,14 @@
                 <form id="data" name="formpersonality"  enctype="multipart/form-data" method="post" class="ng-pristine ng-valid">
                     <div class="col-2of10 fleft cur1">
                         <div class="logo-container"><textarea class="top55 left10 right10" id="filetext1">Choose an Image to upload</textarea>
-                            <input type="hidden" name="upload" value="update"></input>
-                            <input type="file" name="fileUpload" style="border: 1px solid;" class="upload" id="filevalue" onchange="changefilename()"></input>
+<!--                            <input type="hidden" name="upload" value="update"></input>
+                            <input type="file" name="fileUpload" style="border: 1px solid;" class="upload" id="filevalue" onchange="changefilename()"></input>-->
+<input type="file" file-model="logoImage">
+   
                         </div>
                     </div>
                     <div class="col-1of2 fleft">
-                        <button class="pushUp-60 edit-button-detail md-button" type="submit" id="Servicecontinue"> Change Logo </button>
+                        <button class="pushUp-60 edit-button-detail md-button" type="submit" id="Servicecontinue" ng-click="changeLogo(logoImage)"> Change Logo </button>
                     </div>
                 </form>
             </div>

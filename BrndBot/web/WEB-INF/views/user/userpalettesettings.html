@@ -21,17 +21,19 @@
                         </div>
                         <div class="page-subnav-bar-regular"> 
                             <div class="top-subnav-tabs-container">
-                                <ul class="top-subnav-nav-elements">
-                                    <li class="top-subnav-links" id="fromThem"> <a class="h3">PICK FROM A THEME</a></li>
+                                <ul class="top-subnav-nav-elements" >
+                                    <li class="top-subnav-links" id="fromThem" ng-model="themeColors" ng-click="getAllThemes(themeColors)"> <a class="h3">PICK FROM A THEME</a></li>
                                     <li class="top-subnav-links" id="fromPalette"> <a class="h3">CHOOSE CUSTOM</a></li>
-                                    <li class="top-subnav-links" id="fromLogo"> <a class="h3">PICK FROM LOGO COLORS</a></li>
+                                    <li class="top-subnav-links" ng-model="logoColors" ng-click="getColorsFromLogo(logoColors)"> <a class="h3">PICK FROM LOGO COLORS</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
+
                     <div class="tab-pane active" id="picktheme">
-                        <div style="height:250px; overflow-y:scroll;">
-                            <div ng-repeat="color in themes" class="palette-wrap-globalColors">
+                        <div style="height:250px; overflow-y:scroll;" ng-show="pickTheme">
+                            <div  ng-repeat="color in themes" class="palette-wrap-globalColors">
+                               
                                 <div id="{{color.globalColorsId}}" class="palette-global clear">
                                     <div class="foo blankcolor-box step_box ptr" style="background-color:{{color.color1}};" onclick="setSelectedColor('{{color.color1}}')"></div>
                                     <div class="foo blankcolor-box step_box ptr" style="background-color:{{color.color2}};" onclick="setSelectedColor('{{color.color2}}')"></div>
@@ -56,12 +58,14 @@
                     <div class="form-group">
                         <div class="col-sm-offset-0 col-md-4" >
                             <form class="form-horizontal">
+                                <div ng-show="palatte">
                                 <input type="hidden" id="finalcolor1" name="finalcolor1" ng-model="selColor.finalcolor1"  />
                                 <input type="hidden" id="finalcolor2" name="finalcolor2" ng-model="selColor.finalcolor2" />
                                 <input type="hidden" id="finalcolor3" name="finalcolor3" ng-model="selColor.finalcolor3"/>
                                 <input type="hidden" id="finalcolor4" name="finalcolor4" ng-model="selColor.finalcolor4"/>
                                 <input type="hidden" id="finalcolor5" name="finalcolor5" ng-model="selColor.finalcolor5"/>
                                 <input type="hidden" id="finalcolor6" name="finalcolor6" ng-model="selColor.finalcolor6"/>
+                                </div>
                                 <div class="span4 col-md-offset-0">
                                     <button  type="button" class="edit-button-detail md-button button-text-1 fleft savebutton noborder" style="margin-left: -6%;" ng-click="createUserPreferences(themecolor1,themecolor2,themecolor3,themecolor4)">SAVE</button>
                                 </div>
