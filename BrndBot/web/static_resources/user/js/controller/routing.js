@@ -75,7 +75,7 @@ userGalleryApp.config(function($routeProvider){
     $routeProvider
             .when('/imagegallery', {
                 templateUrl: 'user/imagegallery.html',
-                controller: 'myCtrl'
+                
             })
                                
             .otherwise({redirectTo: '/signin'});
