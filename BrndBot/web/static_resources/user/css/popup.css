@@ -1940,3 +1940,12 @@ textarea#filetext1 {
 /*************************** ADD IMAGE *************************/
 
 /*----------------- New PopUp css code Stops-----------------*/
+
+.checkboxshowpassword {
+    position: relative !important;
+    top: -17px;
+    font-size: 12px;
+}
+.confirmpassword{
+      margin-bottom: 15px;  
+}

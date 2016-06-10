@@ -8,10 +8,10 @@
                     <p id="comment2">Click on a color to change it or choose from a theme. Don't worry, you can always change it later.</p>
                     <div class="col-md-12"><p id="test" class="span3" >MOST USED<span class="col-md-offset-5" id="leastuse">LEAST USE</span></p> </div>
                     <div id="sortable" class="step_wrapper">
-                        <div id="elementToPutStyleInto1" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors[0]}}"  onclick="getElementID('elementToPutStyleInto1')"></div>
-                        <div id="elementToPutStyleInto2" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors[1]}}"  onclick="getElementID('elementToPutStyleInto2')"></div>
-                        <div id="elementToPutStyleInto3" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors[2]}}"  onclick="getElementID('elementToPutStyleInto3')"></div>
-                        <div id="elementToPutStyleInto4" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors[3]}}"  onclick="getElementID('elementToPutStyleInto4')"></div>
+                        <div ng-model="themecolor1" id="elementToPutStyleInto1" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors[0]}}"  onclick="getElementID('elementToPutStyleInto1')"></div>
+                        <div ng-model="themecolor2" id="elementToPutStyleInto2" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors[1]}}"  onclick="getElementID('elementToPutStyleInto2')"></div>
+                        <div ng-model="themecolor3" id="elementToPutStyleInto3" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors[2]}}"  onclick="getElementID('elementToPutStyleInto3')"></div>
+                        <div ng-model="themecolor4" id="elementToPutStyleInto4" class="blankcolor-box step_box ptr" style="background-color: {{user_preferences_colors[3]}}"  onclick="getElementID('elementToPutStyleInto4')"></div>
                         <div class="resetpalette ptr"> <p id="resetpalette">RESET ORIGINAL PALETTE</p></div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                                 <input type="hidden" id="finalcolor5" name="finalcolor5" ng-model="selColor.finalcolor5"/>
                                 <input type="hidden" id="finalcolor6" name="finalcolor6" ng-model="selColor.finalcolor6"/>
                                 <div class="span4 col-md-offset-0">
-                                    <button  type="button" class="edit-button-detail md-button button-text-1 fleft savebutton noborder" style="margin-left: -6%;" ng-click="createUserPreferences()">SAVE</button>
+                                    <button  type="button" class="edit-button-detail md-button button-text-1 fleft savebutton noborder" style="margin-left: -6%;" ng-click="createUserPreferences(themecolor1,themecolor2,themecolor3,themecolor4)">SAVE</button>
                                 </div>
                             </form>
                         </div>
