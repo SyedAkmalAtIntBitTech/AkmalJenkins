@@ -80,7 +80,7 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
     };
     settingsFactoryObject.fbLoginPost = function (data) {
         var deffered = $q.defer();
-        var url = configurationService.fbLoginURL();        
+        var url = configurationService.fbLoginURL();   
         authenticatedServiceFactory.makeCall("POST", url, data).then(function (data) {
             deffered.resolve(data);
         });
