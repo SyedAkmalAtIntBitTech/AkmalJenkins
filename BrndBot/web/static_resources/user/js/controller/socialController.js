@@ -26,7 +26,7 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
         $scope.existingAction=false;
 
         $scope.getManagePage = function () {
-            var data = JSON.stringify({redirectUrl: "user/socialsequence#/socialsequence"});
+            var data = JSON.stringify({redirectUrl: "user/socialsequence"});
             settingsFactory.fbLoginPost(data).then(function (data) {
                 $window.location = data.d.details[0];
             });
@@ -93,16 +93,15 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
         };
 
         $scope.postToTwitter = function (twitterShare) {
-            
 //            alert(JSON.stringify(twitterShare)+"\n"+$scope.selectImageName+"\n"+$scope.selectImageType);
-            var username="sandeep264328"; // bit.ly username
+            var username = "sandeep264328"; // bit.ly username
             var key = "R_63e2f83120b743bc9d9534b841d41be6";
-             var BitlyUserDetails ={longUrl: twitterShare.url,
-                                     apiKey: key,
-                                     login: username
-                                   };
-             alert(JSON.stringify(BitlyUserDetails));
-            socialPostFactory.shortenUrl(BitlyUserDetails).then(function (data){
+            var BitlyUserDetails = {longUrl: twitterShare.url,
+                apiKey: key,
+                login: username
+            };
+            alert(JSON.stringify(BitlyUserDetails));
+            socialPostFactory.shortenUrl(BitlyUserDetails).then(function (data) {
 //                $scope.show_hide_SocialListSelectionPopup(true);
                 alert(JSON.stringify(data));
 //                $scope.bit_url = urlData.data.url;
@@ -112,13 +111,13 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
             });
 
 //          showOverlay();
-    //        var shareText = $("#twitterShareText").val();
-    //        var url = $("#linkUrl").val();
-    //        var image_name = selecImageName;
-    //        var image_type = selecImageType;
-    //
-    //        var username = "sandeep264328"; // bit.ly username
-    //        var key = "R_63e2f83120b743bc9d9534b841d41be6";
+            //        var shareText = $("#twitterShareText").val();
+            //        var url = $("#linkUrl").val();
+            //        var image_name = selecImageName;
+            //        var image_type = selecImageType;
+            //
+            //        var username = "sandeep264328"; // bit.ly username
+            //        var key = "R_63e2f83120b743bc9d9534b841d41be6";
 //            $.ajax({
 //                url: "http://api.bit.ly/v3/shorten",
 //                async: false,
@@ -161,7 +160,6 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
 //            });
 
         };
-        
         $scope.show_hide_SocialListSelectionPopup = function (flag){
             if(flag === true){
                  $scope.show_BlackLayer=true;
@@ -172,7 +170,7 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
                  $scope.show_Post_SchedulePopup=false;
                  $scope.showSchedulePopup=false;
             }
-            
+
         };
 
         $scope.checkForCode = function () {
@@ -181,6 +179,9 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
             if (typeof code !== "undefined") {
                 settingsFactory.fbGetTokenGet(code).then(function (data) {
                     alert(JSON.stringify(data.d));
+                    $scope.managepage = true;
+                    $scope.fbPagesDetails = data.d.details[0].fbPages;
+                    $scope.fbProfileName = data.d.details[0].user_profile_name;
                 });
             }
         };
@@ -198,7 +199,7 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
             }
         };
 
-        $scope.changeTwitterPostType = function (){
+        $scope.changeTwitterPostType = function () {
             if ($scope.showTwitterLink === true) {
 //                JSON.stringify(twitterShareTextValue.url="");
                 $scope.showTwitterLink = false;
@@ -213,8 +214,8 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
                 $scope.selectTabUpload = 'popUp_subheader-tabs';
                 $scope.showImageGalleryPopup = true;
             } else {
-                $scope.selectImageName="";
-                $scope.selectImageType="";
+                $scope.selectImageName = "";
+                $scope.selectImageType = "";
                 $scope.showUserImages = true;
                 $scope.showUploadImage = false;
                 $scope.selectTabGallery = 'popUp_subheader-tabs';

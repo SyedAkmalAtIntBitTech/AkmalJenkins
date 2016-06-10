@@ -802,7 +802,6 @@ img#prevfbimg {
     padding-bottom: 105px;
 }
 .edit-button-detail.md-button.button-text-1.fleft {
-    margin-left: 46%;
     width: 150px;
     margin-top: 6px;
 }
@@ -1359,6 +1358,7 @@ table#fbmanagepages {
     border: 1px solid #d5dadf;
     padding: 6px 10px 3px 10px;
     margin-top: 10px;
+    font-size: 14px;
     box-sizing: border-box;
     /* color: #cccccc; */
     color: #000;
@@ -1366,7 +1366,7 @@ table#fbmanagepages {
 }
 #logosettingdiv,#palettesettingdiv
 {
-    display: none;
+    display: block;
 }
 div#savePassword {
     margin-left:0px;
@@ -1455,7 +1455,7 @@ textarea#filetext1 {
     width: 126px;
     border:none;
     resize: none;
-    border: 1px solid #D5DADF;
+    border: 0px solid #D5DADF;
     padding: 50px 10px;
     border-radius: 3px;
 }
@@ -1940,3 +1940,12 @@ textarea#filetext1 {
 /*************************** ADD IMAGE *************************/
 
 /*----------------- New PopUp css code Stops-----------------*/
+
+.checkboxshowpassword {
+    position: relative !important;
+    top: -17px;
+    font-size: 12px;
+}
+.confirmpassword{
+      margin-bottom: 15px;  
+}

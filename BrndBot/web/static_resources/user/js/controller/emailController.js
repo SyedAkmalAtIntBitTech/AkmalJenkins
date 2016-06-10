@@ -96,6 +96,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'c
             redirectFactory.redirectFlowTo(pageName);
         };
 
+  }]);
 
         //**************************************** emaileditor js start **********************//
 
@@ -920,5 +921,4 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'c
 
         //*************************************** emaileditor js end ************************//
 
-    }]);
-
+  

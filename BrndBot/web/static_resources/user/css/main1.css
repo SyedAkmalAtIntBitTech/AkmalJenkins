@@ -644,7 +644,8 @@ opacity: 1;
 }
 #test{
     position: relative;
-    left: -15px;}
+    left: -15px;
+}
 #selectable{
     position: relative;
     left: -10px;
@@ -717,8 +718,7 @@ select#organizationdropdown option{
 }
 #Servicecontinue{
     border:none;
-    top: 100px;
-    position: relative;
+
 }
 
 
@@ -760,3 +760,6 @@ select#organizationdropdown option{
     height:1px;
     background-color:#000;
 }
+
+/*..................settings..............*/
+
