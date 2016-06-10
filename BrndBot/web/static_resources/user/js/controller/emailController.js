@@ -100,7 +100,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'c
 
         //**************************************** emaileditor js start **********************//
 
-
+$(document).ready(function () {
         var jsondata;
         var selectedDivId;
         var block_clicked = "false";
@@ -915,7 +915,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'c
 
         };
 
-
+});
 
 
 
