@@ -102,9 +102,9 @@
                 <div class="email-Block-Header" id="styledivheader">Select a style for this block:</div>
                 <div class="block-selection-divider"></div>
                 <ul class="block-list" id="blockdiv"  >
-                    <li class="block-slat" ng-repeat="blocks in datalists" id="{{blocks.emailBlockId}}" ng-click="showImageOfBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)">
+                    <li class="block-slat" ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}">
                         <div class="block-name" id="blklist----{{blocks.emailBlockId}}" >{{blocks.emailBlockName}}</div>                            
-                        <div class="block-button hide" ng-click="showDataTemp(blocks.emailBlockId)" id="div2{{blocks.emailBlockId}}">Add Block</div>
+                        <div class="block-button hide" ng-click="didChooseBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)" id="div2{{blocks.emailBlockId}}">Add Block</div>
                     </li>
                 </ul>
 
