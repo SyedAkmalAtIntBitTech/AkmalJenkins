@@ -3,6 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+function getColorID(idNo,color){
+        $('.palette-colorswab-selected').css("background-color",color);
+    }
 var x = "";
 function changefilename() {
     x = document.getElementById("filevalue").value;
@@ -318,6 +321,7 @@ function controllerUserChanges($scope, $http) {
             });
         }
     };
+    
 //   --------To change the footer details-----------//
     
 //   $scope.changeFooterDetails = function (){
