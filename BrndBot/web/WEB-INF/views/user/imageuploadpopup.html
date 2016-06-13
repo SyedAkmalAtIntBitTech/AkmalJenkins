@@ -8,7 +8,8 @@
                        <img  type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/>
                    </a>
             </div>
-                <div class="pop-up-title-gallery fleft col-9of10"> 
+                <div class="pop-up-title-gallery fleft col-9of10">
+                    <input type="file" file-model="logoImage">
                     <div class="pop-up-title-h1-gallery fleft"> Upload an Image:</div>
                 </div>
             </div>
@@ -17,6 +18,7 @@
                     <div class="imageUpload-container">
                         <div class="browse-button">
                             <div id="triggerfile" class="md-button gray-button">Browse your Images</div>
+                            <input type="file" file-model="logoImage">
                             <input type="file" name="filesToUpload[]" id="filesToUpload" class="upload fileupld" onchange="changeimagetext()" file-model="myFile"/>
                         </div>
                         <div class="imageNamecenter">
@@ -25,7 +27,7 @@
                     </div>                     
                 </div>
                 <div class="browse-button">
-                <div class="add-action-button md-button button-text-1 uploadimgbtn" id="upload" ng-click="uploadFile()" > Upload Image</div>
+                <div class="add-action-button md-button button-text-1 uploadimgbtn" id="upload" ng-click="changeLogo(logoImage)"> Upload Image</div>
                 </div>
                 </div>
             </div>

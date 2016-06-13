@@ -14,6 +14,7 @@ var dashboardFlowApp = angular.module('dashboardFlowApp', ['factorys','ngRoute',
 var settingFlowApp = angular.module('settingFlowApp', ['factorys','ngRoute']);
 var userGalleryApp = angular.module('userGalleryApp', ['factorys','ngRoute']);
 var sharedServiceApp = angular.module('sharedService', []);
+var imagesFlowApp = angular.module('imagesFlowApp', ['factorys','ngRoute']);
 factoryApp.directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
