@@ -50,7 +50,7 @@
                     <!--Inner Content Conatiner GENERIC-->
                     <div class="page-inner-content-container " >
                         <!--                <div class="fleft content" ng-repeat="entity in entitySet">-->
-                        <div class="fleft content" ng-repeat="entity in entitySet>
+                        <div class="fleft content" ng-repeat="entity in entitySet">
                             <div class="page-content-title-bar">
                                 <!--<div class="page-content-title h2" ng-show='entity.date==tomorrow_date'>Tomorrow's Actions</div>-->
                                 <div class="page-content-title h2" ng-show="entity.date == today_date">Today's Actions</div>
@@ -58,7 +58,7 @@
                             </div>
                             <!--List Starts Here-->
                             <ul class="main-container fleft" >
-                                <li class="slat-container fleft selfclear" ng-repeat="entitydetails in entity.dataArray" > 
+                                <li class="slat-container fleft selfclear" ng-repeat="entitydetails in entitySet.dataArray" > 
                                     <!--ng-repeat="entitydetails in entity.dataArray">-->
                                     <div class="selection-container col-5p"> 
                                         <div class="selection-icon" id="{{entitydetails.schedule_id}}" onclick="selcheckbox(this.id)"><input type="checkbox" id="entityid{{entitydetails.entity_id}}" value="{{entitydetails.entity_id}}" name="entityname" hidden></input></div>
