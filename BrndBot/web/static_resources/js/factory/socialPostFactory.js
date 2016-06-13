@@ -4,10 +4,11 @@
 
 factoryApp.factory('socialPostFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var socialPostFactoryObject = {};
-    socialPostFactoryObject.facebookPost = function () {
+    socialPostFactoryObject.facebookPost = function (data) {
+        alert("socialPostFactory");
         var deffered = $q.defer();
         var url = configurationService.postToFacebookURL();
-        authenticatedServiceFactory.makeCall("POST", url, "", "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

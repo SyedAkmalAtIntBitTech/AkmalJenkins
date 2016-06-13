@@ -3,7 +3,7 @@
         <div class="topNav topNav-withSubnav clear">
             <div class="topNav--BackButton fleft">
                 <a class="exit-button-icon" href="dashboard">          
-                    <img  src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">            
+                    <img  src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/>            
                 </a>
             </div>
             <div class="topNav--TitleBar--withBackButton fleft">
@@ -11,7 +11,7 @@
                 <div class="topNav--TitleBar--CTABox fright">
                     <div class="CTA_Button Button--Gray">Help!</div>
                 </div>
-                <div class="topNav--TitleBar--CTABox fright pushRight_30"  ng-click="changePostType()" >
+                <div class="topNav--TitleBar--CTABox fright pushRight_30"  ng-click="changeFbPostType(postType)" >
                     <div class="CTA_Button Button--Gray" id="postType" >{{postType}}</div>
                 </div>
             </div>
@@ -23,47 +23,50 @@
                     <div class="pane_title fleft h2">Facebook Post</div>
                 </div>
                 <div class="pane_content pane-Social-Create-padding ">
-                    <div class="inputSection col1of1 pushUp_20" ng-init="linkpost = true">
+                    <div class="inputSection col1of1 pushUp_20">
                         <div class="input_Label">What would you like to share?</div>
-                        <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="shareText"></textarea>
+                        <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="shareText" ng-model="fbPostData.shareText"></textarea>
                         <div  id="linkPostFields"  ng-if="linkpost">
                             <div class="input_Label pushUp_20" >Link Title</div>
-                            <textarea class="input_Field removeDrag" placeholder="Type post here" id="linkTitle"></textarea>
+                            <textarea class="input_Field removeDrag" placeholder="Type post here" id="linkTitle" ng-model="fbPostData.linkTitle"></textarea>
                             <div class="input_Label pushUp_20">Link Description</div>
-                            <textarea class="input_Field_Md removeDrag" placeholder="Type post here" id="linkDescription"></textarea>
-                            <div class="displayNone" id='urlDropDownSpan'>
+                            <textarea class="input_Field_Md removeDrag" placeholder="Type post here" id="linkDescription" ng-model="fbPostData.linkDescription"></textarea>
+                            <div  id='urlDropDownSpan' ng-init="getUrls()">
                                 <div class="input_Label pushUp_20">Choose from your Existing Links:</div>
-                                <select id='dropdownurl' class="select_Field_lg removeDrag" ng-init="getUrls()" ng-change="getSelectedUrl()">
-                                    <option value="0" class="caret">LINK URL</option>
-                                    <option ng-repeat="url in urls" value="{{url.url}}--{{url.link_name}}">{{url.prigram_name}} - {{url.link_name}} - {{url.url}}</option>
-                                </select>
+                                <select ng-model="linkUrls" id="dropdownurl"  class="select_Field_lg removeDrag" ng-options="url.url as url.prigram_name + ' - ' + url.link_name + ' - ' + url.url for url in urls"></select>
                             </div>
                             <div class="input_Label pushUp_20">Write Custom Link</div>
-                            <textarea class="socialLink_attached removeDrag removeBorder" placeholder="http://www.brndbot.com" id="linkUrl"></textarea>
+                            <textarea class="socialLink_attached removeDrag removeBorder" placeholder="http://www.brndbot.com" ng-model="fbPostData.url"></textarea>
                         </div>
                     </div>  
                 </div>
-                <div class="Social-Add-Image-Wrap clear" id="addImageToPostButton">
-                    <img  src="../static_resources/user/images/add-Image.svg" class="add-image-icon fleft" style="cursor:pointer;" alt="">
-                    <div class="Add-Image-Button fleft">
-                        Add Image to Post
+                    <div ng-show="addImageToPostButton" class="Social-Add-Image-Wrap clear" id="addImageToTwitterPost" ng-click="show_hide_ImageGalleryPopup(true)">
+                        <span class="clickable-area">
+                            <img type="image/svg+xml" src="images/add-Image.svg" ng-model="twitterShare.img" class="add-image-icon fleft" style="cursor:pointer;">
+                            <div class="Add-Image-Button fleft">
+                                Add Image to Post
+                            </div>
+                        </span>
                     </div>
-                </div>
-                <div class="Social-Add-Image-Wrap clear displayNone" id="addImageDiv">
-                    <img src="https://daks2k3a4ib2z.cloudfront.net/562feb3ef5fe5a8c1fd02272/56b8940906817e9a2bbb57ca_Deafult-Image_680x330.jpg" id="selectedImage" alt="alt_text" border="0" align="center" class="imageAdded pushUp_10 fleft">
-                    <div class="col-1of1 clear">
-                        <div class="edit-Image-Button fleft" id="changeImage">
-                            Change Image
+                    <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap clear" id="addImageDivToTwitterPost">
+                        <img ng-src="{{displayImage}}" ng-model="fbPostData.img = displayImage"alt="alt_text" border="0" align="center" id="selectedImage" class="imageAdded pushUp_10 fleft">
+                        <div class="col-1of1 clear">
+                            <div class="edit-Image-Button fleft" id="changeImage"  ng-click="show_hide_ImageGalleryPopup(true)">
+                                Change Image
+                            </div>
+                            <!--                            <div class="edit-Image-Button fleft">
+                                                            Edit Image
+                                                        </div>-->
                         </div>
                     </div>
-                </div>
+                
             </div>   
         </div>
     </div>
     <div class="bottomNav">
-        <div class="bottom-ContinueButton fright" onclick="postFacebook()">CONTINUE</div>
+        <div class="bottom-ContinueButton fright" ng-click="show_hide_SocialListSelectionPopup(true)">CONTINUE</div>
     </div>
-    <!--<div ng-include src="'sociallistselection.html'"></div>-->
+    <div ng-include src="'sociallistselection.html'"></div>
     <div ng-include src="'imagegallerypopup.html'"></div>
     <!--<div ng-include src="'facebookpostsuccesspopup.html'"></div>-->  
 </div>

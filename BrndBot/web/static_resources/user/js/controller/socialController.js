@@ -4,7 +4,8 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 
-socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'companyMarketingProgramFactory', 'companyImagesFactory', 'companyFactory', 'imageFactory', 'socialPostFactory','scheduleActionsFactory', function ($scope, $location, $window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, companyMarketingProgramFactory, companyImagesFactory, companyFactory, imageFactory, socialPostFactory,scheduleActionsFactory) {
+socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location', '$window', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'companyMarketingProgramFactory', 'companyImagesFactory', 'companyFactory', 'imageFactory', 'socialPostFactory', 'scheduleActionsFactory', function ($scope, $rootScope, $location, $window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, companyMarketingProgramFactory, companyImagesFactory, companyFactory, imageFactory, socialPostFactory, scheduleActionsFactory) {
+        $scope.getTwitterActionsData="";
         $scope.marketingProgramsList = "";
         $scope.twitter_action = "";
         $scope.show_Post_SchedulePopup = false;
@@ -23,7 +24,7 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
         $scope.twitterImageDivToPost = false;
         $scope.imageToBeUploaded = 'images/uploadPhoto.svg';
         $scope.postType = 'Change To Link Post';
-
+        $scope.existingAction=false;
 
         $scope.getManagePage = function () {
             var data = JSON.stringify({redirectUrl: "user/socialsequence"});
@@ -39,7 +40,7 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
                 if ((twitterAccessToken === null) || (twitterAccessToken === ""))
                 {
                     settingsFactory.twitterLoginGet().then(function (data1) {
-                        alert(JSON.stringify(data1));
+//                        alert(JSON.stringify(data1));
 //                        $("#twitterSetPinPopUp").show();
 //                        $("#twitterlink").html("<a href='" + responseText.d.details[0] + "' target='_blank'>get your pin</a>");
                     });
@@ -75,6 +76,7 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
         };
 
         $scope.getUrls = function () {
+            
             companyMarketingProgramFactory.getAllUserMarketingProgramsUserIdGet().then(function (data) {
                 $scope.urls = data;
                 $scope.show_BlackLayer = false;
@@ -83,12 +85,26 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
         };
 
         $scope.getSelectedUrl = function (urlsLink) {
-//            alert(urlsLink);
-//            $scope.linkUrls=urlsLink.split('--').pop();
-//            alert($scope.linkUrls);
+
         };
 
-        $scope.postToFacebook = function () {
+        $scope.postToFacebook = function (fbPostData) {
+            
+            $scope.twitterActions=false;
+            $scope.facebookActions=true;
+            var data = JSON.stringify({
+                imageToPost: $scope.selectImageName,
+                accessToken: $rootScope.CurrentFbAccessToken,
+                postText: fbPostData.shareText,
+                title: fbPostData.linkTitle,
+                url: fbPostData.url,
+                description: fbPostData.linkDescription,
+                imageType: $scope.selectImageType
+            });
+            socialPostFactory.facebookPost(data).then(function (data) {
+                alert(JSON.stringify(data));
+
+            });
 
         };
 
@@ -127,7 +143,7 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
 
         $scope.checkForCode = function () {
             var code = $scope.getUrlParameter("code");
-            alert(code);
+//            alert(code);
             if (typeof code !== "undefined") {
                 settingsFactory.fbGetTokenGet(code).then(function (data) {
                     $scope.managepage = true;
@@ -150,10 +166,9 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
             }
         };
         $scope.setPageAccessToken = function (accessToken, pageName, profileName) {
-            alert("setPageAccessToken");
-            $scope.CurrentFbAccessToken = accessToken;
-            $scope.CurrentFbPageName = pageName;
-            $scope.FbProfileName = profileName;
+            $rootScope.CurrentFbAccessToken = accessToken;
+            $rootScope.CurrentFbPageName = pageName;
+            $rootScope.FbProfileName = profileName;
         };
         $scope.postToSelectedPage = function () {
             var addDafaultmanagePage = $("#setDefaultManagePage").prop('checked');
@@ -258,48 +273,55 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
         };
 
         $scope.getSocialTwitterActions = function () {
-            alert($scope.marketingProgramsList);
             var getTwitterActionsData = {programid: $scope.marketingProgramsList, type: gettwitter()};
             scheduleActionsFactory.getActionsPost(getTwitterActionsData).then(function (twitterData) {
                 alert((JSON.parse(twitterData.d.details)));
                 $scope.twitter_actions = JSON.parse(twitterData.d.details);
             });
-            $scope.hideFbPopup1 = function (s) {
-                alert("close");
+        };
+        
+        
+        $scope.validateProgramActions = function (marketingProgram){
+            if(marketingProgram === null){  
+                $scope.existingAction=false;
+                $scope.getTwitterActionsData = {programid: "0",type: gettwitter()};
+                $scope.setTwitterActions($scope.getTwitterActionsData);
+            }else{         
+                $scope.existingAction=true;
+                $scope.getTwitterActionsData={programid: marketingProgram.toString(),type: gettwitter()};
+                $scope.setTwitterActions($scope.getTwitterActionsData);
+            }
+        };
+        
+        $scope.validateActions = function (twtAction){
+            if(twtAction === null){                
+                $scope.existingAction=false;
+            }else{                
+                $scope.new_schedule_title="";
+                $scope.existingAction=true;
+            }
+        };
+        $scope.scheduleTwitter = function (action){
+            alert(JSON.stringify(action));  
+        };
+        
+        $scope.hideFbPopup1 = function (s) {
+            alert("close");
 //                $("#fbmanagePagePopUp").show();
-//                $scope.managepage = false;
-            };
-            $scope.changePostType = function () {
-                alert("type");
-//                var postType = $("#linkPostFields").css("display");
-//                alert(postType);
-//                if (postType === "none") {
-//                    $("#linkPostFields").show();
-//                    $("#urlDropDownSpan").show();
-//                    lonkopen = 1;
-//                    $("#postType").text("Change To Normal Post");
-//                }
-//                if (postType === "block") {
-//                    $("#linkPostFields").hide();
-//                    $("#urlDropDownSpan").hide();
-//                    $("#linkTitle").val("");
-//                    $("#linkDescription").val("");
-//                    $("#linkUrl").val("");
-//                    lonkopen = 0;
-//                    $("#postType").text("Change To Link Post");
-//                }
+            $scope.managepage = false;
+        };
+        $scope.changeFbPostType = function (type) {
+            if (type === "Change To Link Post") {
+                $scope.linkpost = true;
+                $scope.postType = 'Change To Normal Post';
+            } else if (type === 'Change To Normal Post') {
+                $scope.linkpost = false;
+                $scope.postType = 'Change To Link Post';
+                $scope.fbPostData = null;
+                $("#linkTitle").val("");
+                $("#linkDescription").val("");
+                $("#linkUrl").val("");
+            }
 
-            };
-//        $http({
-//            method: 'POST',
-//            url: getHost() + 'actions/getActions',
-//            data:{programid:program_id,type:gettwitter()}
-//        }).success(function (data) {
-////            alert("twitter.... "+JSON.stringify(data));
-//            var parseData=JSON.parse(data.d.details)
-//            $scope.twitter_actions = eval(parseData);
-//        }).error(function (data) {
-//            alert(requesterror);
-//        });
         };
     }]);
