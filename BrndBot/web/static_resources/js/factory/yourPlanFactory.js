@@ -3,10 +3,10 @@
 
 factoryApp.factory('yourPlanFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var yourPlanFactoryObject = {};
-    yourPlanFactoryObject.scheduledEntitiesGet = function () {
+    yourPlanFactoryObject.scheduledEntitiesGet = function (fromDate,toDate) {
         var deffered = $q.defer();
-        var url = configurationService.scheduledEntitiesURL();
-        authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
+        var url = configurationService.scheduledEntitiesURL()+"?from="+ fromDate + "&to=" + toDate;
+        authenticatedServiceFactory.makeCall("GET", url,"","").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

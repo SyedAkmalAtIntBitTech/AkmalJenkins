@@ -49,11 +49,10 @@ socialFlowApp.config(function ($routeProvider) {
 yourPlanFlowApp.config(function ($routeProvider) {
     $routeProvider
             .when('/marketing', {
-                templateUrl: 'user/marketing.html',
-                controller: 'controllerMarketingCampaign'
+                templateUrl: 'marketing.html',
             })
                                
-            .otherwise({redirectTo: '/signin'});
+            .otherwise({redirectTo: '/yourplan'});
 });
 
 settingFlowApp.config(function ($routeProvider) {
