@@ -375,7 +375,7 @@ img.exit-button {
     margin-right: -900px;
 }
 #emailsection{
-    //display: none;
+    display: none;
     position: fixed;
     z-index: 999999;
     height: 100%;
@@ -384,6 +384,20 @@ img.exit-button {
     width: 900px;
     right: 0px;
     margin-right: -900px;
+}
+.emailsectionClass{
+    display: block !important;
+    position: fixed;
+    z-index: 999999;
+    height: 100%;
+    overflow-y: auto;
+    max-height: 100%;
+    width: 900px;
+    right: 0px;
+    margin-right: 0px !important;;
+}
+.fadeClass{
+     display: block !important;
 }
 #recurringPopup{
     //display: none;
@@ -983,6 +997,10 @@ input#schedule_social_time {
     width: 900px;
     right: 0px;
     margin-right: -900px;
+}
+.reminderSectionClass{
+     display: none;
+     margin-right: 0px !important;
 }
 #remindernotesave{
     display: none;

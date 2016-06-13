@@ -27,9 +27,9 @@ factoryApp.factory('yourPlanFactory', function ($q, authenticatedServiceFactory,
         });
         return deffered.promise;
     };
-    yourPlanFactoryObject.scheduledEmailGet = function () {
+    yourPlanFactoryObject.scheduledEmailGet = function (schedule_id) {
         var deffered = $q.defer();
-        var url = configurationService.scheduledEmailURL();
+        var url = configurationService.scheduledEmailURL()+"?schedule_id="+schedule_id;
         authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
             deffered.resolve(data);
         });
