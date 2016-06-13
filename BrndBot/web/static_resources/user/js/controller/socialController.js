@@ -4,7 +4,7 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 
-socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'companyMarketingProgramFactory', 'companyImagesFactory', 'companyFactory', 'imageFactory', 'socialPostFactory', function ($scope, $location, $window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, companyMarketingProgramFactory, companyImagesFactory, companyFactory, imageFactory, socialPostFactory) {
+socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'companyMarketingProgramFactory', 'companyImagesFactory', 'companyFactory', 'imageFactory', 'socialPostFactory','scheduleActionsFactory', function ($scope, $location, $window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, companyMarketingProgramFactory, companyImagesFactory, companyFactory, imageFactory, socialPostFactory,scheduleActionsFactory) {
         $scope.marketingProgramsList = "";
         $scope.twitter_action = "";
         $scope.show_Post_SchedulePopup = false;
@@ -22,6 +22,7 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
         $scope.addImageToPostButton = true;
         $scope.twitterImageDivToPost = false;
         $scope.imageToBeUploaded = 'images/uploadPhoto.svg';
+        $scope.postType = 'Change To Link Post';
 
 
         $scope.getManagePage = function () {
@@ -102,62 +103,12 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
             };
             alert(JSON.stringify(BitlyUserDetails));
             socialPostFactory.shortenUrl(BitlyUserDetails).then(function (data) {
-//                $scope.show_hide_SocialListSelectionPopup(true);
                 alert(JSON.stringify(data));
 //                $scope.bit_url = urlData.data.url;
 //                socialPostFactory.postToTwitterURL().then(function (data){
 //                    alert(data);
 //                });
             });
-
-//          showOverlay();
-            //        var shareText = $("#twitterShareText").val();
-            //        var url = $("#linkUrl").val();
-            //        var image_name = selecImageName;
-            //        var image_type = selecImageType;
-            //
-            //        var username = "sandeep264328"; // bit.ly username
-            //        var key = "R_63e2f83120b743bc9d9534b841d41be6";
-//            $.ajax({
-//                url: "http://api.bit.ly/v3/shorten",
-//                async: false,
-//                data: {longUrl: twitterShare.url, apiKey: key, login: username},
-//                dataType: "jsonp",
-//                success: function (v)
-//                {   alert(v);
-//                    $scope.bit_url = v.data.url;
-//                    socialPostFactory.postToTwitterURL().then(function (data){
-//                        alert(data);
-//                    });
-//                    
-////                    $.ajax({
-////                        url: getHost() + "socialPost/postToTwitter",
-////                        method: 'post',
-////                        data: JSON.stringify({
-////                            imageToPost: image_name,
-////                            twittweraccestoken: $("#twittweraccestoken").val(),
-////                            twitterTokenSecret: $("#twitterTokenSecret").val(),
-////                            text: shareText,
-////                            imageType: image_type,
-////                            shorturl: bit_url
-////                        }),
-////                        success: function (responseText) {
-////                            hideOverlay();
-////                            $("#sendpopup").hide();
-////                            $("#fade").hide();
-////        //                    alert(JSON.stringify(responseText));
-////                            var isSuccess = responseText.d.message;
-////                            if (isSuccess === "success") {
-////                                alert("Successfully posted to Twitter.");
-////                                $("#twitterSuccessPostPopup").show();
-////                            }
-////                        },
-////                        error: function (jqXHR, textStatus, errorThrown) {
-////                            alert(JSON.stringify(jqXHR));
-////                        }
-////                    });
-//                }
-//            });
 
         };
 
@@ -198,7 +149,27 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
                 }
             }
         };
-
+        $scope.setPageAccessToken = function (accessToken, pageName, profileName) {
+            alert("setPageAccessToken");
+            $scope.CurrentFbAccessToken = accessToken;
+            $scope.CurrentFbPageName = pageName;
+            $scope.FbProfileName = profileName;
+        };
+        $scope.postToSelectedPage = function () {
+            var addDafaultmanagePage = $("#setDefaultManagePage").prop('checked');
+            if (addDafaultmanagePage) {
+                var pageDetails = JSON.stringify({
+                    access_token_method: "setAccessToken",
+                    access_token: $scope.CurrentFbAccessToken,
+                    default_page_name: $scope.CurrentFbPageName,
+                    fb_user_profile_name: $scope.FbProfileName
+                });
+                settingsFactory.facebookPost(pageDetails).then(function (data) {
+                    alert(JSON.stringify(data));
+                });
+            }
+            $location.path("/facebookpost");
+        };
         $scope.changeTwitterPostType = function () {
             if ($scope.showTwitterLink === true) {
 //                JSON.stringify(twitterShareTextValue.url="");
@@ -293,6 +264,32 @@ socialFlowApp.controller("socialController", ['$scope', '$location', '$window', 
                 alert((JSON.parse(twitterData.d.details)));
                 $scope.twitter_actions = JSON.parse(twitterData.d.details);
             });
+            $scope.hideFbPopup1 = function (s) {
+                alert("close");
+//                $("#fbmanagePagePopUp").show();
+//                $scope.managepage = false;
+            };
+            $scope.changePostType = function () {
+                alert("type");
+//                var postType = $("#linkPostFields").css("display");
+//                alert(postType);
+//                if (postType === "none") {
+//                    $("#linkPostFields").show();
+//                    $("#urlDropDownSpan").show();
+//                    lonkopen = 1;
+//                    $("#postType").text("Change To Normal Post");
+//                }
+//                if (postType === "block") {
+//                    $("#linkPostFields").hide();
+//                    $("#urlDropDownSpan").hide();
+//                    $("#linkTitle").val("");
+//                    $("#linkDescription").val("");
+//                    $("#linkUrl").val("");
+//                    lonkopen = 0;
+//                    $("#postType").text("Change To Link Post");
+//                }
+
+            };
 //        $http({
 //            method: 'POST',
 //            url: getHost() + 'actions/getActions',

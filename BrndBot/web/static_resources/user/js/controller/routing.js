@@ -29,22 +29,6 @@ emailFlowApp.config(function ($routeProvider) {
             })           
             .otherwise({redirectTo: '/emailcategory'});
 });
-
-//socialFlowApp.config(function ($routeProvider) {
-//    $routeProvider    
-//            .when('/socialsequence', {
-//                templateUrl: 'basesocialsequence.html',
-//                controller: 'socialController'
-//            })
-//            .when('/facebookpost', {
-//                templateUrl: 'facebookpost.html'
-//            })
-//            .when('/twitterpost', {
-//                templateUrl: 'twitterpost.html'
-//            })
-//            
-//            .otherwise({redirectTo: '/socialsequence'});
-//});
 socialFlowApp.config(function ($routeProvider) {
     $routeProvider    
             .when('/socialsequence', {
@@ -52,8 +36,7 @@ socialFlowApp.config(function ($routeProvider) {
                 controller: 'socialController'
             })
             .when('/facebookpost', {
-                templateUrl: 'facebookpost.html',
-                controller: 'displayImageFromGallery'
+                templateUrl: 'facebookpost.html'
             })
             .when('/twitterpost', {
                 templateUrl: 'twitterpost.html'
