@@ -1,31 +1,4 @@
 
-<!--    <%!            
-        StringBuffer string_buffer = new StringBuffer();
-        String mindbody_data_id = "";
-        String logoImageName = null;
-        String draft_id = "0";
-        String email_subject = "";
-        Integer companyId;
-    %>
-    <% 
-         String categoryId= request.getParameter("categoryId");
-         String subCategoryId= request.getParameter("subCategoryId");
-         String emailSubject= request.getParameter("emailSubject");
-         String mindbodyId=request.getParameter("mindbodyId");
-         String LookupId=request.getParameter("LookupId");
-         String draft_id=request.getParameter("draftId");
-    %>
-    <%
-        try {
-            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
-            companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
-        } catch (Exception e) {
-        }
-
-    %>
-<script>
-   
-</script>
 <div id="fade" class="black_overlay"></div>
 <!--<div ng-include src="'emailpreview.html'"></div>--> 
 
@@ -34,14 +7,7 @@
     </div>
     <div id="mask"></div>
 </div> 
-<input type="hidden" id='subCategoryIdTag' value="<%=subCategoryId%>"/>
-<input type="hidden" id='userid' value="<%= companyId%>"/>
-<input type="hidden" id='draftid' value="<%= draft_id%>"/>
-<input type="hidden" id='mindbodydata' value="<%= mindbodyId%>"/>
-<input type="hidden" id='categoryIdTag' value="<%= categoryId%>"/>
-<input type="hidden" id='LookupId' value="<%= LookupId%>"/>
-<input type="hidden" value="<%=email_subject%>" id="email_subject"/>
-<input type="hidden" value="<%=emailSubject%>" id="emailSubjectTag"/>
+
 <!--SideNav-->
 <!--<div class="content-main" ng-controller="MyController">   -->
 <div class="content-main">  
@@ -49,7 +15,7 @@
     <!--Top Nav-->   
     <div class="top-nav-full">
         <div class="page-title-bar col-1of1"> 
-            <a class=" exit-button-icon" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=categoryId%>&mindbodyId=<%=mindbodyId%>&LookupId=<%=LookupId%>&emailSubject=<%=emailSubject%>">    
+            <a class=" exit-button-icon" href="emailsubjects?categoryId={{categoryId}}&subCategoryId=<{{categoryId}}&mindbodyId={{mindbodyId}}&LookupId={{LookupId}}&emailSubject={{emailSubject}}">    
                 <div class="exit-button-detail">
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                 </div>

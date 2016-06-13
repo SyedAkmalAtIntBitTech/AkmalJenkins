@@ -3,10 +3,10 @@
 
 app.factory('emailDraftFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var emailDraftFactoryObject = {};
-    emailDraftFactoryObject.saveEmailDraftsPost = function () {
+    emailDraftFactoryObject.saveEmailDraftsPost = function (draftData) {
         var deffered = $q.defer();
         var url = configurationService.saveEmailDraftsURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, draftData,"").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
