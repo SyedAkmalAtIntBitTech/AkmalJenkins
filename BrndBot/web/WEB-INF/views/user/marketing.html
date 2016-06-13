@@ -52,15 +52,16 @@
                         <!--                <div class="fleft content" ng-repeat="entity in entitySet">-->
                         <div class="fleft content" ng-repeat="entity in entitySet">
                             <div class="page-content-title-bar">
+                          
                                 <!--<div class="page-content-title h2" ng-show='entity.date==tomorrow_date'>Tomorrow's Actions</div>-->
                                 <div class="page-content-title h2" ng-show="entity.date == today_date">Today's Actions</div>
                                 <div class="page-content-title h2" ng-show="(entity.date != today_date)">{{myYear(mySplit(entity.date,1))}} {{mySplit(entity.date,2)}} {{mySplit(entity.date,0)}}</div>
                             </div>
                             <!--List Starts Here-->
                             <ul class="main-container fleft" >
-                                <li class="slat-container fleft selfclear" ng-repeat="entitydetails in entitySet.dataArray" > 
+                                <li class="slat-container fleft selfclear" ng-repeat="entitydetails in entity.dataArray" > 
                                     <!--ng-repeat="entitydetails in entity.dataArray">-->
-                                    <div class="selection-container col-5p"> 
+                                    <div class="selection-container col-5p">
                                         <div class="selection-icon" id="{{entitydetails.schedule_id}}" onclick="selcheckbox(this.id)"><input type="checkbox" id="entityid{{entitydetails.entity_id}}" value="{{entitydetails.entity_id}}" name="entityname" hidden></input></div>
                                     </div>
                                     <div class="col-7of10 slat-unit fleft ">
@@ -79,7 +80,6 @@
                                                                             </div>
                                                                         </div>
                                         <div ng-show="entitydetails.entity_type == master_note">
-                                        <div>
                                             <div class="icon-container fleft hint--top" data-hint="Reminder" > 
                                                 <img src="images/Reminder.svg" class="status-button"/>
                                             </div>
@@ -88,8 +88,6 @@
                                         <div  class="slat-title-container col-1of2 fleft">                                    
                                             <!--<div class="slat-title email-list-slat-title col-1of1 sh1" ng-hide="entitydetails.is_recurring">{{entitydetails.schedule_title}}</div>-->
                                                                                 <div class="slat-title email-list-slat-title col-1of1 sh1" >{{entitydetails.schedule_title}}</div>
-                                            <div class="slat-title email-list-slat-title col-1of1 sh1" >Test Action</div>
-                                            <div class="action-list-slat-description col-1of1 sh3" ng-show="entitydetails.user_marketing_program_id > 0">Desc</div>
                                             <div class="action-list-slat-description col-1of1 sh3" ng-show="entitydetails.user_marketing_program_id > 0">{{entitydetails.marketingName}}</div>
                                             <div class="action-list-slat-description col-1of1 sh3" ng-show="entitydetails.user_marketing_program_id == 0">No Program</div>
                                         </div>
@@ -127,9 +125,9 @@
                                                                 <div class="icon-container fleft " ng-show="entitydetails.template_status=='No Template'"> 
                                                                     <object type="image/svg+xml" data="images/Icons/templateSaved.svg" class="status-button"> </object>
                                                                 </div>
-                                                                <div class="slat-title-container  fleft">
+<!--                                                                <div class="slat-title-container  fleft">
                                                                     <div class="gray email-list-slat-title col-7of10 sh1">{{nodata}}</div>
-                                                                </div>
+                                                                </div>-->
                                                             </div>
                                                         </li>
                             </ul>
@@ -137,5 +135,3 @@
                     </div>
                 </div>
             </div>
-        </div>
-   l>
