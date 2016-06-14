@@ -42,7 +42,7 @@
                 </div>
                     <div ng-show="addImageToPostButton" class="Social-Add-Image-Wrap clear" id="addImageToTwitterPost" ng-click="show_hide_ImageGalleryPopup(true)">
                         <span class="clickable-area">
-                            <img type="image/svg+xml" src="images/add-Image.svg" ng-model="twitterShare.img" class="add-image-icon fleft" style="cursor:pointer;">
+                            <img  src="images/add-Image.svg" ng-model="twitterShare.img" class="add-image-icon fleft" style="cursor:pointer;">
                             <div class="Add-Image-Button fleft">
                                 Add Image to Post
                             </div>
@@ -54,9 +54,6 @@
                             <div class="edit-Image-Button fleft" id="changeImage"  ng-click="show_hide_ImageGalleryPopup(true)">
                                 Change Image
                             </div>
-                            <!--                            <div class="edit-Image-Button fleft">
-                                                            Edit Image
-                                                        </div>-->
                         </div>
                     </div>
                 
@@ -64,8 +61,10 @@
         </div>
     </div>
     <div class="bottomNav">
-        <div class="bottom-ContinueButton fright" ng-click="show_hide_SocialListSelectionPopup(true)">CONTINUE</div>
+        <div class="bottom-ContinueButton fright" ng-click="openPostOrShedulePopup('facebook',fbPostData)">CONTINUE</div>
     </div>
+    <div ng-include src="'schedulepopup.html'"></div>
+    <div ng-include src="'sendorschedulepopup.html'"></div>
     <div ng-include src="'sociallistselection.html'"></div>
     <div ng-include src="'imagegallerypopup.html'"></div>
     <!--<div ng-include src="'facebookpostsuccesspopup.html'"></div>-->  
