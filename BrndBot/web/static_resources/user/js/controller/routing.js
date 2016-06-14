@@ -122,4 +122,16 @@ marketingFlowApp.config(function($routeProvider){
     }) 
     
     .otherwise({redirectTo: '/createmarketingprogram'});
+    
+});
+
+imagesFlowApp.config(function($routeProvider){
+    $routeProvider
+    .when('/imagegallery', {
+                templateUrl: 'imagegallery.html'
+               
+    })
+    
+    .otherwise({redirectTo: '/baseimagegallery'});
+    
 });
