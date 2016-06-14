@@ -10,7 +10,7 @@
 
 <!--SideNav-->
 <!--<div class="content-main" ng-controller="MyController">   -->
-<div class="content-main">  
+<div class="content-main" ng-init="emailEditorInit()">  
     <div ng-include src="'emaileditormindbodypopup.html'"></div> 
     <!--Top Nav-->   
     <div class="top-nav-full">
@@ -23,10 +23,10 @@
             <div class="page-title-with-back page-title-font">Email Editor</div>
             <div class="page-cta-container">
                 <a href="" class="gray-button fleft pushright">
-                    <div class="nounderline md-button" id="emailpreview">  Preview Email</div>  
+                    <div class="nounderline md-button" id="emailpreview" ng-click="emailPreviewOnClick()">  Preview Email</div>  
                 </a>
                 <a href="" class="gray-button fleft ">
-                    <div class=" md-button" id="saveToDraft">  Save as Draft</div>    
+                    <div class=" md-button" id="saveToDraft" ng-click="saveToDraftOnClick()">  Save as Draft</div>    
                 </a>
             </div>
         </div>
@@ -68,7 +68,7 @@
                 <div class="email-Block-Header" id="styledivheader">Select a style for this block:</div>
                 <div class="block-selection-divider"></div>
                 <ul class="block-list" id="blockdiv"  >
-                    <li class="block-slat" ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}">
+                    <li class="block-slat" ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="showImageOfBlock(blocks.emailBlockId)">
                         <div class="block-name" id="blklist----{{blocks.emailBlockId}}" >{{blocks.emailBlockName}}</div>                            
                         <div class="block-button hide" ng-click="didChooseBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)" id="div2{{blocks.emailBlockId}}">Add Block</div>
                     </li>
@@ -130,7 +130,7 @@
 <div class="bottom-cta-bar" id="bottomdiv">
     <div class="bottom-cta-button-container-lg">
         <a href="">
-            <div class="bottom-continue-button button-text-1" id="saveButton">Continue</div>
+            <div class="bottom-continue-button button-text-1" id="saveButton" ng-click="saveButtonOnClick()">Continue</div>
         </a>
     </div>
 </div>

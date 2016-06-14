@@ -14,9 +14,8 @@ factoryApp.factory('blockModelFactory', function ($q, authenticatedServiceFactor
     };
     blockModelFactoryObject.allEmailBlockModelGet = function (emailBlockId) {
         var deffered = $q.defer();
-        var url = configurationService.allEmailBlockModelURL();
-        var data = '{"emailBlockId":"' + emailBlockId + '"}';
-        authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
+        var url = configurationService.allEmailBlockModelURL()+"?emailBlockId="+emailBlockId;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
