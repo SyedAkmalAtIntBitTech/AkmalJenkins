@@ -123,3 +123,29 @@ marketingFlowApp.config(function($routeProvider){
     
     .otherwise({redirectTo: '/createmarketingprogram'});
 });
+
+
+marketinghubFlowApp.config(function($routeProvider){
+ 
+    $routeProvider
+   
+    .when('/marketinghub', {
+                templateUrl: 'marketinghub.html'
+               
+    }) 
+    
+    .otherwise({redirectTo: '/basemarketinghub'})
+    });
+    
+
+socialhubFlowApp.config(function($routeProvider){
+ 
+    $routeProvider
+   
+    .when('/marketinghub', {
+                templateUrl: 'marketinghub.html'
+               
+    }) 
+    
+    .otherwise({redirectTo: '/marketinghub'})
+    });

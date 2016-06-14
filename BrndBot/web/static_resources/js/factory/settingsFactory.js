@@ -62,10 +62,10 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
         });
         return deffered.promise;
     };
-    settingsFactoryObject.facebookPost = function () {
+    settingsFactoryObject.facebookPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.facebookURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url,data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

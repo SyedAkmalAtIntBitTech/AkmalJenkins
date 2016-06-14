@@ -1,20 +1,40 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html >
     <head>
         <link rel="import" href="header.html"></link>
+        <script src="js/configurations.js" type="text/javascript"></script>
         <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
         <script src="js/social.js" type="text/javascript"></script>  
+        <script src="../js/angularappconfiguration.js"></script> 
+        <script src="../js/factory/categoryFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/subCategoryFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/settingsFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/companyMarketingFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/onboardingFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/organizationFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/urlServices.js" type="text/javascript"></script>
+        <script src="../js/factory/authFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/companyFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/companyImagesFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/genericRedirectFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/imagesFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/socialPostFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/scheduleActionsFactory.js" type="text/javascript"></script>
+        <script src="js/controller/dashboardController.js" type="text/javascript"></script>
+        <script src="js/controller/routing.js" type="text/javascript"></script>
+        <script src="js/controller/socialController.js" type="text/javascript"></script>        
+        <script src="js/controller/socialHubController.js" type="text/javascript"></script>  
         <title>Brndbot - Marketing Hub</title>  
     </head>    
 <!--    <%@ include file="twitterpopupforsocialhub.jsp"%>
     <%@include file="header.jsp" %>
     <%@include file="navbar.jsp" %>-->
-    <body ng-app ng-controller="controllerSocial">
-        
+
     <div ng-include src="'navbar.html'"></div>
         <div ng-include src="'loadingoverlay.html'"></div>
-        <div ng-include src="'twitterpopupsocialhub.html'"></div>
+    <body ng-app="socialhubFlowApp" ng-controller="controllerSocial">
+        
+<!--        <div ng-include src="'twitterpopupsocialhub.html'"></div>-->
         <div  id="controllerSocial"> 
             <!--SideNav-->
 
