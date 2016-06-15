@@ -1,8 +1,8 @@
 
 yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', 'yourPlanFactory', function ($scope, $location, yourPlanFactory) {
+    
     $scope.emailsectionClass='';
     $scope.fadeClass='';
-        
     $scope.entities_selected_time = "";
     $scope.master_facebook = getfacebook();
     $scope.master_twitter = gettwitter();
@@ -40,8 +40,8 @@ var user_selected_date = '';
         angular.element(document.getElementById('yourPlanController')).scope().getCampaigns();
     };
     function addDays(theDate, days) {
-    return new Date(theDate.getTime() + days * 24 * 60 * 60 * 1000);
-}
+        return new Date(theDate.getTime() + days * 24 * 60 * 60 * 1000);
+    }
 
 //$(document).ready(function ()
 //{
@@ -88,7 +88,7 @@ var user_selected_date = '';
         }
         latest_date=curr_date;
         var invalid= "Invalid date";
-  yourPlanFactory.scheduledEntitiesGet(curr_date,new_date).then(function (data) {
+        yourPlanFactory.scheduledEntitiesGet(curr_date,new_date).then(function (data) {
       
                     var parseJSON=JSON.parse(data.d.details);
                     $scope.entityS = JSON.parse(JSON.stringify(parseJSON));
@@ -138,18 +138,16 @@ $scope.addDays = function(theDate, days) {
         
     $scope.ShowAddAction = function()
     { 
-         $scope.fadeClass='fadeClass';
+        $scope.fadeClass='fadeClass';
         $scope.isYourplan = true;
-        
         $scope.addAction = true;
-    }
+    };
     
     $scope.closeOverlay = function()
     {
         $scope.fadeClass='';
-        $scope.addAction = false;
-        
-    }
+        $scope.addAction = false;        
+    };
         
     $scope.AddAction = function(addTitle,datePicker,timePicker,actionType)
     {
@@ -163,9 +161,11 @@ $scope.addDays = function(theDate, days) {
         var days=0;
         var action = {"title": addTitle, "actiontype": actionType,"type": "save","description":0,"marketingType":0,"action_date": myEpoch,"days":days};
         yourPlanFactory.addActionPost(action).then(function (data) {
-       
-    });
-    }
+            $scope.getCampaigns();            
+            $scope.closeOverlay();
+        });
+    };
+    
     $scope.closePopup = function (){
         $scope.reminderSectionClass='';
         $scope.emailsectionClass='';
@@ -229,6 +229,7 @@ $scope.addDays = function(theDate, days) {
         if (entity_type === getnote()) {
             $scope.reminderSectionClass='reminderSectionClass';
             $scope.savedReminderTab=true;
+            $scope.setTab('savedReminder');
         }
         
         if (entity_type === getemail()) {
@@ -366,27 +367,23 @@ $scope.addDays = function(theDate, days) {
                 "schedule_id": scheduleId.toString(), "type": "updatenotesyourplan","actiontype": actiontype,
                 "description": $scope.scheduleData.schedule_desc
             };    
-            alert(JSON.stringify(action));
             yourPlanFactory.addActionPost(action).then(function (data){
-                alert(JSON.stringify(data));
+                $scope.getCampaigns();
             });
-//            $http({
-//                method: 'POST',
-//                url: getHost() + 'AddAction',
-//                headers: {'Content-Type': 'application/json'},
-//                data: JSON.stringify(action)
-//            }).success(function (data)
-//            {
-//                $scope.status = data;
-//                if (data != "") {
-//                    alert(emailnotesaved);
-//                    $("#change").val("1");
-//                }
-//            }).error(function (data, status) {
-//                alert(reqemailnotesaved);
-//            });
-
     };
-    }]);
+    
+    $scope.updateReminderDescription = function (schedule_id) {
+        
+        var actiontype = getnote();
+        var reminderAction = {
+            "schedule_id": schedule_id, "type": "updatenotes","actiontype": actiontype,
+            "description": $scope.scheduleData.schedule_desc
+        };
+        yourPlanFactory.addActionPost(reminderAction).then(function (data){
+                $scope.getCampaigns();
+        });
+    };
+    
+}]);
 
        
