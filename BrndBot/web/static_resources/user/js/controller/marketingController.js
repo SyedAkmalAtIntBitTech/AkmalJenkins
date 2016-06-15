@@ -26,6 +26,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', 'mark
         };
          $scope.redirectToActions = function (pageName, programId,past,endData)
         {
+            
             $scope.past = past;
             $scope.endDate = endData;
             $scope.programId = programId;
@@ -104,6 +105,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', 'mark
         {
            
                companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {
+                   
                  $scope.template_status=data.emailautomation;
                  $scope.programs = data;
                  $scope.actionType="Email";
@@ -113,6 +115,39 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', 'mark
              });
             
         };
+        
+        
+         $scope.ShowAddAction = function()
+        { 
+        $scope.isYourplan = false;
+        $scope.fade = true;
+        $scope.addAction = true;
+        
+        }
+    
+    $scope.closeOverlay = function()
+    {
+        $scope.fade = false;
+        $scope.addAction = false;
+        
+    }
+    
+    $scope.AddAction = function(addTitle,datePicker,timePicker,actionType)
+    {
+        var actiondate = datePicker;
+        var actionDateTime=$("#timepicker1").val().replace(/ /g,'');
+        var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+        var myDate = new Date(l);
+        var days=0;
+        var schedule_time = Date.parse(l);
+        var myEpoch = schedule_time;
+        var days=0;
+        var action = {"title": addTitle, "actiontype": actionType,"type": "save","description":"","marketingType":$scope.programId,"action_date": myEpoch,"days":days};
+        companyMarketingProgramFactory.addActionPost(action).then(function (data) {
+            
+      
+    });
+    }
 
     }]);
 

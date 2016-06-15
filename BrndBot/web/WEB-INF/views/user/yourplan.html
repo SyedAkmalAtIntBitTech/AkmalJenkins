@@ -10,9 +10,21 @@
         <link rel="stylesheet" href="css/datepickerpikaday.css"/>  
         <script src="js/moment.js" type="text/javascript"></script>
         <script src="js/pikaday.js"></script>
+        <script src="js/pikaday_angular.js"></script>
         <script src="js/timepicki.js" type="text/javascript"></script>
-        
+         <script>
+                        $('#timepicker1').timepicki({
+                            show_meridian: true,
+                            min_hour_value: 0,
+                            max_hour_value: 12,
+                            step_size_minutes: 01,
+                            overflow_minutes: true,
+                            increase_direction: 'up',
+                            disable_keyboard_mobile: true
+                        });
+                        </script>
          <link rel="stylesheet" type="text/css" href="css/general.css">
+              <link rel="stylesheet" type="text/css" href="css/popup.css">
           <link href="css/style_detail_overlay-1.css" rel="stylesheet" type="text/css"/>  
         <link rel="stylesheet" type="text/css" href="css/General-Utility.css">
         <link rel="stylesheet" type="text/css" href="css/Navigation.css">
@@ -28,6 +40,7 @@
         <link rel="stylesheet" type="text/css" href="css/onboarding.css">
         <link rel="stylesheet" type="text/css" href="css/login-onboarding.css">
         <link rel="stylesheet" type="text/css" href="css/admin.css">
+       <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
         <script src="js/alertmessage.js" type="text/javascript"></script>
         <script src="js/onboarding.js" type="text/javascript"></script> 
         <script src="../js/configurations.js"></script> 
@@ -50,6 +63,7 @@
         <script src="js/controller/marketingController.js" type="text/javascript"></script>
         <script src="js/controller/routing.js" type="text/javascript"></script>
          <script src="js/controller/yourPlanController.js" type="text/javascript"></script>
+         
          <style>
         #pastprogs,#delmarkprog{display: none;}
     </style>

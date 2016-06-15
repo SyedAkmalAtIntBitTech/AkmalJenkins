@@ -122,6 +122,7 @@
                     <!--List Starts Here-->
                     <ul class="main-container fleft">
                     <li class="slat-container fleft selfclear" ng-repeat="programaction in (filteredItems = (programs.programactions | orderBy: 'postDate':true))" >
+                        
                         <!--ng-repeat="programaction in (filteredItems = (programs.programactions | orderBy: 'postDate':true))"-->
                             <div class="selection-container col-5p"> 
                                 <div class="selection-icon" ng-hide="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}');selcheckboxonetimeact(this.id);"><input type="checkbox" id="entityid{{programaction.scheduledEntityListId}}"  value="{{programaction.scheduledEntityListId}}" name="entityname" hidden></input></div>

@@ -344,7 +344,7 @@
 }
 #addAction
 {
-    display: none;
+    display: block;
     position: fixed;
     z-index: 999999;
     margin-left: 27%;
@@ -460,7 +460,7 @@ img.exit-button {
 
 #fade
 {
-    display: none;
+    display: block;
     position:  fixed;
     top: 0%;
     left: 0%;

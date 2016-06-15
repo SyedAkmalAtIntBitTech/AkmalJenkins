@@ -85,5 +85,17 @@ factoryApp.factory('companyMarketingProgramFactory', function ($q, authenticated
         });
         return deffered.promise;
     }; 
+    
+    companyMarketingProgramFactoryObject.addActionPost = function (addActionDetails) {
+        var deffered = $q.defer();
+        var url = configurationService.addActionURL();
+        
+        authenticatedServiceFactory.makeCall("POST", url, addActionDetails,"").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    
+    
     return companyMarketingProgramFactoryObject;
 });

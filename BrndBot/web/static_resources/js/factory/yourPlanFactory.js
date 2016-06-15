@@ -19,10 +19,11 @@ factoryApp.factory('yourPlanFactory', function ($q, authenticatedServiceFactory,
         });
         return deffered.promise;
     };
-    yourPlanFactoryObject.addActionPost = function () {
+    yourPlanFactoryObject.addActionPost = function (addActionDetails) {
         var deffered = $q.defer();
         var url = configurationService.addActionURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        
+        authenticatedServiceFactory.makeCall("POST", url, addActionDetails,"").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
