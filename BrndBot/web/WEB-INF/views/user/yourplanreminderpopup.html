@@ -100,7 +100,7 @@
                                 <div class="input-header-actionDetail" style="">
                                     TIME
                                 </div>
-                                <input id="timepickernote" type="text" name="timepickernote" class="timepickertextbox " value="{{scheduleData.entities_selected_time| date:'h : mm : a'}}"/> 
+                                <input id="timepickernote" type="text" name="timepickernote" class="timepickertextbox " value="{{scheduleData.schedule_time| date:'h : mm : a'}}"/> 
                                 <script>
                                     $('#timepickernote').timepicki({
                                         show_meridian: true,
@@ -135,7 +135,7 @@
         <!--CTA Bar-->
         <div ng-if="reminderDetailsTab" class="" id="reminderactionsave">
             <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateNote()">Save Reminder</div>
+                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateNote(scheduleData)">Save Reminder</div>
             </div>
         </div>
         <div ng-if="savedReminderTab" class="" id="remindernotesave">
