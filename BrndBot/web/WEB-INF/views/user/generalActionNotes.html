@@ -11,10 +11,13 @@
                     <!--SAVED POST GOES HERE-->
 
                     <div class="notes-container">
-                        <textarea class="notes-container-textarea" name="fb_description" id="fb_description{{schedule_id}}">{{schedule_desc}}</textarea>
+                        <textarea ng-model="scheduleData.schedule_desc" class="notes-container-textarea" name="fb_description" id="fb_description{{scheduleData.schedule_id}}">{{scheduleData.schedule_desc}}</textarea>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+            <div class="bottom-cta-button-container">
+                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateActionNote(scheduleData.schedule_id)">Save Notes</div>
+            </div>
 </div>

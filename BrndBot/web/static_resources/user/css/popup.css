@@ -394,7 +394,7 @@ img.exit-button {
     max-height: 100%;
     width: 900px;
     right: 0px;
-    margin-right: 0px !important;;
+    margin-right: 0px !important;
 }
 .fadeClass{
      display: block !important;
@@ -999,7 +999,7 @@ input#schedule_social_time {
     margin-right: -900px;
 }
 .reminderSectionClass{
-     display: none;
+     display: block;
      margin-right: 0px !important;
 }
 #remindernotesave{

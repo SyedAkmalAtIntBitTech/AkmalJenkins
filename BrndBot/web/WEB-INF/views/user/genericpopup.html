@@ -20,13 +20,11 @@
             <div class="top-subnav-detail" id="emailtopsubnav">
                 <div class="top-subnav-tabs-detail">
                     <ul class="top-subnav-nav-elements-detail">
-                        <li class="top-subnav-links-detail " id="emailaction1" val="{{schedule_id}}" ng-click="setTab('actionDetails')"> 
-                            <input type="hidden" id="emailaction_id" value="{{schedule_id}}"></input>
-                            <!--                            <input type="hidden" id="emaidesc_value" value="{{schedule_desc}}"></input>-->
-                            <a class="h3-subnav-subnav-active">Action Details</a>
+                        <li class="top-subnav-links-detail " id="emailaction1" val="{{schedule_id}}" ng-click="setTab('actionDetails')" ng-class="top_subnav_link_active_actionDetail_Class"> 
+                            <a class="h3-subnav">Action Details</a>
                         </li>
-                        <li class="top-subnav-links-detail top-subnav-link-active-detail" id="emailpost1" ng-click="setTab('savedDetails')"> <a class="h3-subnav">Saved Email</a></li>
-                        <li class="top-subnav-links-detail  top-subnav-links-detail-last" id="emailnote1" ng-click="setTab('notes')"> <a class="h3-subnav">Notes</a></li>
+                        <li class="top-subnav-links-detail top-subnav-links-detail" id="emailpost1" ng-click="setTab('savedDetails')" ng-class="top_subnav_link_active_savedDetail_Class"> <a class="h3-subnav">Saved Email</a></li>
+                        <li class="top-subnav-links-detail  top-subnav-links-detail-last" id="emailnote1" ng-click="setTab('notes')" ng-class="top_subnav_link_active_notesDetail_Class"> <a class="h3-subnav">Notes</a></li>
                     </ul>
                 </div>
             </div>
