@@ -111,6 +111,8 @@ function controllerSocial($scope, $http) {
         });
     };
     $scope.checkForCode = function () {
+        
+        $scope.showTwitterPopup=false;
         var code = getUrlParameter("code");
         if (typeof code !== "undefined") {
             $http({
@@ -155,6 +157,7 @@ function controllerSocial($scope, $http) {
 
     };
     $scope.clearFacebookDetails = function () {
+        alert("...");
         if (confirm(clearconfirm)) {
             $("#fbclear").hide();
             $http({
@@ -214,6 +217,7 @@ function controllerSocial($scope, $http) {
         }
     };
 }
+
 function getAuthURLFromSocialHub() {
     $.ajax({
         url: getHost() + 'settings/twitterAuthURL.do',

@@ -94,10 +94,10 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
         });
         return deffered.promise;
     };
-    settingsFactoryObject.twitterLoginGet = function () {
+    settingsFactoryObject.twitterLoginGet = function (data) {
         var deffered = $q.defer();
         var url = configurationService.twitterLoginURL();
-        authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("GET", url,data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
