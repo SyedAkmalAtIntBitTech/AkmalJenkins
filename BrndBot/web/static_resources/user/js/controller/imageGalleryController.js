@@ -1,70 +1,60 @@
-imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$location', 'imageFactory','assetsFactory',function ($scope, $window, $location, imageFactory,assetsFactory) {
-alert("asdsad");
-         
-//        $scope.saveImage = function () {
-//            alert("...");
-//            var file = companyImage;
-//            alert(file);
-//            imageFactory.saveImagePost(file).then(function (data) {
-//                alert(JSON.stringify(data));
-//                $location.path("signup/choosepalette");
-//            });
-//        };
-    
-//     $scope.getUserImages = function () {
-//            companyImagesFactory.companyImagesGet().then(function (data) {
-//                $scope.datalists = data.d.details;
-//            });
-//            companyFactory.currentCompanyGet().then(function (data) {
-//                $scope.companyId = data.d.details[0];
-//            });
-//        };
+/* Tasmiya P.S
+ * Copyright 2015 Intbit Technologies. This software and documentation contains
+ * confidential and proprietary information that is owned by Intbit
+ * Technologies. Unauthorized use and distribution are strictly prohibited.
+ */
+
+imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http', '$location', 'imageFactory','companyImagesFactory',function ($scope, $window, $http, $location, imageFactory,companyImagesFactory) {
+   
 
         $scope.uploadLogo1 = function (myFile1) {
-            alert("...");
-            var file = myFile1;
-            alert(file);
+            
+         var file = $("#filesToUpload").val();         
+         alert(file.substring(file.lastIndexOf("\\") + 1, file.length));
+        var file = myFile1;
             imageFactory.saveImagePost(file).then(function (data){
                 alert(JSON.stringify(data));});
         };
-        $scope.getimages = function ()
+        
+        $scope.getAllCompanyImages = function ()
         {
-            alert("...");
-            assetsFactory.globalImageGet().then(function (data){
+            companyImagesFactory.companyImagesGet().then(function (data){
+                alert(JSON.stringify(data));
+                $scope.datalists = data.d.details;
                 
+               
             });
         };
+        
+        $scope.deleteImage = function (companyImageId)
+        {
+            companyImagesFactory.deleteCompanyImagesPost(companyImageId).then(function (data){
+                alert(JSON.stringify(data));
+                $scope.datalists = data.d.details;
+                $scope.getAllCompanyImages();
+                
+               
+            });
+        };
+        
 
         
         $scope.Showimguploadpopup = function()
         {
-        alert("...");
+//        $scope.fadeblackOverlay="fadeblackOverlay";
         $scope.hidePopup=true;
-        }
+        
+    };
+    
+    $scope.closeimguploadpopup = function()
+    {
+        $scope.hidePopup=false;
+        $scope.getAllCompanyImages();
+    }
     
       $scope.showImage = function(){
        $scope.hidePopup=false;
-}
-//    
-//        $scope.uploadFile = function(){
-//               var file = $scope.myFile;
-//               
-//               console.log('file is ' );
-//               console.dir(file);
-//               
-//               var uploadUrl = "/fileUpload";
-//               fileUpload.uploadFileToUrl(file, uploadUrl);
-//            };
-//
-//        function Showimguploadpopup()
-//{
-//    alert("...");
-//    document.getElementById("imagetext").value="";
-//    document.getElementById("filesToUpload").value="";    
-//    document.getElementById('fade').style.display = 'block';
-//    document.getElementById('imagepopup').style.display = 'block';
-//    document.getElementById('addAction').style.display = 'block';
-//    
-//    overlay();
-//}
-        }]);
+};
+
+              }]);
+

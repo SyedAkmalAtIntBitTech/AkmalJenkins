@@ -29,9 +29,11 @@ factoryApp.factory('assetsFactory', function ($q, authenticatedServiceFactory, c
         return deffered.promise;
     };
     assetsFactoryObject.globalImageGet = function (globalImageId) {
+       
         var deffered = $q.defer();
         var url = configurationService.globalImageURL();
         var data = '{"globalImageId":"' + globalImageId + '"}';
+        alert(data);
         authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
             deffered.resolve(data);
         });

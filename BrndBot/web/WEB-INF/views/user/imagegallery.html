@@ -1,6 +1,6 @@
-
+<div ng-include src="'imageuploadpopup.html'"></div>
 <div class="content-main" ng-init="showImage()">
-            <div ng-include src="'imageuploadpopup.html'"></div>
+            
     <!--<input type="text"  value="${user}"/>-->
     <!--Top Nav-->   
     <div class="top-nav">
@@ -18,13 +18,12 @@
     <div class="gallery-page-background">
         <div class="gallery-page-content-container fleft">      
         <!--Inner Content Conatiner GENERIC-->
-            <div class="page-inner-content-container fleft" ng-module="imagegallery" >
-<!--                <div class="fleft content" ng-controller="samplecontoller" ng-init="showData()">
-                List Starts Here-->
-                    <div class="imageGallery-container  fleft" >
+            <div class="page-inner-content-container fleft">
+                <div class="fleft content"  ng-init="getAllCompanyImages()">
+                    <div class="imageGallery-container  fleft" ng-repeat="images in datalists" >
                         <div class="imageGallery-card">
                             <div class="galCard-image col-1of1">
-                                <img id="11" class="lookchooser5 ptr imagesize" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId=${companyId}" onclick="showText('{{images.companyImagesId}}','{{images.imageName}}')" />
+                                <img  class="lookchooser5 ptr imagesize" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId=3" ng-click="showText(images.companyImagesId,images.imageName)" />
                             </div>
                             <div class="galCard-content col-1of1">  
 <!--                                <div class="galImage-name">Image Name</div>
