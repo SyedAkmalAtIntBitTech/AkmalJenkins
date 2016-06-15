@@ -344,7 +344,7 @@
 }
 #addAction
 {
-    display: none;
+    display: block;
     position: fixed;
     z-index: 999999;
     margin-left: 27%;
