@@ -1,5 +1,8 @@
 
 yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', 'yourPlanFactory', function ($scope, $location, yourPlanFactory) {
+    $scope.emailsectionClass='';
+    $scope.fadeClass='';
+        
     $scope.entities_selected_time = "";
     $scope.master_facebook = getfacebook();
     $scope.master_twitter = gettwitter();
@@ -40,38 +43,6 @@ var user_selected_date = '';
     return new Date(theDate.getTime() + days * 24 * 60 * 60 * 1000);
 }
 
-//$(document).ready(function ()
-//{
-//     $(".calendar-dropdown").click(function (){$("#jumptodatepicker").trigger( "click" );});
-//    
-//    var picker = new Pikaday(
-//                            {
-//                                field: document.getElementById('jumptodatepicker'),
-//                                firstDay: 1,
-//                                minDate: new Date('2000-01-01'),
-//                                maxDate: new Date('2050-12-31'),
-//                                yearRange: [2000,2050],
-//                                onSelect: function() {
-//                                    var mydate=this.getMoment();
-//                                   var mydt=mydate.toLocaleString();
-//                                    var myDate = new Date(mydt);
-//                                    setCurrentDate(myDate);
-//                                }                                
-//                            });
-//                            
-//  function setCurrentDate(selected_date) {    
-//    $(".delete-button").hide();
-//    $("#liPriority").show();
-//    user_selected_date = selected_date;
-//    angular.element(document.getElementById('controllerMarketingCampaign')).scope().getCampaigns();
-//}
-    
-//});
-
-           
-
-
-
     $scope.getCampaigns = function(){
          var curr_date = '';
         var tomorrowDate = '';
@@ -106,7 +77,7 @@ $scope.addDays = function(theDate, days) {
      $scope.mySplit = function(string, nb) {
       var array = string.split('-');
       return array[nb];
-    }
+    };
      $scope.myYear = function(string) {
         var month="";
         if(string=='01')
@@ -133,7 +104,7 @@ $scope.addDays = function(theDate, days) {
             return month="Nov";
         if(string=='12')
             return month="Dec";
-    }
+    };
         
     $scope.ShowAddAction = function()
     { 
@@ -164,6 +135,62 @@ $scope.addDays = function(theDate, days) {
        
     });
     }
+    $scope.closePopup = function (){
+        $scope.emailsectionClass='';
+        $scope.fadeClass='';
+    };
+    
+    $scope.setTab = function(tabName){
+        if(tabName == 'actionDetails'){
+            $scope.generalActions=true;
+            $scope.generalSavedDetails=false;
+            $scope.generalNotes=false;
+        }
+        if(tabName == 'savedDetails'){
+            $scope.generalSavedDetails=true;
+            $scope.generalActions=false;
+            $scope.generalNotes=false;
+        }
+        if(tabName == 'notes'){
+            $scope.generalNotes=true;
+            $scope.generalActions=false;
+            $scope.generalSavedDetails=false;
+        }
+    };
+    
+    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active) 
+    {
+        $scope.generalSavedDetails=true;
+        $scope.generalNotes=false;
+        $scope.generalActions=false;
+        $scope.emailsectionClass='emailsectionClass';
+        $scope.fadeClass='fadeClass';
+        $scope.generalActionDetailsHeader=entity_type;        
+        $scope.scheduledTo='POST';
+        if (entity_type === getnote()) {
+            $scope.reminderSectionClass='reminderSectionClass';
+        }
+        if (entity_type === getemail()) {
+                $scope.scheduledTo='SEND';
+        }
+        var date = new Date(schedule_time);
+        $scope.entities_selected_time = date;
+        $scope.schedule_title = schedule_title;
+        $scope.schedule_id = schedule_id;
+        $scope.schedule_desc = schedule_desc;
+        $scope.email_template_status = template_status;
+        $scope.schedule_type = entity_type;
+        $scope.marketing_program_name = marketingName;
+        $scope.user_marketing_program_id = programId;
+        $scope.days = days;
+        $scope.is_today_active = is_today_active;
+
+        yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data){
+            $scope.entitiesdetails = data;
+
+        });
+
+    };
     }]);
 
        
