@@ -1,16 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-5.css">
     <link rel="stylesheet" type="text/css" href="css/normalize5.css">
-    <link rel="shortcut icon" href="favicon.png">
-    <script src="js/configurations.js" type="text/javascript"></script>
-</head>    
 
-<body>
     <div id="fade" class="black_overlay" ></div>
     <!--Top Nav-->  
     <div id="email_previewdiv">
@@ -28,16 +18,16 @@
                     <div class="emailPreview-desktop-col  fleft">
                         <div class="emailPreview-headers">Desktop Preview</div>
                             <div class="content">  
-                                <iframe id="dynamictable5" style="position: relative; width: 100%; border: none; height: 420px;background-color: rgb(255, 255, 255);" src="<%=iframeUrl%>"></iframe>                   
+                                <iframe id="dynamictable5" style="position: relative; width: 100%; border: none; height: 420px;background-color: rgb(255, 255, 255);" src="{{iframePath}}"></iframe>                   
                             </div>
                         <div class="desktopshow" style="display:none;">
-                            <iframe id='dynamictable' class="desktoppreview" src='<%=iframeUrl%>'></iframe> 
+                            <iframe id='dynamictable' class="desktoppreview" src='{{iframePath}}'></iframe> 
                         </div>                        
                     </div>
                     <div class="emailPreview-mobile-col fleft">
                         <div class="emailPreview-headers">Mobile Preview</div>
                             <div class="content">  
-                                <iframe id="dynamictable6" style="position: relative; width: 100%; height: 400px; border: none; background-color: rgb(255, 255, 255);" src="<%=iframeUrl%>"></iframe>                   
+                                <iframe id="dynamictable6" style="position: relative; width: 100%; height: 400px; border: none; background-color: rgb(255, 255, 255);" src="{{iframePath}}"></iframe>                   
                             </div>
                     </div>
                 </div>
@@ -45,5 +35,3 @@
         </div>
     </div>
     </div>
-</body>
-</html>

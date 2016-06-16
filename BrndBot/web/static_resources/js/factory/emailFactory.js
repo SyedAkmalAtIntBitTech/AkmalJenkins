@@ -4,10 +4,10 @@
 
 factoryApp.factory('emailFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var emailFactoryObject = {};
-    emailFactoryObject.sendEmail = function () {
+    emailFactoryObject.sendEmail = function (sendEmailData) {
         var deffered = $q.defer();
         var url = configurationService.sendEmailPostURL();
-        authenticatedServiceFactory.makeCall("POST", url, "", "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, sendEmailData, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

@@ -4,10 +4,10 @@
 
 factoryApp.factory('scheduleActionsFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var scheduleActionsFactoryObject = {};
-    scheduleActionsFactoryObject.getActionsPost = function () {
+    scheduleActionsFactoryObject.getActionsPost = function (actionCallData) {
         var deffered = $q.defer();
         var url = configurationService.getActionsURL();
-        authenticatedServiceFactory.makeCall("POST", url, "", "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, actionCallData, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
