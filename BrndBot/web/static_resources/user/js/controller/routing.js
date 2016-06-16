@@ -125,16 +125,31 @@ marketingFlowApp.config(function($routeProvider){
 });
 
 
+
 marketinghubFlowApp.config(function($routeProvider){
  
     $routeProvider
    
     .when('/marketinghub', {
-                templateUrl: 'marketinghub.html'
-               
+                templateUrl: 'marketinghub.html'          
     }) 
+//    .when('/emaildraft', {
+//                templateUrl: 'emaildraft.html'
+//    })
+//    .when('/emailhistory', {
+//                templateUrl: 'emailhistory.html'
+//    })
+//    .when('/emaillist', {
+//                templateUrl: 'emaillist.html'
+//    })
+//    .when('/emailsetting', {
+//                templateUrl: 'emailsetting.html'
+//    })
+//    .when('/footersetting', {
+//                templateUrl: 'footersetting.html'
+//    })
     
-    .otherwise({redirectTo: '/basemarketinghub'})
+    .otherwise({redirectTo: '/basemarketinghub'});
     });
     
 
@@ -147,5 +162,5 @@ socialhubFlowApp.config(function($routeProvider){
                
     }) 
     
-    .otherwise({redirectTo: '/marketinghub'})
+    .otherwise({redirectTo: '/marketinghub'});
     });
