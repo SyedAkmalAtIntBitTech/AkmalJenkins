@@ -110,6 +110,7 @@ function controllerSocial($scope, $http) {
 
         });
     };
+    
     $scope.checkForCode = function () {
         
         $scope.showTwitterPopup=false;
