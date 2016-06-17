@@ -1,6 +1,6 @@
 
 marketingFlowApp.controller("marketingController", ['$scope', '$location', 'marketingFactory', 'companyMarketingProgramFactory', function ($scope, $location, marketingFactory, companyMarketingProgramFactory) {
-
+alert();
         $scope.marketingCategoryId = "";
         $scope.marketingProgramId = "";
         $scope.past = "";
@@ -34,8 +34,18 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', 'mark
 
 
         };
+        
+         $scope.redirectToEmailAutomation = function(pageName, add, programId, zero)
+         {
+              
+               $scope.programId = programId;
+               $scope.add = add;
+               $scope.zero = zero;
+               $location.path("/"+pageName);
+             
+         };
+         
         $scope.getAllMarketingPrograms = function (forward) {
-
             marketingFactory.companyMarketingCategoriesGet().then(function (data) {
                 $scope.header = "Please choose a marketing program type.";
                 $scope.pageName = "marketing";
@@ -101,7 +111,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', 'mark
 
         };
         
-        $scope.getProgramActions = function()
+        $scope.getProgramActions = function(forward)
         {
            
                companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {
@@ -109,7 +119,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', 'mark
                  $scope.template_status=data.emailautomation;
                  $scope.programs = data;
                  $scope.actionType="Email";
-                  $scope.program_id = program;
+                  $scope.forward = forward;
                   
                  
              });
@@ -119,7 +129,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', 'mark
         
          $scope.ShowAddAction = function()
         { 
-        $scope.isYourplan = false;
+       $scope.fadeClass='fadeClass';
         $scope.fade = true;
         $scope.addAction = true;
         
@@ -127,7 +137,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', 'mark
     
     $scope.closeOverlay = function()
     {
-        $scope.fade = false;
+       $scope.fadeClass='';
         $scope.addAction = false;
         
     }
@@ -147,7 +157,18 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', 'mark
             
       
     });
-    }
+    };
+    
+    $scope.addUpdateRecuringAction = function()
+    {
+         marketingRecurringEmailControllerFactory.recurringEmailTemplatePost().then(function (data) {
+             
+             
+         });
+        
+    };
+    
+   
 
     }]);
 
