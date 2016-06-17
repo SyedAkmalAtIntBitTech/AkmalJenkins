@@ -40,7 +40,7 @@
                         <div class="input-header-actionDetail" style="">
                             TITLE
                         </div>
-                        <input type="text" id="edit_note_title"  name="edit_note_title" value="{{scheduleData.schedule_title}}" class="input-field-textfield full"/>
+                        <input type="text" id="edit_note_title" ng-model="scheduleData.schedule_title"  name="edit_note_title" value="{{scheduleData.schedule_title}}" class="input-field-textfield full"/>
                         <input class="inputbox SP1" type="hidden" name="note_scheduleid" id="note_scheduleid" value='{{scheduleData.schedule_id}}'/>
                         <input class="inputbox SP1" type="hidden" name="note_action_type" id="note_action_type" value='{{scheduleData.schedule_type}}'/>
                         <input class="inputbox SP1" type="hidden" name="note_status" id="note_status" value='{{scheduleData.schedule_type}}'/>
@@ -57,7 +57,7 @@
                                 <div class="input-header-actionDetail" style="">
                                     Marketing Program
                                 </div>
-                                <input type="text" id="Generalid" value="{{scheduleData.marketing_program_name}}" class="input-field-textfield width75" readonly/>
+                                <input type="text" id="Generalid" ng-model="scheduleData.marketing_program_name" value="{{scheduleData.marketing_program_name}}" class="input-field-textfield width75" readonly/>
 
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                                 <div class="input-header-actionDetail" style="">
                                     POSTING TO
                                 </div>
-                                <input type="text" value="{{scheduleData.schedule_type}}" class="input-field-textfield width75" readonly/>
+                                <input type="text" ng-model="scheduleData.schedule_type" value="{{scheduleData.schedule_type}}" class="input-field-textfield width75" readonly/>
                             </div>
                         </div>
                         <div class="input-header-actionDetail h3" style="">
@@ -79,28 +79,17 @@
                             <div class="half">
                                 <div>
                                     <div class="input-header-actionDetail " >
-                                        DATE
+                                        DATE  
                                     </div>
-                                    <input type="text"  name="datepickernote" id="datepickernote"  class="input-field-textfield width75" value="{{scheduleData.entities_selected_time| date:'MMM dd yyyy'}}" readonly/>                                        
-                                    <input type="hidden" value="{{scheduleData.entities_selected_time| date:'MMM dd yyyy'}}" id="notedateid"/>
-                                    <script>
-                                        var picker = new Pikaday(
-                                                {
-                                                    field: document.getElementById('datepickernote'),
-                                                    firstDay: 1,
-                                                    minDate: new Date(2000, 0, 1),
-                                                    maxDate: new Date(2050, 12, 31),
-                                                    yearRange: [2000, 2050]
-                                                });
-
-                                    </script>
+                                    <input type="text"  ng-model="{{scheduleData.entities_selected_time}}"  id="datepickernote"  class="input-field-textfield width75" value="{{scheduleData.entities_selected_time| date:'MMM dd yyyy'}}" readonly/>                                        
+                                    
                                 </div>
                             </div>
                             <div class="half">
-                                <div class="input-header-actionDetail" style="">
+                                <div class="input-header-actionDetail">
                                     TIME
                                 </div>
-                                <input id="timepickernote" type="text" name="timepickernote" class="timepickertextbox " value="{{scheduleData.schedule_time| date:'h : mm : a'}}"/> 
+                                <input type="text" ng-model="{{scheduleData.entities_selected_time| date:'h : mm :a'}}" name="timepickernote" class="timepickertextbox " value="{{scheduleData.entities_selected_time}}" id="timepickernote"/> 
                                 <script>
                                     $('#timepickernote').timepicki({
                                         show_meridian: true,
@@ -116,7 +105,18 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div><script>
+                                        var picker = new Pikaday(
+                                                {
+                                                    field: document.getElementById('datepickernote'),
+                                                    firstDay: 1,
+                                                    minDate: new Date(2000, 0, 1),
+                                                    maxDate: new Date(2050, 12, 31),
+                                                    format: 'MMM DD YYYY',
+                                                    yearRange: [2000, 2050]
+                                                });
+
+                                    </script>
         </div>
 
         <div ng-if="savedReminderTab" class="below-nav-container-saved-post-detail" id="savedreminderdiv">

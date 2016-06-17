@@ -236,91 +236,24 @@ $scope.addDays = function(theDate, days) {
                 $scope.scheduledTo='SEND';
         }
         
+        var date = new Date($scope.entities_selected_time);
         $scope.scheduleData={schedule_title:schedule_title,entities_selected_time:date,
                              schedule_id:schedule_id,schedule_desc:schedule_desc,
                              email_template_status:template_status,schedule_type:entity_type,
                              marketing_program_name:marketingName,user_marketing_program_id:programId,
                              days:days,is_today_active:is_today_active,schedule_time:schedule_time};
-        var date = new Date($scope.scheduleData.schedule_time);
 //                $('#emailcontentiframe').contents().find('html').html(data.body); 
 
         yourPlanFactory.scheduledEmailGet($scope.scheduleData.schedule_id).then(function (data){
             $scope.entitiesdetails = JSON.parse(JSON.stringify(data.d.details));
-            if (entity_type === getemail()) {                
+//            if (entity_type === getemail()) {                
                 if($scope.entitiesdetails != "{}"){
                         $scope.savedEmail=true;
                 }else{
                         $scope.savedEmail=false;
                 }
-            }
-    //                $scope.iframedata=data.body;
+//            }
         });
-//            $slider=2;
-//            sliderDialog = "#emailsection";
-//            
-//            $("#emailpostsection").show();
-//            $("#emailpostremove").show();
-//            $("#emailactionsection").hide();
-//            $("#emailnotesection").hide();
-//            $("#emailactionsave").hide();
-//            $("#emailnotesave").hide();
-//
-//            $("#emailaction1").removeClass("top-subnav-link-active-detail");
-//            $("#emailaction1 a").removeAttr("class");
-//            $("#emailnote1").removeClass("top-subnav-link-active-detail");
-//            $("#emailnote1 a").removeAttr("class");
-//            $("#emailpost1").removeClass("top-subnav-link-active-detail");
-//            $("#emailpost1 a").removeAttr("class");
-//
-//            $("#emailpost1").addClass("top-subnav-link-active-detail");
-//            $("#emailpost1 a").addClass("h3-subnav-subnav-active");
-//            $("#emailaction1").addClass("top-subnav-links-detail");
-//            $("#emailaction1 a").addClass("h3-subnav");
-//            $("#emailnote1").addClass("top-subnav-links-detail");
-//            $("#emailnote1 a").addClass("h3-subnav");
-            
-//            $(".time_pick").width('100%');
-            
-//            prevSliderDialog = "#emailsection";
-//             $("#emailpost").click();
-//            $http({
-//                method: 'GET',
-//                url: getHost() + 'GetScheduledEmailDetail?schedule_id=' + schedule_id
-//            }).success(function (data) {
-//                $scope.entitiesdetails = data;
-//                if (data.body == undefined) {
-//                    $("#emailapprove").hide();
-//                    $("#mailtemplatesaved1").hide();
-//                    $("#mailnotemplate1").show();
-//                    $('#emailpostremove').hide();
-//                    $("#noemailsdiv").show();
-//                    $("#savedemailsdiv").hide();
-//                } else {
-//                    $("#emailapprove").show();
-//                    $("#noemailsdiv").hide();
-//                    $("#savedemailsdiv").show();
-//                     $("#mailtemplatesaved1").show();
-//                    $("#mailnotemplate1").hide();
-//                    $('#emailpostremove').show();
-//                }
-//                var date = new Date(schedule_time);
-//                $('#emailcontentiframe').contents().find('html').html(data.body);                 
-//                $scope.entities_selected_time = date;
-//                $scope.schedule_title = schedule_title;
-//                $scope.schedule_id = schedule_id;
-//                console.log(schedule_desc);
-//                $scope.schedule_desc = schedule_desc;
-//                $scope.email_template_status = template_status;
-//                $scope.schedule_type = entity_type;
-//                $scope.marketing_program_name = marketingName;
-//                $scope.user_marketing_program_id = programId;
-//                $scope.days = days;
-//                $scope.is_today_active = is_today_active;
-//            }).error(function (data) {
-//                alert(requesterror);
-//            });
-//            $('#slider-button').click();
-//        }
     };
     
     
@@ -427,7 +360,7 @@ $scope.addDays = function(theDate, days) {
             "status": status,
             "schedule_time": myEpoch
         };
-        
+        alert(JSON.stringify(schedule_details));
         yourPlanFactory.changeSchedulePost(schedule_details).then(function (data){
             alert(JSON.stringify(data));
         });
