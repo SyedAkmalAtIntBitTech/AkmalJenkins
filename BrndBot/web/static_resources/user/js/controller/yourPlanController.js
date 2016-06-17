@@ -1,14 +1,15 @@
 
 yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', 'yourPlanFactory', function ($scope, $location, yourPlanFactory) {
+    
     $scope.emailsectionClass='';
     $scope.fadeClass='';
-        
     $scope.entities_selected_time = "";
     $scope.master_facebook = getfacebook();
     $scope.master_twitter = gettwitter();
     $scope.master_email = getemail();
     $scope.master_note = getnote();
-    
+    $scope.savedEmail=false;
+    $scope.schedule_id='';
     // use scope.onPikadaySelect for older scope syntax
     $scope.onPikadaySelect = function onPikadaySelect(pikaday) {
       alert(pikaday.toString());
@@ -40,8 +41,8 @@ var user_selected_date = '';
         angular.element(document.getElementById('yourPlanController')).scope().getCampaigns();
     };
     function addDays(theDate, days) {
-    return new Date(theDate.getTime() + days * 24 * 60 * 60 * 1000);
-}
+        return new Date(theDate.getTime() + days * 24 * 60 * 60 * 1000);
+    }
 
 //$(document).ready(function ()
 //{
@@ -88,7 +89,7 @@ var user_selected_date = '';
         }
         latest_date=curr_date;
         var invalid= "Invalid date";
-  yourPlanFactory.scheduledEntitiesGet(curr_date,new_date).then(function (data) {
+        yourPlanFactory.scheduledEntitiesGet(curr_date,new_date).then(function (data) {
       
                     var parseJSON=JSON.parse(data.d.details);
                     $scope.entityS = JSON.parse(JSON.stringify(parseJSON));
@@ -138,18 +139,16 @@ $scope.addDays = function(theDate, days) {
         
     $scope.ShowAddAction = function()
     { 
-         $scope.fadeClass='fadeClass';
+        $scope.fadeClass='fadeClass';
         $scope.isYourplan = true;
-        
         $scope.addAction = true;
-    }
+    };
     
     $scope.closeOverlay = function()
     {
         $scope.fadeClass='';
-        $scope.addAction = false;
-        
-    }
+        $scope.addAction = false;        
+    };
         
     $scope.AddAction = function(addTitle,datePicker,timePicker,actionType)
     {
@@ -161,11 +160,13 @@ $scope.addDays = function(theDate, days) {
         var schedule_time = Date.parse(l);
         var myEpoch = schedule_time;
         var days=0;
-        var action = {"title": addTitle, "actiontype": actionType,"type": "save","description":0,"marketingType":0,"action_date": myEpoch,"days":days};
+        var action = {"title": addTitle, "actiontype": actionType,"type": "save","description":"","marketingType":0,"action_date": myEpoch,"days":days};
         yourPlanFactory.addActionPost(action).then(function (data) {
-       
-    });
-    }
+            $scope.getCampaigns();            
+            $scope.closeOverlay();
+        });
+    };
+    
     $scope.closePopup = function (){
         $scope.reminderSectionClass='';
         $scope.emailsectionClass='';
@@ -212,23 +213,23 @@ $scope.addDays = function(theDate, days) {
     };
     
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active) 
-    {   
+    { 
         $scope.entities_selected_time =schedule_time;
-        
-       
-//        alert( $scope.entities_selected_time);
-//        entity_type='Reminder';
+        $scope.savedEmail=false;   
+        $scope.schedule_id=schedule_id;
         $scope.generalSavedDetails=true;
         $scope.generalNotes=false;
         $scope.generalActions=false;
         $scope.emailsectionClass='emailsectionClass';
         $scope.fadeClass='fadeClass';
+        $scope.email_template_status=template_status;
         $scope.generalActionDetailsHeader=entity_type;        
         $scope.scheduledTo='POST';
         $scope.setTab('savedDetails');
         if (entity_type === getnote()) {
             $scope.reminderSectionClass='reminderSectionClass';
             $scope.savedReminderTab=true;
+            $scope.setTab('savedReminder');
         }
         
         if (entity_type === getemail()) {
@@ -244,8 +245,14 @@ $scope.addDays = function(theDate, days) {
 //                $('#emailcontentiframe').contents().find('html').html(data.body); 
 
         yourPlanFactory.scheduledEmailGet($scope.scheduleData.schedule_id).then(function (data){
-//            $scope.entitiesdetails = data;
-//            alert(JSON.stringify(data.d.details));
+            $scope.entitiesdetails = JSON.parse(JSON.stringify(data.d.details));
+            if (entity_type === getemail()) {                
+                if($scope.entitiesdetails != "{}"){
+                        $scope.savedEmail=true;
+                }else{
+                        $scope.savedEmail=false;
+                }
+            }
     //                $scope.iframedata=data.body;
         });
 //            $slider=2;
@@ -340,22 +347,6 @@ $scope.addDays = function(theDate, days) {
                 "description": description, "action_date": myEpoch, "days":days
             };
             alert(JSON.stringify(action));
-//            $http({
-//                method: 'POST',
-//                url: getHost() + 'AddAction',
-//                headers: {'Content-Type': 'application/json'},
-//                data: JSON.stringify(action)
-//            }).success(function (data)
-//            {
-//                $scope.status = data;
-//                if (data != "") {
-//                    alert(actionsaved);
-//                    $("#change").val("1");
-//                    $scope.getCampaigns();
-//                }
-//            }).error(function (data, status) {
-//                alert(requesterror);
-//            });
         }
     };
     
@@ -366,27 +357,97 @@ $scope.addDays = function(theDate, days) {
                 "schedule_id": scheduleId.toString(), "type": "updatenotesyourplan","actiontype": actiontype,
                 "description": $scope.scheduleData.schedule_desc
             };    
-            alert(JSON.stringify(action));
             yourPlanFactory.addActionPost(action).then(function (data){
-                alert(JSON.stringify(data));
+                $scope.getCampaigns();
             });
-//            $http({
-//                method: 'POST',
-//                url: getHost() + 'AddAction',
-//                headers: {'Content-Type': 'application/json'},
-//                data: JSON.stringify(action)
-//            }).success(function (data)
-//            {
-//                $scope.status = data;
-//                if (data != "") {
-//                    alert(emailnotesaved);
-//                    $("#change").val("1");
-//                }
-//            }).error(function (data, status) {
-//                alert(reqemailnotesaved);
-//            });
-
     };
-    }]);
+    
+    $scope.updateReminderDescription = function (schedule_id) {
+        
+        var actiontype = getnote();
+        var reminderAction = {
+            "schedule_id": schedule_id, "type": "updatenotes","actiontype": actiontype,
+            "description": $scope.scheduleData.schedule_desc
+        };
+        yourPlanFactory.addActionPost(reminderAction).then(function (data){
+                $scope.getCampaigns();
+        });
+    };
+    
+    $scope.deleteSchedule = function (schedules_to_delete, type, section, isRecurring) {
+        var message;
+        var requestBody;
+        var responseMessage;
+        if (type == "deleteMultiple") {
+            message = multideleteconfirm;
+            requestBody = {"type": "deleteSelected",
+                "schedule_ids": selected_schedules_to_delete, "entity_type": "null"};
+            responseMessage =multideletesuccess;
+        } else if (type == "delete") {
+            message = singledeleteconfirm;
+            requestBody = {"type": "delete",
+                            "schedule_ids": schedules_to_delete, "entity_type": section, 
+                            "isRecurring": isRecurring};
+            responseMessage = singledeletesuccess;
+        } else if (type == "remove") {
+            message = removecnfirm;
+            requestBody = {"type": "removetemplate", 
+                           "schedule_ids": schedules_to_delete, "entity_type": section, 
+                           "isRecurring": isRecurring};
+            responseMessage = multideletesuccess;
+        }
+
+        if (confirm(message)) {
+            yourPlanFactory.changeSchedulePost(requestBody).then(function (data){
+                $scope.getCampaigns();
+                $scope.closePopup();
+            });
+        }
+    };
+    
+    $scope.updateNote = function (scheduleData) {
+        alert(JSON.stringify(scheduleData));
+//        var message;
+        var schedule_id = scheduleData.schedule_id;//$("#note_scheduleid").val();
+        var note_title = scheduleData.schedule_title;//$("#edit_note_title").val();
+        var status ="no_template";
+        var note_desc = "";
+        var message = "Do you wan't to update the record?";
+        var actiondate = scheduleData.entities_selected_time;//$("#datepickernote").val();
+        var actionDateTime=scheduleData.entities_selected_time;//$("#timepickernote").val().replace(/ /g,'');
+        var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+        var schedule_time = Date.parse(l);
+        var myEpoch = schedule_time;    
+// 
+        var schedule_details = {
+            "type": getnote(),
+            "schedule_id": schedule_id,
+            "schedule_title": note_title,
+            "schedule_desc": note_desc,
+            "status": status,
+            "schedule_time": myEpoch
+        };
+        
+        yourPlanFactory.changeSchedulePost(schedule_details).then(function (data){
+            alert(JSON.stringify(data));
+        });
+//       
+//        $http({
+//            method: 'POST',
+//            url: getHost() + 'ChangeSchedule',
+//            headers: {'Content-Type': 'application/json'},
+//            data: JSON.stringify(schedule_details)
+//        }).success(function (data)
+//        {
+//            $scope.status = data;
+//            if (data != "") {
+//                alert(detailssaved);
+//                $("#change").val("1");
+//            }
+//        }).error(function (data, status) {
+//            alert(requesterror);
+//        });        
+    };
+}]);
 
        

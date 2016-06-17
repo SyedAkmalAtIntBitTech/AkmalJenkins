@@ -11,10 +11,10 @@ factoryApp.factory('yourPlanFactory', function ($q, authenticatedServiceFactory,
         });
         return deffered.promise;
     };
-    yourPlanFactoryObject.changeSchedulePost = function () {
+    yourPlanFactoryObject.changeSchedulePost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.changeScheduleURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url,data,"").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

@@ -1,11 +1,17 @@
 <div class="below-nav-container-saved-post-detail" ng-if='generalSavedDetails'>
     <div class="inner-content-container-detail">
-
-    </div>
-    <div class="inner-content-detail">
-       <div class="Facebook-preview" >
-            <iframe width="500" height="400" ng-src="{{iframedata}}"></iframe>
-            
+        <div class="BBsaved-action-header-bar" ng-show="savedEmail">
+            <div class="BBsaved-action-header-details-wrap BBstyle">
+                <h2 class="BBsection-header">SAVED EMAIL PREVIEW</h2>
+            </div>
+            <div class="BBreg-button BBedit-saved-email-button" ng-click="deleteSchedule(schedule_id,'remove',master_email)">Remove Saved Email</div>
         </div>
+    </div>
+    <div class="inner-content-detail" ng-app="myApp" ng-controller="myCtrl">
+        
+        <div class="Facebook-preview" >
+            <iframe width="500" height="400" ng-src="{{iframedata}}" ng-bind-html="myText"></iframe>
+        </div>
+
     </div>
 </div>
