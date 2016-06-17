@@ -1,13 +1,15 @@
-<div class="page-content-container email-list-contact-page" id="emaillistsdiv" ng-controller="EmailListController">
+<!--<div class="page-content-container email-list-contact-page" id="emaillistsdiv" ng-controller="EmailListController">-->
+<div class="page-content-container email-list-contact-page" id="emaillistsdiv" ng-show="emallistdetails">   
     <!--Inner Content Conatiner GENERIC-->
     <div class="page-inner-content-container ">
         <div class="fleft content">
             <div class="page-content-title-bar">
                 <div class="page-content-title pushUp h2" ng-show="emailLists.length > 0 || emailListsMindbody.length > 0">Your Email Lists </div>
-                <div class="page-content-title pushUp h2" ng-show="emailLists.length == 0 && emailListsMindbody.length == 0">No email lists present</div>
+                <div class="page-content-title pushUp h2" ng-show="emailLists.length === 0 && emailListsMindbody.length === 0">No email lists present</div>
             </div>
             <!--List Starts Here-->
-            <div ng-init="showEmailListWithContacts()">
+<!--            <div ng-init="showEmailListWithContacts()">-->
+               <div ng-init="emailListGet()"> 
                 <ul class="main-container fleft">
                     <li class="slat-container fleft selfclear" ng-show="emailLists.length > 0" ng-repeat="email in emailLists">
                         <div class="selection-container col-5p"> 

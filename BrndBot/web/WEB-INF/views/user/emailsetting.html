@@ -1,65 +1,14 @@
-<!--<div class="top-nav">
-                <div class="page-title-bar col-1of1"> 
-                    <div class="exit-button-detail"></div>
-                    <div class="page-title-regular page-title-font">Your Email Hub</div>
-                    <div class="page-cta-container">
-                        <a href="">
-                            <div class="delete-button md-button button fleft" id="deleteEmaildraft" ng-click="deletedrafts('deleteMultiple');"> Delete Email Drafts</div>
-                        </a>
-                        <a href="">
-                            <div id="addemlstbtn" class="add-action-button md-button button-text-1" ng-click="addemaillist()"> Add Email List</div>
-                        </a>
-                        <a href="">
-                            <div id="savesetbtn" class="add-action-button md-button button-text-1" ng-click="saveemailsettings()">Save</div>
-                        </a>
-                    </div>
-                </div>
-                <div class="page-subnav-bar-with-dropdown">
-                    <div class="subnav-dropdown pushright" onclick="funshowdropdown()">
-                        <span class="hub-dropdown-text" id="emlsclspanid">Email<img type="image/svg+xml" src="images/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"></span>
-                    </div>
-                    <div class="top-subnav-tabs-container">
-                        <ul class="top-subnav-nav-elements">
-                            <li class="top-subnav-links" id="emldrftab"> <a class="h3">Email Drafts</a></li>
-                            <li class="top-subnav-links" id="emlhistab"> <a class="h3">Email History and Analytics</a></li>
-                                                    <li class="top-subnav-links"> <a class="h3">Scheduled Emails</a></li>
-                            <li class="top-subnav-link-active" id="emllistab"> <a class="h3-active-subnav">Email Lists</a></li>
-                            <li class="top-subnav-links" id="emlsettab" ng-click="getemailsettings()"> <a href="#/emailsetting" class="h3">Email Settings</a></li>
-                            <li class="top-subnav-links" id="footertab"> <a class="h3">Footer Settings</a></li>
-                        </ul>
-                    </div>
-
-                </div>
-                <div class="dropdown-hub" id="emaildropdown" style="display:none;">
-                    <ul class="dropdown-inner">
-                        <li class="dropdown-section fleft col-1of1 " id="emailhubli">
-                            <a href="/BrndBot/user/emaillist">
-                                <div><img type="image/svg+xml" src="images/Hub-Dropdowns_email.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></div>
-                                <div class="fleft col-6of10 dropdown-label-active">Email Hub</div>
-                            </a>                        
-                        </li>
-                        <a href="/BrndBot/user/social">
-                            <li class="dropdown-section col-1of1 fleft" id="socialhubli">
-                                <div><img type="image/svg+xml" src="images/Hub-Dropdowns_social.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></div>
-                                <div class="fleft col-6of10 dropdown-label">Social Hub</div>
-                            </li>
-                        </a>
-
-                    </ul>
-                </div>
-            </div>-->
-<div class="page-background">
-<div class="page-content-container email-list-contact-page email-draft-page" id="emaisetdiv">
+    <div class="page-content-container email-list-contact-page email-draft-page" id="emaisetdiv"  ng-show="emailsettingsdetails">
     <div class="fleft content ">
         <div class="page-content-title h2">Your Email Settings</div>
         <!--List Starts Here-->
-        <div class="emailSettings-container fleft pushUp-50 main-container main-container50width col-8of10" ng-init="getEmailSettings()">
+        <div class="emailSettings-container fleft pushUp-50 main-container main-container50width col-8of10" >
             <div class="col-1of1 fleft">
                 <div class="col-7of10 fleft">
                     <div class="h4" style="">
                         Default from Address:
                     </div>
-                    <input id="from_address" class="input-field-textfield col-8of10" type="text" name="from_address" value="{{email_settings.from_address}}" placeholder="Enter default email address"/>
+                    <input id="from_address" class="input-field-textfield col-8of10" type="text" ng-model="email_settings.fromAddress" name="from_address" value="{{email_settings.from_address}}" placeholder="Enter default email address"/>
 
                 </div>
             </div>
@@ -68,10 +17,9 @@
                     <div class="h4" style="">
                         Reply to Email Address:
                     </div>
-                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{email_settings.reply_email_address}}" name="reply_email_address" placeholder="Enter reply-to-email address"/>
+                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" ng-model="email_settings.replyAddress" name="reply_email_address" value="{{email_settings.reply_email_address}}" placeholder="Enter reply-to-email address"/>
                 </div>
             </div>
         </div>                        
     </div>   
-</div>
 </div>
