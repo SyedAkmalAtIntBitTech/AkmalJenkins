@@ -1265,7 +1265,7 @@ p#filetext {
 }
 #email_previewdiv{
     position: fixed;
-    display: none;
+/*    display: none;*/
     /*margin-top: 5%;*/
     margin-top: 60px;
     z-index: 99999;

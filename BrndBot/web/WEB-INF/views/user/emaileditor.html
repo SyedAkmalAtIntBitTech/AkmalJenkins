@@ -47,7 +47,8 @@
                                         <p>Your email footer is the same on every email. You 
                                     see the footer in this email by previewing your email. To edit
                                     the footer click email footer settings.</p>
-                                        <span class="reg-button gray-button" onclick="editFooter()">Edit Email Footer</span>
+<!--                                        <span class="reg-button gray-button" onclick="editFooter()">Edit Email Footer</span>-->
+                                        <span class="reg-button gray-button" ng-click="editFooter()">Edit Email Footer</span>
                             </div>
         </div>
         <div class="emailEditor-rightCol fright rightcoloumn">
@@ -90,7 +91,7 @@
 </div>  
 
 <div id="fade" class="black_overlay" ></div>
-<div id="email_previewdiv">
+<div id="email_previewdiv" ng-show="emailpreviewpopup">
     <div class="pop-up-background popup-screen">
         <div class="pop-up-container-emailPreview"> 
             <a class=" exit-button-detail-ep link svg" href="" id="closePrev">
