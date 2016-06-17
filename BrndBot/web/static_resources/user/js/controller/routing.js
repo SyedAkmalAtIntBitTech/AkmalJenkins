@@ -100,6 +100,10 @@ marketingFlowApp.config(function($routeProvider){
     }) 
     .when('/marketingprogramactions', {
                 templateUrl: 'marketingprogramactions.html',
+                           
+    }) 
+     .when('/emailautomation', {
+                templateUrl: 'emailautomation.html',
               
                 
     }) 
