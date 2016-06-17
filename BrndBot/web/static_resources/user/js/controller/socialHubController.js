@@ -98,47 +98,17 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
             settingsFactory.twitterGetTokenGet(pin).then(function (data) {
                 if (pin.length > 0) {
                     alert(JSON.stringify(data));
-                    window.location = getHost() + "user/social";
-//                    $location.path('user/social');
-//                $route.reload();
+                    $location.path('user/social');
+                    $scope.showTwitterPopup = false;
+                    $scope.getTwitterDetails(); 
                 } else {
                     alert(pinerror);
                     $("#pinTextBox").focus();
                 }
             });
         };
-        
-        //  $scope.setTwitterAccessTokenFromSocialHub = function (pinCode) {
-//        var pin = pinCode;
-//        if (pin.length > 0) {
-//            settingsFactory.twitterGetTokenGet(pin).then(function (data){
-//                alert(JSON.stringify(data));
-////                $location.path('/user/social');
-//                $route.reload();
-//                
-//            });
-//           
-//            
-////         $.ajax({
-////            url: getHost() + 'settings/twitterGetToken/' + pin,
-////            method: 'GET',
-////            success: function (responseText) {
-////                $("#twitterSetPinPopUpFromSocialhub").hide();
-////                window.location = getHost() + "user/social";
-////            },
-////            error: function (jqXHR, textStatus, errorThrown) {
-////                alert(JSON.stringify(jqXHR));
-////            }
-////         });
-//
-//         } else {
-////            alert(pinerror);
-////            $("#pinTextBox").focus();
-//            alert("please");
-//         }
-//        };
-
-
+ 
+ 
         $scope.clearTwitterDetails = function () {
             var data = JSON.stringify({access_token_method: "clearTwitterDetails"});
             alert(data);
@@ -155,7 +125,9 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
             settingsFactory.facebookPost(data).then(function (data) {
                 alert(JSON.stringify(data));
                 if (addDafaultmanagePage) {
-
+                    $scope.default_page_name = localStorage.getItem("CurrentFbPageName");
+                    $scope.fb_user_profile_name = localStorage.getItem("FbProfileName");
+                    $scope.facebook = false;
                 } else {
                     alert("Please select any page and set as Default.");
                 }
