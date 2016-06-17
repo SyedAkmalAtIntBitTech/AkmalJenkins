@@ -153,8 +153,19 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 });
             }
         };
-
-        $scope.showStyles = function () {
+        
+        $scope.blockdivheader = true;
+        $scope.styledivheader = false;
+        $scope.blocktab = "emailSideBar-tab-active";
+        $scope.styletab = "emailSideBar-tab";
+        $scope.showStyles = function (isClick) {
+            if(isClick=="true")
+            {
+                $scope.blockdivheader = false;
+                $scope.styledivheader = true;
+                $scope.blocktab = "emailSideBar-tab";
+                $scope.styletab = "emailSideBar-tab-active";
+           }
             if ($scope.isBlockClicked == "true" || $scope.htmlBlockId != "defaultblock1")
             {
                 blockModelFactory.allEmailBlockModelGet($scope.selectedBlockId).then(function (data) {
@@ -169,13 +180,20 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.showBlocks = function () {
+            $scope.blockdivheader = true;
+                $scope.styledivheader = false;
+                $scope.styletab = "emailSideBar-tab";
+                $scope.blocktab = "emailSideBar-tab-active";
             companyFactory.allBlocksForCompanyGet().then(function (data) {
                 $scope.blockLists = data.d.details;
             });
         };
-
-        $scope.showImageOfBlock = function (id) {
-            $(".block-button").addClass("hide");
+        $scope.blockOnClick = function (id) {
+            
+            $("#blockdiv li").removeClass("block-slat-active");
+            $("#blockdiv li").addClass("block-slat");
+            
+            $(".blo   ck-button").addClass("hide");
             $("#blockdiv li").removeClass("block-slat-active");
             $("#blockdiv li").addClass("block-slat");
             $("#" + id).removeClass("block-slat");

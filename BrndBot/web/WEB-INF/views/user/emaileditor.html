@@ -42,39 +42,39 @@
                 </div>
             </div>
             <!--////////////........ uncomment for footer....................///////-->
-            <!--                 <div class="in-editor-footer-wrap">
+                             <div class="in-editor-footer-wrap">
                                         <h3>Email Footer</h3>
                                         <p>Your email footer is the same on every email. You 
                                     see the footer in this email by previewing your email. To edit
                                     the footer click email footer settings.</p>
                                         <span class="reg-button gray-button" onclick="editFooter()">Edit Email Footer</span>
-                            </div>-->
+                            </div>
         </div>
         <div class="emailEditor-rightCol fright rightcoloumn">
             <div class="emailSideBar-Header">
                 <div class="col-1of2 fleft">
-                    <div class="emailSideBar-tab-active" id="blocktab" ng-init="showBlocks()" ng-click="showBlocks()">
+                    <div class="{{blocktab}}" id="blocktab" ng-init="showBlocks()" ng-click="showBlocks()">
                         Add Block
                     </div>
                 </div>
                 <div class="col-1of2 fleft">
-                    <div class="emailSideBar-tab" id="styletab" ng-init="showStyles()" ng-click="showStyles()">
+                    <div class="{{styletab}}" id="styletab" ng-init="showStyles('false')" ng-click="showStyles('true')">
                         Change Style
                     </div>
                 </div> 
             </div>
             <div class="email-Block-Selection right-email-select">
-                <div class="email-Block-Header" id="blockdivheader">Select a block to add:</div>
-                <div class="email-Block-Header" id="styledivheader">Select a style for this block:</div>
+                <div class="email-Block-Header" id="blockdivheader" ng-show="blockdivheader">Select a block to add:</div>
+                <div class="email-Block-Header" id="styledivheader" ng-show="styledivheader">Select a style for this block:</div>
                 <div class="block-selection-divider"></div>
-                <ul class="block-list" id="blockdiv"  >
-                    <li class="block-slat" ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="showImageOfBlock(blocks.emailBlockId)">
+                <ul class="block-list" id="blockdiv" ng-show="blockdivheader">
+                    <li class="block-slat"  ng-repeat="blocks in blockLists" id="{{blocks.emailBlockId}}" ng-click="blockOnClick(blocks.emailBlockId)">
                         <div class="block-name" id="blklist----{{blocks.emailBlockId}}" >{{blocks.emailBlockName}}</div>                            
                         <div class="block-button hide" ng-click="didChooseBlock(blocks.emailBlockId, blocks.externalSourceKeywordLookupId)" id="div2{{blocks.emailBlockId}}">Add Block</div>
                     </li>
                 </ul>
 
-                <ul class="block-list" id="stylediv">
+                <ul class="block-list" id="stylediv" ng-show="styledivheader">
                     <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.modelId}}" ng-click="addActive('stylelistid' + styles.modelId)">
                         <div class="block-name">
                             <img id="{{styles.modelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" onclick="showText('{{styles.modelId}}')" width="100%" />

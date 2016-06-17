@@ -1494,9 +1494,9 @@ textarea#filetext1 {
 .editorclass{
         width: 66% !important;
 }
-#styledivheader{
+/*#styledivheader{
     display: none;
-}
+}*/
 #stylediv{
     display: none;
 }
