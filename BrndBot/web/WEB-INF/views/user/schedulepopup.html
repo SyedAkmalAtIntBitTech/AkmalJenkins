@@ -40,7 +40,7 @@
             <div class="input-wrap">
                 <label>Action Name</label>
                 <div class="input">
-                    <input  size="100" class="fluid" placeholder="Action Name" />
+                    <input  size="100" class="fluid" id="ActionName" placeholder="Action Name" />
                 </div>
             </div>
             <div class="date-time-input-wrap">
@@ -62,11 +62,11 @@
                 </div>
                 <div class="input-wrap">
                     <label>Action Time</label>
-                    <a class="input dropdown-right">
-                        <input  id="timepicker1" type="text" name="timepicker1"  size="10"  placeholder="Enter Action Time"  /> 
+                    <a class="input dropdown">
+                        <input  id="actionTime" type="text" name="actionTime"  size="10"  placeholder="Enter Action Time"  /> 
                         <script src="js/timepicki.js" type="text/javascript"></script>
                             <script>
-                               $('#timepicker1').timepicki({
+                               $('#actionTime').timepicki({
                                    show_meridian:true,
                                    min_hour_value:0,
                                    max_hour_value:12,
@@ -76,7 +76,7 @@
                                    disable_keyboard_mobile: true
                                });
                             </script>
-                        <div class="dropdown"></div>
+<!--                        <div class="dropdown"></div>-->
                     </a>
                 </div>
             </div>

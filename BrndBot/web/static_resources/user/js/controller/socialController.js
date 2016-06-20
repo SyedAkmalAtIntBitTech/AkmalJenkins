@@ -454,10 +454,30 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             }
         };
         $scope.schedulePostToFacebook = function (postData) {
-            var sendData = "";
+            var sendData = sendData = $scope.getScheduleData($scope.selectedMarketingProgrma,postData,getfacebook());
             if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
+                scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (data) {
+                    alert(JSON.stringify(data));
+                });
+            } else {
+                scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (data) {
+                    alert(JSON.stringify(data));
+                });
+            }
+        };
+        $scope.schedulePostToTwitter = function () {
+            var sendData = sendData = $scope.getScheduleData($scope.selectedMarketingProgrma,gettwitter());
+            if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
+//                scheduleActionsFactory.scheduleSocialPostActionsURL();
+            } else {
+
+            }
+        };
+        $scope.getScheduleData = function (selectedMarketingProgrmaId,postData,socialMediaType) {
+            var sendData = "";
+            if (selectedMarketingProgrmaId !== 0) {
                 sendData = JSON.stringify([{
-                        type: getfacebook(),
+                        type: socialMediaType,
                         image_name: $scope.selectImageName,
                         program_id: $scope.selectedMarketingProgrma.toString(),
                         schedule_id: $scope.socialAction.toString(),
@@ -466,52 +486,47 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                             access_token: $rootScope.CurrentFbAccessToken
                         },
                         metadata: {
-                            description: '"' + postData.linkDescription+ '"',
-                            post_text: '"' +postData.shareText+ '"',
-                            url: '"' +postData.url+ '"',
-                            ManagedPage: '"' +$rootScope.CurrentFbPageName+ '"',
-                            title: '"' +postData.linkTitle+ '"'
+                            description: '"' + postData.linkDescription + '"',
+                            post_text: '"' + postData.shareText + '"',
+                            url: '"' + postData.url + '"',
+                            ManagedPage: '"' + $rootScope.CurrentFbPageName + '"',
+                            title: '"' + postData.linkTitle + '"'
                         }
                     }]);
-                scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (data) {
-                    alert(JSON.stringify(data));
-                });
+            }
+            else {
+                var schedule_title = $("#ActionName").val();
+                var schedule_date = $("#actionDate").val();
+                var schedule_time = $("#actionTime").val().replace(/ /g, '');
+                var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
+                var myEpoch = Date.parse(dateAndTime);
 
-            } else {
+                console.log("Epoch: " + myEpoch);
                 sendData = JSON.stringify([{
                         "schedule_time": myEpoch,
                         "schedule_title": schedule_title,
-                        "program_id": program_id,
-                        "schedule_desc": schedule_desc,
-                        "type": getfacebook(),
-                        "image_name": image_name,
-                        "accessToken": localStorage.getItem("CurrentFbAccessToken"),
-                        "postText": shareText,
-                        "title": linkTitle,
-                        "url": linkUrl,
-                        "description": linkDescription,
-                        "image_type": image_type,
+                        "program_id": $scope.selectedMarketingProgrma.toString(),
+                        "schedule_desc": "",
+                        "type": socialMediaType,
+                        "image_name": $scope.selectImageName,
+                        "accessToken": $rootScope.CurrentFbAccessToken,
+                        "postText": postData.shareText,
+                        "title": postData.linkTitle,
+                        "url": postData.url,
+                        "description": postData.linkDescription,
+                        "image_type": $scope.selectImageType,
                         token_data: {
-                            "access_token": localStorage.getItem("CurrentFbAccessToken")
+                            "access_token": $rootScope.CurrentFbAccessToken
                         },
                         metadata: {
-                            description: '"' + $("#linkDescription").val() + '"',
-                            post_text: '"' + $("#shareText").val() + '"',
-                            url: '"' + $("#linkUrl").val() + '"',
-                            ManagedPage: '"' + localStorage.getItem("CurrentFbPageName") + '"',
-                            title: '"' + $("#linkTitle").val() + '"'
+                            description: '"' + postData.linkDescription + '"',
+                            post_text: '"' + postData.shareText + '"',
+                            url: '"' + postData.url + '"',
+                            ManagedPage: '"' + $rootScope.CurrentFbPageName + '"',
+                            title: '"' + postData.linkTitle + '"'
                         }
                     }]);
-                scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (data) {
-                    alert(JSON.stringify(data));
-                });
             }
-        };
-        $scope.schedulePostToTwitter = function () {
-            if (selectedMarketingProgrma === 0) {
-                scheduleActionsFactory.scheduleSocialPostActionsURL();
-            } else {
-
-            }
+            return sendData;
         };
     }]);
