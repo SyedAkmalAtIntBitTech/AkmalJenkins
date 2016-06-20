@@ -1,14 +1,16 @@
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-5.css">
     <link rel="stylesheet" type="text/css" href="css/normalize5.css">
 
-    <div id="fade" class="black_overlay" ></div>
+    <div ng-show="overlay" id="fade" class="black_overlay" ></div>
     <!--Top Nav-->  
-    <div id="email_previewdiv">
+    <div id="email_previewdiv" ng-show="emailpreviewpopup">
         <div class="pop-up-background emailPreview">
         <div class="pop-up-container-emailPreview"> 
+            <span ng-click="previewCloseButton()">
                 <a class=" exit-button-detail-ep link svg" href="" id="closePreview">
                     <img type="image/svg+xml" src="images/close.svg" class="closeemailpreview" style="cursor:pointer;"> </img>
                 </a>
+            </span>
             <div class="pop-up-title-emailpreview "> 
                 <div class="emailPreview-header fleft">Email Preview</div>
             </div>
@@ -17,7 +19,8 @@
                 <div class="emailPreviews col-1of1 fleft"> 
                     <div class="emailPreview-desktop-col  fleft">
                         <div class="emailPreview-headers">Desktop Preview</div>
-                            <div class="content">  
+<!--                            <div class="content" ng-show="sample">  -->
+                            <div class="content" ng-model="desktopEmailPreview">  
                                 <iframe id="dynamictable5" style="position: relative; width: 100%; border: none; height: 420px;background-color: rgb(255, 255, 255);" src="{{iframePath}}"></iframe>                   
                             </div>
                         <div class="desktopshow" style="display:none;">

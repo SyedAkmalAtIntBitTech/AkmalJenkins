@@ -236,7 +236,7 @@
 }
 .pop-up-background{
     width: calc(96vw - 853px);
-    margin-top: 10vw;
+/*    margin-top: 10vw;*/
 }
 .pop-up-background-gallery{
     margin-top: 4vw;
