@@ -110,6 +110,16 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
         });
         return deffered.promise;
     };
+    settingsFactoryObject.setFooterPost = function (footerDetails) {
+        var deffered = $q.defer();
+        var url = configurationService.setFooterPostURL(); 
+        var data = '{"footerDetails":"' + footerDetails + '"}';
+        authenticatedServiceFactory.makeCall("POST", url, data).then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    
     return settingsFactoryObject;
 });
 

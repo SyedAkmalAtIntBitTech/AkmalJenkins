@@ -1,7 +1,7 @@
 
 //************************ @author Tasmiya P.S @ Intbit *************************
 
-app.factory('emailDraftFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('emailDraftFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var emailDraftFactoryObject = {};
     emailDraftFactoryObject.saveEmailDraftsPost = function () {
         var deffered = $q.defer();

@@ -1,13 +1,13 @@
-<div class="page-content-container email-list-contact-page email-draft-page" id="emaildraftsdiv" ng-show="emailDrafts">
+<div class="page-content-container email-list-contact-page email-draft-page" id="emaildraftsdiv">
     <div>                   
-        <div class="fleft content" >
+        <div class="fleft content" ng-init="getAllEmailDrafts()">
             <div class="page-content-title pushUp h2" ng-show="emaildrafts.length > 0">Your Email Drafts </div>
-            <div class="page-content-title pushUp h2" ng-show="emaildrafts.length == 0">No Email Drafts present</div>
+            <div class="page-content-title pushUp h2" ng-show="emaildrafts.length === 0">No Email Drafts present</div>
             <!--List Starts Here-->
             <ul class="main-container fleft">
                 <div class="col-7of10 slat-unit fleft">
                     <div>
-                        <div ng-show="emaildraftnumber == '0'">{{emaildraftsstatus}}</div>
+                        <div ng-show="emaildraftnumber === '0'">{{emaildraftsstatus}}</div>
                     </div>
                 </div>
                 <div  ng-repeat="drafts in emaildrafts">
