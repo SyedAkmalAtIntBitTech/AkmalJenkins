@@ -1,5 +1,5 @@
 
-yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', 'yourPlanFactory', function ($scope, $location, yourPlanFactory) {
+yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', function ($scope, $location, $filter, yourPlanFactory) {
     
     $scope.emailsectionClass='';
     $scope.fadeClass='';
@@ -214,7 +214,8 @@ $scope.addDays = function(theDate, days) {
     
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active) 
     { 
-        $scope.entities_selected_time =schedule_time;
+//        $scope.entities_selected_time =schedule_time;
+        $scope.entities_selected_time = $filter('date')(schedule_time, "MMM dd yyyy");
         $scope.savedEmail=false;   
         $scope.schedule_id=schedule_id;
         $scope.generalSavedDetails=true;
@@ -236,12 +237,13 @@ $scope.addDays = function(theDate, days) {
                 $scope.scheduledTo='SEND';
         }
         
-        var date = new Date($scope.entities_selected_time);
+        var date = $scope.entities_selected_time;
+        var time = $filter('date')(schedule_time, "hh:mm a")
         $scope.scheduleData={schedule_title:schedule_title,entities_selected_time:date,
                              schedule_id:schedule_id,schedule_desc:schedule_desc,
                              email_template_status:template_status,schedule_type:entity_type,
                              marketing_program_name:marketingName,user_marketing_program_id:programId,
-                             days:days,is_today_active:is_today_active,schedule_time:schedule_time};
+                             days:days,is_today_active:is_today_active,schedule_time:time};
 //                $('#emailcontentiframe').contents().find('html').html(data.body); 
 
         yourPlanFactory.scheduledEmailGet($scope.scheduleData.schedule_id).then(function (data){
@@ -262,7 +264,7 @@ $scope.addDays = function(theDate, days) {
         var actiontype = scheduleUpdatedData.schedule_type;//$("#email_schedule_type").val();
         var schedule_id = scheduleUpdatedData.schedule_id;//$("#email_scheduleid").val();
         var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
-        var actiondate = scheduleUpdatedData.schedule_time;//$("#emaildatetime").val();
+        var actiondate = scheduleUpdatedData.entities_selected_time;//$("#emaildatetime").val();
         var days=scheduleUpdatedData.days;//$("#emaildays").val();
         if(days!="0")
         {
@@ -273,14 +275,17 @@ $scope.addDays = function(theDate, days) {
         var schedule_time = Date.parse(l);
         var myEpoch = schedule_time;
         var description = "";
-        if (!validateemailaction()) {
+//        if (!validateemailaction()) {
             var action = {
-                "schedule_id": schedule_id, "type": "update",
+                "schedule_id": schedule_id.toString(), "type": "update",
                 "title": title, "actiontype": actiontype,
-                "description": description, "action_date": myEpoch, "days":days
+                "description": description, "action_date": myEpoch, "days":days.toString()
             };
-            alert(JSON.stringify(action));
-        }
+            yourPlanFactory.addActionPost(action).then(function (data){
+                alert(actionsaved);
+                $scope.getCampaigns();
+            });
+//        }
     };
     
     $scope.updateActionNote = function (scheduleId){
@@ -339,22 +344,20 @@ $scope.addDays = function(theDate, days) {
     };
     
     $scope.updateNote = function (scheduleData) {
-        alert(JSON.stringify(scheduleData));
-//        var message;
         var schedule_id = scheduleData.schedule_id;//$("#note_scheduleid").val();
         var note_title = scheduleData.schedule_title;//$("#edit_note_title").val();
         var status ="no_template";
         var note_desc = "";
         var message = "Do you wan't to update the record?";
         var actiondate = scheduleData.entities_selected_time;//$("#datepickernote").val();
-        var actionDateTime=scheduleData.entities_selected_time;//$("#timepickernote").val().replace(/ /g,'');
+        var actionDateTime=scheduleData.schedule_time;//$("#timepickernote").val().replace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var schedule_time = Date.parse(l);
         var myEpoch = schedule_time;    
 // 
         var schedule_details = {
             "type": getnote(),
-            "schedule_id": schedule_id,
+            "schedule_id": schedule_id.toString(),
             "schedule_title": note_title,
             "schedule_desc": note_desc,
             "status": status,
@@ -363,6 +366,7 @@ $scope.addDays = function(theDate, days) {
         alert(JSON.stringify(schedule_details));
         yourPlanFactory.changeSchedulePost(schedule_details).then(function (data){
             alert(JSON.stringify(data));
+            $scope.getCampaigns();
         });
 //       
 //        $http({

@@ -81,7 +81,7 @@
                                     <div class="input-header-actionDetail " >
                                         DATE  
                                     </div>
-                                    <input type="text"  ng-model="{{scheduleData.entities_selected_time}}"  id="datepickernote"  class="input-field-textfield width75" value="{{scheduleData.entities_selected_time| date:'MMM dd yyyy'}}" readonly/>                                        
+                                    <input type="text"  ng-model="scheduleData.entities_selected_time"  id="datepickernote"  class="input-field-textfield width75" value="{{scheduleData.entities_selected_time}}" readonly/>                                        
                                     
                                 </div>
                             </div>
@@ -89,8 +89,8 @@
                                 <div class="input-header-actionDetail">
                                     TIME
                                 </div>
-                                <input type="text" ng-model="{{scheduleData.entities_selected_time| date:'h : mm :a'}}" name="timepickernote" class="timepickertextbox " value="{{scheduleData.entities_selected_time}}" id="timepickernote"/> 
-                                <script>
+                                <input type="text" ng-model="scheduleData.schedule_time" name="timepickernote" class="timepickertextbox " value="{{scheduleData.schedule_time}}" id="timepickernote"/> 
+<!--                                <script>
                                     $('#timepickernote').timepicki({
                                         show_meridian: true,
                                         min_hour_value: 0,
@@ -100,7 +100,7 @@
                                         increase_direction: 'up',
                                         disable_keyboard_mobile: true
                                     });
-                                </script>
+                                </script>-->
                             </div>
                         </div>
                     </div>
