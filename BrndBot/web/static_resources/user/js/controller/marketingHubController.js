@@ -106,7 +106,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFac
             settingsFactory.getAllPreferencesGet().then(function(data){
                 alert("........."+JSON.stringify(data));
                 $scope.footerDetails = JSON.parse(data.d.details).userProfile;
+                alert("......");
+                 $scope.company = $scope.footerDetails;
                  
+                alert(JSON.stringify($scope.company));
             });
        };
        
@@ -196,14 +199,14 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFac
         
         
       $scope.changeFooterDetails = function (company){
-      var footerAddress = company.name;
+      var footerAddress = company.address;
       var footerWebsiteUrl = company.websiteUrl;
-      var footerFacebookUrl = company.facebookLink;
-      var footerTwitterUrl = company.twitterLink;
-      var footerInstagramUrl = company.instagramLink;
+      var footerFacebookUrl = company.facebookUrl;
+      var footerTwitterUrl = company.twitterUrl;
+      var footerInstagramUrl = company.instagramUrl;
       var footerPopupDeatils = '{"footerFacebookUrl":"'+footerFacebookUrl+'","footerTwitterUrl":"'+footerTwitterUrl+'","footerInstagramUrl":"'+footerInstagramUrl+'","footerWebsiteUrl":"'+footerWebsiteUrl+'","footerAddress":"'+footerAddress+'"}';
       alert(footerPopupDeatils);
-      settingsFactory.setFooterPost(company).then(function(data){
+      settingsFactory.setFooterPost(footerDetails).then(function(data){
           $scope.getFooterDetails();
       });
       };
