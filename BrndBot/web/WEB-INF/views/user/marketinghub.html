@@ -75,10 +75,10 @@
                     <div class="page-title-regular page-title-font">Your Email Hub</div>
                     <div class="page-cta-container">
                         <a href="">
-                            <div class="delete-button md-button button fleft"  id="deleteEmaildraft" ng-click="deletedrafts('deleteMultiple');" > Delete Email Drafts</div>
+                            <div class="delete-button md-button button fleft"  id="deleteEmaildraft" ng-click="deleteDrafts(draftid)" > Delete Email Drafts</div>
                         </a>
                         <a href="">
-                            <div id="addemlstbtn" class="add-action-button md-button button-text-1" ng-click="addemaillist()"> Add Email List</div>
+                            <div id="addemlstbtn" class="add-action-button md-button button-text-1" ng-click="addEmailList()"> Add Email List</div>
                         </a>
                         <a href="">
                             <div id="savesetbtn" class="add-action-button md-button button-text-1" ng-click="saveEmailSettings()">Save</div>
@@ -91,8 +91,8 @@
                     </div>
                     <div class="top-subnav-tabs-container">
                         <ul class="top-subnav-nav-elements">
-                            <li class="top-subnav-links" id="emldrftab"> <a  class="h3">Email Drafts</a></li>
-                            <li class="top-subnav-links" id="emlhistab"> <a class="h3">Email History and Analytics</a></li>
+                            <li class="top-subnav-links" id="emldrftab" ng-click="displayAllEmailDrafts()"> <a  class="h3">Email Drafts</a></li>
+                            <li class="top-subnav-links" id="emlhistab" ng-click="displayEmailHistory()"> <a class="h3">Email History and Analytics</a></li>
                             <!--                        <li class="top-subnav-links"> <a class="h3">Scheduled Emails</a></li>-->
                             <li class="top-subnav-link-active" id="emllistab" ng-click="emailListGet(emailListName,requestMap)"> <a class="h3-active-subnav">Email Lists</a></li>
                             <li class="top-subnav-links" id="emlsettab" ng-click="getEmailSettings()"> <a class="h3">Email Settings</a></li>

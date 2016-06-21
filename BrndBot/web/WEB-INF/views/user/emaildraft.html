@@ -1,6 +1,6 @@
-<div class="page-content-container email-list-contact-page email-draft-page" id="emaildraftsdiv">
+<div class="page-content-container email-list-contact-page email-draft-page" id="emaildraftsdiv" ng-show="emaildraftdetails">
     <div>                   
-        <div class="fleft content" ng-init="getAllEmailDrafts()">
+        <div class="fleft content" ng-init="displayAllEmailDrafts()">
             <div class="page-content-title pushUp h2" ng-show="emaildrafts.length > 0">Your Email Drafts </div>
             <div class="page-content-title pushUp h2" ng-show="emaildrafts.length === 0">No Email Drafts present</div>
             <!--List Starts Here-->
@@ -13,7 +13,7 @@
                 <div  ng-repeat="drafts in emaildrafts">
                     <li class="slat-container fleft selfclear" id="li{{drafts.id}}">
                         <div class="selection-container col-5p" id="deleteids"> 
-                            <div class="selection-icon" id="{{drafts.id}}" onclick="selemldrftcheckbox(this.id)">
+                            <div class="selection-icon" id="{{drafts.id}}" ng-click="selemldrftcheckbox(this.id)">
                                 <input type="checkbox" id="{{drafts.id}}" value="{{drafts.id}}" name="draftname" style="display:none;"></input>
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                             <div class="slat-cta-container">
                                 <a>
                                     <!--                                        <span class="small-button slat-button detail-button-font" ng-click="editDrafts(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</span>-->
-                                    <span class="small-button slat-button detail-button-font" ng-click="showdraftpopup(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.editdate, drafts.subcategoryid, drafts.mindbodyid, drafts.lookupid)">View and Edit Draft</span>
+                                    <span class="small-button slat-button detail-button-font" ng-click="showDraftPopup()">View and Edit Draft</span>
                                 </a>
                             </div>
                         </div>
@@ -37,3 +37,4 @@
         </div>
     </div> 
 </div>
+<div ng-include="'savedemaildraftpopup.html'"></div>

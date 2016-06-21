@@ -744,7 +744,7 @@ select#dropdownurl,#url {
     max-height: 100%;
     width: 900px;
     right: 0px;
-    margin-right: -900px;
+    //margin-right: -900px;
 }
 #draftshow {
     position: relative;
