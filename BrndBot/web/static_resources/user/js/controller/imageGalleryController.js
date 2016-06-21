@@ -7,19 +7,18 @@
 imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http', '$location', 'imageFactory','companyImagesFactory',function ($scope, $window, $http, $location, imageFactory,companyImagesFactory) {
    
 
-        $scope.uploadLogo1 = function (myFile1) {
+        $scope.uploadLogo = function (myFile1) {
             
          var file = $("#filesToUpload").val();         
-         alert(file.substring(file.lastIndexOf("\\") + 1, file.length));
         var file = myFile1;
             imageFactory.saveImagePost(file).then(function (data){
-                alert(JSON.stringify(data));});
-        };
+                alert("Image Uploaded successfully");
+        });
+    };
         
         $scope.getAllCompanyImages = function ()
         {
             companyImagesFactory.companyImagesGet().then(function (data){
-                alert(JSON.stringify(data));
                 $scope.datalists = data.d.details;
                 
                
@@ -39,22 +38,20 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
         
 
         
-        $scope.Showimguploadpopup = function()
+        $scope.showImgageUploadPopup = function()
         {
-//        $scope.fadeblackOverlay="fadeblackOverlay";
         $scope.hidePopup=true;
-        
-    };
+        };
     
-    $scope.closeimguploadpopup = function()
+    $scope.closeImgageUploadPopup = function()
     {
         $scope.hidePopup=false;
         $scope.getAllCompanyImages();
-    }
+    };
     
       $scope.showImage = function(){
        $scope.hidePopup=false;
-};
+        };
 
               }]);
 
