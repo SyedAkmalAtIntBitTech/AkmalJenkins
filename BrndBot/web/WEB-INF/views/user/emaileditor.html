@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-6.css"/>
-<div id="fade" class="black_overlay"></div>
+<div ng-show="overlayFade" id="fade" class="black_overlay"></div>
 <div ng-include src="'emailpreview.html'"></div>
 <!--<div ng-include src="'emailpreview.html'"></div>--> 
 
@@ -12,7 +12,8 @@
 <!--SideNav-->
 <!--<div class="content-main" ng-controller="MyController">   -->
 <div class="content-main" ng-init="emailEditorInit()">  
-    <div ng-include src="'emaileditormindbodypopup.html'"></div> 
+    <div ng-include src="'emaileditormindbodypopup.html'">
+    </div> 
     <!--Top Nav-->   
     <div class="top-nav-full">
         <div class="page-title-bar col-1of1"> 
@@ -91,7 +92,7 @@
     </span>
 </div>  
 
-<div id="fade" class="black_overlay" ></div>
+<div ng-show="overlayFade" id="fade" class="black_overlay" ></div>
 <!--<div id="email_previewdiv" ng-show="emailpreviewpopup">
     <div class="pop-up-background popup-screen">
         <div class="pop-up-container-emailPreview"> 

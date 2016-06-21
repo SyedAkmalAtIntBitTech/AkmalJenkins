@@ -21,7 +21,7 @@
                 <div class="exdata-content-detail">
                 <img id="loadingGifformindbody" src="images/YogaLoadingGif.gif"/>
                 <!--SAVED POST GOES HERE-->
-                <ul class="subcategory-list-container col-1of1 fleft scrollydiv">  
+                <ul ng-show="emailScrollyDiv" class="subcategory-list-container col-1of1 fleft scrollydiv">  
                     <li class="subcategory-list-element col-1of1 fleft" ng-repeat="mindbody in mindbodyDataList.mindbody_data" ng-click="didSelectMindbodyDataId(mindbody.id)">
                        <div class="subcat-list col-3of10 fleft padding-right-15 ">{{mindbody.column1}} 
                        </div>

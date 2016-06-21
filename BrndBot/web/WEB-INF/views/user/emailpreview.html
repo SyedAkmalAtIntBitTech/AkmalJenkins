@@ -1,7 +1,7 @@
     <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-5.css">
     <link rel="stylesheet" type="text/css" href="css/normalize5.css">
 
-    <div ng-show="overlay" id="fade" class="black_overlay" ></div>
+    <div ng-show="overlayFade" id="fade" class="black_overlay" ></div>
     <!--Top Nav-->  
     <div id="email_previewdiv" ng-show="emailpreviewpopup">
         <div class="pop-up-background emailPreview">
@@ -19,7 +19,6 @@
                 <div class="emailPreviews col-1of1 fleft"> 
                     <div class="emailPreview-desktop-col  fleft">
                         <div class="emailPreview-headers">Desktop Preview</div>
-<!--                            <div class="content" ng-show="sample">  -->
                             <div class="content" ng-model="desktopEmailPreview">  
                                 <iframe id="dynamictable5" style="position: relative; width: 100%; border: none; height: 420px;background-color: rgb(255, 255, 255);" src="{{iframePath}}"></iframe>                   
                             </div>
