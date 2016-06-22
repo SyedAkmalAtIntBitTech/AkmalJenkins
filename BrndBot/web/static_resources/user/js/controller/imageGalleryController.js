@@ -8,7 +8,7 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
    
 
         $scope.uploadLogo = function (myFile1) {   
-         var file = $("#filesToUpload").val();         
+        var file = $("#filesToUpload").val();         
         var file = myFile1;
             imageFactory.saveImagePost(file).then(function (data){
                 alert("Image Uploaded successfully");
