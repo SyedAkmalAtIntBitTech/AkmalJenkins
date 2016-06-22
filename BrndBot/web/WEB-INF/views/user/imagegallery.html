@@ -8,7 +8,7 @@
             <div class="page-title-regular page-title-font">Image Gallery</div>
             <div class="page-cta-container">
                 <a href="" class=" fleft">
-                   <div id="liPriority" class=" add-button md-button" ng-click="showImgageUploadPopup()"> Upload an Image</div>    
+                   <div id="liPriority" class=" add-button md-button" ng-click="showImageUploadPopup()"> Upload an Image</div>    
                 </a>
                
             </div>
@@ -23,7 +23,7 @@
                     <div class="imageGallery-container  fleft" ng-repeat="images in datalists" >
                         <div class="imageGallery-card">
                             <div class="galCard-image col-1of1">
-                                <img  class="lookchooser5 ptr imagesize" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId=3" ng-click="showText(images.companyImagesId,images.imageName)" />
+                                <img  class="lookchooser5 ptr imagesize" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId=3"/>
                             </div>
                             <div class="galCard-content col-1of1">  
 <!--                                <div class="galImage-name">Image Name</div>
@@ -37,23 +37,6 @@
                             </div>
                         </div>
                     </div>
-<!--                    <div class="imageGallery-container  fleft"ng-repeat="images in datalists.slice().reverse()">
-                        <div class="imageGallery-card">
-                            <div class="galCard-image col-1of1">
-                                <img id="{{images.companyImagesId}}" class="lookchooser5 ptr imagesize" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId=${companyId}" onclick="showText('{{images.companyImagesId}}','{{images.imageName}}')" />
-                            </div>
-                            <div class="galCard-content col-1of1">  
-                                <div class="galImage-name">Image Name</div>
-                                <div class="galImage-description">Added on Nov 26 2015</div>
-                                <div class="galCard-divider"></div>
-                                <img type="image/svg+xml" src="images/Icons/settings.svg" class="galCard-settingsicon fleft"> </img>
-                                <li class="nav-elements-icon-container hint--top delete--gallery"  data-hint1="Delete">
-                                    <img type="image/svg+xml" id="delete" src="images/trash.svg" class="galCard-trashicon fleft cur" ng-click="deleteImage(images.companyImagesId)"/>
-                                </li>                                 
-                                 <button name="delete"  id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>
-                            </div>
-                        </div>
-                    </div>-->
                 </div>
             </div>
         </div>

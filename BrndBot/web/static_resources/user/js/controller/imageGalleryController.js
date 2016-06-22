@@ -7,9 +7,9 @@
 imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http', '$location', 'imageFactory','companyImagesFactory',function ($scope, $window, $http, $location, imageFactory,companyImagesFactory) {
    
 
-        $scope.uploadLogo = function (myFile1) {   
+        $scope.uploadLogo = function (myFile) {   
         var file = $("#filesToUpload").val();         
-        var file = myFile1;
+        var file = myFile;
             imageFactory.saveImagePost(file).then(function (data){
                 alert("Image Uploaded successfully");
                 $scope.hidePopup=false;
@@ -33,12 +33,12 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
             });
         };
         
-        $scope.showImgageUploadPopup = function()
+        $scope.showImageUploadPopup = function()
         {
             $scope.hidePopup=true;
         };
     
-        $scope.closeImgageUploadPopup = function()
+        $scope.closeImageUploadPopup = function()
         {
             $scope.hidePopup=false;
             $scope.getAllCompanyImages();
