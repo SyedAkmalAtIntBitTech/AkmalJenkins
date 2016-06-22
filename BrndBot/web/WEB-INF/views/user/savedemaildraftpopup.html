@@ -15,24 +15,24 @@
   <style>
         
         #emaildraftpopup{
-            display: none;
+            display: block;
         }
         
     </style>
         <div id="fade"  class="black_overlay"></div>
-        <div id="emaildraftpopup" >
-        <div class="detail-overlay-content" ng-show="showSavedEmailDraftPopup">
+        <div id="emaildraftpopup" ng-show="savedEmailDraftPopup">
+        <div class="detail-overlay-content">
         <!--Top Nav Bar-->
         <div class="top-nav-container-detail">
             <div class="top-navbar_draft">
-                <a class=" exit-button-detail link svg" href="" id="closedraftpopup" ng-click="closeSavedEmailDraftPopup">
+                <a class=" exit-button-detail link svg" href="" id="closedraftpopup" ng-click="closeSavedEmailDraftPopup()">
                     <img type="image/svg+xml" src="images/close.svg" class="exit-button" style="cursor:pointer;"> </img>
                 </a>
                 <div class="top-navbar-inner-bb-detail">
                     <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> Saved Draft</span></div>
                     <div class="top-nav-cta-container">
                         <div class="approve-button-detail md-button" ng-click="editDrafts(id, categoryid, emailsubject, subcategoryid, mindbodyId, lookupId)">Edit this Draft</div>
-                        <div class="delete-button-detail md-button" ng-click="deletedrafts('delete',id);">Delete this Draft</div>
+                        <div class="delete-button-detail md-button" ng-click="deleteDrafts('delete',id);">Delete this Draft</div>
                     </div>    
                 </div>
             </div>

@@ -13,7 +13,7 @@
                 <div  ng-repeat="drafts in emaildrafts">
                     <li class="slat-container fleft selfclear" id="li{{drafts.id}}">
                         <div class="selection-container col-5p" id="deleteids"> 
-                            <div class="selection-icon" id="{{drafts.id}}" ng-click="selemldrftcheckbox(this.id)">
+                            <div class="selection-icon" id="{{drafts.id}}" ng-click="emailDraftCheckbox(drafts.id)">
                                 <input type="checkbox" id="{{drafts.id}}" value="{{drafts.id}}" name="draftname" style="display:none;"></input>
                             </div>
                         </div>
@@ -27,9 +27,9 @@
                             <div class="slat-cta-container">
                                 <a>
                                     <!--                                        <span class="small-button slat-button detail-button-font" ng-click="editDrafts(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</span>-->
-                                    <span class="small-button slat-button detail-button-font" ng-click="showDraftPopup()">View and Edit Draft</span>
+                                    <span class="small-button slat-button detail-button-font" ng-click="showDraftPopup(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.editdate, drafts.subcategoryid, drafts.mindbodyid, drafts.lookupid)">View and Edit Draft</span>
                                 </a>
-                            </div>
+                        </div>
                         </div>
                     </li>
                 </div>
