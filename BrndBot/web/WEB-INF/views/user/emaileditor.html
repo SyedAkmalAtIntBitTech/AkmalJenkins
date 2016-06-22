@@ -1,13 +1,12 @@
 <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-6.css"/>
 <div ng-show="overlayFade" id="fade" class="black_overlay"></div>
 <div ng-include src="'emailpreview.html'"></div>
-<!--<div ng-include src="'emailpreview.html'"></div>--> 
 
-<div id="boxes" >
+<!--<div id="boxes" >
     <div id="dialog" class="window" >
     </div>
     <div id="mask"></div>
-</div> 
+</div> -->
 
 <!--SideNav-->
 <!--<div class="content-main" ng-controller="MyController">   -->
@@ -17,7 +16,7 @@
     <!--Top Nav-->   
     <div class="top-nav-full">
         <div class="page-title-bar col-1of1"> 
-            <a class=" exit-button-icon" href="emailsubjects?categoryId={{categoryId}}&subCategoryId=<{{categoryId}}&mindbodyId={{mindbodyId}}&LookupId={{LookupId}}&emailSubject={{emailSubject}}">    
+            <a class="exit-button-icon" href="emailsubjects?categoryId={{categoryId}}&subCategoryId=<{{categoryId}}&mindbodyId={{mindbodyId}}&LookupId={{LookupId}}&emailSubject={{emailSubject}}">    
                 <div class="exit-button-detail">
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
                 </div>
@@ -49,7 +48,6 @@
                                         <p>Your email footer is the same on every email. You 
                                     see the footer in this email by previewing your email. To edit
                                     the footer click email footer settings.</p>
-<!--                                        <span class="reg-button gray-button" onclick="editFooter()">Edit Email Footer</span>-->
                                         <span class="reg-button gray-button" ng-click="editFooter()">Edit Email Footer</span>
                             </div>
         </div>
@@ -80,7 +78,7 @@
                 <ul class="block-list" id="stylediv" ng-show="styledivheader">
                     <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.modelId}}" ng-click="addActive('stylelistid' + styles.modelId)">
                         <div class="block-name">
-                            <img id="{{styles.modelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" onclick="showText('{{styles.modelId}}')" width="100%" />
+                            <img id="{{styles.modelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" ng-click="showText('{{styles.modelId}}')" width="100%" />
                         </div>
                     </li>
                 </ul>

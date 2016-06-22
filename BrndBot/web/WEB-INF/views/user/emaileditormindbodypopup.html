@@ -1,10 +1,14 @@
+
+<!--<div ng-show="overlayFade" id="fade" class="black_overlay" ></div>-->
+
 <!--<div ng-show="emailMindBodyPopup">-->
-<div class="content" id="emaileditorexternalpopup">     
+<div class="content" id="emaileditorexternalpopup" ng-if ="emailMindBodyPopup"> 
+
     <!--MainContent-->
     <div class="detail-overlay-content">
         <div class="top-nav-container-detail">
             <div class=" top-navbar-detail topnav-exdata">
-                <span ng-click="close_button()">
+                <span ng-click="closeMindbodyPopup()">
                     <a class=" exit-button-detail link svg close" href="" id="mindbodyclose">
                         <img src="images/close.svg" class="exit-button" style="cursor:pointer;"></img>
                     </a>
@@ -19,7 +23,9 @@
         <div class="exdata-selection-overlay">
             <div class="inner-content-container-detail">
                 <div class="exdata-content-detail">
-                <img id="loadingGifformindbody" src="images/YogaLoadingGif.gif"/>
+                    <div ng-show="loadingGifImageMindbody">
+                    <img id="loadingGifformindbody" src="images/YogaLoadingGif.gif"/>
+                </div>
                 <!--SAVED POST GOES HERE-->
                 <ul ng-show="emailScrollyDiv" class="subcategory-list-container col-1of1 fleft scrollydiv">  
                     <li class="subcategory-list-element col-1of1 fleft" ng-repeat="mindbody in mindbodyDataList.mindbody_data" ng-click="didSelectMindbodyDataId(mindbody.id)">
