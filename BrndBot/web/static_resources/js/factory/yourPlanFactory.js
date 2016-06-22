@@ -35,9 +35,9 @@ factoryApp.factory('yourPlanFactory', function ($q, authenticatedServiceFactory,
         });
         return deffered.promise;
     };
-    yourPlanFactoryObject.scheduledSocialPost = function () {
+    yourPlanFactoryObject.scheduledSocialPost = function (schedule_id) {
         var deffered = $q.defer();
-        var url = configurationService.scheduledSocialPostURL();
+        var url = configurationService.scheduledSocialPostURL()+"?schedule_id="+schedule_id;
         authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
             deffered.resolve(data);
         });

@@ -247,14 +247,103 @@ $scope.addDays = function(theDate, days) {
 //                $('#emailcontentiframe').contents().find('html').html(data.body); 
 
         yourPlanFactory.scheduledEmailGet($scope.scheduleData.schedule_id).then(function (data){
-            $scope.entitiesdetails = JSON.parse(JSON.stringify(data.d.details));
-//            if (entity_type === getemail()) {                
+            $scope.entitiesdetails = JSON.parse(data.d.details);
+            if (entity_type === getemail()) {
+//                $scope.entitiesdetails = JSON.parse(data.d.details);
+                var iframe = document.getElementById('iframeForAction');
+                iframe.contentDocument.body.innerHTML = $scope.entitiesdetails.body;
                 if($scope.entitiesdetails != "{}"){
                         $scope.savedEmail=true;
                 }else{
                         $scope.savedEmail=false;
                 }
-//            }
+            } else {
+            yourPlanFactory.scheduledSocialPost($scope.scheduleData.schedule_id).then(function (data){
+                
+                $scope.entitiesdetails = JSON.parse(data.d.details);
+                var iframe = document.getElementById('iframeForAction');
+//                iframe.contentDocument.head.appendChild = ;
+                var htmlData = "<style>\n"
+                    + ".twitter-post-preview {\n"
+                    + "    width: 494px;\n"
+                    + "    height: 340px !important;\n"
+                    + "    margin: auto;\n"
+                    + "    padding: 12px 12px 0px 12px;\n"
+                    + "    float: none;\n"
+                    + "    border: 1px solid rgb(223, 224, 228);\n"
+                    + "    border-radius: 3px;\n"
+                    + "    background-color: #FFFFFF;\n"
+                    + "}\n"
+                    + "\n"
+                    + ".Facebook-preview-header {\n"
+                    + "    width: 500px;\n"
+                    + "    height: 40px;\n"
+                    + "    float: left;\n"
+                    + "    margin-bottom: 11px;\n"
+                    + "}\n"
+                    + "\n"
+                    + ".Facebook-preview-profpic {\n"
+                    + "    width: 40px;\n"
+                    + "    height: 40px;\n"
+                    + "    margin-right: 8px;\n"
+                    + "    float: left;\n"
+                    + "    background-color: beige;\n"
+                    + "}\n"
+                    + "\n"
+                    + ".Facebook-preview-profpic > img {\n"
+                    + "    width: 100%;\n"
+                    + "    height: 100%;\n"
+                    + "}\n"
+                    + "\n"
+                    + ".Facebook-preview-name-container {\n"
+                    + "    width: 445px;\n"
+                    + "    height: 100%;\n"
+                    + "    float: inherit;\n"
+                    + "}\n"
+                    + "\n"
+                    + ".Facebook-preview-usercontent {\n"
+                    + "    font-family: helvetica, arial;\n"
+                    + "    font-weight: normal;\n"
+                    + "    line-height: 19.32px;\n"
+                    + "    color: rgb(20, 24, 35);\n"
+                    + "    font-size: 14px;\n"
+                    + "    float: left;\n"
+                    + "}\n"
+                    + "\n"
+                    + ".Facebook-link-container {\n"
+                    + "    box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 0px 1.5px inset, rgba(0, 0, 0, 0.0470588) 0px 1px 1px 0px;\n"
+                    + "    color: rgb(20, 24, 35);\n"
+                    + "    border: 1px solid rgba(0, 0, 0, 0.0980392);\n"
+                    + "    float: left;\n"
+                    + "    width: 100%;\n"
+                    + "    margin-top: 10px;\n"
+                    + "}\n"
+                    + "</style>"
+                    + "<div class=\"twitter-post-preview\">\n"
+                    + "    <div class=\"Facebook-preview-header\">\n"
+                    + "        <div class=\"Facebook-preview-profpic\">\n"
+                    + "            <img id=\"twitter_preview_profpic\" src=\"/BrndBot/downloadImage?imageType=COMPANY_LOGO&amp;companyId=2&amp;imageName=companylogo.png\">\n"
+                    + "        </div>\n"
+                    + "        <div class=\"Facebook-preview-name-container\">\n"
+                    + "            <div class=\"Facebook-preview-name ng-binding\">"+$scope.entitiesdetails.metadata.text+"</div>\n"
+                    + "        </div>\n"
+                    + "    </div>\n";
+                    if($scope.entitiesdetails.metadata.shorturl) {
+                    htmlData += "    <div class=\"Facebook-preview-usercontent ng-binding\">"+$scope.entitiesdetails.metadata.shorturl+"</div>\n"
+                    }
+                    htmlData+= "    <div class=\"Facebook-link-container\">\n"
+                    + "        <div ng-show=\"entitiesdetails.image_type == 'gallery'\">\n"
+                    + "            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageName="+$scope.entitiesdetails.image_name+"&imageType=GALLERY&companyId=2\">\n"
+                    + "        </div>\n"
+                    + "    </div>\n"
+                    + "</div>";
+                iframe.contentDocument.body.innerHTML = htmlData;
+//                $scope.iframeDataHtml = $sce.trustAsHtml("<h1>test</h1>");
+//                
+//                $scope.iframedata = $sce.trustAsResourceUrl("http://www.w3schools.com");
+            });
+            
+        }
         });
     };
     
