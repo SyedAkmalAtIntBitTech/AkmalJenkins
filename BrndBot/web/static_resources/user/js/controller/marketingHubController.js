@@ -17,8 +17,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFac
                 }else {
                     $scope.emaildrafts = data.emaildrafts;
                     $scope.emaildraftdetails=true;
-                } 
-                
+                }     
         });
         };
         
@@ -79,7 +78,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFac
             settingsFactory.getEmailSettingsGet().then(function (data) {
                 $scope.emailsettingsdetails=true;
             });
-
         };
 
         $scope.saveEmailSettings = function () {
@@ -102,25 +100,26 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFac
 //        };
         
         $scope.getFooterDetails = function (){
-            alert("footerDetails");
             settingsFactory.getAllPreferencesGet().then(function(data){
-                alert("........."+JSON.stringify(data));
                 $scope.footerDetails = JSON.parse(data.d.details).userProfile;
-                alert("......");
-                 $scope.company = $scope.footerDetails;
-                 
+                $scope.company = $scope.footerDetails;
                 alert(JSON.stringify($scope.company));
             });
-       };
+        };
        
-       $scope.displayEmailHistory = function (){
-           alert("history");
-           emailFactory.sendEmailGet().then(function(data){
-               alert(JSON.stringify(data));
-               $scope.email_history = JSON.parse(data.d.details);
-//                   $scope.emailHistoryDetails=true;
-           });
-       };
+        $scope.changeFooterDetails = function (company){
+            var footerAddress = company.address;
+            var footerWebsiteUrl = company.websiteUrl;
+            var footerFacebookUrl = company.facebookUrl;
+            var footerTwitterUrl = company.twitterUrl;
+            var footerInstagramUrl = company.instagramUrl;
+            var footerPopupDeatils = '{"footerAddress":"'+footerAddress+'","footerWebsiteUrl":"'+footerWebsiteUrl+'","footerFacebookUrl":"'+footerFacebookUrl+'","footerTwitterUrl":"'+footerTwitterUrl+'","footerInstagramUrl":"'+footerInstagramUrl+'"}';
+            alert(footerPopupDeatils);
+            $scope.emailFooterPopupDetails = false;
+            $scope.getFooterDetails();
+            settingsFactory.setFooterPost(footerDetails).then(function(data){   
+            });
+        };
         
         $scope.emailFooterPopup = function()
         {
@@ -132,6 +131,18 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFac
         {
             $scope.emailFooterPopupDetails = false;
         };
+        
+       
+       $scope.displayEmailHistory = function (){
+           alert("history");
+           emailFactory.sendEmailGet().then(function(data){
+               alert(JSON.stringify(data));
+               $scope.email_history = JSON.parse(data.d.details);
+//                   $scope.emailHistoryDetails=true;
+           });
+       };
+        
+
         
         $scope.showDraftPopup = function()
         {
@@ -198,18 +209,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFac
             });
         
         
-      $scope.changeFooterDetails = function (company){
-      var footerAddress = company.address;
-      var footerWebsiteUrl = company.websiteUrl;
-      var footerFacebookUrl = company.facebookUrl;
-      var footerTwitterUrl = company.twitterUrl;
-      var footerInstagramUrl = company.instagramUrl;
-      var footerPopupDeatils = '{"footerFacebookUrl":"'+footerFacebookUrl+'","footerTwitterUrl":"'+footerTwitterUrl+'","footerInstagramUrl":"'+footerInstagramUrl+'","footerWebsiteUrl":"'+footerWebsiteUrl+'","footerAddress":"'+footerAddress+'"}';
-      alert(footerPopupDeatils);
-      settingsFactory.setFooterPost(footerDetails).then(function(data){
-          $scope.getFooterDetails();
-      });
-      };
+
 
         $scope.addEmailList = function()
         {
