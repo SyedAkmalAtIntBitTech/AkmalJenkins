@@ -1,11 +1,5 @@
 marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFactory', 'emailListFactory', 'emailDraftFactory', 'emailFactory', function ($scope, settingsFactory, emailListFactory, emailDraftFactory, emailFactory) {
 
-        $scope.emailsettingsdetails = false;
-        $scope.emaildraftdetails = false;
-        $scope.emallistdetails = false;
-        $scope.emailSettings = '';
-        $scope.createEmailListPopup = false;
-
         $scope.displayAllEmailDrafts = function () {
             emailDraftFactory.displayAllEmailDraftsGet().then(function (data) {
                 if (data.nodrafts === "yes") {
@@ -13,7 +7,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFac
                     $scope.emaildraftsstatus = "No email drafts present";
                 } else {
                     $scope.emaildrafts = data.emaildrafts;
-                    $scope.emaildraftdetails = true;
+                    $scope.emailDraftDetails = true;
                 }
             });
         };
@@ -85,16 +79,16 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFac
 
         $scope.getEmailSettings = function () {
             settingsFactory.getEmailSettingsGet().then(function (data) {
-                $scope.emailsettingsdetails = true;
+                $scope.emailSettingsDetails = true;
+                $scope.email_settings = JSON.parse(data.d.details);
+                
             });
         };
 
-        $scope.saveEmailSettings = function () {
-            var from_address = $("#from_address").val();
-            var reply_email_address = $("#reply_email_address").val();
-            settingsFactory.saveEmailSettingsPost(from_address, reply_email_address).then(function (data) {
-                alert(from_address);
-                alert(reply_email_address);
+        $scope.saveEmailSettings = function (email_settings) {
+            var from_address = email_settings.from_address;
+            var reply_email_address = email_settings.reply_email_address;
+            settingsFactory.saveEmailSettingsPost(email_settings).then(function (data) {
             });
         };
 
