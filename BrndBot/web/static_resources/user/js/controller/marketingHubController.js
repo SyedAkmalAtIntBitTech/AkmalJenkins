@@ -3,7 +3,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFac
         $scope.emailsettingsdetails = false;
         $scope.emaildraftdetails = false;
         $scope.emallistdetails = false;
-//        $scope.emailHistoryDetails=false;
         $scope.emailSettings = '';
         $scope.createEmailListPopup = false;
 
@@ -48,30 +47,24 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFac
 
         $scope.deleteDrafts = function (type, id)
         {
-            alert("...");
             var delid = id + ",";
             var message;
             var requestBody;
-            var responseMessage;
             if (type === "deleteMultiple") {
                 message = multidraftconfirm;
                 requestBody = {"type": "deleteSelected",
                     "draft_ids": selected_emaildrafts_to_delete, "entity_type": "null"};
-                responseMessage = multidraftdeleted;
-                $("#deleteEmaildraft").hide()
+                $("#deleteEmaildraft").hide();
             }
             else if (type === "delete") {
                 message = singledraftconfirm;
                 requestBody = {"type": "delete",
                     "draft_ids": delid};
-                responseMessage = singledraftdeleted;
+                $scope.savedEmailDraftPopup = false;
+                $("#fade").hide();
+                $scope.displayAllEmailDrafts();
             }
-//            var requestBody = {"type": "delete",
-//                           "draft_ids": draftid+","
-//                        };
-            alert(JSON.stringify(requestBody));
             emailDraftFactory.deleteEmailDraftsPost(requestBody).then(function (data) {
-                alert(JSON.stringify(data));
                 $scope.displayAllEmailDrafts();
             });
         };
@@ -79,14 +72,11 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFac
         $scope.editDrafts = function (draft_id, category_id, email_subject, sub_category_id, mindbodyId, lookupId) {
             var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id,
                 "sub_category_id": sub_category_id};
-            alert(JSON.stringify(draftdetails));
             emailDraftFactory.getEmailDraftGet(draft_id).then(function (data) {
                 alert(JSON.stringify(data));
                 if (data === "false") {
                     alert(draftsavingerror);
                 } else {
-//                    draftId=null&categoryId=18&subCategoryId=7&emailSubject=sub&mindbodyId=75031&LookupId=4
-//                  location.getPath+ "user/emaileditor?draftId='+draft_id+'&emailSubject='+email_subject+'&categoryId='+category_id+'&subCategoryId='+sub_category_id+'&mindbodyId='+mindbodyId+'&LookupId='+lookupId, ";
                     window.open(getHost() + 'user/emaileditor?draftId=' + draft_id + '&emailSubject=' + email_subject + '&categoryId=' + category_id + '&subCategoryId=' + sub_category_id + '&mindbodyId=' + mindbodyId + '&LookupId=' + lookupId, "_self");
 
                 }
@@ -108,21 +98,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFac
             });
         };
 
-//        $scope.saveEmailSettings = function (emailSettings) {
-//            alert("...");
-//            var from_address = emailSettings.fromAddress;
-//            var reply_email_address = emailSettings.replyAddress;
-//            alert(from_address);
-//            alert(reply_email_address);
-//            settingsFactory.saveEmailSettingsPost().then(function (data) {
-//            });
-//        };
-
         $scope.getFooterDetails = function () {
             settingsFactory.getAllPreferencesGet().then(function (data) {
                 $scope.footerDetails = JSON.parse(data.d.details).userProfile;
                 $scope.company = $scope.footerDetails;
-//                alert(JSON.stringify($scope.company));
             });
         };
 
@@ -154,19 +133,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFac
         $scope.displayEmailHistory = function () {
             alert("history");
             emailFactory.sendEmailGet().then(function (data) {
-//                if (data.d.details[0] === "[]"){
-//                       
-//                       $scope.email_history = JSON.parse(data.d.details);
-//                       $("#nohistorydiv").empty().text(noemailhistory);
-//                       $(".nohiswid").css("width","250px");
-//                       $("#historydiv").hide();
-//                   }else {
-//                       $("#historydiv").show();
-//                       $scope.email_history = JSON.parse(data.d.details);
-//                   }
                 alert("test" + JSON.stringify(data));
                 $scope.email_history = JSON.parse(data.d.details);
-//                   $scope.emailHistoryDetails=true;
             });
         };
 
@@ -174,10 +142,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFac
         {
             $("#fade").show();
             $scope.savedEmailDraftPopup = true;
-//            $slider=2;
-            alert("draftid.. " + Id + " ..categoryId.. " + categoryId + " ..mindbodyId.. " + mindbodyId + " ..lookupId.. " + lookupId + " ..emailSubject.. " + emailSubject);
-//            sliderDialog = "#emaildraftpopup";
-//            prevSliderDialog = "#emaildraftpopup";
             emailDraftFactory.getEmailDraftGet(Id).then(function (data) {
                 if (data === "") {
                     $scope.emaildraftsstatus = noemaildraft;
@@ -186,7 +150,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFac
                     $('#draftshow').empty().append(data.htmlbody);
                 }
             });
-//                alert(Id);
             $scope.id = Id;
             $scope.categoryid = categoryId;
             $scope.emailsubject = emailSubject;
