@@ -3,7 +3,6 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
         $scope.getFacebookDetails = function () {
             var fbdata = JSON.stringify({access_token_method: "getAccessToken"});
             settingsFactory.facebookPost(fbdata).then(function (data) {
-//            alert(JSON.stringify(data.d.message)); 
                 var facebookDetails = data.d.message.split(",");
                 var facebookDetailsArray = facebookDetails;
                 if (facebookDetailsArray[1] === "null") {
@@ -69,7 +68,6 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
         $scope.getTwitterDetails = function () {
             var twitterdata = JSON.stringify({access_token_method: "getAccessToken"});
             settingsFactory.twitterPost(twitterdata).then(function (data) {
-//            alert(JSON.stringify(data.d.message)); 
                 var twitterData = data.d.message.split(",");
                 var twitterprofileName = twitterData[2];
                 if (typeof twitterprofileName === "undefined") {
@@ -97,7 +95,6 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
             var pin = pinCode;
             settingsFactory.twitterGetTokenGet(pin).then(function (data) {
                 if (pin.length > 0) {
-                    alert(JSON.stringify(data));
                     $location.path('user/social');
                     $scope.showTwitterPopup = false;
                     $scope.getTwitterDetails(); 
@@ -113,7 +110,6 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
             var data = JSON.stringify({access_token_method: "clearTwitterDetails"});
             alert(data);
             settingsFactory.twitterPost(data).then(function (data) {
-                alert(JSON.stringify(data));
                 $scope.getTwitterDetails();
             });
         };
@@ -123,7 +119,6 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
             var addDafaultmanagePage = $("#setDefaultManagePage").prop('checked');
             var data = JSON.stringify({access_token_method: "setAccessToken"});
             settingsFactory.facebookPost(data).then(function (data) {
-                alert(JSON.stringify(data));
                 if (addDafaultmanagePage) {
                     $scope.default_page_name = localStorage.getItem("CurrentFbPageName");
                     $scope.fb_user_profile_name = localStorage.getItem("FbProfileName");
@@ -135,34 +130,10 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
 
         };
 
-
-//        $scope.postToSelectedPage = function () {
-//        var addDafaultmanagePage = $("#setDefaultManagePage").prop('checked');
-//        if (addDafaultmanagePage) {
-//            $http({
-//                url: getHost() + 'settings/facebookDetails.do',
-//                method: "POST",
-//                data: JSON.stringify({
-//                    access_token_method: "setAccessToken",
-//                    access_token: localStorage.getItem("CurrentFbAccessToken"),
-//                    default_page_name: localStorage.getItem("CurrentFbPageName"),
-//                    fb_user_profile_name: localStorage.getItem("FbProfileName")
-//                })
-//            }).success(function (data) {
-//                $("#fbmanagePagePopUp").hide();
-//                window.location = getHost() + "user/social";
-//            });
-//        } else {
-//            alert("Please select any page and set as Default.");
-//        }
-//
-//    };
-
         $scope.hideFbPopup = function ()
         {
             $scope.facebook = false;
         };
-
 
         $scope.closeTwitterPopup = function ()
         {
