@@ -18,10 +18,10 @@
             <input type="hidden" name="selectedtype" id="selectedtype" value=""></input>
             <input type="hidden" name="selectedid" id="selectedid" value=""></input>
             <input type="hidden" name="social" id="social" value="social"></input>                        
-            <div id="sendpopup" style="display:none">
+            <div id="sendpopup" ng-show="emailSendPopup">
                 <div class="pop-up-background">
                     <div class="pop-up-exit-container">
-                       <div class="pop-up-exit-icon" id="closesendpopup">
+                       <div class="pop-up-exit-icon" ng-click="closeSendPopup()">
                            <img type="image/svg+xml" src="images/Close.svg" class="exit-button-icon" style="cursor:pointer;"></img>
                        </div>
                     </div> 
@@ -35,7 +35,7 @@
                                     </div>
                                     <div class="button-description">Send Now</div>
                                 </div>
-                                <div class="col-4of10 fright">
+                                <div class="col-4of10 fright" ng-click="scheduleEmailPopup()">
                                     <div class="image-selection-button" id="schedule">
                                         <img type="image/svg+xml" src="images/schedulePost.svg" class="schedule-button-icon" style="cursor:pointer;"> </img>
                                     </div>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div id="schedulepopup">
+            <div id="schedulepopup" ng-show="showSchedulePopup">
                 <div class="pop-up-exit-container">
                     <div class="pop-up-exit-icon" id="closeschedulepopup">
                         <img type="image/svg+xml" src="images/Close.svg" class="exit-button-icon"></img>
@@ -85,7 +85,7 @@
                         <div class="cols-2">
                              <div class="input-field-container col-4of10 fleft pushright">
                                 <div class="input-header"> Action Date </div>
-                                <input type="text" readonly id="schedule_date" name="schedule_date" class="input-field-textfield input-placeholder"  placeholder="Enter Action Date"></input>
+                                <input type="text" readonly id="schedule_date" name="schedule_date" ng-click="scheduleActionDate()" class="input-field-textfield input-placeholder"  placeholder="Enter Action Date"></input>
 <!--                                <script>
                                     var picker = new Pikaday(
                                     {
