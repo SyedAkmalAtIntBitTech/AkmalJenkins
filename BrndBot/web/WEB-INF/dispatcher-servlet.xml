@@ -43,7 +43,7 @@
     p:viewName="index" />-->
           
           
-<!--    <resources mapping="/resources/**" location="/resources/" />
+    <!--    <resources mapping="/resources/**" location="/resources/" />
     <mvc:default-servlet-handler />-->
           
     <bean
@@ -73,6 +73,57 @@
     <mvc:resources mapping="/user/js/controller/**" location="/static_resources/user/js/controller/"/>
     <mvc:resources mapping="/user/js/factory/**" location="/static_resources/js/factory"/>
     <mvc:resources mapping="/user/js/plugins/**" location="/static_resources/user/js/plugins/"/>
+    <mvc:resources mapping="/user/js/plugins/advlist/**" location="/static_resources/user/js/plugins/advlist/"/>
+    <mvc:resources mapping="/user/js/plugins/anchor/**" location="/static_resources/user/js/plugins/anchor/"/>
+    <mvc:resources mapping="/user/js/plugins/autolink/**" location="/static_resources/user/js/plugins/autolink/"/>
+    <mvc:resources mapping="/user/js/plugins/autoresize/**" location="/static_resources/user/js/plugins/autoresize/"/>
+    <mvc:resources mapping="/user/js/plugins/bbcode/**" location="/static_resources/user/js/plugins/bbcode/"/>
+    <mvc:resources mapping="/user/js/plugins/charmap/**" location="/static_resources/user/js/plugins/charmap/"/>
+    <mvc:resources mapping="/user/js/plugins/code/**" location="/static_resources/user/js/plugins/code/"/>
+    <mvc:resources mapping="/user/js/plugins/codesample/**" location="/static_resources/user/js/plugins/codesample/"/>
+    <mvc:resources mapping="/user/js/plugins/colorpicker/**" location="/static_resources/user/js/plugins/colorpicker/"/>
+    <mvc:resources mapping="/user/js/plugins/contextmenu/**" location="/static_resources/user/js/plugins/contextmenu/"/>
+    <mvc:resources mapping="/user/js/plugins/directionality/**" location="/static_resources/user/js/plugins/directionality/"/>
+    <mvc:resources mapping="/user/js/plugins/emoticons/**" location="/static_resources/user/js/plugins/emoticons/"/>
+    
+    <mvc:resources mapping="/user/js/plugins/example/**" location="/static_resources/user/js/plugins/example/"/>
+    <mvc:resources mapping="/user/js/plugins/example_dependency/**" location="/static_resources/user/js/plugins/example_dependency/"/>
+    <mvc:resources mapping="/user/js/plugins/fullpage/**" location="/static_resources/user/js/plugins/fullpage/"/>
+    <mvc:resources mapping="/user/js/plugins/fullscreen/**" location="/static_resources/user/js/plugins/fullscreen/"/>
+    <mvc:resources mapping="/user/js/plugins/hr/**" location="/static_resources/user/js/plugins/hr/"/>
+    <mvc:resources mapping="/user/js/plugins/image/**" location="/static_resources/user/js/plugins/image/"/>
+    <mvc:resources mapping="/user/js/plugins/imagetools/**" location="/static_resources/user/js/plugins/imagetools/"/>
+    <mvc:resources mapping="/user/js/plugins/importcss/**" location="/static_resources/user/js/plugins/importcss/"/>
+    <mvc:resources mapping="/user/js/plugins/insertdatetime/**" location="/static_resources/user/js/plugins/insertdatetime/"/>
+    <mvc:resources mapping="/user/js/plugins/layer/**" location="/static_resources/user/js/plugins/layer/"/>
+    <mvc:resources mapping="/user/js/plugins/legacyoutput/**" location="/static_resources/user/js/plugins/legacyoutput/"/>
+    <mvc:resources mapping="/user/js/plugins/lists/**" location="/static_resources/user/js/plugins/lists/"/>
+    <mvc:resources mapping="/user/js/plugins/link/**" location="/static_resources/user/js/plugins/link/"/>
+    <mvc:resources mapping="/user/js/plugins/media/**" location="/static_resources/user/js/plugins/media/"/>
+    <mvc:resources mapping="/user/js/plugins/nonbreaking/**" location="/static_resources/user/js/plugins/nonbreaking/"/>
+    <mvc:resources mapping="/user/js/plugins/noneditable/**" location="/static_resources/user/js/plugins/noneditable/"/>
+    <mvc:resources mapping="/user/js/plugins/pagebreak/**" location="/static_resources/user/js/plugins/pagebreak/"/>
+    <mvc:resources mapping="/user/js/plugins/charmap/**" location="/static_resources/user/js/plugins/charmap/"/>
+    <mvc:resources mapping="/user/js/plugins/past/**" location="/static_resources/user/js/plugins/past/"/>
+    <mvc:resources mapping="/user/js/plugins/preview/**" location="/static_resources/user/js/plugins/preview/"/>
+    <mvc:resources mapping="/user/js/plugins/colorpicker/**" location="/static_resources/user/js/plugins/colorpicker/"/>
+    <mvc:resources mapping="/user/js/plugins/print/**" location="/static_resources/user/js/plugins/print/"/>
+    <mvc:resources mapping="/user/js/plugins/save/**" location="/static_resources/user/js/plugins/save/"/>
+    <mvc:resources mapping="/user/js/plugins/searchreplace/**" location="/static_resources/user/js/plugins/searchreplace/"/>
+    <mvc:resources mapping="/user/js/plugins/spellchecker/**" location="/static_resources/user/js/plugins/spellchecker/"/>
+    <mvc:resources mapping="/user/js/plugins/tabfocus/**" location="/static_resources/user/js/plugins/tabfocus/"/>
+    <mvc:resources mapping="/user/js/plugins/table/**" location="/static_resources/user/js/plugins/table/"/>
+    <mvc:resources mapping="/user/js/plugins/template/**" location="/static_resources/user/js/plugins/template/"/>
+    <mvc:resources mapping="/user/js/plugins/textcolor/**" location="/static_resources/user/js/plugins/textcolor/"/>
+    <mvc:resources mapping="/user/js/plugins/textpattern/**" location="/static_resources/user/js/plugins/textpattern/"/>
+    <mvc:resources mapping="/user/js/plugins/visualblocks/**" location="/static_resources/user/js/plugins/visualblocks/"/>
+    <mvc:resources mapping="/user/js/plugins/visualchars/**" location="/static_resources/user/js/plugins/visualchars/"/>
+    <mvc:resources mapping="/user/js/plugins/wordcount/**" location="/static_resources/user/js/plugins/wordcount/"/>
+   
+    <mvc:resources mapping="/user/js/themes/modern/**" location="/static_resources/user/js/themes/modern/"/>
+    <mvc:resources mapping="/user/js/themes/skins/lightgray/**" location="/static_resources/user/js/themes/skins/lightgray/"/>
+    
+
     <mvc:resources mapping="/user/fonts/**" location="/static_resources/fonts/"/>
     <mvc:resources mapping="/signup/css/**" location="/static_resources/css/"/>
     <mvc:resources mapping="/signup/images/**" location="/static_resources/images/"/>

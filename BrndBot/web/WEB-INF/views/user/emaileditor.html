@@ -2,7 +2,20 @@
 <div ng-show="overlayFade" id="fade" class="black_overlay"></div>
 <div ng-include src="'emailpreview.html'"></div>
 <!--<div ng-include src="'emailpreview.html'"></div>--> 
-
+<script>
+    tinymce.init({
+    selector: 'div.editable',
+            height: 300,
+            width: 400,
+            inline: true,
+            plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table contextmenu paste',
+                    'emoticons template paste textcolor colorpicker textpattern imagetools'
+            ],
+            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+    });</script>
 <div id="boxes" >
     <div id="dialog" class="window" >
     </div>
@@ -35,25 +48,47 @@
     </div>
     <!--Main Content GENERIC--> 
     <div class="emailEditor-page-background fleft">
-        <div class="emailEditor-leftCol ">
-            <script>
-                       
-            </script>   
-            <div id="editor">
-                <div id='edit' class="editorclass" style="margin-top: 5px;">
+
+
+
+
+
+
+        <!--...................tinyMce test code...............-->
+        <div  class="emailEditor-page-background" style="width: 75%; height: 100%;float: left;">
+            <div style="max-height: 62%;overflow: auto">
+                <div  id ="defaultBlock" class="editable">Your emai footer is the same on every email. You 
+                    see the footer in this email by previewing your email. To edit
+                    the footer click email footer settings.
                 </div>
             </div>
-            <!--////////////........ uncomment for footer....................///////-->
-                             <div class="in-editor-footer-wrap">
-                                        <h3>Email Footer</h3>
-                                        <p>Your email footer is the same on every email. You 
-                                    see the footer in this email by previewing your email. To edit
-                                    the footer click email footer settings.</p>
-<!--                                        <span class="reg-button gray-button" onclick="editFooter()">Edit Email Footer</span>-->
-                                        <span class="reg-button gray-button" ng-click="editFooter()">Edit Email Footer</span>
-                            </div>
+            <div class="emailEditor-leftCol float-lt" style="">
+                <div class="in-editor-footer-wrap" style="position: fixed; bottom: 6%;width: 75%;">
+                    <h3>Email Footer</h3>
+                    <p>Your email footer is the same on every email. You 
+                        see the footer in this email by previewing your email. To edit
+                        the footer click email footer settings.</p>
+                    <!--                                        <span class="reg-button gray-button" onclick="editFooter()">Edit Email Footer</span>-->
+                    <span class="reg-button gray-button" ng-click="editFooter()">Edit Email Footer</span>
+                </div>
+            </div>
+
         </div>
-        <div class="emailEditor-rightCol fright rightcoloumn">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="" style="width: 25%; float: left;">
             <div class="emailSideBar-Header">
                 <div class="col-1of2 fleft">
                     <div class="{{blocktab}}" id="blocktab" ng-init="showBlocks()" ng-click="showBlocks()">
@@ -144,7 +179,7 @@
         </div>
     </a>
 </div>
-<script type="text/javascript" src="js/plugins/align.min.js"></script>
+<!--<script type="text/javascript" src="js/plugins/align.min.js"></script>
 <script type="text/javascript" src="js/plugins/colors.min_editor.js" ></script>
 <script type="text/javascript" src="js/plugins/font_size.min.js"></script>
 <script type="text/javascript" src="js/plugins/font_family.min_editor.js"></script>
@@ -158,4 +193,4 @@
 <script type="text/javascript" src="js/plugins/inline_style.min.js"></script>
 <script type="text/javascript" src="js/plugins/save.min.js"></script>
 <script type="text/javascript" src="js/plugins/quote.min.js"></script>
-<script type="text/javascript" src="js/plugins/link.min.js"></script>
+<script type="text/javascript" src="js/plugins/link.min.js"></script>-->
