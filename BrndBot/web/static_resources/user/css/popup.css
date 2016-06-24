@@ -1266,7 +1266,7 @@ p#filetext {
 }
 #email_previewdiv{
     position: fixed;
-    display: none;
+/*    display: none;*/
     /*margin-top: 5%;*/
     margin-top: 60px;
     z-index: 99999;
@@ -1495,9 +1495,9 @@ textarea#filetext1 {
 .editorclass{
         width: 66% !important;
 }
-#styledivheader{
+/*#styledivheader{
     display: none;
-}
+}*/
 #stylediv{
     display: none;
 }
@@ -1790,7 +1790,7 @@ textarea#filetext1 {
 }
 
 .popUp_close{
-    padding: 22px 0;
+    padding: 0px 0;
 }
 
 .popUp_header-wrap{

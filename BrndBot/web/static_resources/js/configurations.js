@@ -10,6 +10,7 @@
 var global_host_address = "http://localhost:8080/BrndBot/";
 var error = "system failure error";  
 var FroalaLicenseKey ="snJ-7c1krD-13fD1wzF-7==";
+var defaultSendEmailFrom = "mail@brndbot.com"; 
 
 
 function getHost(){
@@ -42,3 +43,6 @@ function getnote(){
 String.prototype.contains = function(it) { 
     return this.indexOf(it) !== -1; 
 };
+function getDefaultEmailId(){
+    return defaultSendEmailFrom;
+}

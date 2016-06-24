@@ -30,9 +30,8 @@ factoryApp.factory('externalContentFactory', function ($q, authenticatedServiceF
     };
     externalContentFactoryObject.layoutEmailModelGet = function (emailModelId,isBlock,externalDataId) {
         var deffered = $q.defer();
-        var url = configurationService.layoutEmailModelURL();
-        var data = '{"emailModelId":"' + emailModelId + '","isBlock":"' + isBlock + '","externalDataId":"' + externalDataId + '"}';
-        authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
+        var url = configurationService.layoutEmailModelURL()+"?emailModelId="+ emailModelId+"&isBlock="+isBlock+"&externalDataId="+externalDataId;
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

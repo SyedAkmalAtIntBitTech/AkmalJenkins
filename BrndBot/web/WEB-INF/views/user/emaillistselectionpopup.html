@@ -1,17 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="format-detection" content="telephone=no"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="shortcut icon" href="favicon.png"/>
-    <link rel="stylesheet" href="css/pikaday.css"/>
-    <link rel="stylesheet" href="css/datepickerpikaday.css"/>
-    <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
-    <script src="js/pikaday.js"></script>
-<!--    <script src="js/socialimage.js" type="text/javascript"></script>-->
-    <script src="js/socialeditor.js" type="text/javascript"></script>
-    <script src="js/ajaxfileupload.js" type="text/javascript"></script>
+
     <style>
         #sendpopup{ 
             padding-left: 29%;
@@ -26,16 +13,15 @@
 }
     </style>
 
-</head>    
-    <body>
+
             <div id="fade" class="black_overlay"></div>
             <input type="hidden" name="selectedtype" id="selectedtype" value=""></input>
             <input type="hidden" name="selectedid" id="selectedid" value=""></input>
             <input type="hidden" name="social" id="social" value="social"></input>                        
-            <div id="sendpopup">
+            <div id="sendpopup" ng-show="emailSendPopup">
                 <div class="pop-up-background">
                     <div class="pop-up-exit-container">
-                       <div class="pop-up-exit-icon" id="closesendpopup">
+                       <div class="pop-up-exit-icon" ng-click="closeSendPopup()">
                            <img type="image/svg+xml" src="images/Close.svg" class="exit-button-icon" style="cursor:pointer;"></img>
                        </div>
                     </div> 
@@ -43,13 +29,13 @@
                         <div class="pop-up-title pop-up-title-h1"> Would you like to send now or schedule for later?</div>
                         <div class="pop-up-inner-imageSelection">
                             <div class="col-8of10  center">
-                                <div class="col-4of10 pushright fleft" onclick="sendEmail()">
+                                <div class="col-4of10 pushright fleft" ng-click="sendEmailOnClick(fromName, fromAddress, replyAddress)">
                                     <div class="image-selection-button" id="posttofb"> 
                                         <img type="image/svg+xml" src="images/postNow.svg" class="post-button-icon" style="cursor:pointer;"> </img>
                                     </div>
                                     <div class="button-description">Send Now</div>
                                 </div>
-                                <div class="col-4of10 fright">
+                                <div class="col-4of10 fright" ng-click="scheduleEmailPopup()">
                                     <div class="image-selection-button" id="schedule">
                                         <img type="image/svg+xml" src="images/schedulePost.svg" class="schedule-button-icon" style="cursor:pointer;"> </img>
                                     </div>
@@ -60,9 +46,9 @@
                     </div>
                 </div>
             </div>
-            <div id="schedulepopup" ng-controller="emailSettings">
+            <div id="schedulepopup" ng-show="showSchedulePopup">
                 <div class="pop-up-exit-container">
-                    <div class="pop-up-exit-icon" id="closeschedulepopup">
+                    <div class="pop-up-exit-icon" ng-click="closeschedulepopup()">
                         <img type="image/svg+xml" src="images/Close.svg" class="exit-button-icon"></img>
                     </div>
                 </div>
@@ -99,8 +85,8 @@
                         <div class="cols-2">
                              <div class="input-field-container col-4of10 fleft pushright">
                                 <div class="input-header"> Action Date </div>
-                                <input type="text" readonly id="schedule_date" name="schedule_date" class="input-field-textfield input-placeholder"  placeholder="Enter Action Date"></input>
-                                <script>
+                                <input type="text" readonly id="schedule_date" name="schedule_date"  ng-click="scheduleActionDate()" class="input-field-textfield input-placeholder"  placeholder="Enter Action Date"></input>
+<!--                                <script>
                                     var picker = new Pikaday(
                                     {
                                         field: document.getElementById('schedule_date'),
@@ -109,12 +95,12 @@
                                         maxDate: new Date(2050, 12, 31),
                                         yearRange: [2000,2050]
                                     });
-                                </script>
+                                </script>-->
                             </div>
                              <div class="input-field-container col-4of10 fleft">
                                 <div class="input-header"> Action Time </div>
                                 <div class="">
-                                    <input id="schedule_time" type="text" name="schedule_time" class="input-field-textfield input-placeholder" placeholder="Enter Action Time" readonly/><br>
+                                    <input id="schedule_time" type="text" name="schedule_time" class="input-field-textfield input-placeholder" placeholder="Enter Action Time" data-timepicki-tim="10" data-timepicki-mini="42" data-timepicki-meri="AM" readonly/><br>
                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
                                         $('#schedule_time').timepicki({
@@ -127,6 +113,11 @@
                                    disable_keyboard_mobile: true
                                         });
                                     </script>
+                                    
+<!--                                    <div class="time_pick"><input id="schedule_time" type="text" name="schedule_time" class="input-field-textfield input-placeholder" placeholder="Enter Action Time" readonly="" data-timepicki-tim="10" data-timepicki-mini="42" data-timepicki-meri="AM"><div class="timepicker_wrap " style="display: block; top: 40px; left: 0px;"><div class="arrow_top"></div><div class="time"><div class="previous action-next"></div><div class="ti_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="next action-prev"></div></div><div class="mins"><div class="previous action-next"></div><div class="mi_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="next action-prev"></div></div><div class="meridian"><div class="previous action-next"></div><div class="mer_tx"><input type="text" class="timepicki-input" readonly=""></div><div class="next action-prev"></div></div></div></div>-->
+                                    
+                                    
+                                    
                                 </div>
                             </div>
                         </div>
@@ -138,6 +129,3 @@
                     </div>                    
                     </div>
                 </div>
-            </div>
-    </body>
-</html>
