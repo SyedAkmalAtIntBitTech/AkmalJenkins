@@ -35,10 +35,10 @@
                         <select ng-model="organizationId" id="industryDropDown"  class="input_Field select_Field" ng-options="organization.organizationId as organization.organizationName for organization in organizations">
                         </select>
                     </div>-->
-                     <div style="margin:0 auto;">
+                     <div>
                         <h1>Dropdown Select</h1>
-                        <p>You have selected: {{ddSelectOrganization}}</p>
-                        <div dropdown-select="ddSelectOrganizationOptions" dropdown-model="ddSelectOrganization"></div>
+<!--                        <p>You have selected: {{ddSelectOrganization}}</p>-->
+                        <div dropdown-select="ddSelectOrganizationOptions" value="{{ddSelectOrganization}}" dropdown-model="ddSelectOrganization"></div>
                         <hr/>
                     </div>
                 </div>
