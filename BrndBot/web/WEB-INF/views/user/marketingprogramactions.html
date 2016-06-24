@@ -1,5 +1,5 @@
 
-    <div class="content-main" ng-init="getProgramActions()">
+    <div class="content-main" ng-init="getProgramActions('emailautomation')">
         <div ng-include src="'addaction.html'"></div>
         <div ng-hide="true" ng-include src="'genericpopup/mainpopup.html'"></div>
         <div ng-hide="true" ng-include src="'recurringemailpopup.html'"></div>
@@ -45,9 +45,9 @@
                         <div id="noemailautomation" class="page-content-title h2 fleft">Recurring Email Automations</div>
                         <div class="action-cta-container">
                             <!--<% if(past!=1){%>-->
-                            <a href="emailautomation.html" id="addrecemail" class="edit-button-detail fleft">
-                                <div class=" md-button" ng-click="addEditRecurringAction('add',<%=program_id%>, '0')">Add Recurring Email Automation</div>    
-                            </a>
+                            <span id="addrecemail" class="edit-button-detail fleft">
+                                <div class=" md-button" ng-click="redirectToEmailAutomation(forward,'add','', '0')">Add Recurring Email Automation</div>    
+                            </span>
 <!--                            <a href="" id="deleterecurringemail" class="delete-button-detail fleft">
                                 <div class="md-button delrecemlbtn" ng-click="deleteSchedule('0', 'deleteMultiple','recurring')">Delete Selected Recurring Email(s)</div>    
                             </a>-->
@@ -122,6 +122,7 @@
                     <!--List Starts Here-->
                     <ul class="main-container fleft">
                     <li class="slat-container fleft selfclear" ng-repeat="programaction in (filteredItems = (programs.programactions | orderBy: 'postDate':true))" >
+                        
                         <!--ng-repeat="programaction in (filteredItems = (programs.programactions | orderBy: 'postDate':true))"-->
                             <div class="selection-container col-5p"> 
                                 <div class="selection-icon" ng-hide="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}');selcheckboxonetimeact(this.id);"><input type="checkbox" id="entityid{{programaction.scheduledEntityListId}}"  value="{{programaction.scheduledEntityListId}}" name="entityname" hidden></input></div>
@@ -167,8 +168,7 @@
                                                                         programaction.postTime,
                                                                         programaction.postDateStatus,
                                                                         programaction.days,
-                                                                        programs.programdetails.programName,
-                                                                        <%=program_id%>)">Details</div>
+                                                                        programs.programdetails.programName)">Details</div>
                                 </div>
                             </div>
                         </li>

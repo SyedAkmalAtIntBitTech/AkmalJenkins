@@ -4,10 +4,10 @@
 
 factoryApp.factory('emailFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var emailFactoryObject = {};
-    emailFactoryObject.sendEmail = function () {
+    emailFactoryObject.sendEmail = function (sendEmailData) {
         var deffered = $q.defer();
         var url = configurationService.sendEmailPostURL();
-        authenticatedServiceFactory.makeCall("POST", url, "", "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, sendEmailData, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
@@ -20,10 +20,10 @@ factoryApp.factory('emailFactory', function ($q, authenticatedServiceFactory, co
         });
         return deffered.promise;
     };
-    emailFactoryObject.previewServletPost = function () {
+    emailFactoryObject.previewServletPost = function (sendData) {
         var deffered = $q.defer();
         var url = configurationService.previewServletURL();
-        authenticatedServiceFactory.makeCall("POST", url, "", "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, sendData, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

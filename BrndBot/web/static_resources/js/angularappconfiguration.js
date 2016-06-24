@@ -18,21 +18,20 @@ var socialhubFlowApp = angular.module('socialhubFlowApp', ['factorys','ngRoute']
 var sharedServiceApp = angular.module('sharedService', []);
 var imagesFlowApp = angular.module('imagesFlowApp', ['factorys','ngRoute']);
 factoryApp.directive('fileModel', ['$parse', function ($parse) {
-       
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            var model = $parse(attrs.fileModel);
-            var modelSetter = model.assign;
-            
-            element.bind('change', function(){
-                scope.$apply(function(){
-                    modelSetter(scope, element[0].files[0]);
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var model = $parse(attrs.fileModel);
+                var modelSetter = model.assign;
+
+                element.bind('change', function () {
+                    scope.$apply(function () {
+                        modelSetter(scope, element[0].files[0]);
+                    });
                 });
-            });
-        }
-    };
-}]);
+            }
+        };
+    }]);
 factoryApp.directive('toggleClass', function () {
     var directiveDefinitionObject = {
         restrict: 'A',
@@ -56,4 +55,14 @@ factoryApp.directive('toggleClass', function () {
         }
     };
     return directiveDefinitionObject;
+});
+factoryApp.directive('getfileName', function () {
+    return {
+        link: function (scope, element, attrs) {
+            element.on('change', function  (evt) {
+                var files = evt.target.files;
+                $("#filetext").empty().text(files[0].name);              
+            });
+        }
+    };
 });
