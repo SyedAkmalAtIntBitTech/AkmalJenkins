@@ -704,7 +704,7 @@ input#timepicker1 {
     width:50%
 }
 #schedulepopup {
-    display: none;
+    /*display: none;*/
     z-index: 100000;
     position: fixed;
     padding-left: 24%;
@@ -758,7 +758,8 @@ select#dropdownurl,#url {
     max-height: 100%;
     width: 900px;
     right: 0px;
-    margin-right: -900px;
+    bottom: 0px;
+    //margin-right: -900px;
 }
 #draftshow {
     position: relative;
@@ -1283,7 +1284,7 @@ p#filetext {
 }
 #email_previewdiv{
     position: fixed;
-    display: none;
+/*    display: none;*/
     /*margin-top: 5%;*/
     margin-top: 60px;
     z-index: 99999;
@@ -1512,9 +1513,9 @@ textarea#filetext1 {
 .editorclass{
         width: 66% !important;
 }
-#styledivheader{
+/*#styledivheader{
     display: none;
-}
+}*/
 #stylediv{
     display: none;
 }
@@ -1807,7 +1808,7 @@ textarea#filetext1 {
 }
 
 .popUp_close{
-    padding: 22px 0;
+    padding: 0px 0;
 }
 
 .popUp_header-wrap{
@@ -1958,3 +1959,12 @@ textarea#filetext1 {
 /*************************** ADD IMAGE *************************/
 
 /*----------------- New PopUp css code Stops-----------------*/
+
+.checkboxshowpassword {
+    position: relative !important;
+    top: -17px;
+    font-size: 12px;
+}
+.confirmpassword{
+      margin-bottom: 15px;  
+}

@@ -19,7 +19,7 @@ public class AppConstants {
     public static final String COMPANY_LOGO_FILENAME = "companylogo.png";
     public static final String GALLERY_FOLDERNAME = "gallery";
     public static final String LOGO_FOLDERNAME = "logo";
-    public static final String BASE_UPLOAD_PATH = "/home/tomcat/BrndBot";
+    public static final String BASE_UPLOAD_PATH = "/home/intbit/tomcat/BrndBot";
     public static final String BASE_ADMIN_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "admin";
     public static final String BASE_USERS_UPLOAD_PATH = BASE_UPLOAD_PATH + File.separator + "users";
     public static final String BASE_USERS_IMAGE_UPLOAD_PATH = BASE_USERS_UPLOAD_PATH + File.separator + "images";
@@ -43,8 +43,8 @@ public class AppConstants {
 */
 //    Test fb App configuration.....comment for production server.....
     public static final String facebookString1 = "1577738335828079";
-    public static final String facebookString2 = "2b6fd6252aa68e836acc574c0aa1a647";    
-    public static final String facebookPermissions = "publish_actions, pubylish_pages,manage_pages";
+    public static final String facebookString2 = "2b6fd6252aa68e836acc574c0aa1a647";
+    public static final String facebookPermissions = "publish_actions, publish_pages,manage_pages";
     
     public static final String TMP_FOLDER = BASE_UPLOAD_PATH + File.separator + "/tmp";
 }

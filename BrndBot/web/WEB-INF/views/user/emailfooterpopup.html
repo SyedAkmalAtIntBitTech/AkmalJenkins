@@ -2,12 +2,12 @@
 <link href="css/normalize.css" rel="stylesheet" type="text/css"/>
 <link href="css/general.css" rel="stylesheet" type="text/css"/>
 <div class="emailFooterPopupDiv">
-<div class="popUp_background-dark displayNone" id="emailFooterPopup">
-    <div class="modal-pane modal-pane-width-reg popUp_CenterVert">
+<div class="popUp_background-dark" id="emailFooterPopup" ng-show="emailFooterPopupDetails">
+    <div class="modal-pane modal-pane-width-reg popUp_CenterVert" >
         <div class="modal-pane-header-wrap">
             <h2 class="">Email Footer Settings</h2>
             <a class="modal-pane-header-exit">
-                <div class="popUp_close " onclick="hideEmailFooterPopup()">
+                <div class="popUp_close " ng-click="hideEmailFooterPopupDetails()">
                     <img type="image/svg+xml" src="../images/Pop-Up-Exit-Button.svg" class="fleft popUp_close-icon cursor-shape">
                 </div>
             </a>
@@ -17,40 +17,41 @@
             <div class="input-wrap">
                 <label>Company Address </label>
                 <div class="input">
-                    <input id="footerAddress" value="{{footerDetails.address}}"></input>
+                    
+                    <input id="footerAddress" ng-model="company.address"></input>
                     <p> We need this to comply with email spam (CANSPAM) laws</p>
                 </div>
             </div>
             <div class="input-wrap">
                 <label> Website URL </label>
                 <div class="input">
-                    <input id="footerWebsiteUrl" value="{{footerDetails.websiteUrl}}"></input>
+                    <input id="footerWebsiteUrl" ng-model="company.websiteUrl"></input>
                     <p> This can be copied from the browser <a class="input-help" href="#">Click to learn how</a></p>
                 </div>
             </div>
             <div class="input-wrap">
                 <label> Facebook URL </label>
                 <div class="input">
-                    <input id="footerFacebookUrl" value="{{footerDetails.facebookUrl}}"></input>
+                    <input id="footerFacebookUrl" ng-model="company.facebookUrl"></input>
                     <p> Log into your company's Facebook page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
                 </div>
             </div>
             <div class="input-wrap">
                 <label> Twitter URL </label>
                 <div class="input">
-                    <input id="footerTwitterUrl" value="{{footerDetails.twitterUrl}}"></input>
+                    <input id="footerTwitterUrl" ng-model="company.twitterUrl"></input>
                     <p> Log into your company's Twitter page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
                 </div>
             </div>
             <div class="input-wrap">
                 <label> Instagram URL </label>
                 <div class="input">
-                    <input id="footerInstagramUrl" value="{{footerDetails.instagramUrl}}"></input>
+                    <input id="footerInstagramUrl" ng-model="company.instagramUrl"></input>
                     <p> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
                 </div>
             </div>
         </div>
-        <div class="modal-cta-container" ng-click="changeFooterDetails()">
+        <div class="modal-cta-container" ng-click="changeFooterDetails(company)">
             <a class="long-button blue-button">Save Email Footer Settings</a>
         </div>
     </div>

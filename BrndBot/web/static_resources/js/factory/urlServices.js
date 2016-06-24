@@ -683,6 +683,10 @@ factoryApp.service('configurationService', function (){
         return this.getGlobalURL() + "/settings/twitterGetToken";
     };
     
+    this.setFooterPostURL = function () {
+        return this.getGlobalURL() + "/settings/setFooter";
+    };
+    
         //************** userFactory ********************/    
     
     this.userWelcomePageURL = function () {

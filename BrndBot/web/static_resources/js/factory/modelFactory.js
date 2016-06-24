@@ -15,9 +15,9 @@ factoryApp.factory('modelFactory', function ($q, authenticatedServiceFactory, co
     };
     modelFactoryObject.EmailModelsIdGet = function (subCategoryId) {
         var deffered = $q.defer();
-        var url = configurationService.emailModelsIdURL();
-        var data = '{"subCategoryId":"' + subCategoryId + '"}';
-        authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
+        var url = configurationService.emailModelsIdURL()+"?subCategoryId="+subCategoryId;
+//        var data = '{"subCategoryId":"' + subCategoryId + '"}';
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

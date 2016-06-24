@@ -2,7 +2,7 @@
     <div class="fleft content ">
         <div class="page-content-title"><span class="h2">Email Footer Settings</span><p>This footer will be added to the bottom all emails being sent out. </p></div>
         <!--List Starts Here-->
-        <div class="emailSettings-container fleft  main-container main-container70width col-8of10" ng-init="getFooterDetails()">
+        <div class="emailSettings-container fleft  main-container main-container70width col-8of10">
             <div class="col-1of1 fleft">
                 <div class="col-7of10 fleft">
                     <div class="h4" style="">
@@ -50,7 +50,7 @@
             </div>
             <div class="col-1of1 fleft pushUp">
                 <div class="col-7of10 fleft">
-                    <div class="h4" style="" onclick="openEmailFooterPopup()">
+                    <div class="h4" style="" ng-click="emailFooterPopup()">
                         <div class="update-container">
                             <span class="small-button slat-button">Update Email Footer</span>
                         </div>
@@ -60,3 +60,4 @@
         </div>                        
     </div>   
 </div>
+<div ng-include="'emailfooterpopup.html'"></div>

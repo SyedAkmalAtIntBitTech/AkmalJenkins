@@ -2810,7 +2810,7 @@ width:100%;
 .emailSideBar-Header{
     height: 40px;
     border-bottom: 1px solid #E3E3E3;
-    width: 100%;
+/*    width: 100%;*/
 }
 
 .emailSideBar-tab-active{
@@ -3044,4 +3044,5 @@ width:100%;
     font-weight: 400;
     font-variant-caps: small-caps;
 }
+
 

@@ -135,7 +135,9 @@
                document.getElementById("fb").src="images/fb_icon.png";
                
            }
-                    
+                 
+    
+    
                 function controllerSocial($scope, $http) {
     
                     $scope.getFacebookDetails = function () {

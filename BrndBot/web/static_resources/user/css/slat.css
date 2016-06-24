@@ -47,6 +47,65 @@ background-color: lightgray;
     overflow: hidden;
     box-sizing: border-box;
 }
+.palette-colorswab-global{
+    width: 70px;
+    height: 35px;
+    box-sizing: border-box;
+    margin-right: 20px;
+    cursor:pointer;
+    margin-top: 10px;
+    margin: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0,0,0,.2);
+    border-radius: 5px;
+}
+.logo-palette-colorswab{
+     width: 80px;
+    height: 35px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    margin:10px 5px 0px 10px;
+    cursor:pointer;
+}
+.color-picker-space{
+    margin-top:3vw;
+    margin-left:7vw;
+}
+.palette-colorswab{
+    width: 70px;
+    height: 35px;
+    border: 2px solid rgba(0,0,0,.2);
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-right: 10px;
+}
+.palette-colorswab-selected{
+    border: 3px solid rgb(216, 15, 15);
+    width: 70px;
+    height: 35px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-right: 10px;
+    cursor:pointer;
+}
+.pane-palette_left{
+    width: 50%;
+    border-right: 1px solid #D2D3D5;
+    box-sizing: border-box;
+    height: 330px;
+    padding-right: 20px;
+}
+.pane-palette_right{
+    width: 50%;
+    box-sizing: border-box;
+    padding: 0px 0px 0px 20px;
+}
+.palette {
+    width: 400px;
+    margin: auto;
+    margin-left: 0px !important;
+}
 
 selfclear:before{
     display: table;
