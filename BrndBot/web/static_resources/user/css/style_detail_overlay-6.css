@@ -2757,7 +2757,7 @@ width:100%;
 }
 
 .imageGallery-card:hover{
-    border: solid 2px #64B6EE ;
+    border: solid 1px #64B6EE ;
     box-sizing: border-box;
     cursor: pointer;
    
@@ -3224,6 +3224,7 @@ width:100%;
 }
 
 
-div#hidepopup {
-    display: block !important;
-}
+
+//div#hidepopup {
+ //   display: block !important;
+//}

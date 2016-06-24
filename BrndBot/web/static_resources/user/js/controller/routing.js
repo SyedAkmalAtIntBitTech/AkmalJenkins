@@ -134,16 +134,14 @@ marketinghubFlowApp.config(function($routeProvider){
     
     .otherwise({redirectTo: '/marketinghub'});
     });
-    
 
-//socialhubFlowApp.config(function($routeProvider){
-// 
-//    $routeProvider
-//   
-//    .when('/marketinghub', {
-//                templateUrl: 'marketinghub.html'
-//               
-//    }) 
-//    
-//    .otherwise({redirectTo: '/marketinghub'});
-//    });
+imagesFlowApp.config(function($routeProvider){
+    $routeProvider
+    .when('/imagegallery', {
+                templateUrl: 'imagegallery.html'
+               
+    })
+    
+    .otherwise({redirectTo: '/baseimagegallery'});
+    
+});

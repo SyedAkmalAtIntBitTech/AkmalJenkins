@@ -5,7 +5,7 @@
  */
 
 var factoryApp =  angular.module('factorys', []);
-var brndBotSignupApp = angular.module('signupApp', ['factorys','ngRoute']);
+var brndBotSignupApp = angular.module('signupApp', ['factorys','ngRoute','ngDropdowns']);
 var socialFlowApp = angular.module('socialFlowApp', ['factorys','ngRoute']);
 var emailFlowApp = angular.module('emailFlowApp', ['factorys','ngRoute','sharedService']);
 var marketingFlowApp = angular.module('marketingFlowApp', ['factorys','ngRoute']);
@@ -16,7 +16,7 @@ var userGalleryApp = angular.module('userGalleryApp', ['factorys','ngRoute']);
 var marketinghubFlowApp = angular.module('marketinghubFlowApp', ['factorys','ngRoute']);
 var socialhubFlowApp = angular.module('socialhubFlowApp', ['factorys','ngRoute']);
 var sharedServiceApp = angular.module('sharedService', []);
- 
+var imagesFlowApp = angular.module('imagesFlowApp', ['factorys','ngRoute']);
 factoryApp.directive('fileModel', ['$parse', function ($parse) {
        
     return {
