@@ -23,7 +23,7 @@
     <!--Top Nav-->   
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
-            <div class="exit-button-detail" onclick="backeditor()">
+            <div class="exit-button-detail" ng-click="backToEditor()">
                 <a class=" exit-button-icon" href="" id="backemaillist">
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
                 </a>
@@ -53,22 +53,25 @@
                    <div class="col-9of10 fleft pushUp-30">
                                <input type="button" id="addCsvFileButton" ng-click="selectCsvOnClick()" class="md-button add-button22 noborder" value="Add CSV or Email Manually"></input>
                    </div>
-                   <div class="col-2of4 fleft pushUp-30" id="clktoupload"> 
-                       <div class="h3 col-1of1" id="dragtext" hidden="true">Drag and drop a csv file here and click to upload:</div>
+<!--                   <div class="col-2of4 fleft pushUp-30" id="clktoupload" ng-show="clickToUpload"> -->
+                    <div class="col-2of4 fleft pushUp-30" ng-show="clickToUpload"> 
+                       <div class="h3 col-1of1" id="dragtext">Drag and drop a csv file here and click to upload:</div>
                         <div id="drop-zone" class="col-1of4 pushUp-30">
-                           <!--<input type="file" id="fileid" class="filrstyle" onchange="myFunction()">-->
-                           <input type="file" id="fileid" class="filrstyle" file-reader="fileContent" />
-                           <p id="filetext">Click to Select file</p>
+                           <!--<input type="file" id="fileid" class="filrstyle" onchange="myFunction()" file-reader="fileContent" >-->
+                           <input type="file" id="fileid" class="filrstyle" getfile-Name />
+                           <p id="filetext" >Click to Select file {{filename}}</p>
                         </div>
                     </div>
-                   <div  class="col-2of4 fleft pushUp-30 lftpad-10" id="emladdrstxtarea">
-                       <div class="h3 col-1of1" id="entertext" hidden="true">Enter Email Addresses manually here:</div>
+<!--                   <div  class="col-2of4 fleft pushUp-30 lftpad-10" id="emladdrstxtarea" ng-show="emailAddressTextarea">-->
+                       <div  class="col-2of4 fleft pushUp-30 lftpad-10" ng-show="emailAddressTextarea">
+                       <div class="h3 col-1of1" id="entertext">Enter Email Addresses manually here:</div>
                        <textarea class="emailaddresstextarea pushUp" ng-model="emailAddresses" id="emailaddresses"></textarea>
                    </div>
                    
                 </div>
                 <div class="col-15of4 fleft unit">
-                    <!--<input type="button" id="upload" value="Upload" onclick="upload()" class="md-button add-action-button noborder"/>-->      
+<!--                    <input type="button" id="upload" value="Upload" ng-show="uploadButton" ng-click="upload()" class="md-button add-action-button noborder"/>      -->
+                    <input type="button" value="Upload" ng-show="uploadButton" ng-click="uploadFileButton()" class="md-button add-action-button noborder" />      
                    </div>
                     </div>
                 </div>            
@@ -116,7 +119,7 @@
         <div class="bottom-cta-bar">
             <div class="bottom-cta-button-container-lg">
                 <div class="bottom-continue-button button-text-1" id="emaildetailscontbtn" ng-click="continueEmailDetailsOnClick()">Continue</div>
-                <div class="bottom-continue-button button-text-1" id="emailIdContinueButton" ng-click="continueEmailListOnClick(emailAddresses)">Continue</div>
+                <div class="bottom-continue-button button-text-1" id="emailIdContinueButton" ng-show="emailContinueButton" ng-click="continueEmailListOnClick(emailAddresses)">Continue</div>
             </div>
         </div>
         </div>
