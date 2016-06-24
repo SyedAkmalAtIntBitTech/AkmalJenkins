@@ -1,7 +1,7 @@
 
 //************************ @author Tasmiya P.S @ Intbit *************************
 
-app.factory('emailDraftFactory', function ($q, authenticatedServiceFactory, configurationService) {
+factoryApp.factory('emailDraftFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var emailDraftFactoryObject = {};
     emailDraftFactoryObject.saveEmailDraftsPost = function () {
         var deffered = $q.defer();
@@ -27,27 +27,26 @@ app.factory('emailDraftFactory', function ($q, authenticatedServiceFactory, conf
         });
         return deffered.promise;
     };
-    emailDraftFactoryObject.getEmailDraftGet = function (draftid) {
+    emailDraftFactoryObject.getEmailDraftGet = function (id) {
         var deffered = $q.defer();
-        var url = configurationService.getEmailDraftURL();
-        var data = '{"draftid":"' + draftid + '"}';
-        authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
+        var url = configurationService.getEmailDraftURL()+'?draftid='+id;
+//        var data = '{"draftid":"' + draftid + '"}';
+        authenticatedServiceFactory.makeCall("GET", url,"").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    emailDraftFactoryObject.deleteEmailDraftsPost = function () {
+    emailDraftFactoryObject.deleteEmailDraftsPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.deleteEmailDraftsURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, data,"").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    emailDraftFactoryObject.deleteEmailDraftPost = function (draftid) {
+    emailDraftFactoryObject.deleteEmailDraftPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.deleteEmailDraftURL();
-        var data = '{"draftid":"' + draftid + '"}';
         authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
             deffered.resolve(data);
         });

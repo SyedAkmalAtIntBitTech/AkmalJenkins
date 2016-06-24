@@ -6,13 +6,12 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>SETTINGS</title>       
-<!--        <link rel="import" href="header.html">-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+        <title>Image Gallery</title>       
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
         
-        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
-        <link rel="stylesheet" type="text/css" href="css/base.css"/>
+<script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="css/base.css"/>
 <link rel="stylesheet" type="text/css" href="css/General-Utility.css">
 <link rel="stylesheet" type="text/css" href="css/Navigation.css">
 <link rel="stylesheet" type="text/css" href="css/Pane.css">
@@ -30,8 +29,6 @@ and open the template in the editor.
 <link rel="stylesheet" type="text/css" href="css/onboarding.css"/>
 <script src="js/alertmessage.js" type="text/javascript"></script>
 <script src="js/colpick.js" type="text/javascript"></script>
-
-
 <link rel="stylesheet" href="css/pikaday.css"/>
 <link rel="stylesheet" href="css/datepickerpikaday.css"/>
 <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
@@ -41,11 +38,11 @@ and open the template in the editor.
 <script src="js/moment.js" type="text/javascript"></script>
 <script src="js/pikaday.js" type="text/javascript"></script>
 <script src="js/timepicki.js" type="text/javascript"></script>
-<!--<script src="js/popup.js" type="text/javascript"></script>-->
+<script src="js/popup.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="css/style_detail_overlay.css">
 <link rel="stylesheet" type="text/css" href="css/normalize.css">
 <script src="js/moment.js" type="text/javascript"></script>
-<script src="js/configurations.js" type="text/javascript"></script>
+<!--<script src="js/configurations.js" type="text/javascript"></script>-->
 <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-5.css"/>
 <link rel="stylesheet" type="text/css" href="css/style_detail_overlay_new.css"/>
 <link rel="stylesheet" type="text/css" href="css/normalize_new.css"/>
@@ -68,38 +65,20 @@ and open the template in the editor.
         <script src="../js/factory/authFactory.js" type="text/javascript"></script>
         <script src="../js/factory/settingsFactory.js" type="text/javascript"></script>
         <script src="../js/factory/assetsFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/companyImagesFactory.js" type="text/javascript"></script>
         <script src="../js/factory/onboardingFactory.js" type="text/javascript"></script>
-        <script src="js/controller/controllerUserChanges.js" type="text/javascript"></script>
+         <script src="../js/factory/uploadImageFactory.js" type="text/javascript"></script>
+        <script src="../js/factory/imagesFactory.js" type="text/javascript"></script>
+        <script src="js/controller/imageGalleryController.js" type="text/javascript"></script>
         <script src="js/controller/routing.js" type="text/javascript"></script>
-        
     </head>
-    <body ng-app="settingFlowApp" ng-controller="controllerUserChanges">         
+    <body ng-app="imagesFlowApp" ng-controller="imageGalleryController">         
     <div ng-include src="'navbar.html'"></div>
-<!--        <div ng-include src="'loadingoverlay.html'"></div>-->
-        <div class="content-main">
-        <!--<input type="hidden" value="<%=change%>" id="change"></input>-->
-        <!--Top Nav-->   
-        <div class="top-nav">
-            <div class="page-title-bar col-1of1"> 
-                <div class="page-title-regular page-title-font">User Settings</div>
-            </div>
-            <div class="page-subnav-bar-regular"> 
-                <div class="top-subnav-tabs-container">
-                    <ul class="top-subnav-nav-elements">
-                        <li class="top-subnav-link-active" id="accountsettingtab"> <a href="#/useraccountsettings" class="h3-active-subnav">Account Settings</a></li>
-                        <li class="top-subnav-links" id="logosettingtab"> <a  href="#/userlogosettings" class="h3">Logo Settings</a></li>
-                        <li class="top-subnav-links" id="palettesettingtab" ng-click="getLogoColors()"> <a href="#/userpalettesettings" class="h3">Palette Settings</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!--Main Content GENERIC--> 
-        <div class="sequence-page-background">            
-            <div ng-view></div> 
-<!--            <div ng-include src="'useraccountsettings.html'"></div>
-            <div ng-include src="'userlogosettings.html'"></div>
-            <div ng-include src="'userpalettesettings.html'"></div>-->
-        </div>
-        </div>
+    <div ng-view=""></div>
+    
+
+
+
+
     </body>
 </html>

@@ -66,45 +66,54 @@ function imgchng() {
 
 function controllerSocial($scope, $http) {
     $scope.getFacebookDetails = function () {
-        $http({
-            url: getHost() + 'settings/facebookDetails.do',
-            method: "POST",
-            data: JSON.stringify({
-                access_token_method: "getAccessToken"
-            })
-        }).success(function (data, status, headers, config) {
-            var facebookDetails = data.d.message;
-            var facebookDetailsArray = facebookDetails.split(",");
-            if (facebookDetailsArray[1] === "null") {
-                $scope.user_profile_page = " - ";
-                $scope.fb_default_page_name = " - ";
-                $("#facebook").text("Login");
-            } else {
-                $scope.user_profile_page = facebookDetailsArray[1];
-                $scope.fb_default_page_name = facebookDetailsArray[2];
-                $("#fbclear").show();
-            }
-
-        }).error(function (data, status, headers, config) {
-            alert(nodataerror);
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-        });
+        alert();
+//        
+//        $http({
+//            url: getHost() +'settings/facebookDetails.do',
+//            method: "POST",
+//            data: JSON.stringify({
+//                access_token_method: "getAccessToken"
+//            })
+//        }).success(function (data, status, headers, config) {alert();
+//            var facebookDetails = data.d.message;
+//            var facebookDetailsArray = facebookDetails.split(",");
+//            if (facebookDetailsArray[1] === "null") {
+//                $scope.user_profile_page = " - ";
+//                $scope.fb_default_page_name = " - ";
+//                $("#facebook").text("Login");
+//            } else {
+//                $scope.user_profile_page = facebookDetailsArray[1];
+//                $scope.fb_default_page_name = facebookDetailsArray[2];
+//                $("#fbclear").show();
+//            }
+//
+//        }).error(function (data, status, headers, config) {
+//            alert(nodataerror);
+//            // called asynchronously if an error occurs
+//            // or server returns response with an error status.
+//        });
     };
 
     $scope.getManagePage = function () {
+        $scope.facebook = true;
+        alert("...");
+        alert("zas0");
         $http({
-            url: getHost() + 'settings/fbAuthURL',
-            method: "Post",
+            url: "http://localhost:8080/BrndBot/" + 'settings/fbAuthURL',
+            method: "POST",
             data: JSON.stringify({
                 redirectUrl: "user/social"
             })
         }).success(function (data) {
+            alert("data");
             window.location = data.d.details[0];
 
         });
     };
+    
     $scope.checkForCode = function () {
+        
+        $scope.showTwitterPopup=false;
         var code = getUrlParameter("code");
         if (typeof code !== "undefined") {
             $http({
@@ -149,6 +158,7 @@ function controllerSocial($scope, $http) {
 
     };
     $scope.clearFacebookDetails = function () {
+        alert("...");
         if (confirm(clearconfirm)) {
             $("#fbclear").hide();
             $http({
@@ -208,6 +218,7 @@ function controllerSocial($scope, $http) {
         }
     };
 }
+
 function getAuthURLFromSocialHub() {
     $.ajax({
         url: getHost() + 'settings/twitterAuthURL.do',
