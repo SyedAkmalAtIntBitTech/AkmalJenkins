@@ -96,11 +96,11 @@
                             </div>
                              <div class="input-field-container col-3of10 fleft">
                                 <div class="h4"> From Email Address </div>
-                                <input id="formaddress" class="input-field-textfield input-placeholder" placeholder="Enter From  Email Address" type="text" value="{{email_settings.from_address}}" ng-model="fromAddress"></input>
+                                <input id="formaddress" class="input-field-textfield input-placeholder" placeholder="Enter From  Email Address" type="text" ng-model="fromAddress" readonly />
                             </div>
                         </div>
                         <div class="cols-2 fleft col-9of10 pushUp">
-                            <input id="toaddress" class="input-field-textfield input-placeholder" ng-model="toAddress" placeholder="Enter To Email Address" type="hidden"></input>
+                            <input id="toaddress" class="input-field-textfield input-placeholder" ng-model="toAddress" value="{{email_settings.email_addresses}}" placeholder="Enter To Email Address" type="text"></input>
                             <div class="input-field-container col-3of10 fleft">
                                 <div class="h4"> Reply To Email Address</div>
                                 <input id="email" class="input-field-textfield input-placeholder" placeholder="Enter Reply To Email Address" type="text" value="{{email_settings.reply_email_address}}" ng-model="replyAddress"></input>
@@ -119,7 +119,7 @@
         <div class="bottom-cta-bar">
             <div class="bottom-cta-button-container-lg">
                 <div class="bottom-continue-button button-text-1" id="emaildetailscontbtn" ng-click="continueEmailDetailsOnClick()">Continue</div>
-                <div class="bottom-continue-button button-text-1" id="emailIdContinueButton" ng-show="emailContinueButton" ng-click="continueEmailListOnClick(emailAddresses)">Continue</div>
+                <div style="display: block;" class="bottom-continue-button button-text-1" id="emailIdContinueButton" ng-show="emailContinueButton" ng-click="continueEmailListOnClick(emailAddresses)">Continue</div>
             </div>
         </div>
         </div>
