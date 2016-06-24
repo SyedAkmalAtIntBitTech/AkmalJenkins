@@ -35,11 +35,11 @@ and open the template in the editor.
  * Classes added:
  * 	1) hint
  */
-        .hint, [data-hint1] {
+    .hint, [data-hint1] {
     position: relative;
     display: inline-block;
     margin-left: 0px;
-    width: 0px;
+    width: 15px;
         }
     
     .hint:before, .hint:after, [data-hint1]:before, [data-hint1]:after {

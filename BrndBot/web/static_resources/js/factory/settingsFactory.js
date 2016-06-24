@@ -62,10 +62,10 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
         });
         return deffered.promise;
     };
-    settingsFactoryObject.facebookPost = function () {
+    settingsFactoryObject.facebookPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.facebookURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url,data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
@@ -80,7 +80,7 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
     };
     settingsFactoryObject.fbLoginPost = function (data) {
         var deffered = $q.defer();
-        var url = configurationService.fbLoginURL();        
+        var url = configurationService.fbLoginURL();   
         authenticatedServiceFactory.makeCall("POST", url, data).then(function (data) {
             deffered.resolve(data);
         });
@@ -94,10 +94,10 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
         });
         return deffered.promise;
     };
-    settingsFactoryObject.twitterLoginGet = function () {
+    settingsFactoryObject.twitterLoginGet = function (data) {
         var deffered = $q.defer();
         var url = configurationService.twitterLoginURL();
-        authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("GET", url,data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
@@ -110,6 +110,16 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
         });
         return deffered.promise;
     };
+    settingsFactoryObject.setFooterPost = function (footerDetails) {
+        var deffered = $q.defer();
+        var url = configurationService.setFooterPostURL(); 
+        var data = '{"footerDetails":"' + footerDetails + '"}';
+        authenticatedServiceFactory.makeCall("POST", url, data).then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    
     return settingsFactoryObject;
 });
 

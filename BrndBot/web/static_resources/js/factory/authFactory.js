@@ -9,7 +9,7 @@ factoryApp.factory('authenticatedServiceFactory', function ($http, $q) {
     service.makeCall = function (methodType, URL, data, authType) {
         var deffered = $q.defer();
         var config = "";
-        config = {headers: { 'dataType': "jsonp"}};
+        config = {headers: {'Content-type': 'application/json'}};
 
         if (authType === "UPLOADIMAGE")
         {
@@ -24,7 +24,7 @@ factoryApp.factory('authenticatedServiceFactory', function ($http, $q) {
             }
         } else {
             if (methodType === "GET") {
-                var request = $http.get(URL, data, "").then(function (getData) {
+                $http.get(URL, data, config).then(function (getData) {
                     deffered.resolve(getData.data);
                 }, function (error) {
 

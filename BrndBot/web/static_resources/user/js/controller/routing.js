@@ -29,7 +29,6 @@ emailFlowApp.config(function ($routeProvider) {
             })           
             .otherwise({redirectTo: '/emailcategory'});
 });
-
 socialFlowApp.config(function ($routeProvider) {
     $routeProvider    
             .when('/socialsequence', {
@@ -106,4 +105,26 @@ marketingFlowApp.config(function($routeProvider){
     }) 
     
     .otherwise({redirectTo: '/createmarketingprogram'});
+});
+
+
+
+marketinghubFlowApp.config(function($routeProvider){
+    $routeProvider   
+    .when('/marketinghub', {
+                templateUrl: 'marketinghub.html'          
+    }) 
+    
+    .otherwise({redirectTo: '/marketinghub'});
+    });
+
+imagesFlowApp.config(function($routeProvider){
+    $routeProvider
+    .when('/imagegallery', {
+                templateUrl: 'imagegallery.html'
+               
+    })
+    
+    .otherwise({redirectTo: '/baseimagegallery'});
+    
 });
