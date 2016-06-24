@@ -816,6 +816,9 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                                         yearRange: [2000,2050]
                                     });
         };
+        $scope.addDeleteButton = function (id){
+            
+        };
         
     }]);
 

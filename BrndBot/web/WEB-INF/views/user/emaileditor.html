@@ -1,3 +1,22 @@
+<style>
+/*    .rcorners2 {
+        border-radius: 5px;
+        border: 2px solid #00b386;
+        padding: 2px; 
+                        width: 200px;
+                        height: 150px; 
+    }*/
+    .rcorners2 {
+    width: 30px;
+    height: 23px;
+    background: #DFDFDF url(../img/icon-sprite.png) no-repeat 0px -252px;
+    cursor: pointer;
+    position: absolute;
+    margin: -10px 0px 0px -12px;
+    border-radius: 15px;
+    opacity: 0;
+}
+</style>
 <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-6.css"/>
 <div ng-show="overlayFade" id="fade" class="black_overlay"></div>
 <div ng-include src="'emailpreview.html'"></div>
@@ -58,7 +77,9 @@
         <!--...................tinyMce test code...............-->
         <div  class="emailEditor-page-background" style="width: 75%; height: 100%;float: left;">
             <div style="max-height: 62%;overflow: auto">
-                <div  id ="defaultBlock" class="editable">Your emai footer is the same on every email. You 
+                <div  id ="defaultBlock" class="editable" ng-class="{rcorners2: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+
+                    Your emai footer is the same on every email. You 
                     see the footer in this email by previewing your email. To edit
                     the footer click email footer settings.
                 </div>
