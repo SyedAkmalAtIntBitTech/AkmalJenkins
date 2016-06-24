@@ -13,9 +13,12 @@ var yourPlanFlowApp = angular.module('yourPlanFlowApp', ['factorys','ngRoute']);
 var dashboardFlowApp = angular.module('dashboardFlowApp', ['factorys','ngRoute','sharedService']);
 var settingFlowApp = angular.module('settingFlowApp', ['factorys','ngRoute']);
 var userGalleryApp = angular.module('userGalleryApp', ['factorys','ngRoute']);
+var marketinghubFlowApp = angular.module('marketinghubFlowApp', ['factorys','ngRoute']);
+var socialhubFlowApp = angular.module('socialhubFlowApp', ['factorys','ngRoute']);
 var sharedServiceApp = angular.module('sharedService', []);
 var imagesFlowApp = angular.module('imagesFlowApp', ['factorys','ngRoute']);
 factoryApp.directive('fileModel', ['$parse', function ($parse) {
+       
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {

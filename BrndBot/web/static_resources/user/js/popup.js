@@ -2526,6 +2526,6 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
-function hideFbPopup() {
-    $("#fbmanagePagePopUp").hide();
-}
+//function hideFbPopup() {
+//    $("#fbmanagePagePopUp").hide();
+//}
