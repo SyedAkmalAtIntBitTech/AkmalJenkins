@@ -3,14 +3,16 @@
 
 factoryApp.factory('emailListFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var emailListFactoryObject = {};
-    emailListFactoryObject.emailListGet = function (data) {
-        var deffered = $q.defer();
-        var url = configurationService.emailListURL()+data;
-        authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
-            deffered.resolve(data);
-        });
-        return deffered.promise;
-    };
+
+    emailListFactoryObject.emailListGet = function (emailListName,requestMap) {
+       var deffered = $q.defer();
+       var url = configurationService.emailListURL()+"?emailListName="+emailListName+"&update="+requestMap;
+       authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data) {
+           deffered.resolve(data);
+       });
+       return deffered.promise;
+   };
+   
     emailListFactoryObject.emailListSavePost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.emailListSaveURL();
@@ -21,4 +23,6 @@ factoryApp.factory('emailListFactory', function ($q, authenticatedServiceFactory
     };
     return emailListFactoryObject;
 });
+
+
 

@@ -175,7 +175,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFac
         $scope.emailListGet = function () {
             $("#addemlstbtn").show();
             $scope.emallistdetails = true;
-            emailListFactory.emailListGet("?update=allEmailListWithNoOfContacts&emailListName=null").then(function (data) {
+            emailListFactory.emailListGet("null","allEmailListWithNoOfContacts").then(function (data) {
                 var parseData = JSON.parse(data.d.details);
                 $scope.emailLists = parseData.allEmailListWithNoOfContacts.user;
                 $scope.emailListsMindbody = parseData.allEmailListWithNoOfContacts.mindbody;
