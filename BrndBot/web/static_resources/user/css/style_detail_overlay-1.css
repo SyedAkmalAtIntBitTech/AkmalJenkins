@@ -783,6 +783,12 @@ padding-top: 0px;
     font-size: 14px;
 }
 
+.top-subnav-link-active-detail-Class{
+    border-bottom: 3px #0F76A6 solid;
+    color: #0F76A6;
+    font-size: 14px;
+}
+
 .top-subnav-links-detail-last{
     margin-right: 0px;
 }
@@ -808,7 +814,8 @@ padding-top: 0px;
     padding-bottom:0px;
     height: 100% !important;
     /*max-height: 490px;*/
-    max-height: 46vw;
+    /*max-height: 46vw;*/
+    max-height: 38vw;
     //overflow: auto;
     
 }
@@ -877,7 +884,8 @@ padding-top: 0px;
     padding-left:75px;
     padding-right: 75px;
     padding-bottom:160px;
-    height: 76vh;
+    /*height: 76vh;*/
+    height: 75vh;
 
 }
 .saved-draftemail-preview-detail {
