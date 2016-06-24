@@ -2,15 +2,15 @@
     <div class="inner-content-container-detail">
         <div class="BBsaved-action-header-bar" ng-show="savedEmail">
             <div class="BBsaved-action-header-details-wrap BBstyle">
-                <h2 class="BBsection-header">SAVED EMAIL PREVIEW</h2>
+                <h2 class="BBsection-header">{{savedTemplateHeader}}</h2>
             </div>
-            <div class="BBreg-button BBedit-saved-email-button" ng-click="deleteSchedule(schedule_id,'remove',master_email)">Remove Saved Email</div>
+            <div class="BBreg-button BBedit-saved-email-button" ng-click="deleteSchedule(schedule_id,'remove',masterActionType)">{{deleteScheduleButton}}</div>
         </div>
     </div>
     <div class="inner-content-detail">
         
         <div class="Facebook-preview" >
-            <iframe id="iframeForAction" width="500" height="400" ng-src="{{iframeData}}" ng-bind-html="{{iframeDataHtml}}"></iframe>
+            <iframe id="iframeForAction" width="500" height="400" ng-src="{{iframeData}}"></iframe>
         </div>
 
     </div>

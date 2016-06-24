@@ -11,8 +11,8 @@
                 <div  class="top-navbar-inner-bb-detail">
                     <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> {{generalActionDetailsHeader}} Action Detail</span></div>
                     <div class="top-nav-cta-container">
-                        <div class="approve-button-detail md-button" id="marketingemailtemplatesave" ng-show="email_template_status == 'Template Saved'" ng-click="Approval(schedule_id, 'approved', master_email)">Approve</div>
-                        <div class="approve-button-detail md-button" id="marketingemailapprove" ng-show="email_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', master_email)">Disapprove</div>
+                        <div class="approve-button-detail md-button" id="marketingemailtemplatesave" ng-show="action_template_status == 'Template Saved'" ng-click="Approval(schedule_id, 'approved', masterActionType)">Approve</div>
+                        <div class="approve-button-detail md-button" id="marketingemailapprove" ng-show="action_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', masterActionType)">Disapprove</div>
                         <div class="delete-button-detail md-button" ng-click="deleteSchedule(schedule_id, 'delete', generalActionDetailsHeader,'')">Delete Action</div>
                     </div>    
                 </div>
