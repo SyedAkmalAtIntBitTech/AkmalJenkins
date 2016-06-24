@@ -28,18 +28,18 @@ factoryApp.factory('scheduleActionsFactory', function ($q, authenticatedServiceF
         });
         return deffered.promise;
     };
-    scheduleActionsFactoryObject.scheduleSocialPostActionsPost = function () {
+    scheduleActionsFactoryObject.scheduleSocialPostActionsPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.scheduleSocialPostActionsURL();
-        authenticatedServiceFactory.makeCall("POST", url, "", "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    scheduleActionsFactoryObject.scheduleSocialPostPost = function () {
+    scheduleActionsFactoryObject.scheduleSocialPostPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.scheduleSocialPostURL();
-        authenticatedServiceFactory.makeCall("POST", url, "", "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

@@ -1109,24 +1109,24 @@ $("#closesendpopup").click(function () {
     $("#fade").hide();
 });
 });
-function changePostType() {
-    var postType = $("#linkPostFields").css("display");
-    if (postType === "none") {
-        $("#linkPostFields").show();
-        $("#urlDropDownSpan").show();        
-        lonkopen=1;
-        $("#postType").text("Change To Normal Post");
-    }
-    if (postType === "inline") {
-        $("#linkPostFields").hide();
-        $("#urlDropDownSpan").hide();
-        $("#linkTitle").val("");
-        $("#linkDescription").val("");
-        $("#linkUrl").val("");
-        lonkopen=0;
-        $("#postType").text("Change To Link Post");
-    }
-}
+//function changePostType() {
+//    var postType = $("#linkPostFields").css("display");
+//    if (postType === "none") {
+//        $("#linkPostFields").show();
+//        $("#urlDropDownSpan").show();        
+//        lonkopen=1;
+//        $("#postType").text("Change To Normal Post");
+//    }
+//    if (postType === "inline") {
+//        $("#linkPostFields").hide();
+//        $("#urlDropDownSpan").hide();
+//        $("#linkTitle").val("");
+//        $("#linkDescription").val("");
+//        $("#linkUrl").val("");
+//        lonkopen=0;
+//        $("#postType").text("Change To Link Post");
+//    }
+//}
 function postToFacebook() {
     showOverlay();
     var shareText = $("#shareText").val();
@@ -2298,25 +2298,25 @@ function validateact(){
                 $("#imagePopUp").hide();
             };
             
-            $scope.changeTwitterPostType = function (){
-               var postType = $("#twitterLinkPost").css("display");
-                if (postType === "none") {
-                    var enteredData = $("#twitterShareText").val();
-                    $("#urlDropDownSpan").show();
-                    $("#twitterLinkPost").show();
-                    $("#twitterShareText").attr("maxlength",90);
-                    $("#twitterShareText").val(enteredData.substring(0,90));
-                    $("#postType").text("Change To Normal Post");
-                }
-                if (postType === "inline") {
-                    
-                    $("#twitterLinkPost").hide();
-                    $("#urlDropDownSpan").hide();
-                    $("#twitterShareText").attr("maxlength",116);
-                    $("#linkUrl").val("");
-                    $("#postType").text("Change To Link Post");
-                }
-            };
+//            $scope.changeTwitterPostType = function (){
+//               var postType = $("#twitterLinkPost").css("display");
+//                if (postType === "none") {
+//                    var enteredData = $("#twitterShareText").val();
+//                    $("#urlDropDownSpan").show();
+//                    $("#twitterLinkPost").show();
+//                    $("#twitterShareText").attr("maxlength",90);
+//                    $("#twitterShareText").val(enteredData.substring(0,90));
+//                    $("#postType").text("Change To Normal Post");
+//                }
+//                if (postType === "inline") {
+//                    
+//                    $("#twitterLinkPost").hide();
+//                    $("#urlDropDownSpan").hide();
+//                    $("#twitterShareText").attr("maxlength",116);
+//                    $("#linkUrl").val("");
+//                    $("#postType").text("Change To Link Post");
+//                }
+//            };
           $scope.getUrls = function (){
                 $http({
                     method: 'GET',
@@ -2526,6 +2526,3 @@ var getUrlParameter = function getUrlParameter(sParam) {
     }
 };
 
-//function hideFbPopup() {
-//    $("#fbmanagePagePopUp").hide();
-//}
