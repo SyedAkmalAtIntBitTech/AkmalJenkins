@@ -30,15 +30,20 @@
                         <input class="input_Field" id="companyName" ng-model="companyName" placeholder="Company Name"/>
                     </div>
                      <div class="h3 font--lightGray pushUp_30">We have built BrndBot differently for different industries to give you the best experience possible.</div>
-                    <div class="inputSection col-6of10 ">
+<!--                    <div class="inputSection col-6of10 ">
                         <div class="input_Label">Please select an industry</div>
                         <select ng-model="organizationId" id="industryDropDown"  class="input_Field select_Field" ng-options="organization.organizationId as organization.organizationName for organization in organizations">
                         </select>
-                    </div>
+                    </div>-->
+                     <div style="margin:0 auto;">
+                        <h1>Dropdown Select</h1>
+                        <p>You have selected: {{ddSelectOrganization}}</p>
+                        <div dropdown-select="ddSelectOrganizationOptions" dropdown-model="ddSelectOrganization"></div>
+                        <hr/>
                     </div>
                 </div>
             </div>   
         </div>
     <div class="bottomNav">
-        <div class="bottom-ContinueButton fright" ng-click="saveCompany(companyName,organizationId)">CONTINUE</div>
+        <div class="bottom-ContinueButton fright" ng-click="saveCompany(companyName,ddSelectOrganization.value)">CONTINUE</div>
     </div>

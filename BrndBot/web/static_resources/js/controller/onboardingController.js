@@ -53,14 +53,42 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 }
             });
         };
+        
+        $scope.ddSelectOrganizationOptions = [];
+
+        $scope.ddSelectOrganization = {
+          text: "Please select an industry"
+        };
+        
         $scope.getOrganizations = function () {
             organizationFactory.organizationGet().then(function (data) {
+                
                 $scope.defaultOrganisation = [{organizationId: 0, organizationName: 'Please select an industry'}];
                 $scope.organizations = $scope.defaultOrganisation.concat(data.d.details);
                 $scope.organizationId = $scope.organizations[0].organizationId;
+                
+                //angular DD
+                var organizationsData = data.d.details;
+                for ( var i = 0; i<organizationsData.length; i++ ) {
+                    
+                    var organizationObject = {};
+                    organizationObject["text"] = organizationsData[i].organizationName;
+                    organizationObject["value"] = organizationsData[i].organizationId;
+                    $scope.ddSelectOrganizationOptions.push(organizationObject);
+                }
+                alert(JSON.stringify($scope.ddSelectOrganizationOptions));
             });
         };
+        
+//        $scope.getOrganizations = function () {
+//            organizationFactory.organizationGet().then(function (data) {
+//                $scope.defaultOrganisation = [{organizationId: 0, organizationName: 'Please select an industry'}];
+//                $scope.organizations = $scope.defaultOrganisation.concat(data.d.details);
+//                $scope.organizationId = $scope.organizations[0].organizationId;
+//            });
+//        };
         $scope.saveCompany = function (companyName, organizationId) {
+            alert(organizationId)
             var companyDetails = {"companyName": companyName, "organizationId": organizationId};
             onboardingFactory.saveCompanyPost(JSON.stringify(companyDetails)).then(function (data) {
 //                alert(JSON.stringify(data));
