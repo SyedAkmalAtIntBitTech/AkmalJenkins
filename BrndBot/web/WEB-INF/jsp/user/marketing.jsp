@@ -102,6 +102,7 @@
             <!--Inner Content Conatiner GENERIC-->
             <div class="page-inner-content-container " >
                 <div class="fleft content" ng-repeat="entity in entitySet">
+                    <span>sadasdas</span>
                     <div class="page-content-title-bar">
                         <!--<div class="page-content-title h2" ng-show='entity.date==tomorrow_date'>Tomorrow's Actions</div>-->
                         <div class="page-content-title h2" ng-show="entity.date == today_date">Today's Actions</div>

@@ -38,7 +38,7 @@ a.svg:after {
     border-left: 2px #d5dadf solid;
     height: 100vh;
     overflow-y: hidden;
-    width: 60%;
+    width: 100%;
     max-width: 100%;
 }
 
@@ -224,8 +224,8 @@ a.svg:after {
 .dropdown-icon{
     width:16px;
     height: 16px;
-    margin-left: 15px;
-    margin-top: 12px
+    margin-left: 0px;
+    margin-top: 1px;
     
 }
 
@@ -250,7 +250,7 @@ a.svg:after {
 .subnav-dropdown{
     height: 40px;
      padding-left: 40px;
-    padding-right: 20px;
+    padding-right: 40px;
     background-color: #0F76A6 ;
     box-sizing: border-box;
     cursor:pointer;

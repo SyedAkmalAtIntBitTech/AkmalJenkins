@@ -1198,7 +1198,7 @@ function controllerMarketingCampaign($scope, $http) {
         var marketingProgramType=$("#marketing_program").val();
         var description = "";
         var actiondate = $("#datepicker").val();
-        var actionDateTime=$("#timepicker1").val().replace(/ /g,'');
+        var actionDateTime=$("#timepicker1").valreplace(/ /g,'');
         var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
         var myDate = new Date(l);
         var days=0;

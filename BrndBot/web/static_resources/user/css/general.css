@@ -404,7 +404,7 @@ a {
 
 
 .overlay-header-cta-wrap .status-button:hover i{
-    content: url(/icons/templatestatus-01-reverse.svg)
+    content: url("../../static_resources/images/icons/templatestatus-01-reverse.svg")
 }
 
 
@@ -433,13 +433,13 @@ a {
 }
 
 .overlay-header-cta-wrap .template-not-approved  i:before{
-    content: url(/icons/templatestatus-02.svg)
+    content: url("../../static_resources/images/icons/templatestatus-02.svg")
 }
 
 
 
 .overlay-header-cta-wrap .template-approved i:before{
-    content: url(/icons/templatestatus-01%202.svg)
+    content: url("../../static_resources/images/icons/templatestatus-01%202.svg")
 }
 
 
@@ -455,7 +455,7 @@ a {
 }
 
 .overlay-header-cta-wrap .action-delete-button:before{
-    content: url(/icons/calendar-gray.svg);
+    content: url("../../static_resources/images/icons/calendar-gray.svg");
 }
 
 .overlay-wrap .sub-header{
@@ -557,7 +557,7 @@ a {
 }
 
 .detail-section .status-show i:before{
-    content: url(/icons/templatestatus-01.svg);
+    content: url("../../static_resources/images/icons/templatestatus-01.svg");
 }
 
 .detail-section .status-show span{
@@ -609,11 +609,11 @@ a {
 }
 
 .time-input i:before{
-    content: url(/icons/time-gray.svg);
+    content: url("../../static_resources/images/icons/time-gray.svg");
 }
 
 .date-input i:before{
-    content: url(/icons/calendar-gray.svg);
+    content: url("../../static_resources/images/icons/calendar-gray.svg");
 }
 
 .overlay-detail-input input{
@@ -718,7 +718,7 @@ p.modal-content-header{
 }
 
 .modal-pane-header-exit:before{
-    /*content: url(/icons/gray-close.svg);*/
+    content: url("../../static_resources/images/icons/gray-close.svg");
 }
 
 .modal-pane-content-wrap .send-or-schedule-wrap{
@@ -758,7 +758,7 @@ p.modal-content-header{
 }
 
 .modal-pane-back-step i:before{
-    content: url(/icons/back-arrow-modal.svg);
+    content: url("../../static_resources/images/icons/back-arrow-modal.svg");
 }
 
 .modal-pane-back-step span{
@@ -818,19 +818,19 @@ p.modal-content-header{
 
 
 .send-or-schedule-option .post-now-icon:before{
-    content: url(/icons/post-now-gray.svg);
+    content: url("../../static_resources/images/icons/post-now-gray.svg");
 }
 
 .send-or-schedule-option:hover .post-now-icon:before{
-    content: url(/icons/post-now-blue.svg);
+    content: url("../../static_resources/images/icons/post-now-blue.svg");
 }
 
 .send-or-schedule-option .schedule-post-icon:before{
-    content: url(/icons/schedule-to-action-gray.svg);
+    content: url("../../static_resources/images/icons/schedule-to-action-gray.svg");
 }
 
 .send-or-schedule-option:hover .schedule-post-icon:before{
-    content: url(/icons/schedule-to-action-blue.svg);
+    content: url("../../static_resources/images/icons/schedule-to-action-blue.svg");
 }
 
 
@@ -838,27 +838,27 @@ p.modal-content-header{
 /* CREATE NEW ACTION OR SCHEDULE TO ACTION MODAL */
 
 .send-or-schedule-option .create-action-icon:before{
-    content: url(/icons/create-new-action-gray.svg);
+    content: url("../../static_resources/images/icons/create-new-action-gray.svg");
 }
 
 .send-or-schedule-option:hover .create-action-icon:before{
-    content: url(/icons/create-new-action-blue.svg);
+    content: url("../../static_resources/images/icons/create-new-action-blue.svg");
 }
 
 .send-or-schedule-option.active .create-action-icon:before{
-    content: url(/icons/create-new-action-blue.svg);
+    content: url("../../static_resources/images/icons/create-new-action-blue.svg");
 }
 
 .send-or-schedule-option .schedule-action-icon:before{
-    content: url(/icons/schedule-to-action-gray.svg);
+    content: url("../../static_resources/images/icons/schedule-to-action-gray.svg");
 }
 
 .send-or-schedule-option:hover .schedule-action-icon:before{
-    content: url(/icons/schedule-to-action-blue.svg);
+    content: url("../../static_resources/images/icons/schedule-to-action-blue.svg");
 }
 
 .send-or-schedule-option.active .schedule-action-icon:before{
-    content: url(/icons/schedule-to-action-blue.svg);
+    content: url("../../static_resources/images/icons/schedule-to-action-blue.svg");
 }
 
 
@@ -1047,11 +1047,11 @@ p.modal-content-header{
 }
 
 .input.left-icon i.date-icon:before{
-    content: url(/icons/calendar-gray.svg);
+    content: url("../../static_resources/images/icons/calendar-gray.svg");
 }
 
 .input.left-icon i.time-icon:before{
-    content: url(/icons/time-gray.svg);
+    content: url("../../static_resources/images/icons/time-gray.svg");
 }
 
 
@@ -1065,7 +1065,7 @@ p.modal-content-header{
 }
 
 .input.dropdown-right .dropdown:before{
-    content: url(/icons/dropdown.svg);
+    content: url("../../static_resources/images/icons/dropdown.svg");
 }
 
 

@@ -3,41 +3,41 @@
 
 factoryApp.factory('yourPlanFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var yourPlanFactoryObject = {};
-    yourPlanFactoryObject.scheduledEntitiesGet = function () {
+    yourPlanFactoryObject.scheduledEntitiesGet = function (fromDate,toDate) {
         var deffered = $q.defer();
-        var url = configurationService.scheduledEntitiesURL();
-        authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
+        var url = configurationService.scheduledEntitiesURL()+"?from="+ fromDate + "&to=" + toDate;
+        authenticatedServiceFactory.makeCall("GET", url,"","").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    yourPlanFactoryObject.changeSchedulePost = function () {
+    yourPlanFactoryObject.changeSchedulePost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.changeScheduleURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url,data,"").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    yourPlanFactoryObject.addActionPost = function () {
+    yourPlanFactoryObject.addActionPost = function (addActionDetails) {
         var deffered = $q.defer();
-        var url = configurationService.addActionURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        var url = configurationService.addActionURL();        
+        authenticatedServiceFactory.makeCall("POST", url, addActionDetails,"").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    yourPlanFactoryObject.scheduledEmailGet = function () {
+    yourPlanFactoryObject.scheduledEmailGet = function (schedule_id) {
         var deffered = $q.defer();
-        var url = configurationService.scheduledEmailURL();
+        var url = configurationService.scheduledEmailURL()+"?schedule_id="+schedule_id;
         authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    yourPlanFactoryObject.scheduledSocialPost = function () {
+    yourPlanFactoryObject.scheduledSocialPost = function (schedule_id) {
         var deffered = $q.defer();
-        var url = configurationService.scheduledSocialPostURL();
+        var url = configurationService.scheduledSocialPostURL()+"?schedule_id="+schedule_id;
         authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
             deffered.resolve(data);
         });

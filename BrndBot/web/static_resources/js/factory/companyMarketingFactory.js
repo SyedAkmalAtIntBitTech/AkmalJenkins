@@ -69,10 +69,10 @@ factoryApp.factory('companyMarketingProgramFactory', function ($q, authenticated
         });
         return deffered.promise;
     };
-    companyMarketingProgramFactoryObject.approveStatusPost = function () {
+    companyMarketingProgramFactoryObject.approveStatusPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.approveStatusURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, data,"").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
@@ -85,5 +85,17 @@ factoryApp.factory('companyMarketingProgramFactory', function ($q, authenticated
         });
         return deffered.promise;
     }; 
+    
+    companyMarketingProgramFactoryObject.addActionPost = function (addActionDetails) {
+        var deffered = $q.defer();
+        var url = configurationService.addActionURL();
+        
+        authenticatedServiceFactory.makeCall("POST", url, addActionDetails,"").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+    
+    
     return companyMarketingProgramFactoryObject;
 });

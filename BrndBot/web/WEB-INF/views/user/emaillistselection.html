@@ -1,89 +1,30 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <%@ page import="com.controller.SqlMethods"%>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <script src="js/alertmessage.js" type="text/javascript"></script>
-    <script src="js/configurations.js" type="text/javascript"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <title>BrndBot - Email List Selection</title>    
-    <meta name="format-detection" content="telephone=no"></meta>
-    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
-    <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
-    <link rel="stylesheet" type="text/css" href="css/slat.css"></link>
-    <link rel="stylesheet" type="text/css" href="css/popup.css"></link>
-    <link rel="shortcut icon" href="images/favicon.png"></link>
-    <script src="js/emaillistselection.js" type="text/javascript"></script>
-    <script src="js/popup.js" type="text/javascript"></script>
-    <jsp:include page="basejsp.jsp" />
-    <style>
-        #emladdrstxtarea,#clktoupload,#upload,#emaildetailscontbtn,#emaildetailsid,#backemaildetails{display:none;}
-        .pop-up-background {
-            width: calc(96vw - 549px) !important;
-            margin-top: 4vw !important;
-        }
-    </style>
-<!--    <%!
-        String emailSubject = "";
-        String emailList = "";
-        String iframeName = "";
-        String iframeUrl="";
-        String draft_id = "0";
-        String email_subject="";
-    %>
-    <%  email_subject=request.getParameter("subject");%>
-    <%
-         String categoryId= request.getParameter("categoryId");
-         String subCategoryId= request.getParameter("subCategoryId");
-         String mindbodyId=request.getParameter("mindbodyId");
-         String LookupId=request.getParameter("LookupId");
-        emailSubject = email_subject;
-        iframeName = (String) request.getParameter("iframeName");
-        iframeUrl="/BrndBot/download/HTML.do?fileName="+iframeName+".html";
-        draft_id = "0";
-        if (!request.getParameter("draftid").equals("null")){
-            draft_id = (String)request.getParameter("draftid");
-        }
-    %>    -->
-    <style>
-        .filrstyle {
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
-    <script>
-        function myFunction() {
-            var x = document.getElementById("fileid").value;
-            if(x==="")
-            {
-                document.getElementById("filetext").innerHTML = "Click to Select file";
-            }
-            else
-            {
-                document.getElementById("filetext").innerHTML = x;        
-            }
-        }
-    </script>
-    </head>    
-<body ng-app>
-    <div class="content-main" >
-    <div ng-include src="'header.html'"></div>
+
+
+<link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"/>
+<link rel="stylesheet" type="text/css" href="css/style_detail_overlay-5.css"/>   
+<link rel="stylesheet" type="text/css" href="css/normalize5.css">
+<style>
+    #emladdrstxtarea,#clktoupload,#upload,#emaildetailscontbtn,#emaildetailsid,#backemaildetails{display:none;}
+    .pop-up-background {
+        width: calc(96vw - 549px) !important;
+        margin-top: 4vw !important;
+    }
+    .filrstyle {
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<div class="content-main" >
+    <!--<div ng-include src="'header.html'"></div>-->
     <div ng-include src="'navbar.html'"></div> 
-    <div ng-include src="'emaillistselectionpopup.html'"></div>
+    <div ng-include="'emaillistselectionpopup.html'"></div>
     <div ng-include src="'emailpreview.html'"></div> 
-    <input type="hidden" id='subCategoryIdTag' value="<%=subCategoryId%>"/>
-    <input type="hidden" id='mindbodydata' value="<%= mindbodyId%>"/>
-    <input type="hidden" id='categoryIdTag' value="<%= categoryId%>"/>
-    <input type="hidden" id='LookupId' value="<%= LookupId%>"/>
-    <input type="hidden" value="<%= draft_id %>" name="draft_id" id="draft_id"></input>  
-    <input type="hidden" value="<%= iframeName %>" name="iframeName" id="iframeName1"></input>  
-    <input type="hidden" value="<%= emailSubject %>" name="iframeName" id="email_subject"></input> 
+
     <!--Top Nav-->   
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
-            <div class="exit-button-detail" onclick="backeditor()">
+            <div class="exit-button-detail" ng-click="backToEditor()">
                 <a class=" exit-button-icon" href="" id="backemaillist">
                     <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
                 </a>
@@ -94,89 +35,92 @@
             <div class="page-title-with-back page-title-font">Email List Selection</div>
         </div>
     </div>
-        <!--Main Content GENERIC--> 
-        <div class="sequence-page-background" id="emaillistselid" ng-controller="EmailListController" ng-init="showEmailList()">
+    <!--Main Content GENERIC--> 
+    <div class="sequence-page-background" id="emaillistselid" ng-init="showEmailList()">
         <div class="sequence-page-content-container" >
             <div class="sequence-page-header">Who do you want to send this email to?</div>
             <div class="email-list-selection fleft">
-               <div class="col-1of1 fleft unit">
+                <div class="col-1of1 fleft unit">
                     <div class="col-9of10 fleft ">
                         <div class="h2 col-1of1">
-                            <select class="chooseEmailList col-1of1" id="chooseEmailList" name="chooseEmailList">
+                            <select class="chooseEmailList col-1of1" id="chooseEmailList" ng-model='emailList' ng-change="chooseEmailListOnChange(emailList)" name="chooseEmailList">
                                 <option value="1">Manual</option>
+                                <!--<option value="2">Manual2</option>-->
                                 <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
                                 <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
                             </select>
                         </div>
                     </div>
-                   <div class="col-9of10 fleft pushUp-30">
-                       <input type="button" id="addCsvFileButton" onclick="selectCsvFile()" class="md-button add-button22 noborder" value="Add CSV or Email Manually"></input>
-                   </div>
-                   <div class="col-2of4 fleft pushUp-30" id="clktoupload"> 
-                       <div class="h3 col-1of1" id="dragtext" hidden="true">Drag and drop a csv file here and click to upload:</div>
+                    <div class="col-9of10 fleft pushUp-30">
+                        <input type="button" id="addCsvFileButton" ng-click="selectCsvOnClick()" class="md-button add-button22 noborder" value="Add CSV or Email Manually"></input>
+                    </div>
+                    <!--                   <div class="col-2of4 fleft pushUp-30" id="clktoupload" ng-show="clickToUpload"> -->
+                    <div class="col-2of4 fleft pushUp-30" ng-show="clickToUpload"> 
+                        <div class="h3 col-1of1" id="dragtext">Drag and drop a csv file here and click to upload:</div>
                         <div id="drop-zone" class="col-1of4 pushUp-30">
-                           <input type="file" id="fileid" class="filrstyle" onchange="myFunction()">
-                           <p id="filetext">Click to Select file</p>
+                            <!--<input type="file" id="fileid" class="filrstyle" onchange="myFunction()" file-reader="fileContent" >-->
+                            <input type="file" id="fileid" class="filrstyle" getfile-Name />
+                            <p id="filetext" >Click to Select file {{filename}}</p>
                         </div>
                     </div>
-                   <div  class="col-2of4 fleft pushUp-30 lftpad-10" id="emladdrstxtarea">
-                       <div class="h3 col-1of1" id="entertext" hidden="true">Enter Email Addresses manually here:</div>
-                       <textarea class="emailaddresstextarea pushUp" id="emailaddresses"></textarea>
-                   </div>
-                   
+                    <!--                   <div  class="col-2of4 fleft pushUp-30 lftpad-10" id="emladdrstxtarea" ng-show="emailAddressTextarea">-->
+                    <div  class="col-2of4 fleft pushUp-30 lftpad-10" ng-show="emailAddressTextarea">
+                        <div class="h3 col-1of1" id="entertext">Enter Email Addresses manually here:</div>
+                        <textarea class="emailaddresstextarea pushUp" ng-model="emailAddresses" id="emailaddresses"></textarea>
+                    </div>
+
                 </div>
                 <div class="col-15of4 fleft unit">
-                    <input type="button" id="upload" value="Upload" onclick="upload()" class="md-button add-action-button noborder"/>      
-                   </div>
+                    <!--                    <input type="button" id="upload" value="Upload" ng-show="uploadButton" ng-click="upload()" class="md-button add-action-button noborder"/>      -->
+                    <input type="button" value="Upload" ng-show="uploadButton" ng-click="uploadFileButton()" class="md-button add-action-button noborder" />      
+                </div>
+            </div>
+        </div>            
+    </div>
+    <div class="sequence-page-background" id="emaildetailsid">
+        <div class="sequence-page-content-container">
+            <div class="sequence-page-header">Email Details</div>
+            <div class="email-detail-selection col-1of1 fleft" ng-init="getEmailSettings()">
+
+                <div class="col-1of1 fleft pushUp">
+                    <div class="col-9of10 fleft">
+                        <div class="h4" style="">
+                            Enter a subject line for this Email:
+                        </div>
+                        <input id="subject" class="input-field-textfield col-8of10" value="{{emailSubject}}" type="text"></input>
                     </div>
-                </div>            
-        </div>
-        <div class="sequence-page-background" id="emaildetailsid">
-            <div class="sequence-page-content-container">
-                <div class="sequence-page-header">Email Details</div>
-                    <div class="email-detail-selection col-1of1 fleft" ng-controller="EmailListSetting" ng-init="getEmailSettings()">
-                        
-                        <div class="col-1of1 fleft pushUp">
-                            <div class="col-9of10 fleft">
-                                <div class="h4" style="">
-                                   Enter a subject line for this Email:
-                                </div>
-                                <input id="subject" class="input-field-textfield col-8of10" value="<%=emailSubject%>" type="text"></input>
-                            </div>
-                        </div>
-                        <div class="cols-2 fleft col-9of10 pushUp">
-                             <div class="input-field-container col-3of10 fleft pushright">
-                                <div class="h4"> From Name </div>
-                                <input id="name" class="input-field-textfield input-placeholder" placeholder="Enter From Name" type="text"></input>
-                            </div>
-                             <div class="input-field-container col-3of10 fleft">
-                                <div class="h4"> From Email Address </div>
-                                <input id="formaddress" class="input-field-textfield input-placeholder" placeholder="Enter From  Email Address" type="text" value="{{email_settings.from_address}}"></input>
-                            </div>
-                        </div>
-                        <div class="cols-2 fleft col-9of10 pushUp">
-                            <input id="toaddress" class="input-field-textfield input-placeholder" placeholder="Enter To Email Address" type="hidden"></input>
-                            <div class="input-field-container col-3of10 fleft">
-                                <div class="h4"> Reply To Email Address</div>
-                                <input id="email" class="input-field-textfield input-placeholder" placeholder="Enter Reply To Email Address" type="text" value="{{email_settings.reply_email_address}}"></input>
-                            </div>
-                        </div>
-                        <div class="input-field-container col-1of8 fleft pushUp-50">
-                        
-                        <div class="curpointer gray-button font20px fleft nounderline md-button width200px" id="emailpreview">Preview Email</div>                       
-                        </div>
                 </div>
-                <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain;">
-                    <div class="content"></div>
+                <div class="cols-2 fleft col-9of10 pushUp">
+                    <div class="input-field-container col-3of10 fleft pushright">
+                        <div class="h4"> From Name </div>
+                        <input id="name" class="input-field-textfield input-placeholder" placeholder="Enter From Name" type="text" ng-model="fromName"></input>
+                    </div>
+                    <div class="input-field-container col-3of10 fleft">
+                        <div class="h4"> From Email Address </div>
+                        <input id="formaddress" class="input-field-textfield input-placeholder" placeholder="Enter From  Email Address" type="text" ng-model="fromAddress" readonly />
+                    </div>
+                </div>
+                <div class="cols-2 fleft col-9of10 pushUp">
+                    <input id="toaddress" class="input-field-textfield input-placeholder" ng-model="toAddress" value="{{email_settings.email_addresses}}" placeholder="Enter To Email Address" type="text"></input>
+                    <div class="input-field-container col-3of10 fleft">
+                        <div class="h4"> Reply To Email Address</div>
+                        <input id="email" class="input-field-textfield input-placeholder" placeholder="Enter Reply To Email Address" type="text" value="{{email_settings.reply_email_address}}" ng-model="replyAddress"></input>
+                    </div>
+                </div>
+                <div class="input-field-container col-1of8 fleft pushUp-50">
+
+                    <div class="curpointer gray-button font20px fleft nounderline md-button width200px" id="emailpreview" ng-click="emailListPreviewOnClick()">Preview Email</div>                       
                 </div>
             </div>
-        </div>  
-        <div class="bottom-cta-bar">
-            <div class="bottom-cta-button-container-lg">
-                <div class="bottom-continue-button button-text-1" id="emaildetailscontbtn" onclick="validate();">Continue</div>
-                <div class="bottom-continue-button button-text-1" id="emailIdContinueButton" >Continue</div>
+            <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain;">
+                <div class="content"></div>
             </div>
         </div>
+    </div>  
+    <div class="bottom-cta-bar">
+        <div class="bottom-cta-button-container-lg">
+            <div class="bottom-continue-button button-text-1" id="emaildetailscontbtn" ng-click="continueEmailDetailsOnClick()">Continue</div>
+            <div style="display: block;" class="bottom-continue-button button-text-1" id="emailIdContinueButton" ng-show="emailContinueButton" ng-click="continueEmailListOnClick(emailAddresses)">Continue</div>
         </div>
-    </body>
-</html>
+    </div>
+</div>

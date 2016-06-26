@@ -1,13 +1,15 @@
 
 // **************** @author Arfa Shakeel @ Intbit **************** //
 
-app.factory('marketingRecurringEmailControllerFactory', function ($q, authenticatedServiceFactory, configurationService) {
+    factoryApp.factory('marketingRecurringEmailControllerFactory', function ($q, authenticatedServiceFactory, configurationService) {
+    
     var marketingRecurringEmailFactoryObject = {};
     marketingRecurringEmailFactoryObject.allRecurringEmailTemplatesGet = function () {
         var deffered = $q.defer();
         var url = configurationService.allRecurringEmailTemplatesURL();
         authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
             deffered.resolve(data);
+                alert(data);
         });
         return deffered.promise;
     };  

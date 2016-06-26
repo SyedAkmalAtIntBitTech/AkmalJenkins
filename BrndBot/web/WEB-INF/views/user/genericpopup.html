@@ -1,0 +1,36 @@
+<div id="fade" class="black_overlay" ng-class="fadeClass">
+</div>
+<div id="emailsection" ng-class="emailsectionClass">
+
+    <div class="detail-overlay-content">
+        <div class="top-nav-container-detail" id="emailtopnav">
+            <div class=" top-navbar-detail" id="emailtopnavdetails">
+                <a class=" exit-button-detail link svg close" ng-click="closePopup()">
+                    <img type="image/svg+xml" src="../images/Close.svg" class="exit-button" style="cursor:pointer;">
+                </a>
+                <div  class="top-navbar-inner-bb-detail">
+                    <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> {{generalActionDetailsHeader}} Action Detail</span></div>
+                    <div class="top-nav-cta-container">
+                        <div class="approve-button-detail md-button" id="marketingemailtemplatesave" ng-show="action_template_status == 'Template Saved'" ng-click="Approval(schedule_id, 'approved', masterActionType)">Approve</div>
+                        <div class="approve-button-detail md-button" id="marketingemailapprove" ng-show="action_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', masterActionType)">Disapprove</div>
+                        <div class="delete-button-detail md-button" ng-click="deleteSchedule(schedule_id, 'delete', generalActionDetailsHeader,'')">Delete Action</div>
+                    </div>    
+                </div>
+            </div>
+            <div class="top-subnav-detail" id="emailtopsubnav">
+                <div class="top-subnav-tabs-detail">
+                    <ul class="top-subnav-nav-elements-detail">
+                        <li class="top-subnav-links-detail " id="emailaction1" val="{{schedule_id}}" ng-click="setTab('actionDetails')" ng-class="top_subnav_link_active_actionDetail_Class"> 
+                            <a class="h3-subnav">Action Details</a>
+                        </li>
+                        <li class="top-subnav-links-detail top-subnav-links-detail" id="emailpost1" ng-click="setTab('savedDetails')" ng-class="top_subnav_link_active_savedDetail_Class"> <a class="h3-subnav">Saved Email</a></li>
+                        <li class="top-subnav-links-detail  top-subnav-links-detail-last" id="emailnote1" ng-click="setTab('notes')" ng-class="top_subnav_link_active_notesDetail_Class"> <a class="h3-subnav">Notes</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div ng-include src="'generalActionDetails.html'"></div>
+        <div ng-include src="'generalActionNotes.html'"></div>
+        <div ng-include src="'generalSavedDetails.html'"></div>
+    </div>
+</div>
