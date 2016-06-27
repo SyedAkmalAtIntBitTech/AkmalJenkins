@@ -257,6 +257,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         iframe.contentDocument.body.innerHTML = $scope.entitiesdetails.body;
                     } else {
                         $scope.savedEmail = false;
+                        $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
                     }
                 });
             } else {
@@ -463,6 +464,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 iframe.contentDocument.body.innerHTML = htmlData;
                             } else {
                                 $scope.savedEmail = false;
+                                $scope.actionTypeNoTemplateMessage = "No post saved to this action.";
                             }
                         });
                     });

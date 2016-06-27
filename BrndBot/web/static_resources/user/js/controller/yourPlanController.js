@@ -225,6 +225,7 @@ $scope.addDays = function(theDate, days) {
             $scope.emailsectionClass = 'emailsectionClass';
             $scope.fadeClass = 'fadeClass';
             $scope.action_template_status = template_status;
+            alert($scope.action_template_status);
             $scope.generalActionDetailsHeader = entity_type;
             $scope.scheduledTo = 'POST';
             $scope.setTab('savedDetails');
@@ -261,6 +262,7 @@ $scope.addDays = function(theDate, days) {
                         iframe.contentDocument.body.innerHTML = $scope.entitiesdetails.body;
                     } else {
                         $scope.savedEmail = false;
+                        $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
                     }
                 });
             } else {
@@ -468,6 +470,7 @@ $scope.addDays = function(theDate, days) {
                                 iframe.contentDocument.body.innerHTML = htmlData;
                             } else {
                                 $scope.savedEmail = false;
+                                $scope.actionTypeNoTemplateMessage = "No post saved to this action.";
                             }
                         });
                     });
