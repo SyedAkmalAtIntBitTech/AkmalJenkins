@@ -1,7 +1,7 @@
 
 // **************** @author Arfa Shakeel @ Intbit **************** //
 
-    factoryApp.factory('marketingRecurringEmailControllerFactory', function ($q, authenticatedServiceFactory, configurationService) {
+    factoryApp.factory('marketingRecurringEmailFactory', function ($q, authenticatedServiceFactory, configurationService) {
     
     var marketingRecurringEmailFactoryObject = {};
     marketingRecurringEmailFactoryObject.allRecurringEmailTemplatesGet = function () {
@@ -69,10 +69,10 @@
         });
         return deffered.promise;
     };
-    marketingRecurringEmailFactoryObject.updateRecurringActionPost = function () {
+    marketingRecurringEmailFactoryObject.updateRecurringActionPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.updateRecurringActionURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST",url,data,"").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
@@ -85,13 +85,13 @@
         });
         return deffered.promise;
     }; 
-    marketingRecurringEmailFactoryObject.getRecurringEntityPost = function () {
+    marketingRecurringEmailFactoryObject.getRecurringEntityPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.getRecurringEntityURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, data,"").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };   
-    return service;
+    return marketingRecurringEmailFactoryObject;
 });

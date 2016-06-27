@@ -1,10 +1,15 @@
 
-marketingFlowApp.controller("marketingController", ['$scope', '$location', '$filter', '$sce', 'marketingFactory', 'companyMarketingProgramFactory', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', function ($scope, $location, $filter, $sce, marketingFactory, companyMarketingProgramFactory, yourPlanFactory,companyFactory, settingsFactory, companyMarketingProgramFactory) {
+marketingFlowApp.controller("marketingController", ['$scope', '$location', '$filter', '$sce', 'marketingFactory', 'companyMarketingProgramFactory', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'emailListFactory', 'companyMarketingProgramFactory', 'marketingRecurringEmailFactory', function ($scope, $location, $filter, $sce, marketingFactory, companyMarketingProgramFactory, yourPlanFactory, companyFactory, settingsFactory, emailListFactory, marketingRecurringEmailFactory) {
+
+        var entity_id = 0;
+        var type = "";
+        var program_id = "";
+
         $scope.marketingCategoryId = "";
         $scope.marketingProgramId = "";
         $scope.past = "";
-        $scope.endDate ="";
-        $scope.programId="";
+        $scope.endDate = "";
+        $scope.programId = "";
         $scope.redirect = function (pageName, marketingCategoryId)
         {
 
@@ -23,27 +28,27 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 
         };
-         $scope.redirectToActions = function (pageName, programId,past,endData)
+        $scope.redirectToActions = function (pageName, programId, past, endData)
         {
-            
+
             $scope.past = past;
             $scope.endDate = endData;
             $scope.programId = programId;
-            $location.path("/"+pageName);
+            $location.path("/" + pageName);
 
 
         };
-        
-         $scope.redirectToEmailAutomation = function(pageName, add, programId, zero)
-         {
-              
-               $scope.programId = programId;
-               $scope.add = add;
-               $scope.zero = zero;
-               $location.path("/"+pageName);
-             
-         };
-         
+
+        $scope.redirectToEmailAutomation = function (pageName, add, programId, zero)
+        {
+
+            $scope.programId = programId;
+            $scope.add = add;
+            $scope.zero = zero;
+            $location.path("/" + pageName);
+
+        };
+
         $scope.getAllMarketingPrograms = function (forward) {
             marketingFactory.companyMarketingCategoriesGet().then(function (data) {
                 $scope.header = "Please choose a marketing program type.";
@@ -55,7 +60,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.displayMarketingProgramByCategoryId = function (forward) {
-           
+
             marketingFactory.marketingProgramsGet($scope.marketingCategoryId).then(function (data) {
                 $scope.pageName = "marketingPrograms";
                 $scope.forward = forward;
@@ -109,106 +114,778 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.pastProgramsDiv = false;
 
         };
-        
-        $scope.getProgramActions = function(forward)
+
+        $scope.getProgramActions = function (forward)
         {
-           
-               companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {
-                   
-                 $scope.template_status=data.emailautomation;
-                 $scope.programs = data;
-                 $scope.actionType="Email";
-                  $scope.forward = forward;
-                  
-                 
-             });
-            
+
+            companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {
+
+                $scope.template_status = data.emailautomation;
+                $scope.programs = data;
+                $scope.actionType = "Email";
+                $scope.forward = forward;
+
+
+            });
+
         };
-        
-        
-         $scope.ShowAddAction = function()
-        { 
-       $scope.fadeClass='fadeClass';
-        $scope.fade = true;
-        $scope.addAction = true;
-        
-        }
-    
-    $scope.closeOverlay = function()
-    {
-       $scope.fadeClass='';
-        $scope.addAction = false;
-        
-    }
-    
-    $scope.AddAction = function(addTitle,datePicker,timePicker,actionType)
-    {
-        var actiondate = datePicker;
-        var actionDateTime=$("#timepicker1").val().replace(/ /g,'');
-        var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
-        var myDate = new Date(l);
-        var days=0;
-        var schedule_time = Date.parse(l);
-        var myEpoch = schedule_time;
-        var days=0;
-        var action = {"title": addTitle, "actiontype": actionType,"type": "save","description":"","marketingType":$scope.programId,"action_date": myEpoch,"days":days};
-        companyMarketingProgramFactory.addActionPost(action).then(function (data) {
-            
-      
-    });
-    };
-    
-    $scope.addUpdateRecuringAction = function()
-    {
-         marketingRecurringEmailControllerFactory.recurringEmailTemplatePost().then(function (data) {
-             
-             
-         });
-        
-    };
-    $scope.closePopup = function (){
-        $scope.reminderSectionClass='';
-        $scope.emailsectionClass='';
-        $scope.fadeClass='';
-    };
-    $scope.setTab = function(tabName){
-        if(tabName === 'actionDetails'){
-            $scope.top_subnav_link_active_actionDetail_Class='top-subnav-link-active-detail-Class';
-            $scope.top_subnav_link_active_notesDetail_Class='';
-            $scope.top_subnav_link_active_savedDetail_Class='';
-            $scope.generalActions=true;
-            $scope.generalSavedDetails=false;
-            $scope.generalNotes=false;
-        }
-        if(tabName === 'savedDetails'){
-            $scope.top_subnav_link_active_savedDetail_Class='top-subnav-link-active-detail-Class';
-            $scope.top_subnav_link_active_actionDetail_Class='';
-            $scope.top_subnav_link_active_notesDetail_Class='';
-            $scope.generalSavedDetails=true;
-            $scope.generalActions=false;
-            $scope.generalNotes=false;
-        }
-        if(tabName === 'notes'){
-            $scope.top_subnav_link_active_notesDetail_Class='top-subnav-link-active-detail-Class';
-            $scope.top_subnav_link_active_actionDetail_Class='';
-            $scope.top_subnav_link_active_savedDetail_Class='';
-            $scope.generalNotes=true;
-            $scope.generalActions=false;
-            $scope.generalSavedDetails=false;
-        }
-        if(tabName === 'reminderDetails'){
-            $scope.top_subnav_link_active_reminderDetail_Class='top-subnav-link-active-detail-Class';
-            $scope.top_subnav_link_active_savedReminder_Class='';
-            $scope.reminderDetailsTab=true;
-            $scope.savedReminderTab=false;
-        }
-        if(tabName === 'savedReminder'){
-            $scope.top_subnav_link_active_savedReminder_Class='top-subnav-link-active-detail-Class';
-            $scope.top_subnav_link_active_reminderDetail_Class='';
-            $scope.savedReminderTab=true;
-            $scope.reminderDetailsTab=false;
-        }
-    };
+
+
+        $scope.ShowAddAction = function ()
+        {
+            $scope.fadeClass = 'fadeClass';
+            $scope.fade = true;
+            $scope.addAction = true;
+
+        };
+
+        $scope.closeOverlay = function ()
+        {
+            $scope.fadeClass = '';
+            $scope.addAction = false;
+
+        };
+
+        $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
+        {
+            var actiondate = datePicker;
+            var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
+            var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
+            var myDate = new Date(l);
+            var days = 0;
+            var schedule_time = Date.parse(l);
+            var myEpoch = schedule_time;
+            var days = 0;
+            var action = {"title": addTitle, "actiontype": actionType, "type": "save", "description": "", "marketingType": $scope.programId, "action_date": myEpoch, "days": days};
+            companyMarketingProgramFactory.addActionPost(action).then(function (data) {
+
+
+            });
+        };
+
+
+//    $scope.emailautomation = function ($scope, $http){ **********************************
+
+//    $scope.emailListDropdown = function (){
+//        $("#datepicker").val('Sun Dec 31 2200');$("#datepickerdiv").hide();
+//         $scope.showEmailList = function () {             
+//            emailListFactory.emailListURL.then(function (data) {
+//                
+//            });
+//            var parseData=JSON.parse(data.d.details); 
+//            $scope.emailLists_user = parseData.allEmailListWithNoOfContacts.user;
+//            $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
+//    };
+//    };
+
+        $scope.showEmailList = function () {
+            emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
+                alert(JSON.stringify(data));
+                var parseData = JSON.parse(data.d.details);
+                $scope.emailLists_user = parseData.allEmailListWithNoOfContacts.user;
+                $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
+
+            });
+
+
+//            $.ajax({
+//                method: 'GET',
+//                async: false,
+//                 url: getHost() + 'emaillist/get?update=allEmailListWithNoOfContacts&emailListName=null'
+//            }).success(function (data, status, headers, config) {
+//                var parseData=JSON.parse(data.d.details);
+////                alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user[0].emailListName));
+//
+//                $scope.emailLists_user = parseData.allEmailListWithNoOfContacts.user;
+//                $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
+//            }).error(function(error){
+//                alert(JSON.stringify(error));
+////                alert("Problem fetching the data!");
+//            });
+
+        };
+        $scope.emailautomation = function () {
+
+            $("#datepicker").val('Sun Dec 31 2200');
+            $("#datepickerdiv").hide();
+
+
+            $("#back").click(function () {
+                window.open(getHost() + 'user/marketingprogramactions?past=0&program_id=' + program_id + '&program_date=' + program_end_date, "_self");
+            });
+
+        };
+
+
+
+        $scope.getEntityDetails = function () {
+            $scope.showEmailList();
+            var entity_details = {"entity_id": entity_id};
+            if (type === 'add') {
+                $("#datepicker").val('Sun Dec 31 2200');
+                $("#datepickerdiv").hide();
+
+//                $.ajax({
+//                method: 'GET',
+//                url: getHost() + 'emaillist/get?update=allEmailListWithNoOfContacts&emailListName=null'
+//                }).success(function (data, status, headers, config) {
+//                    alert(JSON.stringify(parseData.allEmailListWithNoOfContacts.user[0].emailListName));
+//                    
+//                    var parseData=JSON.parse(parseData.allEmailListWithNoOfContacts);
+//                    $scope.emailLists_user = parseData.user;
+//                    $scope.emailLists_mindbody = parseData.mindbody;
+//                }).error(function(error){
+//                    alert(JSON.stringify(error));
+//    //                alert("Problem fetching the data!");
+//                });
+                $(".page-content-container").css('width', '90%');
+                $("#emailautomationcontent").show();
+                $("#emlautomeditorcontainer").hide();
+                $("#emailautomation").hide();
+                $("#editpreviewtemplatebottom").hide();
+            }
+            else {
+
+                marketingRecurringEmailFactory.getRecurringEntityPost().then(function (data) {
+                    var data = JSON.stringify(entity_details);
+                });
+
+//                $http({
+//                    method: 'POST',
+//                    url: getHost() + 'getRecurringEntity',
+//                    headers: {'Content-Type':'application/json'},
+//                    data: JSON.stringify(entity_details)
+//                }).success(function(data, status){
+//                    alert(JSON.stringify(data));
+
+
+                $("#emaillist option:contains(" + data.recurring_email_email_list_name + ")").attr('selected', 'selected');
+                var error = 0;
+
+                if (data.recurring_email_title === "") {
+                    alert("Enter the title.");
+                    $("#recuring_email_title").focus();
+                    error++;
+                }
+                if (data.recurring_email_description === "") {
+                    alert("Enter the description.");
+                    $("#recuring_email_description").focus();
+                    error++;
+                }
+                if (data.recurring_email_days === "0" || data.recurring_email_days === null || typeof data.recurring_email_days === 'undefined') {
+                    if (error === 0) {
+                        alert("Please select the day.");
+                    }
+                    $("#days").focus();
+                    error++;
+                }
+                if (data.recurring_email_time === "") {
+                    alert("Select the time.");
+                    $("#timepicker1").focus();
+                    error++;
+                }
+                if (data.recurring_email_till_date === "") {
+                    alert("Till date not selected! Please select the date.");
+                    $("#datepicker").focus();
+                    error++;
+                }
+
+                if (data.recurring_email_email_list_name === "0" || data.recurring_email_email_list_name === null || typeof data.recurring_email_email_list_name === 'undefined') {
+                    if (error === 0) {
+                        alert("Please select the email list.");
+                    }
+                    $("#emaillist").focus();
+                    error++;
+                }
+                if (data.recurring_email_subject === "" || data.recurring_email_subject === null || typeof data.recurring_email_subject === "undefined") {
+                    if (error === 0) {
+                        alert("Enter the subject.");
+                    }
+                    $("#subject").focus();
+                    error++;
+                }
+                if (data.recurring_email_from_name === "" || data.recurring_email_from_name === null || typeof data.recurring_email_from_name === "undefined") {
+                    if (error === 0) {
+                        alert("Enter the from name.");
+                    }
+                    $("#from_name").focus();
+                    error++;
+                }
+                if (data.recurring_email_reply_to_email_address === "" || data.recurring_email_reply_to_email_address === null || typeof data.recurring_email_reply_to_email_address === "undefined") {
+                    if (error === 0) {
+                        alert("Please Enter Valid reply-to-address.");
+                    }
+                    $("#reply_to_address").focus();
+                    error++;
+                }
+                if (type === "template")
+                {
+                    if (error === 0)
+                    {
+                        $("#emailautomationcontent").hide();
+                        $("#emailautomation").show();
+                        $("#emlautomeditorcontainer").show();
+                        $("#editpreviewtemplatebottom").show();
+                        entity_no_email_template = "false";
+                    } else {
+                        entity_no_email_template = "true";
+                        $("#emailautomationcontent").show();
+                        $("#emlautomeditorcontainer").hide();
+                        $("#emailautomation").hide();
+                        $("#editpreviewtemplatebottom").hide();
+                    }
+                }
+                if (type === 'edit') {
+                    var entity_details = {"entity_id": entity_id};
+                    $("#emailautomationcontent").show();
+                    $("#emlautomeditorcontainer").hide();
+                    $("#emailautomation").hide();
+                    $("#editpreviewtemplatebottom").hide();
+                }
+                $scope.entity_details = data;
+                days = data.recurring_email_days;
+                email_list_name = data.recurring_email_email_list_name;
+                var emailAddress = JSON.parse(data.recurring_email_to_email_addresses);
+                var email_list_Addresses = eval(JSON.stringify(emailAddress.emailAddresses[0]));
+                $("#emaillist option:contains(" + email_list_name + ")").attr('selected', 'selected');
+//                  $('#emaillist option[value='+email_list_name+"-"+email_list_Addresses+']').attr('selected','selected');
+//                    $("#emaillist").val(email_list_name+"-"+email_list_Addresses);
+                $('#days').val(days);
+//                    alert($("#emaillist").val());
+                if (data.recurring_email_template_id !== null) {
+                    template_id = data.recurring_email_template_id;
+                    entity_no_email_template = "false";
+                } else {
+                    entity_no_email_template = "true";
+                }
+                html_data = data.recurring_email_body;
+                $('#edit').froalaEditor('html.set', '' + html_data + '');
+//                    alert(data.recuring_email_email_list_name);
+                showEmailListName(data.recurring_email_email_list_name);
+
+//                }).error(function(){  //remove brace
+////                    alert("Problem fetching the data!");
+//                });
+            }
+
+//            }
+        };
+        /*
+         * Bring all the email list from the database
+         */
+        $scope.checkUserPreferences = function () {
+
+            marketingRecurringEmailFactory.getUserPreferencesGet().then(function (data) {
+
+            });
+
+//            $http({
+//                method: 'GET',
+//                url: getHost() + 'getUserPreferences'
+//            }).success(function(data, status, headers, config) {
+//                if (data != ""){
+//                    alert("Please enter from address and reply to email address in email settings.");
+//                }
+//            }).error(function(){
+////                alert("Problem fetching the data!");
+//            });
+
+        };
+
+
+
+        /*
+         * Bring all the recuring email templates from the database
+         */
+        $scope.getEmailTemplates = function () {
+
+            $("#emailautomationcontent").hide();
+            $("#emlautomeditorcontainer").show();
+
+            marketingRecurringEmailFactory.allRecurringEmailTemplatesGet().then(function (data) {
+
+            });
+            $scope.recuring_email_templates = data;
+
+//                $http({
+//                    method: 'GET',
+//                    url: getHost() + 'getAllRecurringEmailTemplates'
+//                }).success(function(data, status){
+//                    $scope.recuring_email_templates = data;
+//                }).error(function(error){
+//                    alert(JSON.stringify(error));
+////                    alert("Problem fetching the data!");
+//                });
+
+        };
+
+
+
+
+        $scope.addUpdateRecuringAction = function () {
+            alert("...");
+            if (validate()) {
+
+                var days = $("#days").val();
+                var emaillist = $("#emaillist").val();
+                var to_email_addresses = emailLists.split(',');
+                var subject = $("#subject").val();
+                var from_name = $("#from_name").val();
+                var reply_to_address = $("#reply_to_address").val();
+                var recuring_email_title = $("#recuring_email_title").val();
+                var recuring_email_description = $("#recuring_email_description").val();
+
+                var till_date = $("#datepicker").val();
+                program_end_date = $("#program_end_date").val();
+                var schedule_time = $("#timepicker1").val().replace(/ /g, '');
+                var till_date_epoch = Date.parse(till_date);
+                var schedule_time_epoch = Date.parse(schedule_time);
+//                var html_data = $('#edit').froalaEditor('html.get');
+var html_data ="";
+
+                if (type === 'add') {
+                    var recuring_action = JSON.stringify({
+                        "days": days, "emaillist": emaillist,
+                        "to_email_addresses": to_email_addresses,
+                        "subject": subject, "from_name": from_name,
+                        "reply_to_address": reply_to_address,
+                        "recurring_email_title": recuring_email_title,
+                        "recurring_email_description": recuring_email_description,
+                        "till_date_epoch": till_date_epoch,
+                        "schedule_time_epoch": schedule_time,
+                        "program_id": program_id
+                    });
+                    marketingRecurringEmailFactory.addRecurringActionPost(recuring_action).then(function (data) {
+alert(JSON.stringify(data));
+                        if (data === "true") {
+                            alert("Details saved succesfully.");
+                            window.open(getHost() + 'user/marketingprogramactions?program_id=' + program_id + '&past=0&program_date=' + program_end_date, "_self");
+                        } else {
+                            alert("Problem saving the record!");
+                        }
+                    });
+
+
+
+                } else if ((type === 'template') && (entity_no_email_template === "true")) {
+                    $(".page-content-container").css('width', '100%');
+                    var recuring_action = JSON.stringify({
+                        "entity_id": entity_id,
+                        "days": days, "emaillist": emaillist,
+                        "to_email_addresses": to_email_addresses,
+                        "subject": subject, "from_name": from_name,
+                        "reply_to_address": reply_to_address,
+                        "recurring_email_title": recuring_email_title,
+                        "recurring_email_description": recuring_email_description,
+                        "till_date_epoch": till_date_epoch,
+                        "schedule_time_epoch": schedule_time,
+                        "program_id": program_id
+                    });
+
+                    marketingRecurringEmailFactory.addupdateRecurringActionPost(recuring_action).then(function (data) {
+                        alert(JSON.stringify(data));
+                        if ((data === "true") && (entity_no_email_template === "true")) {
+                            alert("Details saved succesfully.");
+                            $("#emailautomationcontent").hide();
+
+//                $("#emailautomation").show();
+                            $scope.showEmailAutomation = true;
+
+//                $("#emlautomeditorcontainer").show();
+                            $scope.emailEditorContainer = true;
+
+//                $("#editpreviewtemplatebottom").show();
+                            $scope.emailRecurringPreviewTemplate = true;
+
+                            entity_no_email_template = "false";
+                        }
+                        else {
+                            alert("Problem saving the record!");
+                        }
+
+                    });
+
+
+
+                } else if ((type === 'edit') && (entity_no_email_template === "true")) {
+                    $(".page-content-container").css('width', '90%');
+                    var recuring_action = JSON.stringify({
+                        "entity_id": entity_id,
+                        "days": days, "emaillist": emaillist,
+                        "to_email_addresses": to_email_addresses,
+                        "subject": subject, "from_name": from_name,
+                        "reply_to_address": reply_to_address,
+                        "recurring_email_title": recuring_email_title,
+                        "recurring_email_description": recuring_email_description,
+                        "till_date_epoch": till_date_epoch,
+                        "schedule_time_epoch": schedule_time,
+                        "program_id": program_id
+                    });
+
+
+                    marketingRecurringEmailFactory.addupdateRecurringActionPost(recuring_action).then(function (data) {
+                        alert(JSON.stringify(data));
+                        if ((data === "true")) {
+                            alert("Details saved succesfully.");
+                            window.open(getHost() + 'user/marketingprogramactions?program_id=' + program_id + '&past=0&program_date=' + program_end_date, "_self");
+                        } else {
+//                  alert("Problem saving the record!");
+                        }
+                    });
+
+
+
+
+                } else if (((type === 'template') && (entity_no_email_template === 'false')) || ((type = 'edit') && (entity_no_email_template === 'false'))) {
+                    $(".page-content-container").css('width', '90%');
+
+
+                    settingsFactory.getAllPreferencesGet().then(function (data) {
+                        var footerData = JSON.parse(data.d.details);
+                        if (!footerData.userProfile) {
+                            $("#emailFooterPopup").show();
+                        }
+                        else {
+                            if (!footerData.userProfile.address) {
+                                $("#emailFooterPopup").show();
+                            }
+                            else {
+                                var footer = UserFooter(footerData.userProfile.facebookUrl, footerData.userProfile.twitterUrl,
+                                        footerData.userProfile.websiteUrl, footerData.userProfile.instagramUrl,
+                                        footerData.userProfile.address);
+                                var sendData = JSON.stringify({
+                                    htmlString: $('#edit').froalaEditor('html.get') + footer,
+                                    iframeName: rendomIframeFilename.toString()
+                                });
+
+                                var recuring_action = JSON.stringify({
+                                    "entity_id": entity_id,
+                                    "template_id": template_id, "html_data": html_data + footer,
+                                    "days": days, "emaillist": emaillist,
+                                    "to_email_addresses": to_email_addresses,
+                                    "subject": subject, "from_name": from_name,
+                                    "reply_to_address": reply_to_address,
+                                    "recurring_email_title": recuring_email_title,
+                                    "recurring_email_description": recuring_email_description,
+                                    "till_date_epoch": till_date_epoch,
+                                    "schedule_time_epoch": schedule_time,
+                                    "program_id": program_id
+                                });
+
+
+                                marketingRecurringEmailFactory.updateRecurringActionPost(recuring_action).then(function (data) {
+                                    alert(JSON.stringify(data));
+                                    if ((data === "true")) {
+                                        alert("Details saved succesfully.");
+                                        window.open(getHost() + 'user/marketingprogramactions?program_id=' + program_id + '&past=0&program_date=' + program_end_date, "_self");
+                                    } else {
+//                            alert("Problem saving the record!");
+                                    }
+                                });
+
+
+
+                            }
+                        }
+                    });
+
+
+
+
+                }
+            }
+
+//             function showEmailListName(email_list_name){
+//                    setTimeout(function() 
+//                    {
+//
+//                      $('#emaillist option[value='+email_list_name+']').attr("selected", "selected");
+//                      $("#emaillist").change();
+//
+//                    for(i=1; i<=31; i++){
+//                        if ( i === days){
+//                            $('#days').append('<option value='+i+' selected>'+ i + '</option>');
+//                        }else {
+//                            $('#days').append('<option value='+i+'>'+ i + '</option>');
+//                        }
+//                    }
+//                    }, 500);
+//
+//                }
+        };
+
+
+//        $scope.addUpdateRecuringAction = function(){
+//           
+//            if (validate()){
+//                
+//                var days = $("#days").val();                
+////                var emaillistwithAddress = $("#emaillist").val().split('-');
+////                var emaillist=emaillistwithAddress[0];
+////                to_email_addresses=emaillistwithAddress[1].split(',');
+//                var emaillist=$("#emaillist").val();
+//                var to_email_addresses=emailLists.split(',');
+//                var subject = $("#subject").val();
+//                var from_name = $("#from_name").val();
+//                var reply_to_address = $("#reply_to_address").val();
+//                var recuring_email_title = $("#recuring_email_title").val();
+//                var recuring_email_description = $("#recuring_email_description").val();
+//
+//                var till_date = $("#datepicker").val();
+//                program_end_date=$("#program_end_date").val();
+//                var schedule_time=$("#timepicker1").val().replace(/ /g,'');
+////                        var schedule_time=$("#timepicker1").val();
+//                var till_date_epoch = Date.parse(till_date);
+//                var schedule_time_epoch = Date.parse(schedule_time);
+////                var $iframe = $('.fr-iframe');
+//                var html_data = $('#edit').froalaEditor('html.get');
+////                var html_data = $iframe.contents().find("html").html();
+////                html_data = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\">" + html_data + "</html>";
+////                alert(emaillist);
+//                if ( type == 'add'){
+//                    var recuring_action = {
+//                        "days":days, "emaillist":emaillist, 
+//                        "to_email_addresses": to_email_addresses,
+//                        "subject":subject, "from_name":from_name,
+//                        "reply_to_address":reply_to_address,
+//                        "recurring_email_title":recuring_email_title,
+//                        "recurring_email_description":recuring_email_description,
+//                        "till_date_epoch":till_date_epoch,
+//                        "schedule_time_epoch": schedule_time,
+//                        "program_id" :program_id 
+//                    };
+//                    $http({ 
+//                        method: 'POST',
+//                        url: getHost()+'/addRecurringAction',
+//                        headers: {'Content-Type':'application/json'},
+//                        data: JSON.stringify(recuring_action)
+//                    }).success(function (data, status, headers, config) {
+//                        if (data === "true") {
+//                            alert("Details saved succesfully.");
+//                            window.open(getHost() + 'user/marketingprogramactions?program_id='+ program_id + '&past=0&program_date='+program_end_date, "_self");
+//                        }else {
+////                            alert("Problem saving the record!");
+//                        }
+//                    }).error(function (data, status, headers, config) {
+//                        alert(JSON.stringify(data));
+////                        alert("No data available! Problem fetching the data.");
+//                        // called asynchronously if an error occurs
+//                        // or server returns response with an error status.
+//                    });
+//
+//                    }else if((type == 'template') && (entity_no_email_template == "true")){
+//                        $(".page-content-container").css('width','100%');
+//                    var recuring_action = {
+//                        "entity_id" : entity_id, 
+//                        "days":days, "emaillist":emaillist, 
+//                        "to_email_addresses": to_email_addresses,
+//                        "subject":subject, "from_name":from_name,
+//                        "reply_to_address":reply_to_address,
+//                        "recurring_email_title":recuring_email_title,
+//                        "recurring_email_description":recuring_email_description,
+//                        "till_date_epoch":till_date_epoch,
+//                        "schedule_time_epoch": schedule_time,
+//                        "program_id" :program_id 
+//                    };
+//                    $http({
+//                        method: 'POST',
+//                        url: getHost()+'addupdateRecurringAction',
+//                        headers: {'Content-Type':'application/json'},
+//                        data: JSON.stringify(recuring_action)
+//                    }).success(function (data, status, headers, config) {
+//                        if((data == "true") && (entity_no_email_template == "true")) {
+//                            alert("Details saved succesfully.");
+//                            $("#emailautomationcontent").hide();
+//                            $("#emailautomation").show();
+//                            $("#emlautomeditorcontainer").show();
+//                            $("#editpreviewtemplatebottom").show();
+//                            entity_no_email_template = "false";
+//                        }else {
+////                            alert("Problem saving the record!");
+//                        }
+//                    }).error(function (data, status, headers, config) {
+//                        alert(JSON.stringify(data));
+////                        alert("No data available! Problem fetching the data.");
+//                        // called asynchronously if an error occurs
+//                        // or server returns response with an error status.
+//                    });
+//
+//                }else if ((type == 'edit') && (entity_no_email_template == "true")){
+//                    $(".page-content-container").css('width','90%');
+//                    var recuring_action = {
+//                        "entity_id" : entity_id, 
+//                        "days":days, "emaillist":emaillist, 
+//                        "to_email_addresses": to_email_addresses,
+//                        "subject":subject, "from_name":from_name,
+//                        "reply_to_address":reply_to_address,
+//                        "recurring_email_title": recuring_email_title,
+//                        "recurring_email_description":recuring_email_description,
+//                        "till_date_epoch":till_date_epoch,
+//                        "schedule_time_epoch": schedule_time,
+//                        "program_id" :program_id 
+//                    };
+//                   
+//                    $http({
+//                        method: 'POST',
+//                        url: getHost()+'/addupdateRecurringAction',
+//                        headers: {'Content-Type':'application/json'},
+//                        data: JSON.stringify(recuring_action)
+//                    }).success(function (data, status, headers, config) {
+//                        if ((data === "true")) {
+//                            alert("Details saved succesfully.");
+//                            window.open(getHost() + 'user/marketingprogramactions?program_id='+ program_id + '&past=0&program_date='+program_end_date, "_self");
+//                        }else {
+////                            alert("Problem saving the record!");
+//                        }
+//                    }).error(function (data, status, headers, config) {
+//                        alert(JSON.stringify(data));
+////                        alert("No data available! Problem fetching the data.");
+//                        // called asynchronously if an error occurs
+//                        // or server returns response with an error status.
+//                    });
+//                    
+//                }else if(((type == 'template') && (entity_no_email_template == 'false')) || ((type = 'edit') && (entity_no_email_template == 'false'))){
+//                     $(".page-content-container").css('width','90%');
+//                     $.ajax({
+//                        method : 'GET',
+//                        url : getHost() + 'settings/getAllPreferences'
+//                    }).success(function(data, status) {
+//                        var footerData = JSON.parse(data.d.details);
+//                            if(!footerData.userProfile){
+//                                $("#emailFooterPopup").show();
+//                            }
+//                         else{
+//                             if(!footerData.userProfile.address){
+//                                $("#emailFooterPopup").show();
+//                                
+//                                
+//                                
+//                                
+//                            }
+//                            else{
+//                        var footer = UserFooter(footerData.userProfile.facebookUrl,footerData.userProfile.twitterUrl,
+//                                footerData.userProfile.websiteUrl,footerData.userProfile.instagramUrl,
+//                                footerData.userProfile.address);
+//                        var sendData=JSON.stringify({
+//                                        htmlString: $('#edit').froalaEditor('html.get')+footer,
+//                                        iframeName: rendomIframeFilename.toString()
+//                                        });
+//                        
+//                    var recuring_action = {
+//                        "entity_id" : entity_id, 
+//                        "template_id" : template_id, "html_data": html_data+footer,
+//                        "days":days, "emaillist":emaillist, 
+//                        "to_email_addresses": to_email_addresses,
+//                        "subject":subject, "from_name":from_name,
+//                        "reply_to_address":reply_to_address,
+//                        "recurring_email_title":recuring_email_title,
+//                        "recurring_email_description":recuring_email_description,
+//                        "till_date_epoch":till_date_epoch,
+//                        "schedule_time_epoch": schedule_time,
+//                        "program_id" :program_id 
+//                    };           
+//                    $http({
+//                        method: 'POST',
+//                        url: getHost()+'updateRecurringAction',
+//                        headers: {'Content-Type':'application/json'},
+//                        data: JSON.stringify(recuring_action)
+//                    }).success(function (data, status, headers, config) {
+//                        if ((data === "true")) {
+//                            alert("Details saved succesfully.");
+//                            window.open(getHost() + 'user/marketingprogramactions?program_id='+program_id+'&past=0&program_date='+program_end_date, "_self");
+//                        }else {
+////                            alert("Problem saving the record!");
+//                        }
+//                        
+//                    }).error(function (data, status, headers, config) {
+//                        alert(JSON.stringify(data));
+////                        alert("No data available! Problem fetching the data.");
+//                        // called asynchronously if an error occurs
+//                        // or server returns response with an error status.
+//                    });
+//                    
+//                     }
+//                 }
+//                 
+//                 
+//                 
+//                });
+//                
+//                
+//                
+//                }
+//            }
+//            
+//             function showEmailListName(email_list_name){
+//                    setTimeout(function() 
+//                    {
+//                      //do something special
+//                     // alert("delay");
+//                      //$("#select option").filter(".a0").attr('selected','selected');
+//
+//                      $('#emaillist option[value='+email_list_name+']').attr("selected", "selected");
+//                      $("#emaillist").change();
+//
+//                    for(i=1; i<=31; i++){
+//                        if ( i == days){
+//                            $('#days').append('<option value='+i+' selected>'+ i + '</option>');
+//                        }else {
+//                            $('#days').append('<option value='+i+'>'+ i + '</option>');
+//                        }
+//
+//                    }
+//
+//
+//                    }, 500);
+//
+//                }
+//            };
+
+
+
+        $scope.closePopup = function () {
+            $scope.reminderSectionClass = '';
+            $scope.emailsectionClass = '';
+            $scope.fadeClass = '';
+        };
+        $scope.setTab = function (tabName) {
+            if (tabName === 'actionDetails') {
+                $scope.top_subnav_link_active_actionDetail_Class = 'top-subnav-link-active-detail-Class';
+                $scope.top_subnav_link_active_notesDetail_Class = '';
+                $scope.top_subnav_link_active_savedDetail_Class = '';
+                $scope.generalActions = true;
+                $scope.generalSavedDetails = false;
+                $scope.generalNotes = false;
+            }
+            if (tabName === 'savedDetails') {
+                $scope.top_subnav_link_active_savedDetail_Class = 'top-subnav-link-active-detail-Class';
+                $scope.top_subnav_link_active_actionDetail_Class = '';
+                $scope.top_subnav_link_active_notesDetail_Class = '';
+                $scope.generalSavedDetails = true;
+                $scope.generalActions = false;
+                $scope.generalNotes = false;
+            }
+            if (tabName === 'notes') {
+                $scope.top_subnav_link_active_notesDetail_Class = 'top-subnav-link-active-detail-Class';
+                $scope.top_subnav_link_active_actionDetail_Class = '';
+                $scope.top_subnav_link_active_savedDetail_Class = '';
+                $scope.generalNotes = true;
+                $scope.generalActions = false;
+                $scope.generalSavedDetails = false;
+            }
+            if (tabName === 'reminderDetails') {
+                $scope.top_subnav_link_active_reminderDetail_Class = 'top-subnav-link-active-detail-Class';
+                $scope.top_subnav_link_active_savedReminder_Class = '';
+                $scope.reminderDetailsTab = true;
+                $scope.savedReminderTab = false;
+            }
+            if (tabName === 'savedReminder') {
+                $scope.top_subnav_link_active_savedReminder_Class = 'top-subnav-link-active-detail-Class';
+                $scope.top_subnav_link_active_reminderDetail_Class = '';
+                $scope.savedReminderTab = true;
+                $scope.reminderDetailsTab = false;
+            }
+        };
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, action_status, days, marketingName)
         {
 //        $scope.entities_selected_time =schedule_time;
@@ -274,7 +951,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
                             $scope.entitiesdetails = JSON.parse(data.d.details);
                             var iframe = document.getElementById('iframeForAction');
-                            
+
                             if (data.d.details != "{}") {
                                 $scope.savedEmail = true;
                                 if (entity_type === gettwitter())
@@ -283,183 +960,183 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 } else if (entity_type === getfacebook())
                                     $scope.savedTemplateHeader = "SAVED FACEBOOK PREVIEW";
                                 $scope.deleteScheduleButton = "Remove Saved Post";
-                                
+
                                 var htmlData = "<style>\n"
-                                    + ".twitter-post-preview {\n"
-                                    + "    width: 494px;\n"
-                                    + "    height: 340px !important;\n"
-                                    + "    margin: auto;\n"
-                                    + "    padding: 12px 12px 0px 12px;\n"
-                                    + "    float: none;\n"
-                                    + "    border: 1px solid rgb(223, 224, 228);\n"
-                                    + "    border-radius: 3px;\n"
-                                    + "    background-color: #FFFFFF;\n"
-                                    + "}\n"
-                                    + ".Facebook-preview {\n"
-                                    + "    width: 494px;\n"
-                                    + "    height: 455px;\n"
-                                    + "    margin: auto;\n"
-                                    + "    padding: 12px 12px 0px 12px;\n"
-                                    + "    float: none;\n"
-                                    + "    border: 1px solid rgb(223, 224, 228);\n"
-                                    + "    border-radius: 3px;\n"
-                                    + "    background-color: #FFFFFF;\n"
-                                    + "    overflow: auto;\n"
-                                    + "    margin-bottom: 65px;\n"
-                                    + "}"
-                                    + "\n"
-                                    + ".Facebook-preview-header {\n"
-                                    + "    width: 500px;\n"
-                                    + "    height: 40px;\n"
-                                    + "    float: left;\n"
-                                    + "    margin-bottom: 11px;\n"
-                                    + "}\n"
-                                    + "\n"
-                                    + ".Facebook-preview-profpic {\n"
-                                    + "    width: 40px;\n"
-                                    + "    height: 40px;\n"
-                                    + "    margin-right: 8px;\n"
-                                    + "    float: left;\n"
-                                    + "    background-color: beige;\n"
-                                    + "}\n"
-                                    + "\n"
-                                    + ".Facebook-preview-profpic > img {\n"
-                                    + "    width: 100%;\n"
-                                    + "    height: 100%;\n"
-                                    + "}\n"
-                                    + "\n"
-                                    + ".Facebook-preview-name-container {\n"
-                                    + "    width: 445px;\n"
-                                    + "    height: 100%;\n"
-                                    + "    float: inherit;\n"
-                                    + "    color: #365899;\n"
-                                    + "    font-weight: bold;\n"
-                                    + "}\n"
-                                    + "\n"
-                                    + ".Twitter-preview-name-container {\n"
-                                    + "    width: 445px;\n"
-                                    + "    height: 100%;\n"
-                                    + "    float: inherit;\n"
-                                    + "}\n"
-                                    + "\n"
-                                    + ".Facebook-preview-usercontent {\n"
-                                    + "    font-family: helvetica, arial;\n"
-                                    + "    font-weight: normal;\n"
-                                    + "    line-height: 19.32px;\n"
-                                    + "    color: rgb(20, 24, 35);\n"
-                                    + "    font-size: 14px;\n"
-                                    + "    float: left;\n"
-                                    + "}\n"
-                                    + "\n"
-                                    + ".Facebook-link-container {\n"
-                                    + "    box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 0px 1.5px inset, rgba(0, 0, 0, 0.0470588) 0px 1px 1px 0px;\n"
-                                    + "    color: rgb(20, 24, 35);\n"
-                                    + "    border: 1px solid rgba(0, 0, 0, 0.0980392);\n"
-                                    + "    float: left;\n"
-                                    + "    width: 100%;\n"
-                                    + "    margin-top: 10px;\n"
-                                    + "}\n"
-                                    + "img#prevfbimg {\n"
-                                    + "    width: 100%;\n"
-                                    + "    height: 245px;\n"
-                                    + "    margin-left: -2px;\n"
-                                    + "}"
-                                    + ".Facebook-preview-image {\n"
-                                    + "    width: 100%;\n"
-                                    + "    height: 244px;\n"
-                                    + "    background-color: #5CC2A5;\n"
-                                    + "    float: left;\n"
-                                    + "}"
-                                    + ".Facebook-preview-link-container {\n"
-                                    + "    width: 100%;\n"
-                                    + "    padding: 10px 12px 10px 12px;\n"
-                                    + "    float: left;\n"
-                                    + "    box-sizing: border-box;\n"
-                                    + "    overflow: hidden;\n"
-                                    + "}"
-                                    + ".Facebook-preview-link-title {\n"
-                                    + "    font-family: Georgia, 'lucida grande', tahoma;\n"
-                                    + "    font-size: 18px;\n"
-                                    + "    color: rgb(20, 24, 35);\n"
-                                    + "    font-weight: 500;\n"
-                                    + "    line-height: 22px;\n"
-                                    + "    margin-bottom: 5px;\n"
-                                    + "}"
-                                    + ".Facebook-preview-link-description {\n"
-                                    + "    color: rgb(20, 24, 35);\n"
-                                    + "    direction: ltr;\n"
-                                    + "    display: block;\n"
-                                    + "    font-family: sans-serif;\n"
-                                    + "    font-size: 12px;\n"
-                                    + "    line-height: 16px;\n"
-                                    + "    max-height: 80px;\n"
-                                    + "    overflow-x: hidden;\n"
-                                    + "    overflow-y: hidden;\n"
-                                    + "    word-wrap: break-word;\n"
-                                    + "    zoom: 1;\n"
-                                    + "    text-overflow: ellipsis;\n"
-                                    + "}"
-                                    + ".Facebook-preview-link-url {\n"
-                                    + "    color: rgb(145, 151, 163);\n"
-                                    + "    direction: ltr;\n"
-                                    + "    display: block;\n"
-                                    + "    font-family: sans-serif;\n"
-                                    + "    font-size: 14px;\n"
-                                    + "    line-height: 16.08px;\n"
-                                    + "    padding-top: 9px;\n"
-                                    + "    margin-bottom: 5px;\n"
-                                    + "}"
-                                    + "</style>";
-                            if (entity_type === gettwitter()) {
-                                htmlData += "<div class=\"twitter-post-preview\">\n"
-                                        + "    <div class=\"Facebook-preview-header\">\n"
-                                        + "        <div class=\"Facebook-preview-profpic\">\n"
-                                        + "            <img id=\"twitter_preview_profpic\" src=\"/BrndBot/downloadImage?imageType=COMPANY_LOGO&amp;companyId=" + $scope.companyId + "&amp;imageName=companylogo.png\">\n"
-                                        + "        </div>\n"
-                                        + "        <div class=\"Twitter-preview-name-container\">\n"
-                                        + "            <div class=\"Facebook-preview-name ng-binding\"><strong>" + $scope.twitterprofileName + "</strong><br>" + $scope.entitiesdetails.metadata.text + " " + $scope.entitiesdetails.metadata.shorturl + "</div>\n"
-                                        + "        </div>\n"
-                                        + "    </div>\n";
+                                        + ".twitter-post-preview {\n"
+                                        + "    width: 494px;\n"
+                                        + "    height: 340px !important;\n"
+                                        + "    margin: auto;\n"
+                                        + "    padding: 12px 12px 0px 12px;\n"
+                                        + "    float: none;\n"
+                                        + "    border: 1px solid rgb(223, 224, 228);\n"
+                                        + "    border-radius: 3px;\n"
+                                        + "    background-color: #FFFFFF;\n"
+                                        + "}\n"
+                                        + ".Facebook-preview {\n"
+                                        + "    width: 494px;\n"
+                                        + "    height: 455px;\n"
+                                        + "    margin: auto;\n"
+                                        + "    padding: 12px 12px 0px 12px;\n"
+                                        + "    float: none;\n"
+                                        + "    border: 1px solid rgb(223, 224, 228);\n"
+                                        + "    border-radius: 3px;\n"
+                                        + "    background-color: #FFFFFF;\n"
+                                        + "    overflow: auto;\n"
+                                        + "    margin-bottom: 65px;\n"
+                                        + "}"
+                                        + "\n"
+                                        + ".Facebook-preview-header {\n"
+                                        + "    width: 500px;\n"
+                                        + "    height: 40px;\n"
+                                        + "    float: left;\n"
+                                        + "    margin-bottom: 11px;\n"
+                                        + "}\n"
+                                        + "\n"
+                                        + ".Facebook-preview-profpic {\n"
+                                        + "    width: 40px;\n"
+                                        + "    height: 40px;\n"
+                                        + "    margin-right: 8px;\n"
+                                        + "    float: left;\n"
+                                        + "    background-color: beige;\n"
+                                        + "}\n"
+                                        + "\n"
+                                        + ".Facebook-preview-profpic > img {\n"
+                                        + "    width: 100%;\n"
+                                        + "    height: 100%;\n"
+                                        + "}\n"
+                                        + "\n"
+                                        + ".Facebook-preview-name-container {\n"
+                                        + "    width: 445px;\n"
+                                        + "    height: 100%;\n"
+                                        + "    float: inherit;\n"
+                                        + "    color: #365899;\n"
+                                        + "    font-weight: bold;\n"
+                                        + "}\n"
+                                        + "\n"
+                                        + ".Twitter-preview-name-container {\n"
+                                        + "    width: 445px;\n"
+                                        + "    height: 100%;\n"
+                                        + "    float: inherit;\n"
+                                        + "}\n"
+                                        + "\n"
+                                        + ".Facebook-preview-usercontent {\n"
+                                        + "    font-family: helvetica, arial;\n"
+                                        + "    font-weight: normal;\n"
+                                        + "    line-height: 19.32px;\n"
+                                        + "    color: rgb(20, 24, 35);\n"
+                                        + "    font-size: 14px;\n"
+                                        + "    float: left;\n"
+                                        + "}\n"
+                                        + "\n"
+                                        + ".Facebook-link-container {\n"
+                                        + "    box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 0px 1.5px inset, rgba(0, 0, 0, 0.0470588) 0px 1px 1px 0px;\n"
+                                        + "    color: rgb(20, 24, 35);\n"
+                                        + "    border: 1px solid rgba(0, 0, 0, 0.0980392);\n"
+                                        + "    float: left;\n"
+                                        + "    width: 100%;\n"
+                                        + "    margin-top: 10px;\n"
+                                        + "}\n"
+                                        + "img#prevfbimg {\n"
+                                        + "    width: 100%;\n"
+                                        + "    height: 245px;\n"
+                                        + "    margin-left: -2px;\n"
+                                        + "}"
+                                        + ".Facebook-preview-image {\n"
+                                        + "    width: 100%;\n"
+                                        + "    height: 244px;\n"
+                                        + "    background-color: #5CC2A5;\n"
+                                        + "    float: left;\n"
+                                        + "}"
+                                        + ".Facebook-preview-link-container {\n"
+                                        + "    width: 100%;\n"
+                                        + "    padding: 10px 12px 10px 12px;\n"
+                                        + "    float: left;\n"
+                                        + "    box-sizing: border-box;\n"
+                                        + "    overflow: hidden;\n"
+                                        + "}"
+                                        + ".Facebook-preview-link-title {\n"
+                                        + "    font-family: Georgia, 'lucida grande', tahoma;\n"
+                                        + "    font-size: 18px;\n"
+                                        + "    color: rgb(20, 24, 35);\n"
+                                        + "    font-weight: 500;\n"
+                                        + "    line-height: 22px;\n"
+                                        + "    margin-bottom: 5px;\n"
+                                        + "}"
+                                        + ".Facebook-preview-link-description {\n"
+                                        + "    color: rgb(20, 24, 35);\n"
+                                        + "    direction: ltr;\n"
+                                        + "    display: block;\n"
+                                        + "    font-family: sans-serif;\n"
+                                        + "    font-size: 12px;\n"
+                                        + "    line-height: 16px;\n"
+                                        + "    max-height: 80px;\n"
+                                        + "    overflow-x: hidden;\n"
+                                        + "    overflow-y: hidden;\n"
+                                        + "    word-wrap: break-word;\n"
+                                        + "    zoom: 1;\n"
+                                        + "    text-overflow: ellipsis;\n"
+                                        + "}"
+                                        + ".Facebook-preview-link-url {\n"
+                                        + "    color: rgb(145, 151, 163);\n"
+                                        + "    direction: ltr;\n"
+                                        + "    display: block;\n"
+                                        + "    font-family: sans-serif;\n"
+                                        + "    font-size: 14px;\n"
+                                        + "    line-height: 16.08px;\n"
+                                        + "    padding-top: 9px;\n"
+                                        + "    margin-bottom: 5px;\n"
+                                        + "}"
+                                        + "</style>";
+                                if (entity_type === gettwitter()) {
+                                    htmlData += "<div class=\"twitter-post-preview\">\n"
+                                            + "    <div class=\"Facebook-preview-header\">\n"
+                                            + "        <div class=\"Facebook-preview-profpic\">\n"
+                                            + "            <img id=\"twitter_preview_profpic\" src=\"/BrndBot/downloadImage?imageType=COMPANY_LOGO&amp;companyId=" + $scope.companyId + "&amp;imageName=companylogo.png\">\n"
+                                            + "        </div>\n"
+                                            + "        <div class=\"Twitter-preview-name-container\">\n"
+                                            + "            <div class=\"Facebook-preview-name ng-binding\"><strong>" + $scope.twitterprofileName + "</strong><br>" + $scope.entitiesdetails.metadata.text + " " + $scope.entitiesdetails.metadata.shorturl + "</div>\n"
+                                            + "        </div>\n"
+                                            + "    </div>\n";
 //                    if($scope.entitiesdetails.metadata.shorturl) {
 //                    htmlData += "    <div class=\"Facebook-preview-usercontent ng-binding\">"+$scope.entitiesdetails.metadata.shorturl+"</div>\n"
 //                    }
-                                htmlData += "    <div class=\"Facebook-link-container\">\n"
-                                        + "        <div ng-show=\"entitiesdetails.image_type == 'gallery'\">\n"
-                                        + "            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageName=" + $scope.entitiesdetails.image_name + "&imageType=GALLERY&companyId=" + $scope.companyId + "\">\n"
-                                        + "        </div>\n"
-                                        + "    </div>\n"
-                                        + "</div>";
-                            } else if (entity_type === getfacebook()) {
-                                htmlData += "<div class=\"Facebook-preview\">\n"
-                                        + "                                <div class=\"Facebook-preview-header\">\n"
-                                        + "                                    <div class=\"Facebook-preview-profpic\"><img id=\"fb_preview_profpic\" src=\"/BrndBot/downloadImage?imageType=COMPANY_LOGO&amp;companyId=" + $scope.companyId + "&amp;imageName=companylogo.png\"></div>\n"
-                                        + "                                    <div class=\"Facebook-preview-name-container\">\n"
-                                        + "                                        <div class=\"Facebook-preview-name ng-binding\">" + $scope.entitiesdetails.metadata.ManagedPage + "</div>\n"
-                                        + "                                    </div>\n"
-                                        + "                                </div>\n"
-                                        + "                                <div class=\"Facebook-preview-usercontent ng-binding\">" + $scope.entitiesdetails.metadata.post_text + "</div>\n"
-                                        + "                                <div class=\"Facebook-link-container\">\n"
-                                        + "                                    <div class=\"Facebook-preview-image\">\n"
-                                        + "                                        <div ng-show=\"entitiesdetails.image_type == 'gallery'\">\n"
-                                        + "                                            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageType=GALLERY&amp;imageName=" + $scope.entitiesdetails.image_name + "&amp;companyId=" + $scope.companyId + "\">\n"
-                                        + "                                        </div>\n"
-                                        + "                                        <div ng-show=\"entitiesdetails.image_type == 'layout'\" style=\"display: none;\">\n"
-                                        + "                                            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageType=LAYOUT_IMAGES&amp;imageName=13.jpg\">\n"
-                                        + "                                        </div>\n"
-                                        + "                                        <div ng-show=\"entitiesdetails.image_type == 'url'\" style=\"display: none;\">\n"
-                                        + "                                            <img id=\"prevfbimg\" src=\"13.jpg\">\n"
-                                        + "                                        </div>\n"
-                                        + "                                        \n"
-                                        + "                                    </div>\n"
-                                        + "                                    <div class=\"Facebook-preview-link-container\">\n"
-                                        + "                                        <div class=\"Facebook-preview-link-title ng-binding\">" + $scope.entitiesdetails.metadata.title + "</div>\n"
-                                        + "                                        <div class=\"Facebook-preview-link-description ng-binding\">" + $scope.entitiesdetails.metadata.description + "</div>\n"
-                                        + "                                        <div class=\"Facebook-preview-link-url ng-binding\">" + $scope.entitiesdetails.metadata.url + "</div>\n"
-                                        + "                                    </div>\n"
-                                        + "                                </div>\n"
-                                        + "                            </div>";
-                            }
-                                
+                                    htmlData += "    <div class=\"Facebook-link-container\">\n"
+                                            + "        <div ng-show=\"entitiesdetails.image_type == 'gallery'\">\n"
+                                            + "            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageName=" + $scope.entitiesdetails.image_name + "&imageType=GALLERY&companyId=" + $scope.companyId + "\">\n"
+                                            + "        </div>\n"
+                                            + "    </div>\n"
+                                            + "</div>";
+                                } else if (entity_type === getfacebook()) {
+                                    htmlData += "<div class=\"Facebook-preview\">\n"
+                                            + "                                <div class=\"Facebook-preview-header\">\n"
+                                            + "                                    <div class=\"Facebook-preview-profpic\"><img id=\"fb_preview_profpic\" src=\"/BrndBot/downloadImage?imageType=COMPANY_LOGO&amp;companyId=" + $scope.companyId + "&amp;imageName=companylogo.png\"></div>\n"
+                                            + "                                    <div class=\"Facebook-preview-name-container\">\n"
+                                            + "                                        <div class=\"Facebook-preview-name ng-binding\">" + $scope.entitiesdetails.metadata.ManagedPage + "</div>\n"
+                                            + "                                    </div>\n"
+                                            + "                                </div>\n"
+                                            + "                                <div class=\"Facebook-preview-usercontent ng-binding\">" + $scope.entitiesdetails.metadata.post_text + "</div>\n"
+                                            + "                                <div class=\"Facebook-link-container\">\n"
+                                            + "                                    <div class=\"Facebook-preview-image\">\n"
+                                            + "                                        <div ng-show=\"entitiesdetails.image_type == 'gallery'\">\n"
+                                            + "                                            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageType=GALLERY&amp;imageName=" + $scope.entitiesdetails.image_name + "&amp;companyId=" + $scope.companyId + "\">\n"
+                                            + "                                        </div>\n"
+                                            + "                                        <div ng-show=\"entitiesdetails.image_type == 'layout'\" style=\"display: none;\">\n"
+                                            + "                                            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageType=LAYOUT_IMAGES&amp;imageName=13.jpg\">\n"
+                                            + "                                        </div>\n"
+                                            + "                                        <div ng-show=\"entitiesdetails.image_type == 'url'\" style=\"display: none;\">\n"
+                                            + "                                            <img id=\"prevfbimg\" src=\"13.jpg\">\n"
+                                            + "                                        </div>\n"
+                                            + "                                        \n"
+                                            + "                                    </div>\n"
+                                            + "                                    <div class=\"Facebook-preview-link-container\">\n"
+                                            + "                                        <div class=\"Facebook-preview-link-title ng-binding\">" + $scope.entitiesdetails.metadata.title + "</div>\n"
+                                            + "                                        <div class=\"Facebook-preview-link-description ng-binding\">" + $scope.entitiesdetails.metadata.description + "</div>\n"
+                                            + "                                        <div class=\"Facebook-preview-link-url ng-binding\">" + $scope.entitiesdetails.metadata.url + "</div>\n"
+                                            + "                                    </div>\n"
+                                            + "                                </div>\n"
+                                            + "                            </div>";
+                                }
+
                                 iframe.contentDocument.body.innerHTML = htmlData;
                             } else {
                                 $scope.savedEmail = false;
@@ -470,109 +1147,109 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
 
         };
-    
-    $scope.updateAction = function (scheduleUpdatedData) {
-        
-        var actiontype = scheduleUpdatedData.schedule_type;//$("#email_schedule_type").val();
-        var schedule_id = scheduleUpdatedData.schedule_id;//$("#email_scheduleid").val();
-        var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
-        var actiondate = "Mon Jan 01 1970";//$("#emaildatetime").val();
-        var days=scheduleUpdatedData.days;//$("#emaildays").val();
-        var actionDateTime=scheduleUpdatedData.schedule_time;//$("#timepickeremail").val().replace(/ /g,'');
-        var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
-        var schedule_time = Date.parse(l);
-        var myEpoch = schedule_time;
-        var description = "";
+
+        $scope.updateAction = function (scheduleUpdatedData) {
+
+            var actiontype = scheduleUpdatedData.schedule_type;//$("#email_schedule_type").val();
+            var schedule_id = scheduleUpdatedData.schedule_id;//$("#email_scheduleid").val();
+            var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
+            var actiondate = "Mon Jan 01 1970";//$("#emaildatetime").val();
+            var days = scheduleUpdatedData.days;//$("#emaildays").val();
+            var actionDateTime = scheduleUpdatedData.schedule_time;//$("#timepickeremail").val().replace(/ /g,'');
+            var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
+            var schedule_time = Date.parse(l);
+            var myEpoch = schedule_time;
+            var description = "";
 //        if (!validateemailaction()) {
             var action = {
                 "schedule_id": schedule_id.toString(), "type": "update",
                 "title": title, "actiontype": actiontype,
-                "description": description, "action_date": myEpoch, "days":days.toString()
+                "description": description, "action_date": myEpoch, "days": days.toString()
             };
-            yourPlanFactory.addActionPost(action).then(function (data){
+            yourPlanFactory.addActionPost(action).then(function (data) {
                 alert(actionsaved);
 //                $scope.getCampaigns();
             });
 //        }
-    };
-    
-    $scope.Approval = function(entity_id, template_status, entity_type){
-        
-        var approval_type = {"entity_id": entity_id.toString(), 
-                             "template_status":template_status, 
-                             "entity_type": entity_type};
-                        
-        companyMarketingProgramFactory.approveStatusPost(approval_type).then(function(data){
-            if (data.toString() == "true"){
-            alert(templetestatussaved);
-            $scope.getCampaigns();
-          }else {
-              alert(savingrecordproblem);
-          }
-        });
-        $http({
-            method: 'POST',
-            url: getHost()+'approveStatus',
-            headers: {'Content-Type':'application/json'},
-            data: JSON.stringify(approval_type)
-        }).success(function (data, status, headers, config) {
-           
-          if (data == "true"){
-            alert(templetestatussaved);
-            window.open(getHost() + 'user/marketing', "_self");
-          }else {
-              alert(savingrecordproblem);
-          }
-        }).error(function (data, status, headers, config) {
-  
-            alert(nodataerror);
-        });      
-        
-    };
-    
-    $scope.deleteSchedule = function (schedules_to_delete, type, section, isRecurring) {
-        var message;
-        var requestBody;
-        var responseMessage;
-        if (type == "deleteMultiple") {
-            message = multideleteconfirm;
-            requestBody = {"type": "deleteSelected",
-                "schedule_ids": selected_schedules_to_delete, "entity_type": "null"};
-            responseMessage =multideletesuccess;
-        } else if (type == "delete") {
-            message = singledeleteconfirm;
-            requestBody = {"type": "delete",
-                            "schedule_ids": schedules_to_delete, "entity_type": section, 
-                            "isRecurring": isRecurring};
-            responseMessage = singledeletesuccess;
-        } else if (type == "remove") {
-            message = removecnfirm;
-            requestBody = {"type": "removetemplate", 
-                           "schedule_ids": schedules_to_delete, "entity_type": section, 
-                           "isRecurring": isRecurring};
-            responseMessage = multideletesuccess;
-        }
+        };
 
-        if (confirm(message)) {
-            alert(JSON.stringify(responseMessage))
-            yourPlanFactory.changeSchedulePost(requestBody).then(function (data){
-                $scope.getCampaigns();
-                $scope.closePopup();
+        $scope.Approval = function (entity_id, template_status, entity_type) {
+
+            var approval_type = {"entity_id": entity_id.toString(),
+                "template_status": template_status,
+                "entity_type": entity_type};
+
+            companyMarketingProgramFactory.approveStatusPost(approval_type).then(function (data) {
+                if (data.toString() == "true") {
+                    alert(templetestatussaved);
+                    $scope.getCampaigns();
+                } else {
+                    alert(savingrecordproblem);
+                }
             });
-        }
-    };
-    
-    $scope.updateActionNote = function (scheduleId){
-        
-        var actiontype = getemail();
+            $http({
+                method: 'POST',
+                url: getHost() + 'approveStatus',
+                headers: {'Content-Type': 'application/json'},
+                data: JSON.stringify(approval_type)
+            }).success(function (data, status, headers, config) {
+
+                if (data == "true") {
+                    alert(templetestatussaved);
+                    window.open(getHost() + 'user/marketing', "_self");
+                } else {
+                    alert(savingrecordproblem);
+                }
+            }).error(function (data, status, headers, config) {
+
+                alert(nodataerror);
+            });
+
+        };
+
+        $scope.deleteSchedule = function (schedules_to_delete, type, section, isRecurring) {
+            var message;
+            var requestBody;
+            var responseMessage;
+            if (type == "deleteMultiple") {
+                message = multideleteconfirm;
+                requestBody = {"type": "deleteSelected",
+                    "schedule_ids": selected_schedules_to_delete, "entity_type": "null"};
+                responseMessage = multideletesuccess;
+            } else if (type == "delete") {
+                message = singledeleteconfirm;
+                requestBody = {"type": "delete",
+                    "schedule_ids": schedules_to_delete, "entity_type": section,
+                    "isRecurring": isRecurring};
+                responseMessage = singledeletesuccess;
+            } else if (type == "remove") {
+                message = removecnfirm;
+                requestBody = {"type": "removetemplate",
+                    "schedule_ids": schedules_to_delete, "entity_type": section,
+                    "isRecurring": isRecurring};
+                responseMessage = multideletesuccess;
+            }
+
+            if (confirm(message)) {
+                alert(JSON.stringify(responseMessage))
+                yourPlanFactory.changeSchedulePost(requestBody).then(function (data) {
+                    $scope.getCampaigns();
+                    $scope.closePopup();
+                });
+            }
+        };
+
+        $scope.updateActionNote = function (scheduleId) {
+
+            var actiontype = getemail();
             var action = {
-                "schedule_id": scheduleId.toString(), "type": "updatenotesyourplan","actiontype": actiontype,
+                "schedule_id": scheduleId.toString(), "type": "updatenotesyourplan", "actiontype": actiontype,
                 "description": $scope.scheduleData.schedule_desc
-            };    
-            yourPlanFactory.addActionPost(action).then(function (data){
+            };
+            yourPlanFactory.addActionPost(action).then(function (data) {
                 alert(JSON.stringify(data));
             });
-    };
+        };
 
     }]);
 

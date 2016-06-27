@@ -28,7 +28,7 @@
     <!--SideNav-->
     <div class="content-main" >
     <!--Top Nav-->   
-    <div id="changed--emailautomationcontent" ><!--emailautomationcontent id changed to display the content -->
+    <div id="changed--emailautomationcontent"><!--emailautomationcontent id changed to display the content -->
        <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
            <div class="exit-button-detail" id="back">
@@ -43,7 +43,7 @@
    
       </div>
         <!--Main Content--> 
-        <div class="page-background" >
+        <div class="page-background" ng-init="emailautomation">
         <div class="page-content-container email-list-contact-page" ng-init="getEntityDetails();">
             
             <!--Inner Content Conatiner GENERIC-->
@@ -91,7 +91,7 @@
                                     days after they are added to
                              </div>
                          </div>
-                        <div class="col-3of10 fleft">
+                        <div class="col-3of10 fleft" ng-click="emailListDropdown()">
                               <select id="emaillist" name="emaillist" class="input-field-textfield">
                                    <option value="0">-- Select --</option>
                                    <option ng-repeat ="Lists in emailLists_user" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
@@ -187,7 +187,10 @@
             </div>
   </div>
    </div>
-   <div id="emailautomation" class="page-background">
+    
+    
+    
+   <div id="emailautomation1"  class="page-background" ng-show="showEmailAutomation">
        <div id="fade" class="black_overlay" ></div>
            <div id="email_previewdiv">
         <div class="pop-up-background">
@@ -233,7 +236,7 @@
 <!--           <div class="col-md-1 col-lg-1 col-sm-2 halfcol" >
                <%--<jsp:include page="leftmenu.html"/>--%>
            </div>-->
-               <div id="emlautomeditorcontainer" class="page-content-container" ng-init="getEmailTemplates()">
+               <div id="emlautomeditorcontainer" class="page-content-container" ng-show="emailEditorContainer" ng-init="getEmailTemplates()">
                <!--<div class="col-1of1">-->
                <!--<div class="">-->
                    <div class="col-emaileditor">
@@ -393,7 +396,7 @@
         </div>
     </div>
    </div>   
-        <div class="bottom-cta-bar" id="editpreviewtemplatebottom">
+        <div class="bottom-cta-bar" ng-show="emailRecurringPreviewTemplate" id="editpreviewtemplatebottom">
          <div class="bottom-cta-button-container-lg">
 <!--             <div class="editemail fontpnr col-1of4">Edit this Email Automation Action</div>   
              <div class="mobileprev fontpnr col-1of4" id="emailpreview" class="img-responsive ptr" >Email Preview</div>-->
