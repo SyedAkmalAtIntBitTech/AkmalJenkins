@@ -8,7 +8,7 @@
                                <div class="instruction-text" ng-show="schedule_desc !== ''"><p id="emaildescription{{schedule_id}}">{{schedule_desc}}</p></div>
                             </div>-->
             <div class="inner-content-detail">
-                <div class="fields-note-detail">
+                <div class="fields-note-detail"  ng-show="isRecurring = false">
 
                     <!--SAVED POST GOES HERE-->
 
@@ -88,6 +88,88 @@
                     </div>
 
                 </div>
+                
+                <div class="fields-note-detail" ng-show="isRecurring = true">
+
+                            <!--SAVED POST GOES HERE-->
+                            <div class="fleft">
+                                <div class="input-header-actionDetail" style="">
+                                Name of Email
+                                </div>
+                                <div class="fleft input-field-textfield">
+                                    {{recurringScheduleData.schedule_title}}
+                                </div>
+                                <input type="hidden"  id="recurring_email_title" value="{{recurringScheduleData.schedule_title}}" class="input-field-textfield" readonly/>
+                                <input class="inputbox SP1" type="hidden" name="fb_scheduletype" id="fb_scheduletype" value='{{recurringScheduleData.schedule_type}}'/>
+                                <input class="inputbox SP1" type="hidden" name="fb_scheduleid" id="fb_scheduleid" value='{{recurringScheduleData.schedule_id}}'/>
+                            
+                            <div class="input-header-actionDetail pushUp-50" style="">
+                                Description of Email
+                            </div>
+                                <div class="fleft input-field-textfield">
+                                    {{recurringScheduleData.schedule_desc}}
+                                </div>
+                                <!--<input id="recurring_email_description" class="input-field-textfield" type="text" readonly  value="{{schedule_desc}}"/>-->
+                            </div>
+                        <div class="fleft">
+                        <div class="input-header-actionDetail pushUp-30" style="">
+                            Email Sending Details
+                        </div>
+                        <div class="sendingDetails-row fleft">
+                            <div class="fleft input-supportText">
+                                Send an email
+                            </div>
+                                <div class="fleft  input-field-date">{{recurringScheduleData.days}}
+                            </div>
+                                <div class="fleft input-supportText">
+                                days after added to
+                            </div>
+                            <input class="fleft input-field-date" readonly value="{{recurringScheduleData.entities_list_name}}"/>
+                            
+                            <div class="fleft input-supportText">
+                               email list.
+                            </div>
+                        </div>    
+                        <div class="sendingDetails-row fleft">
+                            <div class="fleft input-supportText">
+                                Send the email at
+                            </div>
+                                <div class="fleft  input-field-date">
+                                {{recurringScheduleData.entities_selected_time}}
+                            </div>
+                        </div>  
+<!--                        <div class="sendingDetails-row fleft" >
+                            <div class="fleft input-supportText">
+                                Have this email automation recur until:
+                            </div>
+                            <div class="fleft  input-field-date">
+                               {{entities_till_date| date:'MMMM dd yyyy'}}
+                            </div>
+                        </div> -->
+                        </div>    
+                        <div class="fleft pushUp-">
+                            <div class="input-header-actionDetail" style="">
+                                Subject Line of Email:
+                            </div>
+                            <div class="input-field-textfield">
+                                {{recurringScheduleData.entities_subject}}
+                            </div>
+                            <div class="input-header-actionDetail" style="">
+                                From name:
+                            </div>
+                            <div class="input-field-textfield">
+                                {{recurringScheduleData.entities_from_name}}
+                            </div>
+                            <div class="input-header-actionDetail" style="">
+                                Reply-to-address:
+                            </div>
+                            <div class="input-field-textfield">
+                                {{recurringScheduleData.entities_reply_to_email_address}}
+                            </div>
+                        </div>
+                        </div>
+                
+                
             </div>
         </div>
     </div>

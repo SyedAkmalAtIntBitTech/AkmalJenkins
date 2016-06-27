@@ -114,7 +114,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         {
            
                companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {
-                   
                  $scope.template_status=data.emailautomation;
                  $scope.programs = data;
                  $scope.actionType="Email";
@@ -209,269 +208,321 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.reminderDetailsTab=false;
         }
     };
-        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, action_status, days, marketingName)
-        {
+    
+    $scope.getRecurringScheduleDetails = function (schedule_id, template_status, till_date, schedule_time, entity_type, schedule_title, schedule_desc, date_status,days)
+    {
+        $scope.isRecurring = true;
+        $scope.savedEmail = false;
+        $scope.schedule_id = schedule_id;
+        $scope.generalSavedDetails = true;
+        $scope.generalNotes = false;
+        $scope.generalActions = false;
+        $scope.emailsectionClass = 'emailsectionClass';
+        $scope.fadeClass = 'fadeClass';
+        $scope.action_template_status = template_status;
+        $scope.generalActionDetailsHeader = "Recurring Email";
+        $scope.scheduledTo = 'POST';
+        $scope.setTab('savedDetails');
+        $scope.masterActionType = "Recurring Email";
+        $scope.savedDetailsAddTemplateButton = "Save an email to this action";
+        $scope.savedDetailsAddTemplateLink = "#/marketingprogramactions";
+        $scope.templateApproveButton = "Play";
+        $scope.templateDisapproveButton = "Pause";
+        $scope.recurringScheduleData = {schedule_title: schedule_title, schedule_desc: schedule_desc,
+            schedule_id: schedule_id, entities_list_name: "",
+            email_template_status: template_status, schedule_type: "Recurring Email",
+            marketing_program_name: "", user_marketing_program_id: $scope.programId,
+            days: days, entities_selected_time: $filter('date')(schedule_time, "HH:mm a"), entities_subject: "", 
+            entities_from_name: "", entities_reply_to_email_address: ""};
+        
+        yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
+            $scope.recurringEntitiesDetails = JSON.parse(data.d.details);
+            
+            $scope.recurringScheduleData.entities_subject = $scope.recurringEntitiesDetails.subject;
+            $scope.recurringScheduleData.entities_list_name = $scope.recurringEntitiesDetails.email_list_name;
+            $scope.recurringScheduleData.entities_from_name = $scope.recurringEntitiesDetails.from_name;
+            $scope.recurringScheduleData.entities_reply_to_email_address = $scope.recurringEntitiesDetails.reply_to_email_address;
+            
+            var iframe = document.getElementById('iframeForAction');  
+            if ($scope.recurringEntitiesDetails.body) {
+                $scope.savedEmail = true;
+                $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
+                $scope.deleteScheduleButton = "Remove Saved Email";
+                iframe.contentDocument.body.innerHTML = $scope.recurringEntitiesDetails.body;
+            } else {
+                $scope.savedEmail = false;
+                $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
+            }
+        });
+    };
+//            emailautomation.scheduledEntityListId,emailautomation.status, emailautomation.tillDate,emailautomation.dateTime,emailautomation.actionType,emailautomation.programTemplateName,emailautomation.description,emailautomation.postDateStatus,emailautomation.days
+    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, action_status, days, marketingName)
+    {
 //        $scope.entities_selected_time =schedule_time;
 //        $scope.entities_selected_time = $filter('date')(schedule_time, "MMM dd yyyy");
-            $scope.savedEmail = false;
-            $scope.schedule_id = schedule_id;
-            $scope.generalSavedDetails = true;
-            $scope.generalNotes = false;
-            $scope.generalActions = false;
-            $scope.emailsectionClass = 'emailsectionClass';
-            $scope.fadeClass = 'fadeClass';
-            $scope.email_template_status = template_status;
-            $scope.generalActionDetailsHeader = entity_type;
-            $scope.scheduledTo = 'POST';
-            $scope.setTab('savedDetails');
-            $scope.masterActionType = entity_type;
+        $scope.isRecurring = false;
+        $scope.savedEmail = false;
+        $scope.schedule_id = schedule_id;
+        $scope.generalSavedDetails = true;
+        $scope.generalNotes = false;
+        $scope.generalActions = false;
+        $scope.emailsectionClass = 'emailsectionClass';
+        $scope.fadeClass = 'fadeClass';
+        $scope.action_template_status = template_status;
+        $scope.generalActionDetailsHeader = entity_type;
+        $scope.scheduledTo = 'POST';
+        $scope.setTab('savedDetails');
+        $scope.masterActionType = entity_type;
+        $scope.savedDetailsAddTemplateButton = "Go to Dashboard";
+        $scope.savedDetailsAddTemplateLink = "dashboard";
+        $scope.templateApproveButton = "Approve";
+        $scope.templateDisapproveButton = "Disapprove";
 //        if (entity_type === getnote()) {
 //            $scope.reminderSectionClass='reminderSectionClass';
 //            $scope.savedReminderTab=true;
 //            $scope.setTab('savedReminder');
 //        }
 
-            if (entity_type === getemail()) {
-                $scope.scheduledTo = 'SEND';
-            }
+        if (entity_type === getemail()) {
+            $scope.scheduledTo = 'SEND';
+        }
 
-            var date = "";//$scope.entities_selected_time;
-            var time = $filter('date')(schedule_time, "hh:mm a")
+        var date = "";//$scope.entities_selected_time;
+        var time = $filter('date')(schedule_time, "hh:mm a")
 //var time = schedule_time;
-            $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: date,
-                schedule_id: schedule_id, schedule_desc: schedule_desc,
-                email_template_status: template_status, schedule_type: entity_type,
-                marketing_program_name: marketingName, user_marketing_program_id: $scope.programId,
-                days: days, schedule_time: time};
+        $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: date,
+            schedule_id: schedule_id, schedule_desc: schedule_desc,
+            email_template_status: template_status, schedule_type: entity_type,
+            marketing_program_name: marketingName, user_marketing_program_id: $scope.programId,
+            days: days, schedule_time: time};
 //                $('#emailcontentiframe').contents().find('html').html(data.body); 
-            alert($scope.scheduleData.schedule_id);
-            if (entity_type === getemail()) {
-                yourPlanFactory.scheduledEmailGet($scope.scheduleData.schedule_id).then(function (data) {
-                    $scope.entitiesdetails = JSON.parse(data.d.details);
-                    var iframe = document.getElementById('iframeForAction');
+        if (entity_type === getemail()) {
+            yourPlanFactory.scheduledEmailGet($scope.scheduleData.schedule_id).then(function (data) {
+                $scope.entitiesdetails = JSON.parse(data.d.details);
+                var iframe = document.getElementById('iframeForAction');
 
-                    if ($scope.entitiesdetails != "{}") {
-                        $scope.savedEmail = true;
-                        $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
-                        $scope.deleteScheduleButton = "Remove Saved Email";
-                        iframe.contentDocument.body.innerHTML = $scope.entitiesdetails.body;
-                    } else {
-                        $scope.savedEmail = false;
-                        $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
-                    }
-                });
-            } else {
-                companyFactory.currentCompanyGet().then(function (companyData) {
-                    $scope.companyId = companyData.d.details[0];
-                    var postData = {
-                        access_token_method: "getAccessToken"
-                    };
-                    settingsFactory.twitterPost(postData).then(function (twitterData) {
-                        var twitterData = twitterData.d.message.split(",");
-                        $scope.twitterprofileName = twitterData[2];
-                        if (!$scope.twitterprofileName)
-                            $scope.twitterprofileName = "--";
-                        yourPlanFactory.scheduledSocialPost($scope.scheduleData.schedule_id).then(function (data) {
+                if ($scope.entitiesdetails != "{}") {
+                    $scope.savedEmail = true;
+                    $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
+                    $scope.deleteScheduleButton = "Remove Saved Email";
+                    iframe.contentDocument.body.innerHTML = $scope.entitiesdetails.body;
+                } else {
+                    $scope.savedEmail = false;
+                    $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
+                }
+            });
+        } else {
+            companyFactory.currentCompanyGet().then(function (companyData) {
+                $scope.companyId = companyData.d.details[0];
+                var postData = {
+                    access_token_method: "getAccessToken"
+                };
+                settingsFactory.twitterPost(postData).then(function (twitterData) {
+                    var twitterData = twitterData.d.message.split(",");
+                    $scope.twitterprofileName = twitterData[2];
+                    if (!$scope.twitterprofileName)
+                        $scope.twitterprofileName = "--";
+                    yourPlanFactory.scheduledSocialPost($scope.scheduleData.schedule_id).then(function (data) {
 
-                            $scope.entitiesdetails = JSON.parse(data.d.details);
-                            var iframe = document.getElementById('iframeForAction');
-                            
-                            if (data.d.details != "{}") {
-                                $scope.savedEmail = true;
-                                if (entity_type === gettwitter())
-                                {
-                                    $scope.savedTemplateHeader = "SAVED TWITTER PREVIEW";
-                                } else if (entity_type === getfacebook())
-                                    $scope.savedTemplateHeader = "SAVED FACEBOOK PREVIEW";
-                                $scope.deleteScheduleButton = "Remove Saved Post";
-                                
-                                var htmlData = "<style>\n"
-                                    + ".twitter-post-preview {\n"
-                                    + "    width: 494px;\n"
-                                    + "    height: 340px !important;\n"
-                                    + "    margin: auto;\n"
-                                    + "    padding: 12px 12px 0px 12px;\n"
-                                    + "    float: none;\n"
-                                    + "    border: 1px solid rgb(223, 224, 228);\n"
-                                    + "    border-radius: 3px;\n"
-                                    + "    background-color: #FFFFFF;\n"
-                                    + "}\n"
-                                    + ".Facebook-preview {\n"
-                                    + "    width: 494px;\n"
-                                    + "    height: 455px;\n"
-                                    + "    margin: auto;\n"
-                                    + "    padding: 12px 12px 0px 12px;\n"
-                                    + "    float: none;\n"
-                                    + "    border: 1px solid rgb(223, 224, 228);\n"
-                                    + "    border-radius: 3px;\n"
-                                    + "    background-color: #FFFFFF;\n"
-                                    + "    overflow: auto;\n"
-                                    + "    margin-bottom: 65px;\n"
-                                    + "}"
-                                    + "\n"
-                                    + ".Facebook-preview-header {\n"
-                                    + "    width: 500px;\n"
-                                    + "    height: 40px;\n"
-                                    + "    float: left;\n"
-                                    + "    margin-bottom: 11px;\n"
-                                    + "}\n"
-                                    + "\n"
-                                    + ".Facebook-preview-profpic {\n"
-                                    + "    width: 40px;\n"
-                                    + "    height: 40px;\n"
-                                    + "    margin-right: 8px;\n"
-                                    + "    float: left;\n"
-                                    + "    background-color: beige;\n"
-                                    + "}\n"
-                                    + "\n"
-                                    + ".Facebook-preview-profpic > img {\n"
-                                    + "    width: 100%;\n"
-                                    + "    height: 100%;\n"
-                                    + "}\n"
-                                    + "\n"
-                                    + ".Facebook-preview-name-container {\n"
-                                    + "    width: 445px;\n"
-                                    + "    height: 100%;\n"
-                                    + "    float: inherit;\n"
-                                    + "    color: #365899;\n"
-                                    + "    font-weight: bold;\n"
-                                    + "}\n"
-                                    + "\n"
-                                    + ".Twitter-preview-name-container {\n"
-                                    + "    width: 445px;\n"
-                                    + "    height: 100%;\n"
-                                    + "    float: inherit;\n"
-                                    + "}\n"
-                                    + "\n"
-                                    + ".Facebook-preview-usercontent {\n"
-                                    + "    font-family: helvetica, arial;\n"
-                                    + "    font-weight: normal;\n"
-                                    + "    line-height: 19.32px;\n"
-                                    + "    color: rgb(20, 24, 35);\n"
-                                    + "    font-size: 14px;\n"
-                                    + "    float: left;\n"
-                                    + "}\n"
-                                    + "\n"
-                                    + ".Facebook-link-container {\n"
-                                    + "    box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 0px 1.5px inset, rgba(0, 0, 0, 0.0470588) 0px 1px 1px 0px;\n"
-                                    + "    color: rgb(20, 24, 35);\n"
-                                    + "    border: 1px solid rgba(0, 0, 0, 0.0980392);\n"
-                                    + "    float: left;\n"
-                                    + "    width: 100%;\n"
-                                    + "    margin-top: 10px;\n"
-                                    + "}\n"
-                                    + "img#prevfbimg {\n"
-                                    + "    width: 100%;\n"
-                                    + "    height: 245px;\n"
-                                    + "    margin-left: -2px;\n"
-                                    + "}"
-                                    + ".Facebook-preview-image {\n"
-                                    + "    width: 100%;\n"
-                                    + "    height: 244px;\n"
-                                    + "    background-color: #5CC2A5;\n"
-                                    + "    float: left;\n"
-                                    + "}"
-                                    + ".Facebook-preview-link-container {\n"
-                                    + "    width: 100%;\n"
-                                    + "    padding: 10px 12px 10px 12px;\n"
-                                    + "    float: left;\n"
-                                    + "    box-sizing: border-box;\n"
-                                    + "    overflow: hidden;\n"
-                                    + "}"
-                                    + ".Facebook-preview-link-title {\n"
-                                    + "    font-family: Georgia, 'lucida grande', tahoma;\n"
-                                    + "    font-size: 18px;\n"
-                                    + "    color: rgb(20, 24, 35);\n"
-                                    + "    font-weight: 500;\n"
-                                    + "    line-height: 22px;\n"
-                                    + "    margin-bottom: 5px;\n"
-                                    + "}"
-                                    + ".Facebook-preview-link-description {\n"
-                                    + "    color: rgb(20, 24, 35);\n"
-                                    + "    direction: ltr;\n"
-                                    + "    display: block;\n"
-                                    + "    font-family: sans-serif;\n"
-                                    + "    font-size: 12px;\n"
-                                    + "    line-height: 16px;\n"
-                                    + "    max-height: 80px;\n"
-                                    + "    overflow-x: hidden;\n"
-                                    + "    overflow-y: hidden;\n"
-                                    + "    word-wrap: break-word;\n"
-                                    + "    zoom: 1;\n"
-                                    + "    text-overflow: ellipsis;\n"
-                                    + "}"
-                                    + ".Facebook-preview-link-url {\n"
-                                    + "    color: rgb(145, 151, 163);\n"
-                                    + "    direction: ltr;\n"
-                                    + "    display: block;\n"
-                                    + "    font-family: sans-serif;\n"
-                                    + "    font-size: 14px;\n"
-                                    + "    line-height: 16.08px;\n"
-                                    + "    padding-top: 9px;\n"
-                                    + "    margin-bottom: 5px;\n"
-                                    + "}"
-                                    + "</style>";
-                            if (entity_type === gettwitter()) {
-                                htmlData += "<div class=\"twitter-post-preview\">\n"
-                                        + "    <div class=\"Facebook-preview-header\">\n"
-                                        + "        <div class=\"Facebook-preview-profpic\">\n"
-                                        + "            <img id=\"twitter_preview_profpic\" src=\"/BrndBot/downloadImage?imageType=COMPANY_LOGO&amp;companyId=" + $scope.companyId + "&amp;imageName=companylogo.png\">\n"
-                                        + "        </div>\n"
-                                        + "        <div class=\"Twitter-preview-name-container\">\n"
-                                        + "            <div class=\"Facebook-preview-name ng-binding\"><strong>" + $scope.twitterprofileName + "</strong><br>" + $scope.entitiesdetails.metadata.text + " " + $scope.entitiesdetails.metadata.shorturl + "</div>\n"
-                                        + "        </div>\n"
-                                        + "    </div>\n";
+                        $scope.entitiesdetails = JSON.parse(data.d.details);
+                        var iframe = document.getElementById('iframeForAction');
+
+                        if (data.d.details != "{}") {
+                            $scope.savedEmail = true;
+                            if (entity_type === gettwitter())
+                            {
+                                $scope.savedTemplateHeader = "SAVED TWITTER PREVIEW";
+                            } else if (entity_type === getfacebook())
+                                $scope.savedTemplateHeader = "SAVED FACEBOOK PREVIEW";
+                            $scope.deleteScheduleButton = "Remove Saved Post";
+
+                            var htmlData = "<style>\n"
+                                + ".twitter-post-preview {\n"
+                                + "    width: 494px;\n"
+                                + "    height: 340px !important;\n"
+                                + "    margin: auto;\n"
+                                + "    padding: 12px 12px 0px 12px;\n"
+                                + "    float: none;\n"
+                                + "    border: 1px solid rgb(223, 224, 228);\n"
+                                + "    border-radius: 3px;\n"
+                                + "    background-color: #FFFFFF;\n"
+                                + "}\n"
+                                + ".Facebook-preview {\n"
+                                + "    width: 494px;\n"
+                                + "    height: 455px;\n"
+                                + "    margin: auto;\n"
+                                + "    padding: 12px 12px 0px 12px;\n"
+                                + "    float: none;\n"
+                                + "    border: 1px solid rgb(223, 224, 228);\n"
+                                + "    border-radius: 3px;\n"
+                                + "    background-color: #FFFFFF;\n"
+                                + "    overflow: auto;\n"
+                                + "    margin-bottom: 65px;\n"
+                                + "}"
+                                + "\n"
+                                + ".Facebook-preview-header {\n"
+                                + "    width: 500px;\n"
+                                + "    height: 40px;\n"
+                                + "    float: left;\n"
+                                + "    margin-bottom: 11px;\n"
+                                + "}\n"
+                                + "\n"
+                                + ".Facebook-preview-profpic {\n"
+                                + "    width: 40px;\n"
+                                + "    height: 40px;\n"
+                                + "    margin-right: 8px;\n"
+                                + "    float: left;\n"
+                                + "    background-color: beige;\n"
+                                + "}\n"
+                                + "\n"
+                                + ".Facebook-preview-profpic > img {\n"
+                                + "    width: 100%;\n"
+                                + "    height: 100%;\n"
+                                + "}\n"
+                                + "\n"
+                                + ".Facebook-preview-name-container {\n"
+                                + "    width: 445px;\n"
+                                + "    height: 100%;\n"
+                                + "    float: inherit;\n"
+                                + "    color: #365899;\n"
+                                + "    font-weight: bold;\n"
+                                + "}\n"
+                                + "\n"
+                                + ".Twitter-preview-name-container {\n"
+                                + "    width: 445px;\n"
+                                + "    height: 100%;\n"
+                                + "    float: inherit;\n"
+                                + "}\n"
+                                + "\n"
+                                + ".Facebook-preview-usercontent {\n"
+                                + "    font-family: helvetica, arial;\n"
+                                + "    font-weight: normal;\n"
+                                + "    line-height: 19.32px;\n"
+                                + "    color: rgb(20, 24, 35);\n"
+                                + "    font-size: 14px;\n"
+                                + "    float: left;\n"
+                                + "}\n"
+                                + "\n"
+                                + ".Facebook-link-container {\n"
+                                + "    box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 0px 1.5px inset, rgba(0, 0, 0, 0.0470588) 0px 1px 1px 0px;\n"
+                                + "    color: rgb(20, 24, 35);\n"
+                                + "    border: 1px solid rgba(0, 0, 0, 0.0980392);\n"
+                                + "    float: left;\n"
+                                + "    width: 100%;\n"
+                                + "    margin-top: 10px;\n"
+                                + "}\n"
+                                + "img#prevfbimg {\n"
+                                + "    width: 100%;\n"
+                                + "    height: 245px;\n"
+                                + "    margin-left: -2px;\n"
+                                + "}"
+                                + ".Facebook-preview-image {\n"
+                                + "    width: 100%;\n"
+                                + "    height: 244px;\n"
+                                + "    background-color: #5CC2A5;\n"
+                                + "    float: left;\n"
+                                + "}"
+                                + ".Facebook-preview-link-container {\n"
+                                + "    width: 100%;\n"
+                                + "    padding: 10px 12px 10px 12px;\n"
+                                + "    float: left;\n"
+                                + "    box-sizing: border-box;\n"
+                                + "    overflow: hidden;\n"
+                                + "}"
+                                + ".Facebook-preview-link-title {\n"
+                                + "    font-family: Georgia, 'lucida grande', tahoma;\n"
+                                + "    font-size: 18px;\n"
+                                + "    color: rgb(20, 24, 35);\n"
+                                + "    font-weight: 500;\n"
+                                + "    line-height: 22px;\n"
+                                + "    margin-bottom: 5px;\n"
+                                + "}"
+                                + ".Facebook-preview-link-description {\n"
+                                + "    color: rgb(20, 24, 35);\n"
+                                + "    direction: ltr;\n"
+                                + "    display: block;\n"
+                                + "    font-family: sans-serif;\n"
+                                + "    font-size: 12px;\n"
+                                + "    line-height: 16px;\n"
+                                + "    max-height: 80px;\n"
+                                + "    overflow-x: hidden;\n"
+                                + "    overflow-y: hidden;\n"
+                                + "    word-wrap: break-word;\n"
+                                + "    zoom: 1;\n"
+                                + "    text-overflow: ellipsis;\n"
+                                + "}"
+                                + ".Facebook-preview-link-url {\n"
+                                + "    color: rgb(145, 151, 163);\n"
+                                + "    direction: ltr;\n"
+                                + "    display: block;\n"
+                                + "    font-family: sans-serif;\n"
+                                + "    font-size: 14px;\n"
+                                + "    line-height: 16.08px;\n"
+                                + "    padding-top: 9px;\n"
+                                + "    margin-bottom: 5px;\n"
+                                + "}"
+                                + "</style>";
+                        if (entity_type === gettwitter()) {
+                            htmlData += "<div class=\"twitter-post-preview\">\n"
+                                    + "    <div class=\"Facebook-preview-header\">\n"
+                                    + "        <div class=\"Facebook-preview-profpic\">\n"
+                                    + "            <img id=\"twitter_preview_profpic\" src=\"/BrndBot/downloadImage?imageType=COMPANY_LOGO&amp;companyId=" + $scope.companyId + "&amp;imageName=companylogo.png\">\n"
+                                    + "        </div>\n"
+                                    + "        <div class=\"Twitter-preview-name-container\">\n"
+                                    + "            <div class=\"Facebook-preview-name ng-binding\"><strong>" + $scope.twitterprofileName + "</strong><br>" + $scope.entitiesdetails.metadata.text + " " + $scope.entitiesdetails.metadata.shorturl + "</div>\n"
+                                    + "        </div>\n"
+                                    + "    </div>\n";
 //                    if($scope.entitiesdetails.metadata.shorturl) {
 //                    htmlData += "    <div class=\"Facebook-preview-usercontent ng-binding\">"+$scope.entitiesdetails.metadata.shorturl+"</div>\n"
 //                    }
-                                htmlData += "    <div class=\"Facebook-link-container\">\n"
-                                        + "        <div ng-show=\"entitiesdetails.image_type == 'gallery'\">\n"
-                                        + "            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageName=" + $scope.entitiesdetails.image_name + "&imageType=GALLERY&companyId=" + $scope.companyId + "\">\n"
-                                        + "        </div>\n"
-                                        + "    </div>\n"
-                                        + "</div>";
-                            } else if (entity_type === getfacebook()) {
-                                htmlData += "<div class=\"Facebook-preview\">\n"
-                                        + "                                <div class=\"Facebook-preview-header\">\n"
-                                        + "                                    <div class=\"Facebook-preview-profpic\"><img id=\"fb_preview_profpic\" src=\"/BrndBot/downloadImage?imageType=COMPANY_LOGO&amp;companyId=" + $scope.companyId + "&amp;imageName=companylogo.png\"></div>\n"
-                                        + "                                    <div class=\"Facebook-preview-name-container\">\n"
-                                        + "                                        <div class=\"Facebook-preview-name ng-binding\">" + $scope.entitiesdetails.metadata.ManagedPage + "</div>\n"
-                                        + "                                    </div>\n"
-                                        + "                                </div>\n"
-                                        + "                                <div class=\"Facebook-preview-usercontent ng-binding\">" + $scope.entitiesdetails.metadata.post_text + "</div>\n"
-                                        + "                                <div class=\"Facebook-link-container\">\n"
-                                        + "                                    <div class=\"Facebook-preview-image\">\n"
-                                        + "                                        <div ng-show=\"entitiesdetails.image_type == 'gallery'\">\n"
-                                        + "                                            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageType=GALLERY&amp;imageName=" + $scope.entitiesdetails.image_name + "&amp;companyId=" + $scope.companyId + "\">\n"
-                                        + "                                        </div>\n"
-                                        + "                                        <div ng-show=\"entitiesdetails.image_type == 'layout'\" style=\"display: none;\">\n"
-                                        + "                                            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageType=LAYOUT_IMAGES&amp;imageName=13.jpg\">\n"
-                                        + "                                        </div>\n"
-                                        + "                                        <div ng-show=\"entitiesdetails.image_type == 'url'\" style=\"display: none;\">\n"
-                                        + "                                            <img id=\"prevfbimg\" src=\"13.jpg\">\n"
-                                        + "                                        </div>\n"
-                                        + "                                        \n"
-                                        + "                                    </div>\n"
-                                        + "                                    <div class=\"Facebook-preview-link-container\">\n"
-                                        + "                                        <div class=\"Facebook-preview-link-title ng-binding\">" + $scope.entitiesdetails.metadata.title + "</div>\n"
-                                        + "                                        <div class=\"Facebook-preview-link-description ng-binding\">" + $scope.entitiesdetails.metadata.description + "</div>\n"
-                                        + "                                        <div class=\"Facebook-preview-link-url ng-binding\">" + $scope.entitiesdetails.metadata.url + "</div>\n"
-                                        + "                                    </div>\n"
-                                        + "                                </div>\n"
-                                        + "                            </div>";
-                            }
-                                
-                                iframe.contentDocument.body.innerHTML = htmlData;
-                            } else {
-                                $scope.savedEmail = false;
-                                $scope.actionTypeNoTemplateMessage = "No post saved to this action.";
-                            }
-                        });
+                            htmlData += "    <div class=\"Facebook-link-container\">\n"
+                                    + "        <div ng-show=\"entitiesdetails.image_type == 'gallery'\">\n"
+                                    + "            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageName=" + $scope.entitiesdetails.image_name + "&imageType=GALLERY&companyId=" + $scope.companyId + "\">\n"
+                                    + "        </div>\n"
+                                    + "    </div>\n"
+                                    + "</div>";
+                        } else if (entity_type === getfacebook()) {
+                            htmlData += "<div class=\"Facebook-preview\">\n"
+                                    + "                                <div class=\"Facebook-preview-header\">\n"
+                                    + "                                    <div class=\"Facebook-preview-profpic\"><img id=\"fb_preview_profpic\" src=\"/BrndBot/downloadImage?imageType=COMPANY_LOGO&amp;companyId=" + $scope.companyId + "&amp;imageName=companylogo.png\"></div>\n"
+                                    + "                                    <div class=\"Facebook-preview-name-container\">\n"
+                                    + "                                        <div class=\"Facebook-preview-name ng-binding\">" + $scope.entitiesdetails.metadata.ManagedPage + "</div>\n"
+                                    + "                                    </div>\n"
+                                    + "                                </div>\n"
+                                    + "                                <div class=\"Facebook-preview-usercontent ng-binding\">" + $scope.entitiesdetails.metadata.post_text + "</div>\n"
+                                    + "                                <div class=\"Facebook-link-container\">\n"
+                                    + "                                    <div class=\"Facebook-preview-image\">\n"
+                                    + "                                        <div ng-show=\"entitiesdetails.image_type == 'gallery'\">\n"
+                                    + "                                            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageType=GALLERY&amp;imageName=" + $scope.entitiesdetails.image_name + "&amp;companyId=" + $scope.companyId + "\">\n"
+                                    + "                                        </div>\n"
+                                    + "                                        <div ng-show=\"entitiesdetails.image_type == 'layout'\" style=\"display: none;\">\n"
+                                    + "                                            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageType=LAYOUT_IMAGES&amp;imageName=13.jpg\">\n"
+                                    + "                                        </div>\n"
+                                    + "                                        <div ng-show=\"entitiesdetails.image_type == 'url'\" style=\"display: none;\">\n"
+                                    + "                                            <img id=\"prevfbimg\" src=\"13.jpg\">\n"
+                                    + "                                        </div>\n"
+                                    + "                                        \n"
+                                    + "                                    </div>\n"
+                                    + "                                    <div class=\"Facebook-preview-link-container\">\n"
+                                    + "                                        <div class=\"Facebook-preview-link-title ng-binding\">" + $scope.entitiesdetails.metadata.title + "</div>\n"
+                                    + "                                        <div class=\"Facebook-preview-link-description ng-binding\">" + $scope.entitiesdetails.metadata.description + "</div>\n"
+                                    + "                                        <div class=\"Facebook-preview-link-url ng-binding\">" + $scope.entitiesdetails.metadata.url + "</div>\n"
+                                    + "                                    </div>\n"
+                                    + "                                </div>\n"
+                                    + "                            </div>";
+                        }
+
+                            iframe.contentDocument.body.innerHTML = htmlData;
+                        } else {
+                            $scope.savedEmail = false;
+                            $scope.actionTypeNoTemplateMessage = "No post saved to this action.";
+                        }
                     });
                 });
-            }
+            });
+        }
 
-        };
+    };
     
     $scope.updateAction = function (scheduleUpdatedData) {
         
@@ -506,29 +557,33 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         
         companyMarketingProgramFactory.approveStatusPost(approval_type).then(function(data){
             if (data.toString() == "true"){
-            alert(templetestatussaved);
-            $scope.getCampaigns();
+                if($scope.action_template_status == "Template Saved")
+                    $scope.action_template_status = "Approved";
+                else
+                    $scope.action_template_status = "Template Saved";
+                alert(templetestatussaved);
+                $scope.getCampaigns();
           }else {
               alert(savingrecordproblem);
           }
         });
-        $http({
-            method: 'POST',
-            url: getHost()+'approveStatus',
-            headers: {'Content-Type':'application/json'},
-            data: JSON.stringify(approval_type)
-        }).success(function (data, status, headers, config) {
-           
-          if (data == "true"){
-            alert(templetestatussaved);
-            window.open(getHost() + 'user/marketing', "_self");
-          }else {
-              alert(savingrecordproblem);
-          }
-        }).error(function (data, status, headers, config) {
-  
-            alert(nodataerror);
-        });      
+//        $http({
+//            method: 'POST',
+//            url: getHost()+'approveStatus',
+//            headers: {'Content-Type':'application/json'},
+//            data: JSON.stringify(approval_type)
+//        }).success(function (data, status, headers, config) {
+//           
+//          if (data == "true"){
+//            alert(templetestatussaved);
+//            window.open(getHost() + 'user/marketing', "_self");
+//          }else {
+//              alert(savingrecordproblem);
+//          }
+//        }).error(function (data, status, headers, config) {
+//  
+//            alert(nodataerror);
+//        });      
         
     };
     
