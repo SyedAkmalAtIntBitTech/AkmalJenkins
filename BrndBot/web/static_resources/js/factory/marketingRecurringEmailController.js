@@ -93,5 +93,5 @@
         });
         return deffered.promise;
     };   
-    return service;
+    return marketingRecurringEmailFactoryObject;
 });
