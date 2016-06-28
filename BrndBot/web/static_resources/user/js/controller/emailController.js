@@ -23,6 +23,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.htmlTagId = "";
         $scope.companyId = 0;
         $scope.fromAddress = getDefaultEmailId();
+        $scope.schedulePopup = false;
         var sliderDialog = "#emaileditorexternalpopup";
         //OnPageLoad
         $scope.emailEditorInit = function () {
@@ -694,11 +695,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.emailPreviewPopup = true;
         };
 
-        $scope.continueEmailDetailsOnClick = function () {
-            $scope.emailSendPopup = true;
-            $("#fade").show();
-        };
-               
         $scope.sendEmailOnClick = function (fromName, fromAddress, replyAddress, toAddress) {
             var sendEmailData = JSON.stringify({
                 from_name: fromName,
@@ -722,16 +718,63 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 }
             });
         };
-                       
+
+
+        $scope.continueEmailDetailsOnClick = function () {
+            $scope.schedulePopup = false;
+            $scope.postTypeSelectionPopUp = true;
+            $scope.postTo = "Send Now";
+        };
+
+
+        $scope.existingAction = function () {
+            $scope.existingActionPopup = true;
+            $scope.createNewActionPopup = false;
+        };
+
+        $scope.createNewAction = function () {
+            $scope.createNewActionPopup = true;
+            $scope.existingActionPopup = false;
+        };
+
         $scope.closeMindbodyPopup = function () {
             $scope.emailMindBodyPopup = false;
             $scope.overlayFade = false;
         };
 
+        $scope.getAllMaketingPrograms = function (selectedSocialmedia) {
+            companyMarketingProgramFactory.getAllUserMarketingProgramsGet().then(function (data) {
+                $scope.defaultmarketingprogram = [{program_id: 0, name: '--General--', id: 0}];
+                $scope.marketing_programs = $scope.defaultmarketingprogram.concat(data);
+                $scope.selectedMarketingProgrma = $scope.marketing_programs[0].program_id;
+                if (selectedSocialmedia === "facebook") {
+                    $scope.getFacebookActions("0");
+                } else if (selectedSocialmedia === "twitter") {
+                    $scope.getTwitterActions("0");
+                }
+            });
+        };
+
+        $scope.getActions = function (selectedSocialmedia, selectedMarketingProgrmaId) {
+            $scope.selectedMarketingProgrma = selectedMarketingProgrmaId;
+            if (selectedSocialmedia === "facebook") {
+                $scope.getFacebookActions(selectedMarketingProgrmaId);
+            } else if (selectedSocialmedia === "twitter") {
+                $scope.getTwitterActions(selectedMarketingProgrmaId);
+            }
+        };
+
+        $scope.setAction = function (selectedAction) {
+            alert("");
+            alert(selectedAction);
+            $scope.socialAction = selectedAction;
+        };
+
+
         $scope.previewCloseButton = function () {
             $scope.emailPreviewPopup = false;
             $("#fade").hide();
-            
+
         };
 
         $scope.editFooter = function () {
@@ -746,16 +789,73 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.emailSendPopup = false;
             $("#fade").hide();
         };
-        
+
         $scope.scheduleEmailPopup = function () {
             $scope.showSchedulePopup = true;
             $("#schedulepopup").show();
         };
-        
+
         $scope.closeschedulepopup = function () {
             $scope.showSchedulePopup = false;
         };
-               
+
+
+//        email scheduling        
+        $scope.openPostOrShedulePopup = function (selectedSocialmedia, postData) {
+            $scope.postTypeSelectionPopUp = true;
+            $scope.postData = postData;
+            $scope.selectedSocialmedia = selectedSocialmedia;
+            if (selectedSocialmedia === "facebook") {
+                $scope.postTo = "Post to Facebook";
+            } else if (selectedSocialmedia === "twitter") {
+                $scope.postTo = "Post to Twitter";
+            }
+        };
+
+        $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
+            alert(JSON.stringify(postData));
+            if (selectedSocialmedia === "facebook") {
+                var data = JSON.stringify({
+                    imageToPost: $scope.selectImageName,
+                    accessToken: $rootScope.CurrentFbAccessToken,
+                    postText: postData.shareText,
+                    title: postData.linkTitle,
+                    url: postData.url,
+                    description: postData.linkDescription,
+                    imageType: $scope.selectImageType
+                });
+
+                socialPostFactory.facebookPost(data).then(function (data) {
+                    alert(JSON.stringify(data));
+                });
+            } else if (selectedSocialmedia === "twitter") {
+
+            }
+        };
+
+        $scope.openSchedulePopup = function (selectedSocialmedia) {
+            $scope.postTypeSelectionPopUp = false;
+            $scope.schedulePopup = true;
+            $scope.existingActionPopup = true;
+            $scope.createNewActionPopup = false;
+            $scope.activeClassExisting = 'active';
+            $scope.activeClassNew = '';
+            $scope.scheduleButtonData = "Schedule";
+//            if (selectedSocialmedia === "facebook") {
+//                $scope.scheduleButtonData = "Schedule this Facebook Post";
+//            } else if (selectedSocialmedia === "twitter") {
+//                $scope.scheduleButtonData = "Schedule this twitter Post";
+//            }
+        };
+
+        $scope.hidePopup = function (popupName) {
+            if (popupName === "sendOrSchedulePopup") {
+                $scope.postTypeSelectionPopUp = false;
+            } else if (popupName === "schedulePopup") {
+                $scope.schedulePopup = false;
+            }
+        };
+
     }]);
 
 
