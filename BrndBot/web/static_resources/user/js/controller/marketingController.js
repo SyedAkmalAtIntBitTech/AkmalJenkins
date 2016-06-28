@@ -438,7 +438,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     
                     
                     marketingRecurringEmailFactory.addRecurringActionPost(recuring_action).then(function (data) {
-                    alert("first");
                     alert(JSON.stringify(data));
                         if (data === "true") {
                             alert("save");
@@ -467,7 +466,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     });
 
                     marketingRecurringEmailFactory.addupdateRecurringActionPost(recuring_action).then(function (data) {
-                        alert("second");
                         alert(JSON.stringify(data));
                         if ((data === "true") && (entity_no_email_template === "true")) {
                             alert("Details saved succesfully.");
@@ -502,7 +500,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 
                     marketingRecurringEmailFactory.addupdateRecurringActionPost(recuring_action).then(function (data) {
-                        alert("third");
                         alert(JSON.stringify(data));
                         if ((data === "true")) {
                             alert("Details saved succesfully.");
@@ -520,7 +517,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 
                     settingsFactory.getAllPreferencesGet().then(function (data) {
-                        alert("fourth");
                         var footerData = JSON.parse(data.d.details);
                         if (!footerData.userProfile) {
                             $("#emailFooterPopup").show();
