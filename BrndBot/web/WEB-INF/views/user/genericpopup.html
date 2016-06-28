@@ -12,8 +12,8 @@
                     <div class="top-navbar-title-container"><span class="h4 top-navbar-title"> {{generalActionDetailsHeader}} Action Detail</span></div>
                     <div class="top-nav-cta-container">
                         
-                        <div class="approve-button-detail md-button" id="marketingemailtemplatesave" ng-show="action_template_status == 'Template Saved'" ng-click="Approval(schedule_id, 'approved', masterActionType)">{{templateApproveButton}}</div>
-                        <div class="approve-button-detail md-button" id="marketingemailapprove" ng-show="action_template_status == 'Approved'" ng-click="Approval(schedule_id, 'template_saved', masterActionType)">{{templateDisapproveButton}}</div>
+                        <div class="approve-button-detail md-button" id="marketingemailtemplatesave" ng-show="action_template_status === 'Template Saved'" ng-click="Approval(schedule_id, 'approved', masterActionType)">{{templateApproveButton}}</div>
+                        <div class="approve-button-detail md-button" id="marketingemailapprove" ng-show="action_template_status === 'Approved'" ng-click="Approval(schedule_id, 'template_saved', masterActionType)">{{templateDisapproveButton}}</div>
                         <div class="delete-button-detail md-button" ng-click="deleteSchedule(schedule_id, 'delete', generalActionDetailsHeader,'')">Delete Action</div>
                     </div>    
                 </div>
@@ -25,7 +25,7 @@
                             <a class="h3-subnav">Action Details</a>
                         </li>
                         <li class="top-subnav-links-detail top-subnav-links-detail" id="emailpost1" ng-click="setTab('savedDetails')" ng-class="top_subnav_link_active_savedDetail_Class"> <a class="h3-subnav">Saved Email</a></li>
-                        <li class="top-subnav-links-detail  top-subnav-links-detail-last" id="emailnote1" ng-click="setTab('notes')" ng-class="top_subnav_link_active_notesDetail_Class" ng-if="isRecurring=false"> <a class="h3-subnav">Notes</a></li>
+                        <li class="top-subnav-links-detail  top-subnav-links-detail-last" id="emailnote1" ng-click="setTab('notes')" ng-class="top_subnav_link_active_notesDetail_Class" ng-if="isRecurring===false"> <a class="h3-subnav">Notes</a></li>
                     </ul>
                 </div>
             </div>

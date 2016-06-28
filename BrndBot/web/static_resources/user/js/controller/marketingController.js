@@ -211,6 +211,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
     
     $scope.getRecurringScheduleDetails = function (schedule_id, template_status, till_date, schedule_time, entity_type, schedule_title, schedule_desc, date_status,days)
     {
+        alert(template_status);
         $scope.isRecurring = true;
         $scope.savedEmail = false;
         $scope.schedule_id = schedule_id;
@@ -254,10 +255,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
             }
         });
+        alert($scope.isRecurring);
     };
 //            emailautomation.scheduledEntityListId,emailautomation.status, emailautomation.tillDate,emailautomation.dateTime,emailautomation.actionType,emailautomation.programTemplateName,emailautomation.description,emailautomation.postDateStatus,emailautomation.days
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, action_status, days, marketingName)
     {
+        alert(template_status);
 //        $scope.entities_selected_time =schedule_time;
 //        $scope.entities_selected_time = $filter('date')(schedule_time, "MMM dd yyyy");
         $scope.isRecurring = false;
@@ -521,7 +524,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 });
             });
         }
-
+        alert($scope.isRecurring);
     };
     
     $scope.updateAction = function (scheduleUpdatedData) {
@@ -613,8 +616,15 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         if (confirm(message)) {
             alert(JSON.stringify(responseMessage))
             yourPlanFactory.changeSchedulePost(requestBody).then(function (data){
+                if (type == "remove") {
+                    $scope.savedEmail = false;
+                    $scope.action_template_status = "No Template";
+                }
+                else
+                {
+                    $scope.closePopup();
+                }
                 $scope.getCampaigns();
-                $scope.closePopup();
             });
         }
     };

@@ -11,6 +11,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
     $scope.master_note = getnote();
     $scope.savedEmail=false;
     $scope.schedule_id='';
+    $scope.isRecurring = false;
     // use scope.onPikadaySelect for older scope syntax
     $scope.onPikadaySelect = function onPikadaySelect(pikaday) {
       alert(pikaday.toString());
@@ -215,6 +216,7 @@ $scope.addDays = function(theDate, days) {
     
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active)
     {
+        
 //        $scope.entities_selected_time =schedule_time;
         $scope.entities_selected_time = $filter('date')(schedule_time, "MMM dd yyyy");
         $scope.savedEmail = false;
@@ -480,6 +482,7 @@ $scope.addDays = function(theDate, days) {
                 });
             });
         }
+        alert($scope.isRecurring);
     };
     
     
@@ -600,8 +603,15 @@ $scope.addDays = function(theDate, days) {
         if (confirm(message)) {
             alert(JSON.stringify(responseMessage))
             yourPlanFactory.changeSchedulePost(requestBody).then(function (data){
+                if (type == "remove") {
+                    $scope.savedEmail = false;
+                    $scope.action_template_status = "No Template";
+                }
+                else
+                {
+                    $scope.closePopup();
+                }
                 $scope.getCampaigns();
-                $scope.closePopup();
             });
         }
     };
