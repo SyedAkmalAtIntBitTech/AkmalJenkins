@@ -538,7 +538,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     type: getemail()
                 };
                 scheduleActionsFactory.getActionsPost(actionCallData).then(function (actions) {
-                    var parseData = JSON.parse(JSON.parse(data1.d.details));
+                    var parseData = JSON.parse(JSON.parse(actions.d.details));
                     $scope.email_actions = parseData;
                 });
                 $scope.marketing_programs = marketingPrograms;

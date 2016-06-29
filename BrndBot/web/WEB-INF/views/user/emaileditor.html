@@ -66,10 +66,10 @@
                     </li>
                 </ul>
 
-                <ul class="block-list" id="stylediv" ng-show="styledivheader">
+                <ul class="block-list"  ng-show="styledivheader">
                     <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.modelId}}" ng-click="addActive('stylelistid' + styles.modelId)">
                         <div class="block-name">
-                            <img id="{{styles.modelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" ng-click="showText('{{styles.modelId}}')" width="100%" />
+                            <img id="{{styles.modelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" ng-click="addHTMLInEmailEditor(styles.modelId)" width="100%" />
                         </div>
                     </li>
                 </ul>
