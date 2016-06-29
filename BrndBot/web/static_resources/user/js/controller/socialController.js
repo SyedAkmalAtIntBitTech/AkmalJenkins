@@ -450,7 +450,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             }
         };
         $scope.schedulePostToFacebook = function (postData) {
-            var sendData = sendData = $scope.getScheduleData($scope.selectedMarketingProgrma,postData,getfacebook());
+            var sendData =$scope.getScheduleData($scope.selectedMarketingProgrma,postData,getfacebook());
             if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
                 scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (data) {
                     alert(JSON.stringify(data));
@@ -462,7 +462,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             }
         };
         $scope.schedulePostToTwitter = function () {
-            var sendData = sendData = $scope.getScheduleData($scope.selectedMarketingProgrma,gettwitter());
+            var sendData = $scope.getScheduleData($scope.selectedMarketingProgrma,gettwitter());
             if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
 //                scheduleActionsFactory.scheduleSocialPostActionsURL();
             } else {
