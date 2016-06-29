@@ -9,7 +9,7 @@
     .rcorners2 {
     width: 30px;
     height: 23px;
-    background: #DFDFDF url(../img/icon-sprite.png) no-repeat 0px -252px;
+    background: #DFDFDF url('images/backbutton.svg') no-repeat 0px -252px;
     cursor: pointer;
     position: absolute;
     margin: -10px 0px 0px -12px;
@@ -77,11 +77,81 @@
         <!--...................tinyMce test code...............-->
         <div  class="emailEditor-page-background" style="width: 75%; height: 100%;float: left;">
             <div style="max-height: 62%;overflow: auto">
-                <div  id ="defaultBlock" class="editable" ng-class="{rcorners2: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+                <div  id ="defaultBlock" >
+                     <div class="editor_rightside ui-sortable" style="min-height: 438px; width: 1275px;">
 
-                    Your emai footer is the same on every email. You 
-                    see the footer in this email by previewing your email. To edit
-                    the footer click email footer settings.
+            <div class="emailrender ui-sortable" style="min-height: 523px; height: auto;">
+                <div class="module">
+                    <div class="view">
+                        <table width="100%" bgcolor="#2a2a2a" cellpadding="0" cellspacing="0" border="0" >
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <table bgcolor="#d41b29" width="600" cellpadding="0" cellspacing="0" border="0" align="center" class="devicewidth">
+                                            <div class="innerbg"></div>
+                                            <div class="addremove" style="margin-left: 975px;">
+                                                <div class="drag"></div>
+                                                <div class="remove"></div>
+
+                                            </div>
+                                            <tbody>
+                                                <tr>
+                                                    <td width="100%">
+
+                                                        <table width="600" align="center" cellspacing="0" cellpadding="0" border="0" class="devicewidth">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td align="center" style="font-family: Helvetica, arial, sans-serif; font-size: 24px; color: #ffffff; padding: 15px 0;" st-content="heading" id="mce_20" class="mce-content-body mce-edit-focus" tabindex="-1" contenteditable="true" spellcheck="false"><p>Latest from Blog</p></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!-- End of heading --><!-- article -->
+                <div class="module">
+                    <div class="view">
+                        <table width="100%" bgcolor="#2a2a2a" cellpadding="0" cellspacing="0" border="0" st-sortable="left-image">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <table bgcolor="#ffffff" width="600" cellpadding="0" cellspacing="0" border="0" align="center" class="devicewidth">
+                                            <div class="innerbg"></div>
+                                            <div class="addremove" style="margin-left: 945px;">
+                                                <div class="drag"></div>
+                                                <div class="remove"></div>
+                                                    
+                                            </div>
+                                            <tbody><tr><td width="100%">
+                                                        <table width="600" cellpadding="0" cellspacing="0" border="0" align="center" class="devicewidth"><tbody><!-- Spacing --><tr><td height="20"></td>
+                                                                </tr><!-- Spacing --><tr><td>
+                                                                        <table width="560" align="center" border="0" cellpadding="0" cellspacing="0" class="devicewidthinner"><tbody><tr><td>
+                                                                                        <!-- start of text content table -->
+                                                                                        <table width="140" align="left" border="0" cellpadding="0" cellspacing="0" class="devicewidthinner"><tbody><!-- image --><tr><td width="140" height="90" align="center">
+                                                                                                        <div class="imgpop"><div class="uploader_wrap" style="width: 140px; margin-top: 25px; opacity: 0;"><div class="upload_buttons"><div class="img_link"></div><div class="img_upload"></div><div class="img_edit" style="visibility: visible;"></div></div></div><img src="https://stamplia.com/edit/44106_g3vgfwcpy0gs0wok8oggsoc00ock0wow4ccw004o080kk04ks_83897/img/blog.png" alt="" border="0" width="140" height="90" style="display:block; border:none; outline:none; text-decoration:none;" label="articleimage" st-image="left-image" id="laih0l1eck1rv54e9xr8jjor"></div></td>
+                                                                                                </tr></tbody></table><!-- start of right column --><table width="400" align="right" border="0" cellpadding="0" cellspacing="0" class="devicewidthinner"><tbody><!-- title --><tr><td style="font-family: Helvetica, arial, sans-serif; font-size: 18px; color: #262626; text-align:left; line-height: 20px;" class="padding-top15 mce-content-body" st-content="title" id="mce_21" tabindex="-1" contenteditable="true" spellcheck="false"><p>Lorem ipsum Sit Dolor</p></td>
+                                                                                                </tr><!-- end of title --><!-- Spacing --><tr><td width="100%" height="10"></td>
+                                                                                                </tr><!-- Spacing --><!-- content --><tr><td style="font-family: Helvetica, arial, sans-serif; font-size: 14px; color: #4f5458; text-align:left; line-height: 20px;" st-content="paragraph" id="mce_22" class="mce-content-body" tabindex="-1" contenteditable="true" spellcheck="false"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p></td>
+                                                                                                </tr><!-- end of content --></tbody></table><!-- end of right column --></td>
+                                                                                </tr></tbody></table></td>
+                                                                </tr><!-- Spacing --><tr><td height="20"></td>
+                                                                </tr><!-- Spacing --><!-- bottom-border --><tr><td width="100%" bgcolor="#d41b29" height="3" style="font-size: 1px; line-height: 1px;">&nbsp;</td>
+                                                                </tr><!-- /bottom-border --></tbody></table></td>
+                                                </tr></tbody></table></td>
+                                </tr></tbody></table></div></div><!-- end of article --><!-- article --><!-- end of article -->
+                <!-- Start of seperator -->
+                <div class="module"><div class="view"><table width="100%" bgcolor="#2a2a2a" cellpadding="0" cellspacing="0" border="0" st-sortable="seperator"><tbody><tr><td>
+                                        <table width="600" align="center" cellspacing="0" cellpadding="0" border="0" class="devicewidth"><div class="innerbg"></div><div class="addremove" style="margin-left: 945px;"><div class="drag"></div><div class="remove"></div></div><tbody><tr><td align="center" height="30" style="font-size:1px; line-height:1px;" st-content="separator" id="mce_25" class="mce-content-body" tabindex="-1" contenteditable="true" spellcheck="false"><p>&nbsp;</p></td>
+                                                </tr></tbody></table></td>
+                                </tr></tbody></table></div></div><!-- End of seperator --><!-- footer -->
+            </div>
+        </div>
                 </div>
             </div>
             <div class="emailEditor-leftCol float-lt" style="">
@@ -216,3 +286,340 @@
 <script type="text/javascript" src="js/plugins/save.min.js"></script>
 <script type="text/javascript" src="js/plugins/quote.min.js"></script>
 <script type="text/javascript" src="js/plugins/link.min.js"></script>-->
+<script>
+//            function dragactions() {
+//
+//                $('.view').find('table:first').find('td:first').mouseenter(function () {
+//                    $(this).find('table:first').addClass('selecthover');
+//                });
+//                $('.view').find('table:first').find('td:first').mouseleave(function () {
+//                    $(this).find('table:first').removeClass('selecthover');
+//                });
+//
+//
+//
+//            }
+//
+//
+///////////COLOR SELECTOR///////////////////////
+//            function colorselector() {
+//
+//                $('.colorSelectorinner').hover(function () {
+//                    var seldiv = $(this);
+//
+//                    $(seldiv).ColorPicker({
+//                        color: '#0000ff',
+//                        onShow: function (colpkr) {
+//                            $(colpkr).fadeIn(500);
+//                            return false;
+//                        },
+//                        onHide: function (colpkr) {
+//                            $(colpkr).fadeOut(500);
+//                            return false;
+//                        },
+//                        onChange: function (hsb, hex, rgb) {
+//                            $(seldiv).css('background-color', '#' + hex).attr('bgcolor', '#' + hex);
+//                            //var color = $(this).css( "background-color" );
+//                            $(seldiv).parent('[st-bgcolor="edit"]').attr('bgcolor', '#' + hex);
+//                            //$('.sort table:first td:first table:first').css('backgroundColor', '#' + hex).attr('bgcolor','#' + hex);
+//                        }
+//                    });
+//
+//                });
+//
+//            }
+
+
+
+            $(document).ready(function () {
+                alert("");
+                $('.view').find('table:first').find('td:first').mouseenter(function () {
+                    $(this).find('table:first').addClass('selecthover');
+                });
+                $('.view').find('table:first').find('td:first').mouseleave(function () {
+                    $(this).find('table:first').removeClass('selecthover');
+                });
+
+                $(".editor_rightside .emailrender").sortable({
+                    connectWith: ".module",
+                    opacity: .8,
+                    handle: ".drag",
+                    axis: "y",
+                    placeholder: 'highlight',
+                    helper: function () {
+                        return $("<div class='highlight' style='height:40px;text-align:center;line-height:40px;'><div style='background-color:#1abc9c;width:600px;margin:auto; color:#ffffff;'>Moving</div></div>");
+                    }
+                });
+
+                $(".modules_sidebar .module").draggable({
+                    connectToSortable: ".emailrender",
+                    placeholder: "highlight",
+                    helper: function () {
+                        var modimg = $(this).find('.mod_thumb img').attr('src');
+                        return $("<div style='position:absolute;background-color:#ffffff;border-radius:3px;border:1px solid #dadada;width:40px;height:40px;'><img src='" + modimg + "' width='40' height='40'></div>");
+                    },
+                    cursorAt: {left: -1, top: -10},
+                    // start:function(){
+                    // 	var winh=$(".emailrender").height();
+                    //     $(".emailrender").css("height",winh+100);
+                    // },
+                    drag: function (e, t) {
+                        t.helper.width(40);
+
+                        t.helper.find('.preview').remove();
+                        t.helper.find('.module').css({"background": "none!important", "border": "none!important"});
+                        $('.emailrender').find('.preview').remove();
+                        //$(".emailrender").css("padding-bottom", "90px");
+                    },
+                    stop: function () {
+                        $('.view').find('table:first').find('table:first .colorSelectorinner:first').css({"margin-left": "-20px"});
+                        $('.emailrender a').click(function (event) {
+                            event.preventDefault();
+                        });
+
+                        //mouseover();
+                        //handleJsIds()
+                        dragactions();
+                        move_up_down();
+                        colorselector();
+                        tinymcereload();
+                        $('.innerbg').mouseenter(function () {
+                            var seldiv = $(this).parents('[st-sortable]');
+                            $(this).colpick({
+                                layout: 'hex',
+                                submit: 0,
+                                onChange: function (hsb, hex, rgb, fromSetColor) {
+                                    $(seldiv).find('table:first').attr('bgcolor', '#' + hex);
+                                }
+                            });
+                        });
+
+                        $('.buttonbg').mouseenter(function () {
+                            var seldiv = $(this).parent('[st-button]');
+                            $(this).colpick({
+                                layout: 'hex',
+                                submit: 0,
+                                onChange: function (hsb, hex, rgb, fromSetColor) {
+                                    seldiv.attr('bgcolor', '#' + hex);
+                                    seldiv.css('background-color', '#' + hex);
+                                }
+                            });
+                        });
+                        //monkey
+                        //$('.imgpop').prepend('<div class="uploader_wrap"><div class="upload_buttons"><div class="img_link"></div><div class="img_upload"></div></div></div>');
+                        upload_buttons();
+
+
+                        //$('[st-content]')attr("mc:allowdesigner","");
+                        //$('[st-content]').attr(" mc:allowtext","contentattr");
+
+                        //monkey
+                        // var winh=$(".emailrender").height();
+                        // $(".emailrender").css("height",winh-100);
+
+
+                    }
+                });
+
+
+
+            });
+
+
+
+
+        </script>
+        <script>
+            $(document).ready(function () {
+                alert("ready");
+                dragactions();
+                removeElm() ;
+            });
+            function dragactions() {
+                alert("");
+                $('.view').find('table:first').find('td:first').mouseenter(function () {
+                    $(this).find('table:first').addClass('selecthover');
+                });
+                $('.view').find('table:first').find('td:first').mouseleave(function () {
+                    $(this).find('table:first').removeClass('selecthover');
+                });
+
+
+
+            }
+            function removeElm() {
+                $(".emailrender").delegate(".remove", "click", function (e) {
+	e.preventDefault();<!--
+                    $(this).closest('table').parents('.module ').slideUp('200', function () {
+                        $(this).remove();
+                    });
+                    $(this).closest('.remove').css("opacity", "0");
+                    $(this).parents('.view').find('table:first').find('table:first').removeClass('selecthoverred');
+                    $(this).parents('.view').find('.move_controls').show();
+                });
+
+
+// $(".emailrender").delegate(".confirmyes", "click", function (e) { 
+
+//         $(this).closest('table').parents('table').parents('.module ').slideUp('200', function(){  $(this).remove(); } );
+//         $(this).closest('.remove').css("opacity","0");
+//         $(this).closest('.confirmbox').remove();
+//         $(this).parents('.view').find('table:first').find('table:first').removeClass('selecthoverred');
+//         $(this).parents('.view').find('.move_controls').show();
+//     });
+
+// $(".emailrender").delegate(".confirmno", "click", function (e) { 
+
+//         $(this).parents('.confirmbox').css({"opacity":"0"}).delay(300).slideUp(1);
+//         $(this).parents('.view').find('table:first').find('table:first').removeClass('selecthoverred');
+//         $(this).parents('.view').find('.move_controls').show();
+//     });
+
+            }
+
+            function clearDemo() {
+                $(".emailrender").empty()
+            }
+
+            function removeMenuClasses() {
+                $("#menu-layoutit li button").removeClass("active")
+            }
+
+
+            function cleanHtml(e) {
+                $(e).parent().append($(e).children().html())
+            }
+
+
+            function downloadLayoutSrc() {
+
+                var e = "";
+                var emailrendercontent = $(".emailrender").html();
+                $("#download-layout").html(emailrendercontent);
+                var t = $("#download-layout");
+                var contentattr = $('[st-content]').attr("st-content");
+                t.find(".preview, .configuration, .move_controls, .addremove, .colorSelectorinner").remove();
+                t.find(".module").addClass("removeClean");
+                t.find(".box-element").addClass("removeClean");
+                t.find(".module .module .module .module .module .removeClean").each(function () {
+                    cleanHtml(this)
+                });
+                t.find(".module .module .module .module .removeClean").each(function () {
+                    cleanHtml(this)
+                });
+                t.find(".module .module .module .removeClean").each(function () {
+                    cleanHtml(this)
+                });
+                t.find(".module .module .removeClean").each(function () {
+                    cleanHtml(this)
+                });
+
+                t.find(".module .removeClean").each(function () {
+                    cleanHtml(this)
+                });
+                t.find(".removeClean").each(function () {
+                    cleanHtml(this)
+                });
+                t.find(".removeClean").remove();
+                //t.find(".mce-content-body").remove();
+                t.find(".mce-content-body").removeClass("mce-content-body");
+
+
+                //$("#download-layout .emailrender").removeClass("ui-sortable");
+                //$("#download-layout .row-fluid").removeClass("clearfix").children().removeClass("column");
+
+                formatSrc = $.htmlClean($("#download-layout").html(), {
+                    format: true,
+                    allowComments: true,
+                    allowedAttributes: [
+                        ["class"],
+                        ["width"],
+                        ["height"],
+                        ["style"],
+                        ["align"],
+                        ["cellspacing"],
+                        ["cellpadding"],
+                        ["bgcolor"],
+                        ["valign"],
+                        ["border"],
+                        ["st-content"],
+                        ["st-sortable"],
+                        ["st-image"],
+                        ["st-title"],
+                        ["st-webversion"],
+                        ["st-unsubscribe"],
+                        ["mc:edit"],
+                        ['mc:label'],
+                        ["mc:repeatable"],
+                    ]
+                });
+
+                var $body = $(formatSrc).find("body");
+                for (var attrName in bodyAttrs) {
+                    var value = bodyAttrs[attrName];
+                    $body.attr(attrName, value);
+                }
+
+                $("#download-layout").html(formatSrc);
+                templateheader = $('textarea.templatehead').text();
+                templatefooter = $('textarea.templatefooter').text();
+                $("#downloadModal textarea").empty();
+                $("#downloadModal textarea").val(templateheader + formatSrc + templatefooter);
+            }
+
+
+///////////////////////////////////////////////////
+
+            var currentDocument = null;
+            var timerSave = 2e3;
+
+            $(document).ready(function () {
+
+//                $("[data-target=#downloadModal]").click(function (e) {
+//                    e.preventDefault();
+//
+//                    downloadLayoutSrc()
+//                });
+
+
+
+                $("#edit").click(function () {
+                    $("body").removeClass("devpreview sourcepreview");
+                    $("body").addClass("edit");
+                    removeMenuClasses();
+                    $(this).addClass("active");
+                    return false
+                });
+                $("a#clear").click(function (e) {
+                    e.preventDefault();
+                    clearDemo();
+                });
+                $("#devpreview").click(function () {
+                    $("body").removeClass("edit sourcepreview");
+                    $("body").addClass("devpreview");
+                    removeMenuClasses();
+                    $(this).addClass("active");
+                    return false
+                });
+                $("#sourcepreview").click(function () {
+                    $("body").removeClass("edit");
+                    $("body").addClass("devpreview sourcepreview");
+                    removeMenuClasses();
+                    $(this).addClass("active");
+                    return false
+                });
+
+                $(".nav-header").click(function () {
+                    $(".sidebar-nav .boxes, .sidebar-nav .rows").hide();
+                    $(this).next().slideDown()
+                });
+
+
+                //configurationElm();
+                //gridSystemGenerator();
+//    setInterval(function () {
+//        //handleSaveLayout()
+//    }, timerSave)
+            });
+
+        </script>-->

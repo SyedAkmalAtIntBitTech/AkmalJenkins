@@ -275,7 +275,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $("#"+$scope.previousTagId).after(BlockHtml);
                 $scope.previousTagId = $scope.htmlTagId;
                 tinymce.init({
-                    selector: 'div.' + $scope.htmlTagId,
+                    selector: 'td.mce-content-body',
                     width:400,
                     inline: true,
                     plugins: [
@@ -291,15 +291,15 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
 
                 if ($scope.isBlockClicked === "false") {
-                    var editorHtml = $('#edit').froalaEditor('html.get');
-                    if (editorHtml.contains('id="defaultblock1"')) {
-                        var jHtmlObject = jQuery(editorHtml);
-                        var editor = jQuery("<p>").append(jHtmlObject);
-                        editor.find("#defaultblock1").remove();
-                        editorHtml = editor.html();
-                    }
-                    var styleHtml = '<div id=defaultblock1 onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)">' + emailData.htmldata + '</div>';
-                    $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
+//                    var editorHtml = $('#edit').froalaEditor('html.get');
+//                    if (editorHtml.contains('id="defaultblock1"')) {
+//                        var jHtmlObject = jQuery(editorHtml);
+//                        var editor = jQuery("<p>").append(jHtmlObject);
+//                        editor.find("#defaultblock1").remove();
+//                        editorHtml = editor.html();
+//                    }
+//                    var styleHtml = '<div id=defaultblock1 onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)">' + emailData.htmldata + '</div>';
+//                    $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
                 } else {
                     var editorHtml = $('#edit').froalaEditor('html.get');
                     if (editorHtml.contains('id="' + $scope.htmlTagId + '"')) {
