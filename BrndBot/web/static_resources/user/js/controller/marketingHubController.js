@@ -1,4 +1,4 @@
-marketinghubFlowApp.controller("marketingHubController", ['$scope', 'settingsFactory', 'emailListFactory', 'emailDraftFactory', 'emailFactory', function ($scope, settingsFactory, emailListFactory, emailDraftFactory, emailFactory) {
+marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location', 'settingsFactory', 'emailListFactory', 'emailDraftFactory', 'emailFactory', function ($scope,$location, settingsFactory, emailListFactory, emailDraftFactory, emailFactory) {
 
 //$scope.emailhubHeader = true;
 $scope.addEmailListButton = true;
@@ -306,6 +306,7 @@ $scope.saveEmailSettingsButton = false;
             $scope.showEmailListDetails = true;
             $scope.emallistdetails = false;
             $scope.emailhubHeader = false;
-        }
+            $location.path("/emaillistdetails");
+        };
 
     }]);
