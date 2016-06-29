@@ -22,12 +22,12 @@
         </div>
         <div class="modal-pane-content-wrap create-new-schedule-modal"  ng-if="existingActionPopup">
             <div class="input-wrap">
-                <label>Marketing Campaign Name</label>
-                <select ng-model="selectedMarketingProgrma" class="input-field-textfield input-placeholder full" ng-options="programs.program_id as programs.name for programs in marketing_programs" ng-change="getActions(selectedSocialmedia,selectedMarketingProgrma)"></select>
+                <label>Marketing Campaign Name</label>          
+                <select ng-model="selectedMarketingProgrma"  class="input-field-textfield input-placeholder full" ng-options="programs.program_id as programs.name for programs in marketing_programs" ng-change="getActions(selectedSocialmedia,selectedMarketingProgrma)"></select>
             </div>
             <div class="input-wrap">
                 <label>Action Name</label>
-                <select ng-model="socialAction" class="input-field-textfield input-placeholder full" ng-options="action.id as action.schedule_title for action in SocialActionsDetails" ng-change="setAction(socialAction)"></select>
+                <select ng-model="socialAction"  class="input-field-textfield input-placeholder full" ng-options="action.id as action.schedule_title for action in SocialActionsDetails" ng-change="setAction(socialAction)"></select>
                 <!--       
                 <a class="input dropdown-right">
                     <input  size="10" class="fluid" ></input>

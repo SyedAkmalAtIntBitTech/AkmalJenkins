@@ -24,6 +24,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.companyId = 0;
         $scope.fromAddress = getDefaultEmailId();
         $scope.schedulePopup = false;
+        $scope.selectedSocialmedia = "email";
         var sliderDialog = "#emaileditorexternalpopup";
         //OnPageLoad
         $scope.emailEditorInit = function () {
@@ -742,26 +743,31 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.overlayFade = false;
         };
 
+
         $scope.getAllMaketingPrograms = function (selectedSocialmedia) {
             companyMarketingProgramFactory.getAllUserMarketingProgramsGet().then(function (data) {
                 $scope.defaultmarketingprogram = [{program_id: 0, name: '--General--', id: 0}];
                 $scope.marketing_programs = $scope.defaultmarketingprogram.concat(data);
                 $scope.selectedMarketingProgrma = $scope.marketing_programs[0].program_id;
-                if (selectedSocialmedia === "facebook") {
-                    $scope.getFacebookActions("0");
-                } else if (selectedSocialmedia === "twitter") {
-                    $scope.getTwitterActions("0");
-                }
+                $scope.getEmailAction();
             });
         };
 
         $scope.getActions = function (selectedSocialmedia, selectedMarketingProgrmaId) {
             $scope.selectedMarketingProgrma = selectedMarketingProgrmaId;
-            if (selectedSocialmedia === "facebook") {
+            if (selectedSocialmedia === "email") {
                 $scope.getFacebookActions(selectedMarketingProgrmaId);
-            } else if (selectedSocialmedia === "twitter") {
-                $scope.getTwitterActions(selectedMarketingProgrmaId);
             }
+        };
+
+        $scope.getFacebookActions = function (selectedMarketingProgrmaId) {
+            var data = JSON.stringify({programid: selectedMarketingProgrmaId.toString(), type: getfacebook()});
+            scheduleActionsFactory.getActionsPost(data).then(function (data) {
+                var parseData = JSON.parse(data.d.details);
+                $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM FACEBOOK"}];
+                $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
+                $scope.socialAction = $scope.defaultAction[0].id;
+            });
         };
 
         $scope.setAction = function (selectedAction) {
@@ -769,6 +775,166 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             alert(selectedAction);
             $scope.socialAction = selectedAction;
         };
+
+        $scope.schedulePost = function (selectedSocialmedia, postData) {
+            alert(selectedSocialmedia);
+            if (selectedSocialmedia === "email") {
+                $scope.schedulePostToEmail(postData);              
+            } 
+//            else if (selectedSocialmedia === "twitter") {
+//                $scope.schedulePostToTwitter();
+//            }
+        };
+
+        $scope.schedulePostToEmail = function (postData) {
+            var sendData = $scope.getScheduleData($scope.selectedMarketingProgrma, postData, getfacebook());
+            if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
+                scheduleActionsFactory.scheduleEmailPost(sendData).then(function (data) {
+                    alert(JSON.stringify(data));
+                });
+                
+//                scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (data) {
+//                    alert(JSON.stringify(data));
+//                });
+//            } else {
+//                scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (data) {
+//                    alert(JSON.stringify(data));
+//                });
+            }
+        };
+
+//        $scope.schedulePostToTwitter = function () {
+//            var sendData = $scope.getScheduleData($scope.selectedMarketingProgrma, gettwitter());
+//            if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
+////                scheduleActionsFactory.scheduleSocialPostActionsURL();
+//            } else {
+//
+//            }
+//        };
+
+        $scope.setTwitterActions = function (twitterDetails) {
+            scheduleActionsFactory.getActionsPost(twitterDetails).then(function (twitterData) {
+                $scope.twitter_actions = eval(JSON.parse(twitterData.d.details));
+            });
+        };
+
+
+//        refer---------------------------------------
+//        $scope.schedulePost = function () {
+//            alert("test");
+////            var draft_id = $("#draft_id").val();
+//
+//            var schedule_id = $("#social_actions").val();
+//            var from_name = $("#name").val();           //crct
+//            var email_subject = $("#subject").val();     //   crct
+//            var to_email_addresses = $("#toaddress").val();       //   crct
+//            var from_email_address = $("#formaddress").val();       //   crct
+//            var reply_to_email_address = $("#email").val();       //   crct
+//            var marketing_email_actions = $("marketing_program").val();       //   crct
+//            var email_body = formattedHTMLData;
+//
+//            var email_list = $("#chooseEmailList").val();       //   crct
+//            var iframe_name = $("#iframeName1").val();
+//            
+////            var schedule_desc = "";
+//            
+//            console.log(schedule_id);
+//            if (schedule_id === "0") {
+//                
+//                
+////                if ($("#schedule_title").val() === "")
+////                {
+////                    alert("Please Enter Title.");
+////                    $("#schedule_title").focus();
+////                    return false;
+////                }
+////                if ($("#schedule_date").val() === "")
+////                {
+////                    alert("Please Choose Date.");
+////                    $("#schedule_date").focus();
+////                    return false;
+////                }
+////                if ($("#schedule_time").val() === "")
+////                {
+////                    alert("Please Chooose Time.");
+////                    $("#schedule_time").focus();
+////                    return false;
+////                }
+////                var schedule_title = $("#schedule_title").val();
+////                var schedule_date = $("#schedule_date").val();
+////                var schedule_time = $("#schedule_time").val().replace(/ /g, '');
+//////                        var schedule = $("#schedule_time").val();
+////                var l = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
+////                var schedule_time = Date.parse(l);
+////                console.log("Epoch: " + schedule_time);
+//
+//
+//
+//                var myEpoch = schedule_time;
+//                console.log("New Epoch: " + myEpoch);
+//                var email_scheduling = {
+//                    "from_name": from_name,
+////                    "program_id": program_id,
+//                    "email_subject": email_subject,
+//                    "to_email_addresses": to_email_addresses,
+//                    "from_email_address": from_email_address,
+//                    "reply_to_email_address": reply_to_email_address,
+//                    "email_list": email_list,
+//                    "marketing_email_actions": marketing_email_actions,
+//                    "email_body": email_body,
+//                    
+////                    "schedule_title": schedule_title,
+////                    "schedule_time": myEpoch,                    
+////                    "schedule_desc": schedule_desc,
+//
+//                    "iframeName": iframe_name
+//                };
+//                
+//                
+//                scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
+//                    alert(JSON.stringify(data));
+//                });
+//                
+//                   if (JSON.stringify(data) !== "") { 
+//                   emailDraftFactory.deleteEmailDraftPost(draft_id).then(function (data) {    
+//                      alert("Your Email has been Scheduled Successfully");
+//                            document.location.href = getHost() + "user/dashboard";
+//                        });
+//                    }                  
+//                                   
+//                
+//            } else {
+//                var email_scheduling = {
+//                    "from_name": from_name,
+//                    "email_subject": email_subject,
+//                    "to_email_addresses": to_email_addresses,
+//                    "from_email_address": from_email_address,
+//                    "reply_to_email_address": reply_to_email_address,
+//                    "email_list": email_list,
+//                    "schedule_id": schedule_id,
+//                    "action_name": action_name
+//                    
+////                    "email_body": email_body,
+////                    "schedule_desc": schedule_desc,
+////                    "iframeName": iframe_name
+//                };
+//                scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
+//                alert(JSON.stringify(data));
+//                });
+//                
+//                if (JSON.stringify(data) !== "") {
+//                    emailDraftFactory.deleteEmailDraftPost(draft_id).then(function (data) {    
+//                      alert("Your Email has been Scheduled Successfully");
+//                            document.location.href = getHost() + "user/dashboard";
+//                        });
+//                    }                   
+//
+//            }
+//
+//        };
+//        
+
+
 
 
         $scope.previewCloseButton = function () {
@@ -800,38 +966,39 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
 
-//        email scheduling        
-        $scope.openPostOrShedulePopup = function (selectedSocialmedia, postData) {
-            $scope.postTypeSelectionPopUp = true;
-            $scope.postData = postData;
-            $scope.selectedSocialmedia = selectedSocialmedia;
-            if (selectedSocialmedia === "facebook") {
-                $scope.postTo = "Post to Facebook";
-            } else if (selectedSocialmedia === "twitter") {
-                $scope.postTo = "Post to Twitter";
-            }
-        };
+//        email scheduling 
 
-        $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
-            alert(JSON.stringify(postData));
-            if (selectedSocialmedia === "facebook") {
-                var data = JSON.stringify({
-                    imageToPost: $scope.selectImageName,
-                    accessToken: $rootScope.CurrentFbAccessToken,
-                    postText: postData.shareText,
-                    title: postData.linkTitle,
-                    url: postData.url,
-                    description: postData.linkDescription,
-                    imageType: $scope.selectImageType
-                });
-
-                socialPostFactory.facebookPost(data).then(function (data) {
-                    alert(JSON.stringify(data));
-                });
-            } else if (selectedSocialmedia === "twitter") {
-
-            }
-        };
+//        $scope.openPostOrShedulePopup = function (selectedSocialmedia, postData) {
+//            $scope.postTypeSelectionPopUp = true;
+//            $scope.postData = postData;
+//            $scope.selectedSocialmedia = selectedSocialmedia;
+//            if (selectedSocialmedia === "facebook") {
+//                $scope.postTo = "Post to Facebook";
+//            } else if (selectedSocialmedia === "twitter") {
+//                $scope.postTo = "Post to Twitter";
+//            }
+//        };
+//
+//        $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
+//            alert(JSON.stringify(postData));
+//            if (selectedSocialmedia === "facebook") {
+//                var data = JSON.stringify({
+//                    imageToPost: $scope.selectImageName,
+//                    accessToken: $rootScope.CurrentFbAccessToken,
+//                    postText: postData.shareText,
+//                    title: postData.linkTitle,
+//                    url: postData.url,
+//                    description: postData.linkDescription,
+//                    imageType: $scope.selectImageType
+//                });
+//
+//                socialPostFactory.facebookPost(data).then(function (data) {
+//                    alert(JSON.stringify(data));
+//                });
+//            } else if (selectedSocialmedia === "twitter") {
+//
+//            }
+//        };
 
         $scope.openSchedulePopup = function (selectedSocialmedia) {
             $scope.postTypeSelectionPopUp = false;
@@ -855,6 +1022,120 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.schedulePopup = false;
             }
         };
+        $scope.getEmailAction = function () {
+            var actionCallData = {
+                programid: "0",
+                type: getemail()
+            };
+            scheduleActionsFactory.getActionsPost(actionCallData).then(function (data) {
+                var parseData = JSON.parse(data.d.details);
+                $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM FACEBOOK"}];
+                $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
+                $scope.socialAction = $scope.defaultAction[0].id;
+            });
+        };
+//        $scope.schedulePost = function () {
+//                    alert("sdfghj");
+//                    $("#schedulethepost").unbind('click');
+//                    var  draft_id = $("#draft_id").val();
+//                    var schedule_id = $("#email_actions").val();
+//                    var from_name = $("#name").val();
+//                    var email_subject = $("#subject").val();
+//                    var to_email_addresses = $("#toaddress").val();
+//                    var from_email_address = $("#formaddress").val();
+//                    var reply_to_email_address = $("#email").val();
+//                    var program_id = $("#programs").val();
+//                    var email_body = formattedHTMLData;
+//                    var email_list = $("#chooseEmailList").val();
+//                    var schedule_desc = "";
+//                    var iframe_name = $("#iframeName1").val();
+//                    console.log(schedule_id);
+//                    if (schedule_id == "0"){
+//                        if($("#schedule_title").val()=="")
+//                        {
+//                            alert("Please Enter Title.");
+//                            $("#schedule_title").focus();
+//                            return false;
+//                        }
+//                        if($("#schedule_date").val()=="")
+//                        {
+//                            alert("Please Choose Date.");
+//                            $("#schedule_date").focus();
+//                            return false;
+//                        }
+//                        if($("#schedule_time").val()=="")
+//                        {
+//                            alert("Please Chooose Time.");
+//                            $("#schedule_time").focus();
+//                            return false;
+//                        }
+//                        var schedule_title = $("#schedule_title").val();
+//                        var schedule_date = $("#schedule_date").val();
+//                        var schedule_time = $("#schedule_time").val().replace(/ /g,'');
+////                        var schedule = $("#schedule_time").val();
+//                        var l=schedule_date.toLocaleString() +" "+schedule_time.toLocaleString();
+//                        var schedule_time = Date.parse(l);
+//                        console.log("Epoch: " + schedule_time);
+//                        var myEpoch = schedule_time;
+//                        console.log("New Epoch: " + myEpoch);
+//                        var email_scheduling = {
+//                            "from_name": from_name, 
+//                            "program_id": program_id,
+//                            "email_subject": email_subject, 
+//                            "to_email_addresses": to_email_addresses, 
+//                            "from_email_address": from_email_address, 
+//                            "reply_to_email_address": reply_to_email_address, 
+//                            "email_list": email_list, 
+//                            "schedule_title": schedule_title, 
+//                            "schedule_time": myEpoch, 
+//                            "email_body": email_body, 
+//                            "schedule_desc": schedule_desc,
+//                            "iframeName": iframe_name
+//                        };
+//                        
+//                scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
+//                    alert(JSON.stringify(data));
+//                });
+//                
+//                   if (JSON.stringify(data) !== "") { 
+//                   emailDraftFactory.deleteEmailDraftPost(draft_id).then(function (data) {    
+//                      alert("Your Email has been Scheduled Successfully");
+//                            document.location.href = getHost() + "user/dashboard";
+//                            $("#schedulethepost").bind('click');
+//                        });
+//                    } 
+//                        
+//                    else {
+//                        var email_scheduling = {
+//                            "from_name": from_name, 
+//                            "email_subject": email_subject, 
+//                            "to_email_addresses": to_email_addresses, 
+//                            "from_email_address": from_email_address, 
+//                            "reply_to_email_address": reply_to_email_address, 
+//                            "email_list": email_list,
+//                            "schedule_id":schedule_id,
+//                            "email_body": email_body,
+//                            "schedule_desc": schedule_desc,
+//                            "iframeName": iframe_name
+//                        };
+//                        
+//              scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
+//                alert(JSON.stringify(data));
+//                });
+//                
+//                if (JSON.stringify(data) !== "") {
+//                    emailDraftFactory.deleteEmailDraftPost(draft_id).then(function (data) {    
+//                      alert("Your Email has been Scheduled Successfully");
+//                            document.location.href = getHost() + "user/dashboard";
+//                             $("#schedulethepost").bind('click');
+//                        });
+//                    }  
+//
+//                        
+//                    }
+//                    
+//                };
+//            };
 
     }]);
 
