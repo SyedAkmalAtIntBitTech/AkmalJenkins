@@ -11,7 +11,8 @@
 <!--            <div ng-init="showEmailListWithContacts()">-->
                <div ng-init="emailListGet()"> 
                 <ul class="main-container fleft">
-                    <li class="slat-container fleft selfclear" ng-show="emailLists.length > 0" ng-repeat="email in emailLists">
+                          <input type="text" placeholder="Search" ng-model="userSearch">
+                    <li class="slat-container fleft selfclear" ng-show="emailLists.length > 0" ng-repeat="email in emailLists | filter:userSearch">
                         <div class="selection-container col-5p"> 
                             <div class="selection-icon" id="{{email.emailListID}}" ng-click="selectedEmailCheckbox(email.emailListID)"><input type="checkbox" id="{{email.emailListID}}" value="{{email.emailListName}}" name="entityname" hidden></input></div>
                         </div>

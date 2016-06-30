@@ -40,7 +40,8 @@
                     <!--                    <ul  class="main-container fleft" ng-show="current_programs!=''">
                                             <li class="slat-container fleft selfclear" ng-repeat="program in current_programs">-->
                     <ul  class="main-container fleft" >
-                        <li class="slat-container fleft selfclear" ng-repeat="program in currentPrograms">
+                        <input type="text" placeholder="Search" ng-model="userSearch">
+                        <li class="slat-container fleft selfclear" ng-repeat="program in currentPrograms | filter:userSearch">
                             <div class="col-1of1 slat-unit fleft " >
                                 <div class="slat-title-container col-3of10 fleft">
                                     <div class="slat-title  col-1of1 sh1-contact">{{program.program_name}}</div>
@@ -69,7 +70,8 @@
                 </div>
                 <div class="fleft content" id="" ng-show="pastProgramsDiv"   ng-init="getUserMarketingProgramsClosed('marketingprogramactions')">
                     <ul  class="main-container fleft" ng-show="pastPrograms != ''">
-                        <li class="slat-container fleft selfclear" ng-repeat="program in pastPrograms">
+                        <input type="text" placeholder="Search" ng-model="userSearch">
+                        <li class="slat-container fleft selfclear" ng-repeat="program in pastPrograms | filter:userSearch">
                             <div class="col-1of1 slat-unit fleft " >
                                 <div class="slat-title-container col-3of10 fleft">
                                     <div class="slat-title  col-1of1 sh1-contact">{{program.program_name}}</div>

@@ -57,7 +57,8 @@
                     <!--List Starts Here-->
                     <ul class="main-container fleft">
                          <!--ng-repeat="emailautomation in programs.emailautomation"-->
-                  <li class="slat-container fleft selfclear" ng-repeat="emailautomation in programs.emailautomation">
+                         <input type="text" placeholder="Search" ng-model="userSearch">
+                  <li class="slat-container fleft selfclear" ng-repeat="emailautomation in programs.emailautomation | filter:userSearch">
                             <div class="selection-container col-5p"> 
                                 <div class="selection-icon" ng-hide="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}" onclick="selcheckboxrecemail(this.id);setSelectedRecurringIds('{{emailautomation.scheduledEntityListId}}');"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}"   value="{{emailautomation.scheduledEntityListId}}" hidden/></div>
                             </div>

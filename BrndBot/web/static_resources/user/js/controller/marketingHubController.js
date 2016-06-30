@@ -1,12 +1,11 @@
 marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location', 'settingsFactory', 'emailListFactory', 'emailDraftFactory', 'emailFactory', function ($scope,$location, settingsFactory, emailListFactory, emailDraftFactory, emailFactory) {
 
-//$scope.emailhubHeader = true;
 $scope.addEmailListButton = true;
 $scope.saveEmailSettingsButton = false;
 $scope.deletDraftsButton = false;
 $("#removeselactions").hide;
 $scope.showDeleteEmailList = false;
-$scope.emailListName = "tasmiya";
+$scope.emailListName = "";
 
 
         $scope.displayAllEmailDrafts = function () {
@@ -182,6 +181,7 @@ $scope.emailListName = "tasmiya";
         $scope.displayEmailHistory = function () {
             $scope.deletDraftsButton = false;
             $scope.addEmailListButton = false;
+            $scope.saveEmailSettingsButton = false;
             emailFactory.sendEmailGet().then(function (data) {
                 $scope.email_history = JSON.parse(data.d.details);
             });
@@ -232,6 +232,7 @@ $scope.emailListName = "tasmiya";
             $("#addemlstbtn").show();
             $("#deleteEmailList").hide();
             $scope.saveEmailSettingsButton = false;
+            $scope.deletDraftsButton = false;
             $scope.emallistdetails = true;
             emailListFactory.emailListGet("null","allEmailListWithNoOfContacts").then(function (data) {
                 var parseData = JSON.parse(data.d.details);
@@ -352,57 +353,51 @@ $scope.emailListName = "tasmiya";
                 } else {
                     alert(cvsfileerror);
                 }
-            }
+            };
             
-//            $scope.updateEmailList = function () {
-//                    
-//                    var emailaddrestextarea=$("textArea").val();
-//                    var reg=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//                    var toemailvalid=reg.test(emailaddrestextarea);
-//                    if($("textArea").val()===''){alert("No Contacts to import!, Please Enter atleast One Contact.");$("#textArea").focus(); return false;}
-//                    if($("textArea").val() !== ""){
-//
-//                        var split = emailaddrestextarea.split(",");
-//                        var lines = [];
-//                        $.each($('#textArea').val().split(/\n/), function(i, line){
-//                            if(line){
-//                                lines.push(line);
-//                            }
-//                        });
-//                        for (var i = 0; i < split.length; i++) {
-//                            //alert(split[i]+"  split length"+split.length);
-//                            var email=split[i].trim();
-//                            if(reg.test(email) !== "")
-//                            {
-//                                if(email !== "")
-//                                {
-//                                    if(reg.test(split[i]) === false){
-//                                        alert(" Contacts not Valid! Please Enter Valid Email Address \n\n'"+split[i]+"'\t is Invalid Email id.");
-//                                        $("#textArea").focus();
-//                                        return false;
-//                                    } 
-//                                }
-//                            }
-//                        }
-//                    }
-//                    var email_list_name = $("#email_list_name").val();
-//                    var Emails = {"emailListName": email_list_name, "emailAddresses": email_list, "update": "UpdateEmailList"};
-//                    emailListFactory.emailListSavePost()
-//                    $http({
-//                        method: 'POST',
-//                        url: getHost() + '/emaillist/save',
-//                        headers: {'Content-Type': 'application/json'},
-//                        data: Emails
-//                    }).success(function (data)
-//                    {
-//                        if (data === "true") {
-//                            alert(datasaved);
-//                            window.open(getHost() + 'emaillists.jsp', "_self");                            
-//                        } else if (data === error) {
-//                            alert(data);
-//                        }
-//                    });
-//                };
+            $scope.updateEmailList = function () {
+                    alert("update");
+                    var emailaddrestextarea=$("textArea").val();
+                    var reg=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    var toemailvalid=reg.test(emailaddrestextarea);
+                    if($("textArea").val()===''){alert("No Contacts to import!, Please Enter atleast One Contact.");$("#textArea").focus(); return false;}
+                    if($("textArea").val() !== ""){
+
+                        var split = emailaddrestextarea.split(",");
+                        var lines = [];
+                        $.each($('#textArea').val().split(/\n/), function(i, line){
+                            if(line){
+                                lines.push(line);
+                            }
+                        });
+                        for (var i = 0; i < split.length; i++) {
+                            //alert(split[i]+"  split length"+split.length);
+                            var email=split[i].trim();
+                            if(reg.test(email) !== "")
+                            {
+                                if(email !== "")
+                                {
+                                    if(reg.test(split[i]) === false){
+                                        alert(" Contacts not Valid! Please Enter Valid Email Address \n\n'"+split[i]+"'\t is Invalid Email id.");
+                                        $("#textArea").focus();
+                                        return false;
+                                    } 
+                                }
+                            }
+                        }
+                    }
+                    var email_list_name = $("#email_list_name").val();
+                    var Emails = {"emailListName": email_list_name, "emailAddresses": email_list, "update": "UpdateEmailList"};
+                    emailListFactory.emailListSavePost().then(function(data){
+                        alert(JSON.stringify(data));
+                       if (data === "true") {
+                       alert(datasaved);  
+                        $location.path("/emaillist"); 
+                    }else if (data === error) {
+                            alert(data);
+                        }
+                    });
+                };
 
         $scope.addContactDetails = function ()
         {
@@ -431,7 +426,6 @@ $scope.emailListName = "tasmiya";
         {
             $scope.showEmailListDetails = true;
             $scope.emallistdetails = false;
-            $scope.emailhubHeader = false;
             $location.path("/emaillistdetails");
         };
 

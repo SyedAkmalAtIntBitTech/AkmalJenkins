@@ -52,7 +52,8 @@
                 <div class="fleft content" ng-init="updateList()">
                     <!--List Starts Here-->
                     <ul class="main-container fleft">
-                        <li class="slat-container fleft selfclear" ng-repeat="email in user_emailAddresses">
+                        <input type="text" placeholder="Search" ng-model="userSearch">                        
+                        <li class="slat-container fleft selfclear" ng-repeat="email in user_emailAddresses | filter:userSearch">
                             <div class="col-1of1 slat-unit fleft ">
                                 <a href="">
                                     <div class="selection-container col-5p fleft"> 
