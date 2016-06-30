@@ -1,4 +1,4 @@
-        <div id="fade"></div>
+<!--        <div id="fade"></div>-->
         <div class="content-main" ng-if="showEmailListDetails">
       
             <div ng-include src="'addcontact.html'"></div> 
@@ -23,7 +23,7 @@
                     <div class=" md-button" ng-click="deleteSelected()"> Delete Contact</div>    
                 </a>
                 <a href="javascript:void(0)" class="fleft">
-                     <div id="addcontact"  class="add-button md-button" ng-click="addContactDetails()"> Add Contact</div>    
+                     <div id="addcontact"  class="add-button md-button" ng-click="addContactDetails(add,'','','','')"> Add Contact</div>    
                 </a>
 <!--                <a href="javascript:void(0)" class="fleft">
                      <div id="addcontacts"  class="add-button md-button" ng-click="showAddContacts()"> Add Contacts</div>    
@@ -113,7 +113,7 @@
         <div id="tab4" class="col-md-10 col-md-offset-2" class="hide">
                 <div id="emailsubjectdiv">
                     <p class="header1">Email List:</p>
-                    <input type="text" class="hideinputborder" id="email_list_name" name="email_list_name" placeholder="Enter Here"/> <br>
+                    <input type="text" class="hideinputborder" id="email_list_name" name="email_list_name" placeholder="Enter Here"/>{{emailListName}} <br>
                     <div class="col-md-7 col-md-offset-0">
                         <label>Upload CSV</label><br><br>
                         <input type="file" class="fileUpload" id="fileUpload" name="fileUpload"><br>

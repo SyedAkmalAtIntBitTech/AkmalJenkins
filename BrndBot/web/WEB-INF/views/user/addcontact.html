@@ -1,6 +1,6 @@
     <div id="fade1" class="black_overlay"></div>
     <div ng-init="sho= false" ng-if="sho">
-    <div class="pop-up-background" >
+    <div class="pop-up-background" style="width: 100%;">
         <div class="pop-up-exit-container">
             <a>
                 <div class="pop-up-exit-icon" id="close"> <img type="image/svg+xml" src="images/Close.svg" class="exit-button-icon" style="cursor:pointer;"> </img></div>
@@ -11,7 +11,7 @@
             <div class="pop-up-inner">
                 <div class="input-field-container">
                     <div class="input-header"> Email Address </div>
-                    <input type="text" class="input-field-textfield1 input-placeholder" placeholder="Enter Email Address" id="emailId"/>
+                    <input type="text" class="input-field-textfield1 input-placeholder" placeholder="Enter Email Address" id="emailId" ng-model="email.emailId"/>
                     <input type="hidden" id="uuid" value=""></input>
                     <input type="hidden" id="type" value=""></input>
                 </div>
@@ -19,16 +19,16 @@
                 <div class="optional-text">Optional</div>
                 <div class="input-field-container">
                     <div class="input-header"> First Name </div>
-                    <input type="text" value="" class="input-field-textfield1 input-placeholder" placeholder="Enter First Name" id="firstName"/>
+                    <input type="text" value="" class="input-field-textfield1 input-placeholder" placeholder="Enter First Name" id="firstName" ng-model="email.firstName"/>
                 </div>
                 <div class="input-field-container">
                     <div class="input-header"> Last Name </div>
-                    <input type="text" value="" class="input-field-textfield1 input-placeholder" placeholder="Enter Last Name" id="lastName"/>
+                    <input type="text" value="" class="input-field-textfield1 input-placeholder" placeholder="Enter Last Name" id="lastName" ng-model="email.lastName"/>
                 </div>
             </div>
         </div>
     </div>
-    <div id="addContactButton" class="pop-up-cta-container pop-up-cta-container-newContact cur" ng-click="updateEmailID()">
+    <div id="addContactButton" class="pop-up-cta-container pop-up-cta-container-newContact cur" ng-click="updateEmailID(email)">
         <a href="">
             <div class="pop-up-cta-button-full"> Save Contact</div>
         </a>
