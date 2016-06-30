@@ -572,8 +572,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 emails = "";
                 $scope.emailAddresses = emails;
                 $scope.toAddress = emails;
-            }
-            else if ($scope.emailList !== "1")
+            } else if ($scope.emailList !== "1")
             {
                 var emails = "";
                 emailListFactory.emailListGet($scope.emailList, "emailsForEmailList").then(function (data) {
@@ -719,9 +718,10 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
 
-        $scope.continueEmailDetailsOnClick = function () {
+        $scope.continueEmailDetailsOnClick = function (postData) {
             $scope.schedulePopup = false;
             $scope.postTypeSelectionPopUp = true;
+            $scope.postData = postData;
             $scope.postTo = "Send Now";
         };
 
@@ -776,8 +776,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.schedulePost = function (selectedSocialmedia, postData) {
             alert(selectedSocialmedia);
             if (selectedSocialmedia === "email") {
-                $scope.schedulePostToEmail(postData);              
-            } 
+                $scope.schedulePostToEmail(postData);
+            }
         };
 
         $scope.schedulePostToEmail = function (postData) {
@@ -1001,6 +1001,31 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
                 $scope.socialAction = $scope.defaultAction[0].id;
             });
+        };
+        $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
+            if (selectedSocialmedia === "email") {
+                var sendEmailData = JSON.stringify({
+                    from_name: postData.fromName,
+                    email_subject: postData.emailSubject,
+                    email_addresses: postData.toAddress,
+                    from_email_address: getDefaultEmailId(),
+                    reply_to_email_address: postData.replyAddress,
+                    email_list: $scope.emailList,
+                    iframeName: $scope.randomIframeFilename.toString()
+                });
+                alert(JSON.stringify(sendEmailData));
+                emailFactory.sendEmail(sendEmailData).then(function (data) {
+                    if (data.d.message === "true") {
+                        emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
+                            if (responseText === "true")
+                            {
+                                alert(emailsend);
+                                window.location = "dashboard";
+                            }
+                        });
+                    }
+                });
+            }
         };
     }]);
 

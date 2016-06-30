@@ -26,6 +26,7 @@ success:function(data){
     {
         colorcodeArray[i] = rgb2hex(data.d.details[i]);
     }
+    colorcodeArray = colorcodeArray.concat(defaultFroalaColors);
 }
  });
  
