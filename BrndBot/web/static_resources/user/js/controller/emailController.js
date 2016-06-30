@@ -769,186 +769,90 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.setAction = function (selectedAction) {
-            alert(selectedAction);
             $scope.socialAction = selectedAction;
         };
         
         $scope.schedulePost = function (selectedSocialmedia, postData) {
-            alert(selectedSocialmedia);
             if (selectedSocialmedia === "email") {
                 $scope.schedulePostToEmail(postData);
             }
         };
-
-        $scope.schedulePostToEmail = function (postData) {
-            var sendData = $scope.getScheduleData($scope.selectedMarketingProgrma,postData);
+        
+         $scope.schedulePostToEmail = function (postData) {
+            var email_scheduling = $scope.getScheduleData($scope.selectedMarketingProgrma,postData);
             if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
-                scheduleActionsFactory.scheduleEmailPost(sendData).then(function (data) {
-                    alert("check");
-                    alert(JSON.stringify(data));
+                scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
                 });
             }
-        };        
-        
-//        $scope.schedulePostToFacebook = function (postData) {
-//            var sendData =$scope.getScheduleData($scope.selectedMarketingProgrma,postData,getfacebook());
-//            if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
-//                scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (data) {
-//                    alert(JSON.stringify(data));
-//                });
-//            } else {
-//                scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (data) {
-//                    alert(JSON.stringify(data));
-//                });
-//            }
-//        };
-        
-        $scope.getScheduleData = function (selectedMarketingProgrmaId,selectedSocialmedia) {
-            var sendData = "";
-            
-            var formattedHTMLData = "";
-            var from_name = $("#name").val();
-            var email_subject = $("#subject").val();
-            var to_email_addresses = $("#toaddress").val();
-            var from_email_address = $("#formaddress").val();
-            var reply_to_email_address = $("#email").val();
-//            var program_id = $("#programs").val();
-            var email_body = formattedHTMLData;
-            var email_list = $("#chooseEmailList").val();
-            var schedule_desc = "";
-//            var iframe_name = $("#iframeName1").val();
-            
-            if (selectedMarketingProgrmaId !== 0) {
-            sendData = JSON.stringify({
-                    type: selectedSocialmedia,
-                    "from_name": from_name,
-                    "program_id": $scope.selectedMarketingProgrma.toString(),
-                    "email_subject": email_subject,
-                    "to_email_addresses": to_email_addresses,
-                    "from_email_address": from_email_address,
-                    "reply_to_email_address": reply_to_email_address,
-                    "email_list": email_list,
-                    "schedule_title": schedule_title,
-                    "schedule_time": myEpoch,
-                    "email_body": email_body,
-                    "schedule_desc": schedule_desc,
-                    "iframeName": $scope.randomIframeFilename.toString()
-                            
-//                type: email,
-//                from_name: fromName,
-//                email_subject: $scope.emailSubject,
-//                email_addresses: $scope.toAddress,
-//                from_email_address: getDefaultEmailId(),
-//                reply_to_email_address: replyAddress,
-//                email_list: $scope.emailList,
-//                iframeName: $scope.randomIframeFilename.toString()
-            });
-            
-            }
-            else {
+        };
+                           
+            $scope.getScheduleData = function (selectedMarketingProgrmaId, postData) {            
+             if (selectedMarketingProgrmaId !== 0) {                
                 var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
-                var schedule_time = $("#actionTime").val();
+                var schedule_time = $("#actionTime").val().replace(/ /g, '');
                 var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
                 var myEpoch = Date.parse(dateAndTime);
-
-                console.log("Epoch: " + myEpoch);
-                sendData = JSON.stringify({
-                    "from_name": from_name,
-                    "program_id": $scope.selectedMarketingProgrma.toString(),
-                    "email_subject": email_subject,
-                    "to_email_addresses": to_email_addresses,
-                    "from_email_address": from_email_address,
-                    "reply_to_email_address": reply_to_email_address,
-                    "email_list": email_list,
-                    "schedule_title": schedule_title,
-                    "schedule_time": myEpoch,
-                    "email_body": email_body,
-                    "schedule_desc": schedule_desc,
-                    "iframeName": $scope.randomIframeFilename.toString()
-                            
-//                    "schedule_time": myEpoch,
-//                        "schedule_title": schedule_title,
-//                        "program_id": $scope.selectedMarketingProgrma.toString(),
-//                        "schedule_desc": "",
-//                        "type": email,                      
-//                        "postText": postData.shareText,
-//                        "title": postData.linkTitle,
-//                        "url": postData.url,
-//                        "description": postData.linkDescription,
-//                        iframeName: $scope.randomIframeFilename.toString()
-                   
+                var email_scheduling = JSON.stringify({
+                    from_name: postData.fromName,
+                    program_id: $scope.selectedMarketingProgrma.toString(),
+                    email_subject: postData.emailSubject,
+                    email_addresses: postData.toAddress,
+                    from_email_address: getDefaultEmailId(),
+                    reply_to_email_address: postData.replyAddress,                  
+                    email_list: $scope.emailList,
+                    schedule_title: schedule_title,
+                    schedule_time: myEpoch,
+                    email_body: $("#dynamictable").contents().find("html").html(),
+                    schedule_desc: ",,,",                                            
+                    iframeName: $scope.randomIframeFilename.toString()                     
                 });
+                scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
+                    alert(JSON.stringify(data));
+                });
+                if (JSON.stringify(data) !== "") {
+                    emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
+                        if (responseText === "true")
+                        {
+                            alert(emailsend);
+                            window.location = "dashboard";
+                        }
+                    });
+                }
+            } else {
+                    var email_scheduling = {
+                        from_name: postData.fromName,
+                        email_subject: postData.emailSubject,
+                        to_email_addresses: postData.toAddress,
+                        email_addresses: postData.toAddress,
+                        from_email_address: getDefaultEmailId(),
+                        reply_to_email_address: postData.replyAddress,
+                        email_list: $scope.emailList,
+                        schedule_id:$scope.socialAction.toString(),
+                        email_body: $("#dynamictable").contents().find("html").html(),
+                        schedule_desc: ",,,",
+                        iframeName: $scope.randomIframeFilename.toString()
+                    };
+                alert(JSON.stringify(email_scheduling));
+                    scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
+                        alert(JSON.stringify(data));
+                    });
 
-            }
-            return sendData;
+                    if (JSON.stringify(data) !== "") {
+                        emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
+                            if (responseText === "true")
+                            {
+                                alert(emailsend);
+                                window.location = "dashboard";
+                            }
+                        });
+                    }
+                }           
         };
-        
-        
-        
-//        $scope.getScheduleData = function (selectedMarketingProgrmaId,postData,socialMediaType) {
-//            var sendData = "";
-//            if (selectedMarketingProgrmaId !== 0) {
-//                sendData = JSON.stringify([{
-//                        type: socialMediaType,
-//                        image_name: $scope.selectImageName,
-//                        program_id: $scope.selectedMarketingProgrma.toString(),
-//                        schedule_id: $scope.socialAction.toString(),
-//                        image_type: $scope.selectImageType,
-//                        token_data: {
-//                            access_token: $rootScope.CurrentFbAccessToken
-//                        },
-//                        metadata: {
-//                            description: '"' + postData.linkDescription + '"',
-//                            post_text: '"' + postData.shareText + '"',
-//                            url: '"' + postData.url + '"',
-//                            ManagedPage: '"' + $rootScope.CurrentFbPageName + '"',
-//                            title: '"' + postData.linkTitle + '"'
-//                        }
-//                    }]);
-//            }
-//            else {
-//                var schedule_title = $("#ActionName").val();
-//                var schedule_date = $("#actionDate").val();
-//                var schedule_time = $("#actionTime").val().replace(/ /g, '');
-//                var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
-//                var myEpoch = Date.parse(dateAndTime);
-//
-//                console.log("Epoch: " + myEpoch);
-//                sendData = JSON.stringify([{
-//                        "schedule_time": myEpoch,
-//                        "schedule_title": schedule_title,
-//                        "program_id": $scope.selectedMarketingProgrma.toString(),
-//                        "schedule_desc": "",
-//                        "type": socialMediaType,
-//                        "image_name": $scope.selectImageName,
-//                        "accessToken": $rootScope.CurrentFbAccessToken,
-//                        "postText": postData.shareText,
-//                        "title": postData.linkTitle,
-//                        "url": postData.url,
-//                        "description": postData.linkDescription,
-//                        "image_type": $scope.selectImageType,
-//                        token_data: {
-//                            "access_token": $rootScope.CurrentFbAccessToken
-//                        },
-//                        metadata: {
-//                            description: '"' + postData.linkDescription + '"',
-//                            post_text: '"' + postData.shareText + '"',
-//                            url: '"' + postData.url + '"',
-//                            ManagedPage: '"' + $rootScope.CurrentFbPageName + '"',
-//                            title: '"' + postData.linkTitle + '"'
-//                        }
-//                    }]);
-//            }
-//            return sendData;
-//        };
-            
-
         
         $scope.previewCloseButton = function () {
             $scope.emailPreviewPopup = false;
             $("#fade").hide();
-
         };
 
         $scope.editFooter = function () {
