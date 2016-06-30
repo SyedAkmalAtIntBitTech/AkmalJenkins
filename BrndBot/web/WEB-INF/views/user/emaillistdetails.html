@@ -7,6 +7,8 @@
     
 <!--    <input type="hidden" id="get_list_name" value="<%=list_name%>"/>
     <input type="hidden" id="get_type" value="<%=type%>"/>   -->
+<!--    <input type="hidden" id="get_list_name" value="{{email.emailListName}}"/>-->
+<!--    <input type="hidden" id="get_type" value="<%=type%>"/>   -->
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
            <a class=" exit-button-icon" href="emaillists">
@@ -14,7 +16,7 @@
                 <img src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/>
                </div>
            </a>
-            <div class="page-title-with-back page-title-font"><!--<%=list_name%>  --></div>
+            <div class="page-title-with-back page-title-font">{{emailListName}}</div>
             <div class="page-cta-container">
                 <a id="unselect" href="" class="gray-button button pushright fleft">
                     <div class=" md-button" onclick="unsel()"> Unselect Contacts</div>    
@@ -33,7 +35,7 @@
         <div class="page-subnav-bar-regular"> 
             <div class="top-subnav-tabs-container-with-button">
                 <ul class="top-subnav-nav-elements">
-                    <li class="top-subnav-link-active" id="emailListli"> <a class="h3-active-subnav" id="emailList" ng-init="updateList()">Email List</a></li>
+                    <li class="top-subnav-link-active" id="emailListli"> <a class="h3-active-subnav" id="emailLists" ng-init="updateList(emailLists)">Email List</a></li>
 <!--                    <% if(type.equals("user")){%>-->
                     <li class="top-subnav-links" id="importListli" > <a class="h3" id="importList" ng-click="showAddContacts()">Import Contacts to List</a></li>
                     <!--<% }%>-->
@@ -54,7 +56,8 @@
                             <div class="col-1of1 slat-unit fleft ">
                                 <a href="">
                                     <div class="selection-container col-5p fleft"> 
-                                        <div class="selection-icon" id="{{email.id}}" onclick="selemlcheckbox(this.id);">
+<!--                                        <div class="selection-icon" id="{{email.id}}" onclick="selemlcheckbox(this.id);">-->
+                                            <div class="selection-icon" id="{{email.emailListID}}" ng-click="selectedEmailCheckbox(email.emailListID)">
                                             <input type="checkbox" id="emailid{{email.emailAddress}}" value="{{email.emailAddress}}" name="emaillistname" hidden></input>
                                         </div>
                                     </div>
@@ -115,7 +118,7 @@
                     <div class="col-md-7 col-md-offset-0">
                         <label>Upload CSV</label><br><br>
                         <input type="file" class="fileUpload" id="fileUpload" name="fileUpload"><br>
-                        <input class="button button--moema button--text-thick button--text-upper button--size-s" type="button" id="upload" value="Upload" onclick="upload()" /><br>
+                        <input class="button button--moema button--text-thick button--text-upper button--size-s" type="button" id="upload" value="Upload" ng-click="uploadCsv()" /><br>
                     </div><br>
                     <div id="dvCSV"></div>
                     <textarea width="400" height="500" id="textArea"></textarea><br><br>
@@ -123,5 +126,6 @@
                 </div>
         </div>
     </div>
-        <div ng-include src="'addContact.html'"></div>
+<div ng-include="'addContact.html'"></div>
+        
 
