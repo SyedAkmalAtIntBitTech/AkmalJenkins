@@ -40,12 +40,12 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 if ((twitterAccessToken === null) || (twitterAccessToken === ""))
                 {
                     settingsFactory.twitterLoginGet().then(function (data1) {
-//                        alert(JSON.stringify(data1));
-//                        $("#twitterSetPinPopUp").show();
-//                        $("#twitterlink").html("<a href='" + responseText.d.details[0] + "' target='_blank'>get your pin</a>");
+                        alert(JSON.stringify(data1));
+                        $("#twitterSetPinPopUp").show();
+                        $("#twitterlink").html("<a href='" + responseText.d.details[0] + "' target='_blank'>get your pin</a>");
                     });
                 } else {
-//                      $("#twitterSetPinPopUp").hide();
+                      $("#twitterSetPinPopUp").hide();
                     $scope.showTwitterPopup = false;
                     $location.path('/twitterpost');
                 }
@@ -450,7 +450,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             }
         };
         $scope.schedulePostToFacebook = function (postData) {
-            var sendData = sendData = $scope.getScheduleData($scope.selectedMarketingProgrma,postData,getfacebook());
+            var sendData = $scope.getScheduleData($scope.selectedMarketingProgrma,postData,getfacebook());
             if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
                 scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (data) {
                     alert(JSON.stringify(data));
@@ -471,8 +471,9 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
         $scope.getScheduleData = function (selectedMarketingProgrmaId,postData,socialMediaType) {
             var sendData = "";
-            if (selectedMarketingProgrmaId !== 0) {
-                sendData = JSON.stringify([{
+//            if (selectedMarketingProgrmaId !== 0) {
+              if($scope.existingActionPopup ) {
+                    sendData = JSON.stringify([{
                         type: socialMediaType,
                         image_name: $scope.selectImageName,
                         program_id: $scope.selectedMarketingProgrma.toString(),
