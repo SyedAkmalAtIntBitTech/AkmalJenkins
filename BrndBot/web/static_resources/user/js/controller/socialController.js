@@ -27,9 +27,21 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.existingAction=false;
 
         $scope.getManagePage = function () {
-            var data = JSON.stringify({redirectUrl: "user/socialsequence"});
-            settingsFactory.fbLoginPost(data).then(function (data) {
-                $window.location = data.d.details[0];
+            var fbData = JSON.stringify({access_token_method: "getAccessToken"});
+            settingsFactory.facebookPost(fbData).then(function (fbResponseData) {
+                alert(JSON.stringify(fbResponseData));
+                var fbAccessToken = fbResponseData.d.message;
+                alert(JSON.stringify(fbAccessToken));
+                if ((fbAccessToken === null) || (fbAccessToken === ""))
+                {
+                    var data = JSON.stringify({redirectUrl: "user/socialsequence"});
+                    settingsFactory.fbLoginPost(data).then(function (data) {
+                        $window.location = data.d.details[0];
+                    });
+                }
+                else {
+                    $location.path('/facebookpost');
+                }
             });
 
         };
@@ -40,12 +52,12 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 if ((twitterAccessToken === null) || (twitterAccessToken === ""))
                 {
                     settingsFactory.twitterLoginGet().then(function (data1) {
-                        alert(JSON.stringify(data1));
-                        $("#twitterSetPinPopUp").show();
-                        $("#twitterlink").html("<a href='" + responseText.d.details[0] + "' target='_blank'>get your pin</a>");
+//                        alert(JSON.stringify(data1));
+//                        $("#twitterSetPinPopUp").show();
+//                        $("#twitterlink").html("<a href='" + responseText.d.details[0] + "' target='_blank'>get your pin</a>");
                     });
                 } else {
-                      $("#twitterSetPinPopUp").hide();
+//                      $("#twitterSetPinPopUp").hide();
                     $scope.showTwitterPopup = false;
                     $location.path('/twitterpost');
                 }
