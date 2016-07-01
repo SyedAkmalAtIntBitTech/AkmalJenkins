@@ -23,6 +23,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.htmlTagId = "";
         $scope.companyId = 0;
         $scope.fromAddress = getDefaultEmailId();
+        $scope.schedulePopup = false;
+        $scope.selectedSocialmedia = "email";
         var sliderDialog = "#emaileditorexternalpopup";
         //OnPageLoad
         $scope.emailEditorInit = function () {
@@ -538,7 +540,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     type: getemail()
                 };
                 scheduleActionsFactory.getActionsPost(actionCallData).then(function (actions) {
-                    var parseData = JSON.parse(JSON.parse(data1.d.details));
+                    var parseData = JSON.parse(JSON.parse(actions.d.details));
                     $scope.email_actions = parseData;
                 });
                 $scope.marketing_programs = marketingPrograms;
@@ -564,15 +566,13 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.chooseEmailListOnChange = function (listName) {
-            alert(listName);
             $scope.emailList = listName;
             $scope.toAddress = "";
             if (listName === "1") {
                 emails = "";
                 $scope.emailAddresses = emails;
                 $scope.toAddress = emails;
-            }
-            else if ($scope.emailList !== "1")
+            } else if ($scope.emailList !== "1")
             {
                 var emails = "";
                 emailListFactory.emailListGet($scope.emailList, "emailsForEmailList").then(function (data) {
@@ -694,11 +694,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.emailPreviewPopup = true;
         };
 
-        $scope.continueEmailDetailsOnClick = function () {
-            $scope.emailSendPopup = true;
-            $("#fade").show();
-        };
-               
         $scope.sendEmailOnClick = function (fromName, fromAddress, replyAddress, toAddress) {
             var sendEmailData = JSON.stringify({
                 from_name: fromName,
@@ -709,7 +704,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 email_list: $scope.emailList,
                 iframeName: $scope.randomIframeFilename.toString()
             });
-            alert(JSON.stringify(sendEmailData));
             emailFactory.sendEmail(sendEmailData).then(function (data) {
                 if (data.d.message === "true") {
                     emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function () {
@@ -722,16 +716,83 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 }
             });
         };
-                       
+
+
+        $scope.continueEmailDetailsOnClick = function (postData) {
+            $scope.schedulePopup = false;
+            $scope.postTypeSelectionPopUp = true;
+            $scope.postData = postData;
+            $scope.postTo = "Send Now";
+        };
+
+
+        $scope.existingAction = function () {
+            $scope.existingActionPopup = true;
+            $scope.createNewActionPopup = false;
+        };
+
+        $scope.createNewAction = function () {
+            $scope.createNewActionPopup = true;
+            $scope.existingActionPopup = false;
+        };
+
         $scope.closeMindbodyPopup = function () {
             $scope.emailMindBodyPopup = false;
             $scope.overlayFade = false;
         };
 
+
+        $scope.getAllMaketingPrograms = function (selectedSocialmedia) {
+            companyMarketingProgramFactory.getAllUserMarketingProgramsGet().then(function (data) {
+                $scope.defaultmarketingprogram = [{program_id: 0, name: '--General--', id: 0}];
+                $scope.marketing_programs = $scope.defaultmarketingprogram.concat(data);
+                $scope.selectedMarketingProgrma = $scope.marketing_programs[0].program_id;
+                $scope.getEmailAction();
+            });
+        };
+
+        $scope.getActions = function (selectedSocialmedia, selectedMarketingProgrmaId) {
+            $scope.selectedMarketingProgrma = selectedMarketingProgrmaId;
+            if (selectedSocialmedia === "email") {
+                $scope.getFacebookActions(selectedMarketingProgrmaId);
+            }
+        };
+
+        $scope.getFacebookActions = function (selectedMarketingProgrmaId) {
+            var data = JSON.stringify({programid: selectedMarketingProgrmaId.toString(), type: getfacebook()});
+            scheduleActionsFactory.getActionsPost(data).then(function (data) {
+                var parseData = JSON.parse(data.d.details);
+                $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM FACEBOOK"}];
+                $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
+                $scope.socialAction = $scope.defaultAction[0].id;
+            });
+        };
+
+        $scope.setAction = function (selectedAction) {
+            alert(selectedAction);
+            $scope.socialAction = selectedAction;
+        };
+
+        $scope.schedulePost = function (selectedSocialmedia, postData) {
+            alert(selectedSocialmedia);
+            if (selectedSocialmedia === "email") {
+                $scope.schedulePostToEmail(postData);
+            }
+        };
+
+        $scope.schedulePostToEmail = function (postData) {
+            var sendData = $scope.getScheduleData($scope.selectedMarketingProgrma, postData, getfacebook());
+            if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
+                scheduleActionsFactory.scheduleEmailPost(sendData).then(function (data) {
+                    alert(JSON.stringify(data));
+                });
+            }
+        };
+
         $scope.previewCloseButton = function () {
             $scope.emailPreviewPopup = false;
             $("#fade").hide();
-            
+
         };
 
         $scope.editFooter = function () {
@@ -746,16 +807,70 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.emailSendPopup = false;
             $("#fade").hide();
         };
-        
+
         $scope.scheduleEmailPopup = function () {
             $scope.showSchedulePopup = true;
             $("#schedulepopup").show();
         };
-        
+
         $scope.closeschedulepopup = function () {
             $scope.showSchedulePopup = false;
         };
-               
+
+        $scope.openSchedulePopup = function (selectedSocialmedia) {
+            $scope.postTypeSelectionPopUp = false;
+            $scope.schedulePopup = true;
+            $scope.existingActionPopup = true;
+            $scope.createNewActionPopup = false;
+            $scope.activeClassExisting = 'active';
+            $scope.activeClassNew = '';
+            $scope.scheduleButtonData = "Schedule";
+        };
+
+        $scope.hidePopup = function (popupName) {
+            if (popupName === "sendOrSchedulePopup") {
+                $scope.postTypeSelectionPopUp = false;
+            } else if (popupName === "schedulePopup") {
+                $scope.schedulePopup = false;
+            }
+        };
+        $scope.getEmailAction = function () {
+            var actionCallData = {
+                programid: "0",
+                type: getemail()
+            };
+            scheduleActionsFactory.getActionsPost(actionCallData).then(function (data) {
+                var parseData = JSON.parse(data.d.details);
+                $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM FACEBOOK"}];
+                $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
+                $scope.socialAction = $scope.defaultAction[0].id;
+            });
+        };
+        $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
+            if (selectedSocialmedia === "email") {
+                var sendEmailData = JSON.stringify({
+                    from_name: postData.fromName,
+                    email_subject: postData.emailSubject,
+                    email_addresses: postData.toAddress,
+                    from_email_address: getDefaultEmailId(),
+                    reply_to_email_address: postData.replyAddress,
+                    email_list: $scope.emailList,
+                    iframeName: $scope.randomIframeFilename.toString()
+                });
+                alert(JSON.stringify(sendEmailData));
+                emailFactory.sendEmail(sendEmailData).then(function (data) {
+                    if (data.d.message === "true") {
+                        emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
+                            if (responseText === "true")
+                            {
+                                alert(emailsend);
+                                window.location = "dashboard";
+                            }
+                        });
+                    }
+                });
+            }
+        };
     }]);
 
 
