@@ -1,7 +1,7 @@
 
 //************************ @author Tasmiya P.S @ Intbit *************************
 
-factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, configurationService) {
+factoryApp.factory('settingsFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var settingsFactoryObject = {};
     settingsFactoryObject.getColorsURLGet = function () {
         var deffered = $q.defer();
@@ -57,7 +57,7 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
         var fd = new FormData();
         fd.append('file', file);
         var url = configurationService.saveLogoURL();
-        authenticatedServiceFactory.makeCall("POST", url, fd ,"UPLOADIMAGE").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, fd, "UPLOADIMAGE").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
@@ -65,7 +65,7 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
     settingsFactoryObject.facebookPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.facebookURL();
-        authenticatedServiceFactory.makeCall("POST", url,data, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
@@ -80,7 +80,7 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
     };
     settingsFactoryObject.fbLoginPost = function (data) {
         var deffered = $q.defer();
-        var url = configurationService.fbLoginURL();   
+        var url = configurationService.fbLoginURL();
         authenticatedServiceFactory.makeCall("POST", url, data).then(function (data) {
             deffered.resolve(data);
         });
@@ -97,7 +97,7 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
     settingsFactoryObject.twitterLoginGet = function (data) {
         var deffered = $q.defer();
         var url = configurationService.twitterLoginURL();
-        authenticatedServiceFactory.makeCall("GET", url,data, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("GET", url, data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
@@ -112,14 +112,27 @@ factoryApp.factory('settingsFactory', function ($q,authenticatedServiceFactory, 
     };
     settingsFactoryObject.setFooterPost = function (footerDetails) {
         var deffered = $q.defer();
-        var url = configurationService.setFooterPostURL(); 
+        var url = configurationService.setFooterPostURL();
         var data = '{"footerDetails":"' + footerDetails + '"}';
         authenticatedServiceFactory.makeCall("POST", url, data).then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    
+    settingsFactoryObject.sortenUrl = function (urlToSorten) {
+        var deffered = $q.defer();
+        $.ajax({
+            url: "http://api.bit.ly/v3/shorten",
+            async: false,
+            data: {longUrl: urlToSorten, apiKey: getBitlyKey(), login: getBitlyUserName()},
+            dataType: "jsonp",
+            success: function (v)
+            {
+                deffered.resolve(v);
+            }});
+        return deffered.promise;
+    };
+
     return settingsFactoryObject;
 });
 

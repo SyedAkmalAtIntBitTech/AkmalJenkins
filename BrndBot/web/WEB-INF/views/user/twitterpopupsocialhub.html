@@ -1,15 +1,15 @@
-<!--<%-- 
+<!-- 
     Document   : twitterpopupforsocialhub
     Created on : 9 May, 2016, 5:53:58 PM
     Author     : sandeep
---%>-->
+-->
 <div ng-show="showTwitterPopup" class="popUp_background-dark " id="twitterSetPinPopUpFromSocialhub">
     <div class="popUp_CenterVert ">
         <div class="popUp-top-wide clear" style="width: 700px;height: 350px;">
             <div class="popUp_header clear">
                 <div class="pane_title fleft h2 col1of2">Connect BrndBot to your Twitter</div>
                 <div class="popUp_close fright" id="hidepopup" ng-class="twittersample" ng-click="closeTwitterPopup()">
-                    <img type="image/svg+xml" src="../images/Pop-Up-Exit-Button.svg" class="fleft popUp_close-icon cursor-shape"/>
+                    <img  src="../images/Pop-Up-Exit-Button.svg" class="fleft popUp_close-icon cursor-shape"/>
                 </div>
             </div>
             <div class="popUp_subheader clear">
@@ -22,7 +22,7 @@
             </div>
         <div class="popUp-bottom-wide" style="width: inherit;">
             <span class="clickable-area">
-                <div class="popUp-bottom-link" ng-click="setTwitterAccessTokenFromSocialHub(pinCode)">Done</div>
+                <div class="popUp-bottom-link" ng-click="setDefaulttwitterAccount(pinCode)">Done</div>
             </span>
         </div>
     </div>
