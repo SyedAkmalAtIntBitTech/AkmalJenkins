@@ -1077,13 +1077,13 @@
                     </div>
                 </div>
  <!--////////////........ uncomment for footer....................///////-->
-                 <div class="in-editor-footer-wrap">
+<!--                 <div class="in-editor-footer-wrap">
                             <h3>Email Footer</h3>
                             <p>Your email footer is the same on every email. You 
                         see the footer in this email by previewing your email. To edit
                         the footer click email footer settings.</p>
                             <span class="reg-button gray-button" onclick="editFooter()">Edit Email Footer</span>
-                </div>
+                </div>-->
             </div>
             <div class="emailEditor-rightCol fright rightcoloumn">
                 <div class="emailSideBar-Header">
