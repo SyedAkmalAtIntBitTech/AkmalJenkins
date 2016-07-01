@@ -5,8 +5,8 @@
     
 <!--    <input type="hidden" id="get_list_name" value="<%=list_name%>"/>
     <input type="hidden" id="get_type" value="<%=type%>"/>   -->
-<!--    <input type="hidden" id="get_list_name" value="{{email.emailListName}}"/>-->
-<!--    <input type="hidden" id="get_type" value="<%=type%>"/>   -->
+    <input type="hidden" id="get_list_name" value="{{emailListName}}"/>
+    <input type="hidden" id="get_type" value="{{type}}"/>   
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
            <a class=" exit-button-icon" href="emaillists">
@@ -23,7 +23,7 @@
                     <div class=" md-button" ng-click="deleteSelected()"> Delete Contact</div>    
                 </a>
                 <a href="javascript:void(0)" class="fleft">
-                     <div id="addcontact"  class="add-button md-button" ng-click="addContactDetails(add,'','','','')"> Add Contact</div>    
+                     <div id="addcontact"  class="add-button md-button" ng-click="addContactDetails('add','','','','')"> Add Contact</div>    
                 </a>
 <!--                <a href="javascript:void(0)" class="fleft">
                      <div id="addcontacts"  class="add-button md-button" ng-click="showAddContacts()"> Add Contacts</div>    
@@ -47,7 +47,7 @@
             
             <!--Inner Content Conatiner GENERIC-->
             <div class="page-inner-content-container ">
-                <div class="fleft content" ng-init="updateList()">
+                <div class="fleft content" ng-init="updateList(emailLists)">
                     <!--List Starts Here-->
                     <ul class="main-container fleft">
                         <input type="text" placeholder="Search" ng-model="userSearch">                        
@@ -56,7 +56,7 @@
                                 <a href="">
                                     <div class="selection-container col-5p fleft"> 
 <!--                                        <div class="selection-icon" id="{{email.id}}" onclick="selemlcheckbox(this.id);">-->
-                                            <div class="selection-icon" id="{{email.emailListID}}" ng-click="selectedEmailCheckbox(email.emailListID)">
+                                            <div class="selection-icon" id="{{email.id}}" ng-click="selectedEmailListCheckbox(email.id)">
                                             <input type="checkbox" id="emailid{{email.emailAddress}}" value="{{email.emailAddress}}" name="emaillistname" hidden></input>
                                         </div>
                                     </div>
@@ -75,7 +75,7 @@
                                     <div class="list-column-description col-1of1 sh3-contact fleft">Last Name</div>
                                 </div>
                                 <div class="col-1of10 slat-cta-container fright">
-                                    <a href="" onclick="fun('update','{{email.emailAddress}}','{{email.id}}','{{email.firstName}}','{{email.lastName}}');">
+                                    <a href="" ng-click="addContactDetails('update','{{email.emailAddress}}','{{email.id}}','{{email.firstName}}','{{email.lastName}}')">
                                         <div class="small-button slat-button detail-button-font">Edit</div>
                                     </a>
                                 </div>
