@@ -334,6 +334,8 @@ $scope.displayAllEmailDrafts();
             alert(JSON.stringify(email));
             var email_list_name = $scope.emailListName;
             var email_address = $("#emailId").val();
+//            var firstName = $scope.firstName;
+//            var lastName = $scope.lastName;
             var firstName = email.firstName;
             var lastName = email.lastName;
             var type = $scope.type;
@@ -362,10 +364,11 @@ $scope.displayAllEmailDrafts();
                         }
                     });
                 } else if (type === "update") {
+                    alert(emaildetails);
                     var id = $("#uuid").val();
                             emaildetails = {"update":"updateEmailID", "emailUID":id, "emailListName":email_list_name, 
                                                 "emailAddress":email_address, "emailFirstName":firstName, 
-                                                "emailLastName":lastName}
+                                                "emailLastName":lastName};
                     emailListFactory.emailListSavePost(emaildetails).then(function (data) {
                         alert(datasaved);
                         $location.path("/emaillistdetails");
@@ -483,6 +486,11 @@ $scope.displayAllEmailDrafts();
                 };
                 $scope.addContactDetails = function (type, email, id, fname, lname)
                 {
+                $scope.email = {
+                emailId :id,
+                firstName: fname,
+                lastName:lname
+            };
                 $("#fade1").show();
                 $scope.showAddContactPopup = true;
                 $scope.uuid = id;
@@ -523,6 +531,7 @@ $scope.displayAllEmailDrafts();
                         $("#emailList").addClass("h3");
                         $("#tab3").hide();
                         $("#tab4").show();
+                        $scope.showAddContactPopup = false;
                 };
                 $scope.viewEmailListDetails = function (listName,type)
                 {
