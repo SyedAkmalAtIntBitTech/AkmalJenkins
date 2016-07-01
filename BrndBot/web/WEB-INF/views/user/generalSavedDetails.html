@@ -1,4 +1,24 @@
-<div class="below-nav-container-saved-post-detail" ng-if='generalSavedDetails'>
+<div class="below-nav-container-saved-post-detail" ng-show='generalSavedDetails'>
+    
+    <div class="saved-post-preview-detail" id="noemailsdiv" ng-if="savedEmail === false">
+
+        <!--SAVED Email GOES HERE-->
+
+        <div class="overlay-emptystate-icon">
+            <img type="image/svg+xml" src="images/Overlay_EmptyStates_Email-Empty-State.svg" class="overlay-emptystate-icon">
+        </div>
+        <div class="empty-state-container">
+            <div class="h2new textCenter textColor-Graynew">
+                {{actionTypeNoTemplateMessage}}
+            </div>
+            <!--<a class="link" href="dashboard">-->
+            <a class="link" href="{{savedDetailsAddTemplateLink}}">
+                <div class="md-button empty-state-cta">
+                    {{savedDetailsAddTemplateButton}}
+                </div></a>
+        </div>
+    </div>
+    
     <div class="inner-content-container-detail">
         <div class="BBsaved-action-header-bar" ng-show="savedEmail">
             <div class="BBsaved-action-header-details-wrap BBstyle">
@@ -7,7 +27,7 @@
             <div class="BBreg-button BBedit-saved-email-button" ng-click="deleteSchedule(schedule_id,'remove',masterActionType)">{{deleteScheduleButton}}</div>
         </div>
     </div>
-    <div class="inner-content-detail">
+    <div class="inner-content-detail" ng-show="savedEmail">
         
         <div class="Facebook-preview" >
             <iframe id="iframeForAction" width="500" height="400" ng-src="{{iframeData}}"></iframe>
