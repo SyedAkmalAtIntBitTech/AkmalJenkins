@@ -1,5 +1,5 @@
 
-marketingFlowApp.controller("marketingController", ['$scope', '$location', '$filter', '$sce', 'marketingFactory', 'companyMarketingProgramFactory', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'marketingRecurringEmailControllerFactory', 'emailFactory', function ($scope, $location, $filter, $sce, marketingFactory, companyMarketingProgramFactory, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, marketingRecurringEmailControllerFactory, emailFactory) {
+marketingFlowApp.controller("marketingController", ['$scope', '$location', '$filter', '$sce', 'marketingFactory', 'companyMarketingProgramFactory', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', 'marketingRecurringEmailFactory', 'emailFactory', function ($scope, $location, $filter, $sce, marketingFactory, companyMarketingProgramFactory, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory, marketingRecurringEmailFactory, emailFactory) {
         $scope.marketingCategoryId = "";
         $scope.marketingProgramId = "";
         $scope.past = "";
@@ -153,7 +153,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.addUpdateRecuringAction = function ()
         {
-            marketingRecurringEmailControllerFactory.recurringEmailTemplatePost().then(function (data) {
+            marketingRecurringEmailFactory.recurringEmailTemplatePost().then(function (data) {
 
 
             });
@@ -252,7 +252,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
     
     $scope.getRecurringScheduleDetails = function (schedule_id, template_status, till_date, schedule_time, entity_type, schedule_title, schedule_desc, date_status,days)
     {
-        alert(template_status);
         $scope.isRecurring = true;
         $scope.savedEmail = false;
         $scope.schedule_id = schedule_id;
@@ -300,7 +299,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
     };
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, action_status, days, marketingName)
     {
-        alert(template_status);
             $scope.isRecurring = false;
             $scope.savedEmail = false;
             $scope.schedule_id = schedule_id;
