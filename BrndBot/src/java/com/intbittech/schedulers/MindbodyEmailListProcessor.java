@@ -3,25 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.controller;
+package com.intbittech.schedulers;
 
+import com.intbittech.divtohtml.StringUtil;
 import com.intbit.ConnectionManager;
 import com.intbittech.component.SpringContextBridge;
+import com.intbittech.divtohtml.StringUtil;
 import com.intbittech.mindbody.MindBodyClass;
+import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.EmailInfo;
+import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.EmailListService;
+import com.intbittech.utility.IConstants;
+import com.intbittech.utility.Utility;
 import com.mindbodyonline.clients.api._0_5Client.Client;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
@@ -63,36 +63,28 @@ public class MindbodyEmailListProcessor implements Runnable {
 
     public void startProcessing() throws ParseException {
 
-        HashMap<Integer, Integer> rowIdLocationHashMap = new HashMap<>();
+        CompanyPreferencesService companyPreferencesService = SpringContextBridge.services().getCompanyPreferencesService();
+        List<CompanyPreferences> companyPreferencesList = companyPreferencesService.getAll();
 
-        String sql = "SELECT company_location, email_list,fk_company_id"
-                + " FROM company_preferences "
-                + " WHERE company_location IS NOT NULL";
-        try (Connection connection = connectionManager.getConnection();
-                PreparedStatement ps = connection.prepareStatement(sql)) {
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    int location = rs.getInt("company_location");
-                    int compnayId = rs.getInt("fk_company_id");
-                    rowIdLocationHashMap.put(compnayId, location);
-                }
+        for (CompanyPreferences companyPreferences : companyPreferencesList) {
+            if (!StringUtil.isEmpty(companyPreferences.getCompanyLocation())) {
+                Integer value = Integer.parseInt(companyPreferences.getCompanyLocation());
+                processEachRow(companyPreferences.getFkCompanyId().getCompanyId(), value);
             }
-        } catch (SQLException ex) {
-            logger.log(Level.SEVERE, "Mindbody email list processor", ex);
-        }
-
-        processEachRow(rowIdLocationHashMap);
+        }        
+        
     }
 
-    public void processEachRow(HashMap<Integer, Integer> rowIdLocationHashMap) throws ParseException {
+    public void processEachRow(Integer companyId, Integer companyLocation) throws ParseException {
         JSONArray json_email_array = new JSONArray();
-        Iterator it = rowIdLocationHashMap.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<Integer, Integer> pair = (Entry<Integer, Integer>) it.next();
-            int[] siteids = new int[]{pair.getValue()};
-            MindBodyClass mind_body_class = new MindBodyClass(siteids);
-            HashMap<String, List<Client>> clientIndexesHashmap = new HashMap<String, List<Client>>();
-            try {
+        
+        int[] siteids = new int[]{companyLocation};
+        MindBodyClass mind_body_class = new MindBodyClass(siteids);
+        HashMap<String, List<Client>> clientIndexesHashmap = new HashMap<String, List<Client>>();
+        CompanyPreferencesService companyPreferencesService = SpringContextBridge.services().getCompanyPreferencesService();
+        CompanyPreferences companyPreferences = companyPreferencesService.getByCompanyId(companyId);
+        Map<String, String> unsubscribedEmailsMap = companyPreferencesService.getUnsubscribedEmailsMap(companyPreferences);
+        try {
                 long startTime = System.currentTimeMillis();
                 logger.log(Level.INFO, "Started working on getting email lists for :" + siteids[0]);
                 //String key is the Email List Name. And the value is the clients associated with it.
@@ -116,8 +108,10 @@ public class MindbodyEmailListProcessor implements Runnable {
 
                         String first_name = email_object1.getFirstName();
                         String last_name = email_object1.getLastName();
-                        EmailInfo email_info = new EmailInfo(email_id, first_name, last_name, dateFormat.format(new Date()));
-                        json_array_emailclient.put(email_info.getEmailInfoJSONObject());
+                        if (Utility.checkIfUnsubscribed(email_id, unsubscribedEmailsMap)) {
+                            EmailInfo email_info = new EmailInfo(email_id, first_name, last_name, dateFormat.format(new Date()));
+                            json_array_emailclient.put(email_info.getEmailInfoJSONObject());
+                        }                        
                     }
                     
                     json_email_object.put(IConstants.kEmailListNameKey, "Mindbody - " + email_list_name);
@@ -127,13 +121,13 @@ public class MindbodyEmailListProcessor implements Runnable {
                 }
 
                 if (json_email_array.size() >= 0) {
-                    updateUserPreferencesTable(pair.getKey(), json_email_array);
+                    updateUserPreferencesTable(companyId, json_email_array);
                 }
 
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "Mindbody email list processor", e);
             }
-        }
+//        }
     }
 
     private void updateUserPreferencesTable(Integer companyId, JSONArray mindbodyEmails) throws Exception {

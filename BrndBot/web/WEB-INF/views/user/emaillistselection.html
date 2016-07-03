@@ -3,6 +3,20 @@
 <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"/>
 <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-5.css"/>   
 <link rel="stylesheet" type="text/css" href="css/normalize5.css">
+<link rel="stylesheet" type="text/css" href="css/admin.css">
+<link href="css/normalize.css" rel="stylesheet" type="text/css"/>
+<link href="css/pikaday.css" rel="stylesheet" type="text/css"/>
+<link href="css/timepicki.css" rel="stylesheet" type="text/css"/>   
+<link href="css/general.css" rel="stylesheet" type="text/css"/>
+<link href="css/colpick.css" rel="stylesheet" type="text/css"/>
+        <script src="js/colpick.js" type="text/javascript"></script>
+        <script src="js/form.js" type="text/javascript"></script>
+        <script src="js/pikaday.js"></script>
+        <link rel="stylesheet" href="css/pikaday.css"/>
+        <link rel="stylesheet" href="css/datepickerpikaday.css"/>
+        <script src="js/timepicki.js" type="text/javascript"></script>
+        <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
+        <link rel="shortcut icon" href="images/favicon.png"/> 
 <style>
     #emladdrstxtarea,#clktoupload,#upload,#emaildetailscontbtn,#emaildetailsid,#backemaildetails{display:none;}
     .pop-up-background {
@@ -18,9 +32,9 @@
 <div class="content-main" >
     <!--<div ng-include src="'header.html'"></div>-->
     <div ng-include src="'navbar.html'"></div> 
-    <div ng-include="'emaillistselectionpopup.html'"></div>
     <div ng-include src="'emailpreview.html'"></div> 
-
+    <div ng-include src="'sendorschedulepopup.html'"></div> 
+    <div ng-include src="'schedulepopup.html'"></div> 
     <!--Top Nav-->   
     <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
@@ -87,7 +101,7 @@
                         <div class="h4" style="">
                             Enter a subject line for this Email:
                         </div>
-                        <input id="subject" class="input-field-textfield col-8of10" value="{{emailSubject}}" type="text"></input>
+                        <input id="subject" ng-model="emailSubject" class="input-field-textfield col-8of10" value="{{emailSubject}}" type="text"></input>
                     </div>
                 </div>
                 <div class="cols-2 fleft col-9of10 pushUp">
@@ -95,9 +109,9 @@
                         <div class="h4"> From Name </div>
                         <input id="name" class="input-field-textfield input-placeholder" placeholder="Enter From Name" type="text" ng-model="fromName"></input>
                     </div>
-                    <div class="input-field-container col-3of10 fleft">
+                    <div class="input-field-container col-3of10 fleft" style="display:none;">
                         <div class="h4"> From Email Address </div>
-                        <input id="formaddress" class="input-field-textfield input-placeholder" placeholder="Enter From  Email Address" type="text" ng-model="fromAddress" readonly />
+                        <input id="formaddress" class="input-field-textfield input-placeholder" placeholder="Enter From  Email Address" type="text" ng-model="fromAddress" type="hidden" value="mail@brndbot.com" readonly/>
                     </div>
                 </div>
                 <div class="cols-2 fleft col-9of10 pushUp">
@@ -119,7 +133,7 @@
     </div>  
     <div class="bottom-cta-bar">
         <div class="bottom-cta-button-container-lg">
-            <div class="bottom-continue-button button-text-1" id="emaildetailscontbtn" ng-click="continueEmailDetailsOnClick()">Continue</div>
+            <div class="bottom-continue-button button-text-1" id="emaildetailscontbtn" ng-click="continueEmailDetailsOnClick({'emailSubject':emailSubject,'fromName':fromName,'fromAddress':fromAddress,'toAddress':toAddress,'replyAddress':replyAddress})">Continue</div>
             <div style="display: block;" class="bottom-continue-button button-text-1" id="emailIdContinueButton" ng-show="emailContinueButton" ng-click="continueEmailListOnClick(emailAddresses)">Continue</div>
         </div>
     </div>

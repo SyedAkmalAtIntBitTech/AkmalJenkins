@@ -283,7 +283,7 @@
                                     <div class="h4" style="">
                                         Default from Address:
                                     </div>
-                                    <input id="from_address" class="input-field-textfield col-8of10" type="text" name="from_address" value="{{email_settings.from_address}}" placeholder="Enter default email address"/>
+                                    <input id="from_address" class="input-field-textfield col-8of10" type="text" name="from_address" value="mail@brndbot.com" placeholder="Enter default email address"  readonly />
 
                                 </div>
                             </div>
@@ -295,6 +295,15 @@
                                     <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{email_settings.reply_email_address}}" name="reply_email_address" placeholder="Enter reply-to-email address"/>
                                 </div>
                             </div>
+                            <div class="col-1of1 fleft">
+                                <div class="col-7of10 fleft">
+                                    <div class="h4" style="" onclick="openUnsubscribeEmailsPopup()">
+                                        <div class="update-container">
+                                            <span class="small-button slat-button">Unsubscribe Emails</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
                         </div>                        
                     </div>   
                 </div>
@@ -367,6 +376,7 @@
                 </div>
             </div>
          <%@include file="emailfooterpopup.jsp" %>
+         <%@include file="unsubscribeemailspopup.jsp" %>
         </div>
         <div id="light" class="white_content closepopup">
             <a href = "javascript:void(0)" style="text-decoration:none;">

@@ -116,4 +116,21 @@ public class CompanyPreferencesDaoImpl implements CompanyPreferencesDao {
             throw new ProcessFailed("Database error while retrieving record");
         }
     }
+
+    @Override
+    public List<CompanyPreferences> getAll() {
+          try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(CompanyPreferences.class);
+            List<CompanyPreferences> list = criteria.list();
+            if (list.isEmpty()) {
+                return null;
+            }
+            return list;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
+    }
 }

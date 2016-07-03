@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.controller;
+package com.intbittech.utility;
 
 /**
  *
@@ -60,4 +60,5 @@ public interface IConstants {
     final static String kTwitterTextKey = "text";
     final static String kTwitterURLKey = "shorturl";
     final static String kFooters = "userProfile";
+    final static String kUnsubscribeEmails = "unsubscribeEMails";
 }

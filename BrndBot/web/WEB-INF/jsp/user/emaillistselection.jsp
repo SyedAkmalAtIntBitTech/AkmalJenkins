@@ -164,9 +164,9 @@
                                 <div class="h4"> From Name </div>
                                 <input id="name" class="input-field-textfield input-placeholder" placeholder="Enter From Name" type="text"></input>
                             </div>
-                             <div class="input-field-container col-3of10 fleft">
+                             <div class="input-field-container col-3of10 fleft" style="display:none;">
                                 <div class="h4"> From Email Address </div>
-                                <input id="formaddress" class="input-field-textfield input-placeholder" placeholder="Enter From  Email Address" type="text" value="{{email_settings.from_address}}"></input>
+                                <input id="formaddress" class="input-field-textfield input-placeholder" placeholder="Enter From  Email Address" type="hidden" value="mail@brndbot.com"></input>
                             </div>
                         </div>
                         <div class="cols-2 fleft col-9of10 pushUp">

@@ -1,6 +1,4 @@
-    
-
-<div class="contentWrap--withSideNav noScroll ng-scope" style="width:calc(10vw - 70px); ">
+<div class="contentWrap--withSideNav noScroll ng-scope" style="width:calc(10vw - 70px); " ng-init="initEmailAutomation()">
     <div class="topNav topNav-withSubnav clear">
         <div class="page-title-bar col-1of1"> 
             <a class=" exit-button-icon" href="marketingprogramlists">    
@@ -11,13 +9,14 @@
             <div class="page-title-with-back page-title-font">Email Editor</div>
             <div class="page-cta-container">
                 <a href="" class="gray-button fleft pushright">
-                    <div class="nounderline md-button" id="emailpreview">  Preview Email</div>  
+                    <div class="nounderline md-button" id="emailpreview" ng-click="emailPreviewOnClick()">Preview Email</div>  
                 </a>
 
             </div>
         </div>
     </div>
     </div>
+ <!--
 
 
         <div id="boxes">
@@ -25,10 +24,11 @@
             </div>
             <div id="mask"></div>
         </div>
-    <!--SideNav-->
+    SideNav
     <div class="content-main" >
+    Top Nav   
+    <div id="changed--emailautomationcontent" >emailautomationcontent id changed to display the content 
     <!--Top Nav-->   
-    <div id="changed--emailautomationcontent" ><!--emailautomationcontent id changed to display the content -->
        <div class="top-nav">
         <div class="page-title-bar col-1of1"> 
            <div class="exit-button-detail" id="back">
@@ -42,17 +42,16 @@
            
    
       </div>
-        <!--Main Content--> 
-        <div class="page-background" >
+        <div class="page-background">
         <div class="page-content-container email-list-contact-page" ng-init="getEntityDetails();">
             
-            <!--Inner Content Conatiner GENERIC-->
+            Inner Content Conatiner GENERIC
             <div class="page-inner-content-container ">
                 <div class="fleft content">
                     <div class="page-content-title-bar">
                         <div class="page-content-title sequenceTitleBar ">Email Automation Details</div>
                     </div>
-                    <!--List Starts Here-->
+                    List Starts Here
                     <div class="sequence-container fleft">
                          <div class="col-6of10 fleft">
                                 <div class="h4" style="">
@@ -76,7 +75,7 @@
                     <div class="page-content-title-bar">
                         <div class="page-content-title sequenceTitleBar ">Create a trigger for when to send this email</div>
                     </div>
-                    <!--List Starts Here-->
+                    List Starts Here
                     <div class="sequence-container fleft">
                         <div class="col-3of10 fleft ">
                                 <div class="h4 pushUp-10 ">
@@ -91,7 +90,7 @@
                                     days after they are added to
                              </div>
                          </div>
-                        <div class="col-3of10 fleft">
+                        <div class="col-3of10 fleft" ng-click="emailListDropdown()">
                               <select id="emaillist" name="emaillist" class="input-field-textfield">
                                    <option value="0">-- Select --</option>
                                    <option ng-repeat ="Lists in emailLists_user" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
@@ -119,7 +118,7 @@
                                    
                         </div>
                         <div class="col-4of10 fleft pushUp-30 lftpad-5" id="datepickerdiv">
-                            <!--<input></input>-->
+                            <input></input>
                                 <div class="h4" style="">
                                      Select a till date:
                                 </div>
@@ -148,7 +147,7 @@
                     <div class="page-content-title-bar">
                         <div class="page-content-title sequenceTitleBar ">Email Details</div>
                     </div>
-                    <!--List Starts Here-->
+                    List Starts Here
                     <div class="sequence-container fleft">
                             <div class="col-6of10 fleft ">
                                 <div class="h4" style="">
@@ -180,19 +179,20 @@
         </div>
         </div>
         
-    <!--</div>-->
+    </div>
   <div class="bottom-cta-bar">
             <div class="bottom-cta-button-container-lg">
                <div class="bottom-continue-button button-text-1" ng-click="addUpdateRecuringAction()">Continue</div>
             </div>
   </div>
    </div>
-   <div id="emailautomation" class="page-background">
+   <div id="emailautomation" class="page-background" style="display: block;">
+
        <div id="fade" class="black_overlay" ></div>
            <div id="email_previewdiv">
         <div class="pop-up-background">
-            <div class="pop-up-container-emailPreview"> 
-                <a class=" exit-button-detail-ep link svg" href="" id="closePrev">
+            <div class="pop-up-container-emailPreview" ng-show="emailPreviewPopup"> 
+                <a class=" exit-button-detail-ep link svg" href="" id="closePrev" ng-click="closeEmailPreviewPopup()">
                     <img alt="" src="images/close.svg" class="closeemailpreview" style="cursor:pointer;"/> 
                 </a>
                 <div class="pop-up-title-emailpreview "> 
@@ -210,7 +210,7 @@
                                     </div>                   
                                 </div>
                             <!--</div>-->
-                            <div class="desktopshow" style="display:none;">
+                            <div class="desktopshow">
                                 <iframe id='dynamictable' class="desktoppreview" src=''></iframe> 
                             </div>                        
                         </div>
@@ -233,13 +233,16 @@
 <!--           <div class="col-md-1 col-lg-1 col-sm-2 halfcol" >
                <%--<jsp:include page="leftmenu.html"/>--%>
            </div>-->
-               <div id="emlautomeditorcontainer" class="page-content-container" ng-init="getEmailTemplates()">
+               <div id="emlautomeditorcontainer" class="page-content-container" style="display: block;" ng-init="getEmailTemplates()">
+
+<!--               <div id="emlautomeditorcontainer" class="page-content-container" ng-show="emailEditorContainer" ng-init="getEmailTemplates()">-->
+
                <!--<div class="col-1of1">-->
                <!--<div class="">-->
                    <div class="col-emaileditor">
                        <div class="col-emaileditordiv" style="width: 100%;">
                             
-        <div class="emailEditor-page-background fleft">
+        <div class="emailEditor-page-background fleft" style="display: block;">
             <div class="emailEditor-leftCol ">
                         <div id="editor">
                             <div id='edit' class="editorheight" style=""></div>
@@ -252,7 +255,7 @@
                             <p>Your email footer is the same on every email. You 
                         see the footer in this email by previewing your email. To edit
                         the footer click email footer settings.</p>
-                            <span class="reg-button gray-button" onclick="editFooter()">Edit Email Footer</span>
+                            <span class="reg-button gray-button" ng-click="editFooter()">Edit Email Footer</span>
                         </div>
 <!--                            <div class="btmdiv">
                                <div class="col-1of1">
@@ -278,7 +281,7 @@
                            </div> -->
                        </div>
                        <div class="emailEditor-rightCol fright rightcoloumn">
-                <div class="emailSideBar-Header">
+<!--                <div class="emailSideBar-Header">
                     <div class="col-1of2 fleft">
                         <div class="emailSideBar-tab-active" id="templatediv" style="color: rgb(25, 88, 124); background-color: rgb(255, 255, 255);">
                          Add Template
@@ -289,17 +292,29 @@
                          Select a Text
                         </div>
                     </div> 
+                </div>-->
+                    <div class="emailSideBar-Header">
+                    <div class="col-1of2 fleft">
+                        <div class="{{addtemplatetab}}" id="addtemplatetab" ng-init="showTemplates()" ng-click="showTemplates()" style="color: rgb(25, 88, 124); background-color: rgb(255, 255, 255);">
+                         Add Template
+                        </div>
+                    </div>
+                    <div class="col-1of2 fleft">
+                        <div class="{{texttab}}" id="texttab" ng-init="showText('false')" ng-click="showText('true')" style="color: rgb(25, 88, 124); background-color: transparent;">
+                         Select a Text
+                        </div>
+                    </div> 
                 </div>
                 <div class="email-Block-Selection right-email-select">
-                    <div class="email-Block-Header" id="blockdivheader">Select a Template:</div>
-                    <div class="email-Block-Header displayNone" id="textTab">Select a Text:</div>
+                    <div class="email-Block-Header" id="blockdivheader" ng-show="blockdivheader">Select a Template:</div>
+                    <div class="email-Block-Header" id="textdivheader" ng-show="textdivheader">Select a Text:</div>
                     <div class="block-selection-divider"></div>
-                      <ul id="blklist" class="block-list blocklistnew fontpnr">
+                      <ul id="blklist" class="block-list blocklistnew fontpnr" style="display: none;">
                            <li ng-repeat="email_template in recuring_email_templates"> 
                                 <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
                            </li>
                       </ul>
-                    <ul class="block-list" id="stylediv">
+                    <ul class="block-list" id="textdivheader" ng-show="textdivheader">
                         <li>
                             <div class="textstyle">To add client name please use these options</div>
                             <div class="textstyle">Ex: Hi &LT;clientFirstName&GT; </div>
@@ -393,15 +408,16 @@
         </div>
     </div>
    </div>   
-        <div class="bottom-cta-bar" id="editpreviewtemplatebottom">
+        <div class="bottom-cta-bar" id="editpreviewtemplatebottom" style="display: block;">
+<!--        <div class="bottom-cta-bar" ng-show="emailRecurringPreviewTemplate" id="editpreviewtemplatebottom">-->
          <div class="bottom-cta-button-container-lg">
 <!--             <div class="editemail fontpnr col-1of4">Edit this Email Automation Action</div>   
              <div class="mobileprev fontpnr col-1of4" id="emailpreview" class="img-responsive ptr" >Email Preview</div>-->
              <div class="bottom-continue-button button-text-1" type="button" ng-click="addUpdateRecuringAction()">Save</div>
          </div>
         </div>
-        <span ng-init="getFooterDetails()">
-        <!--<%@include file="emailfooterpopup.jsp" %>-->
-        </span>
+    <span ng-init="getFooterDetails()">
+        <div ng-include src="'emailfooterpopup.html'"></div> 
+    </span>
     </body>
 </html>
