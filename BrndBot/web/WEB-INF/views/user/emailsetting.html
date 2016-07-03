@@ -1,23 +1,86 @@
-<div class="page-content-container email-list-contact-page email-draft-page" id="emaisetdiv"  ng-show="emailSettingsDetails">
-    <div class="fleft content ">
-        <div class="page-content-title h2">Your Email Settings</div>
-        <!--List Starts Here-->
-        <div class="emailSettings-container fleft pushUp-50 main-container main-container50width col-8of10" >
-            <div class="col-1of1 fleft">
-                <div class="col-7of10 fleft">
-                    <div class="h4" style="">
-                        Default from Address:
-                    </div>
-                    <input id="from_address" class="input-field-textfield col-8of10" type="text" name="from_address"  placeholder="Enter default email address" value="mail@brndbot.com" placeholder="Enter default email address" readonly />
+    <div id="emaisetdiv"  ng-show="emailSettingsDetails">
+        <div class="hub-pane">
+            <div class="hub-pane-header-wrap">
+                <h2 class="">Email Settings</h2>
+                
 
-                </div>
             </div>
-            <div class="col-1of1 fleft pushUp">
-                <div class="col-7of10 fleft">
-                    <div class="h4" style="">
-                        Reply to Email Address:
+            <div class="hub-pane-content-wrap">
+                <div class="hub-section">
+                     <div class="section-header">
+                         <h3>General Email Settings</h3>
+                        <p>These are the default email settings, they can be overridden when you send out an email.</p>
+                     </div>
+                    <div class="input-wrap">
+                        <label> Default From Email Address </label>
+                        <div class="input">
+                            <input id="from_address" class="fluid" type="text" ng-model="email_settings.from_address"   name="from_address"  placeholder="Enter default email address"/>
+                        </div>
+                        <p class="input-wrap-label"> Make this something that your clients will recognize</p>
                     </div>
-                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" ng-model="email_settings.reply_email_address" name="reply_email_address"  placeholder="Enter reply-to-email address"/>
+                    <div class="input-wrap">
+                        <label> Default Reply-to Address </label>
+                        <div class="input">
+                            <input id="from_address" class="fluid" type="text" ng-model="email_settings.from_address"   name="from_address"  placeholder="Enter default email address"/>
+                            <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
+                        </div>
+                    </div>
+                     <div class="update-container">
+                        <a class="long-button gray-button">Update Email Settings</a>
+                    </div>
+                </div>
+                <div class="hub-section">
+                     <div class="section-header">
+                        <h3>Email Footer Settings</h3>
+                        <p >This footer will be added to the bottom all emails being sent out. </p>
+                     </div>
+                    <div class="input-wrap">
+                        <label>Company Address </label>
+                        <div class="input">
+                            <input class="fluid"></input>
+                            <p class="input-wrap-label"> We need this to comply with email spam (CANSPAM) laws</p>
+                        </div>
+                    </div>
+                    <div class="input-wrap">
+                        <label> Website URL </label>
+                        <div class="input">
+                            <input class="fluid"></input>
+                            <p class="input-wrap-label"> This can be copied from the browser <a class="input-help" href="#">Click to learn how</a></p>
+                        </div>
+                    </div>
+                    <div class="input-wrap">
+                        <label> Facebook URL </label>
+                        <div class="input">
+                            <input class="fluid"></input>
+                            <p class="input-wrap-label"> Log into your company's Facebook page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
+                        </div>
+                    </div>
+                    <div class="input-wrap">
+                        <label> Twitter URL </label>
+                        <div class="input">
+                            <input class="fluid"></input>
+                            <p class="input-wrap-label"> Log into your company's Twitter page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
+                        </div>
+                    </div>
+                    <div class="input-wrap">
+                        <label> Instagram URL </label>
+                        <div class="input">
+                            <input class="fluid"></input>
+                            <p class="input-wrap-label"> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
+                        </div>
+                    </div>
+                    <div class="update-container">
+                        <a class="long-button gray-button">Update Email Footer</a>
+                    </div>
+                </div>
+                <div class="hub-section">
+                     <div class="section-header">
+                         <h3>Update MINDBODY Email Opt-In</h3>
+                        <p>Click below to upload a CSV of email unsubscribes to update their preferences in MINDBODY</p>
+                     </div>
+                     <div class="update-container">
+                        <a class="long-button gray-button">Update MINDBODY Email Preferences</a>
+                    </div>
                 </div>
             </div>
             <div class="col-1of1 fleft">
@@ -32,4 +95,3 @@
         </div>                        
     </div>   
 <div ng-include src="'unsubscribeemailspopup.html'"></div>
-</div>
