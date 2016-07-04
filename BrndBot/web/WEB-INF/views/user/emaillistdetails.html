@@ -16,10 +16,10 @@
            </a>
             <div class="page-title-with-back page-title-font">{{emailListName}}</div>
             <div class="page-cta-container">
-                <a id="unselect" href="" class="gray-button button pushright fleft">
-                    <div class=" md-button" onclick="unsel()"> Unselect Contacts</div>    
+                <a id="unselect" href="" class="gray-button button pushright fleft" ng-show="deSelectCheckboxButton">
+                    <div class=" md-button" ng-click="deSelectCheckbox()"> Unselect Contacts</div>    
                 </a>
-                <a href="" id="delcontact" class="delete-button button fleft">
+                <a href="" id="delcontact" class="delete-button button fleft" ng-show="selectCheckboxButton">
                     <div class=" md-button" ng-click="deleteSelected()"> Delete Contact</div>    
                 </a>
                 <a href="javascript:void(0)" class="fleft">
@@ -33,7 +33,7 @@
         <div class="page-subnav-bar-regular"> 
             <div class="top-subnav-tabs-container-with-button">
                 <ul class="top-subnav-nav-elements">
-                    <li class="top-subnav-link-active" id="emailListli"> <a class="h3-active-subnav" id="emailLists" ng-init="updateList(emailLists)">Email List</a></li>
+                    <li class="top-subnav-link-active" id="emailListli"> <a class="h3-active-subnav" id="emailLists" ng-click="showUpdateList()">Email List</a></li>
 <!--                    <% if(type.equals("user")){%>-->
                     <li class="top-subnav-links" id="importListli" > <a class="h3" id="importList" ng-click="showAddContacts()">Import Contacts to List</a></li>
                     <!--<% }%>-->
@@ -42,12 +42,12 @@
         </div>
     </div>
         <!--Main Content GENERIC--> 
-        <div class="page-background" id="showList">
+        <div class="page-background"  ng-show="showEmailListContacts">
         <div class="page-content-container email-list-contact-page">
             
             <!--Inner Content Conatiner GENERIC-->
             <div class="page-inner-content-container ">
-                <div class="fleft content" ng-init="updateList(emailLists)">
+                <div class="fleft content" ng-init="updateList()">
                     <!--List Starts Here-->
                     <ul class="main-container fleft">
                         <input type="text" placeholder="Search" ng-model="userSearch">                        
@@ -75,7 +75,7 @@
                                     <div class="list-column-description col-1of1 sh3-contact fleft">Last Name</div>
                                 </div>
                                 <div class="col-1of10 slat-cta-container fright">
-                                    <a href="" ng-click="addContactDetails('update','{{email.emailAddress}}','{{email.id}}','{{email.firstName}}','{{email.lastName}}')">
+                                    <a href="" ng-click="addContactDetails('update',email.emailAddress,email.id,email.firstName,email.lastName)">
                                         <div class="small-button slat-button detail-button-font">Edit</div>
                                     </a>
                                 </div>
@@ -113,9 +113,9 @@
         <div id="tab4" class="col-md-10 col-md-offset-2" class="hide">
                 <div id="emailsubjectdiv">
                     <p class="header1">Email List:</p>
-                    <input type="text" class="hideinputborder" id="email_list_name" name="email_list_name" placeholder="Enter Here"/>{{emailListName}} <br>
+                    <input type="text" class="hideinputborder" id="email_list_name" name="email_list_name" placeholder="Enter Here"/><br>
                     <div class="col-md-7 col-md-offset-0">
-                        <label>Upload CSV</label><br><br>
+                        <label style="padding-top: 20px;">Upload CSV</label><br><br>
                         <input type="file" class="fileUpload" id="fileUpload" name="fileUpload"><br>
                         <input class="button button--moema button--text-thick button--text-upper button--size-s" type="button" id="upload" value="Upload" ng-click="uploadCsv()" /><br>
                     </div><br>
