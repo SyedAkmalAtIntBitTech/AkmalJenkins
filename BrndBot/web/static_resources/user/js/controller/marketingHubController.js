@@ -155,7 +155,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id,
                 "sub_category_id": sub_category_id};
             emailDraftFactory.getEmailDraftGet(draft_id).then(function (data) {
-                alert(JSON.stringify(data));
                 if (data === "false") {
                     alert(draftsavingerror);
                 } else {
@@ -165,6 +164,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         $scope.getEmailSettings = function () {
             $("#savesetbtn").show();
+//            $("#removeselactions").hide();
+            $scope.showDeleteEmailList = false;
             $scope.saveEmailSettingsButton = true;
             $scope.addEmailListButton = false;
             $scope.deletDraftsButton = false;
@@ -297,7 +298,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 }
                 emailListFactory.emailListSavePost(EmailLists).then(function (data) {
                     if (data.d.operationStatus.statusCode === "Success") {
-                        alert(JSON.stringify(data));
                         $scope.emailListGet();
                     }
                 });
