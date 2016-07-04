@@ -54,8 +54,9 @@
 
                     <!--Inner Content Conatiner GENERIC-->
                     <div class="page-inner-content-container " >
+                        <input type="text" placeholder="Search" ng-model="userSearch">
                         <!--                <div class="fleft content" ng-repeat="entity in entitySet">-->
-                        <div class="fleft content" ng-repeat="entity in entitySet">
+                        <div class="fleft content" ng-repeat="entity in entitySet | filter:userSearch">
                             <div class="page-content-title-bar">
                           
                                 <!--<div class="page-content-title h2" ng-show='entity.date==tomorrow_date'>Tomorrow's Actions</div>-->

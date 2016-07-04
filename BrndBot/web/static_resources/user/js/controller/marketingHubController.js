@@ -514,6 +514,12 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 }
             });
         };
+        
+        $scope.showDropDown = function()
+        {
+            $(".dropdown-hub").show();
+        };
+        
         $scope.addContactDetails = function (type, email, id, fname, lname)
         {
             $scope.email = {
