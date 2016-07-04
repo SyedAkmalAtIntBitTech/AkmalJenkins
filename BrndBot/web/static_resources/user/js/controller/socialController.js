@@ -25,6 +25,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.imageToBeUploaded = 'images/uploadPhoto.svg';
         $scope.postType = 'Change To Link Post';
         $scope.existingAction = false;
+        var schedule_desc = "";
 
         $scope.getManagePage = function () {
             var data = JSON.stringify({redirectUrl: "user/socialsequence"});
@@ -248,25 +249,6 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             });
         };
 
-//        $scope.schedulePostToTwitter = function (flag) {
-//            if (flag === true) {
-//                $scope.showSchedulePopup = true;
-//                $scope.showSendPopup = false;
-//                $scope.facebookActions = false;
-//                $scope.twitterActions = true;
-//                companyMarketingProgramFactory.getAllUserMarketingProgramsGet().then(function (data) {
-//                    $scope.marketing_programs = data;
-//                    $scope.getTwitterActionsData = {programid: "0", type: gettwitter()};
-//                    $scope.setTwitterActions($scope.getTwitterActionsData);
-//                });
-//            } else {
-//
-//                $scope.showSchedulePopup = false;
-//                $scope.showSendPopup = true;
-//            }
-//
-//        };
-
         $scope.getSocialTwitterActions = function () {
             var getTwitterActionsData = {programid: $scope.marketingProgramsList, type: gettwitter()};
             scheduleActionsFactory.getActionsPost(getTwitterActionsData).then(function (twitterData) {
@@ -488,8 +470,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 });
             }
         };
-       
-       //...............work left need to do (sandeep).........//
+
         $scope.schedulePostToTwitter = function (postData) {
             var sendData = "";
             var bitlyUrl = "";
@@ -517,30 +498,37 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                                         shorturl: '"' + bitlyUrl + '"'
                                     }
                                 }]);
+                            scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (response) {
+                                alert(JSON.stringify(response));
+                            });
                         } else {
+                            var schedule_title = $("#ActionName").val();
+                            var schedule_date = $("#actionDate").val();
+                            var schedule_time = $("#actionTime").val().replace(/ /g, '');
+                            var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
+                            var myEpoch = Date.parse(dateAndTime);
                             sendData = [{
                                     type: gettwitter(),
-                                    image_name: image_name,
+                                    image_name: $scope.selectImageName,
                                     schedule_time: myEpoch,
                                     schedule_title: schedule_title,
-                                    program_id: program_id,
+                                    program_id: $scope.selectedMarketingProgrma.toString(),
                                     schedule_desc: schedule_desc,
-                                    schedule_id: schedule_id_twitter,
-                                    image_type: image_type,
+                                    schedule_id: $scope.socialAction.toString(),
+                                    image_type: $scope.selectImageType,
                                     token_data: {
                                         "access_token": '"' + accessToken + '"',
                                         "token_secret": '"' + tokenSecret + '"'
                                     },
                                     metadata: {
-                                        text: '"' + shareText + '"',
-                                        shorturl: '"' + bitUrl + '"'
+                                        text: '"' + postData.text + '"',
+                                        shorturl: '"' + bitlyUrl + '"'
                                     }
                                 }];
-
+                            scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (response) {
+                                alert(JSON.stringify(response));
+                            });
                         }
-                        scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (response) {
-                            alert(JSON.stringify(response));
-                        });
                     });
                 } else {
                     if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
@@ -559,30 +547,38 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                                     shorturl: '"' + bitlyUrl + '"'
                                 }
                             }]);
+                        scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (response) {
+                            alert(JSON.stringify(response));
+                        });
                     } else {
+                        var schedule_title = $("#ActionName").val();
+                        var schedule_date = $("#actionDate").val();
+                        var schedule_time = $("#actionTime").val().replace(/ /g, '');
+                        var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
+                        var myEpoch = Date.parse(dateAndTime);
                         sendData = [{
                                 type: gettwitter(),
-                                image_name: image_name,
+                                image_name: $scope.selectImageName,
                                 schedule_time: myEpoch,
                                 schedule_title: schedule_title,
-                                program_id: program_id,
+                                program_id: $scope.selectedMarketingProgrma.toString(),
                                 schedule_desc: schedule_desc,
-                                schedule_id: schedule_id_twitter,
-                                image_type: image_type,
+                                schedule_id: $scope.socialAction.toString(),
+                                image_type: $scope.selectImageType,
                                 token_data: {
                                     "access_token": '"' + accessToken + '"',
                                     "token_secret": '"' + tokenSecret + '"'
                                 },
                                 metadata: {
-                                    text: '"' + shareText + '"',
-                                    shorturl: '"' + bitUrl + '"'
+                                    text: '"' + postData.text + '"',
+                                    shorturl: '"' + bitlyUrl + '"'
                                 }
                             }];
-
+                        scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (response) {
+                            alert(JSON.stringify(response));
+                        });
                     }
-                    scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (response) {
-                        alert(JSON.stringify(response));
-                    });
+
                 }
             });
         };
