@@ -5,6 +5,7 @@
  */
 
 socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location', '$window', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'companyMarketingProgramFactory', 'companyImagesFactory', 'companyFactory', 'imageFactory', 'socialPostFactory', 'scheduleActionsFactory', function ($scope, $rootScope, $location, $window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, companyMarketingProgramFactory, companyImagesFactory, companyFactory, imageFactory, socialPostFactory, scheduleActionsFactory) {
+        alert("sa");
         $scope.getTwitterActionsData = "";
         $scope.marketingProgramsList = "";
         $scope.twitter_action = "";
@@ -25,7 +26,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.imageToBeUploaded = 'images/uploadPhoto.svg';
         $scope.postType = 'Change To Link Post';
         $scope.existingAction=false;
-
+        $scope.managepage ="";
         $scope.getManagePage = function () {
             var data = JSON.stringify({redirectUrl: "user/socialsequence"});
             settingsFactory.fbLoginPost(data).then(function (data) {
@@ -169,6 +170,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             $rootScope.FbProfileName = profileName;
         };
         $scope.postToSelectedPage = function () {
+            $scope.managepage = false;
             var addDafaultmanagePage = $("#setDefaultManagePage").prop('checked');
             if (addDafaultmanagePage) {
                 var pageDetails = JSON.stringify({
