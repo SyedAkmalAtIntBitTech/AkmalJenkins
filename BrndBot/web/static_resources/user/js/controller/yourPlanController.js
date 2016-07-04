@@ -34,13 +34,16 @@ var user_selected_date = '';
                             });
                             
     $scope.setCurrentDateActions = function (){
-      
+//      alert("text");
     };
+    
     $scope.setCurrentDate = function(selected_date) {    
+        alert(selected_date);
         $(".delete-button").hide();
         $("#liPriority").show();
         user_selected_date = selected_date;
-        angular.element(document.getElementById('yourPlanController')).scope().getCampaigns();
+        $scope.getCampaigns();
+//        angular.element(document.getElementById('yourPlanController')).scope().getCampaigns();
     };
     function addDays(theDate, days) {
         return new Date(theDate.getTime() + days * 24 * 60 * 60 * 1000);
@@ -80,6 +83,7 @@ var user_selected_date = '';
          var curr_date = '';
         var tomorrowDate = '';
         var new_date = '';
+//        alert(user_selected_date);
         if (user_selected_date !== "") {
             curr_date = moment(user_selected_date).format('YYYY-MM-DD');
             tomorrowDate = moment(addDays(user_selected_date, 1)).format('YYYY-MM-DD');
@@ -99,10 +103,9 @@ var user_selected_date = '';
                     $scope.tomorrow_date = moment($scope.addDays(new Date(), 1)).format('YYYY-MM-DD');
                     $scope.entitySet = parseJSON.entitydata;
                     $scope.nodata = parseJSON.noactionsmessage;
-      
-     
-  });
-  };
+
+    });
+    };
 $scope.addDays = function(theDate, days) {
     
     return new Date(theDate.getTime() + days * 24 * 60 * 60 * 1000);

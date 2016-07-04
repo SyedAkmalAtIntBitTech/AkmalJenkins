@@ -27,21 +27,21 @@
                         <label class="calendar-dropdown-text " for="jumptodatepicker">Jump to Date</label>
                         <input type="text"  name="datepicker" id="jumptodatepicker" readonly class="hideinput"/>
                         <script>
-//                                   var picker = new Pikaday(
-//                                   {
-//                                       field: document.getElementById('jumptodatepicker'),
-//                                       format: 'YYYY-MM-DD',
-//                                       firstDay: 1,
-//                                       minDate: new Date('2000-01-01'),
-//                                       maxDate: new Date('2050-12-31'),
-//                                       yearRange: [2000,2050],
-//                                       onSelect: function() {
-//                                            var mydate=this.getMoment();
-//                                           var mydt=mydate.toLocaleString();
-//                                            var myDate = new Date(mydt);
-//                                            setCurrentDate(myDate);alert();
-//                                       }
-//                                   });
+                                   var picker = new Pikaday(
+                                   {
+                                       field: document.getElementById('jumptodatepicker'),
+                                       format: 'YYYY-MM-DD',
+                                       firstDay: 1,
+                                       minDate: new Date('2000-01-01'),
+                                       maxDate: new Date('2050-12-31'),
+                                       yearRange: [2000,2050],
+                                       onSelect: function() {
+                                            var mydate=this.getMoment();
+                                            var mydt=mydate.toLocaleString();
+                                            var myDate = new Date(mydt);
+                                            angular.element(document.getElementById('yourPlanController')).scope().setCurrentDate(myDate);
+                                       }
+                                   });
                         </script>
                     </div>
 
