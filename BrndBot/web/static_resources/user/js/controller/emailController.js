@@ -725,22 +725,23 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.postTo = "Send Now";
         };
 
-
+        $scope.createNewAction = function () {
+            $scope.activeClassExisting = '';
+            $scope.activeClassNew = 'active';
+            $scope.existingActionPopup = false;
+            $scope.createNewActionPopup = true;
+        };
         $scope.existingAction = function () {
+            $scope.activeClassExisting = 'active';
+            $scope.activeClassNew = '';
             $scope.existingActionPopup = true;
             $scope.createNewActionPopup = false;
-        };
-
-        $scope.createNewAction = function () {
-            $scope.createNewActionPopup = true;
-            $scope.existingActionPopup = false;
         };
 
         $scope.closeMindbodyPopup = function () {
             $scope.emailMindBodyPopup = false;
             $scope.overlayFade = false;
         };
-
 
         $scope.getAllMaketingPrograms = function (selectedSocialmedia) {
             companyMarketingProgramFactory.getAllUserMarketingProgramsGet().then(function (data) {
@@ -757,7 +758,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.getFacebookActions(selectedMarketingProgrmaId);
             }
         };
-
+            
         $scope.getFacebookActions = function (selectedMarketingProgrmaId) {
             var data = JSON.stringify({programid: selectedMarketingProgrmaId.toString()});
             scheduleActionsFactory.getActionsPost(data).then(function (data) {
@@ -783,38 +784,31 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.schedulePostToEmail = function (postData) {
             var email_scheduling = $scope.getScheduleData($scope.selectedMarketingProgrma, postData);
             if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
-                scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
+                scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
                     alert(JSON.stringify(data));
                 });
             }
         };
-                           
-        
-        $scope.getScheduleData = function (selectedMarketingProgrmaId, postData, schedule_id) {
-            var  draft_id = $("#draft_id").val();            
-//            var email_scheduling = "";
-            var schedule_id = $scope.socialAction;
+      
+        $scope.getScheduleData = function (selectedMarketingProgrmaId, postData) {
+            var email_scheduling = "";
+            if (!$scope.createNewActionPopup) {
+                email_scheduling = {
+                    from_name: postData.fromName,
+                    program_id: $scope.selectedMarketingProgrma.toString(),
+                    schedule_id: $scope.socialAction.toString(),
+                    email_subject: postData.emailSubject,
+                    to_email_addresses: postData.toAddress,
+                    email_addresses: postData.toAddress,
+                    from_email_address: getDefaultEmailId(),
+                    reply_to_email_address: postData.replyAddress,
+                    email_list: $scope.emailList,
+                    email_body: $("#dynamictable").contents().find("html").html(),
+                    schedule_desc: ",,,",
+                    iframeName: $scope.randomIframeFilename.toString()
+                };
 
-            if (selectedMarketingProgrmaId !== 0) {
-                var email_scheduling = JSON.stringify([{
-                        from_name: postData.fromName,
-                        program_id: $scope.selectedMarketingProgrma.toString(),
-                        schedule_id: $scope.socialAction.toString(),
-//                    schedule_id: schedule_id,
-                        email_subject: postData.emailSubject,
-                        email_addresses: postData.toAddress,
-                        from_email_address: getDefaultEmailId(),
-                        reply_to_email_address: postData.replyAddress,
-                        email_list: $scope.emailList,
-//                    schedule_title: schedule_title,
-//                    schedule_time: myEpoch,                  
-                        email_body: $("#dynamictable").contents().find("html").html(),
-                        schedule_desc: ",,,",
-                        iframeName: $scope.randomIframeFilename.toString()
-                    }]);
-
-                alert(email_scheduling);
-                scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
+                scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
                     alert(JSON.stringify(data));
                     if (data.d.operationStatus.statusCode === "Success") {
                         $scope.schedulePopup = false;
@@ -834,37 +828,33 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             } else {
                 var schedule_title = $("#ActionName").val();
                 var schedule_date = $("#actionDate").val();
-                var schedule_time = $("#actionTime").val();
-                alert("first");
+                var schedule_time = $("#actionTime").val().replace(/ /g, '');
                 var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
-                alert("second");
                 var myEpoch = Date.parse(dateAndTime);
+                console.log("Epoch: " + myEpoch);
 
-                var email_scheduling = {
-                    from_name: postData.fromName,
-                    email_subject: postData.emailSubject,
-                    to_email_addresses: postData.toAddress,
-                    email_addresses: postData.toAddress,
-                    from_email_address: getDefaultEmailId(),
-                    reply_to_email_address: postData.replyAddress,
-                    email_list: $scope.emailList,
-//                        schedule_id:$scope.socialAction.toString(),
-//                    schedule_id: schedule_id,
-                    schedule_title: schedule_title,
-                    schedule_time: myEpoch,
-                    email_body: $("#dynamictable").contents().find("html").html(),
-                    schedule_desc: ",,,",
-                    iframeName: $scope.randomIframeFilename.toString()
+                email_scheduling = {
+                    "from_name": postData.fromName,
+                    "email_subject": postData.emailSubject,
+                    "to_email_addresses": postData.toAddress,
+                    "email_addresses": postData.toAddress,
+                    "from_email_address": getDefaultEmailId(),
+                    "reply_to_email_address": postData.replyAddress,
+                    "email_list": $scope.emailList,
+                    program_id: $scope.selectedMarketingProgrma.toString(),
+                    "schedule_title": schedule_title,
+                    "schedule_time": myEpoch,
+                    "email_body": $("#dynamictable").contents().find("html").html(),
+                    "schedule_desc": ",,,",
+                    "iframeName": $scope.randomIframeFilename.toString()
                 };
-                alert(JSON.stringify(email_scheduling));
-                scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
+                scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
                     alert(JSON.stringify(data));
                     if (data.d.operationStatus.statusCode === "Success") {
                         $scope.schedulePopup = false;
                         window.location = "dashboard";
                     }
                 });
-
                 if (JSON.stringify(data) !== "") {
                     emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
                         if (responseText === "true")
@@ -877,97 +867,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             }
             return email_scheduling;
         };
-                   
-        
-        
-//        $scope.getScheduleData = function (selectedMarketingProgrmaId, postData, schedule_id) { 
-////            var  draft_id = $("#draft_id").val();            
-////            var email_scheduling = "";
-//            var schedule_id = $scope.socialAction;
-//            
-//             if (selectedMarketingProgrmaId !== 0 || schedule_id !== 0) {  
-//                 
-//                var schedule_title = $("#ActionName").val();
-//                var schedule_date = $("#actionDate").val();
-//                var schedule_time = $("#actionTime").val();
-//                alert("first");
-//                var dateAndTime = schedule_date.toLocaleString() + " " + schedule_time.toLocaleString();
-//                alert("second");
-//                var myEpoch = Date.parse(dateAndTime);
-//                
-//                var email_scheduling = JSON.stringify([{
-//                    from_name: postData.fromName,
-//                    program_id: $scope.selectedMarketingProgrma.toString(),
-////                    schedule_id: $scope.socialAction.toString(),
-//                    schedule_id: schedule_id,
-//                    email_subject: postData.emailSubject,
-//                    email_addresses: postData.toAddress,
-//                    from_email_address: getDefaultEmailId(),
-//                    reply_to_email_address: postData.replyAddress,                   
-//                    email_list: $scope.emailList,
-//                    schedule_title: schedule_title,
-//                    schedule_time: myEpoch,                  
-//                    email_body: $("#dynamictable").contents().find("html").html(),
-//                    schedule_desc: ",,,",                                            
-//                    iframeName: $scope.randomIframeFilename.toString()                     
-//                }]);
-//            
-//                alert(JSON.stringify(email_scheduling));
-//                scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
-//                    alert(JSON.stringify(data));
-//                    if (data.d.operationStatus.statusCode === "Success") {
-//                        $scope.schedulePopup = false;
-//                        window.location = "dashboard";
-//                    }
-//                });
-//
-//                if (JSON.stringify(data) !== "") {
-//                    emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
-//                        if (responseText === "true")
-//                        {
-//                            alert("Your Email has been Scheduled Successfully");
-//                            window.location = "dashboard";
-//                        }
-//                    });
-//                }
-//            } else {
-//                    var email_scheduling = {
-//                        from_name: postData.fromName,
-//                        email_subject: postData.emailSubject,
-//                        to_email_addresses: postData.toAddress,
-//                        email_addresses: postData.toAddress,
-//                        from_email_address: getDefaultEmailId(),
-//                        reply_to_email_address: postData.replyAddress,
-//                        email_list: $scope.emailList,
-//                        schedule_id:$scope.socialAction.toString(),
-//                        email_body: $("#dynamictable").contents().find("html").html(),
-//                        schedule_desc: ",,,",
-//                        iframeName: $scope.randomIframeFilename.toString()
-//                    };
-//                alert(JSON.stringify(email_scheduling));
-//                    scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
-//                        alert(JSON.stringify(data));
-//                        if (data.d.operationStatus.statusCode === "Success") {
-//                            $scope.schedulePopup = false;
-//                            window.location = "dashboard";
-//                        }
-//                    });
-//
-//                    if (JSON.stringify(data) !== "") {
-//                        emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
-//                            if (responseText === "true")
-//                            {
-//                                alert("Your Email has been Scheduled Successfully");
-//                                window.location = "dashboard";
-//                            }
-//                        });
-//                    }
-//                }     
-//            return email_scheduling;
-//        };
-//        
-        
-        
         
         $scope.previewCloseButton = function () {
             $scope.emailPreviewPopup = false;
