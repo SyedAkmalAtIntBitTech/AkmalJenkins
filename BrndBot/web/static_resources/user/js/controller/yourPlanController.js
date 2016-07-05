@@ -42,6 +42,7 @@ var user_selected_date = '';
         $("#liPriority").show();
         user_selected_date = selected_date;
         $scope.getCampaigns();
+        
     };
     function addDays(theDate, days) {
         return new Date(theDate.getTime() + days * 24 * 60 * 60 * 1000);
