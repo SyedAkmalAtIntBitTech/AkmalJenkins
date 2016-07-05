@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+Copyright 2015 Intbit Technologies. This software and documentation contains
+confidential and proprietary information that is owned by Intbit
+Technologies. Unauthorized use and distribution are strictly prohibited.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+     <link rel="shortcut icon" href="images/favicon.png"/>       
+    <title>Email Block</title>  
+</head>    
+<!--<%
+String organizationID=request.getParameter("organizationId");
+String emailBlockId=request.getParameter("emailBlockId");
+%>-->
+<body class="body-normal" ng-app  ng-controller="organizationcontroller" >
+    <input id="emailBlockId" type="text" hidden value="<%=emailBlockId%>"/>
+    <input id="organizationIdTag" type="text" hidden value="<%=organizationID%>"/>
+    <jsp:include page="header.jsp"/>
+    <jsp:include page="emailblocktemplate.jsp"/>
+    <div class="content-area" ng-init="organizationdetails()">
+        <div class="content-area_header"  ng-init="getEmailBlock()">
+            <div  class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/organizationdetails?organizationId=<%=organizationID%>">{{organizationDetails.organizationName}}</a>  > </div>
+            <div class="header_title fleft">{{emailBlocksTitle.emailBlockName}}  </div>
+            <div class="CTA_Button Button--Blue fright" id="addEmailTemplate" ng-click="getAllNonAddedEmailBlock()">Add Template</div>
+            <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteEmailBlock(<%=emailBlockId%>)">Delete Block</div>
+            
+        </div>
+        <div class="slatSection" >
+            <div class="slatHeaders">
+                <div class="listHeaderCol col1of2 fleft">
+                    <span class="listCol_Header fleft">  Template Names</span>
+                </div>
+            </div>
+            <ul class="slatArea" ng-init="getEmailBlocks()">
+                <li class="listItem" ng-repeat="getEmailBlockTemplates in getEmailBlockTemplate">
+                    <div class="listCol col1of2 fleft">
+                        <span class="listCol_Text fleft">{{getEmailBlockTemplates.emailBlockModelName}}</span>
+                    </div>
+                    <div class="listCol col1of4 fright">
+                        <div ng-click="deleteEmailBlockModel(getEmailBlockTemplates.emailBlockModelLookupId)" class="CTA_Button Button--Gray fright">Remove Template</div>
+                    </div>
+                    
+                </li>
+            </ul>
+            
+        </div>
+        
+    </div>
+  
+</body>
