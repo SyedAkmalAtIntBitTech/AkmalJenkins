@@ -42,22 +42,22 @@
            
    
       </div>
-        <div class="page-background">
+        <div class="page-background"  ng-show="automationEditor === false">
         <div class="page-content-container email-list-contact-page" ng-init="getEntityDetails();">
             
-            Inner Content Conatiner GENERIC
+<!--            Inner Content Conatiner GENERIC-->
             <div class="page-inner-content-container ">
                 <div class="fleft content">
                     <div class="page-content-title-bar">
                         <div class="page-content-title sequenceTitleBar ">Email Automation Details</div>
                     </div>
-                    List Starts Here
+<!--                    List Starts Here-->
                     <div class="sequence-container fleft">
                          <div class="col-6of10 fleft">
                                 <div class="h4" style="">
                                     Enter a name for this recurring email:
                                 </div>
-                             <input id="recuring_email_title" class="input-field-textfield col-8of10" type="text" required placeholder="Enter Name of email" value="{{entity_details.recurring_email_title}}"/>
+                             <input id="recuring_email_title" class="input-field-textfield col-8of10" type="text" required placeholder="Enter Name of email" ng-model="automationData.title" value="{{entity_details.recurring_email_title}}"/>
                              
                             </div>
                          <div class="col-6of10 fleft pushUp">
@@ -65,7 +65,7 @@
                                     Enter a description for this recurring email:
                                 </div>
                              <input id="recuring_email_description" class="input-field-textfield col-8of10" type="text" required  
-                                       placeholder="Enter description of email" value="{{entity_details.recurring_email_description}}"/>
+                                       placeholder="Enter description of email" ng-model="automationData.description" value="{{entity_details.recurring_email_description}}"/>
                             </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                     <div class="page-content-title-bar">
                         <div class="page-content-title sequenceTitleBar ">Create a trigger for when to send this email</div>
                     </div>
-                    List Starts Here
+<!--                    List Starts Here-->
                     <div class="sequence-container fleft">
                         <div class="col-3of10 fleft ">
                                 <div class="h4 pushUp-10 ">
@@ -83,7 +83,7 @@
                                 </div>
                         </div>
                          <div class="col-1of10 fleft">
-                             <select id="days" class="input-field-textfield "></select>
+                             <select id="days" ng-model="automationData.selectedDay" class="input-field-textfield " ng-options="day for day in days"></select>
                          </div>
                         <div class="col-3of10 fleft">
                              <div class="h4 pushUp-10 lftpad-10">
@@ -91,7 +91,7 @@
                              </div>
                          </div>
                         <div class="col-3of10 fleft" ng-click="emailListDropdown()">
-                              <select id="emaillist" name="emaillist" class="input-field-textfield">
+                              <select id="emaillist" ng-model="automationData.selectedEmailList" name="emaillist" class="input-field-textfield">
                                    <option value="0">-- Select --</option>
                                    <option ng-repeat ="Lists in emailLists_user" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
                                    <option ng-repeat ="Lists in emailLists_mindbody" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
@@ -101,7 +101,7 @@
                                 <div class="h4" style="">
                                      Select a Time:
                                 </div>
-                            <input id="timepicker1" readonly type="text" name="timepicker1" class="input-field-textfield col-8of10" 
+                            <input id="timepicker1" readonly type="text" name="timepicker1" ng-model="automationData.time" class="input-field-textfield col-8of10" 
                                   value="{{entity_details.recurring_email_time | date: 'hh : mm : a'}}" /> 
                                     <script src="js/timepicki.js" type="text/javascript"></script>
                                     <script>
@@ -117,13 +117,13 @@
                                     </script> 
                                    
                         </div>
-                        <div class="col-4of10 fleft pushUp-30 lftpad-5" id="datepickerdiv">
-                            <input></input>
+                        <div class="col-4of10 fleft pushUp-30 lftpad-5" id="datepickerdiv" style="display: none;">
+                            
                                 <div class="h4" style="">
                                      Select a till date:
                                 </div>
                             <input type="text"   name="datepicker" 
-                                    id="datepicker"  
+                                    id="datepicker" ng-model="automationData.date"  
                                     class="input-field-textfield col-1of1" 
                                     value="{{entity_details.recurring_email_till_date| date:'MMM dd yyyy'}}" />  
                            
@@ -147,13 +147,13 @@
                     <div class="page-content-title-bar">
                         <div class="page-content-title sequenceTitleBar ">Email Details</div>
                     </div>
-                    List Starts Here
+<!--                    List Starts Here-->
                     <div class="sequence-container fleft">
                             <div class="col-6of10 fleft ">
                                 <div class="h4" style="">
                                     Enter a subject line for the email:
                                 </div>
-                                <input id="subject" class="input-field-textfield col-8of10" type="text" required  
+                                <input id="subject" class="input-field-textfield col-8of10" ng-model="automationData.subject" type="text" required  
                                         placeholder="Enter subject line" 
                                         value="{{entity_details.recurring_email_subject}}"/>
                             </div>
@@ -161,14 +161,14 @@
                                 <div class="h4" style="">
                                     Enter a from name:
                                 </div>
-                                <input id="from_name" class="input-field-textfield col-8of10" type="text" required  placeholder="Enter from name" 
+                                <input id="from_name" class="input-field-textfield col-8of10" type="text" ng-model="automationData.fromName" required  placeholder="Enter from name" 
                                       value="{{entity_details.recurring_email_from_name}}"/>
                             </div>    
                             <div class="col-6of10 fleft pushUp">
                                 <div class="h4" style="">
                                     Enter a reply-to-address:
                                 </div>
-                                <input id="reply_to_address" class="input-field-textfield col-8of10" type="text" 
+                                <input id="reply_to_address" class="input-field-textfield col-8of10" ng-model="automationData.replyAddress" type="text" 
                                      required  placeholder="Enter reply-to-address" 
                                      value="{{entity_details.recurring_email_reply_to_email_address}}"/>
                             </div>
@@ -242,7 +242,7 @@
                    <div class="col-emaileditor">
                        <div class="col-emaileditordiv" style="width: 100%;">
                             
-        <div class="emailEditor-page-background fleft" style="display: block;">
+        <div class="emailEditor-page-background fleft" ng-show="automationEditor === true">
             <div class="emailEditor-leftCol ">
                         <div id="editor">
                             <div id='edit' class="editorheight" style=""></div>

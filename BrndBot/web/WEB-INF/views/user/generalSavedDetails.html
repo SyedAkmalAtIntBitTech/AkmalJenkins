@@ -12,7 +12,11 @@
                 {{actionTypeNoTemplateMessage}}
             </div>
             <!--<a class="link" href="dashboard">-->
-            <a class="link" href="{{savedDetailsAddTemplateLink}}">
+            <a class="link" href="{{savedDetailsAddTemplateLink}}" ng-if="isRecurring === false">
+                <div class="md-button empty-state-cta">
+                    {{savedDetailsAddTemplateButton}}
+                </div></a>
+            <a class="link" ng-click="redirectToEmailAutomation('emailautomation','template','', schedule_id)" ng-if="isRecurring === true">
                 <div class="md-button empty-state-cta">
                     {{savedDetailsAddTemplateButton}}
                 </div></a>
