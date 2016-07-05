@@ -34,6 +34,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.redirectToEmailAutomation = function (pageName, add, programId, zero)
         {
+//            $scope.initEmailAutomation();
 //            $scope.programId = programId;
             $scope.add = add;
             $scope.type = add;
@@ -155,18 +156,19 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             });
         };
 
-        $scope.addUpdateRecuringAction = function ()
-        {
-            marketingRecurringEmailFactory.recurringEmailTemplatePost().then(function (data) {
-
-
-            });
-
-        };
+//        $scope.addUpdateRecuringAction = function ()
+//        {
+//            marketingRecurringEmailFactory.recurringEmailTemplatePost().then(function (data) {
+//
+//
+//            });
+//
+//        };
         $scope.closePopup = function () {
             $scope.reminderSectionClass = '';
             $scope.emailsectionClass = '';
             $scope.fadeClass = '';
+//            $location.path("/marketingprogramactions");
         };
         $scope.setTab = function (tabName) {
             if (tabName === 'actionDetails') {
@@ -820,7 +822,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.getEmailTemplates = function () {
             $("#emailautomationcontent").hide();
             $("#emlautomeditorcontainer").show();
-            marketingRecurringEmailControllerFactory.allRecurringEmailTemplatesGet().then(function (data) {
+            marketingRecurringEmailFactory.allRecurringEmailTemplatesGet().then(function (data) {
 
             });
         };
