@@ -98,11 +98,11 @@ marketingFlowApp.config(function($routeProvider){
                 
     }) 
     .when('/marketingprogramactions', {
-                templateUrl: 'marketingprogramactions.html',
+                templateUrl: 'marketingprogramactions.html'
                            
     }) 
      .when('/emailautomation', {
-                templateUrl: 'emailautomation.html',
+                templateUrl: 'emailautomation.html'
               
                 
     }) 
