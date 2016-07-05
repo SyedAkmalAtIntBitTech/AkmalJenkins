@@ -27,8 +27,9 @@
                     <img id="loadingGifformindbody" src="images/YogaLoadingGif.gif"/>
                 </div>
                 <!--SAVED POST GOES HERE-->
-                <ul ng-show="emailScrollyDiv" class="subcategory-list-container col-1of1 fleft scrollydiv">  
-                    <li class="subcategory-list-element col-1of1 fleft" ng-repeat="mindbody in mindbodyDataList.mindbody_data" ng-click="didSelectMindbodyDataId(mindbody.id)">
+                <ul ng-show="emailScrollyDiv" class="subcategory-list-container col-1of1 fleft scrollydiv"> 
+                    <input type="text" placeholder="Search" ng-model="userSearch">
+                    <li class="subcategory-list-element col-1of1 fleft" ng-repeat="mindbody in mindbodyDataList.mindbody_data | filter:userSearch" ng-click="didSelectMindbodyDataId(mindbody.id)">
                        <div class="subcat-list col-3of10 fleft padding-right-15 ">{{mindbody.column1}} 
                        </div>
                         <div class=" col-2of10 fleft ">

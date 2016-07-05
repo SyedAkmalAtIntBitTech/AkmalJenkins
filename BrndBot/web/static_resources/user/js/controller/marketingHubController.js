@@ -165,6 +165,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         $scope.getEmailSettings = function () {
             $("#savesetbtn").show();
+//            $("#removeselactions").hide();
+            $scope.showDeleteEmailList = false;
             $scope.saveEmailSettingsButton = true;
             $scope.addEmailListButton = false;
             $scope.deletDraftsButton = false;
@@ -295,7 +297,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 }
                 emailListFactory.emailListSavePost(EmailLists).then(function (data) {
                     if (data.d.operationStatus.statusCode === "Success") {
-                        alert(JSON.stringify(data));
                         $scope.emailListGet();
                     }
                 });
@@ -512,6 +513,12 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 }
             });
         };
+        
+        $scope.showDropDown = function()
+        {
+            $(".dropdown-hub").show();
+        };
+        
         $scope.addContactDetails = function (type, email, id, fname, lname)
         {
             $scope.email = {
