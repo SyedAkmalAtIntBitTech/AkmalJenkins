@@ -6,11 +6,14 @@
 package com.intbittech.controller;
 
 import com.controller.BrndBotBaseHttpServlet;
-import com.controller.IConstants;
+import com.intbittech.utility.IConstants;
+import com.intbittech.schedulers.MindbodyEmailListProcessor;
+import com.controller.SqlMethods;
 import com.google.gson.Gson;
 import com.intbit.util.CustomStyles;
 import com.intbittech.utility.ServletUtil;
 import com.intbittech.AppConstants;
+import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.UserProfile;
@@ -20,6 +23,11 @@ import com.intbittech.responsemappers.ContainerResponse;
 import com.intbittech.responsemappers.GenericResponse;
 import com.intbittech.responsemappers.TransactionResponse;
 import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.services.EmailListService;
+import com.intbittech.social.CompanyPreferencesFacebook;
+import com.intbittech.social.CompanyPreferencesTwitter;
+import com.intbittech.utility.EmailValidator;
+import com.intbittech.services.EmailListService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.StringUtility;
 import com.intbittech.utility.UserSessionUtil;
@@ -30,9 +38,11 @@ import facebook4j.ResponseList;
 import java.io.BufferedReader;
 import java.io.File;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import com.intbittech.utility.EmailValidator;
 import java.util.Map;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +66,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.intbittech.social.CompanyPreferencesFacebook;
 import com.intbittech.social.CompanyPreferencesTwitter;
+import java.util.ArrayList;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -80,6 +91,8 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
     @Autowired
     private CompanyPreferencesService companyPreferencesService;
+    @Autowired
+    private EmailListService emailListService;
 
     @RequestMapping(value = "/getColors", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getColors(HttpServletRequest request,
@@ -520,4 +533,78 @@ public class SettingsController extends BrndBotBaseHttpServlet {
 
         return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
     }
+    
+    @RequestMapping(value = "/unsubscribeEmails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> unsubscribeEmails(@RequestBody List<String> emailList) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+
+            Runnable myRunnable = new Runnable() {
+                public void run() {
+                    try {
+                        UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+                        Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+                        ExternalContentProcessor externalContentProcessor = new ExternalContentProcessor(companyId);
+                        int partitionSize = 150;
+                        List<String> partitionEmail = new ArrayList<>();
+                        EmailValidator emailValidator = new EmailValidator();
+                        for (int i = 0; i < emailList.size(); i++) {
+                            if (!StringUtility.isEmpty(emailList.get(i)) && emailValidator.validate(emailList.get(i))) {
+                                partitionEmail.add(emailList.get(i));
+                            }
+                            if (i != 0 && i % partitionSize == 0) {
+                                externalContentProcessor.searchEmailAndUpdateEmailOptIn(partitionEmail);
+                                partitionEmail = new ArrayList<>();
+                            }
+                        }
+                        SqlMethods sqlMethods = new SqlMethods();
+                        Integer studioId = sqlMethods.getStudioID(companyId);
+                        MindbodyEmailListProcessor mindbodyEmailListProcessor = new MindbodyEmailListProcessor();
+                        mindbodyEmailListProcessor.processEachRow(companyId, studioId);
+                    } catch (Throwable throwable) {
+                        logger.error(throwable);
+//                        transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+                    }
+                }
+            };
+            Thread thread = new Thread(myRunnable);
+            thread.start();
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("unsubscribeEmails_success", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+
+    @RequestMapping(value = "/saveUnsubscribeEmails", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> saveUnsubscribeEmails(@RequestBody List<String> emailList) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            Integer companyId = userProfile.getUser().getFkCompanyId().getCompanyId();
+            companyPreferencesService.saveUnsubscribeEmails(companyId, emailList);
+            Runnable myRunnable = new Runnable() {
+                public void run() {
+                    try {
+                        CompanyPreferences companyPreferences = companyPreferencesService.getByCompanyId(companyId);
+                        Integer studioId = Integer.parseInt(companyPreferences.getCompanyLocation());
+                        MindbodyEmailListProcessor mindbodyEmailListProcessor = new MindbodyEmailListProcessor();
+                        mindbodyEmailListProcessor.processEachRow(companyId, studioId);
+                        emailListService.updateUnsubscribedUserEmailLists(companyPreferences);
+                    } catch (Throwable throwable) {
+
+                    }
+                }
+            };
+            Thread thread = new Thread(myRunnable);
+            thread.start();
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("unsubscribeEmails_success", new String[]{}, Locale.US)));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }    
 }

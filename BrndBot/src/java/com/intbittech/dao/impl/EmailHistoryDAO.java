@@ -5,7 +5,7 @@
  */
 package com.intbittech.dao.impl;
 
-import com.controller.IConstants;
+import com.intbittech.utility.IConstants;
 import com.intbit.ConnectionManager;
 import com.intbittech.email.mandrill.MessageResponse;
 import com.intbittech.email.mandrill.MessageResponses;

@@ -5,7 +5,7 @@
  */
 package com.intbittech.services.impl;
 
-import com.controller.IConstants;
+import com.intbittech.utility.IConstants;
 import com.intbittech.AppConstants;
 import com.intbittech.dao.CompanyPreferencesDao;
 import com.intbittech.exception.ProcessFailed;
@@ -14,14 +14,19 @@ import com.intbittech.model.CompanyPreferences;
 import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.modelmappers.FooterDetails;
 import com.intbittech.services.CompanyPreferencesService;
+import com.intbittech.utility.EmailValidator;
 import com.intbittech.utility.StringUtility;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -178,5 +183,61 @@ public class CompanyPreferencesServiceImpl implements CompanyPreferencesService 
     public List<CompanyPreferences> getAllForLocationId(String locationId) {
          return companyPreferencesDao.getByLocationId(locationId);
     }
+
+    @Override
+    public List<CompanyPreferences> getAll() {
+        return companyPreferencesDao.getAll();
+    }
+
+    @Override
+    public void saveUnsubscribeEmails(Integer companyId, List<String> emailList) {
+        try {
+            EmailValidator emailValidator = new EmailValidator();
+            for (int i = 0; i < emailList.size(); i++) {
+                if(!emailValidator.validate(emailList.get(i))){
+                    emailList.remove(i);
+                }
+            }
+            JSONObject jsonObject = new JSONObject();
+            JSONArray array = new JSONArray();
+            CompanyPreferences companyPreferences = getByCompanyId(companyId);
+            JSONParser parser = new JSONParser();
+            if (!StringUtility.isEmpty(companyPreferences.getUnsubscribeEmails())) {
+                jsonObject = (JSONObject) parser.parse(companyPreferences.getUnsubscribeEmails());
+                array = (JSONArray) jsonObject.get(IConstants.kUnsubscribeEmails);
+            }
+            
+            array.addAll(emailList);
+
+            jsonObject.put(IConstants.kUnsubscribeEmails, array);
+            String jsonString = AppConstants.GSON.toJson(jsonObject);
+            companyPreferences.setUnsubscribeEmails(jsonString);
+            companyPreferencesDao.saveOrUpdate(companyPreferences);
+        } catch (ParseException ex) {
+            java.util.logging.Logger.getLogger(CompanyPreferencesServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @Override
+    public Map<String, String> getUnsubscribedEmailsMap(CompanyPreferences companyPreferences) {
+        Map<String, String> filteredMap = new HashMap<>();
+
+        try {
+            if (companyPreferences.getUnsubscribeEmails() != null) {
+                JSONParser parser = new JSONParser();
+                JSONObject jsonObject = (JSONObject) parser.parse(companyPreferences.getUnsubscribeEmails());
+                JSONArray array = (JSONArray) jsonObject.get(IConstants.kUnsubscribeEmails);
+                if (array != null && array.size() > 0) {
+                    for (Object arrayObject : array) {
+                        String email = (String) arrayObject;
+                        filteredMap.put(email, "true");
+                    }
+                }
+            }
+        } catch (ParseException ex) {
+            java.util.logging.Logger.getLogger(CompanyPreferencesServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return filteredMap;
+    }   
 
 }

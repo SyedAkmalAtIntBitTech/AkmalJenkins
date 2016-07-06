@@ -5,7 +5,7 @@
  */
 package com.intbittech.social;
 
-import com.controller.IConstants;
+import com.intbittech.utility.IConstants;
 import com.intbittech.model.ScheduledEmailList;
 import com.intbittech.model.ScheduledEntityList;
 import java.util.ArrayList;

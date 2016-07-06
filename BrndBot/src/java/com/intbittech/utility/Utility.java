@@ -7,8 +7,10 @@ package com.intbittech.utility;
 
 import com.intbittech.divtohtml.StringUtil;
 import java.nio.charset.StandardCharsets;
+import com.intbittech.model.EmailInfo;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Map;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -101,11 +103,30 @@ public class Utility {
         int r=Integer.parseInt(integervalue[0]);
         int g=Integer.parseInt(integervalue[1]);
         int b=Integer.parseInt(integervalue[2]);
-       Hex= Hex.concat(Integer.toHexString(r));
-       Hex= Hex.concat(Integer.toHexString(g));
-       Hex= Hex.concat(Integer.toHexString(b));
-        
-       return Hex.toUpperCase();
+        if (r < 16) {
+            Hex = Hex.concat("0");
+        }
+        Hex = Hex.concat(Integer.toHexString(r));
+        if (g < 16) {
+            Hex = Hex.concat("0");
+        }
+        Hex = Hex.concat(Integer.toHexString(g));
+        if (b < 16) {
+            Hex = Hex.concat("0");
+        }
+        Hex = Hex.concat(Integer.toHexString(b));
+
+        return Hex.toUpperCase();
+    }
+
+    public static boolean checkIfUnsubscribed(String emailAddress, Map<String, String> map) {
+        if(map == null) {
+            return false;
+        }
+        if (map.containsKey(emailAddress)) {
+            return true;
+        }
+        return false;
     }
     
 }

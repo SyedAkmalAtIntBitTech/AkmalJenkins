@@ -12,18 +12,18 @@ factoryApp.factory('scheduleActionsFactory', function ($q, authenticatedServiceF
         });
         return deffered.promise;
     };
-    scheduleActionsFactoryObject.scheduleEmailPost = function () {
+    scheduleActionsFactoryObject.scheduleEmailPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.scheduleEmailURL();
-        authenticatedServiceFactory.makeCall("POST", url, "", "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    scheduleActionsFactoryObject.scheduleEmailActionsPost = function () {
+    scheduleActionsFactoryObject.scheduleEmailActionsPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.scheduleEmailActionsURL();
-        authenticatedServiceFactory.makeCall("POST", url, "", "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

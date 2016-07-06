@@ -5,7 +5,7 @@
  */
 package com.intbittech.social;
 
-import com.controller.IConstants;
+import com.intbittech.utility.IConstants;
 import com.controller.SqlMethods;
 import com.intbit.ConnectionManager;
 import java.sql.Connection;

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+Copyright 2015 Intbit Technologies. This software and documentation contains
+confidential and proprietary information that is owned by Intbit
+Technologies. Unauthorized use and distribution are strictly prohibited.
+-->
+<html>
+    <head>
+        <link rel="shortcut icon" href="images/favicon.png"/>
+        <title>BrndBot-Admin Email-Templates</title>
+        
+    </head>
+       
+     <jsp:include page="header.jsp"/>
+        <jsp:include page="colorpopup.jsp"/>
+         <jsp:include page="addcolorpalette.jsp"/>
+        <body class="body-normal" ng-app="colors" ng-controller="globalColors"   >
+      
+        <div class="content-area">
+        <div class="content-area_header">
+            <div class="header_path fleft"> Color Themes</div>
+            
+            <div id="" ng-click="addColorTheme()" class="CTA_Button Button--Blue fright">Add Color Theme</div>
+        </div>
+            <div class="slatSection"  ng-init="displayGlobalcolors()">
+            <div class="slatHeaders">
+                <div class="listHeaderCol col1of2 fleft">
+                    <span class="listCol_Header fleft"> Theme Name </span>
+                </div>
+            </div>
+                <ul class="slatArea" >
+                <li class="listItem" ng-repeat="colornames in colorname.slice().reverse() ">
+                    <div class="listCol col3of4 fleft">
+                        <span class="listCol_Text fleft"> {{colornames.colorName}}</span>
+                    </div>
+                    <div class="listCol col1of4 fleft">
+                        
+                        <div id="updateColorPalette" class="CTA_Button Button--Gray fright" ng-click="openColorPalettePopup(colornames.colorName,colornames.color1,colornames.color2,colornames.color3,colornames.color4,colornames.globalColorsId)">Update Palette</div>
+                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+            
+    </div>

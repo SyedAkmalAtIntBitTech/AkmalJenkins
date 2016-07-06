@@ -5,7 +5,7 @@
  */
 package com.intbittech.marketing.controller;
 
-import com.controller.IConstants;
+import com.intbittech.utility.IConstants;
 import com.controller.SqlMethods;
 import com.intbittech.AppConstants;
 import com.intbit.ScheduledEntityType;

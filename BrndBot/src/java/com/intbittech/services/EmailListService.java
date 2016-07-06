@@ -7,7 +7,7 @@ package com.intbittech.services;
 
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-
+import com.intbittech.model.CompanyPreferences;
 /**
  * <code>{@link CategoryService}</code> is service layer interface for
  * communicating between Controller and DAO classes
@@ -20,4 +20,5 @@ public interface EmailListService {
 
     public Boolean setEmailList(Map<String, Object> requestBodyMap, Integer companyId) throws Exception;
 
+    public void updateUnsubscribedUserEmailLists(CompanyPreferences companyPreferences);
 }
