@@ -4,10 +4,12 @@
             <h2 class="">Send or Schedule</h2>
             <a class="modal-pane-header-exit" ng-click="hidePopup('schedulePopup')"></a>
         </div>
-        <a class="modal-pane-back-step">
-            <i></i>
-            <span>Go to Previous Step</span>
-        </a>
+<!--        <div ng-click="previousButton()">-->
+            <a class="modal-pane-back-step" ng-click="previousButton()">
+                <i></i>
+                <span>Go to Previous Step</span>
+            </a>
+<!--        </div>-->
         <div class="modal-pane-content-wrap secondary-option">
             <div class="create-new-action-schedule-wrap">
                 <a class="send-or-schedule-option send-or-schedule-15pad ease-all " ng-class='activeClassNew' ng-click="createNewAction()">

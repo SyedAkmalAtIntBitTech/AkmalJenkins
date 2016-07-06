@@ -5,6 +5,7 @@
  */
 
 socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location', '$window', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'companyMarketingProgramFactory', 'companyImagesFactory', 'companyFactory', 'imageFactory', 'socialPostFactory', 'scheduleActionsFactory', function ($scope, $rootScope, $location, $window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, companyMarketingProgramFactory, companyImagesFactory, companyFactory, imageFactory, socialPostFactory, scheduleActionsFactory) {
+        alert("sa");
         $scope.getTwitterActionsData = "";
         $scope.marketingProgramsList = "";
         $scope.twitter_action = "";
@@ -24,9 +25,9 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.twitterImageDivToPost = false;
         $scope.imageToBeUploaded = 'images/uploadPhoto.svg';
         $scope.postType = 'Change To Link Post';
-        $scope.existingAction = false;
+        $scope.existingAction=false;
+        $scope.managepage ="";
         var schedule_desc = "";
-
         $scope.getManagePage = function () {
             var fbData = JSON.stringify({access_token_method: "getAccessToken"});
             settingsFactory.facebookPost(fbData).then(function (fbResponseData) {
@@ -182,6 +183,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             $rootScope.FbProfileName = profileName;
         };
         $scope.postToSelectedPage = function () {
+            $scope.managepage = false;
             var addDafaultmanagePage = $("#setDefaultManagePage").prop('checked');
             if (addDafaultmanagePage) {
                 var pageDetails = JSON.stringify({
@@ -470,19 +472,28 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 $scope.schedulePostToTwitter(postData);
             }
         };
+        
         $scope.schedulePostToFacebook = function (postData) {
             var sendData = $scope.getScheduleData($scope.selectedMarketingProgrma, postData, getfacebook());
             if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
                 scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (data) {
                     alert(JSON.stringify(data));
+                    if (data.d.operationStatus.statusCode === "Success") {
+                        $scope.schedulePopup = false;
+                        window.location = "dashboard";
+                    }
                 });
             } else {
                 scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (data) {
                     alert(JSON.stringify(data));
+                    if (data.d.operationStatus.statusCode === "Success") {
+                        alert("check");
+                        $scope.schedulePopup = false;
+                        window.location = "dashboard";
+                    }
                 });
             }
         };
-
         $scope.schedulePostToTwitter = function (postData) {
             var sendData = "";
             var bitlyUrl = "";
@@ -650,9 +661,14 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             }
             return sendData;
         };
-
-        $scope.setTwitterActions = function (twitterDetails) {
-            scheduleActionsFactory.getActionsPost(twitterDetails).then(function (twitterData) {
+        
+        $scope.previousButton = function (popupName) {
+            $scope.schedulePopup = false;
+            $scope.postTypeSelectionPopUp = true;
+        };
+        
+        $scope.setTwitterActions = function (twitterDetails){
+            scheduleActionsFactory.getActionsPost(twitterDetails).then(function (twitterData){
                 $scope.twitter_actions = eval(JSON.parse(twitterData.d.details));
             });
         };
