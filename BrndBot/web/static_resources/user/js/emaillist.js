@@ -1178,7 +1178,72 @@ $edit=0;
             $("#footerAddress").focus();
         }
 
-   } ;
+    };
+    $scope.uploadEmailListOnClick = function() {
+        var reg=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                var fileUpload = document.getElementById("fileid");
+                var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+                $scope.unsubscribeEmailList = "";
+                if (regex.test(fileUpload.value.toLowerCase())) {
+                    if (typeof (FileReader) != "undefined") {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            var table = document.createElement("table");
+                            var rows = e.target.result.split("\n");
+                            for(var j = 0; j< rows.length; j++)
+                            {
+                                var csvvalue=rows[j].split(",");
+
+                                for(var i=0;i<csvvalue.length;i++)
+                                {
+                                    var temp=csvvalue[i];
+                                    if(j==0 && i ==0)
+                                        $scope.unsubscribeEmailList = temp;
+                                    else
+                                        $scope.unsubscribeEmailList = $scope.unsubscribeEmailList+","+temp;
+                                }
+                            }
+                            alert("Emails from CSV file read successfully, please click Unsubscribe Now button to process them.")
+                        }
+                        reader.readAsText(fileUpload.files[0]);
+
+                    } else {
+
+                        alert("This browser does not support HTML5!");
+                    }
+                } else {
+                    alert("Please upload a valid CSV file!");
+                }
+                
+    };
+    $scope.unsubscribeNowOnClick = function () {
+        //If no file is selected
+        if (!$scope.unsubscribeEmailList)
+        {
+            alert("Please choose a valid csv file.");
+            return false;
+        }
+        //if file is blank
+        if ($scope.unsubscribeEmailList)
+        {
+            if ($scope.unsubscribeEmailList.length == 0)
+            {
+                alert("Please choose a valid csv file.");
+                return false;
+            }
+        }
+        var emailListData = $scope.unsubscribeEmailList.split(",");
+        $http({
+            method: 'POST',
+            url: getHost() + 'settings/saveUnsubscribeEmails',
+            data: emailListData
+        }).success(function (data) {
+            alert(data.d.operationStatus.messages[0]);
+            hideUnsubscribeEmailsPopup();
+        }).error(function (data, status) {
+            alert(requesterror);
+        });
+    };   
  };
 
 /////////Email drafts js///////
@@ -1210,9 +1275,15 @@ $edit=0;
                 $("#drftEmailDelete").hide();
             }
         }
-       function openEmailFooterPopup(){
-           $("#emailFooterPopup").show();
+        function openEmailFooterPopup(){
+            $("#emailFooterPopup").show();
+        }
+        function hideEmailFooterPopup(){
+            $("#emailFooterPopup").hide();
+        }
+       function openUnsubscribeEmailsPopup(){
+           $("#unsubscribeEmailsPopup").show();
        }
-      function hideEmailFooterPopup(){
-          $("#emailFooterPopup").hide();
-      }
+       function hideUnsubscribeEmailsPopup(){
+        $("#unsubscribeEmailsPopup").hide();
+       }

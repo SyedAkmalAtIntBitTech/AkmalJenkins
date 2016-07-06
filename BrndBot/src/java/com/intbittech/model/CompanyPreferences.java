@@ -42,6 +42,9 @@ public class CompanyPreferences implements Serializable {
     @Column(name = "company_preferences")
     @Type(type = "StringJsonObject")
     private String companyPreferences;
+    @Column(name = "unsubscribe_emails")
+    @Type(type = "StringJsonObject")
+    private String unsubscribeEmails;
     @Column(name = "company_location")
     private String companyLocation;
     @JoinColumn(name = "fk_company_id", referencedColumnName = "company_id")
@@ -95,4 +98,11 @@ public class CompanyPreferences implements Serializable {
         this.companyLocation = companyLocation;
     }
 
+    public String getUnsubscribeEmails() {
+        return unsubscribeEmails;
+    }
+
+    public void setUnsubscribeEmails(String unsubscribeEmails) {
+        this.unsubscribeEmails = unsubscribeEmails;
+    }
 }

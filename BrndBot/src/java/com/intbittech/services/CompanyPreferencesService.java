@@ -10,6 +10,7 @@ import com.intbittech.model.CompanyPreferences;
 import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.modelmappers.FooterDetails;
 import java.util.List;
+import java.util.Map;
 import org.json.simple.JSONObject;
 
 /**
@@ -37,4 +38,10 @@ public interface CompanyPreferencesService {
     public void setFooterDetails(FooterDetails footerDetails,Company company);
 
     public List<CompanyPreferences> getAllForLocationId(String locationId);
+    
+    public List<CompanyPreferences> getAll();
+    
+    public void saveUnsubscribeEmails(Integer companyId, List<String> emailList);
+
+    public Map<String, String> getUnsubscribedEmailsMap(CompanyPreferences companyPreferences);
 }

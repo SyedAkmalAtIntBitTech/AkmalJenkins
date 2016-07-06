@@ -28,9 +28,21 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         var schedule_desc = "";
 
         $scope.getManagePage = function () {
-            var data = JSON.stringify({redirectUrl: "user/socialsequence"});
-            settingsFactory.fbLoginPost(data).then(function (data) {
-                $window.location = data.d.details[0];
+            var fbData = JSON.stringify({access_token_method: "getAccessToken"});
+            settingsFactory.facebookPost(fbData).then(function (fbResponseData) {
+                alert(JSON.stringify(fbResponseData));
+                var fbAccessToken = fbResponseData.d.message;
+                alert(JSON.stringify(fbAccessToken));
+                if ((fbAccessToken === null) || (fbAccessToken === ""))
+                {
+                    var data = JSON.stringify({redirectUrl: "user/socialsequence"});
+                    settingsFactory.fbLoginPost(data).then(function (data) {
+                        $window.location = data.d.details[0];
+                    });
+                }
+                else {
+                    $location.path('/facebookpost');
+                }
             });
 
         };
@@ -584,8 +596,9 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
         $scope.getScheduleData = function (selectedMarketingProgrmaId, postData, socialMediaType) {
             var sendData = "";
-            if (selectedMarketingProgrmaId !== 0) {
-                sendData = JSON.stringify([{
+//            if (selectedMarketingProgrmaId !== 0) {
+              if($scope.existingActionPopup ) {
+                    sendData = JSON.stringify([{
                         type: socialMediaType,
                         image_name: $scope.selectImageName,
                         program_id: $scope.selectedMarketingProgrma.toString(),

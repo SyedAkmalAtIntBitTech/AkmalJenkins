@@ -6,7 +6,7 @@
 package com.intbittech.controller;
 
 import com.controller.GetColorFromImage;
-import com.controller.MindbodyEmailListProcessor;
+import com.intbittech.schedulers.MindbodyEmailListProcessor;
 import com.controller.SqlMethods;
 import com.intbittech.AppConstants;
 import com.intbittech.model.Company;
@@ -27,7 +27,6 @@ import com.intbittech.utility.FileHandlerUtil;
 import com.intbittech.utility.UserSessionUtil;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,12 +124,10 @@ public class OnboardingController {
             Runnable myRunnable = new Runnable() {
                 public void run() {
                     try {
-                        HashMap<Integer, Integer> rowMap = new HashMap<>();
                         SqlMethods sqlMethods = new SqlMethods();
                         Integer studioId = sqlMethods.getStudioID(companyID);
-                        rowMap.put(companyID, studioId);
                         MindbodyEmailListProcessor mindbodyEmailListProcessor = new MindbodyEmailListProcessor();
-                        mindbodyEmailListProcessor.processEachRow(rowMap);
+                        mindbodyEmailListProcessor.processEachRow(companyID, studioId);
                     } catch (Throwable throwable) {
                         logger.error(throwable);
                         transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));

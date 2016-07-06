@@ -5,7 +5,7 @@
  */
 package com.intbittech.dao.impl;
 
-import com.controller.IConstants;
+import com.intbittech.utility.IConstants;
 import com.intbittech.divtohtml.StringUtil;
 import com.intbit.ConnectionManager;
 import com.intbit.ScheduledEntityType;

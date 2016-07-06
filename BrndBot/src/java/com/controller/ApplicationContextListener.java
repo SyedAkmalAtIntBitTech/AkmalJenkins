@@ -5,6 +5,7 @@
  */
 package com.controller;
 
+import com.intbittech.schedulers.MindbodyEmailListScheduler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;

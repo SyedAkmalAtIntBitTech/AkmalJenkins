@@ -1,23 +1,38 @@
-<div class="sequence-page-content-container" id="accountsettingdiv">            
-    <!--Inner Content Conatiner GENERIC-->
-    <div class="page-inner-content-container ">
-        <div class="fleft content">
-            <!--List Starts Here-->
-            <div class="input-field-container col-1of1 fleft">
-                <div class="input-header"> Change Password </div>
-                <input type="{{inputType}}" ng-model="password" placeholder="Enter your password" class="input-field-textfield5 width33" />
-                <input type="{{inputType}}" ng-model="confirmPassword" placeholder="Confirm password" class="input-field-textfield5 width33 confirmpassword" />
-                <input type="checkbox" id="checkbox" ng-model="passwordCheckBox" ng-click="hideShowPassword()" />
-                <label class="checkboxshowpassword" for="checkbox" ng-if="passwordCheckBox">Hide password</label>
-                <label class="checkboxshowpassword" for="checkbox" ng-if="!passwordCheckBox">Show password</label>
+   
+        <div class="hub-pane" id="accountsettingdiv">
+            <div class="hub-pane-header-wrap">
+                <h2 class="">User Account Settings</h2>
+                
             </div>
-            
+            <div class="hub-pane-content-wrap">
+                <div class="hub-section">
+                     <div class="section-header">
+                         <h3>Update your password</h3>
+                        <p>These are the default email settings, they can be overridden when you send out an email.</p>
+                     </div>
+                    <div class="input-wrap">
+                        <label> Type New Password </label>
+                        <div class="input" >
+                            <input class="" type="{{inputType}}" ng-model="password" placeholder="Enter your password"></input>
+                        </div>
+                       
+                    </div>
+                    <div class="input-wrap">
+                        <label> Confirm New Password </label>
+                        <div class="input">
+                            <input type="{{inputType}}" ng-model="confirmPassword" placeholder="Confirm password"></input>
+                        </div>
+                        
+                    </div>
+                     <div class="update-container">
+                        <a class="long-button gray-button" ng-click="changePassword(password,confirmPassword)">Change Password</a>
+                    </div>
+                </div>
+                 
+            </div>
         </div>
-    </div>                    
-    <div class="" id="savePassword">
-        <div class="edit-button-detail md-button button-text-1 fleft savebutton savebuttonsettingspage" ng-click="changePassword(password,confirmPassword)">Save Password</div>
     </div>
-</div>
+
 
 
 
