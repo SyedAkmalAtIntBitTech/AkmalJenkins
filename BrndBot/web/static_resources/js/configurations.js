@@ -12,7 +12,8 @@ var error = "system failure error";
 var FroalaLicenseKey ="snJ-7c1krD-13fD1wzF-7==";
 var defaultSendEmailFrom = "mail@brndbot.com"; 
 var defaultFroalaColors=["#61BD6D", "#19BC9C","#54ADD2", "#2B82C9", "#9365B8", "#475577", "#CCCCCC", "#41A85F", "#01A884", "#3D8EB9",  "#2969B0", "#553982", "#27324E", "#000000", "#F7DA64", "#FBA026", "#EB6B56", "#A38F84", "#EFEFEF",  "#FFFFFF", "#FAC51B", "#F37934", "#D14841", "#7C706B", "#D1D5D8","REMOVE"];
-
+var bitlyUserName = "sandeep264328";
+var bitlyKey = "R_63e2f83120b743bc9d9534b841d41be6";
 
 function getHost(){
      return global_host_address;
@@ -47,3 +48,10 @@ String.prototype.contains = function(it) {
 function getDefaultEmailId(){
     return defaultSendEmailFrom;
 }
+function getBitlyUserName(){
+    return bitlyUserName;
+}
+function getBitlyKey(){
+    return bitlyKey;
+}
+

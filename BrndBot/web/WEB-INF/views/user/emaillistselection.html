@@ -49,7 +49,7 @@
             <div class="page-title-with-back page-title-font">Email List Selection</div>
         </div>
     </div>
-    <!--Main Content GENERIC--> 
+    <!--Main Content GENERIC-->
     <div class="sequence-page-background" id="emaillistselid" ng-init="showEmailList()">
         <div class="sequence-page-content-container" >
             <div class="sequence-page-header">Who do you want to send this email to?</div>
@@ -109,9 +109,9 @@
                         <div class="h4"> From Name </div>
                         <input id="name" class="input-field-textfield input-placeholder" placeholder="Enter From Name" type="text" ng-model="fromName"></input>
                     </div>
-                    <div class="input-field-container col-3of10 fleft">
+                    <div class="input-field-container col-3of10 fleft" style="display:none;">
                         <div class="h4"> From Email Address </div>
-                        <input id="formaddress" class="input-field-textfield input-placeholder" placeholder="Enter From  Email Address" type="text" ng-model="fromAddress" readonly />
+                        <input id="formaddress" class="input-field-textfield input-placeholder" placeholder="Enter From  Email Address" type="text" ng-model="fromAddress" type="hidden" value="mail@brndbot.com" readonly/>
                     </div>
                 </div>
                 <div class="cols-2 fleft col-9of10 pushUp">

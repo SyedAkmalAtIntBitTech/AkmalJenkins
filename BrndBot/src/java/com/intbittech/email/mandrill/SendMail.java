@@ -5,7 +5,7 @@
  */
 package com.intbittech.email.mandrill;
 
-import com.controller.IConstants;
+import com.intbittech.utility.IConstants;
 import com.intbittech.component.SpringContextBridge;
 import com.intbittech.dao.impl.EmailHistoryDAO;
 import com.intbittech.model.CompanyPreferences;

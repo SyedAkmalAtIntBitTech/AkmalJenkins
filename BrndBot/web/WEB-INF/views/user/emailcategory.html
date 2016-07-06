@@ -1,22 +1,17 @@
 <!--Main Content Wrap-->
     <div ng-include src="'navbar.html'"></div> 
-<div class="contentWrap--withSideNav noScroll">
-    <div class="topNav topNav-withSubnav clear">                
-            <a class="exit-button-icon" href="dashboard">  
-                <div class="topNav--BackButton fleft">        
-                        <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">            
-                </div>
-            </a>
-        <div class="topNav--TitleBar--withBackButton fleft">
-            <span class="topNav--TitleBar--Title fleft h2">Create an Email</span>
-            <div class="topNav--TitleBar--CTABox fright">
-                <div class="CTA_Button Button--Gray">Help!</div>
-            </div>
+<div class="main-content-wrap">
+    <div class="top-nav-wrap">
+        <div class="header">
+            <a class="back-button" href="dashboard"></a>
+            <h2 class="">Create an Email</h2>
         </div>
     </div>
-    <div class="topNav--offset"></div>            
-    <div ng-init="getCategories('emailsubcategory')">
-        <div ng-include src="'generictableview.html'"></div>  
+    <div class="top-nav-bar-offset"></div>
+    <div class="content-wrap content-wrap-flex content-wrap-with-continue-bar">                         
+        <div ng-init="getCategories('emailsubcategory')">
+            <div ng-include src="'generictableview.html'"></div>  
+        </div>
     </div>
 </div>
 

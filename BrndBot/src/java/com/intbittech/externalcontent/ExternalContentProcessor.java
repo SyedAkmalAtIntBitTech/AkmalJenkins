@@ -7,6 +7,7 @@ package com.intbittech.externalcontent;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.List;
 import java.util.Map;
 import org.json.JSONException;
 
@@ -44,5 +45,7 @@ public class ExternalContentProcessor {
     public String getExternalSourceMapKeyName(String query) {
         return externalContentFactory.getExternalSourceName()+query+companyId;
     }
-
+    public void searchEmailAndUpdateEmailOptIn(List<String> unsubscribeEmailList) {
+        externalContentFactory.searchEmailAndUpdateEmailOptIn(unsubscribeEmailList);
+    }
 }

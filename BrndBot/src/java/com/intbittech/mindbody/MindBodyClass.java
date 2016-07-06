@@ -140,7 +140,10 @@ public class MindBodyClass {
     public boolean isActivated() {
         boolean value = mindBody.isActivated();
         return value;
+    }   
+    
+    public void searchEmailAndUpdateEmailOptIn(List<String> unsubscribeEmailList) {
+        mindBody.searchEmailAndUpdateEmailOptIn(unsubscribeEmailList);
     }
-
 
 }

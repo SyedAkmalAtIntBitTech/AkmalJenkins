@@ -265,4 +265,8 @@ public class MindbodyExternalContentFactory extends ExternalContentFactory {
         return "Mindbody";
     }
 
+    @Override
+    public void searchEmailAndUpdateEmailOptIn(List<String> unsubscribeEmailList) {
+        mindBodyClass.searchEmailAndUpdateEmailOptIn(unsubscribeEmailList);
+    }
 }

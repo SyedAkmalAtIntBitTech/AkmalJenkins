@@ -7,6 +7,7 @@ package com.intbittech.externalcontent;
 
 import com.controller.SqlMethods;
 import java.text.ParseException;
+import java.util.List;
 import java.util.Map;
 import org.json.JSONException;
 
@@ -31,4 +32,6 @@ public abstract class ExternalContentFactory {
     public abstract Map<String,String> getDetailData(String query, Object selected_object) throws JSONException ;
 
     public abstract String getExternalSourceName();
+    
+    public abstract void searchEmailAndUpdateEmailOptIn(List<String> unsubscribeEmailList);
 }
