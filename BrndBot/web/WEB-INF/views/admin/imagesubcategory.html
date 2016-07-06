@@ -13,15 +13,17 @@ String organizationID=request.getParameter("organizationId");
 String categoryID=request.getParameter("categoryId");
 %>-->
 <body class="body-normal" ng-app  ng-controller="organizationcontroller" >
-    <input id="categoryIdTag" type="text" hidden value="<%=categoryID%>"/>
-    <input id="organizationIdTag" type="text" hidden value="<%=organizationID%>"/>
-    <div ng-include src="header.html" />
-    <div ng-include src="addsubcategory.html"/>
+    <div ng-init="organizationDetails()">
+        <input id="categoryIdTag" type="text" hidden value="{{categoryId}}"/>
+        <input id="organizationIdTag" type="text" hidden value="{{organizationId}}"/>
+    </div>
+    <div ng-include src="'header.html'" ></div>
+    <div ng-include src="'addsubcategory.html'"></div>
     <div class="content-area" ng-init="organizationdetails()">
         <div class="content-area_header" ng-init="getAllCategoryDetails()">
-            <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/organizationdetails?organizationId=<%=organizationID%>">{{organizationDetails.organizationName}}</a>  > </div>
+            <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="/BrndBot/admin/organizationdetails?organizationId={{organizationId}}">{{organizationDetails.organizationName}}</a>  > </div>
             <div class="header_title fleft" id="categoryNameDiv">{{categoryDetails.categoryName}}</div>
-            <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteCategory(<%=categoryID%>)">Delete Category</div>
+            <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteCategory('{{categoryID}}')">Delete Category</div>
         </div>
         <div class="slatSection"  ng-init="getAllSubCategories()">
             <div class="sectionHeader"> SubCategory </div>
@@ -42,7 +44,7 @@ String categoryID=request.getParameter("categoryId");
                         <span class="listCol_Text fleft">{{ExternalSourceKeywordLookups.externalSourceName}}-{{ExternalSourceKeywordLookups.externalSourceKeywordName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                        <a href="${pageContext.request.contextPath}/admin/imagesubcategorydetails?organizationId={{organizationDetails.organizationId}}&categoryId={{categoryDetails.categoryId}}&subCategoryId={{subcategory.subCategoryId}}"><div class="CTA_Button Button--Gray fright">Manage Sub Category</div></a>
+                        <a href="/BrndBot/admin/imagesubcategorydetails?organizationId={{organizationDetails.organizationId}}&categoryId={{categoryDetails.categoryId}}&subCategoryId={{subcategory.subCategoryId}}"><div class="CTA_Button Button--Gray fright">Manage Sub Category</div></a>
                     </div>
                 </li>
             </ul>

@@ -14,9 +14,11 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
     %>
        -->
     <body class="body-normal" ng-app ng-controller="recurringEmail">        
-        <div ng-include src="header.html" />
-        <div class="content-area contentEdit"  ng-init="getRecurringTemplate()">
-            <input hidden id="recurringEmailTemplateId" value="<%=recurringEmailTemplateId %>">
+        <div ng-include src="header.html" ></div>
+        <div ng-init="getRecurringEmailTemplateId()">
+            <input hidden id="recurringEmailTemplateId" value="{{recurringEmailTemplateId}}"/>
+        </div>
+        <div class="content-area contentEdit" ng-init="getRecurringTemplate()">
         <div class="content-area_header">
           
             <div class="header_path fleft" id="createEmailTemplate"> Create New  Recurring Email Template</div>

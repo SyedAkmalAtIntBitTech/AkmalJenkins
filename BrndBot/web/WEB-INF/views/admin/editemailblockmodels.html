@@ -9,19 +9,17 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <link rel="shortcut icon" href="images/favicon.png"/>
         <title>BrndBot-Admin Create New Email Template</title>
     </head>
-<!--    <%
-        String emailBlockModelId = request.getParameter("emailBlockModelId");
-    %>-->
-
     <body class="body-normal" ng-app="uploadImage" ng-controller="emailBlocksController">        
-        <div ng-include src="header.html"></div>
-        <div ng-include src="froalaeditor_styles.html"/>
-        <input id="emailBlockIdTag" type="text" hidden value="<%=emailBlockModelId%>"/>
+        <div ng-include src="'header.html'"></div>
+        <div ng-include src="'froalaeditor_styles.html'"/>
+        <div ng-init="emailBlockModelId()">
+            <input id="emailBlockIdTag" type="text" hidden value="{{emailBlockModelId}}"/>
+        </div>
         <div class="content-area contentEdit"  ng-init="getEmailModelById()">
             <div class="content-area_header">
                 <div class="header_path fleft" id="editTitle">Edit Email Template</div>
                 <div class="header_path fleft" id="createTitle"> Create New Email Block Template</div>
-                <div id="deleteTemplate" class="CTA_Button Button--Delete fright" ng-click="deleteEmailBlockModel(<%=emailBlockModelId%>)" >Delete Template</div>
+                <div id="deleteTemplate" class="CTA_Button Button--Delete fright" ng-click="deleteEmailBlockModel('{{emailBlockModelId}}')" >Delete Template</div>
             </div>
             <div class="inputSection col1of4" id="selectOrgranization" >
                 <div class="input_Label">Email Block Template Name  </div>

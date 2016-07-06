@@ -10,20 +10,18 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <title>Marketing Program category</title>
         <link rel="shortcut icon" href="images/favicon.png"/>        
     </head>
-<!--  <%
-String organizationID=request.getParameter("organizationId");
-String marketingCategoryId=request.getParameter("marketingCategoryId");
-%>-->
 <body class="body-normal" ng-app  ng-controller="organizationcontroller" >
-    <input id="marketingCategoryId" type="text" hidden value="<%=marketingCategoryId%>"/>
-    <input id="organizationIdTag" type="text" hidden value="<%=organizationID%>"/>
-    <div ng-include src="header.html" />
-    <div ng-include src="addmarketingtemplate.html"/>
+    <div ng-init="organizationMarketingCategoryId()">
+        <input id="marketingCategoryId" type="text" hidden value="{{marketingCategoryId}}"/>
+        <input id="organizationIdTag" type="text" hidden value="{{organizationId}}"/>
+    </div>
+    <div ng-include src="'header.html'"></div>
+    <div ng-include src="'addmarketingtemplate.html'"></div>
     <div class="content-area" ng-init="organizationdetails()">
         <div class="content-area_header"  ng-init="getAllMarketingCategoryById()">
-            <div  class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/organizationdetails?organizationId=<%=organizationID%>">{{organizationDetails.organizationName}}</a>  > </div>
+            <div  class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="/BrndBot/admin/organizationdetails?organizationId={{organizationId}}">{{organizationDetails.organizationName}}</a>  > </div>
             <div class="header_title fleft">{{marketingCategoryTitle.marketingCategoryName}}  </div>
-            <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteMarketingCategory(<%=marketingCategoryId%>)">Delete Category</div>
+            <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteMarketingCategory('{{marketingCategoryId}}')">Delete Category</div>
             <div class="CTA_Button Button--Blue fright" id="addMarketingTemplate" ng-click="getAllNonAddedMarketingProgram()">Add Template</div>
         </div>
         <div class="slatSection" >

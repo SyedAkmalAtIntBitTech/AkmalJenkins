@@ -4,30 +4,28 @@ Copyright 2015 Intbit Technologies. This software and documentation contains
 confidential and proprietary information that is owned by Intbit
 Technologies. Unauthorized use and distribution are strictly prohibited.
 -->
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
      <link rel="shortcut icon" href="images/favicon.png"/>       
     <title>Sub Category</title>  
 </head>    
-<!--<%
-String organizationID=request.getParameter("organizationId");
-String categoryID=request.getParameter("categoryId");
-String subCategoryID=request.getParameter("subCategoryId");
-%>-->
 <body class="body-normal" ng-app  ng-controller="organizationcontroller">
-     <input id="categoryIdTag" type="text" hidden value="<%=categoryID%>"/>
-    <input id="organizationIdTag" type="text" hidden value="<%=organizationID%>"/>
-    <input id="subCategoryIdTag" type="text" hidden value="<%=subCategoryID%>"/>
-     <div ng-include src="header.html" />
-     <div ng-include src="addemailtemplate.html"/>
+    
+    <div ng-init="organizationCategoryDetails()">
+     <input id="categoryIdTag" type="text" hidden value="{{categoryId}}"/>
+     <input id="organizationIdTag" type="text" hidden value="{{organizationId}}"/>
+     <input id="subCategoryIdTag" type="text" hidden value="{{subcategoryId}}"/>
+    </div>
+    <div ng-include src="'header.html'" ></div>
+    <div ng-include src="'addemailtemplate.html'"></div>
      <div  ng-init="organizationdetails()">
     <div class="content-area" ng-init="getAllCategoryDetails()">
         <div class="content-area_header" ng-init="getAllSubCategories()">
-            <div class="header_path fleft"> <a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/organizationdetails?organizationId=<%=organizationID%>">{{organizationDetails.organizationName}}</a>  > </div>
-            <div class="header_path fleft"> <a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/emailsubcategory?organizationId=<%=organizationID%>&categoryId=<%=categoryID%>">{{categoryDetails.categoryName}}</a>  > </div>
+            <div class="header_path fleft"> <a style="text-decoration:none;color:#3E4551;" href="/BrndBot/admin/organizationdetails?organizationId={{organizationId}}">{{organizationDetails.organizationName}}</a>  > </div>
+            <div class="header_path fleft"> <a style="text-decoration:none;color:#3E4551;" href="/BrndBot/admin/emailsubcategory?organizationId={{organizationId}}&categoryId={{categoryId}}">{{categoryDetails.categoryName}}</a>  > </div>
             <div class="header_title fleft">{{subCategoryDetailsTitle.subCategoryName}}</div>
-            <div class="CTA_Button Button--Blue fright" id="addTemplateButton" ng-click="getAllNonAddedEmailModelsBySubCategoryId(<%=subCategoryID%>)">Add Template</div>
-            <div class="CTA_Button Button--Delete fright" ng-click="deleteSubCategory(<%=subCategoryID%>)">Delete Sub Category</div>
+            <div class="CTA_Button Button--Blue fright" id="addTemplateButton" ng-click="getAllNonAddedEmailModelsBySubCategoryId('{{subcategoryId}}')">Add Template</div>
+            <div class="CTA_Button Button--Delete fright" ng-click="deleteSubCategory('{{subcategoryId}}')">Delete Sub Category</div>
         </div>
         <div class="slatSection" ng-init="getEmailModelBySubCategoryId()">
             <div class="slatHeaders">

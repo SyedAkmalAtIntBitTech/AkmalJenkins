@@ -9,27 +9,25 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
     <link rel="shortcut icon" href="images/favicon.png"/>        
     <title>Organization-Details</title>       
 </head>    
-<!--    <%
-    String organizationId=request.getParameter("organizationId");
-
-%>-->
-<body class="body-normal">
-    <input id="organizationIdTag" type="text" hidden value="<%=organizationId%>"/>
-    <div ng-include src="header.html" />
-    <div ng-include src="emailcategory.html" />
-    <div ng-include src="printcategory.html" />
-    <div ng-include src="addimagecategory.html" />
-    <div ng-include src="addemailblock.html" />
-    <div ng-include src="addrecurringtemplatepopup.html" />
-    <div ng-include src="marketingprogrampopup.html" />
+<body class="body-normal" ng-app  ng-controller="organizationcontroller">
+    <div ng_init='organizationId()'>
+        <input type="text" id="organizationIdTag" value="{{organizationId}}" hidden/>
+        <input type="text" id='organizationId' value="{{organizationId}}" hidden/>
+    </div>
+    <div ng-include src="'header.html'" ></div>
+    <div ng-include src="'emailcategory.html'" ></div>
+    <div ng-include src="'printcategory.html'" ></div>
+    <div ng-include src="'addimagecategory.html'" ></div>
+    <div ng-include src="'addemailblock.html'" ></div>
+    <div ng-include src="'addrecurringtemplatepopup.html'" ></div>
+    <div ng-include src="'marketingprogrampopup.html'" ></div>
       
-     <input type="text" id='organizationId' value="<%=organizationId%>" hidden/>
-    <div class="content-area" ng-app  ng-controller="organizationcontroller" >
+    <div class="content-area"  >
         <div class="content-area_header" ng-init="organizationdetails()">
-            <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/organization"> Organizations</a>  > </div>
+            <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="/BrndBot/admin/organization"> Organizations</a>  > </div>
 
             <div class="header_title fleft" id="organizationNameDiv">{{organizationDetails.organizationName}}</div>
-            <div id="deleteOrganization" class="CTA_Button Button--Delete fright" ng-click="deleteOrganization(<%=organizationId%>)">Delete Organization</div>
+            <div id="deleteOrganization" class="CTA_Button Button--Delete fright" ng-click="deleteOrganization('{{organizationId}}')">Delete Organization</div>
 
         </div>
         <div class="inputSection col1of4" >
@@ -53,7 +51,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                         <span class="listCol_Text fleft" >{{emails.categoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
-                        <a href="${pageContext.request.contextPath}/admin/emailsubcategory?organizationId=<%=organizationId%>&categoryId={{emails.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
+                        <a href="/BrndBot/admin/emailsubcategory?organizationId={{organizationId}}&categoryId={{emails.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
@@ -78,7 +76,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                         <span class="listCol_Text fleft"> {{blocks.externalSourceName}}{{blocks.externalSourceKeywordName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
-                       <a href="${pageContext.request.contextPath}/admin/emailblock?organizationId=<%=organizationId%>&emailBlockId={{blocks.emailBlockId}}"><div class="CTA_Button Button--Gray fright">Manage Block </div></a>
+                       <a href="/BrndBot/admin/emailblock?organizationId={{organizationId}}&emailBlockId={{blocks.emailBlockId}}"><div class="CTA_Button Button--Gray fright">Manage Block </div></a>
                     </div>
                 </li>
                 
@@ -99,7 +97,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                         <span class="listCol_Text fleft">{{image.categoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
-                        <a href="${pageContext.request.contextPath}/admin/imagesubcategory?organizationId=<%=organizationId%>&categoryId={{image.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
+                        <a href="/BrndBot/admin/imagesubcategory?organizationId={{organizationId}}&categoryId={{image.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
@@ -118,7 +116,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                         <span class="listCol_Text fleft"> {{print.categoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
-                        <a href="${pageContext.request.contextPath}/admin/printsubcategory?organizationId=<%=organizationId%>&categoryId={{print.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
+                        <a href="/BrndBot/admin/printsubcategory?organizationId={{organizationId}}&categoryId={{print.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>
@@ -137,7 +135,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                         <span class="listCol_Text fleft"> {{marketingCategory.marketingCategoryName}}</span>
                     </div>
                     <div class="listCol col1of2 fleft">
-                        <a href="${pageContext.request.contextPath}/admin/marketingcategory?organizationId=<%=organizationId%>&marketingCategoryId={{marketingCategory.marketingCategoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
+                        <a href="/BrndBot/admin/marketingcategory?organizationId={{organizationId}}&marketingCategoryId={{marketingCategory.marketingCategoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
                     </div>
                 </li>
             </ul>

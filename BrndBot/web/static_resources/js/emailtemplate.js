@@ -115,7 +115,27 @@ app.directive("ngFileSelect",function(){
 });
 function emailTemplateController($scope, $http ,fileReader) {
      $scope.imageSrc ="images/uploadPhoto.svg";
-      $scope.getFile = function () {
+     
+    $scope.getEmailModelId = function (){
+        var qs = (function(a) {
+            if (a == "") return {};
+            var b = {};
+            for (var i = 0; i < a.length; ++i)
+            {
+                var p=a[i].split('=', 2);
+                if (p.length == 1)
+                    b[p[0]] = "";
+                else
+                    b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+            }
+            return b;
+        })(window.location.search.substr(1).split('&'));
+
+        $scope.emailModelId = qs["emailModelId"];    
+            
+        
+    };
+    $scope.getFile = function () {
         $scope.progress = 0;
         fileReader.readAsDataUrl($scope.file, $scope)
                       .then(function(result) {
