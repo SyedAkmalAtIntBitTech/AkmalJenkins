@@ -33,15 +33,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
         $scope.redirectToEmailAutomation = function (pageName, add, programId, zero)
         {
-//            $scope.initEmailAutomation();
 //            $scope.programId = programId;
             $scope.add = add;
             $scope.type = add;
             $scope.zero = zero;
             $scope.entityId = zero;
-            alert($scope.entityId);
-            alert($scope.programId);
-            alert($scope.type);
             $scope.closePopup();
             $location.path("/" + pageName);
 
@@ -302,7 +298,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
             }
         });
-        alert($scope.isRecurring);
     };
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, action_status, days, marketingName)
     {
@@ -682,7 +677,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.emailPreviewOnClick = function () {
-            alert("preview");
             var rendomIframeFilename = "";
             rendomIframeFilename = event.timeStamp;
             settingsFactory.getAllPreferencesGet().then(function (data) {
@@ -826,8 +820,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $("#emailautomationcontent").hide();
             $("#emlautomeditorcontainer").show();
             marketingRecurringEmailFactory.allRecurringEmailTemplatesGet().then(function (data) {
-                
-                alert(JSON.stringify(data));
                 $scope.recuring_email_templates = JSON.parse(JSON.stringify(data));
             });
         };
@@ -871,10 +863,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             else
             {
                 marketingRecurringEmailFactory.getRecurringEntityPost(entity_details).then(function(data){
-                    alert("dasasdad"+JSON.stringify(data));
                     
                     $scope.recurringEmailValidation(data);
-                    alert($scope.error);
+//                    alert($scope.error);
                     if($scope.type==="template")
                     {
                         if($scope.error===0)
@@ -909,7 +900,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     }
                     $scope.emailListOnChange();
                     $scope.froalaHtmlData = data.recurring_email_body;
-                    alert($('#edit').attr('class'));
+//                    alert($('#edit').attr('class'));
                     $('#edit').froalaEditor('html.set',''+$scope.froalaHtmlData+'');
                     
                 });
@@ -1018,7 +1009,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             return returnFooter;
         };
          $scope.addUpdateRecuringAction = function () {
-            alert("...");
             alert(JSON.stringify($scope.automationData));
 //            if (validate()) {
 
@@ -1171,7 +1161,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 
                                 marketingRecurringEmailFactory.updateRecurringActionPost(recurring_action).then(function (data) {
-                                    alert("fifth");
                                     alert(JSON.stringify(data));
                                     if ((data === "true")) {
                                         alert("Details saved succesfully.");
