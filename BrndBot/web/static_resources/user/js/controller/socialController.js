@@ -5,7 +5,6 @@
  */
 
 socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location', '$window', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'companyMarketingProgramFactory', 'companyImagesFactory', 'companyFactory', 'imageFactory', 'socialPostFactory', 'scheduleActionsFactory', function ($scope, $rootScope, $location, $window, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, companyMarketingProgramFactory, companyImagesFactory, companyFactory, imageFactory, socialPostFactory, scheduleActionsFactory) {
-        alert("sa");
         $scope.getTwitterActionsData = "";
         $scope.marketingProgramsList = "";
         $scope.twitter_action = "";
