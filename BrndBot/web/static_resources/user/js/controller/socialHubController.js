@@ -1,5 +1,41 @@
-socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'settingsFactory', 'socialPostFactory', function ($scope, $location, settingsFactory, socialPostFactory) {
+socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'settingsFactory', function ($scope, $location, settingsFactory) {
+        
+        $scope.facebook = false;
+        
+        $scope.socialClick = function() {
+            $scope.socialDropdown = true;
+        };
 
+        $("#twsetting").click(function () {
+            $("#view1").hide();
+            $("#view2").show();
+
+            $("#twsetting").removeClass("top-subnav-links");
+            $("#twsetting a").removeClass("h3");
+            $("#fbsetting").removeClass("top-subnav-link-active");
+            $("#fbsetting a").removeClass("h3-active-subnav");
+
+            $("#twsetting").addClass("top-subnav-link-active");
+            $("#twsetting a").addClass("h3-active-subnav");
+            $("#fbsetting").addClass("top-subnav-links");
+            $("#fbsetting a").addClass("h3");
+        });
+    
+        $("#fbsetting").click(function () {
+            $("#view2").hide();
+            $("#view1").show();
+
+            $("#twsetting").removeClass("top-subnav-link-active");
+            $("#twsetting a").removeClass("h3-active-subnav");
+            $("#fbsetting").removeClass("top-subnav-links");
+            $("#fbsetting a").removeClass("h3");
+
+            $("#twsetting").addClass("top-subnav-links");
+            $("#twsetting a").addClass("h3");
+            $("#fbsetting").addClass("top-subnav-link-active");
+            $("#fbsetting a").addClass("h3-active-subnav");
+        });
+    
         $scope.getFacebookDetails = function () {
             var fbdata = JSON.stringify({access_token_method: "getAccessToken"});
             settingsFactory.facebookPost(fbdata).then(function (data) {
@@ -25,16 +61,14 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
                 alert(JSON.stringify(data));
                 $scope.getFacebookDetails();
             });
-        };
-        
+        };       
         
         $scope.getManagePage = function () {
             var data = JSON.stringify({redirectUrl: "user/social"});
             settingsFactory.fbLoginPost(data).then(function (data) {
                 window.location = data.d.details[0];
             });
-        };
-        
+        };       
         
         $scope.checkForCode = function () {
             var code = $scope.getUrlParameter("code");
@@ -63,7 +97,6 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
                 }
             }
         };
-
 
         $scope.getTwitterDetails = function () {
             var twitterdata = JSON.stringify({access_token_method: "getAccessToken"});
@@ -112,8 +145,7 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
             settingsFactory.twitterPost(data).then(function (data) {
                 $scope.getTwitterDetails();
             });
-        };
-        
+        };       
 
         $scope.postToSelectedPage = function () {
             var addDafaultmanagePage = $("#setDefaultManagePage").prop('checked');
@@ -127,10 +159,9 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
                     alert("Please select any page and set as Default.");
                 }
             });
-
         };
-
-        $scope.hideFbPopup = function ()
+        
+        $scope.hideFbPopup1 = function (s) 
         {
             $scope.facebook = false;
         };

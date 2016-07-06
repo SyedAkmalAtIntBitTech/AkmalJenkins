@@ -309,7 +309,7 @@
                     <div class="email-Block-Header" id="blockdivheader" ng-show="blockdivheader">Select a Template:</div>
                     <div class="email-Block-Header" id="textdivheader" ng-show="textdivheader">Select a Text:</div>
                     <div class="block-selection-divider"></div>
-                      <ul id="blklist" class="block-list blocklistnew fontpnr" style="display: none;">
+                      <ul id="blklist" class="block-list blocklistnew fontpnr" style="display: block;">
                            <li ng-repeat="email_template in recuring_email_templates"> 
                                 <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
                            </li>
