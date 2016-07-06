@@ -1,3 +1,5 @@
+<div ng-include src="'marketinghubnavigation.html'"></div>
+<div class="page-background">
 <div class="page-content-container email-list-contact-page email-draft-page" id="emailhistorydiv">
     <div class="fleft content">
         <div class="page-content-title pushUp h2" ng-show="email_history.length > 0">Your Email History</div>
@@ -5,7 +7,8 @@
         <!--List Starts Here-->
         <ul class="main-container fleft" id="historydiv" ng-show="email_history.length > 0" >
 
-            <div  ng-repeat="email in email_history">
+            <input type="text" placeholder="Search" ng-model="userSearch">
+            <div  ng-repeat="email in email_history | filter:userSearch">
                 <li class="slat-container fleft selfclear" id="li{{drafts.id}}">
                     <div class="col-4of10 slat-unit fleft" id="deleteids"> 
                         <div class="slat-title-container col-1of1 fleft">
@@ -42,3 +45,4 @@
         </ul>
     </div>
 </div> 
+</div>

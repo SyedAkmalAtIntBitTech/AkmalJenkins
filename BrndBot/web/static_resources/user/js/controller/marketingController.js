@@ -74,7 +74,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             };
 
             companyMarketingProgramFactory.setMarketingProgramPost(data).then(function (data) {
-
+                $location.path("/" + "marketingprogramactions");
             });
         };
 
@@ -148,8 +148,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var days = 0;
             var action = {"title": addTitle, "actiontype": actionType, "type": "save", "description": "", "marketingType": $scope.programId, "action_date": myEpoch, "days": days};
             companyMarketingProgramFactory.addActionPost(action).then(function (data) {
-
-
+                alert(data.toLocaleString());
+                $scope.closeOverlay();
+                $location.path("/" + "marketingprogramlists");
             });
         };
 
