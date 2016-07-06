@@ -81,22 +81,21 @@
                         <div class="h4 pushUp-10 ">
                             Send an email to a recipient
                         </div>
-                    </div>
-                    <div class="col-1of10 fleft">
-                        <select id="days" ng-model="automationData.selectedDay" class="input-field-textfield " ng-options="day for day in days"></select>
-                    </div>
-                    <div class="col-3of10 fleft">
-                        <div class="h4 pushUp-10 lftpad-10">
-                            days after they are added to
+                         <div class="col-1of10 fleft">
+                             <select id="days" ng-model="automationData.selectedDay" class="input-field-textfield " ng-options="day for day in days"></select>
+                         </div>
+                        <div class="col-3of10 fleft">
+                             <div class="h4 pushUp-10 lftpad-10">
+                                    days after they are added to
+                             </div>
+                         </div>
+                        <div class="col-3of10 fleft" ng-click="emailListDropdown()">
+                            <select id="emaillist" ng-model="automationData.selectedEmailList" ng-change="emailListOnChange()" name="emaillist" class="input-field-textfield">
+                                   <option value="0">-- Select --</option>
+                                   <option ng-repeat ="Lists in emailLists_user" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
+                                   <option ng-repeat ="Lists in emailLists_mindbody" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
+                              </select>
                         </div>
-                    </div>
-                    <div class="col-3of10 fleft" ng-click="emailListDropdown()">
-                        <select id="emaillist" ng-model="automationData.selectedEmailList" name="emaillist" class="input-field-textfield">
-                            <option value="0">-- Select --</option>
-                            <option ng-repeat ="Lists in emailLists_user" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
-                            <option ng-repeat ="Lists in emailLists_mindbody" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
-                        </select>
-                    </div>
                     <div class="col-4of10 fleft pushUp-30">
                         <div class="h4" style="">
                             Select a Time:
@@ -317,11 +316,11 @@
                     <div class="email-Block-Header" id="blockdivheader" ng-show="blockdivheader">Select a Template:</div>
                     <div class="email-Block-Header" id="textdivheader" ng-show="textdivheader">Select a Text:</div>
                     <div class="block-selection-divider"></div>
-                    <ul id="blklist" class="block-list blocklistnew fontpnr" style="display: none;">
-                        <li ng-repeat="email_template in recuring_email_templates"> 
-                            <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
-                        </li>
-                    </ul>
+                      <ul id="blklist" class="block-list blocklistnew fontpnr" style="display: block;">
+                           <li ng-repeat="email_template in recuring_email_templates"> 
+                                <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
+                           </li>
+                      </ul>
                     <ul class="block-list" id="textdivheader" ng-show="textdivheader">
                         <li>
                             <div class="textstyle">To add client name please use these options</div>
@@ -414,9 +413,8 @@
         </div>
 
     </div>
-</div>
-</div>   
 
+</div>
         <script src="js/froala_editor.min_editor.js" type="text/javascript"></script>
         <script src="js/plugins/code_view.min.js" type="text/javascript"></script>
         <!--<script type="text/javascript" src="js/emaileditor_new.js"></script>-->
