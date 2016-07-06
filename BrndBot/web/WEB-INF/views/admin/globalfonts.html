@@ -11,8 +11,8 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         
     </head>
        
-     <jsp:include page="header.jsp"/>
-      <jsp:include page="fontpopup.jsp"/>
+    <div ng-include src="'header.html'"></div>
+    <div ng-include src="'fontpopup.html'"></div>
       <body class="body-normal" ng-app="colors" ng-controller="globalColors">
       
           <div class="content-area" ng-init="getGlobalFonts()">

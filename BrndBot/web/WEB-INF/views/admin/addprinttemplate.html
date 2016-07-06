@@ -10,7 +10,8 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <title>BrndBot - Social Layout Model</title>     
     </head>
     <body class="body-normal" ng-app  ng-controller="">
-        <%@include file="socialeditortemplatehead.jsp" %>
+<!--        <%@include file="socialeditortemplatehead.jsp" %>-->
+        <div ng-include src="'socialeditortemplatehead.html'"></div>
         <div class="content-area">
             <div class="content-area_header" ng-init="">
                 <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/printtemplates"> Print Templates</a>  &gt; </div>

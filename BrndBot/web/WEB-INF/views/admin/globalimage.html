@@ -11,9 +11,9 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
          <link rel="shortcut icon" href="images/favicon.png"/>  
     </head>
     <body class="body-normal">
-        <jsp:include page="header.jsp"/>
-        <jsp:include page="popupimage.jsp"/>
-        <jsp:include page="editimagepopup.jsp"/>
+        <div ng-include src="header.html" />
+        <div ng-include src="popupimage.html" />
+        <div ng-include src="editimagepopup.html" />
         <div class="content-area" ng-app="uploadImage" ng-controller="globalImageController">
         <div class="content-area_header">
             <div class="header_path fleft"> Global Images</div>

@@ -14,8 +14,8 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
     %>-->
 
     <body class="body-normal" ng-app="uploadImage" ng-controller="emailBlocksController">        
-        <jsp:include page="header.jsp"/>
-        <jsp:include page="froalaeditor_styles.jsp"/>
+        <div ng-include src="header.html"></div>
+        <div ng-include src="froalaeditor_styles.html"/>
         <input id="emailBlockIdTag" type="text" hidden value="<%=emailBlockModelId%>"/>
         <div class="content-area contentEdit"  ng-init="getEmailModelById()">
             <div class="content-area_header">

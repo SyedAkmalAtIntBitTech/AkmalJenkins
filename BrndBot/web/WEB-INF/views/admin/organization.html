@@ -10,8 +10,10 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <title>BrndBot-Admin Organization</title>
     </head>
     <body class="body-normal" ng-app  ng-controller="organizationcontroller" >        
-        <jsp:include page="header.jsp"/>
-        <jsp:include page="addorganization.jsp"/>
+        
+        <div ng-include src="'header.html'"></div>
+        <div ng-include src="'addorganization.html'"></div>
+        
         <div class="content-area" >
         <div class="content-area_header">
             <div class="header_path fleft"> All Organizations </div>

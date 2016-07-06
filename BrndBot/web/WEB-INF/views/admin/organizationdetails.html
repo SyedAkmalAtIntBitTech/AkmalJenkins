@@ -15,13 +15,13 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
 %>-->
 <body class="body-normal">
     <input id="organizationIdTag" type="text" hidden value="<%=organizationId%>"/>
-    <jsp:include page="header.jsp"/>
-     <jsp:include page="emailcategory.jsp"/>
-     <jsp:include page="printcategory.jsp"/>
-     <jsp:include page="addimagecategory.jsp"/>
-     <jsp:include page="addemailblock.jsp"/>
-     <jsp:include page="addrecurringtemplatepopup.jsp"/>
-      <jsp:include page="marketingprogrampopup.jsp"/>
+    <div ng-include src="header.html" />
+    <div ng-include src="emailcategory.html" />
+    <div ng-include src="printcategory.html" />
+    <div ng-include src="addimagecategory.html" />
+    <div ng-include src="addemailblock.html" />
+    <div ng-include src="addrecurringtemplatepopup.html" />
+    <div ng-include src="marketingprogrampopup.html" />
       
      <input type="text" id='organizationId' value="<%=organizationId%>" hidden/>
     <div class="content-area" ng-app  ng-controller="organizationcontroller" >

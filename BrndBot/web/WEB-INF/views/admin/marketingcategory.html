@@ -17,8 +17,8 @@ String marketingCategoryId=request.getParameter("marketingCategoryId");
 <body class="body-normal" ng-app  ng-controller="organizationcontroller" >
     <input id="marketingCategoryId" type="text" hidden value="<%=marketingCategoryId%>"/>
     <input id="organizationIdTag" type="text" hidden value="<%=organizationID%>"/>
-    <jsp:include page="header.jsp"/>
-     <jsp:include page="addmarketingtemplate.jsp"/>
+    <div ng-include src="header.html" />
+    <div ng-include src="addmarketingtemplate.html"/>
     <div class="content-area" ng-init="organizationdetails()">
         <div class="content-area_header"  ng-init="getAllMarketingCategoryById()">
             <div  class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="${pageContext.request.contextPath}/admin/organizationdetails?organizationId=<%=organizationID%>">{{organizationDetails.organizationName}}</a>  > </div>
