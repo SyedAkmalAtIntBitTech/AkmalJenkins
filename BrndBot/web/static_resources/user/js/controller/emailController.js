@@ -395,7 +395,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.emailPreviewOnClick = function () {
             settingsFactory.getAllPreferencesGet().then(function (data) {
                 $("#fade").show();
-//                $scope.overlayFade = true;
                 $scope.emailPreviewPopup = true;
                 var footerData = JSON.parse(data.d.details);
                 $scope.overlayFade = true;
@@ -722,7 +721,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function () {
                         if (responseText === "true")
                         {
-                            alert(emailsend);
                             window.location = "dashboard";
                         }
                     });
@@ -782,12 +780,10 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.setAction = function (selectedAction) {
-            alert(selectedAction);
             $scope.socialAction = selectedAction;
         };
         
         $scope.schedulePost = function (selectedSocialmedia, postData) {
-            alert(selectedSocialmedia);
             if (selectedSocialmedia === "email") {
                 $scope.schedulePostToEmail(postData);
             }
@@ -797,7 +793,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             var email_scheduling = $scope.getScheduleData($scope.selectedMarketingProgrma, postData);
             if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
                 scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
-                    alert(JSON.stringify(data));
                 });
             }
         };
@@ -821,7 +816,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 };
 
                 scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
-                    alert(JSON.stringify(data));
                     if (data.d.operationStatus.statusCode === "Success") {
                         $scope.schedulePopup = false;
                         window.location = "dashboard";
@@ -861,7 +855,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     "iframeName": $scope.randomIframeFilename.toString()
                 };
                 scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
-                    alert(JSON.stringify(data));
                     if (data.d.operationStatus.statusCode === "Success") {
                         $scope.schedulePopup = false;
                         window.location = "dashboard";
@@ -952,7 +945,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     email_list: $scope.emailList,
                     iframeName: $scope.randomIframeFilename.toString()
                 });
-                alert(JSON.stringify(sendEmailData));
                 emailFactory.sendEmail(sendEmailData).then(function (data) {
                     if (data.d.message === "true") {
                         emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {

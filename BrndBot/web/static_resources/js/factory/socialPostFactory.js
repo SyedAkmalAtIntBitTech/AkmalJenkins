@@ -5,7 +5,6 @@
 factoryApp.factory('socialPostFactory', function ($q, authenticatedServiceFactory, configurationService) {
     var socialPostFactoryObject = {};
     socialPostFactoryObject.facebookPost = function (data) {
-        alert("socialPostFactory");
         var deffered = $q.defer();
         var url = configurationService.postToFacebookURL();
         authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
