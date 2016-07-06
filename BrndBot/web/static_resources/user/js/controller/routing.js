@@ -98,11 +98,11 @@ marketingFlowApp.config(function($routeProvider){
                 
     }) 
     .when('/marketingprogramactions', {
-                templateUrl: 'marketingprogramactions.html',
+                templateUrl: 'marketingprogramactions.html'
                            
     }) 
      .when('/emailautomation', {
-                templateUrl: 'emailautomation.html',
+                templateUrl: 'emailautomation.html'
               
                 
     }) 
@@ -113,12 +113,30 @@ marketingFlowApp.config(function($routeProvider){
 
 
 marketinghubFlowApp.config(function($routeProvider){
-    $routeProvider   
+    $routeProvider 
     .when('/marketinghub', {
                 templateUrl: 'marketinghub.html'          
-    }) 
+    })
+    .when('/emaildraft', {
+                templateUrl: 'emaildraft.html'
+    })
+    .when('/emailhistory', {
+                templateUrl: 'emailhistory.html'
+    })
+    .when('/emaillist', {
+                templateUrl: 'emaillist.html'
+    })
+    .when('/emailsetting', {
+                templateUrl: 'emailsetting.html'
+    })
+    .when('/footersetting', {
+                templateUrl: 'footersetting.html'
+    })
+    .when('/emaillistdetails', {
+                templateUrl: 'emaillistdetails.html'          
+    })
     
-    .otherwise({redirectTo: '/marketinghub'});
+    .otherwise({redirectTo: '/emaillist'});
     });
 
 imagesFlowApp.config(function($routeProvider){

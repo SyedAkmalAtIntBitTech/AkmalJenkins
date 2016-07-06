@@ -1,0 +1,59 @@
+            <div class="top-nav">
+                <div class="page-title-bar col-1of1"> 
+<!--                    <div class="exit-button-detail"></div>-->
+                    <div class="page-title-regular page-title-font">Your Email Hub</div>
+                    <div class="page-cta-container">
+                        <a href="">
+                            <div class="delete-button md-button button fleft"  id="deleteEmaildraft" ng-show="deletDraftsButton" ng-click="deleteDrafts('deleteMultiple');" > Delete Email Drafts</div>
+                        </a>
+                        <a href="">
+                            <div id="addemlstbtn" class="add-action-button md-button button-text-1" ng-show="addEmailListButton" ng-click="addEmailList()"> Add Email List</div>
+                        </a>
+                        <a href="">
+                            <div id="savesetbtn" class="add-action-button md-button button-text-1" ng-show="saveEmailSettingsButton" ng-click="saveEmailSettings(email_settings)">Save</div>
+                        </a>
+                    </div>
+                </div>
+                <div class="page-subnav-bar-with-dropdown">
+                    <div class="subnav-dropdown pushright" ng-click="showDropDown()">
+                        <span class="hub-dropdown-text" id="emlsclspanid">Email<img type="image/svg+xml" src="images/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"></img></span>
+                    </div>
+                    <div class="top-subnav-tabs-container">
+                        <ul class="top-subnav-nav-elements">
+                            <li class="top-subnav-links" id="emldrftab" ng-click="displayAllEmailDrafts()"> <a href="#/emaildraft" class="h3">Email Drafts</a></li>
+                            <li class="top-subnav-links" id="emlhistab" ng-click="displayEmailHistory()"> <a href="#/emailhistory" class="h3">Email History and Analytics</a></li>
+<!--                                                    <li class="top-subnav-links"> <a class="h3">Scheduled Emails</a></li>-->
+                            <li class="top-subnav-link-active" id="emllistab"> <a href="#/emaillist" class="h3-active-subnav">Email Lists</a></li>
+                            <li class="top-subnav-links" id="emlsettab" ng-click="getEmailSettings()"> <a href="#/emailsetting" class="h3">Email Settings</a></li>
+                            <li class="top-subnav-links" id="footertab" ng-click="getFooterDetails()"> <a href="#/footersetting" class="h3">Footer Settings</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+                    <div class="dropdown-hub" id="socialdropdown">
+                        <ul class="dropdown-inner">
+                            <li class="dropdown-section col-1of1 fleft" id="socialhubli" >
+                                <a href="/BrndBot/user/social">
+                                    <div><img type="image/svg+xml" src="images/Hub-Dropdowns_social.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
+                                    <div class="fleft col-6of10 dropdown-label-active">Social Hub</div>
+                                </a>
+                            </li>
+                            <a href="/BrndBot/user/basemarketinghub#/">
+                                <li class="dropdown-section fleft col-1of1 " id="emailhubli">
+                                    <div><img type="image/svg+xml" src="images/Hub-Dropdowns_email.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
+                                    <div class="fleft col-6of10 dropdown-label">Email Hub</div>
+                                </li>
+                            </a>                     
+                        </ul>
+                    </div>
+            </div>
+<!--            <div class="bottom-cta-bar padleft" id="removeselactions" >
+                <div class="bottom-cta-button-container padright">
+                    <div class="remove-action-detail md-button button-text-1" id="deleteEmailList" ng-show="deleteEmailListButton" ng-click="deleteEmailList();">Remove Selected Email List(s)</div>
+                </div>
+            </div>-->
+            <div class="bottom-cta-bar padleft" id="removeselactions" ng-show="showDeleteEmailList" >
+                <div class="bottom-cta-button-container padright">
+                    <div class="remove-action-detail md-button button-text-1" id="deleteEmailList" ng-click="deleteEmailList();">Remove Selected Email List(s)</div>
+                </div>
+            </div>

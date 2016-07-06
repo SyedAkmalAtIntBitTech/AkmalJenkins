@@ -1,25 +1,44 @@
-<div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" id="emaildraftsdiv" ng-show="emailDraftDetails">
-        <div class="hub-pane">
-            <div class="hub-pane-header-wrap">
-                <h2 class="">Your Email Drafts</h2>
-            </div>
-            <div class="hub-pane-content-wrap">
-                <div class="hub-empty-wrap"></div>
-                <div class="hub-slat-list-wrap" ng-repeat="drafts in emaildrafts">
-                    <div class="slat" id="li{{drafts.id}}">
-                        <div class="slat-name-wrap">
-                            <h2>{{drafts.emailsubject}}</h2>
-                            <p>Last edited on {{drafts.editdate| date: "MMM dd yyyy "}}at{{drafts.editdate| date: " h:mm a"}}</p>
-                        </div>
-                        <div class="slat-detail-wrap">
-                            <div class="slat-detail">
-                                 <!--                                        <a class="small-button slat-button detail-button-font" ng-click="editDrafts(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</a>-->
-                                <a class="reg-button gray-button slat-detail-button" ng-click="showDraftPopup(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.editdate, drafts.subcategoryid, drafts.mindbodyid, drafts.lookupid)">Manage Draft</a>
-                            </div>
-                        </div>
+<div ng-include src="'marketinghubnavigation.html'"></div>
+<div class="page-background">
+<div class="page-content-container email-list-contact-page email-draft-page" id="emaildraftsdiv" ng-show="emailDraftDetails">
+    <div>                   
+        <div class="fleft content">
+            <div class="page-content-title pushUp h2" ng-show="emaildrafts.length > 0">Your Email Drafts </div>
+            <div class="page-content-title pushUp h2" ng-show="emaildrafts.length === 0">No Email Drafts present</div>
+            <!--List Starts Here-->
+            <ul class="main-container fleft">
+                <div class="col-7of10 slat-unit fleft">
+                    <div>
+                        <div ng-show="emaildraftnumber === '0'">{{emaildraftsstatus}}</div>
                     </div>
                 </div>
-            </div>
+                <input type="text" placeholder="Search" ng-model="userSearch">
+                <div  ng-repeat="drafts in emaildrafts | filter:userSearch">
+                    <li class="slat-container fleft selfclear" id="li{{drafts.id}}">
+                        <div class="selection-container col-5p" id="deleteids"> 
+                            <div class="selection-icon" id="{{drafts.id}}" ng-click="emailDraftCheckbox(drafts.id)">
+                                <input type="checkbox" id="{{drafts.id}}" value="{{drafts.id}}" name="draftname" style="display:none;"></input>
+                            </div>
+                        </div>
+                        <div class="col-7of10 slat-unit fleft ">
+                            <div class="slat-title-container col-1of1 fleft">
+                                <div class="slat-title email-list-slat-title col-1of1 sh1">{{drafts.emailsubject}}</div>
+                                <div class="action-list-slat-description col-1of1 sh3">Last edited on {{drafts.editdate| date: "MMM dd yyyy "}}at{{drafts.editdate| date: " h:mm a"}}</div>
+                            </div>
+                        </div>
+                        <div class="col-1of4 fleft">
+                            <div class="slat-cta-container">
+                                <a>
+                                    <!--                                        <span class="small-button slat-button detail-button-font" ng-click="editDrafts(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</span>-->
+                                    <span class="small-button slat-button detail-button-font" ng-click="showDraftPopup(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.editdate, drafts.subcategoryid, drafts.mindbodyid, drafts.lookupid)">View and Edit Draft</span>
+                                </a>
+                        </div>
+                        </div>
+                    </li>
+                </div>
+            </ul>
         </div>
-    </div>
-    <div ng-include="'savedemaildraftpopup.html'"></div>
+    </div> 
+</div>
+</div>
+<div ng-include="'savedemaildraftpopup.html'"></div>

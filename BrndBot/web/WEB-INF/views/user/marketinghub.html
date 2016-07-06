@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -12,7 +12,23 @@
         <script src="js/moment.js" type="text/javascript"></script>
         <script src="js/pikaday.js"></script>
         <script src="js/timepicki.js" type="text/javascript"></script>
-         <link rel="stylesheet" type="text/css" href="css/general_1.css">
+        
+         <link rel="stylesheet" type="text/css" href="css/general.css">
+          <link href="css/style_detail_overlay-1.css" rel="stylesheet" type="text/css"/>  
+        <link rel="stylesheet" type="text/css" href="css/General-Utility.css">
+        <link rel="stylesheet" type="text/css" href="css/Navigation.css">
+        <link rel="stylesheet" type="text/css" href="css/Pane.css">
+        <link rel="stylesheet" type="text/css" href="css/Page-Structure.css">
+        <link rel="stylesheet" type="text/css" href="css/Dashboard.css">
+        <link rel="stylesheet" type="text/css" href="css/Email.css">
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/Form-Input.css">
+        <link rel="stylesheet" type="text/css" href="css/overlay-drawer.css">
+        <link rel="stylesheet" type="text/css" href="css/sequence-Pages.css">
+        <link rel="stylesheet" type="text/css" href="css/slats.css">
+        <link rel="stylesheet" type="text/css" href="css/onboarding.css">
+        <link rel="stylesheet" type="text/css" href="css/login-onboarding.css">
+        <link rel="stylesheet" type="text/css" href="css/admin.css">
         <script src="js/alertmessage.js" type="text/javascript"></script>
         <script src="js/onboarding.js" type="text/javascript"></script> 
         <script src="../js/configurations.js"></script> 
@@ -43,76 +59,32 @@
     </head>    
      
 
-    <<body ng-app="marketinghubFlowApp" ng-controller="marketingHubController">
+    <body ng-app="marketinghubFlowApp" ng-controller="marketingHubController">
         <div ng-include src="'header.html'"></div>
-        <div ng-include src="'navbar.html'"></div>
+        <div ng-include src="'navbar.html'"></div>-->
         <div id="fade"></div>
         <div class="content-main">
             <!--SideNav-->
 
             <div ng-include src="'createEmailList.html'"></div>
             <div ng-include src="'savedEmailDraftPopup.html'"></div>
-            <!--Top Nav--> 
-            <div class="main-content-wrap">
-               <header class="top-nav">
-                    <div class="top-nav-wrap">
-                    <div class="header">
-                         <!--<div class="exit-button-detail"></div>-->
-                        <h2>Marketing Hubs</h2>
-                        <a href="" class="delete-button md-button button fleft"  id="deleteEmaildraft" ng-click="deleteDrafts('deleteMultiple');" >Delete Email Drafts</a>
-                        <a href="" id="addemlstbtn" class="reg-button green-button" ng-click="addEmailList()"> Add Email List</a>
-                        <a href="" id="savesetbtn" class="reg-button green-button" ng-click="saveEmailSettings(email_settings)">Save</a>
-                    </div>
-                    </div>
-                   <div class="top-sub-nav">
-                        <a class="hub-dropdown" id="emlsclspanid" onclick="funshowdropdown()">
-                            <div>Email</div>
-                            <i></i>
-                        </a>
-                        <ul class="sub-nav-tab-wrap">
-                            <li class="sub-nav-tab active" id="emldrftab" ng-click="displayAllEmailDrafts()"><a >Email Drafts</a></li>
-                            <li class="sub-nav-tab " id="emlhistab" ng-click="displayEmailHistory()"><a >Email History and Analytics</a></li>
-                            <!--                        <li class="top-subnav-links"> <a class="h3">Scheduled Emails</a></li>-->
-                            <li class="sub-nav-tab " id="emllistab"><a >Email Lists</a></li>
-                            <li class="sub-nav-tab " id="emlsettab" ng-click="getEmailSettings()"><a >Email Settings</a></li>
-                            <li class="sub-nav-tab " id="footertab" ng-click="getFooterDetails()"><a >Footer Settings</a></li>
-                        </ul>
-                    </div>
-                   <div class="dropdown-hub" id="emaildropdown" style="display:none;">
-                    <ul class="dropdown-inner">
-                        <li class="dropdown-section fleft col-1of1 " id="emailhubli">
-                            <a href="/BrndBot/user/emaillist">
-                                <div><img type="image/svg+xml" src="images/Hub-Dropdowns_email.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
-                                <div class="fleft col-6of10 dropdown-label-active">Email Hub</div>
-                            </a>                        
-                        </li>
-                        <a href="/BrndBot/user/social">
-                            <li class="dropdown-section col-1of1 fleft" id="socialhubli" >
-                                <div><img type="image/svg+xml" src="images/Hub-Dropdowns_social.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
-                                <div class="fleft col-6of10 dropdown-label">Social Hub</div>
-                            </li>
-                        </a>
-                    </ul>
-                </div>
-                </header>
+            <!--Top Nav-->   
+            <div ng-include src="'marketinghubnavigation.html'"></div>
+            <!--Main Content GENERIC--> 
+<!--            <div class="page-background">
+                <div ng-include src="'emaillist.html'"></div>
+                <div ng-include src="'emaildraft.html'"></div>
+                <div ng-include src="'emailhistory.html'"></div>
+                <div ng-include src="'emailsetting.html'"></div>
+                <div ng-include src="'footersetting.html'"></div>
                 
-    <div class="top-nav-bar-offset"></div>
-    <div class="top-subnav-bar-offset"></div>
-
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav content-wrap-scrollable">
-        <div ng-include src="'emaillist.html'"></div>
-        <div ng-include src="'emaildraft.html'"></div>
-        <div ng-include src="'emailhistory.html'"></div>
-        <div ng-include src="'emailsetting.html'"></div>
-        <div ng-include src="'footersetting.html'"></div>
-    </div>
-       
+            </div>-->
             <div class="bottom-cta-bar padleft" id="removeselactions" >
                 <div class="bottom-cta-button-container padright">
                     <div class="remove-action-detail md-button button-text-1" id="deleteEmailList" ng-click="deleteEmailList();">Remove Selected Email List(s)</div>
                 </div>
             </div>
-            <div ng-include src="'emailFooterPopup.html'"></div>
+            <!--<div ng-include src="'emailFooterPopup.html'"></div>-->
         </div>
         <div id="light" class="white_content closepopup">
             <a href = "javascript:void(0)" style="text-decoration:none;">
@@ -120,8 +92,8 @@
                     <p style="margin-top:-7px;"><img src="images/yourPlan.svg" height="25" width="25" /></p>
                 </div>
             </a>
-        </div>     
-       
+        </div> 
+        <!--CTA Bar-->
         
     </body>
 </html>
