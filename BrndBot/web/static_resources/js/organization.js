@@ -474,19 +474,19 @@ function organizationcontroller($scope, $http) {
         }
     };
 
-    $scope.getAllExternalSourceKeywordLookups = function () {
-        
-        $http({
-            method: 'GET',
-            url: getHost() + 'getAllExternalSourceKeywordLookups',
-        }).success(function (data, status, headers, config) {
-           
-             $scope.ExternalSourceKeywordLookups = data.d.details;
-
-        }).error(function (data, status, headers, config) {
-            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-        });
-    };
+//    $scope.getAllExternalSourceKeywordLookups = function () {
+//        
+//        $http({
+//            method: 'GET',
+//            url: getHost() + 'getAllExternalSourceKeywordLookups',
+//        }).success(function (data, status, headers, config) {
+//           
+//             $scope.ExternalSourceKeywordLookups = data.d.details;
+//
+//        }).error(function (data, status, headers, config) {
+//            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+//        });
+//    };
     $scope.getAllEmailBlocks = function () {
         var organizationId = $scope.organizationId;
         $http({
@@ -934,7 +934,6 @@ function organizationcontroller($scope, $http) {
     $scope.getEmailBlocks = function () {
 
         var emailBlockId = $scope.emailBlockId;
-        alert(emailBlockId);
         $http({
             method: 'GET',
             url: getHost() + 'getAllEmailBlockModelById?emailBlockId=' + emailBlockId

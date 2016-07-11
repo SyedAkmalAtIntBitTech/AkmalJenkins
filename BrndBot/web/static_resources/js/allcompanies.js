@@ -146,7 +146,6 @@ function allCompaniesController($scope,$http){
     
     $scope.groupsDisplay = function () {
        var companyId=$scope.companyId;
-       alert(companyId);
        $http({
                method : 'GET',
                url : getHost()+'getNonAddedGroups.do?companyId='+companyId
