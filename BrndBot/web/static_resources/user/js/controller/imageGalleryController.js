@@ -4,8 +4,13 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 
-imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http', '$location', 'imageFactory','companyImagesFactory',function ($scope, $window, $http, $location, imageFactory,companyImagesFactory) {
-   
+imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http', '$location', 'imageFactory','companyImagesFactory','companyFactory', function ($scope, $window, $http, $location, imageFactory,companyImagesFactory,companyFactory) {
+
+        $scope.getCompanyId = function () {
+            companyFactory.currentCompanyGet().then(function (companyData) {
+               $scope.companyId = companyData.d.details[0];
+            });
+        };
 
         $scope.uploadLogo = function (myFile) {   
         var file = $("#filesToUpload").val();         
@@ -19,6 +24,7 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
         
         $scope.getAllCompanyImages = function ()
         {
+            $scope.getCompanyId();
             companyImagesFactory.companyImagesGet().then(function (data){
                 $scope.datalists = data.d.details;
             });

@@ -58,7 +58,6 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
             var data = JSON.stringify({access_token_method: "clearFacebookDetails"});
             alert(data);
             settingsFactory.facebookPost(data).then(function (data) {
-                alert(JSON.stringify(data));
                 $scope.getFacebookDetails();
             });
         };       
@@ -74,7 +73,6 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
             var code = $scope.getUrlParameter("code");
             if (typeof code !== "undefined") {
                 settingsFactory.fbGetTokenGet(code).then(function (data) {
-                    alert(JSON.stringify(data));
                     $scope.facebook = true;
                     $scope.managepage = true;
                     $scope.fbPagesDetails = data.d.details[0].fbPages;

@@ -49,7 +49,7 @@
             <div class="page-title-with-back page-title-font">Email List Selection</div>
         </div>
     </div>
-    <!--Main Content GENERIC--> 
+    <!--Main Content GENERIC-->
     <div class="sequence-page-background" id="emaillistselid" ng-init="showEmailList()">
         <div class="sequence-page-content-container" >
             <div class="sequence-page-header">Who do you want to send this email to?</div>
@@ -115,7 +115,7 @@
                     </div>
                 </div>
                 <div class="cols-2 fleft col-9of10 pushUp">
-                    <input id="toaddress" class="input-field-textfield input-placeholder" ng-model="toAddress" value="{{email_settings.email_addresses}}" placeholder="Enter To Email Address" type="text"></input>
+                    <input id="toaddress" class="input-field-textfield input-placeholder" ng-model="toAddress" value="{{email_settings.email_addresses}}" placeholder="Enter To Email Address" type="hidden"></input>
                     <div class="input-field-container col-3of10 fleft">
                         <div class="h4"> Reply To Email Address</div>
                         <input id="email" class="input-field-textfield input-placeholder" placeholder="Enter Reply To Email Address" type="text" value="{{email_settings.reply_email_address}}" ng-model="replyAddress"></input>

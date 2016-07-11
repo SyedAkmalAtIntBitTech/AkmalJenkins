@@ -1,3 +1,5 @@
+<div ng-include src="'marketinghubnavigation.html'"></div>
+<div class="page-background">
 <div class="page-content-container email-list-contact-page email-draft-page" id="emaildraftsdiv" ng-show="emailDraftDetails">
     <div>                   
         <div class="fleft content">
@@ -10,7 +12,8 @@
                         <div ng-show="emaildraftnumber === '0'">{{emaildraftsstatus}}</div>
                     </div>
                 </div>
-                <div  ng-repeat="drafts in emaildrafts">
+                <input type="text" placeholder="Search" ng-model="userSearch">
+                <div  ng-repeat="drafts in emaildrafts | filter:userSearch">
                     <li class="slat-container fleft selfclear" id="li{{drafts.id}}">
                         <div class="selection-container col-5p" id="deleteids"> 
                             <div class="selection-icon" id="{{drafts.id}}" ng-click="emailDraftCheckbox(drafts.id)">
@@ -36,5 +39,6 @@
             </ul>
         </div>
     </div> 
+</div>
 </div>
 <div ng-include="'savedemaildraftpopup.html'"></div>

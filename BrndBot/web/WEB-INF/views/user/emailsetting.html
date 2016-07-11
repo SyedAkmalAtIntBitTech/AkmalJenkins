@@ -1,3 +1,5 @@
+<div ng-include src="'marketinghubnavigation.html'"></div>
+<div class="page-background">
 <div class="page-content-container email-list-contact-page email-draft-page" id="emaisetdiv"  ng-show="emailSettingsDetails">
     <div class="fleft content ">
         <div class="page-content-title h2">Your Email Settings</div>
@@ -8,7 +10,7 @@
                     <div class="h4" style="">
                         Default from Address:
                     </div>
-                    <input id="from_address" class="input-field-textfield col-8of10" type="text" name="from_address"  placeholder="Enter default email address" value="mail@brndbot.com" placeholder="Enter default email address" readonly />
+                    <input id="from_address" class="input-field-textfield col-8of10" type="text" ng-model="email_settings.from_address"   name="from_address"  placeholder="Enter default email address"/>
 
                 </div>
             </div>
@@ -20,16 +22,7 @@
                     <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" ng-model="email_settings.reply_email_address" name="reply_email_address"  placeholder="Enter reply-to-email address"/>
                 </div>
             </div>
-            <div class="col-1of1 fleft">
-                <div class="col-7of10 fleft">
-                    <div class="h4" style="" onclick="openUnsubscribeEmailsPopup()">
-                        <div class="update-container">
-                            <span class="small-button slat-button">Unsubscribe Emails</span>
-                        </div>
-                    </div>
-                </div>
-            </div>            
         </div>                        
     </div>   
-<div ng-include src="'unsubscribeemailspopup.html'"></div>
+</div>
 </div>
