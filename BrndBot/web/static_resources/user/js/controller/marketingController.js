@@ -882,6 +882,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     if ($scope.type === 'edit'){
                         $scope.automationEditor = false;
                         $scope.emailPreviewPopup = false;
+                        $scope.entityNoEmailTemplate = true;
                     }
 //                    $scope.entity_details = data;
                     $scope.automationData.title = data.recurring_email_title;
@@ -892,11 +893,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.automationData.subject = data.recurring_email_subject;
                     $scope.automationData.fromName = data.recurring_email_from_name;
                     $scope.automationData.replyAddress = data.recurring_email_reply_to_email_address;
-                    if (data.recurring_email_template_id){
+                    if (data.recurring_email_template_id != null){
                         $scope.templateId = data.recurring_email_template_id;
-                        $scope.entityNoEmailTemplate = false;
+//                        $scope.entityNoEmailTemplate = false;
                     }else {
-                        $scope.entityNoEmailTemplate = true;
+//                        $scope.entityNoEmailTemplate = true;
                     }
                     $scope.emailListOnChange();
                     $scope.froalaHtmlData = data.recurring_email_body;
@@ -1026,7 +1027,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 var schedule_time = $("#timepicker1").val().replace(/ /g, '');
                 var till_date_epoch = Date.parse(till_date);
 //                var schedule_time_epoch = Date.parse(schedule_time);
-//                var html_data = $('#edit').froalaEditor('html.get');
+                $scope.froalaHtmlData = $('#edit').froalaEditor('html.get');
 //                var html_data ="";
 
                 if ($scope.type === 'add') {
@@ -1110,14 +1111,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 
                     marketingRecurringEmailFactory.addupdateRecurringActionPost(recurring_action).then(function (data) {
-                        alert(JSON.stringify(data));
-                        if ((data === "true")) {
+                        if ((data === true)) {
                             alert("Details saved succesfully.");
                             $location.path("/marketingprogramactions");
                             $scope.getCampaigns();
 //                            window.open(getHost() + 'user/marketingprogramactions?program_id=' + program_id + '&past=0&program_date=' + program_end_date, "_self");
                         } else {
-//                  alert("Problem saving the record!");
+                            alert("Problem saving the record!");
                         }
                     });
 
@@ -1163,16 +1163,15 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                     "program_id": $scope.programId.toString()
                                 };
 
-
+                                alert(JSON.stringify(recurring_action));
                                 marketingRecurringEmailFactory.updateRecurringActionPost(recurring_action).then(function (data) {
-                                    alert(JSON.stringify(data));
-                                    if ((data === "true")) {
+                                    if ((data === true)) {
                                         alert("Details saved succesfully.");
                                         $location.path("/marketingprogramactions");
                                         $scope.getCampaigns();
 //                                        window.open(getHost() + 'user/marketingprogramactions?program_id=' + program_id + '&past=0&program_date=' + program_end_date, "_self");
                                     } else {
-//                            alert("Problem saving the record!");
+                                        alert("Problem saving the record!");
                                     }
                                 });
                             }
@@ -1181,32 +1180,32 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 }
 //            }
 
-                $scope.showHTMLData = function(html_data, id){
-                var $iframe = $('.fr-iframe');
-//                         $(".fr-iframe").empty();
-                $('#edit').froalaEditor('html.set',''+html_data+'');
-//                $iframe.contents().find("body").empty();
-//                $iframe.contents().find("body").append(html_data);
-                template_id = id;
-                };
+//                $scope.showHTMLData = function(html_data, id){
+//                var $iframe = $('.fr-iframe');
+////                         $(".fr-iframe").empty();
+//                $('#edit').froalaEditor('html.set',''+html_data+'');
+////                $iframe.contents().find("body").empty();
+////                $iframe.contents().find("body").append(html_data);
+//                template_id = id;
+//                };
                
-
-             $scope.showEmailListName = function(email_list_name){
-                    setTimeout(function() 
-                    {
-
-                      $('#emaillist option[value='+email_list_name+']').attr("selected", "selected");
-                      $("#emaillist").change();
-
-                    for(i=1; i<=31; i++){
-                        if ( i === days){
-                            $('#days').append('<option value='+i+' selected>'+ i + '</option>');
-                        }else {
-                            $('#days').append('<option value='+i+'>'+ i + '</option>');
-                        }
-                    }
-                    }, 500);
-                }
+//
+//             $scope.showEmailListName = function(email_list_name){
+//                    setTimeout(function() 
+//                    {
+//
+//                      $('#emaillist option[value='+email_list_name+']').attr("selected", "selected");
+//                      $("#emaillist").change();
+//
+//                    for(i=1; i<=31; i++){
+//                        if ( i === days){
+//                            $('#days').append('<option value='+i+' selected>'+ i + '</option>');
+//                        }else {
+//                            $('#days').append('<option value='+i+'>'+ i + '</option>');
+//                        }
+//                    }
+//                    }, 500);
+//                }
 
 //                }
         };
