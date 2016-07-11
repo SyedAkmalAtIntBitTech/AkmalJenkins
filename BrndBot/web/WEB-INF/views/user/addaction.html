@@ -34,19 +34,19 @@
                         <input id="timepicker1" ng-model="timePicker123" type="text" name="" class="input-field-textfield input-placeholder percentage99" placeholder="Enter Action Time"  /> 
                         <script src="js/timepicki.js" type="text/javascript"></script>
                         <script>
-                        $('#timepicker1').timepicki({
-                            show_meridian: true,
-                            min_hour_value: 0,
-                            max_hour_value: 12,
-                            step_size_minutes: 01,
-                            overflow_minutes: true,
-                            increase_direction: 'up',
-                            disable_keyboard_mobile: true
-                        });
+                            $('#timepicker1').timepicki({
+                                show_meridian: true,
+                                min_hour_value: 0,
+                                max_hour_value: 12,
+                                step_size_minutes: 01,
+                                overflow_minutes: true,
+                                increase_direction: 'up',
+                                disable_keyboard_mobile: true
+                            });
                         </script>
                     </div>
                 </div>
-                <div class="input-field-container col-1of1">
+<!--                <div class="input-field-container col-1of1">
                     <div class="input-header"> Action Type </div>
                     <select id="actiontype" class="full topten" name="actiontype" ng-model="actionType" >
                         <option value="0">Select</option>
@@ -55,6 +55,10 @@
                         <option value="Email">Email</option>
                         <option value="Reminder" ng-show="isYourplan">Reminder</option>
                     </select>
+                </div>-->
+                <div class="input-field-container col-1of1">
+                    <div class="input-header"> Action Type </div>
+                    <div dropdown-select="ddSelectActionOptions" dropdown-model="ddSelectAction"></div>
                 </div>
                 <input type="hidden" id="marketing_program" value="0" name="marketing_program_type"/>
                 <!--                <div class="input-field-container col-1of1">
@@ -69,7 +73,7 @@
 
         </div>
     </div>
-    <div id="addActionYourPlan" class="pop-up-cta-container pop-up-cta-container-newaction cur" ng-click="AddAction(addTitle,datePicker,timePicker123,actionType)" >
+    <div id="addActionYourPlan" class="pop-up-cta-container pop-up-cta-container-newaction cur" ng-click="AddAction(addTitle, datePicker, timePicker123, actionType)" >
         <a href="javascript:void(0)">
             <div class="pop-up-cta-button-full"> Save Action</div>
         </a>

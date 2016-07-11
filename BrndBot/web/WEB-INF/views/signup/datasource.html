@@ -29,10 +29,14 @@
                 </div>
                 <div class="pane_content">
                     <div class="h3 font--lightGray">BrndBot syncs with your other tools. If you are not using any of these services, just select 'none'!</div>
-                    <div class="inputSection col-6of10 ">
+<!--                    <div class="inputSection col-6of10 ">
                         <div class="input_Label">Please select a third party service</div>
                         <select ng-model="thirdPartyService" class="input_Field select_Field clear" id="services" ng-options="service.externalSourceId as service.externalSourceName for service in services">
                         </select> 
+                    </div>-->
+                    <div style="margin:0 auto;">
+                        <h1>Please select a third party service</h1>
+                        <div dropdown-select="ddSelectServicesOptions" dropdown-model="ddSelectServices"></div>
                     </div>
                     <div ng-if="thirdPartyService==1" class="inputSection col-1of1 ">
                         <div class="input_Label">Please enter Mindbody Studio Id</div>

@@ -56,14 +56,17 @@
             <div class="email-list-selection fleft">
                 <div class="col-1of1 fleft unit">
                     <div class="col-9of10 fleft ">
-                        <div class="h2 col-1of1">
+<!--                        <div class="h2 col-1of1">
                             <select class="chooseEmailList col-1of1" id="chooseEmailList" ng-model='emailList' ng-change="chooseEmailListOnChange(emailList)" name="chooseEmailList">
                                 <option value="1">Manual</option>
-                                <!--<option value="2">Manual2</option>-->
+                                <option value="2">Manual2</option>
                                 <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
                                 <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
                             </select>
-                        </div>
+                        </div>-->
+                     <div style="margin:0 auto;">
+                        <div dropdown-select="ddSelectEmailListOptions" dropdown-model="ddSelectEmailList" dropdown-onchange="chooseEmailListOnChange(ddSelectEmailList)"></div>
+                    </div>
                     </div>
                     <div class="col-9of10 fleft pushUp-30">
                         <input type="button" id="addCsvFileButton" ng-click="selectCsvOnClick()" class="md-button add-button22 noborder" value="Add CSV or Email Manually"></input>
