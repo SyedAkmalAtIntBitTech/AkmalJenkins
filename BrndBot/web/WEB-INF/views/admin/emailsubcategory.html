@@ -36,7 +36,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
 <body class="body-normal" ng-app  ng-controller="organizationcontroller" >
     <div ng-include src="'header.html'" ></div>
     <div ng-include src="'addsubcategory.html'" ></div>
-    <div ng-init="organizationDetails()">
+    <div ng-init="organizationCategoryId()">
         <input id="categoryIdTag" type="text" hidden value="{{categoryId}}"/>
         <input id="organizationIdTag" type="text" hidden value="{{organizationId}}"/>
     </div>
@@ -44,7 +44,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <div class="content-area_header" ng-init="getAllCategoryDetails()">
             <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="/BrndBot/admin/organizationdetails?organizationId={{organizationId}}">{{organizationDetails.organizationName}}</a>  > </div>
             <div class="header_title fleft" id="categoryNameDiv">{{categoryDetails.categoryName}}</div>
-            <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteCategory('{{categoryID}}')">Delete Category</div>
+            <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteCategory({{categoryID}})">Delete Category</div>
         </div>
         <div class="slatSection"  ng-init="getAllSubCategories()">
             <div class="sectionHeader"> SubCategory </div>
