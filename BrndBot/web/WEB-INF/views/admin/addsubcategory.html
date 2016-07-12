@@ -13,14 +13,14 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         
         <div id="addSubCategoryPopup" class="popUp_background">
             <div id="addOrganizationPopupDiv" class="popUp_backgroundlayer"></div>
-        <div  class="popUp">
+        <div class="popUp">
             <div class="content-area_header">
                 <div class="popUp_title fleft"> Add a new sub-category </div>
             </div>
-            <div class="inputSection col1of2" ng-init="getAllExternalSourceKeywordLookups()">
+            <div class="inputSection col1of2" ng-init="getAllExternalSourceKeywordLookup()">
                 <div class="input_Label">Sub Category Name</div>
                 <input id="subCategoryName" class="input_Field" type="text"/>
-                <div class="input_Label">Optional External Source</div>
+                <div class="input_Label">Optional External Source</div>{{ExternalSourceKeywordLookups}}
                 <select  class="input_Field" id="optionalExternalSource">
                     <option ng-repeat="ExternalSourceKeywordLookup in ExternalSourceKeywordLookups" class="input_Field" value="{{ExternalSourceKeywordLookup.externalSourceKeywordId}}">{{ExternalSourceKeywordLookup.externalSourceName}}-{{ExternalSourceKeywordLookup.externalSourceKeywordName}}</option>
                 </select>

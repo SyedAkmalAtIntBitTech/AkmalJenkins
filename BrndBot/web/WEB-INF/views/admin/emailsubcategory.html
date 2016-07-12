@@ -7,14 +7,13 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
 <html>
 <head>
         <link rel="shortcut icon" href="images/favicon.png"/>       
-        <link rel="shortcut icon" href="images/favicon.png"/> 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>
-        <meta name="format-detection" content="telephone=no">
+        <meta name="format-detection" content="telephone=no"/>
         <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-        <link rel="stylesheet" type="text/css" href="css/normalize.css">
-        <link rel="stylesheet" type="text/css" href="css/admin.css">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
+        <link rel="stylesheet" type="text/css" href="css/admin.css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link rel="stylesheet" type="text/css" href="css/basecss.css"/>
         <link rel="stylesheet" type="text/css" href="css/dropdown.css"/>
         <link rel="shortcut icon" href="../images/favicon.png"/> 
@@ -44,7 +43,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <div class="content-area_header" ng-init="getAllCategoryDetails()">
             <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="/BrndBot/admin/organizationdetails?organizationId={{organizationId}}">{{organizationDetails.organizationName}}</a>  > </div>
             <div class="header_title fleft" id="categoryNameDiv">{{categoryDetails.categoryName}}</div>
-            <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteCategory({{categoryID}})">Delete Category</div>
+            <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteCategory()">Delete Category</div>
         </div>
         <div class="slatSection"  ng-init="getAllSubCategories()">
             <div class="sectionHeader"> SubCategory </div>
@@ -61,7 +60,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                     <div class="listCol col1of2 fleft" >
                         <span class="listCol_Text fleft">{{subcategory.subCategoryName}}</span>
                     </div>
-                     <div class="listCol col1of4 fleft"  ng-init="getAllExternalSourceKeywordLookups()">
+                     <div class="listCol col1of4 fleft"  ng-init="getAllExternalSourceKeywordLookup()">
                         <span class="listCol_Text fleft">{{ExternalSourceKeywordLookups.externalSourceName}}-{{ExternalSourceKeywordLookups.externalSourceKeywordName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">

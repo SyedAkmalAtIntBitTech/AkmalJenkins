@@ -46,7 +46,7 @@ String categoryID=request.getParameter("categoryId");
         <div class="content-area_header" ng-init="getAllCategoryDetails()">
             <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="/BrndBot/admin/organizationdetails?organizationId={{organizationId}}">{{organizationDetails.organizationName}}</a>  > </div>
             <div class="header_title fleft" id="categoryNameDiv">{{categoryDetails.categoryName}}</div>
-            <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteCategory({{categoryID}})">Delete Category</div>
+            <div id="deleteCategoryButton" class="CTA_Button Button--Delete fright" ng-click="deleteCategory()">Delete Category</div>
         </div>
         <div class="slatSection"  ng-init="getAllSubCategories()">
             <div class="sectionHeader"> SubCategory </div>

@@ -45,8 +45,8 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
             <div class="header_path fleft"> <a style="text-decoration:none;color:#3E4551;" href="/BrndBot/admin/organizationdetails?organizationId={{organizationId}}">{{organizationDetails.organizationName}}</a>  > </div>
             <div class="header_path fleft"> <a style="text-decoration:none;color:#3E4551;" href="/BrndBot/admin/imagesubcategory?organizationId={{organizationId}}&categoryId={{categoryId}}">{{categoryDetails.categoryName}}</a>  > </div>
             <div class="header_title fleft">{{subCategoryDetailsTitle.subCategoryName}}</div>
-            <div class="CTA_Button Button--Blue fright" id="addTemplateButton" ng-click="getAllNonAddedImageModelsBySubCategoryId('{{subcategoryId}}')">Add Template</div>
-            <div class="CTA_Button Button--Delete fright" ng-click="deleteSubCategory('{{subcategoryId}}')">Delete Sub Category</div>
+            <div class="CTA_Button Button--Blue fright" id="addTemplateButton" ng-click="getAllNonAddedImageModelsBySubCategoryId()">Add Template</div>
+            <div class="CTA_Button Button--Delete fright" ng-click="deleteSubCategory()">Delete Sub Category</div>
         </div>
         <div class="slatSection" ng-init="getImageModelBySubCategoryId()">
             <div class="slatHeaders">

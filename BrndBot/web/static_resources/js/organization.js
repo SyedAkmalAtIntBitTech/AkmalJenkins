@@ -124,7 +124,7 @@ function organizationcontroller($scope, $http) {
     
     $scope.organizationId = qs["organizationId"];
     $scope.categoryId = qs["categoryId"];
-    $scope.subcategoryId = qs["subcategoryId"];
+    $scope.subcategoryId = qs["subCategoryId"];
     
   };
   
@@ -132,7 +132,7 @@ function organizationcontroller($scope, $http) {
 
         $http({
             method: 'GET',
-            url: getHost() + '/getAllOrganizations'
+            url: getHost() + 'getAllOrganizations'
         }).success(function (data, status, headers, config) {
             $scope.organizationDetails = data.d.details;
         }).error(function (data, status, headers, config) {
@@ -153,7 +153,7 @@ function organizationcontroller($scope, $http) {
         } else {
             $.ajax({
                 method: 'POST',
-                url: getHost() + '/saveOrganization',
+                url: getHost() + 'saveOrganization',
                 dataType: "json",
                 contentType: "application/json",
                 data: JSON.stringify(organization)
@@ -343,21 +343,22 @@ function organizationcontroller($scope, $http) {
 
 
     $scope.getAllCategoryDetails = function () {
-        var categoryId = $("#categoryIdTag").val();
+        var categoryId = $scope.categoryId;
         $http({
             method: 'GET',
-            url: getHost() + '/getCategoryByCategoryId?categoryId=' + categoryId,
+            url: getHost() + 'getCategoryByCategoryId?categoryId=' + categoryId,
         }).success(function (data)
         {
             $scope.categoryDetails = data.d.categoryDetails;
         }).error(function (data) {
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
         });
-        getAllSubCategories();
+        $scope.getAllSubCategories();
     };
 
-    $scope.deleteCategory = function (categoryId) {
+    $scope.deleteCategory = function () {
         var organizationId = $scope.organizationId;
+        var categoryId = $scope.categoryId;
         var deleteCategory = confirm(deleteCategoryPrompt);
         if (deleteCategory === true)
         {
@@ -396,9 +397,10 @@ function organizationcontroller($scope, $http) {
         });
     };
 
-    $scope.deleteSubCategory = function (subCategoryId) {
+    $scope.deleteSubCategory = function () {
         var organizationId = $scope.organizationId;
         var categoryId = $("#categoryIdTag").val();
+        var subCategoryId = $scope.subcategoryId;
         var deleteSubCategory = confirm(deleteSubCategoryPrompt);
         if (deleteSubCategory === true)
         {
@@ -426,7 +428,7 @@ function organizationcontroller($scope, $http) {
     $scope.getAllExternalSourceKeywordLookups = function () {
         $http({
             method: 'GET',
-            url: getHost() + 'getAllExternalSourceKeywordLookups',
+            url: getHost() + '/getAllExternalSourceKeywordLookups',
         }).success(function (data, status, headers, config) {
             for (var i = 0; i < data.d.details.length; i++)
             {
@@ -474,19 +476,17 @@ function organizationcontroller($scope, $http) {
         }
     };
 
-//    $scope.getAllExternalSourceKeywordLookups = function () {
-//        
-//        $http({
-//            method: 'GET',
-//            url: getHost() + 'getAllExternalSourceKeywordLookups',
-//        }).success(function (data, status, headers, config) {
-//           
-//             $scope.ExternalSourceKeywordLookups = data.d.details;
-//
-//        }).error(function (data, status, headers, config) {
-//            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-//        });
-//    };
+    $scope.getAllExternalSourceKeywordLookup = function () {
+        $http({
+            method: 'GET',
+            url: getHost() + '/getAllExternalSourceKeywordLookups',
+        }).success(function (data, status, headers, config) {
+             $scope.ExternalSourceKeywordLookups = data.d.details;
+        }).error(function (data, status, headers, config) {
+            alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+        });
+    };
+    
     $scope.getAllEmailBlocks = function () {
         var organizationId = $scope.organizationId;
         $http({
@@ -573,7 +573,7 @@ function organizationcontroller($scope, $http) {
     };
 
     $scope.deleteEmailBlock = function () {
-        var emailBlockId = $("#emailBlockId").val();
+        var emailBlockId = $scope.emailBlockId;
         var organizationId = $scope.organizationId;
         var deleteEmailBlock = confirm(deleteEmailBlockPrompt);
         if (deleteEmailBlock === true)
@@ -593,10 +593,11 @@ function organizationcontroller($scope, $http) {
 
 
     $scope.getEmailModelBySubCategoryId = function () {
-        var subCategoryId = $("#subCategoryIdTag").val();
+        var subCategoryId = $scope.subcategoryId;
+        
         $http({
             method: 'GET',
-            url: getHost() + '/getAllEmailModelBySubCategory?subCategoryId=' + subCategoryId
+            url: getHost() + 'getAllEmailModelBySubCategory?subCategoryId=' + subCategoryId
         }).success(function (data)
         {
             $scope.emailModels = data.d.details;
@@ -624,7 +625,7 @@ function organizationcontroller($scope, $http) {
         var subCategoryId = $("#subCategoryIdTag").val();
         $http({
             method: 'GET',
-            url: getHost() + '/getAllPrintModelBySubCategory?subCategoryId=' + subCategoryId
+            url: getHost() + 'getAllPrintModelBySubCategory?subCategoryId=' + subCategoryId
         }).success(function (data)
         {
             $scope.printModels = data.d.details;
@@ -635,10 +636,11 @@ function organizationcontroller($scope, $http) {
 
     };
 
-    $scope.getAllNonAddedEmailModelsBySubCategoryId = function (subCategoryID) {
+    $scope.getAllNonAddedEmailModelsBySubCategoryId = function () {
+        var subCategoryID = $scope.subcategoryId;
         $http({
             method: 'GET',
-            url: getHost() + '/getAllNonAddedEmailModels?subCategoryId=' + subCategoryID
+            url: getHost() + 'getAllNonAddedEmailModels?subCategoryId=' + subCategoryID
         }).success(function (data)
         {
             $("#relateEmailTemplateAddButton").show().css('pointer-events', 'none');
@@ -655,10 +657,11 @@ function organizationcontroller($scope, $http) {
         });
     };
 
-    $scope.getAllNonAddedImageModelsBySubCategoryId = function (subCategoryID) {
+    $scope.getAllNonAddedImageModelsBySubCategoryId = function () {
+        var subCategoryID = $scope.subcategoryId;
         $http({
             method: 'GET',
-            url: getHost() + '/getAllNonAddedImageModels?subCategoryId=' + subCategoryID
+            url: getHost() + 'getAllNonAddedImageModels?subCategoryId=' + subCategoryID
         }).success(function (data)
         {
             $("#relateImageTemplateAddButton").show();
@@ -668,10 +671,11 @@ function organizationcontroller($scope, $http) {
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
         });
     };
+    
     $scope.getAllNonAddedPrintModelsBySubCategoryId = function (subCategoryID) {
         $http({
             method: 'GET',
-            url: getHost() + '/getAllNonAddedPrintModels?subCategoryId=' + subCategoryID
+            url: getHost() + 'getAllNonAddedPrintModels?subCategoryId=' + subCategoryID
         }).success(function (data)
         {
             $("#relatePrintTemplateAddButton").show();
@@ -703,7 +707,7 @@ function organizationcontroller($scope, $http) {
 
         $.ajax({
             method: 'POST',
-            url: getHost() + '/saveSubCategoryEmailModel',
+            url: getHost() + 'saveSubCategoryEmailModel',
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify(emailTemplateRelate)
