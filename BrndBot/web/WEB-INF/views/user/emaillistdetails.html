@@ -3,8 +3,6 @@
       
             <div ng-include src="'addcontact.html'"></div> 
     
-<!--    <input type="hidden" id="get_list_name" value="<%=list_name%>"/>
-    <input type="hidden" id="get_type" value="<%=type%>"/>   -->
     <input type="hidden" id="get_list_name" value="{{emailListName}}"/>
     <input type="hidden" id="get_type" value="{{type}}"/>   
     <div class="top-nav">
@@ -36,7 +34,6 @@
                     <li class="top-subnav-link-active" id="emailListli"> <a class="h3-active-subnav" id="emailLists" ng-click="showUpdateList()">Email List</a></li>
 <!--                    <% if(type.equals("user")){%>-->
                     <li class="top-subnav-links" id="importListli" > <a class="h3" id="importList" ng-click="showAddContacts()">Import Contacts to List</a></li>
-                    <!--<% }%>-->
                 </ul>
             </div>
         </div>
