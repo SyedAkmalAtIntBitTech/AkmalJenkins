@@ -35,40 +35,41 @@
     <div ng-include src="'sendorschedulepopup.html'"></div> 
     <div ng-include src="'schedulepopup.html'"></div> 
     <!--Top Nav-->   
-    <div class="top-nav">
-        <div class="page-title-bar col-1of1"> 
-            <div class="exit-button-detail" ng-click="backToEditor()">
-                <a class=" exit-button-icon" href="" id="backemaillist">
-                    <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
-                </a>
-                <a class=" exit-button-icon" href="" id="backemaildetails">
-                    <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
-                </a>
-            </div>
-            <div class="page-title-with-back page-title-font">Email List Selection</div>
+   <div class="main-content-wrap">
+    <div class="top-nav-wrap">
+        <div class="header">
+            <a class="back-button" id="backemaillist" href="" ng-click="backToEditor()"></a>
+            <a class="back-button" href="" id="backemaildetails"></a>
+            <h2 class="">Create an Email</h2>
         </div>
     </div>
-    <!--Main Content GENERIC-->
-    <div class="sequence-page-background" id="emaillistselid" ng-init="showEmailList()">
-        <div class="sequence-page-content-container" >
-            <div class="sequence-page-header">Who do you want to send this email to?</div>
-            <div class="email-list-selection fleft">
-                <div class="col-1of1 fleft unit">
-                    <div class="col-9of10 fleft ">
-                        <div class="h2 col-1of1">
-                            <select class="chooseEmailList col-1of1" id="chooseEmailList" ng-model='emailList' ng-change="chooseEmailListOnChange(emailList)" name="chooseEmailList">
+    <div class="top-nav-bar-offset"></div>
+    <div class="content-wrap content-wrap-flex content-wrap-with-continue-bar" id="emaillistselid" ng-init="showEmailList()">
+        
+        <!--Email list selection-->
+        <div class="modal-pane modal-pane-width-reg">
+            <div class="modal-pane-header-wrap">
+                <h2 class="fleft">Select a Send To List</h2>
+            </div>
+            <div class="modal-pane-content-wrap">
+                 <div class="input-wrap">
+                    <label> Choose from your email lists </label>
+                    <div class="input">
+<!--                          <select class="chooseEmailList col-1of1" id="chooseEmailList" ng-model='emailList' ng-change="chooseEmailListOnChange(emailList)" name="chooseEmailList">
                                 <option value="1">Manual</option>
-                                <!--<option value="2">Manual2</option>-->
+                                <option value="2">Manual2</option>
                                 <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
                                 <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
-                            </select>
-                        </div>
+                            </select>-->
+                        <div dropdown-select="ddSelectEmailListOptions" dropdown-model="ddSelectEmailList" dropdown-onchange="chooseEmailListOnChange(ddSelectEmailList)"></div>
+                        <p class="input-wrap-label"> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
                     </div>
-                    <div class="col-9of10 fleft pushUp-30">
-                        <input type="button" id="addCsvFileButton" ng-click="selectCsvOnClick()" class="md-button add-button22 noborder" value="Add CSV or Email Manually"></input>
-                    </div>
-                    <!--                   <div class="col-2of4 fleft pushUp-30" id="clktoupload" ng-show="clickToUpload"> -->
-                    <div class="col-2of4 fleft pushUp-30" ng-show="clickToUpload"> 
+                </div>
+               <div class="input-wrap">
+                   <a id="addCsvFileButton" ng-click="selectCsvOnClick()" class="md-button add-button22 noborder" class="reg-button gray-button input-wrap-button">Add Email Addresses Manually</a>
+                </div>
+            </div>
+            <div class="col-2of4 fleft pushUp-30" ng-show="clickToUpload"> 
                         <div class="h3 col-1of1" id="dragtext">Drag and drop a csv file here and click to upload:</div>
                         <div id="drop-zone" class="col-1of4 pushUp-30">
                             <!--<input type="file" id="fileid" class="filrstyle" onchange="myFunction()" file-reader="fileContent" >-->
@@ -82,58 +83,46 @@
                         <textarea class="emailaddresstextarea pushUp" ng-model="emailAddresses" id="emailaddresses"></textarea>
                     </div>
 
-                </div>
+                
                 <div class="col-15of4 fleft unit">
                     <!--                    <input type="button" id="upload" value="Upload" ng-show="uploadButton" ng-click="upload()" class="md-button add-action-button noborder"/>      -->
                     <input type="button" value="Upload" ng-show="uploadButton" ng-click="uploadFileButton()" class="md-button add-action-button noborder" />      
                 </div>
+        </div>
+        
+        <!--Email Final Details-->
+        <div class="modal-pane modal-pane-width-reg" id="emaildetailsid">
+            <div class="modal-pane-header-wrap">
+                <h2>Email Details</h2>
+                <a class="reg-button gray-button" id="emailpreview" ng-click="emailListPreviewOnClick()">Preview Email</a>
             </div>
-        </div>            
-    </div>
-    <div class="sequence-page-background" id="emaildetailsid">
-        <div class="sequence-page-content-container">
-            <div class="sequence-page-header">Email Details</div>
-            <div class="email-detail-selection col-1of1 fleft" ng-init="getEmailSettings()">
-
-                <div class="col-1of1 fleft pushUp">
-                    <div class="col-9of10 fleft">
-                        <div class="h4" style="">
-                            Enter a subject line for this Email:
-                        </div>
+            <div class="modal-pane-content-wrap">
+                 <div class="input-wrap">
+                    <label> Enter a Subject Line </label>
+                    <div class="input ">
                         <input id="subject" ng-model="emailSubject" class="input-field-textfield col-8of10" value="{{emailSubject}}" type="text"></input>
                     </div>
                 </div>
-                <div class="cols-2 fleft col-9of10 pushUp">
-                    <div class="input-field-container col-3of10 fleft pushright">
-                        <div class="h4"> From Name </div>
+               <div class="input-wrap">
+                    <label> Enter a From Name </label>
+                    <div class="input ">
                         <input id="name" class="input-field-textfield input-placeholder" placeholder="Enter From Name" type="text" ng-model="fromName"></input>
                     </div>
-                    <div class="input-field-container col-3of10 fleft" style="display:none;">
-                        <div class="h4"> From Email Address </div>
-                        <input id="formaddress" class="input-field-textfield input-placeholder" placeholder="Enter From  Email Address" type="text" ng-model="fromAddress" type="hidden" value="mail@brndbot.com" readonly/>
-                    </div>
                 </div>
-                <div class="cols-2 fleft col-9of10 pushUp">
-                    <input id="toaddress" class="input-field-textfield input-placeholder" ng-model="toAddress" value="{{email_settings.email_addresses}}" placeholder="Enter To Email Address" type="hidden"></input>
-                    <div class="input-field-container col-3of10 fleft">
-                        <div class="h4"> Reply To Email Address</div>
+                <div class="input-wrap">
+                    <label> Enter a Reply to Address </label>
+                    <div class="input ">
                         <input id="email" class="input-field-textfield input-placeholder" placeholder="Enter Reply To Email Address" type="text" value="{{email_settings.reply_email_address}}" ng-model="replyAddress"></input>
+                        <input id="toaddress" class="input-field-textfield input-placeholder" ng-model="toAddress" value="{{email_settings.email_addresses}}" placeholder="Enter To Email Address" type="hidden"></input>
                     </div>
                 </div>
-                <div class="input-field-container col-1of8 fleft pushUp-50">
+            </div>
+        </div>
 
-                    <div class="curpointer gray-button font20px fleft nounderline md-button width200px" id="emailpreview" ng-click="emailListPreviewOnClick()">Preview Email</div>                       
-                </div>
-            </div>
-            <div class="iphoneshow img-responsive" id="popup" style="background-repeat: no-repeat; -webkit-background-size: contain;">
-                <div class="content"></div>
-            </div>
-        </div>
-    </div>  
-    <div class="bottom-cta-bar">
-        <div class="bottom-cta-button-container-lg">
-            <div class="bottom-continue-button button-text-1" id="emaildetailscontbtn" ng-click="continueEmailDetailsOnClick({'emailSubject':emailSubject,'fromName':fromName,'fromAddress':fromAddress,'toAddress':toAddress,'replyAddress':replyAddress})">Continue</div>
-            <div style="display: block;" class="bottom-continue-button button-text-1" id="emailIdContinueButton" ng-show="emailContinueButton" ng-click="continueEmailListOnClick(emailAddresses)">Continue</div>
-        </div>
+    </div>
+
+    <div class="continue-bar">
+        <a id="emaildetailscontbtn" ng-click="continueEmailDetailsOnClick({'emailSubject':emailSubject,'fromName':fromName,'fromAddress':fromAddress,'toAddress':toAddress,'replyAddress':replyAddress})" class="fright">CONTINUE</a>
+        <a id="emailIdContinueButton" ng-show="emailContinueButton" ng-click="continueEmailListOnClick(emailAddresses)" class="fright">CONTINUE</a>
     </div>
 </div>

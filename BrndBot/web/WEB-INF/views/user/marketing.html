@@ -5,111 +5,99 @@
         <div ng-include src="'genericpopup/mainpopup.html'" ></div>
 -->        
 
-         <div ng-include src="'addaction.html'"></div>
-            <div class="top-nav">
-                <div class="page-title-bar col-1of1"> 
-                    <!--<div class="exit-button-detail"></div>-->
-                    <div class="page-title-regular page-title-font">Your Plan</div>
-                    <div class="page-cta-container">
-                        <a href="" class="delete-button button fleft">
-                            <!--<div class=" md-button" ng-click="deleteSchedule('0','deleteMultiple')" id="deleteactionbutton">Delete Action</div>-->    
-                        </a>
-                        <a href="javascript:void(0)">
-                            <div id="liPriority" ng-click="ShowAddAction()" class="add-action-button md-button buttoext-1"> Add Action</div>
-                        </a>
-                    </div>
-                </div>
-                <div class="page-subnav-bar-with-dropdown"> 
-                    <div class="subnav-date-dropdown hint--right" data-hint="Calendar">
-                        <img id="calendar" src="images/calendar.svg" class="calendar-dropdown" style="cursor:pointer;"/>
-                    </div>
-                    <div class="subnav-date-dropdown-text " ng-click="setCurrentDateActions()">
-                        <label class="calendar-dropdown-text " for="jumptodatepicker">Jump to Date</label>
-                        <input type="text"  name="datepicker" id="jumptodatepicker" readonly class="hideinput"/>
-                        <script>
-                                   var picker = new Pikaday(
-                                   {
-                                       field: document.getElementById('jumptodatepicker'),
-                                       format: 'YYYY-MM-DD',
-                                       firstDay: 1,
-                                       minDate: new Date('2000-01-01'),
-                                       maxDate: new Date('2050-12-31'),
-                                       yearRange: [2000,2050],
-                                       onSelect: function() {
-                                            var mydate=this.getMoment();
-                                            var mydt=mydate.toLocaleString();
-                                            var myDate = new Date(mydt);
-                                            angular.element(document.getElementById('yourPlanController')).scope().setCurrentDate(myDate);
-                                       }
-                                   });
-                        </script>
-                    </div>
-
-                    <div class="top-subnav-tabs-container-with-drop">      
-                    </div>
-                </div>
+    <div ng-include src="'addaction.html'"></div>
+    <div class="main-content-wrap">
+        <div class="top-nav-wrap">
+            <div class="header">
+                <h2 class="">Your Plan</h2>
+                <div class="top-nav-cta-container">
+                    <a href="javascript:void(0)" class="reg-button green-button" id="liPriority" ng-click="ShowAddAction()">Add Action</a>
+                    <a href="" class="delete-button reg-button">
+                        <!--<div class=" md-button" ng-click="deleteSchedule('0','deleteMultiple')" id="deleteactionbutton">Delete Action</div>-->    
+                    </a>
+               </div>
             </div>
-            <div class="page-background">
-                <div class="page-content-container your-plan-inner-content" ng-init="getCampaigns()">
+        </div>
+        <div class="top-sub-nav">
+            <a class="your-plan-cal-dropdown" ng-click="setCurrentDateActions()">
+                <i></i>
+                <div>Jump to Date</div>
+                <input type="text"  name="datepicker" id="jumptodatepicker" readonly class="hideinput"/>
+                <script>
+    //                                   var picker = new Pikaday(
+    //                                   {
+    //                                       field: document.getElementById('jumptodatepicker'),
+    //                                       format: 'YYYY-MM-DD',
+    //                                       firstDay: 1,
+    //                                       minDate: new Date('2000-01-01'),
+    //                                       maxDate: new Date('2050-12-31'),
+    //                                       yearRange: [2000,2050],
+    //                                       onSelect: function() {
+    //                                            var mydate=this.getMoment();
+    //                                           var mydt=mydate.toLocaleString();
+    //                                            var myDate = new Date(mydt);
+    //                                            setCurrentDate(myDate);alert();
+    //                                       }
+    //                                   });
+                </script>
+            </a>
+        </div>
+        <div class="top-nav-bar-offset"></div>
+        <div class="top-subnav-bar-offset"></div>
 
-                    <!--Inner Content Conatiner GENERIC-->
-                    <div class="page-inner-content-container " >
-                        <input type="text" placeholder="Search" ng-model="userSearch">
-                        <!--                <div class="fleft content" ng-repeat="entity in entitySet">-->
-                        <div class="fleft content" ng-repeat="entity in entitySet | filter:userSearch">
-                            <div class="page-content-title-bar">
-                          
-                                <!--<div class="page-content-title h2" ng-show='entity.date==tomorrow_date'>Tomorrow's Actions</div>-->
-                                <div class="page-content-title h2" ng-show="entity.date == today_date">Today's Actions</div>
-                                <div class="page-content-title h2" ng-show="(entity.date != today_date)">{{myYear(mySplit(entity.date,1))}} {{mySplit(entity.date,2)}} {{mySplit(entity.date,0)}}</div>
+        <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-init="getCampaigns()">
+        <div class="your-plan-wrap" ng-repeat="entity in entitySet">
+            <div class="your-plan-pane" >
+                <div class="action-list-pane-header">
+                    <!--<div class="page-content-title h2" ng-show='entity.date==tomorrow_date'>Tomorrow's Actions</div>-->
+                    <h3 class="your-plan-date" ng-show="entity.date == today_date">Today's Actions</h3>
+                    <h3 class="your-plan-date" ng-show="(entity.date != today_date)">{{myYear(mySplit(entity.date,1))}} {{mySplit(entity.date,2)}} {{mySplit(entity.date,0)}}</h3>
+                </div>
+                <div class="your-plan-action-wrap" ng-repeat="entitydetails in entity.dataArray">
+                    <div class="slat">
+                        <div class="your-plan-icon-wrap">
+                            <div ng-show="entitydetails.entity_type != master_note">
+                                <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'Template Saved'"  data-hint="Template Saved" > 
+                                    <img src="images/templateSaved.svg" />
+                                </div>
+                                <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'No Template'"  data-hint="No Template" >
+                                    <img src="images/needTemplate.svg"/>
+                                </div>
+                                <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'Complete'"  data-hint="Complete" > 
+                                    <img src="images/ActionComplete.svg"/>
+                                </div>
+                                <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'Approved'"  data-hint="Approved" > 
+                                    <img src="images/ActionApproved.svg"/>
+                                </div>
                             </div>
-                            <!--List Starts Here-->
-                            <ul class="main-container fleft" >
-                                <li class="slat-container fleft selfclear" ng-repeat="entitydetails in entity.dataArray" > 
-                                    <!--ng-repeat="entitydetails in entity.dataArray">-->
-                                    <div class="selection-container col-5p">
-                                        <div class="selection-icon" id="{{entitydetails.schedule_id}}" onclick="selcheckbox(this.id)"><input type="checkbox" id="entityid{{entitydetails.entity_id}}" value="{{entitydetails.entity_id}}" name="entityname" hidden></input></div>
-                                    </div>
-                                    <div class="col-7of10 slat-unit fleft ">
-                                                                        <div ng-show="entitydetails.entity_type != master_note">
-                                                                            <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'Template Saved'"  data-hint="Template Saved" > 
-                                                                                <img src="images/templateSaved.svg" class="status-button" />
-                                                                            </div>
-                                                                            <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'No Template'"  data-hint="No Template" >
-                                                                                <img src="images/needTemplate.svg" class="status-button"/>
-                                                                            </div>
-                                                                            <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'Complete'"  data-hint="Complete" > 
-                                                                                <img src="images/ActionComplete.svg" class="status-button"/>
-                                                                            </div>
-                                                                            <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'Approved'"  data-hint="Approved" > 
-                                                                                <img src="images/ActionApproved.svg" class="status-button"/>
-                                                                            </div>
-                                                                        </div>
-                                        <div ng-show="entitydetails.entity_type == master_note">
-                                            <div class="icon-container fleft hint--top" data-hint="Reminder" > 
-                                                <img src="images/Reminder.svg" class="status-button"/>
-                                            </div>
-                                        </div>
+                             <div ng-show="entitydetails.entity_type == master_note">
+                                <div class="icon-container fleft hint--top" data-hint="Reminder" > 
+                                    <img src="images/Reminder.svg"/>
+                                </div>
+                            </div>
+                        </div>
 
-                                        <div  class="slat-title-container col-1of2 fleft">                                    
-                                            <!--<div class="slat-title email-list-slat-title col-1of1 sh1" ng-hide="entitydetails.is_recurring">{{entitydetails.schedule_title}}</div>-->
-                                                                                <div class="slat-title email-list-slat-title col-1of1 sh1" >{{entitydetails.schedule_title}}</div>
-                                            <div class="action-list-slat-description col-1of1 sh3" ng-show="entitydetails.user_marketing_program_id > 0">{{entitydetails.marketingName}}</div>
-                                            <div class="action-list-slat-description col-1of1 sh3" ng-show="entitydetails.user_marketing_program_id == 0">No Program</div>
-                                        </div>
+                        <div class="slat-name-wrap">
+                            <!--<div class="slat-title email-list-slat-title col-1of1 sh1" ng-hide="entitydetails.is_recurring">{{entitydetails.schedule_title}}</div>-->
+                            <h2>{{entitydetails.schedule_title}}</h2>
+                            <p ng-show="entitydetails.user_marketing_program_id > 0">{{entitydetails.marketingName}}</p>
+                            <p ng-show="entitydetails.user_marketing_program_id == 0">No Marketing Program</p>
+                        </div>
 
-                                        <div class=" col-1of4 fleft slat-attribute-container">
-                                            
-                                                                                <div class="slat-column-font list-column-number col-1of1 sh2 fleft"ng-show="entitydetails.entity_type==master_facebook || entitydetails.entity_type==master_twitter">{{entitydetails.entity_type}}</div>
-                                                                                <div class="slat-column-font list-column-number col-1of1 sh2 fleft"ng-show="entitydetails.entity_type==master_email || entitydetails.entity_type==master_note">{{entitydetails.entity_type}}</div>
-                                            <div class="list-column-description col-1of1 sh3 fleft">Action Type</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-1of4 fleft">
-                                        <div class="slat-cta-container">
-                                            <!--ng-click="setTemplate('Email',false)">Details</div>-->
-                                            <div class="small-button slat-button detail-button-font" 
-                                                 ng-click="getScheduleDetails(entitydetails.schedule_id,
+                         <div class="slat-detail-wrap">
+                             <div class="slat-detail">
+                                <h2 ng-show="entitydetails.entity_type==master_facebook || entitydetails.entity_type==master_twitter">{{entitydetails.entity_type}}</h2>
+                                 <h2 ng-show="entitydetails.entity_type==master_email || entitydetails.entity_type==master_note">{{entitydetails.entity_type}}</h2>
+                                <p>Action Type</p>
+                            </div>
+                         </div>
+
+
+                        <div class="slat-detail-wrap">
+                            <div class="slat-detail">
+                                 <!--ng-click="setTemplate('Email',false)">Details</div>-->
+                                <a class="reg-button gray-button-outline slat-detail-button" 
+                                   ng-click="getScheduleDetails(entitydetails.schedule_id,
                                                              entitydetails.template_status,
                                                              entitydetails.schedule_time,
                                                              entitydetails.entity_type,
@@ -118,26 +106,19 @@
                                                              entitydetails.marketingName,
                                                              entitydetails.user_marketing_program_id,
                                                              entitydetails.days,
-                                                             entitydetails.is_today_active)">Details</div>
-                                        </div>
-                                    </div>
-                                </li>
-                                                         <li class="slat-container fleft selfclear" ng-show="entity.dataArray == ''">
-                                                            <div class="selection-container col-5p"> 
-                                                                <div class="selection-icon"></div>
-                                                            </div>
-                                                            <div class="col-7of10 slat-unit fleft ">
-                                                                <div class="gray email-list-slat-title col-7of10 sh1">{{nodata}}</div>
-                                                                <div class="icon-container fleft " ng-show="entitydetails.template_status=='No Template'"> 
-                                                                    <object type="image/svg+xml" data="images/Icons/templateSaved.svg" class="status-button"> </object>
-                                                                </div>
-<!--                                                                <div class="slat-title-container  fleft">
-                                                                    <div class="gray email-list-slat-title col-7of10 sh1">{{nodata}}</div>
-                                                                </div>-->
-                                                            </div>
-                                                        </li>
-                            </ul>
+                                                             entitydetails.is_today_active)">Action Details</a>
+                            </div>
                         </div>
+
+                    </div>
+
+                    </div>
+                    <div class="slat" ng-show="entity.dataArray == ''">
+                         <div class="your-plan-empty-date"> No actions scheduled for today</div>
                     </div>
                 </div>
             </div>
+            <div class="bottom-offset"></div>
+        </div>
+        
+    </div>

@@ -23,7 +23,6 @@ factoryApp.factory('signupFactory', function ($q, authenticatedServiceFactory, c
     signupFactoryObject.resetPasswordPost = function (resetData) {
         var deffered = $q.defer();
         var url = configurationService.resetPasswordURL();
-        alert(url);
         authenticatedServiceFactory.makeCall("POST", url, resetData, "").then(function (data) {
             deffered.resolve(data);
         });

@@ -111,6 +111,7 @@ label{
 a {
     cursor: pointer;
     text-decoration: none;
+    color:inherit;
 }
 
 .reg-button{
@@ -308,6 +309,7 @@ a {
 
 /* main nav */
 
+
 .side-nav{
     position: fixed;
     top: 0px;
@@ -323,13 +325,23 @@ a {
     height: 70px;
     box-sizing: border-box;
     display: block;
+    margin: auto;
     margin-bottom: 30px;
+    
     
 }
 
+.nav-logo a{
+    position: relative;
+}
 
-a.side-nav-logo:before{
-    content: url(/BrndBot/user/images/logo-mark-reverse.svg);
+
+a.side-nav-logo{
+    background-image: url(/BrndBot/user/images/logo-mark-reverse.svg);
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: 10px;
 }
 
 
@@ -352,12 +364,6 @@ a.side-nav-logo:before{
     position: relative;
 }
 
-.nav-logo a{
-    height: 60px;
-    width: 70px;
-    padding: 10px;
-    position: relative;
-}
 
 .main-nav a:hover{
     background-color: #1E2F3E;
@@ -416,77 +422,96 @@ li.main-nav:last-child{
     border-radius: 5px;
 }
 
-.your-plan:before{
-    content: url(/BrndBot/user/images/nav-icons/nav-icons_your-plan.svg)
+.your-plan{
+    background-image:url(/BrndBot/user/images/nav-icons/nav-icons_your-plan.svg);
 }
 
-.main-nav a:hover.your-plan:before{
-    content: url(/BrndBot/user/images/nav-icons/nav-icons_your-plan-active.svg)
-}
-
-
-.your-plan.active:before{
-    content: url(/BrndBot/user/images/nav-icons/nav-icons_your-plan-active.svg)
-}
-
-.marketing-campaign:before{
-    content: url(/BrndBot/user/images/nav-icons/nav-icons_campaign.svg)
-}
-
-.main-nav a:hover.marketing-campaign:before{
-    content: url(/BrndBot/user/images/nav-icons/nav-icons_campaign-active.svg)
+.main-nav a:hover.your-plan{
+    background-image: url(/BrndBot/user/images/nav-icons/nav-icons_your-plan-active.svg);
 }
 
 
-.marketing-campaign.active:before{
-    content: url(/BrndBot/user/images/nav-icons/nav-icons_campaign-active.svg)
+.your-plan.active{
+    background-image: url(/BrndBot/user/images/nav-icons/nav-icons_your-plan-active.svg);
+   
 }
 
-.hub:before{
-    content: url(/BrndBot/user/images/nav-icons/nav-icons_marketing-hub.svg)
+.marketing-campaign{
+    background-image: url(/BrndBot/user/images/nav-icons/nav-icons_campaign.svg);
+ 
 }
 
-.main-nav a:hover.hub:before{
-    content: url(/BrndBot/user/images/nav-icons/nav-icons_marketing-hub-active.svg)
-}
+.main-nav a:hover.marketing-campaign{
+    background-image: url(/BrndBot/user/images/nav-icons/nav-icons_campaign-active.svg);
 
-
-.hub.active:before{
-    content: url(/BrndBot/user/images/nav-icons/nav-icons_marketing-hub-active.svg)
-}
-
-.media:before{
-    content: url(/BrndBot/user/images/nav-icons/nav-icons_media.svg)
-}
-
-.main-nav a:hover.media:before{
-    content: url(/BrndBot/user/images/nav-icons/nav-icons_media-active.svg)
 }
 
 
-.media.active:before{
-     content: url(/BrndBot/user/images/nav-icons/nav-icons_media-active.svg)
+.marketing-campaign.active{
+    background-image: url(/BrndBot/user/images/nav-icons/nav-icons_campaign-active.svg);
+  
 }
 
-.user:before{
-    content: url(/BrndBot/user/images/nav-icons/nav-icons_user.svg)
+.hub{
+    background-image: url(/BrndBot/user/images/nav-icons/nav-icons_marketing-hub.svg);
+ 
 }
 
-.main-nav a:hover.user:before{
-    content: url(/BrndBot/user/images/nav-icons/nav-icons_user-active.svg)
+.main-nav a:hover.hub{
+    background-image: url(/BrndBot/user/images/nav-icons/nav-icons_marketing-hub-active.svg);
+   
 }
 
 
-.user.active:before{
-    content: url(/BrndBot/user/images/nav-icons/nav-icons_log-out.svg)
+.hub.active{
+    background-image: url(/BrndBot/user/images/nav-icons/nav-icons_marketing-hub-active.svg);
+
 }
 
-.log-out:before{
-    content: url(/BrndBot/user/images/nav-icons/nav-icons_log-out.svg)
+.media{
+    background-image: url(/BrndBot/user/images/nav-icons/nav-icons_media.svg);
+
 }
 
-.main-nav a:hover.log-out:before{
-    content: url(/BrndBot/user/images/nav-icons/nav-icons_log-out-active.svg)
+.main-nav a:hover.media{
+    background-image: url(/BrndBot/user/images/nav-icons/nav-icons_media-active.svg);
+    
+}
+
+
+.media.active{
+     background-image: url(/BrndBot/user/images/nav-icons/nav-icons_media-active.svg);
+   
+}
+
+.user{
+     background-image: url(/BrndBot/user/images/nav-icons/nav-icons_user.svg);
+   
+    
+}
+
+.main-nav a:hover.user{
+     background-image: url(/BrndBot/user/images/nav-icons/nav-icons_user-active.svg);
+  
+}
+
+
+.user.active{
+    background-image: url(/BrndBot/user/images/nav-icons/nav-icons_log-out.svg)
+}
+
+.log-out{
+    background-image: url(/BrndBot/user/images/nav-icons/nav-icons_log-out.svg)
+}
+
+.main-nav a:hover.log-out{
+   background-image: url(/BrndBot/user/images/nav-icons/nav-icons_log-out-active.svg)
+}
+
+.main-nav a{
+    background-size: 70% 70%;
+      background-position:center;
+    background-repeat: no-repeat;
 }
 
 
@@ -532,7 +557,7 @@ li.main-nav:last-child{
     height: 60px;
     width: 100%;
     box-sizing: border-box;
-    display: inline-flex;
+    display:flex;
     align-content: center;
     align-items: center;
     background-color: white;
@@ -545,8 +570,11 @@ li.main-nav:last-child{
     padding: 18px;
 }
 
-.top-nav-wrap .header .back-button:before{
-    content: url(/BrndBot/user/images/backbutton.svg);
+.top-nav-wrap .header .back-button{
+    background-image: url(/BrndBot/user/images/backbutton.svg);
+    background-position: center;
+    background-size: 50%;
+    background-repeat: no-repeat;
 }
 
 .top-nav-wrap .header h2{
@@ -556,9 +584,12 @@ li.main-nav:last-child{
 
 }
 
-.top-nav-wrap .header a:not(:first-child){
+
+.top-nav-wrap .header .top-nav-cta-container{
+    padding-right: 30px;
     margin-left: auto;
-    margin-right: 30px;
+    display: inline-flex;
+    align-content: center;
 
 }
 
@@ -611,6 +642,11 @@ li.main-nav:last-child{
     font-size: 14px;
     font-weight: 500;
     display:flex;
+
+}
+
+.sub-nav-tab-wrap-hub{
+    padding-left:30px;
 
 }
 
@@ -817,8 +853,11 @@ li.sub-nav-tab.active a{
     padding: 18px;
 }
 
-.overlay-wrap .header .exit-button:before{
-    content: url(/BrndBot/user/images/overlay-close.svg);
+.overlay-wrap .header .exit-button{
+    background-image: url(/BrndBot/user/images/overlay-close.svg);
+    background-size: 40% 40%;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .overlay-wrap .header h2{
@@ -949,31 +988,38 @@ li.sub-nav-tab.active a{
     border-radius: 35px;
     margin-left: 45px; 
     padding: 5px;
+    cursor:pointer;
 }
 
 .overlay-header-cta-wrap .action-delete-button:hover{
     border: 2px #F15252   solid;
     background-color: #F15252; 
+     cursor:pointer;
 }
 
 .overlay-header-cta-wrap .action-delete-button.active{
     border: 2px #F15252   solid;
     background-color: #F15252; 
+     cursor:pointer;
 }
 
-
-.overlay-header-cta-wrap .action-delete-button:before{
-    content: url(/BrndBot/user/images/overlay-trash-icon.svg);
+.overlay-header-cta-wrap .action-delete-button{
+    background-image: url(/BrndBot/user/images/overlay-trash-icon.svg);
+    background-position: 4px 4px;
+    background-repeat: no-repeat;
+    background-size: 75%;
 }
 
-.overlay-header-cta-wrap .action-delete-button:hover:before{
-    content: url(/BrndBot/user/images/overlay-trash-icon-white.svg);
+.overlay-header-cta-wrap .action-delete-button:hover{
+    background-image: url(/BrndBot/user/images/overlay-trash-icon-white.svg);
 }
 
-.overlay-header-cta-wrap .action-delete-button.active:before{
-    content: url(/BrndBot/user/images/overlay-trash-icon-white.svg);
+.overlay-header-cta-wrap .action-delete-button.active{
+    background-image: url(/BrndBot/user/images/overlay-trash-icon-white.svg);
+     background-position: center;
+    background-repeat: no-repeat;
+    background-size: 80% 80%;
 }
-
 
 .overlay-wrap .sub-header{
     height: 40px;
@@ -1223,7 +1269,7 @@ li.sub-nav-tab.active a{
 
 .overlay-detail-item{
     line-height: 30px;
-    margin-top: 12px;
+    margin-top: 14px;
     font-weight: 400;
 }
 
@@ -1245,6 +1291,7 @@ li.sub-nav-tab.active a{
     align-items: center;
     margin-left: -10px;
     margin-top: 10px;
+    font-size:16px;
 }
 
 .overlay-detail-input:hover *{
@@ -1272,14 +1319,15 @@ li.sub-nav-tab.active a{
 
 .overlay-detail-input i{
     width: 25px;
+    height: 25px;
 }
 
-.time-input i:before{
-    content: url(/BrndBot/user/images/time-gray.svg);
+.time-input i{
+    background-image: url(/BrndBot/user/images/time-gray.svg);
 }
 
-.date-input i:before{
-    content: url(/BrndBot/user/images/calendar-gray.svg);
+.date-input i{
+    background-image: url(/BrndBot/user/images/calendar-gray.svg);
 }
 
 .overlay-detail-input input{
@@ -1289,6 +1337,7 @@ li.sub-nav-tab.active a{
     padding: 0px;
     outline: none;
     border: 0px;
+     font-size:16px;
 }
 
 .ease-all{
@@ -1308,8 +1357,7 @@ li.sub-nav-tab.active a{
     height: auto;
     font-size: 16px;
     display: block;
-    box-shadow: 1px 2px 8px rgba(0, 0, 0, .3);
-    visibility: hidden;    
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, .3);   
 }
 
 .delete-action-pop-up strong{
@@ -1513,7 +1561,7 @@ li.sub-nav-tab.active a{
 /**/
 
 .overlay-empty-container{
-    height: calc(100vh - 140px);
+    height: calc(100vh - 100px);
     overflow: hidden;
     background-color: white;
     display: -webkit-flex;
@@ -1578,6 +1626,47 @@ li.sub-nav-tab.active a{
    justify-content: center;
     visibility: visible;
     background-color: rgba(57,60,70,.7);
+}
+
+
+#fade
+{
+    display: none;
+    position:  fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #3D5368 !important;
+    z-index:99999 !important;
+    -moz-opacity: 0.9;
+    opacity:.9 !important;
+    filter: alpha(opacity=80);
+}
+
+.fadeClass{
+     display: flex !important;
+}
+
+.center-pop-ups{
+     display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: row;
+   flex-direction: row;
+   -webkit-align-items: center;
+   align-items: center;
+   -webkit-justify-content: center;
+   justify-content: center;
+}
+
+#addactionClose{
+    cursor: pointer;
+}
+
+#addAction
+{
+    display: block;
+    z-index: 999999;
 }
 
 .modal-pane{
@@ -1646,8 +1735,11 @@ p.modal-content-header{
     display: block;
 }
 
-.modal-pane-header-exit:before{
-    content: url(/BrndBot/user/images/gray-close.svg);
+.modal-pane-header-exit{
+    background-image: url(/BrndBot/user/images/gray-close.svg);
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .modal-pane-content-wrap .send-or-schedule-wrap{
@@ -1948,6 +2040,7 @@ p.modal-content-header{
     min-height: 32px;
     background-color: #fff;
     border: 1px solid #c9c9c9;
+    font-size: 14px;
 }
 
 .fluid{
@@ -2001,8 +2094,8 @@ p.modal-content-header{
 
 
 .dropdown{
-  display: inline-flex;
-    padding: 0 10px 0 10px;
+    display: inline-flex;
+    padding: 0 10px 0 0px;
     vertical-align: middle;
     border-radius: 3px;
     min-width: 50px;
@@ -2010,6 +2103,15 @@ p.modal-content-header{
     background-color: #fff;
     border: 1px solid #c9c9c9;  
     align-content: center;
+}
+
+.time-date-select{
+    border:none;
+    padding-left:15px;
+    width:100%;
+    height:30px;
+    font-size:14px;
+    
 }
 
 .dropdown-selected-option{
@@ -2028,9 +2130,9 @@ p.modal-content-header{
 }
 
 .date-time-select-icon{
-    width: 20px;
-    margin-top: 6px;
-    margin-right: 15px;
+    width: 25px;
+    margin-top: 5px;
+    margin-left: 10px;
 }
 
 .time-select-icon:before{
@@ -2152,6 +2254,14 @@ p.modal-content-header{
     border: 1px solid #E2E3E7;
     border-radius: 3px;
     background-color: white;
+}
+
+.your-plan-empty-date{
+    padding: 10px 30px;
+    text-align: left;
+    width:100%;
+    font-size:14px;
+    color:#444;
 }
 
 .your-plan-pane:not(:first-child){

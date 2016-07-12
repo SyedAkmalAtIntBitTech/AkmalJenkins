@@ -9,7 +9,6 @@
         var url = configurationService.allRecurringEmailTemplatesURL();
         authenticatedServiceFactory.makeCall("GET", url, "").then(function (data) {
             deffered.resolve(data);
-                alert(data);
         });
         return deffered.promise;
     };  

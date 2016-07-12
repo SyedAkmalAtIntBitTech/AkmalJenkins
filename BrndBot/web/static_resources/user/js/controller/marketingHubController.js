@@ -311,7 +311,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
 
         $scope.updateList = function () {
-//        $("#showList").show();
             $scope.showEmailListContacts = true;
             $("#importListli").removeClass("top-subnav-link-active");
             $("#importList").removeClass("h3-active-subnav");
@@ -319,7 +318,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $("#emailList").addClass("h3-active-subnav");
             $(".page-background").css("background-color", "#fff");
             var list_name = $scope.emailListName;
-//                var list_name = $("#get_list_name").val();
             var type = $("#get_type").val();
             $("#tab4").hide();
             $("#email_list_name").val(list_name);
@@ -392,7 +390,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     });
                 } else if (type === "update") {
                     var id = $scope.uuid;
-                    alert(id);
                     emaildetails = {"update": "updateEmailID", "emailUID": id, "emailListName": email_list_name,
                         "emailAddress": email_address, "emailFirstName": firstName,
                         "emailLastName": lastName};
@@ -401,10 +398,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                         $scope.updateList();
                         $scope.showAddContactPopup = false;
                     });
-                }
-                ;
-            }
-            ;
+                };
+            };
         };
 
         $scope.validateEmailListPopup = function (email)
@@ -587,7 +582,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     email_list_name = $scope.emailListName;
                     var Emails = {"update": "deleteEmailInEmailList", "emailListName": email_list_name, "emailAddresses": selectedemailids};
                     emailListFactory.emailListSavePost(Emails).then(function (data) {
-                        alert(contactdelete);
                         $scope.updateList(email_list_name);
                         selectedemailids = "";
 //                        $location.path("/emaillistdetails");

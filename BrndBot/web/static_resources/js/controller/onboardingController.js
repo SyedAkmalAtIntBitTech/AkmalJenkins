@@ -44,7 +44,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 
         $scope.saveUser = function (userDetails) {
             onboardingFactory.saveUserPost(userDetails).then(function (data) {
-//                alert(JSON.stringify(data));
                 var message = data.d.message;
                 if (message === "true")
                 {
@@ -76,23 +75,39 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                     organizationObject["value"] = organizationsData[i].organizationId;
                     $scope.ddSelectOrganizationOptions.push(organizationObject);
                 }
-                alert(JSON.stringify($scope.ddSelectOrganizationOptions));
             });
         };
         
         $scope.saveCompany = function (companyName, organizationId) {
-            alert(organizationId)
             var companyDetails = {"companyName": companyName, "organizationId": organizationId};
             onboardingFactory.saveCompanyPost(JSON.stringify(companyDetails)).then(function (data) {
-//                alert(JSON.stringify(data));
                 $location.path("/signup/datasource");
             });
+        };
+        
+        $scope.ddSelectServicesOptions = [
+            {
+                text: "None"
+            }
+        ];
+
+        $scope.ddSelectServices = {
+          text: "None"
         };
         
         $scope.getAllServices = function () {
             subCategoryFactory.allExternalSourcesGet().then(function (data) {
                 $scope.services = data.d.details;
                 $scope.thirdPartyService = data.d.details[0].externalSourceId;
+                var servicesData = data.d.details;
+                for ( var i = 0; i<servicesData.length; i++ ) 
+                {
+                    var servicesObject = {};
+                    servicesObject["text"] = servicesData[i].externalSourceName;
+                    servicesObject["value"] = servicesData[i].externalSourceId;
+                    $scope.ddSelectServicesOptions.push(servicesObject);
+                }
+                alert(JSON.stringify($scope.ddSelectServices));  
             });
         };
       
@@ -139,7 +154,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $scope.colorFrom = "custom";
         };
         $scope.getColorID = function (color) {
-            alert(color);
             $('.palette-colorswab-selected').css("background-color", color);
         };
         $scope.selectTheme = function (color1, color2, color3, color4) {
@@ -165,7 +179,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 alert("Please choose all 4 colors.");
             }
             settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
-                alert(JSON.stringify(data));
             });
         };
         //to display color picker
