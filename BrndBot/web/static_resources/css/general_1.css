@@ -2148,6 +2148,12 @@ p.modal-content-header{
     margin-bottom:30px;
 }
 
+.your-plan-empty-date{
+    padding: 30px;
+    text-align: center;
+}
+
+
 .your-plan-pane{
     border: 1px solid #E2E3E7;
     border-radius: 3px;

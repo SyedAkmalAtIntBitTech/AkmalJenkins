@@ -590,7 +590,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         });      
         
     };
-
+    
         $scope.deleteSchedule = function (schedules_to_delete, type, section, isRecurring) {
             var message;
             var requestBody;
@@ -622,7 +622,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 });
             }
         };
-    
+        
+     
+        
+        
     $scope.updateActionNote = function (scheduleId){
         
         var actiontype = getemail();
