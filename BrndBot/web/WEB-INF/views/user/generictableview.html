@@ -1,11 +1,9 @@
-<div class="contentWrapInner">
-    <div class="pane pane--600px">
-        <div class="pane_header clear">
-            <div class="pane_title fleft h2">{{header}}</div>
-        </div>
-        <input type="text" placeholder="Search" ng-model="userSearch">
-        <div class="pane_content">
-            <div class="cat-list"  ng-show="pageName === 'email'" ng-repeat="category in displayAllCategories | filter:userSearch">
+<div class="modal-pane modal-pane-width-reg">
+            <div class="modal-pane-header-wrap">
+                <h2>{{header}}</h2>
+            </div>
+            <div class="modal-pane-content-wrap">
+                <div ng-show="pageName === 'email'" ng-repeat="category in displayAllCategories | filter:userSearch">
                 <div class="cat-slat">                   
                     <div class="cat-slat-title" ng-click="redirect(forward, category.categoryId)">{{category.categoryName}}</div>  
                     <a id="categoryId" href="#/emailsubcategory" ng-click="setCategoryID(1)">
@@ -37,9 +35,5 @@
                     </ul>
                 </div>
             </div> 
-            
-
-
+            </div>
         </div>
-    </div>   
-</div>

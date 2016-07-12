@@ -1,56 +1,50 @@
 
-<div id="emailactionsection" ng-show='generalActions'>    
-    <div class="below-nav-container-saved-post-detail">
-        <div class="inner-content-container-detail">
-            <!--                <div class="saved-post-header-detail">
-                               <div class="h4" ng-show="schedule_desc === ''">Write Notes about this Action</div>                      
-                               <div class="h4" ng-show="schedule_desc !== ''">Notes</div>
-                               <div class="instruction-text" ng-show="schedule_desc !== ''"><p id="emaildescription{{schedule_id}}">{{schedule_desc}}</p></div>
-                            </div>-->
-            <div class="inner-content-detail">
-                <div class="fields-note-detail" >
-                    <div class="nonrecurring-fields" ng-show="isRecurring===false">
-                        <!--SAVED POST GOES HERE-->
-
-                        <div class="input-header-actionDetail" style="">
-                            TITLE
-                        </div>
-                        <input id="email_edit_title" name="email_edit_title" class="input-field-textfield" ng-model='scheduleData.schedule_title' value="{{scheduleData.schedule_title}}"/>
-                        <input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{scheduleData.schedule_id}}' />
-                        <input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{scheduleData.schedule_type}}'/>
-
-                        <div class="inlineFlex">
-                            <div class="half"> 
-                                <div class="input-header-actionDetail" style="">
-                                    Status
+<div class="overlay-content" id="emailactionsection" ng-show='generalActions'>
+                <div class="overlay-name-bar">
+                <input size="40" value="Email Action Name" id="email_edit_title" name="email_edit_title" ng-model='scheduleData.schedule_title' value="{{scheduleData.schedule_title}}"></input>
+                <input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{scheduleData.schedule_id}}' />
+                <input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{scheduleData.schedule_type}}'/>
+            </div>
+                <div class="overlay-details-pane">
+                    <div class="overlay-details-pane-header">GENERAL DETAILS</div>
+                    <div class="detail-sections-wrap">
+                        <div class="detail-section half">
+                            <label>Action Status <span><a class="help-question-icon">?</a></span></label>
+                            <div class="status-icon-details">
+                                <div class="status-show">
+                                    
+                                        <img ng-show="entitydetails.template_status == 'Template Saved'" src="images/template-saved.svg" />
+                                  
+                                 
+                                        <img ng-show="entitydetails.template_status == 'No Template'" src="images/no-template.svg"/>
+                                 
+                                    
+                                        <img ng-show="entitydetails.template_status == 'Complete'" src="images/ActionComplete.svg"/>
+                                   
+                                   
+                                        <img ng-show="entitydetails.template_status == 'Approved'" src="images/template-approved.svg"/>
+                                   
+                                 
                                 </div>
-                                <input type="text" id="mail_status" value="{{scheduleData.email_template_status}}" class="input-field-textfield width75" readonly/>
-                            </div>
-                            <div class="half">
-                                <div class="input-header-actionDetail" style="">
-                                    Marketing Program
-                                </div>
-                                <input type="text" id="emailmarkprog" value="{{scheduleData.marketing_program_name}}" class="input-field-textfield width75" readonly/>
+                                <div class="overlay-detail-status">{{scheduleData.email_template_status}}</div>
                             </div>
                         </div>
-                        <div  class="input-header-actionDetail h3" style="">
-                            SCHEDULED TO {{scheduledTo}} ON
+                        <div class="detail-section half">
+                            <label>Assigned Marketing Campaign</label>
+                            <p class="overlay-detail-item">{{scheduleData.marketing_program_name}}</p>
                         </div>
-                        <div class="inlineFlex">
-                            <div class="half">
-                                <div ng-show="scheduleData.user_marketing_program_id > 0">
-                                    <div class="input-header-actionDetail " >
-                                        DAY
-                                    </div>
-                                    <!--<input type="text" readonly   name="datepickertwitter" id="datepickertwitter1"  class="input-field-textfield width75" value="Sun Jan 01 1970"/>--> 
-                                    <input type="text" class="input-field-textfield width75" id="emaildays" name="emaildays" ng-model="scheduleData.days" value="{{scheduleData.days}}"/>                                                   
-                                </div>
-                                <div ng-show="scheduleData.user_marketing_program_id == 0">
-                                    <div class="input-header-actionDetail " >
-                                        DATE
-                                    </div>
-                                    <input type="hidden" class="textbox" id="emaildays" name="emaildays" value="0"/>
-                                    <input type="text"  readonly  name="emaildatetime" id="emaildatetime"  class="input-field-textfield width75" ng-model="scheduleData.entities_selected_time" value="{{scheduleData.entities_selected_time" />                                        
+                    </div>
+                </div>
+                <div class="overlay-details-pane">
+                    <div class="overlay-details-pane-header">{{scheduledTo}} DETAILS</div>
+                    <div class="detail-sections-wrap">
+                        <input type="hidden" class="textbox" id="emaildays" name="emaildays" value="0"/>
+                       
+                        <div class="detail-section half">
+                            <label>Date</label>
+                            <a class="overlay-detail-input date-input ease-all">
+                                <i></i>
+                                <input type="text"  id="emaildatetime" name="emaildatetime" value="{{scheduleData.entities_selected_time" ng-model="scheduleData.entities_selected_time" readonly></input>
                                 <input type="hidden" value="{{scheduleData.entities_selected_time| date:'MMM dd yyyy'}}" id="emaildateid"/>
                                     <script>
                                         var picker = new Pikaday(
@@ -62,14 +56,14 @@
                                                         yearRange: [2000, 2050]
                                                 });
                                     </script>
-                                </div>
-                            </div>
-                            <div class="half">
-                                <div class="input-header-actionDetail" style="">
-                                    TIME
-                                </div>
-                                <input id="" type="text"  class="timepickertextbox" ng-model="scheduleData.schedule_time" value ="{{scheduleData.schedule_time}}">
-                                <!--                            <input id="timepickeremail123" class="timepickertextbox "  value ="{{scheduleData.schedule_time| date:'hh : mm : a': 'UTC'}}">-->
+                            </a>
+                        </div>
+                       <div class="detail-section half">
+                            <label>Time of Day</label>
+                            <a class="overlay-detail-input time-input ease-all">
+                                <i></i>
+                                <input type="text" ng-model="scheduleData.schedule_time" value ="{{scheduleData.schedule_time}}" readonly></input>
+                                 <!--                            <input id="timepickeremail123" class="timepickertextbox "  value ="{{scheduleData.schedule_time| date:'hh : mm : a': 'UTC'}}">-->
                                 <!--<script src="js/timepicki.js" type="text/javascript"></script>-->
                                 <script>
                                     //                                $('.timepickertextbox').timepicki({
@@ -82,10 +76,15 @@
                                     //                                    disable_keyboard_mobile: true
                                     //                                });
                                 </script>
-
-                            </div>
+                            </a>
                         </div>
                     </div>
+                    <!--<div class="detail-sections-wrap">
+                        <div class="action-sent-notice">This email was sent successfully at 10:45.
+                    </div>
+                </div>-->
+            </div>
+        </div>
                     <div class="recurring-fields" ng-show="isRecurring===true">
 
                         <!--SAVED POST GOES HERE-->

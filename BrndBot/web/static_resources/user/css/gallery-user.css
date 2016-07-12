@@ -7,29 +7,21 @@
 }
 
 .gallery-item-wrap-selected{
-    width: 224px;
-    border: 2px solid #C4E5F4;
+    width: 222px;
+      border: 2px solid #0f76a6;
     border-radius: 3px;
-    margin-bottom: 20px;
-    margin-right: 20px;
-}
-.gallery-item-wrap-selected-true{
-    width: 224px;
-    border: 2px solid #0f76a6;
-    border-radius: 3px;
-    margin-bottom: 20px;
+      margin-bottom: 20px;
     margin-right: 20px;
 }
 
 .gallery-image-wrap{
   height: 100px;
-    width: 100%;
+    width: 200px;
 }
 
 .gallery-image{
   height: 100px;
-    /*width: 222px;*/
-    width: 100%;
+    width: 222px;
 }
 
 .gallery-name{
