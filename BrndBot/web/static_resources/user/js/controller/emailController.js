@@ -527,9 +527,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.ddSelectEmailListOptions = [
             {
                 text: "Manual"
-            },
-            {
-                text: "Manual2"
             }
         ];
 

@@ -15,15 +15,15 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
         $scope.ddSelectActionOptions = [
             {
-                text: 'Select',
+                text: 'Select'
             }, {
-                text: 'Facebook Post',
+                text: 'Facebook Post'
             }, {
-                text: 'Twitter Post',
+                text: 'Twitter Post'
             }, {
-                text: 'Email',
+                text: 'Email'
             }, {
-                text: 'Reminder',
+                text: 'Reminder'
             }
         ];
 
