@@ -1224,8 +1224,8 @@
                                     color: #2D4444;
                                     width:calc(100vw - 50%);
                                     /*width:57% !important;*/
-                                    /*height: 600px;*/
-                                    height:60%;
+                                    /*height: 60%;*/
+                                    height: calc(100vh - 140px);
                                     overflow-y: auto;
                                 }
                                 ::-webkit-scrollbar { 
@@ -1263,7 +1263,7 @@
             </div>
         </div>
 <!--////////////////////.......... uncomment for footer to do click is not working because area is overlapping to each other......////-->                           
-                        <div class="in-editor-footer-wrap">
+                        <div class="in-editor-footer-wrap" style="display: none;">
                             <h3>Email Footer</h3>
                             <p>Your email footer is the same on every email. You 
                         see the footer in this email by previewing your email. To edit
