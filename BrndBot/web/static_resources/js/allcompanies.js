@@ -201,7 +201,6 @@ function allCompaniesController($scope,$http){
          var organizationName=$("#organizationName").val();     
         var companyName=$("#companyName").text();       
         var organizationId=eval(JSON.stringify(selectedListItems.organizationId));
-            alert(organizationId);
         var groupAddTemplate ={"companyId" : companyId, "organizationId" : organizationId}
          $.ajax({
                     method: 'POST',
