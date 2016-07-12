@@ -34,7 +34,8 @@
 
 function recurringEmail($scope,$http) {
            
-  $scope.getRecurringEmailTemplateId = function(){
+    $scope.recurringEmailTemplateId = null;
+    $scope.getRecurringEmailTemplateId = function(){
     var qs = (function(a) {
         if (a == "") return {};
         var b = {};
@@ -92,21 +93,20 @@ function recurringEmail($scope,$http) {
     };
     
      $scope.getRecurringTemplate = function () {
-     var recurringEmailTemplateId=$("#recurringEmailTemplateId").val();
-                    $http({
-                            method : 'GET',
-                            url : getHost()+'/getRecurringEmailTemplateById?recurringEmailTemplateId='+recurringEmailTemplateId
-                        }).success(function(data, status, headers, config) {
-                         
-                            $scope.getRecurringTemplateDetails = data.d.details[0];  
-                        }).error(function(data, status, headers, config) {
-                                alert(eval(JSON.stringify(data.d.operationStatus.messages)));
-                        });
-       
+     var recurringEmailTemplateId=$scope.recurringEmailTemplateId;
+        $http({
+                method : 'GET',
+                url : getHost()+'/getRecurringEmailTemplateById?recurringEmailTemplateId='+recurringEmailTemplateId
+            }).success(function(data, status, headers, config) {
+
+                $scope.getRecurringTemplateDetails = data.d.details[0];  
+            }).error(function(data, status, headers, config) {
+                    alert(eval(JSON.stringify(data.d.operationStatus.messages)));
+            });
     };
     
     
-     $scope.saveEmailTemplate= function (){
+    $scope.saveEmailTemplate= function (){
         var recurringEmailTemplateId=eval($("#recurringEmailTemplateId").val());
         var htmlData=$("#htmlDataEdit").val();
         var emailTemplateName=$("#editEmailTemplateName").val();
@@ -129,7 +129,7 @@ function recurringEmail($scope,$http) {
     };
     
      $scope.deleteRecurringEmail = function () {
-     var recurringEmailTemplateId=$("#recurringEmailTemplateId").val();
+     var recurringEmailTemplateId=$scope.recurringEmailTemplateId;
       var deleteEmailTemplates=confirm(deleteEmailTemplate);
             if(deleteEmailTemplates===true)
             {

@@ -94,7 +94,7 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
     
     $scope.getMarketingProgramActionsById = function (){
         
-        var marketingProgramId=$("#marketingProgramIdTag").val();
+        var marketingProgramId=$scope.marketingProgramId
         if(window.location.href.indexOf("marketingprogramdetails?marketingProgramId") > -1) {
             $("#updateMarketingProgramSaveButton").show();
             $("#addMarketingProgramSaveButton").hide();

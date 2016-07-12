@@ -17,6 +17,7 @@ $(document).ready(function () {
 
 
     $("#addOrganizationPopupDiv").click(function () {
+        alert("test");
         $("#addOrganizationPopup").hide();
         $("#addOrganizationPopupDiv").hide();
 
@@ -186,7 +187,8 @@ function organizationcontroller($scope, $http) {
         });
     };
         
-        $scope.deleteOrganization = function (organizationId) {
+        $scope.deleteOrganization = function () {
+            var organizationId = $scope.organizationId;
             var deleteOrganization = confirm(deleteOrganizationPrompt);
             if (deleteOrganization === true)
             {
@@ -205,7 +207,7 @@ function organizationcontroller($scope, $http) {
 
 
         $scope.updateOrganization = function () {
-            var organizationId = $("#organizationIdTag").val();
+            var organizationId = $scope.organizationId;
             var organizationName = $("#organizationNameDiv").text();
             var organizationTypeId = $("#organizationDetailsTypeId").val();
             var updateorg = {
@@ -508,7 +510,6 @@ function organizationcontroller($scope, $http) {
         var emailCategory = {"emailBlockName": emailBlockName, 
                             "externalSourceKeywordLookupId": externalSourceKeywordLookupId, 
                             "organizationId": organizationId}
-        alert(JSON.stringify(emailCategory));
         if (emailBlockName === "") {
             alert(enterEmailBlock);
             $("#emailBlockName").focus();
@@ -802,7 +803,6 @@ function organizationcontroller($scope, $http) {
         var recurringEmailTemplateId = selectedList.recurringEmailTemplateId;
         var saveOrganizationRecurringEmailById = {"recurringEmailTemplateId": recurringEmailTemplateId, 
                                                 "organizationId": organizationId};
-        alert(JSON.stringify(saveOrganizationRecurringEmailById));
                                             
         $.ajax({
             method: 'POST',

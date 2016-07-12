@@ -115,7 +115,7 @@ app.directive("ngFileSelect",function(){
 });
 function emailTemplateController($scope, $http ,fileReader) {
      $scope.imageSrc ="images/uploadPhoto.svg";
-     
+     $scope.emailModelId = null;
     $scope.getEmailModelId = function (){
         var qs = (function(a) {
             if (a == "") return {};
@@ -259,7 +259,7 @@ function emailTemplateController($scope, $http ,fileReader) {
 
 
     $scope.getEmailModelById = function () {
-        var emailModelId = $("#emailModelIdTag").val();
+        var emailModelId = $scope.emailModelId;
         
         $http({
             method: 'GET',
@@ -275,8 +275,8 @@ function emailTemplateController($scope, $http ,fileReader) {
     };
 
 
-    $scope.deleteEmailTemplate = function (emailModelId) {
-        var emailModelId = $("#emailModelIdTag").val();
+    $scope.deleteEmailTemplate = function () {
+        var emailModelId = $scope.emailModelId;
         var deleteEmailTemplate = confirm("Do you want to delete this Template?");
         if (deleteEmailTemplate === true)
         {

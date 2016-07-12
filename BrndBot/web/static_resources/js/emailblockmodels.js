@@ -84,6 +84,7 @@ app.directive("ngFileSelect",function(){
   
 });
 function emailBlocksController($scope, $http, fileReader) {
+    $scope.emailBlockModelId = null;
      $scope.imageSrc ="images/uploadPhoto.svg";
       $scope.getFile = function () {
         $scope.progress = 0;
@@ -128,7 +129,7 @@ function emailBlocksController($scope, $http, fileReader) {
     
     
      $scope.getEmailModelById = function () {
-        var emailBlockIdTag = $("#emailBlockIdTag").val();
+        var emailBlockIdTag = $scope.emailBlockModelId;
         $http({
             method: 'GET',
             url: getHost() + '/getEmailBlockModelById?emailBlockModelId=' + emailBlockIdTag
@@ -193,7 +194,9 @@ function emailBlocksController($scope, $http, fileReader) {
     };
 
 
-    $scope.deleteEmailBlockModel= function (emailBlockModelId) {
+    $scope.deleteEmailBlockModel= function () {
+        
+        var emailBlockModelId = $scope.emailBlockModelId;
         var deleteEmailBlocks = confirm(deleteEmailBlockPrompt);
         if (deleteEmailBlocks === true)
         {
