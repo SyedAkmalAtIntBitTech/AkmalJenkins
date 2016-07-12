@@ -60,8 +60,9 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                     <div class="listCol col1of2 fleft" >
                         <span class="listCol_Text fleft">{{subcategory.subCategoryName}}</span>
                     </div>
-                     <div class="listCol col1of4 fleft"  ng-init="getAllExternalSourceKeywordLookups()">
-                        <span class="listCol_Text fleft">{{ExternalSourceKeywordLookups.externalSourceName}}-{{ExternalSourceKeywordLookups.externalSourceKeywordName}}</span>
+                     <div class="listCol col1of4 fleft"> 
+                         <!--ng-init="getAllExternalSourceKeywordLookups()">-->
+                        <span class="listCol_Text fleft">{{subcategory.externalSourceName}}-{{subcategory.externalSourceKeywordName}}</span>
                     </div>
                     <div class="listCol col1of4 fleft">
                         <a href="/BrndBot/admin/printsubcategorydetails?organizationId={{organizationDetails.organizationId}}&categoryId={{categoryDetails.categoryId}}&subCategoryId={{subcategory.subCategoryId}}"><div class="CTA_Button Button--Gray fright">Manage Sub Category</div></a>

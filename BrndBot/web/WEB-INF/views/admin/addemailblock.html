@@ -8,6 +8,8 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
     <head>
        
       <title>Add a new block</title>
+        <!--<script type="text/javascript" src="js/angular.min.js"></script>-->
+      
     </head>
     <body ng-app  ng-controller="organizationcontroller">
         
@@ -15,7 +17,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
              <div id="addOrganizationPopupDiv1" class="popUp_backgroundlayer"></div>
            
            
-        <div  class="popUp">
+        <div class="popUp">
             
              <div class="content-area_header">
                   
@@ -27,7 +29,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
                
                 <div class="input_Label">Optional External Source</div>
                 <select class="input_Field" id="optionalExternalSource" >
-                    <option ng-repeat="ExternalSourceKeywordLookup in ExternalSourceKeywordLookups" class="input_Field" value="{{ExternalSourceKeywordLookup.externalSourceKeywordId}}">{{ExternalSourceKeywordLookup.externalSourceName}}-{{ExternalSourceKeywordLookup.externalSourceKeywordName}}</option>
+                    <option ng-repeat="ExternalSourceKeywordLookup in ExternalSourceKeywordLookup" class="input_Field" value="{{ExternalSourceKeywordLookup.externalSourceKeywordId}}">{{ExternalSourceKeywordLookup.externalSourceName}}-{{ExternalSourceKeywordLookup.externalSourceKeywordName}}</option>
                 </select>
                 <div id="addEmail"  class="CTA_Button Button--Gray fleft pushUp_30" ng-click="addEmailBlock()">CreateBlock</div>
             </div>

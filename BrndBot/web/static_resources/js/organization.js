@@ -317,13 +317,12 @@ function organizationcontroller($scope, $http) {
 
     $scope.addImageCategory = function () {
 
-
         var organizationId = $scope.organizationId;
         var imageCategory = $("#imageCategory").val();
-        var imageCategory = {"categoryName": imageCategory, "channelId": imageChannelId, "organizationId": organizationId}
+        var Category = {"categoryName": imageCategory, "channelId": imageChannelId, "organizationId": organizationId}
         if (imageCategory === "") {
             alert(enterCategoryName);
-            $("#imagecategory").focus();
+            $("#imageCategory").focus();
         } else {
 
             $.ajax({
@@ -331,7 +330,7 @@ function organizationcontroller($scope, $http) {
                 url: getHost() + '/saveCategory',
                 dataType: "json",
                 contentType: "application/json",
-                data: JSON.stringify(imageCategory)
+                data: JSON.stringify(Category)
             }).success(function (data)
             {
                 alert(imageName + "\t" + eval(JSON.stringify(data.d.operationStatus.messages)));
@@ -428,6 +427,7 @@ function organizationcontroller($scope, $http) {
 
 
     $scope.getAllExternalSourceKeywordLookups = function () {
+//        alert("text");
         $http({
             method: 'GET',
             url: getHost() + '/getAllExternalSourceKeywordLookups',
@@ -483,7 +483,7 @@ function organizationcontroller($scope, $http) {
             method: 'GET',
             url: getHost() + '/getAllExternalSourceKeywordLookups',
         }).success(function (data, status, headers, config) {
-             $scope.ExternalSourceKeywordLookups = data.d.details;
+             $scope.ExternalSourceKeywordLookup = data.d.details;
         }).error(function (data, status, headers, config) {
             alert(eval(JSON.stringify(data.d.operationStatus.messages)));
         });
@@ -673,7 +673,8 @@ function organizationcontroller($scope, $http) {
         });
     };
     
-    $scope.getAllNonAddedPrintModelsBySubCategoryId = function (subCategoryID) {
+    $scope.getAllNonAddedPrintModelsBySubCategoryId = function () {
+        var subCategoryID = $scope.subcategoryId;
         $http({
             method: 'GET',
             url: getHost() + 'getAllNonAddedPrintModels?subCategoryId=' + subCategoryID
@@ -875,7 +876,6 @@ function organizationcontroller($scope, $http) {
         var marketingCategoryName = $("#marketingCategoryName").val();
 
         var organizationId = $("#organizationId").val();
-        alert(organizationId);
         var categoryName = (eval(JSON.stringify(marketingCategoryName)));
 //        var organizationIdNew = (eval(JSON.stringify(organizationId)));
         if (categoryName == "")
@@ -885,7 +885,6 @@ function organizationcontroller($scope, $http) {
             return false;
         }
         var marketingCategory = {"marketingCategoryName": categoryName, "organizationId": organizationId}
-        alert(JSON.stringify(marketingCategory));
         $.ajax({
             method: 'POST',
             url: getHost() + 'saveMarketingCategory',
