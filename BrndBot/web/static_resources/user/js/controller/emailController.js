@@ -272,20 +272,20 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 //                        editor.find("#" + $scope.htmlTagId).replaceWith(BlockHtml);
 //                        editorHtml = editor.html();
 //                        $('#edit').froalaEditor('html.set', '' + editorHtml + '');
-                $("#"+$scope.previousTagId).after(BlockHtml);
+                $("#de1").after(BlockHtml);
                 $scope.previousTagId = $scope.htmlTagId;
-                tinymce.init({
-                    selector: 'td.mce-content-body',
-                    width:400,
-                    inline: true,
-                    plugins: [
-                        'advlist autolink lists link image charmap print preview anchor',
-                        'searchreplace visualblocks code fullscreen',
-                        'insertdatetime media table contextmenu paste',
-                        'emoticons template paste textcolor colorpicker textpattern imagetools'
-                    ],
-                    toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
-                });
+//                tinymce.init({
+//                    selector: 'td.mce-content-body',
+//                    width:400,
+//                    inline: true,
+//                    plugins: [
+//                        'advlist autolink lists link image charmap print preview anchor',
+//                        'searchreplace visualblocks code fullscreen',
+//                        'insertdatetime media table contextmenu paste',
+//                        'emoticons template paste textcolor colorpicker textpattern imagetools'
+//                    ],
+//                    toolbar: 'insertfile undo redo | forecolor backcolor | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+//                });
 
 
 

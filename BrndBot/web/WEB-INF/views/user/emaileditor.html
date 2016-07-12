@@ -22,19 +22,19 @@
 <div ng-include src="'emailpreview.html'"></div>
 <!--<div ng-include src="'emailpreview.html'"></div>--> 
 <script>
-    tinymce.init({
-    selector: 'div.editable',
-            height: 300,
-            width: 400,
-            inline: true,
-            plugins: [
-                    'advlist autolink lists link image charmap print preview anchor',
-                    'searchreplace visualblocks code fullscreen',
-                    'insertdatetime media table contextmenu paste',
-                    'emoticons template paste textcolor colorpicker textpattern imagetools'
-            ],
-            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
-    });</script>
+                tinymce.init({
+                    selector: 'td.mce-content-body',
+                    width:400,
+                    inline: true,
+                    plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table contextmenu paste',
+                        'emoticons template paste textcolor colorpicker textpattern imagetools'
+                    ],
+                    toolbar: 'insertfile undo redo | forecolor backcolor | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+                });
+</script>
 
 <!--<div id="boxes" >
     <div id="dialog" class="window" >
@@ -146,10 +146,15 @@
                                                 </tr></tbody></table></td>
                                 </tr></tbody></table></div></div><!-- end of article --><!-- article --><!-- end of article -->
                 <!-- Start of seperator -->
-                <div class="module"><div class="view"><table width="100%" bgcolor="#2a2a2a" cellpadding="0" cellspacing="0" border="0" st-sortable="seperator"><tbody><tr><td>
+                <div class="module" id="de1">
+                    <div class="view">
+                        <table width="100%" bgcolor="#2a2a2a" cellpadding="0" cellspacing="0" border="0" st-sortable="seperator"><tbody><tr><td>
                                         <table width="600" align="center" cellspacing="0" cellpadding="0" border="0" class="devicewidth"><div class="innerbg"></div><div class="addremove" style="margin-left: 945px;"><div class="drag"></div><div class="remove"></div></div><tbody><tr><td align="center" height="30" style="font-size:1px; line-height:1px;" st-content="separator" id="mce_25" class="mce-content-body" tabindex="-1" contenteditable="true" spellcheck="false"><p>&nbsp;</p></td>
                                                 </tr></tbody></table></td>
-                                </tr></tbody></table></div></div><!-- End of seperator --><!-- footer -->
+                                </tr></tbody>
+                        </table>
+                    </div>
+                </div><!-- End of seperator --><!-- footer -->
             </div>
         </div>
                 </div>
