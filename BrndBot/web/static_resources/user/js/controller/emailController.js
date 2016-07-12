@@ -523,17 +523,20 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 });
             });
         };
-        
+
         $scope.ddSelectEmailListOptions = [
             {
                 text: "Manual"
+            },
+            {
+                text: "Manual2"
             }
         ];
 
         $scope.ddSelectEmailList = {
-          text: "Manual"
+            text: "Manual"
         };
-        
+
         $scope.showEmailList = function () {
             emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
                 var parseData = JSON.parse(data.d.details);
@@ -541,13 +544,13 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
                 //angular DD
                 var emailData = parseData.allEmailListWithNoOfContacts.user;
-                for ( var i = 0; i<emailData.length; i++ ) 
+                for (var i = 0; i < emailData.length; i++)
                 {
                     var emailObject = {};
                     emailObject["text"] = emailData[i].emailListName;
                     emailObject["value"] = emailData[i].emailListID;
-                    $scope.ddSelectEmailListOptions.push(emailObject);                   
-                }             
+                    $scope.ddSelectEmailListOptions.push(emailObject);
+                }
             });
             $scope.emailList = "1";
         };
@@ -788,30 +791,28 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         ];
 
         $scope.ddSelectMarketingCampaign = {
-          text: "--General--"
+            text: "--General--"
         };
-        
+
         $scope.getAllMaketingPrograms = function (selectedSocialmedia) {
             companyMarketingProgramFactory.getAllUserMarketingProgramsGet().then(function (data) {
                 $scope.defaultmarketingprogram = [{program_id: 0, name: '--General--', id: 0}];
                 $scope.marketing_programs = $scope.defaultmarketingprogram.concat(data);
                 $scope.selectedMarketingProgrma = $scope.marketing_programs[0].program_id;
-                alert(JSON.stringify(data));
                 var marketingData = data;
-                for ( var i = 0; i<marketingData.length; i++ ) 
+                for (var i = 0; i < marketingData.length; i++)
                 {
                     var marketingObject = {};
                     marketingObject["text"] = marketingData[i].name;
                     marketingObject["value"] = marketingData[i].program_id;
                     $scope.ddSelectMarketingCampaignName.push(marketingObject);
                 }
-                alert(JSON.stringify($scope.ddSelectMarketingCampaign));  
                 $scope.getEmailAction();
             });
         };
-        
-        
-        
+
+
+
 //        $scope.getAllMaketingPrograms = function (selectedSocialmedia) {
 //            companyMarketingProgramFactory.getAllUserMarketingProgramsGet().then(function (data) {
 //                $scope.defaultmarketingprogram = [{program_id: 0, name: '--General--', id: 0}];
@@ -827,17 +828,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.getFacebookActions(selectedMarketingProgrmaId);
             }
         };
-        
-        $scope.ddSelectActionName = [
-            {
-                text: "CUSTOM FACEBOOK"
-            }
-        ];
 
-        $scope.ddSelectAction = {
-          text: "CUSTOM FACEBOOK"
-        };
-        
         $scope.getFacebookActions = function (selectedMarketingProgrmaId) {
             var data = JSON.stringify({programid: selectedMarketingProgrmaId.toString()});
             scheduleActionsFactory.getActionsPost(data).then(function (data) {
@@ -845,39 +836,19 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM FACEBOOK"}];
                 $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
                 $scope.socialAction = $scope.defaultAction[0].id;
-                alert(JSON.stringify(data));
-                var actionData = parseData;
-                for ( var i = 0; i<actionData.length; i++ ) 
-                {
-                    var actionObject = {};
-                    actionObject["text"] = actionData[i].name;
-                    actionObject["value"] = actionData[i].program_id;
-                    $scope.ddSelectActionName.push(actionObject);
-                }
-                alert(JSON.stringify($scope.ddSelectAction));  
             });
         };
-            
-//        $scope.getFacebookActions = function (selectedMarketingProgrmaId) {
-//            var data = JSON.stringify({programid: selectedMarketingProgrmaId.toString()});
-//            scheduleActionsFactory.getActionsPost(data).then(function (data) {
-//                var parseData = JSON.parse(data.d.details);
-//                $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM FACEBOOK"}];
-//                $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
-//                $scope.socialAction = $scope.defaultAction[0].id;
-//            });
-//        };
 
         $scope.setAction = function (selectedAction) {
             $scope.socialAction = selectedAction;
         };
-        
+
         $scope.schedulePost = function (selectedSocialmedia, postData) {
             if (selectedSocialmedia === "email") {
                 $scope.schedulePostToEmail(postData);
             }
         };
-        
+
         $scope.schedulePostToEmail = function (postData) {
             var email_scheduling = $scope.getScheduleData($scope.selectedMarketingProgrma, postData);
             if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
@@ -885,7 +856,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 });
             }
         };
-      
+
         $scope.getScheduleData = function (selectedMarketingProgrmaId, postData) {
             var email_scheduling = "";
             if (!$scope.createNewActionPopup) {
@@ -961,7 +932,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             }
             return email_scheduling;
         };
-        
+
         $scope.previewCloseButton = function () {
             $scope.emailPreviewPopup = false;
             $("#fade").hide();
@@ -1006,11 +977,22 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.schedulePopup = false;
             }
         };
-        
+
         $scope.previousButton = function (popupName) {
             $scope.schedulePopup = false;
             $scope.postTypeSelectionPopUp = true;
         };
+
+        $scope.ddSelectActionName = [
+            {
+                text: "CUSTOM FACEBOOK"
+            }
+        ];
+
+        $scope.ddSelectAction = {
+            text: "CUSTOM FACEBOOK"
+        };
+
         $scope.getEmailAction = function () {
             var actionCallData = {
                 programid: "0",
@@ -1021,8 +1003,29 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM FACEBOOK"}];
                 $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
                 $scope.socialAction = $scope.defaultAction[0].id;
+                var actionData = eval(parseData);
+                for (var i = 0; i < actionData.length; i++)
+                {
+                    var actionObject = {};
+                    actionObject["text"] = actionData[i].schedule_title;
+                    actionObject["value"] = actionData[i].id;
+                    $scope.ddSelectActionName.push(actionObject);
+                }
             });
         };
+
+//        $scope.getEmailAction = function () {
+//            var actionCallData = {
+//                programid: "0",
+//                type: getemail()
+//            };
+//            scheduleActionsFactory.getActionsPost(actionCallData).then(function (data) {
+//                var parseData = JSON.parse(data.d.details);
+//                $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM FACEBOOK"}];
+//                $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
+//                $scope.socialAction = $scope.defaultAction[0].id;
+//            });
+//        };
         $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
             if (selectedSocialmedia === "email") {
                 var sendEmailData = JSON.stringify({
