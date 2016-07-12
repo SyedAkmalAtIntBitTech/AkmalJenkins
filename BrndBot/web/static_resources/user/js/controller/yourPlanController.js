@@ -12,6 +12,25 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.savedEmail = false;
         $scope.schedule_id = '';
         $scope.isRecurring = false;
+
+        $scope.ddSelectActionOptions = [
+            {
+                text: 'Select',
+            }, {
+                text: 'Facebook Post',
+            }, {
+                text: 'Twitter Post',
+            }, {
+                text: 'Email',
+            }, {
+                text: 'Reminder',
+            }
+        ];
+
+        $scope.ddSelectAction = {
+            text: "Select"
+        };
+
         // use scope.onPikadaySelect for older scope syntax
         $scope.onPikadaySelect = function onPikadaySelect(pikaday) {
             alert(pikaday.toString());

@@ -85,10 +85,29 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             });
         };
         
+        $scope.ddSelectServicesOptions = [
+            {
+                text: "None"
+            }
+        ];
+
+        $scope.ddSelectServices = {
+          text: "None"
+        };
+        
         $scope.getAllServices = function () {
             subCategoryFactory.allExternalSourcesGet().then(function (data) {
                 $scope.services = data.d.details;
                 $scope.thirdPartyService = data.d.details[0].externalSourceId;
+                var servicesData = data.d.details;
+                for ( var i = 0; i<servicesData.length; i++ ) 
+                {
+                    var servicesObject = {};
+                    servicesObject["text"] = servicesData[i].externalSourceName;
+                    servicesObject["value"] = servicesData[i].externalSourceId;
+                    $scope.ddSelectServicesOptions.push(servicesObject);
+                }
+                alert(JSON.stringify($scope.ddSelectServices));  
             });
         };
       

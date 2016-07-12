@@ -7,9 +7,9 @@
 var factoryApp =  angular.module('factorys', []);
 var brndBotSignupApp = angular.module('signupApp', ['factorys','ngRoute','ngDropdowns']);
 var socialFlowApp = angular.module('socialFlowApp', ['factorys','ngRoute']);
-var emailFlowApp = angular.module('emailFlowApp', ['factorys','ngRoute','sharedService']);
+var emailFlowApp = angular.module('emailFlowApp', ['factorys','ngRoute','sharedService','ngDropdowns']);
 var marketingFlowApp = angular.module('marketingFlowApp', ['factorys','ngRoute']);
-var yourPlanFlowApp = angular.module('yourPlanFlowApp', ['factorys','ngRoute']);
+var yourPlanFlowApp = angular.module('yourPlanFlowApp', ['factorys','ngRoute','ngDropdowns']);
 var dashboardFlowApp = angular.module('dashboardFlowApp', ['factorys','ngRoute','sharedService']);
 var settingFlowApp = angular.module('settingFlowApp', ['factorys','ngRoute']);
 var userGalleryApp = angular.module('userGalleryApp', ['factorys','ngRoute']);
