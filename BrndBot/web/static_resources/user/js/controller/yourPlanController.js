@@ -631,6 +631,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 });
             }
         };
+        
+    
 
         $scope.updateNote = function (scheduleData) {
             var schedule_id = scheduleData.schedule_id;//$("#note_scheduleid").val();

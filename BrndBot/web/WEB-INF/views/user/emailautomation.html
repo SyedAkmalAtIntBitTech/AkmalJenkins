@@ -179,7 +179,7 @@
 </div>
 
 </div>
-<div class="bottom-cta-bar">
+<div class="bottom-cta-bar" ng-show="automationEditor === false">
     <div class="bottom-cta-button-container-lg">
         <div class="bottom-continue-button button-text-1" ng-click="addUpdateRecuringAction()">Continue</div>
     </div>
@@ -430,7 +430,7 @@
         <link rel="stylesheet" href="css/plugins/video.css">
         <link rel="stylesheet" href="css/plugins/fullscreen.css"/>
         <link rel="stylesheet" href="css/plugins/file.css">
-<div class="bottom-cta-bar" id="editpreviewtemplatebottom" style="display: block;">
+<div class="bottom-cta-bar" ng-show="automationEditor === true">
     <!--        <div class="bottom-cta-bar" ng-show="emailRecurringPreviewTemplate" id="editpreviewtemplatebottom">-->
     <div class="bottom-cta-button-container-lg">
         <!--             <div class="editemail fontpnr col-1of4">Edit this Email Automation Action</div>   

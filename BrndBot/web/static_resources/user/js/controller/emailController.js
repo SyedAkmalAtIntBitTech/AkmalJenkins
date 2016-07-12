@@ -77,7 +77,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.externalSourceName = 'mindbody';
                 redirect = $scope.forwardone;
             }
-            if (mindbody === 'nonmindbody')
+            if (mindbody != 'Mindbody')
             {
                 if (redirect === 'emailexternalsource')
                 {
