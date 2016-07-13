@@ -398,9 +398,13 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             $scope.createNewActionPopup = false;
         };
         $scope.ddSelectActionName = [
+            {
+                text: "Custom Action",
+                value: "0"
+            }
         ];
         $scope.ddSelectAction = {
-            text: "Select"
+            text: "Custom Action"
         };
         $scope.getFacebookActions = function (selectedMarketingProgrmaId) {
             var data = JSON.stringify({programid: selectedMarketingProgrmaId.toString(), type: getfacebook()});
@@ -498,6 +502,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 //            });
 //        };
         $scope.getActions = function (selectedSocialmedia, selectedMarketingProgrmaId) {
+            alert(JSON.stringify(selectedSocialmedia, selectedMarketingProgrmaId));
             $scope.selectedMarketingProgrma = selectedMarketingProgrmaId;
             if (selectedSocialmedia === "facebook") {
                 $scope.getFacebookActions(selectedMarketingProgrmaId);
@@ -506,6 +511,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             }
         };
         $scope.setAction = function (selectedAction) {
+            alert(JSON.stringify(selectedAction));
             $scope.socialAction = selectedAction;
         };
         $scope.schedulePost = function (selectedSocialmedia, postData) {
