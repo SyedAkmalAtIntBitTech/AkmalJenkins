@@ -132,22 +132,40 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
         $scope.closeEditActionPopUp();
     };
     
-    
     $scope.createOneTimeAction = function (is_recurring){
         var newOneTimeActionName = $("#newOneTimeActionName").val();
         var newActionTypeOneTimeActions= $("#newActionTypeOneTimeActions").val();
         var newActionsNoOfDays = $("#newActionsNoOfDays").val();
         var newActionTime = $("#newActionTime").val();
-        $scope.newMarketingAction={"days": newActionsNoOfDays,"description": "","time": newActionTime,"is_recurring": is_recurring,
-                                    "title": newOneTimeActionName,"type": newActionTypeOneTimeActions,"tilldate": ""
-                                   };                                   
-        globalActionsArray.push($scope.newMarketingAction);
-        $scope.marketingProgramActions=globalActionsArray;
-        $("#newOneTimeActionName").val('');
-//        $("#newActionTypeOneTimeActions").val('');
-        $("#newActionsNoOfDays").val('');
-        $("#newActionTime").val('');
-        $scope.closeOneTimeActionPopUp();
+        if (newOneTimeActionName === ""){
+            alert("Name not entered, please enter the name");
+            $("#newOneTimeActionName").focus();
+            return false;
+        }
+        
+        if (newActionsNoOfDays === ""){
+            alert("No of days not entered, please enter no of days");
+            $("#newActionsNoOfDays").focus();
+            return false;
+        }
+
+        if (newActionTime === ""){
+            alert("Time not entered, please enter the time");
+            $("#newActionTime").focus();
+            return false;
+        }else {
+            $scope.newMarketingAction={"days": newActionsNoOfDays,"description": "","time": newActionTime,"is_recurring": is_recurring,
+                                        "title": newOneTimeActionName,"type": newActionTypeOneTimeActions,"tilldate": ""
+                                       };                                   
+            globalActionsArray.push($scope.newMarketingAction);
+            $scope.marketingProgramActions=globalActionsArray;
+            $("#newOneTimeActionName").val('');
+    //        $("#newActionTypeOneTimeActions").val('');
+            $("#newActionsNoOfDays").val('');
+            $("#newActionTime").val('');
+            $scope.closeOneTimeActionPopUp();
+        }
+
     };
     
     

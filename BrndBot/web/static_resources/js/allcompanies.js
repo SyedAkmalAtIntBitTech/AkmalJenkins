@@ -198,7 +198,7 @@ function allCompaniesController($scope,$http){
         
         $scope.addGroupTemplate= function (){
         var companyId=$scope.companyId;      
-         var organizationName=$("#organizationName").val();     
+        var organizationName=$("#organizationName").val();     
         var companyName=$("#companyName").text();       
         var organizationId=eval(JSON.stringify(selectedListItems.organizationId));
         var groupAddTemplate ={"companyId" : companyId, "organizationId" : organizationId}
