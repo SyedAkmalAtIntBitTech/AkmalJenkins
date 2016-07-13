@@ -27,378 +27,378 @@ factoryApp.service('configurationService', function (){
   //**************** assetsFactory **********************//
   
     this.downloadImageURL = function () {
-        return getHost() + "/downloadImage";
+        return getHost() + "downloadImage";
     };
     
     this.imageListURL = function () {
-        return getHost() + "/getImageList";
+        return getHost() + "getImageList";
     };
    
     this.globalColorsURL = function () {
-        return getHost() + "/getColorThemeById";
+        return getHost() + "getColorThemeById";
     };
     
     this.globalImageURL = function () {
-        return getHost() + "/getGlobalImageById";
+        return getHost() + "getGlobalImageById";
     };
     
     this.globalFontsURL = function () {
-        return getHost() + "/getFontById";
+        return getHost() + "getFontById";
     };
     
     this.allColorThemesURL = function () {
-        return getHost() + "/getAllColorThemes";
+        return getHost() + "getAllColorThemes";
     };
     
     this.allGlobalImageURL = function () {
-        return getHost() + "/getAllGlobalImages";
+        return getHost() + "getAllGlobalImages";
     };
     
     this.allFontsURL = function () {
-        return getHost() + "/getAllFonts";
+        return getHost() + "getAllFonts";
     };
     this.saveFontURL = function () {
-        return getHost() + "/saveFont";
+        return getHost() + "saveFont";
     };
     
     this.colorThemeURL = function () {
-        return getHost() + "/saveColorTheme";
+        return getHost() + "saveColorTheme";
     };
     
     this.saveGlobalImageURL = function () {
-        return getHost() + "/saveGlobalImage";
+        return getHost() + "saveGlobalImage";
     };
     
     this.updateGlobalImageURL = function () {
-        return getHost() + "/updateGlobalImage";
+        return getHost() + "updateGlobalImage";
     };
     
     this.updateFontURL = function () {
-        return getHost() + "/updateFont";
+        return getHost() + "updateFont";
     };
     
     this.updateColorThemeURL = function () {
-        return getHost() + "/updateColorTheme";
+        return getHost() + "updateColorTheme";
     };
     
     this.deleteFontURL = function () {
-        return getHost() + "/deleteFont";
+        return getHost() + "deleteFont";
     };
     
     this.deleteGlobalImageURL = function () {
-        return getHost() + "/deleteGlobalImage";
+        return getHost() + "deleteGlobalImage";
     };
     
     this.imageUniquenessURL = function () {
-        return getHost() + "/checkGlobalImageUniqueness";
+        return getHost() + "checkGlobalImageUniqueness";
     };
     
     this.deleteColorThemeURL = function () {
-        return getHost() + "/deleteColorTheme";
+        return getHost() + "deleteColorTheme";
     };
     
     
       //**************** blockModelFactory **********************//
       
      this.emailBlockModelLookupURL = function () {
-        return getHost() + "/getAllEmailBlockModelById";
+        return getHost() + "getAllEmailBlockModelById";
     };
        
     this.allEmailBlockModelURL = function () {
-        return getHost() + "/getAllEmailBlockModelsByBlockId";
+        return getHost() + "getAllEmailBlockModelsByBlockId";
     };
         
     this.emailBlockModelURL = function () {
-        return getHost() + "/getAllEmailBlockModel";
+        return getHost() + "getAllEmailBlockModel";
     };
     
     this.emailBlockModelIdURL = function () {
-        return getHost() + "/getEmailBlockModelById";
+        return getHost() + "getEmailBlockModelById";
     };
         
     this.nonAddedEmailBlockModelURL = function () {
-        return getHost() + "/getAllNonAddedEmailBlockModel";
+        return getHost() + "getAllNonAddedEmailBlockModel";
     };
     
     this.saveBlockModelURL = function () {
-        return getHost() + "/saveBlockModel";
+        return getHost() + "saveBlockModel";
     };
         
     this.saveEmailBlockModelURL = function () {
-        return getHost() + "/saveEmailBlockModel";
+        return getHost() + "saveEmailBlockModel";
     };
     
     this.updateBlockModelURL = function () {
-        return getHost() + "/updateBlockModel";
+        return getHost() + "updateBlockModel";
     };
     
     this.deleteBlockModelURL = function () {
-        return getHost() + "/deleteBlockModel";
+        return getHost() + "deleteBlockModel";
     };
     
     this.deleteEmailBlockModelURL = function () {
-        return getHost() + "/deleteEmailBlockModel";
+        return getHost() + "deleteEmailBlockModel";
     };
     
       
       //**************** categoryFactory **********************//
       
     this.categoryURL = function () {
-        return getHost() + "/getCategoryByCategoryId";
+        return getHost() + "getCategoryByCategoryId";
     };
     
     this.channelURL = function () {
-        return getHost() + "/getAllOrganizationCategoryByOrganizationId";
+        return getHost() + "getAllOrganizationCategoryByOrganizationId";
     };
     
     this.saveCategoryURL = function () {
-        return getHost() + "/saveCategory";
+        return getHost() + "saveCategory";
     };
     
     this.updateCategoryURL = function () {
-        return getHost() + "/updateCategory";
+        return getHost() + "updateCategory";
     };
     
     this.deleteCategoryURL = function () {
-        return getHost() + "/deleteCategory";
+        return getHost() + "deleteCategory";
     };
     
     this.allCompanyCategoriesURL = function () {
-        return getHost() + "/getAllCompanyCategories";
+        return getHost() + "getAllCompanyCategories";
     };
  
       //**************** emailBlockFactory **********************//
   
     this.saveEmailBlockURL = function () {
-        return getHost() + "/saveEmailBlock";
+        return getHost() + "saveEmailBlock";
     };
     
     this.deleteEmailBlockURL = function () {
-        return getHost() + "/deleteEmailBlock";
+        return getHost() + "deleteEmailBlock";
     };
     
     this.allEmailBlocksURL = function () {
-        return getHost() + "/getAllEmailBlocksByOrganizationId";
+        return getHost() + "getAllEmailBlocksByOrganizationId";
     };
     
    //**************** emailFactory **********************//    
     
     this.sendEmailPostURL = function () {
-        return getHost() + "/email/send";
+        return getHost() + "email/send";
     };
     
     this.sendEmailGetURL = function () {
-        return getHost() + "/email/tags";
+        return getHost() + "email/tags";
     };
     
     this.previewServletURL = function () {
-        return getHost() + "/email/previewServlet";
+        return getHost() + "email/previewServlet";
     };
     
     //**************** externalContentFactory **********************//
     
     this.activatedGetURL = function () {
-        return getHost() + "/externalContent/isActivated";
+        return getHost() + "externalContent/isActivated";
     };
     
     this.activationLinkURL = function () {
-        return getHost() + "/externalContent/getActivationLink";
+        return getHost() + "externalContent/getActivationLink";
     };
     
     this.listDataURL = function () {
-        return getHost() + "/externalContent/getListData";
+        return getHost() + "externalContent/getListData";
     };
     
     this.layoutEmailModelURL = function () {
-        return getHost() + "/externalContent/getLayoutEmailModelById";
+        return getHost() + "externalContent/getLayoutEmailModelById";
     };
     
     //**************** modelFactory **********************//
     
     this.emailModelURL = function () {
-        return getHost() + "/getAllEmailModelBySubCategory";
+        return getHost() + "getAllEmailModelBySubCategory";
     };
     
     this.emailModelsIdURL = function () {
-        return getHost() + "/getAllEmailModelsBySubCategoryId";
+        return getHost() + "getAllEmailModelsBySubCategoryId";
     };
     
     this.nonAddedEmailModelsURL = function () {
-        return getHost() + "/getAllNonAddedEmailModels";
+        return getHost() + "getAllNonAddedEmailModels";
     };
     
     this.nonAddedImageModelsURL = function () {
-        return getHost() + "/getAllNonAddedImageModels";
+        return getHost() + "getAllNonAddedImageModels";
     };
     
     this.nonAddedPrintModelsURL = function () {
-        return getHost() + "/getAllNonAddedPrintModels";
+        return getHost() + "getAllNonAddedPrintModels";
     };
     
     this.printModelURL = function () {
-        return getHost() + "/getAllPrintModelBySubCategory";
+        return getHost() + "getAllPrintModelBySubCategory";
     };
     
     this.imageModelSubCategoryURL = function () {
-        return getHost() + "/getAllImageModelBySubCategory";
+        return getHost() + "getAllImageModelBySubCategory";
     };
     
     this.emailModelURL = function () {
-        return getHost() + "/getAllEmailModel";
+        return getHost() + "getAllEmailModel";
     };
     
     this.emailModelIdURL = function () {
-        return getHost() + "/getEmailModelById";
+        return getHost() + "getEmailModelById";
     };
     
     this.imageModelURL = function () {
-        return getHost() + "/getAllImageModel";
+        return getHost() + "getAllImageModel";
     };
     
     this.imageModelIdURL = function () {
-        return getHost() + "/getImageModelById";
+        return getHost() + "getImageModelById";
     };
     
     this.allPrintModelURL = function () {
-        return getHost() + "/getAllPrintModel";
+        return getHost() + "getAllPrintModel";
     };
     
     this.printModelIdURL = function () {
-        return getHost() + "/getPrintModelById";
+        return getHost() + "getPrintModelById";
     };
     
     this.saveEmailModelURL = function () {
-        return getHost() + "/saveEmailModel";
+        return getHost() + "saveEmailModel";
     };
     
     this.editEmailModelURL = function () {
-        return getHost() + "/editEmailModel";
+        return getHost() + "editEmailModel";
     };
     
     this.deleteEmailModelURL = function () {
-        return getHost() + "/deleteEmailModel";
+        return getHost() + "deleteEmailModel";
     };
     
     this.saveCategoryEmailModelURL = function () {
-        return getHost() + "/saveSubCategoryEmailModel";
+        return getHost() + "saveSubCategoryEmailModel";
     };
     
     this.deleteCategoryEmailModelURL = function () {
-        return getHost() + "/deleteSubCategoryEmailModel";
+        return getHost() + "deleteSubCategoryEmailModel";
     };
     
     this.saveCategoryPrintModelURL = function () {
-        return getHost() + "/saveSubCategoryPrintModel";
+        return getHost() + "saveSubCategoryPrintModel";
     };
     
     this.deleteCategoryPrintModelURL = function () {
-        return getHost() + "/deleteSubCategoryPrintModel";
+        return getHost() + "deleteSubCategoryPrintModel";
     };
     
     this.saveCategoryImageModelURL = function () {
-        return getHost() + "/saveSubCategoryImageModel";
+        return getHost() + "saveSubCategoryImageModel";
     };
     
     this.deleteCategoryImageModelURL = function () {
-        return getHost() + "/deleteSubCategoryImageModel";
+        return getHost() + "deleteSubCategoryImageModel";
     };
     
     this.savePrintModelURL = function () {
-        return getHost() + "/savePrintModel";
+        return getHost() + "savePrintModel";
     };
     
     this.editPrintModelURL = function () {
-        return getHost() + "/editPrintModel";
+        return getHost() + "editPrintModel";
     };
     
     this.deletePrintModelURL = function () {
-        return getHost() + "/deletePrintModel";
+        return getHost() + "deletePrintModel";
     };
     
     this.saveImageModelURL = function () {
-        return getHost() + "/saveImageModel";
+        return getHost() + "saveImageModel";
     };
     
     this.updateImageModelURL = function () {
-        return getHost() + "/updateImageModel";
+        return getHost() + "updateImageModel";
     };
     
     this.deleteImageModelURL = function () {
-        return getHost() + "/deleteImageModel";
+        return getHost() + "deleteImageModel";
     };
     
     //**************** organizationFactory **********************//
     
     this.allOrganizationURL = function () {
-        return getHost() + "/getAllOrganizations";
+        return getHost() + "getAllOrganizations";
     };
     
     this.organizationURL = function () {
-        return getHost() + "/onboarding/getAllOnlyOrganizations";
+        return getHost() + "onboarding/getAllOnlyOrganizations";
     };
     
     this.saveOrganizationURL = function () {
-        return getHost() + "/saveOrganization";
+        return getHost() + "saveOrganization";
     };
     
     this.updateOrganizationURL = function () {
-        return getHost() + "/updateOrganization";
+        return getHost() + "updateOrganization";
     };
     
     this.deleteOrganizationURL = function () {
-        return getHost() + "/deleteOrganization";
+        return getHost() + "deleteOrganization";
     };
     
     this.getOrganizationURL = function () {
-        return getHost() + "/getOrganizationById";
+        return getHost() + "getOrganizationById";
     };
     
     
     //**************** scheduleActionsFactory **********************//
     
     this.getActionsURL = function () {
-        return getHost() + "/actions/getActions";
+        return getHost() + "actions/getActions";
     };
     
     this.scheduleEmailURL = function () {
-        return getHost() + "/actions/scheduleEmail";
+        return getHost() + "actions/scheduleEmail";
     };
     
     this.scheduleEmailActionsURL = function () {
-        return getHost() + "/actions/scheduleEmailActions";
+        return getHost() + "actions/scheduleEmailActions";
     };
     
     this.scheduleSocialPostActionsURL = function () {
-        return getHost() + "/actions/scheduleSocialPostActions";
+        return getHost() + "actions/scheduleSocialPostActions";
     };
     
     this.scheduleSocialPostURL = function () {
-        return getHost() + "/actions/scheduleSocialPost";
+        return getHost() + "actions/scheduleSocialPost";
     };
     
     //**************** signupFactory **********************//
     
     this.signupURL = function () {
-        return getHost() + "/signup";
+        return getHost() + "signup";
     };
     
     this.forgotPasswordURL = function () {
-        return getHost() + "/signup/forgotPassword";
+        return getHost() + "signup/forgotPassword";
     };
     
     this.resetPasswordURL = function () {
-        return getHost() + "/signup/resetPassword";
+        return getHost() + "signup/resetPassword";
     };
     
     
     //**************** socialPostFactory **********************//
     
     this.postToFacebookURL = function () {
-        return getHost() + "/socialPost/postToFacebook";
+        return getHost() + "socialPost/postToFacebook";
     };
     
     this.postToTwitterURL = function () {
-        return getHost() + "/socialPost/postToTwitter";
+        return getHost() + "socialPost/postToTwitter";
     };
     
     this.getShortenUrl = function () {
@@ -408,464 +408,464 @@ factoryApp.service('configurationService', function (){
     //**************** subCategoryFactory **********************//
     
     this.saveSubCategoryURL = function () {
-        return getHost() + "/saveSubCategory";
+        return getHost() + "saveSubCategory";
     };
     
     this.subCategoryURL = function () {
-        return getHost() + "/getSubCategoryById";
+        return getHost() + "getSubCategoryById";
     };
     
     this.deleteSubCategoryURL = function () {
-        return getHost() + "/deleteSubCategory";
+        return getHost() + "deleteSubCategory";
     };
     
     this.allSubCategoriesURL = function () {
-        return getHost() + "/getAllSubCategoriesByCategoryId";
+        return getHost() + "getAllSubCategoriesByCategoryId";
     };
     
     this.externalSourceURL = function () {
-        return getHost() + "/getAllExternalSourceKeywordLookups";
+        return getHost() + "getAllExternalSourceKeywordLookups";
     };
     
     this.allExternalSourcesURL = function () {
-        return getHost() + "/onboarding/getAllExternalSources";
+        return getHost() + "onboarding/getAllExternalSources";
     };
     
      //**************** UploadImageFactory **********************//
      
     this.uploadByAdminURL = function () {
-        return getHost() + "/UploadByAdmin";
+        return getHost() + "UploadByAdmin";
     };
     
     this.uploadByUserURL = function () {
-        return getHost() + "/UploadByUser";
+        return getHost() + "UploadByUser";
     };
 
     //************** companyFactory ********************//
     
     this.currentCompanyURL = function () {
-        return getHost() + "/getCurrentCompany";
+        return getHost() + "getCurrentCompany";
     };
     
     this.companyURL = function () {
-        return getHost() + "/getAllCompanies";
+        return getHost() + "getAllCompanies";
     };
     
     this.nonAddedGroupsURL = function () {
-        return getHost() + "/getNonAddedGroups";
+        return getHost() + "getNonAddedGroups";
     };
     
     this.companyDetailsURL = function () {
-        return getHost() + "/getCompanyDetailsById";
+        return getHost() + "getCompanyDetailsById";
     };
     
     this.allBlocksForCompanyURL = function () {
-        return getHost() + "/getAllBlocksForCompany";
+        return getHost() + "getAllBlocksForCompany";
     };
     
     this.saveGroupURL = function () {
-        return getHost() + "/saveGroup";
+        return getHost() + "saveGroup";
     };
     
     this.deleteGroupURL = function () {
-        return getHost() + "/deleteGroup";
+        return getHost() + "deleteGroup";
     };
     
     
     //************** imageFactory ********************//
 
     this.imageIdURL = function () {
-        return getHost() + "/images/get";
+        return getHost() + "images/get";
     };
     
     this.saveImageURL = function () {
-        return getHost() + "/images/save";
+        return getHost() + "images/save";
     };
    this.saveLogoURL = function () {
-        return getHost() + "/images/uploadLogo";
+        return getHost() + "images/uploadLogo";
     };
     
         //************** emailListFactory ********************//
 
     this.emailListURL = function () {
-        return getHost() + "/emaillist/get";
+        return getHost() + "emaillist/get";
     };
     
     this.emailListSaveURL = function () {
-        return getHost() + "/emaillist/save";
+        return getHost() + "emaillist/save";
     };
     
         //************** marketingFactory ********************//
      
     this.marketingProgramsURL = function () {
-        return getHost() + "/getMarketingProgramsByCategoryId";
+        return getHost() + "getMarketingProgramsByCategoryId";
     };
     
     this.nonAddedMarketingURL = function () {
-        return getHost() + "/getAllNonAddedMarketingPrograms";
+        return getHost() + "getAllNonAddedMarketingPrograms";
     };
     
     this.allMarketingCategoryURL = function () {
-        return getHost() + "/getAllMarketingCategoryByOrganizationId";
+        return getHost() + "getAllMarketingCategoryByOrganizationId";
     };
     
     this.saveMarketingURL = function () {
-        return getHost() + "/saveMarketingCategory";
+        return getHost() + "saveMarketingCategory";
     };
     
     this.deleteMarketingCategoryURL = function () {
-        return getHost() + "/deleteMarketingCategory";
+        return getHost() + "deleteMarketingCategory";
     };
     
     this.marketingCategoryIdURL = function () {
-        return getHost() + "/getByMarketingCategoryId";
+        return getHost() + "getByMarketingCategoryId";
     };
     
     this.allMarketingProgramsURL = function () {
-        return getHost() + "/getAllMarketingPrograms";
+        return getHost() + "getAllMarketingPrograms";
     };
     
     this.saveMarketingProgramURL = function () {
-        return getHost() + "/saveMarketingProgramActions";
+        return getHost() + "saveMarketingProgramActions";
     };
     
     this.updateMarketingProgramURL = function () {
-        return getHost() + "/updateMarketingProgramActions";
+        return getHost() + "updateMarketingProgramActions";
     };
     
     this.saveMarketingCategoryURL = function () {
-        return getHost() + "/saveMarketingCategoryProgram";
+        return getHost() + "saveMarketingCategoryProgram";
     };
     
     this.deleteMarketingCategoryProgramURL = function () {
-        return getHost() + "/deleteMarketingCategoryProgram";
+        return getHost() + "deleteMarketingCategoryProgram";
     };
     
     this.marketingProgramActionsIdURL = function () {
-        return getHost() + "/getMarketingProgramActionsById";
+        return getHost() + "getMarketingProgramActionsById";
     };
     
     this.companyMarketingCategoriesURL = function () {
-        return getHost() + "/getCompanyMarketingCategories";
+        return getHost() + "getCompanyMarketingCategories";
     };
     
         //************** companyImagesFactory ********************/
  
     this.companyImagesURL = function () {
-        return getHost() + "/companyImages/get";
+        return getHost() + "companyImages/get";
     };
     
     this.deleteCompanyImagesURL = function () {
-        return getHost() + "/companyImages/delete";
+        return getHost() + "companyImages/delete";
     };
     
     this.downloadURL = function () {
-        return getHost() + "/download/HTML";
+        return getHost() + "download/HTML";
     };
     
         //************** onBoardingFactory ********************/
     
     this.usersURL = function () {
-        return getHost() + "/onboarding/isUserUnique";
+        return getHost() + "onboarding/isUserUnique";
     };
     
     this.saveUserURL = function () {
-        return getHost() + "/onboarding/saveUser";
+        return getHost() + "onboarding/saveUser";
     };
     
     this.saveStudioIdURL = function () {
-        return getHost() + "/onboarding/saveStudioId";
+        return getHost() + "onboarding/saveStudioId";
     };
     
     this.completedActivationURL = function () {
-        return getHost() + "/onboarding/completedActivation";
+        return getHost() + "onboarding/completedActivation";
     };
     
     this.saveCompanyURL = function () {
-        return getHost() + "/onboarding/saveCompany";
+        return getHost() + "onboarding/saveCompany";
     };
     
     this.colorsForLogoURL = function () {
-        return getHost() + "/onboarding/getColorsForLogo";
+        return getHost() + "onboarding/getColorsForLogo";
     };
     
     this.saveCompanyLogoURL = function () {
-        return getHost() + "/onboarding/saveCompanyLogo";
+        return getHost() + "onboarding/saveCompanyLogo";
     };
     
         //************** recurringEmailFactory ********************/    
     
     this.saveRecurringEmailURL = function () {
-        return getHost() + "/saveRecurringEmail";
+        return getHost() + "saveRecurringEmail";
     };
     
     this.saveOrganizationRecurringEmailURL = function () {
-        return getHost() + "/saveOrganizationRecurringEmail";
+        return getHost() + "saveOrganizationRecurringEmail";
     };
     
     this.deleteRecurringEmailURL = function () {
-        return getHost() + "/deleteRecurringEmail";
+        return getHost() + "deleteRecurringEmail";
     };
     
     this.deleteOrganizationRecurringEmailURL = function () {
-        return getHost() + "/deleteOrganizationRecurringEmail";
+        return getHost() + "deleteOrganizationRecurringEmail";
     };
     
     this.updateRecurringEmailURL = function () {
-        return getHost() + "/updateRecurringEmail";
+        return getHost() + "updateRecurringEmail";
     };
     
     this.recurringEmailTemplateIdURL = function () {
-        return getHost() + "/getRecurringEmailTemplateById";
+        return getHost() + "getRecurringEmailTemplateById";
     };
     
     this.allRecurringOrganizationURL = function () {
-        return getHost() + "/getAllRecurringByOrganizationId";
+        return getHost() + "getAllRecurringByOrganizationId";
     };
     
     this.allNonAddedRecurringEmailURL = function () {
-        return getHost() + "/getAllNonAddedRecurringEmail";
+        return getHost() + "getAllNonAddedRecurringEmail";
     };
     
     this.allRecurringEmailsURL = function () {
-        return getHost() + "/getAllRecurringEmails";
+        return getHost() + "getAllRecurringEmails";
     };
     
         //************** settingsFactory ********************/    
     
     this.getColorsURL = function () {
-        return getHost() + "/settings/getColors";
+        return getHost() + "settings/getColors";
     };
     
     this.setColorsURL = function () {
-        return getHost() + "/settings/setColors";
+        return getHost() + "settings/setColors";
     };
     
     this.saveEmailSettingsURL = function () {
-        return getHost() + "/settings/saveEmailSettings";
+        return getHost() + "settings/saveEmailSettings";
     };
     
     this.getEmailSettingsURL = function () {
-        return getHost() + "/settings/getEmailSettings";
+        return getHost() + "settings/getEmailSettings";
     };
     
     this.getAllPreferencesURL = function () {
-        return getHost() + "/settings/getAllPreferences";
+        return getHost() + "settings/getAllPreferences";
     };
     
     this.globalAndUserColorsURL = function () {
-        return getHost() + "/settings/getGlobalAndUserColors";
+        return getHost() + "settings/getGlobalAndUserColors";
     };
     
     this.changeLogoURL = function () {
-        return getHost() + "/settings/changeLogo";
+        return getHost() + "settings/changeLogo";
     };
     
     this.facebookURL = function () {
-        return getHost() + "/settings/facebookDetails";
+        return getHost() + "settings/facebookDetails";
     };
     
     this.twitterURL = function () {
-        return getHost() + "/settings/twitterDetails";
+        return getHost() + "settings/twitterDetails";
     };
     
     this.fbLoginURL = function () {
-        return getHost() + "/settings/fbAuthURL";
+        return getHost() + "settings/fbAuthURL";
     };
     
     this.fbGetTokenURL = function () {
-        return getHost() + "/settings/fbGetToken";
+        return getHost() + "settings/fbGetToken";
     };
     
     this.twitterLoginURL = function () {
-        return getHost() + "/settings/twitterAuthURL";
+        return getHost() + "settings/twitterAuthURL";
     };
     
     this.twitterGetTokenURL = function () {
-        return getHost() + "/settings/twitterGetToken";
+        return getHost() + "settings/twitterGetToken";
     };
     
     this.setFooterPostURL = function () {
-        return getHost() + "/settings/setFooter";
+        return getHost() + "settings/setFooter";
     };
     
         //************** userFactory ********************/    
     
     this.userWelcomePageURL = function () {
-        return getHost() + "/user";
+        return getHost() + "user";
     };
     
     this.userJspPagesURL = function () {
-        return getHost() + "/user";
+        return getHost() + "user";
     };
       
         //************** yourPlanFactory ********************/    
     
     this.scheduledEntitiesURL = function () {
-        return getHost() + "/GetScheduledEntities";
+        return getHost() + "GetScheduledEntities";
     };
     
     this.changeScheduleURL = function () {
-        return getHost() + "/ChangeSchedule";
+        return getHost() + "ChangeSchedule";
     };
     
     this.addActionURL = function () {
-        return getHost() + "/AddAction";
+        return getHost() + "AddAction";
     };
     
     this.scheduledEmailURL = function () {
-        return getHost() + "/GetScheduledEmailDetail";
+        return getHost() + "GetScheduledEmailDetail";
     };
     
     this.scheduledSocialPostURL = function () {
-        return getHost() + "/GetScheduledSocialPostDetail";
+        return getHost() + "GetScheduledSocialPostDetail";
     };
     
     this.postToSocialURL = function () {
-        return getHost() + "/PostToSocial";
+        return getHost() + "PostToSocial";
     };
     
     //*****************loginFactory********************
     
     this.signinURL = function () {
-        return getHost() + "//login";
+        return getHost() + "/login";
     };
     
     this.resetLoginPasswordURL = function () {
-        return getHost() + "/resetpassword";
+        return getHost() + "resetpassword";
     };
     
     this.changePasswordURL = function () {
-        return getHost() + "/changepassword";
+        return getHost() + "changepassword";
     };
     
     this.logoutURL = function () {
-        return getHost() + "/logout";
+        return getHost() + "logout";
     };
     
     this.access_DeniedURL = function () {
-        return getHost() + "/Access_Denied";
+        return getHost() + "Access_Denied";
     };
     
     //************************companyMarketingFactory*****************
     
     this.setMarketingProgramURL = function () {
-        return getHost() + "/setMarketingProgram";
+        return getHost() + "setMarketingProgram";
     };
     
     this.listAllMarketingProgramURL = function () {
-        return getHost() + "/listAllMarketingProgram";
+        return getHost() + "listAllMarketingProgram";
     };
     
     this.alluserMarketingProgramURL = function () {
-        return getHost() + "/alluserMarketingProgramForDisplay";
+        return getHost() + "alluserMarketingProgramForDisplay";
     };
     
     this.getAllUserMarketingProgramsURL = function () {
-        return getHost() + "/getAllUserMarketingPrograms";
+        return getHost() + "getAllUserMarketingPrograms";
     };
     
     this.getAllUserMarketingProgramsUserIdURL = function () {
-        return getHost() + "/getAllUserMarketingProgramsByUserId";
+        return getHost() + "getAllUserMarketingProgramsByUserId";
     };
     
     this.getAllUserMarketingProgramsSessionIdURL = function () {
-        return getHost() + "/getAllUserMarketingProgramsBySessionUserId";
+        return getHost() + "getAllUserMarketingProgramsBySessionUserId";
     };
     
     this.updateUserProgramURL = function () {
-        return getHost() + "/updateUserProgram";
+        return getHost() + "updateUserProgram";
     };
     
     this.approveStatusRecurringURL = function () {
-        return getHost() + "/approveStatusRecurring";
+        return getHost() + "approveStatusRecurring";
     };
     
     this.approveStatusURL = function () {
-        return getHost() + "/approveStatus";
+        return getHost() + "approveStatus";
     };
     
     this.endMarketingProgramURL = function () {
-        return getHost() + "/endMarketingProgram";
+        return getHost() + "endMarketingProgram";
     };
     
     //******************emailDraftFactory*****************
     
     
     this.saveEmailDraftsURL = function () {
-        return getHost() + "/saveEmailDrafts";
+        return getHost() + "saveEmailDrafts";
     };
     
     this.updateEmailDraftURL = function () {
-        return getHost() + "/updateEmailDraft";
+        return getHost() + "updateEmailDraft";
     };
     
     this.displayAllEmailDraftsURL = function () {
-        return getHost() + "/displayAllEmailDrafts";
+        return getHost() + "displayAllEmailDrafts";
     };
     
     this.getEmailDraftURL = function () {
-        return getHost() + "/getEmailDraft";
+        return getHost() + "getEmailDraft";
     };
     
     this.deleteEmailDraftsURL = function () {
-        return getHost() + "/deleteEmailDrafts";
+        return getHost() + "deleteEmailDrafts";
     };
     
     this.deleteEmailDraftURL = function () {
-        return getHost() + "/deleteEmailDraft";
+        return getHost() + "deleteEmailDraft";
     };
 
     //************** marketingProgramNameFactory ********************/  
     
     this.marketingProgramNameURL = function () {
-        return getHost() + "/getMarketingProgramName";
+        return getHost() + "getMarketingProgramName";
     };
     
     //************** marketingRecurringEmailControllerFactory ********************/  
     
     this.allRecurringEmailTemplatesURL = function () {
-        return getHost() + "/getAllRecurringEmailTemplates";
+        return getHost() + "getAllRecurringEmailTemplates";
     };
     
     this.recurringEmailTemplateURL = function () {
-        return getHost() + "/getRecurringEmailTemplate";
+        return getHost() + "getRecurringEmailTemplate";
     };
     
     this.setRecurringEmailTemplateURL = function () {
-        return getHost() + "/setRecurringEmailTemplate";
+        return getHost() + "setRecurringEmailTemplate";
     };
     
     this.deleteRecurringEmailTemplateURL = function () {
-        return getHost() + "/deleteRecurringEmailTemplate";
+        return getHost() + "deleteRecurringEmailTemplate";
     };
     
     this.updateRecurringEmailTemplateURL = function () {
-        return getHost() + "/updateRecurringEmailTemplate";
+        return getHost() + "updateRecurringEmailTemplate";
     };
     
     this.setEmailTemplateRecurringActionURL = function () {
-        return getHost() + "/setEmailTemplateToRecurringAction";
+        return getHost() + "setEmailTemplateToRecurringAction";
     };
     
     this.addRecurringActionURL = function () {
-        return getHost() + "/addRecurringAction";
+        return getHost() + "addRecurringAction";
     };
     
     this.addupdateRecurringActionURL = function () {
-        return getHost() + "/addupdateRecurringAction";
+        return getHost() + "addupdateRecurringAction";
     };
     
     this.updateRecurringActionURL = function () {
-        return getHost() + "/updateRecurringAction";
+        return getHost() + "updateRecurringAction";
     };
     
     this.getUserPreferencesURL = function () {
-        return getHost() + "/getUserPreferences";
+        return getHost() + "getUserPreferences";
     };
     
     this.getRecurringEntityURL = function () {
-        return getHost() + "/getRecurringEntity";
+        return getHost() + "getRecurringEntity";
     };
 });
 
