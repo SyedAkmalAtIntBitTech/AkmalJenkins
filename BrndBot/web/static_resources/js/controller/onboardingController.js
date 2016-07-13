@@ -107,7 +107,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                     servicesObject["value"] = servicesData[i].externalSourceId;
                     $scope.ddSelectServicesOptions.push(servicesObject);
                 }
-                alert(JSON.stringify($scope.ddSelectServices));  
             });
         };
       
@@ -170,7 +169,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $("#color4").css(bgColor, "");
         };
         $scope.saveColorPalette = function () {
-            alert("saveColorPalette");
             var color1 = $("#color1").css("backgroundColor");
             var color2 = $("#color2").css("backgroundColor");
             var color3 = $("#color3").css("backgroundColor");
