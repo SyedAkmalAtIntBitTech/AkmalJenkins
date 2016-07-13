@@ -138,6 +138,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 alert(data.toLocaleString());
                 $scope.closeOverlay();
                 $location.path("/" + "marketingprogramlists");
+                
             });
         };
 
