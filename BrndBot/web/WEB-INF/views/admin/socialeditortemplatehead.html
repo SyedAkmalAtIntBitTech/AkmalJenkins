@@ -6,7 +6,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
 -->
 <html>
     <head>
-     <jsp:include page="header.jsp"/>
+        <div ng-include src="'header.html'"></div>
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> 
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -37,7 +37,7 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
         <link href="../css/spectrum.css" rel="stylesheet" type="text/css"/>
         <script src="../js/configurations.js" type="text/javascript"></script>
         
-         <style>
+        <style>
             .popuptable{
                 margin-left:70px;
             }
@@ -330,11 +330,11 @@ Technologies. Unauthorized use and distribution are strictly prohibited.
             <img  src="../images/Icons/Logo_Reverse.svg" class="bb-logo" style="cursor:pointer;height:35px;">
         </div>
         <div class="headernav">
-            <a href="${pageContext.request.contextPath}/admin/allcompanies"><div class="nav_tab fleft"> Users </div></a>
-            <a href="${pageContext.request.contextPath}/admin/organization"><div class="nav_tab fleft"> Organizations </div></a>
+            <a href="/BrndBot/admin/allcompanies"><div class="nav_tab fleft"> Users </div></a>
+            <a href="/BrndBot/admin/organization"><div class="nav_tab fleft"> Organizations </div></a>
             <a href="#"><div class="nav_tab fleft"> Email Templates </div></a>
             <a href="#"><div class="nav_tab fleft"> Email Blocks</div></a>
-            <a href="${pageContext.request.contextPath}/admin/printtemplates"><div class="nav_tab fleft"> Print Templates </div></a>
+            <a href="/BrndBot/admin/printtemplates"><div class="nav_tab fleft"> Print Templates </div></a>
             <a href="#"><div class="nav_tab fleft"> Image Templates </div></a>
             <a href="#"><div class="nav_tab fleft"> Marketing Programs </div></a>
             <a href="#"><div class="nav_tab fleft"> Assets </div></a>
