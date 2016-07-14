@@ -6,9 +6,9 @@
                         <a href="">
                             <div class="delete-button md-button button fleft"  id="deleteEmaildraft" ng-show="deletDraftsButton" ng-click="deleteDrafts('deleteMultiple');" > Delete Email Drafts</div>
                         </a>
-                        <a href="">
+<!--                        <a href="">
                             <div id="addemlstbtn" class="add-action-button md-button button-text-1" ng-show="addEmailListButton" ng-click="addEmailList()"> Add Email List</div>
-                        </a>
+                        </a>-->
                         <a href="">
                             <div id="savesetbtn" class="add-action-button md-button button-text-1" ng-show="saveEmailSettingsButton" ng-click="saveEmailSettings(email_settings)">Save</div>
                         </a>
@@ -18,6 +18,18 @@
                     <div class="subnav-dropdown pushright" ng-click="showDropDown()">
                         <span class="hub-dropdown-text" id="emlsclspanid">Email<img type="image/svg+xml" src="images/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"></img></span>
                     </div>
+<!--                    <div class="top-subnav-tabs-container">
+                        <ul class="top-subnav-nav-elements">
+                            <li  id="emldrftab" ng-click="displayAllEmailDrafts()"> <a href="#/emaildraft" class="h3">Email Drafts</a></li>
+                            <li  id="emldrftab" ng-class="myClass"> <a href="#/emaildraft">test</a></li>
+                            
+                            <li class="top-subnav-links" id="emlhistab" ng-click="displayEmailHistory()"> <a href="#/emailhistory" class="h3">Email History and Analytics</a></li>
+                                                    <li class="top-subnav-links"> <a class="h3">Scheduled Emails</a></li>
+                            <li class="top-subnav-link-active" id="emllistab" ng-click="emailListGet()"> <a href="#/emaillist" class="h3-active-subnav">Email Lists</a></li>
+                            <li class="top-subnav-links" id="emlsettab" ng-click="getEmailSettings()"> <a href="#/emailsetting" class="h3">Email Settings</a></li>
+                            <li class="top-subnav-links" id="footertab" ng-click="getFooterDetails()"> <a href="#/footersetting" class="h3">Footer Settings</a></li>
+                        </ul>
+                    </div>-->
                     <div class="top-subnav-tabs-container">
                         <ul class="top-subnav-nav-elements">
                             <li class="top-subnav-links" id="emldrftab" ng-click="displayAllEmailDrafts()"> <a href="#/emaildraft" class="h3">Email Drafts</a></li>
@@ -30,7 +42,7 @@
                     </div>
 
                 </div>
-                    <div class="dropdown-hub" id="socialdropdown">
+                    <div class="dropdown-hub" ng-show="emaildropdown">
                         <ul class="dropdown-inner">
                             <li class="dropdown-section col-1of1 fleft" id="socialhubli" >
                                 <a href="/BrndBot/user/social">

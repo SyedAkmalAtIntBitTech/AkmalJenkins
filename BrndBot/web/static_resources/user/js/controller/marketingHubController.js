@@ -1,7 +1,7 @@
 marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location', 'settingsFactory', 'emailListFactory', 'emailDraftFactory', 'emailFactory', function ($scope, $location, settingsFactory, emailListFactory, emailDraftFactory, emailFactory) {
 
 //$scope.emailhubHeader = true;
-        $scope.addEmailListButton = true;
+//        $scope.addEmailListButton = true;
         $scope.saveEmailSettingsButton = false;
         $scope.deletDraftsButton = false;
         $("#removeselactions").hide;
@@ -12,10 +12,15 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.type = "";
         $scope.emailId = "";
         $scope.firstName = "";
-        $scope.lastName = "";
+        $scope.lastName = ""; 
+//        $scope.myClass = [];
+        
         $scope.displayAllEmailDrafts = function () {
+//            $scope.myClass.pop('top-subnav-links');
+//            $scope.myClass.push('top-subnav-links-active');
+            $scope.emaildropdown = false;
             $scope.saveEmailSettingsButton = false;
-            $scope.addEmailListButton = false;
+//            $scope.addEmailListButton = false;
             $scope.showDeleteEmailList = false;
             emailDraftFactory.displayAllEmailDraftsGet().then(function (data) {
                 if (data.nodrafts === "yes") {
@@ -27,6 +32,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 }
             });
         };
+        
         $scope.emailDraftCheckbox = function (id) {
             content = '<input type="checkbox" id="' + 'entityid' + id + '" hidden="">';
             var htm = $("#" + id).html();
@@ -164,11 +170,12 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             });
         };
         $scope.getEmailSettings = function () {
+            $scope.emaildropdown = false;
             $("#savesetbtn").show();
 //            $("#removeselactions").hide();
             $scope.showDeleteEmailList = false;
             $scope.saveEmailSettingsButton = true;
-            $scope.addEmailListButton = false;
+//            $scope.addEmailListButton = false;
             $scope.deletDraftsButton = false;
             settingsFactory.getEmailSettingsGet().then(function (data) {
                 $scope.emailSettingsDetails = true;
@@ -182,8 +189,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             });
         };
         $scope.getFooterDetails = function () {
-            $scope.saveEmailSettingsButton = false;
-            $scope.addEmailListButton = false;
+            $scope.emaildropdown = false;
+//            $scope.saveEmailSettingsButton = false;
+            $scope.saveEmailSettingsButton = true;
+//            $scope.addEmailListButton = false;
             $scope.deletDraftsButton = false;
             settingsFactory.getAllPreferencesGet().then(function (data) {
                 $scope.footerDetails = JSON.parse(data.d.details).userProfile;
@@ -211,8 +220,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.emailFooterPopupDetails = false;
         };
         $scope.displayEmailHistory = function () {
+            $scope.emaildropdown = false;
             $scope.deletDraftsButton = false;
-            $scope.addEmailListButton = false;
+//            $scope.addEmailListButton = false;
             $scope.saveEmailSettingsButton = false;
             emailFactory.sendEmailGet().then(function (data) {
                 $scope.email_history = JSON.parse(data.d.details);
@@ -255,7 +265,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $("#fade").hide();
         };
         $scope.emailListGet = function () {
-            $scope.addEmailListButton = true;
+            $scope.emaildropdown = false;
+//            $scope.addEmailListButton = true;
             $("#addemlstbtn").show();
             $("#deleteEmailList").hide();
             $scope.showEmailListDetails = false;
@@ -511,9 +522,16 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         
         $scope.showDropDown = function()
         {
-            $(".dropdown-hub").show();
+//            $(".dropdown-hub").show();
+//                $("#emaildropdown").css("display","block");
+//                 $("#emaildropdown").show();
+              $scope.emaildropdown = true;
         };
         
+//        $("#showDropDown").click(function(){
+//    $("#emaildropdown").css("display","block");
+//       });
+       
         $scope.addContactDetails = function (type, email, id, fname, lname)
         {
             $scope.email = {
