@@ -6,6 +6,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.endDate = "";
         $scope.programId = "";
         $scope.randomIframeFilename=event.timeStamp;
+        
+        $scope.backToPreviousPage = function (previousPage){  
+            $location.path("/" + previousPage);
+        };
         $scope.initEmailAutomation = function () {
             $('#edit').froalaEditor({
                 key: FroalaLicenseKey
@@ -79,6 +83,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.currProgramsDiv = true;
                 $scope.pastProgramsDiv = false;
                 $scope.forward = forward;
+                $scope.showCurrentPrograms();
             });
         };
 
@@ -93,18 +98,24 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.showPastPrograms = function () {
             $scope.currProgramsDiv = false;
             $scope.pastProgramsDiv = true;
-
+            $scope.currentCampaignClass='';            
+            $scope.archivedCampaignClass='activeCampaign';
         };
         $scope.showCurrentPrograms = function () {
+            $scope.currentCampaignClass='activeCampaign';            
+            $scope.archivedCampaignClass='';
             $scope.currProgramsDiv = true;
             $scope.pastProgramsDiv = false;
         };
 
         $scope.getProgramActions = function (forward)
         {
-            companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {
-                $scope.template_status = data.emailautomation;
+            companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {                
                 $scope.programs = data;
+                if($scope.programs===''){ 
+                    $location.path("/" + "marketingprogramlists"); 
+                }
+                $scope.template_status = data.emailautomation;
                 $scope.actionType = "Email";
                 $scope.forward = forward;
             });
@@ -261,6 +272,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.savedDetailsAddTemplateLink = "#/marketingprogramactions";
         $scope.templateApproveButton = "Play";
         $scope.templateDisapproveButton = "Pause";
+        $scope.savedHeader = getemail(); 
         $scope.recurringScheduleData = {schedule_title: schedule_title, schedule_desc: schedule_desc,
             schedule_id: schedule_id, entities_list_name: "",
             email_template_status: template_status, schedule_type: "Recurring Email",
@@ -307,10 +319,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.savedDetailsAddTemplateLink = "dashboard";
             $scope.templateApproveButton = "Approve";
             $scope.templateDisapproveButton = "Disapprove";
+            $scope.savedHeader = 'Post'; 
 
-            if (entity_type === getemail()) {
-                $scope.scheduledTo = 'SEND';
-            }
             var date = "";//$scope.entities_selected_time;
             var time = $filter('date')(schedule_time, "hh:mm a");
             $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: date,
@@ -319,6 +329,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 marketing_program_name: marketingName, user_marketing_program_id: $scope.programId,
                 days: days, schedule_time: time};
             if (entity_type === getemail()) {
+                $scope.scheduledTo = 'SEND';
+                $scope.savedHeader = getemail();
                 yourPlanFactory.scheduledEmailGet($scope.scheduleData.schedule_id).then(function (data) {
                     $scope.entitiesdetails = JSON.parse(data.d.details);
                     var iframe = document.getElementById('iframeForAction');
@@ -1181,7 +1193,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 //                }
         };
-
+        
     }]);
 
        

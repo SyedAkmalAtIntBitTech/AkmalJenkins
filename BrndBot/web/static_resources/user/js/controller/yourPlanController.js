@@ -269,18 +269,14 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.templateApproveButton = "Approve";
             $scope.templateDisapproveButton = "Disapprove";
             $scope.savedDetailsAddTemplateButton = "Go to Dashboard";
-            $scope.savedDetailsAddTemplateLink = "dashboard";
+            $scope.savedDetailsAddTemplateLink = "dashboard";            
+            $scope.savedHeader = 'Post'; 
             $scope.isRecurring = false;
             if (entity_type === getnote()) {
                 $scope.reminderSectionClass = 'reminderSectionClass';
                 $scope.savedReminderTab = true;
                 $scope.setTab('savedReminder');
             }
-
-            if (entity_type === getemail()) {
-                $scope.scheduledTo = 'SEND';
-            }
-
             var date = $scope.entities_selected_time;
             var time = $filter('date')(schedule_time, "hh:mm a")
             $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: date,
@@ -292,6 +288,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
 
             if (entity_type === getemail()) {
+                $scope.scheduledTo = 'SEND';
+                $scope.savedHeader = getemail();
                 yourPlanFactory.scheduledEmailGet($scope.scheduleData.schedule_id).then(function (data) {
                     $scope.entitiesdetails = JSON.parse(data.d.details);
                     var iframe = document.getElementById('iframeForAction');
