@@ -25,11 +25,11 @@
         </div>
     </div>
     <ul class="sub-nav-tab-wrap with-back-button">
-        <li class="sub-nav-tab active">
+        <li class="sub-nav-tab ">
              <a id="emailaction1" val="{{schedule_id}}" ng-click="setTab('actionDetails')" ng-class="top_subnav_link_active_actionDetail_Class" href="">Action Details</a>
         </li>
         <li class="sub-nav-tab ">
-             <a id="emailpost1" ng-click="setTab('savedDetails')" ng-class="top_subnav_link_active_savedDetail_Class" href="">Saved Email</a>
+             <a id="emailpost1" ng-click="setTab('savedDetails')" ng-class="top_subnav_link_active_savedDetail_Class" href="">Saved {{savedHeader}}</a>
         </li>
          <li class="sub-nav-tab ">
              <a id="emailnote1" ng-click="setTab('notes')" ng-class="top_subnav_link_active_notesDetail_Class" ng-if="isRecurring===false" href="">Notes</a>
