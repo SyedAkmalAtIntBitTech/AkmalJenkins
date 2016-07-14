@@ -1,6 +1,7 @@
 <div ng-include src="'marketinghubnavigation.html'"></div>
 <div ng-show="overlayFade" id="fade" class="black_overlay"></div>
 <div ng-include="'emailfooterpopup.html'"></div>
+<div ng-include src="'unsubscribeemailspopup.html'"></div>
 
 <div class="top-nav-bar-offset"></div>
     <div class="top-subnav-bar-offset"></div>
@@ -30,8 +31,8 @@
                             <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
                         </div>
                     </div>
-                     <div class="update-container">
-                        <a class="long-button gray-button">Update Email Settings</a>
+                     <div class="update-container" ng-click="openUnsubscribeEmailsPopup()">
+                        <a class="long-button gray-button">Unsubscribe Emails</a>
                     </div>
                 </div>
 <!--                 <div class="hub-section">
