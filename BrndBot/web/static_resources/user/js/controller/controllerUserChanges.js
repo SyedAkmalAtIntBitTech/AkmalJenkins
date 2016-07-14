@@ -141,6 +141,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
     $scope.imageIsLoaded = function(e){
         $scope.$apply(function() {
+            $scope.stepsModel = [];
             $scope.stepsModel.push(e.target.result);
         });
     };

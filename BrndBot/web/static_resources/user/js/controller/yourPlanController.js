@@ -129,6 +129,27 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var array = string.split('-');
             return array[nb];
         };
+        function formatDate(myDate) {
+            var abbrMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            var abbrDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+            function zeroPadding(val) {
+                return val.toString().length === 1 ? "0" + val : val;
+            }
+
+//            return abbrDays[myDate.getDay()] + ", " + myDate.getDate() + " " + (abbrMonths[myDate.getMonth()]) +
+//                " " + myDate.getFullYear() + ", " + zeroPadding(myDate.getHours()) + ":" +
+//                zeroPadding(myDate.getMinutes()) + ":" + zeroPadding(myDate.getSeconds());
+            return abbrDays[myDate.getDay()] + ", " + myDate.getDate() + " " + (abbrMonths[myDate.getMonth()]) +
+                " " + myDate.getFullYear();
+        }
+
+        $scope.myDay = function (string) {
+            var n_date = new Date(string);
+            var formattedDate = formatDate(n_date);
+            return formattedDate;
+        };
+        
         $scope.myYear = function (string) {
             var month = "";
             if (string === '01')
@@ -155,24 +176,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 return month = "Nov";
             if (string === '12')
                 return month = "Dec";
-        };
-
-        $scope.myDay = function (string) {
-            var month = "";
-            if (string === '01')
-                return month = "Monday";
-            if (string === '02')
-                return month = "Tuesday";
-            if (string === '03')
-                return month = "Wednesday";
-            if (string === '04')
-                return month = "Thursday";
-            if (string === '05')
-                return month = "Friday";
-            if (string === '06')
-                return month = "Saturday";
-            if (string === '07')
-                return month = "Sunday";
         };
 
         $scope.ShowAddAction = function ()

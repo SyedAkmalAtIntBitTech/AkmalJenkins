@@ -98,6 +98,13 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             }
             $location.path("/" + redirect);
         };
+        
+        $scope.redirectBaseURL = function (){
+            if ($scope.categoryId == ""){
+                $location.path("/" + "baseemaileditor#/emailcategory");
+            }
+        };
+
         $scope.redirectToEmailFlow = function (forwardone)
         {
             redirectFactory.redirectFlowTo(forwardone);
