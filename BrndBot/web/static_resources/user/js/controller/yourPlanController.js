@@ -157,6 +157,24 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 return month = "Dec";
         };
 
+        $scope.myDay = function (string) {
+            var month = "";
+            if (string === '01')
+                return month = "Monday";
+            if (string === '02')
+                return month = "Tuesday";
+            if (string === '03')
+                return month = "Wednesday";
+            if (string === '04')
+                return month = "Thursday";
+            if (string === '05')
+                return month = "Friday";
+            if (string === '06')
+                return month = "Saturday";
+            if (string === '07')
+                return month = "Sunday";
+        };
+
         $scope.ShowAddAction = function ()
         {
             $scope.fadeClass = 'fadeClass';
