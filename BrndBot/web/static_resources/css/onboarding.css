@@ -1,3 +1,11 @@
+.inputhide
+{
+    top: -24px;
+    left: -28px;
+    position: relative;
+    opacity: 0;
+    line-height: 30px;
+}
 .selectCompany-wrap{
     margin-top:40px;
     width: 350px;
@@ -83,7 +91,7 @@
     margin: auto;
 }
 .palette-global{
-     width: 400px;
+    width: 400px;
     margin: auto;
 }
 .palette-theme{
@@ -99,8 +107,8 @@
     overflow-x: hidden;
 }
 .palette-theme-global::-webkit-scrollbar {
-        width: 0 !important;
-    }
+    width: 0 !important;
+}
 .theme-palette-colorswab{
     width: 55px;
     height: 35px;
@@ -130,7 +138,7 @@
 }
 
 .logo-palette-colorswab{
-     width: 80px;
+    width: 80px;
     height: 35px;
     border-radius: 3px;
     box-sizing: border-box;
@@ -164,7 +172,7 @@
     height: 30px;
     width: 100%;
     box-sizing: border-box;
-    
+
 }
 
 .colorOptions-tab{
@@ -189,7 +197,7 @@
     border-bottom: 2px solid #0F76A6;
     box-sizing: border-box;
     cursor: pointer;
-    
+
 }
 
 .onboarding-subtext{

@@ -149,6 +149,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.getAllThemes = function () {
             $scope.colorFrom = "theme";
             assetsFactory.allColorThemesGet().then(function (data) {
+                alert(JSON.stringify(data));
                 $scope.curPage = 0;
                 $scope.pageSize = 10;
                 $scope.themeColors = data.d.details;
@@ -165,6 +166,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $("#color2").css("background-color", color2);
             $("#color3").css("background-color", color3);
             $("#color4").css("background-color", color4);
+            alert(JSON.stringify(color1+color2+color3+color4));
         };
         $scope.clearColorPalette = function () {
             var bgColor = "background-color";
@@ -197,6 +199,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         });
         
     $scope.stepsModel = [];
+    $scope.stepsModel.push("/BrndBot/user/images/upload-icon.svg");
 
     $scope.imageUpload = function(element){
         var reader = new FileReader();
