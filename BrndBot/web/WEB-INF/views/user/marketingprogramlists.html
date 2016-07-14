@@ -20,7 +20,7 @@
         <div class="hub-pane">
             <div class="hub-pane-header-wrap">
                 <h2 class="">Current Marketing Campaigns</h2>
-                <a id="crtmarkprog" href="createmarketingprogram.html" class="long-button green-button">Create a Campaign</a>
+                <a id="crtmarkprog" ng-click="rediectToCreateCampaign('createmarketingprogram')" class="long-button green-button">Create a Campaign</a>
             </div>
          <div class="hub-pane-content-wrap">
                 <div ng-show="currentPrograms == ''" id="noprogramsavailable" class="hub-empty-wrap">No campaigns</div>
