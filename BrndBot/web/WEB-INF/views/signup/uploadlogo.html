@@ -1,3 +1,11 @@
+<style>
+    .thumb{
+        width:140px;
+        height:140px;
+        margin:6px;
+        float:left;
+    }
+</style>
 <div class="sequence-content-wrap">
     <div class="top-nav-wrap top-nav-wrap-sequence">
         <div class="header">
@@ -17,20 +25,28 @@
                     <h3 class="onboarding-content-header">Would you like to connect your new profile with tools you currently use?</h3>
                 </div>   
                 <div class="upload-icon-box">
-                    <img id="imageUpload" src="{{imageSrc}}"/>
+                    <div ng-repeat="step in stepsModel">
+                        <img class="thumb" ng-src="{{step}}" />
+                    </div>
+                    <!--                    <img id="imageUpload" src="{{myFile}}"/>-->
                     <i class="upload-icon-svg"></i>
                     <h3 class="upload-icon-text">Drag and Drop your Logo</h3>
                     <div class="upload-icon-button-wrap">
                         <p>or</p>
-                        <a class="reg-button gray-button" >Browse your files</a>
-                        <input id="triggerFile" type="file" file-model="myFile" />
+                        <a id="triggerFile" class="reg-button gray-button" >Browse your files</a>
+                        <!--                        <input type="file" file-model="myFile" />-->
+                        <input type="file" file-model="myFile" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">
                     </div>
+                    <!--                    <label class="fileContainer">
+                                            <div id="triggerFile" class="Add_Button Button--Gray logoUpload--button ">Upload Logo</div>
+                                             <input type="file" file-model="myFile" class="Add_Button Button--Gray logoUpload--button upload fileupld"/>
+                                        </label>-->
                 </div>
             </div>
         </div>     
     </div>
-        <div class="continue-bar-offset"></div>
-    </div>
+    <div class="continue-bar-offset"></div>
+</div>
 </div>
 <div class="continue-bar sequence-continue-bar">
     <a id="uploadLogoContinueButton" ng-click="uploadLogo()"h class="fright">CONTINUE</a>
