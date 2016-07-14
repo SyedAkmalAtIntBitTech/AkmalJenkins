@@ -1,4 +1,6 @@
 <div ng-include src="'marketinghubnavigation.html'"></div>
+<div ng-include src="'createemailList.html'"></div>
+
    <!--<div class="page-content-container email-list-contact-page" id="emaillistsdiv" ng-controller="EmailListController">-->
     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" d="emaillistsdiv" ng-show="emallistdetails">
          <div class="top-nav-bar-offset"></div>
@@ -7,7 +9,10 @@
         <div class="hub-pane">
             <div class="hub-pane-header-wrap">
                 <h2 class="">Email Lists</h2>
-                <a class="long-button green-button">Create Email List</a>
+                <a href="">
+                            <div id="addemlstbtn" class="long-button green-button" ng-show="addEmailListButton" ng-click="addEmailList()"> Create Email List</div>
+                        </a>
+<!--                <a class="long-button green-button">Create Email List</a>-->
             </div>
             <div class="hub-pane-content-wrap" ng-init="emailListGet()">
                 <div class="hub-empty-wrap"></div>
