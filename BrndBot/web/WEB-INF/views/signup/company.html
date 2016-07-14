@@ -6,7 +6,7 @@
     <!--SideNav-->
     <!--Main Content Wrap-->
    <body>
-<div class="sequence-content-wrap">
+<div class="sequence-content-wrap" ng-init="getOrganizations()">
     <div class="top-nav-wrap top-nav-wrap-sequence">
         <div class="header">
             <h2>Create a Profile</h2>
@@ -27,6 +27,11 @@
                     </div>
                     <p class="input-wrap-label"> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
                 </div>
+<!--                    <div class="inputSection col-6of10 ">
+                        <div class="input_Label">Please select an industry</div>
+                        <select ng-model="organizationId" id="industryDropDown"  class="input_Field select_Field" ng-options="organization.organizationId as organization.organizationName for organization in organizations">
+                        </select>
+                    </div>-->
                <div class="input-wrap onboarding">
                     <label> Please select an Organization</label>
                     <div class="input">

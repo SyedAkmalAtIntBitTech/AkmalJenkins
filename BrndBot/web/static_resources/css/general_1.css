@@ -2205,6 +2205,14 @@ p.modal-content-header{
     color: #9AA1AD;
     font-size: 13px;
 }
+.datepickerClass{
+    line-height: 39px;
+    border-right: 1px solid #E2E3E7;
+    background-color: #EFF2F6;
+    padding: 0px 15px;
+    color: #9AA1AD;
+    font-size: 13px;
+}
 
 .your-plan-today{
     margin-right: 8px;
