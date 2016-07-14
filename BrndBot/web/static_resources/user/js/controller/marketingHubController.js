@@ -1,7 +1,7 @@
 marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location', 'settingsFactory', 'emailListFactory', 'emailDraftFactory', 'emailFactory', function ($scope, $location, settingsFactory, emailListFactory, emailDraftFactory, emailFactory) {
 
 //$scope.emailhubHeader = true;
-//        $scope.addEmailListButton = true;
+        $scope.addEmailListButton = true;
         $scope.saveEmailSettingsButton = false;
         $scope.deletDraftsButton = false;
         $("#removeselactions").hide;
@@ -13,14 +13,24 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.emailId = "";
         $scope.firstName = "";
         $scope.lastName = ""; 
+        $scope.unsubscribePopup = false;
 //        $scope.myClass = [];
         
         $scope.displayAllEmailDrafts = function () {
+            $scope.activeEmailDrafts='activeTab';   
+            $scope.activeEmailHistory='';   
+            $scope.activeEmailSettings=''; 
+            $scope.activeEmailList='';
+            
 //            $scope.myClass.pop('top-subnav-links');
 //            $scope.myClass.push('top-subnav-links-active');
+
+//            $("#emldrftab").addClass("top-subnav-link-active");
+//            $("#emldrftab").removeClass("top-subnav-links");
+            
             $scope.emaildropdown = false;
             $scope.saveEmailSettingsButton = false;
-//            $scope.addEmailListButton = false;
+            $scope.addEmailListButton = false;
             $scope.showDeleteEmailList = false;
             emailDraftFactory.displayAllEmailDraftsGet().then(function (data) {
                 if (data.nodrafts === "yes") {
@@ -170,12 +180,17 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             });
         };
         $scope.getEmailSettings = function () {
+            $scope.activeEmailSettings='activeTab';   
+            $scope.activeEmailHistory=''; 
+            $scope.activeEmailDrafts=''; 
+            $scope.activeEmailList='';
+            
             $scope.emaildropdown = false;
             $("#savesetbtn").show();
 //            $("#removeselactions").hide();
             $scope.showDeleteEmailList = false;
             $scope.saveEmailSettingsButton = true;
-//            $scope.addEmailListButton = false;
+            $scope.addEmailListButton = false;
             $scope.deletDraftsButton = false;
             settingsFactory.getEmailSettingsGet().then(function (data) {
                 $scope.emailSettingsDetails = true;
@@ -192,7 +207,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.emaildropdown = false;
 //            $scope.saveEmailSettingsButton = false;
             $scope.saveEmailSettingsButton = true;
-//            $scope.addEmailListButton = false;
+            $scope.addEmailListButton = false;
             $scope.deletDraftsButton = false;
             settingsFactory.getAllPreferencesGet().then(function (data) {
                 $scope.footerDetails = JSON.parse(data.d.details).userProfile;
@@ -220,9 +235,14 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.emailFooterPopupDetails = false;
         };
         $scope.displayEmailHistory = function () {
+            $scope.activeEmailHistory='activeTab';
+            $scope.activeEmailSettings=''; 
+            $scope.activeEmailDrafts='';   
+            $scope.activeEmailList='';
+                        
             $scope.emaildropdown = false;
             $scope.deletDraftsButton = false;
-//            $scope.addEmailListButton = false;
+            $scope.addEmailListButton = false;
             $scope.saveEmailSettingsButton = false;
             emailFactory.sendEmailGet().then(function (data) {
                 $scope.email_history = JSON.parse(data.d.details);
@@ -265,8 +285,14 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $("#fade").hide();
         };
         $scope.emailListGet = function () {
+            $scope.activeEmailList='activeTab';
+            $scope.activeEmailHistory='';
+            $scope.activeEmailSettings=''; 
+            $scope.activeEmailDrafts='';  
+            
+            
             $scope.emaildropdown = false;
-//            $scope.addEmailListButton = true;
+            $scope.addEmailListButton = true;
             $("#addemlstbtn").show();
             $("#deleteEmailList").hide();
             $scope.showEmailListDetails = false;
@@ -613,5 +639,80 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     alert(emailnotselected);
                 }
             }
+        };
+        
+        $scope.uploadEmailListOnClick = function () {
+            var reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var fileUpload = document.getElementById("fileid");
+            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+            $scope.unsubscribeEmailList = "";
+            if (regex.test(fileUpload.value.toLowerCase())) {
+                if (typeof (FileReader) != "undefined") {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var table = document.createElement("table");
+                        var rows = e.target.result.split("\n");
+                        for (var j = 0; j < rows.length; j++)
+                        {
+                            var csvvalue = rows[j].split(",");
+
+                            for (var i = 0; i < csvvalue.length; i++)
+                            {
+                                var temp = csvvalue[i];
+                                if (j == 0 && i == 0)
+                                    $scope.unsubscribeEmailList = temp;
+                                else
+                                    $scope.unsubscribeEmailList = $scope.unsubscribeEmailList + "," + temp;
+                            }
+                        }
+                        alert("Emails from CSV file read successfully, please click Unsubscribe Now button to process them.")
+                    }
+                    reader.readAsText(fileUpload.files[0]);
+
+                } else {
+
+                    alert("This browser does not support HTML5!");
+                }
+            } else {
+                alert("Please upload a valid CSV file!");
+            }
+
+        };
+    
+        $scope.unsubscribeNowOnClick = function () {
+            //If no file is selected
+            if (!$scope.unsubscribeEmailList)
+            {
+                alert("Please choose a valid csv file.");
+                return false;
+            }
+            //if file is blank
+            if ($scope.unsubscribeEmailList)
+            {
+                if ($scope.unsubscribeEmailList.length == 0)
+                {
+                    alert("Please choose a valid csv file.");
+                    return false;
+                }
+            }
+            var emailListData = $scope.unsubscribeEmailList.split(",");
+            $http({
+                method: 'POST',
+                url: getHost() + 'settings/saveUnsubscribeEmails',
+                data: emailListData
+            }).success(function (data) {
+                alert(data.d.operationStatus.messages[0]);
+                hideUnsubscribeEmailsPopup();
+            }).error(function (data, status) {
+                alert(requesterror);
+            });
+        }; 
+    
+        $scope.openUnsubscribeEmailsPopup = function () {
+            $scope.unsubscribePopup = true;
+        };
+        
+        $scope.hideUnsubscribeEmailsPopup = function () {
+            $scope.unsubscribePopup = false;
         };
     }]);

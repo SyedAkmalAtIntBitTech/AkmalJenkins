@@ -342,7 +342,7 @@ a.svg:after {
     box-sizing: border-box;
 }
 
-.top-subnav-links:hover{
+/*.top-subnav-links:hover{
     margin-right:30px;
     list-style: none;
     display: block;
@@ -353,11 +353,9 @@ a.svg:after {
     padding-bottom: 10px;
     font-weight: 600;
     box-sizing: border-box;
-}
+}*/
 
-/**** check ***/
-
-.top-subnav-links li:active{
+.activeTab{
     margin-right:30px;
     list-style: none;
     display: block;
