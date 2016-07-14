@@ -530,7 +530,7 @@ li.main-nav:last-child{
     top: 0px;
     left: 0px;
     width: 100vw;
-    overflow-y: scroll;
+    overflow-y: auto;
     z-index: 0;
 }
 
@@ -1707,7 +1707,7 @@ li.sub-nav-tab.active a{
     padding: 20px 30px 20px 30px;  
     box-sizing: border-box;
     max-height: 430px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .modal-pane-content-wrap.secondary-option{
@@ -2092,19 +2092,6 @@ p.modal-content-header{
     content: url(/BrndBot/user/images/time-gray.svg);
 }
 
-
-.dropdown{
-    display: inline-flex;
-    padding: 0 10px 0 0px;
-    vertical-align: middle;
-    border-radius: 3px;
-    min-width: 50px;
-    min-height: 32px;
-    background-color: #fff;
-    border: 1px solid #c9c9c9;  
-    align-content: center;
-}
-
 .time-date-select{
     border:none;
     padding-left:15px;
@@ -2112,17 +2099,6 @@ p.modal-content-header{
     height:30px;
     font-size:14px;
     
-}
-
-.dropdown-selected-option{
-    line-height: 32px;
-    color: #444
-}
-
-.dropdown-icon{
-    width: 20px;
-    margin-top: 6px;
-    margin-left: auto;
 }
 
 .dropdown-icon:before{
