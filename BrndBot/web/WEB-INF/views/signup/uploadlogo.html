@@ -1,9 +1,8 @@
 <style>
     .thumb{
-        width:140px;
-        height:140px;
-        margin:6px;
-        float:left;
+        width: 100px;
+        height: 100px;
+        margin: auto;
     }
 </style>
 <div class="sequence-content-wrap">
@@ -26,16 +25,18 @@
                 </div>   
                 <div class="upload-icon-box">
                     <div ng-repeat="step in stepsModel">
-                        <img class="thumb" ng-src="{{step}}" />
+                        <img class="thumb" src="{{step}}" />
                     </div>
                     <!--                    <img id="imageUpload" src="{{myFile}}"/>-->
-                    <i class="upload-icon-svg"></i>
+<!--                    <i class="upload-icon-svg"></i>-->
                     <h3 class="upload-icon-text">Drag and Drop your Logo</h3>
                     <div class="upload-icon-button-wrap">
                         <p>or</p>
-                        <a id="triggerFile" class="reg-button gray-button" >Browse your files</a>
-                        <!--                        <input type="file" file-model="myFile" />-->
-                        <input type="file" file-model="myFile" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">
+                            <a id="triggerFile" class="reg-button gray-button">Browse your files</a>
+                            <input type="file" file-model="myFile" class="Add_Button Button--Gray logoUpload--button upload fileupld inputhide" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">
+<!--                        <a id="triggerFile" class="reg-button gray-button" >Browse your files</a>
+                                                <input type="file" file-model="myFile" />
+                        <input type="file" file-model="myFile" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">-->
                     </div>
                     <!--                    <label class="fileContainer">
                                             <div id="triggerFile" class="Add_Button Button--Gray logoUpload--button ">Upload Logo</div>

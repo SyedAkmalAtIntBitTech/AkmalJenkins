@@ -17,6 +17,10 @@
             <div class="hub-pane-content-wrap" ng-init="emailListGet()">
                 <div class="hub-empty-wrap"></div>
                 <div class="hub-slat-list-wrap" ng-show="emailLists.length > 0" ng-repeat="email in emailLists">
+                    <div class="selection-container col-5p"> 
+                            <div class="selection-icon" id="{{email.emailListID}}" onclick="selemlcheckbox(this.id)"><input type="checkbox" id="{{email.emailListID}}" value="{{email.emailListName}}" name="entityname" hidden></input></div>
+                    </div>
+                    
                     <div class="slat">
                         <div class="slat-icon-wrap"></div>
                         <div class="slat-name-wrap">
@@ -71,4 +75,3 @@
             
         </div>
     </div>
-</div>

@@ -15,6 +15,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 key: FroalaLicenseKey
             });
         };
+        $scope.rediectToCreateCampaign = function (pageName){
+            $location.path("/" +pageName);
+        };
         $scope.redirect = function (pageName, marketingCategoryId)
         {
             $scope.marketingCategoryId = marketingCategoryId;
@@ -55,12 +58,17 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.displayMarketingProgramByCategoryId = function (forward) {
-            marketingFactory.marketingProgramsGet($scope.marketingCategoryId).then(function (data) {
-                $scope.pageName = "marketingPrograms";
-                $scope.forward = forward;
-                $scope.displayAllMarketingPrograms = data.d.details;
-                $scope.header = "Select a Category";
-            });
+            if($scope.marketingCategoryId===''){ 
+                    $location.path("/" + "createmarketingprogram"); 
+                }
+            else{
+                marketingFactory.marketingProgramsGet($scope.marketingCategoryId).then(function (data) {
+                    $scope.pageName = "marketingPrograms";
+                    $scope.forward = forward;
+                    $scope.displayAllMarketingPrograms = data.d.details;
+                    $scope.header = "Select a Category";
+                });
+            }
         };
 
         $scope.saveMarketingProgram = function (programName, programUrl, programUrlName, programDateTime) {
@@ -80,8 +88,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.getUserMarketingProgramsOpen = function (forward) {
             companyMarketingProgramFactory.listAllMarketingProgramGet("Open").then(function (data) {
                 $scope.currentPrograms = data.programs;
-                $scope.currProgramsDiv = true;
-                $scope.pastProgramsDiv = false;
                 $scope.forward = forward;
                 $scope.showCurrentPrograms();
             });
@@ -89,9 +95,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.getUserMarketingProgramsClosed = function (forward) {
             companyMarketingProgramFactory.listAllMarketingProgramGet("Closed").then(function (data) {
+                $scope.showPastPrograms();
                 $scope.pastPrograms = data.programs;
-                $scope.currProgramsDiv = false;
-                $scope.pastProgramsDiv = true;
                 $scope.forward = forward;
             });
         };
@@ -110,15 +115,19 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.getProgramActions = function (forward)
         {
-            companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {                
-                $scope.programs = data;
-                if($scope.programs===''){ 
+            if($scope.programId===''){ 
                     $location.path("/" + "marketingprogramlists"); 
                 }
-                $scope.template_status = data.emailautomation;
-                $scope.actionType = "Email";
-                $scope.forward = forward;
-            });
+            else{
+                companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {
+
+                    $scope.programs = data;
+                    $scope.template_status = data.emailautomation;
+                    $scope.actionType = "Email";
+                    $scope.forward = forward;
+                    $scope.hideUntilLoad=true;
+                });
+            }
         };
 
         $scope.ShowAddAction = function ()
