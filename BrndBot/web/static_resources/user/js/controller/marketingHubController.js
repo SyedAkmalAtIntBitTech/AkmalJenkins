@@ -641,6 +641,43 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             }
         };
         
+        $scope.selemlcheckbox = function(id){ 
+            $scope.showDeleteEmailList = true;  
+            
+            var content='<input type="checkbox" name="deleteid" value="'+id+'" hidden="" id="deleteid"'+id+'" checked>';
+            var content1='<input type="checkbox" name="deleteid" value="'+id+'" hidden="" id="deleteid"'+id+'">';
+            var htm=$("#"+id).html();
+            if(htm.contains('class="check-icon"')){
+                count-=1;
+                $("#"+id).html(content1);
+                selectedemailids = selectedemailids.replace(id+",","");
+            }else{
+                selectedemailids = id + "," + selectedemailids;
+                count+=1;
+                $("#"+id).html(content+'<img src="images/check.svg" class="check-icon" style="cursor:pointer;"/>');
+            }
+            $("#"+id).toggleClass('selection-icon');
+            $("#"+id).toggleClass('selection-icon-selected');
+            if(count > 0)
+            {
+                 $("#removeselactions").show();
+                 $("#delcontact").show();
+                 $(".gray-button").show();
+                 $("#addcontact").hide();
+                 $("#addcontacts").hide();
+            }
+            if(count==0)
+            {
+                $("#removeselactions").hide();
+                $("#delcontact").hide();
+                 $(".gray-button").hide();
+                 $("#addcontact").show();
+                 $("#addcontacts").show();
+            }
+            
+            
+        };
+        
         $scope.uploadEmailListOnClick = function () {
             var reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             var fileUpload = document.getElementById("fileid");
