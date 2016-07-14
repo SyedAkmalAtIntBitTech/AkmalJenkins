@@ -16,14 +16,19 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.ddSelectActionOptions = [
             {
                 text: 'Select',
+                value: '0'
             }, {
                 text: 'Facebook Post',
+                value: 'Facebook'
             }, {
                 text: 'Twitter Post',
+                value: 'Twitter'
             }, {
                 text: 'Email',
+                value: 'Email'
             }, {
                 text: 'Reminder',
+                value: 'Reminder'
             }
         ];
 
@@ -193,6 +198,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
         {
+            alert(JSON.stringify(actionType));
             var actiondate = datePicker;
             var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
             var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
@@ -201,7 +207,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var schedule_time = Date.parse(l);
             var myEpoch = schedule_time;
             var days = 0;
-            var action = {"title": addTitle, "actiontype": actionType, "type": "save", "description": "", "marketingType": 0, "action_date": myEpoch, "days": days};
+            var action = {"title": addTitle, "actiontype": actionType.value, "type": "save", 
+                "description": "", "marketingType": 0, "action_date": myEpoch, "days": days};
             yourPlanFactory.addActionPost(action).then(function (data) {
                 $scope.getCampaigns();
                 $scope.closeOverlay();

@@ -3,7 +3,7 @@ package com.controller;
 import com.intbittech.divtohtml.DivHTMLModel;
 import com.intbittech.utility.AppConstants;
 import com.intbit.ConnectionManager;
-import com.intbit.ScheduledEntityType;
+import com.intbittech.enums.ScheduledEntityType;
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
