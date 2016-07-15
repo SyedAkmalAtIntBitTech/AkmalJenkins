@@ -76,7 +76,7 @@ factoryApp.service('configurationService', function (){
     this.updateFontURL = function () {
         return getHost() + "updateFont";
     };
-    
+
     this.updateColorThemeURL = function () {
         return getHost() + "updateColorTheme";
     };
@@ -635,6 +635,10 @@ factoryApp.service('configurationService', function (){
     
     this.getColorsURL = function () {
         return getHost() + "settings/getColors";
+    };
+    
+    this.unSubscribeEmails = function () {
+        return getHost() + "settings/saveUnsubscribeEmails";
     };
     
     this.setColorsURL = function () {
