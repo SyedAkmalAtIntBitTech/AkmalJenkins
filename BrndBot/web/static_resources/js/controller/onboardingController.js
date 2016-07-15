@@ -136,26 +136,33 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.uploadLogo = function () {
             var file = $scope.myFile;
             settingsFactory.changeLogoPost(file).then(function (data) {
-            alert(JSON.stringify(data));
                 $location.path("signup/choosepalette");
             });
         };
         $scope.getColorsFromLogo = function () {
+//            $scope.activeColorLogo = 'activeTab';
+//            $scope.activeColorPicker = '';
+//            $scope.activeColorTheme = '';
             $scope.colorFrom = "logo";
             onboardingFactory.colorsForLogoGet().then(function (data) {
                 $scope.color = data.d.details;
             });
         };
         $scope.getAllThemes = function () {
+//            $scope.activeColorTheme = 'activeTab';
+//            $scope.activeColorPicker = '';
+//            $scope.activeColorLogo = '';
             $scope.colorFrom = "theme";
             assetsFactory.allColorThemesGet().then(function (data) {
-                alert(JSON.stringify(data));
                 $scope.curPage = 0;
                 $scope.pageSize = 10;
                 $scope.themeColors = data.d.details;
             });
         };
         $scope.getColorFromPicker = function () {
+//            $scope.activeColorPicker = 'activeTab';
+//            $scope.activeColorTheme = '';
+//            $scope.activeColorLogo = '';
             $scope.colorFrom = "custom";
         };
         $scope.getColorID = function (color) {
@@ -166,7 +173,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $("#color2").css("background-color", color2);
             $("#color3").css("background-color", color3);
             $("#color4").css("background-color", color4);
-            alert(JSON.stringify(color1+color2+color3+color4));
         };
         $scope.clearColorPalette = function () {
             var bgColor = "background-color";
@@ -184,6 +190,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 alert("Please choose all 4 colors.");
             }
             settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
+            window.location = getHost()+"user/dashboard";
             });
         };
         //to display color picker
@@ -194,24 +201,23 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 //for haking hex value alert(hex);
                 $('.palette-colorswab-selected').css("background-color", "#" + hex);
                 $('.palette-colorswab-selected').val("#" + hex);
-
             }
         });
-        
-    $scope.stepsModel = [];
-    $scope.stepsModel.push("/BrndBot/user/images/upload-icon.svg");
 
-    $scope.imageUpload = function(element){
-        var reader = new FileReader();
-        reader.onload = $scope.imageIsLoaded;
-        reader.readAsDataURL(element.files[0]);
-    };
+        $scope.stepsModel = [];
+        $scope.stepsModel.push("/BrndBot/user/images/upload-icon.svg");
 
-    $scope.imageIsLoaded = function(e){
-        $scope.$apply(function() {
-            $scope.stepsModel = [];
-            $scope.stepsModel.push(e.target.result);
-        });
-    };
-    
+        $scope.imageUpload = function (element) {
+            var reader = new FileReader();
+            reader.onload = $scope.imageIsLoaded;
+            reader.readAsDataURL(element.files[0]);
+        };
+
+        $scope.imageIsLoaded = function (e) {
+            $scope.$apply(function () {
+                $scope.stepsModel = [];
+                $scope.stepsModel.push(e.target.result);
+            });
+        };
+
     }]);
