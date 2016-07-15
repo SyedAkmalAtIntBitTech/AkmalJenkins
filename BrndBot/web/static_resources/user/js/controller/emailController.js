@@ -519,7 +519,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                             emailSubject: $scope.emailSubject
                         };
                         emailDraftFactory.updateEmailDraftPost(draftData).then(function (responseText) {
-                            if (responseText === "true") {
+                            if (responseText) {
                                 $scope.redirect('emaillistselection', $scope.categoryId, '', '', '', '', '', '', $scope.draftId);
                                 document.location.href = "emaillistselection?draftid=" + draft_id + "&subject=" + email_subject + "&iframeName=" + rendomIframeFilename;
                             } else {
