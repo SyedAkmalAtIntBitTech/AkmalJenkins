@@ -481,7 +481,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                                 else
                                     $scope.unsubscribeEmailList = $scope.unsubscribeEmailList+","+temp;
                         }
-                        alert("Emails from CSV file read successfully, please click Unsubscribe Now button to process them.")
                         $scope.unsubscribeNowOnClick();
                     }
                     reader.readAsText(fileUpload.files[0]);
@@ -528,25 +527,13 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 }
             }
             if (error != 0){
-                alert(error + " No of emails are not valid");
+                alert("Some of the email addresses are invalid in the csv file and they have been excluded.");
             }
 
-//            alert(emailLists);
             settingsFactory.unSubscribeEmails(emailLists).then(function (data) {
                 alert(data.d.operationStatus.messages[0]);
                 $scope.hideUnsubscribeEmailsPopup();
             });
-            //            
-//            $http({
-//                method: 'POST',
-//                url: getHost() + 'settings/saveUnsubscribeEmails',
-//                data: emailListData
-//            }).success(function (data) {
-//                alert(data.d.operationStatus.messages[0]);
-//                hideUnsubscribeEmailsPopup();
-//            }).error(function (data, status) {
-//                alert(requesterror);
-//            });
         };   
  
 
@@ -855,6 +842,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
     
         $scope.openUnsubscribeEmailsPopup = function () {
             $scope.unsubscribePopup = true;
+            alert("Please make sure email addresses are in first column of the csv file.");
         };
         
         $scope.hideUnsubscribeEmailsPopup = function () {
