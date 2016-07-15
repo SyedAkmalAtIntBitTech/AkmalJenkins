@@ -221,7 +221,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.saveEmailSettings = function (email_settings) {
             var from_address = email_settings.from_address;
             var reply_email_address = email_settings.reply_email_address;
-            settingsFactory.saveEmailSettingsPost(email_settings).then(function (data) {
+            var emailSettingsData = {"from_address":"mail@brndbot.com","reply_email_address":reply_email_address};
+            settingsFactory.saveEmailSettingsPost(emailSettingsData).then(function (data) {
+                $scope.getEmailSettings();
             });
         };
         $scope.getFooterDetails = function () {
@@ -236,15 +238,26 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             });
         };
         $scope.changeFooterDetails = function (company) {
-            var footerAddress = company.address;
-            var footerWebsiteUrl = company.websiteUrl;
-            var footerFacebookUrl = company.facebookUrl;
-            var footerTwitterUrl = company.twitterUrl;
-            var footerInstagramUrl = company.instagramUrl;
-            var footerPopupDeatils = '{"footerAddress":"' + footerAddress + '","footerWebsiteUrl":"' + footerWebsiteUrl + '","footerFacebookUrl":"' + footerFacebookUrl + '","footerTwitterUrl":"' + footerTwitterUrl + '","footerInstagramUrl":"' + footerInstagramUrl + '"}';
+            var footerAddress = "";
+            if(company.address)
+            footerAddress= company.address;
+            var footerWebsiteUrl ="";
+            if(company.websiteUrl)
+            footerWebsiteUrl = company.websiteUrl;
+            var footerFacebookUrl ="";
+            if(company.facebookUrl)
+            footerFacebookUrl = company.facebookUrl;
+            var footerTwitterUrl = "";
+            if(company.twitterUrl)
+            footerTwitterUrl = company.twitterUrl;
+            var footerInstagramUrl = "";
+            if(company.instagramUrl)
+            footerInstagramUrl = company.instagramUrl;
+            var footerPopupDetails = {"facebookUrl": footerFacebookUrl,"twitterUrl": footerTwitterUrl,"instagramUrl":footerInstagramUrl,"websiteUrl":footerWebsiteUrl,"address":footerAddress};
             $scope.emailFooterPopupDetails = false;
             $scope.getFooterDetails();
-            settingsFactory.setFooterPost(footerDetails).then(function (data) {
+            settingsFactory.setFooterPost(footerPopupDetails).then(function (data) {
+                $scope.getFooterDetails();
             });
         };
         $scope.emailFooterPopup = function ()

@@ -19,15 +19,15 @@
                      </div>
                     <div class="input-wrap">
                         <label> Default From Email Address </label>
-                        <div class="input">
-                            <input id="from_address" class="fluid" type="text" ng-model="email_settings.from_address"   name="from_address"  placeholder="Enter default email address"/>
+                        <div class="input" ng-init="email_settings.from_address='mail@brndbot.com'">
+                            <input id="from_address" class="fluid" type="text" readonly ng-model="email_settings.from_address"   name="from_address"  placeholder="Enter default email address"/>
                         </div>
                         <p class="input-wrap-label"> Make this something that your clients will recognize</p>
                     </div>
                     <div class="input-wrap">
                         <label> Default Reply-to Address </label>
                         <div class="input">
-                            <input id="from_address" class="fluid" type="text" ng-model="email_settings.from_address"   name="from_address"  placeholder="Enter default email address"/>
+                            <input id="from_address" class="fluid" type="text" ng-model="email_settings.reply_email_address"   name="reply_email_address"  placeholder="Enter default email address"/>
                             <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
                         </div>
                     </div>

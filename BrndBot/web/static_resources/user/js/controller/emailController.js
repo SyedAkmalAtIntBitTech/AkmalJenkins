@@ -345,14 +345,24 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.changeFooterDetails = function (company) {
-            var footerAddress = company.address;
-            var footerWebsiteUrl = company.websiteUrl;
-            var footerFacebookUrl = company.facebookUrl;
-            var footerTwitterUrl = company.twitterUrl;
-            var footerInstagramUrl = company.instagramUrl;
-            var footerPopupDeatils = '{"footerFacebookUrl":"' + footerFacebookUrl + '","footerTwitterUrl":"' + footerTwitterUrl + '","footerInstagramUrl":"' + footerInstagramUrl + '","footerWebsiteUrl":"' + footerWebsiteUrl + '","footerAddress":"' + footerAddress + '"}';
+            var footerAddress = "";
+            if(company.address)
+            footerAddress= company.address;
+            var footerWebsiteUrl ="";
+            if(company.websiteUrl)
+            footerWebsiteUrl = company.websiteUrl;
+            var footerFacebookUrl ="";
+            if(company.facebookUrl)
+            footerFacebookUrl = company.facebookUrl;
+            var footerTwitterUrl = "";
+            if(company.twitterUrl)
+            footerTwitterUrl = company.twitterUrl;
+            var footerInstagramUrl = "";
+            if(company.instagramUrl)
+            footerInstagramUrl = company.instagramUrl;
+            var footerPopupDetails = {"facebookUrl": footerFacebookUrl,"twitterUrl": footerTwitterUrl,"instagramUrl":footerInstagramUrl,"websiteUrl":footerWebsiteUrl,"address":footerAddress};
             $scope.emailFooterPopupDetails = false;
-            settingsFactory.setFooterPost(footerDetails).then(function (data) {
+            settingsFactory.setFooterPost(footerPopupDetails).then(function (data) {
                 $scope.getFooterDetails();
             });
         };
@@ -484,6 +494,16 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.saveButtonOnClick = function () {
             settingsFactory.getAllPreferencesGet().then(function (footerResponseData) {
                 var footerData = JSON.parse(footerResponseData.d.details);
+                if (!footerData.userProfile){
+                    $scope.editFooter();
+                    return false;
+                }
+                
+                if (!footerData.userProfile.address){
+                    $scope.editFooter();
+                    return false;
+                }
+                
                 var footer = $scope.getUserFooter(footerData.userProfile.facebookUrl, footerData.userProfile.twitterUrl,
                         footerData.userProfile.websiteUrl, footerData.userProfile.instagramUrl,
                         footerData.userProfile.address);

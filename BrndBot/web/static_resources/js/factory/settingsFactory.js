@@ -20,10 +20,10 @@ factoryApp.factory('settingsFactory', function ($q, authenticatedServiceFactory,
         });
         return deffered.promise;
     };
-    settingsFactoryObject.saveEmailSettingsPost = function () {
+    settingsFactoryObject.saveEmailSettingsPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.saveEmailSettingsURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
@@ -123,7 +123,7 @@ factoryApp.factory('settingsFactory', function ($q, authenticatedServiceFactory,
         var deffered = $q.defer();
         var url = configurationService.setFooterPostURL();
         var data = '{"footerDetails":"' + footerDetails + '"}';
-        authenticatedServiceFactory.makeCall("POST", url, data).then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, footerDetails,"").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
