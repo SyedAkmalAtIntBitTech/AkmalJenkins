@@ -710,12 +710,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     }
                 }       
                 return true;
-//            var emailsList=[];
-//            var emailsList=emailAddresses;
-//            for(var i=0;i<emailsList.length;i++){
-//                alert(emailsList);
-//            }
-//            return true;
         };
         $scope.continueEmailListOnClick = function (emailAddresses) {
 //            TODO change to AngularJs
