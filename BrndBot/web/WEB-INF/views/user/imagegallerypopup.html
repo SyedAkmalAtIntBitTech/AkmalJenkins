@@ -14,7 +14,7 @@
                 </div>
                 <div class=" gallery-padding clear gallery-pane">
                     <span id="gallerySpan" ng-init="getUserImages()" ng-show="showUserImages"> 
-                        <div class="gallery-item-wrap-selected fleft {{images.companyImagesId}}" id="{{images.companyImagesId}}" ng-repeat="images in datalists" ng-class="imageUnSelect"  ng-click="selectImage(images.companyImagesId);selectImageToPost(images.imageName, 'gallery',companyId)">
+                        <div class="gallery-item-wrap-selected fleft {{images.companyImagesId}} toggleClass" id="{{images.companyImagesId}}" ng-repeat="images in datalists"  ng-click="selectImageToPost(images.imageName, 'gallery',companyId)">
                             <div class="gallery-image-wrap">
                                 <img id="{{images.companyImagesId}}"  src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}" alt="alt_text" border="0" align="center" class="gallery-image" />
                             </div>
