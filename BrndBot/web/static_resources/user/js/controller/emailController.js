@@ -273,19 +273,19 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 //                        editorHtml = editor.html();
 //                        $('#edit').froalaEditor('html.set', '' + editorHtml + '');
                 $("#de1").after(BlockHtml);
-                $scope.previousTagId = $scope.htmlTagId;
-//                tinymce.init({
-//                    selector: 'td.mce-content-body',
-//                    width:400,
-//                    inline: true,
-//                    plugins: [
-//                        'advlist autolink lists link image charmap print preview anchor',
-//                        'searchreplace visualblocks code fullscreen',
-//                        'insertdatetime media table contextmenu paste',
-//                        'emoticons template paste textcolor colorpicker textpattern imagetools'
-//                    ],
-//                    toolbar: 'insertfile undo redo | forecolor backcolor | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
-//                });
+//                $scope.previousTagId = $scope.htmlTagId;
+                tinymce.init({
+                    selector: 'td.mce-content-body',
+                    width:400,
+                    inline: true,
+                    plugins: [
+                        'advlist custombutton autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table contextmenu paste',
+                        'emoticons template paste textcolor colorpicker textpattern imagetools'
+                    ],
+                    toolbar: 'insertfile undo redo |mybutton forecolor backcolor | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+                });
 
 
 
