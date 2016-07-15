@@ -113,10 +113,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 ////                $("#addcontacts").show();
 //            }
 //        };
-        
+
+        var selectedemailids = "";
         $scope.selectedEmailListCheckbox = function (id) {
             var count=0;
-            var selectedemailids = "";
             var content = '<input type="checkbox" name="deleteid" value="' + id + '" hidden="" id="deleteid"' + id + '" checked>';
             var content1 = '<input type="checkbox" name="deleteid" value="' + id + '" hidden="" id="deleteid"' + id + '">';
             var htm = $("#" + id).html();
@@ -166,10 +166,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 
         $scope.deleteDrafts = function (type, id)
         {
-            alert("sss");
             var delid = id + ",";
             var message;
-            var selected_emaildrafts_to_delete = id;
+//            var selected_emaildrafts_to_delete = id;
             var requestBody;
             if (type === "deleteMultiple") {
                 message = multidraftconfirm;
@@ -184,7 +183,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $("#fade").hide();
                 $scope.displayAllEmailDrafts();
             }
-            alert(JSON.stringify(requestBody));
             emailDraftFactory.deleteEmailDraftsPost(requestBody).then(function (data) {
                 alert(JSON.stringify(data)); 
                 $scope.displayAllEmailDrafts();
@@ -335,7 +333,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $scope.createEmailListPopup = false;
                 $("#fade").hide();
                 $scope.emailListGet();
-                $scope.showDeleteEmailList = true;
+                $scope.showDeleteEmailList = false;
                 $("#deleteEmailList").show();
             });
         };
@@ -640,14 +638,11 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
 
         $scope.deleteSelected = function () {
-//            var email_list_name = $scope.emailListName;
+            var email_list_name = $scope.emailListName;
             if (confirm("Are you sure, You want to delete contact?")) {
-                var email_list_name = "";
+//                var email_list_name = "";
                 if (selectedemailids !== "") {
-                    alert("000");
                             email_list_name = $("#email_list_name").val();
-//                    email_list_name = $scope.emailListName;
-                    alert(email_list_name);
                     var Emails = {"update": "deleteEmailInEmailList", "emailListName": email_list_name, "emailAddresses": selectedemailids};
                     emailListFactory.emailListSavePost(Emails).then(function (data) {
                         $scope.updateList(email_list_name);
