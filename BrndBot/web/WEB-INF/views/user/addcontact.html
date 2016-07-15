@@ -1,7 +1,7 @@
-    <div id="fade" class="black_overlay"></div>
-    <div ng-init="showAddContactPopup= false" ng-if="showAddContactPopup">
+
+    <div class="addContactPopup" ng-init="showAddContactPopup= false" ng-if="showAddContactPopup">
     <div class="pop-up-background" style="width: 100%;">
-        <div class="pop-up-exit-container">
+        <div class="pop-up-exit-container" ng-click="closeAddContactPopup()">
             <a>
                 <div class="pop-up-exit-icon" id="close"> <img type="image/svg+xml" src="images/Close.svg" class="exit-button-icon" style="cursor:pointer;"> </img></div>
             </a>

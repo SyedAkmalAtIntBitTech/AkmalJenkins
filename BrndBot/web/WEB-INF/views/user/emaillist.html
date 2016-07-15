@@ -16,13 +16,14 @@
             </div>
             <div class="hub-pane-content-wrap" ng-init="emailListGet()">
                 <div class="hub-empty-wrap"></div>
-                <div class="hub-slat-list-wrap" ng-show="emailLists.length > 0" ng-repeat="email in emailLists">
+                <div class="hub-slat-list-wrap" ng-show="emailLists.length > 0" ng-repeat="email in emailLists">                  
+                <div class="slat">
                     <div class="selection-container col-5p"> 
-                            <div class="selection-icon" id="{{email.emailListID}}" onclick="selemlcheckbox(this.id)"><input type="checkbox" id="{{email.emailListID}}" value="{{email.emailListName}}" name="entityname" hidden></input></div>
+                        <div class="selection-icon" id="{{email.emailListID}}" ng-click="selectedEmailCheckbox(email.emailListID)">
+                            <input type="checkbox" id="{{email.emailListID}}" value="{{email.emailListName}}" name="entityname" hidden></input>
+                        </div>
                     </div>
-                    
-                    <div class="slat">
-                        <div class="slat-icon-wrap"></div>
+                                           
                         <div class="slat-name-wrap">
                             <h2>{{email.emailListName}}</h2>
                             <p>Created on {{email.emailListAddedDate| date: 'MM-dd-yyyy'}}</p>
@@ -33,11 +34,15 @@
                                 <p>Number of Contacts</p>
                             </div>
                         </div>
+
                         <div class="slat-detail-wrap">
                             <div class="slat-detail slat-detail-button ">
-                                <a class="reg-button gray-button-outline slat-detail-button">Manage Email List</a>
+                                <a href="">
+                                    <div class="reg-button gray-button-outline slat-detail-button" ng-click="viewEmailListDetails(email.emailListName,'user')">Manage Email List</div>
+                                </a>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
