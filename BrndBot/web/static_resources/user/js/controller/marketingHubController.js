@@ -113,10 +113,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 ////                $("#addcontacts").show();
 //            }
 //        };
-        
+
+        var selectedemailids = "";
         $scope.selectedEmailListCheckbox = function (id) {
             var count=0;
-            var selectedemailids = "";
             var content = '<input type="checkbox" name="deleteid" value="' + id + '" hidden="" id="deleteid"' + id + '" checked>';
             var content1 = '<input type="checkbox" name="deleteid" value="' + id + '" hidden="" id="deleteid"' + id + '">';
             var htm = $("#" + id).html();
@@ -166,10 +166,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 
         $scope.deleteDrafts = function (type, id)
         {
-            alert("sss");
             var delid = id + ",";
             var message;
-            var selected_emaildrafts_to_delete = id;
+//            var selected_emaildrafts_to_delete = id;
             var requestBody;
             if (type === "deleteMultiple") {
                 message = multidraftconfirm;
@@ -184,7 +183,6 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $("#fade").hide();
                 $scope.displayAllEmailDrafts();
             }
-            alert(JSON.stringify(requestBody));
             emailDraftFactory.deleteEmailDraftsPost(requestBody).then(function (data) {
                 alert(JSON.stringify(data)); 
                 $scope.displayAllEmailDrafts();
@@ -335,7 +333,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $scope.createEmailListPopup = false;
                 $("#fade").hide();
                 $scope.emailListGet();
-                $scope.showDeleteEmailList = true;
+                $scope.showDeleteEmailList = false;
                 $("#deleteEmailList").show();
             });
         };
@@ -462,6 +460,83 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 };
             };
         };
+        $scope.unsubscribeEmailList = "";
+        $scope.uploadEmailListOnClick = function() {
+            var reg=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            var fileUpload = document.getElementById("fileid");
+            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+            
+            if (regex.test(fileUpload.value.toLowerCase())) {
+                if (typeof (FileReader) != "undefined") {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var table = document.createElement("table");
+                        var rows = e.target.result.split("\n");
+                        for(var j = 1; j< rows.length; j++)
+                        {
+                            var csvvalue=rows[j].split(",");
+
+                                var temp=csvvalue[0];
+                                if(j==1)
+                                    $scope.unsubscribeEmailList = temp;
+                                else
+                                    $scope.unsubscribeEmailList = $scope.unsubscribeEmailList+","+temp;
+                        }
+                        $scope.unsubscribeNowOnClick();
+                    }
+                    reader.readAsText(fileUpload.files[0]);
+
+                } else {
+                    alert("This browser does not support HTML5!");
+                }
+            } else {
+                alert("Please upload a valid CSV file!");
+            }
+
+        };
+        $scope.unsubscribeNowOnClick = function () {
+            //If no file is selected
+            
+            var error = 0;
+            var emailLists = [];
+            if (!$scope.unsubscribeEmailList)
+            {
+                alert("Please choose a valid csv file.");
+                return false;
+            }
+            //if file is blank
+            if ($scope.unsubscribeEmailList)
+            {
+                if ($scope.unsubscribeEmailList.length == 0)
+                {
+                    alert("Please choose a valid csv file.");
+                    return false;
+                }
+            }
+            var emailListData = $scope.unsubscribeEmailList.split(",");
+            var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+            
+            for (var i=0; i<emailListData.length; i++){
+                var emailID = emailListData[i];
+                if (regex.test(emailID)) {
+                    emailLists.push(emailID);
+                }
+                else
+                {
+                    error++;
+                }
+            }
+            if (error != 0){
+                alert("Some of the email addresses are invalid in the csv file and they have been excluded.");
+            }
+
+            settingsFactory.unSubscribeEmails(emailLists).then(function (data) {
+                alert(data.d.operationStatus.messages[0]);
+                $scope.hideUnsubscribeEmailsPopup();
+            });
+        };   
+ 
 
         $scope.validateEmailListPopup = function (email)
         {
@@ -640,14 +715,11 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
 
         $scope.deleteSelected = function () {
-//            var email_list_name = $scope.emailListName;
+            var email_list_name = $scope.emailListName;
             if (confirm("Are you sure, You want to delete contact?")) {
-                var email_list_name = "";
+//                var email_list_name = "";
                 if (selectedemailids !== "") {
-                    alert("000");
                             email_list_name = $("#email_list_name").val();
-//                    email_list_name = $scope.emailListName;
-                    alert(email_list_name);
                     var Emails = {"update": "deleteEmailInEmailList", "emailListName": email_list_name, "emailAddresses": selectedemailids};
                     emailListFactory.emailListSavePost(Emails).then(function (data) {
                         $scope.updateList(email_list_name);
@@ -664,76 +736,114 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 }
             }
         };
-                
-        $scope.uploadEmailListOnClick = function () {
-            var reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            var fileUpload = document.getElementById("fileid");
-            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
-            $scope.unsubscribeEmailList = "";
-            if (regex.test(fileUpload.value.toLowerCase())) {
-                if (typeof (FileReader) != "undefined") {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var table = document.createElement("table");
-                        var rows = e.target.result.split("\n");
-                        for (var j = 0; j < rows.length; j++)
-                        {
-                            var csvvalue = rows[j].split(",");
 
-                            for (var i = 0; i < csvvalue.length; i++)
-                            {
-                                var temp = csvvalue[i];
-                                if (j == 0 && i == 0)
-                                    $scope.unsubscribeEmailList = temp;
-                                else
-                                    $scope.unsubscribeEmailList = $scope.unsubscribeEmailList + "," + temp;
-                            }
-                        }
-                        alert("Emails from CSV file read successfully, please click Unsubscribe Now button to process them.")
-                    }
-                    reader.readAsText(fileUpload.files[0]);
-
-                } else {
-
-                    alert("This browser does not support HTML5!");
-                }
-            } else {
-                alert("Please upload a valid CSV file!");
+        $scope.selemlcheckbox = function(id){ 
+            $scope.showDeleteEmailList = true;  
+            
+            var content='<input type="checkbox" name="deleteid" value="'+id+'" hidden="" id="deleteid"'+id+'" checked>';
+            var content1='<input type="checkbox" name="deleteid" value="'+id+'" hidden="" id="deleteid"'+id+'">';
+            var htm=$("#"+id).html();
+            if(htm.contains('class="check-icon"')){
+                count-=1;
+                $("#"+id).html(content1);
+                selectedemailids = selectedemailids.replace(id+",","");
+            }else{
+                selectedemailids = id + "," + selectedemailids;
+                count+=1;
+                $("#"+id).html(content+'<img src="images/check.svg" class="check-icon" style="cursor:pointer;"/>');
             }
-
+            $("#"+id).toggleClass('selection-icon');
+            $("#"+id).toggleClass('selection-icon-selected');
+            if(count > 0)
+            {
+                 $("#removeselactions").show();
+                 $("#delcontact").show();
+                 $(".gray-button").show();
+                 $("#addcontact").hide();
+                 $("#addcontacts").hide();
+            }
+            if(count==0)
+            {
+                $("#removeselactions").hide();
+                $("#delcontact").hide();
+                 $(".gray-button").hide();
+                 $("#addcontact").show();
+                 $("#addcontacts").show();
+            }
+            
+            
         };
+        
+//        $scope.uploadEmailListOnClick = function () {
+//            var reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//            var fileUpload = document.getElementById("fileid");
+//            var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+//            $scope.unsubscribeEmailList = "";
+//            if (regex.test(fileUpload.value.toLowerCase())) {
+//                if (typeof (FileReader) != "undefined") {
+//                    var reader = new FileReader();
+//                    reader.onload = function (e) {
+//                        var table = document.createElement("table");
+//                        var rows = e.target.result.split("\n");
+//                        for (var j = 0; j < rows.length; j++)
+//                        {
+//                            var csvvalue = rows[j].split(",");
+//
+//                            for (var i = 0; i < csvvalue.length; i++)
+//                            {
+//                                var temp = csvvalue[i];
+//                                if (j == 0 && i == 0)
+//                                    $scope.unsubscribeEmailList = temp;
+//                                else
+//                                    $scope.unsubscribeEmailList = $scope.unsubscribeEmailList + "," + temp;
+//                            }
+//                        }
+//                        alert("Emails from CSV file read successfully, please click Unsubscribe Now button to process them.")
+//                    }
+//                    reader.readAsText(fileUpload.files[0]);
+//
+//                } else {
+//
+//                    alert("This browser does not support HTML5!");
+//                }
+//            } else {
+//                alert("Please upload a valid CSV file!");
+//            }
+//
+//        };
+//    
+//        $scope.unsubscribeNowOnClick = function () {
+//            //If no file is selected
+//            if (!$scope.unsubscribeEmailList)
+//            {
+//                alert("Please choose a valid csv file.");
+//                return false;
+//            }
+//            //if file is blank
+//            if ($scope.unsubscribeEmailList)
+//            {
+//                if ($scope.unsubscribeEmailList.length == 0)
+//                {
+//                    alert("Please choose a valid csv file.");
+//                    return false;
+//                }
+//            }
+//            var emailListData = $scope.unsubscribeEmailList.split(",");
+//            $http({
+//                method: 'POST',
+//                url: getHost() + 'settings/saveUnsubscribeEmails',
+//                data: emailListData
+//            }).success(function (data) {
+//                alert(data.d.operationStatus.messages[0]);
+//                hideUnsubscribeEmailsPopup();
+//            }).error(function (data, status) {
+//                alert(requesterror);
+//            });
+//        }; 
     
-        $scope.unsubscribeNowOnClick = function () {
-            //If no file is selected
-            if (!$scope.unsubscribeEmailList)
-            {
-                alert("Please choose a valid csv file.");
-                return false;
-            }
-            //if file is blank
-            if ($scope.unsubscribeEmailList)
-            {
-                if ($scope.unsubscribeEmailList.length == 0)
-                {
-                    alert("Please choose a valid csv file.");
-                    return false;
-                }
-            }
-            var emailListData = $scope.unsubscribeEmailList.split(",");
-            $http({
-                method: 'POST',
-                url: getHost() + 'settings/saveUnsubscribeEmails',
-                data: emailListData
-            }).success(function (data) {
-                alert(data.d.operationStatus.messages[0]);
-                hideUnsubscribeEmailsPopup();
-            }).error(function (data, status) {
-                alert(requesterror);
-            });
-        }; 
-     
         $scope.openUnsubscribeEmailsPopup = function () {
             $scope.unsubscribePopup = true;
+            alert("Please make sure email addresses are in first column of the csv file.");
         };
         
         $scope.hideUnsubscribeEmailsPopup = function () {
