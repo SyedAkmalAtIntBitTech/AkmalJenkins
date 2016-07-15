@@ -36,6 +36,15 @@ factoryApp.factory('settingsFactory', function ($q, authenticatedServiceFactory,
         });
         return deffered.promise;
     };
+    settingsFactoryObject.unSubscribeEmails = function (data) {
+        var deffered = $q.defer();
+        var url = configurationService.unSubscribeEmails();
+        authenticatedServiceFactory.makeCall("POST", url,data, "").then(function (data) {
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
+
     settingsFactoryObject.getAllPreferencesGet = function () {
         var deffered = $q.defer();
         var url = configurationService.getAllPreferencesURL();

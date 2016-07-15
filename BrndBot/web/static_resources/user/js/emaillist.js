@@ -1190,18 +1190,18 @@ $edit=0;
                         reader.onload = function (e) {
                             var table = document.createElement("table");
                             var rows = e.target.result.split("\n");
-                            for(var j = 0; j< rows.length; j++)
+                            for(var j = 1; j< rows.length; j++)
                             {
                                 var csvvalue=rows[j].split(",");
 
-                                for(var i=0;i<csvvalue.length;i++)
-                                {
-                                    var temp=csvvalue[i];
-                                    if(j==0 && i ==0)
+//                                for(var i=0;i<csvvalue.length;i++)
+//                                {
+                                    var temp=csvvalue[0];
+                                    if(j==1)
                                         $scope.unsubscribeEmailList = temp;
                                     else
                                         $scope.unsubscribeEmailList = $scope.unsubscribeEmailList+","+temp;
-                                }
+//                                }
                             }
                             alert("Emails from CSV file read successfully, please click Unsubscribe Now button to process them.")
                         }
