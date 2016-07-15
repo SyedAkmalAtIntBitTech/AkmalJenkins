@@ -3,56 +3,57 @@
         <div ng-include src="'header.html'"></div>
         <div id="controllerMarketingCampaign"  class="container content-main">
         <div ng-include src="'genericpopup/mainpopup.html'" ></div>
--->        
-    <div ng-include src="'addaction.html'"></div>
-    <div class="main-content-wrap">
-        <div class="top-nav-wrap">
-            <div class="header">
-                <h2 class="">Your Plan</h2>
-                <div class="top-nav-cta-container">
-                    <a href="javascript:void(0)" class="reg-button green-button" id="liPriority" ng-click="ShowAddAction()">Add Action</a>
-                    <a href="" class="delete-button reg-button">
-                        <!--<div class=" md-button" ng-click="deleteSchedule('0','deleteMultiple')" id="deleteactionbutton">Delete Action</div>-->    
-                    </a>
-               </div>
+--> 
+<div ng-include src="'addaction.html'"></div>
+<div class="main-content-wrap">
+    <div class="top-nav-wrap">
+        <div class="header">
+            <h2 class="">Your Plan</h2>
+            <div class="top-nav-cta-container">
+                <a href="javascript:void(0)" class="reg-button green-button" id="liPriority" ng-click="ShowAddAction()">Add Action</a>
+                <a href="" class="delete-button reg-button">
+                    <!--<div class=" md-button" ng-click="deleteSchedule('0','deleteMultiple')" id="deleteactionbutton">Delete Action</div>-->    
+                </a>
             </div>
         </div>
-        <div class="top-sub-nav">
-            <div class="your-plan-cal-dropdown" ng-click="setCurrentDateActions()">
-                <i></i>
-                <label class="datepickerClass" for="jumptodatepicker" >Jump to Date</label>
-                <!--<div class="calendar-dropdown-text" for="jumptodatepicker">Jump to Date</div>-->
-                <input type="text"  name="datepicker" id="jumptodatepicker" readonly class="hideinput"/>
-                
-                <script>
-                        var picker = new Pikaday(
+    </div>
+    <div class="top-sub-nav">
+        <div class="your-plan-cal-dropdown" ng-click="setCurrentDateActions()">
+            <label class="datepickerClass" for="jumptodatepicker" > <i></i>
+                <label class="datepickerClass dateSelection subnav-date-dropdown-text " for="jumptodatepicker" >Jump to Date</label>
+            </label>
+            <!--<div class="calendar-dropdown-text" for="jumptodatepicker">Jump to Date</div>-->
+            <input type="text"  name="datepicker" id="jumptodatepicker" readonly class="hideinput"/>
+
+            <script>
+                var picker = new Pikaday(
                         {
                             field: document.getElementById('jumptodatepicker'),
                             format: 'YYYY-MM-DD',
                             firstDay: 1,
                             minDate: new Date('2000-01-01'),
                             maxDate: new Date('2050-12-31'),
-                            yearRange: [2000,2050],
-                            onSelect: function() {
-                                 var mydate=this.getMoment();
-                                 var mydt=mydate.toLocaleString();
-                                 var myDate = new Date(mydt);
-                            angular.element(document.getElementById('yourPlanController')).scope().setCurrentDate(myDate);
+                            yearRange: [2000, 2050],
+                            onSelect: function () {
+                                var mydate = this.getMoment();
+                                var mydt = mydate.toLocaleString();
+                                var myDate = new Date(mydt);
+                                angular.element(document.getElementById('yourPlanController')).scope().setCurrentDate(myDate);
                             }
                         });
-                </script>
-            </div>
+            </script>
         </div>
-        <div class="top-nav-bar-offset"></div>
-        <div class="top-subnav-bar-offset"></div>
+    </div>
+    <div class="top-nav-bar-offset"></div>
+    <div class="top-subnav-bar-offset"></div>
 
-        <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-init="getCampaigns()">
+    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-init="getCampaigns()">
         <div class="your-plan-wrap" ng-repeat="entity in entitySet">
             <div class="your-plan-pane" >
                 <div class="action-list-pane-header">
                     <!--<div class="page-content-title h2" ng-show='entity.date==tomorrow_date'>Tomorrow's Actions</div>-->
                     <h3 class="your-plan-date" ng-show="entity.date == today_date">Today's Actions</h3>
-                    <h3 class="your-plan-date" ng-show="(entity.date != today_date)">{{myYear(mySplit(entity.date,1))}} {{mySplit(entity.date,2)}} {{mySplit(entity.date,0)}}</h3>
+                    <h3 class="your-plan-date" ng-show="(entity.date != today_date)">{{myYear(mySplit(entity.date, 1))}} {{mySplit(entity.date, 2)}} {{mySplit(entity.date, 0)}}</h3>
                     <!--<h3 class="your-plan-date" ng-show="(entity.date != today_date)">{{entity.date | date:'EEEE, MMMM d, y'}}</h3>-->
                 </div>
                 <div class="your-plan-action-wrap" ng-repeat="entitydetails in entity.dataArray">
@@ -72,7 +73,7 @@
                                     <img src="images/ActionApproved.svg"/>
                                 </div>
                             </div>
-                             <div ng-show="entitydetails.entity_type == master_note">
+                            <div ng-show="entitydetails.entity_type == master_note">
                                 <div class="icon-container fleft hint--top" data-hint="Reminder" > 
                                     <img src="images/Reminder.svg"/>
                                 </div>
@@ -86,41 +87,41 @@
                             <p ng-show="entitydetails.user_marketing_program_id == 0">No Marketing Program</p>
                         </div>
 
-                         <div class="slat-detail-wrap">
-                             <div class="slat-detail">
-                                <h2 ng-show="entitydetails.entity_type==master_facebook || entitydetails.entity_type==master_twitter">{{entitydetails.entity_type}}</h2>
-                                 <h2 ng-show="entitydetails.entity_type==master_email || entitydetails.entity_type==master_note">{{entitydetails.entity_type}}</h2>
+                        <div class="slat-detail-wrap">
+                            <div class="slat-detail">
+                                <h2 ng-show="entitydetails.entity_type == master_facebook || entitydetails.entity_type == master_twitter">{{entitydetails.entity_type}}</h2>
+                                <h2 ng-show="entitydetails.entity_type == master_email || entitydetails.entity_type == master_note">{{entitydetails.entity_type}}</h2>
                                 <p>Action Type</p>
                             </div>
-                         </div>
+                        </div>
 
 
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">
-                                 <!--ng-click="setTemplate('Email',false)">Details</div>-->
+                                <!--ng-click="setTemplate('Email',false)">Details</div>-->
                                 <a class="reg-button gray-button-outline slat-detail-button" 
                                    ng-click="getScheduleDetails(entitydetails.schedule_id,
-                                                             entitydetails.template_status,
-                                                             entitydetails.schedule_time,
-                                                             entitydetails.entity_type,
-                                                             entitydetails.schedule_title,
-                                                             entitydetails.schedule_description,
-                                                             entitydetails.marketingName,
-                                                             entitydetails.user_marketing_program_id,
-                                                             entitydetails.days,
-                                                             entitydetails.is_today_active)">Action Details</a>
+                                                       entitydetails.template_status,
+                                                       entitydetails.schedule_time,
+                                                       entitydetails.entity_type,
+                                                       entitydetails.schedule_title,
+                                                       entitydetails.schedule_description,
+                                                       entitydetails.marketingName,
+                                                       entitydetails.user_marketing_program_id,
+                                                       entitydetails.days,
+                                                       entitydetails.is_today_active)">Action Details</a>
                             </div>
                         </div>
 
                     </div>
 
-                    </div>
-                    <div class="slat" ng-show="entity.dataArray == ''">
-                         <div class="your-plan-empty-date"> No actions scheduled for today</div>
-                    </div>
+                </div>
+                <div class="slat" ng-show="entity.dataArray == ''">
+                    <div class="your-plan-empty-date"> No actions scheduled for today</div>
                 </div>
             </div>
-            <div class="bottom-offset"></div>
         </div>
-        
+        <div class="bottom-offset"></div>
     </div>
+
+</div>
