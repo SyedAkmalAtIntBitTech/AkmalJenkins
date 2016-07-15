@@ -14,20 +14,13 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.firstName = "";
         $scope.lastName = ""; 
         $scope.unsubscribePopup = false;
-//        $scope.myClass = [];
+         $scope.overlayFade = false;
         
         $scope.displayAllEmailDrafts = function () {
             $scope.activeEmailDrafts='activeTab';   
             $scope.activeEmailHistory='';   
             $scope.activeEmailSettings=''; 
-            $scope.activeEmailList='';
-            
-//            $scope.myClass.pop('top-subnav-links');
-//            $scope.myClass.push('top-subnav-links-active');
-
-//            $("#emldrftab").addClass("top-subnav-link-active");
-//            $("#emldrftab").removeClass("top-subnav-links");
-            
+            $scope.activeEmailList='';           
             $scope.emaildropdown = false;
             $scope.saveEmailSettingsButton = false;
             $scope.addEmailListButton = false;
@@ -44,6 +37,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         
         $scope.emailDraftCheckbox = function (id) {
+//            $scope = id;
+            var count=0;
+            var selected_emaildrafts_to_delete = "";
+            
             content = '<input type="checkbox" id="' + 'entityid' + id + '" hidden="">';
             var htm = $("#" + id).html();
             var selected_schedule_id = id;
@@ -64,12 +61,14 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $scope.deletDraftsButton = true;
                 $("#deleteEmaildraft").show();
             }
-            if (count === 0)
+            if (count === -1)
             {
                 $("#deleteEmaildraft").hide();
             }
         };
         $scope.selectedEmailCheckbox = function (emailListID) {
+            var count = 0;
+            var selectedemailids = "";
             var content = '<input type="checkbox" name="deleteid" value="' + emailListID + '" hidden="" id="deleteid"' + emailListID + '" checked>';
             var content1 = '<input type="checkbox" name="deleteid" value="' + emailListID + '" hidden="" id="deleteid"' + emailListID + '">';
             var htm = $("#" + emailListID).html();
@@ -89,12 +88,31 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $scope.showDeleteEmailList = true;
                 $("#removeselactions").show();
             }
-            if (count === 0)
+            if (count === -1)
             {
                 $scope.showDeleteEmailList = false;
                 $("#removeselactions").hide();
             }
         };
+        
+//        $scope.unsel = function () {
+//            count = 0;
+//            var htm = $(".selection-icon-selected").html();
+//            if (htm.contains('class="check-icon"')) {
+//                $(".selection-icon-selected").html('');
+//            }
+//            $(".selection-icon-selected").addClass('selection-icon');
+//            $('.selection-icon').removeClass('selection-icon-selected');
+//            if (count === 0)
+//            {
+//                $scope.showDeleteEmailList = false;
+//                $("#removeselactions").hide();
+////                $(".gray-button").hide();
+////                $("#addcontact").show();
+////                $("#addcontacts").show();
+//            }
+//        };
+        
         $scope.selectedEmailListCheckbox = function (id) {
             var content = '<input type="checkbox" name="deleteid" value="' + id + '" hidden="" id="deleteid"' + id + '" checked>';
             var content1 = '<input type="checkbox" name="deleteid" value="' + id + '" hidden="" id="deleteid"' + id + '">';
@@ -126,29 +144,31 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             }
         };
 
-        $scope.deSelectCheckbox = function () {
-            count = 0;
-            var htm = $(".selection-icon-selected").html();
-            if (htm.contains('class="check-icon"')) {
-                $(".selection-icon-selected").html('');
-            }
-            $(".selection-icon-selected").addClass('selection-icon');
-            $('.selection-icon').removeClass('selection-icon-selected');
-            if (count === 0)
-            {
-//                $(".delete-button").hide();
-//                $(".gray-button").hide();
-                $scope.deSelectCheckboxButton = false;
-                $scope.selectCheckboxButton = false;
-                $("#addcontact").show();
-                $("#addcontacts").show();
-            }
-        };
+//        $scope.deSelectCheckbox = function () {
+//            count = 0;
+//            var htm = $(".selection-icon-selected").html();
+//            if (htm.contains('class="check-icon"')) {
+//                $(".selection-icon-selected").html('');
+//            }
+//            $(".selection-icon-selected").addClass('selection-icon');
+//            $('.selection-icon').removeClass('selection-icon-selected');
+//            if (count === 0)
+//            {
+////                $(".delete-button").hide();
+////                $(".gray-button").hide();
+//                $scope.deSelectCheckboxButton = false;
+//                $scope.selectCheckboxButton = false;
+//                $("#addcontact").show();
+//                $("#addcontacts").show();
+//            }
+//        };
 
         $scope.deleteDrafts = function (type, id)
         {
+            alert("sss");
             var delid = id + ",";
             var message;
+            var selected_emaildrafts_to_delete = "";
             var requestBody;
             if (type === "deleteMultiple") {
                 message = multidraftconfirm;
@@ -289,8 +309,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.activeEmailHistory='';
             $scope.activeEmailSettings=''; 
             $scope.activeEmailDrafts='';  
-            
-            
+                       
             $scope.emaildropdown = false;
             $scope.addEmailListButton = true;
             $("#addemlstbtn").show();
@@ -396,6 +415,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 
         $scope.updateEmailID = function (email) {
             $("#addcontact").show();
+            $scope.showAddContactPopup = false;
+            $scope.overlayFade = false;
             var email_list_name = $scope.emailListName;
             var email_address = $("#emailId").val();
             var firstName = email.firstName;
@@ -548,18 +569,14 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         
         $scope.showDropDown = function()
         {
-//            $(".dropdown-hub").show();
 //                $("#emaildropdown").css("display","block");
-//                 $("#emaildropdown").show();
               $scope.emaildropdown = true;
         };
-        
-//        $("#showDropDown").click(function(){
-//    $("#emaildropdown").css("display","block");
-//       });
-       
+      
         $scope.addContactDetails = function (type, email, id, fname, lname)
         {
+            $("fade").show();
+            $scope.overlayFade = true;
             $scope.email = {
                 emailId: email,
                 firstName: fname,
@@ -610,6 +627,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         $scope.viewEmailListDetails = function (listName, type)
         {
+            $scope.overlayFade = false;
             $scope.emailListName = listName;
             $scope.type = type;
             $scope.showEmailListDetails = true;
@@ -640,44 +658,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 }
             }
         };
-        
-        $scope.selemlcheckbox = function(id){ 
-            $scope.showDeleteEmailList = true;  
-            
-            var content='<input type="checkbox" name="deleteid" value="'+id+'" hidden="" id="deleteid"'+id+'" checked>';
-            var content1='<input type="checkbox" name="deleteid" value="'+id+'" hidden="" id="deleteid"'+id+'">';
-            var htm=$("#"+id).html();
-            if(htm.contains('class="check-icon"')){
-                count-=1;
-                $("#"+id).html(content1);
-                selectedemailids = selectedemailids.replace(id+",","");
-            }else{
-                selectedemailids = id + "," + selectedemailids;
-                count+=1;
-                $("#"+id).html(content+'<img src="images/check.svg" class="check-icon" style="cursor:pointer;"/>');
-            }
-            $("#"+id).toggleClass('selection-icon');
-            $("#"+id).toggleClass('selection-icon-selected');
-            if(count > 0)
-            {
-                 $("#removeselactions").show();
-                 $("#delcontact").show();
-                 $(".gray-button").show();
-                 $("#addcontact").hide();
-                 $("#addcontacts").hide();
-            }
-            if(count==0)
-            {
-                $("#removeselactions").hide();
-                $("#delcontact").hide();
-                 $(".gray-button").hide();
-                 $("#addcontact").show();
-                 $("#addcontacts").show();
-            }
-            
-            
-        };
-        
+                
         $scope.uploadEmailListOnClick = function () {
             var reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             var fileUpload = document.getElementById("fileid");
@@ -744,12 +725,17 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 alert(requesterror);
             });
         }; 
-    
+     
         $scope.openUnsubscribeEmailsPopup = function () {
             $scope.unsubscribePopup = true;
         };
         
         $scope.hideUnsubscribeEmailsPopup = function () {
             $scope.unsubscribePopup = false;
+        };
+        
+        $scope.closeAddContactPopup = function () {
+            $scope.showAddContactPopup = false;
+            $scope.overlayFade = false;
         };
     }]);
