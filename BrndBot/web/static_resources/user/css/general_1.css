@@ -2640,3 +2640,9 @@ p.modal-content-header{
     font-weight: 600;
     box-sizing: border-box;
 }
+
+.dateSelection{
+    position: relative;
+    top: -28px;
+    left: 50px;
+}
