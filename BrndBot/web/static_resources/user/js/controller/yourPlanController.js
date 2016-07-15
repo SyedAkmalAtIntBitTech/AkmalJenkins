@@ -198,7 +198,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
         {
-            alert(JSON.stringify(actionType));
             var actiondate = datePicker;
             var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
             var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();

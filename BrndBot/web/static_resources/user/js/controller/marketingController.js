@@ -7,6 +7,26 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.programId = "";
         $scope.randomIframeFilename=event.timeStamp;
         
+         $scope.ddSelectActionOptions = [
+            {
+                text: 'Select',
+                value: '0'
+            }, {
+                text: 'Facebook Post',
+                value: 'Facebook'
+            }, {
+                text: 'Twitter Post',
+                value: 'Twitter'
+            }, {
+                text: 'Email',
+                value: 'Email'
+            }
+        ];
+
+        $scope.ddSelectAction = {
+            text: "Select"
+        };
+        
         $scope.backToPreviousPage = function (previousPage){  
             $location.path("/" + previousPage);
         };
@@ -153,7 +173,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var schedule_time = Date.parse(l);
             var myEpoch = schedule_time;
             var days = 0;
-            var action = {"title": addTitle, "actiontype": actionType, "type": "save", "description": "", "marketingType": $scope.programId, "action_date": myEpoch, "days": days};
+            var action = {"title": addTitle, "actiontype": actionType.value, "type": "save", "description": "", "marketingType": $scope.programId, "action_date": myEpoch, "days": days};
             companyMarketingProgramFactory.addActionPost(action).then(function (data) {
                 alert(data.toLocaleString());
                 $scope.closeOverlay();
