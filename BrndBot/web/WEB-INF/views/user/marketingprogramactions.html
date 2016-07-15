@@ -1,10 +1,10 @@
+<div ng-include src="'addaction.html'"></div>
 <div class="main-content-wrap" ng-init="getProgramActions('emailautomation')">
-    <div ng-include src="'addaction.html'"></div>
     <div ng-hide="true" ng-include src="'recurringemailpopup.html'"></div>
     <div class="top-nav-wrap">
         <div class="header">
             <a class="back-button" ng-click="backToPreviousPage('marketingprogramlists')" ></a>
-            <h2 class="">{{programs.programdetails.programName}}</h2>
+        <h2 class="">{{programs.programdetails.programName}}</h2>
             <input type="hidden" name="program_name2" id="program_name2" value="{{programs.programdetails.programName}}"></input>
             <!--<% if(past!=1) {%>-->
             <a href="" class="reg-button gray-button" ng-click="endMarketingProgram()" id="endMarketingProgram">Archive Campaign</a>

@@ -7,6 +7,26 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.programId = "";
         $scope.randomIframeFilename=event.timeStamp;
         
+         $scope.ddSelectActionOptions = [
+            {
+                text: 'Select',
+                value: '0'
+            }, {
+                text: 'Facebook Post',
+                value: 'Facebook'
+            }, {
+                text: 'Twitter Post',
+                value: 'Twitter'
+            }, {
+                text: 'Email',
+                value: 'Email'
+            }
+        ];
+
+        $scope.ddSelectAction = {
+            text: "Select"
+        };
+        
         $scope.backToPreviousPage = function (previousPage){  
             $location.path("/" + previousPage);
         };
@@ -14,6 +34,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $('#edit').froalaEditor({
                 key: FroalaLicenseKey
             });
+        };
+        $scope.rediectToCreateCampaign = function (pageName){
+            $location.path("/" +pageName);
         };
         $scope.redirect = function (pageName, marketingCategoryId)
         {
@@ -55,12 +78,17 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.displayMarketingProgramByCategoryId = function (forward) {
-            marketingFactory.marketingProgramsGet($scope.marketingCategoryId).then(function (data) {
-                $scope.pageName = "marketingPrograms";
-                $scope.forward = forward;
-                $scope.displayAllMarketingPrograms = data.d.details;
-                $scope.header = "Select a Category";
-            });
+            if($scope.marketingCategoryId===''){ 
+                    $location.path("/" + "createmarketingprogram"); 
+                }
+            else{
+                marketingFactory.marketingProgramsGet($scope.marketingCategoryId).then(function (data) {
+                    $scope.pageName = "marketingPrograms";
+                    $scope.forward = forward;
+                    $scope.displayAllMarketingPrograms = data.d.details;
+                    $scope.header = "Select a Category";
+                });
+            }
         };
 
         $scope.saveMarketingProgram = function (programName, programUrl, programUrlName, programDateTime) {
@@ -80,8 +108,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.getUserMarketingProgramsOpen = function (forward) {
             companyMarketingProgramFactory.listAllMarketingProgramGet("Open").then(function (data) {
                 $scope.currentPrograms = data.programs;
-                $scope.currProgramsDiv = true;
-                $scope.pastProgramsDiv = false;
                 $scope.forward = forward;
                 $scope.showCurrentPrograms();
             });
@@ -89,9 +115,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.getUserMarketingProgramsClosed = function (forward) {
             companyMarketingProgramFactory.listAllMarketingProgramGet("Closed").then(function (data) {
+                $scope.showPastPrograms();
                 $scope.pastPrograms = data.programs;
-                $scope.currProgramsDiv = false;
-                $scope.pastProgramsDiv = true;
                 $scope.forward = forward;
             });
         };
@@ -110,15 +135,19 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.getProgramActions = function (forward)
         {
-            companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {                
-                $scope.programs = data;
-                if($scope.programs===''){ 
+            if($scope.programId===''){ 
                     $location.path("/" + "marketingprogramlists"); 
                 }
-                $scope.template_status = data.emailautomation;
-                $scope.actionType = "Email";
-                $scope.forward = forward;
-            });
+            else{
+                companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {
+
+                    $scope.programs = data;
+                    $scope.template_status = data.emailautomation;
+                    $scope.actionType = "Email";
+                    $scope.forward = forward;
+                    $scope.hideUntilLoad=true;
+                });
+            }
         };
 
         $scope.ShowAddAction = function ()
@@ -144,7 +173,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var schedule_time = Date.parse(l);
             var myEpoch = schedule_time;
             var days = 0;
-            var action = {"title": addTitle, "actiontype": actionType, "type": "save", "description": "", "marketingType": $scope.programId, "action_date": myEpoch, "days": days};
+            var action = {"title": addTitle, "actiontype": actionType.value, "type": "save", "description": "", "marketingType": $scope.programId, "action_date": myEpoch, "days": days};
             companyMarketingProgramFactory.addActionPost(action).then(function (data) {
                 alert(data.toLocaleString());
                 $scope.closeOverlay();
