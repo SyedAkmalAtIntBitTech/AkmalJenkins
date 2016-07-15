@@ -2864,3 +2864,22 @@ div#editor {
 .dashboard-link{
     margin-right: 111px;
 }
+
+.addContactPopup {
+/*    position: fixed;
+    background-color: #3D5368 !important;
+    z-index: 99999 !important;
+    margin-top: 60px;
+    */
+    
+    position: fixed;
+/*    margin-top: 4%*/
+    top: 4%;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+/*    background-color: #3D5368 !important;*/
+    z-index: 99999 !important;
+/*    -moz-opacity: 0.9;
+    opacity: .9 !important;*/
+}

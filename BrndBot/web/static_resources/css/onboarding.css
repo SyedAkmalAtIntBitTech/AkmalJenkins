@@ -146,7 +146,7 @@
     cursor:pointer;
 }
 .palette-colorswab-selected{
-    border: 3px solid rgb(216, 15, 15);
+    border: 2px solid #0F76A6;
     width: 80px;
     height: 35px;
     border-radius: 3px;
