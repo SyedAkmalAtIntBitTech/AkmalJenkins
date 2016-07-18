@@ -196,10 +196,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var days = 0;
             var action = {"title": addTitle, "actiontype": actionType.value, "type": "save", "description": "", "marketingType": $scope.programId, "action_date": myEpoch, "days": days};
             companyMarketingProgramFactory.addActionPost(action).then(function (data) {
-                alert(data.toLocaleString());
                 $scope.closeOverlay();
-                $location.path("/" + "marketingprogramlists");
-                
+                $scope.getProgramActions('emailautomation');                
             });
         };
 
@@ -678,10 +676,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
 
             if (confirm(message)) {
-                alert(JSON.stringify(responseMessage))
+//                alert(JSON.stringify(responseMessage))
                 yourPlanFactory.changeSchedulePost(requestBody).then(function (data) {
-                    $scope.getCampaigns();
                     $scope.closePopup();
+                    $scope.getProgramActions('emailautomation');          
                 });
             }
         };
