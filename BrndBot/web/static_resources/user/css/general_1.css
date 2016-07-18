@@ -1649,6 +1649,9 @@ li.sub-nav-tab.active a{
 .fadeClass{
     display: flex !important;
 }
+.unfadeClass{
+    display: none !important;
+}
 
 .center-pop-ups{
     display: -webkit-flex;

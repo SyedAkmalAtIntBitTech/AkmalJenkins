@@ -720,7 +720,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
 
             if (confirm(message)) {
-//                alert(JSON.stringify(responseMessage))
                 yourPlanFactory.changeSchedulePost(requestBody).then(function (data) {
                     $scope.closePopup();
                     $scope.getProgramActions('emailautomation');          

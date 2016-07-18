@@ -101,6 +101,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
         
         $scope.redirectBaseURL = function (){
+            alert($scope.draftId);
             if ($scope.categoryId == ""){
                 $location.path("/" + "baseemaileditor#/emailcategory");
             }
@@ -412,12 +413,12 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.emailPreviewOnClick = function () {
             settingsFactory.getAllPreferencesGet().then(function (data) {
-                $("#fade").show();
+//                $("#fade").show();
+                $scope.fadeClass='fadeClass';
                 $scope.emailPreviewPopup = true;
                 var footerData = JSON.parse(data.d.details);
                 $scope.overlayFade = true;
-                $("#fade").show();
-                $scope.emailPreviewPopup = true;
+//                $("#fade").show();
                 var footer = $scope.getUserFooter(footerData.userProfile.facebookUrl, footerData.userProfile.twitterUrl,
                         footerData.userProfile.websiteUrl, footerData.userProfile.instagramUrl,
                         footerData.userProfile.address);
@@ -775,7 +776,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.emailListPreviewOnClick = function () {
             $scope.iframePath = getHost() + "download/HTML?fileName=" + $scope.randomIframeFilename + ".html";
-            $("#fade").show();
+            $scope.fadeClass='fadeClass';$("#fade").show();
             $scope.emailPreviewPopup = true;
         };
 
@@ -982,7 +983,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.previewCloseButton = function () {
             $scope.emailPreviewPopup = false;
-            $("#fade").hide();
+            $scope.fadeClass='unfadeClass';
         };
 
         $scope.editFooter = function () {
