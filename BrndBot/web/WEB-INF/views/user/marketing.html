@@ -53,7 +53,7 @@
                 <div class="action-list-pane-header">
                     <!--<div class="page-content-title h2" ng-show='entity.date==tomorrow_date'>Tomorrow's Actions</div>-->
                     <h3 class="your-plan-date" ng-show="entity.date == today_date">Today's Actions</h3>
-                    <h3 class="your-plan-date" ng-show="(entity.date != today_date)">{{myYear(mySplit(entity.date, 1))}} {{mySplit(entity.date, 2)}} {{mySplit(entity.date, 0)}}</h3>
+                    <h3 class="your-plan-date" ng-show="(entity.date != today_date)">{{getDayOfMonth(entity.date)}} {{myYear(mySplit(entity.date, 1))}} {{mySplit(entity.date, 2)}} {{mySplit(entity.date, 0)}}</h3>
                     <!--<h3 class="your-plan-date" ng-show="(entity.date != today_date)">{{entity.date | date:'EEEE, MMMM d, y'}}</h3>-->
                 </div>
                 <div class="your-plan-action-wrap" ng-repeat="entitydetails in entity.dataArray">
