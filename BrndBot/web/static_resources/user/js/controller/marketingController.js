@@ -6,6 +6,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.endDate = "";
         $scope.programId = "";
         $scope.randomIframeFilename=event.timeStamp;
+        $scope.showCampaignDetails=false;
+        $scope.showCampaignActions=true;   
         
          $scope.ddSelectActionOptions = [
             {
@@ -22,7 +24,21 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 value: 'Email'
             }
         ];
-
+        
+        $scope.displayCampaignDetails = function (){
+            $scope.campaignDetailsClass='activeCampaign';
+            $scope.campaignActionsClass='';
+            $scope.showCampaignDetails=true;
+            $scope.showCampaignActions=false;            
+        };
+        
+        $scope.displayCampaignActions = function (){
+            $scope.campaignActionsClass='activeCampaign';
+            $scope.campaignDetailsClass='';
+            $scope.showCampaignActions=true; 
+            $scope.showCampaignDetails=false;           
+        };
+        
         $scope.ddSelectAction = {
             text: "Select"
         };
@@ -140,7 +156,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 }
             else{
                 companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {
-
+                    $scope.displayCampaignActions();
                     $scope.programs = data;
                     $scope.template_status = data.emailautomation;
                     $scope.actionType = "Email";

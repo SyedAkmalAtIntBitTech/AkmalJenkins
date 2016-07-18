@@ -15,8 +15,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.lastName = ""; 
         $scope.selectedEmail="";
         $scope.unsubscribePopup = false;
-         $scope.overlayFade = false;
-        
+        $scope.overlayFade = false;   
+                
         $scope.displayAllEmailDrafts = function () {
             $scope.activeEmailDrafts='activeTab';   
             $scope.activeEmailHistory='';   
@@ -166,27 +166,29 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 
         $scope.deleteDrafts = function (type, id)
         {
-            var delid = id + ",";
-            var message;
-//            var selected_emaildrafts_to_delete = id;
-            var requestBody;
-            if (type === "deleteMultiple") {
-                message = multidraftconfirm;
-                requestBody = {"type": "deleteSelected",
-                    "draft_ids":  $scope.selectedEmail.toString(), "entity_type": "null"};
-                $("#deleteEmaildraft").hide();
-            } else if (type === "delete") {
-                message = singledraftconfirm;
-                requestBody = {"type": "delete",
-                    "draft_ids": $scope.selectedEmail.toString()};
-                $scope.savedEmailDraftPopup = false;
-                $("#fade").hide();
-                $scope.displayAllEmailDrafts();
+           if (confirm("Are you sure, You want to Delete Email Draft(s)?")) {
+                var delid = id + ",";
+                var message;
+    //            var selected_emaildrafts_to_delete = id;
+                var requestBody;
+                if (type === "deleteMultiple") {
+                    message = multidraftconfirm;
+                    requestBody = {"type": "deleteSelected",
+                        "draft_ids":  $scope.selectedEmail.toString(), "entity_type": "null"};
+                       $scope.deletDraftsButton=false;
+                } else if (type === "delete") {
+                    message = singledraftconfirm;
+                    requestBody = {"type": "delete",
+                        "draft_ids": $scope.selectedEmail.toString()};
+                    $scope.savedEmailDraftPopup = false;
+                    $scope.deletDraftsButton=false;
+                    $scope.displayAllEmailDrafts();
+                }
+                emailDraftFactory.deleteEmailDraftsPost(requestBody).then(function (data) {
+    //                alert(JSON.stringify(data)); 
+                    $scope.displayAllEmailDrafts();
+                });
             }
-            emailDraftFactory.deleteEmailDraftsPost(requestBody).then(function (data) {
-                alert(JSON.stringify(data)); 
-                $scope.displayAllEmailDrafts();
-            });
         };
         $scope.editDrafts = function (draft_id, category_id, email_subject, sub_category_id, mindbodyId, lookupId) {
             var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id,
