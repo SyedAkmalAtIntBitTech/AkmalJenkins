@@ -5,6 +5,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.past = "";
         $scope.endDate = "";
         $scope.programId = "";
+        $scope.programDate = "";
         $scope.randomIframeFilename=event.timeStamp;
         
          $scope.ddSelectActionOptions = [
@@ -99,7 +100,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 "marketing_category_id": $scope.marketingCategoryId.toString(),
                 "marketing_program_id": $scope.marketingProgramId.toString()
             };
-
             companyMarketingProgramFactory.setMarketingProgramPost(data).then(function (data) {
                 $location.path("/" + "marketingprogramactions");
             });
@@ -140,8 +140,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 }
             else{
                 companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {
-
                     $scope.programs = data;
+                    for (var i = 0; i< data.programactions.length; i++){
+                        var action = data.programactions[i];
+                        $scope.programDate = action.eventDate;
+                    }
                     $scope.template_status = data.emailautomation;
                     $scope.actionType = "Email";
                     $scope.forward = forward;
@@ -149,7 +152,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 });
             }
         };
-
         $scope.ShowAddAction = function ()
         {
             $scope.fadeClass = 'fadeClass';
@@ -163,17 +165,53 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.addAction = false;
         };
 
+        function getDays(theDate, todate) {
+            var fromdate = new Date();
+            console.log(fromdate);
+            alert("from date "+fromdate);
+            var tdate = new Date(todate);
+            alert("tdate "+tdate);
+            var days = fromdate - tdate;
+            alert(days);
+            return days;
+        }
+
+        function treatAsUTC(date) {
+            var result = new Date(date);
+            result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
+            return result;
+        }
+
+        function daysBetween(startDate, endDate) {
+            var millisecondsPerDay = 24 * 60 * 60 * 1000;
+            return (treatAsUTC(endDate) - treatAsUTC(startDate)) / millisecondsPerDay;
+        }
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
         {
             var actiondate = datePicker;
-            var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
-            var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
-            var myDate = new Date(l);
-            var days = 0;
+            var curr_date = moment(actiondate).format('YYYY-MM-DD');
+            var nDate = $scope.programDate;
+            var dateArray=nDate.split('-');
+            var month = dateArray[1];
+            var day=dateArray[0];
+            var year=dateArray[2];
+            var program_end_date=year+"-"+month+"-"+day;
+            console.log(nDate);
+            var start = moment(program_end_date);
+            var end = moment(curr_date);
+            var days = start.diff(end, "days");
+            var actiond = "1970/01/01";
+            var actionDateTime=$("#timepicker1").val().replace(/ /g,'');
+            var l=actiond.toLocaleString() +" "+actionDateTime.toLocaleString();
+            var myDate = new Date(l); // Your timezone!        
             var schedule_time = Date.parse(l);
-            var myEpoch = schedule_time;
-            var days = 0;
-            var action = {"title": addTitle, "actiontype": actionType.value, "type": "save", "description": "", "marketingType": $scope.programId, "action_date": myEpoch, "days": days};
+            console.log("Epoch: " + schedule_time);        
+            var myEpoch = schedule_time;        
+            console.log("New Epoch: " + myEpoch);
+            
+            var action = {"title": addTitle, "actiontype": actionType.value, 
+                "type": "save", "description": "", "marketingType": $scope.programId, 
+                "action_date": myEpoch, "days": days};
             companyMarketingProgramFactory.addActionPost(action).then(function (data) {
                 alert(data.toLocaleString());
                 $scope.closeOverlay();
@@ -234,7 +272,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.reminderDetailsTab = false;
             }
         };
-
         $scope.getRecurringScheduleDetails = function (schedule_id, template_status, till_date, schedule_time, entity_type, schedule_title, schedule_desc, date_status, days)
         {
             $scope.isRecurring = true;
@@ -268,7 +305,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.recurringScheduleData.entities_list_name = $scope.recurringEntitiesDetails.email_list_name;
                 $scope.recurringScheduleData.entities_from_name = $scope.recurringEntitiesDetails.from_name;
                 $scope.recurringScheduleData.entities_reply_to_email_address = $scope.recurringEntitiesDetails.reply_to_email_address;
-
                 var iframe = document.getElementById('iframeForAction');
                 if ($scope.recurringEntitiesDetails.body) {
                     $scope.savedEmail = true;
@@ -311,12 +347,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         
         yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
             $scope.recurringEntitiesDetails = JSON.parse(data.d.details);
-            
             $scope.recurringScheduleData.entities_subject = $scope.recurringEntitiesDetails.subject;
             $scope.recurringScheduleData.entities_list_name = $scope.recurringEntitiesDetails.email_list_name;
             $scope.recurringScheduleData.entities_from_name = $scope.recurringEntitiesDetails.from_name;
             $scope.recurringScheduleData.entities_reply_to_email_address = $scope.recurringEntitiesDetails.reply_to_email_address;
-            
+            $scope.recurringScheduleData.days = days;
+            $scope.recurringScheduleData.entities_selected_time = $filter('date')(schedule_time, "HH:mm a");
             var iframe = document.getElementById('iframeForAction');  
             if ($scope.recurringEntitiesDetails.body) {
                 $scope.savedEmail = true;
