@@ -7,6 +7,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.programId = "";
         $scope.programDate = "";
         $scope.randomIframeFilename=event.timeStamp;
+        $scope.showCampaignDetails=false;
+        $scope.showCampaignActions=true;   
         
          $scope.ddSelectActionOptions = [
             {
@@ -23,7 +25,21 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 value: 'Email'
             }
         ];
-
+        
+        $scope.displayCampaignDetails = function (){
+            $scope.campaignDetailsClass='activeCampaign';
+            $scope.campaignActionsClass='';
+            $scope.showCampaignDetails=true;
+            $scope.showCampaignActions=false;            
+        };
+        
+        $scope.displayCampaignActions = function (){
+            $scope.campaignActionsClass='activeCampaign';
+            $scope.campaignDetailsClass='';
+            $scope.showCampaignActions=true; 
+            $scope.showCampaignDetails=false;           
+        };
+        
         $scope.ddSelectAction = {
             text: "Select"
         };
@@ -93,15 +109,24 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.saveMarketingProgram = function (programName, programUrl, programUrlName, programDateTime) {
+            if((programUrl === undefined)||(programUrlName === undefined)){
+                programUrl="";
+                programUrlName="";
+            }
+            var programDate=new Date(programDateTime);
             var data = {"program_name": programName,
-                "program_date_time": programDateTime,
-                "program_url": programUrl,
-                "program_url_name": programUrlName,
-                "marketing_category_id": $scope.marketingCategoryId.toString(),
-                "marketing_program_id": $scope.marketingProgramId.toString()
+                        "program_date_time": programDate,
+                        "program_url": programUrl,
+                        "program_url_name": programUrlName,
+                        "marketing_category_id": $scope.marketingCategoryId.toString(),
+                        "marketing_program_id": $scope.marketingProgramId.toString()
             };
+<<<<<<< HEAD
+=======
+            
+>>>>>>> d564e56f268e4e52c4e14007d05a9fd85931781c
             companyMarketingProgramFactory.setMarketingProgramPost(data).then(function (data) {
-                $location.path("/" + "marketingprogramactions");
+                $scope.redirectToActions("marketingprogramactions", data, 0, "");
             });
         };
 
@@ -140,6 +165,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 }
             else{
                 companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {
+<<<<<<< HEAD
+=======
+                    $scope.displayCampaignActions();
+>>>>>>> d564e56f268e4e52c4e14007d05a9fd85931781c
                     $scope.programs = data;
                     for (var i = 0; i< data.programactions.length; i++){
                         var action = data.programactions[i];
@@ -213,10 +242,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 "type": "save", "description": "", "marketingType": $scope.programId, 
                 "action_date": myEpoch, "days": days};
             companyMarketingProgramFactory.addActionPost(action).then(function (data) {
-                alert(data.toLocaleString());
                 $scope.closeOverlay();
-                $location.path("/" + "marketingprogramlists");
-                
+                $scope.getProgramActions('emailautomation');                
             });
         };
 
@@ -693,10 +720,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
 
             if (confirm(message)) {
-                alert(JSON.stringify(responseMessage))
+//                alert(JSON.stringify(responseMessage))
                 yourPlanFactory.changeSchedulePost(requestBody).then(function (data) {
-                    $scope.getCampaigns();
                     $scope.closePopup();
+                    $scope.getProgramActions('emailautomation');          
                 });
             }
         };

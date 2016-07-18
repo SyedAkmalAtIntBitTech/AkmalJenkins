@@ -148,6 +148,20 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             return abbrDays[myDate.getDay()] + ", " + myDate.getDate() + " " + (abbrMonths[myDate.getMonth()]) +
                 " " + myDate.getFullYear();
         }
+        
+        $scope.getDayOfMonth = function(date) {
+            var weekday = new Array(7);
+            weekday[0]=  "Sunday";
+            weekday[1] = "Monday";
+            weekday[2] = "Tuesday";
+            weekday[3] = "Wednesday";
+            weekday[4] = "Thursday";
+            weekday[5] = "Friday";
+            weekday[6] = "Saturday";
+            var dayName = new Date(date+ " "+"11:13:00");
+            return weekday[dayName.getDay()];
+
+        }
 
         $scope.myDay = function (string) {
             var n_date = new Date(string);
