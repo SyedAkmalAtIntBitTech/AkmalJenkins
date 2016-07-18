@@ -108,16 +108,21 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.saveMarketingProgram = function (programName, programUrl, programUrlName, programDateTime) {
+            if((programUrl === undefined)||(programUrlName === undefined)){
+                programUrl="";
+                programUrlName="";
+            }
+            var programDate=new Date(programDateTime);
             var data = {"program_name": programName,
-                "program_date_time": programDateTime,
-                "program_url": programUrl,
-                "program_url_name": programUrlName,
-                "marketing_category_id": $scope.marketingCategoryId.toString(),
-                "marketing_program_id": $scope.marketingProgramId.toString()
+                        "program_date_time": programDate,
+                        "program_url": programUrl,
+                        "program_url_name": programUrlName,
+                        "marketing_category_id": $scope.marketingCategoryId.toString(),
+                        "marketing_program_id": $scope.marketingProgramId.toString()
             };
-
+            
             companyMarketingProgramFactory.setMarketingProgramPost(data).then(function (data) {
-                $location.path("/" + "marketingprogramactions");
+                $scope.redirectToActions("marketingprogramactions", data, 0, "");
             });
         };
 
