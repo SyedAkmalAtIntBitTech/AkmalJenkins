@@ -522,6 +522,7 @@ li.main-nav:last-child{
     width: calc(100vw - 70px);
     overflow-y: scroll;
     z-index: 0;
+    height:100vh;
 }
 
 .sequence-content-wrap{
@@ -734,6 +735,7 @@ li.sub-nav-tab.active a{
 
 .content-wrap-with-continue-bar{
     height: calc(100vh - 115px);
+    overflow-y: auto;
 }
 
 
@@ -1959,6 +1961,10 @@ p.modal-content-header{
     margin-bottom: 60px;
 }
 
+.hub-section.sequence-page{
+    margin-bottom:30px;
+}
+
 .hub-section:last-child{
     margin-bottom: 20px;
 }
@@ -1969,12 +1975,17 @@ p.modal-content-header{
 
 .hub-section .section-header{
     margin-bottom: 20px;
-    max-width: 400px;
+    max-width: 450px;
 }
 
 .hub-section .section-header h3{
     margin-bottom: 8px;
     font-size: 20px;
+}
+
+.hub-section .section-header h3 i{
+    font-size: 14px;
+    margin-left:10px;
 }
 
 .hub-section .section-header p{
@@ -2072,6 +2083,15 @@ p.modal-content-header{
     margin-top: 10px;
     font-style: italic;
 }
+
+.input-wrap p{
+    font-size: 12px;
+    color: #737982 ;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+
 
 .input.left-icon input{
     padding-left: 40px;
@@ -2435,11 +2455,9 @@ p.modal-content-header{
             Marketing Campaign
 -------------------------------------*/
 
-.sequence-pane-content-section-header{}
-
-.sequence-pane-content-section-sub-header{}
-
-
+.sequence-pane-content-wrap{
+    padding:30px;
+}
 
 /*------------------------------------
             Onboarding
