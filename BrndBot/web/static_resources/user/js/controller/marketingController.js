@@ -121,11 +121,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         "marketing_category_id": $scope.marketingCategoryId.toString(),
                         "marketing_program_id": $scope.marketingProgramId.toString()
             };
-<<<<<<< HEAD
-=======
-            
->>>>>>> d564e56f268e4e52c4e14007d05a9fd85931781c
-            companyMarketingProgramFactory.setMarketingProgramPost(data).then(function (data) {
+           companyMarketingProgramFactory.setMarketingProgramPost(data).then(function (data) {
                 $scope.redirectToActions("marketingprogramactions", data, 0, "");
             });
         };
@@ -165,10 +161,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 }
             else{
                 companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {
-<<<<<<< HEAD
-=======
                     $scope.displayCampaignActions();
->>>>>>> d564e56f268e4e52c4e14007d05a9fd85931781c
                     $scope.programs = data;
                     for (var i = 0; i< data.programactions.length; i++){
                         var action = data.programactions[i];
