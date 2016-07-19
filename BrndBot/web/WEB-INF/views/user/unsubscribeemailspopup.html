@@ -23,7 +23,8 @@
             <div class="input-wrap">
                 <!--<label>Choose file </label>-->
                 <div class="input">
-                    <input type="file" id="fileid" ng-change="angular.element(this).scope().uploadEmailListOnClick(this)">
+                    <!--<input type="file" id="fileid" ng-change="angular.element(this).scope().uploadEmailListOnClick(this)">-->
+                    <input type="file" id="fileid">
                     <!--<input type="file" id="fileid" file-reader="fileContent" />-->
 <!--                    <br><br>
                     <p><center>
@@ -33,7 +34,7 @@
             </div>
             
         </div>
-        <div class="modal-cta-container" ng-click="unsubscribeNowOnClick()">
+        <div class="modal-cta-container" ng-click="uploadEmailListOnClick()">
             <a class="long-button blue-button">Unsubscribe Now</a>
         </div>
     </div>

@@ -19,20 +19,20 @@
                      </div>
                     <div class="input-wrap">
                         <label> Default From Email Address </label>
-                        <div class="input">
-                            <input id="from_address" class="fluid" type="text" ng-model="email_settings.from_address"   name="from_address"  placeholder="Enter default email address"/>
+                        <div class="input" ng-init="email_settings.from_address='mail@brndbot.com'">
+                            <input id="from_address" class="fluid" type="text" readonly ng-model="email_settings.from_address"   name="from_address"  placeholder="Enter default email address"/>
                         </div>
                         <p class="input-wrap-label"> Make this something that your clients will recognize</p>
                     </div>
                     <div class="input-wrap">
                         <label> Default Reply-to Address </label>
                         <div class="input">
-                            <input id="from_address" class="fluid" type="text" ng-model="email_settings.from_address"   name="from_address"  placeholder="Enter default email address"/>
+                            <input id="from_address" class="fluid" type="text" ng-model="email_settings.reply_email_address"   name="reply_email_address"  placeholder="Enter default email address"/>
                             <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
                         </div>
                     </div>
-                     <div class="update-container" ng-click="openUnsubscribeEmailsPopup()">
-                        <a class="long-button gray-button">Unsubscribe Emails</a>
+                     <div class="update-container" ng-click="saveEmailSettings(email_settings)">
+                        <a class="long-button gray-button">Save Settings</a>
                     </div>
                 </div>
 <!--                 <div class="hub-section">
@@ -159,8 +159,8 @@
                          <h3>Update MINDBODY Email Opt-In</h3>
                         <p>Click below to upload a CSV of email unsubscribes to update their preferences in MINDBODY</p>
                      </div>
-                     <div class="update-container">
-                        <a class="long-button gray-button">Update MINDBODY Email Preferences</a>
+                     <div class="update-container" ng-click="openUnsubscribeEmailsPopup()">
+                        <a class="long-button gray-button">Unsubscribe Emails</a>
                     </div>
                 </div>
             </div>
