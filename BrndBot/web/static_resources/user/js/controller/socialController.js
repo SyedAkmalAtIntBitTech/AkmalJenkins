@@ -24,8 +24,8 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.twitterImageDivToPost = false;
         $scope.imageToBeUploaded = 'images/uploadPhoto.svg';
         $scope.postType = 'Change To Link Post';
-        $scope.existingAction=false;
-        $scope.managepage ="";
+        $scope.existingAction = false;
+        $scope.managepage = "";
         var schedule_desc = "";
         $scope.getManagePage = function () {
             var fbData = JSON.stringify({access_token_method: "getAccessToken"});
@@ -397,14 +397,14 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             $scope.existingActionPopup = true;
             $scope.createNewActionPopup = false;
         };
-        $scope.getTwitterActions = function (selectedMarketingProgrmaId) {
-            var data = JSON.stringify({programid: selectedMarketingProgrmaId.toString(), type: gettwitter()});
-            scheduleActionsFactory.getActionsPost(data).then(function (data) {
-                var parseData = JSON.parse(data.d.details);
-                $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM TWITTER"}];
-                $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
-                $scope.socialAction = $scope.defaultAction[0].id;
-            });
+        $scope.ddSelectActionName = [
+            {
+                text: "Custom Action",
+                value: "0"
+            }
+        ];
+        $scope.ddSelectAction = {
+            text: "Custom Action"
         };
         $scope.getFacebookActions = function (selectedMarketingProgrmaId) {
             var data = JSON.stringify({programid: selectedMarketingProgrmaId.toString(), type: getfacebook()});
@@ -413,13 +413,76 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM FACEBOOK"}];
                 $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
                 $scope.socialAction = $scope.defaultAction[0].id;
+                var actionData = eval(parseData);
+                for (var i = 0; i < actionData.length; i++)
+                {
+                    var actionObject = {};
+                    actionObject["text"] = actionData[i].schedule_title;
+                    actionObject["value"] = actionData[i].id;
+                    $scope.ddSelectActionName.push(actionObject);
+                }
             });
         };
+        $scope.getTwitterActions = function (selectedMarketingProgrmaId) {
+            var data = JSON.stringify({programid: selectedMarketingProgrmaId.toString(), type: gettwitter()});
+            scheduleActionsFactory.getActionsPost(data).then(function (data) {
+                var parseData = JSON.parse(data.d.details);
+                $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM TWITTER"}];
+                $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
+                $scope.socialAction = $scope.defaultAction[0].id;
+                var actionData = eval(parseData);
+                for (var i = 0; i < actionData.length; i++)
+                {
+                    var actionObject = {};
+                    actionObject["text"] = actionData[i].schedule_title;
+                    actionObject["value"] = actionData[i].id;
+                    $scope.ddSelectActionName.push(actionObject);
+                }
+            });
+        };
+//        $scope.getTwitterActions = function (selectedMarketingProgrmaId) {
+//            var data = JSON.stringify({programid: selectedMarketingProgrmaId.toString(), type: gettwitter()});
+//            scheduleActionsFactory.getActionsPost(data).then(function (data) {
+//                var parseData = JSON.parse(data.d.details);
+//                $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM TWITTER"}];
+//                $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
+//                $scope.socialAction = $scope.defaultAction[0].id;
+//                alert(JSON.stringify(data));
+//            });
+//        };
+//        $scope.getFacebookActions = function (selectedMarketingProgrmaId) {
+//            var data = JSON.stringify({programid: selectedMarketingProgrmaId.toString(), type: getfacebook()});
+//            scheduleActionsFactory.getActionsPost(data).then(function (data) {
+//                var parseData = JSON.parse(data.d.details);
+//                $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM FACEBOOK"}];
+//                $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
+//                $scope.socialAction = $scope.defaultAction[0].id;
+//            });
+//        };
+        $scope.ddSelectMarketingCampaignName = [
+            {
+                text: "--General--",
+                value: "0"
+            }
+        ];
+
+        $scope.ddSelectMarketingCampaign = {
+            text: "--General--"
+        };
+
         $scope.getAllMaketingPrograms = function (selectedSocialmedia) {
             companyMarketingProgramFactory.getAllUserMarketingProgramsGet().then(function (data) {
                 $scope.defaultmarketingprogram = [{program_id: 0, name: '--General--', id: 0}];
                 $scope.marketing_programs = $scope.defaultmarketingprogram.concat(data);
                 $scope.selectedMarketingProgrma = $scope.marketing_programs[0].program_id;
+                var marketingData = data;
+                for (var i = 0; i < marketingData.length; i++)
+                {
+                    var marketingObject = {};
+                    marketingObject["text"] = marketingData[i].name;
+                    marketingObject["value"] = marketingData[i].program_id;
+                    $scope.ddSelectMarketingCampaignName.push(marketingObject);
+                }
                 if (selectedSocialmedia === "facebook") {
                     $scope.getFacebookActions("0");
                 } else if (selectedSocialmedia === "twitter") {
@@ -427,16 +490,28 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 }
             });
         };
+//        $scope.getAllMaketingPrograms = function (selectedSocialmedia) {
+//            companyMarketingProgramFactory.getAllUserMarketingProgramsGet().then(function (data) {
+//                $scope.defaultmarketingprogram = [{program_id: 0, name: '--General--', id: 0}];
+//                $scope.marketing_programs = $scope.defaultmarketingprogram.concat(data);
+//                $scope.selectedMarketingProgrma = $scope.marketing_programs[0].program_id;
+//                if (selectedSocialmedia === "facebook") {
+//                    $scope.getFacebookActions("0");
+//                } else if (selectedSocialmedia === "twitter") {
+//                    $scope.getTwitterActions("0");
+//                }
+//            });
+//        };
         $scope.getActions = function (selectedSocialmedia, selectedMarketingProgrmaId) {
-            $scope.selectedMarketingProgrma = selectedMarketingProgrmaId;
+            $scope.selectedMarketingProgrma = selectedMarketingProgrmaId.value;
             if (selectedSocialmedia === "facebook") {
                 $scope.getFacebookActions(selectedMarketingProgrmaId);
             } else if (selectedSocialmedia === "twitter") {
-                $scope.getTwitterActions(selectedMarketingProgrmaId);
+                $scope.getTwitterActions(selectedMarketingProgrmaId.value);
             }
         };
         $scope.setAction = function (selectedAction) {
-            $scope.socialAction = selectedAction;
+            $scope.socialAction = selectedAction.value;
         };
         $scope.schedulePost = function (selectedSocialmedia, postData) {
             if (selectedSocialmedia === "facebook") {
@@ -445,7 +520,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 $scope.schedulePostToTwitter(postData);
             }
         };
-        
+
         $scope.schedulePostToFacebook = function (postData) {
             var sendData = $scope.getScheduleData($scope.selectedMarketingProgrma, postData, getfacebook());
             if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
@@ -574,8 +649,8 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.getScheduleData = function (selectedMarketingProgrmaId, postData, socialMediaType) {
             var sendData = "";
 //            if (selectedMarketingProgrmaId !== 0) {
-              if($scope.existingActionPopup ) {
-                    sendData = JSON.stringify([{
+            if ($scope.existingActionPopup) {
+                sendData = JSON.stringify([{
                         type: socialMediaType,
                         image_name: $scope.selectImageName,
                         program_id: $scope.selectedMarketingProgrma.toString(),
@@ -627,14 +702,14 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             }
             return sendData;
         };
-        
+
         $scope.previousButton = function (popupName) {
             $scope.schedulePopup = false;
             $scope.postTypeSelectionPopUp = true;
         };
-        
-        $scope.setTwitterActions = function (twitterDetails){
-            scheduleActionsFactory.getActionsPost(twitterDetails).then(function (twitterData){
+
+        $scope.setTwitterActions = function (twitterDetails) {
+            scheduleActionsFactory.getActionsPost(twitterDetails).then(function (twitterData) {
                 $scope.twitter_actions = eval(JSON.parse(twitterData.d.details));
             });
         };

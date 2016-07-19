@@ -3,12 +3,14 @@
     Created on : 3 May, 2016, 4:29:01 PM
     Author     : sandeep
 -->
-        <div class="popUp_background-dark" ng-init="managepage = false"   ng-if ="managepage">
+<!--        <div class="popUp_background-dark" ng-init="managepage = false"   ng-if ="managepage">-->
+            <div class="popUp_background-dark"  id="fbmanagePagePopUp" ng-init="managepage = false" ng-show="facebook"  ng-if ="managepage">
             <div class="popUp_CenterVert ">
                 <div class="popUp-top-wide clear">
                     <div class="popUp_header clear">
                         <div class="pane_title fleft h2 col1of2">Please Select a page</div>
-                        <div class="popUp_close fright" ng-click ="hideFbPopup1('s')">
+<!--                        <div class="popUp_close fright" ng-click ="hideFbPopup1('s')">-->
+                         <div class="popUp_close fright" ng-click="hideFbPopup()">
                             <img  src="../images/Pop-Up-Exit-Button.svg" class="fleft popUp_close-icon cursor-shape">
                         </div>
                     </div>
