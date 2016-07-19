@@ -1,7 +1,7 @@
 
 <div class="overlay-content" id="emailactionsection" ng-show='generalActions' ng-form name="actionDetailsForm">
             <div class="overlay-name-bar">
-                <input size="40" value="Email Action Name" id="email_edit_title" name="email_edit_title" ng-model='scheduleData.schedule_title' value="{{scheduleData.schedule_title}}">
+                <input size="40" value="Email Action Name" id="email_edit_title" name="email_edit_title" ng-model='scheduleData.schedule_title' ng-change="showSaveButton()" value="{{scheduleData.schedule_title}}">
                 <input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{scheduleData.schedule_id}}' />
                 <input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{scheduleData.schedule_type}}'/>
             </div>
@@ -31,7 +31,7 @@
                         </div>
                         <div class="detail-section half">
                             <label>Assigned Marketing Campaign</label>
-                            <p class="overlay-detail-item">{{scheduleData.marketing_program_name}}</p>
+                            <p class="overlay-detail-item">{{scheduleData.marketing_program_name}} </p>
                         </div>
                     </div>
                 </div>
@@ -44,25 +44,25 @@
                             <label>Date</label>
                             <a class="overlay-detail-input date-input ease-all">
                                 <i></i>
-                                <input type="text"  id="emaildatetime" name="emaildatetime" value="{{scheduleData.days}}" readonly></input>
+                                <input type="text"  id="emaildatetime" ng-change="showSaveButton()" name="emaildatetime" ng-model="scheduleData.entities_selected_time | date:'MMM dd yyyy'" readonly="false"/>
                                 <input type="hidden" value="{{scheduleData.entities_selected_time| date:'MMM dd yyyy'}}" id="emaildateid"/>
-<!--                                    <script>
+                                    <script>
                                         var picker = new Pikaday(
                                                 {
-                                                field: document.getElementById('emaildatetime'),
+                                                        field: document.getElementById('emaildatetime'),
                                                         firstDay: 1,
                                                         minDate: new Date(2000, 0, 1),
                                                         maxDate: new Date(2050, 12, 31),
                                                         yearRange: [2000, 2050]
                                                 });
-                                    </script>-->
+                                    </script>
                             </a>
                         </div>
                        <div class="detail-section half">
                             <label>Time of Day</label>
                             <a class="overlay-detail-input time-input ease-all">
                                 <i></i>
-                                <input type="text" id="timepickertextbox" ng-model="scheduleData.entities_selected_time" value ="{{scheduleData.entities_selected_time}}" readonly></input>
+                                <input type="text" id="timepickertextbox" name="timepickertextbox" value="{{scheduleData.schedule_time | date:'hh:mm:a'}}" readonly />
                                  <!--                            <input id="timepickeremail123" class="timepickertextbox "  value ="{{scheduleData.schedule_time| date:'hh : mm : a': 'UTC'}}">-->
                                 <!--<script src="js/timepicki.js" type="text/javascript"></script>-->
                                 <script>
@@ -85,7 +85,9 @@
                 </div>-->
             </div>
             <div class="bottom-cta-button-container">
-                <span class="valid" ng-show="actionDetailsForm.email_edit_title.$dirty"><div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateAction(scheduleData)" ng-show="isRecurring === false">Save Action</div></span>
+                <span class="valid" ng-show="actionDetailsForm.email_edit_title.$dirty">
+                    <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateAction(scheduleData)" ng-show="isRecurring === false">Save Action</div>
+                </span>
                 <div class="edit-button-detail md-button button-text-1 edit-button-detailrecemail" ng-click="redirectToEmailAutomation('emailautomation','edit','', schedule_id)" ng-show="isRecurring === true">Edit Automation Details</div>
             </div>
         </div>
