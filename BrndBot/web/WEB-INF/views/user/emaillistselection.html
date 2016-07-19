@@ -62,7 +62,7 @@
                                 <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
                                 <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
                             </select>-->
-                        <div dropdown-select="ddSelectEmailListOptions" dropdown-model="ddSelectEmailList" dropdown-onchange="chooseEmailListOnChange(ddSelectEmailList)"></div>
+                        <div dropdown-select="ddSelectEmailListOptions" dropdown-model="ddSelectEmailList" dropdown-onchange="chooseEmailListOnChange(selected)"></div>
                         <p class="input-wrap-label"> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
                     </div>
                 </div>

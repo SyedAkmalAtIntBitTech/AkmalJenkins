@@ -29,7 +29,7 @@
             </div>-->
             <div style="margin:0 auto;">
                 <label>Marketing Campaign Name</label>
-                <div dropdown-select="ddSelectMarketingCampaignName" dropdown-model="ddSelectMarketingCampaign" dropdown-onchange="getActions(selectedSocialmedia, ddSelectMarketingCampaign)"></div>
+                <div dropdown-select="ddSelectMarketingCampaignName" dropdown-model="ddSelectMarketingCampaign" dropdown-onchange="getActions(selectedSocialmedia, selected)"></div>
             </div>
 <!--            <div class="input-wrap">
                 <label>Action Name</label>
@@ -43,7 +43,7 @@
             </div>-->
             <div style="margin:0 auto;">
                 <label>Action Name</label>
-                <div dropdown-select="ddSelectActionName" dropdown-model="ddSelectAction" dropdown-onchange="setAction(ddSelectAction)"></div>
+                <div dropdown-select="ddSelectActionName" dropdown-model="ddSelectAction" dropdown-onchange="setAction(selected)"></div>
             </div>
         </div>
         <div class="modal-pane-content-wrap create-new-schedule-modal" ng-init="createNewActionPopup = false" ng-if="createNewActionPopup">
