@@ -1138,8 +1138,15 @@ li.sub-nav-tab.active a{
     font-size: 14px;
     line-height: 40px;
     padding: 0px 30px;
-
+    display: flex;
+    align-items: center;
+    
 }
+
+.overlay-details-pane-header-cta{
+    margin-left: auto;
+}
+
 
 .overlay-details{
     padding: 30px 90px;
@@ -2649,3 +2656,39 @@ p.modal-content-header{
     top: -28px;
     left: 50px;
 }
+
+.search-bar{
+    height:30px;
+    border-radius: 3px;
+    padding:0px 10px;
+    margin-left: auto;
+    border: 1px solid #c9c9c9;
+    width:200px;
+}
+
+.email-preview-bar{
+    border-top: 1px solid lightgray;
+     border-bottom: 1px solid lightgray;
+    background-color: #fafafa;
+    font-size: 14px;
+    font-variant-caps: small-caps;
+    margin-top: 30px;
+    padding: 5px 60px;
+}
+
+
+.detail-section-label{
+    font-variant: small-caps;
+    color: #666;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.detail-section-data{
+    font-size: 14px;
+    color:#333;
+    margin-top: 10px;
+    
+    
+}
+
