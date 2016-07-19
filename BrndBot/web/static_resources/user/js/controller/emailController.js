@@ -647,7 +647,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.selectCsvOnClick = function () {
             $scope.emailAddressTextarea = true;
             $scope.clickToUpload = true;
-            $scope.emailContinueButton = true;
             $scope.uploadButton = true;
         };
       
@@ -685,8 +684,9 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     $scope.emailAddresses = emails;
                     $scope.toAddress = emails;
                 });
+                $scope.emailContinueButton = true;
             }
-            $scope.selectCsvOnClick();
+//            $scope.selectCsvOnClick();
         };
         
         

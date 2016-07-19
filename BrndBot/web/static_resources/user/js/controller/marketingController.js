@@ -353,53 +353,53 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             });
         };
     
-    $scope.getRecurringScheduleDetails = function (schedule_id, template_status, till_date, schedule_time, entity_type, schedule_title, schedule_desc, date_status,days)
-    {
-        $scope.isRecurring = true;
-        $scope.savedEmail = false;
-        $scope.schedule_id = schedule_id;
-        $scope.generalSavedDetails = true;
-        $scope.generalNotes = false;
-        $scope.generalActions = false;
-        $scope.emailsectionClass = 'emailsectionClass';
-        $scope.fadeClass = 'fadeClass';
-        $scope.action_template_status = template_status;
-        $scope.generalActionDetailsHeader = "Recurring Email";
-        $scope.scheduledTo = 'POST';
-        $scope.setTab('savedDetails');
-        $scope.masterActionType = "Recurring Email";
-        $scope.savedDetailsAddTemplateButton = "Save an email to this action";
-        $scope.savedDetailsAddTemplateLink = "#/marketingprogramactions";
-        $scope.templateApproveButton = "Play";
-        $scope.templateDisapproveButton = "Pause";
-        $scope.savedHeader = getemail(); 
-        $scope.recurringScheduleData = {schedule_title: schedule_title, schedule_desc: schedule_desc,
-            schedule_id: schedule_id, entities_list_name: "",
-            email_template_status: template_status, schedule_type: "Recurring Email",
-            marketing_program_name: "", user_marketing_program_id: $scope.programId,
-            days: days, entities_selected_time: $filter('date')(schedule_time, "HH:mm a"), entities_subject: "", 
-            entities_from_name: "", entities_reply_to_email_address: ""};
-        
-        yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
-            $scope.recurringEntitiesDetails = JSON.parse(data.d.details);
-            $scope.recurringScheduleData.entities_subject = $scope.recurringEntitiesDetails.subject;
-            $scope.recurringScheduleData.entities_list_name = $scope.recurringEntitiesDetails.email_list_name;
-            $scope.recurringScheduleData.entities_from_name = $scope.recurringEntitiesDetails.from_name;
-            $scope.recurringScheduleData.entities_reply_to_email_address = $scope.recurringEntitiesDetails.reply_to_email_address;
-            $scope.recurringScheduleData.days = days;
-            $scope.recurringScheduleData.entities_selected_time = $filter('date')(schedule_time, "HH:mm a");
-            var iframe = document.getElementById('iframeForAction');  
-            if ($scope.recurringEntitiesDetails.body) {
-                $scope.savedEmail = true;
-                $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
-                $scope.deleteScheduleButton = "Remove Saved Email";
-                iframe.contentDocument.body.innerHTML = $scope.recurringEntitiesDetails.body;
-            } else {
-                $scope.savedEmail = false;
-                $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
-            }
-        });
-    };
+//    $scope.getRecurringScheduleDetails = function (schedule_id, template_status, till_date, schedule_time, entity_type, schedule_title, schedule_desc, date_status,days)
+//    {
+//        $scope.isRecurring = true;
+//        $scope.savedEmail = false;
+//        $scope.schedule_id = schedule_id;
+//        $scope.generalSavedDetails = true;
+//        $scope.generalNotes = false;
+//        $scope.generalActions = false;
+//        $scope.emailsectionClass = 'emailsectionClass';
+//        $scope.fadeClass = 'fadeClass';
+//        $scope.action_template_status = template_status;
+//        $scope.generalActionDetailsHeader = "Recurring Email";
+//        $scope.scheduledTo = 'POST';
+//        $scope.setTab('savedDetails');
+//        $scope.masterActionType = "Recurring Email";
+//        $scope.savedDetailsAddTemplateButton = "Save an email to this action";
+//        $scope.savedDetailsAddTemplateLink = "#/marketingprogramactions";
+//        $scope.templateApproveButton = "Play";
+//        $scope.templateDisapproveButton = "Pause";
+//        $scope.savedHeader = getemail(); 
+//        $scope.recurringScheduleData = {schedule_title: schedule_title, schedule_desc: schedule_desc,
+//            schedule_id: schedule_id, entities_list_name: "",
+//            email_template_status: template_status, schedule_type: "Recurring Email",
+//            marketing_program_name: "", user_marketing_program_id: $scope.programId,
+//            days: days, entities_selected_time: $filter('date')(schedule_time, "HH:mm a"), entities_subject: "", 
+//            entities_from_name: "", entities_reply_to_email_address: ""};
+//        
+//        yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
+//            $scope.recurringEntitiesDetails = JSON.parse(data.d.details);
+//            $scope.recurringScheduleData.entities_subject = $scope.recurringEntitiesDetails.subject;
+//            $scope.recurringScheduleData.entities_list_name = $scope.recurringEntitiesDetails.email_list_name;
+//            $scope.recurringScheduleData.entities_from_name = $scope.recurringEntitiesDetails.from_name;
+//            $scope.recurringScheduleData.entities_reply_to_email_address = $scope.recurringEntitiesDetails.reply_to_email_address;
+//            $scope.recurringScheduleData.days = days;
+//            $scope.recurringScheduleData.entities_selected_time = $filter('date')(schedule_time, "HH:mm a");
+//            var iframe = document.getElementById('iframeForAction');  
+//            if ($scope.recurringEntitiesDetails.body) {
+//                $scope.savedEmail = true;
+//                $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
+//                $scope.deleteScheduleButton = "Remove Saved Email";
+//                iframe.contentDocument.body.innerHTML = $scope.recurringEntitiesDetails.body;
+//            } else {
+//                $scope.savedEmail = false;
+//                $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
+//            }
+//        });
+//    };
     $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, action_status, days, marketingName)
     {
             $scope.isRecurring = false;
@@ -433,7 +433,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.savedHeader = getemail();
                 yourPlanFactory.scheduledEmailGet($scope.scheduleData.schedule_id).then(function (data) {
                     $scope.entitiesdetails = JSON.parse(data.d.details);
-                    alert(JSON.stringify($scope.entitiesdetails));
+//                    alert(JSON.stringify($scope.entitiesdetails));
                     var iframe = document.getElementById('iframeForAction');
                     if ($scope.entitiesdetails != "{}") {
                         $scope.savedEmail = true;
@@ -726,13 +726,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     "isRecurring": isRecurring};
                 responseMessage = multideletesuccess;
             }
-
-            if (confirm(message)) {
                 yourPlanFactory.changeSchedulePost(requestBody).then(function (data) {
                     $scope.closePopup();
                     $scope.getProgramActions('emailautomation');          
                 });
-            }
         };
         
      
@@ -1293,6 +1290,32 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //                }
         };
         
+    $scope.endMarketingProgram = function(){
+//        alert($scope.programId);
+//       var delconf=confirm("Do you really want to End this Program?");
+//       if(delconf===true){
+//        var programData = {"program_id": $scope.programId};      
+//        companyMarketingProgramFactory.endMarketingProgramPost(programData).then(function (data){
+//            alert(JSON.stringify(data));
+//        });
+//       }
+//       $ajax({
+//           method: 'POST',
+//           url: getHost()+'/endMarketingProgram',
+//           headers: {'Content-Type':'application/json'},
+//           data: JSON.stringify(program_id)
+//       }).success(function (data, status, headers, config) {
+//           if (data == "true"){
+//                 window.open(getHost() + 'user/marketingprogramlists', "_self");                
+//           }else {
+//               alert(savingrecordproblem);
+//           }
+//       }).error(function (data, status, headers, config) {
+//           alert(nodataerror);
+//       });            
+//       }else{            
+//       }
+   };
     }]);
 
        

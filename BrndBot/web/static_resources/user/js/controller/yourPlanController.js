@@ -655,8 +655,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     "isRecurring": isRecurring};
                 responseMessage = multideletesuccess;
             }
-
-            if (confirm(message)) {
+            
                 yourPlanFactory.changeSchedulePost(requestBody).then(function (data) {
                     if (type == "remove") {
                         $scope.savedEmail = false;
@@ -668,7 +667,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     }
                     $scope.getCampaigns();
                 });
-            }
+                
         };
         
     
