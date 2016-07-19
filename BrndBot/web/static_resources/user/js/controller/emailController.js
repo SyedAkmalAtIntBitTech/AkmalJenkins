@@ -26,8 +26,19 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.selectedSocialmedia = "email";
         $scope.emailAddresses='';
         var sliderDialog = "#emaileditorexternalpopup";
+        var emailDraftDetails=localStorage.getItem('emailDraftData');
         //OnPageLoad
         $scope.emailEditorInit = function () {
+            if(emailDraftDetails !== null){  
+                var paramDraftId = JSON.parse(emailDraftDetails).draftid;
+                var paramCategoryId = JSON.parse(emailDraftDetails).category_id;
+                var paramSubCategoryId = JSON.parse(emailDraftDetails).sub_category_id;
+                var paramLookupId = JSON.parse(emailDraftDetails).lookupId;
+                var paramEmailSubject = JSON.parse(emailDraftDetails).email_subject;
+                var paramMindbodyId = JSON.parse(emailDraftDetails).mindbodyId;
+                $scope.redirect('emaileditor',paramCategoryId,paramSubCategoryId,'',paramLookupId,paramMindbodyId,paramEmailSubject,paramDraftId);
+            }
+            
             $('#slider-button').click(function () {
                 if ($('#slider-button').css("margin-right") === "788px")
                 {
@@ -101,8 +112,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
         
         $scope.redirectBaseURL = function (){
-            alert($scope.draftId);
-            if ($scope.categoryId == ""){
+            if (($scope.categoryId === "")&&(emailDraftDetails === null)){
                 $location.path("/" + "baseemaileditor#/emailcategory");
             }
         };
