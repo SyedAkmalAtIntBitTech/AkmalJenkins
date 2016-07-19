@@ -2649,3 +2649,11 @@ p.modal-content-header{
     top: -28px;
     left: 50px;
 }
+
+.validationAlert {
+    color: #ff0000;
+}
+
+.input input:focus{
+    border-color: #ff0000 !important;
+}

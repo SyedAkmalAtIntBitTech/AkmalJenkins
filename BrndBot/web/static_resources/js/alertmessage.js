@@ -188,3 +188,9 @@ var printChannelId = 2;
 var imageChannelId = 1;
 
 /// ADMIN alerts Ends////
+
+//VALIDATION
+
+var companyValidation = "Please enter a subject for the email";
+var dropdownValidation = "Please select your Organization";
+var emailListValidation  = "Please enter email list name";
