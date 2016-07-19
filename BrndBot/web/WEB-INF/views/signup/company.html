@@ -5,43 +5,47 @@
 
     <!--SideNav-->
     <!--Main Content Wrap-->
-    <div class="contentWrap--withNoSideNav" >
-        <div class="topNav clear">
-            <a href="/BrndBot/signup/registration"><div class="topNav--BackButton fleft">
-                    <img  src="images/backbutton.svg" class="backButton-svg" style="cursor:pointer;" />
-            </div></a>                
-            <div class="topNav--TitleBar--withBackButton fleft">
-                <span class="topNav--TitleBar--Title fleft h2">Step 2 of 5</span>
-                <div class="topNav--TitleBar--CTABox fright">
-                    <div class="CTA_Button Button--Gray">Help!</div>
-                </div>
-            </div>
+   <body>
+<div class="sequence-content-wrap" ng-init="getOrganizations()">
+    <div class="top-nav-wrap top-nav-wrap-sequence">
+        <div class="header">
+            <h2>Create a Profile</h2>
         </div>
-        <div class="topNav--offset"></div>
-        <div class="contentWrapInner" ng-init="getOrganizations()">
-            <div class="pane pane-onboarding">
-                <div class="pane_header clear">
-                    <div class="pane_title fleft h2">Set up a new company</div>
-                </div>
-                <div class="pane_content">
-                    <div class="h3 font--lightGray">Welcome to BrndBot! First what is your company name?</div>
-                    <div class="inputSection col-6of10">
-                        <div class="input_Label">Please enter your company name:</div>
-                        <input class="input_Field" id="companyName" ng-model="companyName" placeholder="Company Name"/>
+    </div>
+    <div class="top-nav-bar-offset"></div>
+
+    <div class="content-wrap content-wrap-padding content-wrap-with-continue-bar content-wrap-flex">
+        <div class="modal-pane modal-pane-width-reg">
+            <div class="modal-pane-header-wrap">
+                <h2 class="">Welcome to BrndBot!</h2>
+            </div>
+            <div class="modal-pane-content-wrap">
+                <div class="input-wrap onboarding">
+                    <label> Company Name </label>
+                    <div class="input">
+                        <input class="fluid" id="companyName" ng-model="companyName" placeholder="Company Name"></input>
                     </div>
-                     <div class="h3 font--lightGray pushUp_30">We have built BrndBot differently for different industries to give you the best experience possible.</div>
+                    <p class="input-wrap-label"> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
+                </div>
 <!--                    <div class="inputSection col-6of10 ">
                         <div class="input_Label">Please select an industry</div>
                         <select ng-model="organizationId" id="industryDropDown"  class="input_Field select_Field" ng-options="organization.organizationId as organization.organizationName for organization in organizations">
                         </select>
                     </div>-->
-                     <div>
-                        <h1>Please select an industry</h1>
-                        <div dropdown-select="ddSelectOrganizationOptions" value="{{ddSelectOrganization}}" dropdown-model="ddSelectOrganization"></div>
+               <div class="input-wrap onboarding">
+                    <label> Please select an Organization</label>
+                    <div class="input">
+                           <div dropdown-select="ddSelectOrganizationOptions" value="{{ddSelectOrganization}}" dropdown-model="ddSelectOrganization"></div>
                     </div>
                 </div>
-            </div>   
+            </div>
+            
         </div>
-    <div class="bottomNav">
-        <div class="bottom-ContinueButton fright" ng-click="saveCompany(companyName,ddSelectOrganization.value)">CONTINUE</div>
+        <div class="continue-bar-offset"></div>
     </div>
+
+</div>
+<div class="continue-bar sequence-continue-bar">
+    <a id="continue-bar-button" ng-click="saveCompany(companyName,ddSelectOrganization.value)" class="fright">CONTINUE</a>
+</div>
+</body>

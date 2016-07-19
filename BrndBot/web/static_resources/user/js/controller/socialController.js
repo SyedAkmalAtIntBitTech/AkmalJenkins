@@ -71,9 +71,9 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
 
         $scope.selectImage = function (id) {
-//            $scope.imageUnSelect = 'gallery-item-wrap-selected-true';
-            angular.element(document.getElementsByClassName('gallery-item-wrap-selected-true')).addClass('gallery-item-wrap-selected').removeClass('gallery-item-wrap-selected-true');
-            angular.element(document.getElementById(id)).removeClass('gallery-item-wrap-selected').addClass('gallery-item-wrap-selected-true');
+////            $scope.imageUnSelect = 'gallery-item-wrap-selected-true';
+////            angular.element(document.getElementsByClassName('gallery-item-wrap-selected-true')).removeClass('gallery-item-wrap-selected-true').addClass('gallery-item-wrap-selected');
+//            angular.element(document.getElementById(id)).addClass('gallery-item-wrap-selected-true');
         };
 
         $scope.selectImageToPost = function (imageName, imageType, companyId) {
@@ -737,3 +737,19 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             }
         };
     }]);
+//socialFlowApp.directive('toggleClass', function() {
+//    return {
+//        restrict: 'C',
+//        link: function(scope, element, attrs) {
+//            element.bind('click', function() {
+//                if(element.attr("class") == "gallery-item-wrap-selected") {
+//                    element.removeClass("gallery-item-wrap-selected");
+//                    element.addClass("gallery-item-wrap-selected-istrue");
+//                } else {
+//                    element.removeClass("gallery-item-wrap-selected-true");
+//                    element.addClass("gallery-item-wrap-selected");
+//                }
+//            });
+//        }
+//    };
+//});

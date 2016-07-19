@@ -1942,3 +1942,15 @@ textarea#filetext1 {
 .confirmpassword{
       margin-bottom: 15px;  
 }
+
+.top-subnav-link-active-detail{
+    border-bottom: 3px #0F76A6 solid;
+    color: #0F76A6;
+    font-size: 14px;
+}
+
+.top-subnav-link-active-detail-Class{
+    border-bottom: 3px #0F76A6 solid;
+    color: #0F76A6;
+    font-size: 14px;
+}

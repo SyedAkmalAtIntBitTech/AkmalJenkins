@@ -84,6 +84,7 @@ app.directive("ngFileSelect",function(){
   
 });
 function emailBlocksController($scope, $http, fileReader) {
+    $scope.emailBlockModelId = null;
      $scope.imageSrc ="images/uploadPhoto.svg";
       $scope.getFile = function () {
         $scope.progress = 0;
@@ -93,6 +94,26 @@ function emailBlocksController($scope, $http, fileReader) {
                   
                       });
     };
+    
+    $scope.emailBlockModelId = function () {
+        var qs = (function(a) {
+            if (a == "") return {};
+            var b = {};
+            for (var i = 0; i < a.length; ++i)
+            {
+                var p=a[i].split('=', 2);
+                if (p.length == 1)
+                    b[p[0]] = "";
+                else
+                    b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+            }
+            return b;
+        })(window.location.search.substr(1).split('&'));
+
+        $scope.emailBlockModelId = qs["emailBlockModelId"];    
+            
+    };
+    
     $scope.emailBlocksModel = function () {
 
         $http({
@@ -108,7 +129,7 @@ function emailBlocksController($scope, $http, fileReader) {
     
     
      $scope.getEmailModelById = function () {
-        var emailBlockIdTag = $("#emailBlockIdTag").val();
+        var emailBlockIdTag = $scope.emailBlockModelId;
         $http({
             method: 'GET',
             url: getHost() + '/getEmailBlockModelById?emailBlockModelId=' + emailBlockIdTag
@@ -173,7 +194,9 @@ function emailBlocksController($scope, $http, fileReader) {
     };
 
 
-    $scope.deleteEmailBlockModel= function (emailBlockModelId) {
+    $scope.deleteEmailBlockModel= function () {
+        
+        var emailBlockModelId = $scope.emailBlockModelId;
         var deleteEmailBlocks = confirm(deleteEmailBlockPrompt);
         if (deleteEmailBlocks === true)
         {

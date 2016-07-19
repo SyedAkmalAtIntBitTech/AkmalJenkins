@@ -52,24 +52,24 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 }
             });
         };
-        
+
         $scope.ddSelectOrganizationOptions = [];
 
         $scope.ddSelectOrganization = {
-          text: "Please select an industry"
+            text: "Please select an organization"
         };
-        
+
         $scope.getOrganizations = function () {
             organizationFactory.organizationGet().then(function (data) {
-                
+
                 $scope.defaultOrganisation = [{organizationId: 0, organizationName: 'Please select an industry'}];
                 $scope.organizations = $scope.defaultOrganisation.concat(data.d.details);
                 $scope.organizationId = $scope.organizations[0].organizationId;
-                
+//                alert(JSON.stringify(data));
                 //angular DD
                 var organizationsData = data.d.details;
-                for ( var i = 0; i<organizationsData.length; i++ ) {
-                    
+                for (var i = 0; i < organizationsData.length; i++) {
+
                     var organizationObject = {};
                     organizationObject["text"] = organizationsData[i].organizationName;
                     organizationObject["value"] = organizationsData[i].organizationId;
@@ -77,40 +77,43 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 }
             });
         };
-        
+
         $scope.saveCompany = function (companyName, organizationId) {
             var companyDetails = {"companyName": companyName, "organizationId": organizationId};
             onboardingFactory.saveCompanyPost(JSON.stringify(companyDetails)).then(function (data) {
                 $location.path("/signup/datasource");
             });
         };
-        
+
         $scope.ddSelectServicesOptions = [
-            {
-                text: "None"
-            }
         ];
 
         $scope.ddSelectServices = {
-          text: "None"
+            text: "None"
         };
-        
+
+//        $scope.getAllServices = function () {
+//            subCategoryFactory.allExternalSourcesGet().then(function (data) {
+//                $scope.services = data.d.details;
+//                $scope.thirdPartyService = data.d.details[0].externalSourceId;
+//            });
+//        };
+
         $scope.getAllServices = function () {
             subCategoryFactory.allExternalSourcesGet().then(function (data) {
                 $scope.services = data.d.details;
                 $scope.thirdPartyService = data.d.details[0].externalSourceId;
                 var servicesData = data.d.details;
-                for ( var i = 0; i<servicesData.length; i++ ) 
+                for (var i = 0; i < servicesData.length; i++)
                 {
                     var servicesObject = {};
                     servicesObject["text"] = servicesData[i].externalSourceName;
                     servicesObject["value"] = servicesData[i].externalSourceId;
                     $scope.ddSelectServicesOptions.push(servicesObject);
                 }
-                alert(JSON.stringify($scope.ddSelectServices));  
             });
         };
-      
+
         $scope.getActivationLink = function (studioId) {
             onboardingFactory.saveStudioIdPost(studioId).then(function (data) {
                 var studioIdSaved = eval(JSON.stringify(data.d.message));
@@ -137,12 +140,18 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             });
         };
         $scope.getColorsFromLogo = function () {
+//            $scope.activeColorLogo = 'activeTab';
+//            $scope.activeColorPicker = '';
+//            $scope.activeColorTheme = '';
             $scope.colorFrom = "logo";
             onboardingFactory.colorsForLogoGet().then(function (data) {
                 $scope.color = data.d.details;
             });
         };
         $scope.getAllThemes = function () {
+//            $scope.activeColorTheme = 'activeTab';
+//            $scope.activeColorPicker = '';
+//            $scope.activeColorLogo = '';
             $scope.colorFrom = "theme";
             assetsFactory.allColorThemesGet().then(function (data) {
                 $scope.curPage = 0;
@@ -151,6 +160,9 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             });
         };
         $scope.getColorFromPicker = function () {
+//            $scope.activeColorPicker = 'activeTab';
+//            $scope.activeColorTheme = '';
+//            $scope.activeColorLogo = '';
             $scope.colorFrom = "custom";
         };
         $scope.getColorID = function (color) {
@@ -170,7 +182,6 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $("#color4").css(bgColor, "");
         };
         $scope.saveColorPalette = function () {
-            alert("saveColorPalette");
             var color1 = $("#color1").css("backgroundColor");
             var color2 = $("#color2").css("backgroundColor");
             var color3 = $("#color3").css("backgroundColor");
@@ -179,6 +190,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 alert("Please choose all 4 colors.");
             }
             settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
+            window.location = getHost()+"user/dashboard";
             });
         };
         //to display color picker
@@ -189,7 +201,23 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 //for haking hex value alert(hex);
                 $('.palette-colorswab-selected').css("background-color", "#" + hex);
                 $('.palette-colorswab-selected').val("#" + hex);
-
             }
         });
+
+        $scope.stepsModel = [];
+        $scope.stepsModel.push("/BrndBot/user/images/upload-icon.svg");
+
+        $scope.imageUpload = function (element) {
+            var reader = new FileReader();
+            reader.onload = $scope.imageIsLoaded;
+            reader.readAsDataURL(element.files[0]);
+        };
+
+        $scope.imageIsLoaded = function (e) {
+            $scope.$apply(function () {
+                $scope.stepsModel = [];
+                $scope.stepsModel.push(e.target.result);
+            });
+        };
+
     }]);

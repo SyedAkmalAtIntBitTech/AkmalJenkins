@@ -15,15 +15,21 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
         $scope.ddSelectActionOptions = [
             {
-                text: 'Select'
+
+                text: 'Select',
+                value: '0'
             }, {
-                text: 'Facebook Post'
+                text: 'Facebook Post',
+                value: 'Facebook'
             }, {
-                text: 'Twitter Post'
+                text: 'Twitter Post',
+                value: 'Twitter'
             }, {
-                text: 'Email'
+                text: 'Email',
+                value: 'Email'
             }, {
-                text: 'Reminder'
+                text: 'Reminder',
+                value: 'Reminder'
             }
         ];
 
@@ -129,6 +135,41 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var array = string.split('-');
             return array[nb];
         };
+        function formatDate(myDate) {
+            var abbrMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            var abbrDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+            function zeroPadding(val) {
+                return val.toString().length === 1 ? "0" + val : val;
+            }
+
+//            return abbrDays[myDate.getDay()] + ", " + myDate.getDate() + " " + (abbrMonths[myDate.getMonth()]) +
+//                " " + myDate.getFullYear() + ", " + zeroPadding(myDate.getHours()) + ":" +
+//                zeroPadding(myDate.getMinutes()) + ":" + zeroPadding(myDate.getSeconds());
+            return abbrDays[myDate.getDay()] + ", " + myDate.getDate() + " " + (abbrMonths[myDate.getMonth()]) +
+                " " + myDate.getFullYear();
+        }
+        
+        $scope.getDayOfMonth = function(date) {
+            var weekday = new Array(7);
+            weekday[0]=  "Sunday";
+            weekday[1] = "Monday";
+            weekday[2] = "Tuesday";
+            weekday[3] = "Wednesday";
+            weekday[4] = "Thursday";
+            weekday[5] = "Friday";
+            weekday[6] = "Saturday";
+            var dayName = new Date(date+ " "+"11:13:00");
+            return weekday[dayName.getDay()];
+
+        }
+
+        $scope.myDay = function (string) {
+            var n_date = new Date(string);
+            var formattedDate = formatDate(n_date);
+            return formattedDate;
+        };
+        
         $scope.myYear = function (string) {
             var month = "";
             if (string === '01')
@@ -180,7 +221,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var schedule_time = Date.parse(l);
             var myEpoch = schedule_time;
             var days = 0;
-            var action = {"title": addTitle, "actiontype": actionType, "type": "save", "description": "", "marketingType": 0, "action_date": myEpoch, "days": days};
+            var action = {"title": addTitle, "actiontype": actionType.value, "type": "save", 
+                "description": "", "marketingType": 0, "action_date": myEpoch, "days": days};
             yourPlanFactory.addActionPost(action).then(function (data) {
                 $scope.getCampaigns();
                 $scope.closeOverlay();
@@ -251,18 +293,14 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.templateApproveButton = "Approve";
             $scope.templateDisapproveButton = "Disapprove";
             $scope.savedDetailsAddTemplateButton = "Go to Dashboard";
-            $scope.savedDetailsAddTemplateLink = "dashboard";
+            $scope.savedDetailsAddTemplateLink = "dashboard";            
+            $scope.savedHeader = 'Post'; 
             $scope.isRecurring = false;
             if (entity_type === getnote()) {
                 $scope.reminderSectionClass = 'reminderSectionClass';
                 $scope.savedReminderTab = true;
                 $scope.setTab('savedReminder');
             }
-
-            if (entity_type === getemail()) {
-                $scope.scheduledTo = 'SEND';
-            }
-
             var date = $scope.entities_selected_time;
             var time = $filter('date')(schedule_time, "hh:mm a")
             $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: date,
@@ -274,6 +312,8 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
 
             if (entity_type === getemail()) {
+                $scope.scheduledTo = 'SEND';
+                $scope.savedHeader = getemail();
                 yourPlanFactory.scheduledEmailGet($scope.scheduleData.schedule_id).then(function (data) {
                     $scope.entitiesdetails = JSON.parse(data.d.details);
                     var iframe = document.getElementById('iframeForAction');
@@ -301,7 +341,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                             $scope.twitterprofileName = "--";
                         yourPlanFactory.scheduledSocialPost($scope.scheduleData.schedule_id).then(function (data) {
                             $scope.entitiesdetails = JSON.parse(data.d.details);
-
+                            
                             var iframe = document.getElementById('iframeForAction');
 //                iframe.contentDocument.head.appendChild = ;
 
@@ -441,53 +481,53 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                                         + "}"
                                         + "</style>";
                                 if (entity_type === gettwitter()) {
-                                    htmlData += "<div class=\"twitter-post-preview\">\n"
-                                            + "    <div class=\"Facebook-preview-header\">\n"
-                                            + "        <div class=\"Facebook-preview-profpic\">\n"
-                                            + "            <img id=\"twitter_preview_profpic\" src=\"/BrndBot/downloadImage?imageType=COMPANY_LOGO&amp;companyId=" + $scope.companyId + "&amp;imageName=companylogo.png\">\n"
-                                            + "        </div>\n"
-                                            + "        <div class=\"Twitter-preview-name-container\">\n"
-                                            + "            <div class=\"Facebook-preview-name ng-binding\"><strong>" + $scope.twitterprofileName + "</strong><br>" + $scope.entitiesdetails.metadata.text + " " + $scope.entitiesdetails.metadata.shorturl + "</div>\n"
-                                            + "        </div>\n"
-                                            + "    </div>\n";
-//                    if($scope.entitiesdetails.metadata.shorturl) {
-//                    htmlData += "    <div class=\"Facebook-preview-usercontent ng-binding\">"+$scope.entitiesdetails.metadata.shorturl+"</div>\n"
-//                    }
-                                    htmlData += "    <div class=\"Facebook-link-container\">\n"
-                                            + "        <div ng-show=\"entitiesdetails.image_type == 'gallery'\">\n"
-                                            + "            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageName=" + $scope.entitiesdetails.image_name + "&imageType=GALLERY&companyId=" + $scope.companyId + "\">\n"
-                                            + "        </div>\n"
-                                            + "    </div>\n"
-                                            + "</div>";
+//                                    htmlData += "<div class=\"twitter-post-preview\">\n"
+//                                            + "    <div class=\"Facebook-preview-header\">\n"
+//                                            + "        <div class=\"Facebook-preview-profpic\">\n"
+//                                            + "            <img id=\"twitter_preview_profpic\" src=\"/BrndBot/downloadImage?imageType=COMPANY_LOGO&amp;companyId=" + $scope.companyId + "&amp;imageName=companylogo.png\">\n"
+//                                            + "        </div>\n"
+//                                            + "        <div class=\"Twitter-preview-name-container\">\n"
+//                                            + "            <div class=\"Facebook-preview-name ng-binding\"><strong>" + $scope.twitterprofileName + "</strong><br>" + $scope.entitiesdetails.metadata.text + " " + $scope.entitiesdetails.metadata.shorturl + "</div>\n"
+//                                            + "        </div>\n"
+//                                            + "    </div>\n";
+////                    if($scope.entitiesdetails.metadata.shorturl) {
+////                    htmlData += "    <div class=\"Facebook-preview-usercontent ng-binding\">"+$scope.entitiesdetails.metadata.shorturl+"</div>\n"
+////                    }
+//                                    htmlData += "    <div class=\"Facebook-link-container\">\n"
+//                                            + "        <div ng-show=\"entitiesdetails.image_type == 'gallery'\">\n"
+//                                            + "            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageName=" + $scope.entitiesdetails.image_name + "&imageType=GALLERY&companyId=" + $scope.companyId + "\">\n"
+//                                            + "        </div>\n"
+//                                            + "    </div>\n"
+//                                            + "</div>";
                                 } else if (entity_type === getfacebook()) {
-                                    htmlData += "<div class=\"Facebook-preview\">\n"
-                                            + "                                <div class=\"Facebook-preview-header\">\n"
-                                            + "                                    <div class=\"Facebook-preview-profpic\"><img id=\"fb_preview_profpic\" src=\"/BrndBot/downloadImage?imageType=COMPANY_LOGO&amp;companyId=" + $scope.companyId + "&amp;imageName=companylogo.png\"></div>\n"
-                                            + "                                    <div class=\"Facebook-preview-name-container\">\n"
-                                            + "                                        <div class=\"Facebook-preview-name ng-binding\">" + $scope.entitiesdetails.metadata.ManagedPage + "</div>\n"
-                                            + "                                    </div>\n"
-                                            + "                                </div>\n"
-                                            + "                                <div class=\"Facebook-preview-usercontent ng-binding\">" + $scope.entitiesdetails.metadata.post_text + "</div>\n"
-                                            + "                                <div class=\"Facebook-link-container\">\n"
-                                            + "                                    <div class=\"Facebook-preview-image\">\n"
-                                            + "                                        <div ng-show=\"entitiesdetails.image_type == 'gallery'\">\n"
-                                            + "                                            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageType=GALLERY&amp;imageName=" + $scope.entitiesdetails.image_name + "&amp;companyId=" + $scope.companyId + "\">\n"
-                                            + "                                        </div>\n"
-                                            + "                                        <div ng-show=\"entitiesdetails.image_type == 'layout'\" style=\"display: none;\">\n"
-                                            + "                                            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageType=LAYOUT_IMAGES&amp;imageName=13.jpg\">\n"
-                                            + "                                        </div>\n"
-                                            + "                                        <div ng-show=\"entitiesdetails.image_type == 'url'\" style=\"display: none;\">\n"
-                                            + "                                            <img id=\"prevfbimg\" src=\"13.jpg\">\n"
-                                            + "                                        </div>\n"
-                                            + "                                        \n"
-                                            + "                                    </div>\n"
-                                            + "                                    <div class=\"Facebook-preview-link-container\">\n"
-                                            + "                                        <div class=\"Facebook-preview-link-title ng-binding\">" + $scope.entitiesdetails.metadata.title + "</div>\n"
-                                            + "                                        <div class=\"Facebook-preview-link-description ng-binding\">" + $scope.entitiesdetails.metadata.description + "</div>\n"
-                                            + "                                        <div class=\"Facebook-preview-link-url ng-binding\">" + $scope.entitiesdetails.metadata.url + "</div>\n"
-                                            + "                                    </div>\n"
-                                            + "                                </div>\n"
-                                            + "                            </div>";
+//                                    htmlData += "<div class=\"Facebook-preview\">\n"
+//                                            + "                                <div class=\"Facebook-preview-header\">\n"
+//                                            + "                                    <div class=\"Facebook-preview-profpic\"><img id=\"fb_preview_profpic\" src=\"/BrndBot/downloadImage?imageType=COMPANY_LOGO&amp;companyId=" + $scope.companyId + "&amp;imageName=companylogo.png\"></div>\n"
+//                                            + "                                    <div class=\"Facebook-preview-name-container\">\n"
+//                                            + "                                        <div class=\"Facebook-preview-name ng-binding\">" + $scope.entitiesdetails.metadata.ManagedPage + "</div>\n"
+//                                            + "                                    </div>\n"
+//                                            + "                                </div>\n"
+//                                            + "                                <div class=\"Facebook-preview-usercontent ng-binding\">" + $scope.entitiesdetails.metadata.post_text + "</div>\n"
+//                                            + "                                <div class=\"Facebook-link-container\">\n"
+//                                            + "                                    <div class=\"Facebook-preview-image\">\n"
+//                                            + "                                        <div ng-show=\"entitiesdetails.image_type == 'gallery'\">\n"
+//                                            + "                                            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageType=GALLERY&amp;imageName=" + $scope.entitiesdetails.image_name + "&amp;companyId=" + $scope.companyId + "\">\n"
+//                                            + "                                        </div>\n"
+//                                            + "                                        <div ng-show=\"entitiesdetails.image_type == 'layout'\" style=\"display: none;\">\n"
+//                                            + "                                            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageType=LAYOUT_IMAGES&amp;imageName=13.jpg\">\n"
+//                                            + "                                        </div>\n"
+//                                            + "                                        <div ng-show=\"entitiesdetails.image_type == 'url'\" style=\"display: none;\">\n"
+//                                            + "                                            <img id=\"prevfbimg\" src=\"13.jpg\">\n"
+//                                            + "                                        </div>\n"
+//                                            + "                                        \n"
+//                                            + "                                    </div>\n"
+//                                            + "                                    <div class=\"Facebook-preview-link-container\">\n"
+//                                            + "                                        <div class=\"Facebook-preview-link-title ng-binding\">" + $scope.entitiesdetails.metadata.title + "</div>\n"
+//                                            + "                                        <div class=\"Facebook-preview-link-description ng-binding\">" + $scope.entitiesdetails.metadata.description + "</div>\n"
+//                                            + "                                        <div class=\"Facebook-preview-link-url ng-binding\">" + $scope.entitiesdetails.metadata.url + "</div>\n"
+//                                            + "                                    </div>\n"
+//                                            + "                                </div>\n"
+//                                            + "                            </div>";
                                 }
 
                                 iframe.contentDocument.body.innerHTML = htmlData;
@@ -499,7 +539,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                     });
                 });
             }
-            alert($scope.isRecurring);
+//            alert($scope.isRecurring);
         };
 
 

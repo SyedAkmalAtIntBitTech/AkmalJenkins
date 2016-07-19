@@ -49,7 +49,7 @@ factoryApp.directive('toggleClass', function () {
                 if (scope.model.value === scope.$id) {
                     scope.selected = "palette-colorswab-selected fleft";
                 } else {
-                    scope.selected = 'palette-colorswab fleft';
+                    scope.selected = 'color-swab';
                 }
             });
         }

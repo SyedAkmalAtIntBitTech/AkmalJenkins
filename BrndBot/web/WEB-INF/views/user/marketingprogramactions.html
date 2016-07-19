@@ -1,12 +1,11 @@
+<div ng-include src="'addaction.html'"></div>
 <div class="main-content-wrap" ng-init="getProgramActions('emailautomation')">
-    <div ng-include src="'addaction.html'"></div>
-    <div ng-hide="true" ng-include src="'genericpopup/mainpopup.html'"></div>
     <div ng-hide="true" ng-include src="'recurringemailpopup.html'"></div>
     <div class="top-nav-wrap">
         <div class="header">
-            <a class="back-button" href="marketingprogramlists"></a>
-            <h2 class="">{{programs.programdetails.programName}}</h2>
-            <input type="hidden" name="program_name2" id="program_name2" value="{{programs.programdetails.programName}}"></input>
+            <a class="back-button" ng-click="backToPreviousPage('marketingprogramlists')" ></a>
+        <h2 class="">{{programs.programdetails.programName}}</h2>
+            <input type="hidden" name="program_name2" id="program_name2" value="{{programs.programdetails.programName}}">
             <!--<% if(past!=1) {%>-->
             <a href="" class="reg-button gray-button" ng-click="endMarketingProgram()" id="endMarketingProgram">Archive Campaign</a>
             <!--<% } %>-->
@@ -14,11 +13,11 @@
     </div>
     <div class="top-sub-nav">
             <ul class="sub-nav-tab-wrap with-back-button">
-                <li class="sub-nav-tab " id="ovrviewli" ng-hide="checkProgramStatus()">
-                     <a id="overview">Campaign Details</a>
+                <li class="sub-nav-tab " id="ovrviewli" ng-hide="checkProgramStatus()" ng-click="displayCampaignDetails()">
+                     <a id="overview" class="" ng-class="campaignDetailsClass">Campaign Details</a>
                 </li>
-                <li class="sub-nav-tab" id="actionsli" ng-click="showactionstab()">
-                     <a  id="actions">Campaign Actions</a>
+                <li class="sub-nav-tab" id="actionsli" ng-click="displayCampaignActions();">
+                    <a  id="actions" class="" ng-class="campaignActionsClass">Campaign Actions</a>
                 </li>
                
             </ul>
@@ -27,7 +26,7 @@
     <div class="top-nav-bar-offset"></div>
     <div class="top-subnav-bar-offset"></div>
 
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" id="instancehidden">
+    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" id="" ng-show="showCampaignActions==true">
         
              <div class="hub-pane">
                 <div class="hub-pane-header-wrap">
@@ -116,7 +115,7 @@
         
         <div class="bottom-offset"></div>
     </div>
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav"  id="overviewtab">
+    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav"  id="" ng-show="showCampaignDetails==true">
         <div class="hub-pane" >
             <div class="hub-pane-header-wrap">
                 <h2 class="">Marketing Campaign Details</h2>
@@ -131,11 +130,11 @@
                         <label> Marketing Campaign Date </label>
                         <a class="overlay-detail-input date-input ease-all">
                                 <i></i>
-                                <input type="text" readonly name="datepicker" id="progactdatepicker"  class="input-field-textfield col-4of10" value="<%=program_date%>"></input>
+                                <input type="text" readonly name="datepicker" id="progactdatepicker"  class="input-field-textfield col-4of10" value="{{programs.programdetails.dateOfEvent | date : 'EEE MMM d y'}}">
                                     <script>
                                         var picker = new Pikaday(
                                                 {
-                                                field: document.getElementById('progactdatepicker'),
+                                                        field: document.getElementById('progactdatepicker'),
                                                         firstDay: 1,
                                                         minDate: new Date(2000, 0, 1),
                                                         maxDate: new Date(2050, 12, 31),
@@ -148,14 +147,14 @@
                     <div class="input-wrap">
                         <label> Marketing Campaign Link </label>
                         <div class="input">
-                            <input id="link_url" name="link_url" value="{{programs.programdetails.linktodestination}}"></input>
+                            <input id="link_url" name="link_url" value="{{programs.programdetails.linktodestination}}">
                         </div>
                         
                     </div>
                      <div class="input-wrap">
                         <label> Marketing Campaign Link Name</label>
                         <div class="input">
-                            <input id="link_name" name="link_name" class="input-field-textfield col-7of10" value="{{programs.programdetails.link_name}}"></input>
+                            <input id="link_name" name="link_name" class="input-field-textfield col-7of10" value="{{programs.programdetails.link_name}}">
                         </div>
                         
                     </div>

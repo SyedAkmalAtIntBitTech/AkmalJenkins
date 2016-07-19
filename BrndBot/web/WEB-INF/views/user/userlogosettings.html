@@ -9,7 +9,7 @@
                 <form id="data" name="formpersonality"  enctype="multipart/form-data" method="post" class="ng-pristine ng-valid">
                     <div class="col-2of10 fleft cur1">
                         <div ng-repeat="step in stepsModel">
-                    <img class="thumb" ng-src="{{step}}" />
+                    <img class="thumb" src="{{step}}" />
                     </div>
                         <div class="logo-container"><textarea class="top55 left10 right10" id="filetext1">Choose an Image to upload</textarea>
                             <input type="file" file-model="logoImage" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">

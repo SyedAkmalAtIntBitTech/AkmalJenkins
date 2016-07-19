@@ -11,6 +11,25 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
     var globalActionsArray =[];
     $scope.marketingProgramActions="";
 //    var marketingprogram=$scope.markeingActions;
+    $scope.marketingProgramId = null;
+    $scope.getMarketingProgramId = function(){
+        var qs = (function(a) {
+            if (a == "") return {};
+            var b = {};
+            for (var i = 0; i < a.length; ++i)
+            {
+                var p=a[i].split('=', 2);
+                if (p.length == 1)
+                    b[p[0]] = "";
+                else
+                    b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+            }
+            return b;
+        })(window.location.search.substr(1).split('&'));
+
+        $scope.marketingProgramId = qs["marketingProgramId"];    
+        
+    };
     $scope.closeOneTimeActionPopUp=function (){
         $("#addMarketingProgramsPopup").hide(); 
         $("#addOrganizationPopupDiv").hide();
@@ -75,7 +94,7 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
     
     $scope.getMarketingProgramActionsById = function (){
         
-        var marketingProgramId=$("#marketingProgramIdTag").val();
+        var marketingProgramId=$scope.marketingProgramId
         if(window.location.href.indexOf("marketingprogramdetails?marketingProgramId") > -1) {
             $("#updateMarketingProgramSaveButton").show();
             $("#addMarketingProgramSaveButton").hide();
@@ -113,22 +132,40 @@ angular.module('marketingprogramota',[]).controller('marketingProgramsController
         $scope.closeEditActionPopUp();
     };
     
-    
     $scope.createOneTimeAction = function (is_recurring){
         var newOneTimeActionName = $("#newOneTimeActionName").val();
         var newActionTypeOneTimeActions= $("#newActionTypeOneTimeActions").val();
         var newActionsNoOfDays = $("#newActionsNoOfDays").val();
         var newActionTime = $("#newActionTime").val();
-        $scope.newMarketingAction={"days": newActionsNoOfDays,"description": "","time": newActionTime,"is_recurring": is_recurring,
-                                    "title": newOneTimeActionName,"type": newActionTypeOneTimeActions,"tilldate": ""
-                                   };                                   
-        globalActionsArray.push($scope.newMarketingAction);
-        $scope.marketingProgramActions=globalActionsArray;
-        $("#newOneTimeActionName").val('');
-//        $("#newActionTypeOneTimeActions").val('');
-        $("#newActionsNoOfDays").val('');
-        $("#newActionTime").val('');
-        $scope.closeOneTimeActionPopUp();
+        if (newOneTimeActionName === ""){
+            alert("Name not entered, please enter the name");
+            $("#newOneTimeActionName").focus();
+            return false;
+        }
+        
+        if (newActionsNoOfDays === ""){
+            alert("No of days not entered, please enter no of days");
+            $("#newActionsNoOfDays").focus();
+            return false;
+        }
+
+        if (newActionTime === ""){
+            alert("Time not entered, please enter the time");
+            $("#newActionTime").focus();
+            return false;
+        }else {
+            $scope.newMarketingAction={"days": newActionsNoOfDays,"description": "","time": newActionTime,"is_recurring": is_recurring,
+                                        "title": newOneTimeActionName,"type": newActionTypeOneTimeActions,"tilldate": ""
+                                       };                                   
+            globalActionsArray.push($scope.newMarketingAction);
+            $scope.marketingProgramActions=globalActionsArray;
+            $("#newOneTimeActionName").val('');
+    //        $("#newActionTypeOneTimeActions").val('');
+            $("#newActionsNoOfDays").val('');
+            $("#newActionTime").val('');
+            $scope.closeOneTimeActionPopUp();
+        }
+
     };
     
     

@@ -6,7 +6,7 @@
 package com.intbittech.controller;
 
 import com.intbit.ConnectionManager;
-import com.intbit.ScheduledEntityType;
+import com.intbittech.enums.ScheduledEntityType;
 import com.intbittech.enums.TemplateStatus;
 import com.intbittech.utility.ServletUtil;
 import com.intbittech.dao.impl.ScheduleDAO;
@@ -236,16 +236,16 @@ public class YourPlanController {
                         Integer marketingType=tempmarketingType.intValue();
                         Integer days = tempDays.intValue();
                         int scheduleId = ScheduleDAO.addToScheduleEntityList(null,
-                        requestBodyMap.get("title").toString(),
-                        marketingType,
-                        requestBodyMap.get("description").toString(),
-                        new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
-                        requestBodyMap.get("actiontype").toString(), 
-                        days.toString().trim(),
-                        templateStatus,
-                        companyId,
-                        conn
-                    );
+                            requestBodyMap.get("title").toString(),
+                            marketingType,
+                            requestBodyMap.get("description").toString(),
+                            new Timestamp(Double.valueOf(requestBodyMap.get("action_date").toString()).longValue()), 
+                            requestBodyMap.get("actiontype").toString(), 
+                            days.toString().trim(),
+                            templateStatus,
+                            companyId,
+                            conn
+                        );
                     conn.commit();
                     Map<String, Object> data = new HashMap<>();
                     data.put("schedule_entity_id", scheduleId);

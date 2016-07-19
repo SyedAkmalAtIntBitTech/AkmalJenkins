@@ -8,7 +8,7 @@ package com.intbittech.marketing.controller;
 import com.intbittech.utility.IConstants;
 import com.controller.SqlMethods;
 import com.intbittech.AppConstants;
-import com.intbit.ScheduledEntityType;
+import com.intbittech.enums.ScheduledEntityType;
 import com.intbittech.enums.TemplateStatus;
 import com.intbittech.marketing.service.ScheduledEmailListService;
 import com.intbittech.utility.ServletUtil;

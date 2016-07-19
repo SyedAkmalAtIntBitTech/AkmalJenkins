@@ -10,7 +10,6 @@
 <link href="css/general.css" rel="stylesheet" type="text/css"/>
 <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
         <script src="js/colpick.js" type="text/javascript"></script>
-        <script src="js/form.js" type="text/javascript"></script>
         <script src="js/pikaday.js"></script>
         <link rel="stylesheet" href="css/pikaday.css"/>
         <link rel="stylesheet" href="css/datepickerpikaday.css"/>
@@ -39,7 +38,7 @@
    <div class="main-content-wrap">
     <div class="top-nav-wrap">
         <div class="header">
-            <a class="back-button" id="backemaillist" href="" ng-click="backToEditor()"></a>
+            <a class="back-button" id="backemaillist" href="baseemaileditor#/emaileditor" ></a>
             <a class="back-button" href="" id="backemaildetails"></a>
             <h2 class="">Create an Email</h2>
         </div>
@@ -48,7 +47,7 @@
     <div class="content-wrap content-wrap-flex content-wrap-with-continue-bar" id="emaillistselid" ng-init="showEmailList()">
         
         <!--Email list selection-->
-        <div class="modal-pane modal-pane-width-reg">
+        <div class="modal-pane modal-pane-width-reg" ng-show="emailListDiv==true">
             <div class="modal-pane-header-wrap">
                 <h2 class="fleft">Select a Send To List</h2>
             </div>
@@ -66,9 +65,9 @@
                         <p class="input-wrap-label"> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
                     </div>
                 </div>
-               <div class="input-wrap">
+<!--               <div class="input-wrap">
                    <a id="addCsvFileButton" ng-click="selectCsvOnClick()" class="md-button add-button22 noborder" class="reg-button gray-button input-wrap-button">Add Email Addresses Manually</a>
-                </div>
+                </div>-->
             </div>
             <div class="col-2of4 fleft pushUp-30" ng-show="clickToUpload"> 
                         <div class="h3 col-1of1" id="dragtext">Drag and drop a csv file here and click to upload:</div>
@@ -81,7 +80,7 @@
                     <!--                   <div  class="col-2of4 fleft pushUp-30 lftpad-10" id="emladdrstxtarea" ng-show="emailAddressTextarea">-->
                     <div  class="col-2of4 fleft pushUp-30 lftpad-10" ng-show="emailAddressTextarea">
                         <div class="h3 col-1of1" id="entertext">Enter Email Addresses manually here:</div>
-                        <textarea class="emailaddresstextarea pushUp" ng-model="emailAddresses" id="emailaddresses"></textarea>
+                        <textarea class="emailaddresstextarea pushUp" ng-model="$parent.emailAddresses" id="emailaddresses"></textarea>
                     </div>
 
                 
@@ -92,7 +91,7 @@
         </div>
         
         <!--Email Final Details-->
-        <div class="modal-pane modal-pane-width-reg" id="emaildetailsid">
+        <div class="modal-pane modal-pane-width-reg" id="emaildetailsids"  ng-show="showEmailDetails==true">
             <div class="modal-pane-header-wrap">
                 <h2>Email Details</h2>
                 <a class="reg-button gray-button" id="emailpreview" ng-click="emailListPreviewOnClick()">Preview Email</a>
@@ -123,7 +122,7 @@
     </div>
 
     <div class="continue-bar">
-        <a id="emaildetailscontbtn" ng-click="continueEmailDetailsOnClick({'emailSubject':emailSubject,'fromName':fromName,'fromAddress':fromAddress,'toAddress':toAddress,'replyAddress':replyAddress})" class="fright">CONTINUE</a>
+        <a id="emaildetailscontbtn" ng-show="emaildetailscontbtn" ng-click="continueEmailDetailsOnClick({'emailSubject':emailSubject,'fromName':fromName,'fromAddress':fromAddress,'toAddress':toAddress,'replyAddress':replyAddress})" class="fright">CONTINUE</a>
         <a id="emailIdContinueButton" ng-show="emailContinueButton" ng-click="continueEmailListOnClick(emailAddresses)" class="fright">CONTINUE</a>
     </div>
 </div>
