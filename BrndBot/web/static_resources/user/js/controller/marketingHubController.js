@@ -192,13 +192,13 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         $scope.editDrafts = function (draft_id, category_id, email_subject, sub_category_id, mindbodyId, lookupId) {
             var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id,
-                "sub_category_id": sub_category_id};
+                "sub_category_id": sub_category_id,"mindbodyId":mindbodyId,"lookupId":lookupId};
             localStorage.setItem("emailDraftData",JSON.stringify(draftdetails));
             emailDraftFactory.getEmailDraftGet(draft_id).then(function (data) {
                 if (data === "false") {
                     alert(draftsavingerror);
                 } else {
-                    window.open(getHost() + 'user/baseemaileditor#/emaileditor?draftId=' + draft_id + '&emailSubject=' + email_subject + '&categoryId=' + category_id + '&subCategoryId=' + sub_category_id + '&mindbodyId=' + mindbodyId + '&LookupId=' + lookupId, "_self");
+                    window.open(getHost() + 'user/baseemaileditor#/emaileditor',"_self");
                 }
             });
         };
