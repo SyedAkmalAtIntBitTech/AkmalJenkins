@@ -193,13 +193,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         };
         $scope.editDrafts = function (draft_id, category_id, email_subject, sub_category_id, mindbodyId, lookupId) {
             var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id,
-<<<<<<< HEAD
-                "sub_category_id": sub_category_id};
-            localStorage.setItem("emailDraftData", JSON.stringify(draftdetails));
-=======
                 "sub_category_id": sub_category_id,"mindbodyId":mindbodyId,"lookupId":lookupId};
             localStorage.setItem("emailDraftData",JSON.stringify(draftdetails));
->>>>>>> 7a3939daf2745b7536af361371d2d21a8b8b7079
             emailDraftFactory.getEmailDraftGet(draft_id).then(function (data) {
                 if (data === "false") {
                     alert(draftsavingerror);
