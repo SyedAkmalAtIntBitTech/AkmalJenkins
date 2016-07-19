@@ -186,5 +186,5 @@ var imageChannel = "image";
 var emailChannelId = 3;
 var printChannelId = 2;
 var imageChannelId = 1;
-
+var genericError="Oops, something went wrong please try again later."
 /// ADMIN alerts Ends////

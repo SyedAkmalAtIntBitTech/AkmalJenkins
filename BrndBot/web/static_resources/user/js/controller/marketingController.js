@@ -88,6 +88,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
         $scope.redirectToActions = function (pageName, programId, past, endData)
         {
+            $scope.isProgramArchived=false;
             $scope.past = past;
             $scope.endDate = endData;
             $scope.programId = programId;
@@ -1392,32 +1393,23 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 //                }
         };
-        
+    
+    $scope.disableArchive = function (){
+        $scope.isProgramArchived=true;
+    };
+    
     $scope.endMarketingProgram = function(){
-//        alert($scope.programId);
-//       var delconf=confirm("Do you really want to End this Program?");
-//       if(delconf===true){
-//        var programData = {"program_id": $scope.programId};      
-//        companyMarketingProgramFactory.endMarketingProgramPost(programData).then(function (data){
-//            alert(JSON.stringify(data));
-//        });
-//       }
-//       $ajax({
-//           method: 'POST',
-//           url: getHost()+'/endMarketingProgram',
-//           headers: {'Content-Type':'application/json'},
-//           data: JSON.stringify(program_id)
-//       }).success(function (data, status, headers, config) {
-//           if (data == "true"){
-//                 window.open(getHost() + 'user/marketingprogramlists', "_self");                
-//           }else {
-//               alert(savingrecordproblem);
-//           }
-//       }).error(function (data, status, headers, config) {
-//           alert(nodataerror);
-//       });            
-//       }else{            
-//       }
+       var delconf=confirm("Do you really want to End this Program?");
+       if(delconf===true){
+        var programData = {"program_id": $scope.programId};      
+        companyMarketingProgramFactory.endMarketingProgramPost(programData).then(function (data){
+            if(data){
+           $location.path("/marketingprogramlists");
+            }else{
+               alert(genericError);
+            }
+        });
+       }
    };
     }]);
 
