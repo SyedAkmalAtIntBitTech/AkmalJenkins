@@ -27,7 +27,13 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.emailAddresses='';
         var sliderDialog = "#emaileditorexternalpopup";
         //OnPageLoad
-        $scope.emailEditorInit = function () {
+        $scope.emailEditorInit = function () {            
+            var searchObject = $location.search().draftId;
+            if(searchObject !== ""){
+                
+            }
+//http://localhost:8080/BrndBot/user/baseemaileditor#/emaileditor?draftId=23&emailSubject=TEStING&categoryId=1&subCategoryId=1&mindbodyId=75041&LookupId=1
+            
             $('#slider-button').click(function () {
                 if ($('#slider-button').css("margin-right") === "788px")
                 {
@@ -101,8 +107,11 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
         
         $scope.redirectBaseURL = function (){
-            alert($scope.draftId);
-            if ($scope.categoryId == ""){
+            var searchObject = $location.search().draftId;
+            if(searchObject !== ""){
+//                alert(JSON.stringify(searchObject)+"\nSearched");
+            }
+            if (($scope.categoryId === "")&&(searchObject === undefined)){
                 $location.path("/" + "baseemaileditor#/emailcategory");
             }
         };
