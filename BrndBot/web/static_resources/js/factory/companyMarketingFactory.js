@@ -77,10 +77,10 @@ factoryApp.factory('companyMarketingProgramFactory', function ($q, authenticated
         });
         return deffered.promise;
     };
-    companyMarketingProgramFactoryObject.endMarketingProgramPost = function () {
+    companyMarketingProgramFactoryObject.endMarketingProgramPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.endMarketingProgramURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, data,"").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;

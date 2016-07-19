@@ -181,13 +181,12 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     message = singledraftconfirm;
                     requestBody = {"type": "delete",
                         "draft_ids": $scope.selectedEmail.toString()};
+                }
+                emailDraftFactory.deleteEmailDraftsPost(requestBody).then(function (data) {
                     $scope.savedEmailDraftPopup = false;
                     $scope.deletDraftsButton = false;
                     $scope.displayAllEmailDrafts();
-                }
-                emailDraftFactory.deleteEmailDraftsPost(requestBody).then(function (data) {
-                    //                alert(JSON.stringify(data)); 
-                    $scope.displayAllEmailDrafts();
+                    $scope.closeSavedEmailDraftPopup();
                 });
             }
         };

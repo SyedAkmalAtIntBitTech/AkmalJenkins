@@ -49,7 +49,7 @@
                 <h2 class="">Archived Marketing Campaigns</h2>
             </div>
          <div class="hub-pane-content-wrap">
-                <div class="hub-slat-list-wrap"  ng-show="pastPrograms !== ''">
+                <div class="hub-slat-list-wrap"  ng-show="pastPrograms==''">
                     <div class="slat" >
                         <div class="slat-name-wrap">
                             <h2>No Campaigns</h2>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="slat-detail-wrap">
                             <div class="slat-detail slat-detail-button ">
-                                <a class="reg-button gray-button-outline slat-detail-button" ng-click="redirectToActions(forward, program.id,past=0,program.end_date)">View Campaign</a>
+                                <a class="reg-button gray-button-outline slat-detail-button" ng-click="redirectToActions(forward, program.id,past=0,program.end_date);disableArchive();">View Campaign</a>
                             </div>
                             <!--ng-click="sendProgramId(program.id,'0')"--> 
                         </div>
@@ -79,4 +79,5 @@
         </div>
     </div>
     
+</div>
 </div>
