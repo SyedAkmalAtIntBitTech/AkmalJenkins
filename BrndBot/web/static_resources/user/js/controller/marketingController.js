@@ -165,9 +165,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {
                     $scope.displayCampaignActions();
                     $scope.programs = data;
+                    console.log(JSON.stringify(data));
                     for (var i = 0; i< data.programactions.length; i++){
                         var action = data.programactions[i];
-                        $scope.programDate = action.eventDate;
+                        if (action.actionType == getemail()){
+                            $scope.programDate = moment(action.eventDate).format('DD-MM-YYYY');
+                        }else{
+                            $scope.programDate = action.eventDate;
+                        }
                     }
                     $scope.template_status = data.emailautomation;
                     $scope.actionType = "Email";
@@ -217,7 +222,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 var endDate = $scope.formatDate($scope.programDate);
                 var end = new Date(endDate);
                 var fromDate = new Date(actionDateTime1);
-                alert(fromDate);
                 var todayDate = new Date();
                     if (fromDate < todayDate){
                         alert("The selected date is lesser than todays date, please change the date");
@@ -231,7 +235,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var actiondate = datePicker;
             
             var currDate = moment(actiondate).format('YYYY-MM-DD');
-            
             var nDate = $scope.programDate;
             var dateArray=nDate.split('-');
             var month = dateArray[1];
@@ -463,7 +466,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         yourPlanFactory.scheduledSocialPost($scope.scheduleData.schedule_id).then(function (data) {
                             
                             var iframe = document.getElementById('iframeForAction');
-                            alert(JSON.stringify(data.d.details));
                             if (data.d.details != "{}") {
                                 $scope.savedEmail = true;
                                 if (entity_type === gettwitter())
