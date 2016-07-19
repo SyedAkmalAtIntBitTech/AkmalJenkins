@@ -186,41 +186,55 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.fadeClass = '';
             $scope.addAction = false;
         };
-
-        function getDays(theDate, todate) {
-            var fromdate = new Date();
-            console.log(fromdate);
-            alert("from date "+fromdate);
-            var tdate = new Date(todate);
-            alert("tdate "+tdate);
-            var days = fromdate - tdate;
-            alert(days);
-            return days;
-        }
-
-        function treatAsUTC(date) {
-            var result = new Date(date);
-            result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
-            return result;
-        }
-
-        function daysBetween(startDate, endDate) {
-            var millisecondsPerDay = 24 * 60 * 60 * 1000;
-            return (treatAsUTC(endDate) - treatAsUTC(startDate)) / millisecondsPerDay;
+        $scope.formatDate = function (programDate){
+            var dateArray=programDate.split('-');
+            var month = dateArray[1];
+            var day=dateArray[0];
+            var year=dateArray[2];
+            var programEndDate=year+"-"+month+"-"+day;
+//            var newDate = moment(programEndDate).format('YYYY-MM-DD');
+            return programEndDate;
         }
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
         {
+            if (addTitle == undefined){
+                alert("Title not entered, enter the title");
+                $("#addactiontitle").focus();
+                return false;
+            }
+            if(actionType.text == "Select"){
+                alert("No action type selected, select a action type");
+                return false;
+            }
+            if(datePicker == undefined){
+                alert("Date not selected, select the date");
+                return false;
+            }else {
+                var endDate = $scope.formatDate($scope.programDate);
+                var end = new Date(endDate);
+                var fromDate = new Date(datePicker);
+                var todayDate = new Date();
+                    if (fromDate < todayDate){
+                        alert("The selected date is lesser than todays date, please change the date");
+                        return false;
+                    }else if (fromDate > end){
+                        alert("The selected date is greater than program date, please change the date");
+                        return false;
+                    }
+            }
+            
             var actiondate = datePicker;
-            var curr_date = moment(actiondate).format('YYYY-MM-DD');
+            
+            var currDate = moment(actiondate).format('YYYY-MM-DD');
+            
             var nDate = $scope.programDate;
             var dateArray=nDate.split('-');
             var month = dateArray[1];
             var day=dateArray[0];
             var year=dateArray[2];
-            var program_end_date=year+"-"+month+"-"+day;
-            console.log(nDate);
-            var start = moment(program_end_date);
-            var end = moment(curr_date);
+            var programEndDate=year+"-"+month+"-"+day;
+            var start = moment(programEndDate);
+            var end = moment(currDate);
             var days = start.diff(end, "days");
             var actiond = "1970/01/01";
             var actionDateTime=$("#timepicker1").val().replace(/ /g,'');
@@ -237,6 +251,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             companyMarketingProgramFactory.addActionPost(action).then(function (data) {
                 $scope.closeOverlay();
                 $scope.getProgramActions('emailautomation');                
+                alert("Action created succesfully");
             });
         };
 
@@ -418,8 +433,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.savedHeader = getemail();
                 yourPlanFactory.scheduledEmailGet($scope.scheduleData.schedule_id).then(function (data) {
                     $scope.entitiesdetails = JSON.parse(data.d.details);
+                    alert(JSON.stringify($scope.entitiesdetails));
                     var iframe = document.getElementById('iframeForAction');
-
                     if ($scope.entitiesdetails != "{}") {
                         $scope.savedEmail = true;
                         $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
