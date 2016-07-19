@@ -522,6 +522,7 @@ li.main-nav:last-child{
     width: calc(100vw - 70px);
     overflow-y: scroll;
     z-index: 0;
+    height:100vh;
 }
 
 .sequence-content-wrap{
@@ -734,6 +735,7 @@ li.sub-nav-tab.active a{
 
 .content-wrap-with-continue-bar{
     height: calc(100vh - 115px);
+    overflow-y: auto;
 }
 
 
@@ -1138,8 +1140,15 @@ li.sub-nav-tab.active a{
     font-size: 14px;
     line-height: 40px;
     padding: 0px 30px;
-
+    display: flex;
+    align-items: center;
+    
 }
+
+.overlay-details-pane-header-cta{
+    margin-left: auto;
+}
+
 
 .overlay-details{
     padding: 30px 90px;
@@ -1708,11 +1717,27 @@ li.sub-nav-tab.active a{
     margin-left: auto;
 }
 
+.modal-pane-header-wrap input{
+    height:30px;
+    border-radius: 3px;
+    padding:0px 10px;
+    margin-left: auto;
+    border: 1px solid #c9c9c9;
+    width:200px;
+}
+
 .modal-pane-content-wrap{
     padding: 20px 30px 20px 30px;  
     box-sizing: border-box;
     max-height: 430px;
     overflow-y: visible;
+}
+
+.modal-pane-content-wrap.sequence-page{
+    padding: 0px 30px 20px 30px;  
+    box-sizing: border-box;
+    max-height: 430px;
+    overflow-y: auto;
 }
 
 .modal-pane-content-wrap.secondary-option{
@@ -1962,6 +1987,10 @@ p.modal-content-header{
     margin-bottom: 60px;
 }
 
+.hub-section.sequence-page{
+    margin-bottom:30px;
+}
+
 .hub-section:last-child{
     margin-bottom: 20px;
 }
@@ -1972,12 +2001,17 @@ p.modal-content-header{
 
 .hub-section .section-header{
     margin-bottom: 20px;
-    max-width: 400px;
+    max-width: 450px;
 }
 
 .hub-section .section-header h3{
     margin-bottom: 8px;
     font-size: 20px;
+}
+
+.hub-section .section-header h3 i{
+    font-size: 14px;
+    margin-left:10px;
 }
 
 .hub-section .section-header p{
@@ -2076,6 +2110,15 @@ p.modal-content-header{
     font-style: italic;
 }
 
+.input-wrap p{
+    font-size: 12px;
+    color: #737982 ;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+
+
 .input.left-icon input{
     padding-left: 40px;
 }
@@ -2104,6 +2147,22 @@ p.modal-content-header{
     height:30px;
     font-size:14px;
 
+}
+
+.dd-dropdown{
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    display: inline-block;
+    padding: 0 .4em 0 .4em;
+    vertical-align: middle;
+    border-radius: 3px;
+    min-width: 50px;
+    min-height: 32px;
+    background-color: #fff;
+    border: 1px solid #c9c9c9;
+    font-size: 14px;
+    user-select:none;
 }
 
 .dropdown-icon:before{
@@ -2342,6 +2401,16 @@ p.modal-content-header{
     padding: 22px 0px;   
 }
 
+.slat.external-data{
+    padding: 22px 20px;   
+}
+
+.slat.external-data:hover{
+     border: 1px solid #D2D3D5;
+     background-color: #f8f8f8;
+}
+
+
 
 .slat-icon-wrap{
     width: 30px;
@@ -2424,7 +2493,7 @@ p.modal-content-header{
     line-height: 55px;
     padding:0px  20px;
     box-sizing: border-box;
-    font-weight: 600;
+    font-weight: 500;
     color: #444;
 }
 
@@ -2438,11 +2507,9 @@ p.modal-content-header{
             Marketing Campaign
 -------------------------------------*/
 
-.sequence-pane-content-section-header{}
-
-.sequence-pane-content-section-sub-header{}
-
-
+.sequence-pane-content-wrap{
+    padding:30px;
+}
 
 /*------------------------------------
             Onboarding
@@ -2648,4 +2715,47 @@ p.modal-content-header{
     position: relative;
     top: -28px;
     left: 50px;
+}
+
+.search-bar{
+    height:30px;
+    border-radius: 3px;
+    padding:0px 10px;
+    margin-left: auto;
+    border: 1px solid #c9c9c9;
+    width:200px;
+}
+
+.email-preview-bar{
+    border-top: 1px solid lightgray;
+     border-bottom: 1px solid lightgray;
+    background-color: #fafafa;
+    font-size: 14px;
+    font-variant-caps: small-caps;
+    margin-top: 30px;
+    padding: 5px 60px;
+}
+
+
+.detail-section-label{
+    font-variant: small-caps;
+    color: #666;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.detail-section-data{
+    font-size: 14px;
+    color:#333;
+    margin-top: 10px;
+    
+    
+}
+
+.validationAlert {
+    color: #ff0000;
+}
+
+.input input:focus{
+    border-color: #ff0000 !important;
 }

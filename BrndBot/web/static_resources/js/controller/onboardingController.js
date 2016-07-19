@@ -6,6 +6,10 @@
 brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'subCategoryFactory', 'settingsFactory', 'organizationFactory', 'onboardingFactory', 'externalContentFactory', 'settingsFactory', 'assetsFactory', function ($scope, $location, subCategoryFactory, settingsFactory, organizationFactory, onboardingFactory, externalContentFactory, settingsFactory, assetsFactory) {
         $scope.imageSrc = "images/uploadPhoto.svg";
         $scope.colorFrom = "custom";
+        $scope.organizationValidation = false;
+        $scope.companyValidation = companyValidation;
+        $scope.dropdownValidation = dropdownValidation;
+        
         function validateSignUp()
         {
             var emailId = $scope.signUpEmail;
@@ -77,14 +81,41 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 }
             });
         };
-
-        $scope.saveCompany = function (companyName, organizationId) {
-            var companyDetails = {"companyName": companyName, "organizationId": organizationId};
-            onboardingFactory.saveCompanyPost(JSON.stringify(companyDetails)).then(function (data) {
-                $location.path("/signup/datasource");
-            });
+        
+        $scope.validationcode = function (companyName, organizationId) {
+            if (!companyName) {
+                $scope.companyName = "";
+                $("#companyName").focus();
+                return false;
+            }
+            else if (!organizationId) {
+                $scope.organizationValidation = true;
+                $("#dropdownValue").focus();
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         };
-
+        
+        $scope.saveCompany = function (companyName, organizationId) {
+            if ($scope.validationcode(companyName, organizationId))                        
+            {
+                var companyDetails = {"companyName": companyName, "organizationId": organizationId};
+                onboardingFactory.saveCompanyPost(JSON.stringify(companyDetails)).then(function (data) {
+                    $location.path("/signup/datasource");
+                });
+            }
+        };
+        
+        $scope.selectedOrganization = function(selected)
+        {
+            if(selected.value){
+                $scope.organizationValidation = false;
+            }
+        };
+        
         $scope.ddSelectServicesOptions = [
         ];
 
