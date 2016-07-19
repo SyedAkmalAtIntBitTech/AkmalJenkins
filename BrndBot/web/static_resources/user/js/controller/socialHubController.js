@@ -83,9 +83,11 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
         };
         
         $scope.getAuthURLFromSocialHub = function () {
+            alert("dsfghjkl");
             $scope.showTwitterPopup = true;
             var data = {redirectUrl: "user/social"};
             settingsFactory.twitterLoginGet(data).then(function (data) {
+//                alert(JSON.stringify(data));
                 $scope.getTwitterPin = data.d.details[0];
             });
         };
@@ -119,6 +121,7 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
             var addDafaultmanagePage = $("#setDefaultManagePage").prop('checked');
             var data = JSON.stringify({access_token_method: "setAccessToken"});
             settingsFactory.facebookPost(data).then(function (data) {
+                alert(JSON.stringify(data));
                 if (addDafaultmanagePage) {
                     $scope.default_page_name = localStorage.getItem("CurrentFbPageName");
                     $scope.fb_user_profile_name = localStorage.getItem("FbProfileName");

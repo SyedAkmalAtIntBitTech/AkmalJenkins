@@ -2,10 +2,9 @@
 <html >
     <head>
         <link rel="import" href="header.html"></link>
-        <script src="js/configurations.js" type="text/javascript"></script>
+        <script src="../js/configurations.js" type="text/javascript"></script>
         <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+        <script src="js/social.js" type="text/javascript"></script>  
         <script src="../js/angularappconfiguration.js"></script> 
         <script src="../js/factory/categoryFactory.js" type="text/javascript"></script>
         <script src="../js/factory/subCategoryFactory.js" type="text/javascript"></script>
@@ -26,12 +25,16 @@
         <script src="js/controller/socialController.js" type="text/javascript"></script>        
         <script src="js/controller/socialHubController.js" type="text/javascript"></script>  
         <title>Brndbot - Marketing Hub</title>  
-    </head>  
-        <body ng-app="socialhubFlowApp" ng-controller="controllerSocial">
-        <div ng-include src="'navbar.html'"></div>
+    </head>    
+<!--    <%@ include file="twitterpopupforsocialhub.jsp"%>
+    <%@include file="header.jsp" %>
+    <%@include file="navbar.jsp" %>-->
+
+    <div ng-include src="'navbar.html'"></div>
         <div ng-include src="'loadingoverlay.html'"></div>
+    <body ng-app="socialhubFlowApp" ng-controller="controllerSocial">
+        
         <div ng-include src="'twitterpopupsocialhub.html'"></div>
-         <div ng-include src="'facebookmanagepages.html'"></div>v
         <div  id="controllerSocial"> 
             <!--SideNav-->
 
@@ -43,7 +46,7 @@
                     <div class="page-title-regular page-title-font">Your Social Hub</div>
                 </div>
                 <div class="page-subnav-bar-with-dropdown"> 
-                    <div class="subnav-dropdown pushright" ng-click="socialClick()">
+                    <div class="subnav-dropdown pushright"  id="socialclick">
                         <span class="hub-dropdown-text">Social</span>
                         <img type="image/svg+xml" src="images/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"> </img>
                     </div>
@@ -53,7 +56,7 @@
                             <li class="top-subnav-links" id="twsetting"> <a class="h3">Twitter Settings</a></li>
                         </ul>
                     </div>
-                    <div class="dropdown-hub" ng-show="socialDropdown">
+                    <div class="dropdown-hub" id="socialdropdown">
                         <ul class="dropdown-inner">
                             <li class="dropdown-section col-1of1 fleft" id="socialhubli" >
                                 <a href="social">
@@ -61,8 +64,7 @@
                                     <div class="fleft col-6of10 dropdown-label-active">Social Hub</div>
                                 </a>
                             </li>
-
-                            <a href="/BrndBot/user/basemarketinghub#/">
+                            <a href="/user/marketinghub">
                                 <li class="dropdown-section fleft col-1of1 " id="emailhubli">
                                     <div><img type="image/svg+xml" src="images/Hub-Dropdowns_email.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
                                     <div class="fleft col-6of10 dropdown-label">Email Hub</div>
@@ -97,6 +99,6 @@
                 </div>
             </div>
         </div>
-
+        <div ng-include src="'facebookmanagepages.html'"></div>                               
     </body>
 </html>
