@@ -153,7 +153,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.currProgramsDiv = true;
             $scope.pastProgramsDiv = false;
         };
-
+        $scope.showSaveButton = function(){
+            alert("test");
+        };
         $scope.getProgramActions = function (forward)
         {
             if($scope.programId===''){ 
@@ -210,9 +212,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 alert("Date not selected, select the date");
                 return false;
             }else {
+                var actionTime1=$("#timepicker1").val().replace(/ /g,'');
+                var actionDateTime1=datePicker.toLocaleString() +" "+actionTime1.toLocaleString();
                 var endDate = $scope.formatDate($scope.programDate);
                 var end = new Date(endDate);
-                var fromDate = new Date(datePicker);
+                var fromDate = new Date(actionDateTime1);
+                alert(fromDate);
                 var todayDate = new Date();
                     if (fromDate < todayDate){
                         alert("The selected date is lesser than todays date, please change the date");
@@ -421,9 +426,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.templateDisapproveButton = "Disapprove";
             $scope.savedHeader = 'Post'; 
 
-            var date = "";//$scope.entities_selected_time;
+//            var date = "";//$scope.entities_selected_time;
             var time = $filter('date')(schedule_time, "hh:mm a");
-            $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: date,
+            $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: schedule_date,
                 schedule_id: schedule_id, schedule_desc: schedule_desc,
                 email_template_status: template_status, schedule_type: entity_type,
                 marketing_program_name: marketingName, user_marketing_program_id: $scope.programId,
@@ -433,7 +438,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 $scope.savedHeader = getemail();
                 yourPlanFactory.scheduledEmailGet($scope.scheduleData.schedule_id).then(function (data) {
                     $scope.entitiesdetails = JSON.parse(data.d.details);
-                    alert(JSON.stringify($scope.entitiesdetails));
                     var iframe = document.getElementById('iframeForAction');
                     if ($scope.entitiesdetails != "{}") {
                         $scope.savedEmail = true;
@@ -457,10 +461,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         if (!$scope.twitterprofileName)
                             $scope.twitterprofileName = "--";
                         yourPlanFactory.scheduledSocialPost($scope.scheduleData.schedule_id).then(function (data) {
-
-                            $scope.entitiesdetails = JSON.parse(data.d.details);
+                            
                             var iframe = document.getElementById('iframeForAction');
-
+                            alert(JSON.stringify(data.d.details));
                             if (data.d.details != "{}") {
                                 $scope.savedEmail = true;
                                 if (entity_type === gettwitter())
