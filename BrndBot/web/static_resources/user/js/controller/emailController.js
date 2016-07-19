@@ -602,7 +602,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.chooseEmailListOnChange = function (listName) {
-            alert(JSON.stringify(listName));
             $scope.emailList = listName.value;
             $scope.toAddress = "";
             if (listName === "1") {
@@ -615,7 +614,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 emailListFactory.emailListGet($scope.emailList, "emailsForEmailList").then(function (data) {
                     var parseData = JSON.parse(data.d.details);
                     var JSONData;
-                    alert(JSON.stringify(data));
                     if (JSON.stringify(parseData.mindbody_emailAddresses) === "[]")
                         JSONData = parseData.user_emailAddresses;
                     else
@@ -824,9 +822,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 //        };
 
         $scope.getActions = function (selectedSocialmedia, selectedMarketingProgrmaId) {
-            alert(selectedSocialmedia +".........."+JSON.stringify(selectedMarketingProgrmaId));
+//            alert(selectedSocialmedia +".........."+JSON.stringify(selectedMarketingProgrmaId));
             $scope.selectedMarketingProgrma = selectedMarketingProgrmaId.value;
-            alert($scope.selectedMarketingProgrma);
             if (selectedSocialmedia === "email") {
                 $scope.getFacebookActions(selectedMarketingProgrmaId.value);
             }
@@ -843,9 +840,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.setAction = function (selectedAction) {
-            alert(JSON.stringify(selectedAction));
             $scope.socialAction = selectedAction.value;
-            alert($scope.socialAction);
         };
 
         $scope.schedulePost = function (selectedSocialmedia, postData) {

@@ -503,9 +503,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 //            });
 //        };
         $scope.getActions = function (selectedSocialmedia, selectedMarketingProgrmaId) {
-            alert(selectedSocialmedia +".........."+JSON.stringify(selectedMarketingProgrmaId));
             $scope.selectedMarketingProgrma = selectedMarketingProgrmaId.value;
-            alert($scope.selectedMarketingProgrma);
             if (selectedSocialmedia === "facebook") {
                 $scope.getFacebookActions(selectedMarketingProgrmaId);
             } else if (selectedSocialmedia === "twitter") {
@@ -513,9 +511,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             }
         };
         $scope.setAction = function (selectedAction) {
-            alert(JSON.stringify(selectedAction));
             $scope.socialAction = selectedAction.value;
-            alert($scope.socialAction);
         };
         $scope.schedulePost = function (selectedSocialmedia, postData) {
             if (selectedSocialmedia === "facebook") {
