@@ -346,8 +346,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.masterActionType = entity_type;
             $scope.savedDetailsAddTemplateButton = "Go to Dashboard";
             $scope.savedDetailsAddTemplateLink = "dashboard";
-            $scope.templateApproveButton = "Approve";
-            $scope.templateDisapproveButton = "Disapprove";
+            $scope.templateApproveButton = "Click to Approve";
+            $scope.templateDisapproveButton = "Click to Pause";
             $scope.savedHeader = 'Post'; 
 
             var date = "";//$scope.entities_selected_time;

@@ -1707,8 +1707,24 @@ li.sub-nav-tab.active a{
     margin-left: auto;
 }
 
+.modal-pane-header-wrap input{
+    height:30px;
+    border-radius: 3px;
+    padding:0px 10px;
+    margin-left: auto;
+    border: 1px solid #c9c9c9;
+    width:200px;
+}
+
 .modal-pane-content-wrap{
     padding: 20px 30px 20px 30px;  
+    box-sizing: border-box;
+    max-height: 430px;
+    overflow-y: auto;
+}
+
+.modal-pane-content-wrap.sequence-page{
+    padding: 0px 30px 20px 30px;  
     box-sizing: border-box;
     max-height: 430px;
     overflow-y: auto;
@@ -2123,6 +2139,22 @@ p.modal-content-header{
 
 }
 
+.dd-dropdown{
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    display: inline-block;
+    padding: 0 .4em 0 .4em;
+    vertical-align: middle;
+    border-radius: 3px;
+    min-width: 50px;
+    min-height: 32px;
+    background-color: #fff;
+    border: 1px solid #c9c9c9;
+    font-size: 14px;
+    user-select:none;
+}
+
 .dropdown-icon:before{
     content: url(/BrndBot/user/images/dropdown.svg);
 }
@@ -2359,6 +2391,16 @@ p.modal-content-header{
     padding: 22px 0px;   
 }
 
+.slat.external-data{
+    padding: 22px 20px;   
+}
+
+.slat.external-data:hover{
+     border: 1px solid #D2D3D5;
+     background-color: #f8f8f8;
+}
+
+
 
 .slat-icon-wrap{
     width: 30px;
@@ -2441,7 +2483,7 @@ p.modal-content-header{
     line-height: 55px;
     padding:0px  20px;
     box-sizing: border-box;
-    font-weight: 600;
+    font-weight: 500;
     color: #444;
 }
 
