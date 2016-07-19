@@ -90,11 +90,12 @@
                              </div>
                          </div>
                         <div class="col-3of10 fleft" ng-click="emailListDropdown()">
-                            <select id="emaillist" ng-model="automationData.selectedEmailList" ng-change="emailListOnChange()" name="emaillist" class="input-field-textfield">
+<!--                            <select id="emaillist" ng-model="automationData.selectedEmailList" ng-change="emailListOnChange()" name="emaillist" class="input-field-textfield">
                                    <option value="0">-- Select --</option>
                                    <option ng-repeat ="Lists in emailLists_user" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
                                    <option ng-repeat ="Lists in emailLists_mindbody" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
-                              </select>
+                              </select>-->
+                            <div dropdown-select="ddSelectEmailListAutomationDataOptions" dropdown-model="ddSelectEmailListAutomationData" dropdown-onchange="emailListOnChange(selected)"></div>
                         </div>
                     <div class="col-4of10 fleft pushUp-30">
                         <div class="h4" style="">

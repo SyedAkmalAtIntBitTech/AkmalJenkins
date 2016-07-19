@@ -841,11 +841,31 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             });
         };
 
+        $scope.ddSelectEmailListAutomationDataOptions = [
+            {
+                text: "Manual",
+                value: "1"
+            }
+        ];
+
+        $scope.ddSelectEmailListAutomationData = {
+            text: "Manual"
+        };
+
         $scope.showEmailList = function () {
             emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
                 var parseData = JSON.parse(data.d.details);
                 $scope.emailLists_user = parseData.allEmailListWithNoOfContacts.user;
                 $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
+                //angulardd
+                var emailAutomationData = parseData.allEmailListWithNoOfContacts.user;
+                for (var i = 0; i < emailAutomationData.length; i++)
+                {
+                    var emailAutomationObject = {};
+                    emailAutomationObject["text"] = emailAutomationData[i].emailListName;
+                    emailAutomationObject["value"] = emailAutomationData[i].emailListName;
+                    $scope.ddSelectEmailListAutomationDataOptions.push(emailAutomationObject);
+                }
             });
         };
         $scope.getEntityDetails = function () {
@@ -910,10 +930,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
             }
         };
-        $scope.emailListOnChange = function () {
+        $scope.emailListOnChange = function (emailListName) {
             $scope.emailLists = "";
-            emailListFactory.emailListGet($scope.automationData.selectedEmailList, "emailsForEmailList").then(function (emailListData) {
+            emailListFactory.emailListGet(emailListName.value, "emailsForEmailList").then(function (emailListData) {
                 var emailListName = $.parseJSON(emailListData.d.details);
+                alert(JSON.stringify(emailListData));
                 for (var i = 0; i < emailListName.user_emailAddresses.length; i++) {
                     var emails = emailListName.user_emailAddresses[i];
                     $scope.emailLists = $scope.emailLists + eval(JSON.stringify(emails.emailAddress)) + ",";
