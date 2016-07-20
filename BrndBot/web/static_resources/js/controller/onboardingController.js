@@ -155,9 +155,11 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 }
             });
         };
+        
         $scope.saveServices = function () {
             onboardingFactory.completedActivationGet().then(function (data) {
                 var studioIdSaved = eval(JSON.stringify(data.d.message));
+                alert(studioIdSaved);
 //                if (studioIdSaved === "true") {
                 $location.path("/signup/uploadlogo");
 //                }

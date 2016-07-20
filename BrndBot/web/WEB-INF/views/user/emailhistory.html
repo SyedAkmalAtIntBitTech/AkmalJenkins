@@ -23,11 +23,14 @@
                         </div>
                          <div class="slat-detail-wrap">
                             <div class="slat-detail">
-                                <h2>{{(email.opens / email.sent) * 100}}%</h2>
+                                <h2 ng-show="(email.opens / email.sent) * 100 != 'NaN'">{{(email.opens / email.sent) * 100 | number : 2}}%</h2>
+                                <h2 ng-show="(email.opens / email.sent) * 100 == 'NaN'">--</h2>
                                 <p>Open Rate</p>
                             </div>
                              <div class="slat-detail">
-                                <h2>{{(email.clicks / email.sent) * 100}}%</h2>
+                                <h2 ng-show="(email.clicks / email.sent) * 100 != 'NaN'">{{(email.clicks / email.sent) * 100 | number : 2}}%</h2>
+                                <h2 ng-show="(email.clicks / email.sent) * 100 == 'NaN'">--</h2>
+
                                 <p>Click Through Rate</p>
                             </div>
                              <div class="slat-detail">
@@ -45,5 +48,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>

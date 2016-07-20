@@ -734,13 +734,27 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var actiontype = scheduleUpdatedData.schedule_type;//$("#email_schedule_type").val();
             var schedule_id = scheduleUpdatedData.schedule_id;//$("#email_scheduleid").val();
             var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
-            var actiondate = "Mon Jan 01 1970";//$("#emaildatetime").val();
-            var days = scheduleUpdatedData.days;//$("#emaildays").val();
-            var actionDateTime = scheduleUpdatedData.schedule_time;//$("#timepickeremail").val().replace(/ /g,'');
-            var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
+            var actiondate = "1970/01/01";
+            var emaildate = $("#emaildatetime").val();
+
+            var currDate = moment(emaildate).format('YYYY-MM-DD');
+            var nDate = $scope.programDate;
+            var dateArray=nDate.split('-');
+            var month = dateArray[1];
+            var day=dateArray[0];
+            var year=dateArray[2];
+            var programEndDate=year+"-"+month+"-"+day;
+            var start = moment(programEndDate);
+            var end = moment(currDate);
+            var days = start.diff(end, "days");
+//            var days = scheduleUpdatedData.days;//$("#emaildays").val();
+//            var actionDateTime = scheduleUpdatedData.schedule_time;//$("#timepickeremail").val().replace(/ /g,'');
+            var actionDateTime = $("#timepickertextbox").val().replace(/ /g,'');
+            var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
             var schedule_time = Date.parse(l);
             var myEpoch = schedule_time;
             var description = "";
+            alert(myEpoch);
 //        if (!validateemailaction()) {
             var action = {
                 "schedule_id": schedule_id.toString(), "type": "update",
