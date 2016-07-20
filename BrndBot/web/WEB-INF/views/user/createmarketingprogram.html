@@ -107,7 +107,7 @@
                                         width: 62%;
                                 }
                                 
-.contentWrapInner {
+/* .contentWrapInner {
     width: 100%;
     padding-top: 2%;
     padding-bottom: 4%;
@@ -190,7 +190,7 @@
     height: -webkit-calc(10% - 1px) !important;
 }
 .contentWrap--withSideNav{
-/*     width: calc(10vw - 70px); */
+     width: calc(10vw - 70px);
     position: fixed;
     left: 70px;
     top: 0px;
@@ -243,12 +243,12 @@
 }
 iframe{
     border: 0px;
-}
+} */
     </style>
        
 </head>    
 
-  <body ng-app="marketingFlowApp" class="body-normal" ng-controller="marketingController">
+    <body ng-app="marketingFlowApp" class="body-normal" ng-controller="marketingController" id="marketingController">
    <script type="text/ng-template"></script>    
     <div ng-include src="'navbar.html'"></div> 
     <input type="hidden" ng-model="marketingCategoryId" value="{{marketingCategoryId}}"/>
