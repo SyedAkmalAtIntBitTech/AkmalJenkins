@@ -7,7 +7,7 @@
         <h2 class="">{{programs.programdetails.programName}}</h2>
             <input type="hidden" name="program_name2" id="program_name2" value="{{programs.programdetails.programName}}">
             <!--<% if(past!=1) {%>-->
-            <a href="" class="reg-button gray-button" ng-click="endMarketingProgram()" id="endMarketingProgram">Archive Campaign</a>
+            <a ng-hide="isProgramArchived" href="" class="reg-button gray-button" ng-click="endMarketingProgram()" id="endMarketingProgram">Archive Campaign</a>
             <!--<% } %>-->
         </div>
     </div>
@@ -32,7 +32,7 @@
                 <div class="hub-pane-header-wrap">
                     <h2 class="">Recurring Automated Emails</h2>
                     <!--<% if(past!=1){%>-->
-                    <a id="addrecemail" ng-click="redirectToEmailAutomation(forward,'add','', '0')" class="long-button green-button">Add an Automated Emails</a>
+                    <a ng-hide="isProgramArchived" id="addrecemail" ng-click="redirectToEmailAutomation(forward,'add','', '0')" class="long-button green-button">Add an Automated Emails</a>
                     <!--<%}%>-->
                 </div>
                 <div class="your-plan-action-wrap" >
@@ -70,7 +70,7 @@
                 <div class="hub-pane-header-wrap" >
                     <h2 class="">One Time Actions</h2>
                      <!--<% if(past!=1){%>-->
-                    <a id="onetimeactbtn" class="long-button green-button" ng-click="ShowAddAction()">Add a One Time Action</a>
+                    <a ng-hide="isProgramArchived" id="onetimeactbtn" class="long-button green-button" ng-click="ShowAddAction()">Add a One Time Action</a>
                     <!--<%}%>-->
                 </div>
                 <div class="your-plan-action-wrap">

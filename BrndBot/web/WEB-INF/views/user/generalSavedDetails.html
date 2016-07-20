@@ -13,7 +13,107 @@
         </div>
     </div>
      <div class="overlay-content" ng-show="savedEmail">
-                <div class="overlay-name-bar">
+         <div ng-show="masterActionType=='Twitter'">
+             <div class="overlay-content">
+                <div class="overlay-details-pane">
+                    <div class="overlay-details-pane-header">
+                        <div>Saved Post Details</div>
+                        <a class="overlay-details-pane-header-cta"> Remove Saved Email</a>
+                    </div>
+                    <div class="detail-sections-wrap">
+                        <div class="detail-section">
+                            <div class="detail-section-item">
+                                <label class="detail-section-label">post text</label>
+                                <p class="detail-section-data">{{entitiesdetails.metadata.text}}</p>
+                            </div>
+                            <div class="detail-section-item" ng-hide="entitiesdetails.metadata.shorturl==''">
+                                <label class="detail-section-label">post url</label>
+                                <p class="detail-section-data">{{entitiesdetails.metadata.shorturl}}</p>
+                            </div>
+                            <div class="detail-section-item">
+                                <label class="detail-section-label">saved photo </label>
+                                <img class="saved-post-image"/>
+                            <div ng-show="entitiesdetails.image_type == 'gallery'">
+                                <img id="prevfbimg" src="/BrndBot/downloadImage?imageName={{entitiesdetails.image_name}}&imageType=GALLERY&companyId={{companyId}}" />
+                            </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+         <div ng-show="masterActionType=='Facebook'">
+             <div class="overlay-content">
+                <div class="overlay-details-pane">
+                    <div class="overlay-details-pane-header">
+                        <div>Saved Post Details</div>
+                        <a class="overlay-details-pane-header-cta"> Remove Saved Email</a>
+                    </div>
+                    <div class="detail-sections-wrap">
+                        <div class="detail-section">
+                            <div class="detail-section-item">
+                                <label class="detail-section-label">post text</label>
+                                <p class="detail-section-data">{{entitiesdetails.metadata.post_text}}</p>
+                            </div>
+                            <div class="detail-section-item">
+                                <label class="detail-section-label">post url</label>
+                                <p class="detail-section-data">{{entitiesdetails.metadata.url}}</p>
+                            </div>
+                            <div class="detail-section-item">
+                                <label class="detail-section-label">post link title</label>
+                                <p class="detail-section-data">{{entitiesdetails.metadata.title}}</p>
+                            </div>
+                            <div class="detail-section-item">
+                                <label class="detail-section-label">post link description</label>
+                                <p class="detail-section-data">{{entitiesdetails.metadata.description}}</p>
+                            </div>
+                            <div class="detail-section-item">
+                                <label class="detail-section-label">saved photo</label>
+                                <img class="saved-post-image"/>
+                                 <div ng-show="entitiesdetails.image_type == 'gallery'">
+                                    <img id="prevfbimg" src="/BrndBot/downloadImage?imageName={{entitiesdetails.image_name}}&imageType=GALLERY&companyId={{companyId}}"/>
+                                </div>
+                                <div ng-show="entitiesdetails.image_type == 'layout'" style="display: none;">
+                                    <img id="prevfbimg" src="/BrndBot/downloadImage?imageType=LAYOUT_IMAGES&amp;imageName=13.jpg">
+                                </div>
+                                <div ng-show="entitiesdetails.image_type == 'url'" style="display: none;">
+                                    <img id="prevfbimg" src="13.jpg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+             
+         </div>
+         
+         
+         <div class="overlay-content" ng-show="masterActionType=='Email'">
+                <div class="overlay-details-pane">
+                    <div class="overlay-details-pane-header">
+                        <div>Saved Email Details</div>
+                        <a class="overlay-details-pane-header-cta"> Remove Saved Email</a>
+                    </div>
+                    <div class="detail-sections-wrap">
+                        <div class="detail-section">
+                            <div class="detail-section-item">
+                                <label>Subject Line</label>
+                                <span class="email-overlay-saved-info">{{entitiesdetails.subject}}</span>
+                            </div>
+                            <div class="detail-section-item">
+                                <label>Send to List</label>
+                                <div class="email-send-to-list-item">{{entitiesdetails.email_list_name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           
+                <div class="email-preview-bar">email preview</div>
+                <div class="overlay-email-preview"><iframe id="iframeForAction" width="500" height="400"></iframe>
+                    <!--iframe goes here-->
+                </div>
+        </div>
+<!--                <div class="overlay-name-bar">
                     <input size="40" value="Email Action Name"></input>
                     <a class="reg-button gray-button dropdown">
                         <span>Edit Saved Template</span>
@@ -28,20 +128,20 @@
                                 <label>Subject Line</label>
                                 <span class="email-overlay-saved-info">{{entitiesdetails.subject}}</span>
                             </div>
-<!--                            <div class="detail-section-item">
+                            <div class="detail-section-item">
                                 <label>Send to List</label>
-                                <div class="email-send-to-list-item">MindBody List One</div>
-                            </div>-->
+                                <div class="email-send-to-list-item">{{entitiesdetails.email_list_name}}</div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
            
-                <div class="overlay-email-preview-header">
+<!--                <div class="overlay-email-preview-header">
                     <h3>SAVED EMAIL</h3>
                     <p >Last Saved on Decemaber 3rd 2016 10:15 AM</p>
-                </div>
+                </div>-->
                 <div class="overlay-email-preview">
-                    <div ng-show="masterActionType=='Email'"><iframe id="iframeForAction" width="500" height="400"></iframe></div>
+<!--                    <div ng-show="masterActionType=='Email'"><iframe id="iframeForAction" width="500" height="400"></iframe></div>
                     <div ng-show="masterActionType=='Twitter'">
                         <div>Tweet text: <input ng-model="entitiesdetails.metadata.text" readonly/></div>
                         <div ng-hide="entitiesdetails.metadata.shorturl==''">Tweet Url: <input ng-model="entitiesdetails.metadata.shorturl" readonly/></div>
@@ -50,8 +150,8 @@
                                 <img id="prevfbimg" src="/BrndBot/downloadImage?imageName="+entitiesdetails.image_name+"&imageType=GALLERY&companyId="+companyId"/>
                             </div>
                         </div>
-                    </div>
-                    <div ng-show="masterActionType=='Facebook'">
+                    </div>-->
+<!--                    <div ng-show="masterActionType=='Facebook'">
                        <div class="Facebook-preview-name ng-binding">Facebook text: <input ng-model="entitiesdetails.metadata.post_text" readonly/></div>
                        <div class="Facebook-preview-desc ng-binding">Facebook description: <input ng-model="entitiesdetails.metadata.description" readonly/></div>
                         <div class="Facebook-link-container">
@@ -72,7 +172,7 @@
                                 <div class="Facebook-preview-link-url ng-binding">Facebook Url: <input ng-model="entitiesdetails.metadata.url" readonly/></div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
         </div>
 </div>
