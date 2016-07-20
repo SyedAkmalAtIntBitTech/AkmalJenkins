@@ -129,6 +129,7 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
                     fb_user_profile_name: $rootScope.FbProfileName
                 });
                 $scope.facebook = false;
+                window.location = getHost() + "user/social";
             } else {
                 alert("Please select any page and set as Default.");
             }
