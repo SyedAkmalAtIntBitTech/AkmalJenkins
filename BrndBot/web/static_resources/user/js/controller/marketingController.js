@@ -173,8 +173,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.currProgramsDiv = true;
             $scope.pastProgramsDiv = false;
         };
+        $scope.hideSaveButton = function(){
+            $("#updateAction").hide();
+        };
         $scope.showSaveButton = function(){
-            alert("test");
+            $("#updateAction").show();
         };
         $scope.getProgramActions = function (forward)
         {
