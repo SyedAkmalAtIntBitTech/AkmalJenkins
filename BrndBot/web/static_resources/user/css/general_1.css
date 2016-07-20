@@ -46,6 +46,19 @@ p{
     margin:0;   
 }
 
+textarea {
+     color: #3F3F42 !important;
+    padding: 8px 8px;
+    vertical-align: middle;
+    border-radius: 3px;
+    min-width: 50px;
+    min-height: 50px;
+    background-color: #fff;
+    border: 1px solid #c9c9c9;
+    font-size: 14px;
+    resize: none;
+}
+
 h1{
     margin: 0;
     color: #3F3F42;
@@ -635,7 +648,7 @@ li.main-nav:last-child{
 }
 
 .hub-dropdown i:before{
-    content: url(/BrndBot/user/images/dropdown.svg)
+    background-image: url(/BrndBot/user/images/dropdown.svg)
 }
 
 .sub-nav-tab-wrap{
@@ -945,16 +958,16 @@ li.sub-nav-tab.active a{
 
 
 .overlay-header-cta-wrap .status-button:hover i{
-    content: url(/BrndBot/user/images/templatestatus-01-reverse.svg)
+    background-image: url(/BrndBot/user/images/templatestatus-01-reverse.svg)
 }
 
 .overlay-header-cta-wrap .template-not-approved  i:before{
-    content: url(/BrndBot/user/images/templatestatus-02.svg)
+    background-image: url(/BrndBot/user/images/templatestatus-02.svg)
 }
 
 
 .overlay-header-cta-wrap .template-approved i:before{
-    content: url(/BrndBot/user/images/templatestatus-01%202.svg)
+    background-image: url(/BrndBot/user/images/templatestatus-01%202.svg)
 }
 
 
@@ -970,15 +983,15 @@ li.sub-nav-tab.active a{
 
 
 .overlay-header-cta-wrap .email-auto-paused  i:before{
-    content: url(/BrndBot/user/images/email-auto/email-auto-icons_Pause-gray.svg)
+    background-image: url(/BrndBot/user/images/email-auto/email-auto-icons_Pause-gray.svg)
 }
 
 .overlay-header-cta-wrap .email-auto-play i:before{
-    content: url(/BrndBot/user/images/email-auto/email-auto-icons_Play-green.svg)
+    background-image: url(/BrndBot/user/images/email-auto/email-auto-icons_Play-green.svg)
 }
 
 .overlay-header-cta-wrap .status-button.email-automation:hover i{
-    content: url(/BrndBot/user/images/email-auto/email-auto-icons_Play-white.svg)
+    background-image: url(/BrndBot/user/images/email-auto/email-auto-icons_Play-white.svg)
 }
 
 
@@ -1190,13 +1203,7 @@ li.sub-nav-tab.active a{
     font-size: 14px;
 }
 
-.detail-section label{
-    font-size: 14px;
-    font-weight: 500;
-    color: #3E4551 ;
-    width: 100%;
-    display: block;
-}
+
 
 
 .email-send-to-list-item{
@@ -1220,7 +1227,7 @@ li.sub-nav-tab.active a{
 }
 
 .detail-section .status-show i:before{
-    content: url(/BrndBot/user/images/templatestatus-01.svg);
+    background-image: url(/BrndBot/user/images/templatestatus-01.svg);
 }
 
 .detail-section .status-icon-details span{
@@ -1271,11 +1278,11 @@ li.sub-nav-tab.active a{
 .email-automation-icon{}
 
 .email-automation-icon.paused:before{
-    content: url(/BrndBot/user/images/email-auto/email-auto-icons_Pause-gray.svg);
+    background-image: url(/BrndBot/user/images/email-auto/email-auto-icons_Pause-gray.svg);
 }
 
 .email-automation-icon.play:before{
-    content: url(/BrndBot/user/images/email-auto/email-auto-icons_Play-green.svg);
+    background-image: url(/BrndBot/user/images/email-auto/email-auto-icons_Play-green.svg);
 }
 
 .overlay-detail-item{
@@ -1328,7 +1335,7 @@ li.sub-nav-tab.active a{
 
 }
 
-.overlay-detail-input i{
+.overlay-detail-input img{
     width: 25px;
     height: 25px;
 }
@@ -1337,7 +1344,7 @@ li.sub-nav-tab.active a{
     background-image: url(/BrndBot/user/images/time-gray.svg);
 }
 
-.date-input i{
+.date-input img{
     background-image: url(/BrndBot/user/images/calendar-gray.svg);
 }
 
@@ -1694,6 +1701,11 @@ li.sub-nav-tab.active a{
     max-height: calc(100%-90px);
 }
 
+.modal-pane-social-sequence{
+    width:600px;
+    margin:auto;
+}
+
 .modal-pane-width-full{
     width:1000px;
     margin: auto;
@@ -1731,6 +1743,11 @@ li.sub-nav-tab.active a{
     box-sizing: border-box;
     max-height: 430px;
     overflow-y: visible;
+}
+
+.modal-pane-content-social-sequence{
+    padding: 20px 30px 20px 30px;  
+    box-sizing: border-box;
 }
 
 .modal-pane-content-wrap.sequence-page{
@@ -1804,12 +1821,15 @@ p.modal-content-header{
 }
 
 .modal-pane-back-step i{
-    width: 14px;
+    width: 20px;
+    height: 15px;
     margin-right: 10px
 }
 
-.modal-pane-back-step i:before{
-    content: url(/BrndBot/user/images/back-arrow-modal.svg);
+.modal-pane-back-step i{
+    background-image: url(/BrndBot/user/images/back-arrow-modal.svg);
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .modal-pane-back-step span{
@@ -1863,53 +1883,54 @@ p.modal-content-header{
 
 .send-or-schedule-option i{
     width: 30px;
+    height: 30px;
     margin: auto;
     display: block;
 }
 
 
-.send-or-schedule-option .post-now-icon:before{
-    content: url(/BrndBot/user/images/post-now-gray.svg);
+.send-or-schedule-option .post-now-icon{
+    background-image: url(/BrndBot/user/images/post-now-gray.svg);
 }
 
-.send-or-schedule-option:hover .post-now-icon:before{
-    content: url(/BrndBot/user/images/post-now-blue.svg);
+.send-or-schedule-option:hover .post-now-icon{
+    background-image: url(/BrndBot/user/images/post-now-blue.svg);
 }
 
-.send-or-schedule-option .schedule-post-icon:before{
-    content: url(/BrndBot/user/images/schedule-to-action-gray.svg);
+.send-or-schedule-option .schedule-post-icon{
+    background-image:url(/BrndBot/user/images/schedule-to-action-gray.svg);
 }
 
-.send-or-schedule-option:hover .schedule-post-icon:before{
-    content: url(/BrndBot/user/images/schedule-to-action-blue.svg);
+.send-or-schedule-option:hover .schedule-post-icon{
+    background-image: url(/BrndBot/user/images/schedule-to-action-blue.svg);
 }
 
 
 
 /* CREATE NEW ACTION OR SCHEDULE TO ACTION MODAL */
 
-.send-or-schedule-option .create-action-icon:before{
-    content: url(/BrndBot/user/images/create-new-action-gray.svg);
+.send-or-schedule-option .create-action-icon{
+    background-image: url(/BrndBot/user/images/create-new-action-gray.svg);
 }
 
-.send-or-schedule-option:hover .create-action-icon:before{
-    content: url(/BrndBot/user/images/create-new-action-blue.svg);
+.send-or-schedule-option:hover .create-action-icon{
+    background-image: url(/BrndBot/user/images/create-new-action-blue.svg);
 }
 
-.send-or-schedule-option.active .create-action-icon:before{
-    content: url(/BrndBot/user/images/create-new-action-blue.svg);
+.send-or-schedule-option.active .create-action-icon{
+    background-image: url(/BrndBot/user/images/create-new-action-blue.svg);
 }
 
-.send-or-schedule-option .schedule-action-icon:before{
-    content: url(/BrndBot/user/images/schedule-to-action-gray.svg);
+.send-or-schedule-option .schedule-action-icon{
+    background-image: url(/BrndBot/user/images/schedule-to-action-gray.svg);
 }
 
-.send-or-schedule-option:hover .schedule-action-icon:before{
-    content: url(/BrndBot/user/images/schedule-to-action-blue.svg);
+.send-or-schedule-option:hover .schedule-action-icon{
+    background-image: url(/BrndBot/user/images/schedule-to-action-blue.svg);
 }
 
-.send-or-schedule-option.active .schedule-action-icon:before{
-    content: url(/BrndBot/user/images/schedule-to-action-blue.svg);
+.send-or-schedule-option.active .schedule-action-icon{
+    background-image: url(/BrndBot/user/images/schedule-to-action-blue.svg);
 }
 
 
@@ -2133,16 +2154,16 @@ p.modal-content-header{
 }
 
 .input.left-icon i.date-icon:before{
-    content: url(/BrndBot/user/images/calendar-gray.svg);
+    background-image: url(/BrndBot/user/images/calendar-gray.svg);
 }
 
 .input.left-icon i.time-icon:before{
-    content: url(/BrndBot/user/images/time-gray.svg);
+    background-image: url(/BrndBot/user/images/time-gray.svg);
 }
 
 .time-date-select{
     border:none;
-    padding-left:15px;
+    padding-left:40px;
     width:100%;
     height:30px;
     font-size:14px;
@@ -2166,21 +2187,17 @@ p.modal-content-header{
 }
 
 .dropdown-icon:before{
-    content: url(/BrndBot/user/images/dropdown.svg);
+    background-image: url(/BrndBot/user/images/dropdown.svg);
 }
 
-.date-time-select-icon{
-    width: 25px;
-    margin-top: 5px;
-    margin-left: 10px;
-}
+
 
 .time-select-icon:before{
-    content: url(/BrndBot/user/images/time-gray.svg);
+    background-image: url(/BrndBot/user/images/time-gray.svg);
 }
 
 .date-select-icon:before{
-    content: url(/BrndBot/user/images/calendar-gray.svg);
+    background-image: url(/BrndBot/user/images/calendar-gray.svg);
 }
 
 
@@ -2191,7 +2208,14 @@ p.modal-content-header{
 }
 
 .update-container{
-    padding-top: 20px;   
+    padding-top: 20px; 
+    display: inline-flex;
+}
+
+.add-link-facebook-container{
+    padding-top: 10px; 
+    padding-bottom: 20px;
+    display: inline-flex;
 }
 
 .input-wrap-button{
@@ -2338,7 +2362,9 @@ p.modal-content-header{
 }
 
 .your-plan-cal-dropdown i:before{
-    content: url(/BrndBot/user/images/calendar-dropdown.svg);
+    background-image: url(/BrndBot/user/images/calendar-dropdown.svg);
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .your-plan-cal-dropdown div{
@@ -2378,15 +2404,15 @@ p.modal-content-header{
 }
 
 .no-template-icon:before{
-    content: url(/BrndBot/user/images/template-status/no-template.svg);
+    background-image: url(/BrndBot/user/images/template-status/no-template.svg);
 }
 
 .template-saved-icon:before{
-    content: url(/BrndBot/user/images/template-status/template-saved.svg);
+    background-image: url(/BrndBot/user/images/template-status/template-saved.svg);
 }
 
 .template-approved-icon:before{
-    content: url(/BrndBot/user/images/template-status/template-approved.svg);
+    background-image: url(/BrndBot/user/images/template-status/template-approved.svg);
 }
 
 
@@ -2423,7 +2449,9 @@ p.modal-content-header{
 }
 
 .slat-icon-wrap.linked-list:before{
-    content: url(/BrndBot/user/images/calendar-gray.svg);
+    background-image: url(/BrndBot/user/images/calendar-gray.svg);
+    background-position: center;
+   
 }
 
 
@@ -2495,6 +2523,8 @@ p.modal-content-header{
     box-sizing: border-box;
     font-weight: 500;
     color: #444;
+    display: flex;
+    align-items: center;
 }
 
 .cat-slat:hover{
@@ -2502,6 +2532,11 @@ p.modal-content-header{
     cursor: pointer;  
 }
 
+.social-channel-icon{
+    width:25px;
+    height: 25px;
+    margin-right: 20px;
+}
 
 /*------------------------------------
             Marketing Campaign
@@ -2611,7 +2646,7 @@ p.modal-content-header{
 }
 
 .upload-icon-svg:before{
-    content: url(/BrndBot/user/images/upload-icon.svg);
+    background-image: url(/BrndBot/user/images/upload-icon.svg);
 }
 
 .upload-icon-text{
@@ -2660,7 +2695,7 @@ p.modal-content-header{
 }
 
 .confirm-icon:before{
-    content: url(/BrndBot/user/images/email-auto/email-auto-icons_Play-green.svg);
+    background-image: url(/BrndBot/user/images/email-auto/email-auto-icons_Play-green.svg);
 }
 
 .confirm-pop-up-text{
@@ -2674,7 +2709,7 @@ p.modal-content-header{
 }
 
 .confirm-pop-up-close:before{
-    content: url(/BrndBot/user/images/gray-close.svg);
+    background-image: url(/BrndBot/user/images/gray-close.svg);
 }
 
 .category-list{
@@ -2738,10 +2773,10 @@ p.modal-content-header{
 
 
 .detail-section-label{
-    font-variant: small-caps;
-    color: #666;
-    font-size: 16px;
+    color: #888;
+    font-size: 14px;
     font-weight: 500;
+    display:block;
 }
 
 .detail-section-data{
@@ -2989,5 +3024,384 @@ p.modal-content-header{
   visibility: visible;
 }
 
+/* Social Sequence */
+
+.Social-Add-Image-Wrap{
+    width: 100%;
+    background-color: #e5eaf1;
+    padding: 10px 30px 20px 30px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+.Social-Add-Image-Wrap{
+    width: 100%;
+    background-color: #e5eaf1;
+    padding: 10px 30px 20px 30px;
+    box-sizing: border-box;
+}
 
 
+.add-image-icon{
+    height:70px;
+}
+
+.Add-Image-Button{
+   margin-left: 15px;
+    line-height: 70px;
+}
+
+.imageAdded{
+    max-width: 100%;
+}
+
+.facebook-post-textarea{
+    height: 70px;
+}
+
+.clickable-input {
+    display: inline-flex;
+    padding: 0px;
+    vertical-align: middle;
+    border-radius: 3px;
+    min-width: 50px;
+    min-height: 32px;
+    background-color: #fff;
+    border: 1px solid #c9c9c9;
+    align-content: center;
+    position: relative;
+    box-sizing: border-box;
+    cursor:pointer;
+}
+
+.date-time-select-icon {
+    width: 22px;
+    left: 8px;
+    top: 3px;
+    z-index:10;
+    position: absolute;
+}
+
+
+.popUp_background-dark{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(62,69,81,.64);
+    position: fixed;
+    top:0;
+    left: 0;
+    z-index: 10000;
+}
+
+.popUp_background-white{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(248,248,248,.85);
+    position: fixed;
+    top:0;
+    left: 0;
+    z-index: 10000;
+}
+
+
+.popUp{
+    z-index: 1100;
+    background-color: #FFFFFF;
+    display: block;
+    border-radius: 3px;
+    border: 1px solid #D2D3D5;
+    padding: 0px 0px;
+    margin: auto;
+    width: 600px;
+    padding-bottom: 30px;
+    box-sizing: border-box;
+    
+}
+
+.popUp-top{
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-top: 1px solid #D2D3D5;
+    border-right: 1px solid #D2D3D5;
+    border-left: 1px solid #D2D3D5;
+    padding: 0px 0px 30px 0px;
+    margin: auto;
+    width: 600px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    
+}
+
+.popUp-top-wide{
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-top: 1px solid #D2D3D5;
+    border-right: 1px solid #D2D3D5;
+    border-left: 1px solid #D2D3D5;
+    padding: 0px 0px 30px 0px;
+    margin: auto;
+    width: 1080px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    
+}
+
+.popUp-bottom{
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom: 1px solid #64B6EE;
+    border-right: 1px solid #64B6EE;
+    border-left: 1px solid #64B6EE;
+    padding: 0px 0px 0px 0px;
+    margin: auto;
+    width: 600px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    
+}
+
+.popUp-bottom-wide{
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom: 1px solid #64B6EE;
+    border-right: 1px solid #64B6EE;
+    border-left: 1px solid #64B6EE;
+    padding: 0px 0px 0px 0px;
+    margin: auto;
+    width: 1080px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    
+}
+
+
+.popUp-small{
+    z-index: 1100;
+    background-color: #FFFFFF;
+    display: block;
+    border-radius: 3px;
+    border: 1px solid #D2D3D5;
+    padding: 0px 0px;
+    margin: auto;
+    width: 450px;
+    box-sizing: border-box;
+    
+}
+
+
+.popUp_wide{
+    z-index: 1100;
+        background-color: #FFFFFF;
+    display: block;
+    border-radius: 3px;
+    border: 1px solid #D2D3D5;
+    padding: 0px 0px;
+    margin: auto;
+    width: 800px;
+    padding-bottom: 30px;
+        box-sizing: border-box;
+    
+}
+
+.popUp_fullWidth{
+    z-index: 1100;
+        background-color: #FFFFFF;
+    display: block;
+    border-radius: 3px;
+    border: 1px solid #D2D3D5;
+    padding: 0px 0px;
+    margin: auto;
+    width: 1200px;
+        box-sizing: border-box;
+    
+}
+
+
+.popUp_CenterVert{
+        position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.popUp_topMargin{
+       margin-top: 5%;
+}
+
+.popUp_topMargin_3{
+       margin-top: 3%;
+}
+
+.popUp_header{
+     border-bottom: 1px solid #D2D3D5;
+    padding: 0px 30px;
+    
+}
+    
+.popUp_title{
+    font-size: 18px;
+    color: #3E4551; 
+}
+
+.popUp_close{
+    padding: 22px 0;
+}
+
+.popUp_header-wrap{
+    padding: 12px 0;
+    margin-right: 20px;
+}
+
+.popUp_header-icon{
+   width: 40px;
+}
+
+
+.popUp_close-icon{
+    width: 20px;
+}
+
+.popUp_subheader-tabs{
+    line-height: 30px;
+    margin-right: 20px;
+    text-align: left;
+    color: #AAA;
+}
+
+.popUp_subheader-tabs-active{
+    line-height: 30px;
+     margin-right: 20px;
+    text-align: left;
+    color: #0F76A6;
+}
+.popUp_subheader{
+    border-bottom: 1px solid #D2D3D5;
+    padding: 0px 30px;
+    height: 30px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+
+.popUp_subheader-emailDes-col{
+    width: 760px ;
+   background-color: #FFFFFF;
+}
+
+.popUp_subheader-emailDes-header{
+    border-bottom: 1px solid #D2D3D5;
+    padding: 0px 30px;
+    height: 30px;
+    width: 100%;
+    line-height: 30px;
+    box-sizing: border-box;
+    color: #666;
+    font-size: 13px;
+   
+}
+
+.popUp_subheader-emailDes-email{
+    height: 72vh;
+    overflow-y: scroll;
+    
+}
+
+.popUp_subheader-emailMob-col{
+    width:438px;
+    background-color: #FFFFFF;
+     box-sizing: border-box;
+}
+
+
+.popUp_subheader-emailMob-header{
+    border-bottom: 1px solid #D2D3D5;
+    padding: 0px 30px;
+    height: 30px;
+    width: 100%;
+    line-height: 30px;
+    box-sizing: border-box;
+    color: #666;
+     border-left: 1px solid #D2D3D5;
+    font-size: 13px;
+}
+
+
+.popUp_subheader-emailMob-email{
+   border-left: 1px solid #D2D3D5;
+    background-color: #FFFFFF;
+    height: 72vh;
+    overflow-y: scroll;
+}
+
+
+
+.popUp-gallery-wrap{
+    width: 100%;
+    overflow-y: scroll;
+    max-height: calc(100vh - 340px);
+}
+
+.postSent-svg{
+    width: 200px;
+}
+
+.postSent-svg-wrap{
+    width: 200px;
+    margin: auto;
+    padding-top: 20px
+}
+
+.postSent-button-wrap{
+    width: 400px;
+    margin: auto;
+    padding-top: 45px;
+}
+
+.postSent-desc-wrap{
+    width: 400px;
+    margin: auto;
+    padding-top: 10px;
+}
+
+.popUp-bottom-link{
+    width: 100%;
+    height: 40px;
+    background-color: #64B6EE;
+    line-height: 40px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.popUp-bottom-link-inactive{
+    width: 100%;
+    height: 40px;
+    background-color: #DDD;
+    line-height: 40px;
+    color: #999;
+    text-align: center;
+}
+
+.delete-icon-popUp{
+    height: 30px;
+    margin-top: 4px
+}
+
+.overlay-bottom-cta-button-container{
+    position: fixed;
+    width: 900px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    bottom: 0;
+    background-color: #FFF;
+    border-top: 1px solid #E2E3E7;
+}
+
+.overlay-bottom-cta-button-container-button{
+    margin:auto;
+    cursor: pointer;
+}
+
+/*************************** ADD IMAGE *************************/

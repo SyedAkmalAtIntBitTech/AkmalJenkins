@@ -36,50 +36,50 @@
                         <a class="long-button gray-button">Save Settings</a>
                     </div>
                 </div>
-<!--                 <div class="hub-section">
+                <div class="hub-section">
                      <div class="section-header">
                         <h3>Email Footer Settings</h3>
-                        <p >This footer will be added to the bottom all emails being sent out. </p>
+                        <p >This footer will be added to the bottom all emails being sent out. If you do not  </p>
                      </div>
                     <div class="input-wrap">
-                        <label>Company Address </label>
+                        <label>Company Address</label>
                         <div class="input">
-                            <input class="fluid"></input>
+                            <input id="from_address" class="fluid"  type="text" name="from_address" value="{{footerDetails.address}}" placeholder="Enter default email address" />
                             <p class="input-wrap-label"> We need this to comply with email spam (CANSPAM) laws</p>
                         </div>
                     </div>
                     <div class="input-wrap">
                         <label> Website URL </label>
                         <div class="input">
-                            <input class="fluid"></input>
-                            <p class="input-wrap-label"> This can be copied from the browser <a class="input-help" href="#">Click to learn how</a></p>
+                           <input id="reply_email_address" class="fluid" type="text" value="{{footerDetails.websiteUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" />
+                            <p class="input-wrap-label"> This can be copied from the browser</p>
                         </div>
                     </div>
                     <div class="input-wrap">
                         <label> Facebook URL </label>
                         <div class="input">
-                            <input class="fluid"></input>
-                            <p class="input-wrap-label"> Log into your company's Facebook page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
+                            <input id="reply_email_address" class="fluid"  type="text" value="{{footerDetails.facebookUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" />
+                            <p class="input-wrap-label"> Log into your company's Facebook page and copy the URL</p>
                         </div>
                     </div>
                     <div class="input-wrap">
                         <label> Twitter URL </label>
                         <div class="input">
-                            <input class="fluid"></input>
-                            <p class="input-wrap-label"> Log into your company's Twitter page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
+                            <input id="reply_email_address" class="fluid"  type="text" value="{{footerDetails.twitterUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" />
+                            <p class="input-wrap-label"> Log into your company's Twitter page and copy the URL</p>
                         </div>
                     </div>
                     <div class="input-wrap">
                         <label> Instagram URL </label>
                         <div class="input">
-                            <input class="fluid"></input>
-                            <p class="input-wrap-label"> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
+                            <input id="reply_email_address" class="fluid"  type="text" value="{{footerDetails.instagramUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" />
+                            <p class="input-wrap-label"> Log into your company's Instagram page and copy the URL</p>
                         </div>
                     </div>
                     <div class="update-container">
-                        <a class="long-button gray-button">Update Email Footer</a>
+                        <a class="long-button gray-button" ng-click="changeFooterDetails(company)" href="">Update Email Footer</a>
                     </div>
-                </div>-->
+                </div>
 
 
 
@@ -87,16 +87,16 @@
 <div class="page-content-container email-list-contact-page email-draft-page" id="footerdiv">
     <div class="fleft content ">-->
         
-        <div class="hub-section" ng-init="getFooterDetails()">
+        <!--<div class="hub-section" ng-init="getFooterDetails()">
         <div class="page-content-title"><span class="h2">Email Footer Settings</span><p>This footer will be added to the bottom all emails being sent out. </p></div>
-        <!--List Starts Here-->
+       
         <div class="emailSettings-container fleft  main-container main-container70width col-8of10">
             <div class="col-1of1 fleft">
                 <div class="col-7of10 fleft">
                     <div class="h4" style="">
                         Company Address 
                     </div>
-                    <input id="from_address" class="input-field-textfield col-8of10" type="text" name="from_address" value="{{footerDetails.address}}" placeholder="Enter default email address" readonly/>
+                    <input id="from_address" class="fluid"  type="text" name="from_address" value="{{footerDetails.address}}" placeholder="Enter default email address" readonly/>
                     <p> We need this to comply with email spam (CANSPAM) laws</p>
                 </div>
             </div>
@@ -105,7 +105,7 @@
                     <div class="h4" style="">
                         Website URL
                     </div>
-                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{footerDetails.websiteUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
+                    <input id="reply_email_address" class="fluid" type="text" value="{{footerDetails.websiteUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
                     <p> This can be copied from the browser <a class="input-help" href="#">Click to learn how</a></p>
                 </div>
             </div>
@@ -114,7 +114,7 @@
                     <div class="h4" style="">
                        Facebook URL
                     </div>
-                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{footerDetails.facebookUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
+                    <input id="reply_email_address" class="fluid"  type="text" value="{{footerDetails.facebookUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
                      <p> Log into your company's Facebook page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
                 </div>
             </div>
@@ -123,7 +123,7 @@
                     <div class="h4" style="">
                        Twitter URL
                     </div>
-                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{footerDetails.twitterUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
+                    <input id="reply_email_address" class="fluid"  type="text" value="{{footerDetails.twitterUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
                    <p> Log into your company's Twitter page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
                 </div>
             </div>
@@ -132,7 +132,7 @@
                     <div class="h4" style="">
                         Instagram URL 
                     </div>
-                    <input id="reply_email_address" class="input-field-textfield col-8of10" type="text" value="{{footerDetails.instagramUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
+                    <input id="reply_email_address" class="fluid"  type="text" value="{{footerDetails.instagramUrl}}" name="reply_email_address" placeholder="Enter reply-to-email address" readonly/>
                     <p> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
                 </div>
             </div>
@@ -146,7 +146,7 @@
                 </div>
             </div>
         </div>   
-        </div>
+        </div>-->
         
 <!--    </div>   
 </div>
@@ -157,8 +157,8 @@
 
                 <div class="hub-section">
                      <div class="section-header">
-                         <h3>Update MINDBODY Email Opt-In</h3>
-                        <p>Click below to upload a CSV of email unsubscribes to update their preferences in MINDBODY</p>
+                         <h3>Upload Unsubscribed Emails</h3>
+                        <p>Click below to upload a CSV of email unsubscribes to update their preferences. These email addresses will never recieve emails from BrndBot</p>
                      </div>
                      <div class="update-container" ng-click="openUnsubscribeEmailsPopup()">
                         <a class="long-button gray-button">Unsubscribe Emails</a>

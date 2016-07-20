@@ -9,20 +9,20 @@
                     <div class="overlay-details-pane-header">GENERAL DETAILS</div>
                     <div class="detail-sections-wrap">
                         <div class="detail-section half">
-                            <label>Action Status <span><a class="help-question-icon">?</a></span></label>
+                            <label class="detail-section-label">Action Status <span><a class="help-question-icon">?</a></span></label>
                             <div class="status-icon-details">{{emailautomation.status}}
                                 <div class="status-show">
                                     
-                                        <img ng-show="emailautomation.status == 'Template Saved'" src="images/template-saved.svg" />
+                                        <img ng-show="emailautomation.status == 'Template Saved'" src="/BrndBot/user/images/template-saved.svg" />
                                   
                                  
-                                        <img ng-show="emailautomation.status == 'No Template'" src="images/no-template.svg"/>
+                                        <img ng-show="emailautomation.status == 'No Template'" src="/BrndBot/user/images/no-template.svg"/>
                                  
                                     
-                                        <img ng-show="emailautomation.status == 'Complete'" src="images/ActionComplete.svg"/>
+                                        <img ng-show="emailautomation.status == 'Complete'" src="/BrndBot/user/images/ActionComplete.svg"/>
                                    
                                    
-                                        <img ng-show="emailautomation.status == 'Approved'" src="images/template-approved.svg"/>
+                                        <img ng-show="emailautomation.status == 'Approved'" src="/BrndBot/user/images/template-approved.svg"/>
                                    
                                  
                                 </div>
@@ -30,7 +30,7 @@
                             </div>
                         </div>
                         <div class="detail-section half">
-                            <label>Assigned Marketing Campaign</label>
+                            <label class="detail-section-label">Assigned Marketing Campaign</label>
                             <p class="overlay-detail-item">{{scheduleData.marketing_program_name}} </p>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                         <input type="hidden" class="textbox" id="emaildays" name="emaildays" value="0"/>
                        
                         <div class="detail-section half">
-                            <label>Date</label>
+                            <label class="detail-section-label">Date</label>
                             <a class="overlay-detail-input date-input ease-all">
                                 <i></i>
                                 <input type="text" ng-blur="showSaveButton()" id="emaildatetime" name="emaildatetime" value="{{scheduleData.entities_selected_time | date:'MMM dd yyyy'}}"/>
@@ -60,7 +60,7 @@
                             </a>
                         </div>
                        <div class="detail-section half">
-                            <label>Time of Day</label>
+                            <label class="detail-section-label">Time of Day</label>
                             <a class="overlay-detail-input time-input ease-all">
                                 <i></i>
                                 <input type="text" ng-blur="showSaveButton()" id="timepickertextbox" name="timepickertextbox" value="{{scheduleData.schedule_time | date:'hh:mm:a'}}" readonly />
@@ -69,9 +69,9 @@
                                 <script>
                                         $('#timepickertextbox').timepicki({
                                             show_meridian: true,
-                                            min_hour_value: 0,
+                                            min_hour_value: 1,
                                             max_hour_value: 12,
-                                            step_size_minutes: 01,
+                                            step_size_minutes: 05,
                                             overflow_minutes: true,
                                             increase_direction: 'up',
                                             disable_keyboard_mobile: true

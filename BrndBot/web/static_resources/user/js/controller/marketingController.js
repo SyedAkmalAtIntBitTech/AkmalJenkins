@@ -107,7 +107,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.getAllMarketingPrograms = function (forward) {
             marketingFactory.companyMarketingCategoriesGet().then(function (data) {
-                $scope.header = "Please choose a marketing program type.";
+                $scope.header = "Please choose a type of Marketing Campaign";
                 $scope.pageName = "marketing";
                 $scope.forward = forward;
                 $scope.marketingCategories = data.d.details;
@@ -123,7 +123,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.pageName = "marketingPrograms";
                     $scope.forward = forward;
                     $scope.displayAllMarketingPrograms = data.d.details;
-                    $scope.header = "Select a Category";
+                    $scope.header = "Select a Marketing Campaign";
                 });
             }
         };
