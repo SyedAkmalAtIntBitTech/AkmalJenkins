@@ -1,4 +1,4 @@
-socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'settingsFactory', 'socialPostFactory', function ($scope, $location, settingsFactory, socialPostFactory) {
+socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$location', 'settingsFactory', 'socialPostFactory', function ($scope, $rootScope, $location, settingsFactory, socialPostFactory) {
 
         $scope.getFacebookDetails = function () {
             var fbdata = JSON.stringify({access_token_method: "getAccessToken"});
@@ -83,9 +83,11 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
         };
         
         $scope.getAuthURLFromSocialHub = function () {
+            alert("dsfghjkl");
             $scope.showTwitterPopup = true;
             var data = {redirectUrl: "user/social"};
             settingsFactory.twitterLoginGet(data).then(function (data) {
+//                alert(JSON.stringify(data));
                 $scope.getTwitterPin = data.d.details[0];
             });
         };
@@ -117,18 +119,28 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$location', 'setting
 
         $scope.postToSelectedPage = function () {
             var addDafaultmanagePage = $("#setDefaultManagePage").prop('checked');
-            var data = JSON.stringify({access_token_method: "setAccessToken"});
+//            var data = JSON.stringify({access_token_method: "setAccessToken"});
+            var data = "";
+            if (addDafaultmanagePage) {
+                data = JSON.stringify({
+                    access_token_method: "setAccessToken",
+                    access_token: $rootScope.CurrentFbAccessToken,
+                    default_page_name: $rootScope.CurrentFbPageName,
+                    fb_user_profile_name: $rootScope.FbProfileName
+                });
+                $scope.facebook = false;
+            } else {
+                alert("Please select any page and set as Default.");
+            }
             settingsFactory.facebookPost(data).then(function (data) {
-                if (addDafaultmanagePage) {
-                    $scope.default_page_name = localStorage.getItem("CurrentFbPageName");
-                    $scope.fb_user_profile_name = localStorage.getItem("FbProfileName");
-                    $scope.facebook = false;
-                } else {
-                    alert("Please select any page and set as Default.");
-                }
             });
-
         };
+        
+        $scope.setPageAccessToken = function (accessToken, pageName, profileName) {
+           $rootScope.CurrentFbAccessToken = accessToken;
+           $rootScope.CurrentFbPageName = pageName;
+           $rootScope.FbProfileName = profileName;
+       };
 
         $scope.hideFbPopup = function ()
         {

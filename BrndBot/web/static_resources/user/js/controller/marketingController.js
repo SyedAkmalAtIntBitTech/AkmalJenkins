@@ -186,14 +186,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.displayCampaignActions();
                     $scope.programs = data;
                     console.log(JSON.stringify(data));
-                    for (var i = 0; i< data.programactions.length; i++){
-                        var action = data.programactions[i];
-                        if (action.actionType == getemail()){
-                            $scope.programDate = moment(action.eventDate).format('DD-MM-YYYY');
-                        }else{
-                            $scope.programDate = action.eventDate;
-                        }
-                    }
+                    var dateEpoch = data.programdetails.dateOfEvent;
+                    $scope.programDate = moment(dateEpoch).format('DD-MM-YYYY');
+                   
                     $scope.template_status = data.emailautomation;
                     $scope.actionType = "Email";
                     $scope.forward = forward;
@@ -1099,7 +1094,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.emailLists = "";
             emailListFactory.emailListGet(emailListName.value, "emailsForEmailList").then(function (emailListData) {
                 var emailListName = $.parseJSON(emailListData.d.details);
-                alert(JSON.stringify(emailListData));
                 for (var i = 0; i < emailListName.user_emailAddresses.length; i++) {
                     var emails = emailListName.user_emailAddresses[i];
                     $scope.emailLists = $scope.emailLists + eval(JSON.stringify(emails.emailAddress)) + ",";
