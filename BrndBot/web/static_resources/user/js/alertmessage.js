@@ -195,3 +195,6 @@ var imageChannel = "image";
 var companyValidation = "Please enter a subject for the email";
 var dropdownValidation = "Please select your Organization";
 var emailListValidation  = "Please enter email list name";
+var emailDescriptionValidation = "Please enter email list description";
+var fromAddressValidation = "Please enter the from Address";
+var subjectValidation = "Please enter the email subject";

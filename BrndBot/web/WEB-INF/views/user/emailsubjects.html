@@ -34,8 +34,10 @@
                  <div class="input-wrap">
                     <label> Enter a Subject Line </label>
                     <div class="input ">
-                        <input ng-model="$parent.emailsubject" type="text" value="{{emailsubject}}"  spellcheck="true" placeholder="Enter Subject of email" name="emailsubject"  class="fluid"></input>
+                        <input id="emailSub" ng-model="$parent.emailsubject" type="text" value="{{emailsubject}}"  spellcheck="true" placeholder="Enter Subject of email" name="emailsubject"  class="fluid"></input>
                     </div>
+                    <span class="validationAlert" ng-if='$parent.emailsubject == "" || null'>{{subjectValidation}}</span>
+
                 </div>
             </div>
         </div>

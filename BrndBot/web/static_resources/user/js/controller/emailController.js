@@ -24,22 +24,24 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.fromAddress = getDefaultEmailId();
         $scope.schedulePopup = false;
         $scope.selectedSocialmedia = "email";
-        $scope.emailAddresses='';
-        $scope.loadingOverlay=false;
+        $scope.emailAddresses = '';
+        $scope.loadingOverlay = false;
+        $scope.subjectValidation = subjectValidation;
+        
         var sliderDialog = "#emaileditorexternalpopup";
-        var emailDraftDetails=localStorage.getItem('emailDraftData');
+        var emailDraftDetails = localStorage.getItem('emailDraftData');
         //OnPageLoad
         $scope.emailEditorInit = function () {
-            if(emailDraftDetails !== null){  
+            if (emailDraftDetails !== null) {
                 var paramDraftId = JSON.parse(emailDraftDetails).draftid;
                 var paramCategoryId = JSON.parse(emailDraftDetails).category_id;
                 var paramSubCategoryId = JSON.parse(emailDraftDetails).sub_category_id;
                 var paramLookupId = JSON.parse(emailDraftDetails).lookupId;
                 var paramEmailSubject = JSON.parse(emailDraftDetails).email_subject;
                 var paramMindbodyId = JSON.parse(emailDraftDetails).mindbodyId;
-                $scope.redirect('emaileditor',paramCategoryId,paramSubCategoryId,'',paramLookupId,paramMindbodyId,paramEmailSubject,paramDraftId);
+                $scope.redirect('emaileditor', paramCategoryId, paramSubCategoryId, '', paramLookupId, paramMindbodyId, paramEmailSubject, paramDraftId);
             }
-            
+
             $('#slider-button').click(function () {
                 if ($('#slider-button').css("margin-right") === "788px")
                 {
@@ -72,8 +74,27 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         };
 
+        $scope.validationcode = function (emailSubject) {
+            if (!$parent.emailsubject) {
+                $scope.$parent.emailsubject = "";
+                $("#emailSub").focus();
+                return false;
+            }
+//            else if (!organizationId) {
+//                $scope.organizationValidation = true;
+//                $("#dropdownValue").focus();
+//                return false;
+//            }
+            else
+            {
+                return true;
+            }
+        };
+
         $scope.redirect = function (redirect, categoryId, subCategoryId, mindbody, lookupId, mindbodyid, emailSubject, draftId)
         {
+//            if ($scope.validationcode(companyName, organizationId))                        
+//            {
             localStorage.removeItem("emailDraftData");
             if (lookupId)
             {
@@ -105,15 +126,21 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             {
                 $scope.draftId = draftId;
             }
-            if (emailSubject)
+
+            if ($scope.validationcode(emailSubject))
             {
-                $scope.emailSubject = emailSubject;
+                if (emailSubject)
+                {
+                    $scope.emailSubject = emailSubject;
+                }
             }
             $location.path("/" + redirect);
+
+//        }
         };
-        
-        $scope.redirectBaseURL = function (){
-            if (($scope.categoryId === "")&&(emailDraftDetails === null)){
+
+        $scope.redirectBaseURL = function () {
+            if (($scope.categoryId === "") && (emailDraftDetails === null)) {
                 $location.path("/" + "baseemaileditor#/emailcategory");
             }
         };
@@ -150,14 +177,14 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
         $scope.getActive = function (lookupId)
         {
-            $scope.loadingOverlay=true; //start Loading Overlay
+            $scope.loadingOverlay = true; //start Loading Overlay
             externalContentFactory.activatedGet(lookupId).then(function (data) {
                 var minddata = JSON.stringify(data.d.details);
                 if (minddata === "[true]") {
                     externalContentFactory.listDataGet(lookupId).then(function (data) {
                         var parseData = JSON.parse(data.d.details);
                         $scope.mindbodylist = parseData.mindbody_data;
-                        $scope.loadingOverlay=false; //stop Loading Overlay
+                        $scope.loadingOverlay = false; //stop Loading Overlay
                     });
                 } else
                 {
@@ -360,21 +387,21 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.changeFooterDetails = function (company) {
             var footerAddress = "";
-            if(company.address)
-            footerAddress= company.address;
-            var footerWebsiteUrl ="";
-            if(company.websiteUrl)
-            footerWebsiteUrl = company.websiteUrl;
-            var footerFacebookUrl ="";
-            if(company.facebookUrl)
-            footerFacebookUrl = company.facebookUrl;
+            if (company.address)
+                footerAddress = company.address;
+            var footerWebsiteUrl = "";
+            if (company.websiteUrl)
+                footerWebsiteUrl = company.websiteUrl;
+            var footerFacebookUrl = "";
+            if (company.facebookUrl)
+                footerFacebookUrl = company.facebookUrl;
             var footerTwitterUrl = "";
-            if(company.twitterUrl)
-            footerTwitterUrl = company.twitterUrl;
+            if (company.twitterUrl)
+                footerTwitterUrl = company.twitterUrl;
             var footerInstagramUrl = "";
-            if(company.instagramUrl)
-            footerInstagramUrl = company.instagramUrl;
-            var footerPopupDetails = {"facebookUrl": footerFacebookUrl,"twitterUrl": footerTwitterUrl,"instagramUrl":footerInstagramUrl,"websiteUrl":footerWebsiteUrl,"address":footerAddress};
+            if (company.instagramUrl)
+                footerInstagramUrl = company.instagramUrl;
+            var footerPopupDetails = {"facebookUrl": footerFacebookUrl, "twitterUrl": footerTwitterUrl, "instagramUrl": footerInstagramUrl, "websiteUrl": footerWebsiteUrl, "address": footerAddress};
             $scope.emailFooterPopupDetails = false;
             settingsFactory.setFooterPost(footerPopupDetails).then(function (data) {
                 $scope.getFooterDetails();
@@ -427,7 +454,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.emailPreviewOnClick = function () {
             settingsFactory.getAllPreferencesGet().then(function (data) {
 //                $("#fade").show();
-                $scope.fadeClass='fadeClass';
+                $scope.fadeClass = 'fadeClass';
                 $scope.emailPreviewPopup = true;
                 var footerData = JSON.parse(data.d.details);
                 $scope.overlayFade = true;
@@ -508,16 +535,16 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.saveButtonOnClick = function () {
             settingsFactory.getAllPreferencesGet().then(function (footerResponseData) {
                 var footerData = JSON.parse(footerResponseData.d.details);
-                if (!footerData.userProfile){
+                if (!footerData.userProfile) {
                     $scope.editFooter();
                     return false;
                 }
-                
-                if (!footerData.userProfile.address){
+
+                if (!footerData.userProfile.address) {
                     $scope.editFooter();
                     return false;
                 }
-                
+
                 var footer = $scope.getUserFooter(footerData.userProfile.facebookUrl, footerData.userProfile.twitterUrl,
                         footerData.userProfile.websiteUrl, footerData.userProfile.instagramUrl,
                         footerData.userProfile.address);
@@ -583,8 +610,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 var parseData = JSON.parse(data.d.details);
                 $scope.emailLists = parseData.allEmailListWithNoOfContacts.user;
                 $scope.emailLists_mindbody = parseData.allEmailListWithNoOfContacts.mindbody;
-                $scope.showEmailDetails=false;
-                $scope.emailListDiv=true;
+                $scope.showEmailDetails = false;
+                $scope.emailListDiv = true;
                 //angular DD
                 var emailData = parseData.allEmailListWithNoOfContacts.user;
                 for (var i = 0; i < emailData.length; i++)
@@ -602,7 +629,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     emailObject["value"] = emailMindBodyData[i].emailListName;
                     $scope.ddSelectEmailListOptions.push(emailObject);
                 }
-                
+
             });
             $scope.emailList = "1";
         };
@@ -653,7 +680,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.clickToUpload = true;
             $scope.uploadButton = true;
         };
-      
+
         $scope.chooseEmailListOnChange = function (listName) {
             $scope.emailList = listName.value;
             $scope.toAddress = "";
@@ -674,11 +701,11 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     var i = 0;
                     for (i = 0; i < JSONData.length; i++) {
                         if (JSON.stringify(JSONData[i].emailAddress) !== "") {
-                            if(i===0){
-                                emails=eval(JSON.stringify(JSONData[i].emailAddress));
+                            if (i === 0) {
+                                emails = eval(JSON.stringify(JSONData[i].emailAddress));
                             }
-                            else{
-                                emails = emails +","+ eval(JSON.stringify(JSONData[i].emailAddress));
+                            else {
+                                emails = emails + "," + eval(JSON.stringify(JSONData[i].emailAddress));
                             }
 //                             $("#emailaddresses").val(emails);/
 //                             $("#toaddress").val(emails);
@@ -692,8 +719,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             }
 //            $scope.selectCsvOnClick();
         };
-        
-        
+
+
         $scope.uploadFileButton = function () {
             var reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             var fileUpload = document.getElementById("fileid");
@@ -735,29 +762,29 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             }
         };
 
-        $scope.validateEmails = function (emailAddresses){
+        $scope.validateEmails = function (emailAddresses) {
             var regex = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 //             var re = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-                var result = emailAddresses.replace(/\s/g, "").split(/,|;/);        
-                for(var i = 0;i < result.length;i++) {
-                    if(!regex.test(result[i])) {
-                        alert("This email list contains Invalid email "+"'"+result[i]+"'");
-                        return false;
-                    }
-                }       
-                return true;
+            var result = emailAddresses.replace(/\s/g, "").split(/,|;/);
+            for (var i = 0; i < result.length; i++) {
+                if (!regex.test(result[i])) {
+                    alert("This email list contains Invalid email " + "'" + result[i] + "'");
+                    return false;
+                }
+            }
+            return true;
         };
         $scope.continueEmailListOnClick = function (emailAddresses) {
 //            TODO change to AngularJs
-            if($scope.validateEmails(emailAddresses)){
+            if ($scope.validateEmails(emailAddresses)) {
                 if ($scope.emailList !== "Manual")
                 {
                     if ($scope.emailAddresses !== "")
                     {
-                        $scope.showEmailDetails=true;
+                        $scope.showEmailDetails = true;
                         $scope.emailListDiv = false;
-                        $scope.emailContinueButton=false;
-                        $scope.emaildetailscontbtn=true;
+                        $scope.emailContinueButton = false;
+                        $scope.emaildetailscontbtn = true;
                     } else {
                         alert("Please select atleast one email list or add email manually.");
                         $scope.selectCsvOnClick();
@@ -769,10 +796,10 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     if ($scope.emailAddresses !== "")
                     {
                         $scope.toAddress = emailAddresses;
-                        $scope.showEmailDetails=true;
+                        $scope.showEmailDetails = true;
                         $scope.emailListDiv = false;
-                        $scope.emailContinueButton=false;
-                        $scope.emaildetailscontbtn=true;
+                        $scope.emailContinueButton = false;
+                        $scope.emaildetailscontbtn = true;
                     } else {
                         alert("Please select at least one email list or add email manually.");
                         selectCsvFile();
@@ -781,16 +808,17 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     }
                 }
             }
-            else{
-                
+            else {
+
             }
-            
+
         };
-        
+
 
         $scope.emailListPreviewOnClick = function () {
             $scope.iframePath = getHost() + "download/HTML?fileName=" + $scope.randomIframeFilename + ".html";
-            $scope.fadeClass='fadeClass';$("#fade").show();
+            $scope.fadeClass = 'fadeClass';
+            $("#fade").show();
             $scope.emailPreviewPopup = true;
         };
 
@@ -999,7 +1027,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.previewCloseButton = function () {
             $scope.emailPreviewPopup = false;
-            $scope.fadeClass='unfadeClass';
+            $scope.fadeClass = 'unfadeClass';
         };
 
         $scope.editFooter = function () {
