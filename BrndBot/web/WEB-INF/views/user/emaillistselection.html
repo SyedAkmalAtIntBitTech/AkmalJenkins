@@ -94,25 +94,25 @@
         <div class="modal-pane modal-pane-width-reg" id="emaildetailsids"  ng-show="showEmailDetails==true">
             <div class="modal-pane-header-wrap">
                 <h2>Email Details</h2>
-                <a class="reg-button gray-button" id="emailpreview" ng-click="emailListPreviewOnClick()">Preview Email</a>
+                
             </div>
             <div class="modal-pane-content-wrap">
                  <div class="input-wrap">
                     <label> Enter a Subject Line </label>
                     <div class="input ">
-                        <input id="subject" ng-model="emailSubject" class="input-field-textfield col-8of10" value="{{emailSubject}}" type="text"></input>
+                        <input id="subject" ng-model="emailSubject" class="fluid" value="{{emailSubject}}" type="text"></input>
                     </div>
                 </div>
                <div class="input-wrap">
                     <label> Enter a From Name </label>
                     <div class="input ">
-                        <input id="name" class="input-field-textfield input-placeholder" placeholder="Enter From Name" type="text" ng-model="fromName"></input>
+                        <input id="name" class="fluid" placeholder="Enter From Name" type="text" ng-model="fromName"></input>
                     </div>
                 </div>
                 <div class="input-wrap">
                     <label> Enter a Reply to Address </label>
                     <div class="input ">
-                        <input id="email" class="input-field-textfield input-placeholder" placeholder="Enter Reply To Email Address" type="text" value="{{email_settings.reply_email_address}}" ng-model="replyAddress"></input>
+                        <input id="email" class="fluid" placeholder="Enter Reply To Email Address" type="text" value="{{email_settings.reply_email_address}}" ng-model="replyAddress"></input>
                         <input id="toaddress" class="input-field-textfield input-placeholder" ng-model="toAddress" value="{{email_settings.email_addresses}}" placeholder="Enter To Email Address" type="hidden"></input>
                     </div>
                 </div>

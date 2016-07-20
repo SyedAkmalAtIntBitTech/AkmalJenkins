@@ -17,7 +17,7 @@
 			max_hour_value: 12,
 			show_meridian: true,
 			step_size_hours: '1',
-			step_size_minutes: '1',
+			step_size_minutes: '5',
 			overflow_minutes: false,
 			disable_keyboard_mobile: false,
 			reset: false
