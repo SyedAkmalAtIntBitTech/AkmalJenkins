@@ -26,7 +26,7 @@
                                 <label class="detail-section-label">post text</label>
                                 <p class="detail-section-data">{{entitiesdetails.metadata.text}}</p>
                             </div>
-                            <div class="detail-section-item" ng-hide="entitiesdetails.metadata.shorturl==''">
+                            <div class="detail-section-item" ng-show="entitiesdetails.metadata.shorturl!=''">
                                 <label class="detail-section-label">post url</label>
                                 <p class="detail-section-data">{{entitiesdetails.metadata.shorturl}}</p>
                             </div>
@@ -55,17 +55,19 @@
                                 <label class="detail-section-label">post text</label>
                                 <p class="detail-section-data">{{entitiesdetails.metadata.post_text}}</p>
                             </div>
-                            <div class="detail-section-item">
-                                <label class="detail-section-label">post url</label>
-                                <p class="detail-section-data">{{entitiesdetails.metadata.url}}</p>
-                            </div>
-                            <div class="detail-section-item">
-                                <label class="detail-section-label">post link title</label>
-                                <p class="detail-section-data">{{entitiesdetails.metadata.title}}</p>
-                            </div>
-                            <div class="detail-section-item">
-                                <label class="detail-section-label">post link description</label>
-                                <p class="detail-section-data">{{entitiesdetails.metadata.description}}</p>
+                            <div ng-show="entitiesdetails.metadata.url!=''">
+                                <div class="detail-section-item">
+                                    <label class="detail-section-label">post url</label>
+                                    <p class="detail-section-data">{{entitiesdetails.metadata.url}}</p>
+                                </div>
+                                <div class="detail-section-item">
+                                    <label class="detail-section-label">post link title</label>
+                                    <p class="detail-section-data">{{entitiesdetails.metadata.title}}</p>
+                                </div>
+                                <div class="detail-section-item">
+                                    <label class="detail-section-label">post link description</label>
+                                    <p class="detail-section-data">{{entitiesdetails.metadata.description}}</p>
+                                </div>
                             </div>
                             <div class="detail-section-item">
                                 <label class="detail-section-label">saved photo</label>
