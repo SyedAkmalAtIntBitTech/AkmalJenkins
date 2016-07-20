@@ -2756,9 +2756,9 @@ p.modal-content-header{
     color: #ff0000;
 }
 
-.input input:focus{
+/*.input input:focus{
     border-color: #ff0000 !important;
-}
+}*/
 
 
 /****** dropdown-select *******/
@@ -2988,3 +2988,6 @@ p.modal-content-header{
 .wrap-dd-menu .dropdown.active {
   visibility: visible;
 }
+
+
+
