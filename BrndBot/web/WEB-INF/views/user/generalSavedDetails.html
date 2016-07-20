@@ -18,7 +18,7 @@
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div>Saved Post Details</div>
-                        <a class="overlay-details-pane-header-cta"> Remove Saved Email</a>
+                        <a class="overlay-details-pane-header-cta"> Remove Saved Post</a>
                     </div>
                     <div class="detail-sections-wrap">
                         <div class="detail-section">
@@ -47,7 +47,7 @@
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div>Saved Post Details</div>
-                        <a class="overlay-details-pane-header-cta"> Remove Saved Email</a>
+                        <a class="overlay-details-pane-header-cta"> Remove Saved Post</a>
                     </div>
                     <div class="detail-sections-wrap">
                         <div class="detail-section">
@@ -91,18 +91,18 @@
          <div class="overlay-content" ng-show="masterActionType=='Email'">
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
-                        <div>Saved Email Details</div>
+                        <div >Saved Email Details</div>
                         <a class="overlay-details-pane-header-cta"> Remove Saved Email</a>
                     </div>
                     <div class="detail-sections-wrap">
-                        <div class="detail-section">
+                        <div class="detail-section">  
                             <div class="detail-section-item">
-                                <label>Subject Line</label>
-                                <span class="email-overlay-saved-info">{{entitiesdetails.subject}}</span>
+                                <label class="detail-section-label">subject line</label>
+                                <p class="detail-section-data">{{entitiesdetails.subject}}</p>
                             </div>
                             <div class="detail-section-item">
-                                <label>Send to List</label>
-                                <div class="email-send-to-list-item">{{entitiesdetails.email_list_name}}</div>
+                                <label class="detail-section-label">send to list</label>
+                                <p class="detail-section-data">{{entitiesdetails.email_list_name}}</p>
                             </div>
                         </div>
                     </div>
