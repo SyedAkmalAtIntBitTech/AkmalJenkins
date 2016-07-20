@@ -2241,19 +2241,10 @@ p.modal-content-header{
     justify-content: center;
 }
 
-.no-template-icon:before{
-    content: url(/BrndBot/user/images/template-status/no-template.svg);
+.your-plan-icon{
+    width:100%;
+    height: 100%;
 }
-
-.template-saved-icon:before{
-    content: url(/BrndBot/user/images/template-status/template-saved.svg);
-}
-
-.template-approved-icon:before{
-    content: url(/BrndBot/user/images/template-status/template-approved.svg);
-}
-
-
 
 /*------------------------------------
                 Slats
