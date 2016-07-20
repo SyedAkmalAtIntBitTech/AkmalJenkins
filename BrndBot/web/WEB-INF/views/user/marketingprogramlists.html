@@ -2,7 +2,7 @@
     <header class="top-nav">
         <div class="top-nav-wrap">
         <div class="header">
-            <h2>Marketing Campaigns</h2>
+            <h2>Marketing Campaigns </h2>
         </div>
     </div>
         <div class="top-sub-nav">
@@ -42,18 +42,27 @@
                 </div>
              </div>
         </div>
-    
+    </div>
     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-show="pastProgramsDiv"   ng-init="getUserMarketingProgramsClosed('marketingprogramactions')">
         <div class="hub-pane" >
             <div class="hub-pane-header-wrap">
                 <h2 class="">Archived Marketing Campaigns</h2>
             </div>
-        </div>
          <div class="hub-pane-content-wrap">
-                <div ng-show="pastPrograms != ''" id="noprogramsavailable" class="hub-empty-wrap"></div>
+                <div class="hub-slat-list-wrap"  ng-show="pastPrograms==''">
+                    <div class="slat" >
+                        <div class="slat-name-wrap">
+                            <h2>No Campaigns</h2>
+                        </div>
+                        <div class="slat-detail-wrap">
+                            <div class="slat-detail slat-detail-button ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
                  <!--                    <ul  class="main-container fleft" ng-show="current_programs!=''">
                                             <li class="slat-container fleft selfclear" ng-repeat="program in current_programs">-->
-                <div class="hub-slat-list-wrap" id="currprogs" ng-show="currProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
+                <div class="hub-slat-list-wrap" id="currprogs" ng-show="pastProgramsDiv" ng-init="getUserMarketingProgramsOpen('marketingprogramactions')">
                     <div class="slat" ng-repeat="program in pastPrograms">
                         <div class="slat-name-wrap">
                             <h2>{{program.program_name}}</h2>
@@ -61,7 +70,7 @@
                         </div>
                         <div class="slat-detail-wrap">
                             <div class="slat-detail slat-detail-button ">
-                                <a class="reg-button gray-button-outline slat-detail-button" ng-click="redirectToActions(forward, program.id,past=0,program.end_date)">View Campaign</a>
+                                <a class="reg-button gray-button-outline slat-detail-button" ng-click="redirectToActions(forward, program.id,past=0,program.end_date);disableArchive();">View Campaign</a>
                             </div>
                             <!--ng-click="sendProgramId(program.id,'0')"--> 
                         </div>
@@ -70,4 +79,5 @@
         </div>
     </div>
     
-    </div>
+</div>
+</div>

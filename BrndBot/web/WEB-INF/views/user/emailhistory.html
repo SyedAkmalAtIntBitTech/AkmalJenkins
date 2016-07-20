@@ -1,48 +1,49 @@
-<div ng-include src="'marketinghubnavigation.html'"></div>
-<div class="page-background">
-<div class="page-content-container email-list-contact-page email-draft-page" id="emailhistorydiv">
-    <div class="fleft content">
-        <div class="page-content-title pushUp h2" ng-show="email_history.length > 0">Your Email History</div>
-        <div class="page-content-title pushUp h2" ng-show="email_history.length == 0">No Email History present</div>
-        <!--List Starts Here-->
-        <ul class="main-container fleft" id="historydiv" ng-show="email_history.length > 0" >
-
-            <input type="text" placeholder="Search" ng-model="userSearch">
-            <div  ng-repeat="email in email_history | filter:userSearch">
-                <li class="slat-container fleft selfclear" id="li{{drafts.id}}">
-                    <div class="col-4of10 slat-unit fleft" id="deleteids"> 
-                        <div class="slat-title-container col-1of1 fleft">
-                            <div class="slat-title email-list-slat-title col-1of1 sh1">{{email.tag}}</div>
-                            <div class="action-list-slat-description col-1of1 sh3">Sent on</div>
-                        </div>
-                    </div>
-                    <div class="col-2of10 slat-unit fleft ">
-                        <div class="slat-title-container col-1of1 fleft">
-                            <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.sent}}</div>
-                            <div class="list-column-description col-1of1 sh3 fleft">Number Sent</div>
-                        </div>
-                    </div>
-                    <div class="col-1of10 fleft">
-                        <div class="slat-cta-container">
-                            <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{(email.opens / email.sent) * 100}}%</div>
-                            <div class="list-column-description col-1of1 sh3 fleft">Open Rate</div>                                
-                        </div>
-                    </div>
-                    <div class="col-2of10 fleft">
-                        <div class="slat-cta-container">
-                            <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{(email.clicks / email.sent) * 100}}%</div>
-                            <div class="list-column-description col-1of1 sh3 fleft">Click Through Rate</div>
-                        </div>
-                    </div>
-                    <div class="col-1of10 fleft">
-                        <div class="slat-cta-container">
-                            <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{email.unsubs}}</div>
-                            <div class="list-column-description col-1of1 sh3 fleft">Unsubscribes</div>
-                        </div>
-                    </div>
-                </li>
+   <div class="main-content-wrap">
+  
+     
+    <div ng-include src="'marketinghubnavigation.html'"></div>
+      <div class="top-nav-bar-offset"></div>
+    <div class="top-subnav-bar-offset"></div>
+    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav">
+        <div class="hub-pane">
+            <div class="hub-pane-header-wrap">
+                <h2 class="">Email History</h2>
+                <input type="text" class="search-bar" placeholder="Search" ng-model="userSearch"  ng-show="email_history.length > 0">
             </div>
-        </ul>
+            <div class="hub-pane-content-wrap" ng-show="email_history.length == 0">
+                <div class="hub-empty-wrap">No email history present</div>
+            </div>
+            <div class="hub-pane-content-wrap" ng-show="email_history.length > 0 ">
+                
+                <div class="hub-slat-list-wrap">
+                    <div class="slat" ng-repeat="email in email_history | filter:userSearch">
+                  
+                        <div class="slat-name-wrap">
+                            <h2>{{email.tag}}</h2>
+                        </div>
+                         <div class="slat-detail-wrap">
+                            <div class="slat-detail">
+                                <h2>{{(email.opens / email.sent) * 100}}%</h2>
+                                <p>Open Rate</p>
+                            </div>
+                             <div class="slat-detail">
+                                <h2>{{(email.clicks / email.sent) * 100}}%</h2>
+                                <p>Click Through Rate</p>
+                            </div>
+                             <div class="slat-detail">
+                                <h2>{{email.unsubs}}</h2>
+                                <p>Unsubscribes</p>
+                            </div>
+                        </div>
+                        <div class="slat-detail-wrap">
+                            <div class="slat-detail">
+                                <!--<a class="reg-button gray-button slat-detail-button">View Email</a>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div> 
+</div>
 </div>

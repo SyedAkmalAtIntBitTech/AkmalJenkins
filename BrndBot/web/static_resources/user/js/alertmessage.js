@@ -137,13 +137,13 @@ var logochangesuccessfully="Logo changed Successfully";
 var logouploadsuccess="Logo uploaded Successfully.";
 var companyNameEmpty="Please enter your Company name.";
 var industryNameEmpty="Please select an Industry.";
-var emailsenderror="test";
-var emailsenderror="test";
-var emailsenderror="test";
-var emailsenderror="test";
-var emailsenderror="test";
-var emailsenderror="test";
-var emailsenderror="test";
+//var emailsenderror="test";
+//var emailsenderror="test";
+//var emailsenderror="test";
+//var emailsenderror="test";
+//var emailsenderror="test";
+//var emailsenderror="test";
+//var emailsenderror="test";
 var emailsenderror="test";
 
 
@@ -174,7 +174,7 @@ var deleteFont ="Do you want to delete this font Theme?";
 var uploadTTF ="Please upload the TTF file";
 var removeRecurringEmailPrompt="Do you want to remove this Recurring Email?";
 var recurringEmailName ="Please enter the Template Name";
-var deleteEmailTemplate ="Do you want to delete this Template"
+var deleteEmailTemplate ="Do you want to delete this Template";
 var deleteTemplateRelationPrompt="Do you want to delete this Email template relation to Email Blocks?";
 var marketingTemplateRelationPrompt="Do you want to delete this marketing template relation to Marketing Programs?";
 var programActionDeleted="Program Action deleted successfully.";
@@ -183,8 +183,15 @@ var deleteGlobalImage="Do you want to delete this Global Image?";
 var emailChannel = "email";
 var printChannel = "print";
 var imageChannel = "image";
-var emailChannelId = 3;
-var printChannelId = 2;
-var imageChannelId = 1;
+    //var emailChannelId = 3;
+    //var printChannelId = 2;
+    //var imageChannelId = 1;
 
 /// ADMIN alerts Ends////
+
+
+//VALIDATION
+
+var companyValidation = "Please enter a subject for the email";
+var dropdownValidation = "Please select your Organization";
+var emailListValidation  = "Please enter email list name";

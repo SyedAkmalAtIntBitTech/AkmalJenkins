@@ -129,7 +129,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
         $scope.getCategories = function (forwardone)
         {
-            categoryFactory.allCompanyCategoriesGet(emailChannelId).then(function (data) {
+            categoryFactory.allCompanyCategoriesGet($scope.emailChannelId).then(function (data) {
                 $scope.pageName = "emailcategory";
                 $scope.header = "Select Category";
                 $scope.forwardone = forwardone;
@@ -648,7 +648,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.selectCsvOnClick = function () {
             $scope.emailAddressTextarea = true;
             $scope.clickToUpload = true;
-            $scope.emailContinueButton = true;
             $scope.uploadButton = true;
         };
       
@@ -686,8 +685,9 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     $scope.emailAddresses = emails;
                     $scope.toAddress = emails;
                 });
+                $scope.emailContinueButton = true;
             }
-            $scope.selectCsvOnClick();
+//            $scope.selectCsvOnClick();
         };
         
         
