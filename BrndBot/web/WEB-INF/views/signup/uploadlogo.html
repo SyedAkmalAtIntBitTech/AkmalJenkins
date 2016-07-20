@@ -28,23 +28,23 @@
                 <div class="onboarding-content-header-wrap">
                     <h3 class="onboarding-content-header">Would you like to connect your new profile with tools you currently use?</h3>
                 </div> 
-
-                <div class="upload-icon-box dropzone" file-dropzone="[image/png, image/jpeg, image/gif]"
-                     file="image" file-name="imageFileName" data-max-file-size="3">
+<div class="upload-icon-box dropzone">
+<!--                <div class="upload-icon-box dropzone" file-dropzone="[image/png, image/jpeg, image/gif]"
+                     file="image" file-name="imageFileName" data-max-file-size="3">-->
                     <div ng-repeat="step in stepsModel">
-                            <input type="file" fileread="uploadme.src">
-                            <img ng-src="{{ uploadme.src}}">
-<!--                        <img class="thumb" src="{{step}}" />-->
+<!--                            <input type="file" fileread="uploadme.src">
+                            <img ng-src="{{ uploadme.src}}">-->
+                        <img class="thumb" src="{{step}}" />
                     </div>
                     <h3 class="upload-icon-text">Drag and Drop your Logo</h3>
-                    <div class="image-container">
+<!--                    <div class="image-container">
                         <img ng-src={{image}} />
                         <span class="file-name">{{imageFileName}}</span>
-                    </div>
+                    </div>-->
                     <div class="upload-icon-button-wrap">
                         <p>or</p>
                         <a id="triggerFile" class="reg-button gray-button">Browse your files</a>
-<!--                        <input type="file" fileread="uploadme.src" file-model="myFile" class="Add_Button Button--Gray logoUpload--button upload fileupld inputhide" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">-->
+                        <input type="file" fileread="uploadme.src" file-model="myFile" class="Add_Button Button--Gray logoUpload--button upload fileupld inputhide" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">
                     </div>
                 </div>
             </div>

@@ -1097,7 +1097,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.emailLists = "";
             emailListFactory.emailListGet(emailListName.value, "emailsForEmailList").then(function (emailListData) {
                 var emailListName = $.parseJSON(emailListData.d.details);
-                alert(JSON.stringify(emailListData));
                 for (var i = 0; i < emailListName.user_emailAddresses.length; i++) {
                     var emails = emailListName.user_emailAddresses[i];
                     $scope.emailLists = $scope.emailLists + eval(JSON.stringify(emails.emailAddress)) + ",";

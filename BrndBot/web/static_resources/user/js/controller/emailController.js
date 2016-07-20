@@ -25,6 +25,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.schedulePopup = false;
         $scope.selectedSocialmedia = "email";
         $scope.emailAddresses='';
+        $scope.loadingOverlay=false;
         var sliderDialog = "#emaileditorexternalpopup";
         var emailDraftDetails=localStorage.getItem('emailDraftData');
         //OnPageLoad
@@ -149,12 +150,14 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
         $scope.getActive = function (lookupId)
         {
+            $scope.loadingOverlay=true; //start Loading Overlay
             externalContentFactory.activatedGet(lookupId).then(function (data) {
                 var minddata = JSON.stringify(data.d.details);
                 if (minddata === "[true]") {
                     externalContentFactory.listDataGet(lookupId).then(function (data) {
                         var parseData = JSON.parse(data.d.details);
                         $scope.mindbodylist = parseData.mindbody_data;
+                        $scope.loadingOverlay=false; //stop Loading Overlay
                     });
                 } else
                 {
