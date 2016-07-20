@@ -170,6 +170,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             if (confirm("Are you sure, You want to Delete Email Draft(s)?")) {
                 var delid = id + ",";
                 var message;
+                if($scope.selectedEmail==""){
+                 $scope.selectedEmail=id;   
+                }
                 //            var selected_emaildrafts_to_delete = id;
                 var requestBody;
                 if (type === "deleteMultiple") {
@@ -183,9 +186,10 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                         "draft_ids": $scope.selectedEmail.toString()};
                 }
                 emailDraftFactory.deleteEmailDraftsPost(requestBody).then(function (data) {
+                    $scope.displayAllEmailDrafts();
                     $scope.savedEmailDraftPopup = false;
                     $scope.deletDraftsButton = false;
-                    $scope.displayAllEmailDrafts();
+                    $scope.selectedEmail="";
                     $scope.closeSavedEmailDraftPopup();
                 });
             }
