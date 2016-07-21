@@ -343,9 +343,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 schedule_id: schedule_id, entities_list_name: "",
                 email_template_status: template_status, schedule_type: "Recurring Email",
                 marketing_program_name: "", user_marketing_program_id: $scope.programId,
-                days: days, entities_selected_time: $filter('date')(schedule_time, "HH:mm a"), entities_subject: "",
+                days: days, entities_selected_time: $filter('date')(schedule_time, "HH : mm : a"), entities_subject: "",
                 entities_from_name: "", entities_reply_to_email_address: ""};
-
+            alert($scope.recurringScheduleData);
             yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
                 $scope.recurringEntitiesDetails = JSON.parse(data.d.details);
 
@@ -389,9 +389,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 schedule_id: schedule_id, entities_list_name: "",
                 email_template_status: template_status, schedule_type: "Recurring Email",
                 marketing_program_name: "", user_marketing_program_id: $scope.programId,
-                days: days, entities_selected_time: $filter('date')(schedule_time, "HH:mm a"), entities_subject: "",
+                days: days, entities_selected_time: $filter('date')(schedule_time, "HH : mm : a"), entities_subject: "",
                 entities_from_name: "", entities_reply_to_email_address: ""};
-
             yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
                 $scope.recurringEntitiesDetails = JSON.parse(data.d.details);
 
@@ -572,6 +571,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             };
             yourPlanFactory.addActionPost(action).then(function (data) {
                 alert("Action saved succesfully");
+                $scope.closePopup();                
 //                $scope.getCampaigns();
             });
 //        }
