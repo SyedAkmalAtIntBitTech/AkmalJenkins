@@ -3853,3 +3853,19 @@ img.exit-button {
     left: 0px;
     right: 0px;
 }
+
+/*imports contacts*/
+
+#emailsubjectdiv {
+    margin-left: 40%;
+}
+
+.top-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    background-color: white;
+    z-index: 3;
+}

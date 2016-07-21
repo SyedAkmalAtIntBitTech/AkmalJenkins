@@ -219,6 +219,16 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.addAction = false;
         };
 
+        $scope.formatDate = function (programDate) {
+            var dateArray = programDate.split('-');
+            var month = dateArray[1];
+            var day = dateArray[0];
+            var year = dateArray[2];
+            var programEndDate = year + "-" + month + "-" + day;
+//            var newDate = moment(programEndDate).format('YYYY-MM-DD');
+            return programEndDate;
+        }
+
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
         {
             if (addTitle == undefined){
@@ -242,7 +252,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                         alert("The selected date is lesser than todays date, please change the date");
                         return false;
                     }
-                }
+            }
             var actiondate = datePicker;
             var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
             var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
@@ -262,6 +272,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.reminderSectionClass = '';
             $scope.emailsectionClass = '';
             $scope.fadeClass = '';
+            $scope.hideSaveButton();
         };
 
         $scope.setTab = function (tabName) {
@@ -588,7 +599,51 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var days = 0;
             if (scheduleUpdatedData.marketing_program_name == 'General'){
                actiondate = $("#emaildatetime").val();
+                if (title == undefined){
+                    alert("Title not entered, enter the title");
+                    $("#addactiontitle").focus();
+                    return false;
+                }
+                if(actiondate == undefined){
+                    alert("Date not selected, select the date");
+                    return false;
+                }else {
+                    var actionTime1=$("#timepicker1").val().replace(/ /g,'');
+                    var actionDateTime1=actiondate.toLocaleString() +" "+actionTime1.toLocaleString();
+                    var fromDate = new Date(actionDateTime1);
+                    var todayDate = new Date();
+                        if (fromDate < todayDate){
+                            alert("The selected date is lesser than todays date, please change the date");
+                            return false;
+                        }
+                }
+               
             }else {
+                var actiondate = $("#emaildatetime").val();
+                
+                if (title == undefined){
+                    alert("Title not entered, enter the title");
+                    $("#addactiontitle").focus();
+                    return false;
+                }
+                if(actiondate == undefined){
+                    alert("Date not selected, select the date");
+                    return false;
+                }else {
+                    var actionTime1=$("#timepicker1").val().replace(/ /g,'');
+                    var actionDateTime1=actiondate.toLocaleString() +" "+actionTime1.toLocaleString();
+                    var fromDate = new Date(actionDateTime1);
+                    var todayDate = new Date();
+//                    var currDate = moment(emaildate).format('YYYY-MM-DD');
+                    var endDay = new Date($scope.calculatedProgramDate);
+                        if (fromDate < todayDate){
+                            alert("The selected date is lesser than todays date, please change the date");
+                            return false;
+                        }else if (fromDate > endDay) {
+                            alert("The selected date is greater than program date, please change the date");
+                            return false;
+                        }
+                }
                 var emaildate = $("#emaildatetime").val();
                 var currDate = moment(emaildate).format('YYYY-MM-DD');
                 var nDate = moment($scope.calculatedProgramDate).format('YYYY-MM-DD');

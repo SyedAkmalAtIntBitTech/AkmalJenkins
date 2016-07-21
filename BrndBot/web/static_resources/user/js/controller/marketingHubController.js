@@ -279,7 +279,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.activeEmailSettings = '';
             $scope.activeEmailDrafts = '';
             $scope.activeEmailList = '';
-
+            
+            $scope.showDeleteEmailList = false;
             $scope.emaildropdown = false;
             $scope.deletDraftsButton = false;
             $scope.addEmailListButton = false;
