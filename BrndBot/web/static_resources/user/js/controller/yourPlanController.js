@@ -43,20 +43,20 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         var user_selected_date = '';
-        var picker = new Pikaday(
-                {
-                    field: document.getElementById('jumptodatepicker'),
-                    firstDay: 1,
-                    minDate: new Date('2000-01-01'),
-                    maxDate: new Date('2050-12-31'),
-                    yearRange: [2000, 2050],
-                    onSelect: function () {
-                        var mydate = this.getMoment();
-                        var mydt = mydate.toLocaleString();
-                        var myDate = new Date(mydt);
-                        $scope.setCurrentDate(myDate);
-                    }
-                });
+//        var picker = new Pikaday(
+//                {
+//                    field: document.getElementById('jumptodatepicker'),
+//                    firstDay: 1,
+//                    minDate: new Date('2000-01-01'),
+//                    maxDate: new Date('2050-12-31'),
+//                    yearRange: [2000, 2050],
+//                    onSelect: function () {
+//                        var mydate = this.getMoment();
+//                        var mydt = mydate.toLocaleString();
+//                        var myDate = new Date(mydt);
+//                        $scope.setCurrentDate(myDate);
+//                    }
+//                });
 
         $scope.setCurrentDateActions = function () {
         };
@@ -294,6 +294,12 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.reminderDetailsTab = false;
             }
         };
+        $scope.hideSaveButton = function(){
+            $("#updateAction").hide();
+        };
+        $scope.showSaveButton = function(){
+            $("#updateAction").show();
+        };
 
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active)
         {
@@ -323,7 +329,9 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.setTab('savedReminder');
             }
             var date = $scope.entities_selected_time;
-            var time = $filter('date')(schedule_time, "hh:mm a")
+            var time = $filter('date')(schedule_time, "hh : mm : a");
+            var picker = new Pikaday({field: document.getElementById('emaildatetime')});
+            picker.setDate($scope.entities_selected_time);
             $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: date,
                 schedule_id: schedule_id, schedule_desc: schedule_desc,
                 email_template_status: template_status, schedule_type: entity_type,

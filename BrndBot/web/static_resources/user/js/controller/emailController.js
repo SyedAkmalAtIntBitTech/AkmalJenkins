@@ -894,12 +894,26 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.getFacebookActions = function (selectedMarketingProgrmaId) {
-            var data = JSON.stringify({programid: selectedMarketingProgrmaId.toString()});
+            var data = JSON.stringify({programid: selectedMarketingProgrmaId.toString(),type: getemail()});
             scheduleActionsFactory.getActionsPost(data).then(function (data) {
                 var parseData = JSON.parse(data.d.details);
-                $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM FACEBOOK"}];
+                $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM EMAIL"}];
                 $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
                 $scope.socialAction = $scope.defaultAction[0].id;
+                var actionData = eval(parseData);
+                if(actionData != '[]'){   
+                $scope.ddSelectActionName= [{text: "Custom Action",value: "0"}];
+                for (var i = 0; i < actionData.length; i++)
+                {
+                    var actionObject = {};
+                    actionObject["text"] = actionData[i].schedule_title;
+                    actionObject["value"] = actionData[i].id;
+                    $scope.ddSelectActionName.push(actionObject);
+                }
+                }
+                if(parseData == "[]"){
+                    $scope.ddSelectActionName= [{text: "Custom Action",value: "0"}];                    
+                }
             });
         };
 
@@ -914,9 +928,13 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.schedulePostToEmail = function (postData) {
+            $scope.postedTo=getemail();
             var email_scheduling = $scope.getScheduleData($scope.selectedMarketingProgrma, postData);
             if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
                 scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
+                            $scope.schedulePopup = false;
+                            $scope.isPostSuccess=true;
+//                            window.location = "dashboard";
                 });
             }
         };
@@ -942,7 +960,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
                     if (data.d.operationStatus.statusCode === "Success") {
                         $scope.schedulePopup = false;
-                        window.location = "dashboard";
+                            $scope.isPostSuccess=true;
+//                        window.location = "dashboard";
                     }
                 });
 
@@ -981,7 +1000,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
                     if (data.d.operationStatus.statusCode === "Success") {
                         $scope.schedulePopup = false;
-                        window.location = "dashboard";
+                        $scope.isPostSuccess=true;
+//                        window.location = "dashboard";
                     }
                 });
                 if (JSON.stringify(data) !== "") {
@@ -1049,13 +1069,13 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.ddSelectActionName = [
             {
-                text: "CUSTOM FACEBOOK",
+                text: "CUSTOM EMAIL",
                 value: "0"
             }
         ];
 
         $scope.ddSelectAction = {
-            text: "CUSTOM FACEBOOK"
+            text: "CUSTOM EMAIL"
         };
 
         $scope.getEmailAction = function () {
