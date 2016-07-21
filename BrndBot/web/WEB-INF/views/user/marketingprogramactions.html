@@ -126,11 +126,17 @@
                      <div class="section-header">
                          <h3>General Details</h3>
                      </div>
+                    <div class="h4">
+                        Marketing Program Name:
+                    </div>
+                    <div>
+                        <input id="program_name" name="program_name" ng-model="programs.programdetails.programName" class="input-field-textfield col-8of10"/>
+                    </div>
                     <div class="input-wrap">
                         <label> Marketing Campaign Date </label>
                         <a class="overlay-detail-input date-input ease-all">
                                 <i></i>
-                                <input type="text" readonly name="datepicker" id="progactdatepicker"  class="input-field-textfield col-4of10" value="{{programs.programdetails.dateOfEvent | date : 'EEE MMM d y'}}">
+                                <input type="text" readonly name="datepicker" id="progactdatepicker" class="input-field-textfield col-4of10" value="{{programs.programdetails.dateOfEvent | date : 'EEE MMM d y'}}">
                                     <script>
                                         var picker = new Pikaday(
                                                 {
@@ -147,19 +153,19 @@
                     <div class="input-wrap">
                         <label> Marketing Campaign Link </label>
                         <div class="input">
-                            <input id="link_url" name="link_url" value="{{programs.programdetails.linktodestination}}">
+                            <input id="link_url" name="link_url" ng-model="programs.programdetails.linktodestination">
                         </div>
                         
                     </div>
                      <div class="input-wrap">
                         <label> Marketing Campaign Link Name</label>
                         <div class="input">
-                            <input id="link_name" name="link_name" class="input-field-textfield col-7of10" value="{{programs.programdetails.link_name}}">
+                            <input id="link_name" name="link_name" class="input-field-textfield col-7of10" ng-model="programs.programdetails.link_name">
                         </div>
                         
                     </div>
                      <div class="update-container">
-                        <a class="long-button gray-button"  ng-click="updateUserProgram()">Save Changes</a>
+                        <a class="long-button gray-button"  ng-click="updateUserProgram(programs)">Save Changes</a>
                     </div>
                 </div>
                  

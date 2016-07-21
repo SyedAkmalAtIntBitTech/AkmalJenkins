@@ -1245,6 +1245,59 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         });
        }
    };
+   
+   $scope.updateUserProgram = function(programs){
+//       var program=$("#program_id").val();
+        
+//        var program = program_id;
+
+//        alert($scope.programId.toString());
+        
+//        program_id = $scope.programId.toString();
+       
+        if ($scope.validate_program_link_details()){ 
+        var program = $scope.programId.toString();
+        var program_name = programs.programdetails.programName;
+        var event_date = $("#progactdatepicker").val();
+        var event_date_epoch = Date.parse(event_date);
+        var link_url = programs.programdetails.linktodestination;
+        var link_name = programs.programdetails.link_name;    
+            
+                
+        var program_details = {"program_id": program, "date_of_event": event_date,
+                          "link_url": link_url, "link_name": link_name, "program_name":program_name};
+                      
+        companyMarketingProgramFactory.updateUserProgramPost(program_details).then(function (data){
+            alert(programdetailssaved);
+        });               
+      }     
+   };
+   
+   $scope.validate_program_link_details = function(){
+      var myRegExp =/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;  
+      var event_date = $("#progactdatepicker").val();
+      var link_url = $("#link_url").val();
+      var link_name = $("#link_name").val();
+      
+      if (event_date == ""){
+          alert(dateerror);
+          $("#progactdatepicker").focus();
+          return false;
+      }
+      if (link_name == ""){
+          alert(linknameerror);
+          $("#link_name").focus();
+          return false;
+      }
+      if((link_url == "") || (!myRegExp.test(link_url))){
+          alert(linkurlerror);
+          $("#link_url").focus();
+          $("#link_url").val('http://');
+          return false;
+      }
+      return true;
+    };
+   
     }]);
 
        
