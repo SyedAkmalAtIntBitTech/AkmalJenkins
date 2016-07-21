@@ -43,20 +43,20 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         var user_selected_date = '';
-        var picker = new Pikaday(
-                {
-                    field: document.getElementById('jumptodatepicker'),
-                    firstDay: 1,
-                    minDate: new Date('2000-01-01'),
-                    maxDate: new Date('2050-12-31'),
-                    yearRange: [2000, 2050],
-                    onSelect: function () {
-                        var mydate = this.getMoment();
-                        var mydt = mydate.toLocaleString();
-                        var myDate = new Date(mydt);
-                        $scope.setCurrentDate(myDate);
-                    }
-                });
+//        var picker = new Pikaday(
+//                {
+//                    field: document.getElementById('jumptodatepicker'),
+//                    firstDay: 1,
+//                    minDate: new Date('2000-01-01'),
+//                    maxDate: new Date('2050-12-31'),
+//                    yearRange: [2000, 2050],
+//                    onSelect: function () {
+//                        var mydate = this.getMoment();
+//                        var mydt = mydate.toLocaleString();
+//                        var myDate = new Date(mydt);
+//                        $scope.setCurrentDate(myDate);
+//                    }
+//                });
 
         $scope.setCurrentDateActions = function () {
         };
@@ -294,6 +294,12 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.reminderDetailsTab = false;
             }
         };
+        $scope.hideSaveButton = function(){
+            $("#updateAction").hide();
+        };
+        $scope.showSaveButton = function(){
+            $("#updateAction").show();
+        };
 
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active)
         {
@@ -323,7 +329,9 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.setTab('savedReminder');
             }
             var date = $scope.entities_selected_time;
-            var time = $filter('date')(schedule_time, "hh:mm a")
+            var time = $filter('date')(schedule_time, "hh : mm : a");
+            var picker = new Pikaday({field: document.getElementById('emaildatetime')});
+            picker.setDate($scope.entities_selected_time);
             $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: date,
                 schedule_id: schedule_id, schedule_desc: schedule_desc,
                 email_template_status: template_status, schedule_type: entity_type,
@@ -569,14 +577,20 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var actiontype = scheduleUpdatedData.schedule_type;//$("#email_schedule_type").val();
             var schedule_id = scheduleUpdatedData.schedule_id;//$("#email_scheduleid").val();
             var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
-            var actiondate = scheduleUpdatedData.entities_selected_time;//$("#emaildatetime").val();
-            var days = scheduleUpdatedData.days;//$("#emaildays").val();
-            if (days != "0")
-            {
-                actiondate = "Mon Jan 01 1970";
-            }
-            var actionDateTime = scheduleUpdatedData.schedule_time;//$("#timepickeremail").val().replace(/ /g,'');
-            var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
+            var actiondate = "1970/01/01";
+            var emaildate = $("#emaildatetime").val();
+            var currDate = moment(emaildate).format('YYYY-MM-DD');
+            var nDate = $scope.programDate;
+            var dateArray=nDate.split('-');
+            var month = dateArray[1];
+            var day=dateArray[0];
+            var year=dateArray[2];
+            var programEndDate=year+"-"+month+"-"+day;
+            var start = moment(programEndDate);
+            var end = moment(currDate);
+            var days = start.diff(end, "days");
+            var actionDateTime = $("#timepickertextbox").val().replace(/ /g,'');
+            var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
             var schedule_time = Date.parse(l);
             var myEpoch = schedule_time;
             var description = "";

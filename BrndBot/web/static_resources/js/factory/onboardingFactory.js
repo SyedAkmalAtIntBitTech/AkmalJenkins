@@ -28,6 +28,14 @@ factoryApp.factory('onboardingFactory', function ($q,authenticatedServiceFactory
         });
         return deffered.promise;
     };
+    onboardingFactoryObject.isMindbodyActivated = function (){
+        var deffered = $q.defer();
+        var url = configurationService.activatedGetURL();
+        authenticatedServiceFactory.makeCall("GET", url, "", "").then(function (data){
+            deffered.resolve(data);
+        });
+        return deffered.promise;
+    };
     onboardingFactoryObject.completedActivationGet = function () {
         var deffered = $q.defer();
         var url = configurationService.completedActivationURL();
