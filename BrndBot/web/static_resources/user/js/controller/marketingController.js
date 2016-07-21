@@ -280,6 +280,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.reminderSectionClass = '';
             $scope.emailsectionClass = '';
             $scope.fadeClass = '';
+            $scope.hideSaveButton();
 //            $location.path("/marketingprogramactions");
         };
         $scope.setTab = function (tabName) {
@@ -343,9 +344,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 schedule_id: schedule_id, entities_list_name: "",
                 email_template_status: template_status, schedule_type: "Recurring Email",
                 marketing_program_name: "", user_marketing_program_id: $scope.programId,
-                days: days, entities_selected_time: $filter('date')(schedule_time, "HH:mm a"), entities_subject: "",
+                days: days, entities_selected_time: $filter('date')(schedule_time, "HH : mm : a"), entities_subject: "",
                 entities_from_name: "", entities_reply_to_email_address: ""};
-
             yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
                 $scope.recurringEntitiesDetails = JSON.parse(data.d.details);
 
@@ -389,9 +389,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 schedule_id: schedule_id, entities_list_name: "",
                 email_template_status: template_status, schedule_type: "Recurring Email",
                 marketing_program_name: "", user_marketing_program_id: $scope.programId,
-                days: days, entities_selected_time: $filter('date')(schedule_time, "HH:mm a"), entities_subject: "",
+                days: days, entities_selected_time: $filter('date')(schedule_time, "HH : mm : a"), entities_subject: "",
                 entities_from_name: "", entities_reply_to_email_address: ""};
-
             yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
                 $scope.recurringEntitiesDetails = JSON.parse(data.d.details);
 
@@ -482,8 +481,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.savedHeader = 'Post';
             $scope.actionDate = schedule_date;
             var time = $filter('date')(schedule_time, "hh : mm : a");
-            var picker = new Pikaday({field: document.getElementById('emaildatetime')});
-            picker.setDate($filter('date')(schedule_date, "MMM dd yyyy"));
+            $("#emaildatetime").val($filter('date')(schedule_date, "MMM dd yyyy"));
             $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: schedule_date,
                 schedule_id: schedule_id, schedule_desc: schedule_desc,
                 email_template_status: template_status, schedule_type: entity_type,
@@ -545,9 +543,37 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.updateAction = function (scheduleUpdatedData) {
 
+
             var actiontype = scheduleUpdatedData.schedule_type;//$("#email_schedule_type").val();
             var schedule_id = scheduleUpdatedData.schedule_id;//$("#email_scheduleid").val();
             var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
+            
+            var actiondate = $("#emaildatetime").val();
+                
+                if (title == undefined){
+                    alert("Title not entered, enter the title");
+                    $("#addactiontitle").focus();
+                    return false;
+                }
+                if(actiondate == undefined){
+                    alert("Date not selected, select the date");
+                    return false;
+                }else {
+                    var actionTime1=$("#timepicker1").val().replace(/ /g,'');
+                    var actionDateTime1=actiondate.toLocaleString() +" "+actionTime1.toLocaleString();
+                    var fromDate = new Date(actionDateTime1);
+                    var todayDate = new Date();
+                    var endDate = $scope.formatDate($scope.programDate);
+                    var endDay = new Date(endDate);
+                        if (fromDate < todayDate){
+                            alert("The selected date is lesser than todays date, please change the date");
+                            return false;
+                        }else if (fromDate > endDay) {
+                            alert("The selected date is greater than program date, please change the date");
+                            return false;
+                        }
+                }        
+            
             var actiondate = "1970/01/01";
             var emaildate = $("#emaildatetime").val();
             var currDate = moment(emaildate).format('YYYY-MM-DD');
@@ -573,6 +599,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             };
             yourPlanFactory.addActionPost(action).then(function (data) {
                 alert("Action saved succesfully");
+                $scope.closePopup();                
 //                $scope.getCampaigns();
             });
 //        }

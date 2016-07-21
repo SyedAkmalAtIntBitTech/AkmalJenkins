@@ -12,6 +12,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.savedEmail = false;
         $scope.schedule_id = '';
         $scope.isRecurring = false;
+        $scope.calculatedProgramDate = "";
 
         $scope.ddSelectActionOptions = [
             {
@@ -43,20 +44,20 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         var user_selected_date = '';
-//        var picker = new Pikaday(
-//                {
-//                    field: document.getElementById('jumptodatepicker'),
-//                    firstDay: 1,
-//                    minDate: new Date('2000-01-01'),
-//                    maxDate: new Date('2050-12-31'),
-//                    yearRange: [2000, 2050],
-//                    onSelect: function () {
-//                        var mydate = this.getMoment();
-//                        var mydt = mydate.toLocaleString();
-//                        var myDate = new Date(mydt);
-//                        $scope.setCurrentDate(myDate);
-//                    }
-//                });
+        var picker = new Pikaday(
+                {
+                    field: document.getElementById('jumptodatepicker'),
+                    firstDay: 1,
+                    minDate: new Date('2000-01-01'),
+                    maxDate: new Date('2050-12-31'),
+                    yearRange: [2000, 2050],
+                    onSelect: function () {
+                        var mydate = this.getMoment();
+                        var mydt = mydate.toLocaleString();
+                        var myDate = new Date(mydt);
+                        $scope.setCurrentDate(myDate);
+                    }
+                });
 
         $scope.setCurrentDateActions = function () {
         };
@@ -98,8 +99,14 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 //}
 
 //});
-
-
+        $scope.hideSaveButton = function(){
+            alert("test");
+            $("#updateAction").hide();
+        };
+        $scope.showSaveButton = function(){
+            alert("test");
+            $("#updateAction").show();
+        };
 
         $scope.getCampaigns = function () {
             var curr_date = '';
@@ -123,12 +130,13 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
                 $scope.tomorrow_date = moment($scope.addDays(new Date(), 1)).format('YYYY-MM-DD');
                 $scope.entitySet = parseJSON.entitydata;
+                console.log(JSON.stringify($scope.entitySet));
                 $scope.nodata = parseJSON.noactionsmessage;
 
             });
         };
         $scope.addDays = function (theDate, days) {
-
+            
             return new Date(theDate.getTime() + days * 24 * 60 * 60 * 1000);
         };
         $scope.mySplit = function (string, nb) {
@@ -211,6 +219,16 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.addAction = false;
         };
 
+        $scope.formatDate = function (programDate) {
+            var dateArray = programDate.split('-');
+            var month = dateArray[1];
+            var day = dateArray[0];
+            var year = dateArray[2];
+            var programEndDate = year + "-" + month + "-" + day;
+//            var newDate = moment(programEndDate).format('YYYY-MM-DD');
+            return programEndDate;
+        }
+
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
         {
             if (addTitle == undefined){
@@ -234,7 +252,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                         alert("The selected date is lesser than todays date, please change the date");
                         return false;
                     }
-                }
+            }
             var actiondate = datePicker;
             var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
             var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
@@ -254,6 +272,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             $scope.reminderSectionClass = '';
             $scope.emailsectionClass = '';
             $scope.fadeClass = '';
+            $scope.hideSaveButton();
         };
 
         $scope.setTab = function (tabName) {
@@ -300,10 +319,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.showSaveButton = function(){
             $("#updateAction").show();
         };
-
-        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active)
+        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
         {
 //        $scope.entities_selected_time =schedule_time;
+            var nDate = new Date(action_date);
+            $scope.calculatedProgramDate = $scope.addDays(nDate,days);
             $scope.entities_selected_time = $filter('date')(schedule_time, "MMM dd yyyy");
             $scope.savedEmail = false;
             $scope.schedule_id = schedule_id;
@@ -330,8 +350,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             }
             var date = $scope.entities_selected_time;
             var time = $filter('date')(schedule_time, "hh : mm : a");
-            var picker = new Pikaday({field: document.getElementById('emaildatetime')});
-            picker.setDate($scope.entities_selected_time);
+            $("#emaildatetime").val($filter('date')(action_date, "MMM dd yyyy"));
             $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: date,
                 schedule_id: schedule_id, schedule_desc: schedule_desc,
                 email_template_status: template_status, schedule_type: entity_type,
@@ -573,22 +592,65 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
 
         $scope.updateAction = function (scheduleUpdatedData) {
-
             var actiontype = scheduleUpdatedData.schedule_type;//$("#email_schedule_type").val();
             var schedule_id = scheduleUpdatedData.schedule_id;//$("#email_scheduleid").val();
             var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
             var actiondate = "1970/01/01";
-            var emaildate = $("#emaildatetime").val();
-            var currDate = moment(emaildate).format('YYYY-MM-DD');
-            var nDate = $scope.programDate;
-            var dateArray=nDate.split('-');
-            var month = dateArray[1];
-            var day=dateArray[0];
-            var year=dateArray[2];
-            var programEndDate=year+"-"+month+"-"+day;
-            var start = moment(programEndDate);
-            var end = moment(currDate);
-            var days = start.diff(end, "days");
+            var days = 0;
+            if (scheduleUpdatedData.marketing_program_name == 'General'){
+               actiondate = $("#emaildatetime").val();
+                if (title == undefined){
+                    alert("Title not entered, enter the title");
+                    $("#addactiontitle").focus();
+                    return false;
+                }
+                if(actiondate == undefined){
+                    alert("Date not selected, select the date");
+                    return false;
+                }else {
+                    var actionTime1=$("#timepicker1").val().replace(/ /g,'');
+                    var actionDateTime1=actiondate.toLocaleString() +" "+actionTime1.toLocaleString();
+                    var fromDate = new Date(actionDateTime1);
+                    var todayDate = new Date();
+                        if (fromDate < todayDate){
+                            alert("The selected date is lesser than todays date, please change the date");
+                            return false;
+                        }
+                }
+               
+            }else {
+                var actiondate = $("#emaildatetime").val();
+                
+                if (title == undefined){
+                    alert("Title not entered, enter the title");
+                    $("#addactiontitle").focus();
+                    return false;
+                }
+                if(actiondate == undefined){
+                    alert("Date not selected, select the date");
+                    return false;
+                }else {
+                    var actionTime1=$("#timepicker1").val().replace(/ /g,'');
+                    var actionDateTime1=actiondate.toLocaleString() +" "+actionTime1.toLocaleString();
+                    var fromDate = new Date(actionDateTime1);
+                    var todayDate = new Date();
+//                    var currDate = moment(emaildate).format('YYYY-MM-DD');
+                    var endDay = new Date($scope.calculatedProgramDate);
+                        if (fromDate < todayDate){
+                            alert("The selected date is lesser than todays date, please change the date");
+                            return false;
+                        }else if (fromDate > endDay) {
+                            alert("The selected date is greater than program date, please change the date");
+                            return false;
+                        }
+                }
+                var emaildate = $("#emaildatetime").val();
+                var currDate = moment(emaildate).format('YYYY-MM-DD');
+                var nDate = moment($scope.calculatedProgramDate).format('YYYY-MM-DD');
+                var start = moment(nDate);
+                var end = moment(currDate);
+                days = start.diff(end, "days");
+            }
             var actionDateTime = $("#timepickertextbox").val().replace(/ /g,'');
             var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
             var schedule_time = Date.parse(l);
@@ -602,6 +664,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             };
             yourPlanFactory.addActionPost(action).then(function (data) {
                 alert(actionsaved);
+                $scope.closePopup();
                 $scope.getCampaigns();
             });
 //        }
