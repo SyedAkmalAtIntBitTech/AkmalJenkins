@@ -44,13 +44,14 @@
                             <label class="detail-section-label">Date</label>
                             <a class="overlay-detail-input date-input ease-all">
                                 <i></i>
-                                <input type="text" id="emaildatetime" name="emaildatetime" />
+                                <input type="text" ng-blur="showSaveButton()" id="emaildatetime" name="emaildatetime" />
                                 <!--<input type="hidden" value="{{scheduleData.entities_selected_time| date:'MMM dd yyyy'}}" id="emaildateid"/>-->
                                     <script>
                                         
                                         var picker = new Pikaday(
                                                 {
                                                     field: document.getElementById('emaildatetime'),
+                                                    format: 'MMM DD YYYY',
                                                     firstDay: 1,
                                                     minDate: new Date(2000, 0, 1),
                                                     maxDate: new Date(2050, 12, 31),
@@ -172,7 +173,7 @@
                         </div>
                     </div>
 
-<!--    <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateAction(scheduleData)" ng-show="isRecurring === false">Save Action</div>
-                <div class="edit-button-detail md-button button-text-1 edit-button-detailrecemail" ng-click="redirectToEmailAutomation('emailautomation','edit','', schedule_id)" ng-show="isRecurring === true">Edit Automation Details</div>
-            </div>-->
+    <div class="bottom-cta-button-container">
+        <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateAction(recurringScheduleData)" ng-show="isRecurring === false">Save Action</div>
+        <div class="edit-button-detail md-button button-text-1 edit-button-detailrecemail" ng-click="redirectToEmailAutomation('emailautomation','edit','', schedule_id)" ng-show="isRecurring === true">Edit Automation Details</div>
+    </div>
