@@ -155,7 +155,19 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 }
             });
         };
-        
+        $scope.isMindbodyActivated = function(){
+            onboardingFactory.isMindbodyActivated().then(function (data){
+            var activation=JSON.stringify(data.d.details[0]); 
+            globalActivation=activation;
+                if(globalActivation=="false")
+                {
+                    alert("Mindbody not activated, kindly activate mindbody");
+                    return false;
+                }else{
+                    $scope.saveServices();
+                }
+            });
+        };
         $scope.saveServices = function () {
             onboardingFactory.completedActivationGet().then(function (data) {
                 var studioIdSaved = eval(JSON.stringify(data.d.message));
