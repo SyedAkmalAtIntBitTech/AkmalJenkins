@@ -330,8 +330,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             }
             var date = $scope.entities_selected_time;
             var time = $filter('date')(schedule_time, "hh : mm : a");
-            var picker = new Pikaday({field: document.getElementById('emaildatetime')});
-            picker.setDate($scope.entities_selected_time);
+            $("#emaildatetime").val($scope.entities_selected_time);
             $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: date,
                 schedule_id: schedule_id, schedule_desc: schedule_desc,
                 email_template_status: template_status, schedule_type: entity_type,
