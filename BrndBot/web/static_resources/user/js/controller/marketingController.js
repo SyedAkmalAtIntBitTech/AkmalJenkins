@@ -496,8 +496,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.actionDate = schedule_date;
             var time = $filter('date')(schedule_time, "hh : mm : a");
             var picker = new Pikaday({field: document.getElementById('emaildatetime')});
-            picker.setDate(schedule_date);
-            
+            picker.setDate($filter('date')(schedule_date, "MMM dd yyyy"));
             $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: schedule_date,
                 schedule_id: schedule_id, schedule_desc: schedule_desc,
                 email_template_status: template_status, schedule_type: entity_type,

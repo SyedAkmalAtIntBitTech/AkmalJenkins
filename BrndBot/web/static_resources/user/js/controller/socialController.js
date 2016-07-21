@@ -537,24 +537,28 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
 
         $scope.schedulePostToFacebook = function (postData) {
+            $scope.postedTo=getfacebook();
             var sendData = $scope.getScheduleData($scope.selectedMarketingProgram, postData, getfacebook());
             if ($scope.selectedMarketingProgram !== 0 || $scope.socialAction !== 0) {
                 scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (data) {
                     if (data.d.operationStatus.statusCode === "Success") {
+                        $scope.isPostSuccess=true;
                         $scope.schedulePopup = false;
-                        window.location = "dashboard";
+//                        window.location = "dashboard";
                     }
                 });
             } else {
                 scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (data) {
                     if (data.d.operationStatus.statusCode === "Success") {
+                        $scope.isPostSuccess=true;
                         $scope.schedulePopup = false;
-                        window.location = "dashboard";
+//                        window.location = "dashboard";
                     }
                 });
             }
         };
         $scope.schedulePostToTwitter = function (postData) {
+            $scope.postedTo=gettwitter();
             var sendData = "";
             var bitlyUrl = "";
             var data = JSON.stringify({access_token_method: "getAccessToken"});
@@ -583,7 +587,8 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                                 }]);
                             scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (response) {
                                 $scope.schedulePopup = false;
-                                window.location = "dashboard";
+                                $scope.isPostSuccess=true;
+//                                window.location = "dashboard";
                             });
                         } else {
                             var schedule_title = $("#ActionName").val();
@@ -611,7 +616,8 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                                 }];
                             scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (response) {
                                 $scope.schedulePopup = false;
-                                window.location = "dashboard";
+                                $scope.isPostSuccess=true;
+//                                window.location = "dashboard";
                             });
                         }
                     });
@@ -634,7 +640,8 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                             }]);
                         scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (response) {
                             $scope.schedulePopup = false;
-                            window.location = "dashboard";
+                            $scope.isPostSuccess=true;
+//                            window.location = "dashboard";
                         });
                     } else {
                         var schedule_title = $("#ActionName").val();
@@ -662,7 +669,8 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                             }];
                         scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (response) {
                             $scope.schedulePopup = false;
-                            window.location = "dashboard";
+                            $scope.isPostSuccess=true;
+//                            window.location = "dashboard";
                         });
                     }
 
