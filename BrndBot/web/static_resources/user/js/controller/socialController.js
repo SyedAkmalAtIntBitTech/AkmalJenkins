@@ -414,18 +414,18 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
                 $scope.socialAction = $scope.defaultAction[0].id;
                 var actionData = eval(parseData);
-                if(actionData != ''){     
-                $scope.ddSelectActionName= [{text: "Custom Action",value: "0"}];
-                for (var i = 0; i < actionData.length; i++)
-                {
-                    var actionObject = {};
-                    actionObject["text"] = actionData[i].schedule_title;
-                    actionObject["value"] = actionData[i].id;
-                    $scope.ddSelectActionName.push(actionObject);
+                if (actionData != '') {
+                    $scope.ddSelectActionName = [{text: "Custom Action", value: "0"}];
+                    for (var i = 0; i < actionData.length; i++)
+                    {
+                        var actionObject = {};
+                        actionObject["text"] = actionData[i].schedule_title;
+                        actionObject["value"] = actionData[i].id;
+                        $scope.ddSelectActionName.push(actionObject);
+                    }
                 }
-                }
-                if(actionData == ""){
-                    $scope.ddSelectActionName= [{text: "Custom Action",value: "0"}];                    
+                if (actionData == "") {
+                    $scope.ddSelectActionName = [{text: "Custom Action", value: "0"}];
                 }
             });
         };
@@ -437,21 +437,21 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
                 $scope.socialAction = $scope.defaultAction[0].id;
                 var actionData = eval(parseData);
-                if(actionData != ''){                    
-                $scope.ddSelectActionName= [{text: "Custom Action",value: "0"}];
-                for (var i = 0; i < actionData.length; i++)
-                { 
-                    var actionObject = {};
-                    actionObject["text"] = actionData[i].schedule_title;
-                    actionObject["value"] = actionData[i].id;
-                    $scope.ddSelectActionName.push(actionObject);
+                if (actionData != '') {
+                    $scope.ddSelectActionName = [{text: "Custom Action", value: "0"}];
+                    for (var i = 0; i < actionData.length; i++)
+                    {
+                        var actionObject = {};
+                        actionObject["text"] = actionData[i].schedule_title;
+                        actionObject["value"] = actionData[i].id;
+                        $scope.ddSelectActionName.push(actionObject);
+                    }
                 }
+                if (actionData == '')
+                {
+                    $scope.ddSelectActionName = [{text: "Custom Action", value: "0"}];
                 }
-                if(actionData == '')
-                {   
-                $scope.ddSelectActionName= [{text: "Custom Action",value: "0"}];
-                }
-                
+
             });
         };
 //        $scope.getTwitterActions = function (selectedMarketingProgrmaId) {
@@ -473,18 +473,18 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 //                $scope.socialAction = $scope.defaultAction[0].id;
 //            });
 //        };
-        $scope.ddSelectMarketingCampaignName = [
-            {
-                text: "--General--",
-                value: "0"
-            }
-        ];
 
         $scope.ddSelectMarketingCampaign = {
             text: "--General--"
         };
 
         $scope.getAllMaketingPrograms = function (selectedSocialmedia) {
+            $scope.ddSelectMarketingCampaignName = [
+                {
+                    text: "--General--",
+                    value: "0"
+                }
+            ];
             companyMarketingProgramFactory.getAllUserMarketingProgramsGet().then(function (data) {
                 $scope.defaultmarketingprogram = [{program_id: 0, name: '--General--', id: 0}];
                 $scope.marketing_programs = $scope.defaultmarketingprogram.concat(data);
@@ -537,12 +537,12 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
 
         $scope.schedulePostToFacebook = function (postData) {
-            $scope.postedTo=getfacebook();
+            $scope.postedTo = getfacebook();
             var sendData = $scope.getScheduleData($scope.selectedMarketingProgram, postData, getfacebook());
             if ($scope.selectedMarketingProgram !== 0 || $scope.socialAction !== 0) {
                 scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (data) {
                     if (data.d.operationStatus.statusCode === "Success") {
-                        $scope.isPostSuccess=true;
+                        $scope.isPostSuccess = true;
                         $scope.schedulePopup = false;
 //                        window.location = "dashboard";
                     }
@@ -550,7 +550,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             } else {
                 scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (data) {
                     if (data.d.operationStatus.statusCode === "Success") {
-                        $scope.isPostSuccess=true;
+                        $scope.isPostSuccess = true;
                         $scope.schedulePopup = false;
 //                        window.location = "dashboard";
                     }
@@ -558,7 +558,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             }
         };
         $scope.schedulePostToTwitter = function (postData) {
-            $scope.postedTo=gettwitter();
+            $scope.postedTo = gettwitter();
             var sendData = "";
             var bitlyUrl = "";
             var data = JSON.stringify({access_token_method: "getAccessToken"});
@@ -587,7 +587,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                                 }]);
                             scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (response) {
                                 $scope.schedulePopup = false;
-                                $scope.isPostSuccess=true;
+                                $scope.isPostSuccess = true;
 //                                window.location = "dashboard";
                             });
                         } else {
@@ -616,7 +616,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                                 }];
                             scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (response) {
                                 $scope.schedulePopup = false;
-                                $scope.isPostSuccess=true;
+                                $scope.isPostSuccess = true;
 //                                window.location = "dashboard";
                             });
                         }
@@ -640,7 +640,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                             }]);
                         scheduleActionsFactory.scheduleSocialPostActionsPost(sendData).then(function (response) {
                             $scope.schedulePopup = false;
-                            $scope.isPostSuccess=true;
+                            $scope.isPostSuccess = true;
 //                            window.location = "dashboard";
                         });
                     } else {
@@ -669,7 +669,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                             }];
                         scheduleActionsFactory.scheduleSocialPostPost(sendData).then(function (response) {
                             $scope.schedulePopup = false;
-                            $scope.isPostSuccess=true;
+                            $scope.isPostSuccess = true;
 //                            window.location = "dashboard";
                         });
                     }

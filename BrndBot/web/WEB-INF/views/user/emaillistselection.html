@@ -55,12 +55,12 @@
                  <div class="input-wrap">
                     <label> Choose from your email lists </label>
                     <div class="input">
-                          <select class="chooseEmailList col-1of1" id="chooseEmailList" ng-model='emailList' ng-change="chooseEmailListOnChange(emailList)" name="chooseEmailList">
+<!--                          <select class="chooseEmailList col-1of1" id="chooseEmailList" ng-model='emailList' ng-change="chooseEmailListOnChange(emailList)" name="chooseEmailList">
                                 <option value="1">Manual</option>
                                 <option value="2">Manual2</option>
                                 <option style="background:#fff;" ng-repeat ="Lists in emailLists" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
                                 <option style="background:#fff;" ng-repeat ="Lists in emailLists_mindbody" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
-                            </select>
+                            </select>-->
                         <div dropdown-select="ddSelectEmailListOptions" dropdown-model="ddSelectEmailList" dropdown-onchange="chooseEmailListOnChange(selected)"></div>
                         <p class="input-wrap-label"> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
                     </div>
