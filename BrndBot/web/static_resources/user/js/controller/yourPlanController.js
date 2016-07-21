@@ -43,20 +43,20 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         };
 
         var user_selected_date = '';
-//        var picker = new Pikaday(
-//                {
-//                    field: document.getElementById('jumptodatepicker'),
-//                    firstDay: 1,
-//                    minDate: new Date('2000-01-01'),
-//                    maxDate: new Date('2050-12-31'),
-//                    yearRange: [2000, 2050],
-//                    onSelect: function () {
-//                        var mydate = this.getMoment();
-//                        var mydt = mydate.toLocaleString();
-//                        var myDate = new Date(mydt);
-//                        $scope.setCurrentDate(myDate);
-//                    }
-//                });
+        var picker = new Pikaday(
+                {
+                    field: document.getElementById('jumptodatepicker'),
+                    firstDay: 1,
+                    minDate: new Date('2000-01-01'),
+                    maxDate: new Date('2050-12-31'),
+                    yearRange: [2000, 2050],
+                    onSelect: function () {
+                        var mydate = this.getMoment();
+                        var mydt = mydate.toLocaleString();
+                        var myDate = new Date(mydt);
+                        $scope.setCurrentDate(myDate);
+                    }
+                });
 
         $scope.setCurrentDateActions = function () {
         };
@@ -98,8 +98,14 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 //}
 
 //});
-
-
+        $scope.hideSaveButton = function(){
+            alert("test");
+            $("#updateAction").hide();
+        };
+        $scope.showSaveButton = function(){
+            alert("test");
+            $("#updateAction").show();
+        };
 
         $scope.getCampaigns = function () {
             var curr_date = '';
