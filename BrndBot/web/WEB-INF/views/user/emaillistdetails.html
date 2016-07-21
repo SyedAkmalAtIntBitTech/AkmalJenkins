@@ -1,3 +1,4 @@
+
 <style>
     .black_overlay {
         display: block !important;
@@ -11,6 +12,7 @@
     <input type="hidden" id="get_type" value="{{type}}"/>   
     
     <!--Top Nav-->
+    <div class="top-nav">
     <div class="top-nav-wrap">
         <div class="header">
             <a class="back-button" href="basemarketinghub#/emaillist" ></a>
@@ -23,7 +25,7 @@
                     <div class=" md-button" ng-click="deleteSelected()"> Delete Contact</div>    
                 </a>
                 <a href="javascript:void(0)" class="fleft">
-                     <div id="addcontact"  class="add-button md-button" ng-click="addContactDetails('add','','','','')"> Add Contact</div>    
+                     <div id="addcontact" style="margin-top: 15px;" class="add-button md-button" ng-click="addContactDetails('add','','','','')"> Add Contact</div>    
                 </a>
             </div>
         </div>
@@ -40,6 +42,8 @@
 
         </ul>
     </div>
+    </div>
+    
     <div class="top-nav-bar-offset"></div>
     <div class="top-subnav-bar-offset"></div>
     
@@ -53,7 +57,7 @@
             <div class="hub-pane-content-wrap">
                 
                 <!--Empty List-->
-                <div class="hub-empty-wrap" ng-show="email.emailAddress == '' && type == 'user'"">No Contacts in List</div>
+                <div class="hub-empty-wrap" ng-show="email.emailAddress == '' && type == 'user'">No Contacts in List</div>
                 
                
                 <div class="hub-slat-list-wrap" >
@@ -116,12 +120,13 @@
                 </div>
             </div>
         </div>
-            
+        </div>
+    
     <!-- Import Contacts-->   
     <div id="tab4" class="col-md-10 col-md-offset-2" class="hide">
             <div id="emailsubjectdiv">
                 <p class="header1">Email List:</p>
-                <input type="text" class="hideinputborder" id="email_list_name" name="email_list_name" placeholder="Enter Here"/><br>
+                <input type="text" class="hideinputborder" id="email_list_name" name="email_list_name" placeholder="Enter Here"/><br><br>
                 <div class="col-md-7 col-md-offset-0">
                     <label style="padding-top: 20px;">Upload CSV</label><br><br>
                     <input type="file" class="fileUpload" id="fileUpload" name="fileUpload"><br>

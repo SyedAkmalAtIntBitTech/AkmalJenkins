@@ -9,7 +9,7 @@ and open the template in the editor.
         <title>SETTINGS</title>       
 <!--        <link rel="import" href="header.html">-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
         
 <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="css/base.css"/>
@@ -46,10 +46,10 @@ and open the template in the editor.
             </div>
                 <div class="top-sub-nav">
                     <ul class="sub-nav-tab-wrap no-back-button">
-                        <li class="sub-nav-tab active "><a href="#/useraccountsettings" >Account Settings</a></li>
-                        <li class="sub-nav-tab "><a href="#/userlogosettings" >Brand Setting</a></li>
-                        <li class="sub-nav-tab "><a href="#/userpalettesettings" >To be merged with Brand</a>
-                        </li>
+                        <li class="sub-nav-tab" ng-class="userAccountSetClass" ng-click="setTab('account')"><a href="#/useraccountsettings" >Account Settings</a></li>
+                        <li class="sub-nav-tab" ng-class="userLogoSetClass" ng-click="setTab('logo')"><a href="#/userlogosettings" >Brand Setting</a></li>
+<!--                        <li class="sub-nav-tab "><a href="#/userpalettesettings" >To be merged with Brand</a>
+                        </li>-->
                     </ul>
                 </div>
             </header>
