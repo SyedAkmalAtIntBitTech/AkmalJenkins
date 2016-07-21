@@ -928,11 +928,13 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.schedulePostToEmail = function (postData) {
+            $scope.postedTo=getemail();
             var email_scheduling = $scope.getScheduleData($scope.selectedMarketingProgrma, postData);
             if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
                 scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
                             $scope.schedulePopup = false;
-                            window.location = "dashboard";
+                            $scope.isPostSuccess=true;
+//                            window.location = "dashboard";
                 });
             }
         };
@@ -958,7 +960,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
                     if (data.d.operationStatus.statusCode === "Success") {
                         $scope.schedulePopup = false;
-                        window.location = "dashboard";
+                            $scope.isPostSuccess=true;
+//                        window.location = "dashboard";
                     }
                 });
 
@@ -997,7 +1000,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
                     if (data.d.operationStatus.statusCode === "Success") {
                         $scope.schedulePopup = false;
-                        window.location = "dashboard";
+                        $scope.isPostSuccess=true;
+//                        window.location = "dashboard";
                     }
                 });
                 if (JSON.stringify(data) !== "") {

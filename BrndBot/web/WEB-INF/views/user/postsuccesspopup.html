@@ -1,8 +1,8 @@
 
-    <div class="popUp_background-dark displayNone" id="fbSuccessPostPopup">
+    <div class="popUp_background-dark" id="fbSuccessPostPopup" ng-show="isPostSuccess">
         <div class="popUp popUp_CenterVert">
            <div class="popUp_header clear">
-                <div class="pane_title fleft h2 col1of2">Post Successful!</div>
+                <div  class="pane_title fleft h2 col1of2">Scheduled Successful!</div>
             </div>
              <div class="postSent-svg-wrap">
                  <a href="../../../images/postSent.svg"></a>
@@ -10,7 +10,7 @@
             </div>
             <div class="pane_content pane-padding pane-editing">
                 <div class="postSent-desc-wrap">
-                    <div class="h3 font--lightGray ">Your post has been successfully posted on Facebook. Would you like to post another content on Facebook? </div>
+                    <div class="h3 font--lightGray ">Your post has been successfully scheduled on {{postedTo}}. Would you like to schedule another content on {{postedTo}}? </div>
                 </div>
                 <div class="postSent-button-wrap">
                   
