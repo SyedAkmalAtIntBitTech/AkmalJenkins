@@ -721,7 +721,7 @@ select#dropdownurl,#url {
     display: block;
     position: fixed;
     z-index: 99999;
-    margin-left: 30%;
+    margin-left: 25%;
 }
 #emaildraftpopup{
     //display: none;
