@@ -493,14 +493,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.templateApproveButton = "Click to Approve";
             $scope.templateDisapproveButton = "Click to Pause";
             $scope.savedHeader = 'Post'; 
-
-//            var date = "";//$scope.entities_selected_time;
-            var time = $filter('date')(schedule_time, "hh:mm a");
+            $scope.actionDate = schedule_date;
+            var time = $filter('date')(schedule_time, "hh : mm : a");
             $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: schedule_date,
                 schedule_id: schedule_id, schedule_desc: schedule_desc,
                 email_template_status: template_status, schedule_type: entity_type,
                 marketing_program_name: marketingName, user_marketing_program_id: $scope.programId,
                 days: days, schedule_time: time};
+            alert(JSON.stringify(scheduleData));
             if (entity_type === getemail()) {
                 $scope.scheduledTo = 'SEND';
                 $scope.savedHeader = getemail();
@@ -736,7 +736,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
             var actiondate = "1970/01/01";
             var emaildate = $("#emaildatetime").val();
-
             var currDate = moment(emaildate).format('YYYY-MM-DD');
             var nDate = $scope.programDate;
             var dateArray=nDate.split('-');
@@ -747,14 +746,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var start = moment(programEndDate);
             var end = moment(currDate);
             var days = start.diff(end, "days");
-//            var days = scheduleUpdatedData.days;//$("#emaildays").val();
-//            var actionDateTime = scheduleUpdatedData.schedule_time;//$("#timepickeremail").val().replace(/ /g,'');
             var actionDateTime = $("#timepickertextbox").val().replace(/ /g,'');
             var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
             var schedule_time = Date.parse(l);
             var myEpoch = schedule_time;
             var description = "";
-            alert(myEpoch);
 //        if (!validateemailaction()) {
             var action = {
                 "schedule_id": schedule_id.toString(), "type": "update",
@@ -762,7 +758,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 "description": description, "action_date": myEpoch, "days": days.toString()
             };
             yourPlanFactory.addActionPost(action).then(function (data) {
-                alert(actionsaved);
+                alert("Action saved succesfully");
 //                $scope.getCampaigns();
             });
 //        }
