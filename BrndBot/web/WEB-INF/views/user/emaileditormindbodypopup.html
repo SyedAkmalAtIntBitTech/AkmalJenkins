@@ -47,14 +47,14 @@
             </div>
         </div>
     </div>-->
-   <div class="modal-pane modal-pane-width-full ">
+   <div class="modal-pane modal-pane-width-full mbPopup ">
             <div class="modal-pane-header-wrap">
                 <h2>Email Template Category</h2>
                  <input type="text" placeholder="Search" ng-model="userSearch">
                  <a class="modal-pane-header-exit" ng-click="closeMindbodyPopup()"></a>
 <!--             <a ng-repeat="mindbody in mindbodylist" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=subCategoryId%>&mindbodyId={{mindbody.id}}&LookupId=<%=LookupId%>">-->
             </div>
-            <div class="modal-pane-content-wrap sequence-page">
+            <div class="mb-modal-pane-content-wrap mbPopup">
                 <a ng-repeat="mindbody in mindbodyDataList.mindbody_data | filter:userSearch" ng-click="didSelectMindbodyDataId(mindbody.id)" class="slat external-data">
                     <div class="slat-name-wrap">
                         <h2>{{mindbody.column1}}</h2>
