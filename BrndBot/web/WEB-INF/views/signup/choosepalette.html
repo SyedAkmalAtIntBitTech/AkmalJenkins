@@ -31,9 +31,9 @@
                 </div>
                 <div class="color-palette-col">
                     <div class="color-selection-menu">
-                        <div class="color-selection-option"  id="themeColors" ng-click="getAllThemes()">Color Themes</div>
-                        <div class="color-selection-option selected" id="customColors" ng-click="getColorFromPicker()">Color Picker</div>
-                        <div class="color-selection-option" id="logoColorsDiv" ng-click="getColorsFromLogo()">Logo Colors</div>
+                        <div class="color-selection-option" ng-class="activeColorTheme"  id="themeColors" ng-click="getAllThemes()">Color Themes</div>
+                        <div class="color-selection-option selected" ng-class="activeColorPicker"  id="customColors" ng-click="getColorFromPicker()">Color Picker</div>
+                        <div class="color-selection-option" ng-class="activeColorLogo"  id="logoColorsDiv" ng-click="getColorsFromLogo()">Logo Colors</div>
                     </div> 
 <!--                    <div class="color-selection-menu">
                         <div class="color-selection-option"  id="themeColors" ng-class="activeColorTheme" ng-click="getAllThemes()">Color Themes</div>

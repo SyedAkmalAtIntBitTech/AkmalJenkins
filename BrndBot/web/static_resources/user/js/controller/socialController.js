@@ -26,12 +26,12 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.postType = 'Change To Link Post';
         $scope.existingAction = false;
         $scope.managepage = "";
-        var schedule_desc = "";
+        var schedule_desc = "";        
         $scope.getManagePage = function () {
             var fbData = JSON.stringify({access_token_method: "getAccessToken"});
             settingsFactory.facebookPost(fbData).then(function (fbResponseData) {
-                var fbAccessToken = fbResponseData.d.message;
-                if ((fbAccessToken === null) || (fbAccessToken === ""))
+                var fbAccessToken = fbResponseData.d.message.split(",");
+                if (fbAccessToken[0])
                 {
                     var data = JSON.stringify({redirectUrl: "user/socialsequence"});
                     settingsFactory.fbLoginPost(data).then(function (data) {
@@ -145,6 +145,8 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             var code = $scope.getUrlParameter("code");
             if (typeof code !== "undefined") {
                 settingsFactory.fbGetTokenGet(code).then(function (data) {
+                    $scope.setDefaultManagePage=true;
+                    $scope.managepagesettings = true;
                     $scope.managepage = true;
                     $scope.fbPagesDetails = data.d.details[0].fbPages;
                     $scope.fbProfileName = data.d.details[0].user_profile_name;
@@ -277,7 +279,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.scheduleTwitter = function (action) {
         };
 
-        $scope.hideFbPopup1 = function (s) {
+        $scope.hideFbPopup = function () {
 //                $("#fbmanagePagePopUp").show();
             $scope.managepage = false;
         };
