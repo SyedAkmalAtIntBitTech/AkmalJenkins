@@ -6,29 +6,16 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.endDate = "";
         $scope.programId = "";
         $scope.randomIframeFilename = event.timeStamp;
-
-        $scope.ddSelectActionOptions = [
-            {
-                text: 'Select'
-            }, {
-                text: 'Facebook Post'
-            }, {
-                text: 'Twitter Post'
-            }, {
-                text: 'Email'
-            }
-        ];
+        $scope.programDate = "";
+        $scope.randomIframeFilename = event.timeStamp;
+        $scope.showCampaignDetails = false;
+        $scope.showCampaignActions = true;
 
         $scope.ddSelectAction = {
             text: "Select"
         };
 
-        $scope.programDate = "";
-        $scope.randomIframeFilename=event.timeStamp;
-        $scope.showCampaignDetails=false;
-        $scope.showCampaignActions=true;   
-        
-         $scope.ddSelectActionOptions = [
+        $scope.ddSelectActionOptions = [
             {
                 text: 'Select',
                 value: '0'
@@ -43,26 +30,26 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 value: 'Email'
             }
         ];
-        
-        $scope.displayCampaignDetails = function (){
-            $scope.campaignDetailsClass='activeCampaign';
-            $scope.campaignActionsClass='';
-            $scope.showCampaignDetails=true;
-            $scope.showCampaignActions=false;            
+
+        $scope.displayCampaignDetails = function () {
+            $scope.campaignDetailsClass = 'activeCampaign';
+            $scope.campaignActionsClass = '';
+            $scope.showCampaignDetails = true;
+            $scope.showCampaignActions = false;
         };
-        
-        $scope.displayCampaignActions = function (){
-            $scope.campaignActionsClass='activeCampaign';
-            $scope.campaignDetailsClass='';
-            $scope.showCampaignActions=true; 
-            $scope.showCampaignDetails=false;           
+
+        $scope.displayCampaignActions = function () {
+            $scope.campaignActionsClass = 'activeCampaign';
+            $scope.campaignDetailsClass = '';
+            $scope.showCampaignActions = true;
+            $scope.showCampaignDetails = false;
         };
-        
+
         $scope.ddSelectAction = {
             text: "Select"
         };
-        
-        $scope.backToPreviousPage = function (previousPage){  
+
+        $scope.backToPreviousPage = function (previousPage) {
             $location.path("/" + previousPage);
         };
 
@@ -71,8 +58,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 key: FroalaLicenseKey
             });
         };
-        $scope.rediectToCreateCampaign = function (pageName){
-            $location.path("/" +pageName);
+        $scope.rediectToCreateCampaign = function (pageName) {
+            $location.path("/" + pageName);
         };
         $scope.redirect = function (pageName, marketingCategoryId)
         {
@@ -88,7 +75,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
         $scope.redirectToActions = function (pageName, programId, past, endData)
         {
-            $scope.isProgramArchived=false;
+            $scope.isProgramArchived = false;
             $scope.past = past;
             $scope.endDate = endData;
             $scope.programId = programId;
@@ -115,10 +102,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.displayMarketingProgramByCategoryId = function (forward) {
-            if($scope.marketingCategoryId===''){ 
-                    $location.path("/" + "createmarketingprogram"); 
-                }
-            else{
+            if ($scope.marketingCategoryId === '') {
+                $location.path("/" + "createmarketingprogram");
+            }
+            else {
                 marketingFactory.marketingProgramsGet($scope.marketingCategoryId).then(function (data) {
                     $scope.pageName = "marketingPrograms";
                     $scope.forward = forward;
@@ -129,19 +116,19 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.saveMarketingProgram = function (programName, programUrl, programUrlName, programDateTime) {
-            if((programUrl === undefined)||(programUrlName === undefined)){
-                programUrl="";
-                programUrlName="";
+            if ((programUrl === undefined) || (programUrlName === undefined)) {
+                programUrl = "";
+                programUrlName = "";
             }
-            var programDate=new Date(programDateTime);
+            var programDate = new Date(programDateTime);
             var data = {"program_name": programName,
-                        "program_date_time": programDate,
-                        "program_url": programUrl,
-                        "program_url_name": programUrlName,
-                        "marketing_category_id": $scope.marketingCategoryId.toString(),
-                        "marketing_program_id": $scope.marketingProgramId.toString()
+                "program_date_time": programDate,
+                "program_url": programUrl,
+                "program_url_name": programUrlName,
+                "marketing_category_id": $scope.marketingCategoryId.toString(),
+                "marketing_program_id": $scope.marketingProgramId.toString()
             };
-           companyMarketingProgramFactory.setMarketingProgramPost(data).then(function (data) {
+            companyMarketingProgramFactory.setMarketingProgramPost(data).then(function (data) {
                 $scope.redirectToActions("marketingprogramactions", data, 0, "");
             });
         };
@@ -164,38 +151,38 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.showPastPrograms = function () {
             $scope.currProgramsDiv = false;
             $scope.pastProgramsDiv = true;
-            $scope.currentCampaignClass='';            
-            $scope.archivedCampaignClass='activeCampaign';
+            $scope.currentCampaignClass = '';
+            $scope.archivedCampaignClass = 'activeCampaign';
         };
         $scope.showCurrentPrograms = function () {
-            $scope.currentCampaignClass='activeCampaign';            
-            $scope.archivedCampaignClass='';
+            $scope.currentCampaignClass = 'activeCampaign';
+            $scope.archivedCampaignClass = '';
             $scope.currProgramsDiv = true;
             $scope.pastProgramsDiv = false;
         };
-        $scope.hideSaveButton = function(){
+        $scope.hideSaveButton = function () {
             $("#updateAction").hide();
         };
-        $scope.showSaveButton = function(){
+        $scope.showSaveButton = function () {
             $("#updateAction").show();
         };
         $scope.getProgramActions = function (forward)
         {
-            if($scope.programId===''){ 
-                    $location.path("/" + "marketingprogramlists"); 
-                }
-            else{
+            if ($scope.programId === '') {
+                $location.path("/" + "marketingprogramlists");
+            }
+            else {
                 companyMarketingProgramFactory.alluserMarketingProgramGet($scope.programId).then(function (data) {
                     $scope.displayCampaignActions();
                     $scope.programs = data;
                     console.log(JSON.stringify(data));
                     var dateEpoch = data.programdetails.dateOfEvent;
                     $scope.programDate = moment(dateEpoch).format('DD-MM-YYYY');
-                   
+
                     $scope.template_status = data.emailautomation;
                     $scope.actionType = "Email";
                     $scope.forward = forward;
-                    $scope.hideUntilLoad=true;
+                    $scope.hideUntilLoad = true;
                 });
             }
         };
@@ -211,72 +198,72 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.fadeClass = '';
             $scope.addAction = false;
         };
-        $scope.formatDate = function (programDate){
-            var dateArray=programDate.split('-');
+        $scope.formatDate = function (programDate) {
+            var dateArray = programDate.split('-');
             var month = dateArray[1];
-            var day=dateArray[0];
-            var year=dateArray[2];
-            var programEndDate=year+"-"+month+"-"+day;
+            var day = dateArray[0];
+            var year = dateArray[2];
+            var programEndDate = year + "-" + month + "-" + day;
 //            var newDate = moment(programEndDate).format('YYYY-MM-DD');
             return programEndDate;
         }
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
         {
-            if (addTitle == undefined){
+            if (addTitle == undefined) {
                 alert("Title not entered, enter the title");
                 $("#addactiontitle").focus();
                 return false;
             }
-            if(actionType.text == "Select"){
+            if (actionType.text == "Select") {
                 alert("No action type selected, select a action type");
                 return false;
             }
-            if(datePicker == undefined){
+            if (datePicker == undefined) {
                 alert("Date not selected, select the date");
                 return false;
-            }else {
-                var actionTime1=$("#timepicker1").val().replace(/ /g,'');
-                var actionDateTime1=datePicker.toLocaleString() +" "+actionTime1.toLocaleString();
+            } else {
+                var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
+                var actionDateTime1 = datePicker.toLocaleString() + " " + actionTime1.toLocaleString();
                 var endDate = $scope.formatDate($scope.programDate);
                 var end = new Date(endDate);
                 var fromDate = new Date(actionDateTime1);
                 var todayDate = new Date();
-                    if (fromDate < todayDate){
-                        alert("The selected date is lesser than todays date, please change the date");
-                        return false;
-                    }else if (fromDate > end){
-                        alert("The selected date is greater than program date, please change the date");
-                        return false;
-                    }
+                if (fromDate < todayDate) {
+                    alert("The selected date is lesser than todays date, please change the date");
+                    return false;
+                } else if (fromDate > end) {
+                    alert("The selected date is greater than program date, please change the date");
+                    return false;
+                }
             }
-            
+
             var actiondate = datePicker;
-            
+
             var currDate = moment(actiondate).format('YYYY-MM-DD');
             var nDate = $scope.programDate;
-            var dateArray=nDate.split('-');
+            var dateArray = nDate.split('-');
             var month = dateArray[1];
-            var day=dateArray[0];
-            var year=dateArray[2];
-            var programEndDate=year+"-"+month+"-"+day;
+            var day = dateArray[0];
+            var year = dateArray[2];
+            var programEndDate = year + "-" + month + "-" + day;
             var start = moment(programEndDate);
             var end = moment(currDate);
             var days = start.diff(end, "days");
             var actiond = "1970/01/01";
-            var actionDateTime=$("#timepicker1").val().replace(/ /g,'');
-            var l=actiond.toLocaleString() +" "+actionDateTime.toLocaleString();
+            var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
+            var l = actiond.toLocaleString() + " " + actionDateTime.toLocaleString();
             var myDate = new Date(l); // Your timezone!        
             var schedule_time = Date.parse(l);
-            console.log("Epoch: " + schedule_time);        
-            var myEpoch = schedule_time;        
+            console.log("Epoch: " + schedule_time);
+            var myEpoch = schedule_time;
             console.log("New Epoch: " + myEpoch);
-            
-            var action = {"title": addTitle, "actiontype": actionType.value, 
-                "type": "save", "description": "", "marketingType": $scope.programId, 
+
+            var action = {"title": addTitle, "actiontype": actionType.value,
+                "type": "save", "description": "", "marketingType": $scope.programId,
                 "action_date": myEpoch, "days": days};
             companyMarketingProgramFactory.addActionPost(action).then(function (data) {
                 $scope.closeOverlay();
-                $scope.getProgramActions('emailautomation');                
+                $scope.getProgramActions('emailautomation');
                 alert("Action created succesfully");
             });
         };
@@ -293,6 +280,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.reminderSectionClass = '';
             $scope.emailsectionClass = '';
             $scope.fadeClass = '';
+            $scope.hideSaveButton();
 //            $location.path("/marketingprogramactions");
         };
         $scope.setTab = function (tabName) {
@@ -356,9 +344,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 schedule_id: schedule_id, entities_list_name: "",
                 email_template_status: template_status, schedule_type: "Recurring Email",
                 marketing_program_name: "", user_marketing_program_id: $scope.programId,
-                days: days, entities_selected_time: $filter('date')(schedule_time, "HH:mm a"), entities_subject: "",
+                days: days, entities_selected_time: $filter('date')(schedule_time, "HH : mm : a"), entities_subject: "",
                 entities_from_name: "", entities_reply_to_email_address: ""};
-
             yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
                 $scope.recurringEntitiesDetails = JSON.parse(data.d.details);
 
@@ -402,9 +389,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 schedule_id: schedule_id, entities_list_name: "",
                 email_template_status: template_status, schedule_type: "Recurring Email",
                 marketing_program_name: "", user_marketing_program_id: $scope.programId,
-                days: days, entities_selected_time: $filter('date')(schedule_time, "HH:mm a"), entities_subject: "",
+                days: days, entities_selected_time: $filter('date')(schedule_time, "HH : mm : a"), entities_subject: "",
                 entities_from_name: "", entities_reply_to_email_address: ""};
-
             yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
                 $scope.recurringEntitiesDetails = JSON.parse(data.d.details);
 
@@ -425,7 +411,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 }
             });
         };
-    
+
 //    $scope.getRecurringScheduleDetails = function (schedule_id, template_status, till_date, schedule_time, entity_type, schedule_title, schedule_desc, date_status,days)
 //    {
 //        $scope.isRecurring = true;
@@ -473,8 +459,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //            }
 //        });
 //    };
-    $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, action_status, days, marketingName)
-    {
+        $scope.getScheduleDetails = function (schedule_id, template_status, schedule_date, entity_type, schedule_title, schedule_desc, schedule_time, action_status, days, marketingName)
+        {
             $scope.isRecurring = false;
             $scope.savedEmail = false;
             $scope.schedule_id = schedule_id;
@@ -492,15 +478,16 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.savedDetailsAddTemplateLink = "dashboard";
             $scope.templateApproveButton = "Click to Approve";
             $scope.templateDisapproveButton = "Click to Pause";
-            $scope.savedHeader = 'Post'; 
-
-//            var date = "";//$scope.entities_selected_time;
-            var time = $filter('date')(schedule_time, "hh:mm a");
+            $scope.savedHeader = 'Post';
+            $scope.actionDate = schedule_date;
+            var time = $filter('date')(schedule_time, "hh : mm : a");
+            $("#emaildatetime").val($filter('date')(schedule_date, "MMM dd yyyy"));
             $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: schedule_date,
                 schedule_id: schedule_id, schedule_desc: schedule_desc,
                 email_template_status: template_status, schedule_type: entity_type,
                 marketing_program_name: marketingName, user_marketing_program_id: $scope.programId,
                 days: days, schedule_time: time};
+//            alert(JSON.stringify($scope.scheduleData));
             if (entity_type === getemail()) {
                 $scope.scheduledTo = 'SEND';
                 $scope.savedHeader = getemail();
@@ -530,7 +517,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         if (!$scope.twitterprofileName)
                             $scope.twitterprofileName = "--";
                         yourPlanFactory.scheduledSocialPost($scope.scheduleData.schedule_id).then(function (data) {
-                            
+
                             var iframe = document.getElementById('iframeForAction');
                             if (data.d.details != "{}") {
                                 $scope.entitiesdetails = JSON.parse(data.d.details);
@@ -556,30 +543,54 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.updateAction = function (scheduleUpdatedData) {
 
+
             var actiontype = scheduleUpdatedData.schedule_type;//$("#email_schedule_type").val();
             var schedule_id = scheduleUpdatedData.schedule_id;//$("#email_scheduleid").val();
             var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
+            
+            var actiondate = $("#emaildatetime").val();
+                
+                if (title == undefined){
+                    alert("Title not entered, enter the title");
+                    $("#addactiontitle").focus();
+                    return false;
+                }
+                if(actiondate == undefined){
+                    alert("Date not selected, select the date");
+                    return false;
+                }else {
+                    var actionTime1=$("#timepicker1").val().replace(/ /g,'');
+                    var actionDateTime1=actiondate.toLocaleString() +" "+actionTime1.toLocaleString();
+                    var fromDate = new Date(actionDateTime1);
+                    var todayDate = new Date();
+                    var endDate = $scope.formatDate($scope.programDate);
+                    var endDay = new Date(endDate);
+                        if (fromDate < todayDate){
+                            alert("The selected date is lesser than todays date, please change the date");
+                            return false;
+                        }else if (fromDate > endDay) {
+                            alert("The selected date is greater than program date, please change the date");
+                            return false;
+                        }
+                }        
+            
             var actiondate = "1970/01/01";
             var emaildate = $("#emaildatetime").val();
-
             var currDate = moment(emaildate).format('YYYY-MM-DD');
             var nDate = $scope.programDate;
-            var dateArray=nDate.split('-');
+            var dateArray = nDate.split('-');
             var month = dateArray[1];
-            var day=dateArray[0];
-            var year=dateArray[2];
-            var programEndDate=year+"-"+month+"-"+day;
+            var day = dateArray[0];
+            var year = dateArray[2];
+            var programEndDate = year + "-" + month + "-" + day;
             var start = moment(programEndDate);
             var end = moment(currDate);
             var days = start.diff(end, "days");
-//            var days = scheduleUpdatedData.days;//$("#emaildays").val();
-//            var actionDateTime = scheduleUpdatedData.schedule_time;//$("#timepickeremail").val().replace(/ /g,'');
-            var actionDateTime = $("#timepickertextbox").val().replace(/ /g,'');
-            var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
+            var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
             var schedule_time = Date.parse(l);
             var myEpoch = schedule_time;
             var description = "";
-            alert(myEpoch);
 //        if (!validateemailaction()) {
             var action = {
                 "schedule_id": schedule_id.toString(), "type": "update",
@@ -587,7 +598,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 "description": description, "action_date": myEpoch, "days": days.toString()
             };
             yourPlanFactory.addActionPost(action).then(function (data) {
-                alert(actionsaved);
+                alert("Action saved succesfully");
+                $scope.closePopup();                
 //                $scope.getCampaigns();
             });
 //        }
@@ -636,10 +648,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     "isRecurring": isRecurring};
                 responseMessage = multideletesuccess;
             }
-                yourPlanFactory.changeSchedulePost(requestBody).then(function (data) {
-                    $scope.closePopup();
-                    $scope.getProgramActions('emailautomation');          
-                });
+            yourPlanFactory.changeSchedulePost(requestBody).then(function (data) {
+                $scope.closePopup();
+                $scope.getProgramActions('emailautomation');
+            });
         };
 
 
@@ -843,18 +855,17 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             });
         };
 
-        $scope.ddSelectEmailListAutomationDataOptions = [
-            {
-                text: "Manual",
-                value: "1"
-            }
-        ];
-
         $scope.ddSelectEmailListAutomationData = {
             text: "Manual"
         };
 
         $scope.showEmailList = function () {
+            $scope.ddSelectEmailListAutomationDataOptions = [
+                {
+                    text: "Manual",
+                    value: "1"
+                }
+            ];
             emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
                 var parseData = JSON.parse(data.d.details);
                 $scope.emailLists_user = parseData.allEmailListWithNoOfContacts.user;
@@ -1229,24 +1240,77 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 //                }
         };
-    
-    $scope.disableArchive = function (){
-        $scope.isProgramArchived=true;
-    };
-    
-    $scope.endMarketingProgram = function(){
-       var delconf=confirm("Do you really want to End this Program?");
-       if(delconf===true){
-        var programData = {"program_id": $scope.programId};      
-        companyMarketingProgramFactory.endMarketingProgramPost(programData).then(function (data){
-            if(data){
-           $location.path("/marketingprogramlists");
-            }else{
-               alert(genericError);
+
+        $scope.disableArchive = function () {
+            $scope.isProgramArchived = true;
+        };
+
+        $scope.endMarketingProgram = function () {
+            var delconf = confirm("Do you really want to End this Program?");
+            if (delconf === true) {
+                var programData = {"program_id": $scope.programId};
+                companyMarketingProgramFactory.endMarketingProgramPost(programData).then(function (data) {
+                    if (data) {
+                        $location.path("/marketingprogramlists");
+                    } else {
+                        alert(genericError);
+                    }
+                });
             }
-        });
-       }
    };
+   
+   $scope.updateUserProgram = function(programs){
+//       var program=$("#program_id").val();
+        
+//        var program = program_id;
+
+//        alert($scope.programId.toString());
+        
+//        program_id = $scope.programId.toString();
+       
+        if ($scope.validate_program_link_details()){ 
+        var program = $scope.programId.toString();
+        var program_name = programs.programdetails.programName;
+        var event_date = $("#progactdatepicker").val();
+        var event_date_epoch = Date.parse(event_date);
+        var link_url = programs.programdetails.linktodestination;
+        var link_name = programs.programdetails.link_name;    
+            
+                
+        var program_details = {"program_id": program, "date_of_event": event_date,
+                          "link_url": link_url, "link_name": link_name, "program_name":program_name};
+                      
+        companyMarketingProgramFactory.updateUserProgramPost(program_details).then(function (data){
+            alert(programdetailssaved);
+        });               
+      }     
+   };
+   
+   $scope.validate_program_link_details = function(){
+      var myRegExp =/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;  
+      var event_date = $("#progactdatepicker").val();
+      var link_url = $("#link_url").val();
+      var link_name = $("#link_name").val();
+      
+      if (event_date == ""){
+          alert(dateerror);
+          $("#progactdatepicker").focus();
+          return false;
+      }
+      if (link_name == ""){
+          alert(linknameerror);
+          $("#link_name").focus();
+          return false;
+      }
+      if((link_url == "") || (!myRegExp.test(link_url))){
+          alert(linkurlerror);
+          $("#link_url").focus();
+          $("#link_url").val('http://');
+          return false;
+      }
+      return true;
+    };
+   
     }]);
 
        
