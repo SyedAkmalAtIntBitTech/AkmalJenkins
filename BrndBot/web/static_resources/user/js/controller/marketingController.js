@@ -280,6 +280,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.reminderSectionClass = '';
             $scope.emailsectionClass = '';
             $scope.fadeClass = '';
+            $scope.hideSaveButton();
 //            $location.path("/marketingprogramactions");
         };
         $scope.setTab = function (tabName) {
@@ -542,9 +543,37 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.updateAction = function (scheduleUpdatedData) {
 
+
             var actiontype = scheduleUpdatedData.schedule_type;//$("#email_schedule_type").val();
             var schedule_id = scheduleUpdatedData.schedule_id;//$("#email_scheduleid").val();
             var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
+            
+            var actiondate = $("#emaildatetime").val();
+                
+                if (title == undefined){
+                    alert("Title not entered, enter the title");
+                    $("#addactiontitle").focus();
+                    return false;
+                }
+                if(actiondate == undefined){
+                    alert("Date not selected, select the date");
+                    return false;
+                }else {
+                    var actionTime1=$("#timepicker1").val().replace(/ /g,'');
+                    var actionDateTime1=actiondate.toLocaleString() +" "+actionTime1.toLocaleString();
+                    var fromDate = new Date(actionDateTime1);
+                    var todayDate = new Date();
+                    var endDate = $scope.formatDate($scope.programDate);
+                    var endDay = new Date(endDate);
+                        if (fromDate < todayDate){
+                            alert("The selected date is lesser than todays date, please change the date");
+                            return false;
+                        }else if (fromDate > endDay) {
+                            alert("The selected date is greater than program date, please change the date");
+                            return false;
+                        }
+                }        
+            
             var actiondate = "1970/01/01";
             var emaildate = $("#emaildatetime").val();
             var currDate = moment(emaildate).format('YYYY-MM-DD');
