@@ -18,7 +18,15 @@
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div>Saved Post Details</div>
-                        <a class="overlay-details-pane-header-cta"> Remove Saved Post</a>
+                        <a class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Post</a>
+                    </div>
+                    <div ng-show="clickedRemoveAction" class="delete-action-pop-up ease-all">
+                        <strong>Are you sure you want to remove this post?</strong>
+                        <p>All data will be erased and you will lose any saved emails and posts</p>
+                        <div class="cta-wrapper">
+                            <a ng-click="clickedRemoveAction = false" href="" class="cancel-button">Cancel</a>
+                            <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader,'')" href="" class="delete-button">Remove</a>
+                        </div>
                     </div>
                     <div class="detail-sections-wrap">
                         <div class="detail-section">
@@ -47,7 +55,15 @@
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div>Saved Post Details</div>
-                        <a class="overlay-details-pane-header-cta"> Remove Saved Post</a>
+                        <a class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Post</a>
+                    </div>
+                    <div ng-show="clickedRemoveAction" class="delete-action-pop-up ease-all">
+                        <strong>Are you sure you want to remove this post?</strong>
+                        <p>All data will be erased and you will lose any saved emails and posts</p>
+                        <div class="cta-wrapper">
+                            <a ng-click="clickedRemoveAction = false" href="" class="cancel-button">Cancel</a>
+                            <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader,'')" href="" class="delete-button">Remove</a>
+                        </div>
                     </div>
                     <div class="detail-sections-wrap">
                         <div class="detail-section">
@@ -94,7 +110,15 @@
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div >Saved Email Details</div>
-                        <a class="overlay-details-pane-header-cta"> Remove Saved Email</a>
+                        <a class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Email</a>
+                    </div>
+                    <div ng-show="clickedRemoveAction" class="delete-action-pop-up ease-all">
+                        <strong>Are you sure you want to remove this saved email?</strong>
+                        <p>All data will be erased and you will lose any saved emails and posts</p>
+                        <div class="cta-wrapper">
+                            <a ng-click="clickedRemoveAction = false" href="" class="cancel-button">Cancel</a>
+                            <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader,'')" href="" class="delete-button">Remove</a>
+                        </div>
                     </div>
                     <div class="detail-sections-wrap">
                         <div class="detail-section">  
