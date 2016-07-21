@@ -486,7 +486,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 email_template_status: template_status, schedule_type: entity_type,
                 marketing_program_name: marketingName, user_marketing_program_id: $scope.programId,
                 days: days, schedule_time: time};
-            alert(JSON.stringify(scheduleData));
+//            alert(JSON.stringify($scope.scheduleData));
             if (entity_type === getemail()) {
                 $scope.scheduledTo = 'SEND';
                 $scope.savedHeader = getemail();
