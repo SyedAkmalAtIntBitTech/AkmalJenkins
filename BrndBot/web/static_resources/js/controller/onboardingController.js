@@ -155,18 +155,30 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
                 }
             });
         };
-        $scope.isMindbodyActivated = function(){
-            onboardingFactory.isMindbodyActivated().then(function (data){
-            var activation=JSON.stringify(data.d.details[0]); 
-            globalActivation=activation;
-                if(globalActivation=="false")
-                {
-                    alert("Mindbody not activated, kindly activate mindbody");
+        $scope.isMindbodyActivated = function(selectServices,studioId){
+            var services = selectServices;
+            if (services.text == 'None'){
+                $scope.saveServices();
+            }else if(services.text == 'Mindbody'){
+             var studio = $("#mindbodyStudioId").val();
+                if (studio == ""){
+                    alert("no studio id entered, kindly enter the studio id");
+                    $("#mindbodyStudioId").focus();
                     return false;
-                }else{
-                    $scope.saveServices();
+                }else {
+                    onboardingFactory.isMindbodyActivated().then(function (data){
+                    var activation=JSON.stringify(data.d.details[0]); 
+                    globalActivation=activation;
+                        if(globalActivation=="false")
+                        {
+                            alert("Mindbody not activated, kindly activate mindbody");
+                            return false;
+                        }else{
+                            $scope.saveServices();
+                        }
+                    });
                 }
-            });
+            }
         };
         $scope.saveServices = function () {
             onboardingFactory.completedActivationGet().then(function (data) {
