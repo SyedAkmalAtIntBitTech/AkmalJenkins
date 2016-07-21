@@ -12,23 +12,23 @@
                     </div>
                 </div>
                 <div class="cat-list" ng-show="pageName === 'marketing'"  ng-repeat="marketingCategory in marketingCategories">
-                    <div class="cat-slat">
-                        <div class="cat-slat-title" ng-click="redirect(forward, marketingCategory.marketingCategoryId, 'nonmindbody', '')">{{marketingCategory.marketingCategoryName}} </div>
+                    <div class="cat-slat" ng-click="redirect(forward, marketingCategory.marketingCategoryId, 'nonmindbody', '')">
+                        <div class="cat-slat-title" >{{marketingCategory.marketingCategoryName}} </div>
                     </div>  
                 </div>
                 <div class="cat-list"  ng-show="pageName === 'emailcategory'" ng-repeat="category in displayAllCategories">
-                    <div class="cat-slat">                   
-                        <div class="cat-slat-title" ng-click="redirect(forwardone, category.categoryId, '' ,'nonmindbody', '')">{{category.categoryName}}</div>                    
+                    <div class="cat-slat" ng-click="redirect(forwardone, category.categoryId, '' ,'nonmindbody', '')">                   
+                        <div class="cat-slat-title" >{{category.categoryName}}</div>                    
                     </div>
                 </div>
                 <div class="cat-list"  ng-show="pageName === 'emailsubcategory'" ng-repeat="subcategory in displayAllCategories">
-                    <div class="cat-slat">                   
-                        <div class="cat-slat-title" ng-click="redirect(forwardone, '', subcategory.subCategoryId, subcategory.externalSourceName, subcategory.externalSourceKeywordLookupId)">{{subcategory.subCategoryName}}</div>                    
+                    <div class="cat-slat" ng-click="redirect(forwardone, '', subcategory.subCategoryId, subcategory.externalSourceName, subcategory.externalSourceKeywordLookupId)">                   
+                        <div class="cat-slat-title" >{{subcategory.subCategoryName}}</div>                    
                     </div>
                 </div>
                 <div class="cat-list"  ng-show="pageName === 'marketingPrograms'" ng-repeat="displayAllMarketingProgram in displayAllMarketingPrograms">
-                    <div  class="cat-slat">
-                        <div ng-click="redirectProgram(forward, marketingCategoryId, displayAllMarketingProgram.marketingProgramId, displayAllMarketingProgram.htmlData)" id="{{displayAllMarketingProgram.marketingProgramId}}" class="cat-slat-titles">{{displayAllMarketingProgram.marketingProgramName}}</div>
+                    <div  class="cat-slat" ng-click="redirectProgram(forward, marketingCategoryId, displayAllMarketingProgram.marketingProgramId, displayAllMarketingProgram.htmlData)" id="{{displayAllMarketingProgram.marketingProgramId}}">
+                        <div  class="cat-slat-titles">{{displayAllMarketingProgram.marketingProgramName}}</div>
                     </div>
                 </div> 
             </div>

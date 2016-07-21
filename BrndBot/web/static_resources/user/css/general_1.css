@@ -961,12 +961,12 @@ li.sub-nav-tab.active a{
     background-image: url(/BrndBot/user/images/templatestatus-01-reverse.svg)
 }
 
-.overlay-header-cta-wrap .template-not-approved  i:before{
+.overlay-header-cta-wrap .template-not-approved  i{
     background-image: url(/BrndBot/user/images/templatestatus-02.svg)
 }
 
 
-.overlay-header-cta-wrap .template-approved i:before{
+.overlay-header-cta-wrap .template-approved i{
     background-image: url(/BrndBot/user/images/templatestatus-01%202.svg)
 }
 
@@ -1271,7 +1271,10 @@ li.sub-nav-tab.active a{
     line-height: 60px;
 }
 
-.overlay-email-preview{}
+.overlay-email-preview{
+    display: block;
+    height: auto;
+}
 
 
 
@@ -1655,11 +1658,10 @@ li.sub-nav-tab.active a{
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #3D5368 !important;
+    background-color:rgba(61,83,104,.7) !important;
     z-index:99999 !important;
     -moz-opacity: 0.9;
-    opacity:.9 !important;
-    filter: alpha(opacity=80);
+
 }
 
 .fadeClass{
@@ -2167,7 +2169,7 @@ p.modal-content-header{
     width:100%;
     height:30px;
     font-size:14px;
-
+    cursor: pointer;
 }
 
 .dd-dropdown{
@@ -2764,11 +2766,19 @@ p.modal-content-header{
 .email-preview-bar{
     border-top: 1px solid lightgray;
      border-bottom: 1px solid lightgray;
-    background-color: #fafafa;
+    background-color: #FFFFFF;
     font-size: 14px;
     font-variant-caps: small-caps;
     margin-top: 30px;
-    padding: 5px 60px;
+    padding: 15px 60px;
+    display: flex;
+}
+
+.email-preview-bar-title{
+    color: #9D9D9D;
+    font-size: 12px;
+    font-weight: 500;
+    font-variant: small-caps;
 }
 
 
@@ -2777,16 +2787,24 @@ p.modal-content-header{
     font-size: 14px;
     font-weight: 500;
     display:block;
+    font-variant: small-caps;
 }
 
 .detail-section-data{
     font-size: 14px;
-    color:#333;
-    margin-top: 10px;
+    color:#444;
+    margin-top: 8px;
     
     
 }
 
+.overlay-detail-facebook-url-wrap{
+    margin-top:20px;
+}
+
+.overlay-detail-facebook-image{
+    margin-top:8px;
+}
 .validationAlert {
     color: #ff0000;
 }
@@ -3403,7 +3421,7 @@ p.modal-content-header{
 
 /*************************** ADD IMAGE *************************/
 
-// email list (checkboxes)
+
 
 .selection-icon {
    width: 10px;
@@ -3468,4 +3486,146 @@ p.modal-content-header{
 .button-text-1 {
    font-size: 16px;
    color: #FFFFFF;
+}
+
+.saved-overlay-email-iFrame{
+    width: 100%;
+    display: block;
+    border: none;
+}
+
+/* Sequence Pages */
+
+.top-s-nav-bar-offset{
+    height: 40px;
+}
+
+.top-s-subnav-bar-offset{
+    height: 30px;
+}
+
+
+.top-nav-wrap.full{
+    width: 100%;
+    position: fixed;
+    top:0px;
+    left: 0px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd  ;
+}
+
+.sequence-logo-wrap{
+    width: 70px;
+     background-color: #2D4355;
+    height: 100%;
+}
+
+
+.sequence-page-sub-nav{
+    width:100%;
+    background-color: #E3E8EF;
+    height: 30px;
+    display: flex;
+    align-content: center;
+}
+
+.sequence-step-wrap{
+    height: 40px;
+    width: 100vw;
+    position: fixed;
+    display: flex;
+    left: 0;
+    top: 0;
+}
+
+.sequence-step-wrap ul{
+    
+     display: inline-flex;
+    margin: auto;
+}
+
+.sequence-step{
+    line-height: 40px;
+    margin-right: 30px;
+    text-align: center;
+    font-size: 14px;
+   
+}
+
+.sequence-step.active{
+    color:#0F76A6;
+    
+}
+
+.email-editor-right-col{
+    width: 500px;
+    position: fixed;
+    right: 0px;
+    background-color: white;
+    height: 100%;
+}
+
+.sequence-step:last-child{
+    margin-right: 0px;
+}
+
+.continue-bar-cta-wrap{
+    position: fixed;
+    right: 0px;
+    padding: 0px 30px 0px 0px;
+    display: flex;
+    height: 55px;
+    align-items: center;
+}
+
+.email-editor-cta{
+    margin-left: 30px;
+}
+
+.main-content-wrap.no-side-nav{
+    position: fixed;
+    top: 0px;
+    left:0px;
+    width: 100vw;
+    overflow-y: hidden;
+    z-index: 0;
+}
+
+.sequence-page-header{
+       height: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    align-content: center;
+    align-items: center;
+    background-color: white;
+    display: flex;
+    
+}
+
+.sequence-page-back-button{
+    width: 60px;
+    height: 100%;
+    background: #0F76A6;
+    padding: 18px;
+}
+
+.sequence-page-title{
+    margin-left: 30px;
+    font-size: 18px;
+}
+
+.continue-bar-editor{
+    position: fixed;
+    bottom: 0px;
+    left: 70px;
+    width: calc(100vw - 70px);
+    background-color: white;
+    border-top: 1px solid #B3B6BF;
+    height: 55px;
+}
+
+.content-wrap-sequence-page{
+    height: calc(100vh - 115px);
+        position: fixed;
+    top: 41px;
 }
