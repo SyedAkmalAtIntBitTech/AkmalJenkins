@@ -2,13 +2,24 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
  
   $scope.inputType = 'password';
    $scope.colorFrom = "custom";
-
+   
   // Hide & show password function
   $scope.hideShowPassword = function(){
     if ($scope.inputType == 'password')
       $scope.inputType = 'text';
     else
       $scope.inputType = 'password';
+  };
+  
+  $scope.setTab = function (type){
+      if(type=='account'){
+          $scope.userAccountSetClass='active';
+          $scope.userLogoSetClass='';
+      }
+      if(type=='logo'){
+          $scope.userAccountSetClass='';
+          $scope.userLogoSetClass='active';
+      }      
   };
         $scope.changePassword = function (password,confirmPassword) {
             alert(password);

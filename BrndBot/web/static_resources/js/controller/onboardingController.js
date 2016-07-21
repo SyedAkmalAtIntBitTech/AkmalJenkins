@@ -200,18 +200,18 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             });
         };
         $scope.getColorsFromLogo = function () {
-//            $scope.activeColorLogo = 'activeTab';
-//            $scope.activeColorPicker = '';
-//            $scope.activeColorTheme = '';
+            $scope.activeColorLogo = 'selected';
+            $scope.activeColorPicker = '';
+            $scope.activeColorTheme = '';
             $scope.colorFrom = "logo";
             onboardingFactory.colorsForLogoGet().then(function (data) {
                 $scope.color = data.d.details;
             });
         };
         $scope.getAllThemes = function () {
-//            $scope.activeColorTheme = 'activeTab';
-//            $scope.activeColorPicker = '';
-//            $scope.activeColorLogo = '';
+            $scope.activeColorTheme = 'selected';
+            $scope.activeColorPicker = '';
+            $scope.activeColorLogo = '';
             $scope.colorFrom = "theme";
             assetsFactory.allColorThemesGet().then(function (data) {
                 $scope.curPage = 0;
@@ -220,9 +220,9 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             });
         };
         $scope.getColorFromPicker = function () {
-//            $scope.activeColorPicker = 'activeTab';
-//            $scope.activeColorTheme = '';
-//            $scope.activeColorLogo = '';
+            $scope.activeColorPicker = 'selected';
+            $scope.activeColorTheme = '';
+            $scope.activeColorLogo = '';
             $scope.colorFrom = "custom";
         };
         $scope.getColorID = function (color) {
