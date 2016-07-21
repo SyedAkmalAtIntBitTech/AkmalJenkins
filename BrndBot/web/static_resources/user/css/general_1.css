@@ -47,7 +47,7 @@ p{
 }
 
 textarea {
-     color: #3F3F42 !important;
+    color: #3F3F42 !important;
     padding: 8px 8px;
     vertical-align: middle;
     border-radius: 3px;
@@ -1155,7 +1155,7 @@ li.sub-nav-tab.active a{
     padding: 0px 30px;
     display: flex;
     align-items: center;
-    
+
 }
 
 .overlay-details-pane-header-cta{
@@ -2432,8 +2432,8 @@ p.modal-content-header{
 }
 
 .slat.external-data:hover{
-     border: 1px solid #D2D3D5;
-     background-color: #f8f8f8;
+    border: 1px solid #D2D3D5;
+    background-color: #f8f8f8;
 }
 
 
@@ -2451,7 +2451,7 @@ p.modal-content-header{
 .slat-icon-wrap.linked-list:before{
     background-image: url(/BrndBot/user/images/calendar-gray.svg);
     background-position: center;
-   
+
 }
 
 
@@ -2763,7 +2763,7 @@ p.modal-content-header{
 
 .email-preview-bar{
     border-top: 1px solid lightgray;
-     border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
     background-color: #fafafa;
     font-size: 14px;
     font-variant-caps: small-caps;
@@ -2783,8 +2783,8 @@ p.modal-content-header{
     font-size: 14px;
     color:#333;
     margin-top: 10px;
-    
-    
+
+
 }
 
 .validationAlert {
@@ -2799,226 +2799,226 @@ p.modal-content-header{
 /****** dropdown-select *******/
 
 .wrap-dd-select {
-  position: relative;
-  margin: 0px 0px 0px 0px;
-  padding: 10px;
+    position: relative;
+    margin: 0px 0px 0px 0px;
+    padding: 10px;
 
 
 
-  -webkit-user-select:none;
-  -moz-user-select:none;
-  user-select:none;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    user-select:none;
 
-  border-radius: 3px;
-   background-color: #fff;
+    border-radius: 3px;
+    background-color: #fff;
     border: 1px solid #c9c9c9;
     font-size: 14px;
-  cursor: pointer;
-  outline: none;
-  font-weight: 500;
-  color: #3F3F42;
+    cursor: pointer;
+    outline: none;
+    font-weight: 500;
+    color: #3F3F42;
 }
 
 .wrap-dd-select.disabled {
-  cursor: default;
-  color: #5B6A7D;
+    cursor: default;
+    color: #5B6A7D;
 }
 .wrap-dd-select:after {
-  content: "";
-  width: 0;
-  height: 0;
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  margin-top: -3px;
-  border-width: 6px 6px 0 6px;
-  border-style: solid;
-  border-color: #BBB transparent;
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    margin-top: -3px;
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: #BBB transparent;
 }
 
 .wrap-dd-select.disabled:after {
-  border: none;
+    border: none;
 }
 
 .wrap-dd-select .dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 30;
-  background: white;
-  padding: 0;
-  border-radius: inherit;
-  border: 1px solid rgba(0,0,0,0.17);
-  font-weight: normal;
-  list-style: none;
-  visibility: hidden;
-  max-height: 300px;
-  overflow-y: auto; /*Provide an auto overflow to display scroll*/
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 30;
+    background: white;
+    padding: 0;
+    border-radius: inherit;
+    border: 1px solid rgba(0,0,0,0.17);
+    font-weight: normal;
+    list-style: none;
+    visibility: hidden;
+    max-height: 300px;
+    overflow-y: auto; /*Provide an auto overflow to display scroll*/
 }
 
 .wrap-dd-select .dropdown li.divider {
-  padding: 2px 0;
-  background: #e6e8ea;
+    padding: 2px 0;
+    background: #e6e8ea;
 }
 
 .wrap-dd-select .dropdown li.divider-label {
-  background: #e6e8ea;
-  cursor: default;
-  color: #000;
-  padding: 10px 0;
+    background: #e6e8ea;
+    cursor: default;
+    color: #000;
+    padding: 10px 0;
 }
 
 .wrap-dd-select .dropdown li a {
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-  color: #3F3F42;
-  border-bottom: 1px solid #e6e8ea;
-  cursor: pointer;
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #3F3F42;
+    border-bottom: 1px solid #e6e8ea;
+    cursor: pointer;
 }
 
 .wrap-dd-select .dropdown li i {
-  float: right;
-  color: inherit;
+    float: right;
+    color: inherit;
 }
 
 .wrap-dd-select .dropdown li:first-of-type a {
-  border-radius: 0px 0px 0 0;
+    border-radius: 0px 0px 0 0;
 }
 
 .wrap-dd-select .dropdown li:last-of-type a {
-  border-radius: 0 0 7px 7px;
-  border: none;
+    border-radius: 0 0 7px 7px;
+    border: none;
 }
 
 .wrap-dd-select .dropdown li:hover a {
-  background: #f3f8f8;
+    background: #f3f8f8;
 }
 
 .wrap-dd-select .dropdown:after {
-  content: "";
-  width: 0;
-  height: 0;
-  position: absolute;
-  bottom: 100%;
-  right: 15px;
-  border-width: 0 6px 6px 6px;
-  border-style: solid;
-  border-color: #fff transparent;
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: 100%;
+    right: 15px;
+    border-width: 0 6px 6px 6px;
+    border-style: solid;
+    border-color: #fff transparent;
 }
 
 .wrap-dd-select .dropdown:before {
-  content: "";
-  width: 0;
-  height: 0;
-  position: absolute;
-  bottom: 100%;
-  right: 13px;
-  border-width: 0 8px 8px 8px;
-  border-style: solid;
-  border-color: rgba(0,0,0,0.1) transparent;
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: 100%;
+    right: 13px;
+    border-width: 0 8px 8px 8px;
+    border-style: solid;
+    border-color: rgba(0,0,0,0.1) transparent;
 }
 
 .wrap-dd-select.active .dropdown {
-  visibility: visible;
+    visibility: visible;
 }
 
 /****** dropdown-menu *******/
 .wrap-dd-menu {
-  position: relative;
-  width: 200px;
-  margin: 0 auto;
-  padding: 10px;
+    position: relative;
+    width: 200px;
+    margin: 0 auto;
+    padding: 10px;
 }
 
 .wrap-dd-menu.disabled {
-  cursor: default;
-  color: #5B6A7D;
+    cursor: default;
+    color: #5B6A7D;
 }
 
 .wrap-dd-menu .dropdown {
-  position: absolute;
-  z-index: 1;
-  top: 70%;
-  left: 0;
-  right: 0;
-  background: white;
-  padding: 0;
-  border-radius: 7px;
-  border: 1px solid rgba(0,0,0,0.17);
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  font-weight: normal;
-  list-style: none;
-  visibility: hidden;
+    position: absolute;
+    z-index: 1;
+    top: 70%;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 0;
+    border-radius: 7px;
+    border: 1px solid rgba(0,0,0,0.17);
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    font-weight: normal;
+    list-style: none;
+    visibility: hidden;
 }
 
 .wrap-dd-menu .dropdown li.divider {
-  padding: 2px 0;
-  background: #e6e8ea;
+    padding: 2px 0;
+    background: #e6e8ea;
 }
 
 .wrap-dd-menu .dropdown li.divider-label {
-  background: #e6e8ea;
-  cursor: default;
-  color: #000;
-  padding: 10px 0;
+    background: #e6e8ea;
+    cursor: default;
+    color: #000;
+    padding: 10px 0;
 }
 
 .wrap-dd-menu .dropdown li a {
-  display: block;
-  padding: 10px;
-  text-decoration: none;
-  color: #8aa8bd;
-  border-bottom: 1px solid #e6e8ea;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,1);
-  cursor: pointer;
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #8aa8bd;
+    border-bottom: 1px solid #e6e8ea;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,1);
+    cursor: pointer;
 }
 
 .wrap-dd-menu .dropdown li i {
-  float: right;
-  color: inherit;
+    float: right;
+    color: inherit;
 }
 
 .wrap-dd-menu .dropdown li:first-of-type a {
-  border-radius: 7px 7px 0 0;
+    border-radius: 7px 7px 0 0;
 }
 
 .wrap-dd-menu .dropdown li:last-of-type a {
-  border-radius: 0 0 7px 7px;
-  border: none;
+    border-radius: 0 0 7px 7px;
+    border: none;
 }
 
 .wrap-dd-menu .dropdown li:hover a {
-  background: #f3f8f8;
+    background: #f3f8f8;
 }
 
 .wrap-dd-menu .dropdown:after {
-  content: "";
-  width: 0;
-  height: 0;
-  position: absolute;
-  bottom: 100%;
-  right: 102px;
-  border-width: 0 6px 6px 6px;
-  border-style: solid;
-  border-color: #fff transparent;
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: 100%;
+    right: 102px;
+    border-width: 0 6px 6px 6px;
+    border-style: solid;
+    border-color: #fff transparent;
 }
 
 .wrap-dd-menu .dropdown:before {
-  content: "";
-  width: 0;
-  height: 0;
-  position: absolute;
-  bottom: 100%;
-  right: 100px;
-  border-width: 0 8px 8px 8px;
-  border-style: solid;
-  border-color: rgba(0,0,0,0.1) transparent;
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: 100%;
+    right: 100px;
+    border-width: 0 8px 8px 8px;
+    border-style: solid;
+    border-color: rgba(0,0,0,0.1) transparent;
 }
 
 .wrap-dd-menu .dropdown.active {
-  visibility: visible;
+    visibility: visible;
 }
 
 /* Social Sequence */
@@ -3045,7 +3045,7 @@ p.modal-content-header{
 }
 
 .Add-Image-Button{
-   margin-left: 15px;
+    margin-left: 15px;
     line-height: 70px;
 }
 
@@ -3113,7 +3113,7 @@ p.modal-content-header{
     width: 600px;
     padding-bottom: 30px;
     box-sizing: border-box;
-    
+
 }
 
 .popUp-top{
@@ -3127,7 +3127,7 @@ p.modal-content-header{
     width: 600px;
     box-sizing: border-box;
     background-color: #FFFFFF;
-    
+
 }
 
 .popUp-top-wide{
@@ -3141,7 +3141,7 @@ p.modal-content-header{
     width: 1080px;
     box-sizing: border-box;
     background-color: #FFFFFF;
-    
+
 }
 
 .popUp-bottom{
@@ -3155,7 +3155,7 @@ p.modal-content-header{
     width: 600px;
     box-sizing: border-box;
     background-color: #FFFFFF;
-    
+
 }
 
 .popUp-bottom-wide{
@@ -3169,7 +3169,7 @@ p.modal-content-header{
     width: 1080px;
     box-sizing: border-box;
     background-color: #FFFFFF;
-    
+
 }
 
 
@@ -3183,13 +3183,13 @@ p.modal-content-header{
     margin: auto;
     width: 450px;
     box-sizing: border-box;
-    
+
 }
 
 
 .popUp_wide{
     z-index: 1100;
-        background-color: #FFFFFF;
+    background-color: #FFFFFF;
     display: block;
     border-radius: 3px;
     border: 1px solid #D2D3D5;
@@ -3197,44 +3197,44 @@ p.modal-content-header{
     margin: auto;
     width: 800px;
     padding-bottom: 30px;
-        box-sizing: border-box;
-    
+    box-sizing: border-box;
+
 }
 
 .popUp_fullWidth{
     z-index: 1100;
-        background-color: #FFFFFF;
+    background-color: #FFFFFF;
     display: block;
     border-radius: 3px;
     border: 1px solid #D2D3D5;
     padding: 0px 0px;
     margin: auto;
     width: 1200px;
-        box-sizing: border-box;
-    
+    box-sizing: border-box;
+
 }
 
 
 .popUp_CenterVert{
-        position: absolute;
+    position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%,-50%);
 }
 
 .popUp_topMargin{
-       margin-top: 5%;
+    margin-top: 5%;
 }
 
 .popUp_topMargin_3{
-       margin-top: 3%;
+    margin-top: 3%;
 }
 
 .popUp_header{
-     border-bottom: 1px solid #D2D3D5;
+    border-bottom: 1px solid #D2D3D5;
     padding: 0px 30px;
-    
+
 }
-    
+
 .popUp_title{
     font-size: 18px;
     color: #3E4551; 
@@ -3250,7 +3250,7 @@ p.modal-content-header{
 }
 
 .popUp_header-icon{
-   width: 40px;
+    width: 40px;
 }
 
 
@@ -3267,7 +3267,7 @@ p.modal-content-header{
 
 .popUp_subheader-tabs-active{
     line-height: 30px;
-     margin-right: 20px;
+    margin-right: 20px;
     text-align: left;
     color: #0F76A6;
 }
@@ -3283,7 +3283,7 @@ p.modal-content-header{
 
 .popUp_subheader-emailDes-col{
     width: 760px ;
-   background-color: #FFFFFF;
+    background-color: #FFFFFF;
 }
 
 .popUp_subheader-emailDes-header{
@@ -3295,19 +3295,19 @@ p.modal-content-header{
     box-sizing: border-box;
     color: #666;
     font-size: 13px;
-   
+
 }
 
 .popUp_subheader-emailDes-email{
     height: 72vh;
     overflow-y: scroll;
-    
+
 }
 
 .popUp_subheader-emailMob-col{
     width:438px;
     background-color: #FFFFFF;
-     box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 
@@ -3319,13 +3319,13 @@ p.modal-content-header{
     line-height: 30px;
     box-sizing: border-box;
     color: #666;
-     border-left: 1px solid #D2D3D5;
+    border-left: 1px solid #D2D3D5;
     font-size: 13px;
 }
 
 
 .popUp_subheader-emailMob-email{
-   border-left: 1px solid #D2D3D5;
+    border-left: 1px solid #D2D3D5;
     background-color: #FFFFFF;
     height: 72vh;
     overflow-y: scroll;
@@ -3402,3 +3402,16 @@ p.modal-content-header{
 }
 
 /*************************** ADD IMAGE *************************/
+.cat-slat-title
+{
+    width: 500px;
+}
+.mbPopup{
+    height: 100%;
+}
+.mb-modal-pane-content-wrap{
+    padding: 0px 30px 20px 30px;  
+    box-sizing: border-box;
+    overflow-y: auto;
+    height: 100%;
+}
