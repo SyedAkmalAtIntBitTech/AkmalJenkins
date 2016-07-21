@@ -479,7 +479,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.savedDetailsAddTemplateLink = "dashboard";
             $scope.templateApproveButton = "Click to Approve";
             $scope.templateDisapproveButton = "Click to Pause";
-            $scope.savedHeader = 'Post'; 
+            $scope.savedHeader = 'Post';
             $scope.actionDate = schedule_date;
             var time = $filter('date')(schedule_time, "hh : mm : a");
             var picker = new Pikaday({field: document.getElementById('emaildatetime')});
@@ -560,8 +560,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var start = moment(programEndDate);
             var end = moment(currDate);
             var days = start.diff(end, "days");
-            var actionDateTime = $("#timepickertextbox").val().replace(/ /g,'');
-            var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
+            var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
             var schedule_time = Date.parse(l);
             var myEpoch = schedule_time;
             var description = "";
@@ -828,18 +828,17 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             });
         };
 
-        $scope.ddSelectEmailListAutomationDataOptions = [
-            {
-                text: "Manual",
-                value: "1"
-            }
-        ];
-
         $scope.ddSelectEmailListAutomationData = {
             text: "Manual"
         };
 
         $scope.showEmailList = function () {
+            $scope.ddSelectEmailListAutomationDataOptions = [
+                {
+                    text: "Manual",
+                    value: "1"
+                }
+            ];
             emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
                 var parseData = JSON.parse(data.d.details);
                 $scope.emailLists_user = parseData.allEmailListWithNoOfContacts.user;
