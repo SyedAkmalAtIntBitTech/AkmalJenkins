@@ -186,8 +186,35 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 });
             }
         };
+        $scope.resetActionForm = function(){
+            $("#addactiontitle").val("");
+            $("#datepicker").val("");
+            $("#timepicker1").val("");
+            
+            
+            $scope.ddSelectActionOptions = [
+            {
+                text: 'Select',
+                value: '0'
+            }, {
+                text: 'Facebook Post',
+                value: 'Facebook'
+            }, {
+                text: 'Twitter Post',
+                value: 'Twitter'
+            }, {
+                text: 'Email',
+                value: 'Email'
+            }, {
+                text: 'Reminder',
+                value: 'Reminder'
+            }
+            ];
+        };
+
         $scope.ShowAddAction = function ()
         {
+            $scope.resetActionForm();
             $scope.fadeClass = 'fadeClass';
             $scope.fade = true;
             $scope.addAction = true;
