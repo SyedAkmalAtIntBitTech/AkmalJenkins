@@ -1652,7 +1652,6 @@ li.sub-nav-tab.active a{
     background-color: rgba(57,60,70,.7);
 }
 
-
 #fade
 {
     display: none;
@@ -3480,7 +3479,7 @@ p.modal-content-header{
 
 .bottom-cta-button-container-overlay {
    position:fixed;
-   bottom:-60px;
+   bottom:500px;
    right: 0px;
    height: 60px;
    width: 900px;
@@ -3537,7 +3536,6 @@ p.modal-content-header{
 
 .pop-up-container-createEmail {
     width: 500px;
-    padding-bottom: 45px;
     background-color: #ffffff;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
