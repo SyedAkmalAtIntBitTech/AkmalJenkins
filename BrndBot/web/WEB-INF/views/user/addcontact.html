@@ -1,36 +1,35 @@
-
-    <div class="addContactPopup" ng-init="showAddContactPopup= false" ng-if="showAddContactPopup">
-    <div class="pop-up-background" style="width: 100%;">
-        <div class="pop-up-exit-container" ng-click="closeAddContactPopup()">
-            <a>
-                <div class="pop-up-exit-icon" id="close"> <img type="image/svg+xml" src="images/Close.svg" class="exit-button-icon" style="cursor:pointer;"> </img></div>
-            </a>
-        </div> 
-        <div class="pop-up-container pop-up-container-newContact"> 
-            <div class="pop-up-title pop-up-title-h1"> Add a New Contact</div>
-            <div class="pop-up-inner">
-                <div class="input-field-container">
-                    <div class="input-header"> Email Address </div>
-                    <input type="text" class="input-field-textfield1 input-placeholder" placeholder="Enter Email Address" id="emailId" ng-model="email.emailId"/>
-                    <input type="hidden" id="uuid" value=""></input>
-                    <input type="hidden" id="type" value=""></input>
+<div id="fade" ng-class="fadeClass" class="center-pop-ups"  ng-init="showAddContactPopup= false" ng-if="showAddContactPopup">
+    <div class="" >
+        <div class="modal-pane modal-pane-width-reg" id="addAction" ng-show="addAction">
+            <div class="modal-pane-header-wrap">
+                <h2 class="">Create a New Action</h2>
+                <a id="close" ng-click="closeAddContactPopup()" class="modal-pane-header-exit"></a>
+            </div>
+            <div class="modal-pane-content-wrap create-new-schedule-modal">
+                <div class="input-wrap">
+                    <label>Email Address</label>
+                    <div class="input">
+                        <input type="text" placeholder="Enter Email Address" id="emailId" ng-model="email.emailId" class="fluid" >
+                        <input type="hidden" id="uuid" value="">
+                    <input type="hidden" id="type" value=""/>
+                    </div>
                 </div>
-                <div class="line-divider"></div>
-                <div class="optional-text">Optional</div>
-                <div class="input-field-container">
-                    <div class="input-header"> First Name </div>
-                    <input type="text" value="" class="input-field-textfield1 input-placeholder" placeholder="Enter First Name" id="firstName" ng-model="email.firstName"/>
+                <div class="input-wrap">
+                    <label>First Name</label>
+                    <div class="input">
+                        <input type="text" value="" class="fluid" placeholder="Enter First Name" id="firstName" ng-model="email.firstName"/>
+                    </div>
                 </div>
-                <div class="input-field-container">
-                    <div class="input-header"> Last Name </div>
-                    <input type="text" value="" class="input-field-textfield1 input-placeholder" placeholder="Enter Last Name" id="lastName" ng-model="email.lastName"/>
+                <div class="input-wrap">
+                    <label>Action Name</label>
+                    <div class="input">
+                        <input type="text" value="" class="fluid" placeholder="Enter Last Name" id="lastName" ng-model="email.lastName"/>
+                    </div>
                 </div>
+            </div>
+            <div class="modal-cta-container" >
+                <a class="long-button blue-button" id="addActionYourPlan" ng-click="updateEmailID(email)" id="addContactButton" href="">Create this Action</a>
             </div>
         </div>
     </div>
-    <div id="addContactButton" class="pop-up-cta-container pop-up-cta-container-newContact cur" ng-click="updateEmailID(email)">
-        <a href="">
-            <div class="pop-up-cta-button-full"> Save Contact</div>
-        </a>
-    </div> 
 </div>
