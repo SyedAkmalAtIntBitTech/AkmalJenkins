@@ -251,7 +251,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             } else {
                 var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
                 var actionDateTime1 = datePicker.toLocaleString() + " " + actionTime1.toLocaleString();
-                var endDate = $scope.formatDate($scope.programDate);
+                var endDate = $scope.programDate;
                 var end = new Date(endDate);
                 var fromDate = new Date(actionDateTime1);
                 var todayDate = new Date();
@@ -268,15 +268,9 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
             var currDate = moment(actiondate).format('YYYY-MM-DD');
             var nDate = $scope.programDate;
-//            var dateArray = nDate.split('-');
-//            var month = dateArray[1];
-//            var day = dateArray[0];
-//            var year = dateArray[2];
-//            var programEndDate = year + "-" + month + "-" + day;
             var start = moment(nDate);
-            var end = moment(currDate);
-            alert(start+" "+end);
-            var days = start.diff(end, "days");
+            var end1 = moment(currDate);
+            var days = start.diff(end1, "days");
             var actiond = "1970/01/01";
             var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
             var l = actiond.toLocaleString() + " " + actionDateTime.toLocaleString();
@@ -591,7 +585,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     var actionDateTime1=actiondate.toLocaleString() +" "+actionTime1.toLocaleString();
                     var fromDate = new Date(actionDateTime1);
                     var todayDate = new Date();
-                    var endDate = $scope.formatDate($scope.programDate);
+                    var endDate = $scope.programDate;
                     var endDay = new Date(endDate);
                         if (fromDate < todayDate){
                             alert("The selected date is lesser than todays date, please change the date");
@@ -606,11 +600,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var emaildate = $("#emaildatetime").val();
             var currDate = moment(emaildate).format('YYYY-MM-DD');
             var nDate = $scope.programDate;
-//            var dateArray = nDate.split('-');
-//            var month = dateArray[1];
-//            var day = dateArray[0];
-//            var year = dateArray[2];
-//            var programEndDate = year + "-" + month + "-" + day;
             var start = moment(nDate);
             var end = moment(currDate);
             var days = start.diff(end, "days");
