@@ -1,10 +1,11 @@
+<div ng-include src="'navbar.html'"></div> 
 <div ng-include src="'addaction.html'"></div>
 <div class="main-content-wrap" ng-init="getProgramActions('emailautomation')">
     <div ng-hide="true" ng-include src="'recurringemailpopup.html'"></div>
     <div class="top-nav-wrap">
         <div class="header">
             <a class="back-button" ng-click="backToPreviousPage('marketingprogramlists')" ></a>
-        <h2 class="">{{programs.programdetails.programName}}</h2>
+            <h2 class="">{{programs.programdetails.programName}}</h2>
             <input type="hidden" name="program_name2" id="program_name2" value="{{programs.programdetails.programName}}">
             <!--<% if(past!=1) {%>-->
             <a ng-hide="isProgramArchived" href="" class="reg-button gray-button top-nav-header-cta" ng-click="endMarketingProgram()" id="endMarketingProgram">Archive Campaign</a>
@@ -64,37 +65,37 @@
                             </div>
                         </div>
                     </div>
-                    
-                    
                 </div>
+
+
             </div>
-            <div class="hub-pane">
-                <div class="hub-pane-header-wrap" >
-                    <h2 class="">One Time Actions</h2>
-                     <!--<% if(past!=1){%>-->
-                    <a ng-hide="isProgramArchived" id="onetimeactbtn" class="long-button green-button" ng-click="ShowAddAction()">Add a One Time Action</a>
-                    <!--<%}%>-->
-                </div>
-                <div class="your-plan-action-wrap">
-                    <div class="slat" ng-repeat="programaction in (filteredItems = (programs.programactions | orderBy: 'postDate':true))">
-                        <div class="your-plan-icon-wrap no-template-icon"></div>
-                        <div class="slat-name-wrap">
-                            <h2>{{programaction.programTemplateName}}</h2>
-                            <p>{{programaction.description}}</p>
+        </div>
+        <div class="hub-pane">
+            <div class="hub-pane-header-wrap" >
+                <h2 class="">One Time Actions</h2>
+                <!--<% if(past!=1){%>-->
+                <a ng-hide="isProgramArchived" id="onetimeactbtn" class="long-button green-button" ng-click="ShowAddAction()">Add a One Time Action</a>
+                <!--<%}%>-->
+            </div>
+            <div class="your-plan-action-wrap">
+                <div class="slat" ng-repeat="programaction in (filteredItems = (programs.programactions| orderBy: 'postDate':true))">
+                    <div class="your-plan-icon-wrap no-template-icon"></div>
+                    <div class="slat-name-wrap">
+                        <h2>{{programaction.programTemplateName}}</h2>
+                        <p>{{programaction.description}}</p>
+                    </div>
+
+                    <div class="slat-detail-wrap">
+                        <div class="slat-detail">
+                            <h2>{{programaction.postDate| date:'MMM dd yyyy'}}</h2>
+                            <p>Action Date</p>
                         </div>
-                        
-                         <div class="slat-detail-wrap">
-                             <div class="slat-detail">
-                                <h2>{{programaction.postDate| date:'MMM dd yyyy'}}</h2>
-                                <p>Action Date</p>
-                            </div>
-                        </div>
-                          <div class="slat-detail-wrap">
-                             <div class="slat-detail">
-                                <h2 ng-show="programaction.actionType==master_facebook || programaction.actionType==master_twitter">{{programaction.actionType}}</h2>
-                                <h2 ng-show="programaction.actionType==master_note || programaction.actionType==master_email">{{programaction.actionType}}</h2>
-                                <p>Action Type</p>
-                            </div>
+                    </div>
+                    <div class="slat-detail-wrap">
+                        <div class="slat-detail">
+                            <h2 ng-show="programaction.actionType == master_facebook || programaction.actionType == master_twitter">{{programaction.actionType}}</h2>
+                            <h2 ng-show="programaction.actionType == master_note || programaction.actionType == master_email">{{programaction.actionType}}</h2>
+                            <p>Action Type</p>
                         </div>
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">
@@ -111,13 +112,14 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
+
             </div>
-        
+        </div>
+
         <div class="bottom-offset"></div>
     </div>
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav"  id="" ng-show="showCampaignDetails==true">
+    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav"  id="" ng-show="showCampaignDetails == true">
         <div class="hub-pane" >
             <div class="hub-pane-header-wrap">
                 <h2 class="">Marketing Campaign Details</h2>
@@ -150,29 +152,26 @@
                                                 });
                                     </script>
                             </a>
-                       
                     </div>
                     <div class="input-wrap">
                         <label> Marketing Campaign Link </label>
                         <div class="input">
                             <input class="fluid" id="link_url" name="link_url" ng-model="programs.programdetails.linktodestination">
                         </div>
-                        
+
                     </div>
-                     <div class="input-wrap">
+                    <div class="input-wrap">
                         <label> Marketing Campaign Link Name</label>
                         <div class="input">
                             <input id="link_name" name="link_name" class="fluid" ng-model="programs.programdetails.link_name">
                         </div>
-                        
+
                     </div>
-                     <div class="update-container">
+                    <div class="update-container">
                         <a class="long-button gray-button"  ng-click="updateUserProgram(programs)">Save Changes</a>
                     </div>
                 </div>
-                 
+
             </div>
         </div>
     </div>
-    
-</div>
