@@ -177,8 +177,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.programs = data;
                     console.log(JSON.stringify(data));
                     var dateEpoch = data.programdetails.dateOfEvent;
-                    $scope.programDate = moment(dateEpoch).format('DD-MM-YYYY');
-
+                    $scope.programDate = moment(dateEpoch).format('YYYY-MM-DD');
+                    $("#progactdatepicker").val($scope.programDate);
                     $scope.template_status = data.emailautomation;
                     $scope.actionType = "Email";
                     $scope.forward = forward;
@@ -1259,15 +1259,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
    };
    
-   $scope.updateUserProgram = function(programs){
-//       var program=$("#program_id").val();
-        
-//        var program = program_id;
-
-//        alert($scope.programId.toString());
-        
-//        program_id = $scope.programId.toString();
-       
+   $scope.updateUserProgram = function(programs){       
         if ($scope.validate_program_link_details()){ 
         var program = $scope.programId.toString();
         var program_name = programs.programdetails.programName;
@@ -1276,12 +1268,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         var link_url = programs.programdetails.linktodestination;
         var link_name = programs.programdetails.link_name;    
             
-                
-        var program_details = {"program_id": program, "date_of_event": event_date,
+        var program_details = {"program_id": program, "date_of_event": event_date_epoch,
                           "link_url": link_url, "link_name": link_name, "program_name":program_name};
-                      
         companyMarketingProgramFactory.updateUserProgramPost(program_details).then(function (data){
+            if(data == true){
             alert(programdetailssaved);
+            }else{
+                alert(savingrecordproblem);
+            }
         });               
       }     
    };
