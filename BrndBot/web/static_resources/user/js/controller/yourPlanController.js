@@ -257,7 +257,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
         {
-            alert(actionType.text);
             if (addTitle == undefined){
                 alert("Title not entered, enter the title");
                 $("#addactiontitle").focus();
