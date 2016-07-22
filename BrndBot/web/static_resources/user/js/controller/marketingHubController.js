@@ -16,6 +16,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.selectedEmail = "";  
         $scope.unsubscribePopup = false;
         $scope.overlayFade = false;
+        $scope.showEmailListDetails = false;
 //        $scope.emailListValidation = emailListValidation;
 
         $scope.displayAllEmailDrafts = function () {
@@ -431,6 +432,12 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.updateList();
             $("#addcontact").show();
             $scope.showAddContactPopup = false;
+        };
+        
+        $scope.checkEmailList = function(){
+            if ($scope.showEmailListDetails == false){
+                $location.path("/basemarketinghub#/emaillist");
+            }
         };
 
         $scope.updateList = function () {

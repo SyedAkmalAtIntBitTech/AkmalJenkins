@@ -575,7 +575,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
 
         $scope.ddSelectEmailList = {
-            text: "Manual"
+            text: "Please select an email list"
         };
 
         $scope.showEmailList = function () {

@@ -1,96 +1,73 @@
-<style>.side-nav{display: none;}</style>
-<div class="contentWrap--withSideNav noScroll ng-scope" style="width:calc(10vw - 70px); " >
-    <div class="topNav topNav-withSubnav clear">
-        <div class="page-title-bar col-1of1"> 
-            <a class=" exit-button-icon" href="marketingprogramlists">    
-                <div class="exit-button-detail">
-                    <img alt="" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/>
+<div class="main-content-wrap no-side-nav">
+    <div class="top-nav-wrap full">
+        <div class="sequence-page-header">
+            <div class="sequence-left-wrap">
+                <div class="sequence-logo-wrap">
+                    <img class="sequence-logo-svg" src="/BrndBot/user/images/Logo_Reverse.svg" />
                 </div>
-            </a>
-            <div class="page-title-with-back page-title-font">Email Editor</div>
-            <div class="page-cta-container">
-                <a href="" class="gray-button fleft pushright">
-                    <div class="nounderline md-button" id="emailpreview" ng-click="emailPreviewOnClick()">Preview Email</div>  
-                </a>
-
+                <a class="sequence-page-back-button" href="marketingprogramlists" ng-show="automationEditor === false"></a>
+                <a class="sequence-page-back-button" href="marketingprogramlists"></a>
+                <h2 class="sequence-page-title"> Create an Email Automation</h2>
+            </div>
+            <div class="sequence-step-wrap">
+                <ul>
+                    <a class="sequence-step active">Set Up</a>
+                    <a class="sequence-step">Email Design</a>
+                </ul>
+            </div>
+            <div class="sequence-page-header-cta-wrap">
+                <a>Exit</a>
             </div>
         </div>
     </div>
-</div>
-<!--
-
-
-       <div id="boxes">
-           <div id="dialog" class="window">
-           </div>
-           <div id="mask"></div>
-       </div>
-   SideNav
-   <div class="content-main" >
-   Top Nav   
-   <div id="changed--emailautomationcontent" >emailautomationcontent id changed to display the content 
-<!--Top Nav-->   
-<div class="top-nav" ng-show="automationEditor === false">
-    <div class="page-title-bar col-1of1"> 
-        <div class="exit-button-detail" id="back">
-            <a class="exit-button-icon" href="">
-                <img alt ="" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
-            </a>
-        </div>
-        <div class="page-title-with-back page-title-font"> Create and Email Automation</div>
-
-    </div>
-
-
-</div>
-<div class="page-background"  ng-show="automationEditor === false">
-    <div class="page-content-container email-list-contact-page" ng-init="getEntityDetails();">
-
-        <!--            Inner Content Conatiner GENERIC-->
-        <div class="page-inner-content-container ">
-            <div class="fleft content">
-                <div class="page-content-title-bar">
-                    <div class="page-content-title sequenceTitleBar ">Email Automation Details</div>
-                </div>
-                <!--                    List Starts Here-->
-                <div class="sequence-container fleft">
-                    <div class="col-6of10 fleft">
-                        <div class="h4" style="">
-                            Enter a name for this recurring email:
-                        </div>
-                        <input id="recuring_email_title" class="input-field-textfield col-8of10" type="text" required placeholder="Enter Name of email" ng-model="automationData.title" value="{{entity_details.recurring_email_title}}"/>
-
-                    </div>
-                    <div class="col-6of10 fleft pushUp">
-                        <div class="h4" style="">
-                            Enter a description for this recurring email:
-                        </div>
-                        <input id="recuring_email_description" class="input-field-textfield col-8of10" type="text" required  
-                               placeholder="Enter description of email" ng-model="automationData.description" value="{{entity_details.recurring_email_description}}"/>
-                    </div>
-                </div>
+    <div class="top-s-nav-bar-offset"></div>
+    
+    <!--Set Up View-->
+    <div class="content-wrap content-wrap-sequence-page content-wrap-padding" ng-show="automationEditor === false">
+          <div class="hub-pane" ng-init="getEntityDetails();">
+            <div class="hub-pane-header-wrap">
+                <h2 class="">Email Automation Set Up</h2>
+                
             </div>
-        </div>
-        <div class="page-inner-content-container ">
-            <div class="fleft content">
-                <div class="page-content-title-bar">
-                    <div class="page-content-title sequenceTitleBar ">Create a trigger for when to send this email</div>
+            <div class="hub-pane-content-wrap">
+                <div class="hub-section">
+                     <div class="section-header">
+                         <h3>General Details</h3>
+                     </div>
+                    <div class="input-wrap">
+                        <label> Enter a name for this automated email: </label>
+                        <div class="input">
+                            <input id="recuring_email_title"  type="text" required placeholder="Enter Name of email" ng-model="automationData.title" value="{{entity_details.recurring_email_title}}" class="fluid"/>
+                        </div>
+                        <p class="input-wrap-label"> Make this something that your clients will recognize</p>
+                    </div>
+                    <div class="input-wrap">
+                        <label> Enter a description</label>
+                        <div class="input">
+                            <input id="recuring_email_description"  type="text" required  
+                               placeholder="Enter description of email" ng-model="automationData.description" value="{{entity_details.recurring_email_description}}" class="fluid"/>
+                            <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
+                        </div>
+                    </div>
+                    
                 </div>
-                <!--                    List Starts Here-->
-                <div class="sequence-container fleft">
-                    <div class="col-3of10 fleft ">
-                        <div class="h4 pushUp-10 ">
+                <div class="hub-section">
+                    <div class="section-header">
+                         <h3>Trigger Details</h3>
+                    </div>
+                    <div class="email-automation-trigger-sentence-wrap">
+                        <div class="">
                             Send an email to a recipient
                         </div>
-                         <div class="col-1of10 fleft">
-                             <select id="days" ng-model="automationData.selectedDay" class="input-field-textfield " ng-options="day for day in days"></select>
+                         <div class="">
+                             <select id="days" ng-model="automationData.selectedDay" class="email-automation-trigger-day-drop" ng-options="day for day in days"></select>
                          </div>
-                        <div class="col-3of10 fleft">
-                             <div class="h4 pushUp-10 lftpad-10">
+                        <div class="">
+                             <div class="">
                                     days after they are added to
                              </div>
                          </div>
-                        <div class="col-3of10 fleft" ng-click="emailListDropdown()">
+                        <div class="email-automation-trigger-list-drop" ng-click="emailListDropdown()">
 <!--                            <select id="emaillist" ng-model="automationData.selectedEmailList" ng-change="emailListOnChange()" name="emaillist" class="input-field-textfield">
                                    <option value="0">-- Select --</option>
                                    <option ng-repeat ="Lists in emailLists_user" value="{{Lists.emailListName}}">{{Lists.emailListName}}</option>
@@ -98,11 +75,10 @@
                               </select>-->
                             <div dropdown-select="ddSelectEmailListAutomationDataOptions" dropdown-model="ddSelectEmailListAutomationData" dropdown-onchange="emailListOnChange(selected)"></div>
                         </div>
-                    <div class="col-4of10 fleft pushUp-30">
-                        <div class="h4" style="">
-                            Select a Time:
-                        </div>
-                        <input id="timepicker1" readonly type="text" name="timepicker1" ng-model="automationData.time" class="input-field-textfield col-8of10" 
+                    </div>
+                     <div class="input-wrap">
+                        <label> Enter a Time of Day to Send this Email</label>
+                         <input id="timepicker1" readonly type="text" name="timepicker1" ng-model="automationData.time" class="input-field-textfield col-8of10" 
                                value="{{entity_details.recurring_email_time| date: 'hh : mm : a'}}" /> 
                         <script src="js/timepicki.js" type="text/javascript"></script>
                         <script>
@@ -115,80 +91,48 @@
                                        increase_direction: 'up',
                                        disable_keyboard_mobile: true
                                    });
-                        </script> 
-
-                    </div>
-                    <div class="col-4of10 fleft pushUp-30 lftpad-5" id="datepickerdiv" style="display: none;">
-
-                        <div class="h4" style="">
-                            Select a till date:
-                        </div>
-                        <input type="text"   name="datepicker" 
-                               id="datepicker" ng-model="automationData.date"  
-                               class="input-field-textfield col-1of1" 
-                               value="{{entity_details.recurring_email_till_date| date:'MMM dd yyyy'}}" />  
-
-                        <script>
-                            var picker = new Pikaday(
-                                    {
-                                        field: document.getElementById('datepicker'),
-                                        firstDay: 1,
-                                        minDate: new Date(2000, 0, 1),
-                                        maxDate: new Date(2050, 12, 31),
-                                        yearRange: [2000, 2050]
-                                    });
                         </script>
                     </div>
-
                 </div>
-            </div>
-        </div>
-        <div class="page-inner-content-container ">
-            <div class="fleft content">
-                <div class="page-content-title-bar">
-                    <div class="page-content-title sequenceTitleBar ">Email Details</div>
-                </div>
-                <!--                    List Starts Here-->
-                <div class="sequence-container fleft">
-                    <div class="col-6of10 fleft ">
-                        <div class="h4" style="">
-                            Enter a subject line for the email:
+                <div class="hub-section">
+                     <div class="section-header">
+                         <h3>Email Details</h3>
+                     </div>
+                    <div class="input-wrap">
+                        <label> Enter a subject line: </label>
+                        <div class="input">
+                            <input id="recuring_email_title"  type="text" required placeholder="Enter Name of email" ng-model="automationData.title" value="{{entity_details.recurring_email_title}}" class="fluid"/>
                         </div>
-                        <input id="subject" class="input-field-textfield col-8of10" ng-model="automationData.subject" type="text" required  
-                               placeholder="Enter subject line" 
-                               value="{{entity_details.recurring_email_subject}}"/>
+                        <p class="input-wrap-label"> Make this something that your clients will recognize</p>
                     </div>
-                    <div class="col-6of10 fleft pushUp">
-                        <div class="h4" style="">
-                            Enter a from name:
-                        </div>
-                        <input id="from_name" class="input-field-textfield col-8of10" type="text" ng-model="automationData.fromName" required  placeholder="Enter from name" 
+                    <div class="input-wrap">
+                        <label> Enter a from name</label>
+                        <div class="input">
+                           <input id="from_name" class="fluid" type="text" ng-model="automationData.fromName" required  placeholder="Enter from name" 
                                value="{{entity_details.recurring_email_from_name}}"/>
-                    </div>    
-                    <div class="col-6of10 fleft pushUp">
-                        <div class="h4" style="">
-                            Enter a reply-to-address:
+                            <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
                         </div>
-                        <input id="reply_to_address" class="input-field-textfield col-8of10" ng-model="automationData.replyAddress" type="text" 
+                    </div>
+                     <div class="input-wrap">
+                        <label> Enter a Reply to Address</label>
+                        <div class="input">
+                            <input id="reply_to_address" class="fluid" ng-model="automationData.replyAddress" type="text" 
                                required  placeholder="Enter reply-to-address" 
                                value="{{entity_details.recurring_email_reply_to_email_address}}"/>
+                            <p class="input-wrap-label"> Any replies to your emails will go to this address</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
-</div>
-
-</div>
-<div class="bottom-cta-bar" ng-show="automationEditor === false">
-    <div class="bottom-cta-button-container-lg">
-        <div class="bottom-continue-button button-text-1" ng-click="addUpdateRecuringAction()">Continue</div>
-    </div>
-</div>
-</div>
-<div id="emailautomation" class="page-background" style="display: block;">
-
+    
+    
+    
+  
+    <div id="emailautomation">
+        
+    <!--Email Preview-->
     <div id="fade" class="black_overlay" ></div>
     <div id="email_previewdiv">
         <div class="pop-up-background">
@@ -231,193 +175,51 @@
             </div>
         </div>
     </div>
-    <!--           <div class="col-md-1 col-lg-1 col-sm-2 halfcol" >
-                   <%--<jsp:include page="leftmenu.html"/>--%>
-               </div>-->
-    <div id="emlautomeditorcontainer" class="page-content-container" style="display: block;" ng-init="getEmailTemplates()">
-
-        <!--               <div id="emlautomeditorcontainer" class="page-content-container" ng-show="emailEditorContainer" ng-init="getEmailTemplates()">-->
-
-        <!--<div class="col-1of1">-->
-        <!--<div class="">-->
-        <div class="col-emaileditor">
-            <div class="col-emaileditordiv" style="width: 100%;">
-
-                <div class="emailEditor-page-background fleft" ng-show="automationEditor === true">
-                    <div class="emailEditor-leftCol ">
-                        <div id="editor">
-                            <div id='edit' class="editorheight" style="" ng-init="initEmailAutomation()"></div>
-                        </div>
-                    </div>
-<!--                    <script>
-                        $(document).ready(function () {
-                            $('#edit').froalaEditor({
-                                key: FroalaLicenseKey
-                            });
-                        });
-
-                    </script>-->
-                </div>
-                <!--////////////////////.......... uncomment for footer to do click is not working because area is overlapping to each other......////-->                           
-                <div class="in-editor-footer-wrap">
-                    <h3>Email Footer</h3>
-                    <p>Your email footer is the same on every email. You 
-                        see the footer in this email by previewing your email. To edit
-                        the footer click email footer settings.</p>
-                    <span class="reg-button gray-button" ng-click="editFooter()">Edit Email Footer</span>
-                </div>
-                <!--                            <div class="btmdiv">
-                                               <div class="col-1of1">
-                                                       <div class="editemail fontpnr">Edit this Email Automation Action</div>
-                                                 
-                                                   <div class="col-1of4">
-                                                       <div class="mobileprev fontpnr" id="iphone" class="img-responsive ptr" onclick="show('iphone');">Mobile Preview</div>
-                                                       <p id="button"></p>
-                                                   </div>
-                                                   <div class="col-3of4">
-                                                       <div class="emledtrsavebtn">
-                                                           <input class="emailedtrsave fontpns 
-                                                                  button button--moema 
-                                                                  button--text-thick 
-                                                                  button--text-upper 
-                                                                  button--size-s" 
-                                                                  type="button" 
-                                                                  value="save" 
-                                                                  ng-click="addUpdateRecuringAction()"></input>
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                           </div> -->
-            </div>
-            <div class="emailEditor-rightCol fright rightcoloumn">
-                <!--                <div class="emailSideBar-Header">
-                                    <div class="col-1of2 fleft">
-                                        <div class="emailSideBar-tab-active" id="templatediv" style="color: rgb(25, 88, 124); background-color: rgb(255, 255, 255);">
-                                         Add Template
-                                        </div>
-                                    </div>
-                                    <div class="col-1of2 fleft">
-                                        <div class="emailSideBar-tab" id="templatetab" style="color: rgb(25, 88, 124); background-color: transparent;">
-                                         Select a Text
-                                        </div>
-                                    </div> 
-                                </div>-->
-                <div class="emailSideBar-Header">
-                    <div class="col-1of2 fleft">
-                        <div class="{{addtemplatetab}}" id="addtemplatetab" ng-init="showTemplates()" ng-click="showTemplates()" style="color: rgb(25, 88, 124); background-color: rgb(255, 255, 255);">
-                            Add Template
-                        </div>
-                    </div>
-                    <div class="col-1of2 fleft">
-                        <div class="{{texttab}}" id="texttab" ng-init="showText('false')" ng-click="showText('true')" style="color: rgb(25, 88, 124); background-color: transparent;">
-                            Select a Text
-                        </div>
-                    </div> 
-                </div>
-                <div class="email-Block-Selection right-email-select">
-                    <div class="email-Block-Header" id="blockdivheader" ng-show="blockdivheader">Select a Template:</div>
-                    <div class="email-Block-Header" id="textdivheader" ng-show="textdivheader">Select a Text:</div>
-                    <div class="block-selection-divider"></div>
-                      <ul id="blklist" class="block-list blocklistnew fontpnr" style="display: block;">
-                           <li ng-repeat="email_template in recuring_email_templates"> 
-                                <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
-                           </li>
-                      </ul>
-                    <ul class="block-list" id="textdivheader" ng-show="textdivheader">
-                        <li>
-                            <div class="textstyle">To add client name please use these options</div>
-                            <div class="textstyle">Ex: Hi &LT;clientFirstName&GT; </div>
-                            <div class="textstyle">Hi &LT;clientLastName&GT; </div>
-                            <div class="textstyle">Hi &LT;clientFullName&GT; </div>  
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!--                        <div class="col-templatelist col-3of10">
-                                        <div class="blockselection" id="templatediv">     
-                                                <div class="col-1of1">
-                                                    <div class="">
-                                                        <div class="selblocknew fontpnr">Select a Template</div>
-                                                    </div>
-                                                        <div class="selblklinediv"><hr class="selblkline"></div>
-                                                         <div class="col-md-6 col-lg-6 col-sm-6">
-                                                        <div class="addblkdiv"><input class="addblkbtn fontpns " type="button" value="Add Block"></div>
-                                                    </div>
-                                                </div>
-                                                
-                                                
-                                                <div class="col-1of1">
-                                                        <ul id="blklist" class="blocklistnew fontpnr">
-                                                            <li ng-repeat="email_template in recuring_email_templates"> 
-                                                                <div ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
-                                                            </li>
-                                                        </ul>
-                                                             <ul id="stylelist" class="blocklist fontpnr">
-                                                            <li ng-repeat="styles in datalistsstyles">
-                                                                <div><img id="{{styles.id}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/DownloadImage?image_type=LAYOUT_IMAGES&image_name={{styles.image_file_name}}"  onclick="showText('{{styles.id}}','{{styles.layout_file_name}}')" width="275" /></div>
-                                                            </li>
-            
-                                                        </ul>
-                                                </div>
-                                            </div>
-                                            <div class="blockselection" id="textdiv">     
-                                                <div class="col-1of1">
-                                                        <div class="selblock fontpnr">Select a Text</div>
-                                                       <div class="selblklinediv"><hr class="selblkline"></div>
-                                                 </div>
-                                                <div class="col-1of1">
-                                                     <div class="textstyle">To add client name please use these options</div>
-                                                     <div class="textstyle">Ex: Hi &LT;clientFirstName&GT; </div>
-                                                     <div class="textstyle">Hi &LT;clientLastName&GT; </div>
-                                                     <div class="textstyle">Hi &LT;clientFullName&GT; </div>
-                                                 </div>
-                                                </div>
-            
-                                            </div>
-                                    <div class="blockstyletab col-1of10 ">      
-                                                <ul class="righttabs fontpnr">
-                                                         <li id="templatetab">
-                                                        <image src='images/sidebar/Icons_styleButton.svg' class="styleimg"/>
-                                                        <p>STYLE</p>
-                                                    </li>
-                                                    <li id="templatetab" class="centerItem">
-                                                        <image src='images/Icons_blockButton.svg' class="blockimg" style="    width: calc(12vw - 100%);"/>
-                                                        <p class="imgText">TEMPLATE</p>
-                                                    </li>
-                                                    <li id="texttab" class="centerItem">
-                                                        <image src='images/Icons_editButton_blue_new.svg' class="blockimg" style="    width: calc(12vw - 100%);"/>
-                                                        <p class="imgText">TEXT</p>
-                                                    </li>
-                                                </ul>
-                                            </div>-->
+    
+     <!--Email Editor View-->
+    <div class="content-wrap content-wrap-sequence-page-editor" id="emlautomeditorcontainer" ng-init="getEmailTemplates()" ng-show="automationEditor === true">
+        <div class="email-frame" id="editor">
+            <div id="edit" ng-init="initEmailAutomation()"></div>
         </div>
+<!--    <script>
+        $(document).ready(function () {
+            $('#edit').froalaEditor({
+                key: FroalaLicenseKey
+            });
+        });
 
-    </div>
-
-
-</div>
-
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-
-        Modal content
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
+        </script>   -->
+        <div class="email-editor-right-col">
+            <div class="email-editor-tab-wrap">
+                <div class="r-col-editor-tab" class="{{addtemplatetab}}" id="addtemplatetab" ng-init="showTemplates()" ng-click="showTemplates()"> Choose Template</div>
+                <div class="r-col-editor-tab" class="{{texttab}}" id="texttab" ng-init="showText('false')" ng-click="showText('true')">Personalization</div>
             </div>
-            <div class="modal-body">
-                <p>Some text in the modal.</p>
+            <div class="r-col-editor-wrap">
+                <div class="editor-block-slat" ng-repeat="email_template in recuring_email_templates" ng-click="showHTMLData(email_template.html_data, email_template.template_id)">{{email_template.template_name}}</div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <div class="r-col-editor-wrap" id="textdivheader" ng-show="textdivheader">
+                <div class="textstyle">To add client name please use these options</div>
+                <div class="textstyle">Ex: Hi &LT;clientFirstName&GT; </div>
+                <div class="textstyle">Hi &LT;clientLastName&GT; </div>
+                <div class="textstyle">Hi &LT;clientFullName&GT; </div>
             </div>
         </div>
-
+         <div class="continue-bar-offset"></div>
     </div>
-
 </div>
-        <script src="js/froala_editor.min_editor.js" type="text/javascript"></script>
+      </div>  
+    
+<!--Continue Bar-->
+<div class="continue-bar-editor sequence-continue-bar">
+    <div class="continue-bar-cta-wrap" ng-show="automationEditor === true">
+        <a class="reg-button gray-button email-editor-cta" ng-click="addUpdateRecuringAction()">Save</a>
+    </div>
+    <div class="continue-bar-cta-wrap" ng-show="automationEditor === false">
+        <a class="reg-button gray-button email-editor-cta" ng-click="addUpdateRecuringAction()">Continue</a>
+    </div>
+</div>
+    
+    <script src="js/froala_editor.min_editor.js" type="text/javascript"></script>
         <script src="js/plugins/code_view.min.js" type="text/javascript"></script>
         <!--<script type="text/javascript" src="js/emaileditor_new.js"></script>-->
 
@@ -432,14 +234,13 @@
         <link rel="stylesheet" href="css/plugins/video.css">
         <link rel="stylesheet" href="css/plugins/fullscreen.css"/>
         <link rel="stylesheet" href="css/plugins/file.css">
-<div class="bottom-cta-bar" ng-show="automationEditor === true">
-    <!--        <div class="bottom-cta-bar" ng-show="emailRecurringPreviewTemplate" id="editpreviewtemplatebottom">-->
-    <div class="bottom-cta-button-container-lg">
-        <!--             <div class="editemail fontpnr col-1of4">Edit this Email Automation Action</div>   
-                     <div class="mobileprev fontpnr col-1of4" id="emailpreview" class="img-responsive ptr" >Email Preview</div>-->
-        <div class="bottom-continue-button button-text-1" type="button" ng-click="addUpdateRecuringAction()">Save</div>
-    </div>
-</div>
-<span ng-init="getFooterDetails()">
+ <span ng-init="getFooterDetails()">
     <div ng-include src="'emailfooterpopup.html'"></div> 
 </span>
+    
+    
+    
+    
+    
+    
+    

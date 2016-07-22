@@ -4,44 +4,43 @@
         display: block !important;
     }
 </style>
-
-    <div class="content-main" ng-if="showEmailListDetails">
+<div ng-init="checkEmailList()">
+<div class="content-main" ng-if="showEmailListDetails" >
     <div ng-show="overlayFade" id="fade" class="black_overlay"></div> 
     <div ng-include src="'addcontact.html'"></div> 
     <input type="hidden" id="get_list_name" value="{{emailListName}}"/>
     <input type="hidden" id="get_type" value="{{type}}"/>   
     
     <!--Top Nav-->
-    <div class="top-nav">
+    
     <div class="top-nav-wrap">
         <div class="header">
             <a class="back-button" href="basemarketinghub#/emaillist" ></a>
             <h2>{{emailListName}}</h2>
             <div class="top-nav-cta-container">
-                <a id="unselect" href="" class="gray-button button pushright fleft" ng-show="deSelectCheckboxButton">
+                <a id="unselect" href="" class="gray-button reg-button pushright fleft" ng-show="deSelectCheckboxButton">
                     <div class=" md-button" ng-click="deSelectCheckbox()"> Unselect Contacts</div>    
                 </a>
-                <a href="" id="delcontact" class="delete-button button fleft" ng-show="selectCheckboxButton">
+                <a href="" id="delcontact" class="delete-button reg-button fleft" ng-show="selectCheckboxButton">
                     <div class=" md-button" ng-click="deleteSelected()"> Delete Contact</div>    
                 </a>
                 <a href="javascript:void(0)" class="fleft">
-                     <div id="addcontact" style="margin-top: 15px;" class="add-button md-button" ng-click="addContactDetails('add','','','','')"> Add Contact</div>    
+                     <div id="addcontact" style="margin-top: 15px;" class="add-button reg-button" ng-click="addContactDetails('add','','','','')"> Add Contact</div>    
                 </a>
             </div>
         </div>
-    </div>
-    <div class="top-sub-nav">
-        <ul class="sub-nav-tab-wrap with-back-button">
-            <li class="sub-nav-tab " id="emailListli" ng-click="showUpdateList()">
-                 <a id="emailLists">Email List Contacts</a>
-            </li>
-            <!-- <% if(type.equals("user")){%>-->
-            <li class="sub-nav-tab" id="importListli" ng-click="showAddContacts()">
-                <a id="importList">Import Contacts</a>
-            </li>
+        <div class="top-sub-nav">
+            <ul class="sub-nav-tab-wrap with-back-button">
+                <li class="sub-nav-tab " id="emailListli" ng-click="showUpdateList()">
+                     <a id="emailLists">Email List Contacts</a>
+                </li>
+                <!-- <% if(type.equals("user")){%>-->
+                <li class="sub-nav-tab" id="importListli" ng-click="showAddContacts()">
+                    <a id="importList">Import Contacts</a>
+                </li>
 
-        </ul>
-    </div>
+            </ul>
+        </div>
     </div>
     
     <div class="top-nav-bar-offset"></div>
@@ -51,7 +50,7 @@
     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" ng-show="showEmailListContacts">
     <div class="hub-pane" ng-init="updateList()">
             <div class="hub-pane-header-wrap">
-                <h2 class="">Your Email Drafts</h2>
+                <h2 class="">Email List Contacts</h2>
                 <input type="text" placeholder="Search" ng-model="userSearch">
             </div>
             <div class="hub-pane-content-wrap">
@@ -85,7 +84,7 @@
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">
                                  <!--                                        <a class="small-button slat-button detail-button-font" ng-click="editDrafts(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</a>-->
-                                <a href="" class="reg-button gray-button slat-detail-button" ng-click="addContactDetails('update',email.emailAddress,email.id,email.firstName,email.lastName)">Edit Contact</a>
+                                <a href="" class="reg-button slat-detail-button" ng-click="addContactDetails('update',email.emailAddress,email.id,email.firstName,email.lastName)">Edit Contact</a>
                             </div>
                         </div>
                     </div>
@@ -113,7 +112,7 @@
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">
                                  <!--                                        <a class="small-button slat-button detail-button-font" ng-click="editDrafts(drafts.id, drafts.categoryid, drafts.emailsubject, drafts.subcategoryid, drafts.subcategoryname)">View and Edit Draft</a>-->
-                                <a href="" class="reg-button gray-button slat-detail-button" ng-click="addContactDetails('update',email.emailAddress,email.id,email.firstName,email.lastName)">Edit Contact</a>
+                                <a href="" class="reg-button slat-detail-button" ng-click="addContactDetails('update',email.emailAddress,email.id,email.firstName,email.lastName)">Edit Contact</a>
                             </div>
                         </div>
                     </div>
@@ -123,10 +122,15 @@
         </div>
     
     <!-- Import Contacts-->   
-    <div id="tab4" class="col-md-10 col-md-offset-2" class="hide">
-            <div id="emailsubjectdiv">
-                <p class="header1">Email List:</p>
-                <input type="text" class="hideinputborder" id="email_list_name" name="email_list_name" placeholder="Enter Here"/><br><br>
+    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" id="tab4" class="hide">
+            <div class="hub-pane">
+            <div class="hub-pane-header-wrap">
+                <h2 class="">Import Email Addresses into {{emailListName}}</h2>
+            </div>
+            <div class="hub-pane-content-wrap" >
+                <div id="emailsubjectdiv">
+           
+       
                 <div class="col-md-7 col-md-offset-0">
                     <label style="padding-top: 20px;">Upload CSV</label><br><br>
                     <input type="file" class="fileUpload" id="fileUpload" name="fileUpload"><br>
@@ -136,7 +140,12 @@
                 <textarea width="400" height="500" id="textArea"></textarea><br><br>
                 <input  id="emailSubjectContinueButton" type="button" class="button button--moema button--text-thick button--text-upper button--size-s" value="Update" ng-click="updateEmailList()">
             </div>
-    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+</div>
 </div>
 
         

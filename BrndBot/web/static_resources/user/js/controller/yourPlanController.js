@@ -16,7 +16,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
         $scope.ddSelectActionOptions = [
             {
-
                 text: 'Select',
                 value: '0'
             }, {
@@ -34,9 +33,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             }
         ];
 
-        $scope.ddSelectAction = {
-            text: "Select"
-        };
+        $scope.ddSelectAction = {text: "Select"};
 
         // use scope.onPikadaySelect for older scope syntax
         $scope.onPikadaySelect = function onPikadaySelect(pikaday) {
@@ -100,11 +97,9 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
 //});
         $scope.hideSaveButton = function(){
-            alert("test");
             $("#updateAction").hide();
         };
         $scope.showSaveButton = function(){
-            alert("test");
             $("#updateAction").show();
         };
 
@@ -130,7 +125,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
                 $scope.tomorrow_date = moment($scope.addDays(new Date(), 1)).format('YYYY-MM-DD');
                 $scope.entitySet = parseJSON.entitydata;
-                console.log(JSON.stringify($scope.entitySet));
                 $scope.nodata = parseJSON.noactionsmessage;
 
             });
@@ -206,8 +200,40 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 return month = "Dec";
         };
 
+        $scope.resetActionForm = function(){
+            $("#addactiontitle").val("");
+            $("#datepicker").val("");
+            $("#timepicker1").val("");
+            
+            
+            $scope.ddSelectActionOptions = [
+            {
+                text: 'Select',
+                value: '0'
+            }, {
+                text: 'Facebook Post',
+                value: 'Facebook'
+            }, {
+                text: 'Twitter Post',
+                value: 'Twitter'
+            }, {
+                text: 'Email',
+                value: 'Email'
+            }, {
+                text: 'Reminder',
+                value: 'Reminder'
+            }
+            ];
+        };
+        $scope.chooseActionTypeOnChange = function(actionValue){
+            $scope.ddSelectAction = actionValue;
+        };
+
         $scope.ShowAddAction = function ()
         {
+            $scope.resetActionForm();
+
+            $scope.datePicker = "";
             $scope.fadeClass = 'fadeClass';
             $scope.isYourplan = true;
             $scope.addAction = true;
@@ -263,6 +289,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var action = {"title": addTitle, "actiontype": actionType.value, "type": "save", 
                 "description": "", "marketingType": 0, "action_date": myEpoch, "days": days};
             yourPlanFactory.addActionPost(action).then(function (data) {
+                alert(actionSaved);
                 $scope.getCampaigns();
                 $scope.closeOverlay();
             });
