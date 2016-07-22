@@ -186,8 +186,35 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 });
             }
         };
+        $scope.resetActionForm = function(){
+            $("#addactiontitle").val("");
+            $("#datepicker").val("");
+            $("#timepicker1").val("");
+            
+            
+            $scope.ddSelectActionOptions = [
+            {
+                text: 'Select',
+                value: '0'
+            }, {
+                text: 'Facebook Post',
+                value: 'Facebook'
+            }, {
+                text: 'Twitter Post',
+                value: 'Twitter'
+            }, {
+                text: 'Email',
+                value: 'Email'
+            }, {
+                text: 'Reminder',
+                value: 'Reminder'
+            }
+            ];
+        };
+
         $scope.ShowAddAction = function ()
         {
+            $scope.resetActionForm();
             $scope.fadeClass = 'fadeClass';
             $scope.fade = true;
             $scope.addAction = true;
@@ -241,13 +268,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
             var currDate = moment(actiondate).format('YYYY-MM-DD');
             var nDate = $scope.programDate;
-            var dateArray = nDate.split('-');
-            var month = dateArray[1];
-            var day = dateArray[0];
-            var year = dateArray[2];
-            var programEndDate = year + "-" + month + "-" + day;
-            var start = moment(programEndDate);
+//            var dateArray = nDate.split('-');
+//            var month = dateArray[1];
+//            var day = dateArray[0];
+//            var year = dateArray[2];
+//            var programEndDate = year + "-" + month + "-" + day;
+            var start = moment(nDate);
             var end = moment(currDate);
+            alert(start+" "+end);
             var days = start.diff(end, "days");
             var actiond = "1970/01/01";
             var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
@@ -578,12 +606,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var emaildate = $("#emaildatetime").val();
             var currDate = moment(emaildate).format('YYYY-MM-DD');
             var nDate = $scope.programDate;
-            var dateArray = nDate.split('-');
-            var month = dateArray[1];
-            var day = dateArray[0];
-            var year = dateArray[2];
-            var programEndDate = year + "-" + month + "-" + day;
-            var start = moment(programEndDate);
+//            var dateArray = nDate.split('-');
+//            var month = dateArray[1];
+//            var day = dateArray[0];
+//            var year = dateArray[2];
+//            var programEndDate = year + "-" + month + "-" + day;
+            var start = moment(nDate);
             var end = moment(currDate);
             var days = start.diff(end, "days");
             var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
