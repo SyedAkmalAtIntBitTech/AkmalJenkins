@@ -346,6 +346,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.showSaveButton = function(){
             $("#updateAction").show();
         };
+        $scope.globalScheduleData ={};
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
         {
 //        $scope.entities_selected_time =schedule_time;
@@ -384,7 +385,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 marketing_program_name: marketingName, user_marketing_program_id: programId,
                 days: days, is_today_active: is_today_active, schedule_time: time};
 //                $('#emailcontentiframe').contents().find('html').html(data.body); 
-
+            $scope.globalScheduleData=$scope.scheduleData;
 
             if (entity_type === getemail()) {
                 $scope.scheduledTo = 'SEND';
@@ -729,12 +730,16 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
             companyMarketingProgramFactory.approveStatusPost(approval_type).then(function (data) {
                 if (data.toString() == "true") {
-                    if ($scope.action_template_status == "Template Saved")
+                    if ($scope.action_template_status == "Template Saved"){
                         $scope.action_template_status = "Approved";
-                    else
+                        $scope.scheduleData.email_template_status='Approved';
+                    }
+                    else{
                         $scope.action_template_status = "Template Saved";
+                        $scope.scheduleData.email_template_status='Template Saved';   
+                    }
                     alert(templetestatussaved);
-                    $scope.getCampaigns();
+                    $scope.getCampaigns();    
                 } else {
                     alert(savingrecordproblem);
                 }
