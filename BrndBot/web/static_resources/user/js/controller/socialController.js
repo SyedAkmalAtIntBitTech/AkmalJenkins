@@ -399,16 +399,17 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             $scope.existingActionPopup = true;
             $scope.createNewActionPopup = false;
         };
-        $scope.ddSelectActionName = [
-            {
-                text: "Custom Action",
-                value: "0"
-            }
-        ];
+
         $scope.ddSelectAction = {
             text: "Custom Action"
         };
         $scope.getFacebookActions = function (selectedMarketingProgrmsId) {
+            $scope.ddSelectActionName = [
+                {
+                    text: "Custom Action",
+                    value: "0"
+                }
+            ];
             var data = JSON.stringify({programid: selectedMarketingProgrmsId.toString(), type: getfacebook()});
             scheduleActionsFactory.getActionsPost(data).then(function (data) {
                 var parseData = JSON.parse(data.d.details);

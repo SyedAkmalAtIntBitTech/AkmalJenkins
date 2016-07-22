@@ -30,6 +30,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         var emailDraftDetails = localStorage.getItem('emailDraftData');
         //OnPageLoad
         $scope.emailEditorInit = function () {
+            $scope.loadingOverlay = true; //start Loading Overlay
             if (emailDraftDetails !== null) {
                 var paramDraftId = JSON.parse(emailDraftDetails).draftid;
                 var paramCategoryId = JSON.parse(emailDraftDetails).category_id;
@@ -67,6 +68,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     var DraftId = JSON.parse(redirectFromDraft).draftid;
                     $scope.getEmailDrafts(DraftId);
                 }
+                $scope.loadingOverlay = false; //start Loading Overlay
+                $scope.hideEmailEditorOverlay = true;
             });
 
 
@@ -246,7 +249,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.didChooseBlock = function (selectedBlockId, externalSourceKeywordLookupId) {
             $scope.emailMindBodyPopup = true;
-            $scope.loadingGifImageMindbody = true;
+            $scope.loadingOverlay = true; //start Loading Overlay
             blockModelFactory.allEmailBlockModelGet(selectedBlockId).then(function (data) {
                 $scope.firstTemplateForBlock = data.d.details[0].emailBlockModelLookupId;
                 $scope.isBlockClicked = "true";
@@ -271,8 +274,9 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         if (externalData === "[true]") {
                             externalContentFactory.listDataGet(externalSourceKeywordLookupId).then(function (listData) {
                                 var parseData = JSON.parse(listData.d.details);
-                                $scope.loadingGifImageMindbody = false;
                                 $scope.mindbodyDataList = parseData;
+                                $scope.loadingOverlay = false; //start Loading Overlay
+                                $scope.hideMindbodyOverlay = true;
                                 $scope.emailScrollyDiv = true;
                                 $scope.showStyles();
                             });
@@ -897,25 +901,25 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.getFacebookActions = function (selectedMarketingProgrmaId) {
-            var data = JSON.stringify({programid: selectedMarketingProgrmaId.toString(),type: getemail()});
+            var data = JSON.stringify({programid: selectedMarketingProgrmaId.toString(), type: getemail()});
             scheduleActionsFactory.getActionsPost(data).then(function (data) {
                 var parseData = JSON.parse(data.d.details);
                 $scope.defaultAction = [{id: 0, schedule_title: "CUSTOM EMAIL"}];
                 $scope.SocialActionsDetails = $scope.defaultAction.concat(eval(parseData));
                 $scope.socialAction = $scope.defaultAction[0].id;
                 var actionData = eval(parseData);
-                if(actionData != '[]'){   
-                $scope.ddSelectActionName= [{text: "Custom Action",value: "0"}];
-                for (var i = 0; i < actionData.length; i++)
-                {
-                    var actionObject = {};
-                    actionObject["text"] = actionData[i].schedule_title;
-                    actionObject["value"] = actionData[i].id;
-                    $scope.ddSelectActionName.push(actionObject);
+                if (actionData != '[]') {
+                    $scope.ddSelectActionName = [{text: "Custom Action", value: "0"}];
+                    for (var i = 0; i < actionData.length; i++)
+                    {
+                        var actionObject = {};
+                        actionObject["text"] = actionData[i].schedule_title;
+                        actionObject["value"] = actionData[i].id;
+                        $scope.ddSelectActionName.push(actionObject);
+                    }
                 }
-                }
-                if(parseData == "[]"){
-                    $scope.ddSelectActionName= [{text: "Custom Action",value: "0"}];                    
+                if (parseData == "[]") {
+                    $scope.ddSelectActionName = [{text: "Custom Action", value: "0"}];
                 }
             });
         };
@@ -931,12 +935,12 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
 
         $scope.schedulePostToEmail = function (postData) {
-            $scope.postedTo=getemail();
+            $scope.postedTo = getemail();
             var email_scheduling = $scope.getScheduleData($scope.selectedMarketingProgrma, postData);
             if ($scope.selectedMarketingProgrma !== 0 || $scope.socialAction !== 0) {
                 scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
-                            $scope.schedulePopup = false;
-                            $scope.isPostSuccess=true;
+                    $scope.schedulePopup = false;
+                    $scope.isPostSuccess = true;
 //                            window.location = "dashboard";
                 });
             }
@@ -963,7 +967,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 scheduleActionsFactory.scheduleEmailActionsPost(email_scheduling).then(function (data) {
                     if (data.d.operationStatus.statusCode === "Success") {
                         $scope.schedulePopup = false;
-                            $scope.isPostSuccess=true;
+                        $scope.isPostSuccess = true;
 //                        window.location = "dashboard";
                     }
                 });
@@ -1003,7 +1007,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 scheduleActionsFactory.scheduleEmailPost(email_scheduling).then(function (data) {
                     if (data.d.operationStatus.statusCode === "Success") {
                         $scope.schedulePopup = false;
-                        $scope.isPostSuccess=true;
+                        $scope.isPostSuccess = true;
 //                        window.location = "dashboard";
                     }
                 });

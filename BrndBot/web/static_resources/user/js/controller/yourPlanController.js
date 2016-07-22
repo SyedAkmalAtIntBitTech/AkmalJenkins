@@ -392,7 +392,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 yourPlanFactory.scheduledEmailGet($scope.scheduleData.schedule_id).then(function (data) {
                     $scope.entitiesdetails = JSON.parse(data.d.details);
                     var iframe = document.getElementById('iframeForAction');
-
+                    
                     if (data.d.details != "{}") {
                         $scope.savedEmail = true;
                         $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";

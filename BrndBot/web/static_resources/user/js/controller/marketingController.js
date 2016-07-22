@@ -177,8 +177,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.programs = data;
                     console.log(JSON.stringify(data));
                     var dateEpoch = data.programdetails.dateOfEvent;
-                    $scope.programDate = moment(dateEpoch).format('DD-MM-YYYY');
-
+                    $scope.programDate = moment(dateEpoch).format('YYYY-MM-DD');
+                    $("#progactdatepicker").val($scope.programDate);
                     $scope.template_status = data.emailautomation;
                     $scope.actionType = "Email";
                     $scope.forward = forward;
@@ -478,7 +478,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.savedDetailsAddTemplateLink = "dashboard";
             $scope.templateApproveButton = "Click to Approve";
             $scope.templateDisapproveButton = "Click to Pause";
-            $scope.savedHeader = 'Post'; 
+            $scope.savedHeader = 'Post';
             $scope.actionDate = schedule_date;
             var time = $filter('date')(schedule_time, "hh : mm : a");
             $("#emaildatetime").val($filter('date')(schedule_date, "MMM dd yyyy"));
@@ -487,7 +487,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 email_template_status: template_status, schedule_type: entity_type,
                 marketing_program_name: marketingName, user_marketing_program_id: $scope.programId,
                 days: days, schedule_time: time};
-            alert(JSON.stringify(scheduleData));
+//            alert(JSON.stringify($scope.scheduleData));
             if (entity_type === getemail()) {
                 $scope.scheduledTo = 'SEND';
                 $scope.savedHeader = getemail();
@@ -586,8 +586,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var start = moment(programEndDate);
             var end = moment(currDate);
             var days = start.diff(end, "days");
-            var actionDateTime = $("#timepickertextbox").val().replace(/ /g,'');
-            var l=actiondate.toLocaleString() +" "+actionDateTime.toLocaleString();
+            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
+            var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
             var schedule_time = Date.parse(l);
             var myEpoch = schedule_time;
             var description = "";
@@ -855,18 +855,17 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             });
         };
 
-        $scope.ddSelectEmailListAutomationDataOptions = [
-            {
-                text: "Manual",
-                value: "1"
-            }
-        ];
-
         $scope.ddSelectEmailListAutomationData = {
             text: "Manual"
         };
 
         $scope.showEmailList = function () {
+            $scope.ddSelectEmailListAutomationDataOptions = [
+                {
+                    text: "Manual",
+                    value: "1"
+                }
+            ];
             emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
                 var parseData = JSON.parse(data.d.details);
                 $scope.emailLists_user = parseData.allEmailListWithNoOfContacts.user;
@@ -1258,7 +1257,54 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     }
                 });
             }
-        };
+   };
+   
+   $scope.updateUserProgram = function(programs){       
+        if ($scope.validate_program_link_details()){ 
+        var program = $scope.programId.toString();
+        var program_name = programs.programdetails.programName;
+        var event_date = $("#progactdatepicker").val();
+        var event_date_epoch = Date.parse(event_date);
+        var link_url = programs.programdetails.linktodestination;
+        var link_name = programs.programdetails.link_name;    
+            
+        var program_details = {"program_id": program, "date_of_event": event_date_epoch,
+                          "link_url": link_url, "link_name": link_name, "program_name":program_name};
+        companyMarketingProgramFactory.updateUserProgramPost(program_details).then(function (data){
+            if(data == true){
+            alert(programdetailssaved);
+            }else{
+                alert(savingrecordproblem);
+            }
+        });               
+      }     
+   };
+   
+   $scope.validate_program_link_details = function(){
+      var myRegExp =/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;  
+      var event_date = $("#progactdatepicker").val();
+      var link_url = $("#link_url").val();
+      var link_name = $("#link_name").val();
+      
+      if (event_date == ""){
+          alert(dateerror);
+          $("#progactdatepicker").focus();
+          return false;
+      }
+      if (link_name == ""){
+          alert(linknameerror);
+          $("#link_name").focus();
+          return false;
+      }
+      if((link_url == "") || (!myRegExp.test(link_url))){
+          alert(linkurlerror);
+          $("#link_url").focus();
+          $("#link_url").val('http://');
+          return false;
+      }
+      return true;
+    };
+   
     }]);
 
        
