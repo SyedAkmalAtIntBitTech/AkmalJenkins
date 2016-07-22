@@ -268,13 +268,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
             var currDate = moment(actiondate).format('YYYY-MM-DD');
             var nDate = $scope.programDate;
-            var dateArray = nDate.split('-');
-            var month = dateArray[1];
-            var day = dateArray[0];
-            var year = dateArray[2];
-            var programEndDate = year + "-" + month + "-" + day;
-            var start = moment(programEndDate);
+//            var dateArray = nDate.split('-');
+//            var month = dateArray[1];
+//            var day = dateArray[0];
+//            var year = dateArray[2];
+//            var programEndDate = year + "-" + month + "-" + day;
+            var start = moment(nDate);
             var end = moment(currDate);
+            alert(start+" "+end);
             var days = start.diff(end, "days");
             var actiond = "1970/01/01";
             var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
@@ -605,12 +606,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var emaildate = $("#emaildatetime").val();
             var currDate = moment(emaildate).format('YYYY-MM-DD');
             var nDate = $scope.programDate;
-            var dateArray = nDate.split('-');
-            var month = dateArray[1];
-            var day = dateArray[0];
-            var year = dateArray[2];
-            var programEndDate = year + "-" + month + "-" + day;
-            var start = moment(programEndDate);
+//            var dateArray = nDate.split('-');
+//            var month = dateArray[1];
+//            var day = dateArray[0];
+//            var year = dateArray[2];
+//            var programEndDate = year + "-" + month + "-" + day;
+            var start = moment(nDate);
             var end = moment(currDate);
             var days = start.diff(end, "days");
             var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
@@ -1298,7 +1299,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         var program_details = {"program_id": program, "date_of_event": event_date_epoch,
                           "link_url": link_url, "link_name": link_name, "program_name":program_name};
         companyMarketingProgramFactory.updateUserProgramPost(program_details).then(function (data){
-            if(data == true){
+            if(data){
             alert(programdetailssaved);
             }else{
                 alert(savingrecordproblem);

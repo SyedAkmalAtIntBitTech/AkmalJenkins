@@ -289,7 +289,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var action = {"title": addTitle, "actiontype": actionType.value, "type": "save", 
                 "description": "", "marketingType": 0, "action_date": myEpoch, "days": days};
             yourPlanFactory.addActionPost(action).then(function (data) {
-                alert(actionSaved);
+                alert("Action Saved");
                 $scope.getCampaigns();
                 $scope.closeOverlay();
             });
@@ -690,9 +690,9 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 "description": description, "action_date": myEpoch, "days": days.toString()
             };
             yourPlanFactory.addActionPost(action).then(function (data) {
-                alert(actionsaved);
                 $scope.closePopup();
                 $scope.getCampaigns();
+                alert("Action Saved");
             });
 //        }
         };
