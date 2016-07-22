@@ -6,17 +6,6 @@
     margin-right: 20px;
 }
 
-.toggleClass{
-    border: 4px solid #0f76a6;
-}
-.gallery-item-wrap-selected-istrue {
-    width: 224px;
-    border: 2px solid #0f76a6;
-    border-radius: 3px;
-    margin-bottom: 20px;
-    margin-right: 20px;
-}
-
 .gallery-item-wrap-selected{
     width: 222px;
       border: 2px solid #0f76a6;

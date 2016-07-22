@@ -1139,7 +1139,9 @@ li.sub-nav-tab.active a{
     color: #3E4551 ;
     width: 100%;
     display: block;
+  
 }
+
 
 
 .email-send-to-list-item{
@@ -2771,3 +2773,5 @@ p.modal-content-header{
 .wrap-dd-menu .dropdown.active {
   visibility: visible;
 }
+
+
