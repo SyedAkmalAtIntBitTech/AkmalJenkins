@@ -1,7 +1,8 @@
 
 // **************** @author Arfa Shakeel @ Intbit **************** //
 
-app.factory('marketingRecurringEmailControllerFactory', function ($q, authenticatedServiceFactory, configurationService) {
+    factoryApp.factory('marketingRecurringEmailFactory', function ($q, authenticatedServiceFactory, configurationService) {
+    
     var marketingRecurringEmailFactoryObject = {};
     marketingRecurringEmailFactoryObject.allRecurringEmailTemplatesGet = function () {
         var deffered = $q.defer();
@@ -51,26 +52,26 @@ app.factory('marketingRecurringEmailControllerFactory', function ($q, authentica
         });
         return deffered.promise;
     }; 
-    marketingRecurringEmailFactoryObject.addRecurringActionPost = function () {
+    marketingRecurringEmailFactoryObject.addRecurringActionPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.addRecurringActionURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    marketingRecurringEmailFactoryObject.addupdateRecurringActionPost = function () {
+    marketingRecurringEmailFactoryObject.addupdateRecurringActionPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.addupdateRecurringActionURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST",url,data, "").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };
-    marketingRecurringEmailFactoryObject.updateRecurringActionPost = function () {
+    marketingRecurringEmailFactoryObject.updateRecurringActionPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.updateRecurringActionURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST",url,data,"").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
@@ -83,13 +84,13 @@ app.factory('marketingRecurringEmailControllerFactory', function ($q, authentica
         });
         return deffered.promise;
     }; 
-    marketingRecurringEmailFactoryObject.getRecurringEntityPost = function () {
+    marketingRecurringEmailFactoryObject.getRecurringEntityPost = function (data) {
         var deffered = $q.defer();
         var url = configurationService.getRecurringEntityURL();
-        authenticatedServiceFactory.makeCall("POST", url, "").then(function (data) {
+        authenticatedServiceFactory.makeCall("POST", url, data,"").then(function (data) {
             deffered.resolve(data);
         });
         return deffered.promise;
     };   
-    return service;
+    return marketingRecurringEmailFactoryObject;
 });

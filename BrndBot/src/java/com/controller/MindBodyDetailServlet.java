@@ -6,7 +6,7 @@
 package com.controller;
 
 import com.intbittech.utility.AppConstants;
-import com.intbit.ScheduledEntityType;
+import com.intbittech.enums.ScheduledEntityType;
 import com.mindbodyonline.clients.api._0_5Class.Class;
 import com.mindbodyonline.clients.api._0_5Class.ClassSchedule;
 import com.mindbodyonline.clients.api._0_5Staff.Staff;

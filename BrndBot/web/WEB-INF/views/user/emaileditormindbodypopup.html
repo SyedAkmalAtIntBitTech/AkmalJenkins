@@ -1,11 +1,9 @@
 
 <!--<div ng-show="overlayFade" id="fade" class="black_overlay" ></div>-->
-
-<!--<div ng-show="emailMindBodyPopup">-->
-<div class="content" id="emaileditorexternalpopup" ng-if ="emailMindBodyPopup"> 
+<div ng-if ="emailMindBodyPopup" class="center-pop-ups" id="emaileditorexternalpopup">
 
     <!--MainContent-->
-    <div class="detail-overlay-content">
+   <!--<div class="detail-overlay-content">
         <div class="top-nav-container-detail">
             <div class=" top-navbar-detail topnav-exdata">
                 <span ng-click="closeMindbodyPopup()">
@@ -26,9 +24,10 @@
                     <div ng-show="loadingGifImageMindbody">
                     <img id="loadingGifformindbody" src="images/YogaLoadingGif.gif"/>
                 </div>
-                <!--SAVED POST GOES HERE-->
-                <ul ng-show="emailScrollyDiv" class="subcategory-list-container col-1of1 fleft scrollydiv">  
-                    <li class="subcategory-list-element col-1of1 fleft" ng-repeat="mindbody in mindbodyDataList.mindbody_data" ng-click="didSelectMindbodyDataId(mindbody.id)">
+                
+                <ul ng-show="emailScrollyDiv" class="subcategory-list-container col-1of1 fleft scrollydiv"> 
+                    <input type="text" placeholder="Search" ng-model="userSearch">
+                    <li class="subcategory-list-element col-1of1 fleft" ng-repeat="mindbody in mindbodyDataList.mindbody_data | filter:userSearch" ng-click="didSelectMindbodyDataId(mindbody.id)">
                        <div class="subcat-list col-3of10 fleft padding-right-15 ">{{mindbody.column1}} 
                        </div>
                         <div class=" col-2of10 fleft ">
@@ -47,6 +46,33 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
+   <div class="modal-pane modal-pane-width-full mbPopup ">
+       <div ng-init="hideMindbodyOverlay = false" ng-if="hideMindbodyOverlay">
+            <div class="modal-pane-header-wrap">
+                <h2>Email Template Category</h2>
+                 <input type="text" placeholder="Search" ng-model="userSearch">
+                 <a class="modal-pane-header-exit" ng-click="closeMindbodyPopup()"></a>
+<!--             <a ng-repeat="mindbody in mindbodylist" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=subCategoryId%>&mindbodyId={{mindbody.id}}&LookupId=<%=LookupId%>">-->
+            </div>
+            <div class="mb-modal-pane-content-wrap mbPopup">
+                <a ng-repeat="mindbody in mindbodyDataList.mindbody_data | filter:userSearch" ng-click="didSelectMindbodyDataId(mindbody.id)" class="slat external-data">
+                    <div class="slat-name-wrap">
+                        <h2>{{mindbody.column1}}</h2>
+                    </div>
+                    <div class="slat-detail-wrap">
+                        <div class="slat-detail">
+                            <h2>{{mindbody.column3}}</h2>
+                        </div>
+                    </div>
+                    <div class="slat-detail-wrap">
+                        <div class="slat-detail">
+                            <h2>{{mindbody.column2}}</h2>
+                        </div>
+                    </div>
+                </a>
+            </div>
+       </div>
+        </div>
 </div>
-<!--</div> -->
+

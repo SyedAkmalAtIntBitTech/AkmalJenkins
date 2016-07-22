@@ -43,8 +43,8 @@ public class AppConstants {
 */
 //    Test fb App configuration.....comment for production server.....
     public static final String facebookString1 = "1577738335828079";
-    public static final String facebookString2 = "2b6fd6252aa68e836acc574c0aa1a647";    
-    public static final String facebookPermissions = "publish_actions, pubylish_pages,manage_pages";
+    public static final String facebookString2 = "2b6fd6252aa68e836acc574c0aa1a647";
+    public static final String facebookPermissions = "publish_actions, publish_pages,manage_pages";
     
     public static final String TMP_FOLDER = BASE_UPLOAD_PATH + File.separator + "/tmp";
 }

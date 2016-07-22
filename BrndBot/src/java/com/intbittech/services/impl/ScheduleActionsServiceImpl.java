@@ -7,7 +7,7 @@ package com.intbittech.services.impl;
 
 import com.intbittech.AppConstants;
 import com.intbit.ConnectionManager;
-import com.intbit.ScheduledEntityType;
+import com.intbittech.enums.ScheduledEntityType;
 import com.intbittech.enums.TemplateStatus;
 import com.intbittech.dao.impl.ScheduleDAO;
 import com.intbittech.dao.impl.ScheduleSocialPostDAO;

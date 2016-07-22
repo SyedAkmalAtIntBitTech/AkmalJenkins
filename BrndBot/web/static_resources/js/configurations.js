@@ -36,6 +36,9 @@ var defaultFroalaColors= ["61BD6D","clolor1",
                           "7C706B","clolor24",
                           "D1D5D8","clolor25"
                       ];
+var defaultSendEmailFrom = "mail@brndbot.com"; 
+var bitlyUserName = "sandeep264328";
+var bitlyKey = "R_63e2f83120b743bc9d9534b841d41be6";
 
 function getHost(){
      return global_host_address;
@@ -67,3 +70,13 @@ function getnote(){
 String.prototype.contains = function(it) { 
     return this.indexOf(it) !== -1; 
 };
+function getDefaultEmailId(){
+    return defaultSendEmailFrom;
+}
+function getBitlyUserName(){
+    return bitlyUserName;
+}
+function getBitlyKey(){
+    return bitlyKey;
+}
+

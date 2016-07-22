@@ -5,7 +5,8 @@
  */
 package com.intbittech.services.impl;
 
-import com.controller.IConstants;
+import com.intbittech.utility.IConstants;
+import com.intbittech.divtohtml.StringUtil;
 import com.google.gson.Gson;
 import com.intbittech.exception.ProcessFailed;
 import com.intbittech.model.CompanyPreferences;
@@ -13,6 +14,7 @@ import com.intbittech.model.EmailInfo;
 import com.intbittech.services.CompanyPreferencesService;
 import com.intbittech.services.EmailListService;
 import com.intbittech.utility.StringUtility;
+import com.intbittech.utility.Utility;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -22,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.logging.Level;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
@@ -65,6 +68,10 @@ public class EmailListServiceImpl implements EmailListService {
 
         CompanyPreferences companyPreferences = companyPreferencesService.getByCompanyId(companyId);
         JSONParser jsonParser = new JSONParser();
+        if (StringUtil.isEmpty(companyPreferences.getEmailList())) {
+            new Throwable("No email lists");
+        }
+        
         JSONObject emailListJSONObject = (JSONObject) jsonParser.parse(companyPreferences.getEmailList());
 
         String queryParameter = (String) request.getParameter("update");
@@ -97,21 +104,23 @@ public class EmailListServiceImpl implements EmailListService {
             JSONArray emailListArrayToUI = new JSONArray();
             JSONArray emailListArrayToUIMindbody = new JSONArray();
 
-            for (int i = 0; i < emailListArrayFromUsers.size(); i++) {
-                JSONObject emailListObject = new JSONObject();
-                JSONObject json_object = (JSONObject) emailListArrayFromUsers.get(i);
-                emailListObject.put(IConstants.kEmailListNameKey, json_object.get(IConstants.kEmailListNameKey));
-                JSONArray emailAddressArray = (JSONArray) json_object.get(IConstants.kEmailAddressesKey);
-                emailListObject.put("noofcontants", emailAddressArray.size());
+            if (emailListArrayFromUsers != null && emailListArrayFromUsers.size() > 0) {
+                for (int i = 0; i < emailListArrayFromUsers.size(); i++) {
+                    JSONObject emailListObject = new JSONObject();
+                    JSONObject json_object = (JSONObject) emailListArrayFromUsers.get(i);
+                    emailListObject.put(IConstants.kEmailListNameKey, json_object.get(IConstants.kEmailListNameKey));
+                    JSONArray emailAddressArray = (JSONArray) json_object.get(IConstants.kEmailAddressesKey);
+                    emailListObject.put("noofcontants", emailAddressArray.size());
 
-                emailListObject.put(IConstants.kEmailListDefaultFromName, json_object.get(IConstants.kEmailListDefaultFromName));
-                emailListObject.put(IConstants.kEmailListListDescription, json_object.get(IConstants.kEmailListListDescription));
-                emailListObject.put(IConstants.kEmailListID, json_object.get(IConstants.kEmailListID));
-                emailListObject.put(IConstants.kEmailListAddedDate, json_object.get(IConstants.kEmailListAddedDate));
+                    emailListObject.put(IConstants.kEmailListDefaultFromName, json_object.get(IConstants.kEmailListDefaultFromName));
+                    emailListObject.put(IConstants.kEmailListListDescription, json_object.get(IConstants.kEmailListListDescription));
+                    emailListObject.put(IConstants.kEmailListID, json_object.get(IConstants.kEmailListID));
+                    emailListObject.put(IConstants.kEmailListAddedDate, json_object.get(IConstants.kEmailListAddedDate));
 
-                emailListArrayToUI.add(emailListObject);
+                    emailListArrayToUI.add(emailListObject);
+                }
             }
-            if (emailListArrayJSONMindbody != null) {
+            if (emailListArrayJSONMindbody != null && emailListArrayJSONMindbody.size() > 0) {
                 for (int i = 0; i < emailListArrayJSONMindbody.size(); i++) {
                     JSONObject emailListObject = new JSONObject();
                     JSONObject json_object = (JSONObject) emailListArrayJSONMindbody.get(i);
@@ -209,7 +218,7 @@ public class EmailListServiceImpl implements EmailListService {
 
             EmailInfo email_info = new EmailInfo(emailAddress, firstName, lastName);
 
-            dataresponse = checkAvailability(emailListJSONObject, emailListName, email_info);
+            dataresponse = checkAvailability(emailListJSONObject, emailListName, email_info, companyPreferences);
         } else if (queryParameter.equalsIgnoreCase("deleteAllEmailLists")) {
             String emailListName = (String) requestBodyMap.get(IConstants.kEmailListNameKey);
             dataresponse = deleteAllEmailList(emailListJSONObject, emailListName, companyPreferences);
@@ -538,26 +547,30 @@ public class EmailListServiceImpl implements EmailListService {
         return saveEmailPreferences(emailListsJSONObject, companyPreferences);
     }
 
-    private boolean checkAvailability(JSONObject emailListsJSONObject, String emailListName, EmailInfo email_info) {
+    private boolean checkAvailability(JSONObject emailListsJSONObject, String emailListName, EmailInfo email_info, CompanyPreferences companyPreferences) {
 
-        JSONArray emailListArrayJSON = getEmailListForType(emailListsJSONObject, EmailListType.Regular);
-        JSONObject emailListJSONObject = new JSONObject();
+        Map<String, String> unsubscribedEmailsMap = companyPreferencesService.getUnsubscribedEmailsMap(companyPreferences);
 
-        for (int i = 0; i < emailListArrayJSON.size(); i++) {
-            emailListJSONObject = (JSONObject) emailListArrayJSON.get(i);
-            String currentListName = (String) emailListJSONObject.get(IConstants.kEmailListNameKey);
-            if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
-                if (emailListName.equals(currentListName)) {
+        if (!Utility.checkIfUnsubscribed(email_info.getEmailAddress(), unsubscribedEmailsMap)) {
+            JSONArray emailListArrayJSON = getEmailListForType(emailListsJSONObject, EmailListType.Regular);
+            JSONObject emailListJSONObject = new JSONObject();
 
-                    JSONArray emailAddressesJSONArray = (JSONArray) emailListJSONObject.get(IConstants.kEmailAddressesKey);
-                    for (int j = 0; j < emailAddressesJSONArray.size(); j++) {
-                        JSONObject emailAddressJSONObject = (JSONObject) emailAddressesJSONArray.get(j);
+            for (int i = 0; i < emailListArrayJSON.size(); i++) {
+                emailListJSONObject = (JSONObject) emailListArrayJSON.get(i);
+                String currentListName = (String) emailListJSONObject.get(IConstants.kEmailListNameKey);
+                if (!emailListName.isEmpty() && !currentListName.isEmpty()) {
+                    if (emailListName.equals(currentListName)) {
 
-                        EmailInfo email_info_from_database = EmailInfo.fromJSON(emailAddressJSONObject.toString());
-                        String email_address = email_info.getEmailAddress();
-                        String email_address_from_db = email_info_from_database.getEmailAddress();
-                        if (email_address.equalsIgnoreCase(email_address_from_db)) {
-                            return true;
+                        JSONArray emailAddressesJSONArray = (JSONArray) emailListJSONObject.get(IConstants.kEmailAddressesKey);
+                        for (int j = 0; j < emailAddressesJSONArray.size(); j++) {
+                            JSONObject emailAddressJSONObject = (JSONObject) emailAddressesJSONArray.get(j);
+
+                            EmailInfo email_info_from_database = EmailInfo.fromJSON(emailAddressJSONObject.toString());
+                            String email_address = email_info.getEmailAddress();
+                            String email_address_from_db = email_info_from_database.getEmailAddress();
+                            if (email_address.equalsIgnoreCase(email_address_from_db)) {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -565,26 +578,22 @@ public class EmailListServiceImpl implements EmailListService {
         }
         return false;
     }
-
+    
     private Boolean updateMindbodyEmailList(String locationId, JSONArray mindbodyEmails, Integer companyID) throws SQLException, ParseException {
-        List<CompanyPreferences> companyPreferencesList = companyPreferencesService.getAllForLocationId(locationId);
-        if (companyPreferencesList == null) {
+        CompanyPreferences companyPreferences = companyPreferencesService.getByCompanyId(companyID);
+           if (companyPreferences == null) {
             return true;
-        }
-        for (CompanyPreferences companyPreferences : companyPreferencesList) {
-            JSONParser jsonParser = new JSONParser();
-            JSONObject emailListJSONObject = new JSONObject();
-            if (!StringUtility.isEmpty(companyPreferences.getEmailList())) {
-                emailListJSONObject = (JSONObject) jsonParser.parse(companyPreferences.getEmailList());
-                if (emailListJSONObject.containsKey(IConstants.kEmailListMindbodyKey)) {
-                    emailListJSONObject.remove(IConstants.kEmailListMindbodyKey);
-                }
+           }
+ 
+        JSONParser jsonParser = new JSONParser();
+        JSONObject emailListJSONObject = new JSONObject();
+        if (!StringUtility.isEmpty(companyPreferences.getEmailList())) {
+            emailListJSONObject = (JSONObject) jsonParser.parse(companyPreferences.getEmailList());
+            if (emailListJSONObject.containsKey(IConstants.kEmailListMindbodyKey)) {
+                emailListJSONObject.remove(IConstants.kEmailListMindbodyKey);
             }
-            emailListJSONObject.put(IConstants.kEmailListMindbodyKey, mindbodyEmails);
-            companyPreferences.setEmailList(emailListJSONObject.toJSONString());
-            companyPreferencesService.updatePreferences(companyPreferences);
         }
-        return true;
+      return saveEmailPreferences(emailListJSONObject, companyPreferences);
     }
 
     private Boolean saveEmailPreferences(JSONObject emailListsObject, CompanyPreferences companyPreferences) {
@@ -592,4 +601,42 @@ public class EmailListServiceImpl implements EmailListService {
         companyPreferencesService.updatePreferences(companyPreferences);
         return true;
     }
+
+    @Override
+    public void updateUnsubscribedUserEmailLists(CompanyPreferences companyPreferences) {
+        try {
+            Map<String, String> unsubscribedEmailsMap = companyPreferencesService.getUnsubscribedEmailsMap(companyPreferences);
+
+            JSONParser jsonParser = new JSONParser();
+            if (StringUtil.isEmpty(companyPreferences.getEmailList())) {
+                return;
+            }
+            JSONObject emailListJSONObject = (JSONObject) jsonParser.parse(companyPreferences.getEmailList());
+            JSONArray emailListArrayJSON = getEmailListForType(emailListJSONObject, EmailListType.Regular);
+            JSONArray newUserEmails = new JSONArray();
+            for (int i = 0; i < emailListArrayJSON.size(); i++) {
+                JSONObject userEmailList = (JSONObject) emailListArrayJSON.get(i);
+                JSONArray emailListInContext = (JSONArray) userEmailList.get(IConstants.kEmailAddressesKey);
+                JSONArray newEmailList = new JSONArray();
+                for (int k = 0; k < emailListInContext.size(); k++) {
+                    JSONObject emailAddressJSONObject = (JSONObject) emailListInContext.get(k);
+                    EmailInfo email_model = EmailInfo.fromJSON(emailAddressJSONObject.toString());
+                    if (!Utility.checkIfUnsubscribed(email_model.getEmailAddress(), unsubscribedEmailsMap)) {
+                        newEmailList.add(emailAddressJSONObject);
+                    }
+                }
+                userEmailList.remove(IConstants.kEmailAddressesKey);
+                userEmailList.put(IConstants.kEmailAddressesKey, newEmailList);
+                newUserEmails.add(userEmailList);
+            }
+
+            emailListJSONObject.remove(IConstants.kEmailListUserKey);
+            emailListJSONObject.put(IConstants.kEmailListUserKey, newUserEmails);
+            saveEmailPreferences(emailListJSONObject, companyPreferences);
+
+        } catch (ParseException ex) {
+            java.util.logging.Logger.getLogger(EmailListServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }    
 }

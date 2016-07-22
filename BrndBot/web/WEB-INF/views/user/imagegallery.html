@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>Image Gallery</title>       
-        <link rel="import" href="header.html">
-    </head>
-    <div ng-include src="'navbar.html'"></div>
-    <body ng-app="rootApp"  class="claro1" ng-controller="controllerMarketingCampaign">
-        <div class="content-main">
-            <div ng-include src="'imageuploadpopup.html'"></div>
+<div ng-include src="'imageuploadpopup.html'"></div>
+<div class="content-main" ng-init="showImage()">
+            
     <!--<input type="text"  value="${user}"/>-->
     <!--Top Nav-->   
     <div class="top-nav">
@@ -20,7 +8,7 @@ and open the template in the editor.
             <div class="page-title-regular page-title-font">Image Gallery</div>
             <div class="page-cta-container">
                 <a href="" class=" fleft">
-                   <div id="liPriority" class=" add-button md-button" onclick="Showimguploadpopup()" > Upload an Image</div>    
+                   <div id="liPriority" class=" add-button md-button" ng-click="showImageUploadPopup()"> Upload an Image</div>    
                 </a>
                
             </div>
@@ -30,13 +18,12 @@ and open the template in the editor.
     <div class="gallery-page-background">
         <div class="gallery-page-content-container fleft">      
         <!--Inner Content Conatiner GENERIC-->
-            <div class="page-inner-content-container fleft" ng-module="imagegallery" >
-                <div class="fleft content" ng-controller="samplecontoller" ng-init="showData()">
-                <!--List Starts Here-->
-                    <div class="imageGallery-container  fleft" >
+            <div class="page-inner-content-container fleft">
+                <div class="fleft content"  ng-init="getAllCompanyImages()">
+                    <div class="imageGallery-container  fleft" ng-repeat="images in datalists" >
                         <div class="imageGallery-card">
                             <div class="galCard-image col-1of1">
-                                <img id="11" class="lookchooser5 ptr imagesize" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId=${companyId}" onclick="showText('{{images.companyImagesId}}','{{images.imageName}}')" />
+                                <img  class="lookchooser5 ptr imagesize" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId={{companyId}}"/>
                             </div>
                             <div class="galCard-content col-1of1">  
 <!--                                <div class="galImage-name">Image Name</div>
@@ -50,23 +37,6 @@ and open the template in the editor.
                             </div>
                         </div>
                     </div>
-<!--                    <div class="imageGallery-container  fleft"ng-repeat="images in datalists.slice().reverse()">
-                        <div class="imageGallery-card">
-                            <div class="galCard-image col-1of1">
-                                <img id="{{images.companyImagesId}}" class="lookchooser5 ptr imagesize" src="/BrndBot/downloadImage?imageType=GALLERY&imageName={{images.imageName}}&companyId=${companyId}" onclick="showText('{{images.companyImagesId}}','{{images.imageName}}')" />
-                            </div>
-                            <div class="galCard-content col-1of1">  
-                                <div class="galImage-name">Image Name</div>
-                                <div class="galImage-description">Added on Nov 26 2015</div>
-                                <div class="galCard-divider"></div>
-                                <img type="image/svg+xml" src="images/Icons/settings.svg" class="galCard-settingsicon fleft"> </img>
-                                <li class="nav-elements-icon-container hint--top delete--gallery"  data-hint1="Delete">
-                                    <img type="image/svg+xml" id="delete" src="images/trash.svg" class="galCard-trashicon fleft cur" ng-click="deleteImage(images.companyImagesId)"/>
-                                </li>                                 
-                                 <button name="delete"  id="delete" ng-click="deleteImage(images.id, images.user_id, images.image_name)">Delete</button>
-                            </div>
-                        </div>
-                    </div>-->
                 </div>
             </div>
         </div>

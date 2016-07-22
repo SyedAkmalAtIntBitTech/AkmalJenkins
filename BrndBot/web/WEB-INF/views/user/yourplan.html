@@ -1,151 +1,57 @@
-<html>
+<!DOCTYPE html">
+<html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>YOUR PLAN</title>       
-        <link rel="import" href="header.html">
-        <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
-    </head>
-    <!--<div ng-include src="'navbar.html'"></div>-->
-    <body  ng-app>         
-        
-        <div ng-include src="'loadingoverlay.html'"></div>
-        <!--<div ng-include src="'header.html'"></div>-->
-        <div id="controllerMarketingCampaign"  class="container content-main">
-        <div ng-include src="'genericpopup/mainpopup.html'" ></div>
-        <div ng-include src="'addaction.html'"></div>
-            <div class="top-nav">
-                <div class="page-title-bar col-1of1"> 
-                    <!--<div class="exit-button-detail"></div>-->
-                    <div class="page-title-regular page-title-font">Your Plan</div>
-                    <div class="page-cta-container">
-                        <a href="" class="delete-button button fleft">
-                            <!--<div class=" md-button" ng-click="deleteSchedule('0','deleteMultiple')" id="deleteactionbutton">Delete Action</div>-->    
-                        </a>
-                        <a href="javascript:void(0)">
-                            <div id="liPriority" ng-click="ShowAddAction()" class="add-action-button md-button buttoext-1"> Add Action</div>
-                        </a>
-                    </div>
-                </div>
-                <div class="page-subnav-bar-with-dropdown"> 
-                    <div class="subnav-date-dropdown hint--right" data-hint="Calendar">
-                        <img type="image/svg+xml" src="images/calendar.svg" class="calendar-dropdown  " style="cursor:pointer;"/>
-                    </div>
-                    <div class="subnav-date-dropdown-text ">
-                        <label class="calendar-dropdown-text " for="jumptodatepicker">Jump to Date</label>
-                        <input type="text"  name="datepicker" id="jumptodatepicker" readonly class="hideinput"/>
-                        <!--                 <script>
-                                                    var picker = new Pikaday(
-                                                    {
-                                                        field: document.getElementById('jumptodatepicker'),
-                                                        format: 'YYYY-MM-DD',
-                                                        firstDay: 1,
-                                                        minDate: new Date('2000-01-01'),
-                                                        maxDate: new Date('2050-12-31'),
-                                                        yearRange: [2000,2050],
-                                                        onSelect: function() {
-                        //                                    document.getElementById('selected').appendChild(curdat);
-                                                        }
-                                                    });
-                                         </script>-->
-                    </div>
+        <link rel="shortcut icon" href="images/favicon.png">
+            <title>Dashboard</title>
+            <script src="js/jquery-1.11.3.min.js" type="text/javascript"></script> 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.min.js"></script>
+            <link rel="stylesheet" href="css/pikaday.css"/>
+            <link rel="stylesheet" href="css/datepickerpikaday.css"/>  
+            <script src="js/moment.js" type="text/javascript"></script>
+            <script src="js/pikaday.js"></script>
+            <script src="js/pikaday_angular.js"></script>
+            <link rel="stylesheet" type="text/css" href="css/pikaday.css" />
+            <link rel="stylesheet" type="text/css" href="css/datepickerpikaday.css"/>
+            <link rel="stylesheet" type="text/css" href="css/timepicki.css" />     
+            <link rel="stylesheet" type="text/css" href="css/popup.css"/>
+            <script src="js/alertmessage.js" type="text/javascript"></script>
+            <script src="../js/configurations.js"></script> 
+            <script src="../js/angularappconfiguration.js"></script>   
+            <link href="css/colpick.css" rel="stylesheet" type="text/css"/>
+            <script src="js/colpick.js" type="text/javascript"></script>
+            <link rel="shortcut icon" href="images/favicon.png"/> 
+            <script src="../js/factory/categoryFactory.js" type="text/javascript"></script>
+            <script src="../js/factory/subCategoryFactory.js" type="text/javascript"></script>
+            <script src="../js/factory/settingsFactory.js" type="text/javascript"></script>
+            <script src="../js/factory/yourPlanFactory.js" type="text/javascript"></script>
+            <script src="../js/factory/onboardingFactory.js" type="text/javascript"></script>
+            <script src="../js/factory/organizationFactory.js" type="text/javascript"></script>
+            <script src="../js/factory/urlServices.js" type="text/javascript"></script>
+            <script src="../js/factory/authFactory.js" type="text/javascript"></script>
+            <script src="../js/factory/companyMarketingFactory.js" type="text/javascript"></script>
+            <script src="../js/factory/marketingFactory.js" type="text/javascript"></script>
+            <script src="../js/factory/companyFactory.js" type="text/javascript"></script>
+            <script src="../js/factory/settingsFactory.js" type="text/javascript"></script>
+            <script src="../js/factory/companyMarketingFactory.js" type="text/javascript"></script>
+            <script src="js/controller/marketingController.js" type="text/javascript"></script>
+            <script src="js/controller/routing.js" type="text/javascript"></script>
+            <script src="js/controller/yourPlanController.js" type="text/javascript"></script>
+            <script src="js/timepicki.js" type="text/javascript"></script>
+            <link href="css/general_1.css" rel="stylesheet" type="text/css"/>
+            <script src="../js/angulardropdown.js" type="text/javascript"></script>
+            <style>
+                #pastprogs,#delmarkprog{display: none;}
+            </style>   
+    </head>    
 
-                    <div class="top-subnav-tabs-container-with-drop">      
-                    </div>
-                </div>
-            </div>
-            <div class="page-background">
-                <div class="page-content-container your-plan-inner-content" ng-init="getCampaigns()">
-
-                    <!--Inner Content Conatiner GENERIC-->
-                    <div class="page-inner-content-container " >
-                        <!--                <div class="fleft content" ng-repeat="entity in entitySet">-->
-                        <div class="fleft content">
-                            <div class="page-content-title-bar">
-                                <!--<div class="page-content-title h2" ng-show='entity.date==tomorrow_date'>Tomorrow's Actions</div>-->
-                                <div class="page-content-title h2" ng-show="entity.date == today_date">Today's Actions</div>
-                                <!--<div class="page-content-title h2" ng-show="(entity.date != today_date)">{{myYear(mySplit(entity.date,1))}} {{mySplit(entity.date,2)}} {{mySplit(entity.date,0)}}</div>-->
-                            </div>
-                            <!--List Starts Here-->
-                            <ul class="main-container fleft" >
-                                <li class="slat-container fleft selfclear" > 
-                                    <!--ng-repeat="entitydetails in entity.dataArray">-->
-                                    <div class="selection-container col-5p"> 
-                                        <div class="selection-icon" id="{{entitydetails.schedule_id}}" onclick="selcheckbox(this.id)"><input type="checkbox" id="entityid{{entitydetails.entity_id}}" value="{{entitydetails.entity_id}}" name="entityname" hidden></input></div>
-                                    </div>
-                                    <div class="col-7of10 slat-unit fleft ">
-                                        <!--                                <div ng-show="entitydetails.entity_type != master_note">
-                                                                            <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'Template Saved'"  data-hint="Template Saved" > 
-                                                                                <img src="images/templateSaved.svg" class="status-button" />
-                                                                            </div>
-                                                                            <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'No Template'"  data-hint="No Template" >
-                                                                                <img src="images/needTemplate.svg" class="status-button"/>
-                                                                            </div>
-                                                                            <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'Complete'"  data-hint="Complete" > 
-                                                                                <img src="images/ActionComplete.svg" class="status-button"/>
-                                                                            </div>
-                                                                            <div class="icon-container fleft hint--top" ng-show="entitydetails.template_status == 'Approved'"  data-hint="Approved" > 
-                                                                                <img src="images/ActionApproved.svg" class="status-button"/>
-                                                                            </div>
-                                                                        </div>-->
-                                        <!--<div ng-show="entitydetails.entity_type == master_note">-->
-                                        <div>
-                                            <div class="icon-container fleft hint--top" data-hint="Reminder" > 
-                                                <img src="images/Reminder.svg" class="status-button"/>
-                                            </div>
-                                        </div>
-
-                                        <div  class="slat-title-container col-1of2 fleft">                                    
-                                            <!--<div class="slat-title email-list-slat-title col-1of1 sh1" ng-hide="entitydetails.is_recurring">{{entitydetails.schedule_title}}</div>-->
-                                            <!--                                    <div class="slat-title email-list-slat-title col-1of1 sh1" >{{entitydetails.schedule_title}}</div>-->
-                                            <div class="slat-title email-list-slat-title col-1of1 sh1" >Test Action</div>
-                                            <div class="action-list-slat-description col-1of1 sh3" ng-show="entitydetails.user_marketing_program_id > 0">Desc</div>
-                                            <!--<div class="action-list-slat-description col-1of1 sh3" ng-show="entitydetails.user_marketing_program_id > 0">{{entitydetails.marketingName}}</div>-->
-                                            <!--<div class="action-list-slat-description col-1of1 sh3" ng-show="entitydetails.user_marketing_program_id == 0">No Program</div>-->
-                                        </div>
-
-                                        <div class=" col-1of4 fleft slat-attribute-container">
-                                            <div class="slat-column-font list-column-number col-1of1 sh2 fleft">Facebook Test</div>
-                                            <div class="slat-column-font list-column-number col-1of1 sh2 fleft" >Test</div>
-                                            <!--                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft"ng-show="entitydetails.entity_type==master_facebook || entitydetails.entity_type==master_twitter">{{entitydetails.entity_type}}</div>
-                                                                                <div class="slat-column-font list-column-number col-1of1 sh2 fleft"ng-show="entitydetails.entity_type==master_email || entitydetails.entity_type==master_note">{{entitydetails.entity_type}}</div>-->
-                                            <div class="list-column-description col-1of1 sh3 fleft">Action Type</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-1of4 fleft">
-                                        <div class="slat-cta-container">
-                                            <!--ng-click="setTemplate('Email',false)">Details</div>-->
-                                            <div class="small-button slat-button detail-button-font" 
-                                                 ng-click="getScheduleDetails(entitydetails.schedule_id,
-                                                             entitydetails.template_status,
-                                                             entitydetails.schedule_time,
-                                                             entitydetails.entity_type,
-                                                             entitydetails.schedule_title,
-                                                             entitydetails.schedule_description,
-                                                             entitydetails.marketingName,
-                                                             entitydetails.user_marketing_program_id,
-                                                             entitydetails.days,
-                                                             entitydetails.is_today_active)">Details</div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <!--                         <li class="slat-container fleft selfclear" ng-show="entity.dataArray == ''">
-                                                            <div class="selection-container col-5p"> 
-                                                                <div class="selection-icon"></div>
-                                                            </div>
-                                                            <div class="col-7of10 slat-unit fleft ">
-                                                                <div class="gray email-list-slat-title col-7of10 sh1">{{nodata}}</div>
-                                                                <div class="icon-container fleft " ng-show="entitydetails.template_status=='No Template'"> 
-                                                                    <object type="image/svg+xml" data="images/Icons/templateSaved.svg" class="status-button"> </object>
-                                                                </div>
-                                                                <div class="slat-title-container  fleft">
-                                                                    <div class="gray email-list-slat-title col-7of10 sh1">{{nodata}}</div>
-                                                                </div>
-                                                            </div>
-                                                        </li>-->
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <body ng-app="yourPlanFlowApp" class="body-normal" ng-controller="yourPlanController" id="yourPlanController">
+        <script type="text/ng-template"></script>    
+        <div ng-include src="'navbar.html'"></div>        
+        <div ng-include src="'genericpopup.html'"></div>
+        <div ng-include src="'yourplanreminderpopup.html'"></div>
+        <div ng-view></div>  
+        <!--Main Content Wrap-->    
     </body>
+
 </html>

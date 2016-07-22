@@ -5,10 +5,10 @@
  */
 package com.intbittech.dao.impl;
 
-import com.controller.IConstants;
+import com.intbittech.utility.IConstants;
 import com.intbittech.divtohtml.StringUtil;
 import com.intbit.ConnectionManager;
-import com.intbit.ScheduledEntityType;
+import com.intbittech.enums.ScheduledEntityType;
 import com.intbittech.enums.TemplateStatus;
 import java.sql.Connection;
 import java.sql.Date;
@@ -559,7 +559,8 @@ public class ScheduleDAO {
         String email_ids = "";
         String sql = "SELECT elist.* FROM "
                 + " scheduled_email_list elist, "
-                + " scheduled_entity_list enlist "
+                + " scheduled_entity_list enlist, "
+                + " company_marketing_program program "
                 + " WHERE elist.scheduled_email_list_id = enlist.entity_id "
                 + " AND enlist.fk_company_id = ? "
                 + " AND enlist.scheduled_entity_list_id = ?"
@@ -599,7 +600,6 @@ public class ScheduleDAO {
                 }
             }
         }
-
         //now get the to email addresses
         return scheduleEmailDetails;
     }

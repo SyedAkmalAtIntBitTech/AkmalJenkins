@@ -6,7 +6,7 @@ package com.intbittech.social;
  * and open the template in the editor.
  */
 
-import com.controller.IConstants;
+import com.intbittech.utility.IConstants;
 import com.controller.SqlMethods;
 import com.intbit.ConnectionManager;
 import java.sql.Connection;

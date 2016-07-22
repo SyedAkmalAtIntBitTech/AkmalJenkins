@@ -1,0 +1,60 @@
+           
+                <div class="top-nav-wrap"> 
+                    <div class="header">
+<!--                    <div class="exit-button-detail"></div>-->
+                        <h2>Your Email Hub</h2>
+                    </div>
+                    <div class="page-cta-container">
+                        <a href="">
+                            <div class="delete-button md-button button fleft"  id="deleteEmaildraft" ng-show="deletDraftsButton" ng-click="deleteDrafts('deleteMultiple');" > Delete Email Drafts</div>
+                        </a>
+<!--                        <a href="">
+                            <div id="addemlstbtn" class="add-action-button md-button button-text-1" ng-show="addEmailListButton" ng-click="addEmailList()"> Add Email List</div>
+                        </a>-->
+<!--                        <a href="">
+                            <div id="savesetbtn" class="add-action-button md-button button-text-1" ng-show="saveEmailSettingsButton" ng-click="saveEmailSettings(email_settings)">Save</div>
+                        </a>-->
+                    </div>
+             
+                <div class="top-sub-nav">
+                    <div class="hub-dropdown" ng-click="showDropDown()">
+                        <span class="hub-dropdown-text" id="emlsclspanid">Email<img type="image/svg+xml" src="images/dropdown-icon.svg" class="dropdown-icon" style="cursor:pointer;"></img></span>
+                    </div>
+
+                   
+                        <ul class="sub-nav-tab-wrap">
+                            <li class="sub-nav-tab" id="emldrftab" ng-click="displayAllEmailDrafts()"> <a href="#/emaildraft" ng-class="activeEmailDrafts">Email Drafts</a></li>
+                            <li class="sub-nav-tab" id="emlhistab" ng-click="displayEmailHistory()"> <a href="#/emailhistory" ng-class="activeEmailHistory">Email History and Analytics</a></li>
+                            <li class="sub-nav-tab" id="emllistab" ng-click="emailListGet()"> <a href="#/emaillist" ng-class="activeEmailList">Email Lists</a></li>
+                            <li class="sub-nav-tab" id="emlsettab" ng-click="getEmailSettings()"> <a href="#/emailsetting" ng-class="activeEmailSettings">Email Settings</a></li>
+                        </ul>
+                   
+                </div>
+                
+                    <div class="dropdown-hub" ng-show="emaildropdown">
+                        <ul class="dropdown-inner">
+                            <li class="dropdown-section col-1of1 fleft" id="socialhubli" >
+                                <a href="/BrndBot/user/social">
+                                    <div><img type="image/svg+xml" src="images/Hub-Dropdowns_social.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
+                                    <div class="fleft col-6of10 dropdown-label-active">Social Hub</div>
+                                </a>
+                            </li>
+                            <a href="/BrndBot/user/basemarketinghub#/">
+                                <li class="dropdown-section fleft col-1of1 " id="emailhubli">
+                                    <div><img type="image/svg+xml" src="images/Hub-Dropdowns_email.svg" class="dropdown-hub-icon fleft col-2of10" style="cursor:pointer;"></img></div>
+                                    <div class="fleft col-6of10 dropdown-label">Email Hub</div>
+                                </li>
+                            </a>                     
+                        </ul>
+                    </div>
+            </div>
+<!--            <div class="bottom-cta-bar padleft" id="removeselactions" >
+                <div class="bottom-cta-button-container padright">
+                    <div class="remove-action-detail md-button button-text-1" id="deleteEmailList" ng-show="deleteEmailListButton" ng-click="deleteEmailList();">Remove Selected Email List(s)</div>
+                </div>
+            </div>-->
+            <div class="bottom-cta-bar padleft" id="removeselactions" ng-show="showDeleteEmailList" >
+                <div class="bottom-cta-button-container padright">
+                    <div class="remove-action-detail md-button button-text-1" id="deleteEmailList" ng-click="deleteEmailList();">Remove Selected Email List(s)</div>
+                </div>
+            </div>

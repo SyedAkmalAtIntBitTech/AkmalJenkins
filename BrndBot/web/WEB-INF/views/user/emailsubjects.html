@@ -1,12 +1,13 @@
- <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
+    <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-1.css"></link>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"></link>
     <link rel="stylesheet" type="text/css" href="css/slat.css"></link>
     <link rel="shortcut icon" href="images/favicon.png"></link>
     <link rel="stylesheet" href="css/popup.css">
     <div ng-include src="'navbar.html'"></div> 
-<div class="top-nav">
-    <div class="page-title-bar col-1of1"> 
-<!--        <input type="hidden" value="<%=categoryId%>" id="categoryIdTag"/>
+
+<div class="main-content-wrap">
+    <div class="top-nav-wrap">
+        <!--        <input type="hidden" value="<%=categoryId%>" id="categoryIdTag"/>
         <input type="hidden" value="<%=subCategoryId%>" id="subCategoryIdTag"/>
         <input type="hidden" value="<%=mindbodyId%>" id="mindbodyId"/>
         <input type="hidden" value="<%=email_subject%>" id="email_subject"/>
@@ -18,38 +19,28 @@
                 <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
             </div>
         </a>-->
-
-        <a class=" exit-button-icon" href="">
-            <div class="exit-button-detail">
-                <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"></img>
+        <div class="header">
+            <a href="baseemaileditor#/emailsubcategory" class="back-button"></a>
+            <h2 class="">Create an Email</h2>
+        </div>
+    </div> 
+    <div class="top-nav-bar-offset" ng-init="redirectBaseURL()"></div>
+    <div class="content-wrap content-wrap-flex content-wrap-with-continue-bar">
+        <div class="modal-pane modal-pane-width-reg">
+            <div class="modal-pane-header-wrap">
+                <h2>Email Details</h2>
             </div>
-        </a>
-        <div class="page-title-with-back page-title-font">Email Details</div>
-    </div>
-</div>
-<div class="sequence-page-background">
-    <div class="sequence-page-content-container">
-        <div class="sequence-page-header">Enter Subject Line</div>
-        <div class="email-detail-selection col-1of1 fleft">
-            <div class="col-1of1 fleft">
-                <div class="col-9of10 fleft">
-                    <input ng-model="emailsubject" class="input-field-textfield col-8of10" placeholder="Enter Subject of email" name="emailsubject" type="text" value="{{emailsubject}}" required/>
-                </div>
-                <div class="col-9of10 fleft">
-                    {{emailSubjectError}}
-                </div>
-            </div>
-
-            <div class="col-1of1 pushUp fleft">
-                <div class="fleft">
-
+            <div class="modal-pane-content-wrap">
+                 <div class="input-wrap">
+                    <label> Enter a Subject Line </label>
+                    <div class="input ">
+                        <input ng-model="$parent.emailsubject" type="text" value="{{emailsubject}}"  spellcheck="true" placeholder="Enter Subject of email" name="emailsubject"  class="fluid"></input>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="bottom-cta-bar">
-    <div class="bottom-cta-button-container-lg" ng-click="redirect('emaileditor','','','','','',emailsubject)">
-        <div class="bottom-continue-button button-text-1">Continue</div>
+    <div class="continue-bar">
+        <a ng-click="redirect('emaileditor','','','','','',emailsubject)" id="continue-bar-button" class="fright">CONTINUE</a>
     </div>
 </div>

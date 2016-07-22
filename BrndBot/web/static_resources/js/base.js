@@ -34,7 +34,6 @@ $(document).ready(function () {
     });
 
   $("#emailschedule").click(function () {
-    alert();
     $("#emailSchedulePopUp").show();
     $("#addOrganizationPopupDiv").show();
     

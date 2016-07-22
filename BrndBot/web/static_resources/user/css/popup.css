@@ -311,7 +311,6 @@
     width:99%;
 }
 .time_pick {
-    left: 1px;
     width:100%;
 }
 .claro1{
@@ -339,16 +338,7 @@
     //width: 120px;
     resize:none;
 }
-#addactionClose{
-    cursor: pointer;
-}
-#addAction
-{
-    display: none;
-    position: fixed;
-    z-index: 999999;
-    margin-left: 27%;
-}
+
 img.exit-button {
     width: 37px;
     margin-left: -5px;
@@ -375,7 +365,17 @@ img.exit-button {
     margin-right: -900px;
 }
 #emailsection{
-    //display: none;
+    display: none;
+    position: fixed;
+    z-index: 999999;
+    height: 100vh;
+    overflow-y: hidden;
+    width: 900px;
+    right: 0px;
+    margin-right: -900px;
+}
+.emailsectionClass{
+    display: block !important;
     position: fixed;
     z-index: 999999;
     height: 100%;
@@ -383,8 +383,9 @@ img.exit-button {
     max-height: 100%;
     width: 900px;
     right: 0px;
-    margin-right: -900px;
+    margin-right: 0px !important;
 }
+
 #recurringPopup{
     //display: none;
     position: fixed;
@@ -458,20 +459,6 @@ img.exit-button {
 /*-------------------------------------------- emaillist popup -------------------------------*/
 
 
-#fade
-{
-    display: none;
-    position:  fixed;
-    top: 0%;
-    left: 0%;
-    width: 100%;
-    height: 100%;
-    background-color: #3D5368 !important;
-    z-index:99999 !important;
-    -moz-opacity: 0.9;
-    opacity:.9 !important;
-    filter: alpha(opacity=80);
-}
 .savebutton {
     margin-left: 0%;
     margin-top: 1%;
@@ -690,7 +677,7 @@ input#timepicker1 {
     width:50%
 }
 #schedulepopup {
-    display: none;
+    /*display: none;*/
     z-index: 100000;
     position: fixed;
     padding-left: 24%;
@@ -733,7 +720,7 @@ select#dropdownurl,#url {
     display: block;
     position: fixed;
     z-index: 99999;
-    margin-left: 30%;
+    margin-left: 25%;
 }
 #emaildraftpopup{
     //display: none;
@@ -744,7 +731,8 @@ select#dropdownurl,#url {
     max-height: 100%;
     width: 900px;
     right: 0px;
-    margin-right: -900px;
+    bottom: 0px;
+    //margin-right: -900px;
 }
 #draftshow {
     position: relative;
@@ -984,9 +972,13 @@ input#schedule_social_time {
     right: 0px;
     margin-right: -900px;
 }
-#remindernotesave{
-    display: none;
+.reminderSectionClass{
+     display: block;
+     margin-right: 0px !important;
 }
+/*#remindernotesave{
+    display: none;
+}*/
 
         #drop-zone {
             /*Sort of important*/
@@ -1374,7 +1366,7 @@ div#savePassword {
     margin-top: 10px;
 }
 #socialdropdown{
-    display: none;
+/*    display: none;*/
 }
 #view2
 {
@@ -1486,7 +1478,7 @@ textarea#filetext1 {
     font-weight:500;
     color: #2D4444;
     /*height: -webkit-calc(100% - 141px);*/
-    height: -webkit-calc(76% - 141px);
+    height: -webkit-calc(100% - 141px);
     overflow: scroll;
    //max-height: 600px;
     /*                                overflow: auto;*/
@@ -1940,3 +1932,24 @@ textarea#filetext1 {
 /*************************** ADD IMAGE *************************/
 
 /*----------------- New PopUp css code Stops-----------------*/
+
+.checkboxshowpassword {
+    position: relative !important;
+    top: -17px;
+    font-size: 12px;
+}
+.confirmpassword{
+      margin-bottom: 15px;  
+}
+
+.top-subnav-link-active-detail{
+    border-bottom: 3px #0F76A6 solid;
+    color: #0F76A6;
+    font-size: 14px;
+}
+
+.top-subnav-link-active-detail-Class{
+    border-bottom: 3px #0F76A6 solid;
+    color: #0F76A6;
+    font-size: 14px;
+}

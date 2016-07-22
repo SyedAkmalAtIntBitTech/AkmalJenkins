@@ -87,8 +87,8 @@ public class CompanyPreferencesDaoImpl implements CompanyPreferencesDao {
                     .createCriteria(CompanyPreferences.class)
                     .setFetchMode("fkCompanyId", FetchMode.JOIN)
                     .add(Restrictions.eq("fkCompanyId.companyId", company.getCompanyId()));
-            List<Category> category = criteria.list();
-            if (category.isEmpty()) {
+            List<CompanyPreferences> list = criteria.list();
+            if (list.isEmpty()) {
                 return null;
             }
             return (CompanyPreferences) criteria.list().get(0);
@@ -105,6 +105,23 @@ public class CompanyPreferencesDaoImpl implements CompanyPreferencesDao {
             Criteria criteria = sessionFactory.getCurrentSession()
                     .createCriteria(CompanyPreferences.class)
                     .add(Restrictions.eq("companyLocation", locationId));
+            List<CompanyPreferences> list = criteria.list();
+            if (list.isEmpty()) {
+                return null;
+            }
+            return list;
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            throw new ProcessFailed("Database error while retrieving record");
+        }
+    }
+
+    @Override
+    public List<CompanyPreferences> getAll() {
+          try {
+            Criteria criteria = sessionFactory.getCurrentSession()
+                    .createCriteria(CompanyPreferences.class);
             List<CompanyPreferences> list = criteria.list();
             if (list.isEmpty()) {
                 return null;

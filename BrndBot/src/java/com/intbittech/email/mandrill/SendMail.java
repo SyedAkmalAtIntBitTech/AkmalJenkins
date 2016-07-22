@@ -5,7 +5,7 @@
  */
 package com.intbittech.email.mandrill;
 
-import com.controller.IConstants;
+import com.intbittech.utility.IConstants;
 import com.intbittech.component.SpringContextBridge;
 import com.intbittech.dao.impl.EmailHistoryDAO;
 import com.intbittech.model.CompanyPreferences;
@@ -39,7 +39,8 @@ import org.json.simple.parser.JSONParser;
 public class SendMail {
 
     private static final Logger logger = Logger.getLogger(com.intbittech.utility.Utility.getClassName(SendMail.class));
-    public final static String MANDRILL_KEY = "qiy8dbHXdGU46qX53MvGdQ";//Test key
+//    public final static String MANDRILL_KEY = "qiy8dbHXdGU46qX53MvGdQ";//Test key
+    public final static String MANDRILL_KEY = "UMOD7RKLNPwoGrCL7XnvTg";//Prod key changed 17 june from new account - BrndBot1
     
     public static MessageResponses sendMail(Message message) {
         try {

@@ -18,37 +18,32 @@
                  body{
                       font-family: "proxima-nova",sans-serif !important;
                  }
-                 #loadoverlaydiv{display: none}
+                 /*#loadoverlaydiv{display: none}*/
              </style>
-<div class="mainNav" >   
-        <a href="dashboard"><div class="bb-logo-wrap">
-                 <img type="image/svg+xml" src="images/Logo_Reverse.svg" class="brndbot_logo" style="cursor:pointer;">
-            
-            </div></a>
-        <a  class="hint--right" href="marketing" data-hint="YOUR PLAN"><div class="nav-tabs">
-                <img type="image/svg+xml" src="images/yourPlan.svg" class="nav-elements-icon" style="cursor:pointer;">
-          
-            </div></a>
-    <a class="hint--right" href="/BrndBot/user/createmarketingprogram#/marketingprogramlists" data-hint="MARKETING PROGRAM"><div class="nav-tabs ">
-                <img type="image/svg+xml" src="images/marketingProgram.svg" class="nav-elements-icon" style="cursor:pointer;">
-            
-            </div></a>
-        <a href="marketingHub.html" class="hint--right" data-hint="MARKETING HUB"><div class="nav-tabs" >
-                  <img type="image/svg+xml" src="images/yourHubs.svg" class="nav-elements-icon" style="cursor:pointer;">
-           
-            </div></a>
-        <a href="imagegallery"   class="hint--right" data-hint="GALLERY"><div class="nav-tabs">
-                 <img type="image/svg+xml" src="images/media.svg" class="nav-elements-icon" style="cursor:pointer;">
-            
-            </div></a>
-        <a href="settings"   class="hint--right" data-hint="SETTINGS"><div class="nav-tabs">
-                 <img type="image/svg+xml" src="images/user.svg" class="nav-elements-icon" style="cursor:pointer;">
-            </div></a>
-     <a href="${pageContext.request.contextPath}/logout" >
-        <div class="nav-elements-icon-container-bottom nav-tabs" >
-             <img type="image/svg+xml" src="images/logout.svg" class="nav-elements-icon" style="cursor:pointer;">
-            
-        </div>
-        </a>
-    </div>
+<div class="side-nav">
+    <ul class="side-nav-tabs">
+        <li class="nav-logo">
+             <a href="/BrndBot/user/dashboard#/dashboard"  class="side-nav-logo"></a>
+        </li>
+        <li class="main-nav">
+            <a href="/BrndBot/user/yourplan#/marketing" class="your-plan"></a>
+        </li>
+        <li class="main-nav">
+            <a href="/BrndBot/user/createmarketingprogram#/marketingprogramlists" class="marketing-campaign"></a>
+        </li>
+        <li class="main-nav ">
+            <a href="/BrndBot/user/basemarketinghub#/" class="hub"></a>
+        </li>
+        <li class="main-nav ">
+            <a href="/BrndBot/user/baseimagegallery#/imagegallery" class="media"></a>
+        </li>
+        <li class="main-nav ">
+            <a href="settings" class="user"></a>
+        </li>
+        <li class="main-nav">
+            <a href="/BrndBot/logout" class="log-out"></a>
+        </li>
+       
+    </ul>
+</div>
     

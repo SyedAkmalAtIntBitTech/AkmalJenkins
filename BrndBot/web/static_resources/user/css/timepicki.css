@@ -58,12 +58,13 @@ Author: senthil
 	z-index: 998;
 	display: none;
 	box-shadow: 2px 2px 5px 0 rgba(50,50,50,0.35);
-	background: #f6f6f6;
+	background: #fafafa;
 	border: 1px solid #ccc;
 	float: left;
 	position: absolute;
 	left: 0px;
-        width: 56%;
+        top: 100%;
+        width: auto;
 }
 
 .arrow_top {

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!--
+Copyright 2015 Intbit Technologies. This software and documentation contains
+confidential and proprietary information that is owned by Intbit
+Technologies. Unauthorized use and distribution are strictly prohibited.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="shortcut icon" href="images/favicon.png"/>       
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <meta name="format-detection" content="telephone=no"></meta>
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+    <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="css/admin.css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="css/basecss.css"/>
+    <link rel="stylesheet" type="text/css" href="css/dropdown.css"/>
+    <link rel="shortcut icon" href="../images/favicon.png"/> 
+    <script src="js/globalimage.js" type="text/javascript"></script>
+    <script src="js/organization.js" type="text/javascript"></script>
+    <script src="js/configurations.js" type="text/javascript"></script>   
+    <script src="js/basejs.js" type="text/javascript"></script>
+    <script src="js/socialtemplates.js" type="text/javascript"></script>
+    <script src="js/alertmessage.js" type="text/javascript"></script>
+    <script src="js/emailtemplate.js" type="text/javascript"></script>
+    <script src="js/emailblockmodels.js" type="text/javascript"></script>
+    <script src="js/assets.js" type="text/javascript"></script>
+    <script src="js/recurringemail.js" type="text/javascript"></script>
+    <script src="js/imageToBase64Converter.js" type="text/javascript"></script>
+    <script src="js/marketingprogramdetails.js" type="text/javascript"></script>
+    <script src="js/allcompanies.js" type="text/javascript"></script>        
+    <title>Organization-Details</title>       
+</head>    
+<body class="body-normal" ng-app ng-controller="organizationcontroller">
+    <div ng-include src="'header.html'" ></div>
+    <div ng-include src="'emailcategory.html'" ></div>
+    <div ng-include src="'printcategory.html'" ></div>
+    <div ng-include src="'addimagecategory.html'" ></div>
+    <div ng-include src="'addemailblock.html'" ></div>
+    <div ng-include src="'addrecuringtemplatepopup.html'" ></div>
+    <div ng-include src="'marketingprogrampopup.html'" ></div>
+      
+    <div class="content-area"  >
+        <div ng-init="getOrganizationId()">
+            <input type="hidden" id="organizationIdTag" name="organizationIdTag" ng-model="organizationId"/>
+            <input type="hidden" id="organizationId" name="organizationId" ng-model='organizationId' value="{{organizationId}}"/>
+        </div>
+        <div class="content-area_header" ng-init="organizationdetails()">
+            <div class="header_path fleft"><a style="text-decoration:none;color:#3E4551;" href="/BrndBot/admin/organization"> Organizations</a>  > </div>
+
+            <div class="header_title fleft" id="organizationNameDiv">{{organizationDetails.organizationName}}</div>
+            <div id="deleteOrganization" class="CTA_Button Button--Delete fright" ng-click="deleteOrganization()">Delete Organization</div>
+
+        </div>
+        <div class="inputSection col1of4" >
+            <div class="input_Label">Is this an organization or a group?</div>
+                <select class="input_Field" id="organizationDetailsTypeId">
+                    <option class="input_Field" value="2">organization</option>
+                    <option class="input_Field" value="1">group</option>
+                </select>
+            <div id="updateOrganization" class="CTA_Button Button--Gray fleft pushUp_10" ng-click="updateOrganization()">Update</div>
+        </div>
+        <div class="slatSection" ng-init="emailcategories()">
+            <div class="sectionHeader"> Email Categories </div>
+            <div class="slatHeaders">
+                <div class="listHeaderCol col1of2 fleft">
+                    <span class="listCol_Header fleft"> Category Names </span>
+                </div>
+            </div>
+            <ul class="slatArea" >
+                <li class="listItem" ng-repeat="emails in emailDetails.slice().reverse()">
+                    <div class="listCol col1of2 fleft" >
+                        <span class="listCol_Text fleft" >{{emails.categoryName}}</span>
+                    </div>
+                    <div class="listCol col1of2 fleft">
+                        <a href="/BrndBot/admin/emailsubcategory?organizationId={{organizationId}}&categoryId={{emails.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
+                    </div>
+                </li>
+            </ul>
+            <div id="addOrganization" class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
+        </div>
+        <div class="slatSection" ng-init="getAllEmailBlocks()">
+            <div class="sectionHeader"> Email Blocks </div>
+            <div class="slatHeaders">
+                <div class="listHeaderCol col1of2 fleft">
+                    <span class="listCol_Header fleft"> Block Names </span>
+                </div>
+                <div class="listHeaderCol col1of4 fleft">
+                    <span class="listCol_Header fleft"> External Value </span>
+                </div>
+            </div>
+            <ul class="slatArea" ng-repeat="blocks in emailBlocks.slice().reverse()">
+                <li class="listItem">
+                    <div class="listCol col1of2 fleft">
+                        <span class="listCol_Text fleft"> {{blocks.emailBlockName}}</span>
+                    </div>
+                    <div class="listCol col1of4 fleft">
+                        <span class="listCol_Text fleft"> {{blocks.externalSourceName}}{{blocks.externalSourceKeywordName}}</span>
+                    </div>
+                    <div class="listCol col1of4 fleft">
+                       <a href="/BrndBot/admin/emailblock?organizationId={{organizationId}}&emailBlockId={{blocks.emailBlockId}}"><div class="CTA_Button Button--Gray fright">Manage Block </div></a>
+                    </div>
+                </li>
+                
+                
+            </ul>
+            <div id="addEmailBlock" class="Add_Button Button--Blue fleft pushUp_10">Add Block</div>
+        </div>
+        <div class="slatSection" >
+            <div class="sectionHeader"> Image Template Categories </div>
+            <div class="slatHeaders">
+                <div class="listHeaderCol col1of2 fleft">
+                    <span class="listCol_Header fleft"> Category Names </span>
+                </div>
+            </div>
+            <ul class="slatArea">
+                <li class="listItem" ng-repeat="image in imageDetails.slice().reverse()">
+                    <div class="listCol col1of2 fleft">
+                        <span class="listCol_Text fleft">{{image.categoryName}}</span>
+                    </div>
+                    <div class="listCol col1of2 fleft">
+                        <a href="/BrndBot/admin/imagesubcategory?organizationId={{organizationId}}&categoryId={{image.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
+                    </div>
+                </li>
+            </ul>
+            <div id="addCategoryImage" class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
+        </div>
+        <div class="slatSection">
+            <div class="sectionHeader"> Print Template Categories </div>
+            <div class="slatHeaders">
+                <div class="listHeaderCol col1of2 fleft">
+                    <span class="listCol_Header fleft"> Category Names </span>
+                </div>
+            </div>
+            <ul class="slatArea">
+                <li class="listItem" ng-repeat="print in printDetails.slice().reverse()">
+                    <div class="listCol col1of2 fleft">
+                        <span class="listCol_Text fleft"> {{print.categoryName}}</span>
+                    </div>
+                    <div class="listCol col1of2 fleft">
+                        <a href="/BrndBot/admin/printsubcategory?organizationId={{organizationId}}&categoryId={{print.categoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
+                    </div>
+                </li>
+            </ul>
+            <div id='addCategoryPrint' class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
+        </div>
+        <div class="slatSection">
+            <div class="sectionHeader"> Marketing Program Categories </div>
+            <div class="slatHeaders">
+                <div class="listHeaderCol col1of2 fleft">
+                    <span class="listCol_Header fleft"> Category Names </span>
+                </div>
+            </div>
+            <ul class="slatArea"   ng-init="getAllMarketingCategory()">
+                <li class="listItem" ng-repeat="marketingCategory in marketingCategories.slice().reverse()">
+                    <div class="listCol col1of2 fleft">
+                        <span class="listCol_Text fleft"> {{marketingCategory.marketingCategoryName}}</span>
+                    </div>
+                    <div class="listCol col1of2 fleft">
+                        <a href="/BrndBot/admin/marketingcategory?organizationId={{organizationId}}&marketingCategoryId={{marketingCategory.marketingCategoryId}}"><div class="CTA_Button Button--Gray fright">Manage Category</div></a>
+                    </div>
+                </li>
+            </ul>
+            <div Id="addMarketingCategory" class="Add_Button Button--Blue fleft pushUp_10">Add Category</div>
+        </div>
+        <div class="slatSection" ng-init="getAllRecurringByOrganizationId()">
+            <div class="sectionHeader"> Recurring Email Categories </div>
+            <div class="slatHeaders">
+                <div class="listHeaderCol col1of2 fleft">
+                    <span class="listCol_Header fleft"> Category Names </span>
+                </div>
+            </div>
+            <ul class="slatArea">
+                <li class="listItem" ng-repeat="recurringEmail in allRecurringEmails">
+                    <div class="listCol col1of2 fleft">
+                        <span class="listCol_Text fleft">{{recurringEmail.templateName}}</span>
+                    </div>
+                    <div class="listCol col1of2 fleft">
+                        <div class="CTA_Button Button--Gray fright" ng-click="deleteOrganizationRecurringEmail(recurringEmail.organizationRecurringEmailLookupId)">Remove Template</div>
+                    </div>
+                </li>
+            </ul>
+            <div id="addRecurringEmailTemplateButton" class="Add_Button Button--Blue fleft pushUp_10" ng-click="getAllNonAddedRecurringEmail()">Add Recurring Email</div>
+        </div>
+    </div>
+  
+</body>

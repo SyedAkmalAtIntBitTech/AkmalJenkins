@@ -1,164 +1,105 @@
-
-    <div class="content-main" ng-init="getProgramActions()">
-        <div ng-include src="'addaction.html'"></div>
-        <div ng-hide="true" ng-include src="'genericpopup/mainpopup.html'"></div>
-        <div ng-hide="true" ng-include src="'recurringemailpopup.html'"></div>
-    <!--Top Nav-->   
-    <div class="top-nav" >
-        <div class="page-title-bar col-1of1"> 
-            <a class="exit-button-icon" href="marketingprogramlists">
-                <div class="exit-button-detail"> 
-                    <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/>
-                </div>
-            </a>
-            <div id="progname" class="page-title-with-back page-title-font">{{programs.programdetails.programName}}</div>
-            <input type="hidden" name="program_name2" id="program_name2" value="{{programs.programdetails.programName}}"></input>
-            <div class="page-cta-container">
-                <!--<% if(past!=1) {%>-->
-                <a href="" class="gray-button fleft">
-                    <div class="md-button"  ng-click="endMarketingProgram()" id="endMarketingProgram"> End Marketing Program</div>    
-                </a>
-                <!--<% } %>-->
-            </div>
+<div ng-include src="'navbar.html'"></div> 
+<div ng-include src="'addaction.html'"></div>
+<div class="main-content-wrap" ng-init="getProgramActions('emailautomation')">
+    <div ng-hide="true" ng-include src="'recurringemailpopup.html'"></div>
+    <div class="top-nav-wrap">
+        <div class="header">
+            <a class="back-button" ng-click="backToPreviousPage('marketingprogramlists')" ></a>
+            <h2 class="">{{programs.programdetails.programName}}</h2>
+            <input type="hidden" name="program_name2" id="program_name2" value="{{programs.programdetails.programName}}">
+            <!--<% if(past!=1) {%>-->
+            <a ng-hide="isProgramArchived" href="" class="reg-button gray-button top-nav-header-cta" ng-click="endMarketingProgram()" id="endMarketingProgram">Archive Campaign</a>
+            <!--<% } %>-->
         </div>
-        <div class="page-subnav-bar-regular"> 
-            <div class="top-subnav-tabs-container-with-button">
-                <ul class="top-subnav-nav-elements">
-                    <li class="top-subnav-links" id="ovrviewli" ng-hide="checkProgramStatus()"> <a  id="overview" class="h3" id="overview" >Overview</a></li>
-<!--                    <li class="top-subnav-links" id="fieldsli"> <a href="" id="fields" class="h3" ng-click="showfieldstab()">Fields</a></li>-->
-                    <li class="top-subnav-link-active" id="actionsli"> <a  id="actions" class="h3-active-subnav" ng-click="showactionstab()">Actions</a></li>
-<!--                        <li class="top-subnav-links"> <a class="h3" href="/Newest_Files/MarketingProgram_Notes.html">Notes</a></li>
-                    <li class="top-subnav-links"> <a class="h3">Website Integration</a></li>
-                    <li class="top-subnav-links"> <a class="h3">Assets</a></li>-->
-                </ul>
-            </div>
+    
+    <div class="top-sub-nav">
+            <ul class="sub-nav-tab-wrap with-back-button">
+                <li class="sub-nav-tab " id="ovrviewli" ng-hide="checkProgramStatus()" ng-click="displayCampaignDetails()">
+                     <a id="overview" class="" ng-class="campaignDetailsClass">Campaign Details</a>
+                </li>
+                <li class="sub-nav-tab" id="actionsli" ng-click="displayCampaignActions();">
+                    <a  id="actions" class="" ng-class="campaignActionsClass">Campaign Actions</a>
+                </li>
+               
+            </ul>
         </div>
     </div>
-        <!--Main Content GENERIC--> 
-        <div class="page-background">
-            <div class="page-content-container marketingProgram-action-page" id="instancehidden">
-            
-            <!--Inner Content Conatiner GENERIC-->
-            <div class="page-inner-content-container" id="actionstab">
-                <div class="fleft content">
-                     <div class="page-content-title-bar fleft col-1of1">
-                        <div id="noemailautomation" class="page-content-title h2 fleft">Recurring Email Automations</div>
-                        <div class="action-cta-container">
-                            <!--<% if(past!=1){%>-->
-                            <a href="emailautomation.html" id="addrecemail" class="edit-button-detail fleft">
-                                <div class=" md-button" ng-click="addEditRecurringAction('add',<%=program_id%>, '0')">Add Recurring Email Automation</div>    
-                            </a>
-<!--                            <a href="" id="deleterecurringemail" class="delete-button-detail fleft">
-                                <div class="md-button delrecemlbtn" ng-click="deleteSchedule('0', 'deleteMultiple','recurring')">Delete Selected Recurring Email(s)</div>    
-                            </a>-->
-                            <!--<%}%>-->
+    <div class="top-nav-bar-offset"></div>
+    <div class="top-subnav-bar-offset"></div>
+
+    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" id="" ng-show="showCampaignActions==true">
+        
+             <div class="hub-pane">
+                <div class="hub-pane-header-wrap">
+                    <h2 class="">Recurring Automated Emails</h2>
+                    <!--<% if(past!=1){%>-->
+                    <a ng-hide="isProgramArchived" id="addrecemail" ng-click="redirectToEmailAutomation(forward,'add','', '0')" class="long-button green-button">Add an Automated Emails</a>
+                    <!--<%}%>-->
+                </div>
+                <div class="your-plan-action-wrap" >
+                    <div class="slat" ng-repeat="emailautomation in programs.emailautomation">
+                        <div class="your-plan-icon-wrap no-template-icon">
+                            
                         </div>
-                    </div>
-                    <!--List Starts Here-->
-                    <ul class="main-container fleft">
-                         <!--ng-repeat="emailautomation in programs.emailautomation"-->
-                  <li class="slat-container fleft selfclear" ng-repeat="emailautomation in programs.emailautomation">
-                            <div class="selection-container col-5p"> 
-                                <div class="selection-icon" ng-hide="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}" onclick="selcheckboxrecemail(this.id);setSelectedRecurringIds('{{emailautomation.scheduledEntityListId}}');"><input type="checkbox" ng-disabled="checkProgramStatus()" id="{{emailautomation.scheduledEntityListId}}"   value="{{emailautomation.scheduledEntityListId}}" hidden/></div>
+                        <div class="slat-name-wrap">
+                            <h2>{{emailautomation.programTemplateName}}</h2>
+                            <p>{{emailautomation.description}}</p>
+                        </div>
+                        
+                         <div class="slat-detail-wrap">
+                             <div class="slat-detail">
+                                <h2>{{actionType}}</h2>
+                                <p>Status</p>
                             </div>
-                            <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'Template Saved'"  data-hint="Template Saved" > 
-                                    <img src="images/templateSaved.svg" class="status-button" />
-                                </div>
-                                <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'No Template'"  data-hint="No Template" > 
-                                    <img src="images/needTemplate.svg" class="status-button"/>
-                                </div>
-                                <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'Approved'"  data-hint="Approved" > 
-                                    <img src="images/ActionApproved.svg" class="status-button"/>
-                                </div>
-                                <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'Complete'"  data-hint="Complete" > 
-                                    <img src="images/ActionComplete.svg" class="status-button"/>
-                                </div>
-                                <div class="slat-title-container col-1of2  fleft">
-                                    <div  class="slat-title email-list-slat-title col-1of1 sh1"></div>
-                                    <div class="slat-title email-list-slat-title col-1of1 sh1"> {{emailautomation.programTemplateName}}</div>
-                                    <div class="action-list-slat-description col-1of1 sh3">Description{{emailautomation.description}}</div>
-                                </div>
-                                <div class=" col-2of10  fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{emailautomation.dateTime| date:'MMM dd'}}</div>
-                                    <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
-                                </div>
-                                <div class=" col-2of10  fleft slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" >{{actionType}}</div>
-                                    <div class="list-column-description col-1of1 sh3 fleft">Status</div>
-                                </div>
-                            </div>
-                            <div class="col-1of4 fleft">
-                                <div class="slat-cta-container">
-                                    <div class="small-button slat-button detail-button-font"
-                                         ng-click="getRecurringMailDetails(emailautomation.scheduledEntityListId,
+                        </div>
+                        <div class="slat-detail-wrap">
+                            <div class="slat-detail">
+                                <a class="reg-button slat-detail-button" ng-click="getRecurringScheduleDetails(emailautomation.scheduledEntityListId,
                                                                 emailautomation.status, emailautomation.tillDate,
                                                                 emailautomation.dateTime,
                                                                 emailautomation.actionType,
                                                                 emailautomation.programTemplateName,
                                                                 emailautomation.description,
                                                                 emailautomation.postDateStatus,
-                                                                emailautomation.days)">
-                                                                           Details</div> 
-                                </div>
+                                                                emailautomation.days)">Action Details</a>
                             </div>
-                        </li>
-                </ul>
-                </div>
-                <div class="fleft content">
-                    <div class="page-content-title-bar fleft col-1of1">
-                        <div id="noota" class="page-content-title h2 fleft">One Time Actions</div>
-                        <div class="action-cta-container">
-                            <!--<% if(past!=1){%>-->
-                            <a id="onetimeactbtn" href="" class="edit-button-detail fleft">
-                                <div class=" md-button" ng-click="ShowAddAction()">  Add One Time Action</div>    
-                            </a>
-<!--                            <a href="" id="deleteonetimeact" class="delete-button-detail fleft">
-                                <div class="md-button delrecemlbtn" ng-click="deleteSchedule('1', 'deleteMultiple','nonrecurring')">Delete Selected Action(s)</div>
-                            </a>-->
-                            <!--<%}%>-->
                         </div>
                     </div>
-                    <!--List Starts Here-->
-                    <ul class="main-container fleft">
-                    <li class="slat-container fleft selfclear" ng-repeat="programaction in (filteredItems = (programs.programactions | orderBy: 'postDate':true))" >
-                        <!--ng-repeat="programaction in (filteredItems = (programs.programactions | orderBy: 'postDate':true))"-->
-                            <div class="selection-container col-5p"> 
-                                <div class="selection-icon" ng-hide="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}');selcheckboxonetimeact(this.id);"><input type="checkbox" id="entityid{{programaction.scheduledEntityListId}}"  value="{{programaction.scheduledEntityListId}}" name="entityname" hidden></input></div>
-                                <!--<div class="selection-icon">-->    
-                                    <!--<input type="checkbox" ng-disabled="checkProgramStatus()" id="{{programaction.scheduledEntityListId}}" class="delchckbx" onclick="setSelectedIds('{{programaction.scheduledEntityListId}}')" value="{{programaction.scheduledEntityListId}}" hidden />-->
-                                <!--</div>-->
-                            </div>
-                            <div class="col-7of10 slat-unit fleft ">
-                                <div class="icon-container fleft hint--top" ng-show="programaction.status == 'Template Saved'"  data-hint="Template Saved" > 
-                                    <img src="images/templateSaved.svg" class="status-button" />
-                                </div>
-                                <div class="icon-container fleft hint--top" ng-show="programaction.status == 'No Template'"  data-hint="No Template" > 
-                                    <img src="images/needTemplate.svg" class="status-button"/>
-                                </div>
-                                <div class="icon-container fleft hint--top" ng-show="programaction.status == 'Approved'"  data-hint="Approved" > 
-                                    <img src="images/ActionApproved.svg" class="status-button"/>
-                                </div>
-                                <div class="icon-container fleft hint--top" ng-show="programaction.status == 'Complete'"  data-hint="Complete" > 
-                                    <img src="images/ActionComplete.svg" class="status-button"/>
-                                </div>
-                                <div class="slat-title-container  col-1of2 fleft">
-                                    <div class="slat-title email-list-slat-title col-1of1 sh1">{{programaction.programTemplateName}}</div>
-                                    <div class="action-list-slat-description col-1of1 sh3">description{{programaction.description}}</div>
-                                </div>
-                                <div class=" col-2of10 fleft width20 slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft">{{programaction.postDate| date:'MMM dd yyyy'}}</div>
-                                    <div class="list-column-description col-1of1 sh3 fleft">Action Date</div>
-                                </div>
-                                <div class=" col-2of10 fleft width20 slat-attribute-container">
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" ng-show="programaction.actionType==master_facebook || programaction.actionType==master_twitter">{{programaction.actionType}}</div>
-                                    <div class="slat-column-font list-column-number col-1of1 sh2 fleft" ng-show="programaction.actionType==master_note || programaction.actionType==master_email">{{programaction.actionType}}</div>
-                                    <div class="list-column-description col-1of1 sh3 fleft">Action Type</div>
-                                </div>
-                            </div>
-                            <div class="col-1of4 fleft">
-                                <div class="slat-cta-container">
-                                    <div class="small-button slat-button detail-button-font" ng-click="getScheduleDetails(programaction.scheduledEntityListId,
+                </div>
+
+
+            </div>
+        </div>
+        <div class="hub-pane">
+            <div class="hub-pane-header-wrap" >
+                <h2 class="">One Time Actions</h2>
+                <!--<% if(past!=1){%>-->
+                <a ng-hide="isProgramArchived" id="onetimeactbtn" class="long-button green-button" ng-click="ShowAddAction()">Add a One Time Action</a>
+                <!--<%}%>-->
+            </div>
+            <div class="your-plan-action-wrap">
+                <div class="slat" ng-repeat="programaction in (filteredItems = (programs.programactions| orderBy: 'postDate':true))">
+                    <div class="your-plan-icon-wrap no-template-icon"></div>
+                    <div class="slat-name-wrap">
+                        <h2>{{programaction.programTemplateName}}</h2>
+                        <p>{{programaction.description}}</p>
+                    </div>
+
+                    <div class="slat-detail-wrap">
+                        <div class="slat-detail">
+                            <h2>{{programaction.postDate| date:'MMM dd yyyy'}}</h2>
+                            <p>Action Date</p>
+                        </div>
+                    </div>
+                    <div class="slat-detail-wrap">
+                        <div class="slat-detail">
+                            <h2 ng-show="programaction.actionType == master_facebook || programaction.actionType == master_twitter">{{programaction.actionType}}</h2>
+                            <h2 ng-show="programaction.actionType == master_note || programaction.actionType == master_email">{{programaction.actionType}}</h2>
+                            <p>Action Type</p>
+                        </div>
+                        <div class="slat-detail-wrap">
+                            <div class="slat-detail">
+                                <a class="reg-button  slat-detail-button" ng-click="getScheduleDetails(programaction.scheduledEntityListId,
                                                                         programaction.status,
                                                                         programaction.postDate,
                                                                         programaction.actionType,
@@ -167,140 +108,70 @@
                                                                         programaction.postTime,
                                                                         programaction.postDateStatus,
                                                                         programaction.days,
-                                                                        programs.programdetails.programName,
-                                                                        <%=program_id%>)">Details</div>
-                                </div>
-                            </div>
-                        </li>
-
-                    </ul>
-                </div>
-               </div>      
-            <div class="page-inner-content-container" id="fieldstab" hidden>
-                <div class="fleft content">
-                    <div class="page-inner-content-container ">
-                        <div class="fleft content">
-                            <div class="main-container fleft">
-                                <!--Content Starts Here-->
-                                <div class="input-header" style="">
-                                    Name of Workshop
-                                </div>
-                                <input type="text" class="input-field-textfield" placeholder="Enter Name of Workshop"/>
-
-                                
-                                <div class="input-header" style="">
-                                    Date
-                                </div>
-                                <input type="text" class="input-field-textfield" placeholder="Enter Date of Workshop "/>
-                                
-                                <div class="input-header" style="">
-                                    Time of Workshop
-                                </div>
-                                <input type="text" class="input-field-textfield" placeholder=" Enter Time of Workshop "/>
-                               
-                                
-                                <div class="input-header" style="">
-                                    Name of Workshop Instructor
-                                </div>
-                                <input type="text" class="input-field-textfield" placeholder="Enter Name of Workshop Instructor"/>
-                                   
-                                
-                                <div class="input-header">
-                                    Details
-                                </div>
-                                <div class="input-header-subtext">
-                                    Keep this to 1-2 sentences
-                                </div>
-                                <input type="text" class="input-field-textfield" placeholder="Enter Details of Workshop "/>
-                                    
-                                <div class="input-header">
-                                    Description of Workshop
-                                </div>
-                                <div class="input-header-subtext">
-                                    Put all details in this area.
-                                </div>
-                                <input type="text" class="input-field-textfield" placeholder="Enter Description of Workshop "/>
-                                    
-                                
-                            </div>
-                        </div>
-                    </div>       
-                  </div>           
-             </div>       
-            <div class="page-inner-content-container" id="overviewtab">
-                <div class="fleft content">
-                    <div class="main-container fleft">
-                        <!--Content Starts Here-->
-                         <div class="col-6of10 fleft">
-                            <div class="h4" style="">
-                                Marketing Program Name:
-                            </div>
-                            <div class="">
-                                <input id="program_name" name="program_name" value="{{programs.programdetails.programName}}" class="input-field-textfield col-8of10"/>
-                            </div>
-                            <div class="h4 pushUp" style="">
-                               End Date:
-                            </div>
-                            <div class="">
-                                <input type="text" readonly name="datepicker" id="progactdatepicker"  class="input-field-textfield col-4of10" value="<%=program_date%>"/>                                        
-                                <script>
-                                            var picker = new Pikaday(
-                                            {
-                                                field: document.getElementById('progactdatepicker'),
-                                                firstDay: 1,
-                                                minDate: new Date(2000, 0, 1),
-                                                maxDate: new Date(2050, 12, 31),
-                                                yearRange: [2000, 2050]
-                                            });                                
-                                </script>
-                            </div>
-                                <div class="h4 pushUp" style="">
-                                Enter a URL for this marketing program:
-                            </div>
-                            <div class="">
-                                <input id="link_url" name="link_url" class="input-field-textfield col-7of10" value="{{programs.programdetails.linktodestination}}"/>
-                            </div>
-                           
-                                <div class="h4 pushUp" style="">
-                                Enter a name for this Marketing URL:
-                            </div>
-                            <div class="">
-                                <input id="link_name" name="link_name" class="input-field-textfield col-7of10" value="{{programs.programdetails.link_name}}"/>
+                                                                        programs.programdetails.programName)">Action Details</a>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
+
+        <div class="bottom-offset"></div>
+    </div>
+    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav"  id="" ng-show="showCampaignDetails == true">
+        <div class="hub-pane" >
+            <div class="hub-pane-header-wrap">
+                <h2 class="">Marketing Campaign Details</h2>
+            </div>
+            <div class="hub-pane-content-wrap">
+                <div class="hub-section">
+                    <div class="input-wrap">
+                        <label>Marketing Campaign Name</label>
+                        <a class="input">
+                           <input id="program_name" name="program_name" ng-model="programs.programdetails.programName" class="fluid"/>
+
+                        </a>
+                    </div>
+                 
+                    <div class="input-wrap">
+                        <label> Marketing Campaign Date </label>
+                        <a class="clickable-input fluid ease-all">
+                                <div class="date-time-select-icon">
+                                    <object type="image/svg+xml" data="/BrndBot/user/images/calendar-gray.svg" style="cursor:pointer;"> </object>
+                                </div>
+                                <input type="text" readonly name="datepicker" id="progactdatepicker" class="fluid time-date-select" value="{{programs.programdetails.dateOfEvent | date : 'EEE MMM d y'}}">
+                                    <script>
+                                        var picker = new Pikaday(
+                                                {
+                                                        field: document.getElementById('progactdatepicker'),
+                                                        firstDay: 1,
+                                                        minDate: new Date(2000, 0, 1),
+                                                        maxDate: new Date(2050, 12, 31),
+                                                        yearRange: [2000, 2050]
+                                                });
+                                    </script>
+                            </a>
+                    </div>
+                    <div class="input-wrap">
+                        <label> Marketing Campaign Link </label>
+                        <div class="input">
+                            <input class="fluid" id="link_url" name="link_url" ng-model="programs.programdetails.linktodestination">
+                        </div>
+
+                    </div>
+                    <div class="input-wrap">
+                        <label> Marketing Campaign Link Name</label>
+                        <div class="input">
+                            <input id="link_name" name="link_name" class="fluid" ng-model="programs.programdetails.link_name">
+                        </div>
+
+                    </div>
+                    <div class="update-container">
+                        <a class="long-button gray-button"  ng-click="updateUserProgram(programs)">Save Changes</a>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
-        <div class="bottom-cta-bar" id="saveprogram">
-            <div class="bottom-cta-button-container1 bottomheight">
-               <div class="add-action-button md-button button-text-1" ng-click="updateUserProgram()">Save changes</div>
-            </div>
-        </div>                     
-        <div class="bottom-cta-bar bordertop" id="removeactionbutton" >
-            <div class="bottom-cta-button-container bottomheight">
-                <!--<div id="deleteonetimeact" class="remove-button-detail md-button button-text-1" ng-click="deleteSchedule('0', 'deleteMultiple')">Delete Selected Action(s)</div>-->
-<!--               <div id="deleterecurringemail" class="remove-button-detail md-button button-text-1" ng-click="deleteSchedule('0', 'deleteMultiple')">Delete Selected Recurring Email(s)</div>-->
-            </div>
-        </div>   
-        <div id="light" class="white_content closepopup">
-                <a href = "javascript:void(0)" style="text-decoration:none;">
-                    <div id="slider-button" style="font-size:40px;text-align:center;z-index:1006;display:none;">
-                        <p style="margin-top:-7px;"><img src="images/Icons/yourPlan.svg" height="25" width="25" /></p>
-                    </div>
-                </a>
-        </div>
-<!--        CTA Bar
-        <div class="bottom-cta-bar">
-            <div class="bottom-cta-button-container">
-             REMOVE BUTTON HERE
-               <div class="remove-button-detail md-button button-text-1">Delete Selected Actions</div>
-
-            </div>
-        </div>
-        </div>
-</div>-->
-    </body>
-</html>

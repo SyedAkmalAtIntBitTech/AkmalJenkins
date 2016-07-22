@@ -71,12 +71,14 @@
     </div> 
     <!--Top Nav-->   
     <div class="top-nav-full">
-        <div class="page-title-bar col-1of1"> 
-            <a class="exit-button-icon" href="emailsubjects?categoryId={{categoryId}}&subCategoryId=<{{categoryId}}&mindbodyId={{mindbodyId}}&LookupId={{LookupId}}&emailSubject={{emailSubject}}">    
+        <div class="page-title-bar col-1of1" ng-init="redirectBaseURL()">
+            <!--<a class="exit-button-icon" href="emailsubjects?categoryId={{categoryId}}&subCategoryId=<{{categoryId}}&mindbodyId={{mindbodyId}}&LookupId={{LookupId}}&emailSubject={{emailSubject}}">-->    
+            <a class="exit-button-icon" href="baseemaileditor#/emailsubjects" >
                 <div class="exit-button-detail">
-                    <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"> </img>
+                        <img  src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;"/> 
                 </div>
-            </a>
+            </a>    
+                <!--</a>-->
             <div class="page-title-with-back page-title-font">Email Editor</div>
             <div class="page-cta-container">
                 <a href="" class="gray-button fleft pushright">
@@ -179,6 +181,13 @@
                 </div><!-- End of seperator --><!-- footer -->
             </div>
         </div>
+<!--    <div ng-init="hideEmailEditorOverlay = false" ng-if="hideEmailEditorOverlay" class="emailEditor-page-background fleft">
+        <div class="emailEditor-leftCol ">
+            <script>
+                       
+            </script>   
+            <div id="editor">
+                <div id='edit' class="editorclass" style="margin-top: 5px;">-->
                 </div>
             </div>
             <div class="emailEditor-leftCol float-lt" style="">
@@ -231,10 +240,10 @@
                     </li>
                 </ul>
 
-                <ul class="block-list" id="stylediv" ng-show="styledivheader">
+                <ul class="block-list"  ng-show="styledivheader">
                     <li ng-repeat="styles in datalistsstyles.slice().reverse()" class="style-slat" id="stylelistid{{styles.modelId}}" ng-click="addActive('stylelistid' + styles.modelId)">
                         <div class="block-name">
-                            <img id="{{styles.modelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" ng-click="showText('{{styles.modelId}}')" width="100%" />
+                            <img id="{{styles.modelId}}" class="img-responsive lookchooser5 ptr" src="/BrndBot/downloadImage?imageName={{styles.imageFileName}}&imageType=EMAIL_TEMPLATE_IMAGE&companyId=0" ng-click="addHTMLInEmailEditor(styles.modelId)" width="100%" />
                         </div>
                     </li>
                 </ul>
@@ -247,43 +256,7 @@
 </div>  
 
 <div ng-show="overlayFade" id="fade" class="black_overlay" ></div>
-<!--<div id="email_previewdiv" ng-show="emailpreviewpopup">
-    <div class="pop-up-background popup-screen">
-        <div class="pop-up-container-emailPreview"> 
-            <a class=" exit-button-detail-ep link svg" href="" id="closePrev">
-                <img type="image/svg+xml" src="images/close.svg" class="closeemailpreview" style="cursor:pointer;"> </img>
-            </a>
-            <div class="pop-up-title-emailpreview "> 
-                <div class="emailPreview-header fleft">Email Preview</div>
-            </div>
-            <div class="pop-up-inner-ep height400">
-                <div class="emailPreviews col-1of1 fleft"> 
-                    <div class="emailPreview-desktop-col  fleft">
-                        <div class="emailPreview-headers">Desktop Preview</div>
-                        <div class="content">  
-                            <div id="dynamictable5" style="position: relative; width: 100%; border: none; overflow: scroll; height: 420px;background-color: rgb(255, 255, 255);" src="">
-                                 <iframe id="dynamictable5" style="position: relative; width: 100%; border: none; height: 420px;background-color: rgb(255, 255, 255);" src="{{iframePath}}"></iframe>
-                            </div>                   
-                        </div>
-                        <div class="desktopshow" style="display:none;">
-                            <iframe id='dynamictable' class="desktoppreview" src=''></iframe> 
-                        </div>                        
-                    </div>
-                    <div class="emailPreview-mobile-col fleft">
-                        <div class="emailPreview-headers">Mobile Preview</div>
-                        <div class="iphoneshow img-responsive" id="mobpreview" style="display: block; height: 370px; width: 100%; margin-left: 6px; margin-top: 0px; border-color: transparent; background-color: rgb(255, 255, 255); background-size: contain; background-repeat: no-repeat;">
-                            <div class="content">  
-                                <div  id="dynamictable6" style="position: relative; width: 100%; height: 400px; overflow: scroll; border: none; background-color: rgb(255, 255, 255);">
-                                    <iframe id="dynamictable6" style="position: relative; width: 100%; height: 400px; border: none; background-color: rgb(255, 255, 255);" src="{{iframePath}}"></iframe>                   
-                                </div>                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>  -->
+
 <div class="bottom-cta-bar" id="bottomdiv">
     <div class="bottom-cta-button-container-lg">
         <a href="">
@@ -482,7 +455,7 @@
             }
             function removeElm() {
                 $(".emailrender").delegate(".remove", "click", function (e) {
-	e.preventDefault();<!--
+	e.preventDefault();
                     $(this).closest('table').parents('.module ').slideUp('200', function () {
                         $(this).remove();
                     });
@@ -655,4 +628,4 @@
 //    }, timerSave)
             });
 
-        </script>-->
+        </script>

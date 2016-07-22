@@ -1,43 +1,38 @@
-<div class="contentWrap--withSideNav noScroll">
-    <div class="topNav topNav-withSubnav clear">
-        <a class="exit-button-icon" href="dashboard">         
-            <div class="topNav--BackButton fleft">
-                <img  src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;" alt=""/>            
+<div class="main-content-wrap">
+    <div class="top-nav-wrap">
+        <div class="header">
+            <a class="back-button" href="dashboard"></a>
+            <h2 class="">Create a Social Post</h2>
+        </div>
+    </div>
+    <div class="top-nav-bar-offset"></div>
+    <div class="content-wrap content-wrap-flex"> 
+         <div class="modal-pane modal-pane-width-reg">
+            <div class="modal-pane-header-wrap">
+                <h2>Select a Social Channel</h2>
             </div>
-        </a>
-        <div class="topNav--TitleBar--withBackButton fleft">
-            <span class="topNav--TitleBar--Title fleft h2">Create a Social Post</span>
-            <div class="topNav--TitleBar--CTABox fright">
-                <div class="CTA_Button Button--Gray">Help!</div>
+            <div class="modal-pane-content-wrap">
+                <div class="cat-list" ng-init="checkForCode()">
+                    <div class="cat-slat" ng-click="getManagePage()">
+                        <img  src="images/F_icon.svg" class="social-channel-icon" style="cursor:pointer;" alt=""/>
+                        <div class="cat-slat-title" >Facebook</div>
+                    </div>  
+                    <div class="cat-slat" ng-click="isDefaultTwitterAccountSet()">
+                        <img  src="images/Twitter_icon.svg" class="social-channel-icon" style="cursor:pointer;" alt=""/>
+                        <div class="cat-slat-title">Twitter</div>
+                    </div> 
+                </div>
             </div>
         </div>
     </div>
-    <div class="topNav--offset"></div>
-    <div class="contentWrapInner">
-        <div class="pane pane-onboarding">
-            <div class="pane_header clear">
-                <div class="pane_title fleft h2">Select a Social Channel</div>
-            </div>
-            <div class="pane_content">
-                <div class="cat-list"  ng-init="checkForCode()">
-                    <div class="cat-slat clear" ng-click="getManagePage()" >
-                        <div class="fleft col-1of10" >
-                            <img  src="images/F_icon.svg" class="social-channel-icon" style="cursor:pointer;" alt=""/>
-                        </div>
-                        <div class="cat-slat-title col-8of10 fleft">Facebook</div>
-
-                    </div>
-                    <div class="cat-slat clear" ng-click="isDefaultTwitterAccountSet()">
-                        <div class="fleft col-1of10" >
-                            <img  src="images/Twitter_icon.svg" class="social-channel-icon" style="cursor:pointer;" alt=""/>
-                        </div>
-                        <div class="cat-slat-title col-8of10 fleft">Twitter</div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div> 
-    </div>
 </div>
 <div ng-include="'facebookmanagepages.html'"></div>
+<div ng-include="'twitterpopupsocialhub.html'"></div>
+
+
+
+   
+
+
+
+    

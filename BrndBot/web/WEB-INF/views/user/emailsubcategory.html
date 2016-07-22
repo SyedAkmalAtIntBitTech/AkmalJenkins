@@ -1,23 +1,18 @@
 
     <div ng-include src="'navbar.html'"></div>   
 <!--<% String categoryId = request.getParameter("categoryId");%>-->
-<div class="contentWrap--withSideNav noScroll">
-    <input id="categoryId" value="<%=categoryId%>" type="hidden"/>
-    <div class="topNav topNav-withSubnav clear">
-        <a class="exit-button-icon" href="emailcategory">
-            <div class="topNav--BackButton fleft">
-                <img type="image/svg+xml" src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">
-            </div>
-        </a>
-        <div class="topNav--TitleBar--withBackButton fleft">
-            <span class="topNav--TitleBar--Title fleft h2">Create an Email</span>
-            <div class="topNav--TitleBar--CTABox fright">
-                <div class="CTA_Button Button--Gray">Help!</div>
+    <div class="main-content-wrap" ng-init="redirectBaseURL()">
+       
+        <div class="top-nav-wrap">
+            <div class="header">
+                <a class="back-button" href="baseemaileditor#/emailcategory"></a>
+                <h2 class="">Create an Email</h2>
             </div>
         </div>
+        <div class="top-nav-bar-offset"></div>
+        <div class="content-wrap content-wrap-flex content-wrap-with-continue-bar"> 
+        <div ng-init="getSubCategories('emailexternalsource','emailsubjects')">
+            <div ng-include src="'generictableview.html'"></div>    
+        </div>
+        </div>
     </div>
-    <div class="topNav--offset"></div>
-    <div ng-init="getSubCategories('emailexternalsource','emailsubjects')">
-        <div ng-include src="'generictableview.html'"></div>    
-    </div>
-</div>

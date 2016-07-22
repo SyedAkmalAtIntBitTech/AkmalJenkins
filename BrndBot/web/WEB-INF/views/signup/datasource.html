@@ -4,50 +4,58 @@
     Author     : sandeep
 -->
 
-<div class="body-normal">
-    <!--SideNav-->
-    <!--Main Content Wrap-->
-    <div class="contentWrap--withNoSideNav" ng-init="getAllServices()">
-        <div class="topNav clear">
-            <a href="#/signup/company">
-                <div class="topNav--BackButton fleft">
-                    <img  src="images/backbutton.svg" class="backButton-svg" style="cursor:pointer;"/>
-                </div>
-            </a>
-            <div class="topNav--TitleBar--withBackButton fleft">
-                <span class="topNav--TitleBar--Title fleft h2">Step 3 of 5</span>
-                <div class="topNav--TitleBar--CTABox fright">
-                    <div class="CTA_Button Button--Gray">Help!</div>
-                </div>
-            </div>
+<div class="sequence-content-wrap">
+    <div class="top-nav-wrap top-nav-wrap-sequence">
+        <div class="header">
+            <a href="#/signup/company" class="back-button"></a>
+            <h2>Create a Profile</h2>
         </div>
-        <div class="topNav--offset"></div>
-        <div class="contentWrapInner">
-            <div class="pane pane-onboarding">
-                <div class="pane_header clear">
-                    <div class="pane_title fleft h2">Connect with your other tools</div>
-                </div>
-                <div class="pane_content">
-                    <div class="h3 font--lightGray">BrndBot syncs with your other tools. If you are not using any of these services, just select 'none'!</div>
-                    <div class="inputSection col-6of10 ">
+    </div>
+    <div class="top-nav-bar-offset"></div>
+
+    <div class="content-wrap content-wrap-padding content-wrap-with-continue-bar content-wrap-flex" ng-init="getAllServices()">
+        <div class="modal-pane modal-pane-width-reg">
+            <div class="modal-pane-header-wrap">
+                <h2 class="">Connect to Your Tools</h2>
+            </div>
+            <div class="modal-pane-content-wrap">
+                <div class="onboarding-content-header-wrap">
+                    <h3 class="onboarding-content-header">Would you like to connect your new profile with tools you currently use?</h3>
+                </div> 
+<!--                 <div class="inputSection col-6of10 ">
                         <div class="input_Label">Please select a third party service</div>
                         <select ng-model="thirdPartyService" class="input_Field select_Field clear" id="services" ng-options="service.externalSourceId as service.externalSourceName for service in services">
                         </select> 
+                    </div>-->
+                   <div class="input-wrap">
+                    <label> Choose from your email lists </label>
+                    <div class="input">
+                        <div dropdown-select="ddSelectServicesOptions" dropdown-model="ddSelectServices"></div>
+                        <p class="input-wrap-label">If you do not use any services, please select 'none'</p>
                     </div>
-                    <div ng-if="thirdPartyService==1" class="inputSection col-1of1 ">
-                        <div class="input_Label">Please enter Mindbody Studio Id</div>
-                        <div class="col-6of10">
-                            <input class="input_Field " type="text" id="mindbodyStudioId" ng-model="studioId">
+                </div>
+                <div ng-if="ddSelectServices.value==1">
+                    <div class="input-wrap">
+                        <label> Enter your MINDBODY Studio ID </label>
+                        <div class="input ">
+                            <input class="input_Field " type="text" id="mindbodyStudioId" ng-model="studioId"></input>
+                            <p class="input-wrap-label">If you need help finding your MINDBODY ID please<a class="input-help" href="#">click here for help</a></p>
                         </div>
-                        <a href="{{activationLink}}" id="actiovationLink" target="_blank"><div class="input_Label" id="activationLinkDiv">{{activationLink}}</div></a>
-                        <div class="CTA_Button Button--Gray clear-colors" ng-click="getActivationLink(studioId)">Activation</div>
+                    </div>
+                    <div class="input-wrap">
+                        <label> Enter your MINDBODY Studio ID </label>
+                       <a class="reg-button gray-button input-wrap-button" ng-click="getActivationLink(studioId)" href="">Click Here to Activate in MINDBODY</a>
+                    </div>
+                    <div class="input-wrap">
+                        <label> Allow BrndBot to access your MINDBODY data </label>
+                       <a class="reg-button gray-button input-wrap-button" id="activationLinkDiv" href="{{activationLink}}" id="actiovationLink" target="_blank">Grant access in MINDBODY</a>
                     </div>
                 </div>
             </div>
-        </div>   
+        </div>     
     </div>
-    <div class="bottomNav">
-        <div id="serviceContinueButton" ng-click="saveServices()" class="bottom-ContinueButton fright">CONTINUE</div>
+        <div class="continue-bar-offset"></div>
     </div>
+<div class="continue-bar sequence-continue-bar">
+    <a id="serviceContinueButton" ng-click="isMindbodyActivated(ddSelectServices,studioId)" class="fright">CONTINUE</a>
 </div>
-

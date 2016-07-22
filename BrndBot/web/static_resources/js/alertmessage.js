@@ -186,5 +186,13 @@ var imageChannel = "image";
 var emailChannelId = 3;
 var printChannelId = 2;
 var imageChannelId = 1;
+var genericError="Oops, something went wrong please try again later."
+/// ADMIN alerts Ends////
 
 /// ADMIN alerts Ends////
+
+//VALIDATION
+
+var companyValidation = "Please enter a subject for the email";
+var dropdownValidation = "Please select your Organization";
+var emailListValidation  = "Please enter email list name";

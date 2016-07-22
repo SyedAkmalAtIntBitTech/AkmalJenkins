@@ -22,5 +22,6 @@ public interface CompanyPreferencesDao {
     public CompanyPreferences getByCompany(Company company);
 
     public List<CompanyPreferences> getByLocationId(String locationId);
-    
+ 
+    public List<CompanyPreferences> getAll();
 }

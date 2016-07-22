@@ -1,70 +1,77 @@
-<div class="body-normal">
-    <div class="contentWrap--withSideNav">
-        <div class="topNav topNav-withSubnav clear">
-            <div class="topNav--BackButton fleft">
-                <a class="exit-button-icon" href="dashboard">          
-                    <img  src="images/backbutton.svg" class="exit-button-icon" style="cursor:pointer;">            
-                </a>
-            </div>
-            <div class="topNav--TitleBar--withBackButton fleft">
-                <span class="topNav--TitleBar--Title fleft h2">Create a Facebook Post</span>
-                <div class="topNav--TitleBar--CTABox fright">
-                    <div class="CTA_Button Button--Gray">Help!</div>
-                </div>
-                <div class="topNav--TitleBar--CTABox fright pushRight_30"  ng-click="changePostType()" >
-                    <div class="CTA_Button Button--Gray" id="postType" >Change To Link Post</div>
-                </div>
-            </div>
+<div class="main-content-wrap">
+    <div class="top-nav-wrap">
+        <div class="header">
+            <a class="back-button" href="socialsequence#/socialsequence"></a>
+            <h2 class="">Create a Facebook Post</h2>
         </div>
-        <div class="topNav--offset"></div>
-        <div class="contentWrapInner">
-            <div class="pane pane-Social-Create ">
-                <div class="pane_header clear  pane-Social-Create-padding">
-                    <div class="pane_title fleft h2">Facebook Post</div>
-                </div>
-                <div class="pane_content pane-Social-Create-padding ">
-                    <div class="inputSection col1of1 pushUp_20">
-                        <div class="input_Label">What would you like to share?</div>
-                        <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="shareText"></textarea>
-                        <div class="displayNone" id="linkPostFields">
-                            <div class="input_Label pushUp_20" >Link Title</div>
-                            <textarea class="input_Field removeDrag" placeholder="Type post here" id="linkTitle"></textarea>
-                            <div class="input_Label pushUp_20">Link Description</div>
-                            <textarea class="input_Field_Md removeDrag" placeholder="Type post here" id="linkDescription"></textarea>
-                            <div class="displayNone" id='urlDropDownSpan'>
-                                <div class="input_Label pushUp_20">Choose from your Existing Links:</div>
-                                <select id='dropdownurl' class="select_Field_lg removeDrag" ng-init="getUrls()" ng-change="getSelectedUrl()">
-                                    <option value="0" class="caret">LINK URL</option>
-                                    <option ng-repeat="url in urls" value="{{url.url}}--{{url.link_name}}">{{url.prigram_name}} - {{url.link_name}} - {{url.url}}</option>
-                                </select>
-                            </div>
-                            <div class="input_Label pushUp_20">Write Custom Link</div>
-                            <textarea class="socialLink_attached removeDrag removeBorder" placeholder="http://www.brndbot.com" id="linkUrl"></textarea>
-                        </div>
-                    </div>  
-                </div>
-                <div class="Social-Add-Image-Wrap clear" id="addImageToPostButton">
-                    <img  src="../static_resources/user/images/add-Image.svg" class="add-image-icon fleft" style="cursor:pointer;" alt="">
-                    <div class="Add-Image-Button fleft">
-                        Add Image to Post
+    </div>
+    <div class="top-nav-bar-offset"></div>
+    <div class="content-wrap content-wrap-padding content-wrap-with-continue-bar">
+        <div class="modal-pane modal-pane-social-sequence">
+            <div class="modal-pane-header-wrap">
+                <h2>Facebook Post</h2>
+            </div>
+            <div class="modal-pane-content-social-sequence">
+                <div class="input-wrap">
+                    <label> What would you like to share? </label>
+                    <div class="input ">
+                        <textarea class="fluid facebook-post-textarea" placeholder="Type post here" id="shareText" ng-model="fbPostData.shareText"></textarea>
                     </div>
                 </div>
-                <div class="Social-Add-Image-Wrap clear displayNone" id="addImageDiv">
-                    <img src="https://daks2k3a4ib2z.cloudfront.net/562feb3ef5fe5a8c1fd02272/56b8940906817e9a2bbb57ca_Deafult-Image_680x330.jpg" id="selectedImage" alt="alt_text" border="0" align="center" class="imageAdded pushUp_10 fleft">
-                    <div class="col-1of1 clear">
-                        <div class="edit-Image-Button fleft" id="changeImage">
-                            Change Image
+                
+                <div ng-if="linkpost" id="linkPostFields">
+                   <div class="input-wrap">
+                        <label> Link Title </label>
+                        <div class="input ">
+                            <input placeholder="Type post here" id="linkTitle" ng-model="fbPostData.linkTitle" class="fluid"></input>
+                        </div>
+                    </div>
+                    <div class="input-wrap">
+                        <label> Enter a Link Description </label>
+                        <div class="input ">
+                            <textarea placeholder="Type post here" id="linkDescription" ng-model="fbPostData.linkDescription" type="text" class="fluid"></textarea>
+                        </div>
+                    </div>
+                    <div class="input-wrap">
+                        <label>Choose a Link</label>
+                        <div class="input " id='urlDropDownSpan' ng-init="getUrls()">
+                            <select ng-model="linkUrls" id="dropdownurl"  class="select_Field_lg removeDrag" ng-options="url.url as url.prigram_name + ' - ' + url.link_name + ' - ' + url.url for url in urls"></select>
+                            <p class="input-label">If you have a custom link write it below</p>
+                        </div>
+                    </div>
+                    <div class="input-wrap">
+                        <label>Write a Custom Link</label>
+                        <div class="input ">
+                            <input class="fluid" placeholder="http://www.brndbot.com" ng-model="fbPostData.url"></input>
                         </div>
                     </div>
                 </div>
-            </div>   
+                <div class="add-link-facebook-container">
+                    <a class="long-button gray-button" ng-click="changeFbPostType(postType)" id="postType" >{{postType}}</a>
+                </div>
+            </div>
+            <div ng-show="addImageToPostButton" class="Social-Add-Image-Wrap " id="addImageToTwitterPost" ng-click="show_hide_ImageGalleryPopup(true)">
+                <img  src="/BrndBot/user/images/add-Image.svg" ng-model="twitterShare.img" class="add-image-icon" style="cursor:pointer;">
+                <div class="Add-Image-Button"> Add Image to Post</div>
+            </div>
+            <div ng-show="twitterImageDivToPost" class="Social-Add-Image-Wrap-with-img " id="addImageDivToTwitterPost">
+                <img ng-src="{{displayImage}}" ng-model="fbPostData.img = displayImage" alt="alt_text" border="0" align="center" id="selectedImage" class="imageAdded">
+                <div class=\">
+                    <div class="reg-button" id="changeImage"  ng-click="show_hide_ImageGalleryPopup(true)">
+                        Change Image
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="continue-bar-offset"></div>
     </div>
-    <div class="bottomNav">
-        <div class="bottom-ContinueButton fright" onclick="postFacebook()">CONTINUE</div>
+      
+</div>
+<div class="continue-bar">
+        <a id="continue-bar-button" class="fright" ng-click="openPostOrShedulePopup('facebook', fbPostData)">CONTINUE</a>
     </div>
+ <div ng-include src="'schedulepopup.html'"></div>
+    <div ng-include src="'sendorschedulepopup.html'"></div>
     <div ng-include src="'sociallistselection.html'"></div>
     <div ng-include src="'imagegallerypopup.html'"></div>
-    <div ng-include src="'facebookpostsuccesspopup.html'"></div>  
-</div>
-
+    <!--<div ng-include src="'facebookpostsuccesspopup.html'"></div>--> 
