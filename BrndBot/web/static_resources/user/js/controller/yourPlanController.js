@@ -288,10 +288,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var myEpoch = schedule_time;
             var action = {"title": addTitle, "actiontype": actionType.value, "type": "save", 
                 "description": "", "marketingType": 0, "action_date": myEpoch, "days": days};
-//            yourPlanFactory.addActionPost(action).then(function (data) {
-//                $scope.getCampaigns();
-//                $scope.closeOverlay();
-//            });
+            yourPlanFactory.addActionPost(action).then(function (data) {
+                alert(actionSaved);
+                $scope.getCampaigns();
+                $scope.closeOverlay();
+            });
         };
 
         $scope.closePopup = function () {
