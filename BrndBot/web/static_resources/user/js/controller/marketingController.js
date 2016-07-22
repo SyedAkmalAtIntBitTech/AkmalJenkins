@@ -1271,7 +1271,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         var program_details = {"program_id": program, "date_of_event": event_date_epoch,
                           "link_url": link_url, "link_name": link_name, "program_name":program_name};
         companyMarketingProgramFactory.updateUserProgramPost(program_details).then(function (data){
-            if(data == true){
+            if(data){
             alert(programdetailssaved);
             }else{
                 alert(savingrecordproblem);
