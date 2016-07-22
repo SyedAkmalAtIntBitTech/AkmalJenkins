@@ -613,10 +613,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
             companyMarketingProgramFactory.approveStatusPost(approval_type).then(function (data) {
                 if (data.toString() == "true") {
-                    if ($scope.action_template_status == "Template Saved")
+                    if ($scope.action_template_status == "Template Saved"){
                         $scope.action_template_status = "Approved";
-                    else
+                        $scope.scheduleData.email_template_status='Approved';
+                    }
+                    else{
                         $scope.action_template_status = "Template Saved";
+                        $scope.scheduleData.email_template_status='Template Saved';
+                    }
                     alert(templetestatussaved);
                     $scope.getCampaigns();
                 } else {
