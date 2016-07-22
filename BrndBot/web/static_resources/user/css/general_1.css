@@ -4121,3 +4121,35 @@ img.exit-button {
     margin-right: 30px;
     margin-left: auto;
 }
+
+
+textarea.task-textarea{
+    border: 1px solid transparent;
+    background-color: transparent;
+    border-radius: 3px;
+    padding: 10px 10px;
+    box-sizing: border-box;
+    color: #3F3F42;
+    font-size: 14px;
+    font-weight: 400;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+textarea.task-textarea:hover{
+    border: 1px solid #D2D3D5;
+    background-color: #FFFFFF ;
+  
+    box-sizing: border-box;
+}
+
+textarea.task-textarea:focus{
+    border: 1px solid #D2D3D5;
+    background-color: #FFFFFF ;
+    box-sizing: border-box;
+}
+.detail-sections-wrap-task-textarea{
+    padding: 20px 20px;
+    width: 100%;
+    display: flex;
+}
