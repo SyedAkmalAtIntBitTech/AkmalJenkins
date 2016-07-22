@@ -266,7 +266,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
             externalContentFactory.layoutEmailModelGet(templateId, $scope.isBlockClicked, mindbodyId).then(function (data) {
                 var emailData = JSON.parse(data.d.details);
-                alert(JSON.stringify(emailData));
+//                alert(JSON.stringify(emailData));
 
                 var BlockHtml = '<div class=' + $scope.htmlTagId + ' id=' + $scope.htmlTagId + ' ng-click=blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ')>' + emailData.htmldata + '</div>';
 //                        editor.find("#" + $scope.htmlTagId).replaceWith(BlockHtml);
@@ -279,12 +279,14 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     width:400,
                     inline: true,
                     plugins: [
-                        'advlist custombutton autolink lists link image charmap print preview anchor',
+                        'advlist autolink lists link image charmap print preview anchor',
                         'searchreplace visualblocks code fullscreen',
                         'insertdatetime media table contextmenu paste',
-                        'emoticons template paste textcolor colorpicker textpattern imagetools'
+                        'template paste textcolor colorpicker textpattern imagetools'
                     ],
-                    toolbar: 'insertfile undo redo |mybutton forecolor backcolor | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+                    toolbar1: ' insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image ',
+                    toolbar2: ' forecolor backcolor | fontselect fontsizeselect ',
+                     menubar: false
                 });
 
 

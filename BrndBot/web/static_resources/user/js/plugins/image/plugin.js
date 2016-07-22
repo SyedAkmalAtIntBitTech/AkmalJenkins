@@ -373,6 +373,14 @@ tinymce.PluginManager.add('image', function(editor) {
 				autofocus: true,
 				onchange: srcChange
 			},
+                                {
+				name: 'uploadImage',
+				type: 'file',
+				filetype: 'image',
+				label: 'uploadImg',
+				autofocus: true,
+				onchange: srcChange
+			},
 			imageListCtrl
 		];
 

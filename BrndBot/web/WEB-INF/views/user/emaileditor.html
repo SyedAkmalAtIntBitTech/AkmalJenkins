@@ -27,14 +27,35 @@
                     width:400,
                     inline: true,
                     plugins: [
-                        'advlist autolink custombutton lists link image charmap print preview anchor',
+                        'advlist custombutton autolink lists link image charmap print preview anchor',
                         'searchreplace visualblocks code fullscreen',
                         'insertdatetime media table contextmenu paste',
-                        'emoticons template paste textcolor colorpicker textpattern imagetools'
+                        'template paste textcolor colorpicker textpattern imagetools'
                     ],
-                    toolbar1: 'insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image | forecolor backcolor',
-                    toolbar2: 'styleselect  fontselect fontsizeselect custombutton '
+                    toolbar1: ' insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image ',
+                    toolbar2: ' forecolor backcolor | fontselect fontsizeselect custombutton fileuploader ',
+                     menubar: false,
     });
+
+//tinymce.init({
+//  selector: 'textarea',
+//  height: 500,
+//  toolbar: 'mybutton',
+//  menubar: false,
+//  setup: function (editor) {
+//    editor.addButton('mybutton', {
+//      text: 'My button',
+//      icon: false,
+//      onclick: function () {
+//        editor.insertContent('&nbsp;<img src="http://indy100.independent.co.uk/image/31869-2id3uc.jpg"/></b>&nbsp;');
+//      }
+//    });
+//  },
+//  content_css: [
+//    '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+//    '//www.tinymce.com/css/codepen.min.css'
+//  ]
+//});
 </script>
 
 <!--<div id="boxes" >
@@ -90,7 +111,7 @@
                                     <td>
                                         <table bgcolor="#d41b29" width="600" cellpadding="0" cellspacing="0" border="0" align="center" class="devicewidth">
                                             <div class="innerbg"></div>
-                                            <div class="addremove" style="margin-left: 975px;">
+                                            <div class="addremove" style="margin-left: 945px;">
                                                 <div class="drag"></div>
                                                 <div class="remove"></div>
 
@@ -338,14 +359,22 @@
 
 
             $(document).ready(function () {
-                alert("");
                 $('.view').find('table:first').find('td:first').mouseenter(function () {
                     $(this).find('table:first').addClass('selecthover');
                 });
                 $('.view').find('table:first').find('td:first').mouseleave(function () {
                     $(this).find('table:first').removeClass('selecthover');
                 });
-
+                 $('.innerbg').mouseenter(function () {
+                            var seldiv = $(this).parents('[st-sortable]');
+                            $(this).colpick({
+                                layout: 'hex',
+                                submit: 0,
+                                onChange: function (hsb, hex, rgb, fromSetColor) {
+                                    $(seldiv).find('table:first').attr('bgcolor', '#' + hex);
+                                }
+                            });
+                        });
                 $(".editor_rightside .emailrender").sortable({
                     connectWith: ".module",
                     opacity: .8,
@@ -388,7 +417,7 @@
                         dragactions();
                         move_up_down();
                         colorselector();
-                        tinymcereload();
+//                        tinymcereload();
                         $('.innerbg').mouseenter(function () {
                             var seldiv = $(this).parents('[st-sortable]');
                             $(this).colpick({
@@ -437,12 +466,10 @@
         </script>
         <script>
             $(document).ready(function () {
-                alert("ready");
                 dragactions();
                 removeElm() ;
             });
             function dragactions() {
-                alert("");
                 $('.view').find('table:first').find('td:first').mouseenter(function () {
                     $(this).find('table:first').addClass('selecthover');
                 });

@@ -334,6 +334,7 @@ colpick Color Picker / colpick.com
 .colpick_hex {
 	width:206px;
 	height:201px;
+        z-index: 1;
 }
 .colpick_hex .colpick_hex_field {
 	width:72px;

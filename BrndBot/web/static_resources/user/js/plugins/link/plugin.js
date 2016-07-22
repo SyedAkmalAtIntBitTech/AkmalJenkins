@@ -9,6 +9,20 @@
  */
 
 /*global tinymce:true */
+var urldata=[{text: "Select Url", value: ""}];
+$.ajax({
+    url: getHost() + 'getAllUserMarketingProgramsBySessionUserId',
+    method: 'Get',
+    dataType: 'json',
+    contentType: 'application/json',
+    mimeType: 'application/json',
+    success: function (responseText) {
+    var str = responseText;
+        for(var i= 0; i<responseText.length;i++){
+           urldata.push( {text: str[i].text, value: responseText[i].href});
+        }
+    }
+});
 
 tinymce.PluginManager.add('link', function(editor) {
 	function createLinkList(callback) {
@@ -49,7 +63,6 @@ tinymce.PluginManager.add('link', function(editor) {
 
 				output.push(menuItem);
 			});
-
 			return output;
 		}
 
@@ -58,7 +71,7 @@ tinymce.PluginManager.add('link', function(editor) {
 
 	function showDialog(linkList) {
 		var data = {}, selection = editor.selection, dom = editor.dom, selectedElm, anchorElm, initialText;
-		var win, onlyText, textListCtrl, linkListCtrl, relListCtrl, targetListCtrl, classListCtrl, linkTitleCtrl, value;
+		var win, onlyText, textListCtrl, linkListCtrl,targetCustomUrlsCtrl, relListCtrl, targetListCtrl, classListCtrl, linkTitleCtrl, value;
 
 		function linkListChangeHandler(e) {
 			var textCtrl = win.find('#text');
@@ -151,7 +164,6 @@ tinymce.PluginManager.add('link', function(editor) {
 
 		data.text = initialText = anchorElm ? (anchorElm.innerText || anchorElm.textContent) : selection.getContent({format: 'text'});
 		data.href = anchorElm ? dom.getAttrib(anchorElm, 'href') : '';
-
 		if (anchorElm) {
 			data.target = dom.getAttrib(anchorElm, 'target');
 		} else if (editor.settings.default_link_target) {
@@ -253,11 +265,32 @@ tinymce.PluginManager.add('link', function(editor) {
 				value: data.title
 			};
 		}
+                
+                //..........adding custom urls..........
+                            editor.settings.customUrls_list = [
+                                        {text: 'select url', value: ''},
+					{text: 'google', value: 'http:google.com'},
+					{text: 'gmail', value: 'http:gmail.com'}
+				];
+                              editor.settings.customUrls_list =  urldata;
+                          targetCustomUrlsCtrl = {
+				name: 'CustomURl',
+				type: 'listbox',
+				label: 'CustomUrl',
+				values: buildListItems(editor.settings.customUrls_list),
+                                onselect : function (){ 
+                                    var dd= this.parent().parent();
+                                     win.find('#href').value(JSON.parse(JSON.stringify(dd)).CustomURl);
+                               }
+			};
+                
+                //...................
 
 		win = editor.windowManager.open({
 			title: 'Insert link',
 			data: data,
 			body: [
+                                targetCustomUrlsCtrl,
 				{
 					name: 'href',
 					type: 'filepicker',
