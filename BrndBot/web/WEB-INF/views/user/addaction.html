@@ -12,6 +12,8 @@
                         <input type="text" name="addactiontitle" ng-model="addTitle" id="addactiontitle" placeholder="Enter Title" value="" class="fluid" ></input>
                         <input type="hidden" id="marketing_program" value="0" name="marketing_program_type"/>
                     </a>
+                    <span class="validationAlert" ng-if='addTitle === "" || null'>{{actionNameValidation}}</span>
+
                 </div>
                 <div class="input-wrap">
                     <label>Action Type</label>
@@ -22,8 +24,10 @@
                                             <option value="Email">Email</option>
                                             <option value="Reminder" ng-show="isYourplan">Reminder</option>
                                         </select>-->
-                    <div dropdown-select="ddSelectActionOptions" dropdown-model="ddSelectAction"></div>
+                    <div dropdown-select="ddSelectActionOptions" dropdown-onchange="selectedOrganization(selected)" dropdown-model="ddSelectAction"></div>
+                    <span class="validationAlert" ng-if="actionTypeValidation">{{actionDropdownValidation}}</span>
                 </div>
+
                 <div class="input-wrap-row">
                     <div class="input-wrap half">
                         <label>Action Date</label>
@@ -32,6 +36,7 @@
                                 <object type="image/svg+xml" data="/BrndBot/user/images/calendar-gray.svg" style="cursor:pointer;"> </object>
                             </div>
                             <input type="text" name="datepicker" ng-model="datePicker" id="datepicker" readonly class="time-date-select" placeholder="Enter Action Date" />
+
                             <script>
                                 var picker = new Pikaday(
                                         {
@@ -43,6 +48,11 @@
                                         });
                             </script>
                         </a>
+                        <span class="validationAlert" ng-if='datePicker === "" || null'>{{actionDateValidation}}</span>
+                        <span class="validationAlert" ng-if="dateLesser">{{lesserDateValidation}}</span>
+                        <span class="validationAlert" ng-if="dateGreater">{{greaterDateValidation}}</span>
+
+                                                
                     </div>
                     <div class="input-wrap half">
                         <label>Action Time</label>
@@ -65,6 +75,8 @@
                                 });
                             </script>
                         </a>
+<!--                        <span class="validationAlert" ng-if='timePicker123 === "" || null'>{{actionDateValidation}}</span>-->
+
                     </div>
                 </div>
             </div>

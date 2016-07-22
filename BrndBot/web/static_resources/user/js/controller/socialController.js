@@ -27,6 +27,10 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.existingAction = false;
         $scope.managepage = "";
         var schedule_desc = "";
+        $scope.actionNameValidation = actionNameValidation;
+        $scope.scheduleDateValidation = scheduleDateValidation;
+        $scope.scheduleTimeValidation = scheduleTimeValidation;
+        
         $scope.getManagePage = function () {
             var fbData = JSON.stringify({access_token_method: "getAccessToken"});
             settingsFactory.facebookPost(fbData).then(function (fbResponseData) {
@@ -513,11 +517,47 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.setAction = function (selectedAction) {
             $scope.socialAction = selectedAction.value;
         };
+        
+        $scope.schedulePostValidation = function () {
+            var schedule_title = $("#ActionName").val();
+            var schedule_date = $("#actionDate").val();
+            var schedule_time = $("#actionTime").val().replace(/ /g, '');            
+            var actionName = schedule_title;
+            var actionDateVal = schedule_date;
+            var actionTimeVal = schedule_time;
+                            
+            if (!actionName) {
+                $("#ActionName").focus();
+                $scope.actionName = "";
+                return false;
+            }
+            if (!actionDateVal) {
+                $("#actionDate").focus();
+                $scope.actionDateVal = "";
+                return false;
+            }
+            if (!actionTimeVal) {
+                $("#actionTime").focus();
+                $scope.actionTimeVal = "";
+                return false;
+            }
+            else
+            {
+                return true;
+            }           
+        };
+        
+        
+        
         $scope.schedulePost = function (selectedSocialmedia, postData) {
-            if (selectedSocialmedia === "facebook") {
-                $scope.schedulePostToFacebook(postData);
-            } else if (selectedSocialmedia === "twitter") {
-                $scope.schedulePostToTwitter(postData);
+            if ($scope.schedulePostValidation())
+            {
+                $scope.actionTimeVal = false;
+                if (selectedSocialmedia === "facebook") {
+                    $scope.schedulePostToFacebook(postData);
+                } else if (selectedSocialmedia === "twitter") {
+                    $scope.schedulePostToTwitter(postData);
+                }
             }
         };
 

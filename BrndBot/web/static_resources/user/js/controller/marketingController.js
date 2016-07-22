@@ -6,6 +6,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.endDate = "";
         $scope.programId = "";
         $scope.randomIframeFilename = event.timeStamp;
+        $scope.actionNameValidation = actionNameValidation;
+        $scope.actionDropdownValidation = actionDropdownValidation;
+        $scope.actionDateValidation = actionDateValidation;
+        $scope.lesserDateValidation = lesserDateValidation;
+        $scope.greaterDateValidation = greaterDateValidation;
+        $scope.campaignNameValidation = campaignNameValidation;
+        $scope.campaignDateValidation = campaignDateValidation;
 
         $scope.ddSelectActionOptions = [
             {
@@ -127,23 +134,46 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 });
             }
         };
-
-        $scope.saveMarketingProgram = function (programName, programUrl, programUrlName, programDateTime) {
-            if((programUrl === undefined)||(programUrlName === undefined)){
-                programUrl="";
-                programUrlName="";
+        
+        
+        $scope.saveMarketingProgramValidation = function (programName, programDateTime) {                              
+            if (!programName) {
+                $("#campaignname").focus();
+                $scope.programName = "";
+                return false;
             }
-            var programDate=new Date(programDateTime);
-            var data = {"program_name": programName,
-                        "program_date_time": programDate,
-                        "program_url": programUrl,
-                        "program_url_name": programUrlName,
-                        "marketing_category_id": $scope.marketingCategoryId.toString(),
-                        "marketing_program_id": $scope.marketingProgramId.toString()
-            };
-           companyMarketingProgramFactory.setMarketingProgramPost(data).then(function (data) {
-                $scope.redirectToActions("marketingprogramactions", data, 0, "");
-            });
+            if (!programDateTime) {
+                $("#programdatetime").focus();
+                $scope.programDateTime = "";
+                return false;
+            }
+            else
+            {
+                return true;
+            }           
+        };
+        
+        $scope.saveMarketingProgram = function (programName, programUrl, programUrlName, programDateTime) {
+            if ((programUrl === undefined) || (programUrlName === undefined)) {
+                programUrl = "";
+                programUrlName = "";
+            }
+
+            if ($scope.saveMarketingProgramValidation(programName, programDateTime))
+            {
+
+                var programDate = new Date(programDateTime);
+                var data = {"program_name": programName,
+                    "program_date_time": programDate,
+                    "program_url": programUrl,
+                    "program_url_name": programUrlName,
+                    "marketing_category_id": $scope.marketingCategoryId.toString(),
+                    "marketing_program_id": $scope.marketingProgramId.toString()
+                };
+                companyMarketingProgramFactory.setMarketingProgramPost(data).then(function (data) {
+                    $scope.redirectToActions("marketingprogramactions", data, 0, "");
+                });
+            }
         };
 
         $scope.getUserMarketingProgramsOpen = function (forward) {
@@ -219,37 +249,62 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var programEndDate=year+"-"+month+"-"+day;
 //            var newDate = moment(programEndDate).format('YYYY-MM-DD');
             return programEndDate;
-        }
-        $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
-        {
-            if (addTitle == undefined){
-                alert("Title not entered, enter the title");
+        };
+        
+        
+        $scope.addActionValidation = function (addTitle, datePicker, actionType) {                   
+            if (!addTitle){
+                $scope.addTitle = "";
                 $("#addactiontitle").focus();
                 return false;
             }
-            if(actionType.text == "Select"){
-                alert("No action type selected, select a action type");
+            if (actionType.text === "Select") {
+                $scope.actionTypeValidation = true;
+//                $("#dropdownValue").focus();
                 return false;
             }
-            if(datePicker == undefined){
-                alert("Date not selected, select the date");
+            if (!datePicker) {
+                $("#datepicker").focus();
+                $scope.datePicker = "";
                 return false;
-            }else {
+            } 
+            else
+            {
+                return true;
+            }           
+        };
+        
+        $scope.selectedOrganization = function (selected)
+        {
+            if (selected.value) {
+                $scope.actionTypeValidation = false;
+            }
+        };
+        
+        $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
+        {           
+            if ($scope.addActionValidation(addTitle, datePicker, actionType))
+            {
+                $scope.addTitleVal = false;
                 var actionTime1=$("#timepicker1").val().replace(/ /g,'');
                 var actionDateTime1=datePicker.toLocaleString() +" "+actionTime1.toLocaleString();
                 var endDate = $scope.formatDate($scope.programDate);
                 var end = new Date(endDate);
                 var fromDate = new Date(actionDateTime1);
                 var todayDate = new Date();
+                
                     if (fromDate < todayDate){
-                        alert("The selected date is lesser than todays date, please change the date");
+//                        alert("The selected date is lesser than todays date, please change the date");
+                        $scope.dateLesser = true;
+                        $scope.dateGreater = false;
                         return false;
                     }else if (fromDate > end){
-                        alert("The selected date is greater than program date, please change the date");
+//                        alert("The selected date is greater than program date, please change the date");
+                        $scope.dateLesser = false;
+                        $scope.dateGreater = true;
                         return false;
                     }
-            }
-            
+                      
             var actiondate = datePicker;
             
             var currDate = moment(actiondate).format('YYYY-MM-DD');
@@ -275,10 +330,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 "type": "save", "description": "", "marketingType": $scope.programId, 
                 "action_date": myEpoch, "days": days};
             companyMarketingProgramFactory.addActionPost(action).then(function (data) {
+                $scope.dateLesser = false;
+                $scope.dateGreater = false;
+
                 $scope.closeOverlay();
                 $scope.getProgramActions('emailautomation');                
                 alert("Action created succesfully");
             });
+        }
         };
 
 //        $scope.addUpdateRecuringAction = function ()

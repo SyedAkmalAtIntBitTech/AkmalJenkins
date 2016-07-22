@@ -192,9 +192,19 @@ var imageChannel = "image";
 
 //VALIDATION
 
-var companyValidation = "Please enter a subject for the email";
+var companyValidation = "Please enter your Company name";
 var dropdownValidation = "Please select your Organization";
 var emailListValidation  = "Please enter email list name";
 var emailDescriptionValidation = "Please enter email list description";
 var fromAddressValidation = "Please enter the from Address";
 var subjectValidation = "Please enter the email subject";
+var colorValidation = "Please choose all four colors";
+var actionNameValidation = "Title not entered, Please enter the title";
+var actionDropdownValidation = "No action type selected, select a action type";
+var actionDateValidation = "Date not selected, select the date";
+var lesserDateValidation  = "The selected date is lesser than todays date, please change the date";
+var greaterDateValidation  = "The selected date is greater than program date, please change the date";
+var campaignNameValidation = "Enter the campaign name!";
+var campaignDateValidation = "Enter the program date!";
+var scheduleDateValidation = "Date not selected, Please select the date";
+var scheduleTimeValidation = "Time not selected, Please select the time";
