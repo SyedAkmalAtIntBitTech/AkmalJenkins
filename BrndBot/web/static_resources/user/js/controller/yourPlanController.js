@@ -1,6 +1,11 @@
 
 yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory) {
 
+//$scope.iframeLoad = function (){
+//    alert($('iframe').contents().find('body').height());
+//    $('#iframeForAction').height($('iframe').contents().height());
+//};
+            
         $scope.emailsectionClass = '';
         $scope.fadeClass = '';
         $scope.entities_selected_time = "";
@@ -399,6 +404,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                         $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
                         $scope.deleteScheduleButton = "Remove Saved Email";
                         iframe.contentDocument.body.innerHTML = $scope.entitiesdetails.body;
+                        $scope.iframeLoad();
                     } else {
                         $scope.savedEmail = false;
                         $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
