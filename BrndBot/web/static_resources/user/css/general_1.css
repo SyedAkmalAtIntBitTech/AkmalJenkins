@@ -4119,3 +4119,9 @@ img.exit-button {
     margin-right: 30px;
     margin-left: auto;
 }
+
+.email-overlay-iFrame{
+    border: none;
+    width:100%;
+    height: auto;
+}

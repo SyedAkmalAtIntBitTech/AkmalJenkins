@@ -73,20 +73,20 @@
                             </div>
                             <div ng-show="entitiesdetails.metadata.url != 'undefined'">
                                 <div class="detail-section-item">
-                                    <label class="detail-section-label">post url</label>
+                                    <label class="detail-section-label">Post Url</label>
                                     <p class="detail-section-data">{{entitiesdetails.metadata.url}}</p>
                                 </div>
                                 <div class="detail-section-item">
-                                    <label class="detail-section-label">post link title</label>
+                                    <label class="detail-section-label">Post Link Title</label>
                                     <p class="detail-section-data">{{entitiesdetails.metadata.title}}</p>
                                 </div>
                                 <div class="detail-section-item">
-                                    <label class="detail-section-label">post link description</label>
+                                    <label class="detail-section-label">Post Link Description</label>
                                     <p class="detail-section-data">{{entitiesdetails.metadata.description}}</p>
                                 </div>
                             </div>
                             <div class="detail-section-item">
-                                <label class="detail-section-label">saved photo</label>
+                                <label class="detail-section-label">Saved Photo</label>
                                 <img class="saved-post-image"/>
                                  <div ng-show="entitiesdetails.image_type == 'gallery'">
                                     <img id="prevfbimg" src="/BrndBot/downloadImage?imageName={{entitiesdetails.image_name}}&imageType=GALLERY&companyId={{companyId}}"/>
@@ -135,7 +135,7 @@
                 </div>
            
                 <div class="email-preview-bar">EMAIL PREVIEW</div>
-                <div class="overlay-email-preview"><iframe id="iframeForAction" width="500" height="400"></iframe>
+                <div class="overlay-email-preview"><iframe id="iframeForAction" class="email-overlay-iFrame"></iframe>
                     <!--iframe goes here-->
                 </div>
         </div>
