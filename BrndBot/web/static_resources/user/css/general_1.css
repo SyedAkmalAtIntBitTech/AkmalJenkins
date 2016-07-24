@@ -899,8 +899,10 @@ li.sub-nav-tab.active a{
 
 /**/
 
-
-
+.status-button {
+    width: 35px;
+    height: 35px;
+}
 .overlay-header-cta-wrap .status-button{
     border: 2px #D5D9DD solid;
     border-radius: 3px;
