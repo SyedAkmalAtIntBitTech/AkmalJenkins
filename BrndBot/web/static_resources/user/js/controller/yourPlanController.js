@@ -735,18 +735,21 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var approval_type = {"entity_id": entity_id.toString(),
                 "template_status": template_status,
                 "entity_type": entity_type};
-
             companyMarketingProgramFactory.approveStatusPost(approval_type).then(function (data) {
                 if (data.toString() == "true") {
                     if ($scope.action_template_status == "Template Saved"){
                         $scope.action_template_status = "Approved";
                         $scope.scheduleData.email_template_status='Approved';
-                    }
-                    else{
+                    }else if ($scope.action_template_status == "Complete"){
+                        $scope.action_template_status = "No Template";
+                    }else if ($scope.action_template_status == "No Template"){
+                        $scope.action_template_status = "Complete";
+                    }else{    
                         $scope.action_template_status = "Template Saved";
                         $scope.scheduleData.email_template_status='Template Saved';   
                     }
-                    alert(templetestatussaved);
+//                    todo notification here
+//                    alert(templetestatussaved);
                     $scope.getCampaigns();    
                 } else {
                     alert(savingrecordproblem);
