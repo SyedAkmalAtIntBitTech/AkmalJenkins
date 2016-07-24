@@ -311,17 +311,21 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
         $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
             var data = "";
+            var linktitle = "";
+
             if (selectedSocialmedia === "facebook") {
+                if (postData.linkTitle){
+                    linktitle = postData.linkTitle;                    
+                }
                 data = JSON.stringify({
                     imageToPost: $scope.selectImageName,
                     accessToken: $rootScope.CurrentFbAccessToken,
                     postText: postData.shareText,
-                    title: postData.linkTitle,
+                    title: linktitle,
                     url: postData.url,
                     description: postData.linkDescription,
                     imageType: $scope.selectImageType
                 });
-
                 socialPostFactory.facebookPost(data).then(function (data) {
                 });
             } else if (selectedSocialmedia === "twitter") {
