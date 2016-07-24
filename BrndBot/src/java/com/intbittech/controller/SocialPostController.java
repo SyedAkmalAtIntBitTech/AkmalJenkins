@@ -66,6 +66,7 @@ public class SocialPostController {
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(status));
             transactionResponse.setMessage(status);
         } catch (Throwable throwable) {
+            throwable.printStackTrace();
             logger.error(throwable);
             transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
         }
