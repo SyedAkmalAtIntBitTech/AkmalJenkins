@@ -27,7 +27,7 @@
 
     <!--Set Up View-->
     <div class="content-wrap content-wrap-sequence-page content-wrap-padding" ng-show="automationEditor === false">
-        <div class="hub-pane" ng-init="getEntityDetails();">
+        <div class="hub-pane" ng-init="getEntityDetails()">
             <div class="hub-pane-header-wrap">
                 <h2 class="">Email Automation Set Up</h2>
 
@@ -105,7 +105,7 @@
                     <div class="input-wrap">
                         <label> Enter a subject line: </label>
                         <div class="input">
-                            <input id="recuring_email_title"  type="text" required placeholder="Enter Name of email" ng-model="automationData.title" value="{{entity_details.recurring_email_title}}" class="fluid"/>
+                            <input id="recuring_email_title"  type="text" required placeholder="Enter subject" ng-model="automationData.subject" value="{{entity_details.recurring_email_subject}}" class="fluid"/>
                         </div>
                         <p class="input-wrap-label"> Make this something that your clients will recognize</p>
                     </div>

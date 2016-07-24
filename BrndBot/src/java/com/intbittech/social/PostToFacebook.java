@@ -119,7 +119,6 @@ public class PostToFacebook {
             logger.error(te.getMessage());
             throw new ProcessFailed("Could post on facebook");
         } catch (Exception e) {
-//            logger.log(Priority.ERROR ,"error message", e);
             e.printStackTrace();
             throw new ProcessFailed("Could post on facebook");
         }
