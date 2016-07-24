@@ -11,64 +11,78 @@
             <a ng-hide="isProgramArchived" href="" class="reg-button gray-button top-nav-header-cta" ng-click="endMarketingProgram()" id="endMarketingProgram">Archive Campaign</a>
             <!--<% } %>-->
         </div>
-    
-    <div class="top-sub-nav">
+
+        <div class="top-sub-nav">
             <ul class="sub-nav-tab-wrap with-back-button">
                 <li class="sub-nav-tab " id="ovrviewli" ng-hide="checkProgramStatus()" ng-click="displayCampaignDetails()">
-                     <a id="overview" class="" ng-class="campaignDetailsClass">Campaign Details</a>
+                    <a id="overview" class="" ng-class="campaignDetailsClass">Campaign Details</a>
                 </li>
                 <li class="sub-nav-tab" id="actionsli" ng-click="displayCampaignActions();">
                     <a  id="actions" class="" ng-class="campaignActionsClass">Campaign Actions</a>
                 </li>
-               
+
             </ul>
         </div>
     </div>
     <div class="top-nav-bar-offset"></div>
     <div class="top-subnav-bar-offset"></div>
 
-    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" id="" ng-show="showCampaignActions==true">
-        
-             <div class="hub-pane">
-                <div class="hub-pane-header-wrap">
-                    <h2 class="">Recurring Automated Emails</h2>
-                    <!--<% if(past!=1){%>-->
-                    <a ng-hide="isProgramArchived" id="addrecemail" ng-click="redirectToEmailAutomation(forward,'add','', '0')" class="long-button green-button">Add an Automated Emails</a>
-                    <!--<%}%>-->
-                </div>
-                <div class="your-plan-action-wrap" >
-                    <div class="slat" ng-repeat="emailautomation in programs.emailautomation">
-                        <div class="your-plan-icon-wrap no-template-icon">
-                            
+    <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" id="" ng-show="showCampaignActions == true">
+
+        <div class="hub-pane">
+            <div class="hub-pane-header-wrap">
+                <h2 class="">Recurring Automated Emails</h2>
+                <!--<% if(past!=1){%>-->
+                <a ng-hide="isProgramArchived" id="addrecemail" ng-click="redirectToEmailAutomation(forward, 'add', '', '0')" class="long-button green-button">Add an Automated Emails</a>
+                <!--<%}%>-->
+            </div>
+            <div class="your-plan-action-wrap" >
+                <div class="slat" ng-repeat="emailautomation in programs.emailautomation">
+                    <div class="your-plan-icon-wrap no-template-icon">
+                        <div class="status-show">
+
+                            <img ng-show="emailautomation.status  == 'Template Saved'" src="/BrndBot/user/images/template-saved.svg" />
+
+
+                            <img ng-show="emailautomation.status  == 'No Template'" src="/BrndBot/user/images/no-template.svg"/>
+
+
+                            <img ng-show="emailautomation.status  == 'Complete'" src="/BrndBot/user/images/ActionComplete.svg"/>
+
+
+                            <img ng-show="emailautomation.status  == 'Approved'" src="/BrndBot/user/images/template-approved.svg"/>
+
+
+                        </div> 
+                    </div>
+                    <div class="slat-name-wrap">
+                        <h2>{{emailautomation.programTemplateName}}</h2>
+                        <p>{{emailautomation.description}}</p>
+                    </div>
+
+                    <div class="slat-detail-wrap">
+                        <div class="slat-detail">
+                            <h2>{{actionType}}</h2>
+                            <p>Status</p>
                         </div>
-                        <div class="slat-name-wrap">
-                            <h2>{{emailautomation.programTemplateName}}</h2>
-                            <p>{{emailautomation.description}}</p>
-                        </div>
-                        
-                         <div class="slat-detail-wrap">
-                             <div class="slat-detail">
-                                <h2>{{actionType}}</h2>
-                                <p>Status</p>
-                            </div>
-                        </div>
-                        <div class="slat-detail-wrap">
-                            <div class="slat-detail">
-                                <a class="reg-button slat-detail-button" ng-click="getRecurringScheduleDetails(emailautomation.scheduledEntityListId,
-                                                                emailautomation.status, emailautomation.tillDate,
-                                                                emailautomation.dateTime,
-                                                                emailautomation.actionType,
-                                                                emailautomation.programTemplateName,
-                                                                emailautomation.description,
-                                                                emailautomation.postDateStatus,
-                                                                emailautomation.days)">Action Details</a>
-                            </div>
+                    </div>
+                    <div class="slat-detail-wrap">
+                        <div class="slat-detail">
+                            <a class="reg-button slat-detail-button" ng-click="getRecurringScheduleDetails(emailautomation.scheduledEntityListId,
+                                                emailautomation.status, emailautomation.tillDate,
+                                                emailautomation.dateTime,
+                                                emailautomation.actionType,
+                                                emailautomation.programTemplateName,
+                                                emailautomation.description,
+                                                emailautomation.postDateStatus,
+                                                emailautomation.days)">Action Details</a>
                         </div>
                     </div>
                 </div>
+            </div>
 
 
-            </div><div class="hub-pane">
+        </div><div class="hub-pane">
             <div class="hub-pane-header-wrap" >
                 <h2 class="">One Time Actions</h2>
                 <!--<% if(past!=1){%>-->
@@ -98,15 +112,15 @@
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">
                                 <a class="reg-button  slat-detail-button" ng-click="getScheduleDetails(programaction.scheduledEntityListId,
-                                                                        programaction.status,
-                                                                        programaction.postDate,
-                                                                        programaction.actionType,
-                                                                        programaction.programTemplateName,
-                                                                        programaction.description,
-                                                                        programaction.postTime,
-                                                                        programaction.postDateStatus,
-                                                                        programaction.days,
-                                                                        programs.programdetails.programName)">Action Details</a>
+                                                programaction.status,
+                                                programaction.postDate,
+                                                programaction.actionType,
+                                                programaction.programTemplateName,
+                                                programaction.description,
+                                                programaction.postTime,
+                                                programaction.postDateStatus,
+                                                programaction.days,
+                                                programs.programdetails.programName)">Action Details</a>
                             </div>
                         </div>
                     </div>
@@ -114,11 +128,11 @@
 
             </div>
         </div>
-        </div>
-        
+    </div>
+
 
     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav"  id="" ng-show="showCampaignDetails == true">
-        
+
         <div class="hub-pane" >
             <div class="hub-pane-header-wrap">
                 <h2 class="">Marketing Campaign Details</h2>
@@ -128,29 +142,29 @@
                     <div class="input-wrap">
                         <label>Marketing Campaign Name</label>
                         <a class="input">
-                           <input id="program_name" name="program_name" ng-model="programs.programdetails.programName" class="fluid"/>
+                            <input id="program_name" name="program_name" ng-model="programs.programdetails.programName" class="fluid"/>
 
                         </a>
                     </div>
-                 
+
                     <div class="input-wrap">
                         <label> Marketing Campaign Date </label>
                         <a class="clickable-input fluid ease-all">
-                                <div class="date-time-select-icon">
-                                    <object type="image/svg+xml" data="/BrndBot/user/images/calendar-gray.svg" style="cursor:pointer;"> </object>
-                                </div>
-                                <input type="text" readonly name="datepicker" id="progactdatepicker" class="fluid time-date-select" value="{{programs.programdetails.dateOfEvent | date : 'EEE MMM d y'}}">
-                                    <script>
-                                        var picker = new Pikaday(
-                                                {
-                                                        field: document.getElementById('progactdatepicker'),
-                                                        firstDay: 1,
-                                                        minDate: new Date(2000, 0, 1),
-                                                        maxDate: new Date(2050, 12, 31),
-                                                        yearRange: [2000, 2050]
-                                                });
-                                    </script>
-                            </a>
+                            <div class="date-time-select-icon">
+                                <object type="image/svg+xml" data="/BrndBot/user/images/calendar-gray.svg" style="cursor:pointer;"> </object>
+                            </div>
+                            <input type="text" readonly name="datepicker" id="progactdatepicker" class="fluid time-date-select" value="{{programs.programdetails.dateOfEvent| date : 'EEE MMM d y'}}">
+                            <script>
+                                var picker = new Pikaday(
+                                        {
+                                            field: document.getElementById('progactdatepicker'),
+                                            firstDay: 1,
+                                            minDate: new Date(2000, 0, 1),
+                                            maxDate: new Date(2050, 12, 31),
+                                            yearRange: [2000, 2050]
+                                        });
+                            </script>
+                        </a>
                     </div>
                     <div class="input-wrap">
                         <label> Marketing Campaign Link </label>
