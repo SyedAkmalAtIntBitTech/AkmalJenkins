@@ -13,14 +13,15 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
         $scope.emailId = "";
         $scope.firstName = "";
         $scope.lastName = "";
-        $scope.selectedEmail = "";  
+        $scope.selectedEmail = "";
         $scope.unsubscribePopup = false;
         $scope.overlayFade = false;
         $scope.emailListValidation = emailListValidation;
         $scope.emailDescriptionValidation = emailDescriptionValidation;
         $scope.fromAddressValidation = fromAddressValidation;
+        $scope.emailAddressValidation = emailAddressValidation;
+        $scope.email = [];
 
-        
 
         $scope.displayAllEmailDrafts = function () {
             $scope.activeEmailDrafts = 'activeTab';
@@ -174,8 +175,8 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             if (confirm("Are you sure, You want to Delete Email Draft(s)?")) {
                 var delid = id + ",";
                 var message;
-                if($scope.selectedEmail==""){
-                 $scope.selectedEmail=id;   
+                if ($scope.selectedEmail == "") {
+                    $scope.selectedEmail = id;
                 }
                 //            var selected_emaildrafts_to_delete = id;
                 var requestBody;
@@ -193,20 +194,20 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                     $scope.displayAllEmailDrafts();
                     $scope.savedEmailDraftPopup = false;
                     $scope.deletDraftsButton = false;
-                    $scope.selectedEmail="";
+                    $scope.selectedEmail = "";
                     $scope.closeSavedEmailDraftPopup();
                 });
             }
         };
         $scope.editDrafts = function (draft_id, category_id, email_subject, sub_category_id, mindbodyId, lookupId) {
             var draftdetails = {"draftid": draft_id, "email_subject": email_subject, "category_id": category_id,
-                "sub_category_id": sub_category_id,"mindbodyId":mindbodyId,"lookupId":lookupId};
-            localStorage.setItem("emailDraftData",JSON.stringify(draftdetails));
+                "sub_category_id": sub_category_id, "mindbodyId": mindbodyId, "lookupId": lookupId};
+            localStorage.setItem("emailDraftData", JSON.stringify(draftdetails));
             emailDraftFactory.getEmailDraftGet(draft_id).then(function (data) {
                 if (data === "false") {
                     alert(draftsavingerror);
                 } else {
-                    window.open(getHost() + 'user/baseemaileditor#/emaileditor',"_self");
+                    window.open(getHost() + 'user/baseemaileditor#/emaileditor', "_self");
                 }
             });
         };
@@ -348,106 +349,35 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $scope.emailListsMindbody = parseData.allEmailListWithNoOfContacts.mindbody;
             });
         };
-        
-        
-////        $scope.email = {listDescription:""}
-//        $scope.validationCode = function (emailListValue) {
-//            $scope.email = {listName: "", listDescription:""};
-//            if (emailListValue) {
-////                if(emailListValue.listName){
-//
-//                if (!emailListValue.listName) {
-//                    $("#list_name").focus();
-//                    return false;
-//                }
-//                if (!emailListValue.listDescription) {
-//                    $("#list_description").focus();
-//                    return false;
-//                }
-//                if (!emailListValue.deafultFromName) {
-//                    $("#default_from_name").focus();
-//                    return false;
-//                }
-//            }
-//
-////                alert("das");
-//
-//            else
-//            {
-//                $("#list_name").focus();
-//                return false;
-//            }
-//
-////            } else {
-////                $("#list_name").focus();
-////                return false;
-////            }
-//
-//        };
 
-
-        $scope.validationCode = function (emailListValue) {
-            $scope.email = {listName: ""};
-
-            if (emailListValue) {
-
-                if (!emailListValue.listName) {
-                    $("#list_name").focus();
-                    return false;
-                }
-                if (!emailListValue.listDescription) {
-                    $scope.email = {listDescription:""};
-                    $("#list_description").focus();
-                    return false;
-                }
-                if (!emailListValue.deafultFromName) {
-                    $scope.email = {deafultFromName:""};
-                    $("#default_from_name").focus();
-                    return false;
-                }
-            }
-            else
-            {
+        $scope.emailValidation = function (email) {
+            if (!email.listName) {
+                $scope.email = {listName: "", listDescription: email.listDescription, deafultFromName: email.deafultFromName};
                 $("#list_name").focus();
                 return false;
             }
-        };
-        
-        
-        $scope.checkForNullValue = function (data) {
-            var returnValue = false;
-            if (data === "" || null)
-            {
-                returnValue = true;
+            if (!email.listDescription) {
+                $scope.email = {listName: email.listName, listDescription: "", deafultFromName: email.deafultFromName};
+                $("#list_description").focus();
+                return false;
             }
-            return returnValue;
+            if (!email.deafultFromName) {
+                $scope.email = {listName: email.listName, listDescription: email.listDescription, deafultFromName: ""};
+                $("#default_from_name").focus();
+                return false;
+            }
+            if (!email.emailId) {
+                $scope.email = {emailId: ""};
+                $("#emailid").focus();
+                return false;
+            }
+            return true;
         };
 
-
-//        $scope.validationCode = function (email) {
-//            $scope.emailListVal = email.listName;
-//            
-//            if (!emailListVal) {
-//                $scope.emailListVal = "";
-//                $("#list_name").focus();
-//                return false;
-//            }
-////            else if (!organizationId) {
-////                $scope.organizationValidation = true;
-////                $("#dropdownValue").focus();
-////                return false;
-////            }
-//            else
-//            {
-//                return true;
-//            }
-//        };
-        
         $scope.createEmailList = function (email)
         {
-            if ($scope.validationCode(email))
+            if ($scope.emailValidation(email))
             {
-                alert("1");
                 var emailListDetails = {"emailListName": email.listName, "defaultFromName": email.deafultFromName, "listDescription": email.listDescription, "update": "addEmailList"};
                 emailListFactory.emailListSavePost(emailListDetails).then(function (data) {
                     $scope.createEmailListPopup = false;
@@ -534,54 +464,55 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 }
             });
         };
-
+                
         $scope.updateEmailID = function (email) {
-            $("#addcontact").show();
-            $scope.showAddContactPopup = false;
-            $scope.overlayFade = false;
-            var email_list_name = $scope.emailListName;
-            var email_address = $("#emailId").val();
-            var firstName = email.firstName;
-            var lastName = email.lastName;
-            var type = $scope.type;
-            if ($scope.validateEmailListPopup(email)) {
-                var emaildetails;
-                if (type === "add") {
-                    emaildetails = {"update": "checkAvailability", "emailListName": email_list_name,
-                        "emailAddress": email_address, "emailFirstName": firstName,
-                        "emailLastName": lastName};
-                    emailListFactory.emailListSavePost(emaildetails).then(function (data) {
-                        $("#addContactButton").unbind('click');
-                        var parseData = JSON.stringify(data.d.operationStatus.messages);
-                        if (parseData === '["Email list could not be saved, please try again in sometime."]') {
-                            emaildetails = {"update": "addEmailID", "emailListName": email_list_name,
-                                "emailAddress": email_address, "emailFirstName": firstName,
-                                "emailLastName": lastName};
-                            emailListFactory.emailListSavePost(emaildetails).then(function (data) {
-                                alert(datasaved);
-                                $scope.updateList();
-                                $scope.showAddContactPopup = false;
-                                $("#addContactButton").unbind('click');
-                            });
-                        } else if (parseData === '["Email list saved successfully."]') {
-                            alert(emailexist);
+            if ($scope.emailValidation(email))
+            {
+                $("#addcontact").show();
+                $scope.showAddContactPopup = false;
+                $scope.overlayFade = false;
+                var email_list_name = $scope.emailListName;
+                var email_address = $("#emailId").val();
+                var firstName = email.firstName;
+                var lastName = email.lastName;
+                var type = $scope.type;
+                if ($scope.validateEmailListPopup(email)) {
+                    var emaildetails;
+                    if (type === "add") {
+                        emaildetails = {"update": "checkAvailability", "emailListName": email_list_name,
+                            "emailAddress": email_address, "emailFirstName": firstName,
+                            "emailLastName": lastName};
+                        emailListFactory.emailListSavePost(emaildetails).then(function (data) {
                             $("#addContactButton").unbind('click');
-                        }
-                    });
-                } else if (type === "update") {
-                    var id = $scope.uuid;
-                    emaildetails = {"update": "updateEmailID", "emailUID": id, "emailListName": email_list_name,
-                        "emailAddress": email_address, "emailFirstName": firstName,
-                        "emailLastName": lastName};
-                    emailListFactory.emailListSavePost(emaildetails).then(function (data) {
-                        alert("datasaved");
-                        $scope.updateList();
-                        $scope.showAddContactPopup = false;
-                    });
-                }
-                ;
-            }
-            ;
+                            var parseData = JSON.stringify(data.d.operationStatus.messages);
+                            if (parseData === '["Email list could not be saved, please try again in sometime."]') {
+                                emaildetails = {"update": "addEmailID", "emailListName": email_list_name,
+                                    "emailAddress": email_address, "emailFirstName": firstName,
+                                    "emailLastName": lastName};
+                                emailListFactory.emailListSavePost(emaildetails).then(function (data) {
+                                    alert(datasaved);
+                                    $scope.updateList();
+                                    $scope.showAddContactPopup = false;
+                                    $("#addContactButton").unbind('click');
+                                });
+                            } else if (parseData === '["Email list saved successfully."]') {
+                                alert(emailexist);
+                                $("#addContactButton").unbind('click');
+                            }
+                        });
+                    } else if (type === "update") {
+                        var id = $scope.uuid;
+                        emaildetails = {"update": "updateEmailID", "emailUID": id, "emailListName": email_list_name,
+                            "emailAddress": email_address, "emailFirstName": firstName,
+                            "emailLastName": lastName};
+                        emailListFactory.emailListSavePost(emaildetails).then(function (data) {
+                            alert("datasaved");
+                            $scope.updateList();
+                            $scope.showAddContactPopup = false;
+                        });
+                    };
+                };
+            };
         };
         $scope.unsubscribeEmailList = "";
         $scope.uploadEmailListOnClick = function () {

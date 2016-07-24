@@ -30,6 +30,8 @@
                             <span>
                                 <div class="input_Label">What would you like to share?</div>
                                 <textarea class="input_Field_lg removeDrag" placeholder="Type post here" id="twitterShareText" maxlength="116" ng-model="twitterPostData.text"></textarea>
+                                <span class="validationAlert" ng-if='twitterPostData.text === "" '>{{actionNameValidation}}</span>
+
                             </span>
                             <span ng-show="showTwitterLink == true" class="" id='urlDropDownSpan' ng-init="getUrls()">                               
                                 <div class="input_Label pushUp_20">Choose from your Existing Links:</div>

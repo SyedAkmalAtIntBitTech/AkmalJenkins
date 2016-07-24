@@ -213,61 +213,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             $("#color3").css(bgColor, "");
             $("#color4").css(bgColor, "");
         };
-
-//        $scope.colorValidation = function (color1, color2, color3, color4) {
-//            if(color1 === "rgba(0, 0, 0, 0)") {
-//                $("#color1").removeClass("color-swab").addClass("palette-colorswab-selected fleft");
-//                $("#color2").removeClass("palette-colorswab-selected fleft");
-//                $("#color3").removeClass("palette-colorswab-selected fleft");
-//                $("#color4").removeClass("palette-colorswab-selected fleft");
-//                $scope.colorsAlert = true;
-//                return  false;                               
-//            }
-//            if(color2  === "rgba(0, 0, 0, 0)") {
-//                $("#color1").removeClass("palette-colorswab-selected fleft");
-//                 $("#color2").removeClass("color-swab").addClass("palette-colorswab-selected fleft");
-//                 $("#color3").removeClass("palette-colorswab-selected fleft");
-//                 $("#color4").removeClass("palette-colorswab-selected fleft");
-//                 $scope.colorsAlert = true;
-//                return  false;
-//            }
-//            if (color3  === "rgba(0, 0, 0, 0)") {
-//                $("#color1").removeClass("palette-colorswab-selected fleft");
-//                $("#color2").removeClass("palette-colorswab-selected fleft");
-//                 $("#color3").removeClass("color-swab").addClass("palette-colorswab-selected fleft");
-//                 $("#color4").removeClass("palette-colorswab-selected fleft");
-//                 $scope.colorsAlert = true;
-//                return  false;
-//            }
-//            if (color4  === "rgba(0, 0, 0, 0)") {
-//                $("#color1").removeClass("palette-colorswab-selected fleft");
-//                $("#color2").removeClass("palette-colorswab-selected fleft");
-//                $("#color3").removeClass("palette-colorswab-selected fleft");
-//                $("#color4").removeClass("color-swab").addClass("palette-colorswab-selected fleft");
-//                $scope.colorsAlert = true;
-//                return  false;
-//            }
-//            else
-//            {
-//                $scope.colorValidation = false;
-//                return true;
-//            }
-//        };
-
-//        $scope.saveColorPalette = function () {
-//
-//            var color1 = $("#color1").css("backgroundColor");
-//            var color2 = $("#color2").css("backgroundColor");
-//            var color3 = $("#color3").css("backgroundColor");
-//            var color4 = $("#color4").css("backgroundColor");
-//            if ($scope.colorValidation(color1, color2, color3, color4)) {
-//              
-//                settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
-//                    window.location = getHost() + "user/dashboard";
-//                });
-//            }
-//        };
-        
+       
         $scope.saveColorPalette = function () {
             var color1 = $("#color1").css("backgroundColor");
             var color2 = $("#color2").css("backgroundColor");
@@ -276,7 +222,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             if ((color1 === "rgba(0, 0, 0, 0)") || (color2 === "rgba(0, 0, 0, 0)") || (color3 === "rgba(0, 0, 0, 0)") || (color4 === "rgba(0, 0, 0, 0)")) {
 //               alert("Please choose all 4 colors.");
                 $scope.colorsAlert = true;
-                return  false;
+                return false;
             }
             else {
                 $scope.colorsAlert = false;

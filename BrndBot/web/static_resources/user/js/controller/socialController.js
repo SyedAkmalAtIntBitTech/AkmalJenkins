@@ -30,6 +30,9 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.actionNameValidation = actionNameValidation;
         $scope.scheduleDateValidation = scheduleDateValidation;
         $scope.scheduleTimeValidation = scheduleTimeValidation;
+        $scope.facebookPostValidation = facebookPostValidation;
+        $scope.fbPostData = [];
+//        $scope.twitterPostData = [];
         
         $scope.getManagePage = function () {
             var fbData = JSON.stringify({access_token_method: "getAccessToken"});
@@ -301,16 +304,57 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
 
 //        ...................post or schedule new functions..................
-        $scope.openPostOrShedulePopup = function (selectedSocialmedia, postData) {
-            $scope.postTypeSelectionPopUp = true;
-            $scope.postData = postData;
-            $scope.selectedSocialmedia = selectedSocialmedia;
-            if (selectedSocialmedia === "facebook") {
-                $scope.postTo = "Post to Facebook";
-            } else if (selectedSocialmedia === "twitter") {
-                $scope.postTo = "Post to Twitter";
+
+
+//        $scope.schedulePostValidation1 = function () {
+//            
+//            var fbPostText = $scope.shareText;
+//                   
+//            if (!fbPostText) {
+//                alert("yes");
+//                $("#shareText").focus();
+//                $scope.fbPostText = "";
+//                return false;
+//            }
+//            else
+//            {
+//                return true;
+//            }
+//        };
+
+
+        $scope.postValidation = function (postData) {
+            if (!postData.shareText) {
+                $scope.fbPostData = {shareText: ""};
+                $("#shareText").focus();
+                return false;
+            }
+//            if (!postData.text) {
+//                $scope.twitterPostData = {text: ""};
+//                $("#twitterShareText").focus();
+//                return false;
+//            }
+            else
+            {
+                return true;
             }
         };
+
+        $scope.openPostOrShedulePopup = function (selectedSocialmedia, postData) {
+            if ($scope.postValidation(postData))
+            {
+                $scope.postTypeSelectionPopUp = true;
+                $scope.postData = postData;
+                $scope.selectedSocialmedia = selectedSocialmedia;
+
+                if (selectedSocialmedia === "facebook") {
+                    $scope.postTo = "Post to Facebook";
+                } else if (selectedSocialmedia === "twitter") {
+                    $scope.postTo = "Post to Twitter";
+                }
+            }
+        };
+
         $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
             var data = "";
             if (selectedSocialmedia === "facebook") {
@@ -517,15 +561,15 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.setAction = function (selectedAction) {
             $scope.socialAction = selectedAction.value;
         };
-        
+
         $scope.schedulePostValidation = function () {
             var schedule_title = $("#ActionName").val();
             var schedule_date = $("#actionDate").val();
-            var schedule_time = $("#actionTime").val().replace(/ /g, '');            
+            var schedule_time = $("#actionTime").val().replace(/ /g, '');
             var actionName = schedule_title;
             var actionDateVal = schedule_date;
             var actionTimeVal = schedule_time;
-                            
+
             if (!actionName) {
                 $("#ActionName").focus();
                 $scope.actionName = "";
@@ -544,11 +588,9 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             else
             {
                 return true;
-            }           
+            }
         };
-        
-        
-        
+
         $scope.schedulePost = function (selectedSocialmedia, postData) {
             if ($scope.schedulePostValidation())
             {

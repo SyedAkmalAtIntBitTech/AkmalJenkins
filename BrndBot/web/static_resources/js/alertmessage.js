@@ -195,5 +195,7 @@ var genericError="Oops, something went wrong please try again later."
 
 var companyValidation = "Please enter your Company name";
 var dropdownValidation = "Please select your Organization";
-var emailListValidation  = "Please enter email list name";
+//var emailListValidation  = "Please enter email list name";
 var colorValidation = "Please choose all four colors";
+
+

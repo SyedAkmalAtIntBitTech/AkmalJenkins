@@ -17,6 +17,8 @@
                     <div class="input ">
                         <textarea class="fluid facebook-post-textarea" placeholder="Type post here" id="shareText" ng-model="fbPostData.shareText"></textarea>
                     </div>
+                    <span class="validationAlert" ng-if='fbPostData.shareText === "" '>{{facebookPostValidation}}</span>
+
                 </div>
                 
                 <div ng-if="linkpost" id="linkPostFields">

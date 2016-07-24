@@ -27,7 +27,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.emailAddresses = '';
         $scope.loadingOverlay = false;
         $scope.subjectValidation = subjectValidation;
-        
+
         var sliderDialog = "#emaileditorexternalpopup";
         var emailDraftDetails = localStorage.getItem('emailDraftData');
         //OnPageLoad
@@ -74,27 +74,18 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         };
 
-        $scope.validationcode = function (emailSubject) {
-            if (!$parent.emailsubject) {
-                $scope.$parent.emailsubject = "";
+        $scope.emailFlowValidation = function (emailSubject) {
+            if (!emailSubject) {
+                alert("enter");
+                $scope.$parent = {emailsubject: ""};
                 $("#emailSub").focus();
                 return false;
             }
-//            else if (!organizationId) {
-//                $scope.organizationValidation = true;
-//                $("#dropdownValue").focus();
-//                return false;
-//            }
-            else
-            {
-                return true;
-            }
+            return true;
         };
 
         $scope.redirect = function (redirect, categoryId, subCategoryId, mindbody, lookupId, mindbodyid, emailSubject, draftId)
         {
-//            if ($scope.validationcode(companyName, organizationId))                        
-//            {
             localStorage.removeItem("emailDraftData");
             if (lookupId)
             {
@@ -127,16 +118,15 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.draftId = draftId;
             }
 
-            if ($scope.validationcode(emailSubject))
+            if (emailSubject)
             {
-                if (emailSubject)
+                if ($scope.emailFlowValidation(emailSubject))
                 {
                     $scope.emailSubject = emailSubject;
                 }
             }
-            $location.path("/" + redirect);
 
-//        }
+            $location.path("/" + redirect);
         };
 
         $scope.redirectBaseURL = function () {
@@ -149,11 +139,11 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         {
             redirectFactory.redirectFlowTo(forwardone);
             $window.location = getHost() + "user/" + forwardone;
-            var emailsubject = $scope.emailSubject;
-            if (emailsubject === '')
-            {
-                $scope.emailSubjectError = "Email Subject Required!";
-            }
+//            var emailsubject = $scope.emailSubject;
+//            if (emailsubject === '')
+//            {
+//                $scope.emailSubjectError = "Email Subject Required!";
+//            }
         };
         $scope.getCategories = function (forwardone)
         {

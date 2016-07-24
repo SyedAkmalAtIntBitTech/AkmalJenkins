@@ -285,7 +285,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         {           
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
             {
-                $scope.addTitleVal = false;
+//                $scope.addTitleVal = false;
                 var actionTime1=$("#timepicker1").val().replace(/ /g,'');
                 var actionDateTime1=datePicker.toLocaleString() +" "+actionTime1.toLocaleString();
                 var endDate = $scope.formatDate($scope.programDate);

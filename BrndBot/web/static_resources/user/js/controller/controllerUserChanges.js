@@ -1,30 +1,64 @@
 settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$location', 'signupFactory', 'settingsFactory', 'assetsFactory', 'onboardingFactory', function ($scope, $window, $location, signupFactory, settingsFactory, assetsFactory, onboardingFactory) {
- 
-  $scope.inputType = 'password';
-   $scope.colorFrom = "custom";
 
-  // Hide & show password function
-  $scope.hideShowPassword = function(){
-    if ($scope.inputType == 'password')
-      $scope.inputType = 'text';
-    else
-      $scope.inputType = 'password';
-  };
-        $scope.changePassword = function (password,confirmPassword) {
-            alert(password);
-            alert(confirmPassword);
-            
-            var password_object = {"password": password, "confirmpassword": confirmPassword, "type": "update"};
-            signupFactory.resetPasswordPost(password_object).then(function (data) {
-                $scope.status = data;
-            });
+        $scope.inputType = 'password';
+        $scope.colorFrom = "custom";
+        $scope.newPasswordValidation = newPasswordValidation;
+        $scope.confirmPasswordValidation = confirmPasswordValidation;
+        $scope.logoValidation = logoValidation;
+        
+        // Hide & show password function
+        $scope.hideShowPassword = function () {
+            if ($scope.inputType == 'password')
+                $scope.inputType = 'text';
+            else
+                $scope.inputType = 'password';
         };
+
+        $scope.accountSettingsValidation = function (password, confirmPassword) {
+            if (!password) {
+                $scope.password = "";
+                $("#newpassword").focus();
+                return false;
+            }
+            if (!confirmPassword) {
+                $scope.confirmPassword = "";
+                $("#confirmpassword").focus();
+                return false;
+            }
+            return true;
+        };
+
+        $scope.changePassword = function (password, confirmPassword) {
+            if ($scope.accountSettingsValidation(password, confirmPassword))
+            {
+                alert(password);
+                alert(confirmPassword);
+
+                var password_object = {"password": password, "confirmpassword": confirmPassword, "type": "update"};
+                signupFactory.resetPasswordPost(password_object).then(function (data) {
+                    $scope.status = data;
+                });
+            }
+        };
+
+        $scope.userLogoValidation = function (logoImage) {
+            if (!logoImage) {
+                $scope.logoImage = "";
+                $("#uploadlogo").focus();
+                return false;
+            }
+            return true;
+        };
+
         $scope.changeLogo = function (logoImage) {
             var file = logoImage;
 //            alert(file);
-            settingsFactory.changeLogoPost(file).then(function (data) {
-                $location.path("signup/choosepalette");
-            });
+            if ($scope.userLogoValidation(logoImage))
+            {
+                settingsFactory.changeLogoPost(file).then(function (data) {
+                    $location.path("signup/choosepalette");
+                });
+            }
         };
         $scope.getColorsFromLogo = function () {
             $scope.colorFrom = "logo";
@@ -43,15 +77,15 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.getColorFromPicker = function () {
             $scope.colorFrom = "custom";
             $('#picker').colpick({
-            flat: true,
-            layout: 'hex',
-            onSubmit: function (hsb, hex, rgb, el) {
-                //for haking hex value alert(hex);
-                $('.palette-colorswab-selected').css("background-color", "#" + hex);
-                $('.palette-colorswab-selected').val("#" + hex);
+                flat: true,
+                layout: 'hex',
+                onSubmit: function (hsb, hex, rgb, el) {
+                    //for haking hex value alert(hex);
+                    $('.palette-colorswab-selected').css("background-color", "#" + hex);
+                    $('.palette-colorswab-selected').val("#" + hex);
 
-            }
-        });
+                }
+            });
         };
         $scope.getColorID = function (color) {
             $('.palette-colorswab-selected').css("background-color", color);
@@ -63,7 +97,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $("#color4").css("background-color", color4);
         };
         $scope.showColors = function () {
-            settingsFactory.getColorsURLGet().then(function (data) { 
+            settingsFactory.getColorsURLGet().then(function (data) {
                 $scope.user_preferences_colors = data.d.details;
             });
             assetsFactory.allColorThemesGet().then(function (data) {
@@ -72,9 +106,9 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         };
         $scope.getColorID = function (color) {
             $('.palette-colorswab-selected').css("background-color", color);
-            
+
         };
-        
+
         $scope.getLogoColors = function () {
             onboardingFactory.colorsForLogoGet().then(function (data) {
                 $scope.color = data.d.details;
@@ -98,9 +132,9 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
             $("#color3").css(bgColor, "");
             $("#color4").css(bgColor, "");
         };
-        
-        
-       $scope.createUserPreferences = function (themecolor1,themecolor2,themecolor3,themecolor4)
+
+
+        $scope.createUserPreferences = function (themecolor1, themecolor2, themecolor3, themecolor4)
         {
             alert(themecolor1);
             alert(themecolor2);
@@ -110,7 +144,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 //            color2 = "rgb(255, 0, 255)";
 //            color3 = "rgb(255, 0, 255)";
 //            color4 = "rgb(255, 0, 255)";
-            settingsFactory.setColorsPost(color1,color2,color3,color4).then(function (data) {
+            settingsFactory.setColorsPost(color1, color2, color3, color4).then(function (data) {
                 $scope.status = data;
                 alert(data.d.operationStatus.messages[0]);
                 $scope.showColors();
@@ -126,24 +160,24 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
 
             }
         });
-        
-        $scope.color1 = function()
-        {            
+
+        $scope.color1 = function ()
+        {
         };
-              
-            $scope.stepsModel = [];
 
-    $scope.imageUpload = function(element){
-        var reader = new FileReader();
-        reader.onload = $scope.imageIsLoaded;
-        reader.readAsDataURL(element.files[0]);
-    };
+        $scope.stepsModel = [];
 
-    $scope.imageIsLoaded = function(e){
-        $scope.$apply(function() {
-            $scope.stepsModel = [];
-            $scope.stepsModel.push(e.target.result);
-        });
-    };
+        $scope.imageUpload = function (element) {
+            var reader = new FileReader();
+            reader.onload = $scope.imageIsLoaded;
+            reader.readAsDataURL(element.files[0]);
+        };
+
+        $scope.imageIsLoaded = function (e) {
+            $scope.$apply(function () {
+                $scope.stepsModel = [];
+                $scope.stepsModel.push(e.target.result);
+            });
+        };
 
     }]);

@@ -11,7 +11,9 @@
             <div class="pop-up-inner">
                 <div class="input-field-container">
                     <div class="input-header"> Email Address </div>
-                    <input type="text" class="input-field-textfield1 input-placeholder" placeholder="Enter Email Address" id="emailId" ng-model="email.emailId"/>
+                    <input type="email" class="input-field-textfield1 input-placeholder" placeholder="Enter Email Address" id="emailid" ng-model="email.emailId"/>
+                    <span class="validationAlert" ng-if='email.emailId === "" || null'>{{emailAddressValidation}}</span>
+
                     <input type="hidden" id="uuid" value=""></input>
                     <input type="hidden" id="type" value=""></input>
                 </div>
