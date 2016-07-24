@@ -756,6 +756,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             }
             return true;
         };
+        
+        $scope.emailListBackButton=true;
         $scope.continueEmailListOnClick = function (emailAddresses) {
 //            TODO change to AngularJs
             if ($scope.validateEmails(emailAddresses)) {
@@ -767,6 +769,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         $scope.emailListDiv = false;
                         $scope.emailContinueButton = false;
                         $scope.emaildetailscontbtn = true;
+                        $scope.emailListBackButton=false;
+                        $scope.emailDetailsBackButton=true;
                     } else {
                         alert("Please select atleast one email list or add email manually.");
                         $scope.selectCsvOnClick();
@@ -782,6 +786,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         $scope.emailListDiv = false;
                         $scope.emailContinueButton = false;
                         $scope.emaildetailscontbtn = true;
+                        $scope.emailListBackButton=false;
+                        $scope.emailDetailsBackButton=true;
                     } else {
                         alert("Please select at least one email list or add email manually.");
                         selectCsvFile();
@@ -796,7 +802,15 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         };
 
-
+        $scope.backToEmailList = function (){
+                        $scope.showEmailDetails = false;
+                        $scope.emailListDiv = true;
+                        $scope.emailContinueButton = true;
+                        $scope.emaildetailscontbtn = false;
+                        $scope.emailListBackButton=true;
+                        $scope.emailDetailsBackButton=false;
+        };
+        
         $scope.emailListPreviewOnClick = function () {
             $scope.iframePath = getHost() + "download/HTML?fileName=" + $scope.randomIframeFilename + ".html";
             $scope.fadeClass = 'fadeClass';
