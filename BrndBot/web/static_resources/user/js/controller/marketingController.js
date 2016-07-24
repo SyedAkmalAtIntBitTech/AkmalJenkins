@@ -686,6 +686,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 "description": $scope.scheduleData.schedule_desc
             };
             yourPlanFactory.addActionPost(action).then(function (data) {
+                
+                $scope.getProgramActions('emailautomation');
             });
         };
 
@@ -1123,7 +1125,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 
                 marketingRecurringEmailFactory.addRecurringActionPost(recurring_action).then(function (data) {
-                    alert(JSON.stringify(data));
                     if (data === true) {
                         alert("Details saved succesfully.");
                     } else {

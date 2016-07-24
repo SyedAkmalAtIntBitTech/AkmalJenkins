@@ -31,7 +31,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             var fbData = JSON.stringify({access_token_method: "getAccessToken"});
             settingsFactory.facebookPost(fbData).then(function (fbResponseData) {
                 var fbAccessToken = fbResponseData.d.message.split(",");
-                if (fbAccessToken[0])
+                if (fbAccessToken[0] === 'null')
                 {
                     var data = JSON.stringify({redirectUrl: "user/socialsequence"});
                     settingsFactory.fbLoginPost(data).then(function (data) {
@@ -71,9 +71,9 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
 
         $scope.selectImage = function (id) {
-////            $scope.imageUnSelect = 'gallery-item-wrap-selected-true';
-////            angular.element(document.getElementsByClassName('gallery-item-wrap-selected-true')).removeClass('gallery-item-wrap-selected-true').addClass('gallery-item-wrap-selected');
-//            angular.element(document.getElementById(id)).addClass('gallery-item-wrap-selected-true');
+            $scope.imageUnSelect = 'gallery-item-wrap-selected-true';
+            angular.element(document.getElementsByClassName('gallery-item-wrap-selected-true')).removeClass('gallery-item-wrap-selected-true').addClass('gallery-item-wrap-selected');
+            angular.element(document.getElementById(id)).addClass('gallery-item-wrap-selected-true');
         };
 
         $scope.selectImageToPost = function (imageName, imageType, companyId) {
@@ -94,7 +94,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.getSelectedUrl = function (urlsLink) {
 
         };
-
+        
         $scope.postToFacebook = function (fbPostData) {
 
             $scope.twitterActions = false;
