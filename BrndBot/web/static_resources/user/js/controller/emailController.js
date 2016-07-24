@@ -1141,6 +1141,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 //            });
 //        };
         $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
+            $scope.isMailSent=false;
             if (selectedSocialmedia === "email") {
                 var sendEmailData = JSON.stringify({
                     from_name: postData.fromName,
@@ -1156,8 +1157,9 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
                             if (responseText === "true")
                             {
-                                alert(emailsend);
-                                window.location = "dashboard";
+//                              alert(emailsend);
+                                $scope.isMailSent=true;
+//                                window.location = "dashboard";
                             }
                         });
                     }
