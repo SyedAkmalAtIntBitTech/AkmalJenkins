@@ -4,8 +4,8 @@
         display: block !important;
     }
 </style>
-
-    <div class="content-main" ng-if="showEmailListDetails">
+<div ng-init="checkEmailList()">
+<div class="content-main" ng-if="showEmailListDetails" >
     <div ng-show="overlayFade" id="fade" class="black_overlay"></div> 
     <div ng-include src="'addcontact.html'"></div> 
     <input type="hidden" id="get_list_name" value="{{emailListName}}"/>
@@ -145,6 +145,7 @@
             </div>
             
         </div>
+</div>
 </div>
 
         

@@ -1,6 +1,11 @@
 
 yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filter', 'yourPlanFactory', 'companyFactory', 'settingsFactory', 'companyMarketingProgramFactory', function ($scope, $location, $filter, yourPlanFactory, companyFactory, settingsFactory, companyMarketingProgramFactory) {
 
+//$scope.iframeLoad = function (){
+//    alert($('iframe').contents().find('body').height());
+//    $('#iframeForAction').height($('iframe').contents().height());
+//};
+            
         $scope.emailsectionClass = '';
         $scope.fadeClass = '';
         $scope.entities_selected_time = "";
@@ -16,7 +21,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
         $scope.ddSelectActionOptions = [
             {
-
                 text: 'Select',
                 value: '0'
             }, {
@@ -34,9 +38,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             }
         ];
 
-        $scope.ddSelectAction = {
-            text: "Select"
-        };
+        $scope.ddSelectAction = {text: "Select"};
 
         // use scope.onPikadaySelect for older scope syntax
         $scope.onPikadaySelect = function onPikadaySelect(pikaday) {
@@ -100,11 +102,9 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
 //});
         $scope.hideSaveButton = function(){
-            alert("test");
             $("#updateAction").hide();
         };
         $scope.showSaveButton = function(){
-            alert("test");
             $("#updateAction").show();
         };
 
@@ -130,7 +130,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 $scope.today_date = moment(new Date()).format('YYYY-MM-DD');
                 $scope.tomorrow_date = moment($scope.addDays(new Date(), 1)).format('YYYY-MM-DD');
                 $scope.entitySet = parseJSON.entitydata;
-                console.log(JSON.stringify($scope.entitySet));
                 $scope.nodata = parseJSON.noactionsmessage;
 
             });
@@ -206,8 +205,40 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 return month = "Dec";
         };
 
+        $scope.resetActionForm = function(){
+            $("#addactiontitle").val("");
+            $("#datepicker").val("");
+            $("#timepicker1").val("");
+            
+            
+            $scope.ddSelectActionOptions = [
+            {
+                text: 'Select',
+                value: '0'
+            }, {
+                text: 'Facebook Post',
+                value: 'Facebook'
+            }, {
+                text: 'Twitter Post',
+                value: 'Twitter'
+            }, {
+                text: 'Email',
+                value: 'Email'
+            }, {
+                text: 'Reminder',
+                value: 'Reminder'
+            }
+            ];
+        };
+        $scope.chooseActionTypeOnChange = function(actionValue){
+            $scope.ddSelectAction = actionValue;
+        };
+
         $scope.ShowAddAction = function ()
         {
+            $scope.resetActionForm();
+
+            $scope.datePicker = "";
             $scope.fadeClass = 'fadeClass';
             $scope.isYourplan = true;
             $scope.addAction = true;
@@ -263,6 +294,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var action = {"title": addTitle, "actiontype": actionType.value, "type": "save", 
                 "description": "", "marketingType": 0, "action_date": myEpoch, "days": days};
             yourPlanFactory.addActionPost(action).then(function (data) {
+                alert("Action Saved");
                 $scope.getCampaigns();
                 $scope.closeOverlay();
             });
@@ -319,6 +351,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
         $scope.showSaveButton = function(){
             $("#updateAction").show();
         };
+        $scope.globalScheduleData ={};
         $scope.getScheduleDetails = function (schedule_id, template_status, schedule_time, entity_type, schedule_title, schedule_desc, marketingName, programId, days, is_today_active, action_date)
         {
 //        $scope.entities_selected_time =schedule_time;
@@ -357,7 +390,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 marketing_program_name: marketingName, user_marketing_program_id: programId,
                 days: days, is_today_active: is_today_active, schedule_time: time};
 //                $('#emailcontentiframe').contents().find('html').html(data.body); 
-
+            $scope.globalScheduleData=$scope.scheduleData;
 
             if (entity_type === getemail()) {
                 $scope.scheduledTo = 'SEND';
@@ -371,6 +404,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                         $scope.savedTemplateHeader = "SAVED EMAIL PREVIEW";
                         $scope.deleteScheduleButton = "Remove Saved Email";
                         iframe.contentDocument.body.innerHTML = $scope.entitiesdetails.body;
+                        $scope.iframeLoad();
                     } else {
                         $scope.savedEmail = false;
                         $scope.actionTypeNoTemplateMessage = "No emails saved to this action.";
@@ -663,9 +697,9 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 "description": description, "action_date": myEpoch, "days": days.toString()
             };
             yourPlanFactory.addActionPost(action).then(function (data) {
-                alert(actionsaved);
                 $scope.closePopup();
                 $scope.getCampaigns();
+                alert("Action Saved");
             });
 //        }
         };
@@ -702,12 +736,16 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
             companyMarketingProgramFactory.approveStatusPost(approval_type).then(function (data) {
                 if (data.toString() == "true") {
-                    if ($scope.action_template_status == "Template Saved")
+                    if ($scope.action_template_status == "Template Saved"){
                         $scope.action_template_status = "Approved";
-                    else
+                        $scope.scheduleData.email_template_status='Approved';
+                    }
+                    else{
                         $scope.action_template_status = "Template Saved";
+                        $scope.scheduleData.email_template_status='Template Saved';   
+                    }
                     alert(templetestatussaved);
-                    $scope.getCampaigns();
+                    $scope.getCampaigns();    
                 } else {
                     alert(savingrecordproblem);
                 }

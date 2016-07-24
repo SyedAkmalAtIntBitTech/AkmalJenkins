@@ -153,15 +153,17 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
         $scope.getActive = function (lookupId)
         {
-            $scope.loadingOverlay = true; //start Loading Overlay
+            $scope.hideGifImage = true;
+//            $scope.loadingOverlay = true; //start Loading Overlay
             externalContentFactory.activatedGet(lookupId).then(function (data) {
                 var minddata = JSON.stringify(data.d.details);
                 if (minddata === "[true]") {
                     externalContentFactory.listDataGet(lookupId).then(function (data) {
                         var parseData = JSON.parse(data.d.details);
                         $scope.mindbodylist = parseData.mindbody_data;
-                        $scope.loadingOverlay = false; //stop Loading Overlay
-                        $scope.hideDataOverlay = true;
+//                        $scope.loadingOverlay = false; //stop Loading Overlay
+                        $scope.hideGifImage = false;
+//                        $scope.hideDataOverlay = true;
                     });
                 } else
                 {
@@ -575,7 +577,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
 
         $scope.ddSelectEmailList = {
-            text: "Manual"
+            text: "Please select an email list"
         };
 
         $scope.showEmailList = function () {

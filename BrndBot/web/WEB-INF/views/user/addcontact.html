@@ -1,6 +1,7 @@
-<div id="fade" ng-class="fadeClass" class="center-pop-ups"  ng-init="showAddContactPopup= false" ng-if="showAddContactPopup">
-    <div class="" >
-        <div class="modal-pane modal-pane-width-reg" id="addAction" ng-show="addAction">
+<div class="addContactPopup" ng-init="showAddContactPopup = false" ng-if="showAddContactPopup">
+    <div class="pop-up-background" style="width: 100%;">
+
+        <div class="pop-up-container pop-up-container-createEmail"> 
             <div class="modal-pane-header-wrap">
                 <h2 class="">Create a New Action</h2>
                 <a id="close" ng-click="closeAddContactPopup()" class="modal-pane-header-exit"></a>
@@ -11,7 +12,7 @@
                     <div class="input">
                         <input type="text" placeholder="Enter Email Address" id="emailId" ng-model="email.emailId" class="fluid" >
                         <input type="hidden" id="uuid" value="">
-                    <input type="hidden" id="type" value=""/>
+                        <input type="hidden" id="type" value=""/>
                     </div>
                 </div>
                 <div class="input-wrap">
@@ -28,8 +29,8 @@
                 </div>
             </div>
             <div class="modal-cta-container" >
-                <a class="long-button blue-button" id="addActionYourPlan" ng-click="updateEmailID(email)" id="addContactButton" href="">Create this Action</a>
+                <a class="long-button blue-button" ng-click="updateEmailID(email)" id="addContactButton" href="">Create this Action</a>
             </div>
         </div>
-    </div>
+    </div>      
 </div>

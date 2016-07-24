@@ -9,20 +9,20 @@
                 <div class="input-wrap">
                     <label>Action Name</label>
                     <a class="input">
-                        <input type="text" name="addactiontitle" ng-model="addTitle" id="addactiontitle" placeholder="Enter Title" value="" class="fluid" ></input>
+                        <input type="text" name="addactiontitle" id="addactiontitle" ng-model="addTitle" placeholder="Enter Title" class="fluid" />
                         <input type="hidden" id="marketing_program" value="0" name="marketing_program_type"/>
                     </a>
                 </div>
                 <div class="input-wrap">
                     <label>Action Type</label>
-                    <!--                    <select id="actiontype" class="full" name="actiontype" ng-model="actionType" >
-                                            <option value="0">Select</option>
-                                            <option value="Facebook">Facebook Post</option>
-                                            <option value="Twitter">Twitter Post</option>
-                                            <option value="Email">Email</option>
-                                            <option value="Reminder" ng-show="isYourplan">Reminder</option>
-                                        </select>-->
-                    <div dropdown-select="ddSelectActionOptions" dropdown-model="ddSelectAction"></div>
+<!--                    <select id="actiontype" class="full" name="actiontype" ng-model="actionType" >
+                        <option value="0">Select</option>
+                        <option value="Facebook">Facebook Post</option>
+                        <option value="Twitter">Twitter Post</option>
+                        <option value="Email">Email</option>
+                        <option value="Reminder" ng-show="isYourplan">Reminder</option>
+                    </select>-->
+                    <div dropdown-select="ddSelectActionOptions" dropdown-model="ddSelectAction" dropdown-onchange="chooseActionTypeOnChange(selected)"></div>
                 </div>
                 <div class="input-wrap-row">
                     <div class="input-wrap half">
@@ -58,7 +58,7 @@
                                     show_meridian: true,
                                     min_hour_value: 1,
                                     max_hour_value: 12,
-                                    step_size_minutes: 05,
+                                    step_size_minutes: 01,
                                     overflow_minutes: true,
                                     increase_direction: 'up',
                                     disable_keyboard_mobile: true
