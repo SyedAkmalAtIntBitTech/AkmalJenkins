@@ -13,6 +13,23 @@
                             <div class="status-icon-details">
                                 <div class="status-show">
                                     
+                                        <img ng-show="action_template_status == 'Template Saved'" src="/BrndBot/user/images/template-saved.svg" />
+                                  
+                                 
+                                        <img ng-show="action_template_status == 'No Template'" src="/BrndBot/user/images/no-template.svg"/>
+                                 
+                                    
+                                        <img ng-show="action_template_status == 'Complete'" src="/BrndBot/user/images/ActionComplete.svg"/>
+                                   
+                                   
+                                        <img ng-show="action_template_status == 'Approved'" src="/BrndBot/user/images/template-approved.svg"/>
+                                   
+                                 
+                                </div>
+                                <div class="overlay-detail-status">{{action_template_status}}</div>
+<!--                                <div class="overlay-detail-status">{{scheduleData.email_template_status}}</div>
+                                <div class="status-show">
+                                   
                                         <img ng-show="scheduleData.email_template_status == 'Template Saved'" src="/BrndBot/user/images/template-saved.svg" />
                                   
                                  
@@ -23,10 +40,8 @@
                                    
                                    
                                         <img ng-show="scheduleData.email_template_status == 'Approved'" src="/BrndBot/user/images/template-approved.svg"/>
-                                   
-                                 
-                                </div>
-                                <div class="overlay-detail-status">{{scheduleData.email_template_status}}</div>
+                                                                
+                                </div>-->
                             </div>
                         </div>
                         <div class="detail-section half">
