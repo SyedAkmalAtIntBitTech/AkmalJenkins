@@ -4120,7 +4120,11 @@ img.exit-button {
     margin-left: auto;
 }
 
-
+.email-overlay-iFrame{
+    border: none;
+    width:100%;
+    height: auto;
+}
 textarea.task-textarea{
     border: 1px solid transparent;
     background-color: transparent;
