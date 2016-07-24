@@ -10,13 +10,13 @@
             </a>
             <h2> Task Detail</h2>
             <div class="overlay-header-cta-wrap">
-            <a class="status-button template-not-approved" ng-show="action_template_status === 'No Templete'" ng-click="Approval(schedule_id, 'No Templete', masterActionType)">
+            <a class="status-button template-not-approved" ng-show="action_template_status === 'No Template'" ng-click="Approval(schedule_id, 'complete', masterActionType)">
                 <i class=""></i>
-                <label>{{templateApproveButton}}</label>
+                <label>Complete</label>
             </a>
-             <a class="status-button template-not-approved" id="marketingemailapprove" ng-show="action_template_status === 'Complete'" ng-click="Approval(schedule_id, 'Complete', masterActionType)">
+             <a class="status-button template-not-approved" id="marketingemailapprove" ng-show="action_template_status === 'Complete'" ng-click="Approval(schedule_id, 'no_template', masterActionType)">
                  <i class=""></i>
-                <label>{{templateDisapproveButton}}</label>
+                <label>Incomplete</label>
             </a>                
                 <div class="action-delete-button" ng-click="clickedDeleteAction = true"></div>
                 <div ng-show="clickedDeleteAction" class="action-pop-up delete-action-pop-up ease-all">

@@ -482,6 +482,10 @@ public class CompanyMarketingProgramController {
                 scheduled_entity_list.setStatus(TemplateStatus.approved.toString());
             } else if (template_status.equalsIgnoreCase("template_saved")) {
                 scheduled_entity_list.setStatus(TemplateStatus.template_saved.toString());
+            } else if (template_status.equalsIgnoreCase("complete")){
+                scheduled_entity_list.setStatus(TemplateStatus.complete.toString());
+            } else if (template_status.equalsIgnoreCase("no_template")){
+                scheduled_entity_list.setStatus(TemplateStatus.no_template.toString());
             }
             scheduledEntityListService.update(scheduled_entity_list);
 
