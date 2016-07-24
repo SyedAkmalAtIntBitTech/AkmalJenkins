@@ -765,14 +765,15 @@ public class ScheduleDAO {
 
         String query_string = "Update scheduled_entity_list"
                 + " SET schedule_title = ?, schedule_time = ?,"
-                + " status = ?"
+                + " status = ?, schedule_desc = ?"
                 + " Where scheduled_entity_list_id = ?";
         try (Connection connection = connectionManager.getConnection()) {
             try (PreparedStatement prepared_statement = connection.prepareStatement(query_string)) {
                 prepared_statement.setString(1, scheduleTitle);
                 prepared_statement.setTimestamp(2, scheduleTime);
                 prepared_statement.setString(3, status);
-                prepared_statement.setInt(4, scheduleID);
+                prepared_statement.setString(4, scheduleDesc);
+                prepared_statement.setInt(5, scheduleID);
 
                 prepared_statement.executeUpdate();
             } catch (Exception e) {

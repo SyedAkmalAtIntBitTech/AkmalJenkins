@@ -28,7 +28,7 @@ public class MindbodyEmailListScheduler {
 
     private MindbodyEmailListProcessor mindbodyEmailListRunnable;
 
-    void startScheduler() {
+    public void startScheduler() {
         try {
             LocalDateTime localNow = LocalDateTime.now();
             ZoneId currentZone = ZoneId.of("America/New_York");
@@ -53,7 +53,7 @@ public class MindbodyEmailListScheduler {
         }
     }
 
-    void stopScheduler() {
+    public void stopScheduler() {
         try {
             if (scheduler != null) {
                 mindbodyEmailListRunnable.terminateThread();

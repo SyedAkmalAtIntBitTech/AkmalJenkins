@@ -17,7 +17,7 @@
         <link href="css/timepicki.css" rel="stylesheet" type="text/css"/>
         <link rel="shortcut icon" href="images/favicon.png"/> 
 <style>
-    #emladdrstxtarea,#clktoupload,#upload,#emaildetailsid,#backemaildetails{display:none;}
+    #emladdrstxtarea,#clktoupload,#upload,#emaildetailsid{display:none;}
     .pop-up-background {
         width: calc(96vw - 549px) !important;
         margin-top: 4vw !important;
@@ -38,8 +38,8 @@
    <div class="main-content-wrap">
     <div class="top-nav-wrap">
         <div class="header">
-            <a class="back-button" id="backemaillist" href="baseemaileditor#/emaileditor" ></a>
-            <a class="back-button" href="" id="backemaildetails"></a>
+            <a class="back-button" ng-show="emailListBackButton" id="backemaillist" href="baseemaileditor#/emaileditor" ></a>
+            <a class="back-button" ng-show="emailDetailsBackButton" href="" ng-click="backToEmailList()" id="backemaildetails"></a>
             <h2 class="">Create an Email</h2>
         </div>
     </div>
@@ -65,7 +65,7 @@
                         <p class="input-wrap-label"> Log into your company's Instagram page and copy the URL<a class="input-help" href="#">Click to learn how</a></p>
                     </div>
                 </div>
-               <div class="input-wrap">{{emaildetailscontbtn}}
+               <div class="input-wrap">
                    <a id="addCsvFileButton" ng-click="selectCsvOnClick()" class="md-button add-button22 noborder" class="reg-button gray-button input-wrap-button">Add Email Addresses Manually</a>
                 </div>
             </div>

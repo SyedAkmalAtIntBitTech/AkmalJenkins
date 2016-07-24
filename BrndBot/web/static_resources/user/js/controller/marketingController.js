@@ -639,7 +639,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                         $scope.scheduleData.email_template_status = 'Template Saved';
                     }
                     alert(templetestatussaved);
-                    $scope.getCampaigns();
+                    $scope.getProgramActions('emailautomation');
                 } else {
                     alert(savingrecordproblem);
                 }
