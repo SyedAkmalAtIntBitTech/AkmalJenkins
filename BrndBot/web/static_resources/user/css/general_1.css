@@ -2296,6 +2296,7 @@ p.modal-content-header{
     padding: 30px;
     text-align: center;
     max-width: 600px;
+    display: none;
 }
 
 .in-editor-footer-wrap h3{
