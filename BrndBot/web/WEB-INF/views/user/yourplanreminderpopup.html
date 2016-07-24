@@ -1,4 +1,4 @@
-<div class="overlay-wrap overlay-slide" id="notediv" ng-class="reminderSectionClass">
+<div class="overlay-wrap overlay-slide" id="notediv" ng-init='hideSaveButton()' ng-class="reminderSectionClass">
 
     <!--MainContent-->
     <div class="detail-overlay-content">
@@ -9,7 +9,15 @@
             <a class="exit-button" ng-click="closePopup()" href="">
             </a>
             <h2> Task Detail</h2>
-            <div class="overlay-header-cta-wrap">
+            <div class="overlay-header-cta-wrap">{{action_template_status}}
+            <a class="status-button template-not-approved" ng-show="action_template_status === 'No Templete'" ng-click="Approval(schedule_id, 'No Templete', masterActionType)">
+                <i class=""></i>
+                <label>{{templateApproveButton}}</label>
+            </a>
+             <a class="status-button template-not-approved" id="marketingemailapprove" ng-show="action_template_status === 'Complete'" ng-click="Approval(schedule_id, 'Complete', masterActionType)">
+                 <i class=""></i>
+                <label>{{templateDisapproveButton}}</label>
+            </a>                
                 <div class="action-delete-button" ng-click="clickedDeleteAction = true"></div>
                 <div ng-show="clickedDeleteAction" class="action-pop-up delete-action-pop-up ease-all">
                     <strong>Are you sure you want to delete this action?</strong>
@@ -26,7 +34,7 @@
         <div class="overlay-content">
             <div hidden="" id="note_desc" class="instruction-text">{{scheduleData.schedule_desc}}</div>
             <div class="overlay-name-bar">
-                <input  size="40" type="text" id="edit_note_title" ng-model="scheduleData.schedule_title"  name="edit_note_title" value="{{scheduleData.schedule_title}}" />
+                <input  size="40" type="text" id="edit_note_title" ng-change="showSaveButton()" ng-model="scheduleData.schedule_title"  name="edit_note_title" value="{{scheduleData.schedule_title}}" />
                 <input class="inputbox SP1" type="hidden" name="note_scheduleid" id="note_scheduleid" value='{{scheduleData.schedule_id}}'/>
                 <input class="inputbox SP1" type="hidden" name="note_action_type" id="note_action_type" value='{{scheduleData.schedule_type}}'/>
                 <input class="inputbox SP1" type="hidden" name="note_status" id="note_status" value='{{scheduleData.schedule_type}}'/>
@@ -34,7 +42,7 @@
             <div class="overlay-details-pane">
                 <div class="overlay-details-pane-header">TASK DESCRIPTION</div>
                 <div class="detail-sections-wrap-task-textarea">
-                    <textarea ng-model="scheduleData.schedule_desc" class="task-textarea" id="reminderdesc{{scheduleData.schedule_id}}" placeholder="Text Goes here!">{{scheduleData.schedule_desc}}</textarea>
+                    <textarea ng-model="scheduleData.schedule_desc" ng-change="showSaveButton()" class="task-textarea" id="reminderdesc{{scheduleData.schedule_id}}" placeholder="Text Goes here!">{{scheduleData.schedule_desc}}</textarea>
                 </div>
             </div>
             <!--<div class="overlay-details-pane">
@@ -57,13 +65,13 @@
                             <label class="detail-section-label">Date</label>
                             <a class="overlay-detail-input date-input ease-all">
                                 <img type="" class="date-time-input-img" src="/BrndBot/user/images/calendar-gray.svg" />
-                                <input type="text" ng-blur="showSaveButton()" id="emaildatetime" name="emaildatetime" />
+                                <input type="text" ng-blur="showSaveButton()" id="emaildatetime1" name="emaildatetime1" />
                                 <!--<input type="hidden" value="{{scheduleData.entities_selected_time| date:'MMM dd yyyy'}}" id="emaildateid"/>-->
                                     <script>
                                         
                                         var picker = new Pikaday(
                                                 {
-                                                    field: document.getElementById('emaildatetime'),
+                                                    field: document.getElementById('emaildatetime1'),
                                                     format: 'MMM DD YYYY',
                                                     firstDay: 1,
                                                     minDate: new Date(2000, 0, 1),
@@ -102,12 +110,12 @@
                 </div>-->
             </div>
         </div>
-           <div ng-if="reminderDetailsTab" class="" id="reminderactionsave" ng-if="savedReminderTab" class="" id="remindernotesave">
+           <div class="" id="reminderactionsave">
             <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateNote(scheduleData)" ng-click="updateReminderDescription(scheduleData.schedule_id)">Save Reminder</div>
+                <div class="edit-button-detail md-button button-text-1 fleft" ng-show="showUpdateBtn" id="updateAction" ng-click="updateReminder(scheduleData)">Save Reminder</div>
             </div>
-        </div>
-        
+            </div>
+    </div></div>
         <!--<div ng-if="reminderDetailsTab" class="below-nav-container-saved-post-detail" id="reminderdetailsdiv">
             <div class="inner-content-container-detail">
                 <!--                            <div class="saved-post-header-detail">
