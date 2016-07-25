@@ -101,14 +101,6 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 //}
 
 //});
-        $scope.hideSaveButton = function(){
-            alert("test");
-            $("#updateAction").hide();
-        };
-        $scope.showSaveButton = function(){
-            alert("test");
-            $("#updateAction").show();
-        };
 
         $scope.getCampaigns = function () {
             var curr_date = '';
