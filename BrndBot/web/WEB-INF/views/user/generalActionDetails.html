@@ -5,7 +5,7 @@
                 <input class="inputbox SP1" type="hidden" name="email_scheduleid" id="email_scheduleid" value='{{scheduleData.schedule_id}}' />
                 <input class="inputbox SP1" type="hidden" name="email_schedule_type" id="email_schedule_type" value='{{scheduleData.schedule_type}}'/>
             </div>
-                <div class="overlay-details-pane">
+                <div class="overlay-details-pane" ng-show="isRecurring === false">
                     <div class="overlay-details-pane-header">GENERAL DETAILS</div>
                     <div class="detail-sections-wrap">
                         <div class="detail-section half">
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="overlay-details-pane">
+                <div class="overlay-details-pane" ng-show="isRecurring === false">
                     <div class="overlay-details-pane-header">{{scheduledTo}} DETAILS</div>
                     <div class="detail-sections-wrap">
                         <input type="hidden" class="textbox" id="emaildays" name="emaildays" value="0"/>
