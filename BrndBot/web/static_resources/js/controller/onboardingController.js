@@ -9,6 +9,8 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.organizationValidation = false;
         $scope.companyValidation = companyValidation;
         $scope.dropdownValidation = dropdownValidation;
+        $scope.companyName = "";
+        $scope.organizationId = "";
 
         function validateSignUp()
         {
@@ -104,6 +106,10 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         };
 
         $scope.saveCompany = function (companyName, organizationId) {
+            $scope.companyName = companyName;
+            alert($scope.companyName);
+            $scope.organizationId = organizationId;
+            alert($scope.organizationId);
             if ($scope.validationcode(companyName, organizationId))
             {
                 var companyDetails = {"companyName": companyName, "organizationId": organizationId};
@@ -113,9 +119,10 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             }
         };
 
-        $scope.selectedOrganization = function (selected)
+        $scope.selectedOrganization = function (organizationId)
         {
-            if (selected.value) {
+            alert(JSON.stringify(organizationId));
+            if (organizationId.value) {
                 $scope.organizationValidation = false;
             }
         };

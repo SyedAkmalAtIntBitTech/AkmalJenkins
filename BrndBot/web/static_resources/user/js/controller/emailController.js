@@ -588,10 +588,10 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.showEmailList = function () {
             $scope.ddSelectEmailListOptions = [
-                {
-                    text: "Manual",
-                    value: "1"
-                }
+//                {
+//                    text: "Manual",
+//                    value: "1"
+//                }
             ];
             $scope.redirectBaseURL();       //this function redirects to base if page is refreshed.            
             emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
