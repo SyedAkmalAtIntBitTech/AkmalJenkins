@@ -29,7 +29,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         var sliderDialog = "#emaileditorexternalpopup";
         var emailDraftDetails = localStorage.getItem('emailDraftData');
         //OnPageLoad
-        $scope.emailEditorInit = function () {
+        $scope.emailEditorInit = function () {            
             $scope.loadingOverlay = true; //start Loading Overlay
             if (emailDraftDetails !== null) {
                 var paramDraftId = JSON.parse(emailDraftDetails).draftid;
@@ -68,7 +68,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     var DraftId = JSON.parse(redirectFromDraft).draftid;
                     $scope.getEmailDrafts(DraftId);
                 }
-                $scope.loadingOverlay = false; //start Loading Overlay
+                $scope.loadingOverlay = false; //stop Loading Overlay
                 $scope.hideEmailEditorOverlay = true;
             });
 
@@ -329,10 +329,12 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         editor.find("#" + $scope.htmlTagId).replaceWith(BlockHtml);
                         editorHtml = editor.html();
                         $('#edit').froalaEditor('html.set', '' + editorHtml + '');
+                        $scope.loadingOverlay = false;
                     } else
                     {
                         BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ')>' + emailData.htmldata + '</div>';
                         $('#edit').froalaEditor('html.set', '' + editorHtml + '' + BlockHtml + '');
+                        $scope.loadingOverlay = false;
                     }
                 }
             });
