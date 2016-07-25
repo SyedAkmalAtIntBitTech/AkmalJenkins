@@ -91,7 +91,6 @@
                                             step_size_minutes: 01,
                                             overflow_minutes: true,
                                             increase_direction: 'up',
-                                            start_time: ["06", "00", "AM"],
                                             disable_keyboard_mobile: true
                                         });
                                 </script>
@@ -104,7 +103,9 @@
                 </div>-->
             </div>
             <div class="bottom-cta-button-container-overlay">
-                <div class="reg-button gray-button" id="updateAction" ng-click="updateAction(scheduleData)" ng-show="isRecurring === false">Save Action</div>
+                <div ng-show="isRecurring === false" >
+                    <div class="reg-button gray-button" id="updateAction1" ng-click="updateAction(scheduleData)" ng-show="showUpdateBtn" >Save Action</div>
+                </div>
                 <div class="edit-button-detail md-button button-text-1 edit-button-detailrecemail" ng-click="redirectToEmailAutomation('emailautomation','edit','', schedule_id)" ng-show="isRecurring === true">Edit Automation Details</div>
             </div>
         </div>
