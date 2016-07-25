@@ -18,44 +18,25 @@
 }
 </style>
 <link rel="stylesheet" type="text/css" href="css/style_detail_overlay-6.css"/>
-<div ng-show="overlayFade" id="fade" class="black_overlay"></div>
+<!--<div ng-show="overlayFade" id="fade" class="black_overlay"></div>-->
 <div ng-include src="'emailpreview.html'"></div>
 <!--<div ng-include src="'emailpreview.html'"></div>--> 
 <script>
-                tinymce.init({
-                    selector: 'td.mce-content-body',
-                    width:400,
-                    inline: true,
-                    plugins: [
-                        'advlist custombutton autolink lists link image charmap print preview anchor',
-                        'searchreplace visualblocks code fullscreen',
-                        'insertdatetime media table contextmenu paste',
-                        'template paste textcolor colorpicker textpattern imagetools'
-                    ],
-                    toolbar1: ' insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image ',
-                    toolbar2: ' forecolor backcolor | fontselect fontsizeselect custombutton fileuploader ',
-                     menubar: false,
-    });
-
-//tinymce.init({
-//  selector: 'textarea',
-//  height: 500,
-//  toolbar: 'mybutton',
-//  menubar: false,
-//  setup: function (editor) {
-//    editor.addButton('mybutton', {
-//      text: 'My button',
-//      icon: false,
-//      onclick: function () {
-//        editor.insertContent('&nbsp;<img src="http://indy100.independent.co.uk/image/31869-2id3uc.jpg"/></b>&nbsp;');
-//      }
+//                tinymce.init({
+//                    selector: 'td.mce-content-body',
+//                    width:400,
+//                    inline: true,
+//                    plugins: [
+//                        'advlist custombutton autolink lists link image charmap print preview anchor',
+//                        'searchreplace visualblocks code fullscreen',
+//                        'insertdatetime media table contextmenu paste',
+//                        'template paste textcolor colorpicker textpattern imagetools'
+//                    ],
+//                    toolbar1: ' insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image ',
+//                    toolbar2: ' forecolor backcolor | fontselect fontsizeselect custombutton fileuploader ',
+//                     menubar: false,
 //    });
-//  },
-//  content_css: [
-//    '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
-//    '//www.tinymce.com/css/codepen.min.css'
-//  ]
-//});
+
 </script>
 
 <!--<div id="boxes" >
@@ -104,81 +85,7 @@
                 <div  id ="defaultBlock" >
                      <div class="editor_rightside ui-sortable" style="min-height: 438px; width: 1275px;">
 
-            <div class="emailrender ui-sortable" style="min-height: 523px; height: auto;">
-                <div class="module">
-                    <div class="view">
-                        <table width="100%" bgcolor="#2a2a2a" cellpadding="0" cellspacing="0" border="0" >
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <table bgcolor="#d41b29" width="600" cellpadding="0" cellspacing="0" border="0" align="center" class="devicewidth">
-                                            <div class="innerbg"></div>
-                                            <div class="addremove" style="margin-left: 945px;">
-                                                <div class="drag"></div>
-                                                <div class="remove"></div>
-
-                                            </div>
-                                            <tbody>
-                                                <tr>
-                                                    <td width="100%">
-
-                                                        <table width="600" align="center" cellspacing="0" cellpadding="0" border="0" class="devicewidth">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td align="center" style="font-family: Helvetica, arial, sans-serif; font-size: 24px; color: #ffffff; padding: 15px 0;" st-content="heading" id="mce_20" class="mce-content-body mce-edit-focus" tabindex="-1" contenteditable="true" spellcheck="false"><p>Latest from Blog</p></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div><!-- End of heading --><!-- article -->
-                <div class="module">
-                    <div class="view">
-                        <table width="100%" bgcolor="#2a2a2a" cellpadding="0" cellspacing="0" border="0" st-sortable="left-image">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <table bgcolor="#ffffff" width="600" cellpadding="0" cellspacing="0" border="0" align="center" class="devicewidth">
-                                            <div class="innerbg"></div>
-                                            <div class="addremove" style="margin-left: 945px;">
-                                                <div class="drag"></div>
-                                                <div class="remove"></div>
-                                                    
-                                            </div>
-                                            <tbody><tr><td width="100%">
-                                                        <table width="600" cellpadding="0" cellspacing="0" border="0" align="center" class="devicewidth"><tbody><!-- Spacing --><tr><td height="20"></td>
-                                                                </tr><!-- Spacing --><tr><td>
-                                                                        <table width="560" align="center" border="0" cellpadding="0" cellspacing="0" class="devicewidthinner"><tbody><tr><td>
-                                                                                        <!-- start of text content table -->
-                                                                                        <table width="140" align="left" border="0" cellpadding="0" cellspacing="0" class="devicewidthinner"><tbody><!-- image --><tr><td width="140" height="90" align="center">
-                                                                                                        <div class="imgpop"><div class="uploader_wrap" style="width: 140px; margin-top: 25px; opacity: 0;"><div class="upload_buttons"><div class="img_link"></div><div class="img_upload"></div><div class="img_edit" style="visibility: visible;"></div></div></div><img src="https://stamplia.com/edit/44106_g3vgfwcpy0gs0wok8oggsoc00ock0wow4ccw004o080kk04ks_83897/img/blog.png" alt="" border="0" width="140" height="90" style="display:block; border:none; outline:none; text-decoration:none;" label="articleimage" st-image="left-image" id="laih0l1eck1rv54e9xr8jjor"></div></td>
-                                                                                                </tr></tbody></table><!-- start of right column --><table width="400" align="right" border="0" cellpadding="0" cellspacing="0" class="devicewidthinner"><tbody><!-- title --><tr><td style="font-family: Helvetica, arial, sans-serif; font-size: 18px; color: #262626; text-align:left; line-height: 20px;" class="padding-top15 mce-content-body" st-content="title" id="mce_21" tabindex="-1" contenteditable="true" spellcheck="false"><p>Lorem ipsum Sit Dolor</p></td>
-                                                                                                </tr><!-- end of title --><!-- Spacing --><tr><td width="100%" height="10"></td>
-                                                                                                </tr><!-- Spacing --><!-- content --><tr><td style="font-family: Helvetica, arial, sans-serif; font-size: 14px; color: #4f5458; text-align:left; line-height: 20px;" st-content="paragraph" id="mce_22" class="mce-content-body" tabindex="-1" contenteditable="true" spellcheck="false"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p></td>
-                                                                                                </tr><!-- end of content --></tbody></table><!-- end of right column --></td>
-                                                                                </tr></tbody></table></td>
-                                                                </tr><!-- Spacing --><tr><td height="20"></td>
-                                                                </tr><!-- Spacing --><!-- bottom-border --><tr><td width="100%" bgcolor="#d41b29" height="3" style="font-size: 1px; line-height: 1px;">&nbsp;</td>
-                                                                </tr><!-- /bottom-border --></tbody></table></td>
-                                                </tr></tbody></table></td>
-                                </tr></tbody></table></div></div><!-- end of article --><!-- article --><!-- end of article -->
-                <!-- Start of seperator -->
-                <div class="module" id="de1">
-                    <div class="view">
-                        <table width="100%" bgcolor="#2a2a2a" cellpadding="0" cellspacing="0" border="0" st-sortable="seperator"><tbody><tr><td>
-                                        <table width="600" align="center" cellspacing="0" cellpadding="0" border="0" class="devicewidth"><div class="innerbg"></div><div class="addremove" style="margin-left: 945px;"><div class="drag"></div><div class="remove"></div></div><tbody><tr><td align="center" height="30" style="font-size:1px; line-height:1px;" st-content="separator" id="mce_25" class="mce-content-body" tabindex="-1" contenteditable="true" spellcheck="false"><p>&nbsp;</p></td>
-                                                </tr></tbody></table></td>
-                                </tr></tbody>
-                        </table>
-                    </div>
-                </div><!-- End of seperator --><!-- footer -->
+            <div class="emailrender ui-sortable" id="tinymceEditorBody" style="min-height: 523px; height: auto;">
             </div>
         </div>
 <!--    <div ng-init="hideEmailEditorOverlay = false" ng-if="hideEmailEditorOverlay" class="emailEditor-page-background fleft">

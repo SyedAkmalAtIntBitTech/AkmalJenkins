@@ -60,7 +60,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $('#edit').froalaEditor({key: FroalaLicenseKey, linkList: urlList});
                 $scope.blockIdOnSelected('defaultblock1', 0);
                 if (redirectFromDraft === null) {
-
                     modelFactory.EmailModelsIdGet($scope.subCategoryId).then(function (templateDate) {
                         var blockList = templateDate.d.details.reverse();
                         $scope.addHTMLInEmailEditor(blockList[0].modelId);
@@ -223,13 +222,14 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.styletab = "emailSideBar-tab";
             $scope.blocktab = "emailSideBar-tab-active";
             companyFactory.allBlocksForCompanyGet().then(function (data) {
+                alert(JSON.stringify(JSON.stringify(data.d.details)));
                 $scope.blockLists = data.d.details;
             });
         };
 
         $scope.blockOnClick = function (id) {
 //            TODO change to AngularJs, (Complicated code)
-
+            alert(id);
             $("#blockdiv li").removeClass("block-slat-active");
             $("#blockdiv li").addClass("block-slat");
             $(".block-button").addClass("hide");
@@ -247,9 +247,10 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
 
         $scope.didChooseBlock = function (selectedBlockId, externalSourceKeywordLookupId) {
-            $scope.emailMindBodyPopup = true;
-            $scope.loadingOverlay = true; //start Loading Overlay
+            alert(selectedBlockId+"..........."+externalSourceKeywordLookupId);
+
             blockModelFactory.allEmailBlockModelGet(selectedBlockId).then(function (data) {
+                alert(JSON.stringify(data));
                 $scope.firstTemplateForBlock = data.d.details[0].emailBlockModelLookupId;
                 $scope.isBlockClicked = "true";
                 $scope.htmlBlockId = "";
@@ -263,10 +264,13 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     $scope.addHTMLInEmailEditor(selectedBlockId);
                 } else
                 {
+                    
                     $("#fade").show();
                     $scope.overlayFade = true;
                     $('#slider-button').click();
                     $scope.emailScrollyDiv = false;
+                    $scope.emailMindBodyPopup = true;
+                    $scope.loadingOverlay = true; //start Loading Overlay
                     externalContentFactory.activatedGet(externalSourceKeywordLookupId).then(function (data) {
                         var externalData = JSON.stringify(data.d.details);
 
@@ -301,83 +305,69 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             } else {
                 mindbodyId = $scope.mindbodyid;
             }
-
             externalContentFactory.layoutEmailModelGet(templateId, $scope.isBlockClicked, mindbodyId).then(function (data) {
                 var emailData = JSON.parse(data.d.details);
-//                alert(JSON.stringify(emailData));
-
-                var BlockHtml = '<div class=' + $scope.htmlTagId + ' id=' + $scope.htmlTagId + ' ng-click=blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ')>' + emailData.htmldata + '</div>';
-//                        editor.find("#" + $scope.htmlTagId).replaceWith(BlockHtml);
-//                        editorHtml = editor.html();
-//                        $('#edit').froalaEditor('html.set', '' + editorHtml + '');
-                $("#de1").after(BlockHtml);
-//                $scope.previousTagId = $scope.htmlTagId;
-                tinymce.init({
-                    selector: 'td.mce-content-body',
-                    width:400,
-                    inline: true,
-                    plugins: [
-                        'advlist autolink lists link image charmap print preview anchor',
-                        'searchreplace visualblocks code fullscreen',
-                        'insertdatetime media table contextmenu paste',
-                        'template paste textcolor colorpicker textpattern imagetools'
-                    ],
-                    toolbar1: ' insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image ',
-                    toolbar2: ' forecolor backcolor | fontselect fontsizeselect ',
-                     menubar: false
-                });
-
-
-
-
                 if ($scope.isBlockClicked === "false") {
-//                    var editorHtml = $('#edit').froalaEditor('html.get');
-//                    if (editorHtml.contains('id="defaultblock1"')) {
+                    var editorHtml = $('#tinymceEditorBody').html();
+                    alert(editorHtml.contains('id="defaultblock1"'));
+                    if (editorHtml.contains('id="defaultblock1"')) {
 //                        var jHtmlObject = jQuery(editorHtml);
 //                        var editor = jQuery("<p>").append(jHtmlObject);
 //                        editor.find("#defaultblock1").remove();
-//                        editorHtml = editor.html();
-//                    }
-//                    var styleHtml = '<div id=defaultblock1 onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)">' + emailData.htmldata + '</div>';
-//                    $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
+//                        console.log(editor.find("#defaultblock1").remove());
+//                        alert(editor.find("#defaultblock1").remove());
+                           $("#defaultblock1").remove();
+                        editorHtml = $('#tinymceEditorBody').html();
+                        alert(editorHtml);
+                    }
+                    var styleHtml = '<div id=defaultblock1 class=module onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)">' + emailData.htmldata + '</div>';
+                    $("#tinymceEditorBody").append(styleHtml);
+                    $scope.lunchTinyMceEditor();
                 } else {
-                    var editorHtml = $('#edit').froalaEditor('html.get');
+                    var editorHtml = $('#tinymceEditorBody').html();
                     if (editorHtml.contains('id="' + $scope.htmlTagId + '"')) {
-                        var jHtmlObject = jQuery(editorHtml);
-                        var editor = jQuery("<p>").append(jHtmlObject);
+//                        var jHtmlObject = jQuery(editorHtml);
+//                        var editor = jQuery("<p>").append(jHtmlObject);
+                        $("#"+ $scope.htmlTagId).remove();
                         var BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ')>' + emailData.htmldata + '</div>';
-                        editor.find("#" + $scope.htmlTagId).replaceWith(BlockHtml);
-                        editorHtml = editor.html();
 //                        $('#edit').froalaEditor('html.set', '' + editorHtml + '');
-                        $("#defaultBlock").append(styleHtml);
-                        tinymce.init({
-                            selector: 'div.' + $scope.htmlTagId,
-                            inline: true,
-                            plugins: [
-                                'advlist autolink lists link image charmap print preview anchor',
-                                'searchreplace visualblocks code fullscreen',
-                                'insertdatetime media table contextmenu paste',
-                                'emoticons template paste textcolor colorpicker textpattern imagetools'
-                            ],
-                            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
-                        });
+                        $("#tinymceEditorBody").append(BlockHtml);
+                         $scope.lunchTinyMceEditor();
                     } else
                     {
                         BlockHtml = '<div id=' + $scope.htmlTagId + ' onclick=angular.element(this).scope().blockIdOnSelected(' + $scope.htmlTagId + ',' + $scope.selectedBlockId + ')>' + emailData.htmldata + '</div>';
-                        $('#edit').froalaEditor('html.set', '' + editorHtml + '' + BlockHtml + '');
+                        $("#tinymceEditorBody").append(BlockHtml);
+                         $scope.lunchTinyMceEditor();
+//                        $('#edit').froalaEditor('html.set', '' + editorHtml + '' + BlockHtml + '');
                     }
                 }
             });
 
         };
-
+        $scope.lunchTinyMceEditor = function () {
+            tinymce.EditorManager.editors = []; 
+            tinymce.init({
+                selector: 'td.mce-content-body',
+                width: 400,
+                inline: true,
+                plugins: [
+                    'advlist custombutton autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table contextmenu paste',
+                    'template paste textcolor colorpicker textpattern imagetools'
+                ],
+                toolbar1: ' insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image ',
+                toolbar2: ' forecolor backcolor | fontselect fontsizeselect custombutton fileuploader ',
+                menubar: false
+            });
+        };
         $scope.blockIdOnSelected = function (selectedBlock, blockId) {
             var selectedHtmlBlockId = selectedBlock.id;
             $scope.selectedBlockId = blockId;
-            $("img").click(function () {
-                uploadImageToEditor(this.id);
-            });
-            MoveBlock(selectedHtmlBlockId);
+//            $("img").click(function () {
+//                uploadImageToEditor(this.id);
+//            });
+//            MoveBlock(selectedHtmlBlockId);
             if (selectedBlock === "defaultblock1" || selectedHtmlBlockId === "defaultblock1")
             {
                 $scope.isBlockClicked = "false";
@@ -718,8 +708,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         if (JSON.stringify(JSONData[i].emailAddress) !== "") {
                             if (i === 0) {
                                 emails = eval(JSON.stringify(JSONData[i].emailAddress));
-                            }
-                            else {
+                            } else {
                                 emails = emails + "," + eval(JSON.stringify(JSONData[i].emailAddress));
                             }
 //                             $("#emailaddresses").val(emails);/
@@ -821,8 +810,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         return false;
                     }
                 }
-            }
-            else {
+            } else {
 
             }
 
@@ -1080,21 +1068,21 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.showSchedulePopup = true;
             $("#schedulepopup").show();
         };
-        
+
         $scope.scheduleActionDate = function () {
             var picker = new Pikaday(
-                                    {
-                                        field: document.getElementById('schedule_date'),
-                                        firstDay: 1,
-                                        minDate: new Date(2000, 0, 1),
-                                        maxDate: new Date(2050, 12, 31),
-                                        yearRange: [2000,2050]
-                                    });
+                    {
+                        field: document.getElementById('schedule_date'),
+                        firstDay: 1,
+                        minDate: new Date(2000, 0, 1),
+                        maxDate: new Date(2050, 12, 31),
+                        yearRange: [2000, 2050]
+                    });
         };
-        $scope.addDeleteButton = function (id){
-            
+        $scope.addDeleteButton = function (id) {
+
         };
-        
+
         $scope.closeschedulepopup = function () {
             $scope.showSchedulePopup = false;
         };
