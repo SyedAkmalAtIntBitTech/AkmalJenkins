@@ -308,9 +308,10 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             externalContentFactory.layoutEmailModelGet(templateId, $scope.isBlockClicked, mindbodyId).then(function (data) {
                 var emailData = JSON.parse(data.d.details);
                 if ($scope.isBlockClicked === "false") {
-                    var editorHtml = $('#edit').froalaEditor('html.get');
-                    var delay=1000; //1 second
-                    setTimeout(function() {
+                    externalContentFactory.getFroalaEditor($('#edit').froalaEditor('html.get')).then(function (data){
+                       
+                        var editorHtml = data.editorHtml;
+                        
                         if (editorHtml) {
                             if (editorHtml.contains('id="defaultblock1"')) {
                                 var jHtmlObject = jQuery(editorHtml);
@@ -321,7 +322,9 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         }
                         var styleHtml = '<div id=defaultblock1 onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)">' + emailData.htmldata + '</div>';
                         $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
-                    }, delay);
+                        
+                    }); 
+                    var editorHtml = $('#edit').froalaEditor('html.get');
                 } else {
                     var editorHtml = $('#edit').froalaEditor('html.get');
                     if (editorHtml.contains('id="' + $scope.htmlTagId + '"')) {

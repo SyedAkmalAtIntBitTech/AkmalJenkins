@@ -36,6 +36,11 @@ factoryApp.factory('externalContentFactory', function ($q, authenticatedServiceF
         });
         return deffered.promise;
     };
-    
+    externalContentFactoryObject.getFroalaEditor = function(data){
+        var deffered = $q.defer();
+        var editorHtml = data;
+            deffered.resolve(editorHtml);
+        return deffered.promise;
+    };
     return externalContentFactoryObject;
 });
