@@ -8,7 +8,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         
         // Hide & show password function
         $scope.hideShowPassword = function () {
-            if ($scope.inputType == 'password')
+            if ($scope.inputType === 'password')
                 $scope.inputType = 'text';
             else
                 $scope.inputType = 'password';

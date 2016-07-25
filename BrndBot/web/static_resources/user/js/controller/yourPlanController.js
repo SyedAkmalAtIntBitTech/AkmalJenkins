@@ -246,31 +246,12 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
 
         $scope.AddAction = function (addTitle, datePicker, timePicker, actionType)
         {
-//            if (addTitle == undefined){
-//                alert("Title not entered, enter the title");
-//                $("#addactiontitle").focus();
-//                return false;
-//            }
-//            if(actionType.text == "Select"){
-//                alert("No action type selected, select a action type");
-//                return false;
-//            }
-//            if(datePicker == undefined){
-//                alert("Date not selected, select the date");
-//                return false;
-//            }else {
-
             if ($scope.addActionValidation(addTitle, datePicker, actionType))
             {
                 var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
                 var actionDateTime1 = datePicker.toLocaleString() + " " + actionTime1.toLocaleString();
                 var fromDate = new Date(actionDateTime1);
                 var todayDate = new Date();
-//                if (fromDate < todayDate) {
-//                    alert("The selected date is lesser than todays date, please change the date");
-//                    return false;
-//                }
-
 
                 if (fromDate < todayDate) {
 //                        alert("The selected date is lesser than todays date, please change the date");

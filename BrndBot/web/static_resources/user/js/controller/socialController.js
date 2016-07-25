@@ -305,24 +305,6 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 
 //        ...................post or schedule new functions..................
 
-
-//        $scope.schedulePostValidation1 = function () {
-//            
-//            var fbPostText = $scope.shareText;
-//                   
-//            if (!fbPostText) {
-//                alert("yes");
-//                $("#shareText").focus();
-//                $scope.fbPostText = "";
-//                return false;
-//            }
-//            else
-//            {
-//                return true;
-//            }
-//        };
-
-
         $scope.postValidation = function (postData) {
             if (!postData.shareText) {
                 $scope.fbPostData = {shareText: ""};
