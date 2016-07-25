@@ -160,12 +160,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.currProgramsDiv = true;
             $scope.pastProgramsDiv = false;
         };
-        $scope.hideSaveButton = function () {
-            $("#updateAction").hide();
-        };
-        $scope.showSaveButton = function () {
-            $("#updateAction").show();
-        };
         $scope.getProgramActions = function (forward)
         {
             if ($scope.programId === '') {
@@ -258,10 +252,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 if (fromDate < todayDate) {
                     alert("The selected date is lesser than todays date, please change the date");
                     return false;
-                } else if (fromDate > end) {
-                    alert("The selected date is greater than program date, please change the date");
-                    return false;
                 }
+//                else if (fromDate > end) {
+//                    alert("The selected date is greater than program date, please change the date");
+//                    return false;
+//                }
             }
 
             var actiondate = datePicker;
@@ -272,7 +267,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var end1 = moment(currDate);
             var days = start.diff(end1, "days");
             var actiond = "1970/01/01";
-            var actionDateTime = $("#timepicker1").val().replace(/ /g, '');
+            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
             var l = actiond.toLocaleString() + " " + actionDateTime.toLocaleString();
             var myDate = new Date(l); // Your timezone!        
             var schedule_time = Date.parse(l);
@@ -298,6 +293,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //            });
 //
 //        };
+        $scope.hideSaveButton = function(){
+            $scope.showUpdateBtn = false;
+        };
+        $scope.showSaveButton = function(){
+            $scope.showUpdateBtn = true;
+        };
+
         $scope.closePopup = function () {
             $scope.reminderSectionClass = '';
             $scope.emailsectionClass = '';
@@ -571,6 +573,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
 
             var actiondate = $("#emaildatetime").val();
+            var actionTime1 = $("#timepickertextbox").val().replace(/ /g, '');
 
             if (title == undefined) {
                 alert("Title not entered, enter the title");
@@ -581,7 +584,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 alert("Date not selected, select the date");
                 return false;
             } else {
-                var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
                 var actionDateTime1 = actiondate.toLocaleString() + " " + actionTime1.toLocaleString();
                 var fromDate = new Date(actionDateTime1);
                 var todayDate = new Date();
@@ -590,10 +592,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 if (fromDate < todayDate) {
                     alert("The selected date is lesser than todays date, please change the date");
                     return false;
-                } else if (fromDate > endDay) {
-                    alert("The selected date is greater than program date, please change the date");
-                    return false;
-                }
+                } 
+//                else if (fromDate > endDay) {
+//                    alert("The selected date is greater than program date, please change the date");
+//                    return false;
+//                }
             }
 
             var actiondate = "1970/01/01";
@@ -617,7 +620,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             yourPlanFactory.addActionPost(action).then(function (data) {
                 alert("Action saved succesfully");
                 $scope.closePopup();
-//                $scope.getCampaigns();
+                $scope.getProgramActions();
             });
 //        }
         };
@@ -884,10 +887,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.showEmailList = function () {
             $scope.ddSelectEmailListAutomationDataOptions = [
-                {
-                    text: "Manual",
-                    value: "1"
-                }
+//                {
+//                    text: "Manual",
+//                    value: "1"
+//                }
             ];
             emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
                 var parseData = JSON.parse(data.d.details);

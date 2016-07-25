@@ -2608,7 +2608,10 @@ p.modal-content-header{
     text-align: center;
     font-size: 14px;
 }
-
+.selected_Tab{
+    border-bottom: 2px solid #0F76A6;
+    color: #0F76A6;
+}
 .color-selection-option.selected{
     border-bottom: 2px solid #0F76A6;
     color: #0F76A6;
@@ -4034,6 +4037,7 @@ img.exit-button {
 .email-editor-right-col{
     position: absolute;
     right: 0;
+    top: 19px;
     width:400px;
     background: #FFF;
     border-left:  1px solid #D2D3D5;
@@ -4181,10 +4185,10 @@ textarea.task-textarea:focus{
 }
 .pop-up-container-emailPreview{
     width: 1130px;
-   padding-bottom: 45px;
+    padding-bottom: 45px;
     background-color: #ffffff;
-     border-top-left-radius:3px;
-     border-top-right-radius:3px;
+    border-top-left-radius:3px;
+    border-top-right-radius:3px;
     border: 1px solid #F9FAFC;
     margin-left: auto;
     margin-right: auto;
@@ -4201,7 +4205,7 @@ textarea.task-textarea:focus{
 }
 .emailPreview-desktop-col {
     border-right: 1px solid #e7e7e7;
-        width: 759px;
+    width: 759px;
 }
 .emailPreview-mobile-col {
     width: 360px;
@@ -4246,4 +4250,9 @@ textarea.task-textarea:focus{
 .email-preview-wrap{
     display: flex;
     height: 70vh;
+}
+
+.create-email-popup{
+    margin-left: 30%;
+    margin-top: 10vw;
 }

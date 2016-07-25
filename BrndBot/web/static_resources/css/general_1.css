@@ -243,6 +243,10 @@ a {
 }
 
 
+.selected_Tab{
+    border-bottom: 2px solid #0F76A6;
+    color: #0F76A6;
+}
 .login-in-button-wrap{
     margin: 30px 0;
 }
@@ -1586,6 +1590,10 @@ li.sub-nav-tab.active a{
     border: 1px solid #E2E3E7;
     border-radius: 3px;
     background-color: white;
+}
+
+.color-div{
+    width: 77%;
 }
 
 .modal-pane-width-reg{

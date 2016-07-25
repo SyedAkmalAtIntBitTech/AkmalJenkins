@@ -30,7 +30,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         var sliderDialog = "#emaileditorexternalpopup";
         var emailDraftDetails = localStorage.getItem('emailDraftData');
         //OnPageLoad
-        $scope.emailEditorInit = function () {
+        $scope.emailEditorInit = function () {            
             $scope.loadingOverlay = true; //start Loading Overlay
             if (emailDraftDetails !== null) {
                 var paramDraftId = JSON.parse(emailDraftDetails).draftid;
@@ -68,7 +68,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     var DraftId = JSON.parse(redirectFromDraft).draftid;
                     $scope.getEmailDrafts(DraftId);
                 }
-                $scope.loadingOverlay = false; //start Loading Overlay
+                $scope.loadingOverlay = false; //stop Loading Overlay
                 $scope.hideEmailEditorOverlay = true;
             });
 
@@ -268,6 +268,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                     
                     $("#fade").show();
                     $scope.overlayFade = true;
+                    $scope.loadingOverlay = true; //start Loading Overlay
                     $('#slider-button').click();
                     $scope.emailScrollyDiv = false;
                     externalContentFactory.activatedGet(externalSourceKeywordLookupId).then(function (data) {
@@ -589,10 +590,10 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.showEmailList = function () {
             $scope.ddSelectEmailListOptions = [
-                {
-                    text: "Manual",
-                    value: "1"
-                }
+//                {
+//                    text: "Manual",
+//                    value: "1"
+//                }
             ];
             $scope.redirectBaseURL();       //this function redirects to base if page is refreshed.            
             emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
@@ -761,8 +762,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             }
             return true;
         };
-        
-        $scope.emailListBackButton=true;
+
+        $scope.emailListBackButton = true;
         $scope.continueEmailListOnClick = function (emailAddresses) {
 //            TODO change to AngularJs
             if ($scope.validateEmails(emailAddresses)) {
@@ -774,8 +775,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         $scope.emailListDiv = false;
                         $scope.emailContinueButton = false;
                         $scope.emaildetailscontbtn = true;
-                        $scope.emailListBackButton=false;
-                        $scope.emailDetailsBackButton=true;
+                        $scope.emailListBackButton = false;
+                        $scope.emailDetailsBackButton = true;
                     } else {
                         alert("Please select atleast one email list or add email manually.");
                         $scope.selectCsvOnClick();
@@ -791,8 +792,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         $scope.emailListDiv = false;
                         $scope.emailContinueButton = false;
                         $scope.emaildetailscontbtn = true;
-                        $scope.emailListBackButton=false;
-                        $scope.emailDetailsBackButton=true;
+                        $scope.emailListBackButton = false;
+                        $scope.emailDetailsBackButton = true;
                     } else {
                         alert("Please select at least one email list or add email manually.");
                         selectCsvFile();
@@ -806,15 +807,15 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         };
 
-        $scope.backToEmailList = function (){
-                        $scope.showEmailDetails = false;
-                        $scope.emailListDiv = true;
-                        $scope.emailContinueButton = true;
-                        $scope.emaildetailscontbtn = false;
-                        $scope.emailListBackButton=true;
-                        $scope.emailDetailsBackButton=false;
+        $scope.backToEmailList = function () {
+            $scope.showEmailDetails = false;
+            $scope.emailListDiv = true;
+            $scope.emailContinueButton = true;
+            $scope.emaildetailscontbtn = false;
+            $scope.emailListBackButton = true;
+            $scope.emailDetailsBackButton = false;
         };
-        
+
         $scope.emailListPreviewOnClick = function () {
             $scope.iframePath = getHost() + "download/HTML?fileName=" + $scope.randomIframeFilename + ".html";
             $scope.fadeClass = 'fadeClass';
@@ -1159,7 +1160,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 //            });
 //        };
         $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
-            $scope.isMailSent=false;
+            $scope.isMailSent = false;
             if (selectedSocialmedia === "email") {
                 var sendEmailData = JSON.stringify({
                     from_name: postData.fromName,
@@ -1176,7 +1177,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                             if (responseText === "true")
                             {
 //                              alert(emailsend);
-                                $scope.isMailSent=true;
+                                $scope.isMailSent = true;
 //                                window.location = "dashboard";
                             }
                         });
