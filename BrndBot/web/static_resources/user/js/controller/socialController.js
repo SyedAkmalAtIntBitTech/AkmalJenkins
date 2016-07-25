@@ -26,12 +26,13 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.postType = 'Change To Link Post';
         $scope.existingAction = false;
         $scope.managepage = "";
-        var schedule_desc = "";        
+        var schedule_desc = "";   
+        $rootScope.CurrentFbAccessToken="";
         $scope.getManagePage = function () {
             var fbData = JSON.stringify({access_token_method: "getAccessToken"});
             settingsFactory.facebookPost(fbData).then(function (fbResponseData) {
                 var fbAccessToken = fbResponseData.d.message.split(",");
-                if (fbAccessToken[0])
+                if (fbAccessToken[0] === 'null')
                 {
                     var data = JSON.stringify({redirectUrl: "user/socialsequence"});
                     settingsFactory.fbLoginPost(data).then(function (data) {
@@ -39,6 +40,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                     });
                 }
                 else {
+                    $rootScope.CurrentFbAccessToken=fbAccessToken[0];
                     $location.path('/facebookpost');
                 }
             });
@@ -71,9 +73,9 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
 
         $scope.selectImage = function (id) {
-////            $scope.imageUnSelect = 'gallery-item-wrap-selected-true';
-////            angular.element(document.getElementsByClassName('gallery-item-wrap-selected-true')).removeClass('gallery-item-wrap-selected-true').addClass('gallery-item-wrap-selected');
-//            angular.element(document.getElementById(id)).addClass('gallery-item-wrap-selected-true');
+            $scope.imageUnSelect = 'gallery-item-wrap-selected-true';
+            angular.element(document.getElementsByClassName('gallery-item-wrap-selected-true')).removeClass('gallery-item-wrap-selected-true').addClass('gallery-item-wrap-selected');
+            angular.element(document.getElementById(id)).addClass('gallery-item-wrap-selected-true');
         };
 
         $scope.selectImageToPost = function (imageName, imageType, companyId) {
@@ -94,7 +96,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.getSelectedUrl = function (urlsLink) {
 
         };
-
+        
         $scope.postToFacebook = function (fbPostData) {
 
             $scope.twitterActions = false;
@@ -109,6 +111,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 imageType: $scope.selectImageType
             });
             socialPostFactory.facebookPost(data).then(function (data) {
+                alert(JSON.stringify(data));
             });
 
         };
@@ -311,18 +314,25 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         };
         $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
             var data = "";
+            var linktitle = "";
+
             if (selectedSocialmedia === "facebook") {
+                if (postData.linkTitle){
+                    linktitle = postData.linkTitle;                    
+                }
                 data = JSON.stringify({
                     imageToPost: $scope.selectImageName,
                     accessToken: $rootScope.CurrentFbAccessToken,
                     postText: postData.shareText,
-                    title: postData.linkTitle,
+                    title: linktitle,
                     url: postData.url,
                     description: postData.linkDescription,
                     imageType: $scope.selectImageType
                 });
-
                 socialPostFactory.facebookPost(data).then(function (data) {
+                    if(data.d.message == 'success'){
+                        $scope.isPostSent=true;
+                    }
                 });
             } else if (selectedSocialmedia === "twitter") {
                 if (!angular.isUndefined(postData.url)) {

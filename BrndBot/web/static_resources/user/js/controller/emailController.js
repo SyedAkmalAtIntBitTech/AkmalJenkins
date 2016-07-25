@@ -153,15 +153,17 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         };
         $scope.getActive = function (lookupId)
         {
-            $scope.loadingOverlay = true; //start Loading Overlay
+            $scope.hideGifImage = true;
+//            $scope.loadingOverlay = true; //start Loading Overlay
             externalContentFactory.activatedGet(lookupId).then(function (data) {
                 var minddata = JSON.stringify(data.d.details);
                 if (minddata === "[true]") {
                     externalContentFactory.listDataGet(lookupId).then(function (data) {
                         var parseData = JSON.parse(data.d.details);
                         $scope.mindbodylist = parseData.mindbody_data;
-                        $scope.loadingOverlay = false; //stop Loading Overlay
-                        $scope.hideDataOverlay = true;
+//                        $scope.loadingOverlay = false; //stop Loading Overlay
+                        $scope.hideGifImage = false;
+//                        $scope.hideDataOverlay = true;
                     });
                 } else
                 {
@@ -777,6 +779,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             }
             return true;
         };
+        
+        $scope.emailListBackButton=true;
         $scope.continueEmailListOnClick = function (emailAddresses) {
 //            TODO change to AngularJs
             if ($scope.validateEmails(emailAddresses)) {
@@ -788,6 +792,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         $scope.emailListDiv = false;
                         $scope.emailContinueButton = false;
                         $scope.emaildetailscontbtn = true;
+                        $scope.emailListBackButton=false;
+                        $scope.emailDetailsBackButton=true;
                     } else {
                         alert("Please select atleast one email list or add email manually.");
                         $scope.selectCsvOnClick();
@@ -803,6 +809,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         $scope.emailListDiv = false;
                         $scope.emailContinueButton = false;
                         $scope.emaildetailscontbtn = true;
+                        $scope.emailListBackButton=false;
+                        $scope.emailDetailsBackButton=true;
                     } else {
                         alert("Please select at least one email list or add email manually.");
                         selectCsvFile();
@@ -816,7 +824,15 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         };
 
-
+        $scope.backToEmailList = function (){
+                        $scope.showEmailDetails = false;
+                        $scope.emailListDiv = true;
+                        $scope.emailContinueButton = true;
+                        $scope.emaildetailscontbtn = false;
+                        $scope.emailListBackButton=true;
+                        $scope.emailDetailsBackButton=false;
+        };
+        
         $scope.emailListPreviewOnClick = function () {
             $scope.iframePath = getHost() + "download/HTML?fileName=" + $scope.randomIframeFilename + ".html";
             $scope.fadeClass = 'fadeClass';
@@ -1161,6 +1177,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 //            });
 //        };
         $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
+            $scope.isMailSent=false;
             if (selectedSocialmedia === "email") {
                 var sendEmailData = JSON.stringify({
                     from_name: postData.fromName,
@@ -1176,8 +1193,9 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
                             if (responseText === "true")
                             {
-                                alert(emailsend);
-                                window.location = "dashboard";
+//                              alert(emailsend);
+                                $scope.isMailSent=true;
+//                                window.location = "dashboard";
                             }
                         });
                     }

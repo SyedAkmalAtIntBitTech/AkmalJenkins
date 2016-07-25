@@ -4,56 +4,73 @@
  * Technologies. Unauthorized use and distribution are strictly prohibited.
  */
 
-imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http', '$location', 'imageFactory','companyImagesFactory','companyFactory', function ($scope, $window, $http, $location, imageFactory,companyImagesFactory,companyFactory) {
+imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http', '$location', 'imageFactory', 'companyImagesFactory', 'companyFactory', function ($scope, $window, $http, $location, imageFactory, companyImagesFactory, companyFactory) {
 
         $scope.getCompanyId = function () {
             companyFactory.currentCompanyGet().then(function (companyData) {
-               $scope.companyId = companyData.d.details[0];
+                $scope.companyId = companyData.d.details[0];
             });
         };
 
-        $scope.uploadLogo = function (myFile) {   
-        var file = $("#filesToUpload").val();         
-        var file = myFile;
-            imageFactory.saveImagePost(file).then(function (data){
+        $scope.uploadLogo = function (myFile) {
+            var file = $("#filesToUpload").val();
+            var file = myFile;
+            imageFactory.saveImagePost(file).then(function (data) {
                 alert("Image Uploaded successfully");
-                $scope.hidePopup=false;
+                $scope.hidePopup = false;
                 $scope.getAllCompanyImages();
             });
         };
-        
+
         $scope.getAllCompanyImages = function ()
         {
             $scope.getCompanyId();
-            companyImagesFactory.companyImagesGet().then(function (data){
+            companyImagesFactory.companyImagesGet().then(function (data) {
                 $scope.datalists = data.d.details;
             });
         };
-        
+
         $scope.deleteImage = function (companyImageId)
         {
-            companyImagesFactory.deleteCompanyImagesPost(companyImageId).then(function (data){
+            companyImagesFactory.deleteCompanyImagesPost(companyImageId).then(function (data) {
                 alert("Image deleted successfully");
                 $scope.datalists = data.d.details;
                 $scope.getAllCompanyImages();
             });
         };
-        
-        $scope.showImageUploadPopup = function()
+
+        $scope.showImageUploadPopup = function ()
         {
-            $scope.hidePopup=true;
-        };
-    
-        $scope.closeImageUploadPopup = function()
-        {
-            $scope.hidePopup=false;
-            $scope.getAllCompanyImages();
-        };
-    
-        $scope.showImage = function()
-        {
-            $scope.hidePopup=false;
+            $scope.hidePopup = true;
         };
 
-}]);
+        $scope.closeImageUploadPopup = function ()
+        {
+            $scope.hidePopup = false;
+            $scope.getAllCompanyImages();
+        };
+
+        $scope.showImage = function ()
+        {
+            $scope.hidePopup = false;
+        };
+
+        $scope.imageModal = [];
+        $scope.showImageUploaded = true;
+
+        $scope.imageUpload = function (element) {
+            var reader = new FileReader();
+            reader.onload = $scope.imageIsLoaded;
+            reader.readAsDataURL(element.files[0]);
+        };
+
+        $scope.imageIsLoaded = function (e) {
+            $scope.$apply(function () {
+                $scope.imageModal = [];
+                $scope.imageModal.push(e.target.result);
+                $scope.showImageUploaded = false;
+            });
+        };
+
+    }]);
 

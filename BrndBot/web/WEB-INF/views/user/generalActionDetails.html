@@ -13,6 +13,23 @@
                             <div class="status-icon-details">
                                 <div class="status-show">
                                     
+                                        <img ng-show="action_template_status == 'Template Saved'" src="/BrndBot/user/images/template-saved.svg" />
+                                  
+                                 
+                                        <img ng-show="action_template_status == 'No Template'" src="/BrndBot/user/images/no-template.svg"/>
+                                 
+                                    
+                                        <img ng-show="action_template_status == 'Complete'" src="/BrndBot/user/images/ActionComplete.svg"/>
+                                   
+                                   
+                                        <img ng-show="action_template_status == 'Approved'" src="/BrndBot/user/images/template-approved.svg"/>
+                                   
+                                 
+                                </div>
+                                <div class="overlay-detail-status">{{action_template_status}}</div>
+<!--                                <div class="overlay-detail-status">{{scheduleData.email_template_status}}</div>
+                                <div class="status-show">
+                                   
                                         <img ng-show="scheduleData.email_template_status == 'Template Saved'" src="/BrndBot/user/images/template-saved.svg" />
                                   
                                  
@@ -23,10 +40,8 @@
                                    
                                    
                                         <img ng-show="scheduleData.email_template_status == 'Approved'" src="/BrndBot/user/images/template-approved.svg"/>
-                                   
-                                 
-                                </div>
-                                <div class="overlay-detail-status">{{scheduleData.email_template_status}}</div>
+                                                                
+                                </div>-->
                             </div>
                         </div>
                         <div class="detail-section half">
@@ -62,7 +77,7 @@
                             </a>
                         </div>
                        <div class="detail-section half">
-                            <label class="detail-section-label">Time of Day</label>
+                            <label class="detail-section-label">Time of Day </label>
                             <a class="overlay-detail-input time-input ease-all">
                                 <img type="" class="date-time-input-img" src="/BrndBot/user/images/time-gray.svg" />
                                 <input type="text" ng-blur="showSaveButton()" id="timepickertextbox" name="timepickertextbox" value="{{scheduleData.schedule_time}}" readonly />
@@ -73,7 +88,7 @@
                                             show_meridian: true,
                                             min_hour_value: 1,
                                             max_hour_value: 12,
-                                            step_size_minutes: 05,
+                                            step_size_minutes: 01,
                                             overflow_minutes: true,
                                             increase_direction: 'up',
                                             start_time: ["06", "00", "AM"],
