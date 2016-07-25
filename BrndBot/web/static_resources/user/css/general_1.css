@@ -3059,10 +3059,10 @@ p.modal-content-header{
     align-items: center;
 }
 
-.Social-Add-Image-Wrap{
+.Social-Add-Image-Wrap-with-img{
     width: 100%;
     background-color: #e5eaf1;
-    padding: 10px 30px 20px 30px;
+    padding: 20px 30px 20px 30px;
     box-sizing: border-box;
 }
 
@@ -4218,4 +4218,32 @@ textarea.task-textarea:focus{
     height: 70vh;
     overflow-y: scroll;
     padding: 0px;
+}
+
+.email-preview-header{
+    border-bottom: 1px solid #e7e7e7;
+    padding: 5px 15px;
+    font-size: 10px;
+    font-weight: 600;
+    height:22px;
+    text-transform: uppercase;
+    color: #B3B6BF;
+}
+
+.email-preview-col-desktop{
+    border-right: 1px solid #e7e7e7;
+    width: calc(100% - 360px);
+}
+
+.email-preview-col-mobile{
+    width:360px;
+}
+
+.email-preview-iFrame-wrap{
+    height: calc(70vh - 22px);
+}
+
+.email-preview-wrap{
+    display: flex;
+    height: 70vh;
 }

@@ -827,19 +827,6 @@ p.modal-content-header{
     display: block
 }
 
-.input input{
-    display: inline-block;
-    padding: 0 .4em 0 .4em;
-    vertical-align: middle;
-    border-radius: 3px;
-    min-width: 50px;
-    max-width: 480px;
-    width: 100%;
-    min-height: 32px;
-    background-color: #fff;
-    border: 1px solid #c9c9c9;
-    color: #666;
-}
 
 .dropdown-list{
     border: 1px solid #CAD1D4;
