@@ -10,8 +10,33 @@
 var global_host_address = "http://localhost:8080/BrndBot/";
 var error = "system failure error";  
 var FroalaLicenseKey ="snJ-7c1krD-13fD1wzF-7==";
+var defaultFroalaColors= ["61BD6D","clolor1",
+                          "19BC9C","clolor2",
+                          "54ADD2","clolor3",
+                          "2B82C9","clolor4",
+                          "9365B8","clolor5",
+                          "475577","clolor6",
+                          "CCCCCC","clolor7",
+                          "41A85F","clolor8",
+                          "01A884","clolor9",
+                          "3D8EB9","clolor10",
+                          "2969B0","clolor11",
+                          "553982","clolor12",
+                          "27324E","clolor13",
+                          "000000","clolor14",
+                          "F7DA64","clolor15",
+                          "FBA026","clolor16",
+                          "EB6B56","clolor17",
+                          "A38F84","clolor18",
+                          "EFEFEF","clolor19",
+                          "FFFFFF","clolor20",
+                          "FAC51B","clolor21",
+                          "F37934","clolor22",
+                          "D14841","clolor23",
+                          "7C706B","clolor24",
+                          "D1D5D8","clolor25"
+                      ];
 var defaultSendEmailFrom = "mail@brndbot.com"; 
-var defaultFroalaColors=["#61BD6D", "#19BC9C","#54ADD2", "#2B82C9", "#9365B8", "#475577", "#CCCCCC", "#41A85F", "#01A884", "#3D8EB9",  "#2969B0", "#553982", "#27324E", "#000000", "#F7DA64", "#FBA026", "#EB6B56", "#A38F84", "#EFEFEF",  "#FFFFFF", "#FAC51B", "#F37934", "#D14841", "#7C706B", "#D1D5D8","REMOVE"];
 var bitlyUserName = "sandeep264328";
 var bitlyKey = "R_63e2f83120b743bc9d9534b841d41be6";
 

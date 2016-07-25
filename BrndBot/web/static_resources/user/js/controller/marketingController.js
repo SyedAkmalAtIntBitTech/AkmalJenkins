@@ -887,10 +887,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.showEmailList = function () {
             $scope.ddSelectEmailListAutomationDataOptions = [
-                {
-                    text: "Manual",
-                    value: "1"
-                }
+//                {
+//                    text: "Manual",
+//                    value: "1"
+//                }
             ];
             emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
                 var parseData = JSON.parse(data.d.details);
