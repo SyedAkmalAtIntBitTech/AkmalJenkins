@@ -224,7 +224,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.styletab = "emailSideBar-tab";
             $scope.blocktab = "emailSideBar-tab-active";
             companyFactory.allBlocksForCompanyGet().then(function (data) {
-                alert(JSON.stringify(JSON.stringify(data.d.details)));
                 $scope.blockLists = data.d.details;
             });
         };
@@ -308,7 +307,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 var emailData = JSON.parse(data.d.details);
                 if ($scope.isBlockClicked === "false") {
                     var editorHtml = $('#tinymceEditorBody').html();
-                    alert(editorHtml.contains('id="defaultblock1"'));
                     if (editorHtml.contains('id="defaultblock1"')) {
                         $("#defaultblock1").remove();
                         editorHtml = $('#tinymceEditorBody').html();
@@ -914,7 +912,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 //        };
 
         $scope.getActions = function (selectedSocialmedia, selectedMarketingProgrmaId) {
-//            alert(selectedSocialmedia +".........."+JSON.stringify(selectedMarketingProgrmaId));
             $scope.selectedMarketingProgrma = selectedMarketingProgrmaId.value;
             if (selectedSocialmedia === "email") {
                 $scope.getFacebookActions(selectedMarketingProgrmaId.value);
@@ -1176,7 +1173,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
                             if (responseText === "true")
                             {
-//                              alert(emailsend);
                                 $scope.isMailSent = true;
 //                                window.location = "dashboard";
                             }
