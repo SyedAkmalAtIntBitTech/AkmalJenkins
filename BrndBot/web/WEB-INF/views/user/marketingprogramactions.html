@@ -38,7 +38,7 @@
                 </div>
                 <div class="your-plan-action-wrap" >
                     <div class="slat" ng-repeat="emailautomation in programs.emailautomation">
-                        <div class="your-plan-icon-wrap no-template-icon">
+<!--                        <div class="your-plan-icon-wrap no-template-icon">
                                 <div class="your-plan-icon hint--top" ng-show="emailautomation.status == 'Template Saved'"  data-hint="Template Saved" > 
                                     <img src="/BrndBot/user/images/template-saved.svg" />
                                 </div>
@@ -51,12 +51,8 @@
                                 <div class="your-plan-icon hint--top" ng-show="emailautomation.status == 'Approved'"  data-hint="Approved" > 
                                     <img src="/BrndBot/user/images/template-approved.svg"/>
                                 </div>
-                        </div>
-                        <div class="slat-name-wrap">
-                            <h2>{{emailautomation.programTemplateName}}</h2>
-                            <p>{{emailautomation.description}}</p>
-                        </div>
-                        <div class="slat-detail-wrap">
+                        </div>-->
+                        <div class="your-plan-icon-wrap">
                                      <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'Template Saved'"> 
                                          <img src="/BrndBot/user/images/email-auto/email-auto-icons_Pause-gray.svg" class="status-button">
                                      </div>
@@ -70,6 +66,24 @@
                                          <img src="/BrndBot/user/images/ActionComplete.svg" class="status-button"/>
                                      </div>
                         </div>
+                        <div class="slat-name-wrap">
+                            <h2>{{emailautomation.programTemplateName}}</h2>
+                            <p>{{emailautomation.description}}</p>
+                        </div>
+<!--                        <div class="slat-detail-wrap">
+                                     <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'Template Saved'"> 
+                                         <img src="/BrndBot/user/images/email-auto/email-auto-icons_Pause-gray.svg" class="status-button">
+                                     </div>
+                                     <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'No Template'"> 
+                                         <img src="/BrndBot/user/images/email-auto/email-auto-icons_Pause-gray.svg" class="status-button">
+                                     </div>
+                                     <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'Approved'"> 
+                                         <img src="/BrndBot/user/images/email-auto/email-auto-icons_Play-green.svg" class="status-button">
+                                     </div>
+                                     <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'Complete'"> 
+                                         <img src="/BrndBot/user/images/ActionComplete.svg" class="status-button"/>
+                                     </div>
+                        </div>-->
                          <div class="slat-detail-wrap">
                              <div class="slat-detail">
                                 <h2>{{actionType}}</h2>
