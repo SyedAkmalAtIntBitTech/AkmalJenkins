@@ -307,19 +307,21 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
             externalContentFactory.layoutEmailModelGet(templateId, $scope.isBlockClicked, mindbodyId).then(function (data) {
                 var emailData = JSON.parse(data.d.details);
-
                 if ($scope.isBlockClicked === "false") {
                     var editorHtml = $('#edit').froalaEditor('html.get');
-                    if (editorHtml) {
-                        if (editorHtml.contains('id="defaultblock1"')) {
-                            var jHtmlObject = jQuery(editorHtml);
-                            var editor = jQuery("<p>").append(jHtmlObject);
-                            editor.find("#defaultblock1").remove();
-                            editorHtml = editor.html();
+                    var delay=1000; //1 second
+                    setTimeout(function() {
+                        if (editorHtml) {
+                            if (editorHtml.contains('id="defaultblock1"')) {
+                                var jHtmlObject = jQuery(editorHtml);
+                                var editor = jQuery("<p>").append(jHtmlObject);
+                                editor.find("#defaultblock1").remove();
+                                editorHtml = editor.html();
+                            }
                         }
-                    }
-                    var styleHtml = '<div id=defaultblock1 onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)">' + emailData.htmldata + '</div>';
-                    $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
+                        var styleHtml = '<div id=defaultblock1 onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)">' + emailData.htmldata + '</div>';
+                        $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
+                    }, delay);
                 } else {
                     var editorHtml = $('#edit').froalaEditor('html.get');
                     if (editorHtml.contains('id="' + $scope.htmlTagId + '"')) {
