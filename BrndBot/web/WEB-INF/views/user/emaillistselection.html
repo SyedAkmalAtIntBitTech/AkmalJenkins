@@ -108,13 +108,17 @@
                     <div class="input ">
                         <input id="name" class="fluid" placeholder="Enter From Name" type="text" ng-model="fromName"></input>
                     </div>
+<!--                    <span class="validationAlert" ng-if='fromName === "" || null'>{{fromNameValidation}}</span>-->
+
                 </div>
                 <div class="input-wrap">
                     <label> Enter a Reply to Address </label>
                     <div class="input ">
-                        <input id="email" class="fluid" placeholder="Enter Reply To Email Address" type="text" value="{{email_settings.reply_email_address}}" ng-model="replyAddress"></input>
-                        <input id="toaddress" class="input-field-textfield input-placeholder" ng-model="toAddress" value="{{email_settings.email_addresses}}" placeholder="Enter To Email Address" type="hidden"></input>
+                        <input id="email" class="fluid" placeholder="Enter Reply To Email Address" type="email" value="{{email_settings.reply_email_address}}" ng-model="replyAddress"></input>
+                        <input id="toaddress1" class="input-field-textfield input-placeholder" ng-model="toAddress" value="{{email_settings.email_addresses}}" placeholder="Enter To Email Address" type="hidden"></input>
                     </div>
+<!--                    <span class="validationAlert" ng-if='replyAddress === "" || null'>{{replyToValidation}}</span>-->
+
                 </div>
             </div>
         </div>

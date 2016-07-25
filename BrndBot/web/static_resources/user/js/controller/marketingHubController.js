@@ -284,7 +284,7 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $scope.activeEmailSettings = '';
             $scope.activeEmailDrafts = '';
             $scope.activeEmailList = '';
-            
+
             $scope.showDeleteEmailList = false;
             $scope.emaildropdown = false;
             $scope.deletDraftsButton = false;
@@ -367,11 +367,11 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 $("#default_from_name").focus();
                 return false;
             }
-            if (!email.emailId) {
-                $scope.email = {emailId: ""};
-                $("#emailid").focus();
-                return false;
-            }
+//            if (!email.emailId) {
+//                $scope.email = {emailId: ""};
+//                $("#emailid").focus();
+//                return false;
+//            }
             return true;
         };
 
@@ -418,9 +418,9 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
             $("#addcontact").show();
             $scope.showAddContactPopup = false;
         };
-        
-        $scope.checkEmailList = function(){
-            if ($scope.showEmailListDetails == false){
+
+        $scope.checkEmailList = function () {
+            if ($scope.showEmailListDetails == false) {
                 $location.path("/basemarketinghub#/emaillist");
             }
         };
@@ -471,10 +471,20 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                 }
             });
         };
-                
+
+//        $scope.contactValidation = function (email) {
+//            if (!email.emailId) {
+//                alert("mmm");
+//                $scope.email = {emailId: ""};
+//                $("emailId").focus();
+//                return false;
+//            }
+//            return true;
+//        };
+
         $scope.updateEmailID = function (email) {
-            if ($scope.emailValidation(email))
-            {
+//            if ($scope.contactValidation(email))
+//            {
                 $("#addcontact").show();
                 $scope.showAddContactPopup = false;
                 $scope.overlayFade = false;
@@ -517,9 +527,11 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                             $scope.updateList();
                             $scope.showAddContactPopup = false;
                         });
-                    };
-                };
-            };
+                    }
+                    ;
+                }
+                ;
+//            }
         };
         $scope.unsubscribeEmailList = "";
         $scope.uploadEmailListOnClick = function () {

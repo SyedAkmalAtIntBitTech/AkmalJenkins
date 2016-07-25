@@ -214,3 +214,6 @@ var scheduleDateValidation = "Date not selected, Please select the date";
 var scheduleTimeValidation = "Time not selected, Please select the time";
 var facebookPostValidation = "Please enter the text to share";
 var logoValidation = "Please choose an image";
+var fromNameValidation = "Please enter the from name!";
+var replyToValidation = "Please enter the reply to email address!";
+var descriptionValidation = "Please enter the description";

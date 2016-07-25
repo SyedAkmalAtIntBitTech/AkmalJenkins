@@ -27,8 +27,11 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.emailAddresses = '';
         $scope.loadingOverlay = false;
         $scope.subjectValidation = subjectValidation;
+//        $scope.fromNameValidation = fromNameValidation;
+//        $scope.replyToValidation = replyToValidation;
         var sliderDialog = "#emaileditorexternalpopup";
         var emailDraftDetails = localStorage.getItem('emailDraftData');
+        var postData = "";
         //OnPageLoad
         $scope.emailEditorInit = function () {
             $scope.loadingOverlay = true; //start Loading Overlay
@@ -326,14 +329,14 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
                 if ($scope.isBlockClicked === "false") {
                     var editorHtml = $('#edit').froalaEditor('html.get');
-                    if(editorHtml){
-                    if (editorHtml.contains('id="defaultblock1"')) {
-                        var jHtmlObject = jQuery(editorHtml);
-                        var editor = jQuery("<p>").append(jHtmlObject);
-                        editor.find("#defaultblock1").remove();
-                        editorHtml = editor.html();
+                    if (editorHtml) {
+                        if (editorHtml.contains('id="defaultblock1"')) {
+                            var jHtmlObject = jQuery(editorHtml);
+                            var editor = jQuery("<p>").append(jHtmlObject);
+                            editor.find("#defaultblock1").remove();
+                            editorHtml = editor.html();
+                        }
                     }
-                }
                     var styleHtml = '<div id=defaultblock1 onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)">' + emailData.htmldata + '</div>';
                     $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
                 } else {
@@ -774,8 +777,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             }
             return true;
         };
-        
-        $scope.emailListBackButton=true;
+
+        $scope.emailListBackButton = true;
         $scope.continueEmailListOnClick = function (emailAddresses) {
 //            TODO change to AngularJs
             if ($scope.validateEmails(emailAddresses)) {
@@ -787,8 +790,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         $scope.emailListDiv = false;
                         $scope.emailContinueButton = false;
                         $scope.emaildetailscontbtn = true;
-                        $scope.emailListBackButton=false;
-                        $scope.emailDetailsBackButton=true;
+                        $scope.emailListBackButton = false;
+                        $scope.emailDetailsBackButton = true;
                     } else {
                         alert("Please select atleast one email list or add email manually.");
                         $scope.selectCsvOnClick();
@@ -804,8 +807,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         $scope.emailListDiv = false;
                         $scope.emailContinueButton = false;
                         $scope.emaildetailscontbtn = true;
-                        $scope.emailListBackButton=false;
-                        $scope.emailDetailsBackButton=true;
+                        $scope.emailListBackButton = false;
+                        $scope.emailDetailsBackButton = true;
                     } else {
                         alert("Please select at least one email list or add email manually.");
                         selectCsvFile();
@@ -820,15 +823,15 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         };
 
-        $scope.backToEmailList = function (){
-                        $scope.showEmailDetails = false;
-                        $scope.emailListDiv = true;
-                        $scope.emailContinueButton = true;
-                        $scope.emaildetailscontbtn = false;
-                        $scope.emailListBackButton=true;
-                        $scope.emailDetailsBackButton=false;
+        $scope.backToEmailList = function () {
+            $scope.showEmailDetails = false;
+            $scope.emailListDiv = true;
+            $scope.emailContinueButton = true;
+            $scope.emaildetailscontbtn = false;
+            $scope.emailListBackButton = true;
+            $scope.emailDetailsBackButton = false;
         };
-        
+
         $scope.emailListPreviewOnClick = function () {
             $scope.iframePath = getHost() + "download/HTML?fileName=" + $scope.randomIframeFilename + ".html";
             $scope.fadeClass = 'fadeClass';
@@ -836,10 +839,10 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.emailPreviewPopup = true;
         };
 
-        $scope.continueEmailDetailsOnClick = function () {
-            $scope.emailSendPopup = true;
-            $("#fade").show();
-        };
+//        $scope.continueEmailDetailsOnClick = function () {
+//            $scope.emailSendPopup = true;
+//            $("#fade").show();
+//        };
 
         $scope.sendEmailOnClick = function (fromName, fromAddress, replyAddress, toAddress) {
             var sendEmailData = JSON.stringify({
@@ -863,11 +866,48 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             });
         };
 
+//         $scope.emailListValidation = function (fromName) {
+//            if (!fromName) {
+//                $scope.fromName = "";
+//                $("#name").focus();
+//                return false;
+//            }
+////            if (!replyAddress) {
+////                alert("...");
+////                $scope.replyAddress = "";
+////                $("#email").focus();
+////                return false;
+////            }
+//                return true;
+//        };
+
+//        $scope.emailListValidation = function (postData) {
+//            if (postData) {
+//                if (!postData.fromName) {
+//                    $scope.fromName = "";
+//                    $("#name").focus();
+//                    return false;
+//                }
+//                if (!postData.replyAddress) {
+//                    alert("...");
+//                    $scope.replyAddress = "";
+//                    $("#email").focus();
+//                    return false;
+//                }
+//            }
+//            else {
+//                return true;
+//            }
+//        };
+
         $scope.continueEmailDetailsOnClick = function (postData) {
-            $scope.schedulePopup = false;
-            $scope.postTypeSelectionPopUp = true;
-            $scope.postData = postData;
-            $scope.postTo = "Send Now";
+//            if ($scope.emailListValidation(postData))
+//            {
+                $scope.schedulePopup = false;
+                $scope.postTypeSelectionPopUp = true;
+                $scope.postData = postData;
+                $scope.postTo = "Send Now";
+//            }
         };
 
         $scope.createNewAction = function () {
@@ -1159,7 +1199,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 //            });
 //        };
         $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
-            $scope.isMailSent=false;
+            $scope.isMailSent = false;
             if (selectedSocialmedia === "email") {
                 var sendEmailData = JSON.stringify({
                     from_name: postData.fromName,
@@ -1176,7 +1216,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                             if (responseText === "true")
                             {
 //                              alert(emailsend);
-                                $scope.isMailSent=true;
+                                $scope.isMailSent = true;
 //                                window.location = "dashboard";
                             }
                         });
