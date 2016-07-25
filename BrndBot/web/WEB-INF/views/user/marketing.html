@@ -76,8 +76,13 @@
                                 </div>
                             </div>
                             <div ng-show="entitydetails.entity_type == master_note">
+                                <!--Need an ng-show if reminder is incomplete-->
                                 <div class="your-plan-icon hint--top" data-hint="Reminder" > 
                                     <img src="/BrndBot/user/images/task-status_task.svg"/>
+                                </div>
+                                <!--Need an ng-show if reminder is complete-->
+                                <div class="your-plan-icon hint--top" data-hint="Reminder" > 
+                                    <img src="/BrndBot/user/images/task-status_completed-task.svg"/>
                                 </div>
                             </div>
                         </div>
