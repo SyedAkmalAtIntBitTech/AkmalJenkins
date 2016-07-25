@@ -124,7 +124,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.redirectToEmailFlow = function (forwardone)
         {
             redirectFactory.redirectFlowTo(forwardone);
-            $window.location = getHost() + "user/" + forwardone;
+//            $window.location = getHost() + "user/" + forwardone;
             var emailsubject = $scope.emailSubject;
             if (emailsubject === '')
             {
@@ -308,23 +308,31 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             externalContentFactory.layoutEmailModelGet(templateId, $scope.isBlockClicked, mindbodyId).then(function (data) {
                 var emailData = JSON.parse(data.d.details);
                 if ($scope.isBlockClicked === "false") {
-                    externalContentFactory.getFroalaEditor($('#edit').froalaEditor('html.get')).then(function (data){
-                       
-                        var editorHtml = data.editorHtml;
-                        
-                        if (editorHtml) {
-                            if (editorHtml.contains('id="defaultblock1"')) {
-                                var jHtmlObject = jQuery(editorHtml);
-                                var editor = jQuery("<p>").append(jHtmlObject);
-                                editor.find("#defaultblock1").remove();
-                                editorHtml = editor.html();
-                            }
-                        }
-                        var styleHtml = '<div id=defaultblock1 onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)">' + emailData.htmldata + '</div>';
-                        $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
-                        
-                    }); 
+                    alert("");
+                    var delay=5000; //1 second
                     var editorHtml = $('#edit').froalaEditor('html.get');
+                    setTimeout(function() {
+                      //your code to be executed after 1 second
+//                        externalContentFactory.getFroalaEditor($('#edit').froalaEditor('html.get')).then(function (data){
+//
+//                            var editorHtml = data.editorHtml;
+
+//                        var editorHtml = $('#edit').froalaEditor('html.get');
+                            if (editorHtml) {
+                                if (editorHtml.contains('id="defaultblock1"')) {
+                                    var jHtmlObject = jQuery(editorHtml);
+                                    var editor = jQuery("<p>").append(jHtmlObject);
+                                    editor.find("#defaultblock1").remove();
+                                    editorHtml = editor.html();
+                                }
+                            }
+                            var styleHtml = '<div id=defaultblock1 onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)">' + emailData.htmldata + '</div>';
+                            $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
+
+//                        }); 
+                    }, delay);
+
+//                    var editorHtml = $('#edit').froalaEditor('html.get');
                 } else {
                     var editorHtml = $('#edit').froalaEditor('html.get');
                     if (editorHtml.contains('id="' + $scope.htmlTagId + '"')) {
