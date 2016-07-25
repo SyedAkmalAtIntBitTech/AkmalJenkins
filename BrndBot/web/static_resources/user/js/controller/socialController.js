@@ -26,7 +26,8 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.postType = 'Change To Link Post';
         $scope.existingAction = false;
         $scope.managepage = "";
-        var schedule_desc = "";        
+        var schedule_desc = "";   
+        $rootScope.CurrentFbAccessToken="";
         $scope.getManagePage = function () {
             var fbData = JSON.stringify({access_token_method: "getAccessToken"});
             settingsFactory.facebookPost(fbData).then(function (fbResponseData) {
@@ -39,6 +40,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                     });
                 }
                 else {
+                    $rootScope.CurrentFbAccessToken=fbAccessToken[0];
                     $location.path('/facebookpost');
                 }
             });
@@ -109,6 +111,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 imageType: $scope.selectImageType
             });
             socialPostFactory.facebookPost(data).then(function (data) {
+                alert(JSON.stringify(data));
             });
 
         };
@@ -327,6 +330,9 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                     imageType: $scope.selectImageType
                 });
                 socialPostFactory.facebookPost(data).then(function (data) {
+                    if(data.d.message == 'success'){
+                        $scope.isPostSent=true;
+                    }
                 });
             } else if (selectedSocialmedia === "twitter") {
                 if (!angular.isUndefined(postData.url)) {
