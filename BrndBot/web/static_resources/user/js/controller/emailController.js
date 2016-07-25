@@ -251,7 +251,6 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.didChooseBlock = function (selectedBlockId, externalSourceKeywordLookupId) {
             $scope.emailMindBodyPopup = true;
-            $scope.loadingOverlay = true; //start Loading Overlay
             blockModelFactory.allEmailBlockModelGet(selectedBlockId).then(function (data) {
                 $scope.firstTemplateForBlock = data.d.details[0].emailBlockModelLookupId;
                 $scope.isBlockClicked = "true";
@@ -268,6 +267,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 {
                     $("#fade").show();
                     $scope.overlayFade = true;
+                    $scope.loadingOverlay = true; //start Loading Overlay
                     $('#slider-button').click();
                     $scope.emailScrollyDiv = false;
                     externalContentFactory.activatedGet(externalSourceKeywordLookupId).then(function (data) {
@@ -310,14 +310,14 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
                 if ($scope.isBlockClicked === "false") {
                     var editorHtml = $('#edit').froalaEditor('html.get');
-                    if(editorHtml){
-                    if (editorHtml.contains('id="defaultblock1"')) {
-                        var jHtmlObject = jQuery(editorHtml);
-                        var editor = jQuery("<p>").append(jHtmlObject);
-                        editor.find("#defaultblock1").remove();
-                        editorHtml = editor.html();
+                    if (editorHtml) {
+                        if (editorHtml.contains('id="defaultblock1"')) {
+                            var jHtmlObject = jQuery(editorHtml);
+                            var editor = jQuery("<p>").append(jHtmlObject);
+                            editor.find("#defaultblock1").remove();
+                            editorHtml = editor.html();
+                        }
                     }
-                }
                     var styleHtml = '<div id=defaultblock1 onclick="angular.element(this).scope().blockIdOnSelected(defaultblock1,0)">' + emailData.htmldata + '</div>';
                     $('#edit').froalaEditor('html.set', '' + styleHtml + '' + editorHtml + '');
                 } else {
@@ -760,8 +760,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             }
             return true;
         };
-        
-        $scope.emailListBackButton=true;
+
+        $scope.emailListBackButton = true;
         $scope.continueEmailListOnClick = function (emailAddresses) {
 //            TODO change to AngularJs
             if ($scope.validateEmails(emailAddresses)) {
@@ -773,8 +773,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         $scope.emailListDiv = false;
                         $scope.emailContinueButton = false;
                         $scope.emaildetailscontbtn = true;
-                        $scope.emailListBackButton=false;
-                        $scope.emailDetailsBackButton=true;
+                        $scope.emailListBackButton = false;
+                        $scope.emailDetailsBackButton = true;
                     } else {
                         alert("Please select atleast one email list or add email manually.");
                         $scope.selectCsvOnClick();
@@ -790,8 +790,8 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         $scope.emailListDiv = false;
                         $scope.emailContinueButton = false;
                         $scope.emaildetailscontbtn = true;
-                        $scope.emailListBackButton=false;
-                        $scope.emailDetailsBackButton=true;
+                        $scope.emailListBackButton = false;
+                        $scope.emailDetailsBackButton = true;
                     } else {
                         alert("Please select at least one email list or add email manually.");
                         selectCsvFile();
@@ -806,15 +806,15 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         };
 
-        $scope.backToEmailList = function (){
-                        $scope.showEmailDetails = false;
-                        $scope.emailListDiv = true;
-                        $scope.emailContinueButton = true;
-                        $scope.emaildetailscontbtn = false;
-                        $scope.emailListBackButton=true;
-                        $scope.emailDetailsBackButton=false;
+        $scope.backToEmailList = function () {
+            $scope.showEmailDetails = false;
+            $scope.emailListDiv = true;
+            $scope.emailContinueButton = true;
+            $scope.emaildetailscontbtn = false;
+            $scope.emailListBackButton = true;
+            $scope.emailDetailsBackButton = false;
         };
-        
+
         $scope.emailListPreviewOnClick = function () {
             $scope.iframePath = getHost() + "download/HTML?fileName=" + $scope.randomIframeFilename + ".html";
             $scope.fadeClass = 'fadeClass';
@@ -1145,7 +1145,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 //            });
 //        };
         $scope.postToSocialMedia = function (selectedSocialmedia, postData) {
-            $scope.isMailSent=false;
+            $scope.isMailSent = false;
             if (selectedSocialmedia === "email") {
                 var sendEmailData = JSON.stringify({
                     from_name: postData.fromName,
@@ -1162,7 +1162,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                             if (responseText === "true")
                             {
 //                              alert(emailsend);
-                                $scope.isMailSent=true;
+                                $scope.isMailSent = true;
 //                                window.location = "dashboard";
                             }
                         });

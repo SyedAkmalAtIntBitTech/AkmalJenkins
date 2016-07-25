@@ -160,12 +160,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.currProgramsDiv = true;
             $scope.pastProgramsDiv = false;
         };
-        $scope.hideSaveButton = function () {
-            $("#updateAction").hide();
-        };
-        $scope.showSaveButton = function () {
-            $("#updateAction").show();
-        };
         $scope.getProgramActions = function (forward)
         {
             if ($scope.programId === '') {
@@ -298,6 +292,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //            });
 //
 //        };
+        $scope.hideSaveButton = function(){
+            $scope.showUpdateBtn = false;
+        };
+        $scope.showSaveButton = function(){
+            $scope.showUpdateBtn = true;
+        };
+
         $scope.closePopup = function () {
             $scope.reminderSectionClass = '';
             $scope.emailsectionClass = '';
