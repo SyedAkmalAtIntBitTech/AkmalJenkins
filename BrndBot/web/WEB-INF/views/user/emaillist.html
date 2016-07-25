@@ -1,9 +1,9 @@
- <div class="main-content-wrap">
-<div ng-include src="'marketinghubnavigation.html'"></div>
-<div ng-include src="'createemailList.html'"></div>
-         <div class="top-nav-bar-offset"></div>
+<div class="main-content-wrap">
+    <div ng-include src="'marketinghubnavigation.html'"></div>
+    <div ng-include src="'createemailList.html'"></div>
+    <div class="top-nav-bar-offset"></div>
     <div class="top-subnav-bar-offset"></div>
-   <!--<div class="page-content-container email-list-contact-page" id="emaillistsdiv" ng-controller="EmailListController">-->
+    <!--<div class="page-content-container email-list-contact-page" id="emaillistsdiv" ng-controller="EmailListController">-->
     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav" d="emaillistsdiv" ng-show="emallistdetails">
 
         <!--USER ADDED LISTS-->
@@ -11,45 +11,43 @@
             <div class="hub-pane-header-wrap">
                 <h2 class="">Email Lists</h2>
                 <a href="">
-                            <div id="addemlstbtn" class="long-button green-button" ng-show="addEmailListButton" ng-click="addEmailList()"> Create Email List</div>
-                        </a>
-<!--                <a class="long-button green-button">Create Email List</a>-->
+                    <div id="addemlstbtn" class="long-button green-button" ng-show="addEmailListButton" ng-click="addEmailList()"> Create Email List</div>
+                </a>
+                <!--                <a class="long-button green-button">Create Email List</a>-->
             </div>
             <div class="hub-pane-content-wrap" ng-init="emailListGet()">
                 <div class="hub-empty-wrap"></div>
-                <div class="hub-slat-list-wrap" ng-show="emailLists.length > 0" ng-repeat="email in emailLists">                  
-                <div class="slat">
-                    <div class="selection-container col-5p"> 
-                        <div class="selection-icon" id="{{email.emailListID}}" ng-click="selectedEmailCheckbox(email.emailListID)">
-                            <input type="checkbox" id="{{email.emailListID}}" value="{{email.emailListName}}" name="entityname" hidden></input>
+                <div class="hub-slat-list-wrap" ng-show="emailLists.length > 0" ng-repeat="email in emailLists"> 
+                    <div class="slat">
+                        <div class="selection-container col-5p"> 
+                            <div class="selection-icon" id="{{email.emailListID}}" ng-click="selectedEmailCheckbox(email.emailListID)">
+                                <input type="checkbox" id="{{email.emailListID}}" value="{{email.emailListName}}" name="entityname" hidden></input>
+                            </div>
                         </div>
-                    </div>
-                                           
                         <div class="slat-name-wrap">
                             <h2>{{email.emailListName}}</h2>
                             <p>Created on {{email.emailListAddedDate| date: 'MM-dd-yyyy'}}</p>
                         </div>
-                         <div class="slat-detail-wrap">
-                            <div class="slat-detail">
-                                <h2>{{email.noofcontants}}</h2>
-                                <p>Number of Contacts</p>
+                        <div class="col-7of10 slat-unit fleft ">
+                            <div class="slat-detail-wrap">
+                                <div class="slat-detail">
+                                    <h2>{{email.noofcontants}}</h2>
+                                    <p>Number of Contacts</p>
+                                </div>
                             </div>
                         </div>
-
                         <div class="slat-detail-wrap">
                             <div class="slat-detail slat-detail-button ">
-                                <a href="">
-                                    <div class="reg-button gray-button-outline slat-detail-button" ng-click="viewEmailListDetails(email.emailListName,'user')">Manage Email List</div>
-                                </a>
+                                <div class="reg-button gray-button-outline slat-detail-button" ng-click="viewEmailListDetails(email.emailListName, 'user')">Manage Email List</div>
                             </div>
                         </div>
 
                     </div>
                 </div>
             </div>
-            
+
         </div>
-        
+
         <!--MINDBODY LINKED LISTS-->
         <div class="hub-pane">
             <div class="hub-pane-header-wrap">
@@ -64,7 +62,7 @@
                             <h2>{{email.emailListName}}</h2>
                             <p>Created on {{email.emailListAddedDate| date: 'MM-dd-yyyy'}}</p>
                         </div>
-                         <div class="slat-detail-wrap">
+                        <div class="slat-detail-wrap">
                             <div class="slat-detail">
                                 <h2>{{email.noofcontants}}</h2>
                                 <p>Number of Contacts</p>
@@ -78,7 +76,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
- </div>
+</div>

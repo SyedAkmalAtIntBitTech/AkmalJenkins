@@ -11,19 +11,20 @@
             <h2 class="">Your Plan</h2>
             <div class="top-nav-cta-container">
                 <a href="javascript:void(0)" class="reg-button green-button" id="liPriority" ng-click="ShowAddAction()">Add Action</a>
-                <a href="" class="delete-button reg-button">
-                    <!--<div class=" md-button" ng-click="deleteSchedule('0','deleteMultiple')" id="deleteactionbutton">Delete Action</div>-->    
-                </a>
+                <!--<a href="" class="delete-button reg-button">
+                    <div class=" md-button" ng-click="deleteSchedule('0','deleteMultiple')" id="deleteactionbutton">Delete Action</div>   
+                </a>-->
             </div>
         </div>
-    </div>
+   
     <div class="top-sub-nav">
-        <div class="your-plan-cal-dropdown" ng-click="setCurrentDateActions()">
-            <label class="datepickerClass" for="jumptodatepicker" > <i></i>
-                <label class="datepickerClass dateSelection subnav-date-dropdown-text " for="jumptodatepicker" >Jump to Date</label>
-            </label>
+        <div class="" ng-click="setCurrentDateActions()">
+            <div class="your-plan-cal-dropdown" for="jumptodatepicker" > 
+                <i></i>
+                <label class="datepickerClass your-plan-cal-dropdown-label dateSelection subnav-date-dropdown-text " for="jumptodatepicker" >Jump to Date</label>
+                <input type="text"  name="datepicker" id="jumptodatepicker" readonly class="hideinput"/>
+            </div>
             <!--<div class="calendar-dropdown-text" for="jumptodatepicker">Jump to Date</div>-->
-            <input type="text"  name="datepicker" id="jumptodatepicker" readonly class="hideinput"/>
 
             <script>
                 var picker = new Pikaday(
@@ -44,6 +45,7 @@
             </script>
         </div>
     </div>
+     </div>
     <div class="top-nav-bar-offset"></div>
     <div class="top-subnav-bar-offset"></div>
 
@@ -74,8 +76,13 @@
                                 </div>
                             </div>
                             <div ng-show="entitydetails.entity_type == master_note">
-                                <div class="icon-container fleft hint--top" data-hint="Reminder" > 
-                                    <img src="images/Reminder.svg"/>
+                                <!--Need an ng-show if reminder is incomplete-->
+                                <div class="your-plan-icon hint--top" data-hint="Reminder" > 
+                                    <img src="/BrndBot/user/images/task-status_task.svg"/>
+                                </div>
+                                <!--Need an ng-show if reminder is complete-->
+                                <div class="your-plan-icon hint--top" data-hint="Reminder" > 
+                                    <img src="/BrndBot/user/images/task-status_completed-task.svg"/>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +106,7 @@
                         <div class="slat-detail-wrap">
                             <div class="slat-detail">
                                 <!--ng-click="setTemplate('Email',false)">Details</div>-->
-                                <a class="reg-button gray-button-outline slat-detail-button" 
+                                <a class="reg-button slat-detail-button" 
                                    ng-click="getScheduleDetails(entitydetails.schedule_id,
                                                        entitydetails.template_status,
                                                        entitydetails.schedule_time,
@@ -109,7 +116,7 @@
                                                        entitydetails.marketingName,
                                                        entitydetails.user_marketing_program_id,
                                                        entitydetails.days,
-                                                       entitydetails.is_today_active)">Action Details</a>
+                                                       entitydetails.is_today_active, entity.date)">Action Details</a>
                             </div>
                         </div>
 

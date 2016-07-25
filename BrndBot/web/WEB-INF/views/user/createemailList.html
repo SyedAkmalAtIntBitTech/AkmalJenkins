@@ -1,108 +1,38 @@
-<!--    <style>
-        
-        #addActionemllist{
-            display: block;
-        }
-        
-    </style>
-<body>
-    <div id="fade" class="black_overlay" ></div>
-   <div id="addActionemllist" ng-show="createEmailListPopup">
-    Top Nav   
-    <div class="pop-up-background">
-        <div class="pop-up-container pop-up-container-createEmail"> 
-            <div class="pop-up-title pop-up-title-h1"> Create New Email List</div>
-            <div class="pop-up-exit-container"  id="addactionlistClose" ng-click="closeCreateEmailList()">
-             <a href="" class="pop-up-exit-icon">
-                <img type="image/svg+xml" src="images/Close.svg" class="exit-button-icon" style="cursor:pointer;"/>
-             </a>
-            </div> 
-            <div class="pop-up-inner">
-                <form class="form-horizontal" id="signform" >
-                <div class="input-field-container ">
-                    <div class="input-header"> Email List Name </div>
-                    <input type="text" id="list_name" ng-model="email.listName" class="input-field-textfield input-placeholder" placeholder="Enter a name for the email list" ></input>
-                </div>
-                <span class="validationAlert" ng-if='email.listName === "" || null' id="emailListValidation">{{emailListValidation}}</span>
-
-
-                <div class="line-divider"></div>
-                 <div class="input-field-container col-1of1">
-                    <div class="input-header"> List Description </div>
-                    <input id="list_description" ng-model="email.listDescription" type="text" class="input-field-textfield input-placeholder" placeholder="Enter List Description"></input>
-                </div>
-                
-                <span class="validationAlert" ng-if='email.listDescription == "" || null' id="companyValidation">SASASAAS</span>
-
-                <div class="input-field-container col-1of1">
-                    <div class="input-header">Default from Address </div>
-                    <input id="default_from_name" ng-model="email.deafultFromName" type="text" class="input-field-textfield input-placeholder" placeholder="Default from Address"></input>
-                </div>
-                 <span class="validationAlert" ng-if='email.deafultFromName == "" || null' id="listDescription">{{listDescription}}</span>
-                </form>
+<div id="fade" ng-class="fadeClass" class="center-pop-ups">
+        <!-- took this out id="addActionemllist"-->
+        <div class="modal-pane modal-pane-width-reg"  ng-show="createEmailListPopup">
+            <div class="modal-pane-header-wrap">
+                <h2 class="">Create New Email List</h2>
+                <a id="addactionlistClose" ng-click="closeCreateEmailList()" class="modal-pane-header-exit"></a>
             </div>
-        </div>
-    </div>
-    <div id="createEmailListButton" class="pop-up-cta-container pop-up-cta-container-newaction cur"  ng-click="createEmailList(email)">
-        <a href="javascript:void(0)">
-            <div class="pop-up-cta-button-full">Create List</div>
-        </a>
-    </div>
-    </div>
-    </body>
-</html>-->
+            <div class="modal-pane-content-wrap create-new-schedule-modal">
+                <div class="input-wrap">
+                    <label>Email List Name</label>
+                    <a class="input">
+                        <input type="text" id="list_name" ng-model="email.listName" placeholder="Enter a name for the email list" class="fluid" />
+                    </a>
+                    <span class="validationAlert" ng-if='email.listName === "" || null'>{{emailListValidation}}</span>
 
-
-<style>
-        
-        #addActionemllist{
-            display: block;
-        }
-        
-    </style>
-<body>
-    <div id="fade" class="black_overlay" ></div>
-        <div id="addActionemllist" ng-show="createEmailListPopup">
-    <!--Top Nav-->   
-    <div class="pop-up-background">
-        <div class="pop-up-container pop-up-container-createEmail"> 
-            <div class="pop-up-title pop-up-title-h1"> Create New Email List</div>
-            <div class="pop-up-exit-container"  id="addactionlistClose" ng-click="closeCreateEmailList()">
-             <a href="" class="pop-up-exit-icon">
-                <img type="image/svg+xml" src="images/Close.svg" class="exit-button-icon" style="cursor:pointer;"/>
-             </a>
-            </div> 
-            <div class="pop-up-inner">
-<!--                <form class="form-horizontal" id="signform" >-->
-                <div class="input-field-container ">
-                    <div class="input-header"> Email List Name </div>
-                    <input type="text" id="list_name" ng-model="email.listName" class="input-field-textfield input-placeholder" placeholder="Enter a name for the email list" ></input>
                 </div>
-                <span class="validationAlert" ng-if='email.listName === "" || null'>{{emailListValidation}}</span>
+                <div class="input-wrap">
+                    <label>List Description</label>
+                    <a class="input">
+                        <input type="text" id="list_name" ng-model="email.listDescription" placeholder="Enter List Description" class="fluid" />
+                    </a>
+                    <span class="validationAlert" ng-if='email.listDescription === "" || null'>{{emailDescriptionValidation}}</span>
 
-
-                <div class="line-divider"></div>
-                 <div class="input-field-container col-1of1">
-                    <div class="input-header"> List Description </div>
-                    <input id="list_description" ng-model="email.listDescription" type="text" class="input-field-textfield input-placeholder" placeholder="Enter List Description"></input>
                 </div>
-                <span class="validationAlert" ng-if='email.listDescription === "" || null'>{{emailDescriptionValidation}}</span>
-
-                <div class="input-field-container col-1of1">
-                    <div class="input-header">Default from Address </div>
-                    <input id="default_from_name" ng-model="email.deafultFromName" type="email" class="input-field-textfield input-placeholder" placeholder="Default from Address"></input>
-                </div>
+                <div class="input-wrap">
+                    <label>Default from Address</label>
+                    <div class="input">
+                        <input id="default_from_name" ng-model="email.deafultFromName" type="email"  placeholder="Default from Address" class="fluid" />
+                    </div>
                  <span class="validationAlert" ng-if='email.deafultFromName === "" || null'>{{fromAddressValidation}}</span>
-<!--                 <span class="validationAlert">{{emailValidation}}</span>-->
-                <!--</form>-->
+                </div>
+            </div>
+            <div class="modal-cta-container" >
+                <a class="long-button blue-button" id="createEmailListButton" ng-click="createEmailList(email)" href="javascript:void(0)">Create this Action</a>
             </div>
         </div>
-    </div>
-    <div id="createEmailListButton" class="pop-up-cta-container pop-up-cta-container-newaction cur"  ng-click="createEmailList(email)">
-        <a href="javascript:void(0)">
-            <div class="pop-up-cta-button-full">Create List</div>
-        </a>
-    </div>
-    </div>
-    </body>
-</html>
+</div>
+

@@ -23,7 +23,9 @@ import java.net.URL;
 import java.util.HashMap;
 import javax.servlet.ServletContext;
 import com.intbittech.utility.Utility;
+import java.util.logging.Level;
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 import org.springframework.stereotype.Service;
 
 /**
@@ -113,10 +115,11 @@ public class PostToFacebook {
             }
 
         } catch (FacebookException te) {
+            te.printStackTrace();
             logger.error(te.getMessage());
             throw new ProcessFailed("Could post on facebook");
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            e.printStackTrace();
             throw new ProcessFailed("Could post on facebook");
         }
         return returnMessage;

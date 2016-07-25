@@ -1,11 +1,14 @@
 socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$location', 'settingsFactory', 'socialPostFactory', function ($scope, $rootScope, $location, settingsFactory, socialPostFactory) {
-
+    
         $scope.getFacebookDetails = function () {
             var fbdata = JSON.stringify({access_token_method: "getAccessToken"});
             settingsFactory.facebookPost(fbdata).then(function (data) {
+                $scope.facebookDetailsTab = true;
+                $scope.twitterDetailsTab = false;
                 var facebookDetails = data.d.message.split(",");
                 var facebookDetailsArray = facebookDetails;
                 if (facebookDetailsArray[1] === "null") {
+                    $scope.managepage=true;
                     $scope.user_profile_page = " - ";
                     $scope.fb_default_page_name = " - ";
                     $("#facebook").text("Login");
@@ -14,13 +17,19 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
                     $scope.user_profile_page = facebookDetailsArray[1];
                     $scope.fb_default_page_name = facebookDetailsArray[2];
                     $("#fbclear").show();
+                    $scope.managepage=false;
                 }
             });
         };
-
+        
+        $scope.twitterDetails = function () {
+            $scope.facebookDetailsTab = false;
+            $scope.twitterDetailsTab = true;
+            $scope.getTwitterDetails();
+        };
+        
         $scope.clearFacebookDetails = function () {
             var data = JSON.stringify({access_token_method: "clearFacebookDetails"});
-            alert(data);
             settingsFactory.facebookPost(data).then(function (data) {
                 alert(JSON.stringify(data));
                 $scope.getFacebookDetails();
@@ -40,9 +49,9 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
             var code = $scope.getUrlParameter("code");
             if (typeof code !== "undefined") {
                 settingsFactory.fbGetTokenGet(code).then(function (data) {
-                    alert(JSON.stringify(data));
+                    $scope.setDefaultManagePage=true;
                     $scope.facebook = true;
-                    $scope.managepage = true;
+                    $scope.managepagesettings = true;
                     $scope.fbPagesDetails = data.d.details[0].fbPages;
                     $scope.fbProfileName = data.d.details[0].user_profile_name;
                 });
@@ -83,7 +92,6 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
         };
         
         $scope.getAuthURLFromSocialHub = function () {
-            alert("dsfghjkl");
             $scope.showTwitterPopup = true;
             var data = {redirectUrl: "user/social"};
             settingsFactory.twitterLoginGet(data).then(function (data) {
@@ -145,7 +153,7 @@ socialhubFlowApp.controller("controllerSocial", ['$scope', '$rootScope', '$locat
 
         $scope.hideFbPopup = function ()
         {
-            $scope.facebook = false;
+            $scope.managepagesettings = false;
         };
 
         $scope.closeTwitterPopup = function ()

@@ -5,7 +5,7 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.newPasswordValidation = newPasswordValidation;
         $scope.confirmPasswordValidation = confirmPasswordValidation;
         $scope.logoValidation = logoValidation;
-        
+
         // Hide & show password function
         $scope.hideShowPassword = function () {
             if ($scope.inputType === 'password')
@@ -38,6 +38,17 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
                 signupFactory.resetPasswordPost(password_object).then(function (data) {
                     $scope.status = data;
                 });
+            }
+        };
+
+        $scope.setTab = function (type) {
+            if (type == 'account') {
+                $scope.userAccountSetClass = 'active';
+                $scope.userLogoSetClass = '';
+            }
+            if (type == 'logo') {
+                $scope.userAccountSetClass = '';
+                $scope.userLogoSetClass = 'active';
             }
         };
 

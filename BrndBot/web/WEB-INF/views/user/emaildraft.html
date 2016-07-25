@@ -12,6 +12,12 @@
                 <div class="hub-empty-wrap" ng-show="emaildrafts.length === 0"></div>
                 <div class="hub-slat-list-wrap" ng-repeat="drafts in emaildrafts" ng-show="emaildrafts.length > 0">
                     <div class="slat" id="li{{drafts.id}}" ng-repeat="drafts in emaildrafts | filter:userSearch">
+                        <div class="selection-container col-5p" id="deleteids"> 
+                            <div class="selection-icon" id="{{drafts.id}}" ng-click="emailDraftCheckbox(drafts.id)">
+                                <input type="checkbox" id="{{drafts.id}}" value="{{drafts.id}}" name="draftname" style="display:none;"></input>
+                            </div>
+                        </div>
+                        
                         <div class="slat-name-wrap">
                             <h2>{{drafts.emailsubject}}</h2>
                             <p>Last edited on {{drafts.editdate| date: "MMM dd yyyy "}}at{{drafts.editdate| date: " h:mm a"}}</p>

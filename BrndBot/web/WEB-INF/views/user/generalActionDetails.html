@@ -10,23 +10,38 @@
                     <div class="detail-sections-wrap">
                         <div class="detail-section half">
                             <label class="detail-section-label">Action Status <span><a class="help-question-icon">?</a></span></label>
-                            <div class="status-icon-details">{{emailautomation.status}}
+                            <div class="status-icon-details">
                                 <div class="status-show">
                                     
-                                        <img ng-show="emailautomation.status == 'Template Saved'" src="/BrndBot/user/images/template-saved.svg" />
+                                        <img ng-show="action_template_status == 'Template Saved'" src="/BrndBot/user/images/template-saved.svg" />
                                   
                                  
-                                        <img ng-show="emailautomation.status == 'No Template'" src="/BrndBot/user/images/no-template.svg"/>
+                                        <img ng-show="action_template_status == 'No Template'" src="/BrndBot/user/images/no-template.svg"/>
                                  
                                     
-                                        <img ng-show="emailautomation.status == 'Complete'" src="/BrndBot/user/images/ActionComplete.svg"/>
+                                        <img ng-show="action_template_status == 'Complete'" src="/BrndBot/user/images/ActionComplete.svg"/>
                                    
                                    
-                                        <img ng-show="emailautomation.status == 'Approved'" src="/BrndBot/user/images/template-approved.svg"/>
+                                        <img ng-show="action_template_status == 'Approved'" src="/BrndBot/user/images/template-approved.svg"/>
                                    
                                  
                                 </div>
-                                <div class="overlay-detail-status">{{scheduleData.email_template_status}}</div>
+                                <div class="overlay-detail-status">{{action_template_status}}</div>
+<!--                                <div class="overlay-detail-status">{{scheduleData.email_template_status}}</div>
+                                <div class="status-show">
+                                   
+                                        <img ng-show="scheduleData.email_template_status == 'Template Saved'" src="/BrndBot/user/images/template-saved.svg" />
+                                  
+                                 
+                                        <img ng-show="scheduleData.email_template_status == 'No Template'" src="/BrndBot/user/images/no-template.svg"/>
+                                 
+                                    
+                                        <img ng-show="scheduleData.email_template_status == 'Complete'" src="/BrndBot/user/images/ActionComplete.svg"/>
+                                   
+                                   
+                                        <img ng-show="scheduleData.email_template_status == 'Approved'" src="/BrndBot/user/images/template-approved.svg"/>
+                                                                
+                                </div>-->
                             </div>
                         </div>
                         <div class="detail-section half">
@@ -43,10 +58,11 @@
                         <div class="detail-section half">
                             <label class="detail-section-label">Date</label>
                             <a class="overlay-detail-input date-input ease-all">
-                                <i></i>
-                                <input type="text" ng-blur="showSaveButton()" id="emaildatetime" name="emaildatetime" value="{{scheduleData.entities_selected_time | date:'MMM dd yyyy'}}"/>
-                                <input type="hidden" value="{{scheduleData.entities_selected_time| date:'MMM dd yyyy'}}" id="emaildateid"/>
+                                <img type="" class="date-time-input-img" src="/BrndBot/user/images/calendar-gray.svg" />
+                                <input type="text" ng-blur="showSaveButton()" id="emaildatetime" name="emaildatetime" />
+                                <!--<input type="hidden" value="{{scheduleData.entities_selected_time| date:'MMM dd yyyy'}}" id="emaildateid"/>-->
                                     <script>
+                                        
                                         var picker = new Pikaday(
                                                 {
                                                     field: document.getElementById('emaildatetime'),
@@ -56,14 +72,15 @@
                                                     maxDate: new Date(2050, 12, 31),
                                                     yearRange: [2000, 2050]
                                                 });
+                                                
                                     </script>
                             </a>
                         </div>
                        <div class="detail-section half">
-                            <label class="detail-section-label">Time of Day</label>
+                            <label class="detail-section-label">Time of Day </label>
                             <a class="overlay-detail-input time-input ease-all">
-                                <i></i>
-                                <input type="text" ng-blur="showSaveButton()" id="timepickertextbox" name="timepickertextbox" value="{{scheduleData.schedule_time | date:'hh:mm:a'}}" readonly />
+                                <img type="" class="date-time-input-img" src="/BrndBot/user/images/time-gray.svg" />
+                                <input type="text" ng-blur="showSaveButton()" id="timepickertextbox" name="timepickertextbox" value="{{scheduleData.schedule_time}}" readonly />
                                  <!--                            <input id="timepickeremail123" class="timepickertextbox "  value ="{{scheduleData.schedule_time| date:'hh : mm : a': 'UTC'}}">-->
                                 <!--<script src="js/timepicki.js" type="text/javascript"></script>-->
                                 <script>
@@ -71,9 +88,10 @@
                                             show_meridian: true,
                                             min_hour_value: 1,
                                             max_hour_value: 12,
-                                            step_size_minutes: 05,
+                                            step_size_minutes: 01,
                                             overflow_minutes: true,
                                             increase_direction: 'up',
+                                            start_time: ["06", "00", "AM"],
                                             disable_keyboard_mobile: true
                                         });
                                 </script>
@@ -85,8 +103,8 @@
                     </div>
                 </div>-->
             </div>
-            <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft savebutton" id="updateAction" ng-click="updateAction(scheduleData)" ng-show="isRecurring === false">Save Action</div>
+            <div class="bottom-cta-button-container-overlay">
+                <div class="reg-button gray-button" id="updateAction" ng-click="updateAction(scheduleData)" ng-show="isRecurring === false">Save Action</div>
                 <div class="edit-button-detail md-button button-text-1 edit-button-detailrecemail" ng-click="redirectToEmailAutomation('emailautomation','edit','', schedule_id)" ng-show="isRecurring === true">Edit Automation Details</div>
             </div>
         </div>
@@ -170,7 +188,7 @@
                         </div>
                     </div>
 
-<!--    <div class="bottom-cta-button-container">
-                <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateAction(scheduleData)" ng-show="isRecurring === false">Save Action</div>
-                <div class="edit-button-detail md-button button-text-1 edit-button-detailrecemail" ng-click="redirectToEmailAutomation('emailautomation','edit','', schedule_id)" ng-show="isRecurring === true">Edit Automation Details</div>
-            </div>-->
+    <div class="bottom-cta-button-container">
+        <div class="edit-button-detail md-button button-text-1 fleft savebutton" ng-click="updateAction(recurringScheduleData)" ng-show="isRecurring === false">Save Action</div>
+        <div class="edit-button-detail md-button button-text-1 edit-button-detailrecemail" ng-click="redirectToEmailAutomation('emailautomation','edit','', schedule_id)" ng-show="isRecurring === true">Edit Automation Details</div>
+    </div>

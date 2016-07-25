@@ -13,28 +13,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.greaterDateValidation = greaterDateValidation;
         $scope.campaignNameValidation = campaignNameValidation;
         $scope.campaignDateValidation = campaignDateValidation;
-
-        $scope.ddSelectActionOptions = [
-            {
-                text: 'Select'
-            }, {
-                text: 'Facebook Post'
-            }, {
-                text: 'Twitter Post'
-            }, {
-                text: 'Email'
-            }
-        ];
-
-        $scope.ddSelectAction = {
-            text: "Select"
-        };
-
         $scope.programDate = "";
         $scope.randomIframeFilename = event.timeStamp;
         $scope.showCampaignDetails = false;
         $scope.showCampaignActions = true;
 
+        $scope.ddSelectAction = {
+            text: "Select"
+        };
         $scope.ddSelectActionOptions = [
             {
                 text: 'Select',
@@ -220,8 +206,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     $scope.programs = data;
                     console.log(JSON.stringify(data));
                     var dateEpoch = data.programdetails.dateOfEvent;
-                    $scope.programDate = moment(dateEpoch).format('DD-MM-YYYY');
-
+                    $scope.programDate = moment(dateEpoch).format('YYYY-MM-DD');
+                    $("#progactdatepicker").val($scope.programDate);
                     $scope.template_status = data.emailautomation;
                     $scope.actionType = "Email";
                     $scope.forward = forward;
@@ -229,8 +215,35 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 });
             }
         };
+        $scope.resetActionForm = function () {
+            $("#addactiontitle").val("");
+            $("#datepicker").val("");
+            $("#timepicker1").val("");
+
+
+            $scope.ddSelectActionOptions = [
+                {
+                    text: 'Select',
+                    value: '0'
+                }, {
+                    text: 'Facebook Post',
+                    value: 'Facebook'
+                }, {
+                    text: 'Twitter Post',
+                    value: 'Twitter'
+                }, {
+                    text: 'Email',
+                    value: 'Email'
+                }, {
+                    text: 'Reminder',
+                    value: 'Reminder'
+                }
+            ];
+        };
+
         $scope.ShowAddAction = function ()
         {
+            $scope.resetActionForm();
             $scope.fadeClass = 'fadeClass';
             $scope.fade = true;
             $scope.addAction = true;
@@ -339,6 +352,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 });
             }
         };
+        
 
 //        $scope.addUpdateRecuringAction = function ()
 //        {
@@ -352,6 +366,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.reminderSectionClass = '';
             $scope.emailsectionClass = '';
             $scope.fadeClass = '';
+            $scope.hideSaveButton();
 //            $location.path("/marketingprogramactions");
         };
         $scope.setTab = function (tabName) {
@@ -415,9 +430,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 schedule_id: schedule_id, entities_list_name: "",
                 email_template_status: template_status, schedule_type: "Recurring Email",
                 marketing_program_name: "", user_marketing_program_id: $scope.programId,
-                days: days, entities_selected_time: $filter('date')(schedule_time, "HH:mm a"), entities_subject: "",
+                days: days, entities_selected_time: $filter('date')(schedule_time, "HH : mm : a"), entities_subject: "",
                 entities_from_name: "", entities_reply_to_email_address: ""};
-
             yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
                 $scope.recurringEntitiesDetails = JSON.parse(data.d.details);
 
@@ -461,9 +475,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 schedule_id: schedule_id, entities_list_name: "",
                 email_template_status: template_status, schedule_type: "Recurring Email",
                 marketing_program_name: "", user_marketing_program_id: $scope.programId,
-                days: days, entities_selected_time: $filter('date')(schedule_time, "HH:mm a"), entities_subject: "",
+                days: days, entities_selected_time: $filter('date')(schedule_time, "HH : mm : a"), entities_subject: "",
                 entities_from_name: "", entities_reply_to_email_address: ""};
-
             yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
                 $scope.recurringEntitiesDetails = JSON.parse(data.d.details);
 
@@ -552,14 +565,16 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $scope.templateApproveButton = "Click to Approve";
             $scope.templateDisapproveButton = "Click to Pause";
             $scope.savedHeader = 'Post';
-
-//            var date = "";//$scope.entities_selected_time;
-            var time = $filter('date')(schedule_time, "hh:mm a");
+            $scope.actionDate = schedule_date;
+            var time = $filter('date')(schedule_time, "hh : mm : a");
+            $("#emaildatetime").val($filter('date')(schedule_date, "MMM dd yyyy"));
+            
             $scope.scheduleData = {schedule_title: schedule_title, entities_selected_time: schedule_date,
                 schedule_id: schedule_id, schedule_desc: schedule_desc,
                 email_template_status: template_status, schedule_type: entity_type,
                 marketing_program_name: marketingName, user_marketing_program_id: $scope.programId,
                 days: days, schedule_time: time};
+//            alert(JSON.stringify($scope.scheduleData));
             if (entity_type === getemail()) {
                 $scope.scheduledTo = 'SEND';
                 $scope.savedHeader = getemail();
@@ -592,6 +607,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
                             var iframe = document.getElementById('iframeForAction');
                             if (data.d.details != "{}") {
+                                $scope.entitiesdetails = JSON.parse(data.d.details);
                                 $scope.savedEmail = true;
                                 if (entity_type === gettwitter())
                                 {
@@ -599,182 +615,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 } else if (entity_type === getfacebook())
                                     $scope.savedTemplateHeader = "SAVED FACEBOOK PREVIEW";
                                 $scope.deleteScheduleButton = "Remove Saved Post";
-
-                                var htmlData = "<style>\n"
-                                        + ".twitter-post-preview {\n"
-                                        + "    width: 494px;\n"
-                                        + "    height: 340px !important;\n"
-                                        + "    margin: auto;\n"
-                                        + "    padding: 12px 12px 0px 12px;\n"
-                                        + "    float: none;\n"
-                                        + "    border: 1px solid rgb(223, 224, 228);\n"
-                                        + "    border-radius: 3px;\n"
-                                        + "    background-color: #FFFFFF;\n"
-                                        + "}\n"
-                                        + ".Facebook-preview {\n"
-                                        + "    width: 494px;\n"
-                                        + "    height: 455px;\n"
-                                        + "    margin: auto;\n"
-                                        + "    padding: 12px 12px 0px 12px;\n"
-                                        + "    float: none;\n"
-                                        + "    border: 1px solid rgb(223, 224, 228);\n"
-                                        + "    border-radius: 3px;\n"
-                                        + "    background-color: #FFFFFF;\n"
-                                        + "    overflow: auto;\n"
-                                        + "    margin-bottom: 65px;\n"
-                                        + "}"
-                                        + "\n"
-                                        + ".Facebook-preview-header {\n"
-                                        + "    width: 500px;\n"
-                                        + "    height: 40px;\n"
-                                        + "    float: left;\n"
-                                        + "    margin-bottom: 11px;\n"
-                                        + "}\n"
-                                        + "\n"
-                                        + ".Facebook-preview-profpic {\n"
-                                        + "    width: 40px;\n"
-                                        + "    height: 40px;\n"
-                                        + "    margin-right: 8px;\n"
-                                        + "    float: left;\n"
-                                        + "    background-color: beige;\n"
-                                        + "}\n"
-                                        + "\n"
-                                        + ".Facebook-preview-profpic > img {\n"
-                                        + "    width: 100%;\n"
-                                        + "    height: 100%;\n"
-                                        + "}\n"
-                                        + "\n"
-                                        + ".Facebook-preview-name-container {\n"
-                                        + "    width: 445px;\n"
-                                        + "    height: 100%;\n"
-                                        + "    float: inherit;\n"
-                                        + "    color: #365899;\n"
-                                        + "    font-weight: bold;\n"
-                                        + "}\n"
-                                        + "\n"
-                                        + ".Twitter-preview-name-container {\n"
-                                        + "    width: 445px;\n"
-                                        + "    height: 100%;\n"
-                                        + "    float: inherit;\n"
-                                        + "}\n"
-                                        + "\n"
-                                        + ".Facebook-preview-usercontent {\n"
-                                        + "    font-family: helvetica, arial;\n"
-                                        + "    font-weight: normal;\n"
-                                        + "    line-height: 19.32px;\n"
-                                        + "    color: rgb(20, 24, 35);\n"
-                                        + "    font-size: 14px;\n"
-                                        + "    float: left;\n"
-                                        + "}\n"
-                                        + "\n"
-                                        + ".Facebook-link-container {\n"
-                                        + "    box-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 0px 1.5px inset, rgba(0, 0, 0, 0.0470588) 0px 1px 1px 0px;\n"
-                                        + "    color: rgb(20, 24, 35);\n"
-                                        + "    border: 1px solid rgba(0, 0, 0, 0.0980392);\n"
-                                        + "    float: left;\n"
-                                        + "    width: 100%;\n"
-                                        + "    margin-top: 10px;\n"
-                                        + "}\n"
-                                        + "img#prevfbimg {\n"
-                                        + "    width: 100%;\n"
-                                        + "    height: 245px;\n"
-                                        + "    margin-left: -2px;\n"
-                                        + "}"
-                                        + ".Facebook-preview-image {\n"
-                                        + "    width: 100%;\n"
-                                        + "    height: 244px;\n"
-                                        + "    background-color: #5CC2A5;\n"
-                                        + "    float: left;\n"
-                                        + "}"
-                                        + ".Facebook-preview-link-container {\n"
-                                        + "    width: 100%;\n"
-                                        + "    padding: 10px 12px 10px 12px;\n"
-                                        + "    float: left;\n"
-                                        + "    box-sizing: border-box;\n"
-                                        + "    overflow: hidden;\n"
-                                        + "}"
-                                        + ".Facebook-preview-link-title {\n"
-                                        + "    font-family: Georgia, 'lucida grande', tahoma;\n"
-                                        + "    font-size: 18px;\n"
-                                        + "    color: rgb(20, 24, 35);\n"
-                                        + "    font-weight: 500;\n"
-                                        + "    line-height: 22px;\n"
-                                        + "    margin-bottom: 5px;\n"
-                                        + "}"
-                                        + ".Facebook-preview-link-description {\n"
-                                        + "    color: rgb(20, 24, 35);\n"
-                                        + "    direction: ltr;\n"
-                                        + "    display: block;\n"
-                                        + "    font-family: sans-serif;\n"
-                                        + "    font-size: 12px;\n"
-                                        + "    line-height: 16px;\n"
-                                        + "    max-height: 80px;\n"
-                                        + "    overflow-x: hidden;\n"
-                                        + "    overflow-y: hidden;\n"
-                                        + "    word-wrap: break-word;\n"
-                                        + "    zoom: 1;\n"
-                                        + "    text-overflow: ellipsis;\n"
-                                        + "}"
-                                        + ".Facebook-preview-link-url {\n"
-                                        + "    color: rgb(145, 151, 163);\n"
-                                        + "    direction: ltr;\n"
-                                        + "    display: block;\n"
-                                        + "    font-family: sans-serif;\n"
-                                        + "    font-size: 14px;\n"
-                                        + "    line-height: 16.08px;\n"
-                                        + "    padding-top: 9px;\n"
-                                        + "    margin-bottom: 5px;\n"
-                                        + "}"
-                                        + "</style>";
-                                if (entity_type === gettwitter()) {
-                                    htmlData += "<div class=\"twitter-post-preview\">\n"
-                                            + "    <div class=\"Facebook-preview-header\">\n"
-                                            + "        <div class=\"Facebook-preview-profpic\">\n"
-                                            + "            <img id=\"twitter_preview_profpic\" src=\"/BrndBot/downloadImage?imageType=COMPANY_LOGO&amp;companyId=" + $scope.companyId + "&amp;imageName=companylogo.png\">\n"
-                                            + "        </div>\n"
-                                            + "        <div class=\"Twitter-preview-name-container\">\n"
-                                            + "            <div class=\"Facebook-preview-name ng-binding\"><strong>" + $scope.twitterprofileName + "</strong><br>" + $scope.entitiesdetails.metadata.text + " " + $scope.entitiesdetails.metadata.shorturl + "</div>\n"
-                                            + "        </div>\n"
-                                            + "    </div>\n";
-//                    if($scope.entitiesdetails.metadata.shorturl) {
-//                    htmlData += "    <div class=\"Facebook-preview-usercontent ng-binding\">"+$scope.entitiesdetails.metadata.shorturl+"</div>\n"
-//                    }
-                                    htmlData += "    <div class=\"Facebook-link-container\">\n"
-                                            + "        <div ng-show=\"entitiesdetails.image_type == 'gallery'\">\n"
-                                            + "            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageName=" + $scope.entitiesdetails.image_name + "&imageType=GALLERY&companyId=" + $scope.companyId + "\">\n"
-                                            + "        </div>\n"
-                                            + "    </div>\n"
-                                            + "</div>";
-                                } else if (entity_type === getfacebook()) {
-                                    htmlData += "<div class=\"Facebook-preview\">\n"
-                                            + "                                <div class=\"Facebook-preview-header\">\n"
-                                            + "                                    <div class=\"Facebook-preview-profpic\"><img id=\"fb_preview_profpic\" src=\"/BrndBot/downloadImage?imageType=COMPANY_LOGO&amp;companyId=" + $scope.companyId + "&amp;imageName=companylogo.png\"></div>\n"
-                                            + "                                    <div class=\"Facebook-preview-name-container\">\n"
-                                            + "                                        <div class=\"Facebook-preview-name ng-binding\">" + $scope.entitiesdetails.metadata.ManagedPage + "</div>\n"
-                                            + "                                    </div>\n"
-                                            + "                                </div>\n"
-                                            + "                                <div class=\"Facebook-preview-usercontent ng-binding\">" + $scope.entitiesdetails.metadata.post_text + "</div>\n"
-                                            + "                                <div class=\"Facebook-link-container\">\n"
-                                            + "                                    <div class=\"Facebook-preview-image\">\n"
-                                            + "                                        <div ng-show=\"entitiesdetails.image_type == 'gallery'\">\n"
-                                            + "                                            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageType=GALLERY&amp;imageName=" + $scope.entitiesdetails.image_name + "&amp;companyId=" + $scope.companyId + "\">\n"
-                                            + "                                        </div>\n"
-                                            + "                                        <div ng-show=\"entitiesdetails.image_type == 'layout'\" style=\"display: none;\">\n"
-                                            + "                                            <img id=\"prevfbimg\" src=\"/BrndBot/downloadImage?imageType=LAYOUT_IMAGES&amp;imageName=13.jpg\">\n"
-                                            + "                                        </div>\n"
-                                            + "                                        <div ng-show=\"entitiesdetails.image_type == 'url'\" style=\"display: none;\">\n"
-                                            + "                                            <img id=\"prevfbimg\" src=\"13.jpg\">\n"
-                                            + "                                        </div>\n"
-                                            + "                                        \n"
-                                            + "                                    </div>\n"
-                                            + "                                    <div class=\"Facebook-preview-link-container\">\n"
-                                            + "                                        <div class=\"Facebook-preview-link-title ng-binding\">" + $scope.entitiesdetails.metadata.title + "</div>\n"
-                                            + "                                        <div class=\"Facebook-preview-link-description ng-binding\">" + $scope.entitiesdetails.metadata.description + "</div>\n"
-                                            + "                                        <div class=\"Facebook-preview-link-url ng-binding\">" + $scope.entitiesdetails.metadata.url + "</div>\n"
-                                            + "                                    </div>\n"
-                                            + "                                </div>\n"
-                                            + "                            </div>";
-                                }
 
                                 iframe.contentDocument.body.innerHTML = htmlData;
                             } else {
@@ -790,12 +630,45 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
         $scope.updateAction = function (scheduleUpdatedData) {
 
+
             var actiontype = scheduleUpdatedData.schedule_type;//$("#email_schedule_type").val();
             var schedule_id = scheduleUpdatedData.schedule_id;//$("#email_scheduleid").val();
             var title = scheduleUpdatedData.schedule_title;//$("#email_edit_title").val();
-            var actiondate = "Mon Jan 01 1970";//$("#emaildatetime").val();
-            var days = scheduleUpdatedData.days;//$("#emaildays").val();
-            var actionDateTime = scheduleUpdatedData.schedule_time;//$("#timepickeremail").val().replace(/ /g,'');
+
+            var actiondate = $("#emaildatetime").val();
+
+            if (title == undefined) {
+                alert("Title not entered, enter the title");
+                $("#addactiontitle").focus();
+                return false;
+            }
+            if (actiondate == undefined) {
+                alert("Date not selected, select the date");
+                return false;
+            } else {
+                var actionTime1 = $("#timepicker1").val().replace(/ /g, '');
+                var actionDateTime1 = actiondate.toLocaleString() + " " + actionTime1.toLocaleString();
+                var fromDate = new Date(actionDateTime1);
+                var todayDate = new Date();
+                var endDate = $scope.programDate;
+                var endDay = new Date(endDate);
+                if (fromDate < todayDate) {
+                    alert("The selected date is lesser than todays date, please change the date");
+                    return false;
+                } else if (fromDate > endDay) {
+                    alert("The selected date is greater than program date, please change the date");
+                    return false;
+                }
+            }
+
+            var actiondate = "1970/01/01";
+            var emaildate = $("#emaildatetime").val();
+            var currDate = moment(emaildate).format('YYYY-MM-DD');
+            var nDate = $scope.programDate;
+            var start = moment(nDate);
+            var end = moment(currDate);
+            var days = start.diff(end, "days");
+            var actionDateTime = $("#timepickertextbox").val().replace(/ /g, '');
             var l = actiondate.toLocaleString() + " " + actionDateTime.toLocaleString();
             var schedule_time = Date.parse(l);
             var myEpoch = schedule_time;
@@ -807,7 +680,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 "description": description, "action_date": myEpoch, "days": days.toString()
             };
             yourPlanFactory.addActionPost(action).then(function (data) {
-                alert(actionsaved);
+                alert("Action saved succesfully");
+                $scope.closePopup();
 //                $scope.getCampaigns();
             });
 //        }
@@ -821,12 +695,16 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
             companyMarketingProgramFactory.approveStatusPost(approval_type).then(function (data) {
                 if (data.toString() == "true") {
-                    if ($scope.action_template_status == "Template Saved")
+                    if ($scope.action_template_status == "Template Saved") {
                         $scope.action_template_status = "Approved";
-                    else
+                        $scope.scheduleData.email_template_status = 'Approved';
+                    }
+                    else {
                         $scope.action_template_status = "Template Saved";
+                        $scope.scheduleData.email_template_status = 'Template Saved';
+                    }
                     alert(templetestatussaved);
-                    $scope.getCampaigns();
+                    $scope.getProgramActions('emailautomation');
                 } else {
                     alert(savingrecordproblem);
                 }
@@ -863,13 +741,15 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
         
         $scope.updateActionNote = function (scheduleId) {
-                var actiontype = getemail();
-                var action = {
-                    "schedule_id": scheduleId.toString(), "type": "updatenotesyourplan", "actiontype": actiontype,
-                    "description": $scope.scheduleData.schedule_desc
-                };
-                yourPlanFactory.addActionPost(action).then(function (data) {
-                });
+            var actiontype = getemail();
+            var action = {
+                "schedule_id": scheduleId.toString(), "type": "updatenotesyourplan", "actiontype": actiontype,
+                "description": $scope.scheduleData.schedule_desc
+            };
+            yourPlanFactory.addActionPost(action).then(function (data) {
+                
+                $scope.getProgramActions('emailautomation');
+            });
         };
 
         $scope.editFooter = function () {
@@ -904,7 +784,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var rendomIframeFilename = "";
             rendomIframeFilename = event.timeStamp;
             settingsFactory.getAllPreferencesGet().then(function (data) {
-                $("#fade").show();
+                $(".emailAutomationFade").show();
                 $scope.emailPreviewPopup = true;
                 var footerData = JSON.parse(data.d.details);
                 if (!footerData.userProfile) {
@@ -941,7 +821,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.closeEmailPreviewPopup = function ()
         {
             $scope.emailPreviewPopup = false;
-            $("#fade").hide();
+            $(".emailAutomationFade").hide();
         };
 
         $scope.userFooter = function (fb, twitter, website, instagram, address) {
@@ -1059,18 +939,17 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             });
         };
 
-        $scope.ddSelectEmailListAutomationDataOptions = [
-            {
-                text: "Manual",
-                value: "1"
-            }
-        ];
-
         $scope.ddSelectEmailListAutomationData = {
             text: "Manual"
         };
 
         $scope.showEmailList = function () {
+            $scope.ddSelectEmailListAutomationDataOptions = [
+                {
+                    text: "Manual",
+                    value: "1"
+                }
+            ];
             emailListFactory.emailListGet("null", "allEmailListWithNoOfContacts").then(function (data) {
                 var parseData = JSON.parse(data.d.details);
                 $scope.emailLists_user = parseData.allEmailListWithNoOfContacts.user;
@@ -1086,12 +965,23 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 }
             });
         };
+
+        $scope.ddSelectDateAutomationData = {
+            text: "Select"
+        };
         $scope.getEntityDetails = function () {
             $scope.showEmailList();
+            $scope.ddSelectDateAutomationDataOptions = [
+            ];
             $scope.automationData = {};
             var days = [];
-            for (var i = 1; i <= 31; i++)
+            for (var i = 1; i <= 31; i++) {
                 days.push(i);
+                var dateAutomationObject = {};
+                dateAutomationObject["text"] = i;
+                dateAutomationObject["value"] = i;
+                $scope.ddSelectDateAutomationDataOptions.push(dateAutomationObject);
+            }
             $scope.days = days;
             $scope.automationData.selectedEmailList = "0";
             $scope.automationData.selectedDay = 1;
@@ -1296,7 +1186,6 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 
                 marketingRecurringEmailFactory.addRecurringActionPost(recurring_action).then(function (data) {
-                    alert(JSON.stringify(data));
                     if (data === true) {
                         alert("Details saved succesfully.");
                     } else {
@@ -1367,16 +1256,17 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 settingsFactory.getAllPreferencesGet().then(function (data) {
                     var footerData = JSON.parse(data.d.details);
                     if (!footerData.userProfile) {
-                        $("#emailFooterPopup").show();
+                            $scope.editFooter();
+                            return false;
+//                        $("#emailFooterPopup").show();
                     }
                     else {
-                        if (!footerData.userProfile.address) {
-                            $("#emailFooterPopup").show();
+                            if (!footerData.userProfile.address) {
+                            $scope.editFooter();
+                            return false;
+//                            $("#emailFooterPopup").show();
                         }
                         else {
-//                                var footer = $scope.getUserFooter(footerData.userProfile.facebookUrl, footerData.userProfile.twitterUrl,
-//                                        footerData.userProfile.websiteUrl, footerData.userProfile.instagramUrl,
-//                                        footerData.userProfile.address);
                             var footer = $scope.userFooter(footerData.userProfile.facebookUrl, footerData.userProfile.twitterUrl,
                                     footerData.userProfile.websiteUrl, footerData.userProfile.instagramUrl,
                                     footerData.userProfile.address);
@@ -1463,6 +1353,54 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 });
             }
         };
+
+        $scope.updateUserProgram = function (programs) {
+            if ($scope.validate_program_link_details()) {
+                var program = $scope.programId.toString();
+                var program_name = programs.programdetails.programName;
+                var event_date = $("#progactdatepicker").val();
+                var event_date_epoch = Date.parse(event_date);
+                var link_url = programs.programdetails.linktodestination;
+                var link_name = programs.programdetails.link_name;
+
+                var program_details = {"program_id": program, "date_of_event": event_date_epoch,
+                    "link_url": link_url, "link_name": link_name, "program_name": program_name};
+                companyMarketingProgramFactory.updateUserProgramPost(program_details).then(function (data) {
+                    if (data) {
+                        alert(programdetailssaved);
+                    } else {
+                        alert(savingrecordproblem);
+                    }
+                });
+            }
+            ;
+        };
+
+        $scope.validate_program_link_details = function () {
+            var myRegExp = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;
+            var event_date = $("#progactdatepicker").val();
+            var link_url = $("#link_url").val();
+            var link_name = $("#link_name").val();
+
+            if (event_date == "") {
+                alert(dateerror);
+                $("#progactdatepicker").focus();
+                return false;
+            }
+            if (link_name == "") {
+                alert(linknameerror);
+                $("#link_name").focus();
+                return false;
+            }
+            if ((link_url == "") || (!myRegExp.test(link_url))) {
+                alert(linkurlerror);
+                $("#link_url").focus();
+                $("#link_url").val('http://');
+                return false;
+            }
+            return true;
+        };
+
     }]);
 
        

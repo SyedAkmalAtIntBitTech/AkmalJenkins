@@ -9,7 +9,7 @@
                 <div class="input-wrap">
                     <label>Action Name</label>
                     <a class="input">
-                        <input type="text" name="addactiontitle" ng-model="addTitle" id="addactiontitle" placeholder="Enter Title" value="" class="fluid" ></input>
+                        <input type="text" name="addactiontitle" id="addactiontitle" ng-model="addTitle" placeholder="Enter Title" class="fluid" />
                         <input type="hidden" id="marketing_program" value="0" name="marketing_program_type"/>
                     </a>
                     <span class="validationAlert" ng-if='addTitle === "" || null'>{{actionNameValidation}}</span>
@@ -66,7 +66,7 @@
                             <script>
                                 $('#timepicker1').timepicki({
                                     show_meridian: true,
-                                    min_hour_value: 0,
+                                    min_hour_value: 1,
                                     max_hour_value: 12,
                                     step_size_minutes: 01,
                                     overflow_minutes: true,

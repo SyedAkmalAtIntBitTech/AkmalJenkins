@@ -18,7 +18,15 @@
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div>Saved Post Details</div>
-                        <a class="overlay-details-pane-header-cta"> Remove Saved Post</a>
+                        <a class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Post</a>
+                    </div>
+                    <div ng-show="clickedRemoveAction" class="action-pop-up remove-saved-action-template-pop-up ease-all">
+                        <strong>Are you sure you want to remove this post?</strong>
+                       
+                        <div class="cta-wrapper">
+                            <a ng-click="clickedRemoveAction = false" href="" class="cancel-button">Cancel</a>
+                            <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader,'')" href="" class="delete-button">Remove</a>
+                        </div>
                     </div>
                     <div class="detail-sections-wrap">
                         <div class="detail-section">
@@ -26,7 +34,7 @@
                                 <label class="detail-section-label">post text</label>
                                 <p class="detail-section-data">{{entitiesdetails.metadata.text}}</p>
                             </div>
-                            <div class="detail-section-item" ng-hide="entitiesdetails.metadata.shorturl==''">
+                            <div class="detail-section-item" ng-show="entitiesdetails.metadata.shorturl != ''">
                                 <label class="detail-section-label">post url</label>
                                 <p class="detail-section-data">{{entitiesdetails.metadata.shorturl}}</p>
                             </div>
@@ -47,7 +55,15 @@
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
                         <div>Saved Post Details</div>
-                        <a class="overlay-details-pane-header-cta"> Remove Saved Post</a>
+                        <a class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Post</a>
+                    </div>
+                    <div ng-show="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all">
+                        <strong>Are you sure you want to remove this saved post?</strong>
+                       
+                        <div class="cta-wrapper">
+                            <a ng-click="clickedRemoveAction = false" href="" class="cancel-button">Cancel</a>
+                            <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader,'')" href="" class="delete-button">Remove</a>
+                        </div>
                     </div>
                     <div class="detail-sections-wrap">
                         <div class="detail-section">
@@ -55,20 +71,22 @@
                                 <label class="detail-section-label">post text</label>
                                 <p class="detail-section-data">{{entitiesdetails.metadata.post_text}}</p>
                             </div>
-                            <div class="detail-section-item">
-                                <label class="detail-section-label">post url</label>
-                                <p class="detail-section-data">{{entitiesdetails.metadata.url}}</p>
+                            <div ng-show="entitiesdetails.metadata.url != 'undefined'">
+                                <div class="detail-section-item">
+                                    <label class="detail-section-label">Post Url</label>
+                                    <p class="detail-section-data">{{entitiesdetails.metadata.url}}</p>
+                                </div>
+                                <div class="detail-section-item">
+                                    <label class="detail-section-label">Post Link Title</label>
+                                    <p class="detail-section-data">{{entitiesdetails.metadata.title}}</p>
+                                </div>
+                                <div class="detail-section-item">
+                                    <label class="detail-section-label">Post Link Description</label>
+                                    <p class="detail-section-data">{{entitiesdetails.metadata.description}}</p>
+                                </div>
                             </div>
                             <div class="detail-section-item">
-                                <label class="detail-section-label">post link title</label>
-                                <p class="detail-section-data">{{entitiesdetails.metadata.title}}</p>
-                            </div>
-                            <div class="detail-section-item">
-                                <label class="detail-section-label">post link description</label>
-                                <p class="detail-section-data">{{entitiesdetails.metadata.description}}</p>
-                            </div>
-                            <div class="detail-section-item">
-                                <label class="detail-section-label">saved photo</label>
+                                <label class="detail-section-label">Saved Photo</label>
                                 <img class="saved-post-image"/>
                                  <div ng-show="entitiesdetails.image_type == 'gallery'">
                                     <img id="prevfbimg" src="/BrndBot/downloadImage?imageName={{entitiesdetails.image_name}}&imageType=GALLERY&companyId={{companyId}}"/>
@@ -91,8 +109,16 @@
          <div class="overlay-content" ng-show="masterActionType=='Email'">
                 <div class="overlay-details-pane">
                     <div class="overlay-details-pane-header">
-                        <div >Saved Email Details</div>
-                        <a class="overlay-details-pane-header-cta"> Remove Saved Email</a>
+                        <div >SAVED EMAIL DETAILS</div>
+                        <a class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Email</a>
+                    </div>
+                    <div ng-show="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all ease-all">
+                        <strong>Are you sure you want to remove this saved email?</strong>
+                        
+                        <div class="cta-wrapper">
+                            <a ng-click="clickedRemoveAction = false" href="" class="cancel-button">Cancel</a>
+                            <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader,'')" href="" class="delete-button">Remove</a>
+                        </div>
                     </div>
                     <div class="detail-sections-wrap">
                         <div class="detail-section">  
@@ -108,8 +134,8 @@
                     </div>
                 </div>
            
-                <div class="email-preview-bar">email preview</div>
-                <div class="overlay-email-preview"><iframe id="iframeForAction" width="500" height="400"></iframe>
+                <div class="email-preview-bar">EMAIL PREVIEW</div>
+                <div class="overlay-email-preview"><iframe id="iframeForAction" class="email-overlay-iFrame"></iframe>
                     <!--iframe goes here-->
                 </div>
         </div>
@@ -140,7 +166,7 @@
                     <h3>SAVED EMAIL</h3>
                     <p >Last Saved on Decemaber 3rd 2016 10:15 AM</p>
                 </div>-->
-                <div class="overlay-email-preview">
+               <!-- <div class="overlay-email-preview">
 <!--                    <div ng-show="masterActionType=='Email'"><iframe id="iframeForAction" width="500" height="400"></iframe></div>
                     <div ng-show="masterActionType=='Twitter'">
                         <div>Tweet text: <input ng-model="entitiesdetails.metadata.text" readonly/></div>

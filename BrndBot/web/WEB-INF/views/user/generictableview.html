@@ -1,3 +1,4 @@
+<div ng-include src="'navbar.html'"></div> 
 <div class="modal-pane modal-pane-width-reg">
             <div class="modal-pane-header-wrap">
                 <h2>{{header}}</h2>
@@ -28,7 +29,7 @@
                 </div>
                 <div class="cat-list"  ng-show="pageName === 'marketingPrograms'" ng-repeat="displayAllMarketingProgram in displayAllMarketingPrograms">
                     <div  class="cat-slat">
-                        <div ng-click="redirectProgram(forward, marketingCategoryId, displayAllMarketingProgram.marketingProgramId, displayAllMarketingProgram.htmlData)" id="{{displayAllMarketingProgram.marketingProgramId}}" class="cat-slat-titles">{{displayAllMarketingProgram.marketingProgramName}}</div>
+                        <div class="cat-slat-title" ng-click="redirectProgram(forward, marketingCategoryId, displayAllMarketingProgram.marketingProgramId, displayAllMarketingProgram.htmlData)" id="{{displayAllMarketingProgram.marketingProgramId}}" class="cat-slat-titles">{{displayAllMarketingProgram.marketingProgramName}}</div>
                     </div>
                 </div> 
             </div>

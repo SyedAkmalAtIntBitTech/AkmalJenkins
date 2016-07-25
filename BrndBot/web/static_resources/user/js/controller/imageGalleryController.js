@@ -5,7 +5,7 @@
  */
 
 imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http', '$location', 'imageFactory', 'companyImagesFactory', 'companyFactory', function ($scope, $window, $http, $location, imageFactory, companyImagesFactory, companyFactory) {
-        
+      
          $scope.logoValidation = logoValidation;
          
         $scope.getCompanyId = function () {
@@ -66,6 +66,23 @@ imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http'
         $scope.showImage = function ()
         {
             $scope.hidePopup = false;
+        };
+
+        $scope.imageModal = [];
+        $scope.showImageUploaded = true;
+
+        $scope.imageUpload = function (element) {
+            var reader = new FileReader();
+            reader.onload = $scope.imageIsLoaded;
+            reader.readAsDataURL(element.files[0]);
+        };
+
+        $scope.imageIsLoaded = function (e) {
+            $scope.$apply(function () {
+                $scope.imageModal = [];
+                $scope.imageModal.push(e.target.result);
+                $scope.showImageUploaded = false;
+            });
         };
 
     }]);
