@@ -186,7 +186,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
         $scope.saveServices = function () {
             onboardingFactory.completedActivationGet().then(function (data) {
                 var studioIdSaved = eval(JSON.stringify(data.d.message));
-                alert(studioIdSaved);
+//                alert(studioIdSaved);
 //                if (studioIdSaved === "true") {
                 $location.path("/signup/uploadlogo");
 //                }
@@ -200,7 +200,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             });
         };
         $scope.getColorsFromLogo = function () {
-            $scope.activeColorLogo = 'selected';
+            $scope.activeColorLogo = 'selected_Tab';
             $scope.activeColorPicker = '';
             $scope.activeColorTheme = '';
             $scope.colorFrom = "logo";
@@ -209,7 +209,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             });
         };
         $scope.getAllThemes = function () {
-            $scope.activeColorTheme = 'selected';
+            $scope.activeColorTheme = 'selected_Tab';
             $scope.activeColorPicker = '';
             $scope.activeColorLogo = '';
             $scope.colorFrom = "theme";
@@ -220,7 +220,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
             });
         };
         $scope.getColorFromPicker = function () {
-            $scope.activeColorPicker = 'selected';
+            $scope.activeColorPicker = 'selected_Tab';
             $scope.activeColorTheme = '';
             $scope.activeColorLogo = '';
             $scope.colorFrom = "custom";

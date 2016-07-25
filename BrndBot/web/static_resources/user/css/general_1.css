@@ -2608,7 +2608,10 @@ p.modal-content-header{
     text-align: center;
     font-size: 14px;
 }
-
+.selected_Tab{
+    border-bottom: 2px solid #0F76A6;
+    color: #0F76A6;
+}
 .color-selection-option.selected{
     border-bottom: 2px solid #0F76A6;
     color: #0F76A6;
