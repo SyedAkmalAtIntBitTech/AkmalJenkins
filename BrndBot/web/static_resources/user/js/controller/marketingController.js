@@ -293,10 +293,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //            });
 //
 //        };
-        $scope.hideSaveButton = function(){
+        $scope.hideSaveButton = function () {
             $scope.showUpdateBtn = false;
         };
-        $scope.showSaveButton = function(){
+        $scope.showSaveButton = function () {
             $scope.showUpdateBtn = true;
         };
 
@@ -417,12 +417,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 entities_from_name: "", entities_reply_to_email_address: ""};
             yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
                 $scope.recurringEntitiesDetails = JSON.parse(data.d.details);
-                
+
                 $scope.recurringScheduleData.entities_subject = $scope.recurringEntitiesDetails.subject;
                 $scope.recurringScheduleData.entities_list_name = $scope.recurringEntitiesDetails.email_list_name;
                 $scope.recurringScheduleData.entities_from_name = $scope.recurringEntitiesDetails.from_name;
                 $scope.recurringScheduleData.entities_reply_to_email_address = $scope.recurringEntitiesDetails.reply_to_email_address;
-
+                $scope.recurringScheduleData.days = days;
+                $scope.recurringScheduleData.entities_selected_time = $filter('date')(schedule_time, "HH:mm a");
                 var iframe = document.getElementById('iframeForAction');
                 if ($scope.recurringEntitiesDetails.body) {
                     $scope.savedEmail = true;
@@ -592,7 +593,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 if (fromDate < todayDate) {
                     alert("The selected date is lesser than todays date, please change the date");
                     return false;
-                } 
+                }
 //                else if (fromDate > endDay) {
 //                    alert("The selected date is greater than program date, please change the date");
 //                    return false;
@@ -689,7 +690,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 "description": $scope.scheduleData.schedule_desc
             };
             yourPlanFactory.addActionPost(action).then(function (data) {
-                
+
                 $scope.getProgramActions('emailautomation');
             });
         };
@@ -882,7 +883,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.ddSelectEmailListAutomationData = {
-            text: "Manual"
+            text: "Please select an email list"
         };
 
         $scope.showEmailList = function () {
@@ -980,6 +981,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
             }
         };
+        
+        $scope.setDays = function (selectedDay){
+            $scope.selectedDay=selectedDay.value;
+        };
+        
         $scope.emailListOnChange = function (emailListName) {
             $scope.emailLists = "";
             emailListFactory.emailListGet(emailListName.value, "emailsForEmailList").then(function (emailListData) {
@@ -988,6 +994,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     var emails = emailListName.user_emailAddresses[i];
                     $scope.emailLists = $scope.emailLists + eval(JSON.stringify(emails.emailAddress)) + ",";
                 }
+                $scope.emailListName=emailListName.emailListName;
             });
         };
         $scope.recurringEmailValidation = function (data) {
@@ -1113,8 +1120,8 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
             if ($scope.type === 'add') {
                 var recurring_action = {
-                    "days": days.toString(),
-                    "emaillist": emaillist,
+                    "days": $scope.selectedDay.toString(),
+                    "emaillist": $scope.emailListName.toString(),
                     "to_email_addresses": to_email_addresses,
                     "subject": subject,
                     "from_name": from_name,
@@ -1198,12 +1205,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 settingsFactory.getAllPreferencesGet().then(function (data) {
                     var footerData = JSON.parse(data.d.details);
                     if (!footerData.userProfile) {
-                            $scope.editFooter();
-                            return false;
+                        $scope.editFooter();
+                        return false;
 //                        $("#emailFooterPopup").show();
                     }
                     else {
-                            if (!footerData.userProfile.address) {
+                        if (!footerData.userProfile.address) {
                             $scope.editFooter();
                             return false;
 //                            $("#emailFooterPopup").show();
