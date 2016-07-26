@@ -107,9 +107,9 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 
         $scope.saveCompany = function (companyName, organizationId) {
             $scope.companyName = companyName;
-            alert($scope.companyName);
+//            alert($scope.companyName);
             $scope.organizationId = organizationId;
-            alert($scope.organizationId);
+//            alert($scope.organizationId);
             if ($scope.validationcode(companyName, organizationId))
             {
                 var companyDetails = {"companyName": companyName, "organizationId": organizationId};
