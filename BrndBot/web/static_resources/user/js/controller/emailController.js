@@ -1173,6 +1173,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                         emailDraftFactory.deleteEmailDraftPost($scope.draftId).then(function (responseText) {
                             if (responseText === "true")
                             {
+                                alert("Your Email has been sent successfully");
                                 $scope.isMailSent = true;
 //                                window.location = "dashboard";
                             }

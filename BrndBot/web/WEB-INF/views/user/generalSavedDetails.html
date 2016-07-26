@@ -199,6 +199,42 @@
                             </div>
                         </div>
                     </div>-->
+<div ng-if="isRecurring === true">
+        <div class="overlay-content" >
+                <div class="overlay-details-pane">
+                    <div class="overlay-details-pane-header">
+                        <div >SAVED EMAIL DETAILS</div>
+                        <a class="overlay-details-pane-header-cta" ng-click="clickedRemoveAction=true;"> Remove Saved Email</a>
+                    </div>
+                    <div ng-show="clickedRemoveAction" class="action-pop-up remove-saved-template-pop-up ease-all ease-all">
+                        <strong>Are you sure you want to remove this saved email?</strong>
+                        
+                        <div class="cta-wrapper">
+                            <a ng-click="clickedRemoveAction = false" href="" class="cancel-button">Cancel</a>
+                            <a ng-click="deleteSchedule(schedule_id, 'remove', generalActionDetailsHeader,'')" href="" class="delete-button">Remove</a>
+                        </div>
+                    </div>
+                    <div class="detail-sections-wrap">
+                        <div class="detail-section">  
+                            <div class="detail-section-item">
+                                <label class="detail-section-label">subject line</label>
+                                <p class="detail-section-data">{{recurringScheduleData.entities_subject}}</p>
+                            </div>
+                            <div class="detail-section-item">
+                                <label class="detail-section-label">send to list</label>
+                                <p class="detail-section-data">{{recurringScheduleData.days}}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+           
+                <div class="email-preview-bar">EMAIL PREVIEW</div>
+                <div class="overlay-email-preview"><iframe id="iframeForAction" class="email-overlay-iFrame"></iframe>
+                    <!--iframe goes here-->
+                </div>
+        </div>
+    </div>
+                </div>
+    
         </div>
 </div>
