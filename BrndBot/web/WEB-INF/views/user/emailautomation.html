@@ -65,7 +65,7 @@
                         </div>
                         <div class="">
                             <!--                             <select id="days" ng-model="automationData.selectedDay" class="email-automation-trigger-day-drop" ng-options="day for day in days"></select>-->
-                            <div dropdown-select="ddSelectDateAutomationDataOptions" dropdown-model="ddSelectDateAutomationData"></div>
+                            <div dropdown-select="ddSelectDateAutomationDataOptions" dropdown-model="ddSelectDateAutomationData" dropdown-onchange="setDays(selected)"></div>
                         </div>
                         <div class="">
                             <div class="">
@@ -215,12 +215,12 @@
             </div>
 
 
+<!--..................tinymce end..............-->
 
 
-
-            <div class="email-frame" id="editor">
+<!--            <div class="email-frame" id="editor">
                 <div id="edit" ng-init="initEmailAutomation()"></div>
-            </div>
+            </div>-->
             <!--    <script>
                     $(document).ready(function () {
                         $('#edit').froalaEditor({

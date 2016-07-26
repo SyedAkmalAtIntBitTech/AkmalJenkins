@@ -121,7 +121,7 @@ brndBotSignupApp.controller("onboardingController", ['$scope', '$location', 'sub
 
         $scope.selectedOrganization = function (organizationId)
         {
-            alert(JSON.stringify(organizationId));
+//            alert(JSON.stringify(organizationId));
             if (organizationId.value) {
                 $scope.organizationValidation = false;
             }

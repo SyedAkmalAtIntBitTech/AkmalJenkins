@@ -293,10 +293,10 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //            });
 //
 //        };
-        $scope.hideSaveButton = function(){
+        $scope.hideSaveButton = function () {
             $scope.showUpdateBtn = false;
         };
-        $scope.showSaveButton = function(){
+        $scope.showSaveButton = function () {
             $scope.showUpdateBtn = true;
         };
 
@@ -417,12 +417,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 entities_from_name: "", entities_reply_to_email_address: ""};
             yourPlanFactory.scheduledEmailGet(schedule_id).then(function (data) {
                 $scope.recurringEntitiesDetails = JSON.parse(data.d.details);
-                
+
                 $scope.recurringScheduleData.entities_subject = $scope.recurringEntitiesDetails.subject;
                 $scope.recurringScheduleData.entities_list_name = $scope.recurringEntitiesDetails.email_list_name;
                 $scope.recurringScheduleData.entities_from_name = $scope.recurringEntitiesDetails.from_name;
                 $scope.recurringScheduleData.entities_reply_to_email_address = $scope.recurringEntitiesDetails.reply_to_email_address;
-
+                $scope.recurringScheduleData.days = days;
+                $scope.recurringScheduleData.entities_selected_time = $filter('date')(schedule_time, "HH:mm a");
                 var iframe = document.getElementById('iframeForAction');
                 if ($scope.recurringEntitiesDetails.body) {
                     $scope.savedEmail = true;
@@ -592,7 +593,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 if (fromDate < todayDate) {
                     alert("The selected date is lesser than todays date, please change the date");
                     return false;
-                } 
+                }
 //                else if (fromDate > endDay) {
 //                    alert("The selected date is greater than program date, please change the date");
 //                    return false;
@@ -689,7 +690,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 "description": $scope.scheduleData.schedule_desc
             };
             yourPlanFactory.addActionPost(action).then(function (data) {
-                
+
                 $scope.getProgramActions('emailautomation');
             });
         };
@@ -742,7 +743,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 footerData.userProfile.websiteUrl, footerData.userProfile.instagramUrl,
                                 footerData.userProfile.address);
                         var sendData = {
-                            htmlString: $('#edit').froalaEditor('html.get') + footer,
+                            htmlString: $('#tinymceEditorBody').html() + footer,
                             iframeName: rendomIframeFilename.toString()
                         };
                         emailFactory.previewServletPost(sendData).then(function () {
@@ -866,13 +867,33 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $("#emlautomeditorcontainer").show();
             marketingRecurringEmailFactory.allRecurringEmailTemplatesGet().then(function (data) {
                 $scope.recuring_email_templates = JSON.parse(JSON.stringify(data));
+                $scope.showHTMLData($scope.recuring_email_templates[0].html_data,$scope.recuring_email_templates[0].template_id);
             });
         };
 
         $scope.showHTMLData = function (html_data, id) {
             var $iframe = $('.fr-iframe');
-            $('#edit').froalaEditor('html.set', '' + html_data + '');
+            alert(html_data);
+            $("#tinymceEditorBody").empty().append(html_data);
             $scope.templateId = id;
+            $scope.lunchTinyMceEditor();
+        };
+        $scope.lunchTinyMceEditor = function () {
+            tinymce.EditorManager.editors = []; 
+            tinymce.init({
+                selector: 'td.mce-content-body',
+                width: 400,
+                inline: true,
+                plugins: [
+                    'advlist custombutton autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table contextmenu paste',
+                    'template paste textcolor colorpicker textpattern imagetools'
+                ],
+                toolbar1: ' insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image ',
+                toolbar2: ' forecolor backcolor | fontselect fontsizeselect custombutton fileuploader ',
+                menubar: false
+            });
         };
         $scope.getFooterDetails = function () {
             settingsFactory.getAllPreferencesGet().then(function (data) {
@@ -882,7 +903,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         };
 
         $scope.ddSelectEmailListAutomationData = {
-            text: "Manual"
+            text: "Please select an email list"
         };
 
         $scope.showEmailList = function () {
@@ -973,6 +994,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //                        $scope.entityNoEmailTemplate = true;
                     }
                     $scope.emailListOnChange();
+                    alert(JSON.stringify(data.recurring_email_body));
                     $scope.froalaHtmlData = data.recurring_email_body;
                     $('#edit').froalaEditor('html.set', '' + $scope.froalaHtmlData + '');
 
@@ -980,6 +1002,11 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
             }
         };
+        
+        $scope.setDays = function (selectedDay){
+            $scope.selectedDay=selectedDay.value;
+        };
+        
         $scope.emailListOnChange = function (emailListName) {
             $scope.emailLists = "";
             emailListFactory.emailListGet(emailListName.value, "emailsForEmailList").then(function (emailListData) {
@@ -988,6 +1015,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                     var emails = emailListName.user_emailAddresses[i];
                     $scope.emailLists = $scope.emailLists + eval(JSON.stringify(emails.emailAddress)) + ",";
                 }
+                $scope.emailListName=emailListName.emailListName;
             });
         };
         $scope.recurringEmailValidation = function (data) {
@@ -1108,13 +1136,13 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var schedule_time = $("#timepicker1").val().replace(/ /g, '');
             var till_date_epoch = Date.parse(till_date);
 //                var schedule_time_epoch = Date.parse(schedule_time);
-            $scope.froalaHtmlData = $('#edit').froalaEditor('html.get');
+            $scope.froalaHtmlData = $("#tinymceEditorBody").html();
 //                var html_data ="";
 
             if ($scope.type === 'add') {
                 var recurring_action = {
-                    "days": days.toString(),
-                    "emaillist": emaillist,
+                    "days": $scope.selectedDay.toString(),
+                    "emaillist": $scope.emailListName.toString(),
                     "to_email_addresses": to_email_addresses,
                     "subject": subject,
                     "from_name": from_name,
@@ -1198,12 +1226,12 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                 settingsFactory.getAllPreferencesGet().then(function (data) {
                     var footerData = JSON.parse(data.d.details);
                     if (!footerData.userProfile) {
-                            $scope.editFooter();
-                            return false;
+                        $scope.editFooter();
+                        return false;
 //                        $("#emailFooterPopup").show();
                     }
                     else {
-                            if (!footerData.userProfile.address) {
+                        if (!footerData.userProfile.address) {
                             $scope.editFooter();
                             return false;
 //                            $("#emailFooterPopup").show();
