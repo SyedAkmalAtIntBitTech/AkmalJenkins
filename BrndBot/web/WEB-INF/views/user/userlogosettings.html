@@ -1,13 +1,16 @@
-<div class="sequence-page-content-container" id="logosettingdiv">
-    <div class="page-inner-content-container ">
-        <div class="fleft content">
-            <!--List Starts Here-->
-            <div class="h4 pushUp-60">
-                Logo
+    <div  id="logosettingdiv">
+        <div class="hub-pane">
+            <div class="hub-pane-header-wrap">
+                <h2 class="">Account Brand Settings</h2>
             </div>
-            <div class="pushUp">
-                <form id="data" name="formpersonality"  enctype="multipart/form-data" method="post" class="ng-pristine ng-valid">
-                    <div class="col-2of10 fleft cur1">
+            <div class="hub-pane-content-wrap">
+                <div class="hub-section">
+                     <div class="section-header">
+                         <h3>Company Logo</h3>
+                        <p>These are the default email settings, they can be overridden when you send out an email.</p>
+                     </div>
+                    <form id="data" name="formpersonality"  enctype="multipart/form-data" method="post" class="ng-pristine ng-valid">
+                    <div class="col-2of10 cur1">
                         <div ng-repeat="step in stepsModel">
                     <img class="thumb" src="{{step}}" />
                     </div>
@@ -46,20 +49,18 @@
 <!--                    <input type='file' ng-model-instant onchange="angular.element(this).scope().imageUpload(this)" />-->
     
     
-                    <div class="col-1of2 fleft">
-                        <button class="pushUp-60 edit-button-detail md-button" type="submit" id="Servicecontinue" ng-click="changeLogo(logoImage)"> Change Logo </button>
+                    <div class="update-container ">
+                        <button class="long-button reg-button gray-button" type="submit" id="Servicecontinue" ng-click="changeLogo(logoImage)"> Change Logo </button>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>            
-</div>
-<div class="sequence-page-content-container" id="palettesettingdivs">
-    <div id="" style="" >
-        <div class="container" ng-init="showColors()">
-            <div class="row">
-            </div>
-            <div id="contentdiv" class="row">   
+                </div>
+                <div class="hub-section" id="palettesettingdivs">
+                     <div class="section-header">
+                         <h3>Company Color Palette</h3>
+                        <p>These are the default email settings, they can be overridden when you send out an email.</p>
+                     </div>
+                    <div class="container" ng-init="showColors()">
+                        <div id="contentdiv" class="row">   
                 <div class="col-md-8 col-md-offset-0">
                     <p id="comment2">Click on a color to change it or choose from a theme. Don't worry, you can always change it later.</p>
                     <div class="col-md-12"><p id="test" class="span3" >MOST USED<span class="col-md-offset-5" id="leastuse">LEAST USE</span></p> </div>
@@ -68,10 +69,11 @@
                             <div id="color2Div" class="select-palette-colorswab fleft"><div id="color2" style="background-color: {{user_preferences_colors[1]}}" ng-model="selectedColor.color2" toggle-class model="colorModel"></div></div>
                             <div id="color3Div" class="select-palette-colorswab fleft"><div id="color3" style="background-color: {{user_preferences_colors[2]}}" ng-model="selectedColor.color3" toggle-class model="colorModel"></div></div>
                             <div id="color4Div" class="select-palette-colorswab fleft"><div id="color4" style="background-color: {{user_preferences_colors[3]}}" ng-model="selectedColor.color4" toggle-class model="colorModel"></div></div> 
-                            <div class="resetpalette ptr" ng-click="clearColorPalette()"> <p id="resetpalette" >RESET ORIGINAL PALETTE</p></div>
+                           
                     </div>
                     
                 </div>
+                            <div class="" >
                 <div class="col-md-7 col-md-offset-0 ">         
                         <div class="page-subnav-bar-regular"> 
                             <div class="top-subnav-tabs-container">
@@ -127,11 +129,34 @@
                                 <input type="hidden" id="finalcolor5" name="finalcolor5" ng-model="selColor.finalcolor5"/>
                                 <input type="hidden" id="finalcolor6" name="finalcolor6" ng-model="selColor.finalcolor6"/>
                                 </div>
-                                <div class="span4 col-md-offset-0">
-                                    <button  type="button" class="edit-button-detail md-button button-text-1 fleft savebutton noborder" style="margin-left: -6%;" ng-click="saveColorPalette()">SAVE</button>
-                                </div>
-                            </form>
+                               </form>
                         </div>
                     </div>
-                </div>  
+                        </div>
+                                  <div class="update-container ">
+                                    <button class="long-button reg-button gray-button" ng-click="showPaletteChangePopUp=true">Change Palette</button>
+                                </div>
+                                
+                                <!-- Save button-->
+                                 <!--<div class="update-container ">
+                                    <button  type="button" class="long-button reg-button gray-button" style="margin-left: -6%;" ng-click="saveColorPalette()">Save</button>
+                                    <div class="resetpalette ptr" ng-click="clearColorPalette()"> <p id="resetpalette" >RESET ORIGINAL PALETTE</p></div>
+                                </div>-->
+                           
+                    
+             </div>
+        </div>            
+</div>
+        
+        <!--Update Palette Modal-->
+        <div ng-show="showPaletteChangePopUp" class="center-pop-ups update-palette-pop-up">
+            <div class="modal-pane modal-pane-width-full">
+                <div class="modal-pane-header-wrap">
+                    <h2 class="">Change Palette Colors</h2>
+                    <a ng-click="showPaletteChangePopUp=false" class="modal-pane-header-exit"></a>
+                </div>
+                <div class="modal-pane-content-wrap">
+                    <!--PUT PALETTE CHANGING HTML IN HERE-->
+                </div>
             </div>
+        </div>

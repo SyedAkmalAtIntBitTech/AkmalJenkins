@@ -53,17 +53,17 @@
                                 </div>
                         </div>-->
                         <div class="your-plan-icon-wrap">
-                                     <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'Template Saved'"> 
-                                         <img src="/BrndBot/user/images/email-auto/email-auto-icons_Pause-gray.svg" class="status-button">
+                                     <div class="your-plan-icon" ng-show="emailautomation.status == 'Template Saved'"> 
+                                         <img src="/BrndBot/user/images/email-auto/email-auto-icons_Pause-gray.svg">
                                      </div>
-                                     <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'No Template'"> 
-                                         <img src="/BrndBot/user/images/email-auto/email-auto-icons_Pause-gray.svg" class="status-button">
+                                     <div class="your-plan-icon" ng-show="emailautomation.status == 'No Template'"> 
+                                         <img src="/BrndBot/user/images/email-auto/email-auto-icons_Pause-gray.svg" >
                                      </div>
-                                     <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'Approved'"> 
-                                         <img src="/BrndBot/user/images/email-auto/email-auto-icons_Play-green.svg" class="status-button">
+                                     <div class="your-plan-icon" ng-show="emailautomation.status == 'Approved'"> 
+                                         <img src="/BrndBot/user/images/email-auto/email-auto-icons_Play-green.svg" >
                                      </div>
-                                     <div class="icon-container fleft hint--top" ng-show="emailautomation.status == 'Complete'"> 
-                                         <img src="/BrndBot/user/images/ActionComplete.svg" class="status-button"/>
+                                     <div class="your-plan-icon" ng-show="emailautomation.status == 'Complete'"> 
+                                         <img src="/BrndBot/user/images/ActionComplete.svg"/>
                                      </div>
                         </div>
                         <div class="slat-name-wrap">
@@ -86,7 +86,7 @@
                         </div>-->
                          <div class="slat-detail-wrap">
                              <div class="slat-detail">
-                                <h2>{{actionType}}</h2>
+                                <h2>{{emailautomation.status}}</h2>
                                 <p>Status</p>
                             </div>
 
@@ -105,9 +105,8 @@
                     </div>
                 </div>
             </div>
-
-
-        </div><div class="hub-pane">
+        </div>
+        <div class="hub-pane">
             <div class="hub-pane-header-wrap" >
                 <h2 class="">One Time Actions</h2>
                 <!--<% if(past!=1){%>-->
@@ -130,9 +129,9 @@
                             <img src="/BrndBot/user/images/template-approved.svg"/>
                         </div>
                     </div>
-                    <div class="slat-name-wrap">
+                    <div class="slat-name-wrap marketing-program-title-slat">
                         <h2>{{programaction.programTemplateName}}</h2>
-                        <p>{{programaction.description}}</p>
+                        <!--<p>{{programaction.description}}</p>-->
                     </div>
 
                     <div class="slat-detail-wrap">
@@ -143,32 +142,30 @@
                     </div>
                     <div class="slat-detail-wrap">
                         <div class="slat-detail">
-                            <h2 ng-show="programaction.actionType == master_facebook || programaction.actionType == master_twitter">{{programaction.actionType}}</h2>
-                            <h2 ng-show="programaction.actionType == master_note || programaction.actionType == master_email">{{programaction.actionType}}</h2>
+                            <h2 ng-show="programaction.actionType === master_facebook || programaction.actionType === master_twitter">{{programaction.actionType}}</h2>
+                            <h2 ng-show="programaction.actionType === master_note || programaction.actionType === master_email">{{programaction.actionType}}</h2>
                             <p>Action Type</p>
                         </div>
-                        <div class="slat-detail-wrap">
-                            <div class="slat-detail">
-                                <a class="reg-button  slat-detail-button" ng-click="getScheduleDetails(programaction.scheduledEntityListId,
-                                                programaction.status,
-                                                programaction.postDate,
-                                                programaction.actionType,
-                                                programaction.programTemplateName,
-                                                programaction.description,
-                                                programaction.postTime,
-                                                programaction.postDateStatus,
-                                                programaction.days,
-                                                programs.programdetails.programName)">Action Details</a>
-                            </div>
+                    </div>
+                    <div class="slat-detail-wrap">
+                        <div class="slat-detail">
+                            <a class="reg-button  slat-detail-button" ng-click="getScheduleDetails(programaction.scheduledEntityListId,
+                                            programaction.status,
+                                            programaction.postDate,
+                                            programaction.actionType,
+                                            programaction.programTemplateName,
+                                            programaction.description,
+                                            programaction.postTime,
+                                            programaction.postDateStatus,
+                                            programaction.days,
+                                            programs.programdetails.programName)">Action Details</a>
                         </div>
                     </div>
                 </div>
+            </div>
 
             </div>
         </div>
-    </div>
-
-
     <div class="content-wrap content-wrap-padding content-wrap-with-sub-nav"  id="" ng-show="showCampaignDetails == true">
 
         <div class="hub-pane" >
