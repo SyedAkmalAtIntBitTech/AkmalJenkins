@@ -743,7 +743,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
                                 footerData.userProfile.websiteUrl, footerData.userProfile.instagramUrl,
                                 footerData.userProfile.address);
                         var sendData = {
-                            htmlString: $('#edit').froalaEditor('html.get') + footer,
+                            htmlString: $('#tinymceEditorBody').html() + footer,
                             iframeName: rendomIframeFilename.toString()
                         };
                         emailFactory.previewServletPost(sendData).then(function () {
@@ -867,13 +867,33 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             $("#emlautomeditorcontainer").show();
             marketingRecurringEmailFactory.allRecurringEmailTemplatesGet().then(function (data) {
                 $scope.recuring_email_templates = JSON.parse(JSON.stringify(data));
+                $scope.showHTMLData($scope.recuring_email_templates[0].html_data,$scope.recuring_email_templates[0].template_id);
             });
         };
 
         $scope.showHTMLData = function (html_data, id) {
             var $iframe = $('.fr-iframe');
-            $('#edit').froalaEditor('html.set', '' + html_data + '');
+            alert(html_data);
+            $("#tinymceEditorBody").empty().append(html_data);
             $scope.templateId = id;
+            $scope.lunchTinyMceEditor();
+        };
+        $scope.lunchTinyMceEditor = function () {
+            tinymce.EditorManager.editors = []; 
+            tinymce.init({
+                selector: 'td.mce-content-body',
+                width: 400,
+                inline: true,
+                plugins: [
+                    'advlist custombutton autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table contextmenu paste',
+                    'template paste textcolor colorpicker textpattern imagetools'
+                ],
+                toolbar1: ' insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | link image ',
+                toolbar2: ' forecolor backcolor | fontselect fontsizeselect custombutton fileuploader ',
+                menubar: false
+            });
         };
         $scope.getFooterDetails = function () {
             settingsFactory.getAllPreferencesGet().then(function (data) {
@@ -974,6 +994,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //                        $scope.entityNoEmailTemplate = true;
                     }
                     $scope.emailListOnChange();
+                    alert(JSON.stringify(data.recurring_email_body));
                     $scope.froalaHtmlData = data.recurring_email_body;
                     $('#edit').froalaEditor('html.set', '' + $scope.froalaHtmlData + '');
 
@@ -1115,7 +1136,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             var schedule_time = $("#timepicker1").val().replace(/ /g, '');
             var till_date_epoch = Date.parse(till_date);
 //                var schedule_time_epoch = Date.parse(schedule_time);
-            $scope.froalaHtmlData = $('#edit').froalaEditor('html.get');
+            $scope.froalaHtmlData = $("#tinymceEditorBody").html();
 //                var html_data ="";
 
             if ($scope.type === 'add') {
