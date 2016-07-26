@@ -10,7 +10,8 @@
                     <label>Email Address</label>
                     <div class="input">
                         <input type="email" placeholder="Enter Email Address" id="emailId" ng-model="email.emailId" class="fluid" >
-<!--                        <span class="validationAlert" ng-if='email.emailId === "" || null'>{{emailAddressValidation}}</span>-->
+<!--                            <span class="validationAlert" ng-if='email.emailId === "" || null'>{{emailAddressValidation}}</span>-->
+                            <span class="validationAlert" ng-if="emailIdVal">{{emailAddressValidation}}</span>
 
                         <input type="hidden" id="uuid" value="">
                         <input type="hidden" id="type" value=""/>

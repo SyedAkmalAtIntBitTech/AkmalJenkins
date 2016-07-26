@@ -264,7 +264,7 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
             var programEndDate = year + "-" + month + "-" + day;
 //            var newDate = moment(programEndDate).format('YYYY-MM-DD');
             return programEndDate;
-        }
+        };
 
         $scope.addActionValidation = function (addTitle, datePicker, actionType) {
             if (!addTitle) {
@@ -278,14 +278,11 @@ yourPlanFlowApp.controller("yourPlanController", ['$scope', '$location', '$filte
                 return false;
             }
             if (!datePicker) {
-                $("#datepicker").focus();
                 $scope.datePicker = "";
+                $("#datepicker").focus();
                 return false;
             }
-            else
-            {
                 return true;
-            }
         };
 
         $scope.selectedOrganization = function (selected)

@@ -27,11 +27,15 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
         $scope.emailAddresses = '';
         $scope.loadingOverlay = false;
         $scope.subjectValidation = subjectValidation;
-//        $scope.fromNameValidation = fromNameValidation;
-//        $scope.replyToValidation = replyToValidation;
+        $scope.fromNameValidation = fromNameValidation;
+        $scope.replyToValidation = replyToValidation;
+        $scope.actionNameValidation = actionNameValidation;
+        $scope.scheduleDateValidation = scheduleDateValidation;
+        $scope.scheduleTimeValidation = scheduleTimeValidation;
         var sliderDialog = "#emaileditorexternalpopup";
         var emailDraftDetails = localStorage.getItem('emailDraftData');
-        var postData = "";
+//        var postData = "";
+//        
         //OnPageLoad
         $scope.emailEditorInit = function () {
             $scope.loadingOverlay = true; //start Loading Overlay
@@ -81,11 +85,12 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
 
         $scope.emailFlowValidation = function (emailSubject) {
             if (!emailSubject) {
-                alert("enter");
-                $scope.$parent = {emailsubject: ""};
+//                $scope.$parent = {emailsubject: ""};
                 $("#emailSub").focus();
+                $scope.isEmailSubEmpty = true;
                 return false;
             }
+            $scope.isEmailSubEmpty = false;
             return true;
         };
 
@@ -107,7 +112,7 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
                 $scope.externalSourceName = 'mindbody';
                 redirect = $scope.forwardone;
             }
-            if (mindbody != 'Mindbody')
+            if (mindbody !== 'Mindbody')
             {
                 if (redirect === 'emailexternalsource')
                 {
@@ -122,16 +127,19 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             {
                 $scope.draftId = draftId;
             }
-
             if (emailSubject)
             {
+                $scope.emailSubject = emailSubject;
+            }
+            if (redirect !== 'emaileditor') {
+                $location.path("/" + redirect);
+            }
+            if (redirect === 'emaileditor') {
                 if ($scope.emailFlowValidation(emailSubject))
                 {
-                    $scope.emailSubject = emailSubject;
+                    $location.path("/" + redirect);
                 }
             }
-
-            $location.path("/" + redirect);
         };
 
         $scope.redirectBaseURL = function () {
@@ -866,48 +874,30 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             });
         };
 
-//         $scope.emailListValidation = function (fromName) {
-//            if (!fromName) {
-//                $scope.fromName = "";
-//                $("#name").focus();
-//                return false;
-//            }
-////            if (!replyAddress) {
-////                alert("...");
-////                $scope.replyAddress = "";
-////                $("#email").focus();
-////                return false;
-////            }
-//                return true;
-//        };
-
-//        $scope.emailListValidation = function (postData) {
-//            if (postData) {
-//                if (!postData.fromName) {
-//                    $scope.fromName = "";
-//                    $("#name").focus();
-//                    return false;
-//                }
-//                if (!postData.replyAddress) {
-//                    alert("...");
-//                    $scope.replyAddress = "";
-//                    $("#email").focus();
-//                    return false;
-//                }
-//            }
-//            else {
-//                return true;
-//            }
-//        };
+        $scope.emailListValidation = function (postData) {
+            if (postData) {
+                if (!postData.fromName) {
+                    $scope.fromName = "";
+                    $("#name").focus();
+                    return false;
+                }
+                if (!postData.replyAddress) {
+                    $scope.replyAddress = "";
+                    $("#email").focus();
+                    return false;
+                }
+            }
+            return true;
+        };
 
         $scope.continueEmailDetailsOnClick = function (postData) {
-//            if ($scope.emailListValidation(postData))
-//            {
+            if ($scope.emailListValidation(postData))
+            {
                 $scope.schedulePopup = false;
                 $scope.postTypeSelectionPopUp = true;
                 $scope.postData = postData;
                 $scope.postTo = "Send Now";
-//            }
+            }
         };
 
         $scope.createNewAction = function () {
@@ -1002,9 +992,39 @@ emailFlowApp.controller("emailController", ['$scope', '$window', '$location', 'b
             $scope.socialAction = selectedAction.value;
         };
 
+        $scope.schedulePostValidation = function () {
+            var schedule_title = $("#ActionName").val();
+            var schedule_date = $("#actionDate").val();
+            var schedule_time = $("#actionTime").val().replace(/ /g, '');
+            var actionName = schedule_title;
+            var actionDateVal = schedule_date;
+            var actionTimeVal = schedule_time;
+
+            if (!actionName) {
+                $("#ActionName").focus();
+                $scope.actionName = "";
+                return false;
+            }
+            if (!actionDateVal) {
+                $("#actionDate").focus();
+                $scope.actionDateVal = "";
+                return false;
+            }
+            if (!actionTimeVal) {
+//                $("#actionTime").focus();
+                $scope.actionTimeVal = "";
+                return false;
+            }
+            return true;
+        };
+
         $scope.schedulePost = function (selectedSocialmedia, postData) {
-            if (selectedSocialmedia === "email") {
-                $scope.schedulePostToEmail(postData);
+            if ($scope.schedulePostValidation())
+            {
+                $scope.actionTimeVal = false;
+                if (selectedSocialmedia === "email") {
+                    $scope.schedulePostToEmail(postData);
+                }
             }
         };
 

@@ -31,10 +31,10 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.scheduleTimeValidation = scheduleTimeValidation;
         $scope.facebookPostValidation = facebookPostValidation;
         $scope.fbPostData = [];
-//        $scope.twitterPostData = [];
+        $scope.twitterPostData = [];
 
-        var schedule_desc = "";   
-        $rootScope.CurrentFbAccessToken="";
+        var schedule_desc = "";
+        $rootScope.CurrentFbAccessToken = "";
 
         $scope.getManagePage = function () {
             var fbData = JSON.stringify({access_token_method: "getAccessToken"});
@@ -48,7 +48,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                     });
                 }
                 else {
-                    $rootScope.CurrentFbAccessToken=fbAccessToken[0];
+                    $rootScope.CurrentFbAccessToken = fbAccessToken[0];
                     $location.path('/facebookpost');
                 }
             });
@@ -104,7 +104,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
         $scope.getSelectedUrl = function (urlsLink) {
 
         };
-        
+
         $scope.postToFacebook = function (fbPostData) {
 
             $scope.twitterActions = false;
@@ -156,7 +156,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             var code = $scope.getUrlParameter("code");
             if (typeof code !== "undefined") {
                 settingsFactory.fbGetTokenGet(code).then(function (data) {
-                    $scope.setDefaultManagePage=true;
+                    $scope.setDefaultManagePage = true;
                     $scope.managepagesettings = true;
                     $scope.managepage = true;
                     $scope.fbPagesDetails = data.d.details[0].fbPages;
@@ -311,33 +311,39 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
 
 //        ...................post or schedule new functions..................
 
-        $scope.postValidation = function (postData) {
+        $scope.fbPostValidation = function (postData) {
             if (!postData.shareText) {
                 $scope.fbPostData = {shareText: ""};
                 $("#shareText").focus();
                 return false;
             }
-//            if (!postData.text) {
-//                $scope.twitterPostData = {text: ""};
-//                $("#twitterShareText").focus();
-//                return false;
-//            }
-            else
-            {
-                return true;
+            return true;
+        };
+        
+        $scope.twitterPostValidation = function (postData) {
+            if (!postData.text) {
+                $scope.twitterPostData = {text: ""};
+                $("#twitterShareText").focus();
+                return false;
             }
+            return true;
         };
 
         $scope.openPostOrShedulePopup = function (selectedSocialmedia, postData) {
-            if ($scope.postValidation(postData))
+            $scope.postData = postData;
+            $scope.selectedSocialmedia = selectedSocialmedia;
+
+            if ($scope.fbPostValidation(postData))
             {
                 $scope.postTypeSelectionPopUp = true;
-                $scope.postData = postData;
-                $scope.selectedSocialmedia = selectedSocialmedia;
-
                 if (selectedSocialmedia === "facebook") {
                     $scope.postTo = "Post to Facebook";
-                } else if (selectedSocialmedia === "twitter") {
+                }
+            }
+            if ($scope.twitterPostValidation(postData))
+            {
+                $scope.postTypeSelectionPopUp = true;
+                if (selectedSocialmedia === "twitter") {
                     $scope.postTo = "Post to Twitter";
                 }
             }
@@ -348,8 +354,8 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
             var linktitle = "";
 
             if (selectedSocialmedia === "facebook") {
-                if (postData.linkTitle){
-                    linktitle = postData.linkTitle;                    
+                if (postData.linkTitle) {
+                    linktitle = postData.linkTitle;
                 }
                 data = JSON.stringify({
                     imageToPost: $scope.selectImageName,
@@ -361,8 +367,8 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                     imageType: $scope.selectImageType
                 });
                 socialPostFactory.facebookPost(data).then(function (data) {
-                    if(data.d.message == 'success'){
-                        $scope.isPostSent=true;
+                    if (data.d.message == 'success') {
+                        $scope.isPostSent = true;
                     }
                 });
             } else if (selectedSocialmedia === "twitter") {
@@ -592,7 +598,7 @@ socialFlowApp.controller("socialController", ['$scope', '$rootScope', '$location
                 return false;
             }
             if (!actionTimeVal) {
-                $("#actionTime").focus();
+//                $("#actionTime").focus();
                 $scope.actionTimeVal = "";
                 return false;
             }

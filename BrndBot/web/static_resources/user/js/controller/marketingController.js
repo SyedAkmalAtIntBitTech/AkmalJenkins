@@ -23,7 +23,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
         $scope.showCampaignDetails = false;
         $scope.showCampaignActions = true;
 //        $scope.automationData = [];
-        
+
         $scope.ddSelectAction = {
             text: "Select"
         };
@@ -1045,6 +1045,7 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
             }
         };
         $scope.emailListOnChange = function (emailListName) {
+            $scope.emailAutomationListValidation = false;
             $scope.emailLists = "";
             emailListFactory.emailListGet(emailListName.value, "emailsForEmailList").then(function (emailListData) {
                 var emailListName = $.parseJSON(emailListData.d.details);
@@ -1158,28 +1159,15 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 
 //(validation code)
-
 //        $scope.recuringActionValidation = function () {
-//
 //            var recurring_email_title = $scope.automationData.title;
 //            var recurring_email_description = $scope.automationData.description;
 //            var schedule_time = $("#timepicker1").val().replace(/ /g, '');
-//
 //            var subject = $scope.automationData.subject;
 //            var from_name = $scope.automationData.fromName;
 //            var reply_to_address = $scope.automationData.replyAddress;
-//            
-//            
-////             var days = $scope.automationData.selectedDay;
-////            var emaillist = $scope.automationData.selectedEmailList;
+//            var emaillist = $scope.automationData.selectedEmailList;
 ////            var to_email_addresses = $scope.emailLists.split(',');
-////
-////            var till_date = 'Sun Dec 31 2200';
-//////                program_end_date = $("#program_end_date").val();
-////            var schedule_time = $("#timepicker1").val().replace(/ /g, '');
-////            var till_date_epoch = Date.parse(till_date);
-//////                var schedule_time_epoch = Date.parse(schedule_time);
-////            $scope.froalaHtmlData = $('#edit').froalaEditor('html.get');
 //            
 //            if (!recurring_email_title) {
 //                $scope.automationData = {title: "", description: recurring_email_description, time: schedule_time, subject: subject, fromName: from_name, replyAddress: reply_to_address};
@@ -1191,17 +1179,14 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 //                $("#recuring_description").focus();
 //                return false;
 //            }
-//            if (!schedule_time) {
-//                $scope.automationData = {title: recurring_email_title, description: recurring_email_description, time: "", subject: recurring_subject};
-////                $("#timepicker1").focus();
+//            if (!emaillist) {
+//                $scope.emailAutomationListValidation = true;
 //                return false;
 //            }
-////            if (!ddSelectEmailListAutomationData) {
-////                $scope.ddSelectEmailListAutomationData = "";
-////                $scope.emailAutomationListValidation = true;
-//////                $("#recuring_email_subject").focus();
-////                return false;
-////            }
+//            if (!schedule_time) {
+//                $scope.automationData = {title: recurring_email_title, description: recurring_email_description, time: "", subject: recurring_subject};
+//                return false;
+//            }
 //            if (!subject) {
 //                $scope.automationData = {title: recurring_email_title, description: recurring_email_description, time: schedule_time, subject: "", fromName: from_name, replyAddress: reply_to_address};
 //                $("#recuring_email_subject").focus();
@@ -1225,24 +1210,25 @@ marketingFlowApp.controller("marketingController", ['$scope', '$location', '$fil
 
 //            if ($scope.recuringActionValidation())
 //            {
+                var days = $scope.automationData.selectedDay;
+                var emaillist = $scope.automationData.selectedEmailList;
+                var to_email_addresses = $scope.emailLists.split(',');
+                var subject = $scope.automationData.subject;
+                var from_name = $scope.automationData.fromName;
+                var reply_to_address = $scope.automationData.replyAddress;
+                var recurring_email_title = $scope.automationData.title;
+                var recurring_email_description = $scope.automationData.description;
 
-            var days = $scope.automationData.selectedDay;
-            var emaillist = $scope.automationData.selectedEmailList;
-            var to_email_addresses = $scope.emailLists.split(',');
-            var subject = $scope.automationData.subject;
-            var from_name = $scope.automationData.fromName;
-            var reply_to_address = $scope.automationData.replyAddress;
-            var recurring_email_title = $scope.automationData.title;
-            var recurring_email_description = $scope.automationData.description;
-
-            var till_date = 'Sun Dec 31 2200';
+                var till_date = 'Sun Dec 31 2200';
 //                program_end_date = $("#program_end_date").val();
-            var schedule_time = $("#timepicker1").val().replace(/ /g, '');
-            var till_date_epoch = Date.parse(till_date);
+                var schedule_time = $("#timepicker1").val().replace(/ /g, '');
+                var till_date_epoch = Date.parse(till_date);
 //                var schedule_time_epoch = Date.parse(schedule_time);
-            $scope.froalaHtmlData = $('#edit').froalaEditor('html.get');
+                $scope.froalaHtmlData = $('#edit').froalaEditor('html.get');
 //                var html_data ="";
 
+//            if ($scope.recuringActionValidation(subject, from_name, reply_to_address, recurring_email_title, recurring_email_description, schedule_time))
+//            {
                 if ($scope.type === 'add') {
                     var recurring_action = {
                         "days": days.toString(),

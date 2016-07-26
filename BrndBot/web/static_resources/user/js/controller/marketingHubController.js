@@ -474,17 +474,20 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
 
 //        $scope.contactValidation = function (email) {
 //            if (!email.emailId) {
-//                alert("mmm");
-//                $scope.email = {emailId: ""};
 //                $("emailId").focus();
+//                $scope.email = {emailId: ""};
 //                return false;
 //            }
 //            return true;
 //        };
 
         $scope.updateEmailID = function (email) {
-//            if ($scope.contactValidation(email))
-//            {
+            if (!email.emailId) {
+                $("emailId").focus();
+                $scope.emailIdVal = true;
+                return false;
+            } else {
+                $scope.emailIdVal = false;
                 $("#addcontact").show();
                 $scope.showAddContactPopup = false;
                 $scope.overlayFade = false;
@@ -527,12 +530,11 @@ marketinghubFlowApp.controller("marketingHubController", ['$scope', '$location',
                             $scope.updateList();
                             $scope.showAddContactPopup = false;
                         });
-                    }
-                    ;
-                }
-                ;
-//            }
+                    };
+                };
+            };
         };
+        
         $scope.unsubscribeEmailList = "";
         $scope.uploadEmailListOnClick = function () {
             var reg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

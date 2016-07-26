@@ -197,5 +197,7 @@ var companyValidation = "Please enter your Company name";
 var dropdownValidation = "Please select your Organization";
 //var emailListValidation  = "Please enter email list name";
 var colorValidation = "Please choose all four colors";
+var studioIdValidation = "No studio id entered, kindly enter the studio id";
+var logoValidation = "Please choose an image";
 
 
