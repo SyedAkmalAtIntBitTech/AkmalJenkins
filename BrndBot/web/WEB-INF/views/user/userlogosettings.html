@@ -1,137 +1,148 @@
-<div class="sequence-page-content-container" id="logosettingdiv">
-    <div class="page-inner-content-container ">
-        <div class="fleft content">
-            <!--List Starts Here-->
-            <div class="h4 pushUp-60">
-                Logo
-            </div>
-            <div class="pushUp">
+<div  id="logosettingdiv">
+    <div class="hub-pane">
+        <div class="hub-pane-header-wrap">
+            <h2 class="">Account Brand Settings</h2>
+        </div>
+        <div class="hub-pane-content-wrap">
+            <div class="hub-section">
+                <div class="section-header">
+                    <h3>Company Logo</h3>
+                    <p>These are the default email settings, they can be overridden when you send out an email.</p>
+                </div>
                 <form id="data" name="formpersonality"  enctype="multipart/form-data" method="post" class="ng-pristine ng-valid">
-                    <div class="col-2of10 fleft cur1">
+                    <div class="col-2of10 cur1">
                         <div ng-repeat="step in stepsModel">
-                    <img class="thumb" src="{{step}}" />
-                    </div>
+                            <img class="thumb" src="{{step}}" />
+                        </div>
                         <div class="logo-container"><textarea class="top55 left10 right10" id="filetext1">Choose an Image to upload</textarea>
                             <input type="file" file-model="logoImage" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">
-<!--                            <input type="hidden" name="upload" value="update"></input>
-                            <input type="file" name="fileUpload" style="border: 1px solid;" class="upload" id="filevalue" onchange="changefilename()"></input>-->
-<!--<div ng-repeat="step in stepsModel">
-                    <img class="thumb" ng-src="{{step}}" />
-                    </div>-->
-<!--<input type="file" file-model="logoImage" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">-->
-   
+                            <!--                            <input type="hidden" name="upload" value="update"></input>
+                                                        <input type="file" name="fileUpload" style="border: 1px solid;" class="upload" id="filevalue" onchange="changefilename()"></input>-->
+                            <!--<div ng-repeat="step in stepsModel">
+                                                <img class="thumb" ng-src="{{step}}" />
+                                                </div>-->
+                            <!--<input type="file" file-model="logoImage" ng-model-instant onchange="angular.element(this).scope().imageUpload(this)">-->
+
                         </div>
                     </div>
-                    
+
                     <style>
                         .thumb{
-    width:140px;
-    height:140px;
-    margin:6px;
-    float:left;
-}
+                            width:140px;
+                            height:140px;
+                            margin:6px;
+                            float:left;
+                        }
 
-.uploader{
-    clear:both;
-}
-                        </style>
-                    
-                    
-                    
-     
-<!--                    <div ng-repeat="step in stepsModel">
-                    <img class="thumb" ng-src="{{step}}" />
-                    </div>-->
-    
-<!--                    <input type='file' ng-model-instant onchange="angular.element(this).scope().imageUpload(this)" />-->
-    
-    
-                    <div class="col-1of2 fleft">
-                        <button class="pushUp-60 edit-button-detail md-button" type="submit" id="Servicecontinue" ng-click="changeLogo(logoImage)"> Change Logo </button>
+                        .uploader{
+                            clear:both;
+                        }
+                    </style>
+
+
+
+
+                    <!--                    <div ng-repeat="step in stepsModel">
+                                        <img class="thumb" ng-src="{{step}}" />
+                                        </div>-->
+
+                    <!--                    <input type='file' ng-model-instant onchange="angular.element(this).scope().imageUpload(this)" />-->
+
+
+                    <div class="update-container ">
+                        <button class="long-button reg-button gray-button" type="submit" id="Servicecontinue" ng-click="changeLogo(logoImage)"> Change Logo </button>
                     </div>
                 </form>
             </div>
-        </div>
-    </div>            
-</div>
-<div class="sequence-page-content-container" id="palettesettingdivs">
-    <div id="" style="" >
-        <div class="container" ng-init="showColors()">
-            <div class="row">
-            </div>
-            <div id="contentdiv" class="row">   
-                <div class="col-md-8 col-md-offset-0">
-                    <p id="comment2">Click on a color to change it or choose from a theme. Don't worry, you can always change it later.</p>
-                    <div class="col-md-12"><p id="test" class="span3" >MOST USED<span class="col-md-offset-5" id="leastuse">LEAST USE</span></p> </div>
-                    <div class="palette clear" ng-init="colorModel = { value: 'palette-colorswab fleft'}">
-                            <div id="color1Div" class="select-palette-colorswab fleft"><div id="color1" style="background-color: {{user_preferences_colors[0]}}" ng-model="selectedColor.color1" toggle-class model="colorModel"></div></div>
-                            <div id="color2Div" class="select-palette-colorswab fleft"><div id="color2" style="background-color: {{user_preferences_colors[1]}}" ng-model="selectedColor.color2" toggle-class model="colorModel"></div></div>
-                            <div id="color3Div" class="select-palette-colorswab fleft"><div id="color3" style="background-color: {{user_preferences_colors[2]}}" ng-model="selectedColor.color3" toggle-class model="colorModel"></div></div>
-                            <div id="color4Div" class="select-palette-colorswab fleft"><div id="color4" style="background-color: {{user_preferences_colors[3]}}" ng-model="selectedColor.color4" toggle-class model="colorModel"></div></div> 
-                            <div class="resetpalette ptr" ng-click="clearColorPalette()"> <p id="resetpalette" >RESET ORIGINAL PALETTE</p></div>
-                    </div>
-                    
+            <div class="hub-section" id="palettesettingdivs">
+                <div class="section-header">
+                    <h3>Company Color Palette</h3>
+                    <p>These are the default email settings, they can be overridden when you send out an email.</p>
                 </div>
-                <div class="col-md-7 col-md-offset-0 ">         
-                        <div class="page-subnav-bar-regular"> 
-                            <div class="top-subnav-tabs-container">
-                                <ul class="top-subnav-nav-elements" >
-                                    <li class="top-subnav-links" id="fromThem" ng-click="getAllThemes()"> <a class="h3">PICK FROM A THEME</a></li>
-                                    <li class="top-subnav-links" id="fromPalette" ng-click="getColorFromPicker()"> <a class="h3">CHOOSE CUSTOM</a></li>
-                                    <li class="top-subnav-links" id="fromLogo" ng-click="getColorsFromLogo()"> <a class="h3">PICK FROM LOGO COLORS</a></li>
-                                </ul>
+                <div class="container" ng-init="showColors()">
+                    <div id="contentdiv" class="row">   
+                        <div class="col-md-8 col-md-offset-0">
+                            <div class="palette clear" ng-init="colorModel = { value: 'palette - colorswab fleft'}">
+                                <div id="color1Div" class="select-palette-colorswab fleft"><div id="color1" style="background-color: {{user_preferences_colors[0]}}" ng-model="selectedColor.color1" toggle-class model="colorModel"></div></div>
+                                <div id="color2Div" class="select-palette-colorswab fleft"><div id="color2" style="background-color: {{user_preferences_colors[1]}}" ng-model="selectedColor.color2" toggle-class model="colorModel"></div></div>
+                                <div id="color3Div" class="select-palette-colorswab fleft"><div id="color3" style="background-color: {{user_preferences_colors[2]}}" ng-model="selectedColor.color3" toggle-class model="colorModel"></div></div>
+                                <div id="color4Div" class="select-palette-colorswab fleft"><div id="color4" style="background-color: {{user_preferences_colors[3]}}" ng-model="selectedColor.color4" toggle-class model="colorModel"></div></div>
                             </div>
                         </div>
                     </div>
+                    <div class="update-container ">
+                        <button class="long-button reg-button gray-button" ng-click="showPaletteChangePopUp = true">Change Palette</button>
+                    </div>
 
-                    <div class="tab-pane active" id="picktheme">
+                    <!-- Save button-->
+                    <!--<div class="update-container ">
+                       <button  type="button" class="long-button reg-button gray-button" style="margin-left: -6%;" ng-click="saveColorPalette()">Save</button>
+                       <div class="resetpalette ptr" ng-click="clearColorPalette()"> <p id="resetpalette" >RESET ORIGINAL PALETTE</p></div>
+                   </div>-->
+
+
+                </div>
+            </div>            
+        </div>
+
+        <!--Update Palette Modal-->
+        <div ng-show="showPaletteChangePopUp" class="center-pop-ups update-palette-pop-up">
+            <div class="modal-pane modal-pane-width-full">
+                <div class="modal-pane-header-wrap">
+                    <h2 class="">Change Palette Colors</h2>
+                    <a ng-click="showPaletteChangePopUp = false" class="modal-pane-header-exit"></a>
+                </div>
+                <div class="modal-pane-content-wrap" ng-init="getColorFromPicker()">
+                    <!--PUT PALETTE CHANGING HTML IN HERE-->
+                    <div class="color-palette-col"> 
+                        <div class="color-palette-wrap">
+                            <div class="color-explanation">Explanation Goes Here</div>
+                            <div class="palette clear" ng-init="colorModel = { value: 'palette - colorswab fleft'}">
+                                <div id="color1Div" class="select-palette-colorswab fleft"><div id="colorPalete1" style="background-color: {{user_preferences_colors[0]}}" ng-model="selectedColor.color1" toggle-class model="colorModel"></div></div>
+                                <div id="color2Div" class="select-palette-colorswab fleft"><div id="colorPalete2" style="background-color: {{user_preferences_colors[1]}}" ng-model="selectedColor.color2" toggle-class model="colorModel"></div></div>
+                                <div id="color3Div" class="select-palette-colorswab fleft"><div id="colorPalete3" style="background-color: {{user_preferences_colors[2]}}" ng-model="selectedColor.color3" toggle-class model="colorModel"></div></div>
+                                <div id="color4Div" class="select-palette-colorswab fleft"><div id="colorPalete4" style="background-color: {{user_preferences_colors[3]}}" ng-model="selectedColor.color4" toggle-class model="colorModel"></div></div>
+                            </div>
+                        </div>
+
+                        <div class="CTA_Button Button--Gray clear-colors" ng-click="clearColorPalette()">Clear Colors</div>
+                        <!-- Save button-->
+                        <div class="update-container ">
+                            <button  type="button" class="long-button reg-button gray-button" style="margin-left: -6%;" ng-click="saveColorPalette()">Save</button>                           
+                        </div>
+                    </div>
+                    <div class="color-palette-col">
+                        <div class="color-selection-menu">
+                            <div class="color-selection-option" ng-class="activeColorTheme"  id="themeColors" ng-click="getAllThemes()">Color Themes</div>
+                            <div class="color-selection-option" ng-class="activeColorPicker"  id="customColors" ng-click="getColorFromPicker()">Color Picker</div>
+                            <div class="color-selection-option" ng-class="activeColorLogo"  id="logoColorsDiv" ng-click="getColorsFromLogo()">Logo Colors</div>
+                        </div> 
+                        <div class="color-selection-tool-wrap">
+                            <div ng-show="colorFrom == 'custom'"  class="color-picker-space" id="picker"></div>
                             <div ng-if="colorFrom == 'theme'" id="themeColorsDiv1" class="palette-theme-global">
-                            <div ng-repeat="color in themeColors" class="palette-wrap-globalColors">
-                                <div id="{{color.globalColorsId}}" class="palette-global clear">
-                                    <div class="palette-colorswab-global fleft" style="background-color:{{color.color1}};" ng-click="getColorID(color.color1)"></div>
-                                    <div class="palette-colorswab-global fleft" style="background-color:{{color.color2}};" ng-click="getColorID(color.color2)"></div>
-                                    <div class="palette-colorswab-global fleft" style="background-color:{{color.color3}};" ng-click="getColorID(color.color3)"></div>
-                                    <div class="palette-colorswab-global fleft" style="background-color:{{color.color4}};" ng-click="getColorID(color.color4)"></div>
-                                    <div class="font--lightGray pointer" style="margin-top: 7px;
-                                         " ng-click="selectTheme(color.color1,color.color2,color.color3,color.color4)">{{color.colorName}}</div>
-                                         
+                                <div ng-repeat="color in themeColors" class="palette-wrap-globalColors">
+                                    <div id="{{color.globalColorsId}}" class="palette-global clear">
+                                        <div class="palette-colorswab-global fleft" style="background-color:{{color.color1}};" ng-click="getColorID(color.color1)"></div>
+                                        <div class="palette-colorswab-global fleft" style="background-color:{{color.color2}};" ng-click="getColorID(color.color2)"></div>
+                                        <div class="palette-colorswab-global fleft" style="background-color:{{color.color3}};" ng-click="getColorID(color.color3)"></div>
+                                        <div class="palette-colorswab-global fleft" style="background-color:{{color.color4}};" ng-click="getColorID(color.color4)"></div>
+                                        <div class="font--lightGray pointer" style="margin-top: 7px;
+                                             " ng-click="selectTheme(color.color1, color.color2, color.color3, color.color4)">{{color.colorName}}</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        </div>
-                    </div>
-<!--                    <div class="tab-pane displayNone" id="custom">-->
-                        <br> 
-                        
-                        <div ng-show="colorFrom == 'custom'" >
-                            <span  id="picker"></span>
-                        </div>
-
-                        <div ng-if="colorFrom == 'logo'"  class="fleft" id="logocolor1" >
-                            <div class="palette clear" id="picktheme">
-                                <!--<div><button type="button" class="btn btn-primary" value="click to display colors" >click to display colors</button></div>-->
-                                <div ng-repeat="col in color">
-                                    <div  class="logo-palette-colorswab fleft" style="background-color:{{col}};" ng-click="getColorID(col)"></div>
+                            <div ng-if="colorFrom === 'logo'" class="palette-wrap" id="logocolor1" >
+                                <div class="palette clear" id="picktheme">
+                                    <!--<div><button type="button" class="btn btn-primary" value="click to display colors" >click to display colors</button></div>-->
+                                    <div ng-repeat="col in color">
+                                        <div  class="logo-palette-colorswab fleft" style="background-color:{{col}};" ng-click="getColorID(col)"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-0 col-md-4" >
-                            <form class="form-horizontal">
-                                <div ng-show="palatte">
-                                <input type="hidden" id="finalcolor1" name="finalcolor1" ng-model="selColor.finalcolor1"  />
-                                <input type="hidden" id="finalcolor2" name="finalcolor2" ng-model="selColor.finalcolor2" />
-                                <input type="hidden" id="finalcolor3" name="finalcolor3" ng-model="selColor.finalcolor3"/>
-                                <input type="hidden" id="finalcolor4" name="finalcolor4" ng-model="selColor.finalcolor4"/>
-                                <input type="hidden" id="finalcolor5" name="finalcolor5" ng-model="selColor.finalcolor5"/>
-                                <input type="hidden" id="finalcolor6" name="finalcolor6" ng-model="selColor.finalcolor6"/>
-                                </div>
-                                <div class="span4 col-md-offset-0">
-                                    <button  type="button" class="edit-button-detail md-button button-text-1 fleft savebutton noborder" style="margin-left: -6%;" ng-click="saveColorPalette()">SAVE</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>  
-            </div>
+                </div>
+            </div>     
+        </div>
+    </div>
+</div>

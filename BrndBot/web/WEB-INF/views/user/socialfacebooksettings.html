@@ -1,11 +1,52 @@
-
-<div style="width:550px; height:140px" ng-show="facebookDetailsTab" ng-init="checkForCode()"  >
-    <div class="slat-title email-list-slat-title col-1of1">Facebook</div>
-    <div id="fbpagename" ng-init="getFacebookDetails()">
-        <div class="list-column-description col-1of1 sh3 fleft">Profile Name : {{user_profile_page}}</div>
-        <div class="list-column-description col-1of1 sh3 fleft">Default Managed Page Name : {{fb_default_page_name}}</div>
-        <button  id="facebook"  class="buttonchange" name="change" ng-click="getManagePage()">Change</button>
-        <button id="fbclear" class="buttonchange displayNone" name="fbclear" ng-click="clearFacebookDetails()">Clear</button>
+<div class="hub-pane" ng-show="facebookDetailsTab">
+    <div class="hub-pane-header-wrap">
+        <h2 class="">Social Profile Settings</h2>
     </div>
+     <div class="hub-pane-content-wrap">
+         <div class="hub-section">
+            <div class="section-header">
+                <h3>Facebook Default Profile</h3>
+               <p>This is the default managed page that your posts will be posted to. Important - if you change your managed page and have scheduled posts for this page they will not be posted. </p>
+            </div>
+            <div  ng-init="checkForCode()"  >
+                <div id="fbpagename" ng-init="getFacebookDetails()">
+                    <div class="input-wrap">
+                        <label> Profile Name </label>
+                        <div class="input" >
+                           {{user_profile_page}}
+                        </div>
+                    </div>
+                    <div class="input-wrap">
+                        <label> Default Managed Page Name </label>
+                        <div class="input" >
+                           {{fb_default_page_name}}
+                        </div>
+                    </div>
+                    <div class="facebook-settings-update-container update-container">
+                        <a  id="facebook"  class="long-button gray-button" name="change" ng-click="getManagePage()">Change</a>
+                        <a id="fbclear" class="long-button gray-button" name="fbclear" ng-click="clearFacebookDetails()">Clear</a>
+                    </div>
+                </div>
+            </div>
+         </div>
+         <div class="hub-section">
+            <div class="section-header">
+                <h3>Twitter Default Profile Details</h3>
+               <p>This is the default profile that your posts will be posted to. Important - if you change your profile and have scheduled posts for this page they will not be posted.</p>
+            </div>
+            <div  ng-init="getTwitterDetails()" id="twpagename">
+                 <div class="input-wrap">
+                    <label> Profile Name </label>
+                    <div class="input" >
+                       {{twitterProfileName}}
+                    </div>
+                </div>
+                <div class="facebook-settings-update-container update-container">
+                   <a id="twitterLogoutButton" class="long-button gray-button" name="change" ng-click="clearTwitterDetails()">Logout From Twitter</a>
+                    <a id="twitterLogInButton" class="long-button gray-button" ng-click="getAuthURLFromSocialHub()" >Login to Twitter</a>
+                </div>
+            </div>
+        </div>
+     </div>
 </div>
-        
+    

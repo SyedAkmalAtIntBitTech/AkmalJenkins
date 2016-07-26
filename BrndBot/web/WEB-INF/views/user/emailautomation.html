@@ -14,13 +14,11 @@
                 <ul>
                     <a class="sequence-step active">Set Up</a>
                     <a class="sequence-step">Email Design</a>
-                    <a href="" class="gray-button fleft pushright">
-                        <div class="nounderline md-button" id="emailpreview" ng-click="emailPreviewOnClick()">Preview Email</div>  
-                    </a>
                 </ul>
             </div>
             <div class="sequence-page-header-cta-wrap">
-                <a>Exit</a>
+                <!--<a>Exit</a>-->
+                <div class="gray-button" id="emailpreview" ng-click="emailPreviewOnClick()">Preview Email</div> 
             </div>
         </div>
     </div>
@@ -63,7 +61,7 @@
                         <div class="">
                             Send an email to a recipient
                         </div>
-                        <div class="">
+                        <div class="day-drop-down-email-auto">
                             <!--                             <select id="days" ng-model="automationData.selectedDay" class="email-automation-trigger-day-drop" ng-options="day for day in days"></select>-->
                             <div dropdown-select="ddSelectDateAutomationDataOptions" dropdown-model="ddSelectDateAutomationData" dropdown-onchange="setDays(selected)"></div>
                         </div>
@@ -83,20 +81,26 @@
                     </div>
                     <div class="input-wrap">
                         <label> Enter a Time of Day to Send this Email</label>
-                        <input id="timepicker1" readonly type="text" name="timepicker1" ng-model="automationData.time" class="input-field-textfield col-8of10" 
-                               value="{{entity_details.recurring_email_time| date: 'hh : mm : a'}}" /> 
-                        <script src="js/timepicki.js" type="text/javascript"></script>
-                        <script>
-                                   $('#timepicker1').timepicki({
-                                       show_meridian: true,
-                                       min_hour_value: 0,
-                                       max_hour_value: 12,
-                                       step_size_minutes: 01,
-                                       overflow_minutes: true,
-                                       increase_direction: 'up',
-                                       disable_keyboard_mobile: true
-                                   });
-                        </script>
+                         <a class="clickable-input fluid">
+                            <div class="date-time-select-icon">
+                                <object type="image/svg+xml" data="/BrndBot/user/images/time-gray.svg" style="cursor:pointer;"> </object>
+                            </div>
+                            <input id="timepicker1" readonly type="text" name="timepicker1" ng-model="automationData.time" class="time-date-select" 
+                                   value="{{entity_details.recurring_email_time| date: 'hh : mm : a'}}" /> 
+                            <script src="js/timepicki.js" type="text/javascript"></script>
+                            <script>
+                                       $('#timepicker1').timepicki({
+                                           show_meridian: true,
+                                           min_hour_value: 0,
+                                           max_hour_value: 12,
+                                           step_size_minutes: 01,
+                                           overflow_minutes: true,
+                                           increase_direction: 'up',
+                                           disable_keyboard_mobile: true
+                                       });
+                            </script>
+                        </a>
+
                     </div>
                 </div>
                 <div class="hub-section">

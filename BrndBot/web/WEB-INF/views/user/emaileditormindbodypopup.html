@@ -55,7 +55,7 @@
                  <a class="modal-pane-header-exit" ng-click="closeMindbodyPopup()"></a>
 <!--             <a ng-repeat="mindbody in mindbodylist" href="emailsubjects?categoryId=<%=categoryId%>&subCategoryId=<%=subCategoryId%>&mindbodyId={{mindbody.id}}&LookupId=<%=LookupId%>">-->
             </div>
-            <div class="mb-modal-pane-content-wrap mbPopup">
+            <div class="full-height-modal-pane-content-wrap mbPopup">
                 <a ng-repeat="mindbody in mindbodyDataList.mindbody_data | filter:userSearch" ng-click="didSelectMindbodyDataId(mindbody.id)" class="slat external-data">
                     <div class="slat-name-wrap">
                         <h2>{{mindbody.column1}}</h2>
@@ -73,6 +73,6 @@
                 </a>
             </div>
        </div>
-        </div>
+    </div>
 </div>
 
