@@ -53,9 +53,9 @@ public class BrndbotUserLoginSuccessHandler extends SimpleUrlAuthenticationSucce
         }
         if (isAdmin(roles)) {
             url = "/admin/organization";
-        } else if (isUser(roles)) {
+        } else if (isManager(roles)) {
             url = "/user/dashboard";
-        } else if (isTempUser(roles)) {
+        } else if (isTempManager(roles)) {
             url = "/#/signup/company";
         } else {
             url = "/login?accessdenied=true";
@@ -64,8 +64,8 @@ public class BrndbotUserLoginSuccessHandler extends SimpleUrlAuthenticationSucce
         return url;
     }
  
-    private boolean isUser(List<String> roles) {
-        if (roles.contains("ROLE_USER")) {
+    private boolean isManager(List<String> roles) {
+        if (roles.contains("ROLE_Manager")) {
             return true;
         }
         return false;
@@ -78,8 +78,8 @@ public class BrndbotUserLoginSuccessHandler extends SimpleUrlAuthenticationSucce
         return false;
     }
     
-    private boolean isTempUser(List<String> roles) {
-        if (roles.contains("ROLE_TEMP_USER")) {
+    private boolean isTempManager(List<String> roles) {
+        if (roles.contains("ROLE_TEMP_Manager")) {
             return true;
         }
         return false;

@@ -7,6 +7,7 @@ package com.intbittech.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,9 +16,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,6 +29,15 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "users")
 public class Users implements Serializable {
+    @OneToMany(mappedBy = "inviteSentBy")
+    private Set<CompanyInvite> companyInviteSet;
+    @OneToMany(mappedBy = "inviteSentTo")
+    private Set<CompanyInvite> companyInviteSet1;
+    @Column(name = "first_name")
+    private String firstName;
+    @Column(name = "last_name")
+    private String lastName;
+    @OneToMany(mappedBy = "userId")
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -101,5 +113,39 @@ public class Users implements Serializable {
     public void setFkUserRoleId(UserRole fkUserRoleId) {
         this.fkUserRoleId = fkUserRoleId;
     }
-    
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @XmlTransient
+    public Set<CompanyInvite> getCompanyInviteSet() {
+        return companyInviteSet;
+    }
+
+    public void setCompanyInviteSet(Set<CompanyInvite> companyInviteSet) {
+        this.companyInviteSet = companyInviteSet;
+    }
+
+    @XmlTransient
+    public Set<CompanyInvite> getCompanyInviteSet1() {
+        return companyInviteSet1;
+    }
+
+    public void setCompanyInviteSet1(Set<CompanyInvite> companyInviteSet1) {
+        this.companyInviteSet1 = companyInviteSet1;
+    }
+
 }

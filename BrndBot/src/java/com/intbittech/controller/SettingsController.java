@@ -5,6 +5,7 @@
  */
 package com.intbittech.controller;
 
+import com.controller.ApplicationContextListener;
 import com.controller.BrndBotBaseHttpServlet;
 import com.intbittech.utility.IConstants;
 import com.intbittech.schedulers.MindbodyEmailListProcessor;
@@ -17,6 +18,7 @@ import com.intbittech.externalcontent.ExternalContentProcessor;
 import com.intbittech.model.Company;
 import com.intbittech.model.CompanyPreferences;
 import com.intbittech.model.UserProfile;
+import com.intbittech.model.UserRole;
 import com.intbittech.modelmappers.CompanyColorsDetails;
 import com.intbittech.modelmappers.FooterDetails;
 import com.intbittech.responsemappers.ContainerResponse;
@@ -28,6 +30,8 @@ import com.intbittech.social.CompanyPreferencesFacebook;
 import com.intbittech.social.CompanyPreferencesTwitter;
 import com.intbittech.utility.EmailValidator;
 import com.intbittech.services.EmailListService;
+import com.intbittech.services.ForgotPasswordService;
+import com.intbittech.services.UsersInviteService;
 import com.intbittech.utility.ErrorHandlingUtil;
 import com.intbittech.utility.StringUtility;
 import com.intbittech.utility.UserSessionUtil;
@@ -66,7 +70,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.intbittech.social.CompanyPreferencesFacebook;
 import com.intbittech.social.CompanyPreferencesTwitter;
+import com.intbittech.utility.Utility;
 import java.util.ArrayList;
+import javax.servlet.ServletContext;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -84,6 +90,12 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     private final static Logger logger = Logger.getLogger(SettingsController.class);
 
     @Autowired
+    ForgotPasswordService forgotPasswordService;
+    
+    @Autowired
+    UsersInviteService usersInviteService;
+
+    @Autowired
     private MessageSource messageSource;
     private Twitter twitter;
     private RequestToken requestToken;
@@ -94,6 +106,52 @@ public class SettingsController extends BrndBotBaseHttpServlet {
     @Autowired
     private EmailListService emailListService;
 
+    @RequestMapping(value = "/checkInvitationValidity", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> checkInvitationValidity(HttpServletRequest request,
+            HttpServletResponse response) {
+        GenericResponse<String> genericResponse = new GenericResponse<>();
+
+        try {
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            String email_id = userProfile.getUser().getUserName();
+
+//            genericResponse.setDetails(userProfile);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation("Success"));
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            genericResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+
+        return new ResponseEntity<>(new ContainerResponse(genericResponse), HttpStatus.ACCEPTED);
+    }
+    
+    @RequestMapping(value = "/sendInvitation", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ContainerResponse> sendInvitation(HttpServletRequest request,
+            HttpServletResponse response) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        try {
+            Map<String, Object> requestBodyMap
+                    = AppConstants.GSON.fromJson(new BufferedReader(request.getReader()), Map.class);
+
+            UserProfile userProfile = (UserProfile) UserSessionUtil.getLogedInUser();
+            String fromEmailId = userProfile.getUser().getUserName();
+            ServletContext servletContext = ApplicationContextListener.getApplicationServletContext();
+            String context_real_path = servletContext.getRealPath("");
+
+            String contextPath = Utility.getServerName(context_real_path);
+
+            String toEmailId = (String) requestBodyMap.get("emailid");
+            JSONObject task = (JSONObject)requestBodyMap.get("task");
+            usersInviteService.sendMail(fromEmailId,toEmailId, contextPath, task);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataNoErrorValidation(messageSource.getMessage("signup_pleasecheckmail", new String[]{}, Locale.US)));
+
+        } catch (Throwable throwable) {
+            logger.error(throwable);
+            transactionResponse.setOperationStatus(ErrorHandlingUtil.dataErrorValidation(throwable.getMessage()));
+        }
+        return new ResponseEntity<>(new ContainerResponse(transactionResponse), HttpStatus.ACCEPTED);
+    }
+    
     @RequestMapping(value = "/getColors", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ContainerResponse> getColors(HttpServletRequest request,
             HttpServletResponse response) {
