@@ -40,7 +40,6 @@ settingFlowApp.controller("controllerUserChanges", ['$scope', '$window', '$locat
         $scope.getColorsFromLogo = function () {
             $scope.colorFrom = "logo";
             onboardingFactory.colorsForLogoGet().then(function (data) {
-                alert(JSON.stringify(data));
                 $scope.color = data.d.details;
             });
         };
