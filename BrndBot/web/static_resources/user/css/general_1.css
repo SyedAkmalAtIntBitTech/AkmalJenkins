@@ -4427,3 +4427,11 @@ textarea.task-textarea:focus{
     margin-right: 20px;
     cursor: pointer;
 }
+
+.palette.clear {
+    width: 450px;
+}
+
+.clear-colors {
+    padding-top: 60px;
+}
