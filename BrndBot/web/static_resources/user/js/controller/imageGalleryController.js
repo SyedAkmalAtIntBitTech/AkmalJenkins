@@ -5,7 +5,19 @@
  */
 
 imagesFlowApp.controller("imageGalleryController", ['$scope', '$window', '$http', '$location', 'imageFactory', 'companyImagesFactory', 'companyFactory', function ($scope, $window, $http, $location, imageFactory, companyImagesFactory, companyFactory) {
+       
+        //This was added by Andy for Gallery hover options
+        $scope.hoverEditGalleryImage=false;
+        $scope.hoverInGalleryImage = function(){
+            this.hoverEditGalleryImage = true;
+        };
 
+        $scope.hoverOutGalleryImage = function(){
+            this.hoverEditGalleryImage = false;
+        };
+        
+        //End of Gallery hover options
+        
         $scope.getCompanyId = function () {
             companyFactory.currentCompanyGet().then(function (companyData) {
                 $scope.companyId = companyData.d.details[0];

@@ -206,6 +206,15 @@ a {
     color: #FFF; 
 }
 
+.success-button{
+    background-color:#5CC2A5;
+    color: #FFF; 
+}
+
+.success-button:hover{
+    background-color: #7dceb7  ;
+    color: #FFF; 
+}
 /*-----------------------------------
             Login Page
 -----------------------------------*/
@@ -635,11 +644,24 @@ li.main-nav:last-child{
     height: 100%;
     display: inline-flex;
     margin-right: 30px;
+    align-items: center;
+    padding: 0px 30px
+}
+
+.hub-dropdown-icon{
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
 }
 
 .hub-dropdown div{
     line-height: 40px;
     padding: 0px 30px;
+}
+
+.hub-dropdown-text{
+    line-height: 20px;
+    
 }
 
 .hub-dropdown i{
@@ -648,8 +670,44 @@ li.main-nav:last-child{
     padding: 13px 12px;
 }
 
+.dropdown-inner-hub{
+     position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    padding: 0 ;
+    vertical-align: middle;
+    border-radius: 3px;
+    min-width: 50px;
+    min-height: 32px;
+    background-color: #fff;
+    border: 1px solid #c9c9c9;
+    font-size: 14px;
+    user-select:none;
+    border-top: none;
+    width:220px;
+}
+
 .hub-dropdown i:before{
     background-image: url(/BrndBot/user/images/dropdown.svg)
+}
+
+.hub-dropdown-section{
+    height: 45px;
+    width:100%;
+    line-height: 45px;
+    display: inline-flex;
+    align-items:center;
+    padding: 0px 30px;
+}
+
+.hub-dropdown-section:hover{
+    background-color: #f9f9f9;
+}
+
+.hub-dropdown-section-icon{
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
 }
 
 .sub-nav-tab-wrap{
@@ -716,7 +774,7 @@ li.sub-nav-tab.active a{
 }
 
 .top-subnav-bar-offset{
-    height: 45px;
+    height: 40px;
 }
 
 
@@ -1075,6 +1133,14 @@ li.sub-nav-tab.active a{
 
 .overlay-content{
     height: calc(100vh - 100px);
+    width: 100%;
+    overflow-y: scroll;
+    display: block;
+    background-color: #EFF2F6 ;
+}
+
+.overlay-content-saved-email-draft{
+    height: calc(100vh - 60px);
     width: 100%;
     overflow-y: scroll;
     display: block;
@@ -2041,7 +2107,7 @@ p.modal-content-header{
 
 .hub-section .section-header h3{
     margin-bottom: 8px;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .hub-section .section-header h3 i{
@@ -2051,7 +2117,7 @@ p.modal-content-header{
 
 .hub-section .section-header p{
     font-size: 14px;
-    color: #888 ;
+    color: #666 ;
     line-height: 140%;
     margin-top: 4px;
 }
@@ -2181,7 +2247,7 @@ p.modal-content-header{
     width:100%;
     height:36px;
     font-size:14px;
-
+    cursor: pointer;
 }
 
 .dd-dropdown{
@@ -3056,7 +3122,7 @@ p.modal-content-header{
 .Social-Add-Image-Wrap{
     width: 100%;
     background-color: #e5eaf1;
-    padding: 10px 30px 20px 30px;
+    padding: 20px 30px 20px 30px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -3436,15 +3502,7 @@ p.modal-content-header{
 {
     width: 500px;
 }
-.mbPopup{
-    height: 100%;
-}
-.mb-modal-pane-content-wrap{
-    padding: 0px 30px 20px 30px;  
-    box-sizing: border-box;
-    overflow-y: auto;
-    height: 100%;
-}
+
 
 
 /* email list (checkboxes)*/
@@ -3485,10 +3543,11 @@ p.modal-content-header{
 
 .bottom-cta-button-container-overlay {
     position:fixed;
-    bottom:500px;
+    bottom:0px;
     right: 0px;
     height: 60px;
     width: 900px;
+    justify-content: space-around;
     background-color: #FFF;
     display: flex;
     align-content: center;
@@ -3501,10 +3560,6 @@ p.modal-content-header{
     -webkit-transition-property: bottom;
 }
 
-.bottom-cta-button-container-overlay.visible{
-    bottom:0px
-
-}
 
 .padright {
     padding-right: 20px !important;
@@ -4255,6 +4310,97 @@ textarea.task-textarea:focus{
 .create-email-popup{
     margin-left: 30%;
     margin-top: 10vw;
+}
+
+
+.social-channel-icon{
+    height: 35px;
+}
+
+.facebook-settings-update-container{
+    display: inline-flex;
+}
+
+.facebook-settings-update-container a:first-child{
+    margin-right: 20px;
+}
+
+.gallery-image-wrap{
+    display: flex;
+}
+
+.gallery-image-card{
+    height: 150px;
+    width: 250px;
+    position: relative;
+    margin-right: 30px;
+}
+.gallery-image-card:last-child{
+    margin-right: 0px;
+}
+
+.gallery-image{
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.gallery-image-options{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 30px;
+    width: 100%;
+    background-color: rgba(0,0,0,.6);
+    display: flex;
+    align-content: center;
+    padding:0px 15px;
+    align-items: center;
+}
+
+.gallery-image-options-trash-icon{
+    height:60%;
+    cursor: pointer;
+    margin-left: auto;
+    
+}
+
+.animate-enter {
+	-webkit-transition: 1s linear all; /* Chrome */
+	transition: 1s linear all;
+	opacity: 0;
+}
+ 
+.animate-enter.animate-enter-active {
+	opacity: 1;
+}
+
+.full-height-modal-pane-content-wrap{
+    height: 80vh;
+}
+
+.upload-photo-button{
+    margin-left: 30px;
+}
+
+.update-palette-pop-up{
+    position:  fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(61,83,104,.8) !important;
+    z-index:99999 !important;
+
+}
+
+.day-drop-down-email-auto{
+    width: 100px;
+    margin: 0px 10px;
+}
+
+.marketing-program-title-slat{
+   display: inline-flex;
+   align-items: center;
 }
 
 .palette-colorswab-global {
